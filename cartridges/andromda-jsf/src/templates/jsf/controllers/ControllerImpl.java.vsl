@@ -29,7 +29,7 @@ public class $controller.implementationName
 #end
 #end
 #end
-#if ($field.table)
+#if ($field.table || !$field.attributes.empty)
         // populating the table with a dummy list
         form.${field.setterName}($field.name);
 #elseif ($tableActionFound)
@@ -140,6 +140,14 @@ ${comma}${dummyValue}#set ($comma = ", ")
 #end
         };
 #end
+#elseif (!$field.attributes.empty)
+    private static final $field.type.fullyQualifiedName $field.name = new $field.type.fullyQualifiedName ();
+    static
+    {
+#foreach ($attribute in $field.attributes)
+        ${field.name}.${attribute.setterName}($attribute.dummyValue);       
+#end    
+    }
 #end
 #end
 #end

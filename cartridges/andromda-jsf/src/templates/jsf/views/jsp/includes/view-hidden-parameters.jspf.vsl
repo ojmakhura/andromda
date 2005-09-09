@@ -4,7 +4,7 @@
 #foreach ($field in $action.hiddenParameters)
 <h:inputHidden id="${field.name}" value="#{${action.formBeanName}.${field.name}}">
 #if ($field.type.dateType)
-    <f:convertDateTime pattern="$defaultDateFormat"/>
+    <jsf:convertDateTime pattern="$defaultDateFormat"/>
 #end
 </h:inputHidden>
 #end 

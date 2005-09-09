@@ -274,50 +274,6 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @return this field's date format
-     */
-    private String getDateFormat(String format)
-    {
-        return this.isStrictDateFormat(format) ? getToken(
-            format,
-            1,
-            2) : this.getToken(
-            format,
-            0,
-            1);
-    }
-
-    /**
-     * @return <code>true</code> if this field's value needs to conform to a strict date format, <code>false</code> otherwise
-     */
-    private boolean isStrictDateFormat(String format)
-    {
-        return "strict".equalsIgnoreCase(getToken(
-                format,
-                0,
-                2));
-    }
-
-    /**
-     * @return the i-th space delimited token read from the argument String, where i does not exceed the specified limit
-     */
-    private String getToken(
-        String string,
-        int index,
-        int limit)
-    {
-        String token = null;
-        if (string != null && string.length() > 0)
-        {
-            final String[] tokens = string.split(
-                    "[\\s]+",
-                    limit);
-            token = index >= tokens.length ? null : tokens[index];
-        }
-        return token;
-    }
-
-    /**
      * @return the default date format pattern as defined using the configured property
      */
     private String getDefaultDateFormat()
@@ -348,7 +304,7 @@ public class JSFParameterLogicImpl
             }
             else if (type.isDateType())
             {
-                format = this.getDateFormat(format);
+                format = JSFUtils.getDateFormat(format);
             }
         }
         return format;
@@ -380,7 +336,7 @@ public class JSFParameterLogicImpl
     protected boolean handleIsStrictDateFormat()
     {
         final String format = this.getInputFormat();
-        return format != null && this.isStrictDateFormat(format);
+        return format != null && JSFUtils.isStrictDateFormat(format);
     }
 
     /**
@@ -613,14 +569,13 @@ public class JSFParameterLogicImpl
      * Stores the initial value of each type.
      */
     private final Map initialValues = new HashMap();
-    private final int arrayCount = 5;
 
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getValueListDummyValue()
      */
     protected String handleGetValueListDummyValue()
     {
-        return this.constructDummyArray(arrayCount);
+        return this.constructDummyArray();
     }
 
     /**
@@ -636,16 +591,16 @@ public class JSFParameterLogicImpl
             if (type.isSetType())
             {
                 initialValue =
-                    "new java.util.LinkedHashSet(java.util.Arrays.asList(" + this.constructDummyArray(arrayCount) +
+                    "new java.util.LinkedHashSet(java.util.Arrays.asList(" + this.constructDummyArray() +
                     "))";
             }
             else if (type.isCollectionType())
             {
-                initialValue = "java.util.Arrays.asList(" + this.constructDummyArray(arrayCount) + ")";
+                initialValue = "java.util.Arrays.asList(" + this.constructDummyArray() + ")";
             }
             else if (type.isArrayType())
             {
-                initialValue = this.constructDummyArray(arrayCount);
+                initialValue = this.constructDummyArray();
             }
             final String name = this.getName() != null ? this.getName() : "";
             if (this.initialValues.isEmpty())
@@ -730,20 +685,9 @@ public class JSFParameterLogicImpl
      *
      * @return A String representing Java code for the initialization of an array.
      */
-    private final String constructDummyArray(final int count)
+    private final String constructDummyArray()
     {
-        final StringBuffer array = new StringBuffer("new Object[] {");
-        final String name = this.getName();
-        for (int ctr = 1; ctr <= count; ctr++)
-        {
-            array.append("\"" + name + "-" + ctr + "\"");
-            if (ctr != count)
-            {
-                array.append(", ");
-            }
-        }
-        array.append("}");
-        return array.toString();
+        return JSFUtils.constructDummyArrayDeclaration(this.getName(), JSFGlobals.DUMMY_ARRAY_COUNT);
     }
 
     /**
@@ -1024,7 +968,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isEmailFormat(String format)
     {
-        return "email".equalsIgnoreCase(getToken(
+        return "email".equalsIgnoreCase(JSFUtils.getToken(
                 format,
                 0,
                 2));
@@ -1035,7 +979,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isCreditCardFormat(final String format)
     {
-        return "creditcard".equalsIgnoreCase(getToken(
+        return "creditcard".equalsIgnoreCase(JSFUtils.getToken(
                 format,
                 0,
                 2));
@@ -1046,7 +990,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isRangeFormat(final String format)
     {
-        return "range".equalsIgnoreCase(this.getToken(
+        return "range".equalsIgnoreCase(JSFUtils.getToken(
                 format,
                 0,
                 2)) && (this.isInteger() || this.isLong() || this.isShort() || this.isFloat() || this.isDouble());
@@ -1057,7 +1001,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isPatternFormat(final String format)
     {
-        return "pattern".equalsIgnoreCase(this.getToken(
+        return "pattern".equalsIgnoreCase(JSFUtils.getToken(
                 format,
                 0,
                 2));
@@ -1068,7 +1012,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isMinLengthFormat(final String format)
     {
-        return "minlength".equalsIgnoreCase(this.getToken(
+        return "minlength".equalsIgnoreCase(JSFUtils.getToken(
                 format,
                 0,
                 2));
@@ -1079,7 +1023,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isMaxLengthFormat(String format)
     {
-        return "maxlength".equalsIgnoreCase(this.getToken(
+        return "maxlength".equalsIgnoreCase(JSFUtils.getToken(
                 format,
                 0,
                 2));
@@ -1090,7 +1034,7 @@ public class JSFParameterLogicImpl
      */
     private String getRangeStart(final String format)
     {
-        return this.getToken(
+        return JSFUtils.getToken(
             format,
             1,
             3);
@@ -1101,7 +1045,7 @@ public class JSFParameterLogicImpl
      */
     private String getRangeEnd(final String format)
     {
-        return this.getToken(
+        return JSFUtils.getToken(
             format,
             2,
             3);
@@ -1112,7 +1056,7 @@ public class JSFParameterLogicImpl
      */
     private String getMinLengthValue(final String format)
     {
-        return this.getToken(
+        return JSFUtils.getToken(
             format,
             1,
             2);
@@ -1123,7 +1067,7 @@ public class JSFParameterLogicImpl
      */
     private String getMaxLengthValue(final String format)
     {
-        return this.getToken(
+        return JSFUtils.getToken(
             format,
             1,
             2);
@@ -1134,7 +1078,7 @@ public class JSFParameterLogicImpl
      */
     private String getPatternValue(final String format)
     {
-        return '^' + this.getToken(
+        return '^' + JSFUtils.getToken(
             format,
             1,
             2) + '$';
@@ -1163,7 +1107,7 @@ public class JSFParameterLogicImpl
         else if ("date".equals(validatorType))
         {
             final String validatorFormat = this.getInputFormat();
-            if (validatorFormat != null && this.isStrictDateFormat(validatorFormat))
+            if (validatorFormat != null && JSFUtils.isStrictDateFormat(validatorFormat))
             {
                 args.add("${var:datePatternStrict}");
             }
@@ -1249,7 +1193,7 @@ public class JSFParameterLogicImpl
             if (this.isDate())
             {
                 final String datePatternStrict = "datePatternStrict";
-                if (format != null && this.isStrictDateFormat(format))
+                if (format != null && JSFUtils.isStrictDateFormat(format))
                 {
                     vars.put(
                         datePatternStrict,

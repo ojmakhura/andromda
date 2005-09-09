@@ -95,5 +95,7 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFAttributeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.Attribute$Impl"/>
+        <property reference="defaultDateFormat"/>
+        <property reference="defaultTimeFormat"/>
     </metafacade>
 </metafacades>
