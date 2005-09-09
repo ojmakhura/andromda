@@ -1,0 +1,17 @@
+<h:panelGrid columns="1" id="viewVariables" width="100%">
+    <h:panelGrid columns="2" columnClasses="viewVariableLabel,,viewVariableText">
+#foreach ($variable in $view.variables)
+#if (!$variable.table)
+#if (!$variable.complex)
+        <h:outputText value="#{messages['$variable.messageKey']} :"/><h:outputText value="#{${variable.name}}"/>
+#else
+
+#foreach ($attribute in $variable.attributes)
+        <h:outputText value="#{messages['$attribute.messageKey']} :"/><h:outputText value="#{${variable.name}.${attribute.name}}"/>
+#end
+#end
+#end
+#end
+    </h:panelGrid>
+<f:verbatim></br></f:verbatim>
+</h:panelGrid>

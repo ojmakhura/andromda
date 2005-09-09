@@ -34,6 +34,9 @@
                 <h:panelGrid columns="1" styleClass="viewHeader">
                     <h:outputText value="#{viewTitle}"/>
                 </h:panelGrid>
+#if ($view.nonTableVariablesPresent)
+                <%@ include file="${view.path}-vars.jspf" %>
+#end
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
                 <%@ include file="${action.viewFragmentPath}.jspf" %>

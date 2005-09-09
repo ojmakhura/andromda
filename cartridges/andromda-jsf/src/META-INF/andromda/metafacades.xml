@@ -93,4 +93,7 @@
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFAttributeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Attribute$Impl"/>
+    </metafacade>
 </metafacades>

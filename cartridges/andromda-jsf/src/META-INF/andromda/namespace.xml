@@ -141,7 +141,7 @@
                 </documentation>
             </property>
             <property name="normalizeMessages">
-                <default>false</default>
+                <default>true</default>
                 <documentation>
                     Denotes the way application resource messages ought to be generated.
                     When messages are normalized it means that elements with the same name
@@ -151,7 +151,6 @@
                     also more straightforward to translate. The downside is that it will be
                     less evident to customize labels for certain fields (which is rarely the
                     case anyway).
-                    For backward compatibility reasons this flag is disabled by default.
                 </documentation>
             </property>
         </propertyGroup>

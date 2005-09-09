@@ -90,7 +90,7 @@
             <f:verbatim>&nbsp;</f:verbatim>
         </f:facet>
         <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}">
-            <h:outputText value="#{messages['$action.trigger.messageKey']}" />
+            <h:outputText value="#{messages['$action.trigger.messageKey']}"/>
 #foreach ($parameter in $action.parameters)
 #if ($table.tableColumnNames.contains($parameter.name))
 #set ($parameterValue = "row.${parameter.name}")

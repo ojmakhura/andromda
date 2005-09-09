@@ -134,11 +134,11 @@ public class JSFUseCaseLogicImpl
                     useCase.getTitleKey(),
                     useCase.getTitleValue());
 
-                final List pages = useCase.getViews();
-                for (int ctr2 = 0; ctr2 < pages.size(); ctr2++)
+                final List views = useCase.getViews();
+                for (int ctr2 = 0; ctr2 < views.size(); ctr2++)
                 {
                     // - view
-                    final JSFView view = (JSFView)pages.get(ctr2);
+                    final JSFView view = (JSFView)views.get(ctr2);
                     messages.put(
                         view.getTitleKey(),
                         view.getTitleValue());
@@ -149,18 +149,28 @@ public class JSFUseCaseLogicImpl
                         view.getDocumentationKey(),
                         view.getDocumentationValue());
 
-                    final List pageVariables = view.getVariables();
-                    for (int ctr3 = 0; ctr3 < pageVariables.size(); ctr3++)
+                    final List viewVariables = view.getVariables();
+                    for (int ctr3 = 0; ctr3 < viewVariables.size(); ctr3++)
                     {
                         // - page variables
-                        final JSFParameter parameter = (JSFParameter)pageVariables.get(ctr3);
-
+                        final JSFParameter parameter = (JSFParameter)viewVariables.get(ctr3);
+                        
+                        final Collection attributes = parameter.getAttributes();
+                        if (!attributes.isEmpty())
+                        {
+                            for (final Iterator iterator = attributes.iterator(); iterator.hasNext();)
+                            {
+                                final JSFAttribute attribute = (JSFAttribute)iterator.next();
+                                messages.put(
+                                    attribute.getMessageKey(), 
+                                    attribute.getMessageValue());
+                            }
+                        }
                         messages.put(
                             parameter.getMessageKey(),
                             parameter.getMessageValue());
 
                         // - table
-
                         if (parameter.isTable())
                         {
                             final Collection columnNames = parameter.getTableColumnNames();
