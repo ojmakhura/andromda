@@ -42,7 +42,15 @@ $field.getDocumentation("     * ")
     {
 #if ($field.table)
 #set ($upperCaseFieldName = $stringUtils.capitalize($field.name))
-        return ${managedBeansPackage}.CollectionSorter.sort(this.$field.name, this.get${stringUtils.capitalize($field.tableSortColumnProperty)}(), this.is${upperCaseFieldName}SortAscending());
+#if ($field.type.arrayType)
+#set ($collectionField = "java.util.Arrays.asList(this.$field.name)")
+#else
+#set ($collectionField = "this.$field.name")
+#end
+        return #if ($field.type.arrayType)($field.type.fullyQualifiedName)#end${managedBeansPackage}.CollectionSorter.sort(
+            $collectionField, 
+            this.get${stringUtils.capitalize($field.tableSortColumnProperty)}(), 
+            this.is${upperCaseFieldName}SortAscending())#if ($field.type.arrayType).toArray(new ${field.type.fullyQualifiedName}{})#end;
 #else
         return this.${field.name};
 #end
