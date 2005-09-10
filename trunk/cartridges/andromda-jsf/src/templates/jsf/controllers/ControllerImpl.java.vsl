@@ -67,11 +67,15 @@ public class $controller.implementationName
 #set ($count = $count + 1)
 #set ($constructor = '')
 #set ($paramSeparator = '')
+#if (!$field.tableColumnNames.empty)
 #foreach ($columnName in $field.tableColumnNames)
 #set ($constructor = "$constructor$paramSeparator$quote${columnName}-$count$quote")
 #set ($paramSeparator = ', ')
 #end
             new $stringUtils.capitalize($field.name)($constructor)$itemSeparator
+#else
+            ${quote}value-$count$quote$itemSeparator
+#end
 #end
         });
 
