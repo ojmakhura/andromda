@@ -12,6 +12,7 @@ import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -117,7 +118,18 @@ public class FrontEndParameterLogicImpl
         final ClassifierFacade type = this.getType();
         if (type != null)
         {
-            isTable = (type.isCollectionType() || type.isArrayType()) && !this.getTableColumnNames().isEmpty();
+            isTable = type.isCollectionType() || type.isArrayType();
+            if (isTable)
+            {
+                isTable =
+                    Boolean.valueOf(
+                        ObjectUtils.toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_IS_TABLE)))
+                           .booleanValue();
+                if (!isTable)
+                {
+                    isTable = !this.getTableColumnNames().isEmpty();
+                }
+            }
         }
         return isTable;
     }
