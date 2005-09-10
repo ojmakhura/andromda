@@ -13,6 +13,8 @@ import java.util.TreeMap;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
+import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndFinalState;
@@ -162,6 +164,29 @@ public class JSFUseCaseLogicImpl
                                 messages.put(
                                     attribute.getMessageKey(), 
                                     attribute.getMessageValue());
+                            }
+                        }
+                        final Collection associationEnds = parameter.getNavigableAssociationEnds();
+                        if (!associationEnds.isEmpty())
+                        {
+                            for (final Iterator iterator = associationEnds.iterator(); iterator.hasNext();)
+                            {
+                                final AssociationEndFacade end = (AssociationEndFacade)iterator.next();
+                                final ClassifierFacade type = end.getType();
+                                if (type != null)
+                                {
+                                    final Collection typeAttributes = type.getAttributes();
+                                    if (!attributes.isEmpty())
+                                    {
+                                        for (final Iterator attributeIterator = typeAttributes.iterator(); attributeIterator.hasNext();)
+                                        {
+                                            final JSFAttribute attribute = (JSFAttribute)attributeIterator.next();
+                                            messages.put(
+                                                attribute.getMessageKey(), 
+                                                attribute.getMessageValue());
+                                        }
+                                    }                                 
+                                }
                             }
                         }
                         messages.put(

@@ -26,6 +26,7 @@
 #foreach ($associationEnd in $variable.navigableAssociationEnds)
 #if ($associationEnd.many)
         <c:forEach var="item" items="${${variable.name}.${associationEnd.name}}">
+            <c:set var="item" value="${item}" scope="request"/>
 #foreach ($itemAttribute in $associationEnd.type.attributes)
             <h:outputText value="#{messages['$itemAttribute.messageKey']} :"/>
             <h:outputText value="#{item.${itemAttribute.name}}">
