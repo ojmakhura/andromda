@@ -205,6 +205,12 @@ public class UMLProfile
     public static final String TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS = profile.get("PRESENTATION_TABLE_COLUMNS");
     
     /**
+     * Used to indicate whether or not a parameter should be considered a table (used when no
+     * table columns are specified).
+     */
+    public static final String TAGGEDVALUE_PRESENTATION_IS_TABLE = profile.get("PRESENTATION_IS_TABLE");
+    
+    /**
      * Used to associate an activity to a use case (when it can not be assigned explicitly).
      */
     public static final String TAGGEDVALUE_PRESENTATION_USECASE_ACTIVITY = profile.get("PRESENTATION_USECASE_ACTIVITY");
