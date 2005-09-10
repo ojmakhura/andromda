@@ -1,7 +1,8 @@
 <cartridge>
     
     <templateEngine>
-        <macrolibrary name="templates/jsf/macros/renderValidation.vm"/>
+        <macrolibrary name="templates/jsf/views/jsp/includes/renderActionFormInput.vm"/>
+        <macrolibrary name="templates/jsf/views/jsp/includes/renderActionCommandLinkParameter.vm"/>
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
     
