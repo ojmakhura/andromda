@@ -9,13 +9,7 @@
 #end
     <h:outputText value="#{messages['$action.messageKey']}"/>
 #foreach ($parameter in $action.parameters)
-#if ($parameter.type.dateType || $parameter.type.timeType)
-#set ($parameterValue = "${parameter.name}Formatted")
-    <fmt:formatDate var="$parameterValue" value="${${formName}.${parameter.name}}" pattern="$parameter.format" scope="request"/>
-#else
-#set ($parameterValue = "${formName}.${parameter.name}")
-#end
-    <f:param name="$parameter.name" value="#{${parameterValue}}"/>
+#renderActionCommandLinkParameter()
 #end
 #if ($action.hyperlink)
 </h:commandLink>
@@ -36,61 +30,7 @@
                  footerClass="formFooter"
                  columnClasses="formLabels,,formInputs">
 #foreach ($parameter in $action.parameters)
-#if (!$parameter.table && !$parameter.inputHidden)
-        <h:outputLabel for="${formName}:${parameter.name}" value="#{messages['$parameter.messageKey']}"/>
-        <f:verbatim>:</f:verbatim>
-        <h:panelGroup>
-#if ($parameter.type.dateType)
-#if ($parameter.readOnly)
-            <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}" readonly="true">
-#else
-            <x:inputCalendar id="$parameter.name"
-                             monthYearRowClass="yearMonthHeader"
-                             weekRowClass="weekHeader"
-                             value="#{${formName}.${parameter.name}}"
-                             renderAsPopup="true"
-                             popupDateFormat="$parameter.format"
-                             required="$parameter.required">
-                <jsf:convertDateTime pattern="$parameter.format"/>
-            </x:inputCalendar>
-#end
-#elseif ($parameter.inputCheckbox)
-            <h:selectBooleanCheckbox id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly"/>
-#elseif ($parameter.inputSelect)
-            <h:selectOneMenu id="$parameter.name" value="#{${formName}.${parameter.name}}" styleClass="selectOneMenu" required="$parameter.required" readonly="$parameter.readOnly">
-                <f:selectItem itemValue="" itemLabel="#{messages['select.value.text']}" />
-                <c:if test="${!empty ${formName}.${parameter.backingListName}}">
-                    <f:selectItems value="#{${formName}.${parameter.backingListName}}" />
-                </c:if>                  
-            </h:selectOneMenu>
-#elseif ($parameter.inputTextarea)
-            <h:inputTextarea id="$parameter.name" rows="5" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly"/>
-#elseif ($parameter.inputSecret)
-            <h:inputSecret id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly"/>
-#elseif ($parameter.inputFile)
-            <x:inputFileUpload id="$parameter.name" value="#{${formName}.${parameter.name}}" storage="file" required="$parameter.required" readonly="$parameter.readOnly" styleClass="fileUploadInput"/>
-#elseif ($parameter.inputMultibox)
-            <h:selectManyCheckbox id="$parameter.name" value="#{${formName}.${parameter.name}}" layout="pageDirection" styleClass="selectManyCheckbox">
-                <c:if test="${!empty ${formName}.${parameter.backingListName}}">
-                    <f:selectItems value="#{${formName}.${parameter.backingListName}}" />
-                </c:if>   
-            </h:selectManyCheckbox>
-#elseif ($parameter.inputRadio)
-            <h:selectOneRadio id="$parameter.name" value="#{${formName}.${parameter.name}}" layout="pageDirection" styleClass="selectOneRadio">
-                <c:if test="${!empty ${formName}.${parameter.backingListName}}">
-                    <f:selectItems value="#{${formName}.${parameter.backingListName}}" />
-                </c:if>  
-            </h:selectOneRadio>
-#else
-            <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
-#if ($parameter.type.timeType)
-                <jsf:convertDateTime pattern="$parameter.format"/>
-#end
-            </h:inputText>
-#end
-            <x:message for="$parameter.name" styleClass="error" showDetail="true" showSummary="false"/>
-        </h:panelGroup>
-#end
+#renderActionInput()
 #end
         <h:panelGroup/>
         <h:panelGroup/>

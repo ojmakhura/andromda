@@ -88,7 +88,7 @@ public class JSFParameterLogicImpl
      */
     protected String handleGetDocumentationValue()
     {
-        final String value = StringUtilsHelper.toResourceMessage(getDocumentation(
+        final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation(
                     "",
                     64,
                     false));
