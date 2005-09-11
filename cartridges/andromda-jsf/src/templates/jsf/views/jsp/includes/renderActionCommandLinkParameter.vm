@@ -1,7 +1,7 @@
 ##
 ## A macro that renders the appropriate action commandLink parameter
 ##
-#macro(renderActionCommandLinkParameter)
+#macro(renderActionCommandLinkParameter $parameter)
 #if ($parameter.type.dateType || $parameter.type.timeType)
 #set ($parameterValue = "${parameter.name}Formatted")
     <fmt:formatDate var="$parameterValue" value="${${formName}.${parameter.name}}" pattern="$parameter.format" scope="request"/>

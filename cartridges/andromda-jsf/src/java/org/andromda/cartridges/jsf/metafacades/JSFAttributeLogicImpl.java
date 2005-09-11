@@ -5,6 +5,8 @@ import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -27,11 +29,14 @@ public class JSFAttributeLogicImpl
     protected java.lang.String handleGetMessageKey()
     {
         final StringBuffer messageKey = new StringBuffer();
-        final ClassifierFacade owner = this.getOwner();
-        if (owner != null)
+        if (!this.isNormalizeMessages())
         {
-            messageKey.append(StringUtilsHelper.toResourceMessageKey(owner.getName()));
-            messageKey.append('.');
+            final ClassifierFacade owner = this.getOwner();
+            if (owner != null)
+            {
+                messageKey.append(StringUtilsHelper.toResourceMessageKey(owner.getName()));
+                messageKey.append('.');
+            }
         }
         final String name = this.getName();
         if (name != null && name.trim().length() > 0)
@@ -39,6 +44,17 @@ public class JSFAttributeLogicImpl
             messageKey.append(StringUtilsHelper.toResourceMessageKey(name));
         }
         return messageKey.toString();
+    }
+    
+    /**
+     * Indicates whether or not we should normalize messages.
+     *
+     * @return true/false
+     */
+    private final boolean isNormalizeMessages()
+    {
+        final String normalizeMessages = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES));
+        return Boolean.valueOf(normalizeMessages).booleanValue();
     }
 
     /**
@@ -154,5 +170,42 @@ public class JSFAttributeLogicImpl
     private final String constructDummyArray()
     {
         return JSFUtils.constructDummyArrayDeclaration(this.getName(), JSFGlobals.DUMMY_ARRAY_COUNT);
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getFormPropertyName()
+     */
+    protected String handleGetFormPropertyName(final String ownerPropertyName)
+    {
+        final StringBuffer propertyName = new StringBuffer();
+        if (StringUtils.isNotEmpty(ownerPropertyName))
+        {
+            propertyName.append(ownerPropertyName);
+            propertyName.append('.');
+        }
+        final String name = this.getName();
+        if (name != null && name.trim().length() > 0)
+        {
+            propertyName.append(name);
+        }
+        return propertyName.toString();
+    }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getBackingListName()
+     */
+    protected String handleGetBackingListName(final String formPropertyName)
+    {
+        return StringUtils.replace(ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_LIST_PATTERN)),
+            "\\{0\\}",
+            formPropertyName);
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getFormPropertyId(java.lang.String)
+     */
+    protected String handleGetFormPropertyId(final String ownerPropertyName)
+    {
+        return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerPropertyName));
     }
 }
