@@ -52,6 +52,12 @@ $field.getDocumentation("     * ")
             this.get${stringUtils.capitalize($field.tableSortColumnProperty)}(), 
             this.is${upperCaseFieldName}SortAscending())#if ($field.type.arrayType).toArray(new ${field.type.fullyQualifiedName}{})#end;
 #else
+#if ($field.complex)
+        if (this.$field.name == null)
+        {
+            this.$field.name = new ${field.type.fullyQualifiedName}();
+        }
+#end
         return this.${field.name};
 #end
     }

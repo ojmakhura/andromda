@@ -848,7 +848,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * Overridden to have the same behavior as jsf.
+     * Overridden to have the same behavior as bpm4struts.
      *
      * @see org.andromda.metafacades.uml.ParameterFacade#isRequired()
      */
