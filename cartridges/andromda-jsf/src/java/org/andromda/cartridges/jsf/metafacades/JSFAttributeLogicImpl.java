@@ -208,4 +208,15 @@ public class JSFAttributeLogicImpl
     {
         return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerPropertyName));
     }
+    
+    /**
+     * Overridden to have the same behavior as front-end parameter.
+     *
+     * @see org.andromda.metafacades.uml.ParameterFacade#isRequired()
+     */
+    public boolean isRequired()
+    {
+        final Object value = this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_REQUIRED);
+        return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+    }
 }
