@@ -9,7 +9,7 @@
 #end
     <h:outputText value="#{messages['$action.messageKey']}"/>
 #foreach ($parameter in $action.parameters)
-#renderActionCommandLinkParameter()
+#renderActionCommandLinkParameter($parameter)
 #end
 #if ($action.hyperlink)
 </h:commandLink>
@@ -28,9 +28,15 @@
     <h:panelGrid columns="3" styleClass="formTable"
                  headerClass="formHeader"
                  footerClass="formFooter"
-                 columnClasses="formLabels,,formInputs">
+                 columnClasses="formLabels,,formInputs">           
 #foreach ($parameter in $action.parameters)
-#renderActionInput()
+#if (!$parameter.attributes.empty)
+#foreach ($attribute in $parameter.attributes)
+#renderActionInput($attribute "${formName}.${attribute.getFormPropertyName($parameter.name)}" $attribute.getFormPropertyId($parameter.name))
+#end
+#else
+#renderActionInput($parameter "${formName}.${parameter.name}" $parameter.name)
+#end
 #end
         <h:panelGroup/>
         <h:panelGroup/>

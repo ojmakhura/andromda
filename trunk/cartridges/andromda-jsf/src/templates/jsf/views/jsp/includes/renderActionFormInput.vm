@@ -1,19 +1,24 @@
 ##
 ## A macro that renders the appropriate action form input field
 ##
-#macro(renderActionInput)
+#macro(renderActionInput $parameter $valuePropertyName $propertyId)
+#if ($parameter.backingListName)
+#set ($backingListName = $parameter.backingListName)
+#else
+#set ($backingListName = $parameter.getBackingListName($valuePropertyName))
+#end
 #if (!$parameter.table && !$parameter.inputHidden)
-        <h:outputLabel for="${formName}:${parameter.name}" value="#{messages['$parameter.messageKey']}"/>
+        <h:outputLabel for="${formName}:${propertyId}" value="#{messages['$parameter.messageKey']}"/>
         <f:verbatim>:</f:verbatim>
         <h:panelGroup>
 #if ($parameter.type.dateType)
 #if ($parameter.readOnly)
-            <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}" readonly="true">
+            <h:inputText id="$propertyId" value="#{${valuePropertyName}}" readonly="true">
 #else
-            <x:inputCalendar id="$parameter.name"
+            <x:inputCalendar id="$propertyId"
                              monthYearRowClass="yearMonthHeader"
                              weekRowClass="weekHeader"
-                             value="#{${formName}.${parameter.name}}"
+                             value="#{${valuePropertyName}}"
                              renderAsPopup="true"
                              popupDateFormat="$parameter.format"
                              required="$parameter.required">
@@ -21,40 +26,40 @@
             </x:inputCalendar>
 #end
 #elseif ($parameter.inputCheckbox)
-            <h:selectBooleanCheckbox id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly"/>
+            <h:selectBooleanCheckbox id="$propertyId" value="#{${valuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly"/>
 #elseif ($parameter.inputSelect)
-            <h:selectOneMenu id="$parameter.name" value="#{${formName}.${parameter.name}}" styleClass="selectOneMenu" required="$parameter.required" readonly="$parameter.readOnly">
+            <h:selectOneMenu id="$propertyId" value="#{${valuePropertyName}}" styleClass="selectOneMenu" required="$parameter.required" readonly="$parameter.readOnly">
                 <f:selectItem itemValue="" itemLabel="#{messages['select.value.text']}" />
-                <c:if test="${!empty ${formName}.${parameter.backingListName}}">
-                    <f:selectItems value="#{${formName}.${parameter.backingListName}}" />
+                <c:if test="${!empty ${formName}.${backingListName}}">
+                    <f:selectItems value="#{${formName}.${backingListName}}" />
                 </c:if>                  
             </h:selectOneMenu>
 #elseif ($parameter.inputTextarea)
-            <h:inputTextarea id="$parameter.name" rows="5" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly"/>
+            <h:inputTextarea id="$propertyId" rows="5" value="#{${valuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly"/>
 #elseif ($parameter.inputSecret)
-            <h:inputSecret id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly"/>
+            <h:inputSecret id="$propertyId" value="#{${valuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly"/>
 #elseif ($parameter.inputFile)
-            <x:inputFileUpload id="$parameter.name" value="#{${formName}.${parameter.name}}" storage="file" required="$parameter.required" readonly="$parameter.readOnly" styleClass="fileUploadInput"/>
+            <x:inputFileUpload id="$propertyId" value="#{${valuePropertyName}}" storage="file" required="$parameter.required" readonly="$parameter.readOnly" styleClass="fileUploadInput"/>
 #elseif ($parameter.inputMultibox)
-            <h:selectManyCheckbox id="$parameter.name" value="#{${formName}.${parameter.name}}" layout="pageDirection" styleClass="selectManyCheckbox">
-                <c:if test="${!empty ${formName}.${parameter.backingListName}}">
-                    <f:selectItems value="#{${formName}.${parameter.backingListName}}" />
+            <h:selectManyCheckbox id="$propertyId" value="#{${valuePropertyName}}" layout="pageDirection" styleClass="selectManyCheckbox">
+                <c:if test="${!empty ${formName}.${backingListName}}">
+                    <f:selectItems value="#{${formName}.${backingListName}}" />
                 </c:if>   
             </h:selectManyCheckbox>
 #elseif ($parameter.inputRadio)
-            <h:selectOneRadio id="$parameter.name" value="#{${formName}.${parameter.name}}" layout="pageDirection" styleClass="selectOneRadio">
-                <c:if test="${!empty ${formName}.${parameter.backingListName}}">
-                    <f:selectItems value="#{${formName}.${parameter.backingListName}}" />
+            <h:selectOneRadio id="$propertyId" value="#{${valuePropertyName}}" layout="pageDirection" styleClass="selectOneRadio">
+                <c:if test="${!empty ${formName}.${backingListName}}">
+                    <f:selectItems value="#{${formName}.${backingListName}}" />
                 </c:if>  
             </h:selectOneRadio>
 #else
-            <h:inputText id="$parameter.name" value="#{${formName}.${parameter.name}}" required="$parameter.required" readonly="$parameter.readOnly">
+            <h:inputText id="$propertyId" value="#{${valuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly">
 #if ($parameter.type.timeType)
                 <jsf:convertDateTime pattern="$parameter.format"/>
 #end
             </h:inputText>
 #end
-            <x:message for="$parameter.name" styleClass="error" showDetail="true" showSummary="false"/>
+            <x:message for="$propertyId" styleClass="error" showDetail="true" showSummary="false"/>
         </h:panelGroup>
 #end
 #end
