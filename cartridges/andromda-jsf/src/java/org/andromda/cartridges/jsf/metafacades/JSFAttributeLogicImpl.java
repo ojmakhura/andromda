@@ -1,9 +1,14 @@
 package org.andromda.cartridges.jsf.metafacades;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
@@ -229,6 +234,73 @@ public class JSFAttributeLogicImpl
     protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
     {
         return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
+    }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isSelectable(org.andromda.metafacades.uml.FrontEndParameter)
+     */
+    protected boolean handleIsSelectable(final FrontEndParameter ownerParameter)
+    {
+        boolean selectable = false;
+        if (ownerParameter != null)
+        {
+            if (ownerParameter.isActionParameter())
+            {
+                selectable = this.isInputMultibox() || this.isInputSelect() || this.isInputRadio();
+                final ClassifierFacade type = this.getType();
+    
+                if (!selectable && type != null)
+                {
+                    final String name = this.getName();
+                    final String typeName = type.getFullyQualifiedName();
+    
+                    // - if the parameter is not selectable but on a targetting page it IS selectable we must
+                    //   allow the user to set the backing list too                 
+                    final Collection views = ownerParameter.getAction().getTargetViews();
+                    for (final Iterator iterator = views.iterator(); iterator.hasNext() && !selectable;)
+                    {
+                        final FrontEndView view = (FrontEndView)iterator.next();
+                        final Collection parameters = view.getAllActionParameters();
+                        for (final Iterator parameterIterator = parameters.iterator();
+                            parameterIterator.hasNext() && !selectable;)
+                        {
+                            final JSFParameter parameter = (JSFParameter)parameterIterator.next();
+                            final String parameterName = parameter.getName();
+                            final ClassifierFacade parameterType = parameter.getType();
+                            if (parameterType != null)
+                            {
+                                final String parameterTypeName = parameterType.getFullyQualifiedName();
+                                if (name.equals(parameterName) && typeName.equals(parameterTypeName))
+                                {
+                                    selectable =
+                                        parameter.isInputMultibox() || parameter.isInputSelect() ||
+                                        parameter.isInputRadio();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (ownerParameter.isControllerOperationArgument())
+            {
+                final String name = this.getName();
+                final Collection actions = ownerParameter.getControllerOperation().getDeferringActions();
+                for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                {
+                    final JSFAction action = (JSFAction)actionIterator.next();
+                    final Collection formFields = action.getFormFields();
+                    for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
+                    {
+                        final JSFParameter parameter = (JSFParameter)fieldIterator.next();
+                        if (name.equals(parameter.getName()))
+                        {
+                            selectable = parameter.isSelectable();
+                        }
+                    }
+                }
+            }
+        }
+        return selectable;
     }
     
     /**
