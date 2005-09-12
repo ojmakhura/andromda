@@ -202,6 +202,26 @@ public class JSFAttributeLogicImpl
             this.getFormPropertyId(ownerParameter));
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
     }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getLabelListName(org.andromda.metafacades.uml.ParameterFacade)
+     */
+    protected String handleGetLabelListName(final ParameterFacade ownerParameter)
+    {
+        return StringUtils.replace(ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.LABEL_LIST_PATTERN)),
+            "{0}",
+            this.getFormPropertyId(ownerParameter));
+    }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getValueListName(org.andromda.metafacades.uml.ParameterFacade)
+     */
+    protected String handleGetValueListName(final ParameterFacade ownerParameter)
+    {
+        return StringUtils.replace(ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.VALUE_LIST_PATTERN)),
+            "{0}",
+            this.getFormPropertyId(ownerParameter));
+    }
 
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getFormPropertyId(java.lang.String)
@@ -334,15 +354,5 @@ public class JSFAttributeLogicImpl
             file = type.isFileType();
         }
         return file;
-    }
-
-    /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getLabelListName(org.andromda.metafacades.uml.ParameterFacade)
-     */
-    protected String handleGetLabelListName(final ParameterFacade ownerParameter)
-    {
-        return StringUtils.replace(ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.LABEL_LIST_PATTERN)),
-            "{0}",
-            this.getFormPropertyId(ownerParameter));
     }
 }
