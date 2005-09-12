@@ -140,4 +140,10 @@ public class JSFGlobals
      * The item count for dummy arrays.
      */
     public static final int DUMMY_ARRAY_COUNT = 5;
+    
+    /**
+     * The pattern used for constructing the name of JSF converter classes (i.e.
+     * the enumeration converter).
+     */
+    public static final String CONVERTER_PATTERN = "converterPattern";
 }

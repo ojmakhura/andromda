@@ -89,6 +89,13 @@
             <value>$navigationTheme</value>
         </managed-property>
     </managed-bean>
+    
+#foreach ($enumeration in $enumerations)
+    <converter>
+        <converter-for-class>$enumeration.fullyQualifiedName</converter-for-class>
+        <converter-class>$enumeration.fullyQualifiedConverterName</converter-class>
+    </converter>  
+#end
 
     <!-- faces-config merge-point -->
 </faces-config>

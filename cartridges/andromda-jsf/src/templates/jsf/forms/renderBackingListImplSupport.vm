@@ -45,7 +45,7 @@
 
         for (int ctr = 0; ctr < length; ctr++)
         {
-            backingList[ctr] = new javax.faces.model.SelectItem(java.lang.String.valueOf(labels[ctr]), java.lang.String.valueOf(values[ctr]));
+            backingList[ctr] = new javax.faces.model.SelectItem(java.lang.String.valueOf(values[ctr]), java.lang.String.valueOf(labels[ctr]));
         }
         return backingList;
     }
