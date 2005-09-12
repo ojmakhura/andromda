@@ -50,7 +50,7 @@ public class JSFParameterLogicImpl
 
         if (!this.isNormalizeMessages())
         {
-            if (isActionParameter())
+            if (this.isActionParameter())
             {
                 final JSFAction action = (JSFAction)this.getAction();
                 if (action != null)

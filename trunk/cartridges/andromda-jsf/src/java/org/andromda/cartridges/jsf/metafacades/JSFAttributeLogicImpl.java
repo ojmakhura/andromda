@@ -196,9 +196,10 @@ public class JSFAttributeLogicImpl
      */
     protected String handleGetBackingListName(final String formPropertyName)
     {
-        return StringUtils.replace(ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_LIST_PATTERN)),
-            "\\{0\\}",
+        final String backingListName = StringUtils.replace(ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_LIST_PATTERN)),
+            "{0}",
             formPropertyName);
+        return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
     }
 
     /**
@@ -219,4 +220,119 @@ public class JSFAttributeLogicImpl
         final Object value = this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_REQUIRED);
         return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
     }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputTextarea()
+     */
+    protected boolean handleIsInputTextarea()
+    {
+        return this.isInputType("textarea");
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputSelect()
+     */
+    protected boolean handleIsInputSelect()
+    {
+        return this.isInputType("select");
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputSecret()
+     */
+    protected boolean handleIsInputSecret()
+    {
+        return this.isInputType("password");
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputHidden()
+     */
+    protected boolean handleIsInputHidden()
+    {
+        return this.isInputType("hidden");
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isPlaintext()
+     */
+    protected boolean handleIsPlaintext()
+    {
+        return this.isInputType("plaintext");
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputRadio()
+     */
+    protected boolean handleIsInputRadio()
+    {
+        return this.isInputType("radio");
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputText()
+     */
+    protected boolean handleIsInputText()
+    {
+        return this.isInputType("text");
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputMultibox()
+     */
+    protected boolean handleIsInputMultibox()
+    {
+        return this.isInputType("multibox");
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputCheckbox()
+     */
+    protected boolean handleIsInputCheckbox()
+    {
+        boolean checkbox = this.isInputType("checkbox");
+        if (!checkbox && this.getInputType().length() == 0)
+        {
+            final ClassifierFacade type = this.getType();
+            checkbox = type != null ? type.isBooleanType() : false;
+        }
+        return checkbox;
+    }
+    
+    /**
+     * Gets the current value of the specified input type (or an empty string
+     * if one isn't specified).
+     *
+     * @return the input type name.
+     */
+    private final String getInputType()
+    {
+        return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TYPE)).trim();
+    }
+    
+    /**
+     * Indicates whether or not this parameter is of the given input type.
+     *
+     * @param inputType the name of the input type to check for.
+     * @return true/false
+     */
+    private final boolean isInputType(final String inputType)
+    {
+        return inputType.equalsIgnoreCase(this.getInputType());
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputText()
+     */
+    protected boolean handleIsInputFile()
+    {
+        boolean file = false;
+        ClassifierFacade type = getType();
+        if (type != null)
+        {
+            file = type.isFileType();
+        }
+        return file;
+    }
+
 }

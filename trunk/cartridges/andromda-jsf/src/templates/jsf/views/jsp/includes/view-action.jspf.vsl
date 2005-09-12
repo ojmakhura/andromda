@@ -32,10 +32,10 @@
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.attributes.empty)
 #foreach ($attribute in $parameter.attributes)
-#renderActionInput($attribute "${formName}.${attribute.getFormPropertyName($parameter.name)}" $attribute.getFormPropertyId($parameter.name))
+#renderActionInput($attribute ${attribute.getFormPropertyName($parameter.name)} $attribute.getFormPropertyId($parameter.name))
 #end
 #else
-#renderActionInput($parameter "${formName}.${parameter.name}" $parameter.name)
+#renderActionInput($parameter ${parameter.name} $parameter.name)
 #end
 #end
         <h:panelGroup/>
