@@ -498,6 +498,17 @@ public final class OCLCollections
     {
         return CollectionUtils.exists(collection, predicate);
     }
+    
+    /**
+     * Returns true if a predicate is true for at least one element of a collection. <p/>A null collection or predicate
+     * returns false.
+     */
+    public static boolean exists(
+        final Object collection,
+        final Predicate predicate)
+    {
+        return collection instanceof Collection ? exists((Collection)collection, predicate) : false;
+    }
 
     /**
      * <p/>
