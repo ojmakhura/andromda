@@ -4,6 +4,7 @@ import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -173,14 +174,14 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getFormPropertyName()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getFormPropertyName(org.andromda.metafacades.uml.ParameterFacade)
      */
-    protected String handleGetFormPropertyName(final String ownerPropertyName)
+    protected String handleGetFormPropertyName(final ParameterFacade ownerParameter)
     {
         final StringBuffer propertyName = new StringBuffer();
-        if (StringUtils.isNotEmpty(ownerPropertyName))
+        if (ownerParameter != null)
         {
-            propertyName.append(ownerPropertyName);
+            propertyName.append(ownerParameter.getName());
             propertyName.append('.');
         }
         final String name = this.getName();
@@ -192,22 +193,22 @@ public class JSFAttributeLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getBackingListName()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getBackingListName(org.andromda.metafacades.uml.ParameterFacade)
      */
-    protected String handleGetBackingListName(final String formPropertyName)
+    protected String handleGetBackingListName(final ParameterFacade ownerParameter)
     {
         final String backingListName = StringUtils.replace(ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_LIST_PATTERN)),
             "{0}",
-            formPropertyName);
+            this.getFormPropertyId(ownerParameter));
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
     }
 
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getFormPropertyId(java.lang.String)
      */
-    protected String handleGetFormPropertyId(final String ownerPropertyName)
+    protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
     {
-        return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerPropertyName));
+        return StringUtilsHelper.lowerCamelCaseName(this.getFormPropertyName(ownerParameter));
     }
     
     /**
@@ -322,7 +323,7 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputText()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputFile()
      */
     protected boolean handleIsInputFile()
     {
@@ -335,4 +336,13 @@ public class JSFAttributeLogicImpl
         return file;
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getLabelListName(org.andromda.metafacades.uml.ParameterFacade)
+     */
+    protected String handleGetLabelListName(final ParameterFacade ownerParameter)
+    {
+        return StringUtils.replace(ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.LABEL_LIST_PATTERN)),
+            "{0}",
+            this.getFormPropertyId(ownerParameter));
+    }
 }

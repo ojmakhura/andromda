@@ -32,10 +32,16 @@
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.attributes.empty)
 #foreach ($attribute in $parameter.attributes)
-#renderActionInput($attribute ${attribute.getFormPropertyName($parameter.name)} $attribute.getFormPropertyId($parameter.name))
+#set ($propertyId = $attribute.getFormPropertyId($parameter))
+#set ($valuePropertyName = ${attribute.getFormPropertyName($parameter)})
+#set ($backingListName = "${formName}.${attribute.getBackingListName($parameter)}")
+#renderActionInput($attribute)
 #end
 #else
-#renderActionInput($parameter ${parameter.name} $parameter.name)
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingListName = "${formName}.$parameter.backingListName")
+#renderActionInput($parameter)
 #end
 #end
         <h:panelGroup/>
