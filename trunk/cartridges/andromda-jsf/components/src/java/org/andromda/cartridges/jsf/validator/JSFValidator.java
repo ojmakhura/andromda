@@ -174,21 +174,24 @@ public class JSFValidator
                 throw new JSFValidatorException("Could not find rules file '" + rulesResource + "'");
             }
             final InputStream validationInput = external.getResourceAsStream(validationResource);
-            if (validationInput == null)
+            if (validationInput != null)
             {
-                throw new JSFValidatorException("Could not find validation file '" + validationResource + "'");
+                final InputStream[] inputs = new InputStream[] {rulesInput, validationInput};
+                try
+                {
+                    validatorResources = new ValidatorResources(inputs);
+                    applicationMap.put(
+                        VALIDATOR_RESOURCES_KEY,
+                        validatorResources);
+                }
+                catch (final Throwable throwable)
+                {
+                    throw new JSFValidatorException(throwable);
+                }                
             }
-            final InputStream[] inputs = new InputStream[] {rulesInput, validationInput};
-            try
+            else
             {
-                validatorResources = new ValidatorResources(inputs);
-                applicationMap.put(
-                    VALIDATOR_RESOURCES_KEY,
-                    validatorResources);
-            }
-            catch (final Throwable throwable)
-            {
-                throw new JSFValidatorException(throwable);
+                logger.info("No validation rules could be loaded from --> '" + validationResource + ", validation not configured");
             }
         }
         return validatorResources;

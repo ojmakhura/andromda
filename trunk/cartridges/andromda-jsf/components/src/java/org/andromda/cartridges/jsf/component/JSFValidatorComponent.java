@@ -16,6 +16,7 @@ import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.andromda.cartridges.jsf.validator.JSFValidator;
@@ -414,6 +415,11 @@ public class JSFValidatorComponent
         }
         return form;
     }
+    
+    /**
+     * Used to keep track of whether or not the validation rules are present or not.
+     */
+    private static final String RULES_NOT_PRESENT = "validationRulesNotPresent";
 
     /**
      * Begin encoding for this component. This method finds all Commons
@@ -425,44 +431,55 @@ public class JSFValidatorComponent
     public void encodeBegin(final FacesContext context)
         throws IOException
     {
-        try
+        
+        final ServletContext servletContext = this.getRequest().getSession().getServletContext();
+        boolean validationResourcesPresent = servletContext.getAttribute(RULES_NOT_PRESENT) == null;
+        if (validationResourcesPresent && JSFValidator.getValidatorResources() == null)
         {
-            this.validators.clear();
-            this.forms.clear();
-
-            // - include the javascript utilities (only once per request)
-            if (this.getRequest().getAttribute(JAVASCRIPT_UTILITIES) == null)
+            servletContext.setAttribute(RULES_NOT_PRESENT, "true");
+            validationResourcesPresent = false;
+        }
+        if (validationResourcesPresent)
+        {
+            try
             {
-                this.addValidator(
-                    JAVASCRIPT_UTILITIES,
-                    null,
-                    null);
-                this.getRequest().setAttribute(
-                    JAVASCRIPT_UTILITIES,
-                    "present");
-            }
-            final String functionName = (String)this.getAttributes().get(FUNCTION_NAME);
-            final UIForm form = this.findForm(functionName);
-            if (form != null)
-            {
-                if (this.getAttributes().get(FUNCTION_NAME) != null)
+                this.validators.clear();
+                this.forms.clear();
+    
+                // - include the javascript utilities (only once per request)
+                if (this.getRequest().getAttribute(JAVASCRIPT_UTILITIES) == null)
                 {
-                    final ResponseWriter writer = context.getResponseWriter();
-                    this.findJsfValidators(
-                        form,
-                        context);
-                    this.writeScriptStart(writer);
-                    this.writeValidationFunctions(
-                        form,
-                        writer,
-                        context);
-                    this.writeScriptEnd(writer);
+                    this.addValidator(
+                        JAVASCRIPT_UTILITIES,
+                        null,
+                        null);
+                    this.getRequest().setAttribute(
+                        JAVASCRIPT_UTILITIES,
+                        "present");
+                }
+                final String functionName = (String)this.getAttributes().get(FUNCTION_NAME);
+                final UIForm form = this.findForm(functionName);
+                if (form != null)
+                {
+                    if (this.getAttributes().get(FUNCTION_NAME) != null)
+                    {
+                        final ResponseWriter writer = context.getResponseWriter();
+                        this.findJsfValidators(
+                            form,
+                            context);
+                        this.writeScriptStart(writer);
+                        this.writeValidationFunctions(
+                            form,
+                            writer,
+                            context);
+                        this.writeScriptEnd(writer);
+                    }
                 }
             }
-        }
-        catch (final JSFValidatorException exception)
-        {
-            logger.error(exception);
+            catch (final JSFValidatorException exception)
+            {
+                logger.error(exception);
+            }
         }
     }
 }
