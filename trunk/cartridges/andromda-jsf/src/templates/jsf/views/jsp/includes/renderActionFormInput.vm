@@ -1,12 +1,7 @@
 ##
 ## A macro that renders the appropriate action form input field
 ##
-#macro(renderActionInput $parameter $valuePropertyName $propertyId)
-#if ($parameter.backingListName)
-#set ($backingListName = "${formName}.$parameter.backingListName")
-#else
-#set ($backingListName = "${formName}.$parameter.getBackingListName($valuePropertyName)")
-#end
+#macro(renderActionInput $parameter)
 #set ($formValuePropertyName = "${formName}.${valuePropertyName}")
 #if (!$parameter.table && !$parameter.inputHidden)
         <h:outputLabel for="${formName}:${propertyId}" value="#{messages['$parameter.messageKey']}"/>

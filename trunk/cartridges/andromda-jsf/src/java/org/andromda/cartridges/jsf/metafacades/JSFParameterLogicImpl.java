@@ -458,7 +458,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputText()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputFile()
      */
     protected boolean handleIsInputFile()
     {
