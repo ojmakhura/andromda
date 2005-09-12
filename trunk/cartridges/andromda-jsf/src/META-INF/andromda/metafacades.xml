@@ -101,4 +101,10 @@
         <property reference="labelListPattern"/>
         <property reference="valueListPattern"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFEnumerationLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
+        <property reference="converterPattern"/>
+    </metafacade>
 </metafacades>

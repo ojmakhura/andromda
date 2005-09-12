@@ -261,6 +261,13 @@
                     possible parameter values when selecting from a list).
                 </documentation>
             </property>
+            <property name="converterPattern">
+                <default>{0}JsfConverter</default>
+                <documentation>
+                    The pattern used for constructing converters (like the enumeration converter), where
+                    <em>{0}</em> is the name of the model element.
+                </documentation>
+            </property>
             <property name="viewPopulatorPattern">
                 <default>{0}Populator</default>
                 <documentation>

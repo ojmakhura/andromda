@@ -40,16 +40,30 @@ public class $controller.implementationName
 #if ($field.selectable)
 #set ($valueListMethod = $stringUtils.capitalize($field.valueListName))
 #set ($labelListMethod = $stringUtils.capitalize($field.labelListName))
-        form.set${valueListMethod}($field.valueListDummyValue);
-        form.set${labelListMethod}(form.get${valueListMethod}());
+#if ($field.type.enumeration)
+#set ($valueList = "${field.type.fullyQualifiedName}.literals().toArray(new Object[0])")
+#set ($labelList = "${field.type.fullyQualifiedName}.names().toArray(new Object[0])")
+#else
+#set ($valueList = $field.valueListDummyValue)
+#set ($labelList = "form.get${valueListMethod}()")
+#end
+        form.set${valueListMethod}($valueList);
+        form.set${labelListMethod}($labelList);
 #end
 #else
 #foreach ($attribute in $field.attributes)
 #if ($attribute.isSelectable($field))
 #set ($valueListMethod = $stringUtils.capitalize($attribute.getValueListName($field)))
 #set ($labelListMethod = $stringUtils.capitalize($attribute.getLabelListName($field)))
-        form.set${valueListMethod}($attribute.valueListDummyValue);
-        form.set${labelListMethod}(form.get${valueListMethod}());
+#if ($attribute.type.enumeration)
+#set ($valueList = "${attribute.type.fullyQualifiedName}.literals().toArray(new Object[0])")
+#set ($labelList = "${attribute.type.fullyQualifiedName}.names().toArray(new Object[0])")
+#else
+#set ($valueList = $attribute.valueListDummyValue)
+#set ($labeList = "form.get${valueListMethod}()")
+#end
+        form.set${valueListMethod}($valueList);
+        form.set${labelListMethod}($labelList);
 #end
 #end
 #end

@@ -1,0 +1,35 @@
+#if ($stringUtils.isNotBlank($enumeration.packageName))
+package $enumeration.packageName;
+#end
+
+/**
+ * Handles conversion of the enumeration {@link ${enumeration.fullyQualifiedName}}
+ * to a String and back.
+ */
+public class $enumeration.converterName
+    implements javax.faces.convert.Converter
+{
+    /**
+     * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
+     */
+    public String getAsString(
+        javax.faces.context.FacesContext context,
+        javax.faces.component.UIComponent component,
+        java.lang.Object value)
+        throws javax.faces.convert.ConverterException
+    {
+        return value != null ? value.toString() : null;
+    }
+
+    /**
+     * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
+     */
+    public Object getAsObject(
+        javax.faces.context.FacesContext context,
+        javax.faces.component.UIComponent component,
+        java.lang.String value)
+        throws javax.faces.convert.ConverterException
+    {
+        return value != null && value.trim().length() > 0 ? ${enumeration.fullyQualifiedName}.${enumeration.fromOperationName}(value) : null;
+    }
+}
