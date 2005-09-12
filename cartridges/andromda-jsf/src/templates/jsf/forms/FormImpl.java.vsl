@@ -143,10 +143,9 @@ $field.getDocumentation("     * ")
 #end
 #if (!$field.complex)
 #renderBackingListImplSupport($field "")
-#elseif (!$field.attributes.empty)
+#end
 #foreach ($attribute in $field.attributes)
 #renderBackingListImplSupport($attribute $field)
-#end
 #end
 
 #end

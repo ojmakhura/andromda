@@ -35,11 +35,23 @@ public class $controller.implementationName
 #elseif ($tableActionFound)
         // we don't set row selection parameters such as ${field.name}RowSelection
 #end
+
+#if (!$field.complex)
 #if ($field.selectable)
 #set ($valueListMethod = $stringUtils.capitalize($field.valueListName))
 #set ($labelListMethod = $stringUtils.capitalize($field.labelListName))
         form.set${valueListMethod}($field.valueListDummyValue);
         form.set${labelListMethod}(form.get${valueListMethod}());
+#end
+#else
+#foreach ($attribute in $field.attributes)
+#if ($attribute.isSelectable($field))
+#set ($valueListMethod = $stringUtils.capitalize($attribute.getValueListName($field)))
+#set ($labelListMethod = $stringUtils.capitalize($attribute.getLabelListName($field)))
+        form.set${valueListMethod}($attribute.valueListDummyValue);
+        form.set${labelListMethod}(form.get${valueListMethod}());
+#end
+#end
 #end
 #end
 #end

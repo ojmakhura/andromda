@@ -32,16 +32,12 @@ $field.getDocumentation("     * ")
 $field.getDocumentation("     * ")
      */
     public void ${field.setterName}($fieldTypeName $field.name);
-#if (!$field.complex)
-#if ($field.selectable)
+#if (!$field.complex && $field.selectable)
 #renderBackingListSupport($field "")
 #end
-#elseif (!$field.attributes.empty)
 #foreach ($attribute in $field.attributes)
 #if ($attribute.isSelectable($field))
-// selectable??? $attribute.isSelectable($field) attribute = $attribute
 #renderBackingListSupport($attribute $field)
-#end
 #end
 #end
     
