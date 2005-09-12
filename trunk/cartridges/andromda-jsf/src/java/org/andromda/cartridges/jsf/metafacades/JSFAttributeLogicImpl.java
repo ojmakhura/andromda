@@ -427,4 +427,13 @@ public class JSFAttributeLogicImpl
         }
         return file;
     }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getValueListDummyValue()
+     */
+    protected String handleGetValueListDummyValue()
+    {
+        return this.constructDummyArray();
+    }
+
 }
