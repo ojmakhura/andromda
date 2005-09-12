@@ -19,7 +19,6 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
@@ -325,9 +324,7 @@ public class JSFParameterLogicImpl
      */
     private final String getInputFormat()
     {
-        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_FORMAT);
-        final String format = value == null ? null : String.valueOf(value);
-        return format == null ? null : format.trim();
+        return JSFUtils.getInputFormat(this);
     }
 
     /**
@@ -380,67 +377,67 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputTextarea()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputTextarea()
      */
     protected boolean handleIsInputTextarea()
     {
-        return this.isInputType("textarea");
+        return this.isInputType(JSFGlobals.INPUT_TEXTAREA);
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputSelect()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputSelect()
      */
     protected boolean handleIsInputSelect()
     {
-        return this.isInputType("select");
+        return this.isInputType(JSFGlobals.INPUT_SELECT);
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputSecret()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputSecret()
      */
     protected boolean handleIsInputSecret()
     {
-        return this.isInputType("password");
+        return this.isInputType(JSFGlobals.INPUT_PASSWORD);
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputHidden()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputHidden()
      */
     protected boolean handleIsInputHidden()
     {
-        return this.isInputType("hidden");
+        return this.isInputType(JSFGlobals.INPUT_HIDDEN);
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isPlaintext()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isPlaintext()
      */
     protected boolean handleIsPlaintext()
     {
-        return this.isInputType("plaintext");
+        return this.isInputType(JSFGlobals.PLAIN_TEXT);
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputRadio()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputRadio()
      */
     protected boolean handleIsInputRadio()
     {
-        return this.isInputType("radio");
+        return this.isInputType(JSFGlobals.INPUT_RADIO);
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputText()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputText()
      */
     protected boolean handleIsInputText()
     {
-        return this.isInputType("text");
+        return this.isInputType(JSFGlobals.INPUT_TEXT);
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputMultibox()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputMultibox()
      */
     protected boolean handleIsInputMultibox()
     {
-        return this.isInputType("multibox");
+        return this.isInputType(JSFGlobals.INPUT_MULTIBOX);
     }
 
     /**
@@ -448,7 +445,7 @@ public class JSFParameterLogicImpl
      */
     protected boolean handleIsInputCheckbox()
     {
-        boolean checkbox = this.isInputType("checkbox");
+        boolean checkbox = this.isInputType(JSFGlobals.INPUT_CHECKBOX);
         if (!checkbox && this.getInputType().length() == 0)
         {
             final ClassifierFacade type = this.getType();
@@ -591,8 +588,7 @@ public class JSFParameterLogicImpl
             if (type.isSetType())
             {
                 initialValue =
-                    "new java.util.LinkedHashSet(java.util.Arrays.asList(" + this.constructDummyArray() +
-                    "))";
+                    "new java.util.LinkedHashSet(java.util.Arrays.asList(" + this.constructDummyArray() + "))";
             }
             else if (type.isCollectionType())
             {
@@ -687,7 +683,9 @@ public class JSFParameterLogicImpl
      */
     private final String constructDummyArray()
     {
-        return JSFUtils.constructDummyArrayDeclaration(this.getName(), JSFGlobals.DUMMY_ARRAY_COUNT);
+        return JSFUtils.constructDummyArrayDeclaration(
+            this.getName(),
+            JSFGlobals.DUMMY_ARRAY_COUNT);
     }
 
     /**
@@ -732,7 +730,7 @@ public class JSFParameterLogicImpl
         if (type != null)
         {
             final String format = this.getInputFormat();
-            final boolean isRangeFormat = format != null && isRangeFormat(format);
+            final boolean isRangeFormat = format != null && JSFUtils.isRangeFormat(format);
             if (this.isRequired())
             {
                 validatorTypesList.add("required");
@@ -792,11 +790,11 @@ public class JSFParameterLogicImpl
 
             if (format != null)
             {
-                if (this.isString() && this.isEmailFormat(format))
+                if (this.isString() && JSFUtils.isEmailFormat(format))
                 {
                     validatorTypesList.add("email");
                 }
-                else if (this.isString() && this.isCreditCardFormat(format))
+                else if (this.isString() && JSFUtils.isCreditCardFormat(format))
                 {
                     validatorTypesList.add("creditCard");
                 }
@@ -806,15 +804,15 @@ public class JSFParameterLogicImpl
                     for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                     {
                         String additionalFormat = String.valueOf(formatIterator.next());
-                        if (isMinLengthFormat(additionalFormat))
+                        if (JSFUtils.isMinLengthFormat(additionalFormat))
                         {
                             validatorTypesList.add("minlength");
                         }
-                        else if (isMaxLengthFormat(additionalFormat))
+                        else if (JSFUtils.isMaxLengthFormat(additionalFormat))
                         {
                             validatorTypesList.add("maxlength");
                         }
-                        else if (isPatternFormat(additionalFormat))
+                        else if (JSFUtils.isPatternFormat(additionalFormat))
                         {
                             validatorTypesList.add("mask");
                         }
@@ -839,12 +837,11 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ParameterFacade#getValidWhen()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getValidWhen()
      */
     protected java.lang.String handleGetValidWhen()
     {
-        final Object value = findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_VALIDWHEN);
-        return value == null ? null : '(' + value.toString() + ')';
+        return JSFUtils.getValidWhen(this);
     }
 
     /**
@@ -863,8 +860,7 @@ public class JSFParameterLogicImpl
      */
     protected boolean handleIsReadOnly()
     {
-        final Object value = this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_READONLY);
-        return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+        return JSFUtils.isReadOnly(this);
     }
 
     /**
@@ -872,9 +868,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isByte()
     {
-        return UMLMetafacadeUtils.isType(
-            this.getType(),
-            JSFProfile.BYTE_TYPE_NAME);
+        return JSFUtils.isByte(this.getType());
     }
 
     /**
@@ -882,9 +876,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isShort()
     {
-        return UMLMetafacadeUtils.isType(
-            this.getType(),
-            JSFProfile.SHORT_TYPE_NAME);
+        return JSFUtils.isShort(this.getType());
     }
 
     /**
@@ -892,9 +884,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isInteger()
     {
-        return UMLMetafacadeUtils.isType(
-            this.getType(),
-            JSFProfile.INTEGER_TYPE_NAME);
+        return JSFUtils.isInteger(this.getType());
     }
 
     /**
@@ -902,9 +892,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isLong()
     {
-        return UMLMetafacadeUtils.isType(
-            this.getType(),
-            JSFProfile.LONG_TYPE_NAME);
+        return JSFUtils.isLong(this.getType());
     }
 
     /**
@@ -912,9 +900,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isFloat()
     {
-        return UMLMetafacadeUtils.isType(
-            this.getType(),
-            JSFProfile.FLOAT_TYPE_NAME);
+        return JSFUtils.isFloat(this.getType());
     }
 
     /**
@@ -922,9 +908,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isDouble()
     {
-        return UMLMetafacadeUtils.isType(
-            this.getType(),
-            JSFProfile.DOUBLE_TYPE_NAME);
+        return JSFUtils.isDouble(this.getType());
     }
 
     /**
@@ -932,7 +916,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isDate()
     {
-        return this.getType() != null && this.getType().isDateType();
+        return JSFUtils.isDate(this.getType());
     }
 
     /**
@@ -940,9 +924,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isTime()
     {
-        return UMLMetafacadeUtils.isType(
-            this.getType(),
-            JSFProfile.TIME_TYPE_NAME);
+        return JSFUtils.isTime(this.getType());
     }
 
     /**
@@ -950,9 +932,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isUrl()
     {
-        return UMLMetafacadeUtils.isType(
-            this.getType(),
-            JSFProfile.URL_TYPE_NAME);
+        return JSFUtils.isUrl(this.getType());
     }
 
     /**
@@ -960,128 +940,7 @@ public class JSFParameterLogicImpl
      */
     private boolean isString()
     {
-        return this.getType() != null && this.getType().isStringType();
-    }
-
-    /**
-     * @return <code>true</code> if this field is to be formatted as an email address, <code>false</code> otherwise
-     */
-    private boolean isEmailFormat(String format)
-    {
-        return "email".equalsIgnoreCase(JSFUtils.getToken(
-                format,
-                0,
-                2));
-    }
-
-    /**
-     * @return <code>true</code> if this field is to be formatted as a credit card, <code>false</code> otherwise
-     */
-    private boolean isCreditCardFormat(final String format)
-    {
-        return "creditcard".equalsIgnoreCase(JSFUtils.getToken(
-                format,
-                0,
-                2));
-    }
-
-    /**
-     * @return <code>true</code> if this field's value needs to be in a specific range, <code>false</code> otherwise
-     */
-    private boolean isRangeFormat(final String format)
-    {
-        return "range".equalsIgnoreCase(JSFUtils.getToken(
-                format,
-                0,
-                2)) && (this.isInteger() || this.isLong() || this.isShort() || this.isFloat() || this.isDouble());
-    }
-
-    /**
-     * @return <code>true</code> if this field's value needs to respect a certain pattern, <code>false</code> otherwise
-     */
-    private boolean isPatternFormat(final String format)
-    {
-        return "pattern".equalsIgnoreCase(JSFUtils.getToken(
-                format,
-                0,
-                2));
-    }
-
-    /**
-     * @return <code>true</code> if this field's value needs to consist of at least a certain number of characters, <code>false</code> otherwise
-     */
-    private boolean isMinLengthFormat(final String format)
-    {
-        return "minlength".equalsIgnoreCase(JSFUtils.getToken(
-                format,
-                0,
-                2));
-    }
-
-    /**
-     * @return <code>true</code> if this field's value needs to consist of at maximum a certain number of characters, <code>false</code> otherwise
-     */
-    private boolean isMaxLengthFormat(String format)
-    {
-        return "maxlength".equalsIgnoreCase(JSFUtils.getToken(
-                format,
-                0,
-                2));
-    }
-
-    /**
-     * @return the lower limit for this field's value's range
-     */
-    private String getRangeStart(final String format)
-    {
-        return JSFUtils.getToken(
-            format,
-            1,
-            3);
-    }
-
-    /**
-     * @return the upper limit for this field's value's range
-     */
-    private String getRangeEnd(final String format)
-    {
-        return JSFUtils.getToken(
-            format,
-            2,
-            3);
-    }
-
-    /**
-     * @return the minimum number of characters this field's value must consist of
-     */
-    private String getMinLengthValue(final String format)
-    {
-        return JSFUtils.getToken(
-            format,
-            1,
-            2);
-    }
-
-    /**
-     * @return the maximum number of characters this field's value must consist of
-     */
-    private String getMaxLengthValue(final String format)
-    {
-        return JSFUtils.getToken(
-            format,
-            1,
-            2);
-    }
-
-    /**
-     * @return the pattern this field's value must respect
-     */
-    private String getPatternValue(final String format)
-    {
-        return '^' + JSFUtils.getToken(
-            format,
-            1,
-            2) + '$';
+        return JSFUtils.isString(this.getType());
     }
 
     /**
@@ -1147,7 +1006,7 @@ public class JSFParameterLogicImpl
             final String format = this.getInputFormat();
             if (format != null)
             {
-                final boolean isRangeFormat = this.isRangeFormat(format);
+                final boolean isRangeFormat = JSFUtils.isRangeFormat(format);
 
                 if (isRangeFormat)
                 {
@@ -1155,10 +1014,10 @@ public class JSFParameterLogicImpl
                     final String max = "max";
                     vars.put(
                         min,
-                        Arrays.asList(new Object[] {min, getRangeStart(format)}));
+                        Arrays.asList(new Object[] {min, JSFUtils.getRangeStart(format)}));
                     vars.put(
                         max,
-                        Arrays.asList(new Object[] {max, getRangeEnd(format)}));
+                        Arrays.asList(new Object[] {max, JSFUtils.getRangeEnd(format)}));
                 }
                 else
                 {
@@ -1169,23 +1028,23 @@ public class JSFParameterLogicImpl
                         final String minlength = "minlength";
                         final String maxlength = "maxlength";
                         final String mask = "mask";
-                        if (isMinLengthFormat(additionalFormat))
+                        if (JSFUtils.isMinLengthFormat(additionalFormat))
                         {
                             vars.put(
                                 minlength,
-                                Arrays.asList(new Object[] {minlength, this.getMinLengthValue(additionalFormat)}));
+                                Arrays.asList(new Object[] {minlength, JSFUtils.getMinLengthValue(additionalFormat)}));
                         }
-                        else if (isMaxLengthFormat(additionalFormat))
+                        else if (JSFUtils.isMaxLengthFormat(additionalFormat))
                         {
                             vars.put(
                                 maxlength,
-                                Arrays.asList(new Object[] {maxlength, this.getMaxLengthValue(additionalFormat)}));
+                                Arrays.asList(new Object[] {maxlength, JSFUtils.getMaxLengthValue(additionalFormat)}));
                         }
-                        else if (isPatternFormat(additionalFormat))
+                        else if (JSFUtils.isPatternFormat(additionalFormat))
                         {
                             vars.put(
                                 mask,
-                                Arrays.asList(new Object[] {mask, this.getPatternValue(additionalFormat)}));
+                                Arrays.asList(new Object[] {mask, JSFUtils.getPatternValue(additionalFormat)}));
                         }
                     }
                 }
@@ -1254,8 +1113,9 @@ public class JSFParameterLogicImpl
      */
     protected boolean handleIsReset()
     {
-        boolean reset = Boolean.valueOf(
-            ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_RESET))).booleanValue();
+        boolean reset =
+            Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_RESET)))
+                   .booleanValue();
         if (!reset)
         {
             final JSFAction action = (JSFAction)this.getAction();

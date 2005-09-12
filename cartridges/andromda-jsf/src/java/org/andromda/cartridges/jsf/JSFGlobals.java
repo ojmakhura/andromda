@@ -146,4 +146,49 @@ public class JSFGlobals
      * the enumeration converter).
      */
     public static final String CONVERTER_PATTERN = "converterPattern";
+    
+    /**
+     * The "textarea" form input type.
+     */
+    public static final String INPUT_TEXTAREA = "textarea";
+    
+    /**
+     * The "select" form input type.
+     */
+    public static final String INPUT_SELECT = "select";
+    
+    /**
+     * The "password" form input type.
+     */
+    public static final String INPUT_PASSWORD = "password";
+    
+    /**
+     * The "hidden" form input type.
+     */
+    public static final String INPUT_HIDDEN = "hidden";
+    
+    /**
+     * The "radio" form input type.
+     */
+    public static final String INPUT_RADIO = "radio";
+    
+    /**
+     * The "text" form input type.
+     */
+    public static final String INPUT_TEXT = "text";
+    
+    /**
+     * The "multibox" form input type.
+     */
+    public static final String INPUT_MULTIBOX = "multibox";
+
+    /**
+     * The "checkbox" form input type.
+     */
+    public static final String INPUT_CHECKBOX = "checkbox";
+
+    /**
+     * The "plain text" type.
+     */
+    public static final String PLAIN_TEXT = "plaintext";
 }
