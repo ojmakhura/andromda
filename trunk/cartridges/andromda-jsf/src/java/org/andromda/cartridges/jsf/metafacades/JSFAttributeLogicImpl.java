@@ -538,4 +538,21 @@ public class JSFAttributeLogicImpl
     {
         return JSFUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
     }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getDateFormatter(org.andromda.cartridges.jsf.metafacades.JSFParameter)
+     */
+    protected String handleGetDateFormatter(final JSFParameter ownerParameter)
+    {
+        final ClassifierFacade type = this.getType();
+        return type != null && type.isDateType() ? this.getFormPropertyId(ownerParameter) + "DateFormatter" : null;
+    }
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getTimeFormatter(org.andromda.cartridges.jsf.metafacades.JSFParameter)
+     */
+    protected String handleGetTimeFormatter(final JSFParameter ownerParameter)
+    {
+        final ClassifierFacade type = this.getType();
+        return type != null && type.isTimeType() ? this.getFormPropertyId(ownerParameter) + "TimeFormatter" : null;
+    }
 }

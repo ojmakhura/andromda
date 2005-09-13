@@ -102,3 +102,26 @@
         }
     }
 #end
+##
+## This macro renders the the date/time formatters within the form implementation
+## 
+#macro(renderDateTimeFormatters $field $ownerParameter)
+#if ($field.backingListName)
+#set ($dateFormatter = $field.dateFormatter)
+#set ($timeFormatter = $field.timeFormatter)
+#set ($fieldName = $field.name)
+#else
+#set ($dateFormatter = $field.getDateFormatter($ownerParameter))
+#set ($timeFormatter = $field.getTimeFormatter($ownerParameter))
+#set ($fieldName = $field.getFormPropertyName($ownerParameter))
+#end
+#set ($lenient = !$field.strictDateFormat)
+#if ($field.type.dateType)
+        java.text.DateFormat $dateFormatter = new java.text.SimpleDateFormat("$field.format");
+        ${dateFormatter}.setLenient($lenient);
+        this.dateTimeFormatters.put("$fieldName", $dateFormatter);
+#elseif ($field.type.timeType)
+        java.text.DateFormat $timeFormatter = new java.text.SimpleDateFormat("$field.format");
+        this.dateTimeFormatters.put("$fieldName", $timeFormatter);
+#end
+#end
