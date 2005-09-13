@@ -1,7 +1,6 @@
 package org.andromda.cartridges.jsf.component;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -15,13 +14,13 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.andromda.cartridges.jsf.validator.JSFValidator;
 import org.andromda.cartridges.jsf.validator.JSFValidatorException;
 import org.andromda.cartridges.jsf.validator.ValidatorMessages;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -112,7 +111,7 @@ public class JSFValidatorComponent
      * @param component The component at the root of the component tree
      * @param context The FacesContext for this request
      */
-    private void findJsfValidators(
+    private void findValidators(
         final UIComponent component,
         final FacesContext context)
     {
@@ -135,7 +134,9 @@ public class JSFValidatorComponent
                         for (final Iterator iterator = validatorFields.iterator(); iterator.hasNext();)
                         {
                             final Field field = (Field)iterator.next();
-                            if (componentId.equals(field.getProperty()))
+                            // we need to make it match the name of the id on the jsf components (if its nested).
+                            final String fieldProperty = StringUtilsHelper.lowerCamelCaseName(field.getProperty());
+                            if (componentId.equals(fieldProperty))
                             {
                                 for (final Iterator dependencyIterator = field.getDependencyList().iterator();
                                     dependencyIterator.hasNext();)
@@ -182,7 +183,7 @@ public class JSFValidatorComponent
         for (final Iterator iterator = component.getFacetsAndChildren(); iterator.hasNext();)
         {
             final UIComponent childComponent = (UIComponent)iterator.next();
-            this.findJsfValidators(
+            this.findValidators(
                 childComponent,
                 context);
         }
@@ -464,7 +465,7 @@ public class JSFValidatorComponent
                     if (this.getAttributes().get(FUNCTION_NAME) != null)
                     {
                         final ResponseWriter writer = context.getResponseWriter();
-                        this.findJsfValidators(
+                        this.findValidators(
                             form,
                             context);
                         this.writeScriptStart(writer);
