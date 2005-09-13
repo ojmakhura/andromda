@@ -10,12 +10,13 @@
 #set ($constraintDocumentation = $constraint.getDocumentation("",-1,false))
         {
 ## - we need to replace the references of "this" with "this.THIS()" in order to validate the correct metafacade instance 
-## (since we're using delegate inheritance)
+##  (since we're using delegate inheritance)
             $stringUtils.replace($constraintTranslation, 'final java.lang.Object contextElement = this;', 'final java.lang.Object contextElement = this.THIS();') 
             if (!constraintValid)
                 validationMessages.add(
                     new org.andromda.core.metafacade.ModelValidationMessage(
                         this.THIS(),
+                        "$constraint.name",
                         "$escapeUtils.escapeJava($constraintDocumentation)"));
         }
 #set ($constraintDocumentation = false)## reset to make sure we do not reuse the documentation of previous constraints
