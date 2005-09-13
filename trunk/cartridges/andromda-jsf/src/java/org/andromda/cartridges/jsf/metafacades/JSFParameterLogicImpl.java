@@ -1,7 +1,6 @@
 package org.andromda.cartridges.jsf.metafacades;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -18,6 +17,7 @@ import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
@@ -285,28 +285,11 @@ public class JSFParameterLogicImpl
      */
     protected String handleGetFormat()
     {
-        String format = null;
-        final ClassifierFacade type = this.getType();
-        if (type != null)
-        {
-            format = this.getInputFormat();
-            if (format == null)
-            {
-                if (type.isTimeType())
-                {
-                    format = this.getDefaultTimeFormat();
-                }
-                else if (type.isDateType())
-                {
-                    format = this.getDefaultDateFormat();
-                }
-            }
-            else if (type.isDateType())
-            {
-                format = JSFUtils.getDateFormat(format);
-            }
-        }
-        return format;
+        return JSFUtils.getFormat(
+            (ModelElementFacade)this.THIS(),
+            this.getType(),
+            this.getDefaultDateFormat(),
+            this.getDefaultTimeFormat());
     }
 
     /**
@@ -318,22 +301,11 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * Retrieves the input format defined by the {@link JSFProfile#TAGGEDVALUE_INPUT_FORMAT}.
-     *
-     * @return the input format.
-     */
-    private final String getInputFormat()
-    {
-        return JSFUtils.getInputFormat(this);
-    }
-
-    /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isStrictDateFormat()
      */
     protected boolean handleIsStrictDateFormat()
     {
-        final String format = this.getInputFormat();
-        return format != null && JSFUtils.isStrictDateFormat(format);
+        return JSFUtils.isStrictDateFormat((ModelElementFacade)this.THIS());
     }
 
     /**
@@ -717,7 +689,20 @@ public class JSFParameterLogicImpl
      */
     protected boolean handleIsValidationRequired()
     {
-        return !this.getValidatorTypes().isEmpty();
+        boolean required = !this.getValidatorTypes().isEmpty();
+        if (!required)
+        {
+            for (final Iterator iterator = this.getAttributes().iterator(); iterator.hasNext();)
+            {
+                final JSFAttribute attribute = (JSFAttribute)iterator.next();
+                required = !attribute.getValidatorTypes().isEmpty();
+                if (required)
+                {
+                    break;
+                }
+            }
+        }
+        return required;
     }
 
     /**
@@ -725,115 +710,7 @@ public class JSFParameterLogicImpl
      */
     protected java.util.Collection handleGetValidatorTypes()
     {
-        final Collection validatorTypesList = new ArrayList();
-        final ClassifierFacade type = getType();
-        if (type != null)
-        {
-            final String format = this.getInputFormat();
-            final boolean isRangeFormat = format != null && JSFUtils.isRangeFormat(format);
-            if (this.isRequired())
-            {
-                validatorTypesList.add("required");
-            }
-            if (this.isByte())
-            {
-                validatorTypesList.add("byte");
-            }
-            else if (this.isShort())
-            {
-                validatorTypesList.add("short");
-            }
-            else if (this.isInteger())
-            {
-                validatorTypesList.add("integer");
-            }
-            else if (this.isLong())
-            {
-                validatorTypesList.add("long");
-            }
-            else if (this.isFloat())
-            {
-                validatorTypesList.add("float");
-            }
-            else if (this.isDouble())
-            {
-                validatorTypesList.add("double");
-            }
-            else if (this.isDate())
-            {
-                validatorTypesList.add("date");
-            }
-            else if (this.isTime())
-            {
-                validatorTypesList.add("time");
-            }
-            else if (this.isUrl())
-            {
-                validatorTypesList.add("url");
-            }
-
-            if (isRangeFormat)
-            {
-                if (this.isInteger() || this.isShort() || this.isLong())
-                {
-                    validatorTypesList.add("intRange");
-                }
-                if (this.isFloat())
-                {
-                    validatorTypesList.add("floatRange");
-                }
-                if (this.isDouble())
-                {
-                    validatorTypesList.add("doubleRange");
-                }
-            }
-
-            if (format != null)
-            {
-                if (this.isString() && JSFUtils.isEmailFormat(format))
-                {
-                    validatorTypesList.add("email");
-                }
-                else if (this.isString() && JSFUtils.isCreditCardFormat(format))
-                {
-                    validatorTypesList.add("creditCard");
-                }
-                else
-                {
-                    Collection formats = findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_FORMAT);
-                    for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
-                    {
-                        String additionalFormat = String.valueOf(formatIterator.next());
-                        if (JSFUtils.isMinLengthFormat(additionalFormat))
-                        {
-                            validatorTypesList.add("minlength");
-                        }
-                        else if (JSFUtils.isMaxLengthFormat(additionalFormat))
-                        {
-                            validatorTypesList.add("maxlength");
-                        }
-                        else if (JSFUtils.isPatternFormat(additionalFormat))
-                        {
-                            validatorTypesList.add("mask");
-                        }
-                    }
-                }
-            }
-
-            if (this.getValidWhen() != null)
-            {
-                validatorTypesList.add("validwhen");
-            }
-        }
-
-        // - custom (paramterized) validators are allowed here
-        final Collection taggedValues = findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
-        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
-        {
-            String validator = String.valueOf(iterator.next());
-            validatorTypesList.add(JSFUtils.parseValidatorName(validator));
-        }
-        return validatorTypesList;
+        return JSFUtils.getValidatorTypes((ModelElementFacade)this.THIS(), this.getType());
     }
 
     /**
@@ -862,135 +739,13 @@ public class JSFParameterLogicImpl
     {
         return JSFUtils.isReadOnly(this);
     }
-
-    /**
-     * @return <code>true</code> if the type of this field is a byte, <code>false</code> otherwise
-     */
-    private boolean isByte()
-    {
-        return JSFUtils.isByte(this.getType());
-    }
-
-    /**
-     * @return <code>true</code> if the type of this field is a short, <code>false</code> otherwise
-     */
-    private boolean isShort()
-    {
-        return JSFUtils.isShort(this.getType());
-    }
-
-    /**
-     * @return <code>true</code> if the type of this field is an integer, <code>false</code> otherwise
-     */
-    private boolean isInteger()
-    {
-        return JSFUtils.isInteger(this.getType());
-    }
-
-    /**
-     * @return <code>true</code> if the type of this field is a long integer, <code>false</code> otherwise
-     */
-    private boolean isLong()
-    {
-        return JSFUtils.isLong(this.getType());
-    }
-
-    /**
-     * @return <code>true</code> if the type of this field is a floating point, <code>false</code> otherwise
-     */
-    private boolean isFloat()
-    {
-        return JSFUtils.isFloat(this.getType());
-    }
-
-    /**
-     * @return <code>true</code> if the type of this field is a double precision floating point, <code>false</code> otherwise
-     */
-    private boolean isDouble()
-    {
-        return JSFUtils.isDouble(this.getType());
-    }
-
-    /**
-     * @return <code>true</code> if the type of this field is a date, <code>false</code> otherwise
-     */
-    private boolean isDate()
-    {
-        return JSFUtils.isDate(this.getType());
-    }
-
-    /**
-     * @return <code>true</code> if the type of this field is a time, <code>false</code> otherwise
-     */
-    private boolean isTime()
-    {
-        return JSFUtils.isTime(this.getType());
-    }
-
-    /**
-     * @return <code>true</code> if the type of this field is a URL, <code>false</code> otherwise
-     */
-    private boolean isUrl()
-    {
-        return JSFUtils.isUrl(this.getType());
-    }
-
-    /**
-     * @return <code>true</code> if the type of this field is a String, <code>false</code> otherwise
-     */
-    private boolean isString()
-    {
-        return JSFUtils.isString(this.getType());
-    }
-
+    
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getValidatorArgs(java.lang.String)
      */
     protected java.util.Collection handleGetValidatorArgs(final java.lang.String validatorType)
     {
-        final Collection args = new ArrayList();
-        if ("intRange".equals(validatorType) || "floatRange".equals(validatorType) ||
-            "doubleRange".equals(validatorType))
-        {
-            args.add("${var:min}");
-            args.add("${var:max}");
-        }
-        else if ("minlength".equals(validatorType))
-        {
-            args.add("${var:minlength}");
-        }
-        else if ("maxlength".equals(validatorType))
-        {
-            args.add("${var:maxlength}");
-        }
-        else if ("date".equals(validatorType))
-        {
-            final String validatorFormat = this.getInputFormat();
-            if (validatorFormat != null && JSFUtils.isStrictDateFormat(validatorFormat))
-            {
-                args.add("${var:datePatternStrict}");
-            }
-            else
-            {
-                args.add("${var:datePattern}");
-            }
-        }
-        else if ("time".equals(validatorType))
-        {
-            args.add("${var:timePattern}");
-        }
-
-        // custom (paramterized) validators are allowed here
-        Collection taggedValues = findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
-        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
-        {
-            String validator = String.valueOf(iterator.next());
-            if (validatorType.equals(JSFUtils.parseValidatorName(validator)))
-            {
-                args.addAll(JSFUtils.parseValidatorArgs(validator));
-            }
-        }
-        return args;
+        return JSFUtils.getValidatorArgs((ModelElementFacade)this.THIS(), validatorType);
     }
 
     /**
@@ -998,114 +753,7 @@ public class JSFParameterLogicImpl
      */
     protected java.util.Collection handleGetValidatorVars()
     {
-        final Map vars = new HashMap();
-
-        final ClassifierFacade type = getType();
-        if (type != null)
-        {
-            final String format = this.getInputFormat();
-            if (format != null)
-            {
-                final boolean isRangeFormat = JSFUtils.isRangeFormat(format);
-
-                if (isRangeFormat)
-                {
-                    final String min = "min";
-                    final String max = "max";
-                    vars.put(
-                        min,
-                        Arrays.asList(new Object[] {min, JSFUtils.getRangeStart(format)}));
-                    vars.put(
-                        max,
-                        Arrays.asList(new Object[] {max, JSFUtils.getRangeEnd(format)}));
-                }
-                else
-                {
-                    final Collection formats = findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_FORMAT);
-                    for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
-                    {
-                        final String additionalFormat = String.valueOf(formatIterator.next());
-                        final String minlength = "minlength";
-                        final String maxlength = "maxlength";
-                        final String mask = "mask";
-                        if (JSFUtils.isMinLengthFormat(additionalFormat))
-                        {
-                            vars.put(
-                                minlength,
-                                Arrays.asList(new Object[] {minlength, JSFUtils.getMinLengthValue(additionalFormat)}));
-                        }
-                        else if (JSFUtils.isMaxLengthFormat(additionalFormat))
-                        {
-                            vars.put(
-                                maxlength,
-                                Arrays.asList(new Object[] {maxlength, JSFUtils.getMaxLengthValue(additionalFormat)}));
-                        }
-                        else if (JSFUtils.isPatternFormat(additionalFormat))
-                        {
-                            vars.put(
-                                mask,
-                                Arrays.asList(new Object[] {mask, JSFUtils.getPatternValue(additionalFormat)}));
-                        }
-                    }
-                }
-            }
-            if (this.isDate())
-            {
-                final String datePatternStrict = "datePatternStrict";
-                if (format != null && JSFUtils.isStrictDateFormat(format))
-                {
-                    vars.put(
-                        datePatternStrict,
-                        Arrays.asList(new Object[] {datePatternStrict, this.getFormat()}));
-                }
-                else
-                {
-                    final String datePattern = "datePattern";
-                    vars.put(
-                        datePattern,
-                        Arrays.asList(new Object[] {datePattern, this.getFormat()}));
-                }
-            }
-            if (this.isTime())
-            {
-                final String timePattern = "timePattern";
-                vars.put(
-                    timePattern,
-                    Arrays.asList(new Object[] {timePattern, this.getFormat()}));
-            }
-
-            final String validWhen = getValidWhen();
-            if (validWhen != null)
-            {
-                final String test = "test";
-                vars.put(
-                    test,
-                    Arrays.asList(new Object[] {test, validWhen}));
-            }
-        }
-
-        // - custom (parameterized) validators are allowed here
-        //   in this case we will reuse the validator arg values
-        final Collection taggedValues = findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
-        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
-        {
-            final String validator = String.valueOf(iterator.next());
-
-            // - guaranteed to be of the same length
-            final List validatorVars = JSFUtils.parseValidatorVars(validator);
-            final List validatorArgs = JSFUtils.parseValidatorArgs(validator);
-
-            for (int ctr = 0; ctr < validatorVars.size(); ctr++)
-            {
-                final String validatorVar = (String)validatorVars.get(ctr);
-                final String validatorArg = (String)validatorArgs.get(ctr);
-                vars.put(
-                    validatorVar,
-                    Arrays.asList(new Object[] {validatorVar, validatorArg}));
-            }
-        }
-
-        return vars.values();
+        return JSFUtils.getValidatorVars(((ModelElementFacade)this.THIS()), this.getType());
     }
 
     /**

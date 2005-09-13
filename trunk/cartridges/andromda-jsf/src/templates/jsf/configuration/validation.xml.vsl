@@ -20,8 +20,37 @@
 #set ($actionParameters = $action.parameters)
 #foreach ($field in $action.formFields)
 #if ($field.validationRequired && $actionParameters.contains($field))
+#if (!$field.complex)
+#renderField($field "")
+#else
+#foreach ($attribute in $field.attributes)
+#if ($attribute.validationRequired)
+#renderField($attribute $field)
+#end
+#end
+#end
+#end
+#end
+        </form>
+#end
+#end
+#end
+    </formset>
+
+</form-validation>
+#end
+
+##
+## This macro renders the <field/> elements
+##
+#macro (renderField $field $ownerParameter)
+#if ($field.backingListName)
+#set ($fieldName = $field.name)
+#else
+#set ($fieldName = $field.getFormPropertyName($ownerParameter))
+#end
 #set ($validatorTypes = $field.validatorTypes)
-            <field property="$field.name" depends="$stringUtils.join($validatorTypes.iterator(),",")">
+            <field property="$fieldName" depends="$stringUtils.join($validatorTypes.iterator(),",")">
                 <arg position="0" key="$field.messageKey" />
 #if ($field.validWhen)
                 <msg name="validwhen" key="${field.messageKey}_validwhen" />
@@ -38,13 +67,4 @@
                 </var>
 #end
             </field>
-#end
-#end
-        </form>
-#end
-#end
-#end
-    </formset>
-
-</form-validation>
 #end

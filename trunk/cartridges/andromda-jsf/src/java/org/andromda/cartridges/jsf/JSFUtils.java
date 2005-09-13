@@ -1,9 +1,17 @@
 package org.andromda.cartridges.jsf;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.andromda.cartridges.jsf.metafacades.JSFAttribute;
+import org.andromda.cartridges.jsf.metafacades.JSFParameter;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
@@ -204,10 +212,10 @@ public class JSFUtils
                 0,
                 2));
     }
-    
+
     /**
      * Indicates if the given <code>format</code> is an email format.
-     * 
+     *
      * @return <code>true</code> if this field is to be formatted as an email address, <code>false</code> otherwise
      */
     public static boolean isEmailFormat(String format)
@@ -220,7 +228,7 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is a creditcard format.
-     * 
+     *
      * @return <code>true</code> if this field is to be formatted as a credit card, <code>false</code> otherwise
      */
     public static boolean isCreditCardFormat(final String format)
@@ -233,7 +241,7 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is a pattern format.
-     * 
+     *
      * @return <code>true</code> if this field's value needs to respect a certain pattern, <code>false</code> otherwise
      */
     public static boolean isPatternFormat(final String format)
@@ -246,8 +254,8 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is a minlength format.
-     * 
-     * @return <code>true</code> if this field's value needs to consist of at least a certain 
+     *
+     * @return <code>true</code> if this field's value needs to consist of at least a certain
      *         number of characters, <code>false</code> otherwise
      */
     public static boolean isMinLengthFormat(final String format)
@@ -260,8 +268,8 @@ public class JSFUtils
 
     /**
      * Indicates if the given <code>format</code> is a maxlength format.
-     * 
-     * @return <code>true</code> if this field's value needs to consist of at maximum a certain 
+     *
+     * @return <code>true</code> if this field's value needs to consist of at maximum a certain
      *         number of characters, <code>false</code> otherwise
      */
     public static boolean isMaxLengthFormat(String format)
@@ -316,7 +324,7 @@ public class JSFUtils
                 0,
                 2));
     }
-    
+
     /**
      * @return <code>true</code> if the type of this field is a byte, <code>false</code> otherwise
      */
@@ -412,10 +420,10 @@ public class JSFUtils
     {
         return type != null && type.isStringType();
     }
-    
+
     /**
      * Indicates if the given element is read-only or not.
-     * 
+     *
      * @param element the element to check.
      * @return true/false
      */
@@ -429,10 +437,10 @@ public class JSFUtils
         }
         return readOnly;
     }
-    
+
     /**
      * Retrieves the "validwhen" value from the given element (if one is present).
-     * 
+     *
      * @param element the element from which to retrieve the validwhen value.
      * @return the "validwhen" value.
      */
@@ -442,11 +450,11 @@ public class JSFUtils
         if (element != null)
         {
             final Object value = element.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_VALIDWHEN);
-            validWhen = value == null ? null : '(' + value.toString() + ')';           
+            validWhen = value == null ? null : '(' + value.toString() + ')';
         }
         return validWhen;
     }
-    
+
     /**
      * @return the lower limit for this field's value's range
      */
@@ -500,5 +508,373 @@ public class JSFUtils
             format,
             1,
             2) + '$';
+    }
+
+    /**
+     * Retrieves the validator types as a collection from the given
+     * <code>element</code> (if any can be retrieved).
+     *
+     * @param element the element from which to retrieve the types.
+     * @param type the type of the element.
+     * @return the collection of validator types.
+     */
+    public static java.util.Collection getValidatorTypes(
+        final ModelElementFacade element,
+        final ClassifierFacade type)
+    {
+        final Collection validatorTypesList = new ArrayList();
+        if (element != null && type != null)
+        {
+            final String format = JSFUtils.getInputFormat(element);
+            final boolean isRangeFormat = format != null && isRangeFormat(format);
+            if (element instanceof AttributeFacade)
+            {
+                if (((AttributeFacade)element).isRequired())
+                {
+                    validatorTypesList.add("required");
+                }
+            }
+            else if (element instanceof JSFParameter)
+            {
+                if (((JSFParameter)element).isRequired())
+                {
+                    validatorTypesList.add("required");
+                }
+            }
+            if (JSFUtils.isByte(type))
+            {
+                validatorTypesList.add("byte");
+            }
+            else if (JSFUtils.isShort(type))
+            {
+                validatorTypesList.add("short");
+            }
+            else if (JSFUtils.isInteger(type))
+            {
+                validatorTypesList.add("integer");
+            }
+            else if (JSFUtils.isLong(type))
+            {
+                validatorTypesList.add("long");
+            }
+            else if (JSFUtils.isFloat(type))
+            {
+                validatorTypesList.add("float");
+            }
+            else if (JSFUtils.isDouble(type))
+            {
+                validatorTypesList.add("double");
+            }
+            else if (JSFUtils.isDate(type))
+            {
+                validatorTypesList.add("date");
+            }
+            else if (JSFUtils.isTime(type))
+            {
+                validatorTypesList.add("time");
+            }
+            else if (JSFUtils.isUrl(type))
+            {
+                validatorTypesList.add("url");
+            }
+
+            if (isRangeFormat)
+            {
+                if (JSFUtils.isInteger(type) || JSFUtils.isShort(type) || JSFUtils.isLong(type))
+                {
+                    validatorTypesList.add("intRange");
+                }
+                if (JSFUtils.isFloat(type))
+                {
+                    validatorTypesList.add("floatRange");
+                }
+                if (JSFUtils.isDouble(type))
+                {
+                    validatorTypesList.add("doubleRange");
+                }
+            }
+
+            if (format != null)
+            {
+                if (JSFUtils.isString(type) && JSFUtils.isEmailFormat(format))
+                {
+                    validatorTypesList.add("email");
+                }
+                else if (JSFUtils.isString(type) && JSFUtils.isCreditCardFormat(format))
+                {
+                    validatorTypesList.add("creditCard");
+                }
+                else
+                {
+                    Collection formats = element.findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_FORMAT);
+                    for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
+                    {
+                        String additionalFormat = String.valueOf(formatIterator.next());
+                        if (JSFUtils.isMinLengthFormat(additionalFormat))
+                        {
+                            validatorTypesList.add("minlength");
+                        }
+                        else if (JSFUtils.isMaxLengthFormat(additionalFormat))
+                        {
+                            validatorTypesList.add("maxlength");
+                        }
+                        else if (JSFUtils.isPatternFormat(additionalFormat))
+                        {
+                            validatorTypesList.add("mask");
+                        }
+                    }
+                }
+            }
+
+            if (JSFUtils.getValidWhen(element) != null)
+            {
+                validatorTypesList.add("validwhen");
+            }
+        }
+
+        // - custom (paramterized) validators are allowed here
+        final Collection taggedValues = element.findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
+        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        {
+            String validator = String.valueOf(iterator.next());
+            validatorTypesList.add(JSFUtils.parseValidatorName(validator));
+        }
+        return validatorTypesList;
+    }
+
+    /**
+     * Gets the validator variables for the given <code>element</code> (if they can
+     * be retrieved).
+     *
+     * @param element the element from which to retrieve the variables
+     * @param type the type of the element.
+     * @return the collection of validator variables.
+     */
+    public static java.util.Collection getValidatorVars(
+        final ModelElementFacade element,
+        final ClassifierFacade type)
+    {
+        final Map vars = new HashMap();
+        if (element != null && type != null)
+        {
+            final String format = JSFUtils.getInputFormat(element);
+            if (format != null)
+            {
+                final boolean isRangeFormat = JSFUtils.isRangeFormat(format);
+
+                if (isRangeFormat)
+                {
+                    final String min = "min";
+                    final String max = "max";
+                    vars.put(
+                        min,
+                        Arrays.asList(new Object[] {min, JSFUtils.getRangeStart(format)}));
+                    vars.put(
+                        max,
+                        Arrays.asList(new Object[] {max, JSFUtils.getRangeEnd(format)}));
+                }
+                else
+                {
+                    final Collection formats = element.findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_FORMAT);
+                    for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
+                    {
+                        final String additionalFormat = String.valueOf(formatIterator.next());
+                        final String minlength = "minlength";
+                        final String maxlength = "maxlength";
+                        final String mask = "mask";
+                        if (JSFUtils.isMinLengthFormat(additionalFormat))
+                        {
+                            vars.put(
+                                minlength,
+                                Arrays.asList(new Object[] {minlength, JSFUtils.getMinLengthValue(additionalFormat)}));
+                        }
+                        else if (JSFUtils.isMaxLengthFormat(additionalFormat))
+                        {
+                            vars.put(
+                                maxlength,
+                                Arrays.asList(new Object[] {maxlength, JSFUtils.getMaxLengthValue(additionalFormat)}));
+                        }
+                        else if (JSFUtils.isPatternFormat(additionalFormat))
+                        {
+                            vars.put(
+                                mask,
+                                Arrays.asList(new Object[] {mask, JSFUtils.getPatternValue(additionalFormat)}));
+                        }
+                    }
+                }
+            }
+            String inputFormat;
+            if (element instanceof JSFAttribute)
+            {
+                inputFormat = ((JSFAttribute)element).getFormat();
+            }
+            else if (element instanceof JSFParameter)
+            {
+                inputFormat = ((JSFParameter)element).getFormat();
+            }
+            else
+            {
+                throw new RuntimeException("'element' is an invalid type, it must be either an instance of '" +
+                    JSFAttribute.class.getName() + "' or '" + JSFParameter.class.getName() + "'");
+            }
+            if (JSFUtils.isDate(type))
+            {
+                final String datePatternStrict = "datePatternStrict";
+                if (format != null && JSFUtils.isStrictDateFormat(format))
+                {
+                    vars.put(
+                        datePatternStrict,
+                        Arrays.asList(new Object[] {datePatternStrict, inputFormat}));
+                }
+                else
+                {
+                    final String datePattern = "datePattern";
+                    vars.put(
+                        datePattern,
+                        Arrays.asList(new Object[] {datePattern, inputFormat}));
+                }
+            }
+            if (JSFUtils.isTime(type))
+            {
+                final String timePattern = "timePattern";
+                vars.put(
+                    timePattern,
+                    Arrays.asList(new Object[] {timePattern, inputFormat}));
+            }
+
+            final String validWhen = JSFUtils.getValidWhen(element);
+            if (validWhen != null)
+            {
+                final String test = "test";
+                vars.put(
+                    test,
+                    Arrays.asList(new Object[] {test, validWhen}));
+            }
+        }
+
+        // - custom (parameterized) validators are allowed here
+        //   in this case we will reuse the validator arg values
+        final Collection taggedValues = element.findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
+        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        {
+            final String validator = String.valueOf(iterator.next());
+
+            // - guaranteed to be of the same length
+            final List validatorVars = JSFUtils.parseValidatorVars(validator);
+            final List validatorArgs = JSFUtils.parseValidatorArgs(validator);
+
+            for (int ctr = 0; ctr < validatorVars.size(); ctr++)
+            {
+                final String validatorVar = (String)validatorVars.get(ctr);
+                final String validatorArg = (String)validatorArgs.get(ctr);
+                vars.put(
+                    validatorVar,
+                    Arrays.asList(new Object[] {validatorVar, validatorArg}));
+            }
+        }
+        return vars.values();
+    }
+
+    /**
+     * Gets the validator args for the <code>element</code> and the given <code>validatorType</code>.
+     *
+     * @param element the element for which to retrieve the arguments.
+     * @param validatorType the validator type name.
+     * @return the validator args as a collection.
+     */
+    public static java.util.Collection getValidatorArgs(
+        final ModelElementFacade element,
+        final java.lang.String validatorType)
+    {
+        final Collection args = new ArrayList();
+        if ("intRange".equals(validatorType) || "floatRange".equals(validatorType) ||
+            "doubleRange".equals(validatorType))
+        {
+            args.add("${var:min}");
+            args.add("${var:max}");
+        }
+        else if ("minlength".equals(validatorType))
+        {
+            args.add("${var:minlength}");
+        }
+        else if ("maxlength".equals(validatorType))
+        {
+            args.add("${var:maxlength}");
+        }
+        else if ("date".equals(validatorType))
+        {
+            final String validatorFormat = JSFUtils.getInputFormat(element);
+            if (validatorFormat != null && JSFUtils.isStrictDateFormat(validatorFormat))
+            {
+                args.add("${var:datePatternStrict}");
+            }
+            else
+            {
+                args.add("${var:datePattern}");
+            }
+        }
+        else if ("time".equals(validatorType))
+        {
+            args.add("${var:timePattern}");
+        }
+
+        // custom (paramterized) validators are allowed here
+        final Collection taggedValues = element.findTaggedValues(JSFProfile.TAGGEDVALUE_INPUT_VALIDATORS);
+        for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+        {
+            final String validator = String.valueOf(iterator.next());
+            if (validatorType.equals(JSFUtils.parseValidatorName(validator)))
+            {
+                args.addAll(JSFUtils.parseValidatorArgs(validator));
+            }
+        }
+        return args;
+    }
+
+    /**
+     * Indicates whether or not the format for this element is a strict date
+     * format.
+     * @return true/false
+     */
+    public static boolean isStrictDateFormat(final ModelElementFacade element)
+    {
+        final String format = JSFUtils.getInputFormat(element);
+        return format != null && JSFUtils.isStrictDateFormat(format);
+    }
+
+    /**
+     * Gets the format string for the given <code>element</code>.
+     *
+     * @param element the element for which to retrieve the format.
+     * @param type the type of the element.
+     * @return the format string (if one is present otherwise null).
+     */
+    public static String getFormat(
+        final ModelElementFacade element,
+        final ClassifierFacade type,
+        final String defaultDateFormat,
+        final String defaultTimeFormat)
+    {
+        String format = null;
+        if (element != null && type != null)
+        {
+            format = JSFUtils.getInputFormat(element);
+            if (format == null)
+            {
+                if (type.isTimeType())
+                {
+                    format = defaultTimeFormat;
+                }
+                else if (type.isDateType())
+                {
+                    format = defaultDateFormat;
+                }
+            }
+            else if (type.isDateType())
+            {
+                format = JSFUtils.getDateFormat(format);
+            }
+        }
+        return format;
     }
 }
