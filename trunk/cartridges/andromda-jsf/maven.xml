@@ -6,8 +6,13 @@
              Cleans the cartridge
          ================================================================== -->        
     <goal name="clean">
+        <attainGoal name="multiproject:clean"/>
         <attainGoal name="clean:clean"/>
     </goal>
+    
+    <preGoal name="java:compile">
+        <attainGoal name="multiproject:install"/>
+    </preGoal>
     
     <!-- ==================================================================
             Include the components jar into the resources after compilation

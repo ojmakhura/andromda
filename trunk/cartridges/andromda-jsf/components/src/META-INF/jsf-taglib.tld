@@ -33,7 +33,7 @@
             </description>
         </attribute>
     </tag>
-    
+
     <tag>
         <name>convertDateTime</name>
         <tag-class>org.andromda.cartridges.jsf.taglib.ConvertDateTimeTag</tag-class>
@@ -81,7 +81,7 @@
         <tag-class>org.andromda.cartridges.jsf.taglib.PopupFrameTag</tag-class>
         <body-content>JSP</body-content>
         <description>
-            Render a popup frame. The result of the actionFrame action will be displayed 
+            Render a popup frame. The result of the actionFrame action will be displayed
             inside an IFrame of the current page. At the closing of the popupFrame (the iframe) another action could be invoked.
         </description>
         <attribute>
