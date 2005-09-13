@@ -37,7 +37,7 @@ $field.getDocumentation("     * ")
      */
     public $fieldTypeName ${field.getterName}()
     {
-#if ($field.table)
+#if ($field.type.collectionType || $field.type.arrayType)
 #set ($upperCaseFieldName = $stringUtils.capitalize($field.name))
 #if ($field.type.arrayType)
         if (this.$field.name != null)
@@ -85,7 +85,7 @@ $field.getDocumentation("     * ")
         this.$field.name = $field.name;
         this.$field.formAttributeSetProperty = true;
     }
-#if ($field.table)
+#if ($field.type.collectionType || $field.type.arrayType)
     /**
      * The name of the sort column for the {@link #${field.name}} collection.
      */
