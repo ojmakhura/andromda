@@ -18,15 +18,34 @@ public class ModelValidationMessage
     implements Serializable
 {
     /**
-     * Constructs a new instance of MetafacadeValidationMessage taking a <code>metafacade</code> instance and a
-     * <code>message</code> indicating what has been violated.
-     *
-     * @param metafacadeClass  the Class of the metafacade being validated.
+     * Constructs a new instance of MetafacadeValidationMessage taking a
+     * <code>metafacade</code> instance and a <code>message</code>
+     * indicating what has been violated.
+     * 
+     * @param metafacade the metafacade being validated.
      * @param modelElementName the name of the model element being validated.
-     * @param message          the message to to communitate about the validation.
+     * @param message the message to to communitate about the validation.
      */
     public ModelValidationMessage(
         final MetafacadeBase metafacade,
+        final String message)
+    {
+        this(metafacade, null, message);
+    }
+    
+    /**
+     * Constructs a new instance of MetafacadeValidationMessage taking a
+     * <code>metafacade</code> instance the <code>name</code> of the
+     * validation constraint and the actual <code>message</code> text indicating
+     * what has been violated.
+     * 
+     * @param metafacade the metafacade being validated.
+     * @param modelElementName the name of the model element being validated.
+     * @param message the message to to communitate about the validation.
+     */
+    public ModelValidationMessage(
+        final MetafacadeBase metafacade,
+        final String name,
         final String message)
     {
         final String constructorName = "MetafacadeValidationMessage";
@@ -35,10 +54,30 @@ public class ModelValidationMessage
         this.metafacade = metafacade;
         this.message = message;
     }
-
+    
+    /**
+     * Stores the actual name of the constraint (if there is one).
+     */
+    private String name;
+    
+    /**
+     * Gets the name of the validation constraint.
+     * 
+     * @return the constraint name.
+     */
+    public String getName()
+    {
+        return this.name;
+    }
+    
+    /**
+     * Stores the actual message text.
+     */
     private String message;
 
     /**
+     * Gets the actual message text.
+     * 
      * @return Returns the message.
      */
     public String getMessage()
