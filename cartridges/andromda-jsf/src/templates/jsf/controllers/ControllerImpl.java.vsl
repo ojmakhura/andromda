@@ -60,7 +60,7 @@ public class $controller.implementationName
 #set ($labelList = "${attribute.type.fullyQualifiedName}.names().toArray(new Object[0])")
 #else
 #set ($valueList = $attribute.valueListDummyValue)
-#set ($labeList = "form.get${valueListMethod}()")
+#set ($labelList = "form.get${valueListMethod}()")
 #end
         form.set${valueListMethod}($valueList);
         form.set${labelListMethod}($labelList);
