@@ -8,15 +8,23 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.el.ValueBinding;
 
+import org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.DateConverter;
+
 
 /**
  * Overrides the default DateTimeConverter to include conversion of Calendar
  * instances as well as Date instances.
  *
+ * <p>
+ * Unfortunately because of poor design in myfaces's calendar component, we have to implement
+ * DateConverter so that we can correctly convert to a date in the inputCalendar implementation.
+ * </p>
+ *
  * @author Chad Brandon
  */
 public class DateTimeConverter
     extends javax.faces.convert.DateTimeConverter
+    implements DateConverter
 {
     /**
      * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
@@ -31,10 +39,11 @@ public class DateTimeConverter
         {
             value = ((Calendar)value).getTime();
         }
-        return super.getAsString(
-            context,
-            component,
-            value);
+        final String result = super.getAsString(
+                context,
+                component,
+                value);
+        return result;
     }
 
     /**
@@ -85,5 +94,41 @@ public class DateTimeConverter
         return type;
     }
 
+    /**
+     * Gets the component Value for the given <code>component</code>.
+     * @param context the current faces context.
+     * @param component the component from which to retrieve the value.
+     * @return true/false
+     */
+    private Object getComponentValue(
+        final FacesContext context,
+        final UIComponent component)
+    {
+        Object value = null;
+        final ValueBinding binding = component.getValueBinding("value");
+        if (binding != null)
+        {
+            value = binding.getValue(context);
+        }
+        return value;
+    }
+
     public static final String CONVERTER_ID = "andromda.faces.DateTime";
+
+    /**
+     * @see org.apache.myfaces.custom.calendar.HtmlCalendarRenderer.DateConverter#getAsDate(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     */
+    public Date getAsDate(
+        FacesContext context,
+        UIComponent component)
+    {
+        Object value = this.getComponentValue(
+                context,
+                component);
+        if (value instanceof Calendar)
+        {
+            value = ((Calendar)value).getTime();
+        }
+        return (Date)value;
+    }
 }
