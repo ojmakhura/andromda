@@ -27,6 +27,13 @@
                         <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
                         <modelPackage>org::andromda::cartridges::test</modelPackage>
                     </modelPackages>
+                    <constraints enforceAll="true">
+                        <constraint enforce="false">org::andromda::uml::metafacades::Entity::*</constraint>
+                        <constraint enforce="false">org::andromda::uml::somepackage**</constraint>
+                        <constraint enforce="false">org::*::*::somepackage**</constraint>
+                        <constraint enforce="false">**com::package**</constraint>
+                        <constraint>org::andromda::uml::metafacades::Service</constraint>
+                    </constraints>
                 </model>
                 <model><uri>file:model2.xmi</uri></model>
                 <model>

@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.configuration.ModelPackages;
+import org.andromda.core.configuration.Filters;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
@@ -178,12 +178,12 @@ public class UMLModelAccessFacade
      * Stores the package filter information.  Protected
      * visibility for better inner class access performance.
      */
-    protected ModelPackages modelPackages;
+    protected Filters modelPackages;
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#setPackageFilter(org.andromda.core.configuration.ModelPackages)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#setPackageFilter(org.andromda.core.configuration.Filters)
      */
-    public void setPackageFilter(final ModelPackages modelPackages)
+    public void setPackageFilter(final Filters modelPackages)
     {
         this.modelPackages = modelPackages;
     }
@@ -220,7 +220,7 @@ public class UMLModelAccessFacade
                                     packageName.append(name);
                                 }
                             }
-                            valid = modelPackages.isProcess(packageName.toString());
+                            valid = modelPackages.isApply(packageName.toString());
                         }
                         return valid;
                     }

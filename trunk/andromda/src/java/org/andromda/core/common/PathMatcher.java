@@ -29,7 +29,7 @@ public class PathMatcher
         final String slash = "/";
         pattern = StringUtils.replace(pattern, ".", "\\.");
         boolean matchAll = pattern.startsWith(doubleStar);
-        if (pattern.startsWith(doubleStar))
+        if (matchAll)
         {
             String replacement = ".*/";
             if (path.indexOf(slash) == -1)
