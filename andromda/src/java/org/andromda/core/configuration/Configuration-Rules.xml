@@ -154,33 +154,66 @@
                 <pattern value="modelPackages">
 
                     <object-create-rule
-                        classname="org.andromda.core.configuration.ModelPackages" />
+                        classname="org.andromda.core.configuration.Filters" />
 
                     <set-properties-rule>
-                         <alias attr-name="processAll" prop-name="processAll" />
+                         <alias attr-name="processAll" prop-name="applyAll" />
                     </set-properties-rule>
 
                     <pattern value="modelPackage">
 
                         <object-create-rule
-                            classname="org.andromda.core.configuration.ModelPackage" />
+                            classname="org.andromda.core.configuration.Filter" />
 
                         <set-properties-rule>
-                             <alias attr-name="process" prop-name="process" />
+                             <alias attr-name="process" prop-name="apply" />
                         </set-properties-rule>
 
                         <call-method-rule
-                            methodname="setName"
+                            methodname="setValue"
                             paramcount="1"/>
 
                         <call-param-rule
                             paramnumber="0"/>
 
-                        <set-next-rule methodname="addPackage" />
+                        <set-next-rule methodname="addFilter" />
 
                     </pattern>
 
                     <set-next-rule methodname="setPackages" />
+
+                </pattern>
+                
+                <pattern value="constraints">
+
+                    <object-create-rule
+                        classname="org.andromda.core.configuration.Filters" />
+
+                    <set-properties-rule>
+                         <alias attr-name="enforceAll" prop-name="applyAll" />
+                    </set-properties-rule>
+
+                    <pattern value="constraint">
+
+                        <object-create-rule
+                            classname="org.andromda.core.configuration.Filter" />
+
+                        <set-properties-rule>
+                             <alias attr-name="enforce" prop-name="apply" />
+                        </set-properties-rule>
+
+                        <call-method-rule
+                            methodname="setValue"
+                            paramcount="1"/>
+
+                        <call-param-rule
+                            paramnumber="0"/>
+
+                        <set-next-rule methodname="addFilter" />
+
+                    </pattern>
+
+                    <set-next-rule methodname="setConstraints" />
 
                 </pattern>
 

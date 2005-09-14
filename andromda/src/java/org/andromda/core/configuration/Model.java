@@ -55,17 +55,17 @@ public class Model
      * Stores the informationj about what packages should and shouldn't
      * be processed.
      */
-    private ModelPackages packages = new ModelPackages();
+    private Filters packages = new Filters();
 
     /**
-     * Sets the processAll flag on the interal model packages instance
+     * Sets the processAll flag on the internal model packages instance
      * of this model.
      *
-     * @param processAllPackages
+     * @param processAllPackages whether or not all packages should be processed by default.
      */
     public void setProcessAllPackages(final boolean processAllPackages)
     {
-        packages.setProcessAll(processAllPackages);
+        packages.setApplyAll(processAllPackages);
     }
 
     /**
@@ -73,7 +73,7 @@ public class Model
      *
      * @return Returns the packages.
      */
-    public ModelPackages getPackages()
+    public Filters getPackages()
     {
         return this.packages;
     }
@@ -84,9 +84,47 @@ public class Model
      *
      * @param packages the packages to process.
      */
-    public void setPackages(final ModelPackages packages)
+    public void setPackages(final Filters packages)
     {
         this.packages = packages;
+    }
+    
+    /**
+     * Stores the informationj about what constraints should and shouldn't
+     * be enforced.
+     */
+    private Filters constraints = new Filters();
+
+    /**
+     * Sets the applyAll flag on the internal filters instance
+     * of this model.
+     *
+     * @param enforceAllConstraints whether or not all constraints should be enforced by default.
+     */
+    public void setEnforceAllConstraints(final boolean enforceAllConstraints)
+    {
+        this.constraints.setApplyAll(enforceAllConstraints);
+    }
+
+    /**
+     * Stores the information about what constraints should/shouldn't be enforced.
+     *
+     * @return Returns the constraints instance.
+     */
+    public Filters getConstraints()
+    {
+        return this.constraints;
+    }
+
+    /**
+     * Sets the constraints for this model.  This indicates what
+     * constraints should and should not be processed from this model.
+     *
+     * @param constraints the packages to process.
+     */
+    public void setConstraints(final Filters constraints)
+    {
+        this.constraints = constraints;
     }
 
     /**

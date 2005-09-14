@@ -29,7 +29,7 @@ public class StrutsFinalStateLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacad#getName()
+     * @see org.andromda.metafacades.uml.ModelElementFacad#getValue()
      */
     public String getName()
     {

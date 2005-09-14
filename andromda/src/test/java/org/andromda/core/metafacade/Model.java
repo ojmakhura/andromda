@@ -2,7 +2,7 @@ package org.andromda.core.metafacade;
 
 import java.util.Collection;
 
-import org.andromda.core.configuration.ModelPackages;
+import org.andromda.core.configuration.Filters;
 
 
 /**
@@ -66,7 +66,7 @@ public class Model
         return null;
     }
 
-    public void setPackageFilter(ModelPackages modelPackages)
+    public void setPackageFilter(Filters modelPackages)
     {
     }
 }

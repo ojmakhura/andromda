@@ -2,7 +2,7 @@ package org.andromda.core.metafacade;
 
 import java.util.Collection;
 
-import org.andromda.core.configuration.ModelPackages;
+import org.andromda.core.configuration.Filters;
 
 
 /**
@@ -60,7 +60,7 @@ public interface ModelAccessFacade
      *
      * @param modelPackages the model packages by which to filter.
      */
-    public void setPackageFilter(ModelPackages modelPackages);
+    public void setPackageFilter(Filters modelPackages);
 
     /**
      * Returns a collection of stereotype names for a modelElement (whatever that means for a concrete model).

@@ -90,9 +90,20 @@ public class ConfigurationTest
 
         // modelPackages
         assertNotNull(model1.getPackages());
-        assertFalse(model1.getPackages().isProcess("some::package"));
-        assertFalse(model1.getPackages().isProcess("org::andromda::metafacades::uml"));
-        assertTrue(model1.getPackages().isProcess("org::andromda::cartridges::test"));
+        assertFalse(model1.getPackages().isApply("some::package"));
+        assertFalse(model1.getPackages().isApply("org::andromda::metafacades::uml"));
+        assertTrue(model1.getPackages().isApply("org::andromda::cartridges::test"));
+        
+        assertNotNull(model1.getConstraints());
+        assertFalse(model1.getConstraints().isApply("org::andromda::uml::metafacades::Entity::constraint name"));
+        assertFalse(model1.getConstraints().isApply("org::andromda::uml::somepackage::anotherpackage::andanotherpackage::SomeClass"));
+        assertFalse(model1.getConstraints().isApply("org::project::package::somepackage::anotherpackage::andanotherpackage::SomeClass"));
+        assertTrue(model1.getConstraints().isApply("org::project::package::some2package::anotherpackage::SomeClass"));
+        assertFalse(model1.getConstraints().isApply("andromda::com::package::somepackage"));
+        assertFalse(model1.getConstraints().isApply("com::package::SomeClass"));
+        assertTrue(model1.getConstraints().isApply("com::apackage::SomeClass"));
+        assertTrue(model1.getConstraints().isApply("org::andromda::uml::metafacades::Service"));
+        assertTrue(model1.getConstraints().isApply("some:Entity"));
         
         // transformations
         assertEquals(2, model1.getTransformations().length);
@@ -126,8 +137,8 @@ public class ConfigurationTest
             "file:model3.xmi",
             model3.getUris()[0]);
         assertNotNull(model3.getPackages());
-        assertTrue(model3.getPackages().isProcess("some::package"));
-        assertFalse(model3.getPackages().isProcess("org::andromda::metafacades::uml"));
+        assertTrue(model3.getPackages().isApply("some::package"));
+        assertFalse(model3.getPackages().isApply("org::andromda::metafacades::uml"));
 
         // namespaces
         final Namespace namespace1 = Namespaces.instance().getNamespace("default");
