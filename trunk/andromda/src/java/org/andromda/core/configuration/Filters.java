@@ -117,46 +117,49 @@ public class Filters
      * @param pattern the pattern to check if the path matches.
      * @return true if the <code>value</code> matches the given <code>pattern</code>, false otherwise.
      */
-    public static boolean match(
+    public boolean match(
         String value,
         String pattern)
     {
         value = StringUtils.trimToEmpty(value);
         boolean matches = false;
-        final String scopeOperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
-        final String doubleStar = "**";
-        pattern = StringUtils.replace(
-                pattern,
-                ".",
-                "\\.");
-        boolean matchAll = pattern.indexOf(doubleStar) != -1;
-        pattern = pattern.replaceAll(
-                "\\*{1}",
-                "\\.\\*");
-        if (matchAll)
+        if (value != null)
         {
+            final String scopeOperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
+            final String doubleStar = "**";
             pattern = StringUtils.replace(
                     pattern,
-                    doubleStar,
-                    ".*");
-        }
-        try
-        {
-            matches = value.matches(pattern);
-        }
-        catch (final PatternSyntaxException exception)
-        {
-            matches = false;
-        }
-        if (!matchAll)
-        {
-            matches =
-                matches &&
-                StringUtils.countMatches(
-                    pattern,
-                    scopeOperator) == StringUtils.countMatches(
-                    value,
-                    scopeOperator);
+                    ".",
+                    "\\.");
+            boolean matchAll = pattern.indexOf(doubleStar) != -1;
+            pattern = pattern.replaceAll(
+                    "\\*{1}",
+                    "\\.\\*");
+            if (matchAll)
+            {
+                pattern = StringUtils.replace(
+                        pattern,
+                        doubleStar,
+                        ".*");
+            }
+            try
+            {
+                matches = value.matches(pattern);
+            }
+            catch (final PatternSyntaxException exception)
+            {
+                matches = false;
+            }
+            if (!matchAll)
+            {
+                matches =
+                    matches &&
+                    StringUtils.countMatches(
+                        pattern,
+                        scopeOperator) == StringUtils.countMatches(
+                        value,
+                        scopeOperator);
+            }
         }
         return matches;
     }

@@ -13,9 +13,6 @@
                     <modelPackages>
                         <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
                     </modelPackages>
-                    <constraints enforceAll="true">
-                        <constraint enforce="true">org::andromda::uml::metafacades::Entity*</constraint>
-                    </constraints>
                 </model>
             </models>            
         </repository>
