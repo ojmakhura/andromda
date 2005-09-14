@@ -47,7 +47,7 @@
                     <h:panelGroup/>
                     <h:panelGroup/>
                     <h:panelGrid columns="1" width="100%">
-                        <h:commandLink action="logout" styleClass="registerAsNewUserLink">
+                        <h:commandLink action="" styleClass="registerAsNewUserLink" title="#{messages['login.register.as.new.user']}">
                             <h:outputText value="#{messages['login.register.as.new.user']}"/>            
                         </h:commandLink> 
                     </h:panelGrid> 
