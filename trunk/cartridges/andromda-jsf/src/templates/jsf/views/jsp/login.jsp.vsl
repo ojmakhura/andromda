@@ -37,17 +37,17 @@
                     <h:outputLabel for="j_username" value="#{messages['login.username']}"/>
                     <f:verbatim>:</f:verbatim>
                     <h:panelGroup>
-                        <h:inputText id="j_username"/>
+                        <h:inputText id="j_username" title="#{messages['login.username']}" tabindex="10"/>
                     </h:panelGroup>
                     <h:outputLabel for="j_password" value="#{messages['login.password']}"/>
                     <f:verbatim>:</f:verbatim>
                     <h:panelGroup>
-                        <h:inputSecret id="j_password"/>
+                        <h:inputSecret id="j_password" title="#{messages['login.password']}" tabindex="10"/>
                     </h:panelGroup>
                     <h:panelGroup/>
                     <h:panelGroup/>
                     <h:panelGrid columns="1" width="100%">
-                        <h:commandLink action="" styleClass="registerAsNewUserLink" title="#{messages['login.register.as.new.user']}">
+                        <h:commandLink action="" styleClass="registerAsNewUserLink" title="#{messages['login.register.as.new.user']}" tabindex="20">
                             <h:outputText value="#{messages['login.register.as.new.user']}"/>            
                         </h:commandLink> 
                     </h:panelGrid> 
@@ -55,8 +55,8 @@
                     <h:panelGroup/>
                     <h:panelGroup>
                         <f:verbatim>
-                            <input type="submit" value="<fmt:message key="login.submit"/>" class="actionButton"/>
-                            <input type="reset" value="<fmt:message key="login.reset"/>" class="actionButton"/>
+                            <input type="submit" value="<fmt:message key="login.submit"/>" class="actionButton" tabindex="10"/>
+                            <input type="reset" value="<fmt:message key="login.reset"/>" class="actionButton" tabindex="10"/>
                         </f:verbatim>
                     </h:panelGroup>
                 </h:panelGrid>
