@@ -19,8 +19,8 @@
         </p>
     </documentation>
     <elements>
-        <!--
         <elementGroup name="Stereotypes">
+        <!--
             <element name="FRONT_END_EXCEPTION">
                 <documentation>
                     Modeled on a transition it designates an exception occuring while processing an action,
@@ -29,8 +29,17 @@
                 <value>FrontEndException</value>
                 <appliedOnElement>Transition</appliedOnElement>
             </element>
-        </elementGroup>
         -->
+            <element name="FRONT_END_REGISTRATION">
+                <documentation>
+                    Modeled on a use case, this stereotype indicates that this use case
+                    is a front-end registration wizard.  This will cause a link on the login
+                    taking the user to this use case.
+                </documentation>
+                <value>FrontEndRegistration</value>
+                <appliedOnElement>UseCase</appliedOnElement>
+            </element>
+        </elementGroup>
         <elementGroup name="Tagged Values">
             <documentation>
                 Jsf allows you to add tagged values here and there but provides a

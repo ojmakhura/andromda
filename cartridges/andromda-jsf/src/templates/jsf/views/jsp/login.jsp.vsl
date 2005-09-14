@@ -44,13 +44,15 @@
                     <h:panelGroup>
                         <h:inputSecret id="j_password" title="#{messages['login.password']}" tabindex="10"/>
                     </h:panelGroup>
+#if (!$registrationUseCases.empty)
                     <h:panelGroup/>
                     <h:panelGroup/>
                     <h:panelGrid columns="1" width="100%">
-                        <h:commandLink action="" styleClass="registerAsNewUserLink" title="#{messages['login.register.as.new.user']}" tabindex="20">
+                        <h:commandLink action="$registrationUseCases.iterator().next().forwardName" styleClass="registerAsNewUserLink" title="#{messages['login.register.as.new.user']}" tabindex="20">
                             <h:outputText value="#{messages['login.register.as.new.user']}"/>            
                         </h:commandLink> 
                     </h:panelGrid> 
+#end
                     <h:panelGroup/>
                     <h:panelGroup/>
                     <h:panelGroup>

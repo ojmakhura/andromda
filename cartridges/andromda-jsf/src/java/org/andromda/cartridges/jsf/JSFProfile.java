@@ -16,6 +16,8 @@ public class JSFProfile
     private static final Profile profile = Profile.instance();
 
     /* ----------------- Stereotypes -------------------- */
+    public static final String STEREOTYPE_FRONT_END_REGISTRATION = profile.get("FRONT_END_REGISTRATION");
+    
     /* ----------------- Tagged Values -------------------- */
     public static final String TAGGEDVALUE_ACTION_FORM_SCOPE = profile.get("ACTION_FORM_SCOPE");
     public static final String TAGGEDVALUE_ACTION_FORM_KEY = profile.get("ACTION_FORM_KEY");

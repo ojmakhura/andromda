@@ -30,7 +30,15 @@ public class $controller.implementationName
 #end
 #end
 #if ($field.table || !$field.attributes.empty)
+#if ($field.table)
         // populating the table with a dummy list
+#else
+        // populating value with dummy instance
+        $field.type.fullyQualifiedName $field.name = new ${field.type.fullyQualifiedName}();
+#foreach ($attribute in $field.attributes)
+        ${field.name}.${attribute.setterName}($attribute.dummyValue);   
+#end
+#end
         form.${field.setterName}($field.name);
 #elseif ($tableActionFound)
         // we don't set row selection parameters such as ${field.name}RowSelection
@@ -170,14 +178,6 @@ ${comma}${dummyValue}#set ($comma = ", ")
 #end
         };
 #end
-#elseif (!$field.attributes.empty)
-    private static final $field.type.fullyQualifiedName $field.name = new $field.type.fullyQualifiedName ();
-    static
-    {
-#foreach ($attribute in $field.attributes)
-        ${field.name}.${attribute.setterName}($attribute.dummyValue);       
-#end    
-    }
 #end
 #end
 #end
