@@ -46,6 +46,13 @@
                     </h:panelGroup>
                     <h:panelGroup/>
                     <h:panelGroup/>
+                    <h:panelGrid columns="1" width="100%">
+                        <h:commandLink action="logout" styleClass="registerAsNewUserLink">
+                            <h:outputText value="#{messages['login.register.as.new.user']}"/>            
+                        </h:commandLink> 
+                    </h:panelGrid> 
+                    <h:panelGroup/>
+                    <h:panelGroup/>
                     <h:panelGroup>
                         <f:verbatim>
                             <input type="submit" value="<fmt:message key="login.submit"/>" class="actionButton"/>
