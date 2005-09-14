@@ -437,7 +437,15 @@
         outputPattern="$loginFileName"
         outlet="jsps"
         overwrite="true"
-        outputToSingleFile="true"/>
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="registrationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="registrationUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>      
+    </template>
     
     <template
         path="templates/jsf/views/jsp/logout.jsp.vsl"

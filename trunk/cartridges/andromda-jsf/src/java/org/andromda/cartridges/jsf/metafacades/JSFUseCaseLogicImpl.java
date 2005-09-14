@@ -524,4 +524,42 @@ public class JSFUseCaseLogicImpl
         }
         return sameName;
     }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#isRegistrationUseCase()
+     */
+    protected boolean handleIsRegistrationUseCase()
+    {
+        return this.hasStereotype(JSFProfile.STEREOTYPE_FRONT_END_REGISTRATION);
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getRegistrationUseCases()
+     */
+    protected List handleGetRegistrationUseCases()
+    {
+        try{
+        final List useCases = new ArrayList(this.getAllUseCases());
+        for (final Iterator iterator = useCases.iterator(); iterator.hasNext();)
+        {
+            final Object useCase = iterator.next();
+            if (useCase instanceof JSFUseCase)
+            {
+                if (!((JSFUseCase)useCase).isRegistrationUseCase())
+                {
+                    iterator.remove();
+                }
+            }
+            else
+            {
+                iterator.remove();
+            }
+        }
+        return useCases;
+        }catch (final Throwable throwable)
+        {
+            throwable.printStackTrace();
+            throw new RuntimeException(throwable);
+        }
+    }
 }
