@@ -50,7 +50,7 @@ public class JSFUseCaseLogicImpl
         final FrontEndActivityGraph graph = this.getActivityGraph();
         if (graph != null)
         {
-            final JSFAction action =  (JSFAction)graph.getInitialAction();
+            final JSFAction action = (JSFAction)graph.getInitialAction();
             if (action != null)
             {
                 actionPath = action.getPath();
@@ -70,7 +70,7 @@ public class JSFUseCaseLogicImpl
         pathRoot.append(prefix);
         return pathRoot.toString();
     }
-    
+
     /**
      * The suffix to append to the forward name.
      */
@@ -154,7 +154,7 @@ public class JSFUseCaseLogicImpl
                     {
                         // - page variables
                         final JSFParameter parameter = (JSFParameter)viewVariables.get(ctr3);
-                        
+
                         final Collection attributes = parameter.getAttributes();
                         if (!attributes.isEmpty())
                         {
@@ -162,7 +162,7 @@ public class JSFUseCaseLogicImpl
                             {
                                 final JSFAttribute attribute = (JSFAttribute)iterator.next();
                                 messages.put(
-                                    attribute.getMessageKey(), 
+                                    attribute.getMessageKey(),
                                     attribute.getMessageValue());
                             }
                         }
@@ -178,14 +178,15 @@ public class JSFUseCaseLogicImpl
                                     final Collection typeAttributes = type.getAttributes();
                                     if (!attributes.isEmpty())
                                     {
-                                        for (final Iterator attributeIterator = typeAttributes.iterator(); attributeIterator.hasNext();)
+                                        for (final Iterator attributeIterator = typeAttributes.iterator();
+                                            attributeIterator.hasNext();)
                                         {
                                             final JSFAttribute attribute = (JSFAttribute)attributeIterator.next();
                                             messages.put(
-                                                attribute.getMessageKey(), 
+                                                attribute.getMessageKey(),
                                                 attribute.getMessageValue());
                                         }
-                                    }                                 
+                                    }
                                 }
                             }
                         }
@@ -345,7 +346,7 @@ public class JSFUseCaseLogicImpl
         }
         return messages;
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getActionForwards()
      */
@@ -374,9 +375,11 @@ public class JSFUseCaseLogicImpl
      */
     protected String handleGetFullyQualifiedActionClassPath()
     {
-        return this.getFullyQualifiedActionClassName().replace('.', '/') + ".java";
+        return this.getFullyQualifiedActionClassName().replace(
+            '.',
+            '/') + ".java";
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getControllerAction()
      */
@@ -400,7 +403,7 @@ public class JSFUseCaseLogicImpl
         path.append(this.getActionClassName());
         return path.toString();
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getFormKey()
      */
@@ -428,10 +431,10 @@ public class JSFUseCaseLogicImpl
         }
         return path;
     }
-    
+
     /**
      * Gets the initial target when this use case is entered.
-     * 
+     *
      * @return the initial target.
      */
     private final Object getInitialTarget()
@@ -458,9 +461,9 @@ public class JSFUseCaseLogicImpl
                 }
             }
         }
-        return initialTarget;        
+        return initialTarget;
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#isValidationRequired()
      */
@@ -486,8 +489,8 @@ public class JSFUseCaseLogicImpl
     protected boolean handleIsInitialTargetView()
     {
         return this.getInitialTarget() instanceof JSFView;
-    }    
-    
+    }
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#isInitialTargetView()
      */
@@ -538,7 +541,6 @@ public class JSFUseCaseLogicImpl
      */
     protected List handleGetRegistrationUseCases()
     {
-        try{
         final List useCases = new ArrayList(this.getAllUseCases());
         for (final Iterator iterator = useCases.iterator(); iterator.hasNext();)
         {
@@ -556,10 +558,5 @@ public class JSFUseCaseLogicImpl
             }
         }
         return useCases;
-        }catch (final Throwable throwable)
-        {
-            throwable.printStackTrace();
-            throw new RuntimeException(throwable);
-        }
     }
 }
