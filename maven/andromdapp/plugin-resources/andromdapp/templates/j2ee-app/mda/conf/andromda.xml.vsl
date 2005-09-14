@@ -118,6 +118,7 @@
                 <property name="services">${maven.andromda.core.generated.dir}</property>
                 <property name="service-impls">${maven.andromda.core.manual.dir}</property>
 #if ($ear)
+                <property name="enableSpringTransactionsWhenEjbsEnabled">true</property>
                 <!-- to remove any dependency on EJB, comment the following property -->
                 <property name="session-ejbs">${maven.andromda.core.generated.dir}</property>
                 <!-- uncomment to enable EJB security
