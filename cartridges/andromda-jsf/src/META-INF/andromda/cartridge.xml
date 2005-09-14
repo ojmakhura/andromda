@@ -231,6 +231,22 @@
         outputToSingleFile="true"/>
     
     <template
+        path="templates/jsf/views/jsp/includes/registration-header.jsp.vsl"
+        outputPattern="includes/registration-header.jsp"
+        outlet="jsps"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="registrationUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>    
+    </template>
+    
+    <template
         path="templates/jsf/views/jsp/includes/navigation.jsp.vsl"
         outputPattern="includes/navigation.jsp"
         outlet="jsps"
@@ -250,7 +266,9 @@
         outputToSingleFile="true">
         <modelElements>
             <modelElement variable="useCases">
-                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="registrationUseCase">false</property>
+                </type>
             </modelElement>
         </modelElements>        
     </template>
