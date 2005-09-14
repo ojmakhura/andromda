@@ -25,6 +25,7 @@ import org.andromda.core.common.Introspector;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Configuration;
+import org.andromda.core.configuration.Filters;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
@@ -381,7 +382,9 @@ public class ModelProcessor
                 startTime);
 
             // - validate the model since loading has successfully occurred
-            validationMessages.addAll(this.validateModel(repositoryName));
+            validationMessages.addAll(this.validateModel(
+                    repositoryName,
+                    model.getConstraints()));
         }
         return validationMessages;
     }
@@ -392,10 +395,13 @@ public class ModelProcessor
      * (also logs any validation failures).
      *
      * @param repositoryName the name of the repository storing the model to validate.
+     * @param constraints any constraint filters to apply to the validation messages.
      * @return any {@link ModelValidationMessage} instances that may have been collected
      *         during validation.
      */
-    private List validateModel(final String repositoryName)
+    private List validateModel(
+        final String repositoryName,
+        final Filters constraints)
     {
         final List validationMessages = new ArrayList();
         if (this.modelValidation)
@@ -421,7 +427,9 @@ public class ModelProcessor
                 }
             }
             final List messages = this.factory.getValidationMessages();
-            this.sortValidationMessages(messages);
+            this.filterAndSortValidationMessages(
+                messages,
+                constraints);
             this.printValidationMessages(messages);
             this.printWorkCompleteMessage(
                 "validation",
@@ -830,13 +838,27 @@ public class ModelProcessor
     }
 
     /**
-     * Sorts the validation <code>messages</code> first by type (i.e. the metafacade class) and then by the
-     * <code>name</code> of the model element to which the validation message applies.
+     * Filters out any messages that should not be applied according to the AndroMDA configuration's
+     * constraints and sorts the resulting <code>messages</code> first by type (i.e. the metafacade class)
+     * and then by the <code>name</code> of the model element to which the validation message applies.
      *
      * @param messages the collection of messages to sort.
+     * @param constraints any constraint filters to apply to the validation messages.
      */
-    protected void sortValidationMessages(final List messages)
+    protected void filterAndSortValidationMessages(
+        final List messages,
+        final Filters constraints)
     {
+        // - perform constraint filtering (if any applies)
+        for (final Iterator iterator = messages.iterator(); iterator.hasNext();)
+        {
+            final ModelValidationMessage message = (ModelValidationMessage)iterator.next();
+            if (message != null && !constraints.isApply(message.getName()))
+            {
+                iterator.remove();
+            }
+        }
+
         if (messages != null && !messages.isEmpty())
         {
             final ComparatorChain chain = new ComparatorChain();
