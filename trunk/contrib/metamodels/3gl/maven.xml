@@ -46,7 +46,7 @@
 	    <j:set var="dummy" value="${pom.setArtifactId(modelName)}"/>	
   	</goal>
 
-    <preGoal name="jar:jar">
+    <preGoal name="java:compile">
         <attainGoal name="clean"/>
         <attainGoal name="uml2mof:run"/>
     </preGoal>
