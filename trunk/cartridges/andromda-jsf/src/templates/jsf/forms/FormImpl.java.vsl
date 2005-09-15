@@ -30,7 +30,7 @@ public class $action.formImplementationName
 #else
 #set ($fieldTypeName = $field.type.fullyQualifiedName)
 #end
-    private $fieldTypeName $field.name;
+    private $fieldTypeName $field.name#if ($field.defaultValuePresent) = $field.defaultValue#end;
 
     /**
 $field.getDocumentation("     * ")
