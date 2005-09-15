@@ -555,4 +555,23 @@ public class JSFAttributeLogicImpl
         final ClassifierFacade type = this.getType();
         return type != null && type.isTimeType() ? this.getFormPropertyId(ownerParameter) + "TimeFormatter" : null;
     }
+    
+    /**
+     * Overridden to provide quotes around string types.
+     * 
+     * @see org.andromda.metafacades.uml.AttributeFacade#getDefaultValue()
+     */
+    public String getDefaultValue()
+    {
+        String defaultValue = super.getDefaultValue();
+        if (StringUtils.isNotBlank(defaultValue))
+        {
+            final ClassifierFacade type = this.getType();
+            if (type != null && type.isStringType())
+            {
+                defaultValue = "\"" + defaultValue + "\"";
+            }
+        }
+        return defaultValue;
+    }
 }

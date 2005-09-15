@@ -93,6 +93,25 @@ public class JSFParameterLogicImpl
                     false));
         return value == null ? "" : value;
     }
+    
+    /**
+     * Overridden to provide quotes around string types.
+     * 
+     * @see org.andromda.metafacades.uml.ParameterFacade#getDefaultValue()
+     */
+    public String getDefaultValue()
+    {
+        String defaultValue = super.getDefaultValue();
+        if (StringUtils.isNotBlank(defaultValue))
+        {
+            final ClassifierFacade type = this.getType();
+            if (type != null && type.isStringType())
+            {
+                defaultValue = "\"" + defaultValue + "\"";
+            }
+        }
+        return defaultValue;
+    }
 
     /**
      * Indicates whether or not we should normalize messages.

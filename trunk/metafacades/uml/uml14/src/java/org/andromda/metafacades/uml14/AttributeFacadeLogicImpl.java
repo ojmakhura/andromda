@@ -260,6 +260,14 @@ public class AttributeFacadeLogicImpl
         }
         return value;
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#isDefaultValuePresent()
+     */
+    public boolean handleIsDefaultValuePresent()
+    {
+        return StringUtils.isNotBlank(this.getDefaultValue());
+    }
 
     /**
      * Overridden to provide different handling of the name if this attribute represents a literal.

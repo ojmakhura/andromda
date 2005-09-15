@@ -63,7 +63,7 @@ public class $class.name
     }
 
 #foreach ($attribute in $class.attributes)
-    private $attribute.getterSetterTypeName $attribute.name;
+    private $attribute.getterSetterTypeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
 
     /**
 $attribute.getDocumentation("     * ")

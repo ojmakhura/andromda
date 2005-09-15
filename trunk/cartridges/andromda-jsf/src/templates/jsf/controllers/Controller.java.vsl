@@ -40,32 +40,7 @@ $operation.getDocumentation("     * ")
             try
             {
 #end
-#if (!$action.actionStates.empty)
-#foreach ($actionState in $action.actionStates)
-#set ($actionStateForward = $actionState.forward.name)
-#foreach ($deferredOperation in $actionState.controllerCalls)
-                this.$deferredOperation.formCall;
-#end
-#end
-#elseif (!$action.actionForwards.empty)
-#set ($actionStateForward = $action.actionForwards.iterator().next().name)
-#end
-                forward = "$actionStateForward";
-#foreach ($decisionTransition in $action.decisionTransitions)
-                final String value = java.lang.String.valueOf(this.${decisionTransition.operationCall.formCall});
-#foreach ($outcome in $decisionTransition.target.outgoing)
-#set ($defaultOutcome = $outcome)
-                if (value.equals("$outcome.guard.name"))
-                {
-                    return "$outcome.name";
-                }
-#end
-                // - if we have invalid return value from the controller we take the last forward
-                forward = "$defaultOutcome.name";
-#end
-#if (!$action.formFields.empty && $action.formResetRequired)
-                form.reset();
-#end
+                forward = #processTransition($action)
 #if (!$deferredOperations.empty)
             }
             catch (final Throwable throwable)
@@ -73,8 +48,6 @@ $operation.getDocumentation("     * ")
                 final String message = ${managedBeansPackage}.Messages.get(
                     ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable), null);
                 this.addErrorMessage(message);
-                // - set the forward to null so that we stay on the current view
-                forward = null;
             }
 #end
 #if (!$action.formFields.empty)
@@ -90,6 +63,50 @@ $operation.getDocumentation("     * ")
         return forward;
     }
 
+#foreach ($actionState in $action.actionStates)
+    /**
+$actionState.getDocumentation("     * ")
+     */
+    private java.lang.String ${actionState.actionMethodName}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form#end)
+    {
+        java.lang.String forward = null;
+#if ($actionState.controllerCalls.empty)
+        forward = #processTransition($actionState.forward)
+#else
+#foreach ($controllerCall in $actionState.controllerCalls)
+#if (!$action.actionFormFields.empty)
+        $controllerCall.formCall;
+#else
+        // we pass an empty form implementation to the controller, we know there are no parameters on this operation because the
+        // cartridge would have issued a model validation error
+        ${controllerCall.name}(new ${controllerCall.interfaceName}());
+#end
+#end
+        forward = #processTransition($actionState.forward)
+#end
+        return forward;
+    }
+
+#end
+#foreach ($decisionTransition in $action.decisionTransitions)
+    /**
+$decisionTransition.getDocumentation("     * ")
+     */
+    private java.lang.String __${decisionTransition.operationCall.name}(#if (!$action.formFields.empty)final $action.fullyQualifiedFormImplementationName form#end)
+    {
+        final String value = java.lang.String.valueOf($decisionTransition.operationCall.formCall);
+#foreach ($outcome in $decisionTransition.target.outgoing)
+#set ($defaultOutcome = $outcome)
+        if (value.equals("$outcome.guard.name"))
+        {
+            return #processTransition($outcome)
+        }
+#end
+        // we take the last action in case we have an invalid return value from the controller
+        return #processTransition($defaultOutcome)
+    }
+
+#end
 #end
 #foreach ($serviceRef in $controller.serviceReferences)
 #if ($stringUtils.isNotBlank($serviceRef.targetElement.accessorImplementation))
@@ -283,3 +300,17 @@ $operation.getDocumentation("     * ")
         }
     }
 }
+##
+##  This macro determines what to do when processing a transition
+##
+#macro (processTransition $transition)
+#if (!$transition)
+null;
+#elseif ($transition.enteringFinalState || $transition.enteringView)
+"$transition.name";
+#elseif ($transition.enteringDecisionPoint)
+__${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
+#else
+${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end);
+#end
+#end
