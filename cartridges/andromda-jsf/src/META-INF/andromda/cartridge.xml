@@ -291,6 +291,20 @@
     </template>
     
     <template
+        path="templates/jsf/flow/UseCaseForwards.java.vsl"
+        outputPattern="${useCase.packagePath}/${useCase.forwardsClassName}.java"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="useCase">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="forwards"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
         path="templates/jsf/flow/ViewPopulator.java.vsl"
         outputPattern="${view.populatorPath}.java"
         outlet="controllers"

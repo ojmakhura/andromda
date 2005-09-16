@@ -1,8 +1,5 @@
 package org.andromda.cartridges.jsf.metafacades;
 
-import org.andromda.cartridges.jsf.metafacades.JSFFinalState;
-import org.andromda.cartridges.jsf.metafacades.JSFForwardLogic;
-import org.andromda.cartridges.jsf.metafacades.JSFView;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.StateVertexFacade;
 

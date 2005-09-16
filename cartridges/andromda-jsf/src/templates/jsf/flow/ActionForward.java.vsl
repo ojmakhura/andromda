@@ -50,7 +50,14 @@ public class $action.actionClassName
             ($controller.fullyQualifiedImplementationName)variableResolver.resolveVariable(
                 facesContext,
                 "$controller.beanName");
-        controller.${action.controllerAction}();
+#if ($action.useCase)
+#set ($useCase = $action.useCase)
+#else
+#set ($useCase = $action)
+#end
+        String forwardPath = ${useCase.forwardsClassName}.getPath(controller.${action.controllerAction}());
+        if (forwardPath == null)
+        {
 #if ($action.target)
 #set ($forwardPath  = "${action.target.path}.${facesServletExtension}")
 #else
@@ -60,7 +67,9 @@ public class $action.actionClassName
 #set ($forwardPath = "$action.initialTargetPath")
 #end
 #end
-        response.sendRedirect(request.getContextPath() + "$forwardPath");
+            forwardPath = "$forwardPath";        
+        }
+        response.sendRedirect(request.getContextPath() + forwardPath);
     }
 
     /**

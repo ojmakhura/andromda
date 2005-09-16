@@ -1,0 +1,29 @@
+#if ($stringUtils.isNotBlank($useCase.packageName))
+package $useCase.packageName;
+#end
+
+/**
+ * Stores all forward paths available in the use case $useCase.name keyed by forward name.
+ */
+final class $useCase.forwardsClassName
+{
+    /**
+     * Gets the path given the forward <code>name</code>.  If a path can
+     * not be found, null is returned.
+     */
+    static final String getPath(final String name)
+    {
+        if (forwards.isEmpty())
+        {
+#foreach ($forward in $useCase.forwards)
+            forwards.put("$forward.name", "${forward.path}.${facesServletExtension}");
+#end
+        }
+        return (String)forwards.get(name);
+    }
+    
+    /**
+     * Stores the keyed forward paths.
+     */ 
+    private static final java.util.Map forwards = new java.util.HashMap();
+}
