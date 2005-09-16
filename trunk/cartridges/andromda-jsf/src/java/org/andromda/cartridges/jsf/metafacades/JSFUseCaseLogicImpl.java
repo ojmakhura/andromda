@@ -21,6 +21,7 @@ import org.andromda.metafacades.uml.FrontEndFinalState;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -361,6 +362,27 @@ public class JSFUseCaseLogicImpl
         }
         return new ArrayList(actionForwards);
     }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getForwards()
+     */
+    protected List handleGetForwards()
+    {
+        final Map forwards = new LinkedHashMap();
+        for (final Iterator iterator = this.getActions().iterator(); iterator.hasNext();)
+        {
+            final FrontEndAction action = (FrontEndAction)iterator.next();
+            for (final Iterator forwardIterator = action.getActionForwards().iterator(); forwardIterator.hasNext();)
+            {
+                final Object forward = forwardIterator.next();
+                if (forward instanceof JSFForward)
+                {
+                    forwards.put(((ModelElementFacade)forward).getName(), forward);
+                }
+            }
+        }
+        return new ArrayList(forwards.values());
+    }
 
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getActionClassName()
@@ -558,5 +580,18 @@ public class JSFUseCaseLogicImpl
             }
         }
         return useCases;
+    }
+    
+    /**
+     * The suffix for the forwards class name.
+     */
+    private static final String FORWARDS_CLASS_NAME_SUFFIX = "Forwards";
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getForwardsClassName()
+     */
+    protected String handleGetForwardsClassName()
+    {
+        return StringUtilsHelper.upperCamelCaseName(this.getName()) + FORWARDS_CLASS_NAME_SUFFIX ;
     }
 }

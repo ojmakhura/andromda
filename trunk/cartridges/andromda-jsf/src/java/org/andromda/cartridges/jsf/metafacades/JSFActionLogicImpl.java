@@ -16,6 +16,7 @@ import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
@@ -528,5 +529,20 @@ public class JSFActionLogicImpl
     protected boolean handleIsFormReset()
     {
         return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
+    }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getUseCaseUniqueName()
+     */
+    protected String handleGetUseCaseUniqueName()
+    {
+        final StringBuffer name = new StringBuffer();
+        final FrontEndView view = this.getInput();
+        if (view != null)
+        {
+            name.append(view.getName());
+        }
+        name.append(this.getName());
+        return JSFUtils.toWebResourceName(name.toString());
     }
 }
