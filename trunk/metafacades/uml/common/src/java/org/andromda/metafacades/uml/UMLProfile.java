@@ -209,7 +209,7 @@ public class UMLProfile
      * table columns are specified).
      */
     public static final String TAGGEDVALUE_PRESENTATION_IS_TABLE = profile.get("PRESENTATION_IS_TABLE");
-    
+
     /**
      * Used to associate an activity to a use case (when it can not be assigned explicitly).
      */
@@ -335,4 +335,10 @@ public class UMLProfile
      * specialize this type.
      */
     public static final String STRING_TYPE_NAME = profile.get("STRING_TYPE");
+
+    /**
+     * Used to identify a void type in the model, any other type that will be identified as a void type must
+     * specialize this type.
+     */
+    public static final String VOID_TYPE_NAME = profile.get("VOID_TYPE");
 }

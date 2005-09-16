@@ -58,11 +58,11 @@
          |     |        placed here, check out the /uml directory, it contains
          |     |        the UML model from which AndroMDA will generate code
          |     +-- /conf/andromda.xml
-         |     |        configures AndroMDA and its components, most
-         |     |        importantly the cartridges which are listed in
-         |     |        their own namespace; global settings are done in the
-         |     |        'default' namespace
-         |     |
+         |              configures AndroMDA and its components, most
+         |              importantly the cartridges which are listed in
+         |              their own namespace; global settings are done in the
+         |              'default' namespace
+         |     
          +-- /common
          |     |
          |     |    The COMMON module collects those resources and classes

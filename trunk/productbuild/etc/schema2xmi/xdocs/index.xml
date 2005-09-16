@@ -105,7 +105,7 @@ Options:
         <path refid="schema2xmi.classpath"/>
     </classpath>
     <arg value="-i"/>
-    <arg value="jar:file:${maven.src.dir}/test/uml/SomeModel.xml.zip!/SomeModel.xml"/>
+    <arg value="jar:file:${src.dir}/test/uml/SomeModel.xml.zip!/SomeModel.xml"/>
     <arg value="-u"/>
     <arg value="someuser"/>
     <arg value="-p"/>
@@ -115,9 +115,9 @@ Options:
     <arg value="-d"/>
     <arg value="oracle.jdbc.driver.OracleDriver"/>
     <arg value="-m"/>
-    <arg value="file:${maven.conf.dir}/mappings/DatatypeMappings.xml"/>
+    <arg value="file:${conf.dir}/mappings/DatatypeMappings.xml"/>
     <arg value="-o"/>
-    <arg value="${maven.build.dir}/schema2xmi/transformed.xmi"/>
+    <arg value="${build.dir}/schema2xmi/transformed.xmi"/>
     <arg value="-t"/>
     <arg value="[\p{Lower}\p{Upper}[_]]*"/>
     <arg value="-P"/>

@@ -85,7 +85,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacade#handleGetCall()
+     * @see org.andromda.metafacades.uml.OperationFacade#getCall()
      */
     protected String handleGetCall()
     {
@@ -109,7 +109,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacadeLogic#getArgumentNames()
+     * @see org.andromda.metafacades.uml.OperationFacade#getArgumentNames()
      */
     protected String handleGetArgumentNames()
     {
@@ -136,7 +136,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacadeLogic#getArgumentTypeNames()
+     * @see org.andromda.metafacades.uml.OperationFacade#getArgumentTypeNames()
      */
     protected String handleGetArgumentTypeNames()
     {
@@ -183,7 +183,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacadeLogic#getArguments()
+     * @see org.andromda.metafacades.uml.OperationFacade#getArguments()
      */
     protected Collection handleGetArguments()
     {
@@ -199,7 +199,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacadeLogic#getOwner()
+     * @see org.andromda.metafacades.uml.OperationFacade#getOwner()
      */
     protected Object handleGetOwner()
     {
@@ -207,7 +207,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacadeLogic#getParameters()
+     * @see org.andromda.metafacades.uml.OperationFacade#getParameters()
      */
     protected Collection handleGetParameters()
     {
@@ -215,7 +215,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacadeLogic#findTaggedValue(java.lang.String, boolean)
+     * @see org.andromda.metafacades.uml.OperationFacade#findTaggedValue(java.lang.String, boolean)
      */
     protected Object handleFindTaggedValue(String name, boolean follow)
     {
@@ -234,7 +234,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.OperationFacade#isStatic()
+     * @see org.andromda.metafacades.uml.OperationFacade#isStatic()
      */
     protected boolean handleIsStatic()
     {
@@ -258,7 +258,7 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacade#hasExceptions()
+     * @see org.andromda.metafacades.uml.OperationFacade#isExceptionsPresent()
      */
     protected boolean handleIsExceptionsPresent()
     {
@@ -335,14 +335,15 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacade#hasReturnType()
+     * @see org.andromda.metafacades.uml.OperationFacade#isReturnTypePresent()
      */
     protected boolean handleIsReturnTypePresent()
     {
-        boolean hasReturnType = true;
+        boolean hasReturnType = false;
         if (this.getReturnType() != null)
         {
-            hasReturnType = !StringUtils.trimToEmpty(this.getReturnType().getFullyQualifiedName()).equals("void");
+            hasReturnType = !StringUtils.trimToEmpty(
+                this.getReturnType().getFullyQualifiedName(true)).equals(UMLProfile.VOID_TYPE_NAME);
         }
         return hasReturnType;
     }
@@ -394,7 +395,7 @@ public class OperationFacadeLogicImpl
 
     private String getSignature(final String name, final boolean withArgumentNames, final String argumentModifier)
     {
-        StringBuffer signature = new StringBuffer(name);
+        final StringBuffer signature = new StringBuffer(name);
         signature.append("(");
         signature.append(this.getTypedArgumentList(withArgumentNames, argumentModifier));
         signature.append(")");
@@ -403,8 +404,8 @@ public class OperationFacadeLogicImpl
 
     private String getTypedArgumentList(boolean withArgumentNames, String modifier)
     {
-        StringBuffer buffer = new StringBuffer();
-        Iterator parameterIterator = metaObject.getParameter().iterator();
+        final StringBuffer buffer = new StringBuffer();
+        final Iterator parameterIterator = metaObject.getParameter().iterator();
 
         boolean commaNeeded = false;
         while (parameterIterator.hasNext())
