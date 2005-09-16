@@ -227,20 +227,6 @@
                     <value>Comma-separated list of column names</value>
                 </allowedValues>
             </element>
-            <element name="PRESENTATION_IS_TABLE">
-                <documentation>
-                    A flag indicating whether or not a parameter should be considered a table.  This must be 
-                    set to true when you wish to display a list of simple types (such as strings) within a table.
-                </documentation>
-                <value>@andromda.presentation.view.table</value>
-                <appliedOnElement>
-                    A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
-                </appliedOnElement>
-                <allowedValues>
-                    <value>true</value>
-                    <value default="true">false</value>
-                </allowedValues>
-            </element>
             <element name="WEBSERVICE_STYLE">
                 <documentation></documentation>
                 <value>@andromda.webservice.style</value>
@@ -310,6 +296,10 @@
             <element name="STRING_TYPE">
                 <documentation></documentation>
                 <value>datatype::String</value>
+            </element>
+            <element name="VOID_TYPE">
+                <documentation></documentation>
+                <value>datatype::void</value>
             </element>
         </elementGroup>
     </elements>

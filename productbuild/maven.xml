@@ -607,10 +607,9 @@
         <ant:echo>Updating project to next stable release: replacing ${pom.currentVersion} with ${newVersion}</ant:echo>
         <attainGoal name="updateProjectVersion"/>
         <!-- make sure we can build online -->
-<!-- WE WILL NEED TO DO THIS MANUALLY AS IT EATS TOO MUCH MEOMORY DURING THE BUILD, FOR THIS REASON
+<!-- WE WILL NEED TO DO THIS MANUALLY AS IT EATS TOO MUCH MEMORY DURING THE BUILD, FOR THIS REASON
      IT IS RECOMMENDED TO APPLY POSSIBLE FIXES TO THE BRANCH THAT WILL BE CREATED
         <attainGoal name="install"/>
-        <attainGoal name="bootstrap-install"/>
         <attainGoal name="docs"/>
 -->
         <!-- make sure we can unzip both distributions -->
@@ -618,13 +617,19 @@
         <ant:unzip src="${basedir}/target/distributions/${pom.groupId}-bin-${newVersion}.zip" dest="${basedir}/target/test"/>
         <ant:unzip src="${basedir}/target/distributions/${pom.groupId}-src-${newVersion}.zip" dest="${basedir}/target/test"/>
         <maven:maven descriptor="${basedir}/target/test/${pom.groupId}-bin-${newVersion}/samples/project.xml"/>
+
+	TODO: bundle the andromda-bin-<version>.zip/andromda dependencies into a separate bundle to upload to our remote maven repo
+
 -->
         <ant:cvs command='commit -m "Changes for release ${newVersion}"' compressionLevel="9" failOnError="true"/>
         <!-- tag this release (we construct the tag label here first) -->
         <j:set var="cvsTag" value="V${newVersion}"/>
         <j:invoke var="cvsTag" on="${cvsTag}" method="replaceAll"><j:arg value="-"/><j:arg value=""/></j:invoke>
         <j:invoke var="cvsTag" on="${cvsTag}" method="replaceAll"><j:arg value="\."/><j:arg value="_"/></j:invoke>
-        <ant:cvs command="tag -b ${cvsTag}" compressionLevel="9" failOnError="true"/>
+        <!-- tag so that we can later retrieve the state on which we branched -->
+        <ant:cvs command="tag ${cvsTag}" compressionLevel="9" failOnError="true"/>
+        <!-- branch the stable release so the new snapshot version is on HEAD -->
+        <ant:cvs command="tag -b ${cvsTag}x" compressionLevel="9" failOnError="true"/>
         <!-- update this project's version with the next snapshot version -->
         <ant:echo>Updating project to next snapshot release: replacing ${newVersion} with ${newSnapshotVersion}</ant:echo>
         <j:set var="newVersion" value="${newSnapshotVersion}"/>
