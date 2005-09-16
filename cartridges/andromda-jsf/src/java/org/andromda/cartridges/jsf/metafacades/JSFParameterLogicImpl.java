@@ -836,4 +836,13 @@ public class JSFParameterLogicImpl
         }
         return associationEnds == null ? Collections.EMPTY_LIST : associationEnds;
     }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isEqualValidator()
+     */
+    protected boolean handleIsEqualValidator()
+    {
+        final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
+        return equal != null && equal.trim().length() > 0;
+    }
 }

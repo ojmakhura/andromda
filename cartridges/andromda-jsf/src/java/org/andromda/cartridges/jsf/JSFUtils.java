@@ -225,6 +225,19 @@ public class JSFUtils
                 0,
                 2));
     }
+    
+    /**
+     * Indicates if the given <code>format</code> is an equal format.
+     *
+     * @return <code>true</code> if this field is to be formatted as an email address, <code>false</code> otherwise
+     */
+    public static boolean isEqualFormat(String format)
+    {
+        return "equal".equalsIgnoreCase(JSFUtils.getToken(
+                format,
+                0,
+                2));
+    }
 
     /**
      * Indicates if the given <code>format</code> is a creditcard format.
@@ -439,6 +452,23 @@ public class JSFUtils
     }
 
     /**
+     * Retrieves the "equal" value from the given element (if one is present).
+     *
+     * @param element the element from which to retrieve the equal value.
+     * @return the "equal" value.
+     */
+    public static java.lang.String getEqual(final ModelElementFacade element)
+    {
+        String equal = null;
+        if (element != null)
+        {
+            final Object value = element.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_EQUAL);
+            equal = value == null ? null : value.toString();
+        }
+        return equal;
+    }
+    
+    /**
      * Retrieves the "validwhen" value from the given element (if one is present).
      *
      * @param element the element from which to retrieve the validwhen value.
@@ -630,6 +660,10 @@ public class JSFUtils
             {
                 validatorTypesList.add("validwhen");
             }
+            if (JSFUtils.getEqual(element) != null)
+            {
+                validatorTypesList.add("equal");
+            }
         }
 
         // - custom (paramterized) validators are allowed here
@@ -750,6 +784,15 @@ public class JSFUtils
                     test,
                     Arrays.asList(new Object[] {test, validWhen}));
             }
+            
+            final String equal = JSFUtils.getEqual(element);
+            if (equal != null)
+            {
+                final String test = "fieldName";
+                vars.put(
+                    test,
+                    Arrays.asList(new Object[] {test, equal}));
+            }
         }
 
         // - custom (parameterized) validators are allowed here
@@ -816,6 +859,10 @@ public class JSFUtils
         else if ("time".equals(validatorType))
         {
             args.add("${var:timePattern}");
+        }
+        else if ("equal".equals(validatorType))
+        {
+            args.add("${var:fieldName}");
         }
 
         // custom (paramterized) validators are allowed here
