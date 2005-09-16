@@ -574,4 +574,13 @@ public class JSFAttributeLogicImpl
         }
         return defaultValue;
     }
+    
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#isEqualValidator()
+     */
+    protected boolean handleIsEqualValidator()
+    {
+        final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
+        return equal != null && equal.trim().length() > 0;
+    }
 }

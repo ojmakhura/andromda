@@ -61,9 +61,13 @@
 #end
 #end
 #foreach ($validatorVar in $field.validatorVars)
+#set ($varValue = $validatorVar.get(1))
+#if ($field.equalValidator)
+#set ($varValue = "${action.formBeanName}:${varValue}")
+#end
                 <var>
                     <var-name>$validatorVar.get(0)</var-name>
-                    <var-value><![CDATA[$validatorVar.get(1)]]></var-value>
+                    <var-value><![CDATA[$varValue]]></var-value>
                 </var>
 #end
             </field>

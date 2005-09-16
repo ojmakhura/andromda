@@ -530,19 +530,4 @@ public class JSFActionLogicImpl
     {
         return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
     }
-    
-    /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getUseCaseUniqueName()
-     */
-    protected String handleGetUseCaseUniqueName()
-    {
-        final StringBuffer name = new StringBuffer();
-        final FrontEndView view = this.getInput();
-        if (view != null)
-        {
-            name.append(view.getName());
-        }
-        name.append(this.getName());
-        return JSFUtils.toWebResourceName(name.toString());
-    }
 }

@@ -176,6 +176,18 @@
                     <value>a Struts 'validwhen' condition</value>
                 </allowedValues>
             </element>
+            <element name="INPUT_EQUAL">
+                <documentation>
+                    Allows the comparison between 2 fields, this allows you to specify the
+                    other field that a parameter must equal in order to be valid (like when
+                    comparing two passwords)
+                </documentation>
+                <value>@andromda.presentation.web.view.field.equal</value>
+                <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>a Struts 'validwhen' condition</value>
+                </allowedValues>
+            </element>
             <element name="INPUT_VALIDATORS">
                 <documentation>
                     Custom validation to be performed, you can add one or more of your own validators here.
