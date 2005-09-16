@@ -1,5 +1,10 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -18,11 +23,6 @@ import org.omg.uml.foundation.datatypes.CallConcurrencyKind;
 import org.omg.uml.foundation.datatypes.CallConcurrencyKindEnum;
 import org.omg.uml.foundation.datatypes.ParameterDirectionKindEnum;
 import org.omg.uml.foundation.datatypes.ScopeKindEnum;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
 
 /**
  * Metaclass facade implementation.
@@ -563,6 +563,23 @@ public class OperationFacadeLogicImpl
     protected Collection handleGetPostconditions()
     {
         return this.getConstraints(ExpressionKinds.POST);
+    }
+    
+    /**
+     * @see  org.andromda.metafacades.uml.OperationFacade#findParameter(java.lang.String)
+     */
+    protected ParameterFacade handleFindParameter(final String name)
+    {
+        return (ParameterFacade)CollectionUtils.find(
+            this.getParameters(),
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    final ParameterFacade parameter = (ParameterFacade)object;
+                    return StringUtils.trimToEmpty(parameter.getName()).equals(name);
+                }
+            });
     }
 
 }
