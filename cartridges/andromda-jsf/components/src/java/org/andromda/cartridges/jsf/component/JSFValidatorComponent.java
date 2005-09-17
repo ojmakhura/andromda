@@ -252,7 +252,12 @@ public class JSFValidatorComponent
      * The function name attribute storing the function name to render
      * when using client side validation.
      */
-    private static final String FUNCTION_NAME = "functionName";
+    public static final String FUNCTION_NAME = "functionName";
+    
+    /**
+     * The key for the current validator id.
+     */
+    public static final String VALIDATOR_ID = "validatorId";
 
     /**
      * writes the javascript functions to the response.
@@ -458,16 +463,17 @@ public class JSFValidatorComponent
                         JAVASCRIPT_UTILITIES,
                         "present");
                 }
-                final String functionName = (String)this.getAttributes().get(FUNCTION_NAME);
-                if (this.getAttributes().get(FUNCTION_NAME) != null)
+                final String validatorId = (String)this.getAttributes().get(VALIDATOR_ID);
+                final UIForm form = this.findForm(validatorId);
+                if (form != null)
                 {
-                    final UIForm form = this.findForm(functionName);
-                    if (form != null)
+                    this.findValidators(
+                        form,
+                        context);
+                    final String functionName = (String)this.getAttributes().get(FUNCTION_NAME);
+                    if (functionName != null)
                     {
                         final ResponseWriter writer = context.getResponseWriter();
-                        this.findValidators(
-                            form,
-                            context);
                         this.writeScriptStart(writer);
                         this.writeValidationFunctions(
                             form,

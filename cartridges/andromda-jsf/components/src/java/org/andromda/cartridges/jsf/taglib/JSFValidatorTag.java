@@ -39,7 +39,7 @@ public class JSFValidatorTag
     {
         super.setProperties(component);
 
-        final String attributeName = "functionName";
+        final String attributeName = JSFValidatorComponent.FUNCTION_NAME;
         final String attributeValue = this.functionName;
         if (attributeValue != null)
         {
@@ -58,7 +58,13 @@ public class JSFValidatorTag
                     attributeName,
                     attributeValue);
             }
-            component.setId(attributeValue);
+        }
+        final String validatorId = this.getId();
+        if (validatorId != null)
+        {
+            System.out.println("the validator id!!!!!!!!!!!!: " + validatorId);
+            component.getAttributes().put(JSFValidatorComponent.VALIDATOR_ID, validatorId);
+            component.setId(validatorId);
         }
     }
 
