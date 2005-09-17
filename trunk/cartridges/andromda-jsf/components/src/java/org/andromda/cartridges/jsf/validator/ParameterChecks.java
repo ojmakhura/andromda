@@ -10,7 +10,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -965,6 +967,48 @@ public class ParameterChecks
                             context));
                 }
             }
+        }
+    }
+    
+    /**
+     *  Checks if the field's value is equal to another field's value on the same form.
+     *
+     * @param context the faces context
+     * @param object the value of the field being validated.
+     * @param parameters Any field parameters from the validation.xml.
+     * @param errors The <code>Map</code> object to add errors to if any
+     *        validation errors occur.
+     * @param action The <code>ValidatorAction</code> that is currently being
+     *        performed.
+     * @param field The <code>Field</code> object associated with the current
+     *        field being validated.
+     */
+    public static void validateEqual(
+        FacesContext context,
+        Object object,
+        Map parameters,
+        Collection errors,
+        ValidatorAction action,
+        Field field)
+    {
+        final String value = ObjectUtils.toString(object);
+        if (StringUtils.isNotBlank(value))
+        {
+            final String equalFieldName = field.getVarValue("fieldName");
+            final UIInput equalField = (UIInput)context.getViewRoot().findComponent(equalFieldName);
+            final ValueBinding binding = equalField.getValueBinding("value");
+            if (binding != null)
+            {
+                final Object equalFieldValue = binding.getValue(context);
+                if (equalFieldValue == null || !equalFieldValue.equals(object))
+                {
+                    errors.add(ValidatorMessages.getMessage(
+                        action,
+                        field,
+                        context)); 
+                }
+            }
+
         }
     }
 }

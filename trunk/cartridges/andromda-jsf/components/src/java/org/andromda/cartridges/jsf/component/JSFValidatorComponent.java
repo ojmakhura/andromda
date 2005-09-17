@@ -459,10 +459,10 @@ public class JSFValidatorComponent
                         "present");
                 }
                 final String functionName = (String)this.getAttributes().get(FUNCTION_NAME);
-                final UIForm form = this.findForm(functionName);
-                if (form != null)
+                if (this.getAttributes().get(FUNCTION_NAME) != null)
                 {
-                    if (this.getAttributes().get(FUNCTION_NAME) != null)
+                    final UIForm form = this.findForm(functionName);
+                    if (form != null)
                     {
                         final ResponseWriter writer = context.getResponseWriter();
                         this.findValidators(
