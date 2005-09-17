@@ -12,7 +12,6 @@ import java.util.Map;
 
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.el.ValueBinding;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -996,17 +995,13 @@ public class ParameterChecks
         {
             final String equalFieldName = field.getVarValue("fieldName");
             final UIInput equalField = (UIInput)context.getViewRoot().findComponent(equalFieldName);
-            final ValueBinding binding = equalField.getValueBinding("value");
-            if (binding != null)
+            final Object equalFieldValue = equalField.getValue();
+            if (equalFieldValue == null || !equalFieldValue.equals(object))
             {
-                final Object equalFieldValue = binding.getValue(context);
-                if (equalFieldValue == null || !equalFieldValue.equals(object))
-                {
-                    errors.add(ValidatorMessages.getMessage(
-                        action,
-                        field,
-                        context)); 
-                }
+                errors.add(ValidatorMessages.getMessage(
+                    action,
+                    field,
+                    context)); 
             }
 
         }
