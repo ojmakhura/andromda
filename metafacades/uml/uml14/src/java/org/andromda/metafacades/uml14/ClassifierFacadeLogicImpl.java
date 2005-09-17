@@ -557,7 +557,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#findAttribute()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#findAttribute(java.lang.String)
      */
     protected AttributeFacade handleFindAttribute(final String name)
     {
