@@ -63,8 +63,12 @@ commons.el.version=1.0
 commons.validator.version=1.1.4
 commons.fileupload.version=1.0
 servletapi.version=2.4-20040521
+#if ($struts)
 struts.version=1.2.7
 struts.menu.version=2.3
+#elseif ($jsf)
+myfaces.version=20050912
+#end
 displaytag.version=1.0
 itext.version=0.99
 taglibs.version=1.1.1

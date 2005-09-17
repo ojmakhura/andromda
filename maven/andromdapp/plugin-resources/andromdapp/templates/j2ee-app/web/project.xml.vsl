@@ -119,6 +119,7 @@
             <version>${servletapi.version}</version>
             <type>jar</type>
         </dependency>
+#if ($struts)
         <dependency>
             <groupId>struts</groupId>
             <artifactId>struts</artifactId>
@@ -139,6 +140,25 @@
             </properties>
         </dependency>
 -->
+#elseif ($jsf)
+        <dependency>
+            <groupId>myfaces</groupId>
+            <artifactId>myfaces</artifactId>
+            <version>${myfaces.version}</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-utils</artifactId>
+            <version>${andromda.version}</version>
+            <type>jar</type>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+#end
         <dependency>
             <groupId>displaytag</groupId>
             <artifactId>displaytag</artifactId>

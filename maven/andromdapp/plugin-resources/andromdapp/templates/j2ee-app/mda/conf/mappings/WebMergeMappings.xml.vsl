@@ -6,7 +6,7 @@
     use the following merge points.
 -->
 #set ($requiresAxisMergePoints = $webservice && $war)
-<mappings name="Bpm4StrutsMerge">
+<mappings name="WebMerge">
     <mapping>
         <from><![CDATA[<!-- context-param merge-point -->]]></from>
         <to>
