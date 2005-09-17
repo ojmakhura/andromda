@@ -156,4 +156,38 @@ public class SpringDependencyLogicImpl
     {
         return "set" + StringUtils.capitalize(this.getDaoName());
     }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getTransformationToEntityCollectionMethodName()
+     */
+    protected String handleGetTransformationToEntityCollectionMethodName()
+    {
+        return this.getTransformationToEntityMethodName() + SpringGlobals.TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX;
+    }
+    
+    /**
+     * The suffix for the transformation to entity method name.
+     */
+    private static final String TRANSFORMATION_TO_ENTITY_METHOD_NAME_SUFFIX = "ToEntity";
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getTransformationToEntityMethodName()
+     */    
+    protected String handleGetTransformationToEntityMethodName()
+    {
+        return this.getName() + TRANSFORMATION_TO_ENTITY_METHOD_NAME_SUFFIX;
+    }
+    
+    /**
+     * The suffix for the value object to entity transformer.
+     */
+    private static final String VALUE_OBJECT_TO_ENTITY_TRANSFORMER_SUFFIX = "Transformer";
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getValueObjectToEntityTransformerName()
+     */    
+    protected String handleGetValueObjectToEntityTransformerName()
+    {
+        return StringUtils.capitalize(this.getTransformationToEntityMethodName()) + VALUE_OBJECT_TO_ENTITY_TRANSFORMER_SUFFIX;
+    }
 }

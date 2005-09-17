@@ -657,6 +657,38 @@ public abstract class $entity.daoBaseName
                 return result;
             }
         };
+        
+    /**
+     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection)
+     */
+    public final void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection instances)
+    {
+        if (instances == null)
+        {
+            instances = java.util.Collections.EMPTY_LIST;
+        }
+        else
+        {
+            for (final java.util.Iterator iterator = instances.iterator(); iterator.hasNext();)
+            {
+                // - remove an objects that are null or not of the correct instance
+                if (!(iterator.next() instanceof $valueObjectRef.targetElement.fullyQualifiedName))
+                {
+                    iterator.remove();
+                }
+            }
+            org.apache.commons.collections.CollectionUtils.transform(instances, $valueObjectRef.valueObjectToEntityTransformerName);
+        }
+    }
+    
+    private final org.apache.commons.collections.Transformer $valueObjectRef.valueObjectToEntityTransformerName =
+        new org.apache.commons.collections.Transformer()
+        {
+            public Object transform(Object input)
+            {
+                return ${valueObjectRef.transformationToEntityMethodName}(($valueObjectRef.targetElement.fullyQualifiedName)input);
+            }
+        };
 
 #end
 }
