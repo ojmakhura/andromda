@@ -48,6 +48,17 @@ public interface $entity.daoName
      * Converts this DAO's entity to a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
      */
     public void ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection entities);
+    
+    /**
+     * Converts an instance of type {@link $valueObjectRef.targetElement.fullyQualifiedName} to this DAO's entity.
+     */
+    public $entity.fullyQualifiedEntityName ${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.name));
+
+    /**
+     * Converts a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName} to this
+     * DAO's entity.
+     */
+    public void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection instances);
 
 #end
 #set ($identifier = $entity.identifiers.iterator().next())
@@ -71,15 +82,15 @@ public interface $entity.daoName
      * @return either the entity or the object transformed from the entity.
      */
     public Object load(int transform, $identifier.type.fullyQualifiedName $identifier.name);
-    
+
     /**
-     * Loads all entities of type {@link ${entity.fullyQualifiedEntityName}}. 
-     * 
+     * Loads all entities of type {@link ${entity.fullyQualifiedEntityName}}.
+     *
      * @return the loaded entities.
      */
     public java.util.Collection loadAll();
-    
-    /** 
+
+    /**
      * <p>
      *   Does the same thing as {@link #loadAll()} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORM_NONE</code> then
@@ -88,7 +99,7 @@ public interface $entity.daoName
      *   transform the entity (into a value object for example).  By default, transformation does
      *   not occur.
      * </p>
-     * 
+     *
      * @param transform the flag indicating what transformation to use.
      * @return the loaded entities.
      */

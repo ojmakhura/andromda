@@ -45,6 +45,15 @@ public class $entity.daoImplementationName
         // put your implementation here
         return null;
     }
+    
+    /**
+     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName)
+     */
+    public $entity.fullyQualifiedEntityName ${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.name))
+    {
+        // put your implementation here
+        return null;    
+    }
 
 #end
 }
