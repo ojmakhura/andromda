@@ -868,16 +868,16 @@
 <![CDATA[<constraints>
     ...
     <constraint>my::package::foo</constraint>
-    <constraint enforce="false">name="my::package::bar**</constraint>
+    <constraint enforce="false">my::package::bar**</constraint>
     ...
 </constraints>]]></source>
                                 <p>
                                     The above is equivalent to:
                                 </p>
                                 <source language="xml">
-<![CDATA[<constraints>
+<![CDATA[<constraints enforceAll="false">
     ...
-    <constraints>
+    <constraint enforce="true">my::package::foo</constraint>
     ...
 </constraints>]]>
                             </source>
