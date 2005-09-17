@@ -106,9 +106,13 @@
             <ant:path id="jsp.precompilation.classpath">
                 <ant:path refid="maven.dependency.classpath"/>
                 <ant:pathelement location="${jsp.precompilation.webapp}/WEB-INF/classes"/>
+#if ($struts)
                 <ant:pathelement location="${jsp.precompilation.webapp}/WEB-INF/lib/andromda-breadcrumbs-taglib.jar"/>
                 <ant:pathelement location="${jsp.precompilation.webapp}/WEB-INF/lib/andromda-formatting-taglib.jar"/>
                 <ant:pathelement location="${jsp.precompilation.webapp}/WEB-INF/lib/andromda-collections-taglib.jar"/>
+#elseif ($jsf)
+                <ant:pathelement location="${jsp.precompilation.webapp}/WEB-INF/lib/andromda-jsf-cartridge-components.jar"/>
+#end
             </ant:path>
 
             <!-- generating java code from the JSPs -->
@@ -131,6 +135,7 @@
                 destdir="${jsp.precompilation.webapp}/WEB-INF/classes"
                 deprecation="on"/>
 
+#if ($struts)
             <!-- only process the next code when the mda project has generateWebXmlIds set to true as a
                  bpm4struts namespace property; one could argue the use of a property in /project.properties
                  and use it in both /mda/project.xml and this /web/maven.xml, but the thing is that it doesn't really
@@ -171,6 +176,7 @@
                 <j:file omitXmlDeclaration="true" escapeText="false"
                     name="${jsp.precompilation.servlets}">${webXmlFragment}</j:file>
             </j:if>
+#end
 
             <!-- merging additional web.xml directives -->
             <ant:echo message="Merging additional web.xml directives"/>

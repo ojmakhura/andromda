@@ -187,7 +187,7 @@
                 <property name="value-objects">${maven.andromda.common.generated.dir}</property>
             </properties>
         </namespace>
-#if ($web)
+#if ($struts)
         <namespace name="bpm4struts">
             <properties>
                 <property name="forms">${maven.andromda.web.generated.dir}</property>
@@ -204,8 +204,32 @@
 #else
                 <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
 #end
-                <property name="mergeMappingsUri">file:${maven.conf.dir}/mappings/Bpm4StrutsMergeMappings.xml</property>
+                <property name="mergeMappingsUri">file:${maven.conf.dir}/mappings/WebMergeMappings.xml</property>
                 <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
+            </properties>
+        </namespace>
+#elseif ($jsf)
+        <namespace name="jsf">
+            <properties>
+#if ($webservice)
+                <property name="languageMappingsUri">AxisJavaMappings</property>
+#end
+                <property name="applicationName">${application.name}</property>
+                <property name="forms">${maven.andromda.web.generated.dir}</property>
+                <property name="jsps">${maven.andromda.web.generated.dir}</property>
+                <property name="managed-beans">${maven.andromda.web.generated.dir}</property>
+                <property name="controllers">${maven.andromda.web.generated.dir}</property>
+                <property name="controller-impls">${maven.andromda.web.manual.java.dir}</property>
+                <property name="messages">${maven.andromda.web.generated.dir}</property>
+                <property name="configuration">${maven.andromda.web.generated.dir}</property>
+                <!-- uncomment to enable web tier security  -->
+                <property name="securityRealm">${application.id}</property>
+#if ($ejb)
+                <property name="serviceAccessorPattern">{0}.{1}Util.getHome().create()</property>
+#else
+                <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
+#end
+                <property name="mergeMappingsUri">file:${maven.conf.dir}/mappings/WebMergeMappings.xml</property>
             </properties>
         </namespace>
 #end

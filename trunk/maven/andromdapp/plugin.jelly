@@ -125,9 +125,9 @@
             <j:set var="mdaTemplatesMappingsDir" value="${mdaTemplatesDir}/conf/mappings"/>
             <ant:mkdir dir="${mdaMappingsDir}"/>
             <velocity:merge
-                name="${mdaMappingsDir}/Bpm4StrutsMergeMappings.xml"
+                name="${mdaMappingsDir}/WebMergeMappings.xml"
                 basedir="${mdaTemplatesMappingsDir}"
-                template="Bpm4StrutsMergeMappings.xml.vsl"/>
+                template="WebMergeMappings.xml.vsl"/>
         </j:if>
 
     </goal>
@@ -426,12 +426,21 @@
                 <j:set var="webComponent" value="yes"/>
             </j:otherwise>
         </j:choose>
+        <j:if test="${webComponent eq 'yes'}">
+            <j:while test="${empty(webComponentType) or (webComponentType ne 'jsf' and webComponentType ne 'struts')}">
+                <i:ask
+                    question="Would you like your web tier to use JSF or Struts? (enter 'jsf' or 'struts'):"
+                    answer="webComponentType"/>
+            </j:while>            
+        </j:if>
         <j:while test="${empty(exposeAsWebService) or (exposeAsWebService ne 'yes' and exposeAsWebService ne 'no')}">
             <i:ask
                 question="Would you like to be able to expose your services as web services? (enter 'yes' or 'no'):"
                 answer="exposeAsWebService"/>
         </j:while>
         <j:set var="web" value="${webComponent eq 'yes'}"/>
+        <j:set var="struts" value="${webComponentType eq 'struts'}"/>
+        <j:set var="jsf" value="${webComponentType eq 'jsf'}"/>        
         <j:set var="ejb" value="${persistenceType eq 'ejb'}"/>
         <j:set var="hibernate" value="${persistenceType eq 'hibernate'}"/>
         <j:set var="spring" value="${persistenceType eq 'spring'}"/>
