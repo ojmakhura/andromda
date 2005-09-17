@@ -439,7 +439,8 @@
         outputPattern="$welcomeFileName"
         outlet="jsps"
         overwrite="true"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
         <modelElements>
             <modelElement variable="applicationUseCases">
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase">
@@ -454,7 +455,8 @@
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/LogOutServlet.java"
         outlet="controllers"
         overwrite="true"
-        outputToSingleFile="true">
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
         <modelElements>
             <modelElement variable="applicationUseCases">
                 <type name="org.andromda.metafacades.uml.FrontEndUseCase">
