@@ -196,7 +196,7 @@
                 <war.bundle>true</war.bundle>
             </properties>
         </dependency>
-#if (!($hibernate || $spring))
+#if ($war || !($hibernate || $spring))
         <!-- commons validator depends on antlr and oro for
              certain validation types -->
         <dependency>
