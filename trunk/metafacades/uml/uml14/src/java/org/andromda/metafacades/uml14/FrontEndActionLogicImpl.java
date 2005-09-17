@@ -25,6 +25,9 @@ import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -74,6 +77,23 @@ public class FrontEndActionLogicImpl
     {
         final EventFacade trigger = this.getTrigger();
         return trigger == null ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
+    }
+    
+    /**
+     * @see  org.andromda.metafacades.uml.FrontEndAction#findParameter(java.lang.String)
+     */
+    protected ParameterFacade handleFindParameter(final String name)
+    {
+        return (ParameterFacade)CollectionUtils.find(
+            this.getParameters(),
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    final ParameterFacade parameter = (ParameterFacade)object;
+                    return StringUtils.trimToEmpty(parameter.getName()).equals(name);
+                }
+            });
     }
 
     /**
