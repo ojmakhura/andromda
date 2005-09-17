@@ -57,7 +57,11 @@
 #end
 #foreach ($validatorType in $validatorTypes)
 #foreach ($validatorArg in $field.getValidatorArgs($validatorType))
+#if ($validatorArg.type)
+                <arg position="$velocityCount" name="$validatorType" key="$validatorArg.messageKey" resource="true"/>
+#else
                 <arg position="$velocityCount" name="$validatorType" key="$validatorArg" resource="false"/>
+#end
 #end
 #end
 #foreach ($validatorVar in $field.validatorVars)

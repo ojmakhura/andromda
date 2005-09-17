@@ -3,8 +3,8 @@ package org.andromda.cartridges.jsf;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -13,7 +13,11 @@ import org.andromda.cartridges.jsf.metafacades.JSFAttribute;
 import org.andromda.cartridges.jsf.metafacades.JSFParameter;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
@@ -688,7 +692,7 @@ public class JSFUtils
         final ModelElementFacade element,
         final ClassifierFacade type)
     {
-        final Map vars = new HashMap();
+        final Map vars = new LinkedHashMap();
         if (element != null && type != null)
         {
             final String format = JSFUtils.getInputFormat(element);
@@ -788,10 +792,10 @@ public class JSFUtils
             final String equal = JSFUtils.getEqual(element);
             if (equal != null)
             {
-                final String test = "fieldName";
+                final String fieldName = "fieldName";
                 vars.put(
-                    test,
-                    Arrays.asList(new Object[] {test, equal}));
+                    fieldName,
+                    Arrays.asList(new Object[] {fieldName, equal}));
             }
         }
 
@@ -862,6 +866,35 @@ public class JSFUtils
         }
         else if ("equal".equals(validatorType))
         {
+            ModelElementFacade equalParameter = null;
+            final String equal = JSFUtils.getEqual(element);
+            if (element instanceof ParameterFacade)
+            {
+                final FrontEndParameter parameter = (FrontEndParameter)element;
+                final OperationFacade operation = parameter.getOperation();
+                if (operation != null)
+                {
+                    equalParameter = operation.findParameter(equal);
+                }
+                if (equalParameter == null)
+                {
+                    final FrontEndAction action = parameter.getAction();
+                    if (action != null)
+                    {
+                        equalParameter = action.findParameter(equal);
+                    }
+                }
+            }
+            else if (element instanceof AttributeFacade)
+            {
+                final AttributeFacade attribute = (AttributeFacade)element;
+                final ClassifierFacade owner = attribute.getOwner();
+                if (owner != null)
+                {
+                    equalParameter = owner.findAttribute(equal);
+                }            
+            }
+            args.add(equalParameter);
             args.add("${var:fieldName}");
         }
 
