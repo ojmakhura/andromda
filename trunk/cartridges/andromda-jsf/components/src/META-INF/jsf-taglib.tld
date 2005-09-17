@@ -24,6 +24,16 @@
            Enables the JSF validator (which uses the commons-validator).
         </description>
         <attribute>
+            <name>id</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The component identifier for this component. This value
+                must be unique within the closest parent component that
+                is a naming container.
+            </description>
+        </attribute>
+        <attribute>
             <name>functionName</name>
             <required>false</required>
             <rtexprvalue>false</rtexprvalue>

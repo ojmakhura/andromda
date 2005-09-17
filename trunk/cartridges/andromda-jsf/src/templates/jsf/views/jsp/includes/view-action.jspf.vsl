@@ -60,6 +60,6 @@
 #end
         </h:panelGroup>
     </h:panelGrid>
-    <jsf:validator#if($clientValidation) functionName="$formValidateName"#end/>
+    <jsf:validator id="${formName}Validator"#if($clientValidation) functionName="$formValidateName"#end/>
 </h:form>
 #end
