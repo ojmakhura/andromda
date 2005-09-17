@@ -29,4 +29,10 @@ public class DecisionItemDaoImpl
         }
     }
 
+    public DecisionItem vODecisionItemToEntity(VODecisionItem vODecisionItem)
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
