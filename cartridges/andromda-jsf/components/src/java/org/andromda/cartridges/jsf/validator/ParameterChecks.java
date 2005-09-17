@@ -218,7 +218,7 @@ public class ParameterChecks
         ValidatorAction action,
         Field field)
     {
-        String mask = field.getVarValue("mask");
+        final String mask = field.getVarValue("mask");
         final String value = ObjectUtils.toString(object);
         if (StringUtils.isNotBlank(value) && !GenericValidator.matchRegexp(
                 value,
