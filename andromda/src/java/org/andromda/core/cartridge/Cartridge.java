@@ -459,8 +459,8 @@ public class Cartridge
                 this.getLogger().info("Removed: '" + outputFile + "'");
             }
             final String message =
-                "Error performing " + methodName + " with template '" + template.getPath() + "', template context '" +
-                templateContext + "' and cartridge '" + this.getNamespace() + "'";
+                "Error processing template '" + template.getPath() + "' with template context '" + templateContext +
+                "' using cartridge '" + this.getNamespace() + "'";
             throw new CartridgeException(message, throwable);
         }
     }
