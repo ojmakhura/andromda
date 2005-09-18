@@ -671,13 +671,10 @@
                     literals in the generated SQL.
                 </documentation>
             </property>
-            <property name="hibernateUseQueryCache">
+            <property name="hibernateEnableCache">
                 <default>false</default>
                 <documentation>
-                     The default query cache usage.
-                     Can be overwritten using
-                     <a href="profile.html#@andromda_hibernate_query_useCache">@andromda.hibernate.query.useCache</a>.
-                     Possible values are:
+                    Enable/disable hibernate's second level cache features when using Hibernate.
                      <ul>
                         <li>true</li>
                         <li>false</li>

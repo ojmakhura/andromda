@@ -30,11 +30,11 @@
     <property reference="hibernateMaxFetchDepth"/>
     <property reference="hibernateJdbcFetchSize"/>
     <property reference="hibernateJdbcBatchSize"/>
+    <property reference="hibernateEnableCache"/>
     <property reference="hibernateJdbcUseScrollableResultSet"/>
     <property reference="hibernateJdbcUseStreamsForBinary"/>
     <property reference="hibernateHbm2DDLAuto"/>
     <property reference="hibernateQuerySubstitutions"/>
-    <property reference="hibernateUseQueryCache"/>
     <property reference="hibernateCacheProvider"/>
     <property reference="hibernateQueryCacheFactory"/>
     <property reference="hibernateVersion"/>
