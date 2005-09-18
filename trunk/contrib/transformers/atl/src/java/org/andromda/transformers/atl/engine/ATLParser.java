@@ -2,11 +2,8 @@ package org.andromda.transformers.atl.engine;
 
 import java.io.InputStream;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
-import org.andromda.transformers.atl.ATLTransformerUtils;
 import org.andromda.transformers.atl.TransformerException;
 import org.apache.log4j.Logger;
 import org.atl.engine.injectors.ebnf.EBNFInjector2;
@@ -69,11 +66,6 @@ public class ATLParser
     private static final String ATL_MODEL = "ATL";
     
     /**
-     * The name of the MOF model.
-     */
-    private static final String MOF_MODEL = "MOF";
-    
-    /**
      * The problem model.
      */
     private static final String PROBLEM_MODEL = "PROBLEM";
@@ -97,8 +89,9 @@ public class ATLParser
             final EBNFInjector2 injector = new EBNFInjector2();
             injector.performImportation(atlMetamodel, result[0], inputStream, ATL_MODEL, result[1]);
 
-            // - Semantic Analysis
+            /*// - Semantic Analysis
             final Map models = new HashMap();
+            final String MOF_MODEL = "MOF";
             models.put(
                 MOF_MODEL,
                 modelHandler.getMOF());
@@ -114,6 +107,7 @@ public class ATLParser
                 ATLTransformerUtils.getResource("ATLSemanticAnalyzer.asm"),
                 models,
                 parameters);
+            */
         }
         catch (final Throwable throwable)
         {

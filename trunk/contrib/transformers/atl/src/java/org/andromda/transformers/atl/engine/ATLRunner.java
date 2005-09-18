@@ -126,6 +126,7 @@ public class ATLRunner
         }
         catch (final Throwable throwable)
         {
+            throwable.printStackTrace();
             throw new TransformerException(throwable);
         }
         return result;
