@@ -76,12 +76,14 @@ public abstract class ATLModelHandler
      * @param name the name of the model.
      * @param metamodel the metamodel of the model.
      * @param inputStream the input stream containing the actual model being loaded.
+     * @param moduleSearchPaths the paths to any external modules (HREFs within the model)
      * @return the loaded model.
      */
     public abstract ASMModel loadModel(
         final String name,
         final ASMModel metamodel,
-        final InputStream inputStream);
+        final InputStream inputStream,
+        final String[] loadSourceModels);
 
     /**
      * Creates a new model.

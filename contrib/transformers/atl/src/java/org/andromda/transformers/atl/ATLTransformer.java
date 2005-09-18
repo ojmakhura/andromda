@@ -37,13 +37,16 @@ public class ATLTransformer
      * @param metamodels the metamodels used during the transformation process.
      * @param sourceModels the source models that will be transformed.
      * @param targetModels the models that are the target or result of the transformation.
+     * @param moduleSearchPaths the optional (can be null) paths to search when attempting to find
+     *        referenced 'modules' (i.e. external modules that are referenced by HREFs).
      */
     public void transform(
         final String transformationPath,
         final Library[] libraries,
         final Model[] metamodels,
         final Model[] sourceModels,
-        final Model[] targetModels)
+        final Model[] targetModels,
+        final String[] moduleSearchPaths)
     {
         final String methodName = "ATLTransformer.transform";
         ExceptionUtils.checkEmpty(methodName, "transformationPath", transformationPath);
@@ -85,8 +88,8 @@ public class ATLTransformer
             }
 
             // - stores the loaded models
-            final Map models = this.loadSourceModels(metamodels, sourceModels);
-            final Map loadedTargetModels = this.loadTargetModels(metamodels, targetModels, models);
+            final Map models = this.loadSourceModels(metamodels, sourceModels, moduleSearchPaths);
+            final Map loadedTargetModels = this.loadTargetModels(metamodels, targetModels, models, moduleSearchPaths);
             models.putAll(loadedTargetModels);
 
             final ATLRunner runner = ATLRunner.instance();
@@ -125,12 +128,14 @@ public class ATLTransformer
      * @param models the Map in which to load the models.
      * @param metamodels the metamodels.
      * @param sourceModels the models that are the source for this transformation.
+     * @param moduleSearchPaths the paths to any external modules (HREFs within the model).
      * @return the loaded models as a Map keyed by name.
      * @throws Exception if any error occurs during the loading process.
      */
     private Map loadSourceModels(
         final Model[] metamodels,
-        final Model[] sourceModels)
+        final Model[] sourceModels,
+        final String[] moduleSearchPaths)
         throws Exception
     {
         final Map models = new HashMap();
@@ -152,14 +157,14 @@ public class ATLTransformer
                 if (inputMetaModel == null)
                 {
                     InputStream metamodelStream = this.getInputStream(metamodel.getPath());
-                    inputMetaModel = handler.loadModel(metamodelName, mofMetamodel, metamodelStream);
+                    inputMetaModel = handler.loadModel(metamodelName, mofMetamodel, metamodelStream, moduleSearchPaths);
                     metamodelStream.close();
                     metamodelStream = null;
                     models.put(metamodelName, inputMetaModel);
                 }
                 inputMetaModel.setIsTarget(false);
                 InputStream modelStream = this.getInputStream(model.getPath());
-                final ASMModel inputModel = handler.loadModel(modelName, inputMetaModel, modelStream);
+                final ASMModel inputModel = handler.loadModel(modelName, inputMetaModel, modelStream, moduleSearchPaths);
                 modelStream.close();
                 modelStream = null;
                 inputModel.setIsTarget(false);
@@ -180,13 +185,15 @@ public class ATLTransformer
      *        just passed in so that we don't need to reload the same models again (like metamodels
      *        that might be the same) if they've already been loaded during the execution of
      *        {@link #loadSourceModels(Model[], Model[])}.
+     * @param moduleSearchPaths the paths to any external modules (HREFs within the model).
      * @return the loaded models as a Map keyed by name.
      * @throws Exception if any error occurs during the loading process.
      */
     private Map loadTargetModels(
         final Model[] metamodels,
         final Model[] targetModels,
-        final Map loadedSourceModels)
+        final Map loadedSourceModels,
+        final String[] moduleSearchPaths)
         throws Exception
     {
         final Map models = new HashMap();
@@ -210,7 +217,7 @@ public class ATLTransformer
                 if (outputMetamodel == null)
                 {
                     InputStream metamodelStream = this.getInputStream(metamodel.getPath());
-                    outputMetamodel = handler.loadModel(metamodelName, mofMetamodel, metamodelStream);
+                    outputMetamodel = handler.loadModel(metamodelName, mofMetamodel, metamodelStream, moduleSearchPaths);
                     metamodelStream.close();
                     metamodelStream = null;
                     models.put(metamodelName, outputMetamodel);
