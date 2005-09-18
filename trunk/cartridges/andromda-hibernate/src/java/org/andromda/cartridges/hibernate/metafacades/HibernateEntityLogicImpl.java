@@ -356,7 +356,7 @@ public class HibernateEntityLogicImpl
         else
         {
             hibernateGeneratorClass =
-                (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS);
+                (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS, false);
 
             if (StringUtils.isBlank(hibernateGeneratorClass))
             {
