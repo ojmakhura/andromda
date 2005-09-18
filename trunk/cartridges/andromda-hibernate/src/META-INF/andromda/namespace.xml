@@ -48,7 +48,7 @@
                     The directory to which the hibernate.cfg.xml file is generated.
                 </documentation>
             </property>
-            <property name="cache">
+            <property name="cache" required="false">
                 <documentation>
                     The directory to which the ehcache.xml file is generated.
                 </documentation>
