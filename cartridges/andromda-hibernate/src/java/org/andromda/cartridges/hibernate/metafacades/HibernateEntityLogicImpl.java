@@ -623,12 +623,12 @@ public class HibernateEntityLogicImpl
     protected boolean handleIsRequiresMapping()
     {
         final HibernateEntity superEntity = this.getSuperEntity();
-
-        return this.isRoot() &&
+        final boolean requiresMapping = this.isRoot() &&
         (
-            !this.isHibernateInheritanceInterface() ||
+            !this.isHibernateInheritanceInterface() || this.getSpecializations().isEmpty() ||
             (superEntity != null && superEntity.isHibernateInheritanceInterface())
         );
+        return requiresMapping;
     }
 
     /**
