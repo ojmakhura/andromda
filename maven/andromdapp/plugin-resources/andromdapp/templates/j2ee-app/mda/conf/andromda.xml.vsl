@@ -65,7 +65,8 @@
                 <property name="hibernateTransactionManagerLookup">${hibernate.transaction.manager.lookup}</property>
                 <property name="customTypesPackage">${application.package}</property>
                 <property name="hibernateJdbcBatchSize">0</property>
-                <property name="hibernateUseQueryCache">false</property>
+                <property name="hibernateEnableCache">false</property>
+                <property name="hibernateEnableAssociationsCache">false</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="compositionDefinesEagerLoading">true</property>
 #if ($hibernateVersion == "2")
@@ -82,6 +83,7 @@
                 <property name="session-beans">${maven.andromda.core.generated.dir}</property>
                 <property name="session-impls">${maven.andromda.core.manual.dir}</property>
                 <property name="configuration">${maven.andromda.core.generated.dir}</property>
+                <property name="cache">${maven.andromda.core.generated.dir}</property>
                 <!-- uncomment to enable EJB security
                 <property name="securityRealm">${application.id}</property>
                 -->
@@ -97,7 +99,6 @@
                 <property name="connectionUrl">${dataSource.url}</property>
                 <property name="hibernateDialect">${hibernate.db.dialect}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
-                <property name="hibernateUseQueryCache">false</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
 #if ($hibernateVersion == "2")
                 <property name="sessionFactory">org.springframework.orm.hibernate.LocalSessionFactoryBean</property>
@@ -129,6 +130,8 @@
         </namespace>
         <namespace name="hibernate">
             <properties>
+                <property name="hibernateEnableCache">false</property>
+                <property name="hibernateEnableAssociationsCache">false</property>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="defaultHibernateGeneratorClass">${hibernate.generatorClass}</property>
@@ -137,6 +140,7 @@
                 <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
                 <property name="customTypesPackage">${application.package}</property>
                 <property name="compositionDefinesEagerLoading">true</property>
+                <property name="cache">${maven.andromda.core.generated.dir}</property>
             </properties>
         </namespace>
 #end

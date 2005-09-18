@@ -342,7 +342,7 @@
     <template
         path="templates/hibernate/ehcache.xml.vsl"
         outputPattern="ehcache.xml"
-        outlet="configuration"
+        outlet="cache"
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
