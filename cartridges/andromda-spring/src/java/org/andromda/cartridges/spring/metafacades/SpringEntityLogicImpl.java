@@ -435,7 +435,7 @@ public class SpringEntityLogicImpl
         final SpringEntity superEntity = this.getSuperEntity();
         return this.isRoot() &&
         (
-            !this.isHibernateInheritanceInterface() ||
+            !this.isHibernateInheritanceInterface() || this.getSpecializations().isEmpty() ||
             (superEntity != null && superEntity.isHibernateInheritanceInterface())
         );
     }
