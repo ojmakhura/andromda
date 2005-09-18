@@ -74,6 +74,7 @@ public class SpringTransformationTest
         Model[] targetModels = new Model[] {targetModel};
         
         // - perform the transformation
-        transformer.transform(atlPath, (Library[])null, metamodels, sourceModels, targetModels);
+        final String[] moduleSearchPath = new String[0];
+        transformer.transform(atlPath, (Library[])null, metamodels, sourceModels, targetModels, moduleSearchPath);
     }
 }

@@ -63,12 +63,13 @@ public class ATLMDRModelHandler
     }
 
     /**
-     * @see org.andromda.transformers.atl.engine.ATLModelHandler#loadModel(java.lang.String, org.atl.engine.vm.nativelib.ASMModel, java.io.InputStream)
+     * @see org.andromda.transformers.atl.engine.ATLModelHandler#loadModel(java.lang.String, org.atl.engine.vm.nativelib.ASMModel, java.io.InputStream, java.lang.String[])
      */
     public ASMModel loadModel(
         final String name,
         final ASMModel metamodel,
-        final InputStream inputStream)
+        final InputStream inputStream,
+        final String[] moduleSearchPaths)
     {
         ASMModel result = null;
 
