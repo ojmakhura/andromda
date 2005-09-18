@@ -105,7 +105,7 @@ public class GeneralizableElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.GeneralizableElementFacadeLogic#getGeneralizationList()
+     * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getGeneralizationList()
      */
     protected String handleGetGeneralizationList()
     {
@@ -126,7 +126,7 @@ public class GeneralizableElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.GeneralizableElementFacadeLogic#getAllSpecializations()
+     * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getAllSpecializations()
      */
     protected Collection handleGetAllSpecializations()
     {
@@ -141,5 +141,22 @@ public class GeneralizableElementFacadeLogicImpl
             }
         }
         return allSpecializations;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.GeneralizableElementFacade#findTaggedValues(java.lang.String, boolean)
+     */
+    protected Object handleFindTaggedValue(final String tagName, boolean follow)
+    {
+        Object value = this.findTaggedValue(tagName);
+        if (value == null)
+        {
+            for (GeneralizableElementFacade element = this.getGeneralization();
+                 value == null && element != null; element = element.getGeneralization())
+           {
+               value = element.findTaggedValue(tagName, follow);
+           }
+        }
+        return value;
     }
 }
