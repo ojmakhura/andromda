@@ -32,7 +32,6 @@
                 <property name="dataSource">${dataSource}</property>
                 <property name="hibernateDialect">${hibernate.db.dialect}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
-                <property name="hibernateUseQueryCache">false</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
@@ -51,6 +50,8 @@
         </namespace>
         <namespace name="hibernate">
             <properties>
+                <property name="hibernateEnableCache">false</property>
+                <property name="hibernateEnableAssociationsCache">false</property>
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="defaultHibernateGeneratorClass">${hibernate.generatorClass}</property>
@@ -59,6 +60,7 @@
                 <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
                 <property name="customTypesPackage">${application.package}</property>
                 <property name="compositionDefinesEagerLoading">true</property>
+                <property name="cache">${maven.andromda.core.generated.dir}</property>
             </properties>
         </namespace>
         <namespace name="webservice">
