@@ -1,7 +1,5 @@
 package org.andromda.transformers.atl.engine;
 
-import java.io.InputStream;
-
 import java.net.URL;
 
 import org.andromda.transformers.atl.ATLTransformerUtils;
@@ -63,26 +61,22 @@ public class ATLMDRModelHandler
     }
 
     /**
-     * @see org.andromda.transformers.atl.engine.ATLModelHandler#loadModel(java.lang.String, org.atl.engine.vm.nativelib.ASMModel, java.io.InputStream, java.lang.String[])
+     * @see org.andromda.transformers.atl.engine.ATLModelHandler#loadModel(java.lang.String, org.atl.engine.vm.nativelib.ASMModel, java.lang.String, java.lang.String[])
      */
     public ASMModel loadModel(
         final String name,
         final ASMModel metamodel,
-        final InputStream inputStream,
+        final String uri,
         final String[] moduleSearchPaths)
     {
-        ASMModel result = null;
-
         try
         {
-            result = ASMMDRModel.loadASMMDRModel(name, (ASMMDRModel)metamodel, inputStream, null);
+            return ASMMDRModel.loadASMMDRModel(name, (ASMMDRModel)metamodel, uri, null, moduleSearchPaths);
         }
         catch (final Throwable throwable)
         {
             throw new TransformerException(throwable);
         }
-
-        return result;
     }
 
     /**
@@ -111,7 +105,7 @@ public class ATLMDRModelHandler
         this.mofMetamodel = ASMMDRModel.createMOF(null);
         try
         {
-            this.atlMetamodel = ASMMDRModel.loadASMMDRModel("ATL", mofMetamodel, atlUrl, null);
+            this.atlMetamodel = ASMMDRModel.loadASMMDRModel("ATL", mofMetamodel, atlUrl, null, null);
         }
         catch (final Throwable throwable)
         {
