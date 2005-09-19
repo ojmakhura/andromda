@@ -51,11 +51,11 @@ public class CartridgeTest
         AndroMDALogger.initialize();
     }
 
-    private static File expectedDir = getDirectory(EXPECTED_DIRECTORY);
-    private static File actualDir = getDirectory(ACTUAL_DIRECTORY);
+    private static final File expectedDir = getDirectory(EXPECTED_DIRECTORY);
+    private static final File actualDir = getDirectory(ACTUAL_DIRECTORY);
     private static Collection binarySuffixes = getBinarySuffixes();
 
-    public CartridgeTest(String name)
+    public CartridgeTest(final String name)
     {
         super(name);
     }
@@ -73,26 +73,26 @@ public class CartridgeTest
      *
      * @param suite the test suite to which we'll add the tests.
      */
-    private static void addTests(TestSuite suite)
+    private static void addTests(final TestSuite suite)
     {
-        List expectedFiles = new ArrayList();
+        final List expectedFiles = new ArrayList();
         getAllFiles(
             expectedDir,
             expectedFiles);
-        Iterator iterator = expectedFiles.iterator();
+        final Iterator iterator = expectedFiles.iterator();
         logger.info(" --- Expecting " + expectedFiles.size() + " Generated Files --- ");
         logger.info("binary suffixes --> " + binarySuffixes);
         final List missingFiles = new ArrayList();
         for (int ctr = 1; iterator.hasNext(); ctr++)
         {
-            File expectedFile = (File)iterator.next();
-            File actualFile = getActualFile(expectedFile);
+            final File expectedFile = (File)iterator.next();
+            final File actualFile = getActualFile(expectedFile);
             if (!actualFile.exists())
             {
                 missingFiles.add(actualFile);
             }
-            boolean binary = isBinary(actualFile);
-            StringBuffer header = new StringBuffer(ctr + ") binary = " + binary);
+            final boolean binary = isBinary(actualFile);
+            final StringBuffer header = new StringBuffer(ctr + ") binary = " + binary);
             logger.debug(header);
             logger.debug("expected --> '" + expectedFile + "'");
             logger.debug("actual   --> '" + actualFile + "'");
@@ -131,11 +131,10 @@ public class CartridgeTest
      * @param actualFile the actual generated file
      * @return the new expected file.
      */
-    private static File getActualFile(File expectedFile)
+    private static File getActualFile(final File expectedFile)
     {
         String actualFile;
-        String path = expectedFile.getPath();
-
+        final String path = expectedFile.getPath();
         if (expectedFile.getPath().startsWith(actualDir.getPath()))
         {
             actualFile = path.substring(
@@ -160,12 +159,12 @@ public class CartridgeTest
      * @param propertyKey the property key name.
      * @return the value of the system property
      */
-    private static String getSystemProperty(String propertyKey)
+    private static String getSystemProperty(final String propertyKey)
     {
-        String value = System.getProperty(propertyKey);
+        final String value = System.getProperty(propertyKey);
         if (value == null)
         {
-            throw new RuntimeException("system property <" + propertyKey + "> not set");
+            throw new RuntimeException("System property '" + propertyKey + "' not set");
         }
         return value;
     }
@@ -189,9 +188,9 @@ public class CartridgeTest
      * @param propertyKey the system property key name.
      * @return the directory as a File instance.
      */
-    private static File getDirectory(String propertyKey)
+    private static File getDirectory(final String propertyKey)
     {
-        String dirName = getDirectoryName(propertyKey);
+        final String dirName = getDirectoryName(propertyKey);
         File dir = new File(dirName);
         if (!dir.exists() || !dir.isDirectory())
         {
@@ -207,10 +206,10 @@ public class CartridgeTest
      * @param file the file to check
      * @return true/false
      */
-    private static boolean isBinary(File file)
+    private static boolean isBinary(final File file)
     {
         String suffix = "";
-        String fileName = file.getName();
+        final String fileName = file.getName();
         int dotIndex = fileName.indexOf('.');
         if (dotIndex != -1)
         {
@@ -229,10 +228,9 @@ public class CartridgeTest
      */
     private static Collection getBinarySuffixes()
     {
-        String suffixes = getSystemProperty("binary.suffixes");
-        String[] suffixArray = suffixes.split("\\s*,\\s*");
-        binarySuffixes = Arrays.asList(suffixArray);
-        return binarySuffixes;
+        final String suffixes = getSystemProperty("binary.suffixes");
+        final String[] suffixArray = suffixes.split("\\s*,\\s*");
+        return Arrays.asList(suffixArray);
     }
 
     /**
@@ -243,13 +241,13 @@ public class CartridgeTest
      * @param fileList the List of files to which we'll add the found files.
      */
     private static void getAllFiles(
-        File directory,
-        List fileList)
+        final File directory,
+        final List fileList)
     {
-        File[] files = directory.listFiles();
-        for (int i = 0; i < files.length; i++)
+        final File[] files = directory.listFiles();
+        for (int ctr = 0; ctr < files.length; ctr++)
         {
-            File file = files[i];
+            final File file = files[ctr];
             if (!file.isDirectory())
             {
                 fileList.add(file);
