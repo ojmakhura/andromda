@@ -5,24 +5,17 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.andromda.cartridges.jsf.metafacades.JSFActionLogic;
-import org.andromda.cartridges.jsf.metafacades.JSFControllerOperation;
-import org.andromda.cartridges.jsf.metafacades.JSFEvent;
-import org.andromda.cartridges.jsf.metafacades.JSFParameter;
-import org.andromda.cartridges.jsf.metafacades.JSFUseCase;
-import org.andromda.cartridges.jsf.metafacades.JSFView;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
-import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils; 
+import org.apache.commons.lang.StringUtils;
 
 
 /**
