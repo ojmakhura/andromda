@@ -1,9 +1,7 @@
 package org.andromda.transformers.atl.engine;
 
 import java.io.InputStream;
-
 import java.net.URL;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,7 +60,11 @@ public class ATLEMFModelHandler
         this.mofMetamodel = org.atl.engine.repositories.emf4atl.ASMEMFModel.createMOF(null);
         try
         {
-            this.atlMetamodel = ASMEMFModel.loadASMEMFModel("ATL", mofMetamodel, atlUrl, null);
+            this.atlMetamodel = ASMEMFModel.loadASMEMFModel(
+                    "ATL",
+                    mofMetamodel,
+                    atlUrl,
+                    null);
         }
         catch (final Throwable exception)
         {
@@ -87,25 +89,42 @@ public class ATLEMFModelHandler
     }
 
     /**
-     * @see org.andromda.transformers.atl.engine.ATLModelHandler#loadModel(java.lang.String, org.atl.engine.vm.nativelib.ASMModel, java.io.InputStream, java.lang.String[])
+     * @see org.andromda.transformers.atl.engine.ATLModelHandler#loadModel(java.lang.String, org.atl.engine.vm.nativelib.ASMModel, java.lang.String, java.lang.String[])
      */
     public ASMModel loadModel(
         final String name,
         final ASMModel metamodel,
-        final InputStream inputStream,
+        final String uri,
         final String[] moduleSearchPaths)
     {
         ASMModel result = null;
 
         try
         {
-            result = ASMEMFModel.loadASMEMFModel(name, (ASMEMFModel)metamodel, inputStream, null);
+            final InputStream stream = this.getInputStream(uri);
+            result = ASMEMFModel.loadASMEMFModel(
+                    name,
+                    (ASMEMFModel)metamodel,
+                    stream,
+                    null);
+            stream.close();
         }
         catch (final Throwable throwable)
         {
             throw new TransformerException(throwable);
         }
         return result;
+    }
+
+    private InputStream getInputStream(final String path)
+        throws Exception
+    {
+        URL url = new URL(path);
+        if (url == null)
+        {
+            throw new TransformerException("Could not load model from '" + path + "'");
+        }
+        return url.openStream();
     }
 
     /**
@@ -119,7 +138,10 @@ public class ATLEMFModelHandler
 
         try
         {
-            result = ASMEMFModel.newASMEMFModel(name, (ASMEMFModel)metamodel, null);
+            result = ASMEMFModel.newASMEMFModel(
+                    name,
+                    (ASMEMFModel)metamodel,
+                    null);
         }
         catch (final Throwable throwable)
         {
@@ -141,15 +163,19 @@ public class ATLEMFModelHandler
             final URL metaModelUrl = ATLTransformerUtils.getResource(name + ".ecore");
             try
             {
-                final InputStream stream = metaModelUrl.openStream();
-                result = this.loadModel(name, mofMetamodel, stream, null);
-                stream.close();
+                result = this.loadModel(
+                        name,
+                        mofMetamodel,
+                        metaModelUrl.toString(),
+                        null);
             }
             catch (final Throwable throwable)
             {
                 throw new TransformerException(throwable);
             }
-            builtInMetamodel.put(name, result);
+            builtInMetamodel.put(
+                name,
+                result);
         }
         return result;
     }

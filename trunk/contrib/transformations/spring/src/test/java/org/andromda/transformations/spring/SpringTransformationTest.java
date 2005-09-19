@@ -17,7 +17,10 @@ public class SpringTransformationTest
     {
     	BasicConfigurator.configure();
     	
-        ATLTransformer transformer = new ATLTransformer();
+        final ATLTransformer transformer = new ATLTransformer();
+        
+        final String property = System.getProperty("module.search.paths");
+        final String[] moduleSearchPaths = property != null ? property.split(",") : null;
         
         // uml2java test (this transforms a UML to a JAVA metamodel)
         
@@ -74,7 +77,6 @@ public class SpringTransformationTest
         Model[] targetModels = new Model[] {targetModel};
         
         // - perform the transformation
-        final String[] moduleSearchPath = new String[0];
-        transformer.transform(atlPath, (Library[])null, metamodels, sourceModels, targetModels, moduleSearchPath);
+        transformer.transform(atlPath, (Library[])null, metamodels, sourceModels, targetModels, moduleSearchPaths);
     }
 }
