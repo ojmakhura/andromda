@@ -8,7 +8,6 @@ $controller.getDocumentation(" * ")
 public abstract class $controller.name
     implements java.io.Serializable
 {
-
 #foreach ($operation in $controller.operations)
     /**
 $operation.getDocumentation("     * ")
@@ -23,6 +22,7 @@ $operation.getDocumentation("     * ")
         try
         {
 #if (!$action.formFields.empty)
+#set ($formPopulationOperationRequired = true)
             final javax.faces.context.FacesContext facesContext =
                 javax.faces.context.FacesContext.getCurrentInstance();
             final javax.faces.el.VariableResolver variableResolver = facesContext.getApplication().getVariableResolver();
@@ -251,6 +251,7 @@ $decisionTransition.getDocumentation("     * ")
             null,
             facesMessage);
     }
+#if ($formPopulationOperationRequired)
 
     /**
      * Populates the form from the given parameters.  If the request parameter is null or an empty
@@ -299,6 +300,7 @@ $decisionTransition.getDocumentation("     * ")
             throw new RuntimeException(throwable);
         }
     }
+#end
 }
 ##
 ##  This macro determines what to do when processing a transition
