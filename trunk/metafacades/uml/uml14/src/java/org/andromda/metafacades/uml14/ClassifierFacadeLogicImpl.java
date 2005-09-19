@@ -713,4 +713,12 @@ public class ClassifierFacadeLogicImpl
             });
         return connectingEnds;
     }
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isLeaf()
+     */
+    protected boolean handleIsLeaf()
+    {
+        return this.metaObject.isLeaf();
+    }
 }

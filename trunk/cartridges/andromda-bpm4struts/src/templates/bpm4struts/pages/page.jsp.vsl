@@ -89,3 +89,4 @@
     </tiles:put>
 
 </tiles:insert>
+#if($field.fieldColumnCount)#set($columnCount=" cols=$quote$field.fieldColumnCount$quote")#else#set($columnCount='')#end
