@@ -76,7 +76,13 @@ public class SpringTransformationTest
         Model[] sourceModels = new Model[] {sourceModel};
         Model[] targetModels = new Model[] {targetModel};
         
+        // - add the libraries
+        final String umlHelpersPath = testResourcePath + "UMLHelpers.atl";
+        Library library = new Library();
+        library.setName("UMLHelpers");
+        library.setPath(umlHelpersPath);
+        
         // - perform the transformation
-        transformer.transform(atlPath, (Library[])null, metamodels, sourceModels, targetModels, moduleSearchPaths);
+        transformer.transform(atlPath, new Library[]{library}, metamodels, sourceModels, targetModels, moduleSearchPaths);
     }
 }
