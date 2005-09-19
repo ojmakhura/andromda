@@ -131,7 +131,6 @@ public class ATLTransformer
         }
         catch (final Throwable throwable)
         {
-            throwable.printStackTrace();
             logger.error(throwable);
             throw new TransformerException(throwable);
         }
