@@ -77,7 +77,9 @@ public class SpringTransformationTest
         Model[] targetModels = new Model[] {targetModel};
         
         // - add the libraries
-        final String umlHelpersPath = testResourcePath + "UMLHelpers.atl";
+        final URL librariesUrl = SpringTransformationTest.class.getResource("/atl/UMLHelpers.atl");
+        assertNotNull(librariesUrl);
+        final String umlHelpersPath = librariesUrl.toString();
         Library library = new Library();
         library.setName("UMLHelpers");
         library.setPath(umlHelpersPath);
