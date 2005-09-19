@@ -54,9 +54,9 @@ public class SpringTransformationTest
         sourceModel.setMetamodel(umlMetamodelName);
         
         // - setup the target metamodel (this is the output model's metamodel)
-        final String javaMetamodelName = "JAVA";
+        final String springMetamodelName = "SPRING";
         final Model javaMetamodel = new Model();
-        javaMetamodel.setName(javaMetamodelName);
+        javaMetamodel.setName(springMetamodelName);
         final URL springMetamodelUrl = SpringTransformationTest.class.getResource("/SpringMetamodel.xml");
         assertNotNull(springMetamodelUrl);
         final String springMetamodelPath = springMetamodelUrl.toString();
@@ -69,7 +69,7 @@ public class SpringTransformationTest
         // - this is the path of the transformed output model
         final String targetModelPath = testResourcePath + "transformed-output.xmi";
         targetModel.setPath(targetModelPath);
-        targetModel.setMetamodel(javaMetamodelName);
+        targetModel.setMetamodel(springMetamodelName);
         
         // - load up the metamodels and models
         Model[] metamodels = new Model[] {umlMetamodel, javaMetamodel};
