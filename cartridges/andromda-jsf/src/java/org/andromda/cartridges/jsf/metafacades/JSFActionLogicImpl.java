@@ -10,6 +10,7 @@ import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
@@ -448,7 +449,22 @@ public class JSFActionLogicImpl
             {
                 public boolean evaluate(final Object object)
                 {
-                    return ((JSFParameter)object).isInputHidden();
+                    boolean valid = false;
+                    final JSFParameter parameter = (JSFParameter)object;
+                    valid = parameter.isInputHidden();
+                    if (!valid)
+                    {
+                        for (final Iterator iterator = parameter.getAttributes().iterator(); iterator.hasNext();)
+                        {
+                            JSFAttribute attribute = (JSFAttribute)iterator.next();
+                            valid = attribute.isInputHidden();
+                            if (valid)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                    return valid;
                 }
             });
         return hiddenParameters;
