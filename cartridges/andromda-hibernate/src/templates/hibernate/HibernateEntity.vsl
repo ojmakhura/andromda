@@ -42,12 +42,12 @@ public abstract class $entity.entityName
     }
 
 #end
-#foreach ( $attribute in $entity.attributes )
+#foreach ($attribute in $entity.attributes)
 #set ($typeName = $attribute.type.fullyQualifiedName)
 #if ($attribute.containsEmbeddedObject)
 #set ($typeName = $attribute.type.fullyQualifiedEntityName)
 #end
-    private $typeName $attribute.name;
+    private $typeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
 
     /**
 $attribute.getDocumentation("     * ")
