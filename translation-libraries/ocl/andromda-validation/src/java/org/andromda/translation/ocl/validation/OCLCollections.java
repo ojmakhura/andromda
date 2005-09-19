@@ -1,6 +1,7 @@
 package org.andromda.translation.ocl.validation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -203,9 +204,33 @@ public final class OCLCollections
         }
         return size;
     }
+    
+    /**
+     * Returns the sum of all the element in the collection. Every element must extend java.lang.Number or this method
+     * will throw an exception.
+     *
+     * @param collection a collection containing only classes extending java.lang.Number
+     * @return the sum of all the elements in the collection
+     */
+    public static double sum(final Object collection)
+    {
+        double sum = 0;
+        if (collection != null)
+        {
+            if (collection instanceof Collection)
+            {
+                sum = sum(collection);
+            }
+            else if (collection.getClass().isArray())
+            {
+                sum = sum(Arrays.asList((Object[])collection));
+            }
+        }
+        return sum;
+    }
 
     /**
-     * Returns the sum of all the element in the collections. Every element must extend java.lang.Number or this method
+     * Returns the sum of all the element in the collection. Every element must extend java.lang.Number or this method
      * will throw an exception.
      *
      * @param collection a collection containing only classes extending java.lang.Number
