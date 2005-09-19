@@ -339,7 +339,6 @@ public class ATLTransformer
                     ASM_SUFFIX));
         long atlSourceModifiedTime = ResourceUtils.getLastModifiedTime(atlUrl);
         long compiledAsmModifiedTime = ResourceUtils.getLastModifiedTime(asmFile.toURL());
-        ;
         if (atlSourceModifiedTime > compiledAsmModifiedTime)
         {
             final InputStream stream = atlUrl.openStream();
