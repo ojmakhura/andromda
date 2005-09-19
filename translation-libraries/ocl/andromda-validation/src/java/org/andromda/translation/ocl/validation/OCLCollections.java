@@ -177,9 +177,16 @@ public final class OCLCollections
     public static int size(final Object object)
     {
         int size = 0;
-        if (object instanceof Collection)
+        if (object != null)
         {
-            size = size((Collection)object);
+            if (object instanceof Collection)
+            {
+                size = size((Collection)object);
+            }
+            else if (object.getClass().isArray())
+            {
+                size = ((Object[])object).length;
+            }
         }
         return size;
     }
