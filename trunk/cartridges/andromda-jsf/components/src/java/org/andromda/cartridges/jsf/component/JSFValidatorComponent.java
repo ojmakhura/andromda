@@ -1,6 +1,7 @@
 package org.andromda.cartridges.jsf.component;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -14,6 +15,7 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -134,6 +136,7 @@ public class JSFValidatorComponent
                         for (final Iterator iterator = validatorFields.iterator(); iterator.hasNext();)
                         {
                             final Field field = (Field)iterator.next();
+
                             // we need to make it match the name of the id on the jsf components (if its nested).
                             final String fieldProperty = StringUtilsHelper.lowerCamelCaseName(field.getProperty());
                             if (componentId.equals(fieldProperty))
@@ -253,7 +256,7 @@ public class JSFValidatorComponent
      * when using client side validation.
      */
     public static final String FUNCTION_NAME = "functionName";
-    
+
     /**
      * The key for the current validator id.
      */
@@ -421,7 +424,7 @@ public class JSFValidatorComponent
         }
         return form;
     }
-    
+
     /**
      * Used to keep track of whether or not the validation rules are present or not.
      */
@@ -437,12 +440,13 @@ public class JSFValidatorComponent
     public void encodeBegin(final FacesContext context)
         throws IOException
     {
-        
         final ServletContext servletContext = this.getRequest().getSession().getServletContext();
         boolean validationResourcesPresent = servletContext.getAttribute(RULES_NOT_PRESENT) == null;
         if (validationResourcesPresent && JSFValidator.getValidatorResources() == null)
         {
-            servletContext.setAttribute(RULES_NOT_PRESENT, "true");
+            servletContext.setAttribute(
+                RULES_NOT_PRESENT,
+                "true");
             validationResourcesPresent = false;
         }
         if (validationResourcesPresent)
@@ -451,7 +455,7 @@ public class JSFValidatorComponent
             {
                 this.validators.clear();
                 this.forms.clear();
-    
+
                 // - include the javascript utilities (only once per request)
                 if (this.getRequest().getAttribute(JAVASCRIPT_UTILITIES) == null)
                 {

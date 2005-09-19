@@ -2,7 +2,9 @@ package org.andromda.cartridges.jsf.validator;
 
 import java.io.InputStream;
 import java.io.Serializable;
+
 import java.lang.reflect.Method;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -187,11 +189,13 @@ public class JSFValidator
                 catch (final Throwable throwable)
                 {
                     throw new JSFValidatorException(throwable);
-                }                
+                }
             }
             else
             {
-                logger.info("No validation rules could be loaded from --> '" + validationResource + ", validation not configured");
+                logger.info(
+                    "No validation rules could be loaded from --> '" + validationResource +
+                    ", validation not configured");
             }
         }
         return validatorResources;
@@ -209,7 +213,7 @@ public class JSFValidator
         final UIComponent component,
         final Object value)
     {
-        UIForm form = findForm(component);
+        final UIForm form = findForm(component);
         if (form != null)
         {
             try
@@ -360,6 +364,6 @@ public class JSFValidator
     {
         return super.toString() + "[" + this.validatorAction != null ? this.validatorAction.getName() : null + "]";
     }
-    
+
     private static final long serialVersionUID = -5627108517488240081L;
 }
