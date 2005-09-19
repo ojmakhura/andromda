@@ -73,7 +73,6 @@ public class ASMMDRModel
     // only for metamodels...
     public ASMModelElement findModelElement(String name)
     {
-//System.out.println(this + ".findModelElement(" + name + ")");
         ASMModelElement ret = (ASMModelElement)modelElements.get(name);
 
         if (ret == null)
@@ -116,7 +115,6 @@ public class ASMMDRModel
         Set ret = new HashSet();
         RefObject o = ((ASMMDRModelElement)ame).getObject();
 
-//System.out.println(this + ".getElementsByType(" + o + ")");
         for (Iterator i = findRefClass(
                     pack,
                     o).refAllOfType().iterator(); i.hasNext();)
