@@ -1,13 +1,14 @@
 package org.andromda.cartridges.spring.metafacades;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * @see org.andromda.cartridges.hibernate.metafacades.SpringQueryOperation Metaclass facade implementation.
@@ -26,52 +27,7 @@ public class SpringQueryOperationLogicImpl
      */
     protected String handleGetQuery()
     {
-        // first see if we can retrieve the query from the super class as an OCL
-        // translation
-        String queryString = this.getTranslatedQuery();
-
-        // otherwise see if there is a query stored as a tagged value
-        if (StringUtils.isEmpty(queryString))
-        {
-            Object value = this.findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_QUERY);
-            queryString = (String)value;
-            if (queryString != null)
-            {
-                // remove any excess whitespace
-                queryString = queryString.replaceAll("[$\\s]+", " ");
-            }
-        }
-
-        // if there wasn't any stored query, create one by default.
-        if (StringUtils.isEmpty(queryString))
-        {
-            String variableName = StringUtils.uncapitalize(this.getOwner().getName());
-            queryString = "from " + this.getOwner().getFullyQualifiedName() + " as " + variableName;
-            if (this.getArguments().size() > 0)
-            {
-                queryString = queryString + " where";
-                Collection arguments = this.getArguments();
-                if (arguments != null && !arguments.isEmpty())
-                {
-                    Iterator argumentIt = arguments.iterator();
-                    for (int ctr = 0; argumentIt.hasNext(); ctr++)
-                    {
-                        ParameterFacade argument = (ParameterFacade)argumentIt.next();
-                        String parameter = "?";
-                        if (this.isUseNamedParameters())
-                        {
-                            parameter = ":" + argument.getName();
-                        }
-                        queryString = queryString + " " + variableName + "." + argument.getName() + " = " + parameter;
-                        if (argumentIt.hasNext())
-                        {
-                            queryString = queryString + " and";
-                        }
-                    }
-                }
-            }
-        }
-        return queryString;
+        return this.getQuery((SpringEntity)null);
     }
 
     /**
@@ -129,5 +85,67 @@ public class SpringQueryOperationLogicImpl
             }
         }
         return null;
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringQueryOperation#getQuery(org.andromda.cartridges.spring.metafacades.SpringEntity)
+     */
+    protected String handleGetQuery(SpringEntity entity)
+    {
+        // first see if we can retrieve the query from the super class as an OCL
+        // translation
+        String queryString = this.getTranslatedQuery();
+
+        // otherwise see if there is a query stored as a tagged value
+        if (StringUtils.isEmpty(queryString))
+        {
+            Object value = this.findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_QUERY);
+            queryString = (String)value;
+            if (queryString != null)
+            {
+                // remove any excess whitespace
+                queryString = queryString.replaceAll("[$\\s]+", " ");
+            }
+        }
+
+        // if there wasn't any stored query, create one by default.
+        if (StringUtils.isEmpty(queryString))
+        {
+            ModelElementFacade owner;
+            if (entity == null)
+            {
+                owner = this.getOwner();
+            }
+            else
+            {
+                owner = entity;
+            }
+            String variableName = StringUtils.uncapitalize(owner.getName());
+            queryString = "from " + owner.getFullyQualifiedName() + " as " + variableName;
+            if (this.getArguments().size() > 0)
+            {
+                queryString = queryString + " where";
+                Collection arguments = this.getArguments();
+                if (arguments != null && !arguments.isEmpty())
+                {
+                    Iterator argumentIt = arguments.iterator();
+                    for (int ctr = 0; argumentIt.hasNext(); ctr++)
+                    {
+                        ParameterFacade argument = (ParameterFacade)argumentIt.next();
+                        String parameter = "?";
+                        if (this.isUseNamedParameters())
+                        {
+                            parameter = ":" + argument.getName();
+                        }
+                        queryString = queryString + " " + variableName + "." + argument.getName() + " = " + parameter;
+                        if (argumentIt.hasNext())
+                        {
+                            queryString = queryString + " and";
+                        }
+                    }
+                }
+            }
+        }
+        return queryString;
     }
 }
