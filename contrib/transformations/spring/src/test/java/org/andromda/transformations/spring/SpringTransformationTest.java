@@ -55,12 +55,12 @@ public class SpringTransformationTest
         
         // - setup the target metamodel (this is the output model's metamodel)
         final String springMetamodelName = "SPRING";
-        final Model javaMetamodel = new Model();
-        javaMetamodel.setName(springMetamodelName);
+        final Model springMetamodel = new Model();
+        springMetamodel.setName(springMetamodelName);
         final URL springMetamodelUrl = SpringTransformationTest.class.getResource("/SpringMetamodel.xml");
         assertNotNull(springMetamodelUrl);
         final String springMetamodelPath = springMetamodelUrl.toString();
-        javaMetamodel.setPath(springMetamodelPath);
+        springMetamodel.setPath(springMetamodelPath);
         
         // - setup the target model
         final Model targetModel = new Model();
@@ -72,7 +72,7 @@ public class SpringTransformationTest
         targetModel.setMetamodel(springMetamodelName);
         
         // - load up the metamodels and models
-        Model[] metamodels = new Model[] {umlMetamodel, javaMetamodel};
+        Model[] metamodels = new Model[] {umlMetamodel, springMetamodel};
         Model[] sourceModels = new Model[] {sourceModel};
         Model[] targetModels = new Model[] {targetModel};
         
