@@ -320,8 +320,7 @@ public abstract class $entity.daoBaseName
         this.getHibernateTemplate().deleteAll(entities);
     }
 
-#set ($finders = $entity.getQueryOperations(true))
-#foreach ($finder in $finders)
+#foreach ($finder in $entity.getQueryOperations(true))
 #set ($returnType = $finder.returnType.fullyQualifiedName)
     /**
      * @see ${entity.fullyQualifiedName}#$finder.getSignature(false)
