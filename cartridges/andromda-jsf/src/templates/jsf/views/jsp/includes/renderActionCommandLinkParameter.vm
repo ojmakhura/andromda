@@ -1,12 +1,19 @@
 ##
 ## A macro that renders the appropriate action commandLink parameter
 ##
-#macro(renderActionCommandLinkParameter $parameter)
-#if ($parameter.type.dateType || $parameter.type.timeType)
-#set ($parameterValue = "${parameter.name}Formatted")
-    <fmt:formatDate var="$parameterValue" value="${${formName}.${parameter.name}}" pattern="$parameter.format" scope="request"/>
+#macro(renderActionCommandLinkParameter $parameter $ownerParameter)
+#if ($parameter.backingListName)
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
 #else
-#set ($parameterValue = "${formName}.${parameter.name}")
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
 #end
-    <f:param name="$parameter.name" value="#{${parameterValue}}"/>
+#if ($parameter.type.dateType || $parameter.type.timeType)
+#set ($parameterValue = "${propertyId}Formatted")
+    <fmt:formatDate var="$parameterValue" value="${${formName}.${valuePropertyName}}" pattern="$parameter.format" scope="request"/>
+#else
+#set ($parameterValue = "${formName}.${valuePropertyName}")
+#end
+    <f:param name="$valuePropertyName" value="#{${parameterValue}}"/>
 #end

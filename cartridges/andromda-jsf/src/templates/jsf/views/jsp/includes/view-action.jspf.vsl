@@ -9,7 +9,12 @@
 #end
     <h:outputText value="#{messages['$action.messageKey']}"/>
 #foreach ($parameter in $action.parameters)
-#renderActionCommandLinkParameter($parameter)
+#if (!$parameter.complex)
+#renderActionCommandLinkParameter($parameter "")
+#end
+#foreach ($attribute in $parameter.attributes)
+#renderActionCommandLinkParameter($attribute $parameter)
+#end
 #end
 #if ($action.hyperlink)
 </h:commandLink>
