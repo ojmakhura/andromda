@@ -1,5 +1,6 @@
 package org.andromda.cartridges.jsf.metafacades;
 
+import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.StateVertexFacade;
 
@@ -23,7 +24,13 @@ public class JSFForwardLogicImpl
      */
     public String getName()
     {
-        return JSFUtils.toWebResourceName(super.getName());
+        StringBuffer name = new StringBuffer(super.getName());
+        final Object target = this.getTarget();
+        if (target instanceof JSFFinalState)
+        {
+            name.append(JSFGlobals.USECASE_FORWARD_NAME_SUFFIX);
+        }
+        return JSFUtils.toWebResourceName(name.toString());
     }
     
     /**
