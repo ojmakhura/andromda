@@ -41,6 +41,9 @@ $operation.getDocumentation("     * ")
             {
 #end
                 forward = #processTransition($action)
+#if (!$action.formFields.empty && $action.formResetRequired)
+                form.reset();
+#end
 #if (!$deferredOperations.empty)
             }
             catch (final Throwable throwable)
