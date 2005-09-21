@@ -3,9 +3,9 @@ package org.andromda.cartridges.jsf.metafacades;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
@@ -128,16 +128,27 @@ public class JSFViewLogicImpl
      */
     protected List handleGetForwards()
     {
-        final Set forwards = new LinkedHashSet();
+        final Map forwards = new LinkedHashMap();
         for (final Iterator iterator = this.getActions().iterator(); iterator.hasNext();)
         {
             final FrontEndAction action = (FrontEndAction)iterator.next();
             if (action != null && !action.isUseCaseStart())
             {
-                forwards.addAll(action.getActionForwards());
+                for (final Iterator forwardIterator = action.getActionForwards().iterator(); forwardIterator.hasNext();)
+                {
+                    final Object forward = forwardIterator.next();
+                    if (forward instanceof JSFForward)
+                    {
+                        forwards.put(((JSFForward)forward).getName(), forward);
+                    }
+                    else if (forward instanceof JSFAction)
+                    {
+                        forwards.put(((JSFAction)forward).getName(), forward);
+                    }  
+                }
             }
         }
-        return new ArrayList(forwards);
+        return new ArrayList(forwards.values());
     }
 
     /**
