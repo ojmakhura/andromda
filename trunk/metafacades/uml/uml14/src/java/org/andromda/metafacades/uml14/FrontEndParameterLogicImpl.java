@@ -175,7 +175,7 @@ public class FrontEndParameterLogicImpl
         {
             final ClassifierFacade type = arrayType.getNonArray();
             final Collection attributes = new ArrayList(type.getAttributes());
-            CollectionUtils.transform(type.getAttributes(), 
+            CollectionUtils.transform(attributes, 
                 new Transformer()
                 {
                     public Object transform(final Object object)
