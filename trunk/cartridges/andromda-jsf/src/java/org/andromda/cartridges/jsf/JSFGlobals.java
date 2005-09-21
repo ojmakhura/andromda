@@ -191,4 +191,9 @@ public class JSFGlobals
      * The "plain text" type.
      */
     public static final String PLAIN_TEXT = "plaintext";
+    
+    /**
+     * The suffix to append to the forward name.
+     */
+    public static final String USECASE_FORWARD_NAME_SUFFIX = "-usecase";
 }

@@ -73,16 +73,11 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
-     * The suffix to append to the forward name.
-     */
-    private static final String FORWARD_NAME_SUFFIX = "-usecase";
-
-    /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getPathRoot()
      */
     protected String handleGetForwardName()
     {
-        return JSFUtils.toWebResourceName(this.getName()) + FORWARD_NAME_SUFFIX;
+        return JSFUtils.toWebResourceName(this.getName()) + JSFGlobals.USECASE_FORWARD_NAME_SUFFIX;
     }
 
     /**
