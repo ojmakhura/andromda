@@ -1,9 +1,11 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
@@ -12,6 +14,8 @@ import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -158,5 +162,29 @@ public class FrontEndParameterLogicImpl
             }
         }
         return tableColumnNames;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndParameter#getTableAttributeNames()
+     */
+    protected Collection handleGetTableAttributeNames()
+    {
+        final Collection names = new LinkedHashSet();
+        final ClassifierFacade arrayType = this.getType();
+        if (arrayType != null && arrayType.isArrayType())
+        {
+            final ClassifierFacade type = arrayType.getNonArray();
+            final Collection attributes = new ArrayList(type.getAttributes());
+            CollectionUtils.transform(type.getAttributes(), 
+                new Transformer()
+                {
+                    public Object transform(final Object object)
+                    {
+                        return ((AttributeFacade)object).getName();
+                    }
+                });
+            names.addAll(attributes);
+        }
+        return names;
     }
 }

@@ -251,6 +251,15 @@
             <property name="service"/>
         </mapping>
     </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.BindingFacadeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.Binding$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.TemplateArgumentFacadeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.TemplateArgument$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.uml14.TemplateParameterFacadeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.TemplateParameter$Impl"/>
+    </metafacade>
     <!-- FrontEnd metafacades -->
     <metafacade class="org.andromda.metafacades.uml14.FrontEndPackageLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl">

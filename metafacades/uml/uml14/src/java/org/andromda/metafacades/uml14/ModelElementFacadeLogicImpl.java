@@ -7,11 +7,13 @@ import java.util.Iterator;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
+import org.andromda.metafacades.uml.BindingFacade;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.EnumerationLiteralFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.StereotypeFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
+import org.andromda.metafacades.uml.TemplateParameterFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
@@ -683,6 +685,14 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getTemplateParameters()
+     */
+    protected Collection handleGetTemplateParameters()
+    {
+        return metaObject.getTemplateParameter();
+    }
+
+    /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationName()
      */
     public String getValidationName()
@@ -730,6 +740,33 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#isBindingDependenciesPresent()
+     */
+    protected boolean handleIsBindingDependenciesPresent()
+    {
+        Collection dependencies = this.getSourceDependencies();
+        CollectionUtils.filter(
+            dependencies,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    return object instanceof BindingFacade;
+                }
+            });
+        return !dependencies.isEmpty();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#isTemplateParametersPresent()
+     */
+    protected boolean handleIsTemplateParametersPresent()
+    {
+        Collection params = this.getTemplateParameters();
+        return params != null && !params.isEmpty();
+    }
+
+    /**
      * @see org.andromda.metafacades.uml14.ModelElementFacade#copyTaggedValues(org.andromda.metafacades.uml.ModelElementFacade)
      */
     protected void handleCopyTaggedValues(ModelElementFacade element)
@@ -745,5 +782,40 @@ public class ModelElementFacadeLogicImpl
                 this.metaObject.getTaggedValue().addAll(elementMetaObject.getTaggedValue());
             }
         }
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getTemplateParameter(java.lang.String)
+     */
+    protected Object handleGetTemplateParameter(String parameterName)
+    {
+        TemplateParameterFacade templateParameter = null;
+        if (StringUtils.isNotEmpty(parameterName))
+        {
+            parameterName = StringUtils.trimToEmpty(parameterName);
+
+            final Collection parameters = this.getTemplateParameters();
+            if (parameters != null && !parameters.isEmpty())
+            {
+                for (Iterator iter = parameters.iterator(); iter.hasNext();)
+                {
+                    final TemplateParameterFacade currentTemplateParameter = (TemplateParameterFacade)iter.next();
+                    if (currentTemplateParameter.getParameter() != null)
+                    {
+                        ModelElementFacade param = currentTemplateParameter.getParameter();
+
+                        // there should not be two template parameters with the same parameter name, but nothing
+                        // prevents the model from allowing that.  So return the first instance if found.
+                        if (parameterName.equals(param.getName()))
+                        {
+                            templateParameter = currentTemplateParameter;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return templateParameter;
     }
 }
