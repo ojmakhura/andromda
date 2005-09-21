@@ -54,7 +54,7 @@ public class SpringTransformationTest
         sourceModel.setMetamodel(umlMetamodelName);
         
         // - setup the target metamodel (this is the output model's metamodel)
-        final String springMetamodelName = "SPRING";
+        final String springMetamodelName = "Spring";
         final Model springMetamodel = new Model();
         springMetamodel.setName(springMetamodelName);
         final URL springMetamodelUrl = SpringTransformationTest.class.getResource("/SpringMetamodel.xml");
