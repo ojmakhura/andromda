@@ -65,31 +65,16 @@ public class HtmlExtendedDataTable
                 for (final ListIterator iterator = backingValues.listIterator(); iterator.hasNext();)
                 {
                     final Object backingValueItem = iterator.next();
-                    Object backingValueItemIdentifier = null;
-                    if (identifierColumns != null && identifierColumns.length > 0)
-                    {
-                        backingValueItemIdentifier = this.getProperty(
-                                backingValueItem,
-                                identifierColumns[0]);
-                    }
                     for (final Iterator valueIterator = values.iterator(); valueIterator.hasNext();)
                     {
                         final Object valueItem = valueIterator.next();
-                        if (valueItem.equals(backingValueItem))
+                        if (this.equal(
+                                backingValueItem,
+                                valueItem,
+                                identifierColumns))
                         {
                             iterator.set(valueItem);
                             break;
-                        }
-                        if (backingValueItemIdentifier != null)
-                        {
-                            Object valueItemIdentifier = this.getProperty(
-                                    valueItem,
-                                    identifierColumns[0]);
-                            if (backingValueItemIdentifier.equals(valueItemIdentifier))
-                            {
-                                iterator.set(valueItem);
-                                break;
-                            }
                         }
                     }
                 }
@@ -104,31 +89,16 @@ public class HtmlExtendedDataTable
                 for (int backingValueCtr = 0; backingValueCtr < backingValues.length; backingValueCtr++)
                 {
                     final Object backingValueItem = backingValues[backingValueCtr];
-                    Object backingValueItemIdentifier = null;
-                    if (identifierColumns != null && identifierColumns.length > 0)
-                    {
-                        backingValueItemIdentifier = this.getProperty(
-                                backingValueItem,
-                                identifierColumns[0]);
-                    }
                     for (int valueCtr = 0; valueCtr < values.length; valueCtr++)
                     {
                         final Object valueItem = values[valueCtr];
-                        if (valueItem.equals(backingValueItem))
+                        if (this.equal(
+                                backingValueItem,
+                                valueItem,
+                                identifierColumns))
                         {
                             backingValues[backingValueCtr] = valueItem;
                             break;
-                        }
-                        if (backingValueItemIdentifier != null)
-                        {
-                            Object valueItemIdentifier = this.getProperty(
-                                    valueItem,
-                                    identifierColumns[0]);
-                            if (backingValueItemIdentifier.equals(valueItemIdentifier))
-                            {
-                                backingValues[backingValueCtr] = valueItem;
-                                break;
-                            }
                         }
                     }
                 }
@@ -144,8 +114,50 @@ public class HtmlExtendedDataTable
     }
 
     /**
+     * Indicates whether or not this objects are equal, first by comparing them directly for
+     * equality and if not equal in that sense compares the columns returned by {@link #getIdentifierColumns()}.
+     * @param object1 the first object.
+     * @param object2 the second object.
+     * @param properties if equality fails, then these properties are compared for equality (all of them must
+     *        be equal or else this operation will return false).
+     * @return true/false
+     */
+    private boolean equal(
+        final Object object1,
+        final Object object2,
+        final String[] properties)
+    {
+        boolean equal = object1 == object2;
+        if (!equal && object1 != null && object2 != null)
+        {
+            for (int ctr = 0; ctr < properties.length; ctr++)
+            {
+                final String property = properties[ctr];
+                if (property != null && property.trim().length() > 0)
+                {
+                    final Object value1 = this.getProperty(
+                            object1,
+                            property);
+                    final Object value2 = this.getProperty(
+                            object2,
+                            property);
+                    if (value1 != null && value2 != null)
+                    {
+                        equal = value1.equals(value2);
+                        if (!equal)
+                        {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return equal;
+    }
+
+    /**
      * Updates the model (i.e. underlying managed bean's value).
-     * 
+     *
      * @param value the value from which to update the model.
      */
     public void updateModelValue(final Object value)
