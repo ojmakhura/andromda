@@ -47,7 +47,6 @@ public class JSFParameterLogicImpl
      */
     public boolean isTable()
     {
-        System.out.println("is table!!!!!!!!: " + (super.isTable() && !this.isInputTable()));
         return super.isTable() && !this.isInputTable();
     }
 
