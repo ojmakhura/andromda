@@ -39,10 +39,10 @@ public class JSFParameterLogicImpl
     {
         super(metaObject, context);
     }
-    
+
     /**
      * Overrridden to make sure its not an inputTable.
-     * 
+     *
      * @see org.andromda.metafacades.uml.FrontEndParameter#isTable()
      */
     public boolean isTable()
@@ -103,10 +103,10 @@ public class JSFParameterLogicImpl
                     false));
         return value == null ? "" : value;
     }
-    
+
     /**
      * Overridden to provide quotes around string types.
-     * 
+     *
      * @see org.andromda.metafacades.uml.ParameterFacade#getDefaultValue()
      */
     public String getDefaultValue()
@@ -241,17 +241,17 @@ public class JSFParameterLogicImpl
         {
             // try to preserve the order of the elements encountered
             final Map tableColumnsMap = new LinkedHashMap();
-    
+
             // order is important
             final List actions = new ArrayList();
-    
+
             // all table actions need the exact same parameters, just not always all of them
             actions.addAll(this.getTableFormActions());
-    
+
             // if there are any actions that are hyperlinks then their parameters get priority
             // the user should not have modeled it that way (constraints will warn him/her)
             actions.addAll(this.getTableHyperlinkActions());
-    
+
             for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
                 final JSFAction action = (JSFAction)actionIterator.next();
@@ -275,7 +275,7 @@ public class JSFParameterLogicImpl
                     }
                 }
             }
-    
+
             // for any missing parameters we just add the name of the column
             final Collection columnNames = getTableColumnNames();
             for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
@@ -288,7 +288,7 @@ public class JSFParameterLogicImpl
                         columnName);
                 }
             }
-    
+
             // return everything in the same order as it has been modeled (using the table tagged value)
             for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
             {
@@ -414,7 +414,7 @@ public class JSFParameterLogicImpl
     {
         return this.isInputType(JSFGlobals.PLAIN_TEXT);
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputTable()
      */
@@ -484,7 +484,7 @@ public class JSFParameterLogicImpl
             "\\{0\\}",
             this.getName());
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getBackingValueName()
      */
@@ -747,24 +747,22 @@ public class JSFParameterLogicImpl
                     break;
                 }
             }
+
             // - look for any table columns
             if (!required)
             {
-                try
+                for (final Iterator iterator = this.getTableColumns().iterator(); iterator.hasNext();)
                 {
-                    for (final Iterator iterator = this.getTableColumns().iterator(); iterator.hasNext();)
+                    final Object object = iterator.next();
+                    if (object instanceof JSFAttribute)
                     {
-                        final JSFAttribute attribute = (JSFAttribute)iterator.next();
+                        final JSFAttribute attribute = (JSFAttribute)object;
                         required = !attribute.getValidatorTypes().isEmpty();
                         if (required)
                         {
                             break;
                         }
-                    }   
-                }
-                catch (Throwable th)
-                {
-                    th.printStackTrace();
+                    }
                 }
             }
         }
@@ -776,7 +774,9 @@ public class JSFParameterLogicImpl
      */
     protected java.util.Collection handleGetValidatorTypes()
     {
-        return JSFUtils.getValidatorTypes((ModelElementFacade)this.THIS(), this.getType());
+        return JSFUtils.getValidatorTypes(
+            (ModelElementFacade)this.THIS(),
+            this.getType());
     }
 
     /**
@@ -805,13 +805,15 @@ public class JSFParameterLogicImpl
     {
         return JSFUtils.isReadOnly(this);
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getValidatorArgs(java.lang.String)
      */
     protected java.util.Collection handleGetValidatorArgs(final java.lang.String validatorType)
     {
-        return JSFUtils.getValidatorArgs((ModelElementFacade)this.THIS(), validatorType);
+        return JSFUtils.getValidatorArgs(
+            (ModelElementFacade)this.THIS(),
+            validatorType);
     }
 
     /**
@@ -819,7 +821,9 @@ public class JSFParameterLogicImpl
      */
     protected java.util.Collection handleGetValidatorVars()
     {
-        return JSFUtils.getValidatorVars(((ModelElementFacade)this.THIS()), this.getType());
+        return JSFUtils.getValidatorVars(
+            ((ModelElementFacade)this.THIS()),
+            this.getType());
     }
 
     /**
@@ -883,7 +887,7 @@ public class JSFParameterLogicImpl
         }
         return associationEnds == null ? Collections.EMPTY_LIST : associationEnds;
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isEqualValidator()
      */
