@@ -29,13 +29,8 @@
 #if ($parameter.readOnly)
             <h:inputText id="$propertyId" value="#{${formValuePropertyName}}" readonly="true">
 #else
-            <x:inputCalendar id="$propertyId"
-                             monthYearRowClass="yearMonthHeader"
-                             weekRowClass="weekHeader"
-                             value="#{${formValuePropertyName}}"
-                             renderAsPopup="true"
-                             popupDateFormat="$parameter.format"
-                             required="$parameter.required">
+            <x:inputCalendar id="$propertyId" monthYearRowClass="yearMonthHeader" weekRowClass="weekHeader" value="#{${formValuePropertyName}}"
+                             renderAsPopup="true" popupDateFormat="$parameter.format" required="$parameter.required">
                 <jsf:convertDateTime pattern="$parameter.format"/>
             </x:inputCalendar>
 #end
@@ -97,30 +92,26 @@
                 identifierColumns="$parameter.inputTableIdentifierColumns"
                 var="item">
 #foreach ($column in $parameter.tableColumns)
+#set ($columnId = $column.getFormPropertyId($parameter))
                 <h:column>
                     <f:facet name="header">
                         <h:outputText value="#{messages['$column.messageKey']}"/>
                     </f:facet>
 #if ($column.type.dateType)
 #if ($column.readOnly)
-            <h:inputText id="$column.name" value="#{item.${column.name}}" readonly="true">
+                    <h:inputText id="$columnId" value="#{item.${column.name}}" readonly="true">
 #else
-            <x:inputCalendar id="$column.name"
-                             monthYearRowClass="yearMonthHeader"
-                             weekRowClass="weekHeader"
-                             value="#{item.${column.name}}"
-                             renderAsPopup="true"
-                             popupDateFormat="$column.format"
-                             required="$column.required">
-                <jsf:convertDateTime pattern="$column.format"/>
-            </x:inputCalendar>
+                    <x:inputCalendar id="$columnId" monthYearRowClass="yearMonthHeader" weekRowClass="weekHeader" value="#{item.${column.name}}"
+                                     renderAsPopup="true" popupDateFormat="$column.format" required="$column.required">
+                        <jsf:convertDateTime pattern="$column.format"/>
+                    </x:inputCalendar>
 #end
 #elseif ($column.inputCheckbox)
-                    <h:selectBooleanCheckbox id="$column.name" value="#{item.${column.name}}" required="$column.required" readonly="$column.readOnly"/>
+                    <h:selectBooleanCheckbox id="$columnId" value="#{item.${column.name}}" required="$column.required" readonly="$column.readOnly"/>
 #elseif ($column.inputRadio)
-                    <h:selectOneRadio id="$column.name" value="#{item.${column.name}}" layout="pageDirection" styleClass="selectOneRadio"/>
+                    <h:selectOneRadio id="$columnId" value="#{item.${column.name}}" layout="pageDirection" styleClass="selectOneRadio"/>
 #elseif ($column.inputText)
-                    <h:inputText id="$column.name" value="#{item.${column.name}}" required="$column.required" readonly="$column.readOnly">
+                    <h:inputText id="$columnId" value="#{item.${column.name}}" required="$column.required" readonly="$column.readOnly">
 #if ($column.type.timeType)
                         <jsf:convertDateTime pattern="$column.format"/>
 #end
@@ -128,7 +119,7 @@
 #else
                     <h:outputText value="#{item.${column.name}}"/>
 #end
-                    <x:message for="$column.name" styleClass="error" showDetail="true" showSummary="false"/>
+                    <x:message for="$columnId" styleClass="error" showDetail="true" showSummary="false"/>
                 </h:column>
 #end
             </jsf:dataTable>
