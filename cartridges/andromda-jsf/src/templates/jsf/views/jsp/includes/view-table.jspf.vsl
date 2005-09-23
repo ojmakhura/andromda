@@ -130,7 +130,7 @@
         <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}" styleClass="buttonLink">
             <h:outputText value="#{messages['$action.trigger.messageKey']}" />
 #foreach ($parameter in $action.parameters)
-#if ($table.tableColumnNames.contains($parameter.name) || $table.tableAttributeNames.contains($parameter.name))
+#if ($table.tableColumnNames.contains($parameter.name))
 #set ($parameterValue = "row.${parameter.name}")
 #elseif ($parameter.defaultValuePresent)
 #set ($parameterValue = $parameter.defaultValue)

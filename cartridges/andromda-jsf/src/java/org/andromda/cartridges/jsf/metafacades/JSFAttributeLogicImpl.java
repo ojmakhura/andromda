@@ -597,7 +597,7 @@ public class JSFAttributeLogicImpl
     }
     
     /**
-     * @see org.andromda.metafacades.uml.AttributeFacade#isEqualValidator()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isEqualValidator()
      */
     protected boolean handleIsEqualValidator()
     {
@@ -606,7 +606,7 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.AttributeFacade#isBackingValueRequired(org.andromda.metafacades.uml.FrontEndParameter)
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isBackingValueRequired(org.andromda.metafacades.uml.FrontEndParameter)
      */
     protected boolean handleIsBackingValueRequired(final FrontEndParameter ownerParameter)
     {
@@ -668,5 +668,13 @@ public class JSFAttributeLogicImpl
             }
         }
         return required;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputTypePresent()
+     */
+    protected boolean handleIsInputTypePresent()
+    {
+        return StringUtils.isNotBlank(this.getInputType());
     }
 }

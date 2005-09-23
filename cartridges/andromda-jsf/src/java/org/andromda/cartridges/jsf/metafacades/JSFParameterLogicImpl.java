@@ -226,68 +226,70 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getTableColumns()
+     * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumns()
      */
-    protected Collection handleGetTableColumns()
+    public Collection getTableColumns()
     {
-        // try to preserve the order of the elements encountered
-        final Map tableColumnsMap = new LinkedHashMap();
-
-        // order is important
-        final List actions = new ArrayList();
-
-        // all table actions need the exact same parameters, just not always all of them
-        actions.addAll(this.getTableFormActions());
-
-        // if there are any actions that are hyperlinks then their parameters get priority
-        // the user should not have modeled it that way (constraints will warn him/her)
-        actions.addAll(this.getTableHyperlinkActions());
-
-        for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        final Collection tableColumns = super.getTableColumns();
+        if (tableColumns.isEmpty())
         {
-            final JSFAction action = (JSFAction)actionIterator.next();
-            final Collection actionParameters = action.getParameters();
-            for (final Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
+            // try to preserve the order of the elements encountered
+            final Map tableColumnsMap = new LinkedHashMap();
+    
+            // order is important
+            final List actions = new ArrayList();
+    
+            // all table actions need the exact same parameters, just not always all of them
+            actions.addAll(this.getTableFormActions());
+    
+            // if there are any actions that are hyperlinks then their parameters get priority
+            // the user should not have modeled it that way (constraints will warn him/her)
+            actions.addAll(this.getTableHyperlinkActions());
+    
+            for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
-                final JSFParameter parameter = (JSFParameter)parameterIterator.next();
-                final String parameterName = parameter.getName();
-                if (parameterName != null)
+                final JSFAction action = (JSFAction)actionIterator.next();
+                final Collection actionParameters = action.getParameters();
+                for (final Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
                 {
-                    // never overwrite column specific table links
-                    // the hyperlink table links working on a real column get priority
-                    final JSFParameter existingParameter = (JSFParameter)tableColumnsMap.get(parameterName);
-                    if (existingParameter == null ||
-                        (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName())))
+                    final JSFParameter parameter = (JSFParameter)parameterIterator.next();
+                    final String parameterName = parameter.getName();
+                    if (parameterName != null)
                     {
-                        tableColumnsMap.put(
-                            parameterName,
-                            parameter);
+                        // never overwrite column specific table links
+                        // the hyperlink table links working on a real column get priority
+                        final JSFParameter existingParameter = (JSFParameter)tableColumnsMap.get(parameterName);
+                        if (existingParameter == null ||
+                            (action.isHyperlink() && parameterName.equals(action.getTableLinkColumnName())))
+                        {
+                            tableColumnsMap.put(
+                                parameterName,
+                                parameter);
+                        }
                     }
                 }
             }
-        }
-
-        // for any missing parameters we just add the name of the column
-        final Collection columnNames = getTableColumnNames();
-        for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
-        {
-            final String columnName = (String)columnNameIterator.next();
-            if (!tableColumnsMap.containsKey(columnName))
+    
+            // for any missing parameters we just add the name of the column
+            final Collection columnNames = getTableColumnNames();
+            for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
             {
-                tableColumnsMap.put(
-                    columnName,
-                    columnName);
+                final String columnName = (String)columnNameIterator.next();
+                if (!tableColumnsMap.containsKey(columnName))
+                {
+                    tableColumnsMap.put(
+                        columnName,
+                        columnName);
+                }
+            }
+    
+            // return everything in the same order as it has been modeled (using the table tagged value)
+            for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
+            {
+                final Object columnObject = columnNameIterator.next();
+                tableColumns.add(tableColumnsMap.get(columnObject));
             }
         }
-
-        // return everything in the same order as it has been modeled (using the table tagged value)
-        final Collection tableColumns = new ArrayList();
-        for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
-        {
-            final Object columnObject = columnNameIterator.next();
-            tableColumns.add(tableColumnsMap.get(columnObject));
-        }
-
         return tableColumns;
     }
 
@@ -368,7 +370,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputTextarea()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputTextarea()
      */
     protected boolean handleIsInputTextarea()
     {
@@ -376,7 +378,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputSelect()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputSelect()
      */
     protected boolean handleIsInputSelect()
     {
@@ -384,7 +386,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputSecret()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputSecret()
      */
     protected boolean handleIsInputSecret()
     {
@@ -392,7 +394,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputHidden()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputHidden()
      */
     protected boolean handleIsInputHidden()
     {
@@ -400,7 +402,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isPlaintext()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isPlaintext()
      */
     protected boolean handleIsPlaintext()
     {
@@ -408,7 +410,7 @@ public class JSFParameterLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputTable()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputTable()
      */
     protected boolean handleIsInputTable()
     {
@@ -416,7 +418,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputRadio()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputRadio()
      */
     protected boolean handleIsInputRadio()
     {
@@ -424,7 +426,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputText()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputText()
      */
     protected boolean handleIsInputText()
     {
@@ -432,7 +434,7 @@ public class JSFParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputMultibox()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isInputMultibox()
      */
     protected boolean handleIsInputMultibox()
     {
