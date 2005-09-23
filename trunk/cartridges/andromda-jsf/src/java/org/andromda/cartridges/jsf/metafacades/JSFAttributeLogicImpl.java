@@ -471,7 +471,7 @@ public class JSFAttributeLogicImpl
      */
     protected boolean handleIsInputTable()
     {
-        return this.isInputType(JSFGlobals.INPUT_TABLE);
+        return this.getInputTableIdentifierColumns().length() > 0 || this.isInputType(JSFGlobals.INPUT_TABLE);
     }
 
     /**
@@ -676,5 +676,13 @@ public class JSFAttributeLogicImpl
     protected boolean handleIsInputTypePresent()
     {
         return StringUtils.isNotBlank(this.getInputType());
+    }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttributer#getInputTableIdentifierColumns()
+     */
+    protected String handleGetInputTableIdentifierColumns()
+    {
+        return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
     }
 }
