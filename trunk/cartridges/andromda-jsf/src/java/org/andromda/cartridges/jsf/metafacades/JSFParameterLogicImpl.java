@@ -737,6 +737,7 @@ public class JSFParameterLogicImpl
         boolean required = !this.getValidatorTypes().isEmpty();
         if (!required)
         {
+            // - look for any attributes
             for (final Iterator iterator = this.getAttributes().iterator(); iterator.hasNext();)
             {
                 final JSFAttribute attribute = (JSFAttribute)iterator.next();
@@ -744,6 +745,26 @@ public class JSFParameterLogicImpl
                 if (required)
                 {
                     break;
+                }
+            }
+            // - look for any table columns
+            if (!required)
+            {
+                try
+                {
+                    for (final Iterator iterator = this.getTableColumns().iterator(); iterator.hasNext();)
+                    {
+                        final JSFAttribute attribute = (JSFAttribute)iterator.next();
+                        required = !attribute.getValidatorTypes().isEmpty();
+                        if (required)
+                        {
+                            break;
+                        }
+                    }   
+                }
+                catch (Throwable th)
+                {
+                    th.printStackTrace();
                 }
             }
         }
