@@ -119,7 +119,9 @@
 #else
                     <h:outputText value="#{item.${column.name}}"/>
 #end
+#if ($column.inputTypePresent)
                     <x:message for="$columnId" styleClass="error" showDetail="true" showSummary="false"/>
+#end
                 </h:column>
 #end
             </jsf:dataTable>
