@@ -29,6 +29,11 @@
 #end
 #end
 #end
+#foreach ($column in $field.tableColumns)
+#if ($column.validationRequired)
+#renderField($column $field)
+#end
+#end
 #end
 #end
         </form>
