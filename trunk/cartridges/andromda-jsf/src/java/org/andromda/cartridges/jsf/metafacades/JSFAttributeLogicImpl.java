@@ -255,7 +255,7 @@ public class JSFAttributeLogicImpl
                 this.getFormPropertyId(ownerParameter));
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getBackingValueName(org.andromda.metafacades.uml.ParameterFacade)
      */
@@ -465,7 +465,7 @@ public class JSFAttributeLogicImpl
     {
         return this.isInputType(JSFGlobals.INPUT_MULTIBOX);
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputTable()
      */
@@ -568,6 +568,7 @@ public class JSFAttributeLogicImpl
         final ClassifierFacade type = this.getType();
         return type != null && type.isDateType() ? this.getFormPropertyId(ownerParameter) + "DateFormatter" : null;
     }
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getTimeFormatter(org.andromda.cartridges.jsf.metafacades.JSFParameter)
      */
@@ -576,10 +577,10 @@ public class JSFAttributeLogicImpl
         final ClassifierFacade type = this.getType();
         return type != null && type.isTimeType() ? this.getFormPropertyId(ownerParameter) + "TimeFormatter" : null;
     }
-    
+
     /**
      * Overridden to provide quotes around string types.
-     * 
+     *
      * @see org.andromda.metafacades.uml.AttributeFacade#getDefaultValue()
      */
     public String getDefaultValue()
@@ -595,7 +596,7 @@ public class JSFAttributeLogicImpl
         }
         return defaultValue;
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isEqualValidator()
      */
@@ -669,15 +670,23 @@ public class JSFAttributeLogicImpl
         }
         return required;
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputTypePresent()
      */
     protected boolean handleIsInputTypePresent()
     {
-        return StringUtils.isNotBlank(this.getInputType());
+        boolean present = false;
+        final ClassifierFacade type = this.getType();
+        if (type != null)
+        {
+            present =
+                (StringUtils.isNotBlank(this.getInputType()) || type.isDateType() || type.isBooleanType()) &&
+                !this.isPlaintext();
+        }
+        return present;
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttributer#getInputTableIdentifierColumns()
      */
