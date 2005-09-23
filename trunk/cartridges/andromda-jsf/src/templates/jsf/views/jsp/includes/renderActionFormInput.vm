@@ -19,7 +19,7 @@
 #set ($backingValueName = "${formName}.${parameter.getBackingValueName($ownerParameter)}")
 #end
 #set ($formValuePropertyName = "${formName}.${valuePropertyName}")
-#if (!$parameter.table && !$parameter.inputHidden || $parameter.inputTable)
+#if (!$parameter.table && !$parameter.inputHidden)
 #if (!$parameter.inputTable)
         <h:outputLabel for="${formName}:${propertyId}" value="#{messages['$parameter.messageKey']}"/>
         <f:verbatim>:</f:verbatim>

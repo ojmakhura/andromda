@@ -39,6 +39,17 @@ public class JSFParameterLogicImpl
     {
         super(metaObject, context);
     }
+    
+    /**
+     * Overrridden to make sure its not an inputTable.
+     * 
+     * @see org.andromda.metafacades.uml.FrontEndParameter#isTable()
+     */
+    public boolean isTable()
+    {
+        System.out.println("is table!!!!!!!!: " + (super.isTable() && !this.isInputTable()));
+        return super.isTable() && !this.isInputTable();
+    }
 
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getMessageKey()
