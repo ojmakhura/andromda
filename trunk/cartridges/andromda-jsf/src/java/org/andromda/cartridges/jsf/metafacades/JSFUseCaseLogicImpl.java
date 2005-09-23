@@ -262,6 +262,19 @@ public class JSFUseCaseLogicImpl
                                 parameter.getDocumentationKey(),
                                 parameter.getDocumentationValue());
 
+                            // - submittable input table
+                            if (parameter.isInputTable())
+                            {
+                                final Collection columnNames = parameter.getTableColumnNames();
+                                for (final Iterator columnNameIterator = columnNames.iterator();
+                                    columnNameIterator.hasNext();)
+                                {
+                                    final String columnName = (String)columnNameIterator.next();
+                                    messages.put(
+                                        parameter.getTableColumnMessageKey(columnName),
+                                        parameter.getTableColumnMessageValue(columnName));
+                                }
+                            }
                             /*if (parameter.getValidWhen() != null)
                             {
                                 // this key needs to be fully qualified since the valid when value can be different
