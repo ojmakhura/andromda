@@ -31,6 +31,7 @@ public class JSFProfile
     public static final String TAGGEDVALUE_INPUT_READONLY = profile.get("INPUT_READONLY");
     public static final String TAGGEDVALUE_INPUT_VALIDWHEN = profile.get("INPUT_VALIDWHEN");
     public static final String TAGGEDVALUE_INPUT_EQUAL = profile.get("INPUT_EQUAL");
+    public static final String TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS = profile.get("INPUT_TABLE_IDENTIFIER_COLUMNS");
     public static final String TAGGEDVALUE_INPUT_VALIDATORS = profile.get("INPUT_VALIDATORS");
     public static final String TAGGEDVALUE_INPUT_FORMAT = profile.get("INPUT_FORMAT");
     public static final String TAGGEDVALUE_INPUT_RESET = profile.get("INPUT_RESET");

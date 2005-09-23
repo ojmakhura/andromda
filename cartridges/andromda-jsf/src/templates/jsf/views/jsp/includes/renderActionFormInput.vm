@@ -94,7 +94,7 @@
                 styleClass="list-background"
                 backingValue="#{${formName}.${parameter.backingValueName}}"
                 value="#{${formName}.${parameter.name}}"
-                identifierColumns=""
+                identifierColumns="$parameter.inputTableIdentifierColumns"
                 var="item">
 #foreach ($column in $parameter.tableColumns)
                 <h:column>
