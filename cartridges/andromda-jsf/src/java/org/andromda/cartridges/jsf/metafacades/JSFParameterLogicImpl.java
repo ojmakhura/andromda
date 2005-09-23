@@ -147,22 +147,18 @@ public class JSFParameterLogicImpl
      */
     protected String handleGetTableColumnMessageKey(final String columnName)
     {
-        StringBuffer messageKey = null;
-        if (this.isTable())
+        StringBuffer messageKey = new StringBuffer();
+        if (!this.isNormalizeMessages())
         {
-            messageKey = new StringBuffer();
-            if (!this.isNormalizeMessages())
+            final JSFView view = (JSFView)this.getView();
+            if (view != null)
             {
-                final JSFView view = (JSFView)this.getView();
-                if (view != null)
-                {
-                    messageKey.append(this.getMessageKey());
-                    messageKey.append('.');
-                }
+                messageKey.append(this.getMessageKey());
+                messageKey.append('.');
             }
-            messageKey.append(StringUtilsHelper.toResourceMessageKey(columnName));
         }
-        return messageKey == null ? null : messageKey.toString();
+        messageKey.append(StringUtilsHelper.toResourceMessageKey(columnName));
+        return messageKey.toString();
     }
 
     /**
@@ -170,7 +166,7 @@ public class JSFParameterLogicImpl
      */
     protected String handleGetTableColumnMessageValue(final String columnName)
     {
-        return this.isTable() ? StringUtilsHelper.toPhrase(columnName) : null;
+        return StringUtilsHelper.toPhrase(columnName);
     }
 
     /**
