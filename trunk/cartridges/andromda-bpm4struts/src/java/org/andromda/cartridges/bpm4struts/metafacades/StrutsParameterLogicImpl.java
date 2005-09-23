@@ -1,5 +1,17 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
@@ -13,17 +25,6 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -743,7 +744,12 @@ public class StrutsParameterLogicImpl
         return type != null && this.isTable() && type.isArrayType() && !type.isDataType();
     }
 
-    protected Collection handleGetTableColumns()
+    /**
+     * Overridden since StrutsAction doesn't extend FrontEndAction.
+     * 
+     * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumns()
+     */
+    public Collection getTableColumns()
     {
         // in this method we collect the elements that represent the columns of a table
         // if no specific element (parameter, attribute) can be found a simple String instance
@@ -823,6 +829,32 @@ public class StrutsParameterLogicImpl
             tableColumns.add(tableColumnsMap.get(columnObject));
         }
         return tableColumns;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumnNames()
+     */
+    public Collection getTableColumnNames()
+    {
+        final Collection tableColumnNames = new LinkedHashSet();
+        final Collection taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
+        if (!taggedValues.isEmpty())
+        {
+            for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+            {
+                final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
+                if (taggedValue != null)
+                {
+                    final String[] properties = taggedValue.split("[,\\s]+");
+                    for (int ctr = 0; ctr < properties.length; ctr++)
+                    {
+                        final String property = properties[ctr];
+                        tableColumnNames.add(property);
+                    }
+                }
+            }
+        }
+        return tableColumnNames;
     }
 
     protected String handleGetTableColumnMessageKey(String columnName)
