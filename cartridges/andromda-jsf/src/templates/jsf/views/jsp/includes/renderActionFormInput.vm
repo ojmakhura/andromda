@@ -101,7 +101,21 @@
                     <f:facet name="header">
                         <h:outputText value="#{messages['$column.messageKey']}"/>
                     </f:facet>
-#if ($column.inputCheckbox)
+#if ($column.type.dateType)
+#if ($column.readOnly)
+            <h:inputText id="$column.name" value="#{item.${column.name}}" readonly="true">
+#else
+            <x:inputCalendar id="$column.name"
+                             monthYearRowClass="yearMonthHeader"
+                             weekRowClass="weekHeader"
+                             value="#{item.${column.name}}"
+                             renderAsPopup="true"
+                             popupDateFormat="$column.format"
+                             required="$column.required">
+                <jsf:convertDateTime pattern="$column.format"/>
+            </x:inputCalendar>
+#end
+#elseif ($column.inputCheckbox)
                     <h:selectBooleanCheckbox id="$column.name" value="#{item.${column.name}}" required="$column.required" readonly="$column.readOnly"/>
 #elseif ($column.inputRadio)
                     <h:selectOneRadio id="$column.name" value="#{item.${column.name}}" layout="pageDirection" styleClass="selectOneRadio"/>
