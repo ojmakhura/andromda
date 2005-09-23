@@ -247,6 +247,14 @@
                     used for drop-down select input types).
                 </documentation>
             </property>
+            <property name="backingValuePattern">
+                <default>{0}BackingValue</default>
+                <documentation>
+                    The pattern used for constructing a parameter's backing value name.  A backing value 
+                    is used with an input table type (when you want to submit values from a table of
+                    complex objects).
+                </documentation>
+            </property>
             <property name="labelListPattern">
                 <default>{0}LabelList</default>
                 <documentation>

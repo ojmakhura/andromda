@@ -255,6 +255,19 @@ public class JSFAttributeLogicImpl
                 this.getFormPropertyId(ownerParameter));
         return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
     }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getBackingValueName(org.andromda.metafacades.uml.ParameterFacade)
+     */
+    protected String handleGetBackingValueName(final ParameterFacade ownerParameter)
+    {
+        final String backingListName =
+            StringUtils.replace(
+                ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_VALUE_PATTERN)),
+                "{0}",
+                this.getFormPropertyId(ownerParameter));
+        return org.andromda.utils.StringUtilsHelper.lowerCamelCaseName(backingListName);
+    }
 
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getLabelListName(org.andromda.metafacades.uml.ParameterFacade)
@@ -452,6 +465,14 @@ public class JSFAttributeLogicImpl
     {
         return this.isInputType(JSFGlobals.INPUT_MULTIBOX);
     }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputTable()
+     */
+    protected boolean handleIsInputTable()
+    {
+        return this.isInputType(JSFGlobals.INPUT_TABLE);
+    }
 
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputCheckbox()
@@ -582,5 +603,70 @@ public class JSFAttributeLogicImpl
     {
         final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
         return equal != null && equal.trim().length() > 0;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.AttributeFacade#isBackingValueRequired(org.andromda.metafacades.uml.FrontEndParameter)
+     */
+    protected boolean handleIsBackingValueRequired(final FrontEndParameter ownerParameter)
+    {
+        boolean required = false;
+        if (ownerParameter != null)
+        {
+            if (ownerParameter.isActionParameter())
+            {
+                required = this.isInputTable();
+                final ClassifierFacade type = this.getType();
+
+                if (!required && type != null)
+                {
+                    final String name = this.getName();
+                    final String typeName = type.getFullyQualifiedName();
+
+                    // - if the parameter is not selectable but on a targetting page it IS selectable we must
+                    //   allow the user to set the backing list too                 
+                    final Collection views = ownerParameter.getAction().getTargetViews();
+                    for (final Iterator iterator = views.iterator(); iterator.hasNext() && !required;)
+                    {
+                        final FrontEndView view = (FrontEndView)iterator.next();
+                        final Collection parameters = view.getAllActionParameters();
+                        for (final Iterator parameterIterator = parameters.iterator();
+                            parameterIterator.hasNext() && !required;)
+                        {
+                            final JSFParameter parameter = (JSFParameter)parameterIterator.next();
+                            final String parameterName = parameter.getName();
+                            final ClassifierFacade parameterType = parameter.getType();
+                            if (parameterType != null)
+                            {
+                                final String parameterTypeName = parameterType.getFullyQualifiedName();
+                                if (name.equals(parameterName) && typeName.equals(parameterTypeName))
+                                {
+                                    required = parameter.isInputTable();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (ownerParameter.isControllerOperationArgument())
+            {
+                final String name = this.getName();
+                final Collection actions = ownerParameter.getControllerOperation().getDeferringActions();
+                for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                {
+                    final JSFAction action = (JSFAction)actionIterator.next();
+                    final Collection formFields = action.getFormFields();
+                    for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !required;)
+                    {
+                        final JSFParameter parameter = (JSFParameter)fieldIterator.next();
+                        if (name.equals(parameter.getName()))
+                        {
+                            required = parameter.isBackingValueRequired();
+                        }
+                    }
+                }
+            }
+        }
+        return required;
     }
 }
