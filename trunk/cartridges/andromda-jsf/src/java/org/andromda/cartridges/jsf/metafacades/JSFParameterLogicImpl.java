@@ -406,6 +406,14 @@ public class JSFParameterLogicImpl
     {
         return this.isInputType(JSFGlobals.PLAIN_TEXT);
     }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputTable()
+     */
+    protected boolean handleIsInputTable()
+    {
+        return this.isInputType(JSFGlobals.INPUT_TABLE);
+    }
 
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#isInputRadio()
@@ -465,6 +473,16 @@ public class JSFParameterLogicImpl
     protected String handleGetBackingListName()
     {
         return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_LIST_PATTERN)).replaceAll(
+            "\\{0\\}",
+            this.getName());
+    }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getBackingValueName()
+     */
+    protected String handleGetBackingValueName()
+    {
+        return ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.BACKING_VALUE_PATTERN)).replaceAll(
             "\\{0\\}",
             this.getName());
     }
@@ -844,5 +862,67 @@ public class JSFParameterLogicImpl
     {
         final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
         return equal != null && equal.trim().length() > 0;
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#isEqualValidator()
+     */
+    protected boolean handleIsBackingValueRequired()
+    {
+        boolean required = false;
+        if (this.isActionParameter())
+        {
+            required = this.isInputTable();
+            final ClassifierFacade type = this.getType();
+
+            if (!required && type != null)
+            {
+                final String name = this.getName();
+                final String typeName = type.getFullyQualifiedName();
+
+                // - if the backing value is not required for this parameter but on 
+                //   a targetting page it IS selectable we must allow the user to set the backing value as well                 
+                final Collection views = this.getAction().getTargetViews();
+                for (final Iterator iterator = views.iterator(); iterator.hasNext() && !required;)
+                {
+                    final FrontEndView view = (FrontEndView)iterator.next();
+                    final Collection parameters = view.getAllActionParameters();
+                    for (final Iterator parameterIterator = parameters.iterator();
+                        parameterIterator.hasNext() && !required;)
+                    {
+                        final JSFParameter parameter = (JSFParameter)parameterIterator.next();
+                        final String parameterName = parameter.getName();
+                        final ClassifierFacade parameterType = parameter.getType();
+                        if (parameterType != null)
+                        {
+                            final String parameterTypeName = parameterType.getFullyQualifiedName();
+                            if (name.equals(parameterName) && typeName.equals(parameterTypeName))
+                            {
+                                required = parameter.isInputTable();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else if (this.isControllerOperationArgument())
+        {
+            final String name = this.getName();
+            final Collection actions = this.getControllerOperation().getDeferringActions();
+            for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+            {
+                final JSFAction action = (JSFAction)actionIterator.next();
+                final Collection formFields = action.getFormFields();
+                for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !required;)
+                {
+                    final JSFParameter parameter = (JSFParameter)fieldIterator.next();
+                    if (name.equals(parameter.getName()))
+                    {
+                        required = parameter.isBackingValueRequired();
+                    }
+                }
+            }
+        }
+        return required;
     }
 }

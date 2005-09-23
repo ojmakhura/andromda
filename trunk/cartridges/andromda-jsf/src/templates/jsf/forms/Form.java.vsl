@@ -15,7 +15,6 @@ public interface $operation.formName
     extends java.io.Serializable
 {
 #foreach ($field in $operation.formFields)
-
 #if ($field.type.collectionType)
 #set ($fieldTypeName = "java.util.List")
 #elseif ($field.type.fileType)
@@ -35,9 +34,14 @@ $field.getDocumentation("     * ")
 #if (!$field.complex && $field.selectable)
 #renderBackingListSupport($field "")
 #end
+#if ($field.backingValueRequired)
+#renderBackingValueSupport($field "")
+#end
 #foreach ($attribute in $field.attributes)
 #if ($attribute.isSelectable($field))
 #renderBackingListSupport($attribute $field)
+#elseif ($attribute.isBackingValueRequired($field))
+#renderBackingValueSupport($attribute $field)
 #end
 #end
     

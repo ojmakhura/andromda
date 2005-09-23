@@ -90,7 +90,6 @@
                 for (final java.util.Iterator iterator = items.iterator(); iterator.hasNext(); ctr++)
                 {
                     final java.lang.Object item = iterator.next();
-
                     this.${valueListName}[ctr] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, valueProperty);
                     this.${labelListName}[ctr] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, labelProperty);
                 }
@@ -101,6 +100,26 @@
             }
         }
     }
+    
+#if ($field.type.arrayType || $field.type.collectionType)
+#if ($field.backingListName)
+#set ($backingValueName = $field.backingValueName)
+#else
+#set ($backingValueName = $field.getBackingValueName($ownerParameter))
+#end
+#set ($backingValueMethod = $stringUtils.capitalize($backingValueName))
+    private $field.type.fullyQualifiedName $backingValueName;
+
+    public void set${backingValueMethod}($field.type.fullyQualifiedName $backingValueName)
+    {
+        this.$backingValueName = $backingValueName;
+    }
+    
+    public $field.type.fullyQualifiedName get${backingValueMethod}()
+    {
+        return this.$backingValueName;
+    }
+#end
 #end
 ##
 ## This macro renders the the date/time formatters within the form implementation

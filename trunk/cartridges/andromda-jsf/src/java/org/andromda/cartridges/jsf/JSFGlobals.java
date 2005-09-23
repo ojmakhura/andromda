@@ -125,6 +125,13 @@ public class JSFGlobals
     public static final String BACKING_LIST_PATTERN = "backingListPattern";
     
     /**
+     * The pattern used for constructing a parameter's backing value name.  A backing value
+     * is used when you want to select and submit values from a regular table (works well when
+     * you have a list of complex items with values you need to submit).
+     */
+    public static final String BACKING_VALUE_PATTERN = "backingValuePattern";
+    
+    /**
      * The pattern used for constructing the label list name (stores the list
      * of possible parameter value labels).
      */
@@ -181,6 +188,11 @@ public class JSFGlobals
      * The "multibox" form input type.
      */
     public static final String INPUT_MULTIBOX = "multibox";
+    
+    /**
+     * The "table" form input type.
+     */
+    public static final String INPUT_TABLE = "table";
 
     /**
      * The "checkbox" form input type.
