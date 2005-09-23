@@ -144,19 +144,35 @@ public class FrontEndParameterLogicImpl
     protected Collection handleGetTableColumnNames()
     {
         final Collection tableColumnNames = new LinkedHashSet();
-        final Collection taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
-        if (!taggedValues.isEmpty())
+        final Collection tableColumns = new ArrayList(this.getTableColumns());
+        if (!tableColumns.isEmpty())
         {
-            for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
-            {
-                final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
-                if (taggedValue != null)
+            CollectionUtils.transform(tableColumns, 
+                new Transformer()
                 {
-                    final String[] properties = taggedValue.split("[,\\s]+");
-                    for (int ctr = 0; ctr < properties.length; ctr++)
+                    public Object transform(final Object object)
                     {
-                        final String property = properties[ctr];
-                        tableColumnNames.add(property);
+                        return ((AttributeFacade)object).getName();
+                    }
+                });
+            tableColumnNames.addAll(tableColumns);
+        }
+        else
+        {
+            final Collection taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
+            if (!taggedValues.isEmpty())
+            {
+                for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+                {
+                    final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
+                    if (taggedValue != null)
+                    {
+                        final String[] properties = taggedValue.split("[,\\s]+");
+                        for (int ctr = 0; ctr < properties.length; ctr++)
+                        {
+                            final String property = properties[ctr];
+                            tableColumnNames.add(property);
+                        }
                     }
                 }
             }
@@ -165,26 +181,20 @@ public class FrontEndParameterLogicImpl
     }
     
     /**
-     * @see org.andromda.metafacades.uml.FrontEndParameter#getTableAttributeNames()
+     * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumns()
      */
-    protected Collection handleGetTableAttributeNames()
+    protected Collection handleGetTableColumns()
     {
-        final Collection names = new LinkedHashSet();
-        final ClassifierFacade arrayType = this.getType();
-        if (arrayType != null && arrayType.isArrayType())
+        final Collection tableColumns = new ArrayList();
+        final ClassifierFacade type = this.getType();
+        if (type != null && type.isArrayType())
         {
-            final ClassifierFacade type = arrayType.getNonArray();
-            final Collection attributes = new ArrayList(type.getAttributes());
-            CollectionUtils.transform(attributes, 
-                new Transformer()
-                {
-                    public Object transform(final Object object)
-                    {
-                        return ((AttributeFacade)object).getName();
-                    }
-                });
-            names.addAll(attributes);
+            final ClassifierFacade nonArrayType = type.getNonArray();
+            if (nonArrayType != null)
+            {
+                tableColumns.addAll(nonArrayType.getAttributes());
+            }
         }
-        return names;
+        return tableColumns;
     }
 }
