@@ -1,11 +1,29 @@
 ##
 ## A macro that renders the appropriate action form input field
 ##
-#macro(renderActionInput $parameter)
+## parameters:
+##     o  $parameter - the actual parameter to render
+##     o  $ownerParameter - the parameter that is the owner of this parameter (in the case of complex objects)
+##     o  $renderLabel - whether or not a labeled should be rendered (i.e. we don't render labels with input tables)
+##
+#macro(renderActionInput $parameter $ownerParameter)
+#if ($parameter.backingListName)
+#set ($propertyId = $parameter.name)
+#set ($valuePropertyName = $parameter.name)
+#set ($backingListName = "${formName}.$parameter.backingListName")
+#set ($backingValueName = "${formName}.$parameter.backingValueName")
+#else
+#set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
+#set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
+#set ($backingListName = "${formName}.${parameter.getBackingListName($ownerParameter)}")
+#set ($backingValueName = "${formName}.${parameter.getBackingValueName($ownerParameter)}")
+#end
 #set ($formValuePropertyName = "${formName}.${valuePropertyName}")
-#if (!$parameter.table && !$parameter.inputHidden)
+#if (!$parameter.table && !$parameter.inputHidden || $parameter.inputTable)
+#if (!$parameter.inputTable)
         <h:outputLabel for="${formName}:${propertyId}" value="#{messages['$parameter.messageKey']}"/>
         <f:verbatim>:</f:verbatim>
+#end
         <h:panelGroup>
 #if ($parameter.type.dateType)
 #if ($parameter.readOnly)
@@ -28,7 +46,7 @@
                 <f:selectItem itemValue="" itemLabel="#{messages['select.value.text']}" />
                 <c:if test="${!empty ${backingListName}}">
                     <f:selectItems value="#{${backingListName}}" />
-                </c:if>                  
+                </c:if>
             </h:selectOneMenu>
 #elseif ($parameter.inputTextarea)
             <h:inputTextarea id="$propertyId" rows="5" value="#{${formValuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly"/>
@@ -40,14 +58,18 @@
             <h:selectManyCheckbox id="$propertyId" value="#{${formValuePropertyName}}" layout="pageDirection" styleClass="selectManyCheckbox">
                 <c:if test="${!empty ${backingListName}}">
                     <f:selectItems value="#{${backingListName}}" />
-                </c:if>   
+                </c:if>
             </h:selectManyCheckbox>
 #elseif ($parameter.inputRadio)
             <h:selectOneRadio id="$propertyId" value="#{${formValuePropertyName}}" layout="pageDirection" styleClass="selectOneRadio">
                 <c:if test="${!empty ${backingListName}}">
                     <f:selectItems value="#{${backingListName}}" />
-                </c:if>  
+                </c:if>
             </h:selectOneRadio>
+#elseif ($parameter.inputTable)
+#renderInputTable($parameter)
+#elseif ($parameter.plainText)
+            <h:outputText value="#{${formValuePropertyName}}"/>
 #else
             <h:inputText id="$propertyId" value="#{${formValuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly">
 #if ($parameter.type.timeType)
@@ -55,7 +77,45 @@
 #end
             </h:inputText>
 #end
+#if (!$parameter.inputTable)
             <x:message for="$propertyId" styleClass="error" showDetail="true" showSummary="false"/>
+#end
         </h:panelGroup>
 #end
+#end
+##
+##  This macro renders an submittable input table
+##
+#macro (renderInputTable $parameter)
+            <jsf:dataTable id="$parameter.name"
+                columnClasses="list-column-center,list-column-right, list-column-center,list-column-right"
+                headerClass="list-header"
+                rowClasses="list-row"
+                styleClass="list-background"
+                backingValue="#{${formName}.${parameter.backingValueName}}"
+                value="#{${formName}.${parameter.name}}"
+                identifierColumns=""
+                var="item">
+#foreach ($column in $parameter.tableColumns)
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{messages['$column.messageKey']}"/>
+                    </f:facet>
+#if ($column.inputCheckbox)
+                    <h:selectBooleanCheckbox id="$column.name" value="#{item.${column.name}}" required="$column.required" readonly="$column.readOnly"/>
+#elseif ($column.inputRadio)
+                    <h:selectOneRadio id="$column.name" value="#{item.${column.name}}" layout="pageDirection" styleClass="selectOneRadio"/>
+#elseif ($column.inputText)
+                    <h:inputText id="$column.name" value="#{item.${column.name}}" required="$column.required" readonly="$column.readOnly">
+#if ($column.type.timeType)
+                        <jsf:convertDateTime pattern="$column.format"/>
+#end
+                    </h:inputText>                    
+#else
+                    <h:outputText value="#{item.${column.name}}"/>
+#end
+                    <x:message for="$column.name" styleClass="error" showDetail="true" showSummary="false"/>
+                </h:column>
+#end
+            </jsf:dataTable>
 #end

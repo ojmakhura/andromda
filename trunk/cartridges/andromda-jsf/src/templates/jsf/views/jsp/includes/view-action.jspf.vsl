@@ -35,18 +35,12 @@
                  footerClass="formFooter"
                  columnClasses="formLabels,,formInputs">           
 #foreach ($parameter in $action.parameters)
-#if (!$parameter.attributes.empty)
-#foreach ($attribute in $parameter.attributes)
-#set ($propertyId = $attribute.getFormPropertyId($parameter))
-#set ($valuePropertyName = ${attribute.getFormPropertyName($parameter)})
-#set ($backingListName = "${formName}.${attribute.getBackingListName($parameter)}")
-#renderActionInput($attribute)
-#end
+#if (!$parameter.complex)
+#renderActionInput($parameter "")
 #else
-#set ($propertyId = $parameter.name)
-#set ($valuePropertyName = $parameter.name)
-#set ($backingListName = "${formName}.$parameter.backingListName")
-#renderActionInput($parameter)
+#foreach ($attribute in $parameter.attributes)
+#renderActionInput($attribute $parameter)
+#end
 #end
 #end
         <h:panelGroup/>
