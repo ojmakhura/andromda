@@ -250,6 +250,20 @@
                     <value default="true">false</value>
                 </allowedValues>
             </element>
+            <element name="INPUT_TABLE_IDENTIFIER_COLUMNS">
+                <documentation>
+                    Allows one to define which columns should be considered identifiers when creating an input table, these
+                    columns determine how the value is merged with the backing value of the table to be submitted.
+                </documentation>
+                <value>@andromda.presentation.view.field.table.identifier.columns</value>
+                <appliedOnElement>
+                    A collection type parameter (array is preferred) going out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value default="true">false</value>
+                </allowedValues>
+            </element>
             <element name="TABLE_COLUMNS">
                 <documentation>
                     The collection will be displayed in scrollable tabular format. 
