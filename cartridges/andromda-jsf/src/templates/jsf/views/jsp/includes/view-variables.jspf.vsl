@@ -1,12 +1,15 @@
 <h:panelGrid columns="1" id="viewVariables" width="100%">
     <h:panelGrid columns="2" columnClasses="viewVariableLabel,,viewVariableText">
 #foreach ($variable in $view.variables)
+#if (!$variable.table)
 #if ($variable.attributes.empty)
         <h:outputText value="#{messages['$variable.messageKey']} :"/>
 #if ($variable.type.collectionType)
-        <c:forEach var="item" items="$variable.name">
-            <h:outputText value="#{item}"/>
-        </c:forEach>
+        <f:verbatim>
+            <c:forEach var="item" items="${${variable.name}}" varStatus="status">
+                ${item} <c:if test="${!status.last}">,</c:if>
+            </c:forEach>
+        </f:verbatim>
 #else
         <h:outputText value="#{${variable.name}}">
 #if ($variable.type.dateType)
@@ -42,6 +45,7 @@
             <h:outputText value="#{item.${itemAttribute.name}}">
 #if ($itemAttribute.type.dateType)
                 <jsf:convertDateTime pattern="$itemAttribute.format"/>
+#end
 #end
 #end
 #end
