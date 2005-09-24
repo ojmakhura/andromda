@@ -74,6 +74,7 @@ public class JSFValidatorTag
      */
     public void release()
     {
+        super.release();
         this.functionName = null;
     }
 
