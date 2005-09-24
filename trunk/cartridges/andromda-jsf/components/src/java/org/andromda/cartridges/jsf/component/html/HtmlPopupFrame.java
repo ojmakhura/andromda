@@ -47,10 +47,10 @@ public class HtmlPopupFrame
         {
             return this.accesskey;
         }
-        ValueBinding _vb = getValueBinding("accesskey");
-        if (_vb != null)
+        final ValueBinding binding = getValueBinding("accesskey");
+        if (binding != null)
         {
-            return (java.lang.String)_vb.getValue(getFacesContext());
+            return (java.lang.String)binding.getValue(getFacesContext());
         }
         return null;
     }
@@ -94,7 +94,7 @@ public class HtmlPopupFrame
         {
             return this.lang;
         }
-        ValueBinding binding = getValueBinding("lang");
+        final ValueBinding binding = getValueBinding("lang");
         if (binding != null)
         {
             return (java.lang.String)binding.getValue(getFacesContext());
