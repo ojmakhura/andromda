@@ -318,10 +318,10 @@
                 </documentation>
             </property>
             <property name="formBeanPattern">
-                <default>{0}Form</default>
+                <default>{0}{1}Form</default>
                 <documentation>
                     The pattern for constructing the name of the bean under which the form is stored,
-                    where <em>{0}</em> is the name of the controller operation.
+                    where <em>{0}</em> is the name of the use case and <em>{1}</em> is the name of the trigger.
                 </documentation>
             </property>
             <property name="controllerImplementationPattern">
