@@ -10,6 +10,7 @@ import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
@@ -39,9 +40,13 @@ public class JSFActionLogicImpl
     protected java.lang.String handleGetFormBeanName()
     {
         final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.FORM_BEAN_PATTERN));
-        return pattern.replaceFirst(
-            "\\{0\\}",
-            this.getTriggerName());
+        final ModelElementFacade useCase = this.getUseCase();
+        final String useCaseName = useCase != null ? StringUtilsHelper.lowerCamelCaseName(useCase.getName()) : "";
+        final String formBeanName = pattern.replaceFirst("\\{0\\}", useCaseName); 
+        final String triggerName = !pattern.equals(formBeanName) ? StringUtils.capitalize(this.getTriggerName()) : this.getTriggerName();
+        return formBeanName.replaceFirst(
+            "\\{1\\}",
+            triggerName);
     }
 
     /**
