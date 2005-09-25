@@ -18,20 +18,28 @@ rule UMLServiceToSpringService {
 
 rule UMLOpTo3GLMethod {
 	from e : UML!Operation
-	to out : X3GL!Method (
-		name <- e.name -- ,
-		-- type <- e.parameter->select(x|x.kind=#pdk_return)->asSequence()->first().type,
-		-- parameters <- e.parameter->select(x|x.kind<>#pdk_return)->asSequence()
+	to out : Spring!Method (
+		name <- e.name ,
+		returnType <- e.parameter->select(x|x.kind=#pdk_return)->asSequence()->first().type,
+		parameters <- e.parameter->select(x|x.kind<>#pdk_return)->asSequence()
 	)
 }
 
 
 -- Transform UML parameters to 3GL parameters.
--- rule UMLParameterTo3GLParameter {
--- 	from e : UML!Parameter (e.kind <> #pdk_return)
--- 	to out : X3GL!Parameter (
--- 		name <- e.name,
--- 		type <- e.type
--- 	)
--- }
+rule UMLParameterTo3GLParameter {
+ 	from e : UML!Parameter (e.kind <> #pdk_return)
+ 	to out : Spring!Parameter (
+ 		name <- e.name ,
+ 		type <- e.type
+ 	)
+}
+
+rule UMLDatatypeTo3GLDatatype {
+	from e : UML!DataType
+	to out : Spring!Type (
+		name <- e.name
+	)
+}
+
 
