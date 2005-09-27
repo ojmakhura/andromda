@@ -11,7 +11,7 @@ import com.togethersoft.openapi.model.elements.UniqueName;
 
 /**
  * TODO Specify purpose, please.
- * 
+ *
  * @author Peter Friese
  * @version 1.0
  * @since 01.11.2004
@@ -33,7 +33,7 @@ public class UML20AssociatesLinkExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#getEntityName()
      */
     protected String getEntityName(Entity entity)
@@ -43,7 +43,7 @@ public class UML20AssociatesLinkExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#doExportChildNodes()
      */
     protected boolean doExportChildNodes()
@@ -53,7 +53,7 @@ public class UML20AssociatesLinkExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#doExportDependencies()
      */
     protected boolean doExportDependencies()
@@ -63,7 +63,7 @@ public class UML20AssociatesLinkExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#exportEntityBody(com.togethersoft.openapi.model.elements.Entity)
      */
     protected void exportEntityBody(Entity entity)
@@ -154,7 +154,7 @@ public class UML20AssociatesLinkExportStrategy
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.uml14.UMLEntityExportStrategy#translateTaggedValueName(java.lang.String,
      *      java.lang.String)
      */
@@ -230,7 +230,7 @@ public class UML20AssociatesLinkExportStrategy
         int kind)
     {
         Property visibilityProperty;
-        if (kind == TARGET)
+        if (kind == SOURCE)
         {
             if (entity.hasProperty("clientVisibility"))
             {
@@ -238,7 +238,7 @@ public class UML20AssociatesLinkExportStrategy
                 ExportContext.getWriter().writeProperty("visibility", translateVisibility(visibilityProperty));
             }
         }
-        else if (kind == SOURCE)
+        else if (kind == TARGET)
         {
             if (entity.hasProperty("supplierVisibility"))
             {
@@ -270,6 +270,10 @@ public class UML20AssociatesLinkExportStrategy
         {
             result = "private";
         }
+        else if ("$supplierDefault".equalsIgnoreCase(value))
+        {
+            result = "package";
+        }
         else if ("$clientPublic".equalsIgnoreCase(value))
         {
             result = "public";
@@ -282,6 +286,10 @@ public class UML20AssociatesLinkExportStrategy
         {
             result = "private";
         }
+        else if ("$clientDefault".equalsIgnoreCase(value))
+        {
+            result = "package";
+        }
         return result;
     }
 
@@ -292,20 +300,34 @@ public class UML20AssociatesLinkExportStrategy
     private void exportNavigability(Entity entity,
         int kind)
     {
-        if (kind == TARGET)
+        String navigability = "";
+        if (kind == SOURCE)
         {
-            if (entity.hasProperty("clientNavigability"))
-            {
-                ExportContext.getWriter().writeProperty("isNavigable", "true");
+            String propertyValue = entity.getPropertyValue("clientNavigability");
+            if ("$clientNotNavigable".equalsIgnoreCase(propertyValue)) {
+                navigability = "false";
+            }
+            else if ("$clientNavigableExplicitly".equalsIgnoreCase(propertyValue)) {
+                navigability = "true";
+            }
+            else {
+                navigability = "true";
             }
         }
-        else if (kind == SOURCE)
+        else if (kind == TARGET)
         {
-            if (entity.hasProperty("supplierNavigability"))
-            {
-                ExportContext.getWriter().writeProperty("isNavigable", "true");
+            String propertyValue = entity.getPropertyValue("supplierNavigability");
+            if ("$supplierNotNavigable".equalsIgnoreCase(propertyValue)) {
+                navigability = "false";
+            }
+            else if ("$supplierNavigableExplicitly".equalsIgnoreCase(propertyValue)) {
+                navigability = "true";
+            }
+            else {
+                navigability = "true";
             }
         }
+        ExportContext.getWriter().writeProperty("isNavigable", navigability);
     }
 
     /**
