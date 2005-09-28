@@ -387,7 +387,7 @@ public abstract class $entity.daoBaseName
 #set ($argumentValue = "${argument.name}.getValue()")
 #end
 #set ($setParameterOperation = "setParameter")
-#if ($argument.type.collectionType)
+#if ($argument.type.collectionType || $argument.type.arrayType)
 #set ($setParameterOperation = "${setParameterOperation}List")
 #end
 #if ($finder.useNamedParameters)
