@@ -277,7 +277,7 @@ public class JSFParameterLogicImpl
             }
 
             // for any missing parameters we just add the name of the column
-            final Collection columnNames = getTableColumnNames();
+            final Collection columnNames = this.getTableColumnNames();
             for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
             {
                 final String columnName = (String)columnNameIterator.next();
