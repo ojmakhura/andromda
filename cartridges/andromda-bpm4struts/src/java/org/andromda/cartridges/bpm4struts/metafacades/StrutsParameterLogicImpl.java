@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -829,32 +828,6 @@ public class StrutsParameterLogicImpl
             tableColumns.add(tableColumnsMap.get(columnObject));
         }
         return tableColumns;
-    }
-    
-    /**
-     * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumnNames()
-     */
-    public Collection getTableColumnNames()
-    {
-        final Collection tableColumnNames = new LinkedHashSet();
-        final Collection taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
-        if (!taggedValues.isEmpty())
-        {
-            for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
-            {
-                final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
-                if (taggedValue != null)
-                {
-                    final String[] properties = taggedValue.split("[,\\s]+");
-                    for (int ctr = 0; ctr < properties.length; ctr++)
-                    {
-                        final String property = properties[ctr];
-                        tableColumnNames.add(property);
-                    }
-                }
-            }
-        }
-        return tableColumnNames;
     }
 
     protected String handleGetTableColumnMessageKey(String columnName)

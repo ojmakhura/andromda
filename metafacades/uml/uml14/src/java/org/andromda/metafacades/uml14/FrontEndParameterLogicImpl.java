@@ -12,9 +12,11 @@ import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndForward;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -144,38 +146,27 @@ public class FrontEndParameterLogicImpl
     protected Collection handleGetTableColumnNames()
     {
         final Collection tableColumnNames = new LinkedHashSet();
-        final Collection tableColumns = new ArrayList(this.getTableColumns());
-        if (!tableColumns.isEmpty())
+        final Collection taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
+        if (!taggedValues.isEmpty())
         {
-            CollectionUtils.transform(tableColumns, 
-                new Transformer()
-                {
-                    public Object transform(final Object object)
-                    {
-                        return ((AttributeFacade)object).getName();
-                    }
-                });
-            tableColumnNames.addAll(tableColumns);
-        }
-        else
-        {
-            final Collection taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
-            if (!taggedValues.isEmpty())
+            for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
             {
-                for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
+                final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
+                if (taggedValue != null)
                 {
-                    final String taggedValue = StringUtils.trimToNull(String.valueOf(iterator.next()));
-                    if (taggedValue != null)
+                    final String[] properties = taggedValue.split("[,\\s]+");
+                    for (int ctr = 0; ctr < properties.length; ctr++)
                     {
-                        final String[] properties = taggedValue.split("[,\\s]+");
-                        for (int ctr = 0; ctr < properties.length; ctr++)
-                        {
-                            final String property = properties[ctr];
-                            tableColumnNames.add(property);
-                        }
+                        final String property = properties[ctr];
+                        tableColumnNames.add(property);
                     }
                 }
             }
+        }
+        // - if we have no table column names explicitly defined, use the table attribute names.
+        if (tableColumnNames.isEmpty())
+        {
+            tableColumnNames.addAll(this.getTableAttributeNames());
         }
         return tableColumnNames;
     }
@@ -185,16 +176,55 @@ public class FrontEndParameterLogicImpl
      */
     protected Collection handleGetTableColumns()
     {
-        final Collection tableColumns = new ArrayList();
+        final Collection tableColumns = new ArrayList(this.getNonArrayAttributes());
+        final Collection tableColumnNames = this.getTableColumnNames();
+        CollectionUtils.filter(tableColumns,
+            new Predicate()
+            {
+                public boolean evaluate(final Object object)
+                {
+                    final ModelElementFacade attribute = (ModelElementFacade)object;
+                    final String attributeName = attribute.getName();
+                    return attributeName != null && tableColumnNames.contains(attributeName);
+                }
+            });
+        return tableColumns;
+    }
+    
+    /**
+     * Gets all attributes for an array type that has a corresponding non-array
+     * type.
+     * @return the collection of attributes.
+     */
+    private Collection getNonArrayAttributes()
+    {
+        final Collection nonArrayAttributes = new ArrayList();
         final ClassifierFacade type = this.getType();
         if (type != null && type.isArrayType())
         {
             final ClassifierFacade nonArrayType = type.getNonArray();
             if (nonArrayType != null)
             {
-                tableColumns.addAll(nonArrayType.getAttributes());
+                nonArrayAttributes.addAll(nonArrayType.getAttributes());
             }
         }
-        return tableColumns;
+        return nonArrayAttributes;        
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.FrontEndParameter#getTableAttributeNames()
+     */
+    protected Collection handleGetTableAttributeNames()
+    {
+        final Collection tableAttributeNames = new ArrayList(this.getNonArrayAttributes());
+        CollectionUtils.transform(tableAttributeNames, 
+            new Transformer()
+            {
+                public Object transform(final Object object)
+                {
+                    return ((AttributeFacade)object).getName();
+                }
+            });
+        return tableAttributeNames;
     }
 }
