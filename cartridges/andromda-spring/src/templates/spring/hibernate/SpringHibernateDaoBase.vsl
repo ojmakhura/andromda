@@ -560,7 +560,7 @@ public abstract class $entity.daoBaseName
      * @return the transformed entity (i.e. new value object, etc)
      * @see #transformEntities(int,java.util.Collection)
      */
-    private final Object transformEntity(final int transform, final $entity.fullyQualifiedName entity)
+    protected Object transformEntity(final int transform, final $entity.fullyQualifiedName entity)
     {
         Object target = null;
         if (entity != null)
@@ -592,7 +592,7 @@ public abstract class $entity.daoBaseName
      * @return the same collection as the argument, but this time containing the transformed entities
      * @see #transformEntity(int,$entity.fullyQualifiedName)
      */
-    private final void transformEntities(final int transform, final java.util.Collection entities)
+    protected void transformEntities(final int transform, final java.util.Collection entities)
     {
         switch (transform)
         {
@@ -639,7 +639,7 @@ public abstract class $entity.daoBaseName
      * (which result in an array of objects) to {@link ${valueObjectRef.targetElement.fullyQualifiedName}}
      * using the Jakarta Commons-Collections Transformation API.
      */
-    private final org.apache.commons.collections.Transformer $valueObjectRef.transformationAnonymousName =
+    private org.apache.commons.collections.Transformer $valueObjectRef.transformationAnonymousName =
         new org.apache.commons.collections.Transformer()
         {
             public Object transform(Object input)
