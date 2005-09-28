@@ -4,7 +4,7 @@
 #if (!$variable.table)
 #if ($variable.attributes.empty)
         <h:outputText value="#{messages['$variable.messageKey']} :"/>
-#if ($variable.type.collectionType)
+#if ($variable.type.collectionType || $variable.type.arrayType)
         <f:verbatim>
             <c:forEach var="item" items="${${variable.name}}" varStatus="status">
                 ${item} <c:if test="${!status.last}">,</c:if>
