@@ -52,7 +52,6 @@ public class BinaryFileRenderer
                     "Content-disposition",
                     "attachment; filename=\"" + fileName + '"');
             }
-
             byte[] file = (byte[])fileComponent.getValue();
 
             // - for IE we need to set the content type, content length and buffer size and 
@@ -67,15 +66,6 @@ public class BinaryFileRenderer
             response.setContentLength(file.length);
             response.flushBuffer();
 
-            response.setHeader(
-                "Pragma",
-                "No-cache");
-            response.setDateHeader(
-                "Expires",
-                0);
-            response.setHeader(
-                "Cache-Control",
-                "no-cache");
             stream.write(file);
         }
     }
