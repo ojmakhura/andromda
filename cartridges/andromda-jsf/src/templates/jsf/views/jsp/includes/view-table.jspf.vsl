@@ -85,6 +85,9 @@
 #end
 #else
     <h:column>
+        <f:facet name="header">
+            <f:verbatim>&nbsp;</f:verbatim>
+        </f:facet>
         <h:outputText value="#{row}">
 #if ($column.type.dateType)
             <jsf:convertDateTime pattern="$defaultDateFormat"/>
