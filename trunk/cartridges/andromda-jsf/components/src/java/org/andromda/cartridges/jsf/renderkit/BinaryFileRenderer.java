@@ -62,11 +62,13 @@ public class BinaryFileRenderer
             {
                 response.setContentType(contentType);
             }
-            response.setBufferSize(file.length);
-            response.setContentLength(file.length);
-            response.flushBuffer();
-
-            stream.write(file);
+            if (file != null)
+            {
+                response.setBufferSize(file.length);
+                response.setContentLength(file.length);
+                response.flushBuffer();
+                stream.write(file);
+            }
         }
     }
 
