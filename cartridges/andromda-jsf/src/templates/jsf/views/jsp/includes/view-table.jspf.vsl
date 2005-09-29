@@ -10,7 +10,7 @@
             paginator="true"
             paginatorMaxPages="9"
             paginatorTableClass="paginator"
-            paginatorActiveColumnStyle="font-weight:bold;">
+            paginatorActiveColumnClass="paginatorActiveColumnClass">
         <f:facet name="first" >
             <h:graphicImage url="/images/arrow-first.gif" border="1" />
         </f:facet>
