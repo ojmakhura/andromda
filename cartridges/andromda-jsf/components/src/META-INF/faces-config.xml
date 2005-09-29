@@ -27,6 +27,14 @@
         <component-type>org.andromda.cartridges.jsf.HtmlPopupFrame</component-type>
         <component-class>org.andromda.cartridges.jsf.component.html.HtmlPopupFrame</component-class>
     </component>
+    
+    <component>
+        <description>
+            This component renders a binary file (PDF, etc) in the appropriate manner.
+        </description>
+        <component-type>org.andromda.cartridges.jsf.component.BinaryFile</component-type>
+        <component-class>org.andromda.cartridges.jsf.component.BinaryFile</component-class>
+    </component>
 
     <validator>
         <validator-id>org.andromda.cartridges.jsf.validator.JSFValidator</validator-id>
@@ -38,6 +46,14 @@
             <component-family>org.andromda.cartridges.jsf.Popup</component-family>
             <renderer-type>org.andromda.cartridges.jsf.Popup</renderer-type>
             <renderer-class>org.andromda.cartridges.jsf.renderkit.html.PopupRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+    
+    <render-kit>
+        <renderer>
+            <component-family>org.andromda.cartridges.jsf.BinaryFile</component-family>
+            <renderer-type>org.andromda.cartridges.jsf.BinaryFile</renderer-type>
+            <renderer-class>org.andromda.cartridges.jsf.renderkit.BinaryFileRenderer</renderer-class>
         </renderer>
     </render-kit>
 

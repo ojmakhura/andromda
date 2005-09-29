@@ -1,7 +1,6 @@
 package org.andromda.cartridges.jsf.component;
 
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -15,7 +14,6 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -413,7 +411,15 @@ public class JSFValidatorComponent
     private UIForm findForm(final String id)
     {
         UIForm form = null;
-        final UIComponent validator = this.findComponent(id);
+        UIComponent validator = null;
+        try
+        {
+            validator = this.findComponent(id);
+        }
+        catch (NullPointerException exception)
+        {
+            // ignore - means we couldn't find the component
+        }
         if (validator instanceof JSFValidatorComponent)
         {
             final UIComponent parent = validator.getParent();
