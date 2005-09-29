@@ -61,7 +61,7 @@ public class HtmlPopupFrame
      */
     public String getFamily()
     {
-        return "org.andromda.cartridges.jsf.Popup";
+        return RENDERER_TYPE;
     }
 
     public void setAccesskey(java.lang.String accesskey)

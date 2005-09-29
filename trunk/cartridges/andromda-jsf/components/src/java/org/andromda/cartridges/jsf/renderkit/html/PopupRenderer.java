@@ -175,7 +175,7 @@ public class PopupRenderer
         final HtmlPopupFrame command = (HtmlPopupFrame)component;
         if (command.isRendered())
         {
-            final UIForm uiform = getForm(
+            final UIForm uiform = this.getForm(
                     context,
                     command);
             if (uiform == null)

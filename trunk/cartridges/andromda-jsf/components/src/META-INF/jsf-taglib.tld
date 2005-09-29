@@ -43,6 +43,42 @@
             </description>
         </attribute>
     </tag>
+    
+    <tag>
+        <name>binaryFile</name>
+        <tag-class>org.andromda.cartridges.jsf.taglib.BinaryFileTag</tag-class>
+        <body-content>empty</body-content>
+        <description>
+           Renders a binary file in the appropriate manner.
+        </description>
+        <attribute>
+            <name>value</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>The value of the binary file to render</description>
+        </attribute>
+        <attribute>
+            <name>fileName</name>
+            <required>true</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>The file name to give the file being rendered (this will cause the open dialog prompt to be rendered)</description>
+        </attribute>
+        <attribute>
+            <name>prompt</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>Whether or not the dialog to open/save as should be presented when rendering the file.</description>
+        </attribute>
+        <attribute>
+            <name>contentType</name>
+            <required>false</required>
+            <rtexprvalue>false</rtexprvalue>
+            <description>
+                The content type under which to render the binary file (if this isn't specified, then the content 
+                type is guessed based on the extension of the fileName)
+            </description>
+        </attribute>
+    </tag>
 
     <tag>
         <name>convertDateTime</name>
