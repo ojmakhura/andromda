@@ -66,7 +66,7 @@ public class $view.populator
             java.lang.Object previousForm = null;
             // - populate the forms
 #foreach ($action in $view.formActions)
-            previousForm = variableResolver.resolveVariable(facesContext, "$action.formKey");
+            previousForm = variableResolver.resolveVariable(facesContext, "$view.formKey");
             if (previousForm != null)
             {     
                 $action.fullyQualifiedFormImplementationName $action.formBeanName =
