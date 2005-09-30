@@ -5,7 +5,7 @@ package $managedBeansPackage;
 /**
  * Provides utilities for population of forms
  * when using JSF.
- * 
+ *
  * @author Chad Brandon
  */
 public class $formPopulatorName
@@ -49,11 +49,10 @@ public class $formPopulatorName
                                     final java.beans.PropertyDescriptor fromDescriptor =
                                         org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(fromForm, name);
                                     // - only attempt to convert, if the types don't match
-                                    if (fromDescriptor.getPropertyType() != toDescriptor.getPropertyType())
+                                    if (fromDescriptor.getPropertyType() == toDescriptor.getPropertyType())
                                     {
-                                        fromValue = org.apache.commons.beanutils.ConvertUtils.convert(String.valueOf(fromValue), toDescriptor.getPropertyType());
+                                        org.apache.commons.beanutils.PropertyUtils.setProperty(toForm, name, fromValue);
                                     }
-                                    org.apache.commons.beanutils.PropertyUtils.setProperty(toForm, name, fromValue);
                                 }
                             }
                         }
