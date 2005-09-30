@@ -20,12 +20,12 @@
                 <h:outputText value="<em>#{remoteUser}</em>" escape="false" styleClass="logoutPanel"/>
             </h:panelGrid>
             <h:outputText value="~"/>
+            <h:panelGrid columns="1" style="text-align:left" width="100%">
+                <h:commandLink action="logout" styleClass="logout">
+                    <h:outputText value="#{messages['logout.action']}" style="text-align:left"/>            
+                </h:commandLink> 
+            </h:panelGrid>   
         </c:if>
-        <h:panelGrid columns="1" style="text-align:left" width="100%">
-            <h:commandLink action="logout" styleClass="logout">
-                <h:outputText value="#{messages['logout.action']}" style="text-align:left"/>            
-            </h:commandLink> 
-        </h:panelGrid>   
     </h:panelGrid>
 #end
 </h:panelGrid>
