@@ -173,6 +173,12 @@
                     The path to the JSP that provides application logout.
                 </documentation>
             </property> 
+            <property name="defaultMultiSelectSize">
+                <default>3</default>
+                <documentation>
+                    The default size to use for multi select boxes.
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="Views">
             <documentation>

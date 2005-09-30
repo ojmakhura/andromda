@@ -37,11 +37,12 @@
 #elseif ($parameter.inputCheckbox)
             <h:selectBooleanCheckbox id="$propertyId" value="#{${formValuePropertyName}}" required="$parameter.required" readonly="$parameter.readOnly"/>
 #elseif ($parameter.inputSelect)
+#set ($multiSelect = $parameter.type.collectionType || $parameter.type.arrayType)
 #set ($selectBoxType = "selectOneMenu")
-#if ($parameter.type.collectionType || $parameter.type.arrayType)
+#if ($multiSelect)
 #set ($selectBoxType = "selectManyListbox")
 #end
-            <h:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" styleClass="selectOneMenu" required="$parameter.required" readonly="$parameter.readOnly">
+            <h:$selectBoxType id="$propertyId" value="#{${formValuePropertyName}}" styleClass="selectOneMenu" required="$parameter.required" readonly="$parameter.readOnly"#if ($multiSelect) size="$defaultMultiSelectSize"#end>
 #if (!($parameter.type.collectionType || $parameter.type.arrayType))
                 <f:selectItem itemValue="" itemLabel="#{messages['select.value.text']}" />
 #end

@@ -14,6 +14,7 @@
             <property name="containedInFrontEndUseCase"/>
         </mapping>
         <property reference="viewPopulatorPattern"/>
+        <property reference="actionFormKey"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFActionLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
