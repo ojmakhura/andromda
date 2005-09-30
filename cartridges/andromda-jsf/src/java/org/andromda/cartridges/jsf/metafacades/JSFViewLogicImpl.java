@@ -227,6 +227,16 @@ public class JSFViewLogicImpl
         }
         return actions;
     }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFView#getFormKey()
+     */
+    protected String handleGetFormKey()
+    {
+        final Object formKeyValue = this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_KEY);
+        return formKeyValue == null ? ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.ACTION_FORM_KEY))
+                                    : String.valueOf(formKeyValue);
+    }
 
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getPopulatorPath()

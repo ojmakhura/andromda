@@ -81,7 +81,7 @@ public class $view.populator
 #end
 #if (!$view.variables.empty)
             // - populate the view variables   
-            final java.lang.Object form = variableResolver.resolveVariable(facesContext, "$view.useCase.formKey");
+            final java.lang.Object form = variableResolver.resolveVariable(facesContext, "$view.formKey");
             if (form != null)
             {    
 #foreach ($variable in $view.variables)
