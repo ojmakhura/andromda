@@ -88,6 +88,13 @@
             <documentation>
                 Properties related to the configuration of the user interface layout.
             </documentation>
+            <property name="layoutOptionsMenuItem">
+                <default>true</default>
+                <documentation>
+                    Whether or not a layout options menu item should be included in the menu (this
+                    menu item allows you to control menu positioning, etc).
+                </documentation>
+            </property>
             <property name="layoutOptionsName">
                 <default>LayoutOptions</default>
                 <documentation>

@@ -8,7 +8,9 @@
 #foreach ($useCase in $useCases)
         <x:navigationMenuItem id="nav_${velocityCount}" itemLabel="#{messages['$useCase.titleKey']}" action="$useCase.forwardName" icon="/images/next-yellow.gif" />
 #end
+#if ($layoutOptionsMenuItem.equalsIgnoreCase("true"))
         <x:navigationMenuItem id="nav_${sidebarLayoutCount}" itemLabel="#{messages['navigation.layout']}" split="true" action="layout-options" icon="/images/next-yellow.gif" />
+#end
     </x:jscookMenu>
 #if ($stringUtils.isNotBlank($securityRealm))
     <h:panelGrid columns="3" styleClass="logoutPanel" width="100%">
