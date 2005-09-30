@@ -18,7 +18,9 @@
 
         <f:facet name="header">
             <f:subview id="header">
-                <jsp:include page="/includes/header.jsp" />
+                <h:panelGrid id="header_group1" columns="1" styleClass="pageHeader" width="100%" >
+                    <h:outputText value="#{messages['application.name']}" styleClass="applicationTitle"/>
+                </h:panelGrid>
             </f:subview>
         </f:facet>
 
