@@ -966,4 +966,28 @@ public class JSFParameterLogicImpl
     {
         return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
     }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getTableColumnActions(java.lang.String)
+     */
+    protected List handleGetTableColumnActions(final String columnName)
+    {
+        final List columnActions = new ArrayList();
+
+        if (columnName != null)
+        {
+            final Set actions = new LinkedHashSet(this.getTableHyperlinkActions());
+            actions.addAll(this.getTableFormActions());
+            for (final Iterator iterator = actions.iterator(); iterator.hasNext();)
+            {
+                final JSFAction action = (JSFAction)iterator.next();
+                if (columnName.equals(action.getTableLinkColumnName()))
+                {
+                    columnActions.add(action);
+                }
+            }
+        }
+
+        return columnActions;
+    }
 }
