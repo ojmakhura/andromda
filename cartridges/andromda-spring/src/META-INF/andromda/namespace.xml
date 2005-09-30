@@ -723,6 +723,16 @@
                     The name of the class to use for the acegi security access decision voter.
                 </documentation>
             </property>
+            <property name="acegiRolePrefix">
+				<default>ROLE_</default>
+                <documentation>
+                    The prefix for all roles defined in the model. This configures the <code>acegiServiceDecisionVoter</code>s <code>rolePrefix</code>
+					attribute. As proposed by Acegi for our default voter <code>net.sf.acegisecurity.vote.RoleVoter</code>, the default value is <code>ROLE_</code>.
+					It can be overwritten with an empty string if no prefix is wanted/neccessary at all.
+					Please <strong>NOTE</strong> that AndroMDA will add this prefix to all role/actor names, 
+                    which do not already have it defined in the model.
+                </documentation>
+            </property>
             <property name="acegiAuthenticationManager" required="false">
                 <documentation>
                     The bean name of the acegi authentication manager (defined in a seperate applicationContext outside of the generated one).

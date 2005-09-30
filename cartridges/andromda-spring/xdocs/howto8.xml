@@ -62,9 +62,10 @@
 			</subsection>
 			<subsection name="Modeling">
 				<p>
-					Now you have to define some roles for your application. This is simply done by adding actors to your model named with the role's name prefixed with <code>ROLE_</code>.
-					The leading <code>ROLE_</code> is a requirement of the default <a href="namespace.html#acegiServiceDecisionVoter">acegiServiceDecisionVoter</a> implementation
-					<code>net.sf.acegisecurity.vote.RoleVoter</code>.
+					Now you have to define some roles for your application. This is simply done by adding actors to your model named with the role's name.
+					A role prefix, e.g. <code>ROLE_</code> as proposed by Acegi for the default <a href="namespace.html#acegiServiceDecisionVoter">acegiServiceDecisionVoter</a> implementation
+					<code>net.sf.acegisecurity.vote.RoleVoter,</code> can be configured though the namespace property <a href="namespace.html#acegiRolePrefix">acegiRolePrefix</a>.
+					This prefix is optional for the actor naming and will be automatically added to the generated code, if missing in the model (recommended).
 				</p>
 				<p>
 					<img src="resources/howto/org/andromda/test/8/a/uml.gif"/>

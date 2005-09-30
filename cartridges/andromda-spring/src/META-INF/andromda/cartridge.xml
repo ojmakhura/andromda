@@ -93,6 +93,7 @@
     <property reference="acegiServiceSecurityInterceptor"/>
     <property reference="acegiServiceAccessDecisionManager"/>
     <property reference="acegiServiceDecisionVoter"/>
+    <property reference="acegiRolePrefix"/>
     <property reference="acegiAuthenticationManager"/>
     <property reference="acegiRunAsManager"/>
     <!-- cartridge-property merge-point -->
