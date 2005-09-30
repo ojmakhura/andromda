@@ -9,6 +9,7 @@ import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
@@ -298,7 +299,7 @@ public class SpringEntityLogicImpl
                     if (targetElement instanceof ClassifierFacade)
                     {
                         ClassifierFacade element = (ClassifierFacade)targetElement;
-                        valid = element.isDataType() || element instanceof ValueObject;
+                        valid = element.isDataType() || element instanceof ValueObject || element instanceof EnumerationFacade;
                     }
                     return valid;
                 }
