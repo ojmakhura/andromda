@@ -232,7 +232,7 @@
 #foreach($service in $services)
 #foreach ($operation in $service.operations)
 #if (!$operation.roles.empty)
-                ${service.fullyQualifiedName}.${operation.name}=#foreach($role in $operation.roles)$role.name#if($velocityCount != $operation.roles.size()), #end#end
+                ${service.fullyQualifiedName}.${operation.name}=#foreach($role in $operation.roles)#if($acegiRolePrefix && !$role.name.startsWith("$acegiRolePrefix"))$acegiRolePrefix#end$role.name#if($velocityCount != $operation.roles.size()), #end#end
 
 #end
 #end
@@ -252,7 +252,9 @@
         </property>
     </bean>
 
-    <bean id="serviceDecisionVoter" class="$acegiServiceDecisionVoter"/>
+    <bean id="serviceDecisionVoter" class="$acegiServiceDecisionVoter">
+		<property name="rolePrefix"><value>$acegiRolePrefix</value></property>
+	</bean>
 
     <!-- ================== End of ACEGI SERVICE SECURITY DEFINITIONS ================= -->
 
