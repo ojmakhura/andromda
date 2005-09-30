@@ -1,5 +1,4 @@
 #set ($targetColumns = $table.targettedTableColumnNames)
-
 <h:panelGrid columns="3" columnClasses="standardTableColumnCentered" >
     <x:dataScroller id="scroll_1"
             for="data"
@@ -76,11 +75,24 @@
                 <h:outputText value="#{messages['$table.getTableColumnMessageKey($columnName)']}"/>
             </x:commandSortHeader>
         </f:facet>
+#set ($tableColumnActions = $table.getTableColumnActions($columnName))
+#if (!$tableColumnActions.empty)
+#set ($action = $tableColumnActions.iterator().next())
+        <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}" styleClass="columnLink">
+            <h:outputText value="#{row.${columnName}}">
+#if ($column.type.dateType)
+                <jsf:convertDateTime pattern="$defaultDateFormat"/>
+#end
+            </h:outputText>
+#renderTableCommandLinkParameters()
+        </h:commandLink>
+#else
         <h:outputText value="#{row.${columnName}}">
 #if ($column.type.dateType)
             <jsf:convertDateTime pattern="$defaultDateFormat"/>
 #end
         </h:outputText>
+#end
     </h:column>
 #end
 #else
@@ -104,21 +116,7 @@
         </f:facet>
         <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}">
             <h:outputText value="#{messages['$action.trigger.messageKey']}"/>
-#foreach ($parameter in $action.parameters)
-#if ($table.tableColumnNames.contains($parameter.name) || $table.tableAttributeNames.contains($parameter.name))
-#set ($parameterValue = "row.${parameter.name}")
-#elseif ($parameter.defaultValuePresent)
-#set ($parameterValue = $parameter.defaultValue)
-#else
-#set ($parameterValue = "${actionFormKey}.${parameter.name}")       
-#end
-#if ($parameter.type.dateType || $parameter.type.timeType)
-#set ($formattedParameterValue = "${parameter.name}Formatted")
-            <fmt:formatDate var="$formattedParameterValue" value="${${parameterValue}}" pattern="$parameter.format" scope="request"/>
-#set ($parameterValue = $formattedParameterValue)
-#end
-            <f:param name="$parameter.name" value="#{${parameterValue}}"/>  
-#end
+#renderTableCommandLinkParameters()
         </h:commandLink>
     </h:column>
 #end
@@ -132,11 +130,19 @@
         </f:facet>
         <h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}" styleClass="buttonLink">
             <h:outputText value="#{messages['$action.trigger.messageKey']}" />
+#renderTableCommandLinkParameters()
+        </h:commandLink>
+    </h:column>
+#end
+#end
+</x:dataTable>
+##
+## This macro renders the <f:param> elements for a command link
+##
+#macro (renderTableCommandLinkParameters)
 #foreach ($parameter in $action.parameters)
 #if ($table.tableColumnNames.contains($parameter.name) || $table.tableAttributeNames.contains($parameter.name))
 #set ($parameterValue = "row.${parameter.name}")
-#elseif ($parameter.defaultValuePresent)
-#set ($parameterValue = $parameter.defaultValue)
 #else
 #set ($parameterValue = "${actionFormKey}.${parameter.name}")       
 #end
@@ -147,8 +153,4 @@
 #end
             <f:param name="$parameter.name" value="#{${parameterValue}}"/>  
 #end
-        </h:commandLink>
-    </h:column>
 #end
-#end
-</x:dataTable>
