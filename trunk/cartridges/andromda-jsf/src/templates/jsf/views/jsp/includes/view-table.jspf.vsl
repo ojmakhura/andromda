@@ -1,7 +1,7 @@
 #set ($targetColumns = $table.targettedTableColumnNames)
 <h:panelGrid columns="3" columnClasses="standardTableColumnCentered" >
-    <x:dataScroller id="scroll_1"
-            for="data"
+    <x:dataScroller id="${table.name}Scroller1"
+            for="$table.name"
             fastStep="10"
             pageCountVar="pageCount"
             pageIndexVar="pageIndex"
@@ -30,8 +30,8 @@
         </f:facet>
     </x:dataScroller>
     <f:verbatim>&nbsp;</f:verbatim>
-    <x:dataScroller id="scroll_2"
-            for="data"
+    <x:dataScroller id="${table.name}Scroller2"
+            for="$table.name"
             rowsCountVar="rowsCount"
             displayedRowsCountVar="displayedRowsCountVar"
             firstRowIndexVar="firstRowIndex"
@@ -49,7 +49,7 @@
     </x:dataScroller>
 </h:panelGrid>
 
-<x:dataTable id="data"
+<x:dataTable id="$table.name"
         styleClass="scrollerTable"
         headerClass="standardTableHeader"
         footerClass="standardTableHeader"
