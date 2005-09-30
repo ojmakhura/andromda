@@ -76,6 +76,8 @@ $field.getDocumentation("     * ")
     {
         return this.$field.formAttributeSetProperty;
     }
+## - don't allow fields with default values to be set
+#if (!$field.defaultValuePresent)
 
     /**
 $field.getDocumentation("     * ")
@@ -85,6 +87,7 @@ $field.getDocumentation("     * ")
         this.$field.name = $field.name;
         this.$field.formAttributeSetProperty = true;
     }
+#end
 #if ($field.type.collectionType || $field.type.arrayType)
     /**
      * The name of the sort column for the {@link #${field.name}} collection.
@@ -139,7 +142,7 @@ $field.getDocumentation("     * ")
         this.$field.tableSortAscendingProperty = $field.tableSortAscendingProperty;
     }
 #end
-#if (!$field.complex)
+#if (!$field.complex && !$field.defaultValuePresent)
 #renderBackingListImplSupport($field "")
 #end
 #foreach ($attribute in $field.attributes)

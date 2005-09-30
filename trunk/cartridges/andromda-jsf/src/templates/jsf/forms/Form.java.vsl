@@ -26,6 +26,8 @@ public interface $operation.formName
 $field.getDocumentation("     * ")
      */
     public $fieldTypeName ${field.getterName}();
+## - don't allow fields with default values to be set
+#if (!$field.defaultValuePresent)
 
     /**
 $field.getDocumentation("     * ")
@@ -42,6 +44,7 @@ $field.getDocumentation("     * ")
 #renderBackingListSupport($attribute $field)
 #elseif ($attribute.isBackingValueRequired($field))
 #renderBackingValueSupport($attribute $field)
+#end
 #end
 #end
     
