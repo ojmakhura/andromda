@@ -39,6 +39,17 @@
                 <value>FrontEndRegistration</value>
                 <appliedOnElement>UseCase</appliedOnElement>
             </element>
+            <element name="FRONT_END_SESSION_OBJECT">
+                <documentation>
+                    These classes can be associated to controllers. They represent objects that persist
+                    during the session of the user. For each such session object associated with a controller
+                    the controller will have accessor methods for this object. <i>Use a dependency from the controller
+                    to the session object to properly model this relationship, a controller can depend on many
+                    such session objects; and in the same way a session object might be shared between controllers.</i>
+                </documentation>
+                <value>FrontEndSessionObject</value>
+                <appliedOnElement>Class</appliedOnElement>
+            </element>
         </elementGroup>
         <elementGroup name="Tagged Values">
             <documentation>
