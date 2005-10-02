@@ -191,11 +191,11 @@ $decisionTransition.getDocumentation("     * ")
         final Throwable rootCause = org.apache.commons.lang.exception.ExceptionUtils.getRootCause(throwable);
         if (rootCause != null)
         {
-            message = rootCause.getMessage();
+            message = rootCause.toString();
         }
         if (message == null || message.trim().length() == 0)
         {
-            message = throwable.getMessage();
+            message = throwable.toString();
         }
         this.addErrorMessage(message);
     }
