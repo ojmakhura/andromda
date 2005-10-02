@@ -16,6 +16,11 @@
         <property reference="viewPopulatorPattern"/>
         <property reference="actionFormKey"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFSessionObjectLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>FRONT_END_SESSION_OBJECT</stereotype>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFActionLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
             <property name="exitingInitialState"/>

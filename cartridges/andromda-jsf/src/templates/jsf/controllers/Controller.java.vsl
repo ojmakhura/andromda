@@ -304,6 +304,84 @@ $decisionTransition.getDocumentation("     * ")
         }
     }
 #end
+#foreach ($sessionObjectRef in $controller.sessionObjectReferences)
+#set ($targetElement = $sessionObjectRef.targetElement)
+
+    /**
+     * Returns the current $targetElement.name from the session found in the argument request.
+     * <p/>
+     * In case an object was found in the session but it was not of the correct type, this method
+     * will return <code>null</code>.
+     * <p/>
+     * If there is no session, it will be created; if the session would not contain a session-object
+     * the object will be instantiated and subsequently stored in the session.
+     */
+    protected final $targetElement.fullyQualifiedName ${sessionObjectRef.getterName}()
+    {
+        $targetElement.fullyQualifiedName object = null;
+        final javax.servlet.http.HttpSession session = this.getSession(true);
+
+        Object attribute = session.getAttribute("$sessionObjectRef");
+        if (attribute instanceof $targetElement.fullyQualifiedName)
+        {
+            object = ($targetElement.fullyQualifiedName)attribute;
+        }
+        else if (attribute == null)
+        {
+            object = new ${targetElement.fullyQualifiedName}();
+            ${sessionObjectRef.setterName}(object);
+        }
+        return object;
+    }
+
+    /**
+     * Set the argument $targetElement .name object in the session corresponding with the argument request.
+     * If the session does not exist it will be created.
+     */
+    protected final void ${sessionObjectRef.setterName}(final $targetElement.fullyQualifiedName object)
+    {
+        this.${sessionObjectRef.setterName}(object, true);
+    }
+
+    /**
+     * Set the argument $targetElement.name object in the session corresponding with the argument request.
+     * Any existing object will be overwritten.
+     *
+     * @param createSession denotes whether or not the session should be created automatically in case it
+     * would not yet exist
+     */
+    protected final void ${sessionObjectRef.setterName}($targetElement.fullyQualifiedName object, boolean createSession)
+    {
+        final javax.servlet.http.HttpSession session = this.getSession(createSession);
+        if (session != null)
+        {
+            session.setAttribute("$sessionObjectRef.name", object);
+        }
+    }
+
+    /**
+     * Removes the argument $targetElement.name object from the session corresponding with the argument request.
+     * In any of the following cases this method will do nothing:
+     * <ul>
+     *   <li>No session corresponds to the argument request</li>
+     *   <li>No $targetElement.name object could be found in the request</li>
+     *   <li>The object is not of the correct type</li>
+     * </ul>
+     */
+    protected final void remove${stringUtils.capitalize($sessionObjectRef.name)}()
+    {
+        final javax.servlet.http.HttpSession session = this.getSession(false);
+        if (session != null)
+        {
+            Object attribute = session.getAttribute("$sessionObjectRef.name");
+            if (attribute instanceof $targetElement.fullyQualifiedName)
+            {
+                session.removeAttribute("$sessionObjectRef.name");
+            }
+        }
+    }
+
+#end
 }
 ##
 ##  This macro determines what to do when processing a transition

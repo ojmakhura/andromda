@@ -192,6 +192,18 @@
     </template>
     
     <template
+        path="templates/jsf/controllers/SessionObject.java.vsl"
+        outputPattern="${sessionObject.fullPath}.java"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="sessionObject">
+            <modelElement>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFSessionObject"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
         path="templates/jsf/messages/messages.properties.vsl"
         outputPattern="WEB-INF/classes/${messageResources}.properties"
         outlet="messages"
