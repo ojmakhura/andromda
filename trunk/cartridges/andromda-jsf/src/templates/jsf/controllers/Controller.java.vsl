@@ -313,7 +313,7 @@ $decisionTransition.getDocumentation("     * ")
      * In case an object was found in the session but it was not of the correct type, this method
      * will return <code>null</code>.
      * <p/>
-     * If there is no session, it will be created; if the session would not contain a session-object
+     * If there is no session, it will be created; if the session does not contain the session-object
      * the object will be instantiated and subsequently stored in the session.
      */
     protected final $targetElement.fullyQualifiedName ${sessionObjectRef.getterName}()
@@ -321,7 +321,7 @@ $decisionTransition.getDocumentation("     * ")
         $targetElement.fullyQualifiedName object = null;
         final javax.servlet.http.HttpSession session = this.getSession(true);
 
-        Object attribute = session.getAttribute("$sessionObjectRef");
+        Object attribute = session.getAttribute("$sessionObjectRef.name");
         if (attribute instanceof $targetElement.fullyQualifiedName)
         {
             object = ($targetElement.fullyQualifiedName)attribute;
