@@ -67,6 +67,8 @@
         <param-name>org.apache.myfaces.AUTO_SCROLL</param-name>
         <param-value>true</param-value>
     </context-param>
+    <!-- context-param merge-point -->
+    <!-- filter merge-point -->
 
     <!-- Extensions Filter -->
     <filter>
@@ -116,7 +118,7 @@
 #end
 #end
 #end
-
+    <!-- filter-mapping merge-point -->
     <filter-mapping>
         <filter-name>extensionsFilter</filter-name>
         <url-pattern>*.${facesServletExtension}</url-pattern>
@@ -135,7 +137,9 @@
     <listener>
         <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
     </listener>
+    <!-- listener merge-point -->
 
+    <!-- servlet merge-point -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -161,12 +165,14 @@
     </servlet>
 #end
 #end
-
     <servlet> 
         <servlet-name>AndroMDA JSF Servlet</servlet-name>
         <servlet-class>org.andromda.cartridges.jsf.JSFServlet</servlet-class>
         <load-on-startup>2</load-on-startup>
     </servlet>
+    
+    <!-- precompilation merge-point -->
+    <!-- servlet-mapping merge-point -->    
     <servlet-mapping>
         <servlet-name>AndroMDA JSF Servlet</servlet-name>
         <url-pattern>/jsf/*</url-pattern>
@@ -198,6 +204,8 @@
         <filter-name>extensionsFilter</filter-name>
         <url-pattern>/faces/*</url-pattern>
     </filter-mapping>
+    <!-- session-config merge-point -->
+    <!-- mime-type merge-point -->
 
     <!-- Welcome files -->
     <welcome-file-list>
@@ -208,6 +216,7 @@
     <!-- error-page merge-point -->
     <!-- taglib merge-point -->
     <!-- resource-ref merge-point -->
+    <!-- security-constraint merge-point -->
 #if(!$applicationUseCases.empty)
 
 #set($applicationUseCase = $applicationUseCases.iterator().next())
