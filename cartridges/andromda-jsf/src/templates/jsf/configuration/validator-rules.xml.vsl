@@ -889,16 +889,6 @@
 
         return bValid;
     }
-
-    function isValidTime(second, minute, hour, millisecond)
-    {
-        var valid = 0 <= hour && hour < 24 && 0 <= minute && minute < 60 && 0 <= second && second < 60;
-        if (millisecond)
-        {
-            valid = valid && 0 <= millisecond && millisecond < 1000;
-        }
-        return valid;
-    }
 ]]>
         </javascript>
       </validator>
@@ -1216,6 +1206,15 @@
             function trim(s) 
             {
                 return s.replace( /^\s*/, "" ).replace( /\s*$/, "" );
+            }
+            function isValidTime(second, minute, hour, millisecond)
+            {
+                var valid = 0 <= hour && hour < 24 && 0 <= minute && minute < 60 && 0 <= second && second < 60;
+                if (millisecond)
+                {
+                    valid = valid && 0 <= millisecond && millisecond < 1000;
+                }
+                return valid;
             }]]>
          </javascript>
            
