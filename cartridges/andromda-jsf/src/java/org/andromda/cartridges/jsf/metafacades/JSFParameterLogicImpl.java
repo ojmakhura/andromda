@@ -569,9 +569,12 @@ public class JSFParameterLogicImpl
                 for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
                 {
                     final JSFParameter parameter = (JSFParameter)fieldIterator.next();
-                    if (name.equals(parameter.getName()))
+                    if (!parameter.equals(this))
                     {
-                        selectable = parameter.isSelectable();
+                        if (name.equals(parameter.getName()))
+                        {
+                            selectable = parameter.isSelectable();
+                        }
                     }
                 }
             }
@@ -949,9 +952,12 @@ public class JSFParameterLogicImpl
                 for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !required;)
                 {
                     final JSFParameter parameter = (JSFParameter)fieldIterator.next();
-                    if (name.equals(parameter.getName()))
+                    if (!parameter.equals(this))
                     {
-                        required = parameter.isBackingValueRequired();
+                        if (name.equals(parameter.getName()))
+                        {
+                            required = parameter.isBackingValueRequired();
+                        }
                     }
                 }
             }
