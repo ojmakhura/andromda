@@ -25,7 +25,7 @@
 #end
 <h:inputHidden id="${propertyId}" value="#{${action.formBeanName}.${valuePropertyName}}">
 #if ($field.type.dateType)
-    <jsf:convertDateTime pattern="$parameter.format"/>
+    <jsf:convertDateTime pattern="$field.format"/>
 #end
 </h:inputHidden>
 #end
