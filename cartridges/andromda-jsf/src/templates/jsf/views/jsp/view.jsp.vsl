@@ -26,14 +26,14 @@
 #end
             </f:subview>
         </f:facet>
-        
+
 #if (!$view.useCase.registrationUseCase)
         <f:facet name="navigation">
             <f:subview id="menu">
                 <jsp:include page="/includes/navigation.jsp" />
             </f:subview>
         </f:facet>
-        
+
 #end
         <f:facet name="body">
             <h:panelGroup id="body">
