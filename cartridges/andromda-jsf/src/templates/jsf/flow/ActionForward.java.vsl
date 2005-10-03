@@ -55,6 +55,7 @@ public class $action.actionClassName
 #else
 #set ($useCase = $action)
 #end
+#if (!$useCase.forwards.empty)
         String forwardPath = ${useCase.forwardsClassName}.getPath(controller.${action.controllerAction}());
         if (forwardPath == null)
         {
@@ -70,6 +71,9 @@ public class $action.actionClassName
             forwardPath = "$forwardPath";        
         }
         response.sendRedirect(request.getContextPath() + forwardPath);
+#else
+        controller.${action.controllerAction}();
+#end
     }
 
     /**
