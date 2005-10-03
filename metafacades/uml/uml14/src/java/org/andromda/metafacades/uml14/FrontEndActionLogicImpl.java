@@ -20,6 +20,7 @@ import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
@@ -447,6 +448,21 @@ public class FrontEndActionLogicImpl
             formFieldMap.put(
                 variable.getName(),
                 variable);
+        }
+
+        // - if we don't have any fields defined on this action and there are no action forwards, 
+        //   take the parameters from the deferred operations (since we would want to stay on the same view)
+        if (formFieldMap.isEmpty() && this.getActionForwards().isEmpty())
+        {
+            for (final Iterator iterator = this.getDeferredOperations().iterator(); iterator.hasNext();)
+            {
+                final OperationFacade operation = (OperationFacade)iterator.next();
+                for (final Iterator parameterIterator = operation.getArguments().iterator(); parameterIterator.hasNext();)
+                {
+                    final ParameterFacade parameter = (ParameterFacade)parameterIterator.next();
+                    formFieldMap.put(parameter.getName(), parameter);
+                }
+            }
         }
         return new ArrayList(formFieldMap.values());
     }
