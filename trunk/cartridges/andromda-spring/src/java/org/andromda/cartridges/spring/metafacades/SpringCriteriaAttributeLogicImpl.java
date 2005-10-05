@@ -5,16 +5,18 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
+
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute.
  *
  * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute
  */
 public class SpringCriteriaAttributeLogicImpl
-        extends SpringCriteriaAttributeLogic
+    extends SpringCriteriaAttributeLogic
 {
-    
-    public SpringCriteriaAttributeLogicImpl(Object metaObject, String context)
+    public SpringCriteriaAttributeLogicImpl(
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -97,6 +99,14 @@ public class SpringCriteriaAttributeLogicImpl
             {
                 comparatorConstant = "LESS_THAN_COMPARATOR";
             }
+            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_IN.equalsIgnoreCase(comparator))
+            {
+                comparatorConstant = "IN_COMPARATOR";
+            }
+            else if (SpringProfile.TAGGEDVALUEVALUE_COMPARATOR_NOT_EQUAL.equalsIgnoreCase(comparator))
+            {
+                comparatorConstant = "NOT_EQUAL_COMPARATOR";
+            }
         }
         return comparatorConstant;
     }
@@ -107,8 +117,8 @@ public class SpringCriteriaAttributeLogicImpl
     protected boolean handleIsNullable()
     {
         boolean result = false;
-        String value = StringUtils.trimToEmpty(
-                (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_NULLABLE));
+        String value =
+            StringUtils.trimToEmpty((String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_NULLABLE));
         if (!StringUtils.isEmpty(value))
         {
             result = BooleanUtils.toBoolean(value);
@@ -170,9 +180,7 @@ public class SpringCriteriaAttributeLogicImpl
     }
 
     private static final String ORDER_UNSET = "ORDER_UNSET";
-    
 
-    
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#handleIsOrderable()
      */
@@ -187,7 +195,8 @@ public class SpringCriteriaAttributeLogicImpl
     protected String handleGetOrderDirection()
     {
         String result = ORDER_UNSET;
-        String value = StringUtils.trimToEmpty(
+        String value =
+            StringUtils.trimToEmpty(
                 (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_DIRECTION));
         if (!StringUtils.isEmpty(value))
         {
@@ -202,8 +211,8 @@ public class SpringCriteriaAttributeLogicImpl
         }
         return result;
     }
-    
-    /** 
+
+    /**
      * Used for undefined states of the criteria ordering.
      */
     private static final int UNSET = -1;
@@ -214,7 +223,8 @@ public class SpringCriteriaAttributeLogicImpl
     protected int handleGetOrderRelevance()
     {
         int result = UNSET;
-        String value = StringUtils.trimToEmpty(
+        String value =
+            StringUtils.trimToEmpty(
                 (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_RELEVANCE));
         if (!StringUtils.isEmpty(value))
         {
@@ -222,12 +232,12 @@ public class SpringCriteriaAttributeLogicImpl
         }
         return result;
     }
-    
+
     /**
      * The default value for whether hibernate criteria arguments are case insensitive or not.
      */
     private static final String HIBERNATE_CRITERIA_QUERY_IGNORE_CASE = "hibernateCriteriaQueryIgnoreCase";
-    
+
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#isIgnoreCase()
      */
@@ -240,5 +250,4 @@ public class SpringCriteriaAttributeLogicImpl
         }
         return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
     }
-
 }

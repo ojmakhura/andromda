@@ -144,6 +144,16 @@ public class SpringProfile
     public static final String TAGGEDVALUEVALUE_COMPARATOR_LESS = profile.get("LESS_THAN_COMPARATOR");
 
     /**
+     * The "in" comparator.
+     */
+    public static final String TAGGEDVALUEVALUE_COMPARATOR_IN = profile.get("IN_COMPARATOR");
+
+    /**
+     * The "not equal" comparator.
+     */
+    public static final String TAGGEDVALUEVALUE_COMPARATOR_NOT_EQUAL = profile.get("NOT_EQUAL_COMPARATOR");
+
+    /**
      * The {@link net.sf.hibernate.expression.MatchMode#ANYWHERE} match mode.
      */
     public static final String TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE = profile.get("MATCHMODE_ANYWHERE");
