@@ -16,9 +16,9 @@
 #renderPropertiesAndAssociations3($attribute.type $sqlPrefix)
         </component>
 #else
-        <property name="$attribute.name" type="$fullyQualifiedPropertyType">
+        <property name="$attribute.name" type="$fullyQualifiedPropertyType"#if($attribute.formula) lazy="true"#end>
 #if($attribute.formula)
-            <formula name="$attribute.concatColumnName($paramSqlPrefix, $attribute.columnName)"/>
+			<formula>$attribute.formula</formula>
 #else
             <column name="$attribute.concatColumnName($paramSqlPrefix, $attribute.columnName)" not-null="$attribute.required" unique="$attribute.unique" sql-type="$attribute.sqlType"#if($attribute.columnIndex) index="$attribute.columnIndex"#end/>
 #end
