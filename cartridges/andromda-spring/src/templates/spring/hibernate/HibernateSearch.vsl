@@ -342,6 +342,19 @@ public class $criteriaSearchBaseName
                     criteria.add(${hibernateUtils.criterionPackage}.Expression.lt(parameterName, parameterValue));
                     break;
                 }
+                case ${criteriaSearchBaseName}Parameter.IN_COMPARATOR:
+                {
+                    if (parameterValue instanceof java.util.Collection)
+                    {
+                        criteria.add(${hibernateUtils.criterionPackage}.Expression.in(parameterName, (java.util.Collection)parameterValue));
+                    }
+                    break;
+                }
+                case ${criteriaSearchBaseName}Parameter.NOT_EQUAL_COMPARATOR:
+                {
+                    criteria.add(${hibernateUtils.criterionPackage}.Expression.ne(parameterName, parameterValue));
+                    break;
+                }
             }
         }
         else
@@ -354,7 +367,7 @@ public class $criteriaSearchBaseName
     /**
      * Adds an <code>Expression</code> to a <code>Criteria</code>. The given <code>parameterValues</code>
      * represents either an array of <code>String</code> or another object. The different values in the
-     * array are added to a disjunction which is connected with logical and to the other criteria of the
+     * array are added to a disjunction or conjuction which is connected with logical and to the other criteria of the
      * search.
      *
      * @param criteria
@@ -373,21 +386,25 @@ public class $criteriaSearchBaseName
     {
         if (parameterValues != null)
         {
-            ${hibernateUtils.criterionPackage}.Disjunction disjunction =
-                ${hibernateUtils.criterionPackage}.Expression.disjunction();
+            ${hibernateUtils.criterionPackage}.Disjunction disjunction = null;
+            ${hibernateUtils.criterionPackage}.Conjunction conjunction = null;
             switch (comparatorID)
             {
                 case ${criteriaSearchBaseName}Parameter.LIKE_COMPARATOR:
                 {
+                    disjunction = ${hibernateUtils.criterionPackage}.Restrictions.disjunction();
                     if ((matchMode != null) && (parameterValues instanceof String[]))
                     {
                         String[] stringParameterValues = (String[]) parameterValues;
-                        for (int index = 0; index < parameterValues.length; index++) {
-                            if (stringParameterValues[index] != null) {
+                        for (int index = 0; index < parameterValues.length; index++) 
+                        {
+                            if (stringParameterValues[index] != null) 
+                            {
                                 disjunction.add(${hibernateUtils.criterionPackage}.Expression.like(
                                     parameterName, stringParameterValues[index], matchMode));
                             }
-                            else {
+                            else 
+                            {
                                 disjunction.add(${hibernateUtils.criterionPackage}.Expression
                                     .isNull(parameterName));
                             }
@@ -395,12 +412,15 @@ public class $criteriaSearchBaseName
                     }
                     else
                     {
-                        for (int index = 0; index < parameterValues.length; index++) {
-                            if (parameterValues[index] != null) {
+                        for (int index = 0; index < parameterValues.length; index++) 
+                        {
+                            if (parameterValues[index] != null) 
+                            {
                                 disjunction.add(${hibernateUtils.criterionPackage}.Expression.like(
                                     parameterName, parameterValues[index]));
                             }
-                            else {
+                            else 
+                            {
                                 disjunction.add(${hibernateUtils.criterionPackage}.Expression
                                         .isNull(parameterName));
                             }
@@ -410,10 +430,12 @@ public class $criteriaSearchBaseName
                 }
                 case ${criteriaSearchBaseName}Parameter.INSENSITIVE_LIKE_COMPARATOR:
                 {
+                    disjunction = ${hibernateUtils.criterionPackage}.Restrictions.disjunction();
                     if ((matchMode != null) && (parameterValues instanceof String[]))
                     {
                         String[] stringParameterValues = (String[]) parameterValues;
-                        for (int index = 0; index < parameterValues.length; index++) {
+                        for (int index = 0; index < parameterValues.length; index++) 
+                        {
                             if (stringParameterValues[index] != null) {
                                 disjunction.add(${hibernateUtils.criterionPackage}.Expression.ilike(
                                     parameterName, stringParameterValues[index], matchMode));
@@ -426,12 +448,15 @@ public class $criteriaSearchBaseName
                     }
                     else
                     {
-                        for (int index = 0; index < parameterValues.length; index++) {
-                            if (parameterValues[index] != null) {
+                        for (int index = 0; index < parameterValues.length; index++) 
+                        {
+                            if (parameterValues[index] != null) 
+                            {
                                 disjunction.add(${hibernateUtils.criterionPackage}.Expression.ilike(
                                     parameterName, parameterValues[index]));
                             }
-                            else {
+                            else 
+                            {
                                 disjunction.add(${hibernateUtils.criterionPackage}.Expression
                                         .isNull(parameterName));
                             }
@@ -441,8 +466,11 @@ public class $criteriaSearchBaseName
                 }
                 case ${criteriaSearchBaseName}Parameter.EQUAL_COMPARATOR:
                 {
-                    for (int index = 0; index < parameterValues.length; index++) {
-                        if (parameterValues[index] != null) {
+                    disjunction = ${hibernateUtils.criterionPackage}.Restrictions.disjunction();
+                    for (int index = 0; index < parameterValues.length; index++) 
+                    {
+                        if (parameterValues[index] != null) 
+                        {
                             disjunction.add(${hibernateUtils.criterionPackage}.Expression.eq(parameterName,
                                     parameterValues[index]));
                         }
@@ -454,12 +482,16 @@ public class $criteriaSearchBaseName
                 }
                 case ${criteriaSearchBaseName}Parameter.GREATER_THAN_OR_EQUAL_COMPARATOR:
                 {
-                    for (int index = 0; index < parameterValues.length; index++) {
-                        if (parameterValues[index] != null) {
+                    disjunction = ${hibernateUtils.criterionPackage}.Restrictions.disjunction();
+                    for (int index = 0; index < parameterValues.length; index++) 
+                    {
+                        if (parameterValues[index] != null) 
+                        {
                             disjunction.add(${hibernateUtils.criterionPackage}.Expression.ge(parameterName,
                                     parameterValues[index]));
                         }
-                        else {
+                        else 
+                        {
                             disjunction.add(${hibernateUtils.criterionPackage}.Expression.isNull(parameterName));
                         }
                     }
@@ -467,12 +499,16 @@ public class $criteriaSearchBaseName
                 }
                 case ${criteriaSearchBaseName}Parameter.GREATER_THAN_COMPARATOR:
                 {
-                    for (int index = 0; index < parameterValues.length; index++) {
-                        if (parameterValues[index] != null) {
+                    disjunction = ${hibernateUtils.criterionPackage}.Restrictions.disjunction();
+                    for (int index = 0; index < parameterValues.length; index++) 
+                    {
+                        if (parameterValues[index] != null) 
+                        {
                             disjunction.add(${hibernateUtils.criterionPackage}.Expression.gt(parameterName,
                                     parameterValues[index]));
                         }
-                        else {
+                        else 
+                        {
                             disjunction.add(${hibernateUtils.criterionPackage}.Expression.isNull(parameterName));
                         }
                     }
@@ -480,12 +516,16 @@ public class $criteriaSearchBaseName
                 }
                 case ${criteriaSearchBaseName}Parameter.LESS_THAN_OR_EQUAL_COMPARATOR:
                 {
-                    for (int index = 0; index < parameterValues.length; index++) {
-                        if (parameterValues[index] != null) {
+                    disjunction = ${hibernateUtils.criterionPackage}.Restrictions.disjunction();
+                    for (int index = 0; index < parameterValues.length; index++) 
+                    {
+                        if (parameterValues[index] != null) 
+                        {
                             disjunction.add(${hibernateUtils.criterionPackage}.Expression.le(parameterName,
                                     parameterValues[index]));
                         }
-                        else {
+                        else 
+                        {
                             disjunction.add(${hibernateUtils.criterionPackage}.Expression.isNull(parameterName));
                         }
                     }
@@ -493,19 +533,53 @@ public class $criteriaSearchBaseName
                 }
                 case ${criteriaSearchBaseName}Parameter.LESS_THAN_COMPARATOR:
                 {
-                    for (int index = 0; index < parameterValues.length; index++) {
-                        if (parameterValues[index] != null) {
+                    disjunction = ${hibernateUtils.criterionPackage}.Restrictions.disjunction();
+                    for (int index = 0; index < parameterValues.length; index++) 
+                    {
+                        if (parameterValues[index] != null) 
+                        {
                             disjunction.add(${hibernateUtils.criterionPackage}.Expression.lt(parameterName,
                                     parameterValues[index]));
                         }
-                        else {
+                        else 
+                        {
                             disjunction.add(${hibernateUtils.criterionPackage}.Expression.isNull(parameterName));
                         }
                     }
                     break;
                 }
+                case ${criteriaSearchBaseName}Parameter.IN_COMPARATOR:
+                {
+                    criteria.add(${hibernateUtils.criterionPackage}.Expression.in(parameterName, parameterValues));
+                    break;
+                }
+                case ${criteriaSearchBaseName}Parameter.NOT_EQUAL_COMPARATOR:
+                {
+                    conjunction = ${hibernateUtils.criterionPackage}.Restrictions.conjunction();
+                    for (int index = 0; index < parameterValues.length; index++) 
+                    {
+                        if (parameterValues[index] != null) 
+                        {
+                            conjunction.add(${hibernateUtils.criterionPackage}.Expression.ne(parameterName,
+                                    parameterValues[index]));
+                        }
+                        else 
+                        {
+                            conjunction.add(${hibernateUtils.criterionPackage}.Expression.isNotNull(parameterName));
+                        }
+                    }
+                    break;
+                }
             }
-            criteria.add(disjunction);
+
+            if (disjunction != null) 
+            {
+                criteria.add(disjunction);
+            }
+            if (conjunction != null) 
+            {
+                criteria.add(conjunction);
+            }
         }
         else
         {

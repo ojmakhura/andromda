@@ -197,6 +197,8 @@
                     <value>greater_equal</value>
                     <value>less</value>
                     <value>less_equal</value>
+                    <value>in</value>
+                    <value>not_equal</value>
                 </allowedValues>
             </element>
             <element name="HIBERNATE_CRITERIA_MATCHMODE">
@@ -290,6 +292,22 @@
             <element name="LESS_THAN_COMPARATOR">
                 <documentation></documentation>
                 <value>less</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
+            </element>
+            <element name="IN_COMPARATOR">
+                <documentation></documentation>
+                <value>in</value>
+                <appliedOnElement></appliedOnElement>
+                <allowedValues>
+                    <value></value>
+                </allowedValues>
+            </element>
+            <element name="NOT_EQUAL_COMPARATOR">
+                <documentation></documentation>
+                <value>not_equal</value>
                 <appliedOnElement></appliedOnElement>
                 <allowedValues>
                     <value></value>

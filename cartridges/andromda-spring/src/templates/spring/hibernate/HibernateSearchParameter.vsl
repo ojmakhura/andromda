@@ -50,6 +50,8 @@ public class ${criteriaSearchBaseName}Parameter
     public static final int GREATER_THAN_COMPARATOR = 4;
     public static final int LESS_THAN_OR_EQUAL_COMPARATOR = 5;
     public static final int LESS_THAN_COMPARATOR = 6;
+    public static final int IN_COMPARATOR = 7;
+    public static final int NOT_EQUAL_COMPARATOR = 8;
 
     /** Order unset */
     public static final int ORDER_UNSET = -1;
