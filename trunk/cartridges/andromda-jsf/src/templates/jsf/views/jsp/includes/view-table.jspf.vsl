@@ -1,3 +1,10 @@
+#set ($noSortColumnProperty = "no${stringUtils.capitalize($table.tableSortColumnProperty)}")
+<c:catch var="$noSortColumnProperty">
+   <c:set var="dummy" value="${${actionFormKey}.${table.tableSortColumnProperty}}"/>
+</c:catch>
+
+#set ($noSortColumnCondition = "empty $noSortColumnProperty")
+<c:if test="${${noSortColumnCondition}}">
 #set ($targetColumns = $table.targettedTableColumnNames)
 <h:panelGrid columns="3" columnClasses="standardTableColumnCentered" >
     <x:dataScroller id="${table.name}Scroller1"
@@ -136,6 +143,7 @@
 #end
 #end
 </x:dataTable>
+</c:if>
 ##
 ## This macro renders the <f:param> elements for a command link
 ##
