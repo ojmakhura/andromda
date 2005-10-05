@@ -317,7 +317,7 @@ public final class $manageable.manageableDaoBaseName
         final Session session = getSession(false);
         try
         {
-#if ($hibernateVersion == "3")
+#if ($hibernateUtils.version3)
             final ${hibernateUtils.basePackage}.Query queryObject =
                 session.createQuery("delete $manageable.fullyQualifiedEntityImplementationName where ${identifier.name} in (:ids)");
             queryObject.setParameterList("ids", ids);
