@@ -110,4 +110,33 @@ public class SpringHibernateUtils
         }
         return fetchMode;
     }
+    
+    /**
+     * Retrieves the fully qualified name of the class that retrieves the Hibernate
+     * disjunction instance.
+     * @return the fully qualified class name.
+     */
+    public String getDisjunctionClassName()
+    {
+        final StringBuffer className = new StringBuffer(this.getCriterionPackage() + '.');
+        if (VERSION_2.equals(hibernateVersion))
+        {
+            className.append("Expression");
+        }
+        else
+        {
+            className.append("Restrictions");
+        }
+        return className.toString();
+    }
+    
+    /**
+     * Indicates whether or not version 3 is the one that is currently being used.
+     * 
+     * @return true/false
+     */
+    public boolean isVersion3()
+    {
+        return !VERSION_2.equals(hibernateVersion);
+    }
 }
