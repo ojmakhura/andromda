@@ -94,7 +94,7 @@
       <p>
         Sometimes you may want to merge (or replace) things in a cartridge: this can be done in templates, within
         the cartridge.xml, or even within the metafacades.xml. For example within the BPM4Struts cartridge,
-        the web.xml (or struts-config.xml) may not contain everyting you need (i.e. you may need to add a new <![CDATA[<servlet/>]]>
+        the web.xml (or struts-config.xml) may not contain everything you need (i.e. you may need to add a new <![CDATA[<servlet/>]]>
         and <![CDATA[<servlet-mapping/>]]>, some <![CDATA[<context-param/>]]>, or even <![CDATA[<error-page/>]]> definitions).
       </p>
       <p>
