@@ -9,7 +9,7 @@
 <f:view>
     <h:panelGrid id="popupView" columns="1" styleClass="popup">
         <h:panelGrid id="popupViewHeader" columns="1" styleClass="popupHeader">
-            <h:commandLink action="closePopup"><h:graphicImage url="/images/x.gif" border="0" /></h:commandLink>  
+            <h:commandLink action="closePopup"><x:graphicImage url="/images/x.gif" border="0" /></h:commandLink>  
         </h:panelGrid>
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
