@@ -91,6 +91,7 @@ public abstract class ${service.name}Bean
     private static final $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
 #end
 
+
     // -- accessors for environment entries --
 #foreach($envEntry in $service.getEnvironmentEntries(true))
     /**
@@ -98,11 +99,12 @@ public abstract class ${service.name}Bean
 $envEntry.getDocumentation("     * ")
      *
 ## Only expose the method to the component interface if it is public.
+#set ($visibility = $envEntry.visibility)
 #if($visibility == "public")
      * @ejb.interface-method
 #end
      */
-    $visibility $envEntry.type.fullyQualifiedName ${attribute.getterName}()
+    $visibility $envEntry.type.fullyQualifiedName ${envEntry.getterName}()
     {
         javax.naming.InitialContext initialContext = null;
         try 
@@ -144,6 +146,7 @@ $envEntry.getDocumentation("     * ")
                 // Silently ignore naming exceptions at cleanup time
             }
         }
+    }
 #end
 
     // -- accessors for constants --
