@@ -15,7 +15,21 @@ $operation.getDocumentation("     * ")
     $operation.formSignature;
 
 #end
+
 #foreach ($action in $controller.useCase.actions)
+#if (!$action.formFields.empty)
+#set ($actionFormBeanGetter = "get${stringUtils.capitalize($action.formBeanName)}()")
+    /**
+     * Retrieves the {@link $action.fullyQualifiedFormImplementationName} form instance (normally you wont't
+     * need to call this method explicitly, however this is here for times when you need to access the
+     * <em>$action.formBeanName</em> instance outside of its assigned controller operation.
+     */
+    protected $action.fullyQualifiedFormImplementationName $actionFormBeanGetter
+    {
+        return ($action.fullyQualifiedFormImplementationName)this.resolveVariable("$action.formBeanName");
+    }
+    
+#end
     public java.lang.String ${action.triggerName}()
     {
         String forward = null;
@@ -23,16 +37,11 @@ $operation.getDocumentation("     * ")
         {
 #if (!$action.formFields.empty)
 #set ($formPopulationOperationRequired = true)
-            final javax.faces.context.FacesContext facesContext =
-                javax.faces.context.FacesContext.getCurrentInstance();
-            final javax.faces.el.VariableResolver variableResolver = facesContext.getApplication().getVariableResolver();
             final $action.fullyQualifiedFormImplementationName form =
-                ($action.fullyQualifiedFormImplementationName)variableResolver.resolveVariable(
-                    facesContext,
-                    "$action.formBeanName");
+                this.$actionFormBeanGetter;
 
             // - pass any parameters from the previous form along
-            ${managedBeansPackage}.${formPopulatorName}.populateForm(variableResolver.resolveVariable(facesContext, "$action.formKey"), form);
+            ${managedBeansPackage}.${formPopulatorName}.populateForm(this.resolveVariable("$action.formKey"), form);
             // - populate the form with any request parameters that may match
             this.populateFormFromRequestParameters(form, form.getDateTimeFormatters());
 #end
@@ -176,6 +185,18 @@ $decisionTransition.getDocumentation("     * ")
     protected javax.servlet.http.HttpSession getSession(final boolean create)
     {
         return (javax.servlet.http.HttpSession)this.getContext().getExternalContext().getSession(create);
+    }
+    
+    /**
+     * Attempts to resolve the variable, given, the <code>name</code> of
+     * the variable using the faces context variable resolver instance.
+     * 
+     * @return the resolved variable or null if not found.
+     */
+    protected java.lang.Object resolveVariable(final String name)
+    {
+        final javax.faces.context.FacesContext context = this.getContext();
+        return context != null ? context.getApplication().getVariableResolver().resolveVariable(context, name) : null;    
     }
 
     /**
