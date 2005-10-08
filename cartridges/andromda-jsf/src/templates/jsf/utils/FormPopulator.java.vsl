@@ -43,7 +43,7 @@ public class $formPopulatorName
                             if (toDescriptor != null)
                             {
                                 java.lang.Object fromValue = parameters.get(name);
-                                // - only convert if the string is not empty
+                                // - only populate if not null
                                 if (fromValue != null)
                                 {
                                     final java.beans.PropertyDescriptor fromDescriptor =
