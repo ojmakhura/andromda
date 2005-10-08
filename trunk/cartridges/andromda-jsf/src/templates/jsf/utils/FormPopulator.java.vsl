@@ -48,7 +48,7 @@ public class $formPopulatorName
                                 {
                                     final java.beans.PropertyDescriptor fromDescriptor =
                                         org.apache.commons.beanutils.PropertyUtils.getPropertyDescriptor(fromForm, name);
-                                    // - only attempt to convert, if the types don't match
+                                    // - only attempt to set if the types match
                                     if (fromDescriptor.getPropertyType() == toDescriptor.getPropertyType())
                                     {
                                         org.apache.commons.beanutils.PropertyUtils.setProperty(toForm, name, fromValue);
