@@ -18,13 +18,12 @@ $operation.getDocumentation("     * ")
 
 #foreach ($action in $controller.useCase.actions)
 #if (!$action.formFields.empty)
-#set ($actionFormBeanGetter = "get${stringUtils.capitalize($action.formBeanName)}()")
     /**
      * Retrieves the {@link $action.fullyQualifiedFormImplementationName} form instance (normally you wont't
      * need to call this method explicitly, however this is here for times when you need to access the
      * <em>$action.formBeanName</em> instance outside of its assigned controller operation.
      */
-    protected $action.fullyQualifiedFormImplementationName $actionFormBeanGetter
+    protected $action.fullyQualifiedFormImplementationName $action.formImplementationGetter
     {
         return ($action.fullyQualifiedFormImplementationName)this.resolveVariable("$action.formBeanName");
     }
@@ -38,7 +37,7 @@ $operation.getDocumentation("     * ")
 #if (!$action.formFields.empty)
 #set ($formPopulationOperationRequired = true)
             final $action.fullyQualifiedFormImplementationName form =
-                this.$actionFormBeanGetter;
+                this.$action.formImplementationGetter;
 
             // - pass any parameters from the previous form along
             ${managedBeansPackage}.${formPopulatorName}.populateForm(this.resolveVariable("$action.formKey"), form);

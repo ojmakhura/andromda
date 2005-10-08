@@ -39,9 +39,20 @@ public class JSFActionLogicImpl
      */
     protected java.lang.String handleGetFormBeanName()
     {
+        return this.getFormBeanName(true);
+    }
+    
+    /**
+     * Constructs the form bean name, with our without prefixing the use case name.
+     * 
+     * @param withUseCaseName whether or not to prefix the use case name.
+     * @return the constructed form bean name.
+     */
+    private String getFormBeanName(boolean withUseCaseName)
+    {
         final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.FORM_BEAN_PATTERN));
         final ModelElementFacade useCase = this.getUseCase();
-        final String useCaseName = useCase != null ? StringUtilsHelper.lowerCamelCaseName(useCase.getName()) : "";
+        final String useCaseName = withUseCaseName && useCase != null ? StringUtilsHelper.lowerCamelCaseName(useCase.getName()) : "";
         final String formBeanName = pattern.replaceFirst("\\{0\\}", useCaseName); 
         final String triggerName = !pattern.equals(formBeanName) ? StringUtils.capitalize(this.getTriggerName()) : this.getTriggerName();
         return formBeanName.replaceFirst(
@@ -542,5 +553,13 @@ public class JSFActionLogicImpl
     protected boolean handleIsFormReset()
     {
         return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getFormImplementationGetter()
+     */
+    protected String handleGetFormImplementationGetter()
+    {
+        return "get" + StringUtils.capitalize(this.getFormBeanName(false)) + "()";
     }
 }
