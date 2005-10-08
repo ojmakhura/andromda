@@ -113,7 +113,7 @@ public final class $enumeration.enumerationName
             statement.setObject(index, ${typeName}.valueOf(java.lang.String.valueOf(value)));
         }
     }
-#if ($hibernateVersion == "3")
+#if ($hibernateUtils.version3)
 
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#replace(Object original, Object target, Object owner)

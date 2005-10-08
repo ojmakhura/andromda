@@ -88,4 +88,14 @@ public class HibernateUtils
             this.getHibernatePackage());
         return packageName.toString();
     }
+    
+    /**
+     * Indicates whether or not Hibernate 3 is enabled.
+     * 
+     * @return true/false
+     */
+    public boolean isVersion3()
+    {
+        return HibernateGlobals.HIBERNATE_VERSION_3.equals(this.hibernateVersion);
+    }
 }

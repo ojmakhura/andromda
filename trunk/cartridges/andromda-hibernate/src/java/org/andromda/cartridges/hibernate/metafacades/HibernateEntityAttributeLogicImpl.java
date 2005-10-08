@@ -79,14 +79,7 @@ public class HibernateEntityAttributeLogicImpl
         }
         return returnValue;
     }
-
-    /**
-     * Override to provide concatination of the embedded value name with the
-     * attribute column name.
-     *
-     * @see org.andromda.metafacades.uml.EntityAttribute#getColumnName() public
-     *      String getColumnName() { String columnName = super.getColumnName(); }
-     */
+    
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#concatColumnName(java.lang.String,
      *      java.lang.String)
@@ -106,6 +99,15 @@ public class HibernateEntityAttributeLogicImpl
             returnValue = EntityMetafacadeUtils.ensureMaximumNameLength(returnValue, maxSqlNameLength);
         }
         return returnValue;
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isLazy()
+     */
+    protected boolean handleIsLazy()
+    {
+        final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : false;
     }
 
     /**
