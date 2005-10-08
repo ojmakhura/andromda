@@ -103,7 +103,7 @@ public class $className
     {
         return true;
     }
-#if ($hibernateVersion == "3")
+#if ($hibernateUtils.version3)
 
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#replace(Object original, Object target, Object owner)
