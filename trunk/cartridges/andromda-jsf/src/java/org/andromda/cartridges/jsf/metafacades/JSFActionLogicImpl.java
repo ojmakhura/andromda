@@ -1,5 +1,7 @@
 package org.andromda.cartridges.jsf.metafacades;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -545,6 +547,79 @@ public class JSFActionLogicImpl
             }
         }
         return resetRequired;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getFormSerialVersionUID()
+     */
+    protected String handleGetFormSerialVersionUID()
+    {
+        final StringBuffer buffer = new StringBuffer();
+
+        buffer.append(this.getName());
+
+        final ModelElementFacade input = this.getInput();
+        buffer.append(input != null ? input.getName() : "");
+        
+        final ModelElementFacade guard = this.getGuard();
+        buffer.append(guard != null ? guard.getName() : "");
+        
+        final ModelElementFacade effect = this.getEffect();
+        buffer.append(effect != null ? effect.getName() : "");
+        
+        final ModelElementFacade decisionsTrigger = this.getDecisionTrigger();
+        buffer.append(decisionsTrigger != null ? decisionsTrigger.getName() : "");
+        
+        buffer.append(StringUtils.trimToEmpty(this.getActionClassName()));
+        
+        for (final Iterator iterator = this.getParameters().iterator(); iterator.hasNext();)
+        {
+            final ModelElementFacade parameter = (ModelElementFacade)iterator.next();
+            buffer.append(parameter.getName());
+        }
+        
+        for (final Iterator iterator = this.getActionForwards().iterator(); iterator.hasNext();)
+        {
+            final ModelElementFacade forward = (ModelElementFacade)iterator.next();
+            buffer.append(forward.getName());
+        }
+        
+        for (final Iterator iterator = this.getActions().iterator(); iterator.hasNext();)
+        {
+            final ModelElementFacade action = (ModelElementFacade)iterator.next();
+            buffer.append(action.getName());
+        }
+        
+        for (final Iterator iterator = this.getActionStates().iterator(); iterator.hasNext();)
+        {
+            final ModelElementFacade state = (ModelElementFacade)iterator.next();
+            buffer.append(state.getName());
+        }
+        final String signature = buffer.toString();
+
+        String serialVersionUID = String.valueOf(0L);
+        try
+        {
+            MessageDigest md = MessageDigest.getInstance("SHA");
+            byte[] hashBytes = md.digest(signature.getBytes());
+
+            long hash = 0;
+            for (int ctr = Math.min(
+                        hashBytes.length,
+                        8) - 1; ctr >= 0; ctr--)
+            {
+                hash = (hash << 8) | (hashBytes[ctr] & 0xFF);
+            }
+            serialVersionUID = String.valueOf(hash);
+        }
+        catch (final NoSuchAlgorithmException exception)
+        {
+            final String message = "Error performing JSFAction.getFormSerialVersionUID";
+            logger.error(
+                message,
+                exception);
+        }
+        return serialVersionUID;
     }
 
     /**
