@@ -238,6 +238,13 @@
                     this means that the session will be persisted and restored.
                 </documentation>
             </property>
+            <property name="stateSavingMethod">
+                <default>client</default>
+                <documentation>
+                    The JSF state saving method to use within the application (can be 
+                    either <em>client</em> or <em>server</em>).
+                </documentation>
+            </property>
             <property name="fileTypeName">
                 <default>org.apache.myfaces.custom.fileupload.UploadedFile</default>
                 <documentation>
