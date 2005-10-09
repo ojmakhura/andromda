@@ -55,3 +55,13 @@ function openWindow(href,name,centered,attributes,width,height)
 
     window.open(href,name,properties);
 }
+
+function focusOnElementById(elementId)
+{
+    var field = getElementById(elementId);
+    if (field)
+    {
+        field.focus();
+        field.select();
+    }
+}
