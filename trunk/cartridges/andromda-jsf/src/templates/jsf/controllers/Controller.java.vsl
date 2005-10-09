@@ -21,7 +21,7 @@ $operation.getDocumentation("     * ")
     /**
      * Retrieves the {@link $action.fullyQualifiedFormImplementationName} form instance (normally you wont't
      * need to call this method explicitly, however this is here for times when you need to access the
-     * <em>$action.formBeanName</em> instance outside of its assigned controller operation.
+     * <em>$action.formBeanName</em> instance outside of its assigned controller operation).
      */
     protected $action.fullyQualifiedFormImplementationName $action.formImplementationGetter
     {
