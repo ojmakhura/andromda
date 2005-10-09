@@ -231,6 +231,13 @@
             <documentation>
                 Other various properties that couldn't be classified into another category.
             </documentation>
+            <property name="distributable">
+                <default>false</default>
+                <documentation>
+                    Whether or not the web application should be considered <em>distributable</em>;
+                    this means that the session will be persisted and restored.
+                </documentation>
+            </property>
             <property name="fileTypeName">
                 <default>org.apache.myfaces.custom.fileupload.UploadedFile</default>
                 <documentation>
