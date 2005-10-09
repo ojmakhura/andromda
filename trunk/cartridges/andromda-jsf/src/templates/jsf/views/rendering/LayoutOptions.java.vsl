@@ -8,6 +8,7 @@ package $managedBeansPackage;
  * layout.
  */
 public class $layoutOptionsName
+    implements java.io.Serializable
 {
     private String sidebarLayout;
 
