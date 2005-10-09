@@ -180,4 +180,9 @@ $field.getDocumentation("     * ")
     {
         return this.dateTimeFormatters;
     }
+    
+    /** 
+     * The serial version UID of this class. Needed for serialization. 
+     */
+    private static final long serialVersionUID = ${action.formSerialVersionUID}L;
 }

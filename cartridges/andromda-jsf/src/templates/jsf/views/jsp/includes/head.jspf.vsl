@@ -2,4 +2,6 @@
     <meta HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=UTF-8">
     <title><fmt:message key="application.name"/><c:if test="${!empty viewTitle}"> ~ ${viewTitle}</c:if></title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/basic.css"/>
+    <script type="text/javascript" language="Javascript1.1" src="${pageContext.request.contextPath}/js/common.js"></script>
+    <script type="text/javascript" language="Javascript1.1" src="${pageContext.request.contextPath}/js/key-events.js"></script>
 </head>
