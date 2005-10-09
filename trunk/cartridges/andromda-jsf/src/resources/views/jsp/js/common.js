@@ -7,19 +7,31 @@ function getElementValueById(id)
     return false;
 }
 
-function getDiv(divID)
+function getElementById(elementId)
 {
-    if( document.layers ) //Netscape layers
-        return document.layers[divID];
+    //Netscape layers
+    if(document.layers) 
+    {
+        return document.layers[elementId];
+    }
 
-    if( document.getElementById ) //DOM; IE5, NS6, Mozilla, Opera
-        return document.getElementById(divID);
+    //DOM; IE5, NS6, Mozilla, Opera
+    if(document.getElementById)
+    { 
+        return document.getElementById(elementId);
+    }
 
-    if( document.all ) //Proprietary DOM; IE4
-        return document.all[divID];
+    //Proprietary DOM; IE4
+    if(document.all) 
+    {
+        return document.all[elementId];
+    }
 
-    if( document[divID] ) //Netscape alternative
-        return document[divID];
+    //Netscape alternative
+    if(document[elementId]) 
+    {
+        return document[elementId];
+    }
 
     return false;
 }
