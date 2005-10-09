@@ -143,7 +143,23 @@
 #elseif ($jsf)
         <dependency>
             <groupId>myfaces</groupId>
-            <artifactId>myfaces</artifactId>
+            <artifactId>myfaces-impl</artifactId>
+            <version>${myfaces.version}</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>myfaces</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>${myfaces.version}</version>
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>myfaces</groupId>
+            <artifactId>tomahawk</artifactId>
             <version>${myfaces.version}</version>
             <properties>
                 <war.bundle>true</war.bundle>
