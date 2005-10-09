@@ -4,7 +4,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
+         
+#if ($distributable.equalsIgnoreCase("true"))
+    <distributable/>
 
+#end
     <context-param>
         <description>
             Comma separated list of URIs of (additional) faces config files.
