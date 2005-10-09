@@ -60,11 +60,11 @@ public class ATLCompiler
                 pbsa,
                 0,
                 prev.length);
-            int k = prev.length;
-            for (Iterator i = pbs.iterator(); i.hasNext();)
+            int ctr = prev.length;
+            for (Iterator iterator = pbs.iterator(); iterator.hasNext();)
             {
-                ASMEMFModelElement ame = ((ASMEMFModelElement)i.next());
-                pbsa[k++] = ame.getObject();
+                final ASMEMFModelElement ame = ((ASMEMFModelElement)iterator.next());
+                pbsa[ctr++] = ame.getObject();
                 if ("error".equals(((ASMEnumLiteral)ame.get(
                             null,
                             "severity")).getName()))
