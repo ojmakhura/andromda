@@ -208,7 +208,11 @@
         <filter-name>extensionsFilter</filter-name>
         <url-pattern>/faces/*</url-pattern>
     </filter-mapping>
-    <!-- session-config merge-point -->
+    <!-- servlet-mapping merge-point -->
+    <session-config>
+        <session-timeout>$sessionTimeout</session-timeout>
+        <!-- session-config merge-point -->
+    </session-config>
     <!-- mime-type merge-point -->
 
     <!-- Welcome files -->
