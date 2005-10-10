@@ -49,6 +49,13 @@ $operation.getDocumentation("     * ")
             {
 #end
                 forward = #processTransition($action)
+#if (!$action.formFields.empty)
+                ${managedBeansPackage}.FormHistory formHistory = (${managedBeansPackage}.FormHistory)this.resolveVariable("$formHistoryBeanName");
+                if (formHistory != null)
+                {
+                    formHistory.addFormToHistory(form);
+                }        
+#end
 #if (!$action.formFields.empty && $action.formResetRequired)
                 form.reset();
 #end
