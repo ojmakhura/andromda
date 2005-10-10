@@ -231,6 +231,12 @@
             <documentation>
                 Other various properties that couldn't be classified into another category.
             </documentation>
+            <property name="sessionTimeout">
+                <default>45</default>
+                <documentation>
+                    The number of minutes the session may be idle before timeout occurs.
+                </documentation>
+            </property>
             <property name="distributable">
                 <default>false</default>
                 <documentation>
