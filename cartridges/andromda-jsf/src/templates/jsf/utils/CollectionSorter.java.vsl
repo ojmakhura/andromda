@@ -9,6 +9,7 @@ package $managedBeansPackage;
  * @author Chad Brandon
  */
 public class CollectionSorter
+    implements java.io.Serializable
 {    
     /**
      * Takes the given collection and returns a sorted list. Sorts by the given property.

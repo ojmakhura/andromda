@@ -9,6 +9,7 @@ package $managedBeansPackage;
  * @author Chad Brandon
  */
 public class $formPopulatorName
+    implements java.io.Serializable
 {
     /**
      * Populates the form from the given parameters.  If the request parameter is null or an empty

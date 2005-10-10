@@ -12,7 +12,6 @@ $operation.getDocumentation(" * ")
  * @see ${operation.owner.fullyQualifiedName}#${operation.signature}
  */
 public interface $operation.formName
-    extends java.io.Serializable
 {
 #foreach ($field in $operation.formFields)
 #if ($field.type.collectionType)
