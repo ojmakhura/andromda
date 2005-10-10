@@ -45,6 +45,8 @@
     <property reference="distributable"/>
     <property reference="stateSavingMethod"/>
     <property reference="sessionTimeout"/>
+    <property reference="maximumFormsInHistory"/>
+    <property reference="formHistoryBeanName"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->
@@ -541,6 +543,19 @@
         outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${patternMatchingExceptionHandler}.java"
         outlet="managed-beans"
         overwrite="true"/>
+    
+    <template
+        path="templates/jsf/utils/FormHistory.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
+        </modelElements>      
+    </template>
 
     <!-- cartridge-template merge-point -->
 

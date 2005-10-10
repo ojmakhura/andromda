@@ -90,6 +90,12 @@
         </managed-property>
     </managed-bean>
     
+    <managed-bean>
+        <managed-bean-name>$formHistoryBeanName</managed-bean-name>
+        <managed-bean-class>${managedBeansPackage}.FormHistory</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    
 #foreach ($enumeration in $enumerations)
     <converter>
         <converter-for-class>$enumeration.fullyQualifiedName</converter-for-class>

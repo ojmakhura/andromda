@@ -231,6 +231,19 @@
             <documentation>
                 Other various properties that couldn't be classified into another category.
             </documentation>
+            <property name="maximumFormsInHistory">
+                <default>5</default>
+                <documentation>
+                    The maximum number of forms kept in history, this usually means how many times
+                    you can hit the back button and get a guaranteed result.
+                </documentation>
+            </property>
+            <property name="formHistoryBeanName">
+                <default>formHistory</default>
+                <documentation>
+                    The name of the managed bean that stores the form history.
+                </documentation>                
+            </property>
             <property name="sessionTimeout">
                 <default>45</default>
                 <documentation>
