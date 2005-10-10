@@ -11,7 +11,8 @@ import java.text.MessageFormat;
 /**
  * Provides access to the application resource messages.
  */
-public class ${className}
+public class $className
+    implements java.io.Serializable
 {
     /**
      * The messages bundle name.
