@@ -26,21 +26,36 @@ public class $className
     
     /**
      * Adds a form to the history.
-     * 
+     *
      * @param form the form to add.
      */
     public void addFormToHistory(final Object form)
     {
-        if (this.formHistory.size() > maximumSize && !this.formHistory.isEmpty())
+        if (form != null)
         {
-            this.formHistory.remove(0);
+            if (!this.formHistory.isEmpty())
+            {
+                // - check to see if the last form is of the same type, if so,
+                //   replace the last form with this new form
+                final int lastIndex = this.formHistory.size() - 1;
+                final Object lastForm = this.formHistory.get(lastIndex);
+                if (lastForm != null && lastForm.getClass() == form.getClass())
+                {
+                    this.formHistory.remove(lastIndex);
+                }
+                else if (this.formHistory.size() > maximumSize)
+                {
+                    // otherwise we remove the first form added in the list
+                    this.formHistory.remove(0);
+                }
+            }
+            this.formHistory.add(form);
         }
-        this.formHistory.add(form);
     }
-    
+
     /**
      * Retrieves the last form from the history and removes it.
-     * 
+     *
      * @return the last form.
      */
     public Object getLastFormInHistory()
