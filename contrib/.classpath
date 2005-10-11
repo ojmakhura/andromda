@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="transformers/atl/src/java"/>
+	<classpathentry kind="src" path="cartridges/andromda-costcalculator/src/java"/>
+	<classpathentry kind="src" path="cartridges/andromda-costcalculator/target/src/java"/>
+	<classpathentry kind="src" path="metamodels/configuration/src/test/java"/>
 	<classpathentry kind="src" path="transformations/spring/src/test/java"/>
 	<classpathentry kind="src" path="metamodels/uml2mof/src/java"/>
 	<classpathentry excluding="java/|test/java/" kind="src" path="transformers/atl/src"/>
 	<classpathentry kind="src" path="transformers/atl/conf/test"/>
 	<classpathentry kind="src" path="transformers/atl/src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-core-3.1-RC1-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-metafacades-uml-3.1-RC1-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-core-3.1-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-metafacades-uml-3.1-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/log4j/jars/log4j-1.2.8.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-lang/jars/commons-lang-2.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.7.0.jar"/>
@@ -23,8 +26,8 @@
 	<classpathentry kind="var" path="MAVEN_REPO/atl/jars/emf4atl-20050915.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/atl/jars/mdr4atl-20050915.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-fileupload/jars/commons-fileupload-1.0.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-utils-3.1-RC1-SNAPSHOT.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-ocl-validation-library-3.1-RC1-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-utils-3.1-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-ocl-validation-library-3.1-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-validator/jars/commons-validator-1.1.4.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.4.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/uml2mof-20050724.jar"/>
@@ -34,7 +37,7 @@
 	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/jmi-20030918.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/mdrapi-20050630.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/jmi/jars/mof-20030918.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-repository-mdr-3.1-RC1-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/andromda/jars/andromda-repository-mdr-3.1-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/mdr/jars/jmiutils-20050630.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
