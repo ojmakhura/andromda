@@ -553,6 +553,7 @@ public class ModelProcessor
      *
      * @param repositoryName the name of the repository used to load/read the models
      * @param models that will be loaded (if necessary).
+     * @return any validation messages collected during loading.
      */
     private List loadIfNecessary(
         final String repositoryName,
