@@ -134,7 +134,7 @@ public class ModelProcessor
      *
      * @return any model validation messages that may have been collected during model loading/validation.
      */
-    private List process(org.andromda.core.configuration.Repository[] repositories)
+    private List process(final org.andromda.core.configuration.Repository[] repositories)
     {
         List messages = null;
         final long startTime = System.currentTimeMillis();
