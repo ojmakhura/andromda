@@ -12,14 +12,6 @@ public class ServerException
 {
     /**
      * Constructor for ServerServerException.
-     */
-    public ServerException()
-    {
-        super();
-    }
-
-    /**
-     * Constructor for ServerServerException.
      *
      * @param message
      */
