@@ -70,9 +70,7 @@ public class AndroMDA
      * @param configurationStream the InputStream that contains the
      *        configuration contents for configuring AndroMDA.
      */
-    public void run(
-        final InputStream configurationStream,
-        final URL uri)
+    public void run(final InputStream configurationStream)
     {
         this.run(Configuration.getInstance(configurationStream));
     }
@@ -82,11 +80,8 @@ public class AndroMDA
      *
      * @param configuration the String that contains the configuration contents
      *        for configuring AndroMDA.
-     * @param uri the configuration location.
      */
-    public void run(
-        final String configuration,
-        final URL uri)
+    public void run(final String configuration)
     {
         this.run(Configuration.getInstance(configuration));
     }
