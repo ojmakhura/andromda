@@ -67,20 +67,20 @@ public class $view.populator
                 response,
                 lifecycle);
         final javax.faces.el.VariableResolver variableResolver = facesContext.getApplication().getVariableResolver();
+        if (form == null)
+        {  
+            form = variableResolver.resolveVariable(facesContext, "$view.formKey");
+        }
+        else
+        {
+            // - since the form argument is not null, set it as the "$view.formKey" in the session 
+            //   (to replace the existing "$view.formKey" attribute)
+            ((javax.servlet.http.HttpSession)facesContext.getExternalContext().getSession(true)).setAttribute("$view.formKey", form);
+        }
         try
         {
 #if (!$view.formActions.empty)
 #foreach ($action in $view.formActions)
-            if (form == null)
-            {  
-                form = variableResolver.resolveVariable(facesContext, "$view.formKey");
-            }
-            else
-            {
-                // - since the form argument is not null, set it as the "$view.formKey" in the session 
-                //   (to replace the existing "$view.formKey" attribute)
-                ((javax.servlet.http.HttpSession)facesContext.getExternalContext().getSession(true)).setAttribute("$view.formKey", form);
-            }
             // - populate the forms
             if (form != null)
             {     
