@@ -75,8 +75,7 @@ public class AndroMDAGenTask
             if (andromda != null)
             {
                 andromda.run(
-                    this.replaceProperties(ResourceUtils.getContents(configurationUri)),
-                    configurationUri);
+                    this.replaceProperties(ResourceUtils.getContents(configurationUri)));
                 andromda.shutdown();
             }
         }
