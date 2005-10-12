@@ -134,7 +134,6 @@ public class ASMMDRModel extends ASMModel {
 		if (ret == null) {
 			for (Iterator i = pack.refAllPackages().iterator(); i.hasNext() && (ret == null);) {
                 final Object modelPackage = i.next();
-                System.out.println("searching package: " + modelPackage);
 				ret = findRefClass((RefPackage)modelPackage, object);
 			}
 		}
