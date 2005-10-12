@@ -109,15 +109,14 @@ public class ASMMDRModel extends ASMModel {
 
 	public ASMModelElement newModelElement(ASMModelElement type) {
 		ASMModelElement ret = null;
-
-		System.out.println(">>>mbohlen debug: type=" + type);
-
 		RefObject refObject = ((ASMMDRModelElement) type).getObject();
-		System.out.println(">>>mbohlen debug: refObject=" + refObject);
-		
 		RefClass refClass = findRefClass(pack, refObject);
-		System.out.println(">>>mbohlen debug: refClass=" + refClass);
-
+        if (refClass == null)
+        {
+            throw new ASMMDRModelException("The type '" + type 
+                + "' could not be found, if this type is from a metamodel referenced from an external HREF module, "
+                + "it's possible you'll need to reference the external module's model as clustered");
+        }
 		ret = ASMMDRModelElement.getASMModelElement(this, refClass
 				.refCreateInstance(null));
 
@@ -133,9 +132,10 @@ public class ASMMDRModel extends ASMModel {
 		}
 
 		if (ret == null) {
-			for (Iterator i = pack.refAllPackages().iterator(); i.hasNext()
-					&& (ret == null);) {
-				ret = findRefClass((RefPackage) i.next(), object);
+			for (Iterator i = pack.refAllPackages().iterator(); i.hasNext() && (ret == null);) {
+                final Object modelPackage = i.next();
+                System.out.println("searching package: " + modelPackage);
+				ret = findRefClass((RefPackage)modelPackage, object);
 			}
 		}
 
