@@ -265,34 +265,18 @@
                     disabled by default too .. so you need to enable it.
                 </p>
                 <p>
-                    Using maven you will need to open up <code>andromda.xml</code> and in the bpm4struts
-                    namespace set 'security' to true.
+                    You will need to open up <code>andromda.xml</code> and in the bpm4struts
+                    namespace give the 'securityRealm' the value of your security realm.
                     <source language="xml">
 <![CDATA[
-    <forms>${maven.andromda.bpm4struts.generated.dir}</forms>
-    <pages>${maven.andromda.bpm4struts.generated.dir}</pages>
-    <actions>${maven.andromda.bpm4struts.generated.dir}</actions>
-    <controllers>${maven.andromda.bpm4struts.generated.dir}</controllers>
-    <controller-impls>${maven.andromda.bpm4struts.manual.java.dir}</controller-impls>
-    <messages>${maven.andromda.bpm4struts.generated.dir}</messages>
-    <configuration>${maven.andromda.bpm4struts.generated.dir}/WEB-INF</configuration>
-    <securityRealm>other</securityRealm>
-]]>
-                    </source>
-                </p>
-                <p>
-                    Using the Ant build it is a property in the
-                    MDA build.xml script.
-                    <source language="xml">
-<![CDATA[
-    <property name="securityRealm" value="other"/>
-    <property name="pages" value="${app.root.dir}/${web.dir}/${jsp.src.dir}"/>
-    <property name="forms" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
-    <property name="actions" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
-    <property name="controllers" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
-    <property name="controller-impls" value="${app.root.dir}/${web.dir}/${java.src.dir}"/>
-    <property name="messages" value="${app.root.dir}/${web.dir}/${properties.src.dir}"/>
-    <property name="configuration" value="${app.root.dir}/${web.dir}/${mda.build.dir}"/>
+    <property name="securityRealm">other</property>
+    <property name="pages">${app.root.dir}/${web.dir}/${jsp.src.dir}</property>
+    <property name="forms">${app.root.dir}/${web.dir}/${mda.build.dir}</property>
+    <property name="actions">${app.root.dir}/${web.dir}/${mda.build.dir}</property>
+    <property name="controllers">${app.root.dir}/${web.dir}/${mda.build.dir}</property>
+    <property name="controller-impls">${app.root.dir}/${web.dir}/${java.src.dir}</property>
+    <property name="messages">${app.root.dir}/${web.dir}/${properties.src.dir}</property>
+    <property name="configuration">${app.root.dir}/${web.dir}/${mda.build.dir}</property>
 ]]>
                     </source>
                 </p>
