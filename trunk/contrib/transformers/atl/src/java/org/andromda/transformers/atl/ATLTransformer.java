@@ -138,7 +138,7 @@ public class ATLTransformer
 
     /**
      * Loads all "source" models as input streams keyed by the name of the
-     * model into <code>models</code> a Map.
+     * model into a Map of <code>models</code>.
      *
      * @param models the Map in which to load the models.
      * @param metamodels the metamodels.
