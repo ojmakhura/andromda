@@ -295,7 +295,7 @@ public class ModelProcessor
         // - discover all namespace components
         NamespaceComponents.instance().discover();
 
-        // - find and load all the logical mappings
+        // - initialize all logical mappings
         Mappings.initializeLogicalMappings();
 
         // - find and initialize any repositories
