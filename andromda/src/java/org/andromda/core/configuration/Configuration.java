@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -300,6 +298,8 @@ public class Configuration
                     //   other than a mapping and in that case we don't care)
                 }
             }
+            // - now initialize the logical mappings since we've found them all
+            Mappings.initializeLogicalMappings();
         }
     }
 }
