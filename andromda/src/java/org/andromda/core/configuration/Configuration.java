@@ -297,7 +297,7 @@ public class Configuration
                 catch (final Throwable throwable)
                 {
                     // - ignore the exception (probably means its a file
-                    //   other than a mapping and in that case we don't care
+                    //   other than a mapping and in that case we don't care)
                 }
             }
         }

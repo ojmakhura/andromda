@@ -72,7 +72,7 @@ public class ModelProcessor
     /**
      * Re-configures this model processor from the given <code>configuration</code>
      * instance (if different from that of the one passed in during the call to
-     * {@link #initialize(Configuration)}, and runs the model processor.
+     * {@link #initialize(Configuration)}), and runs the model processor.
      *
      * @param configuration the configuration from which to configure this model
      *        processor instance.
