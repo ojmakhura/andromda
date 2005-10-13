@@ -30,6 +30,7 @@
     <property reference="hibernateMaxFetchDepth"/>
     <property reference="hibernateJdbcFetchSize"/>
     <property reference="hibernateJdbcBatchSize"/>
+    <property reference="hibernateConnectionReleaseMode"/>
     <property reference="hibernateEnableCache"/>
     <property reference="hibernateJdbcUseScrollableResultSet"/>
     <property reference="hibernateJdbcUseStreamsForBinary"/>

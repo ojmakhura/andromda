@@ -29,6 +29,7 @@
     <property reference="hibernateDefaultCascade"/>
     <property reference="hibernatePoolSize"/>
     <property reference="hibernateTransactionFactoryClass"/>
+    <property reference="hibernateConnectionReleaseMode"/>
     <property reference="hibernateTransactionManagerStrategy"/>
     <property reference="hibernateUserTransactionName"/>
     <property reference="hibernateTransactionManagerLookup"/>

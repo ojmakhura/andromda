@@ -87,6 +87,9 @@
 #if ($stringUtils.isNotBlank($hibernateQueryCacheFactory))
                 <prop key="hibernate.cache.query_cache_factory">$hibernateQueryCacheFactory</prop>
 #end
+#if ($stringUtils.isNotBlank($hibernateConnectionReleaseMode))
+                <prop key="hibernate.connection.release_mode">$hibernateConnectionReleaseMode</prop>
+#end
             </props>
         </property>
     </bean>
