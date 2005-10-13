@@ -25,7 +25,6 @@ import org.andromda.core.configuration.Filters;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
-import org.andromda.core.mapping.Mappings;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.metafacade.ModelValidationMessage;
@@ -294,9 +293,6 @@ public class ModelProcessor
 
         // - discover all namespace components
         NamespaceComponents.instance().discover();
-
-        // - initialize all logical mappings
-        Mappings.initializeLogicalMappings();
 
         // - find and initialize any repositories
         repositories.initialize();
