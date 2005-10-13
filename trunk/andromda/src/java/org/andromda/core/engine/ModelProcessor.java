@@ -2,18 +2,14 @@ package org.andromda.core.engine;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.text.Collator;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.andromda.core.ModelValidationException;
 import org.andromda.core.cartridge.Cartridge;
@@ -35,7 +31,7 @@ import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.namespace.NamespaceComponents;
 import org.andromda.core.profile.Profile;
-import org.andromda.core.repository.Repository;
+import org.andromda.core.repository.Repositories;
 import org.andromda.core.repository.RepositoryFacade;
 import org.andromda.core.transformation.Transformer;
 import org.apache.commons.collections.comparators.ComparatorChain;
@@ -170,6 +166,11 @@ public class ModelProcessor
      * The shared metafacade factory instance.
      */
     private final MetafacadeFactory factory = MetafacadeFactory.getInstance();
+    
+    /**
+     * The shared repositories instance.
+     */
+    private final Repositories repositories = Repositories.instance();
 
     /**
      * The shared profile instance.
@@ -236,7 +237,7 @@ public class ModelProcessor
                         // - process each model
                         for (int ctr = 0; ctr < models.length; ctr++)
                         {
-                            this.factory.setModel(this.getRepositoryImplementation(repositoryName).getModel());
+                            this.factory.setModel(repositories.getImplementation(repositoryName).getModel());
                             cartridge.processModelElements(factory);
                             writer.writeHistory();
                         }
@@ -297,20 +298,8 @@ public class ModelProcessor
         // - find and load all the logical mappings
         Mappings.initializeLogicalMappings();
 
-        // - find and open any repositories
-        if (this.repositories.isEmpty())
-        {
-            final Collection repositories = ComponentContainer.instance().findComponentsOfType(Repository.class);
-            for (final Iterator iterator = repositories.iterator(); iterator.hasNext();)
-            {
-                final Repository repository = (Repository)iterator.next();
-                final RepositoryFacade repositoryImplementation = repository.getImplementation();
-                repositoryImplementation.open();
-                this.repositories.put(
-                    repository.getNamespace(),
-                    repositoryImplementation);
-            }
-        }
+        // - find and initialize any repositories
+        repositories.initialize();
 
         // - finally initialize the metafacade factory
         this.factory.initialize();
@@ -356,7 +345,7 @@ public class ModelProcessor
                 final String uri = uris[ctr];
                 AndroMDALogger.info("loading model --> '" + uri + "'");
             }
-            final RepositoryFacade repositoryImplementation = this.getRepositoryImplementation(repositoryName);
+            final RepositoryFacade repositoryImplementation = repositories.getImplementation(repositoryName);
             repositoryImplementation.readModel(
                 streams,
                 uris,
@@ -409,7 +398,7 @@ public class ModelProcessor
             final long startTime = System.currentTimeMillis();
             AndroMDALogger.info("- validating model -");
             final Collection cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
-            final ModelAccessFacade modelAccessFacade = this.getRepositoryImplementation(repositoryName).getModel();
+            final ModelAccessFacade modelAccessFacade = repositories.getImplementation(repositoryName).getModel();
 
             // - clear out the factory's caches (such as any previous validation messages, etc.)
             this.factory.clearCaches();
@@ -750,43 +739,6 @@ public class ModelProcessor
     }
 
     /**
-     * Stores all the repository implementations keyed by name.
-     */
-    private final Map repositories = new LinkedHashMap();
-
-    /**
-     * Retrieves the repository implementation with the given name.
-     *
-     * @param name the name of the repository implementation to retrieve.
-     * @return the repository implementation.
-     */
-    private RepositoryFacade getRepositoryImplementation(final String name)
-    {
-        final RepositoryFacade implementation = (RepositoryFacade)this.repositories.get(name);
-        if (implementation == null)
-        {
-            String message;
-            if (this.repositories.isEmpty())
-            {
-                message =
-                    "No repository implementations have been registered, " +
-                    "make sure you have at least one valid repository registered under a namespace on your classpath";
-            }
-            else
-            {
-                message =
-                    "No repository implementation registered under namespace '" + name +
-                    "', you must specify one of the available as your repository name: '" +
-                    StringUtils.join(
-                        this.repositories.keySet().iterator(),
-                        ",") + "'";
-            }
-            throw new ModelProcessorException(message);
-        }
-        return implementation;
-    }
-
-    /**
      * Shuts down the model processor (reclaims any
      * resources).
      */
@@ -814,13 +766,7 @@ public class ModelProcessor
         Configuration.clearCaches();
 
         // - clear out any repositories
-        if (!this.repositories.isEmpty())
-        {
-            for (final Iterator iterator = this.repositories.values().iterator(); iterator.hasNext();)
-            {
-                ((RepositoryFacade)iterator.next()).clear();
-            }
-        }
+        this.repositories.clear();
     }
 
     /**
