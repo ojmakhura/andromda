@@ -327,8 +327,8 @@ java.lang.OutOfMemoryError
                 the following items:
             </p>
             <ol>
-                <li>A CVS diff against the latest CVS version. No, a zip file with all modified sources is *not*
-                    okay.</li>
+                <li>A patch file (this can be very easily created if you're using eclipse) against the latest CVS version. 
+                    No, a zip file with all modified sources is *not* okay.</li>
                 <li>If appropriate, include one or more JUnit tests related to the new feature.
                     Also, be sure to run all of the existing testcases to verify that you are not breaking existing
                     code.</li>
