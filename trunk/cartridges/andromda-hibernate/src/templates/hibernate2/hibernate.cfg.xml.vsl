@@ -85,6 +85,9 @@
 #if ($stringUtils.isNotBlank($hibernateQueryCacheFactory))
         <property name="hibernate.cache.query_cache_factory">$hibernateQueryCacheFactory</property>
 #end
+#if ($stringUtils.isNotBlank($hibernateConnectionReleaseMode))
+        <property name="hibernate.connection.release_mode">$hibernateConnectionReleaseMode</property>
+#end
         <!-- mapping files -->
 #foreach($entity in $entities)
         <mapping resource="${entity.packagePath}/${entity.entityName}.hbm.xml"/>
