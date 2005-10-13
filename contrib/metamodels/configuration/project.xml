@@ -5,9 +5,14 @@
     <artifactId>andromda-metamodels-configuration</artifactId>
     <currentVersion>1.0-SNAPSHOT</currentVersion>
     <name>AndroMDA Metamodel for AndroMDA configuration settings</name>
-    <description>
-        Contains the metamodel for configuration settings
-		(namespace properties) that have to be transferred
-		from the core to the model transformation engine.
+    <description> Contains the metamodel for configuration settings (namespace properties) that have to be
+        transferred from the core to the model transformation engine.
     </description>
+    <dependencies>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${andromda.version}</version>
+        </dependency>
+    </dependencies>
 </project>
