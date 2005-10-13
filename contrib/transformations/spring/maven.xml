@@ -1,4 +1,4 @@
-<project xmlns:j="jelly:core">
+<project xmlns:j="jelly:core" default="jar:install">
 
     <preGoal name="test:test">
           
