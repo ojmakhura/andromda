@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 
 <project>
     <extend>../../project.xml</extend>
@@ -12,12 +12,7 @@
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-repository-mdr</artifactId>
-            <version>3.1-RC1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-repository-mdr</artifactId>
-            <version>3.1-RC1-SNAPSHOT</version>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
             <groupId>jmi</groupId>
