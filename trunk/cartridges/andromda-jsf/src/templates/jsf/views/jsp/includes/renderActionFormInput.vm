@@ -10,13 +10,13 @@
 #if ($parameter.backingListName)
 #set ($propertyId = $parameter.name)
 #set ($valuePropertyName = $parameter.name)
-#set ($backingListName = "${formName}.$parameter.backingListName")
-#set ($backingValueName = "${formName}.$parameter.backingValueName")
+#set ($backingListName = $parameter.backingListName)
+#set ($backingValueName = $parameter.backingValueName)
 #else
 #set ($propertyId = $parameter.getFormPropertyId($ownerParameter))
 #set ($valuePropertyName = ${parameter.getFormPropertyName($ownerParameter)})
-#set ($backingListName = "${formName}.${parameter.getBackingListName($ownerParameter)}")
-#set ($backingValueName = "${formName}.${parameter.getBackingValueName($ownerParameter)}")
+#set ($backingListName = ${parameter.getBackingListName($ownerParameter)})
+#set ($backingValueName = ${parameter.getBackingValueName($ownerParameter)})
 #end
 #set ($formValuePropertyName = "${formName}.${valuePropertyName}")
 #if (!$parameter.table && !$parameter.inputHidden)
@@ -94,7 +94,7 @@
                 headerClass="list-header"
                 rowClasses="list-row"
                 styleClass="list-background"
-                backingValue="#{${formName}.${parameter.backingValueName}}"
+                backingValue="#{${backingValueName}}"
                 value="#{${formName}.${parameter.name}}"
                 identifierColumns="$parameter.inputTableIdentifierColumns"
                 var="item">

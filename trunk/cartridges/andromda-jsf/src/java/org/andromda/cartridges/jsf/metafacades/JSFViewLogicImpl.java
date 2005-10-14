@@ -284,6 +284,9 @@ public class JSFViewLogicImpl
             JSFGlobals.VIEW_TYPE_POPUP);
     }
 
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFView#isNonTableVariablesPresent()
+     */
     protected boolean handleIsNonTableVariablesPresent()
     {
         boolean present = false;
@@ -298,7 +301,7 @@ public class JSFViewLogicImpl
         }
         return present;
     }
-
+    
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#isHasNameOfUseCase()
      */
@@ -312,5 +315,44 @@ public class JSFViewLogicImpl
             sameName = true;
         }
         return sameName;
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFView#getBackingValueVariables()
+     */
+    protected List handleGetBackingValueVariables()
+    {
+        final Map variables = new LinkedHashMap();
+        for (final Iterator iterator = this.getAllActionParameters().iterator(); iterator.hasNext();)
+        {
+            final JSFParameter parameter = (JSFParameter)iterator.next();
+            final String parameterName = parameter.getName();
+            final Collection attributes = parameter.getAttributes();
+            if (attributes.isEmpty())
+            {
+                if (parameter.isBackingValueRequired() || parameter.isSelectable())
+                {
+                    variables.put(parameterName, parameter);
+                }
+            }
+            else
+            {
+                boolean hasBackingValue = false;
+                for (final Iterator attributeIterator = attributes.iterator(); attributeIterator.hasNext();)
+                {
+                    final JSFAttribute attribute = (JSFAttribute)attributeIterator.next();
+                    if (attribute.isSelectable(parameter) || attribute.isBackingValueRequired(parameter))
+                    {
+                        hasBackingValue = true;
+                        break;
+                    }
+                }
+                if (hasBackingValue)
+                {
+                    variables.put(parameterName, parameter);
+                }
+            }
+        }
+        return new ArrayList(variables.values());
     }
 }
