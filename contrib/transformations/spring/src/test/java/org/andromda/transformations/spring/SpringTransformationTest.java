@@ -10,6 +10,12 @@ import org.andromda.transformers.atl.Library;
 import org.andromda.transformers.atl.Model;
 import org.apache.log4j.BasicConfigurator;
 
+/**
+ * This test performs the transformation from a UML model to a 
+ * spring model
+ * 
+ * @author Chad Brandon
+ */
 public class SpringTransformationTest
     extends TestCase
 {
