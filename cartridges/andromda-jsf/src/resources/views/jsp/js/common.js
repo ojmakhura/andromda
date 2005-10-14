@@ -62,6 +62,9 @@ function focusOnElementById(elementId)
     if (field)
     {
         field.focus();
-        field.select();
+        if (field.select)
+        {
+            field.select();
+        }
     }
 }
