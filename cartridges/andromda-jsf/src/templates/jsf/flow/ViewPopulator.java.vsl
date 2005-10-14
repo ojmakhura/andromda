@@ -80,10 +80,10 @@ public class $view.populator
         try
         {
 #if (!$view.formActions.empty)
-#foreach ($action in $view.formActions)
             // - populate the forms
             if (form != null)
-            {     
+            {    
+#foreach ($action in $view.formActions) 
                 $action.fullyQualifiedFormImplementationName $action.formBeanName =
                     ($action.fullyQualifiedFormImplementationName)variableResolver.resolveVariable(
                     facesContext,
@@ -91,16 +91,14 @@ public class $view.populator
                 // - populate the $action.formBeanName with any parameters from the previous form
                 ${managedBeansPackage}.${formPopulatorName}.populateForm(form, $action.formBeanName);
                 request.setAttribute("$action.formBeanName", $action.formBeanName);
+#end
             }
 #end
-#end
-#if (!$view.variables.empty)
+#if (!$view.variables.empty || !$view.backingValueVariables.empty)
             // - populate the view variables
             if (form != null)
             {    
-#if (!$view.variables.empty)
                 boolean allPropertiesReadable = true;
-#end
 #foreach ($variable in $view.variables)
 #set ($readableVariable = "${variable.name}Readable")
                 final boolean $readableVariable = org.apache.commons.beanutils.PropertyUtils.isReadable(form, "$variable.name");
@@ -112,6 +110,16 @@ public class $view.populator
                 {
                     allPropertiesReadable = false;
                 }
+#end
+#foreach ($variable in $view.backingValueVariables)
+#if (!$variable.complex)
+#renderBackingValuePopulation($variable "")
+#end
+#foreach ($attribute in $variable.attributes)
+#if ($attribute.isSelectable($variable) || $attribute.isBackingValueRequired($variable))
+#renderBackingValuePopulation($attribute $variable)
+#end
+#end
 #end
                 if (!allPropertiesReadable)
                 {
@@ -144,3 +152,31 @@ public class $view.populator
         this.config = null;
     }
 }
+##
+##  A macro that renders population of the backing list view variables
+##
+#macro(renderBackingValuePopulation $variable $ownerParameter)
+#if ($variable.backingListName)
+#if ($variable.selectable)
+#set ($variableName = $variable.backingListName)
+#else
+#set ($variableName = $variable.backingValueName)
+#end
+#else
+#if ($variable.isSelectable($ownerParameter))
+#set ($variableName = $variable.getBackingListName($ownerParameter))
+#else
+#set ($variableName = $variable.getBackingValueName($ownerParameter))
+#end
+#end
+#set ($readableVariable = "${variableName}Readable")
+                final boolean $readableVariable = org.apache.commons.beanutils.PropertyUtils.isReadable(form, "$variableName");
+                if ($readableVariable)
+                {
+                    request.setAttribute("$variableName", org.apache.commons.beanutils.PropertyUtils.getProperty(form, "$variableName"));
+                }
+                else
+                {
+                    allPropertiesReadable = false;
+                }
+#end
