@@ -129,7 +129,7 @@ public final class $manageable.manageableDaoBaseName
 #if ($member.type.primitive)
 #if ($member.type.fullyQualifiedName == 'boolean')
             if ($member.name) criteria.add(Expression.eq("$member.name", java.lang.Boolean.TRUE));
-#else
+    #else## indented so that the next line would appear indented in the output
             criteria.add(Expression.eq("$member.name", new ${member.type.wrapperName}($member.name)));
 #end
 #else
