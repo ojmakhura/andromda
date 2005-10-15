@@ -348,7 +348,7 @@ public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm for
                 <p>
                     Sometimes it can happen that you would like to send parameters from one use-case into another
                     use-case. This is easy with the bpm4struts cartridge: just model the parameters on an action
-                    leading into a final state and the parameters will be automagically be available in the target
+                    leading into a final state and the parameters will automagically be available in the target
                     use-case.
                 </p>
                 <p>

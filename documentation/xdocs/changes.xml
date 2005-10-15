@@ -12,7 +12,7 @@
     <body>
         <release version="3.1-SNAPSHOT" date="2005-08-25" description="First release candidate of version 3.1">
             <action dev="draftdog" type="fix" issue="SITE-30">
-                The generated Javadoc information for the generic facades as well as the cartridge facades is not
+                The generated Javadoc information for the generic facades as well as the cartridge facades is now
                 correctly presenting the interfaces instead of the implementation classes, in doing so the documentation
                 available in the respective meta-models is present.
             </action>
