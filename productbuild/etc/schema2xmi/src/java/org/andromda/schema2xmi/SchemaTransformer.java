@@ -440,7 +440,7 @@ public class SchemaTransformer
                 null,
                 this.schema,
                 null,
-                new String[] {"TABLE",});
+                new String[] {"TABLE"});
 
         // loop through and create all classes and store then
         // in the classes Map keyed by table
