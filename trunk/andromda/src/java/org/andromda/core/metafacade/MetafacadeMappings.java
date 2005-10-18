@@ -1,7 +1,5 @@
 package org.andromda.core.metafacade;
 
-import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -15,9 +13,6 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.Merger;
-import org.andromda.core.common.ResourceUtils;
-import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Namespace;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.namespace.BaseNamespaceComponent;
@@ -58,29 +53,6 @@ public class MetafacadeMappings
     public static MetafacadeMappings newInstance()
     {
         return new MetafacadeMappings();
-    }
-
-    /**
-     * Returns a new configured instance of this MetafacadeMappings configured from the mappings configuration URI.
-     *
-     * @param mappingsUri the URI to the XML type mappings configuration file.
-     * @return MetafacadeMappings the configured MetafacadeMappings instance.
-     */
-    protected static final MetafacadeMappings getInstance(final URL mappingsUri)
-    {
-        final String methodName = "MetafacadeMappings.getInstance";
-        ExceptionUtils.checkNull(methodName, "mappingsUri", mappingsUri);
-        final XmlObjectFactory factory = XmlObjectFactory.getInstance(MetafacadeMappings.class);
-        MetafacadeMappings mappings = (MetafacadeMappings)factory.getObject(mappingsUri);
-
-        // after we've gotten the initial instance we can merge the file
-        // since we know the namespace
-        String mappingsContents = ResourceUtils.getContents(mappingsUri);
-        mappingsContents = Merger.instance().getMergedString(
-                mappingsContents,
-                mappings.getNamespace());
-        mappings = (MetafacadeMappings)factory.getObject(mappingsContents);
-        return mappings;
     }
 
     /**
@@ -951,6 +923,17 @@ public class MetafacadeMappings
         {
             throw new MetafacadeMappingsException(throwable);
         }
+    }
+    
+    /**
+     * Retrieves all child {@link MetafacadeMapping} instances belonging to this
+     * metafacade mappings instance.
+     * 
+     * @return the collection of {@link MetafacadeMapping} instances
+     */
+    protected Collection getMappings()
+    {
+        return this.mappings;
     }
 
     /**
