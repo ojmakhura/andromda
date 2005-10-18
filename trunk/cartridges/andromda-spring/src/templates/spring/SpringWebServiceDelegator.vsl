@@ -21,11 +21,7 @@ public class $service.webServiceDelegatorName
         return ${springTypesPackage}.ServiceLocator.instance().${serviceGetter};
     }
 
-#set ($operations = $service.operations)
-#if (!$service.webService)
-#set ($operations = $service.webServiceOperations)
-#end
-#foreach ($operation in $operations)
+#foreach ($operation in $service.webServiceOperations)
     /**
      * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
      */
