@@ -431,7 +431,7 @@ public class ModelElementFacadeLogicImpl
         Object property = this.getConfiguredProperty(propertyName);
         TypeMappings mappings = null;
         String uri = null;
-        if (String.class.isAssignableFrom(property.getClass()))
+        if (property instanceof String)
         {
             uri = (String)property;
             try
@@ -442,12 +442,12 @@ public class ModelElementFacadeLogicImpl
                     propertyName,
                     mappings);
             }
-            catch (Throwable th)
+            catch (Throwable throwable)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                final String message = "Error getting '" + propertyName + "' --> '" + uri + "'";
                 logger.error(
                     errMsg,
-                    th);
+                    throwable);
 
                 // don't throw the exception
             }
