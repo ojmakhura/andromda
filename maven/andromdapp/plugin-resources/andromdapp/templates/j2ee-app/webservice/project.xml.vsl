@@ -10,46 +10,6 @@
             <version>${pom.currentVersion}</version>
             <type>ejb</type>
         </dependency>
-        <dependency>
-            <groupId>axis</groupId>
-            <artifactId>axis</artifactId>
-            <version>${axis.version}</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>commons-discovery</groupId>
-            <artifactId>commons-discovery</artifactId>
-            <version>${commons.discovery.version}</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>axis</groupId>
-            <artifactId>axis-jaxrpc</artifactId>
-            <version>${axis.version}</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>axis</groupId>
-            <artifactId>axis-saaj</artifactId>
-            <version>${axis.version}</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
-        <dependency>
-            <groupId>axis</groupId>
-            <artifactId>axis-wsdl4j</artifactId>
-            <version>${axis.version}</version>
-            <properties>
-                <war.bundle>true</war.bundle>
-            </properties>
-        </dependency>
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
