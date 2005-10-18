@@ -411,9 +411,11 @@
             <artifactId>commons-discovery</artifactId>
             <version>${commons.discovery.version}</version>
             <type>jar</type>
+#if ($war)
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
+#end
         </dependency>
         <dependency>
             <groupId>axis</groupId>
@@ -426,36 +428,44 @@
             <artifactId>axis</artifactId>
             <version>${axis.version}</version>
             <type>jar</type>
+#if ($war)
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
+#end
         </dependency>
         <dependency>
             <groupId>axis</groupId>
             <artifactId>axis-jaxrpc</artifactId>
             <version>${axis.version}</version>
             <type>jar</type>
+#if ($war)
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
+#end
         </dependency>
         <dependency>
             <groupId>axis</groupId>
             <artifactId>axis-saaj</artifactId>
             <version>${axis.version}</version>
             <type>jar</type>
+#if ($war)
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
+#end
         </dependency>
         <dependency>
             <groupId>axis</groupId>
             <artifactId>axis-wsdl4j</artifactId>
             <version>${axis.version}</version>
             <type>jar</type>
+#if ($war)
             <properties>
                 <war.bundle>true</war.bundle>
             </properties>
+#end
         </dependency>
 #end
     </dependencies>
