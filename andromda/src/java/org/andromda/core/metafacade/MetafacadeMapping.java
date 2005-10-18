@@ -95,7 +95,7 @@ public class MetafacadeMapping
      */
     public boolean isContextRoot()
     {
-        return contextRoot;
+        return this.contextRoot;
     }
 
     /**
