@@ -102,7 +102,7 @@ public class MetafacadeMappings
 
         // find any mappings that match, if they do we add the properties
         // from that mapping to the existing matched mapping (so we only
-        // have one mapping containing properties that can be 'OR'ed together.
+        // have one mapping containing properties that can be 'OR'ed together).
         final MetafacadeMapping foundMapping =
             this.findMapping(
                 new Condition()
@@ -247,7 +247,7 @@ public class MetafacadeMappings
     private final Map mappingObjectHierachyCache = new HashMap();
 
     /**
-     * Retrieves the hiearchy of class names. of the given <code>mappingObject</code>.
+     * Retrieves the hiearchy of class names of the given <code>mappingObject</code>.
      *
      * @param mappingObject the object from which to retrieve the hierarchy.
      * @return a list containing all inherited class names.
@@ -553,7 +553,7 @@ public class MetafacadeMappings
     }
 
     /**
-     * <p/>
+     * <p>
      * Loads all property references into the given <code>mapping</code> inherited from any super metafacade of the
      * given mapping's metafacade. </p>
      *
