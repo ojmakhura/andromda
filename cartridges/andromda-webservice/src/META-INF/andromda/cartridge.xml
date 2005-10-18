@@ -5,12 +5,7 @@
     <templateObject name="webServiceUtils" className="org.andromda.cartridges.webservice.WebServiceUtils"/>
     <!-- cartridge-templateObject merge-point-->
 
-    <!-- The name of the application that this service will run within
-         (i.e. Security Services} -->
     <property reference="applicationName"/>
-
-    <!-- The location of where the WSDL will reside
-         (i.e. "http://localhost:8080/security-service/services") -->
     <property reference="wsdlSoapAddress"/>
     <property reference="securityRealm"/>
     <property reference="testServiceLocatorName"/>
@@ -19,32 +14,16 @@
     <property reference="ejbJndiUrl"/>
     <property reference="ejbNamingContextFactory"/>
     <property reference="sessionTimeout"/>
-
-    <!-- default namespaces -->
+    <property reference="webserviceTypesPackage"/>
     <property reference="wsdlSoapNamespace"/>
     <property reference="xmlSchemaNamespace"/>
     <property reference="wsdlNamespace"/>
     <property reference="documentStyleTransportNamespace"/>
-    <!-- encoding for xml documents -->
     <property reference="xmlEncoding"/>
-
-    <!-- if true, causes generation of necessary code that expects
-         the request to be signed -->
     <property reference="signedRequest"/>
-
-    <!-- if true, causes generation of necessary code to that expects
-         the request to be encrypted -->
     <property reference="encryptedRequest"/>
-
-    <!-- if true, causes generation of necessary code that encrypts
-         the response -->
     <property reference="encryptedResponse"/>
-
-    <!-- if true, causes generation of necessary code that signs
-         the response -->
     <property reference="signedResponse"/>
-
-    <!-- Defines the crypto properties for WSS4J -->
     <property reference="cryptoKeyStore"/>
     <property reference="cryptoKeyStoreType"/>
     <property reference="cryptoKeyStoreAlias"/>
@@ -122,7 +101,7 @@
     </template>
 
     <template
-        path="templates/webservice/axis/WebServiceTest.vsl"
+        path="templates/webservice/axis/WebServiceTest.java.vsl"
         outputPattern="$generatedFile"
         outlet="axis-tests"
         overwrite="true">
@@ -136,7 +115,7 @@
     </template>
 
     <template
-        path="templates/webservice/axis/WebServiceTestServiceLocator.vsl"
+        path="templates/webservice/axis/WebServiceTestServiceLocator.java.vsl"
         outputPattern="$generatedFile"
         outlet="axis-tests"
         overwrite="true"
@@ -152,7 +131,7 @@
     </template>
 
     <template
-        path="templates/webservice/axis/WebServiceTestImpl.vsl"
+        path="templates/webservice/axis/WebServiceTestImpl.java.vsl"
         outputPattern="$generatedFile"
         outlet="axis-test-impls"
         overwrite="false">
@@ -164,6 +143,12 @@
             </modelElement>
         </modelElements>
     </template>
+    
+    <template
+        path="templates/webservice/axis/AttachmentHandler.java.vsl"
+        outputPattern="$stringUtils.replace($webserviceTypesPackage, '.', '/')/${className}.java"
+        outlet="webservice-types"
+        overwrite="true"/>
 
     <!-- cartridge-template merge-point -->
 

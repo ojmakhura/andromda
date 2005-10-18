@@ -50,8 +50,20 @@
                     specific configuration files are generated.
                 </documentation>
             </property>
+            <property name="webservice-types">
+                <documentation>
+                    The directory to which any extra webservice classes will be generated (i.e. an AttachmentHandler
+                    for example).
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="Other">
+            <property name="webserviceTypesPackage">
+                <default>org.andromda.webservice</default>
+                <documentation>
+                    The package to which extra types are generated (i.e. AttachmentHandler).
+                </documentation>
+            </property>
             <property name="namespacePrefix">
                 <default>impl</default>
                 <documentation>
