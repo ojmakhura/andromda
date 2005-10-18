@@ -446,7 +446,7 @@ public class ModelElementFacadeLogicImpl
             {
                 final String message = "Error getting '" + propertyName + "' --> '" + uri + "'";
                 logger.error(
-                    errMsg,
+                    message,
                     throwable);
 
                 // don't throw the exception
