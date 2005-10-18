@@ -177,6 +177,7 @@
 #end
                 <property name="wsdls">${maven.andromda.webservice.generated.wsdl.dir}</property>
                 <property name="axis-configuration">${maven.andromda.webservice.generated.dir}</property>
+                <property name="webservice-types">${maven.andromda.core.generated.dir}</property>
             </properties>
         </namespace>
 #end
