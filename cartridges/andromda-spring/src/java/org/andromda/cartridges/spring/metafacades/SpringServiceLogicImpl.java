@@ -210,7 +210,12 @@ public class SpringServiceLogicImpl
      */
     protected boolean handleIsWebService()
     {
-        return this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE);
+        boolean webService = this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE);
+        if (!webService)
+        {
+            webService = !this.getWebServiceOperations().isEmpty();
+        }
+        return webService;
     }
 
     /**
@@ -355,13 +360,18 @@ public class SpringServiceLogicImpl
      */
     protected Collection handleGetWebServiceOperations()
     {
-        return new FilteredCollection(this.getOperations())
-            {
-                public boolean evaluate(Object object)
+        Collection operations = this.getOperations();
+        if (!this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE))
+        {
+            operations = new FilteredCollection(operations)
                 {
-                    return ((SpringServiceOperation)object).isWebserviceExposed();
-                }
-            };
+                    public boolean evaluate(Object object)
+                    {
+                        return ((SpringServiceOperation)object).isWebserviceExposed();
+                    }
+                };
+        }
+        return operations;
     }
 
     /**
