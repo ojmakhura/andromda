@@ -127,7 +127,7 @@ public class MetafacadeImpls
                     throw new MetafacadeImplsException(
                         "Can not find a metafacade implementation class for --> '" + metafacadeClass +
                         "', please check your classpath and verify you have a '" + METAFACADE_IMPLS +
-                        "' file available with this mapping");
+                        "' file available with this mapping.");
                 }
                 metafacadeImplementationClass = ClassUtils.loadClass(metafacadeImplementationClassName);
             }
@@ -161,7 +161,9 @@ public class MetafacadeImpls
                     throw new MetafacadeImplsException(
                         "Can not find a metafacade interface for --> '" + metafacadeImplClass +
                         "', please check your classpath and verify you have a '" + METAFACADE_IMPLS +
-                        "' file available with this mapping");
+                        "' file available with this mapping.  If you're sure its on your classpath with this mapping" +
+                        ", then make sure you don't have another '" + METAFACADE_IMPLS 
+                        + "' on your classpath with the metafacade interface that '" + metafacadeClass + "' is mapped to.");
                 }
                 metafacadeClass = ClassUtils.loadClass(metafacadeClassName);
             }
@@ -172,4 +174,5 @@ public class MetafacadeImpls
         }
         return metafacadeClass;
     }
+
 }
