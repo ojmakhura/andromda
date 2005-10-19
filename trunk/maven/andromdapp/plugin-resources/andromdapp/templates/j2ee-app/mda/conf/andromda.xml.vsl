@@ -126,6 +126,10 @@
                 <property name="securityRealm">${application.id}</property>
                  -->
 #end
+#if ($webservice)
+                <property name="webServiceOutgoingAttachmentHandlerCallPattern">${application.package}.AxisAttachmentHandler.saveAttachment(contents, contentType)</property>
+                <property name="webServiceIncomingAttachmentHandlerCallPattern">${application.package}.AxisAttachmentHandler.getAttachments()</property>
+#end
             </properties>
         </namespace>
         <namespace name="hibernate">
@@ -166,6 +170,7 @@
                 <property name="defaultProvider">${default.provider}</property>
                 <property name="applicationName">${application.id}</property>
                 <property name="wsdlSoapAddress">${wsdl.soap.address}</property>
+                <property name="webserviceTypesPackage">${application.package}</property>
 #if ($hibernate)
                 <property name="ejbInterfacePattern">{0}.ejb.{1}</property>
                 <property name="ejbHomeInterfacePattern">{0}.ejb.{1}Home</property>
