@@ -562,19 +562,41 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringService#getWebServiceAttachmentHandlerCall()
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getWebServiceOutgoingAttachmentHandlerCall()
      */
-    protected String handleGetWebServiceAttachmentHandlerCall()
+    protected String handleGetWebServiceOutgoingAttachmentHandlerCall()
+    {
+        return this.getWebServiceAttachmentHandlerCall(SpringGlobals.WEBSERVICE_OUTGOING_ATTACHMENT_HANDLER_CALL_PATTERN);
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getWebServiceIncomingAttachmentHandlerCall()
+     */
+    protected String handleGetWebServiceIncomingAttachmentHandlerCall()
+    {
+        return this.getWebServiceAttachmentHandlerCall(SpringGlobals.WEBSERVICE_INCOMING_ATTACHMENT_HANDLER_CALL_PATTERN);
+    }
+    
+    /**
+     * Constructs the webservice attachment handler call or returns null if
+     * one isn't found or is not appropriate it for the service (i.e. it isn't
+     * a webservice).
+     * 
+     * @param patternProperty the property defining the pattern type.
+     * @return the call value.
+     */
+    private String getWebServiceAttachmentHandlerCall(final String patternProperty)
     {
         String call = null;
         if (this.isWebService())
         {
-            final String value = ObjectUtils.toString(this.getConfiguredProperty(SpringGlobals.WEBSERVICE_ATTACHMENT_HANDLER_CALL_PATTERN));
+            final String value = ObjectUtils.toString(this.getConfiguredProperty(
+                patternProperty));
             if (StringUtils.isNotBlank(value))
             {
                 call = value;
             }
         }
-        return call;
+        return call;        
     }
 }

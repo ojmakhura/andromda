@@ -73,8 +73,13 @@ class SpringGlobals
     static final String EJB_TRANSACTIONS_ENABLED = "ejbTransactionsEnabled";
     
     /**
-     * The pattern used to construct the web service attachment handler call.
+     * The pattern used to construct the web service outgoing attachment handler call.
      */
-    static final String WEBSERVICE_ATTACHMENT_HANDLER_CALL_PATTERN = "webServiceAttachmentHandlerCallPattern";
+    static final String WEBSERVICE_OUTGOING_ATTACHMENT_HANDLER_CALL_PATTERN = "webServiceOutgoingAttachmentHandlerCallPattern";
+    
+    /**
+     * The pattern used to construct the web service incoming attachment handler call.
+     */
+    static final String WEBSERVICE_INCOMING_ATTACHMENT_HANDLER_CALL_PATTERN = "webServiceIncomingAttachmentHandlerCallPattern";
 
 }

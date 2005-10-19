@@ -142,16 +142,28 @@ public abstract class $service.baseName
 #end
         return $principalStoreCall
     }
-#if ($service.webServiceAttachmentHandlerCall)
+#if ($service.webServiceOutgoingAttachmentHandlerCall)
     
     /**
-     * Stores an attachment in the webservice's response message (this only makes sense
+     * Adds an attachment in the webservice's outgoing response message (this only makes sense
      * when the operation this is called within is a web service exposed operation).
      */
-    protected void saveWebServiceAttachment(final Object contents, final String contentType)
+    protected void addOutgoingWebServiceAttachment(final Object contents, final String contentType)
         throws java.lang.Exception
     {
-        $service.webServiceAttachmentHandlerCall;
+        $service.webServiceOutgoingAttachmentHandlerCall;
+    }
+#end
+#if ($service.webServiceIncomingAttachmentHandlerCall)
+    
+    /**
+     * Retrieves any incoming attachments in the webservice's request message (this only makes sense
+     * when the operation this is called within is a web service exposed operation).
+     */
+    protected javax.xml.soap.AttachmentPart[] getIncomingWebServiceAttachments()
+        throws java.lang.Exception
+    {
+        return $service.webServiceIncomingAttachmentHandlerCall;
     }
 #end
 }
