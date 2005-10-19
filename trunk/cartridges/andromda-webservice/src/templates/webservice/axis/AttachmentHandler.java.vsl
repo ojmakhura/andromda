@@ -44,7 +44,6 @@ public class AxisAttachmentHandler
                 convertContents(contents),
                 contentType);
             response.addAttachmentPart(attachment);
-            response.saveChanges();
         }
     }
 
@@ -56,10 +55,15 @@ public class AxisAttachmentHandler
      *         wasn't needed.
      */
     private static Object convertContents(Object contents)
+        throws javax.xml.soap.SOAPException
     {
         if (contents instanceof byte[])
         {
             contents = new java.io.ByteArrayInputStream((byte[])contents);
+        }
+        if (contents instanceof javax.xml.soap.AttachmentPart)
+        {
+            contents = ((javax.xml.soap.AttachmentPart)contents).getContent();
         }
         return contents;
     }
