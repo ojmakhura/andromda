@@ -1,4 +1,4 @@
-#set ($className = "AttachmentHandler")
+#set ($className = "AxisAttachmentHandler")
 #if ($stringUtils.isNotBlank($webserviceTypesPackage))
 package $webserviceTypesPackage;
 #end
@@ -13,13 +13,13 @@ package $webserviceTypesPackage;
 public class $className
 {
     /**
-     * Stores the given <code>contents</code> to the appropriate current message
+     * Sends the given <code>contents</code> using the appropriate current message
      * response using DIME.
      * 
      * @param contents the contents of the attachment
      * @param contentType the content type (i.e. mime type)
      */
-    public static void storeAttachment(final Object contents, final String contentType)
+    public static void saveAttachment(final Object contents, final String contentType)
         throws javax.xml.soap.SOAPException
     {
         if (contents != null)
