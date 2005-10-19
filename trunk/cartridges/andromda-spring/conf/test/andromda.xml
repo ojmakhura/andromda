@@ -43,7 +43,8 @@
                 <property name="transactionManagerName">java:/TransactionManager</property>
                 <property name="acegiServiceSecurity">true</property>
                 <property name="acegiAuthenticationManager">authenticationManager</property>
-                <property name="webServiceAttachmentHandlerCallPattern">org.andromda.webservice.AxisAttachmentHandler.sendAttachment(contents, contentType)</property>
+                <property name="webServiceOutgoingAttachmentHandlerCallPattern">org.andromda.webservice.AxisAttachmentHandler.sendAttachment(contents, contentType)</property>
+                <property name="webServiceIncomingAttachmentHandlerCallPattern">org.andromda.webservice.AxisAttachmentHandler.getAttachments()</property>
             </properties>
         </namespace>
     </namespaces>
