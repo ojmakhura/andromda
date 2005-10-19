@@ -78,13 +78,13 @@ public class SpringEntityLogicImpl
     }
 
     /**
-     * Gets the value of the {@link SpringGlobals#PROPERTY_DAO_PATTERN}
+     * Gets the value of the {@link SpringGlobals#DAO_PATTERN}
      *
      * @return the DAO name pattern.
      */
     private String getDaoNamePattern()
     {
-        return String.valueOf(this.getConfiguredProperty(SpringGlobals.PROPERTY_DAO_PATTERN));
+        return String.valueOf(this.getConfiguredProperty(SpringGlobals.DAO_PATTERN));
     }
 
     /**
@@ -108,13 +108,13 @@ public class SpringEntityLogicImpl
     }
 
     /**
-     * Gets the value of the {@link SpringGlobals#PROPERTY_DAO_IMPLEMENTATION_PATTERN}
+     * Gets the value of the {@link SpringGlobals#DAO_IMPLEMENTATION_PATTERN}
      *
      * @return the DAO implementation name pattern.
      */
     private String getDaoImplementationNamePattern()
     {
-        return String.valueOf(this.getConfiguredProperty(SpringGlobals.PROPERTY_DAO_IMPLEMENTATION_PATTERN));
+        return String.valueOf(this.getConfiguredProperty(SpringGlobals.DAO_IMPLEMENTATION_PATTERN));
     }
 
     /**
@@ -138,13 +138,13 @@ public class SpringEntityLogicImpl
     }
 
     /**
-     * Gets the value of the {@link SpringGlobals#PROPERTY_DAO_BASE_PATTERN}
+     * Gets the value of the {@link SpringGlobals#DAO_BASE_PATTERN}
      *
      * @return the DAO base name pattern.
      */
     private String getDaoBaseNamePattern()
     {
-        return String.valueOf(this.getConfiguredProperty(SpringGlobals.PROPERTY_DAO_BASE_PATTERN));
+        return String.valueOf(this.getConfiguredProperty(SpringGlobals.DAO_BASE_PATTERN));
     }
 
     /**

@@ -42,7 +42,7 @@ public class SpringEntityOperationLogicImpl
 
     /**
      * Retrieves the implementationOperatName by replacing the <code>replacement</code> in the {@link
-     * SpringGlobals#PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN}
+     * SpringGlobals#IMPLEMENTATION_OPERATION_NAME_PATTERN}
      *
      * @param replacement the replacement string for the pattern.
      * @return the operation name
@@ -50,7 +50,7 @@ public class SpringEntityOperationLogicImpl
     private String getImplementationOperationName(String replacement)
     {
         return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(
-                SpringGlobals.PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN))).replaceAll("\\{0\\}", replacement);
+                SpringGlobals.IMPLEMENTATION_OPERATION_NAME_PATTERN))).replaceAll("\\{0\\}", replacement);
     }
 
 }
