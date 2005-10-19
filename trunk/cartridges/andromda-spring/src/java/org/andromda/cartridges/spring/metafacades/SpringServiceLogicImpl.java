@@ -540,7 +540,7 @@ public class SpringServiceLogicImpl
         String transactionType;
         final boolean ejbTransactionsEnabled =
             BooleanUtils.toBoolean(
-                ObjectUtils.toString(this.getConfiguredProperty(SpringGlobals.PROPERTY_EJB_TRANSACTIONS_ENABLED)));
+                ObjectUtils.toString(this.getConfiguredProperty(SpringGlobals.EJB_TRANSACTIONS_ENABLED)));
         if (ejbTransactionsEnabled)
         {
             transactionType = "Container";
@@ -559,5 +559,22 @@ public class SpringServiceLogicImpl
     {
         String value = (String)this.findTaggedValue(SpringProfile.TAGGEDVALUE_SERVICE_CONFIG_ONLY);
         return BooleanUtils.toBoolean(StringUtils.trimToEmpty(value));
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getWebServiceAttachmentHandlerCall()
+     */
+    protected String handleGetWebServiceAttachmentHandlerCall()
+    {
+        String call = null;
+        if (this.isWebService())
+        {
+            final String value = ObjectUtils.toString(this.getConfiguredProperty(SpringGlobals.WEBSERVICE_ATTACHMENT_HANDLER_CALL_PATTERN));
+            if (StringUtils.isNotBlank(value))
+            {
+                call = value;
+            }
+        }
+        return call;
     }
 }

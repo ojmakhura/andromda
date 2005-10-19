@@ -81,6 +81,18 @@
             </property>
         </propertyGroup>
         <propertyGroup name="Other">
+            <property name="webServiceAttachmentHandlerCallPattern">
+                <documentation>
+                    The pattern to use when constructing the call to the attachment handler (used for sending
+                    attachments when your service also represents a web service), for example:
+                    <ul>
+                        <li><strong>Axis</strong>: <code>org.andromda.webservice.AxisAttachmentHandler.saveAttachment(contents, contentType)</code></li>
+                    </ul>
+                    Attachments are good for sending large amounts of data over over the wire as it doesn't embed the data
+                    directly in the XML.
+                    <strong>NOTE:</strong> the handler call must have two parameters named, <em>contents</em> and <em>contentType</em>.
+                </documentation>
+            </property>
             <property name="enableDaoPropertiesCreateMethod">
                 <default>true</default>
                 <documentation>

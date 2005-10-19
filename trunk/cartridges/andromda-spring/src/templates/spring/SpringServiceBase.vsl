@@ -142,4 +142,16 @@ public abstract class $service.baseName
 #end
         return $principalStoreCall
     }
+#if ($service.webServiceAttachmentHandlerCall)
+    
+    /**
+     * Stores an attachment in the webservice's response message (this only makes sense
+     * when the operation this is called within is a web service exposed operation).
+     */
+    protected void saveWebServiceAttachment(final Object contents, final String contentType)
+        throws java.lang.Exception
+    {
+        $service.webServiceAttachmentHandlerCall;
+    }
+#end
 }

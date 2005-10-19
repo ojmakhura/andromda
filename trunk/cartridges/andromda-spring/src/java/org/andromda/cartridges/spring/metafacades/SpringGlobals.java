@@ -50,26 +50,31 @@ class SpringGlobals
     /**
      * The property used to specify the implementation operation name pattern (on both services and DAOs).
      */
-    static final String PROPERTY_IMPLEMENTATION_OPERATION_NAME_PATTERN = "implementationOperationNamePattern";
+    static final String IMPLEMENTATION_OPERATION_NAME_PATTERN = "implementationOperationNamePattern";
 
     /**
      * The pattern used to construct the DAO base name.
      */
-    static final String PROPERTY_DAO_BASE_PATTERN = "daoBaseNamePattern";
+    static final String DAO_BASE_PATTERN = "daoBaseNamePattern";
 
     /**
      * The pattern used to construct the DAO name.
      */
-    static final String PROPERTY_DAO_PATTERN = "daoNamePattern";
+    static final String DAO_PATTERN = "daoNamePattern";
 
     /**
      * The pattern used to construct the DAO implementation name.
      */
-    static final String PROPERTY_DAO_IMPLEMENTATION_PATTERN = "daoImplementationNamePattern";
+    static final String DAO_IMPLEMENTATION_PATTERN = "daoImplementationNamePattern";
     
     /**
      * The pattern used to indicate whether or not ejb transactions are enabled.
      */
-    static final String PROPERTY_EJB_TRANSACTIONS_ENABLED = "ejbTransactionsEnabled";
+    static final String EJB_TRANSACTIONS_ENABLED = "ejbTransactionsEnabled";
+    
+    /**
+     * The pattern used to construct the web service attachment handler call.
+     */
+    static final String WEBSERVICE_ATTACHMENT_HANDLER_CALL_PATTERN = "webServiceAttachmentHandlerCallPattern";
 
 }
