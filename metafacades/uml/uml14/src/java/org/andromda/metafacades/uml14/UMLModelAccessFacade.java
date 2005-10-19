@@ -159,7 +159,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#getMetafacades()
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getModelElements()
      */
     public Collection getModelElements()
     {
