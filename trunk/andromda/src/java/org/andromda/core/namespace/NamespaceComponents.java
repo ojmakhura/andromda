@@ -177,7 +177,7 @@ public class NamespaceComponents
      * @param paths the relative paths to check.
      * @return the resource found or null if invalid.
      */
-    private final URL getRelativeResource(
+    private URL getRelativeResource(
         final URL resource,
         final String[] paths)
     {
@@ -277,7 +277,7 @@ public class NamespaceComponents
      * @param name the name of the component to retrieve.
      * @return the component instance or null.
      */
-    private final Component getComponent(final String name)
+    private Component getComponent(final String name)
     {
         return (Component)this.components.get(name);
     }
