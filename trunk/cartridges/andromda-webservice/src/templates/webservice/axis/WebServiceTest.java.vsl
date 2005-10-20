@@ -50,15 +50,16 @@ public abstract class $service.testName
         junit.textui.TestRunner.main(new String[] {${service.testImplementationName}.class.getName()});
     }
 
+#set ($fullyQualifiedTestServiceStub = "${service.testPackageName}.${service.name}SoapBindingStub")
     /**
      * The service under test.
      */
-    private ${service.testPackageName}.${service.name} service = null;
+    private $fullyQualifiedTestServiceStub service = null;
 
     /**
      * Returns the service under test {@link ${service.testPackageName}.${service.name}}
      */
-    protected ${service.testPackageName}.${service.name} getService()
+    protected $fullyQualifiedTestServiceStub getService()
         throws Exception
     {
         if (this.username != null || this.password != null)

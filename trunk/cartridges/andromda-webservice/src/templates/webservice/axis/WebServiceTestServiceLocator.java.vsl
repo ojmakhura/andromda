@@ -39,18 +39,17 @@ public class $testServiceLocatorName
 #foreach ($service in $services)
 #set ($serviceGetterName = "get${service.name}")
 #set ($fullyQualifiedTestService = "${service.testPackageName}.${service.name}")
+#set ($serviceLocatorClass = "${service.testPackageName}.${service.name}ServiceLocator")
+#set ($fullyQualifiedTestServiceStub = "${service.testPackageName}.${service.name}SoapBindingStub")
     /**
      * Gets an instance of {@link ${fullyQualifiedTestService}}, using the
      * given <code>username</code> and <code>password</code> to log in.
      */
-    public final $fullyQualifiedTestService $serviceGetterName(String username, String password)
+    public final $fullyQualifiedTestServiceStub $serviceGetterName(String username, String password)
         throws Exception
     {
-#set ($serviceLocatorClass = "${service.testPackageName}.${service.name}ServiceLocator")
-#set ($serviceLocatorStubClass = "${service.testPackageName}.${service.name}SoapBindingStub")
         $serviceLocatorClass locator = new $serviceLocatorClass();
-        $fullyQualifiedTestService service = locator.${serviceGetterName}();
-        $serviceLocatorStubClass stub = ($serviceLocatorStubClass)service;
+        $fullyQualifiedTestServiceStub stub = ($fullyQualifiedTestServiceStub)locator.${serviceGetterName}();
         if (username != null)
         {
             stub.setUsername(username);
@@ -59,13 +58,13 @@ public class $testServiceLocatorName
         {
             stub.setPassword(password);
         }
-        return service;
+        return stub;
     }
 
     /**
      * Gets an instance of {@link ${service.fullyQualifiedName}}
      */
-    public final $fullyQualifiedTestService $serviceGetterName()
+    public final $fullyQualifiedTestServiceStub $serviceGetterName()
         throws Exception
     {
         return $serviceGetterName(null, null);
