@@ -27,7 +27,7 @@ public class AxisAttachmentHandler
         if (contents != null)
         {
             // the message context stores all the request/response specific stuff
-            final org.apache.axis.MessageContext messageContext = getCurrentMesageContext();;
+            final org.apache.axis.MessageContext messageContext = getCurrentMessageContext();;
             final org.apache.axis.Message response = messageContext.getResponseMessage();
 
             // create an attachment and set its mime type
@@ -76,7 +76,7 @@ public class AxisAttachmentHandler
     public static javax.xml.soap.AttachmentPart[] getAttachments()
         throws org.apache.axis.AxisFault
     {
-        final org.apache.axis.MessageContext messageContext = getCurrentMesageContext();
+        final org.apache.axis.MessageContext messageContext = getCurrentMessageContext();
         final org.apache.axis.Message requestMessage = messageContext.getRequestMessage();
         org.apache.axis.attachments.Attachments attachments = requestMessage.getAttachmentsImpl();
         if (attachments == null)
@@ -98,9 +98,9 @@ public class AxisAttachmentHandler
      * Attempts to retrieve the current message context and throws an exception if it 
      * could not be retrieved.
      * 
-     * @return the current mesage context.
+     * @return the current message context.
      */
-    private static org.apache.axis.MessageContext getCurrentMesageContext()
+    private static org.apache.axis.MessageContext getCurrentMessageContext()
     {
         final org.apache.axis.MessageContext messageContext = org.apache.axis.MessageContext.getCurrentContext();
         if (messageContext == null)
