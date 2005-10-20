@@ -220,7 +220,7 @@ public class ClassUtils
 
     /**
      * Retrieves all interfaces for the given <code>className</code> (including the interface for <code>className</code>
-     * itself, assuming it's an interface itself).
+     * itself, assuming it's an interface as well).
      *
      * @param className the root interface className
      * @return a list containing all interfaces ordered from the root down.
