@@ -399,6 +399,7 @@ public final class Introspector
         {
             propertyDescriptor = (PropertyDescriptor)classPropertyDescriptors.get(name);
         }
+        ;
         if (propertyDescriptor == null)
         {
             try
@@ -409,7 +410,11 @@ public final class Introspector
                 for (int ctr = 0; ctr < descriptorNumber; ctr++)
                 {
                     final PropertyDescriptor descriptor = descriptors[ctr];
-                    if (descriptor.getName().equals(name))
+
+                    // - handle names that start with a lowercased letter and have an uppercase as the second letter
+                    final String compareName =
+                        name.matches("\\p{Lower}\\p{Upper}.*") ? StringUtils.capitalize(name) : name;
+                    if (descriptor.getName().equals(compareName))
                     {
                         propertyDescriptor = descriptor;
                         break;
