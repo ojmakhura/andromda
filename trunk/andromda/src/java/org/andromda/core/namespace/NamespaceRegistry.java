@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * Represents a namespace registry.  This is where
- * all components within a namespace a registered.
+ * all components within a namespace are registered.
  *
  * @author Chad Brandon
  */
