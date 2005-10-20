@@ -42,6 +42,8 @@ public class IntrospectorTest
         assertEquals(testBean.getNestedBean().getNestedNestedBean().getIntProperty(), 5);
         Introspector.instance().setProperty(testBean, "nestedBean.nestedNestedBean.intProperty", "10");
         assertEquals(testBean.getNestedBean().getNestedNestedBean().getIntProperty(), 10);
+        Introspector.instance().setProperty(testBean, "aPropertyName", "SomeValue");
+        assertEquals(testBean.getAPropertyName(), "SomeValue");
         try
         {
             Introspector.instance().getProperty(testBean, "intProperty");
@@ -79,6 +81,7 @@ public class IntrospectorTest
         private long longProperty = 1111111111;
         private byte byteProperty = 01;
         private NestedBean nestedBean = new NestedBean();
+        private String aPropertyName;
         public boolean isBooleanProperty()
         {
             return booleanProperty;
@@ -134,6 +137,14 @@ public class IntrospectorTest
         public NestedBean getNestedBean()
         {
             return nestedBean;
+        }
+        public String getAPropertyName()
+        {
+            return aPropertyName;
+        }
+        public void setAPropertyName(String propertyName)
+        {
+            aPropertyName = propertyName;
         }
     }
     
