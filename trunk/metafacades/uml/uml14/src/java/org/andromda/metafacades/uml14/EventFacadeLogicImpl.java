@@ -22,11 +22,17 @@ public class EventFacadeLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.EventFacade#getParameters()
+     */
     protected Collection handleGetParameters()
     {
         return metaObject.getParameter();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.EventFacade#getTransition()
+     */
     protected Object handleGetTransition()
     {
         Transition eventTransition = null;
@@ -45,6 +51,9 @@ public class EventFacadeLogicImpl
         return eventTransition;
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.EventFacade#getState()
+     */
     protected Object handleGetState()
     {
         State eventState = null;
@@ -62,6 +71,9 @@ public class EventFacadeLogicImpl
         return eventState;
     }
 
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
+     */
     public Object getValidationOwner()
     {
         Object validationOwner = getTransition();
