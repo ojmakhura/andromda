@@ -94,33 +94,6 @@ public class MetafacadeMappings
                 mapping);
         }
     }
-    
-    /*private void addMatchedMapping(final MetafacadeMapping mapping)
-    {
-        // find any mappings that match, if they do we add the properties
-        // from that mapping to the existing matched mapping (so we only
-        // have one mapping containing properties that can be 'OR'ed together).
-        final MetafacadeMapping foundMapping =
-            this.findMapping(
-                new Condition()
-                {
-                    public boolean evaluate(final Object object)
-                    {
-                        return mapping.match((MetafacadeMapping)object);
-                    }
-                });
-        if (foundMapping != null)
-        {
-            foundMapping.addMappingPropertyGroup(mapping.getMappingProperties());
-        }
-        else
-        {
-            this.mappings.add(mapping);
-            mappingsByMetafacadeClass.put(
-                this.getMetafacadeInterface(mapping.getMetafacadeClass()),
-                mapping);
-        }
-    }*/
 
     /**
      * Gets the class of the metafacade interface that belongs to the given <code>metafacadeClass</code>.
