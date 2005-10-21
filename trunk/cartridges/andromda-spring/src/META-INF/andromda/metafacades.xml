@@ -22,29 +22,29 @@
     <property reference="serviceHibernateInterceptorEnabled"/>
     <property reference="ejbViewType"/>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <stereotype>FINDER_METHOD</stereotype>
             <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
             <property name="query"/>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringCriteriaSearchLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>CRITERIA</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
+        <mapping>
             <context>org.andromda.cartridges.spring.metafacades.SpringCriteriaSearch</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>SERVICE</stereotype>
         </mapping>
         <property reference="ejbTransactionsEnabled"/>
@@ -52,7 +52,7 @@
         <property reference="webServiceIncomingAttachmentHandlerCallPattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringManageableEntityLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>ENTITY</stereotype>
             <stereotype>MANAGEABLE</stereotype>
         </mapping>
@@ -63,28 +63,26 @@
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringManageableEntityAssociationEndLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
+        <mapping>
             <context>org.andromda.cartridges.spring.metafacades.SpringManageableEntity</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>ENTITY</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceOperationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <context>org.andromda.cartridges.spring.metafacades.SpringService</context>
         </mapping>
         <property reference="implementationOperationNamePattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringEntityOperationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <context>org.andromda.cartridges.spring.metafacades.SpringEntity</context>
         </mapping>
         <property reference="implementationOperationNamePattern"/>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringDependencyLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Dependency$Impl"/>
-    </metafacade>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringDependencyLogicImpl"/>
 </metafacades>

@@ -4,19 +4,19 @@
 <metafacades>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
+        <mapping>
             <stereotype>BUSINESS_PROCESS</stereotype>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmSwimlaneLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.Partition$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
@@ -28,19 +28,19 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmStateLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.State$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmActionLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmTransitionLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>

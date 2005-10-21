@@ -3,13 +3,13 @@
 <metafacades>
     <property reference="normalizeMessages"/>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFControllerOperationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <property name="ownerIsController"/>
         </mapping>
         <property reference="formPattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFViewLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl">
+        <mapping>
             <property name="frontEndView"/>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
@@ -17,12 +17,12 @@
         <property reference="actionFormKey"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFSessionObjectLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>FRONT_END_SESSION_OBJECT</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFActionLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+        <mapping>
             <property name="exitingInitialState"/>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
@@ -32,7 +32,7 @@
         <property reference="actionFormKey"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFActionLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+        <mapping>
             <property name="exitingView"/>
         </mapping>
         <property reference="formImplementationPattern"/>
@@ -41,29 +41,29 @@
         <property reference="actionFormKey"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFForwardLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+        <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFControllerLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <property name="useCase"/>
         </mapping>
         <property reference="controllerImplementationPattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFUseCaseLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
+        <mapping>
             <stereotype>FRONT_END_APPLICATION</stereotype>
         </mapping>
         <property reference="actionFormKey"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFUseCaseLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
+        <mapping>
             <stereotype>FRONT_END_USE_CASE</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFFinalStateLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.FinalState$Impl">
+        <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
@@ -78,7 +78,7 @@
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFParameterLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Parameter$Impl">
+        <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
         <property reference="defaultDateFormat"/>
@@ -89,19 +89,19 @@
         <property reference="valueListPattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFBackendServiceLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>SERVICE</stereotype>
         </mapping>
         <property reference="serviceAccessorPattern"/>
         <property reference="servicePackageNamePattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFActivityGraphLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActivityGraph$Impl">
+        <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFAttributeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Attribute$Impl"/>
+        <mapping/>
         <property reference="defaultDateFormat"/>
         <property reference="defaultTimeFormat"/>
         <property reference="backingListPattern"/>
@@ -110,7 +110,7 @@
         <property reference="valueListPattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.jsf.metafacades.JSFEnumerationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>ENUMERATION</stereotype>
         </mapping>
         <property reference="converterPattern"/>

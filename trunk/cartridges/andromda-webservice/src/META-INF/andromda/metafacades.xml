@@ -25,44 +25,44 @@
         <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>ENUMERATION</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEndLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
+        <mapping>
             <context>org.andromda.cartridges.webservice.metafacades.WSDLType</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeAttributeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
+        <mapping>
             <context>org.andromda.cartridges.webservice.metafacades.WSDLType</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>WEBSERVICE</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <stereotype>WEBSERVICE_OPERATION</stereotype>
         </mapping>
         <property reference="testImplementationOperationNamePrefix"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <context>org.andromda.cartridges.webservice.metafacades.WebService</context>
         </mapping>
         <property reference="testImplementationOperationNamePrefix"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Parameter$Impl">
+        <mapping>
             <context>org.andromda.cartridges.webservice.metafacades.WebServiceOperation</context>
         </mapping>
     </metafacade>

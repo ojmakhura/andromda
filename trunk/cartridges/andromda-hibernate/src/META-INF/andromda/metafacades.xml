@@ -29,12 +29,12 @@
     <property reference="hibernateQueryUseSpecializedSetters"/>
     <property reference="versionProperty"/>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>ENTITY</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEndLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
+        <mapping>
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
         <property reference="hibernateAssociationEndOuterJoin"/>
@@ -48,61 +48,60 @@
         <property reference="associationEndCollectionIndexType"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl">
+        <mapping>
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
         <property reference="hibernateAssociationCache"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <stereotype>FINDER_METHOD</stereotype>
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
             <property name="query"/>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateService</context>
         </mapping>
         <property reference="serviceOperationTransactionType"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgumentLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Parameter$Impl">
+        <mapping>
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>SERVICE</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateTypeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
         <property reference="hibernateTypeMappingsUri"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEnumerationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>ENUMERATION</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
+        <mapping>
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValueLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>EMBEDDED_VALUE</stereotype>
         </mapping>
         <property reference="embeddedValueImplementationNamePattern"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
+        <mapping>
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValue</context>
         </mapping>
         <property reference="sqlMappingsUri"/>
