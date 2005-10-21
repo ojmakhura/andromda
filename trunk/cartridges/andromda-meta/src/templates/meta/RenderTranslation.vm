@@ -15,7 +15,7 @@
             if (!constraintValid)
                 validationMessages.add(
                     new org.andromda.core.metafacade.ModelValidationMessage(
-                        this.THIS(),
+                        ($fullyQualifiedMetafacadeRoot)contextElement ,
                         "$metaUtils.getFullyQualifiedConstraintName($constraint)",
                         "$escapeUtils.escapeJava($constraintDocumentation)"));
         }

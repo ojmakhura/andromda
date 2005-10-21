@@ -68,6 +68,13 @@
                     if the name has not been specified).
                 </documentation>
             </property>
+            <property name="fullyQualifiedMetafacadeRoot">
+                <default>org.andromda.core.metafacade.MetafacadeBase</default>
+                <documentation>
+                    The fully qualified name of the root metafacade class.  This normally
+                    should not be changed from the default.
+                </documentation>
+            </property>
         </propertyGroup>
     </properties>
 </namespace>
