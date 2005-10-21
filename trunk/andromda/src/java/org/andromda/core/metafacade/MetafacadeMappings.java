@@ -64,8 +64,6 @@ public class MetafacadeMappings
     {
         final String methodName = "MetafacadeMappings.addMapping";
         ExceptionUtils.checkNull(methodName, "mapping", mapping);
-        final String mappingClassName = mapping.getMappingClassName();
-        ExceptionUtils.checkEmpty(methodName, "mapping.mappingClassName", mappingClassName);
         ExceptionUtils.checkNull(
             methodName,
             "mapping.metafacadeClass",
@@ -96,6 +94,33 @@ public class MetafacadeMappings
                 mapping);
         }
     }
+    
+    /*private void addMatchedMapping(final MetafacadeMapping mapping)
+    {
+        // find any mappings that match, if they do we add the properties
+        // from that mapping to the existing matched mapping (so we only
+        // have one mapping containing properties that can be 'OR'ed together).
+        final MetafacadeMapping foundMapping =
+            this.findMapping(
+                new Condition()
+                {
+                    public boolean evaluate(final Object object)
+                    {
+                        return mapping.match((MetafacadeMapping)object);
+                    }
+                });
+        if (foundMapping != null)
+        {
+            foundMapping.addMappingPropertyGroup(mapping.getMappingProperties());
+        }
+        else
+        {
+            this.mappings.add(mapping);
+            mappingsByMetafacadeClass.put(
+                this.getMetafacadeInterface(mapping.getMetafacadeClass()),
+                mapping);
+        }
+    }*/
 
     /**
      * Gets the class of the metafacade interface that belongs to the given <code>metafacadeClass</code>.
@@ -742,7 +767,7 @@ public class MetafacadeMappings
     public void initialize()
     {
         MetafacadeImpls.instance().discoverMetafacadeImpls();
-        this.initializeMetafacades();
+        this.initializeMappings();
     }
 
     /**
@@ -836,11 +861,24 @@ public class MetafacadeMappings
     /**
      * Initializes all the metafacade mapping instances.
      */
-    private final void initializeMetafacades()
+    private final void initializeMappings()
     {
+        final Collection metafacades = ComponentContainer.instance().findComponentsOfType(MetafacadeMappings.class);
+        // - we need to load up the allMetafacadeMappingInstances before we do anything else
+        for (final Iterator iterator = metafacades.iterator(); iterator.hasNext();)
+        {
+            final MetafacadeMappings mappings = (MetafacadeMappings)iterator.next();
+            for (final Iterator mappingIterator = mappings.getMappings().iterator(); mappingIterator.hasNext();)
+            {
+                final MetafacadeMapping mapping = (MetafacadeMapping)mappingIterator.next();
+                if (mapping.isMappingClassNamePresent())
+                {
+                    allMetafacadeMappingInstances.put(mapping.getMetafacadeClass(), mapping.getMappingClassName());
+                }
+            }
+        }
         try
         {
-            final Collection metafacades = ComponentContainer.instance().findComponentsOfType(MetafacadeMappings.class);
             final Namespaces namespaces = Namespaces.instance();
             for (final Iterator iterator = metafacades.iterator(); iterator.hasNext();)
             {
@@ -884,6 +922,16 @@ public class MetafacadeMappings
                 "At least one set of metafacades marked as shared " +
                 "must have the 'metaclassPattern' attribute defined");
         }
+    }
+    
+    /**
+     * Stores all metafacade mapping instances
+     */
+    private static Map allMetafacadeMappingInstances = new HashMap();
+    
+    static Map getAllMetafacadeMappingInstances()
+    {
+        return allMetafacadeMappingInstances;
     }
 
     /**

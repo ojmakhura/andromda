@@ -58,7 +58,7 @@
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
-            <xs:attribute name="class" type="xs:string" use="required">
+            <xs:attribute name="class" type="xs:string" use="optional">
                 <xs:annotation>
                     <xs:documentation>
                         Defines the class to which this mapping shall apply (can be a
