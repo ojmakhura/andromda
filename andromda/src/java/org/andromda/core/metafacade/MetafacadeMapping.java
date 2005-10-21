@@ -67,7 +67,23 @@ public class MetafacadeMapping
      */
     protected String getMappingClassName()
     {
+        // - if we have a mappingClassName defined, we use it
+        if (this.mappingClassName == null || this.mappingClassName.trim().length() == 0)
+        {
+            // - attempt to get the inherited mapping since it doesn't exist on this class
+            this.mappingClassName = MetafacadeUtils.getInheritedMappingClassName(this);
+        }
         return this.mappingClassName;
+    }
+    
+    /**
+     * Indicates whether or not the mapping class has been present.
+     * 
+     * @return whether or not the mapping class is present in this mapping.
+     */
+    final boolean isMappingClassNamePresent()
+    {
+        return this.mappingClassName != null && this.mappingClassName.trim().length() > 0;
     }
 
     /**
@@ -330,10 +346,15 @@ public class MetafacadeMapping
      */
     final boolean match(final MetafacadeMapping mapping)
     {
-        return mapping != null && this.getMetafacadeClass().equals(mapping.getMetafacadeClass()) &&
+        boolean match = mapping != null && this.getMetafacadeClass().equals(mapping.getMetafacadeClass()) &&
         this.getStereotypes().equals(mapping.getStereotypes()) &&
-        this.getMappingClassName().equals(mapping.getMappingClassName()) &&
         this.getContext().equals(mapping.getContext());
+        // - if they match and the mappingClassNames both non-null, verify they match
+        if (match && this.mappingClassName != null && mapping.mappingClassName != null)
+        {
+            match = this.getMappingClassName().equals(mapping.getMappingClassName());
+        }
+        return match;
     }
 
     /**

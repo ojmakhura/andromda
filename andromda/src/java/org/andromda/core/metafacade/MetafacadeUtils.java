@@ -4,7 +4,9 @@ import java.lang.reflect.Constructor;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
 
+import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.Introspector;
 import org.apache.log4j.Logger;
 
@@ -82,7 +84,8 @@ final class MetafacadeUtils
                 {
                     getLogger().debug(
                         "An error occured while " + "evaluating properties on metafacade '" + metafacade +
-                        "', setting valid to 'false'", throwable);
+                        "', setting valid to 'false'",
+                        throwable);
                 }
                 valid = false;
             }
@@ -119,6 +122,34 @@ final class MetafacadeUtils
         }
         final Constructor constructor = metafacadeClass.getDeclaredConstructors()[0];
         return (MetafacadeBase)constructor.newInstance(new Object[] {mappingObject, context});
+    }
+
+    /**
+     * Retrieves the inherited mapping class name for the given <code>mapping</code> by traveling 
+     * up the inheritance hiearchy to find the first one that has the mapping class name declared.
+     *
+     * @param mapping the {@link MetafacadeMapping} instance for which we'll retrieve it's mapping class.
+     * @return the name of the mapping class.
+     */
+    public static String getInheritedMappingClassName(final MetafacadeMapping mapping)
+    {
+        final Class metafacadeClass = mapping.getMetafacadeClass();
+        final Collection interfaces = ClassUtils.getAllInterfaces(metafacadeClass);
+        final MetafacadeImpls metafacadeImpls = MetafacadeImpls.instance();
+        final Map mappingInstances = MetafacadeMappings.getAllMetafacadeMappingInstances();
+        String className = null;
+        for (final Iterator iterator = interfaces.iterator(); iterator.hasNext() && className == null;)
+        {
+            final String metafacadeInterface = ((Class)iterator.next()).getName();
+            final Class metafacadeImplClass = metafacadeImpls.getMetafacadeImplClass(metafacadeInterface);
+            className = (String)mappingInstances.get(metafacadeImplClass);
+        }
+        if (className == null)
+        {
+            throw new MetafacadeMappingsException("No mapping class could be found for '" + metafacadeClass.getName() +
+                "'");
+        }
+        return className;
     }
 
     /**
