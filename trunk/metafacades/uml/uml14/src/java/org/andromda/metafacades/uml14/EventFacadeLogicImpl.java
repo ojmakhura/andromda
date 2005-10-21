@@ -76,13 +76,11 @@ public class EventFacadeLogicImpl
      */
     public Object getValidationOwner()
     {
-        Object validationOwner = getTransition();
-
+        Object validationOwner = this.getTransition();
         if (validationOwner == null)
         {
-            validationOwner = getState();
+            validationOwner = this.getState();
         }
-
         return validationOwner;
     }
 }
