@@ -8,7 +8,7 @@
     <property reference="disableValidationForHiddenFormFields"/>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsBackendServiceLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>SERVICE</stereotype>
         </mapping>
         <property reference="serviceAccessorPattern"/>
@@ -16,37 +16,37 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
+        <mapping>
             <stereotype>FRONT_END_APPLICATION</stereotype>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
+        <mapping>
             <stereotype>FRONT_END_USE_CASE</stereotype>
         </mapping>
     </metafacade>
     
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <property name="useCase"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <property name="ownerIsController"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsSessionObjectLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>FRONT_END_SESSION_OBJECT</stereotype>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Parameter$Impl">
+        <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
         <property reference="generateTableDecorators"/>
@@ -59,7 +59,6 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsAttributeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Attribute$Impl"/>
         <property reference="defaultDateFormat"/>
         <property reference="defaultTimeFormat"/>
         <property reference="defaultInputColumnCount"/>
@@ -67,39 +66,39 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraphLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActivityGraph$Impl">
+        <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl">
+        <mapping>
             <property name="frontEndView"/>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionStateLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl">
+        <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalStateLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.FinalState$Impl">
+        <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandlerLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+        <mapping>
             <property name="frontEndException"/>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+        <mapping>
             <property name="exitingInitialState"/>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
@@ -107,20 +106,20 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+        <mapping>
             <property name="exitingPage"/>
         </mapping>
         <property reference="actionFormScope"/>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsForwardLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+        <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostateLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl">
+        <mapping>
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
@@ -139,7 +138,7 @@
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityLogicImpl"
                 contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>ENTITY</stereotype>
             <stereotype>MANAGEABLE</stereotype>
         </mapping>
@@ -147,7 +146,7 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAttributeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
+        <mapping>
             <context>org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity</context>
         </mapping>
         <property reference="defaultDateFormat"/>
@@ -157,7 +156,7 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEndLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
+        <mapping>
             <context>org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity</context>
         </mapping>
     </metafacade>

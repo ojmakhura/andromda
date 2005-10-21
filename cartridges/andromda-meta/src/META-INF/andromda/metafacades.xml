@@ -4,28 +4,28 @@
 <metafacades>
     <property reference="implementationOperationNamePattern"/>
     <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeLogicImpl" contextRoot="true">
-        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+        <mapping>
             <stereotype>METAFACADE</stereotype>
         </mapping>
         <property reference="metamodelVersionPackage"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeOperationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <context>org.andromda.cartridges.meta.metafacades.Metafacade</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeAssociationEndLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
+        <mapping>
             <context>org.andromda.cartridges.meta.metafacades.Metafacade</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeAttributeLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Attribute$Impl">
+        <mapping>
             <context>org.andromda.cartridges.meta.metafacades.Metafacade</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeGeneralizationLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Generalization$Impl">
+        <mapping>
             <context>org.andromda.cartridges.meta.metafacades.Metafacade</context>
         </mapping>
         <property reference="generalizationNamePattern"/>
