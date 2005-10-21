@@ -389,17 +389,22 @@ public class MetafacadeBase
         }
         return this.metafacadePropertyCachingEnabled.booleanValue();
     }
+    
+    /**
+     * The instance of this class as the appropriate metafacade instance.
+     */
+    private MetafacadeBase THIS = null;
 
     /**
-     * The metafacade instace of <code>this</code>.  This should be used when
+     * The metafacade instance of <code>this</code>.  This should be used when
      * you'd need to check if <code>this</code> was an instance of a given metafacade.
      * For example: <code>THIS() instanceof SomeMetafacade</code>.
      *
      * This <strong>MUST</strong> be used instead of <em>this<em> in order to access the correct
-     * metafacade instance in the hiearchy (since we use delegate inheritance).
+     * metafacade instance in the hierarchy (since we use delegate inheritance).
      */
     protected final MetafacadeBase THIS()
     {
-        return this.shieldedElement(this.metaObject);
+        return this.THIS == null ? this.THIS = this.shieldedElement(this.metaObject) : this.THIS;
     }
 }

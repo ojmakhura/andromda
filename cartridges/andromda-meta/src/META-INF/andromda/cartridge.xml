@@ -9,6 +9,8 @@
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
     <templateObject name="metaUtils" className="org.andromda.cartridges.meta.MetaCartridgeUtils"/>
+    
+    <property reference="fullyQualifiedMetafacadeRoot"/>
 
     <!-- the template definitions -->
     <template

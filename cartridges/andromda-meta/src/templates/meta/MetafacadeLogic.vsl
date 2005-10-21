@@ -27,7 +27,7 @@ public abstract class $metafacade.logicName
 #if ($superMetafacade && !$metafacade.requiresInheritanceDelegatation)
     extends $superMetafacade.fullyQualifiedLogicImplName
 #else
-    extends org.andromda.core.metafacade.MetafacadeBase
+    extends $fullyQualifiedMetafacadeRoot
 #end
     implements $metafacade.fullyQualifiedName
 {
