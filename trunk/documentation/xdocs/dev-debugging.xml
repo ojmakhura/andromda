@@ -23,7 +23,7 @@
                         <li>Create a file <a href="resources/log4j.txt">log4j.xml</a></li>
                         <li>Add the <em>loggingConfigurationUri</em> property to your <a href="configuration.html">AndroMDA configuration</a>.
                             For example:
-                            <source><![CDATA[<loggingConfigurationUri>file:/some_location/log4j.xml</loggingConfigurationUri>]]></source>.
+                            <source><![CDATA[<property name="loggingConfigurationUri">file:/some_location/log4j.xml</property>]]></source>.
                         </li>
                         <li>
                             Modify as required. For more information consult the 
