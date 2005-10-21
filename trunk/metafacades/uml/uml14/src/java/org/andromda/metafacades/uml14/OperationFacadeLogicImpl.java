@@ -46,7 +46,6 @@ public class OperationFacadeLogicImpl
         return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
-
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
      */
