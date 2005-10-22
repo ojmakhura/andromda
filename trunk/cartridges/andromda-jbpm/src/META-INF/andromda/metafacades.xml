@@ -52,16 +52,9 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmHandlerLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
             <property name="actionHandler"/>
-        </mapping>
-    </metafacade>
-
-    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmHandlerLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
-            <property name="containedInBusinessProcess"/>
-            <property name="assignmentHandler"/>
         </mapping>
     </metafacade>
 
