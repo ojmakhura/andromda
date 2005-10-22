@@ -225,7 +225,7 @@ public class MetafacadeMappings
     }
 
     /**
-     * The cache containing the hierachies for each mapping object so that
+     * The cache containing the hierarchies for each mapping object so that
      * we don't need to retrieve more than once.
      */
     private final Map mappingObjectHierachyCache = new HashMap();
@@ -246,26 +246,22 @@ public class MetafacadeMappings
             final String pattern = this.getMetaclassPattern();
             if (StringUtils.isNotBlank(pattern))
             {
-                hierarchy = new ArrayList();
-                hierarchy.addAll(ClassUtils.getAllInterfaces(mappingObject.getClass()));
-                if (hierarchy != null)
+                hierarchy = new ArrayList(ClassUtils.getAllInterfaces(mappingObject.getClass()));
+                for (final ListIterator iterator = hierarchy.listIterator(); iterator.hasNext();)
                 {
-                    for (final ListIterator iterator = hierarchy.listIterator(); iterator.hasNext();)
-                    {
-                        final Class metafacadeInterface = (Class)iterator.next();
-                        final String packageName = ClassUtils.getPackageName(metafacadeInterface);
-                        final String name = ClassUtils.getShortClassName(metafacadeInterface);
+                    final Class metafacadeInterface = (Class)iterator.next();
+                    final String packageName = ClassUtils.getPackageName(metafacadeInterface);
+                    final String name = ClassUtils.getShortClassName(metafacadeInterface);
 
-                        // - replace references {0} with the package name and references of {1} with
-                        //   the name of the class
-                        final String metafacadeImplementationName =
-                            pattern != null ? pattern.replaceAll(
-                                "\\{0\\}",
-                                packageName).replaceAll(
-                                "\\{1\\}",
-                                name) : metafacadeInterface.getName();
-                        iterator.set(metafacadeImplementationName);
-                    }
+                    // - replace references {0} with the package name and references of {1} with
+                    //   the name of the class
+                    final String metafacadeImplementationName =
+                        pattern != null ? pattern.replaceAll(
+                            "\\{0\\}",
+                            packageName).replaceAll(
+                            "\\{1\\}",
+                            name) : metafacadeInterface.getName();
+                    iterator.set(metafacadeImplementationName);
                 }
                 this.mappingObjectHierachyCache.put(
                     mappingObject,
