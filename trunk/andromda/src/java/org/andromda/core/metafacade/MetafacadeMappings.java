@@ -63,7 +63,10 @@ public class MetafacadeMappings
     public void addMapping(final MetafacadeMapping mapping)
     {
         final String methodName = "MetafacadeMappings.addMapping";
-        ExceptionUtils.checkNull(methodName, "mapping", mapping);
+        ExceptionUtils.checkNull(
+            methodName,
+            "mapping",
+            mapping);
         ExceptionUtils.checkNull(
             methodName,
             "mapping.metafacadeClass",
@@ -128,7 +131,10 @@ public class MetafacadeMappings
     private final void copyMappings(final MetafacadeMappings mappings)
     {
         final String methodName = "MetafacadeMappings.copyMappings";
-        ExceptionUtils.checkNull(methodName, "mappings", mappings);
+        ExceptionUtils.checkNull(
+            methodName,
+            "mappings",
+            mappings);
 
         // the namespace is always the default namespace
         this.setNamespace(Namespaces.DEFAULT);
@@ -195,7 +201,11 @@ public class MetafacadeMappings
         final String context,
         final Collection stereotypes)
     {
-        MetafacadeMapping mapping = this.getMapping(null, mappingObject, context, stereotypes);
+        MetafacadeMapping mapping = this.getMapping(
+                null,
+                mappingObject,
+                context,
+                stereotypes);
         if (mapping == null)
         {
             final Collection hierarchy = this.getMappingObjectHierarchy(mappingObject);
@@ -203,7 +213,11 @@ public class MetafacadeMappings
             {
                 for (final Iterator iterator = hierarchy.iterator(); iterator.hasNext() && mapping == null;)
                 {
-                    mapping = this.getMapping((String)iterator.next(), mappingObject, context, stereotypes);
+                    mapping = this.getMapping(
+                            (String)iterator.next(),
+                            mappingObject,
+                            context,
+                            stereotypes);
                 }
             }
         }
@@ -238,11 +252,24 @@ public class MetafacadeMappings
                 {
                     for (final ListIterator iterator = hierarchy.listIterator(); iterator.hasNext();)
                     {
-                        final String name = ((Class)iterator.next()).getName();
-                        iterator.set(pattern != null ? pattern.replaceAll("\\{0\\}", name) : name);
+                        final Class metafacadeInterface = (Class)iterator.next();
+                        final String packageName = ClassUtils.getPackageName(metafacadeInterface);
+                        final String name = ClassUtils.getShortClassName(metafacadeInterface);
+
+                        // - replace references {0} with the package name and references of {1} with
+                        //   the name of the class
+                        final String metafacadeImplementationName =
+                            pattern != null ? pattern.replaceAll(
+                                "\\{0\\}",
+                                packageName).replaceAll(
+                                "\\{1\\}",
+                                name) : metafacadeInterface.getName();
+                        iterator.set(metafacadeImplementationName);
                     }
                 }
-                this.mappingObjectHierachyCache.put(mappingObject, hierarchy);
+                this.mappingObjectHierachyCache.put(
+                    mappingObject,
+                    hierarchy);
             }
         }
         return hierarchy;
@@ -257,7 +284,7 @@ public class MetafacadeMappings
      * {@link #getMapping(Object, String, Collection)}when finding mappings
      * that are mapped to super metafacade properties.
      * </p>
-     * <p> 
+     * <p>
      * Note: visibility is defined as <code>protected</code> in order to
      * improve inner class access performance.
      * </p>
@@ -273,7 +300,7 @@ public class MetafacadeMappings
      * stack over flow errors {@link #getMapping(Object, String, Collection)}when
      * finding metafacades that are mapped to super metafacade properties.
      * </p>
-     * <p> 
+     * <p>
      * Note: visibility is defined as <code>protected</code> in order to
      * improve inner class access performance.
      * </p>
@@ -296,7 +323,7 @@ public class MetafacadeMappings
      * <li>multiple stereotypes with a context</li>
      * </ul>
      * </p>
-     * <p> 
+     * <p>
      * NOTE: mapping properties are inherited from super metafacades.
      * </p>
      *
@@ -380,12 +407,16 @@ public class MetafacadeMappings
                                     {
                                         inProcessMappings.add(mapping);
                                         final MetafacadeBase metafacade =
-                                            MetafacadeFactory.getInstance().createMetafacade(mappingObject, mapping);
+                                            MetafacadeFactory.getInstance().createMetafacade(
+                                                mappingObject,
+                                                mapping);
                                         inProcessMetafacades.add(metafacade);
 
                                         // reset the "in process" mappings
                                         inProcessMappings.clear();
-                                        valid = MetafacadeUtils.propertiesValid(metafacade, mapping);
+                                        valid = MetafacadeUtils.propertiesValid(
+                                                metafacade,
+                                                mapping);
                                     }
                                 }
                                 return valid;
@@ -452,12 +483,16 @@ public class MetafacadeMappings
                                 {
                                     inProcessMappings.add(mapping);
                                     final MetafacadeBase metafacade =
-                                        MetafacadeFactory.getInstance().createMetafacade(mappingObject, mapping);
+                                        MetafacadeFactory.getInstance().createMetafacade(
+                                            mappingObject,
+                                            mapping);
                                     inProcessMetafacades.add(metafacade);
 
                                     // reset the "in process" mappings
                                     inProcessMappings.clear();
-                                    valid = MetafacadeUtils.propertiesValid(metafacade, mapping);
+                                    valid = MetafacadeUtils.propertiesValid(
+                                            metafacade,
+                                            mapping);
                                 }
                                 return valid;
                             }
@@ -484,7 +519,11 @@ public class MetafacadeMappings
         // - if it's still null, try with the parent
         if (mapping == null && this.parent != null)
         {
-            mapping = this.parent.getMapping(metaclassName, mappingObject, context, stereotypes);
+            mapping = this.parent.getMapping(
+                    metaclassName,
+                    mappingObject,
+                    context,
+                    stereotypes);
         }
 
         // - reset the "in process" metafacades
@@ -579,7 +618,9 @@ public class MetafacadeMappings
                     iterator.set(((Class)iterator.next()).getName());
                 }
             }
-            this.contextHierachyCache.put(context, contexts);
+            this.contextHierachyCache.put(
+                context,
+                contexts);
         }
         return contexts;
     }
@@ -601,7 +642,9 @@ public class MetafacadeMappings
         if (interfaces == null)
         {
             interfaces = ClassUtils.getInterfacesReversed(className);
-            this.reversedInterfaceArrayCache.put(className, interfaces);
+            this.reversedInterfaceArrayCache.put(
+                className,
+                interfaces);
         }
         return interfaces;
     }
@@ -653,7 +696,10 @@ public class MetafacadeMappings
         // first try the namespace mappings
         if (mappings != null)
         {
-            mapping = mappings.getMapping(mappingObject, context, stereotypes);
+            mapping = mappings.getMapping(
+                    mappingObject,
+                    context,
+                    stereotypes);
         }
 
         // if we've found a namespace mapping, try to get any shared mappings
@@ -662,7 +708,10 @@ public class MetafacadeMappings
         if (mapping != null)
         {
             final Collection propertyReferences = mapping.getPropertyReferences();
-            final MetafacadeMapping defaultMapping = this.getMapping(mappingObject, context, stereotypes);
+            final MetafacadeMapping defaultMapping = this.getMapping(
+                    mappingObject,
+                    context,
+                    stereotypes);
             if (defaultMapping != null)
             {
                 Collection defaultPropertyReferences = defaultMapping.getPropertyReferences();
@@ -690,7 +739,10 @@ public class MetafacadeMappings
             {
                 this.getLogger().debug("namespace mapping not found --> finding default");
             }
-            mapping = this.getMapping(mappingObject, context, stereotypes);
+            mapping = this.getMapping(
+                    mappingObject,
+                    context,
+                    stereotypes);
         }
 
         if (this.getLogger().isDebugEnabled())
@@ -729,7 +781,9 @@ public class MetafacadeMappings
         if (mappings != null)
         {
             mappings.parent = this;
-            this.namespaceMetafacadeMappings.put(namespace, mappings);
+            this.namespaceMetafacadeMappings.put(
+                namespace,
+                mappings);
         }
     }
 
@@ -837,6 +891,7 @@ public class MetafacadeMappings
     private final void initializeMappings()
     {
         final Collection metafacades = ComponentContainer.instance().findComponentsOfType(MetafacadeMappings.class);
+
         // - we need to load up the allMetafacadeMappingInstances before we do anything else
         for (final Iterator iterator = metafacades.iterator(); iterator.hasNext();)
         {
@@ -846,7 +901,9 @@ public class MetafacadeMappings
                 final MetafacadeMapping mapping = (MetafacadeMapping)mappingIterator.next();
                 if (mapping.isMappingClassNamePresent())
                 {
-                    allMetafacadeMappingInstances.put(mapping.getMetafacadeClass(), mapping.getMappingClassName());
+                    allMetafacadeMappingInstances.put(
+                        mapping.getMetafacadeClass(),
+                        mapping.getMappingClassName());
                 }
             }
         }
@@ -875,7 +932,9 @@ public class MetafacadeMappings
                 else
                 {
                     // add all others as namespace mappings
-                    this.addNamespaceMappings(namespace, mappings);
+                    this.addNamespaceMappings(
+                        namespace,
+                        mappings);
                 }
             }
         }
@@ -885,23 +944,21 @@ public class MetafacadeMappings
         }
         if (this.getNamespace() == null || this.getNamespace().trim().length() == 0)
         {
-            throw new MetafacadeMappingsException(
-                "No shared metafacades found, please check your classpath, at least " +
+            throw new MetafacadeMappingsException("No shared metafacades found, please check your classpath, at least " +
                 "one set of metafacades must be marked as 'shared'");
         }
         if (this.metaclassPattern == null || this.metaclassPattern.trim().length() == 0)
         {
-            throw new MetafacadeMappingsException(
-                "At least one set of metafacades marked as shared " +
+            throw new MetafacadeMappingsException("At least one set of metafacades marked as shared " +
                 "must have the 'metaclassPattern' attribute defined");
         }
     }
-    
+
     /**
      * Stores all metafacade mapping instances
      */
     private static Map allMetafacadeMappingInstances = new HashMap();
-    
+
     static Map getAllMetafacadeMappingInstances()
     {
         return allMetafacadeMappingInstances;
@@ -945,11 +1002,11 @@ public class MetafacadeMappings
             throw new MetafacadeMappingsException(throwable);
         }
     }
-    
+
     /**
      * Retrieves all child {@link MetafacadeMapping} instances belonging to this
      * metafacade mappings instance.
-     * 
+     *
      * @return the collection of {@link MetafacadeMapping} instances
      */
     protected Collection getMappings()
@@ -973,7 +1030,9 @@ public class MetafacadeMappings
         for (final Iterator iterator = propertyReferences.iterator(); iterator.hasNext();)
         {
             final String reference = (String)iterator.next();
-            final String value = Namespaces.instance().getPropertyValue(namespace, reference);
+            final String value = Namespaces.instance().getPropertyValue(
+                    namespace,
+                    reference);
             if (value != null)
             {
                 if (this.getLogger().isDebugEnabled())
@@ -983,7 +1042,11 @@ public class MetafacadeMappings
                         namespace + "' on metafacade '" + metafacadeName + "'");
                 }
             }
-            factory.registerProperty(namespace, metafacadeName, reference, value);
+            factory.registerProperty(
+                namespace,
+                metafacadeName,
+                reference,
+                value);
         }
     }
 

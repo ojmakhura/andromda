@@ -82,10 +82,10 @@
             <xs:attribute name="metaclassPattern" type="xs:string" use="optional">
                 <xs:annotation>
                     <xs:documentation>
-                        Specifies the pattern of the classes based on the metaclass interface names,
-                        for example '{0}Impl' might be the value, where '{0}' represents the metaclass
-                        interface name.  At least one set of registered metafacades must have this
-                        attribute defined.
+                        Specifies the pattern of the metaclass implementation classes based on the name of the metaclass 
+                        interface, for example <em>{0}.{1}Impl</em> might be the value, where <em>{0}</em> represents 
+                        the metaclass interface package and <em>{1}</em> the name of the metafacade.  At least 
+                        one set of registered metafacades must have this attribute defined.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
