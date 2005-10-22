@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!-- contains the default metafacade mappings -->
-<metafacades metaclassPattern="{0}$Impl">
+<metafacades metaclassPattern="{0}.{1}$Impl">
     <default class="org.andromda.metafacades.uml14.ModelElementFacadeLogicImpl"/>
     <property reference="languageMappingsUri"/>
     <property reference="wrapperMappingsUri"/>
