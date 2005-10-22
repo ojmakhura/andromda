@@ -4,19 +4,19 @@
 <metafacades>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogicImpl">
-        <mapping>
+        <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
             <stereotype>BUSINESS_PROCESS</stereotype>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmSwimlaneLogicImpl">
-        <mapping>
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.Partition$Impl">
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogicImpl">
-        <mapping>
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl">
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
@@ -28,19 +28,19 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmStateLogicImpl">
-        <mapping>
+        <mapping class="org.omg.uml.behavioralelements.statemachines.State$Impl">
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmActionLogicImpl">
-        <mapping>
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmTransitionLogicImpl">
-        <mapping>
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
@@ -52,7 +52,7 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmHandlerLogicImpl">
-        <mapping>
+        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
             <property name="containedInBusinessProcess"/>
             <property name="actionHandler"/>
         </mapping>
