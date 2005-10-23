@@ -231,6 +231,16 @@ public class MetafacadeMappings
     private final Map mappingObjectHierachyCache = new HashMap();
 
     /**
+     * The pattern used for substituting the package name.
+     */
+    private static final String METAFACADE_PACKAGE_REPLACE_PATTERN = "\\{0\\}";
+
+    /**
+     * The pattern used for substituting the metafacade name.
+     */
+    private static final String METAFACADE_NAME_REPLACE_PATTERN = "\\{1\\}";
+
+    /**
      * Retrieves the hiearchy of class names of the given <code>mappingObject</code>.
      *
      * @param mappingObject the object from which to retrieve the hierarchy.
@@ -256,10 +266,11 @@ public class MetafacadeMappings
                     // - replace references {0} with the package name and references of {1} with
                     //   the name of the class
                     final String metafacadeImplementationName =
-                        pattern != null ? pattern.replaceAll(
-                            "\\{0\\}",
+                        pattern != null
+                        ? pattern.replaceAll(
+                            METAFACADE_PACKAGE_REPLACE_PATTERN,
                             packageName).replaceAll(
-                            "\\{1\\}",
+                            METAFACADE_NAME_REPLACE_PATTERN,
                             name) : metafacadeInterface.getName();
                     iterator.set(metafacadeImplementationName);
                 }
