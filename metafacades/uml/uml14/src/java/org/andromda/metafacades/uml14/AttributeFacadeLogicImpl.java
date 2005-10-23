@@ -231,7 +231,7 @@ public class AttributeFacadeLogicImpl
      */
     protected Object handleGetEnumeration()
     {
-        return this.isEnumerationLiteral() ? getOwner() : null;
+        return this.isEnumerationLiteral() ? this.getOwner() : null;
     }
 
     /**
