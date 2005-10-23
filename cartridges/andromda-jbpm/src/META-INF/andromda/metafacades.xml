@@ -4,13 +4,13 @@
 <metafacades>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.usecases.UseCase$Impl">
+        <mapping>
             <stereotype>BUSINESS_PROCESS</stereotype>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmSwimlaneLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.Partition$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
@@ -52,7 +52,7 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmHandlerLogicImpl">
-        <mapping class="org.omg.uml.foundation.core.Operation$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
             <property name="actionHandler"/>
         </mapping>
