@@ -21,17 +21,17 @@
 #foreach ($attribute in $attributeSet)
 #set ($idType = $attribute.type)
 #if ($idType.primitive)
-        if (this.$attribute.name != that.$attribute.name)
+        if (this.$attribute.name != that.${attribute.getterName}())
         {
             return false;
         }
 #elseif ($idType.arrayType)
-        if (!java.util.Arrays.equals(this.$attribute.name, that.$attribute.name))
+        if (!java.util.Arrays.equals(this.$attribute.name, that.${attribute.getterName}()))
         {
             return false;
         }
 #else
-        if (this.$attribute.name == null || that.$attribute.name == null || !this.${attribute.name}.equals(that.$attribute.name))
+        if (this.$attribute.name == null || that.${attribute.getterName}() == null || !this.${attribute.name}.equals(${attribute.getterName}()))
         {
             return false;
         }
