@@ -613,11 +613,7 @@ public abstract class $entity.daoBaseName
      */
     public final void ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection entities)
     {
-        if (entities == null)
-        {
-            entities = java.util.Collections.EMPTY_LIST;
-        }
-        else
+        if (entities != null)
         {
             org.apache.commons.collections.CollectionUtils.transform(entities, ${valueObjectRef.transformationAnonymousName});
         }
@@ -662,11 +658,7 @@ public abstract class $entity.daoBaseName
      */
     public final void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection instances)
     {
-        if (instances == null)
-        {
-            instances = java.util.Collections.EMPTY_LIST;
-        }
-        else
+        if (instances != null)
         {
             for (final java.util.Iterator iterator = instances.iterator(); iterator.hasNext();)
             {
