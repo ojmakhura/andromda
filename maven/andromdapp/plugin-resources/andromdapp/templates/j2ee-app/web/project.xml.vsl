@@ -447,6 +447,16 @@
         </dependency>
         <dependency>
             <groupId>axis</groupId>
+            <artifactId>axis-schema</artifactId>
+            <version>${axis.version}</version>
+#if ($war)
+            <properties>
+                <war.bundle>true</war.bundle>
+            </properties>
+#end
+        </dependency>
+        <dependency>
+            <groupId>axis</groupId>
             <artifactId>axis-saaj</artifactId>
             <version>${axis.version}</version>
             <type>jar</type>

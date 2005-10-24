@@ -225,6 +225,14 @@
         </dependency>
         <dependency>
             <groupId>axis</groupId>
+            <artifactId>axis-schema</artifactId>
+            <version>${axis.version}</version>
+            <properties>
+                <ejb.manifest.classpath>true</ejb.manifest.classpath>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>axis</groupId>
             <artifactId>axis-saaj</artifactId>
             <version>${axis.version}</version>
             <type>jar</type>
