@@ -64,6 +64,11 @@
                     The package to which extra types are generated (i.e. AttachmentHandler).
                 </documentation>
             </property>
+            <property name="attachmentsDirectory" required="false">
+                <documentation>
+                    The directory where attachments end up. This should be in the syntax appropriate for the target platform.
+                </documentation>
+            </property>
             <property name="namespacePrefix">
                 <default>impl</default>
                 <documentation>

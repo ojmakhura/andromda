@@ -6,6 +6,9 @@
     <globalConfiguration>
         <parameter name="adminPassword" value="admin"/>
         <parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+#if ($stringUtils.isNotBlank($attachmentsDirectory))
+        <parameter name="attachments.Directory" value="$attachmentsDirectory"/>
+#end
         <parameter name="sendXsiTypes" value="true"/>
         <parameter name="sendMultiRefs" value="true"/>
         <parameter name="sendXMLDeclaration" value="true"/>
