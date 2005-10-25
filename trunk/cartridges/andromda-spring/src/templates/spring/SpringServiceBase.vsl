@@ -147,8 +147,12 @@ public abstract class $service.baseName
     /**
      * Adds an attachment in the webservice's outgoing response message (this only makes sense
      * when the operation this is called within is a web service exposed operation).
+     *
+     * @param content the actual content to add as the attachment.
+     * @param contentType the type of the contents
+     * @param dime whether or not DIME should be used (instead of MIME).
      */
-    protected void addOutgoingWebServiceAttachment(final Object contents, final String contentType)
+    protected void addOutgoingWebServiceAttachment(final Object content, final String contentType, boolean dime)
         throws java.lang.Exception
     {
         $service.webServiceOutgoingAttachmentHandlerCall;

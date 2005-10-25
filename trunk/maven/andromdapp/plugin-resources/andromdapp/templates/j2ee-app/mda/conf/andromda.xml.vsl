@@ -127,7 +127,7 @@
                  -->
 #end
 #if ($webservice)
-                <property name="webServiceOutgoingAttachmentHandlerCallPattern">${application.package}.AxisAttachmentHandler.saveAttachment(contents, contentType)</property>
+                <property name="webServiceOutgoingAttachmentHandlerCallPattern">${application.package}.AxisAttachmentHandler.sendAttachment(content, contentType, dime)</property>
                 <property name="webServiceIncomingAttachmentHandlerCallPattern">${application.package}.AxisAttachmentHandler.getAttachments()</property>
 #end
             </properties>

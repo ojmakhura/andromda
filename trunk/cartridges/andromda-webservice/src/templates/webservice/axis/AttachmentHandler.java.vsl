@@ -18,10 +18,12 @@ public class AxisAttachmentHandler
      *
      * @param contents the contents of the attachment
      * @param contentType the content type (i.e. mime type)
+     * @param dime whether or not DIME should be used (instead of MIME)
      */
     public static void saveAttachment(
         final Object contents,
-        final String contentType)
+        final String contentType,
+        boolean dime)
         throws javax.xml.soap.SOAPException
     {
         if (contents != null)
@@ -37,9 +39,12 @@ public class AxisAttachmentHandler
                 throw new RuntimeException("You can not create an attachment when you do " +
                     "not have the activation.jar and mail.jars available");
             }
-
-            // - tell axis to use DIME
-            response.getAttachmentsImpl().setSendType(org.apache.axis.attachments.Attachments.SEND_TYPE_DIME);
+            
+            if (dime)
+            {
+                // - tell axis to use DIME
+                response.getAttachmentsImpl().setSendType(org.apache.axis.attachments.Attachments.SEND_TYPE_DIME);
+            }
             attachment.setContent(
                 convertContents(contents),
                 contentType);
