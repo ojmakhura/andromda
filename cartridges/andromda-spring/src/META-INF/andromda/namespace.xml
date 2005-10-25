@@ -86,11 +86,11 @@
                     The pattern to use when constructing the call to the attachment handler (used for sending
                     outgoing attachments when your service also represents a web service), for example:
                     <ul>
-                        <li><strong>Axis</strong>: <code>org.andromda.webservice.AxisAttachmentHandler.saveAttachment(contents, contentType)</code></li>
+                        <li><strong>Axis</strong>: <code>org.andromda.webservice.AxisAttachmentHandler.saveAttachment(content, contentType, dime)</code></li>
                     </ul>
                     Attachments are good for sending large amounts of data over over the wire as it doesn't embed the data
                     directly in the XML.
-                    <strong>NOTE:</strong> the handler call must have two parameters named, <em>contents</em> and <em>contentType</em>.
+                    <strong>NOTE:</strong> the handler call must have three parameters named <em>content</em>, <em>contentType</em> and <em>dime</em>.
                 </documentation>
             </property>
             <property name="webServiceIncomingAttachmentHandlerCallPattern" required="false">
