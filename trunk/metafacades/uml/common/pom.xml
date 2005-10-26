@@ -1,0 +1,40 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda.metafacades</groupId>
+        <artifactId>andromda-uml-metafacades</artifactId>
+        <version>3.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-metafacades-uml</artifactId>
+    <packaging>jar</packaging>
+    <name>UML Common Metafacades</name>
+  	<description>
+  		The common UML metafacades.  This is the set of core UML metafacades
+  		used to provide access UML meta models. 
+  	</description>
+  	<build>
+		<resources>
+	      	<resource>
+		        <directory>src/java</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
+	      	</resource>
+	      	<resource>
+		        <directory>src</directory>
+	        	<includes>
+	        		<include>META-INF/**/*</include>
+	        	</includes>
+                <excludes>
+                    <exclude>META-INF/andromda**/*</exclude>
+                </excludes>
+	      	</resource>
+	  		<resource>
+				<directory>target/src</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
+	  		</resource>
+    	</resources>
+  	</build>
+</project>
