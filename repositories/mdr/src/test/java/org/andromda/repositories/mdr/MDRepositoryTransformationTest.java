@@ -121,7 +121,7 @@ public class MDRepositoryTransformationTest
      */
     protected void tearDown() throws Exception
     {
-        this.repository.close();
+        this.repository.clear();
         this.repository = null;
         super.tearDown();
     }
