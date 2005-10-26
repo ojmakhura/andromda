@@ -20,7 +20,7 @@
 
     <head>
         <title><bean:message key="error.${param.code}.title"/></title>
-        <html:base/>
+        <base href="${pageContext.request.contextPath}">
 #if ($xhtml == "true")
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset:utf-8" />
 #else

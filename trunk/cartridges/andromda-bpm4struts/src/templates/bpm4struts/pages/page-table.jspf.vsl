@@ -10,6 +10,7 @@
 #end
 #set ($displayTableName = "form.${table.name}")
     <display:table name="${${displayTableName}}" id="row"
+        requestURIcontext="false"
         requestURI="${pageContext.request.requestURL}"
 #if ($table.tableDecoratorRequired)
         decorator="${table.tableDecoratorFullyQualifiedName}"

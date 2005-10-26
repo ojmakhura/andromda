@@ -141,7 +141,7 @@ form)
         <div>
             <h1><bean:message key="$manageable.pageTitleKey"/></h1>
         </div>
-		
+
         <html:form styleId="$manageable.formBeanName" action="$manageable.actionPath" method="post" enctype="multipart/form-data">
             <input type="hidden" name="$manageable.actionParameter" value=""/>
             <div id="criteria">
@@ -220,6 +220,7 @@ form)
                 <c:if test="$tablePresentTest">
 #set ($listBean = "${manageableFormName}.${manageable.listName}")
                     <display:table name="${${listBean}}" id="row" requestURI="${pageContext.request.requestURI}"
+                            requestURIcontext="false"
                             export="$manageable.tableExportable" pagesize="$manageable.tableMaxRows" sort="list">
                         <display:column media="html" sortable="false">
 #set ($identifier = $manageable.identifiers.iterator().next())
