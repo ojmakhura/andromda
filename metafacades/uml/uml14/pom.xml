@@ -1,0 +1,37 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda.metafacades</groupId>
+        <artifactId>andromda-uml-metafacades</artifactId>
+        <version>3.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-metafacades-uml14</artifactId>
+    <packaging>jar</packaging>
+    <name>UML 1.4 Metafacades</name>
+  	<description>
+  		The UML 1.4 metafacades.  This is the set of UML 1.4 metafacades
+  		implementations.  These implement the common UML metafacades.
+  	</description>
+	<dependencies>
+    	<dependency>
+    	    <groupId>${pom.groupId}</groupId>
+    	    <artifactId>andromda-metafacades-uml</artifactId>
+    	    <version>${version}</version>
+    	</dependency>
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>jmiuml</artifactId>
+     		<version>1.4di</version>
+    	</dependency>   
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>jmi</artifactId>
+     		<version>20030918</version>
+    	</dependency>     
+    	<dependency> 
+    		<groupId>log4j</groupId>
+      		<artifactId>log4j</artifactId>
+     		<version>1.2.8</version>
+    	</dependency>	
+	</dependencies>	
+</project>
