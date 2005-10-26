@@ -1,0 +1,60 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda.repositories</groupId>
+        <artifactId>andromda-repositories</artifactId>
+        <version>3.1-SNAPSHOT</version>
+    </parent>
+    <groupId>org.andromda.repositories</groupId>
+    <artifactId>andromda-repository-mdr</artifactId>
+    <packaging>jar</packaging>
+    <name>AndroMDA MDR Repository</name>
+  	<description>
+  		Implements the NetBeans MDR (Meta-Data Repository) integration with AndroMDA.
+		This MDR repository module allows AndroMDA to use the NetBeans MDR as a 
+		repository for loading, and querying object models.
+  	</description>
+    <dependencies>
+        <dependency>
+            <groupId>org.andromda.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml14</artifactId>
+            <version>${version}</version>
+            <scope>test</scope>
+        </dependency>
+    	<dependency> 
+    		<groupId>org.netbeans.mdr</groupId>
+      		<artifactId>jmiutils</artifactId>
+     		<version>20050630</version>
+    	</dependency>  
+    	<dependency> 
+    		<groupId>org.netbeans.mdr</groupId>
+      		<artifactId>mdrapi</artifactId>
+     		<version>20050630</version>
+    	</dependency>  
+     	<dependency> 
+    		<groupId>org.netbeans.mdr</groupId>
+      		<artifactId>nbmdr</artifactId>
+     		<version>20050630</version>
+    	</dependency>     	
+     	<dependency> 
+    		<groupId>org.netbeans.mdr</groupId>
+      		<artifactId>openide-util</artifactId>
+     		<version>20050630</version>
+    	</dependency> 
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>jmiuml</artifactId>
+     		<version>1.4di</version>
+    	</dependency>   
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>mof</artifactId>
+     		<version>20030918</version>
+    	</dependency>  
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>jmi</artifactId>
+     		<version>20030918</version>
+    	</dependency>  
+	</dependencies>	
+</project>
