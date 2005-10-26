@@ -1,0 +1,41 @@
+package org.andromda.maven;
+
+import java.util.Properties;
+
+import org.codehaus.plexus.util.introspection.ReflectionValueExtractor;
+
+
+/**
+ * Extends properties and allows the key to be retrieved from the given bean.
+ *
+ * @author Chad Brandon
+ */
+public class BeanProperties
+    extends Properties
+{
+    private Object bean;
+
+    public BeanProperties(final Object bean)
+    {
+        this.bean = bean;
+    }
+
+    /**
+     * @see java.util.Dictionary#get(java.lang.Object)
+     */
+    public Object get(Object key)
+    {
+        Object value = null;
+        try
+        {
+            value = ReflectionValueExtractor.evaluate(
+                    key + "",
+                    bean);
+        }
+        catch (Exception exception)
+        {
+            // ignore
+        }
+        return value;
+    }
+}
