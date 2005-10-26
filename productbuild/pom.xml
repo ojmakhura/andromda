@@ -1,0 +1,155 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.andromda</groupId>
+    <artifactId>andromda</artifactId>
+    <packaging>pom</packaging>
+    <version>3.1-SNAPSHOT</version>
+    <name>AndroMDA: The Open Source MDA Tool</name>
+    <description>
+         AndroMDA (pronounced: andromeda) is an open source code generation framework that follows the Model Driven Architecture  
+        (MDA) paradigm. It takes model(s) from CASE-tool(s) and generates fully deployable applications and other components.
+    </description>
+    <inceptionYear>2003</inceptionYear>
+    <url>http://www.andromda.org</url>
+    <issueManagement>
+        <system>jira</system>
+        <url>http://jira.andromda.org/</url>
+    </issueManagement>
+    <!--
+    <ciManagement>
+      <system>continuum</system>
+      <notifiers>
+        <notifier>
+          <configuration>
+            <address>committers@andromda.org</address>
+          </configuration>
+        </notifier>
+      </notifiers>
+    </ciManagement>
+    -->
+    <mailingLists>
+        <mailingList>
+            <name>AndroMDA User List</name>
+            <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-user</subscribe>
+            <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-user</unsubscribe>
+            <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-user</archive>
+        </mailingList>
+        <mailingList>
+            <name>AndroMDA Developer List</name>
+            <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-devel</subscribe>
+            <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-devel</unsubscribe>
+            <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-devel</archive>
+        </mailingList>
+        <mailingList>
+            <name>AndroMDA CVS List</name>
+            <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-cvs</subscribe>
+            <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-cvs</unsubscribe>
+            <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-cvs</archive>
+        </mailingList>
+    </mailingLists>
+    <developers>
+        <developer>
+            <id>mattes3</id>
+            <name>Matthias Bohlen</name>
+            <email>matthias@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+                <role>Project Admin</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <id>cwbrandon</id>
+            <name>Chad Brandon</name>
+            <email>chad@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+                <role>Release Manager</role>
+                <role>Project Admin</role>
+            </roles>
+            <timezone>-6</timezone>
+        </developer>
+        <developer>
+            <id>draftdog</id>
+            <name>Wouter Zoons</name>
+            <email>wouter@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+                <role>Project Admin</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <id>amartinwest</id>
+            <name>Martin West</name>
+            <email>martin@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>0</timezone>
+        </developer>
+        <developer>
+            <id>carloslcuenca</id>
+            <name>Carlos Cuenca</name>
+            <email>carlos@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <id>freter</id>
+            <name>Peter Friese</name>
+            <email>peter@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+    </developers>
+    <!--
+    <licenses>
+        <license>
+            <name>BSD License</name>
+            <url></url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    -->
+    <scm>
+        <connection></connection>
+        <developerConnection></developerConnection>
+        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/</url> 
+    </scm>
+    <organization>
+      <name>AndroMDA.org</name>
+      <url>http://www.andromda.org/</url>
+    </organization>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+    </build>
+    <modules>
+        <module>andromda</module>
+        <module>maven</module>
+        <module>cartridges</module>
+        <module>utils</module>
+    </modules>
+    <repositories>
+      <repository>
+        <id>andromda</id>
+        <name>AndroMDA Repository</name>
+        <url>http://team.andromda.org/maven2</url>
+      </repository>
+    </repositories>
+</project>
