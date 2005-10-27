@@ -1,0 +1,17 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda.translationlibraries</groupId>
+        <artifactId>andromda-translation-libraries</artifactId>
+        <version>3.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-ocl-translation-libraries</artifactId>
+    <packaging>jar</packaging>
+    <name>AndroMDA OCL Translation Libraries</name>
+    <modules>
+        <module>core</module>
+        <module>testsuite</module>
+        <module>andromda-query</module>
+        <module>andromda-validation</module>
+    </modules>
+</project>
