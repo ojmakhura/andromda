@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -53,6 +51,16 @@ public class AndroMDAMojo
      * @parameter expression="${project.build.filters}"
      */
     private List propertyFiles;
+    
+    /**
+     * The current user system settings for use in Maven. (allows us to pass the user
+     * settings to the AndroMDA configuration).
+     *
+     * @parameter expression="${settings}"
+     * @required
+     * @readonly
+     */
+    private Settings settings;
 
     /**
      * The path to the mappings within the plugin.
@@ -66,6 +74,7 @@ public class AndroMDAMojo
         {
             final AndroMDA andromda = AndroMDA.newInstance();
             andromda.run(this.getConfiguration());
+            andromda.shutdown();
         }
         catch (Throwable throwable)
         {
@@ -86,17 +95,6 @@ public class AndroMDAMojo
             throw new MojoExecutionException(message, throwable);
         }
     }
-
-    /**
-     * The current user system settings for use in Maven. This is used for
-     * <br/>
-     * plugin manager API calls.
-     *
-     * @parameter expression="${settings}"
-     * @required
-     * @readonly
-     */
-    private Settings settings;
 
     /**
      * Creates the Configuration instance from the {@link #configurationUri}
