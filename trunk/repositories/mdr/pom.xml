@@ -5,21 +5,15 @@
         <artifactId>andromda-repositories</artifactId>
         <version>3.1-SNAPSHOT</version>
     </parent>
-    <groupId>org.andromda.repositories</groupId>
     <artifactId>andromda-repository-mdr</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA MDR Repository</name>
-  	<description>
-  		Implements the NetBeans MDR (Meta-Data Repository) integration with AndroMDA.
-		This MDR repository module allows AndroMDA to use the NetBeans MDR as a 
-		repository for loading, and querying object models.
-  	</description>
+  	<description>This MDR repository module allows AndroMDA to use the NetBeans MDR as a repository for loading, and querying object models.</description>
     <dependencies>
         <dependency>
-            <groupId>org.andromda.metafacades</groupId>
-            <artifactId>andromda-metafacades-uml14</artifactId>
-            <version>${version}</version>
-            <scope>test</scope>
+              <groupId>commons-lang</groupId>
+              <artifactId>commons-lang</artifactId>
+              <version>2.1</version>
         </dependency>
     	<dependency> 
     		<groupId>org.netbeans.mdr</groupId>
@@ -56,5 +50,23 @@
       		<artifactId>jmi</artifactId>
      		<version>20030918</version>
     	</dependency>  
+        <dependency>
+            <groupId>org.andromda.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml14</artifactId>
+            <version>${version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>	
 </project>
