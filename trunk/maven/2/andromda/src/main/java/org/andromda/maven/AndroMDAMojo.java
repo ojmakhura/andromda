@@ -62,11 +62,6 @@ public class AndroMDAMojo
     {
         try
         {
-            System.out.println("The compile classpath elements!!!: " + project.getCompileClasspathElements());
-            System.out.println("the runtime classpath elements!!!!: " + project.getRuntimeClasspathElements());
-            System.out.println("compile deps: " + project.getCompileDependencies());
-            System.out.println("runtime deps: " + project.getRuntimeDependencies());
-            System.out.println("the deps!!!!: " + project.getDependencies());
             final AndroMDA andromda = AndroMDA.newInstance();
             andromda.run(this.getConfiguration());
         }
