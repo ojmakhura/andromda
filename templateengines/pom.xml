@@ -1,0 +1,50 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda</groupId>
+        <artifactId>andromda</artifactId>
+        <version>3.1-SNAPSHOT</version>
+    </parent>
+    <groupId>org.andromda.templateengines</groupId>
+    <artifactId>andromda-templateengines</artifactId>
+    <packaging>pom</packaging>
+    <name>AndroMDA Template Engines</name>
+    <description>The collection of Template Engine implementations.</description>
+    <dependencies>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>src</directory>
+                <includes>
+                    <include>META-INF/**/*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </testResource>
+        </testResources>
+    </build>
+    <modules>
+        <module>velocity</module>
+        <module>freemarker</module>
+    </modules>
+</project>
