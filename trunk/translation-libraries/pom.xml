@@ -1,0 +1,28 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda</groupId>
+        <artifactId>andromda</artifactId>
+        <version>3.1-SNAPSHOT</version>
+    </parent>
+    <groupId>org.andromda.translationlibraries</groupId>
+    <artifactId>andromda-translation-libraries</artifactId>
+    <packaging>pom</packaging>
+    <name>AndroMDA Translation Libraries</name>
+    <dependencies>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${version}</version>
+        </dependency>
+    	<dependency>
+    		<groupId>log4j</groupId>
+      		<artifactId>log4j</artifactId>
+     		<version>1.2.12</version>
+            <scope>runtime</scope>
+    	</dependency>
+    </dependencies>
+    <modules>
+        <module>ocl</module>
+    </modules>
+</project>
