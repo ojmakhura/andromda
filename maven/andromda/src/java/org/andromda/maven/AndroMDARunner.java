@@ -21,7 +21,7 @@ import org.apache.maven.jelly.MavenJellyContext;
 
 
 /**
- * This task is used with the AndroMDA Maven plugin.
+ * This bean is used with the AndroMDA Maven plugin.
  *
  * @author Chad Brandon
  * @see org.andromda.core.engine.ModelProcessor
