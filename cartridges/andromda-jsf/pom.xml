@@ -1,0 +1,45 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda.cartridges</groupId>
+        <artifactId>andromda-cartridges</artifactId>
+        <version>3.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-jsf-cartridge</artifactId>
+    <packaging>jar</packaging>
+    <name>AndroMDA JSF Cartridge</name>
+    <description>
+        The JSF cartridge is used to generate JSF applications from UML models using both static and dynamic model elements.
+        Generated applications have default security and internationalization implementations and can be deployed as they are.
+    </description>
+    <dependencies>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-utils</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.artifactId}-components</artifactId>
+            <version>${version}</version>
+        </dependency>
+    </dependencies>
+    <modules>
+        <module>components</module>
+    </modules>
+</project>

@@ -1,0 +1,52 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda.cartridges</groupId>
+        <artifactId>andromda-cartridges</artifactId>
+        <version>3.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-bpm4struts-cartridge</artifactId>
+    <packaging>jar</packaging>
+    <name>AndroMDA BPM4Struts Cartridge</name>
+    <description>
+        The Bpm4Struts cartridge is used to generate Struts applications from UML models using both static and dynamic model elements.
+        Generated applications have default security and internationalization implementations and can be deployed as they are.
+    </description>
+    <dependencies>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-utils</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.taglibs</groupId>
+            <artifactId>andromda-breadcrumbs-taglib</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.taglibs</groupId>
+            <artifactId>andromda-formatting-taglib</artifactId>
+             <version>${version}</version>
+        </dependency>
+        <dependency>
+             <groupId>org.andromda.taglibs</groupId>
+            <artifactId>andromda-collections-taglib</artifactId>
+            <version>${version}</version>
+        </dependency>
+    </dependencies>
+</project>
