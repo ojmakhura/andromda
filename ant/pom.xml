@@ -1,0 +1,40 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda</groupId>
+        <artifactId>andromda</artifactId>
+        <version>3.1-SNAPSHOT</version>
+    </parent>
+    <groupId>org.andromda.ant</groupId>
+    <artifactId>andromda-ant</artifactId>
+    <packaging>pom</packaging>
+    <name>AndroMDA Ant Support</name>
+    <description>The collection of AndroMDA libraries supporting Ant.</description>
+    <dependencies>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.6.5</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>target/resources</directory>
+                <includes>
+                    <include>*.zip</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+    <modules>
+        <module>andromda</module>
+        <module>task</module>
+    </modules>
+</project>
