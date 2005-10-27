@@ -107,8 +107,7 @@
             <property name="evictEntitiesOnTransformation">
                 <default>false</default>
                 <documentation>
-                    Whether or not each entity shall be evicted from the session during query transformation to 
-                    value objects.
+                    Whether or not each entity shall be evicted from the session during transformation to a value object.
                 </documentation>
             </property>
             <property name="enableDaoPropertiesCreateMethod">
