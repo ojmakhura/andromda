@@ -3,8 +3,10 @@ package org.andromda.maven;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -38,25 +40,6 @@ public class AndroMDAMojo
      */
     private String configurationUri;
 
-    public void execute()
-        throws MojoExecutionException
-    {
-        try
-        {
-            final AndroMDA andromda = AndroMDA.newInstance();
-            andromda.run(this.getConfiguration());
-        }
-        catch (final Throwable throwable)
-        {
-            String message = "Error running AndroMDA";
-            if (throwable instanceof MalformedURLException)
-            {
-                message = "Configuration is not a valid URI --> '" + configurationUri + "'";
-            }
-            throw new MojoExecutionException(message, throwable);
-        }
-    }
-
     /**
      * @parameter expression="${project}"
      * @required
@@ -73,6 +56,30 @@ public class AndroMDAMojo
      * The path to the mappings within the plugin.
      */
     private static final String MAPPINGS_PATH = "META-INF/andromda/mappings";
+
+    public void execute()
+        throws MojoExecutionException
+    {
+        try
+        {
+            System.out.println("The compile classpath elements!!!: " + project.getCompileClasspathElements());
+            System.out.println("the runtime classpath elements!!!!: " + project.getRuntimeClasspathElements());
+            System.out.println("compile deps: " + project.getCompileDependencies());
+            System.out.println("runtime deps: " + project.getRuntimeDependencies());
+            System.out.println("the deps!!!!: " + project.getDependencies());
+            final AndroMDA andromda = AndroMDA.newInstance();
+            andromda.run(this.getConfiguration());
+        }
+        catch (final Throwable throwable)
+        {
+            String message = "Error running AndroMDA";
+            if (throwable instanceof MalformedURLException)
+            {
+                message = "Configuration is not a valid URI --> '" + configurationUri + "'";
+            }
+            throw new MojoExecutionException(message, throwable);
+        }
+    }
 
     /**
      * The current user system settings for use in Maven. This is used for
