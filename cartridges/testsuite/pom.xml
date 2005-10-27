@@ -11,7 +11,7 @@
     <description>Provides a Cartridge Test Suite, for testing cartridges throughout the cartridge lifecycle. Tests include verifying actual vs. expected output.</description>
     <dependencies>
         <dependency>
-            <groupId>andromda</groupId>
+            <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
             <version>${version}</version>
         </dependency>
