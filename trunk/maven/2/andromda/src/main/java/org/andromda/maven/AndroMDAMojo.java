@@ -1,6 +1,7 @@
 package org.andromda.maven;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 
@@ -14,6 +15,7 @@ import java.util.Properties;
 import org.andromda.core.AndroMDA;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.resources.PropertyUtils;
@@ -65,10 +67,19 @@ public class AndroMDAMojo
             final AndroMDA andromda = AndroMDA.newInstance();
             andromda.run(this.getConfiguration());
         }
-        catch (final Throwable throwable)
+        catch (Throwable throwable)
         {
             String message = "Error running AndroMDA";
-            if (throwable instanceof MalformedURLException)
+            final Throwable cause = ExceptionUtils.getCause(throwable);
+            if (cause != null)
+            {
+                throwable = cause;
+            }
+            if (throwable instanceof FileNotFoundException)
+            {
+                message = "No configuration could be loaded from --> '" + configurationUri + "'";
+            }
+            else if (throwable instanceof MalformedURLException)
             {
                 message = "Configuration is not a valid URI --> '" + configurationUri + "'";
             }
