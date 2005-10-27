@@ -576,6 +576,12 @@ public abstract class $entity.daoBaseName
                 default:
                     target = entity;
             }
+#if ($evictEntitiesOnTransformation.equalsIgnoreCase("true"))
+            if (transform != $entity.daoNoTransformationConstantName)
+            {
+                this.getSession(false).evict(entity);
+            }
+#end
         }
         return target;
     }

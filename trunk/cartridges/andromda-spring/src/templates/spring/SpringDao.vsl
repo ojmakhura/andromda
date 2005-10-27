@@ -93,7 +93,7 @@ public interface $entity.daoName
     /**
      * <p>
      *   Does the same thing as {@link #loadAll()} with an
-     *   additional flag called <code>transform</code>.  If this flag is set to <code>TRANSFORM_NONE</code> then
+     *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
      *   transform the entity (into a value object for example).  By default, transformation does

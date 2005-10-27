@@ -89,6 +89,7 @@
     <property reference="advice-impls"/>
     <property reference="daos"/>
     <property reference="enableDaoPropertiesCreateMethod"/>
+    <property reference="evictEntitiesOnTransformation"/>
     <property reference="acegiServiceSecurity"/>
     <property reference="acegiServiceSecurityInterceptor"/>
     <property reference="acegiServiceAccessDecisionManager"/>

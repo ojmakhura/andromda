@@ -45,6 +45,7 @@
                 <property name="acegiAuthenticationManager">authenticationManager</property>
                 <property name="webServiceOutgoingAttachmentHandlerCallPattern">org.andromda.webservice.AxisAttachmentHandler.sendAttachment(content, contentType, dime)</property>
                 <property name="webServiceIncomingAttachmentHandlerCallPattern">org.andromda.webservice.AxisAttachmentHandler.getAttachments()</property>
+                <property name="evictEntitiesOnTransformation">true</property>
             </properties>
         </namespace>
     </namespaces>
