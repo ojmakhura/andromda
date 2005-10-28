@@ -261,7 +261,7 @@ public class Model
     private String[] moduleSearchLocationPaths = null;
 
     /**
-     * Gets all module search location paths for this model isntance.
+     * Gets all module search location paths for this model instance.
      *
      * @return the module search location paths.
      * @see #getModuleSearchLocations()
