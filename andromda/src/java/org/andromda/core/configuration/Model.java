@@ -274,13 +274,13 @@ public class Model
             for (final Iterator iterator = this.moduleSearchLocations.iterator(); iterator.hasNext();)
             {
                 final Location location = (Location)iterator.next();
-                paths.add(location.getPath());
                 final URL[] resources = location.getResources();
                 final int resourceNumber = resources.length;
                 for (int ctr = 0; ctr < resourceNumber; ctr++)
                 {   
                     paths.add(resources[ctr].toString());   
                 }
+                paths.add(location.getPath());
             }
             this.moduleSearchLocationPaths = (String[])paths.toArray(new String[0]);
         }
