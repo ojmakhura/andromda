@@ -411,7 +411,7 @@ public class MDRepositoryFacade
      *
      * @param modelStream an input stream containing the model.
      * @param uri the URI of the model.
-     * @param moduleSearchPath the paths to search for shared modules.
+     * @param moduleSearchPaths the paths to search for shared modules.
      * @param metaModel meta model of model
      * @return populated model
      * @throws CreationFailedException unable to create model in repository
@@ -419,7 +419,7 @@ public class MDRepositoryFacade
     private final RefPackage loadModel(
         final InputStream[] modelStreams,
         final String[] uris,
-        final String[] moduleSearchPath,
+        final String[] moduleSearchPaths,
         final MofPackage metaModel)
         throws CreationFailedException
     {
@@ -430,7 +430,7 @@ public class MDRepositoryFacade
                 XMIReaderFactory.getDefault().createXMIReader(
                     new MDRXmiReferenceResolver(
                         new RefPackage[] {model},
-                        moduleSearchPath));
+                        moduleSearchPaths));
             try
             {
                 if (modelStreams != null)

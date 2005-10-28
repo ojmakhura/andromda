@@ -261,7 +261,7 @@ public class Model
     private String[] moduleSearchLocationPaths = null;
 
     /**
-     * Gets all module search location paths for this model instance.
+     * Gets all found module search location paths for this model instance.
      *
      * @return the module search location paths.
      * @see #getModuleSearchLocations()
@@ -273,7 +273,14 @@ public class Model
             final Collection paths = new ArrayList();
             for (final Iterator iterator = this.moduleSearchLocations.iterator(); iterator.hasNext();)
             {
-                paths.add(((Location)iterator.next()).getPath());
+                final Location location = (Location)iterator.next();
+                paths.add(location.getPath());
+                final URL[] resources = location.getResources();
+                final int resourceNumber = resources.length;
+                for (int ctr = 0; ctr < resourceNumber; ctr++)
+                {   
+                    paths.add(resources[ctr].toString());   
+                }
             }
             this.moduleSearchLocationPaths = (String[])paths.toArray(new String[0]);
         }
@@ -281,10 +288,10 @@ public class Model
     }
 
     /**
-     * Stores all files including all files found within the module search locations
-     * as well as a file for the {@link #uri}.
+     * Stores all resources including all resources found within the module search locations
+     * as well as a resource for the {@link #uri}.
      */
-    private File[] moduleSearchLocationFiles = null;
+    private URL[] moduleSearchLocationResources = null;
 
     /**
      * Gets the accumulation of all files found when combining the contents
@@ -293,23 +300,23 @@ public class Model
      *
      * @return all module search location files.
      */
-    public File[] getModuleSearchLocationFiles()
+    public URL[] getModuleSearchLocationResources()
     {
-        if (this.moduleSearchLocationFiles == null)
+        if (this.moduleSearchLocationResources == null)
         {
-            final Collection allFiles = new ArrayList();
+            final Collection allResources = new ArrayList();
             final Location[] locations = this.getModuleSearchLocations();
             for (int ctr = 0; ctr < locations.length; ctr++)
             {
-                File[] files = locations[ctr].getFiles();
-                for (int fileCtr = 0; fileCtr < files.length; fileCtr++)
+                final URL[] resources = locations[ctr].getResources();
+                for (int fileCtr = 0; fileCtr < resources.length; fileCtr++)
                 {
-                    allFiles.add(files[fileCtr]);
+                    allResources.add(resources[fileCtr]);
                 }
             }
-            this.moduleSearchLocationFiles = (File[])allFiles.toArray(new File[0]);
+            this.moduleSearchLocationResources = (URL[])allResources.toArray(new URL[0]);
         }
-        return this.moduleSearchLocationFiles;
+        return this.moduleSearchLocationResources;
     }
 
     /**
@@ -407,15 +414,15 @@ public class Model
                 if (!changed)
                 {
                     // - check to see if any of the modules have changed if the model hasn't changed
-                    final File[] files = this.getModuleSearchLocationFiles();
-                    for (int ctr = 0; ctr < files.length; ctr++)
+                    final URL[] resources = this.getModuleSearchLocationResources();
+                    for (int ctr = 0; ctr < resources.length; ctr++)
                     {
-                        final File file = files[ctr];
-                        final Long lastModified = (Long)lastModifiedTimes.get(file);
+                        final URL resource = resources[ctr];
+                        final Long lastModified = (Long)lastModifiedTimes.get(resource);
                         if (lastModified != null)
                         {
                             // - when we find the first modified module, break out
-                            if (file.lastModified() > lastModified.longValue())
+                            if (ResourceUtils.getLastModifiedTime(resource) > lastModified.longValue())
                             {
                                 changed = true;
                                 break;
@@ -450,13 +457,13 @@ public class Model
         {
             lastModifiedTimes.clear();
         }
-        final File[] files = this.getModuleSearchLocationFiles();
-        for (int ctr = 0; ctr < files.length; ctr++)
+        final URL[] resources = this.getModuleSearchLocationResources();
+        for (int ctr = 0; ctr < resources.length; ctr++)
         {
-            final File file = files[ctr];
+            final URL resource = resources[ctr];
             lastModifiedTimes.put(
-                file,
-                new Long(file.lastModified()));
+                resource,
+                new Long(ResourceUtils.getLastModifiedTime(resource)));
         }
 
         // - add the model key last so it overwrites any invalid ones
