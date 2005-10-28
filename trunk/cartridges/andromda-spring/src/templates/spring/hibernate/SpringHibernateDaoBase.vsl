@@ -579,7 +579,14 @@ public abstract class $entity.daoBaseName
 #if ($evictEntitiesOnTransformation.equalsIgnoreCase("true"))
             if (transform != $entity.daoNoTransformationConstantName)
             {
-                this.getSession(false).evict(entity);
+                try
+                {
+                    this.getSession(false).evict(entity);
+                }
+                catch (${hibernateUtils.basePackage}.HibernateException exception)
+                {
+                    // ignore
+                }
             }
 #end
         }
