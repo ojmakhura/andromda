@@ -60,7 +60,11 @@ public abstract class ${entity.name}Factory {
     public static $entity.name findByPrimaryKey (net.sf.hibernate.Session session, $primaryKeyTypeName ${primaryKey.name})
         throws net.sf.hibernate.HibernateException
     {
-        ${entity.name} object = (${entity.name}) session.load(${entity.entityImplementationName}.class, ${primaryKey.name});
+#set ($primaryKeyName = $primaryKey.name)
+#if($primaryKey.type.primitive)
+#set ($primaryKeyName = "new ${primaryKey.type.wrapperName}(${primaryKey.name})")
+#end
+        ${entity.name} object = (${entity.name}) session.load(${entity.entityImplementationName}.class, ${primaryKeyName});
         return object;
     }
 
