@@ -9,7 +9,9 @@ import java.util.Iterator;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
@@ -399,6 +401,28 @@ public class ClassifierFacadeLogicImpl
                     return ((AttributeFacade)object).isStatic();
                 }
             };
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getImplementedInterfaceList()
+     */
+    protected String handleGetImplementedInterfaceList()
+    {
+        final StringBuffer list = new StringBuffer();
+        if (this.getAbstractions() != null)
+        {
+            for (final Iterator iterator = this.getAbstractions().iterator(); iterator.hasNext();)
+            {
+                DependencyFacade abstraction = (DependencyFacade)iterator.next();
+                final ModelElementFacade element = abstraction.getTargetElement();
+                list.append(element.getFullyQualifiedName());
+                if (iterator.hasNext())
+                {
+                    list.append(", ");
+                }
+            }
+        }
+        return list.toString();
     }
 
     /**
