@@ -202,7 +202,7 @@ public class $criteriaSearchBaseName
                         // - use the rest of the path as the parameter name
                         final int number = path.length - index;
                         final String[] restOfPath = new String[path.length - index];
-                        System.arraycopy(path, index, restOfPath, 0, number);
+                        java.lang.System.arraycopy(path, index, restOfPath, 0, number);
                         parameterName = org.apache.commons.lang.StringUtils.join(restOfPath, ".");
                         break;
                     }
