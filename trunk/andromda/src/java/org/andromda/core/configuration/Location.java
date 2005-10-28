@@ -1,10 +1,15 @@
 package org.andromda.core.configuration;
 
-import java.io.File;
-import java.io.FileFilter;
 import java.io.Serializable;
 
+import java.net.URL;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.core.common.PathMatcher;
+import org.andromda.core.common.ResourceUtils;
 
 
 /**
@@ -72,20 +77,58 @@ public class Location
      *
      * @return the valid files.
      */
-    public File[] getFiles()
+    public URL[] getResources()
     {
-        File[] files;
-        final File file = new File(this.path);
-        if (file.isDirectory())
+        URL[] resources;
+        final URL url = ResourceUtils.toURL(this.path);
+        if (url != null)
         {
-            files = file.listFiles(new Filter(this.patterns));
+            if (ResourceUtils.isFile(url))
+            {
+                resources = new URL[] {url};
+            }
+            else
+            {
+                final Collection matchedResources = new ArrayList();
+                final Collection contents = this.getDirectoryContents(url);
+                for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
+                {
+                    String path = (String)iterator.next();
+                    if (this.matchesPattern(path))
+                    {
+                        path = url.toString().endsWith(FORWARD_SLASH) ? path : FORWARD_SLASH + path;
+                        matchedResources.add(ResourceUtils.toURL(url + path));
+                    }
+                }
+                resources = (URL[])matchedResources.toArray(new URL[0]);
+            }
         }
         else
         {
-            files = new File[] {file};
+            resources = new URL[0];
         }
-        return files;
+        return resources;
     }
+
+    /**
+     * Gets the contents of the directory, only the first level is retrieved
+     * if no patterns are defined, otherwise all levels are retrieved.
+     * @param url the URL of the directory.
+     * @return a collection of paths.
+     */
+    private Collection getDirectoryContents(final URL url)
+    {
+        final boolean patternsDefined = this.patterns != null && this.patterns.length() > 0;
+        return ResourceUtils.getDirectoryContents(
+            url,
+            0,
+            patternsDefined);
+    }
+
+    /**
+     * The forward slash character.
+     */
+    private static final String FORWARD_SLASH = "/";
 
     /**
      * The delimiter for seperating location patterns.
@@ -93,43 +136,35 @@ public class Location
     private static final String PATTERN_DELIMITER = ",";
 
     /**
-     * The file filter used for matching the location patterns.
+     * Indicates whether or not the given <code>path</code> matches on
+     * one or more of the patterns defined within this class (this automatically)
+     * returns true if no patterns are defined.
+     *
+     * @param path the path to match on.
+     * @return true/false
      */
-    private static final class Filter
-        implements FileFilter
+    private boolean matchesPattern(final String path)
     {
-        private String[] patterns = null;
-
-        Filter(final String patterns)
+        boolean matches = patterns == null;
+        if (!matches)
         {
-            if (patterns != null)
-            {
-                this.patterns = patterns.split(PATTERN_DELIMITER);
-            }
-        }
-
-        /**
-         * @see java.io.FilenameFilter#accept(java.io.File, java.lang.String)
-         */
-        public boolean accept(final File file)
-        {
-            boolean accept = this.patterns == null;
-            if (this.patterns != null && patterns.length > 0)
+            String[] patterns = this.patterns.split(PATTERN_DELIMITER);
+            if (patterns.length > 0)
             {
                 final int patternNumber = patterns.length;
                 for (int ctr = 0; ctr < patternNumber; ctr++)
                 {
                     final String pattern = patterns[ctr];
                     if (PathMatcher.wildcardMatch(
-                            file.toString(),
+                            path,
                             pattern))
                     {
-                        accept = true;
+                        matches = true;
                         break;
                     }
                 }
             }
-            return accept;
         }
+        return matches;
     }
 }

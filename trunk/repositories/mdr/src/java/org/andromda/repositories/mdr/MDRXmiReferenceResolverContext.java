@@ -31,23 +31,24 @@ import org.netbeans.lib.jmi.xmi.XmiContext;
 public class MDRXmiReferenceResolverContext
     extends XmiContext
 {
-    private String[] moduleSearchPath;
+    private String[] moduleSearchPaths;
     private static Logger logger = Logger.getLogger(MDRXmiReferenceResolverContext.class);
     private static final HashMap urlMap = new HashMap();
 
     /**
      * Constructs an instance of this class.
      *
-     * @param extents
-     * @param config
+     * @param extents the extents.
+     * @param config the xml input config.
+     * @param moduleSearchPaths the paths to search for modules
      */
     public MDRXmiReferenceResolverContext(
         RefPackage[] extents,
         XMIInputConfig config,
-        String[] moduleSearchPath)
+        String[] moduleSearchPaths)
     {
         super(extents, config);
-        this.moduleSearchPath = moduleSearchPath;
+        this.moduleSearchPaths = moduleSearchPaths;
     }
 
     /**
@@ -76,7 +77,7 @@ public class MDRXmiReferenceResolverContext
             if (modelUrl == null)
             {
                 // Try to find suffix in module list.
-                final String modelUrlAsString = this.findModuleURL(suffix);
+                final String modelUrlAsString = this.findModuleUrl(suffix);
                 if (StringUtils.isNotBlank(modelUrlAsString))
                 {
                     modelUrl = this.getValidURL(modelUrlAsString);
@@ -120,45 +121,57 @@ public class MDRXmiReferenceResolverContext
      * @param moduleName the name of the module without any path
      * @return the complete URL string of the module if found (null if not found)
      */
-    private final String findModuleURL(final String moduleName)
+    private final String findModuleUrl(final String moduleName)
     {
-        if (moduleSearchPath == null)
+        String moduleUrl = null;
+        if (this.moduleSearchPaths != null)
         {
-            return null;
-        }
-
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("findModuleURL: moduleSearchPath.length=" + moduleSearchPath.length);
-        }
-        for (int ctr = 0; ctr < moduleSearchPath.length; ctr++)
-        {
-            final File candidate = new File(moduleSearchPath[ctr], moduleName);
             if (logger.isDebugEnabled())
             {
-                logger.debug("candidate '" + candidate.toString() + "' exists=" + candidate.exists());
+                logger.debug("findModuleURL: moduleSearchPath.length=" + moduleSearchPaths.length);
             }
-            if (candidate.exists())
+            for (int ctr = 0; ctr < moduleSearchPaths.length; ctr++)
             {
-                String urlString;
-                try
+                final String moduleSearchPath = moduleSearchPaths[ctr];
+                if (moduleSearchPath != null && moduleSearchPath.length() > 0)
                 {
-                    urlString = candidate.toURL().toExternalForm();
+                    if (moduleSearchPath.endsWith(moduleName))
+                    {
+                        moduleUrl = moduleSearchPath;
+                    }
+                    else
+                    {
+                        final File candidate = new File(moduleSearchPath, moduleName);
+                        if (logger.isDebugEnabled())
+                        {
+                            logger.debug("candidate '" + candidate.toString() + "' exists=" + candidate.exists());
+                        }
+                        if (candidate.exists())
+                        {
+                            try
+                            {
+                                moduleUrl = candidate.toURL().toExternalForm();
+                            }
+                            catch (final MalformedURLException exception)
+                            {
+                                // ignore 
+                            }
+                        }
+                    }
+                    if (moduleUrl != null && moduleName.endsWith(".zip") || moduleName.endsWith(".jar"))
+                    {
+                        // - typical case for MagicDraw
+                        moduleUrl = "jar:" + moduleUrl + "!/" + moduleName.substring(0, moduleName.length() - 4);
+                    }
+                    // - we've found a module
+                    if (moduleUrl!= null && moduleUrl.length() > 0)
+                    {
+                        break;
+                    }
                 }
-                catch (final MalformedURLException exception)
-                {
-                    return null;
-                }
-
-                if (moduleName.endsWith(".zip") || moduleName.endsWith(".jar"))
-                {
-                    // typical case for MagicDraw
-                    urlString = "jar:" + urlString + "!/" + moduleName.substring(0, moduleName.length() - 4);
-                }
-                return urlString;
             }
         }
-        return null;
+        return moduleUrl;
     }
 
     /**

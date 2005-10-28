@@ -43,7 +43,10 @@ public class ResourceUtils
     public static URL getResource(final String resourceName)
     {
         final String methodName = "ResourceUtils.getResource";
-        ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
+        ExceptionUtils.checkEmpty(
+            methodName,
+            "resourceName",
+            resourceName);
         final ClassLoader loader = ClassUtils.getClassLoader();
         return loader != null ? loader.getResource(resourceName) : null;
     }
@@ -134,7 +137,7 @@ public class ResourceUtils
     }
 
     /**
-     * If this <code>resource</code> happens to be a directory, it will load the contents of that directory into the a
+     * If this <code>resource</code> happens to be a directory, it will load the contents of that directory into a
      * List and return the list of names relative to the given <code>resource</code> (otherwise it will return an empty
      * List).
      *
@@ -146,6 +149,28 @@ public class ResourceUtils
     public static List getDirectoryContents(
         final URL resource,
         final int levels)
+    {
+        return getDirectoryContents(
+            resource,
+            levels,
+            true);
+    }
+
+    /**
+     * If this <code>resource</code> happens to be a directory, it will load the contents of that directory into a
+     * List and return the list of names relative to the given <code>resource</code> (otherwise it will return an empty
+     * List).
+     *
+     * @param resource the resource from which to retrieve the contents
+     * @param levels the number of levels to step down if the resource ends up being a directory (if its an artifact,
+     *               levels will be ignored).
+     * @param includeSubdirectories whether or not to include subdirectories in the contents.
+     * @return a list of Strings containing the names of every nested resource found in this resource.
+     */
+    public static List getDirectoryContents(
+        final URL resource,
+        final int levels,
+        boolean includeSubdirectories)
     {
         final List contents = new ArrayList();
         if (resource != null)
@@ -161,15 +186,22 @@ public class ResourceUtils
                     rootDirectory = rootDirectory.getParentFile();
                 }
                 final File pluginDirectory = rootDirectory;
-                loadAllFiles(pluginDirectory, contents);
+                loadFiles(
+                    pluginDirectory,
+                    contents,
+                    includeSubdirectories);
 
                 // - remove the root path from each file
                 for (final ListIterator iterator = contents.listIterator(); iterator.hasNext();)
                 {
                     iterator.set(
                         StringUtils.replace(
-                            ((File)iterator.next()).getPath().replace('\\', '/'),
-                            pluginDirectory.getPath().replace('\\', '/') + '/',
+                            ((File)iterator.next()).getPath().replace(
+                                '\\',
+                                '/'),
+                            pluginDirectory.getPath().replace(
+                                '\\',
+                                '/') + '/',
                             ""));
                 }
             }
@@ -182,10 +214,12 @@ public class ResourceUtils
      *
      * @param directory the directory from which to load all files.
      * @param fileList  the List of files to which we'll add the found files.
+     * @param includeSubdirectories whether or not to include sub directories when loading the files.
      */
-    private static void loadAllFiles(
+    private static void loadFiles(
         final File directory,
-        final List fileList)
+        final List fileList,
+        boolean includeSubdirectories)
     {
         final File[] files = directory.listFiles();
         for (int ctr = 0; ctr < files.length; ctr++)
@@ -195,9 +229,12 @@ public class ResourceUtils
             {
                 fileList.add(file);
             }
-            else
+            else if (includeSubdirectories)
             {
-                loadAllFiles(file, fileList);
+                loadFiles(
+                    file,
+                    fileList,
+                    includeSubdirectories);
             }
         }
     }
@@ -226,11 +263,15 @@ public class ResourceUtils
             if (resource != null)
             {
                 String resourceUrl = resource.toString();
-                resourceUrl = resourceUrl.replaceFirst(ARCHIVE_PREFIX, "");
+                resourceUrl = resourceUrl.replaceFirst(
+                        ARCHIVE_PREFIX,
+                        "");
                 final int entryPrefixIndex = resourceUrl.indexOf('!');
                 if (entryPrefixIndex != -1)
                 {
-                    resourceUrl = resourceUrl.substring(0, entryPrefixIndex);
+                    resourceUrl = resourceUrl.substring(
+                            0,
+                            entryPrefixIndex);
                 }
                 archive = new ZipFile(new URL(resourceUrl).getFile());
             }
@@ -262,7 +303,10 @@ public class ResourceUtils
     public static URL getClassResource(final String className)
     {
         final String methodName = "ResourceUtils.getClassResource";
-        ExceptionUtils.checkEmpty(methodName, "className", className);
+        ExceptionUtils.checkEmpty(
+            methodName,
+            "className",
+            className);
         return getResource(getClassNameAsResource(className));
     }
 
@@ -274,7 +318,9 @@ public class ResourceUtils
      */
     private static String getClassNameAsResource(final String className)
     {
-        return className.replace('.', '/') + ".class";
+        return className.replace(
+            '.',
+            '/') + ".class";
     }
 
     /**
@@ -294,7 +340,10 @@ public class ResourceUtils
         final String directory)
     {
         final String methodName = "ResourceUtils.getResource";
-        ExceptionUtils.checkEmpty(methodName, "resourceName", resourceName);
+        ExceptionUtils.checkEmpty(
+            methodName,
+            "resourceName",
+            resourceName);
 
         if (directory != null)
         {
@@ -389,7 +438,56 @@ public class ResourceUtils
         {
             directoryLocation = directory.getFile();
         }
-        return getResource(resourceName, directoryLocation);
+        return getResource(
+            resourceName,
+            directoryLocation);
+    }
+
+    /**
+     * Attempts to construct the given <code>path</code>
+     * to a URL instance.
+     *
+     * @param path the path from which to construct the URL.
+     * @return the constructed URL or null if one couldn't be constructed.
+     */
+    public static URL toURL(final String path)
+    {
+        URL url = null;
+        final File file = new File(path);
+        if (file.exists())
+        {
+            try
+            {
+                url = file.toURL();
+            }
+            catch (MalformedURLException exception)
+            {
+                // ignore
+            }
+        }
+        else
+        {
+            try
+            {
+                url = new URL(path);
+            }
+            catch (MalformedURLException exception)
+            {
+                // ignore
+            }
+        }
+        return url;
+    }
+
+    /**
+     * Indicates whether or not the given <code>url</code> is a file.
+     *
+     * @param url the URL to check.
+     * @return true/false
+     */
+    public static boolean isFile(final URL url)
+    {
+        return url != null ? new File(url.getFile()).isFile() : false;
     }
 
     /**

@@ -1,6 +1,5 @@
 package org.andromda.core.configuration;
 
-import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
@@ -284,13 +283,13 @@ public class Configuration
             final int locationNumber = locations.length;
             for (int ctr = 0; ctr < locationNumber; ctr++)
             {
-                mappingsLocations.addAll(Arrays.asList(locations[ctr].getFiles()));
+                mappingsLocations.addAll(Arrays.asList(locations[ctr].getResources()));
             }
             for (final Iterator iterator = mappingsLocations.iterator(); iterator.hasNext();)
             {
                 try
                 {
-                    Mappings.addLogicalMappings(((File)iterator.next()).toURL());
+                    Mappings.addLogicalMappings((URL)iterator.next());
                 }
                 catch (final Throwable throwable)
                 {
