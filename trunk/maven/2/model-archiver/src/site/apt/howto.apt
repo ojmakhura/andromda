@@ -1,0 +1,48 @@
+ ------
+ Maven 2 Model Archiver Plugin: configuration examples
+ ------
+ Chad Brandon
+ <chad@andromda.org>
+ ------
+ October 29, 2005
+
+Introduction
+
+  The Model Archiver plugin allows to package model files (such as xml.zip files) 
+  as versioned model files files, i.e. andromda-profile.xml.zip will become 
+  andromda-profile-3.1.xml.zip if the current version is '3.1'.
+
+  For instance, to exclude the generated JAR file from the RAR, configure your project as follows:
+
++--------
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.andromda.maven.plugins</groupId>
+        <artifactId>andromda-model-archiver-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
++---------
+
+
+   It is also possible to specify a custom location for the model source directory. For
+   instance to use the file located in src/resources/ra.xml, configure your
+   project as follows:
+
++--------
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.andromda.maven.plugins</groupId>
+        <artifactId>andromda-model-archiver-plugin</artifactId>
+        <configuration>
+           <modelSourceDirectory>src/main/model</modelSourceDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
++---------
+
+
+
