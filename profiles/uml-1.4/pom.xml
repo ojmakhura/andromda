@@ -1,17 +1,15 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.andromda</groupId>
-        <artifactId>andromda</artifactId>
+        <groupId>org.andromda.profiles</groupId>
+        <artifactId>andromda-profiles</artifactId>
         <version>3.1-SNAPSHOT</version>
     </parent>
-    <groupId>org.andromda.profiles</groupId>
-    <artifactId>andromda-profiles</artifactId>
-    <packaging>model</packaging>
-    <name>AndroMDA Profiles</name>
+    <groupId>org.andromda.profiles.uml14</groupId>
+    <artifactId>andromda-profiles-uml14</artifactId>
+    <name>AndroMDA UML 1.4 Profile</name>
 	<description>
-        These profiles allow all AndroMDA stereotypes, tagged values, and datatypes to
-        be referenced from a model.
+        Contains the AndroMDA UML 1.4 profiles.
     </description>
     <build>
         <plugins>
@@ -22,4 +20,14 @@
             </plugin>
         </plugins>
     </build>
+    <modules>
+        <module>common</module>
+        <module>datatype</module>
+        <module>meta</module>
+        <module>persistence</module>
+        <module>presentation</module>
+        <module>process</module>
+        <module>service</module>
+        <module>webservice</module>
+    </modules>
 </project>
