@@ -1,0 +1,25 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda</groupId>
+        <artifactId>andromda</artifactId>
+        <version>3.1-SNAPSHOT</version>
+    </parent>
+    <groupId>org.andromda.profiles</groupId>
+    <artifactId>andromda-profiles</artifactId>
+    <packaging>model</packaging>
+    <name>AndroMDA Profiles</name>
+	<description>
+        These profiles allow all AndroMDA stereotypes, tagged values, and datatypes to
+        be referenced from a model.
+    </description>
+    <build>
+        <plugins>
+            <plugin>
+                <extensions>true</extensions>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-model-archiver-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
