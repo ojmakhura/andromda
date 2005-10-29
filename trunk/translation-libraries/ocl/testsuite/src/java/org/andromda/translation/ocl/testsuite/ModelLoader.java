@@ -1,5 +1,7 @@
 package org.andromda.translation.ocl.testsuite;
 
+import java.net.URL;
+
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Namespace;
@@ -11,8 +13,6 @@ import org.andromda.core.repository.RepositoryFacade;
 import org.andromda.core.repository.RepositoryFacadeException;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
-import java.net.URL;
 
 /**
  * Models are required for OCL translation. This class loads models so that translation tests may be performed during
@@ -50,11 +50,7 @@ public class ModelLoader
             this.repository.open();
             URL modelUrl = getModelResource();
             final String moduleSearchPath = System.getProperty(MODULE_SEARCH_PATH);
-            String[] moduleSearchPaths = null;
-            if (StringUtils.isNotBlank(moduleSearchPath))
-            {
-                moduleSearchPaths = new String[]{moduleSearchPath};
-            }
+            final String[] moduleSearchPaths = moduleSearchPath != null ? moduleSearchPath.split(",\\s*") : new String[0];
             this.repository.readModel(new String[]{modelUrl.toString()}, moduleSearchPaths);
         }
         catch (Exception ex)
