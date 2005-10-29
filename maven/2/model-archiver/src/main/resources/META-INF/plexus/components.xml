@@ -7,6 +7,7 @@
             <configuration>
                 <type>xml.zip</type>
                 <extension>xml.zip</extension>
+                <packaging>model</packaging>
             </configuration>
         </component>
         <component>
@@ -16,8 +17,7 @@
             <configuration>
                 <phases>
                     <package>
-                      org.andromda.maven.plugins:andromda-model-archiver-plugin:xml.zip,
-                      org.apache.maven.plugins:maven-plugin-plugin:addPluginArtifactMetadata
+                      org.andromda.maven.plugins:andromda-model-archiver-plugin:xml.zip
                     </package>
                     <install>org.apache.maven.plugins:maven-install-plugin:install</install>
                     <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
