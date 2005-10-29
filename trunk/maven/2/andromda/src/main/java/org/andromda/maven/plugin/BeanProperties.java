@@ -1,4 +1,4 @@
-package org.andromda.maven;
+package org.andromda.maven.plugin;
 
 import java.util.Properties;
 
