@@ -11,18 +11,6 @@
     <inceptionYear>2005</inceptionYear>
     <dependencies>
         <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-core</artifactId>
-            <version>${version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-resources-plugin</artifactId>
             <version>2.1</version>
