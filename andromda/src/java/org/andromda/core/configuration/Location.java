@@ -4,11 +4,9 @@ import java.io.Serializable;
 
 import java.net.URL;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
-import org.andromda.core.common.PathMatcher;
 import org.andromda.core.common.ResourceUtils;
 
 
@@ -89,18 +87,24 @@ public class Location
             }
             else
             {
-                final Collection matchedResources = new ArrayList();
-                final Collection contents = this.getDirectoryContents(url);
-                for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
+                String[] patterns = this.patterns != null ? this.patterns.split(PATTERN_DELIMITER) : new String[0];
+                final List paths = ResourceUtils.getDirectoryContents(
+                        url,
+                        true,
+                        patterns);
+                for (final ListIterator iterator = paths.listIterator(); iterator.hasNext();)
                 {
-                    String path = (String)iterator.next();
-                    if (this.matchesPattern(path))
+                    final URL resource = ResourceUtils.toURL((String)iterator.next());
+                    if (resource != null)
                     {
-                        path = url.toString().endsWith(FORWARD_SLASH) ? path : FORWARD_SLASH + path;
-                        matchedResources.add(ResourceUtils.toURL(url + path));
+                        iterator.set(resource);
+                    }
+                    else
+                    {
+                        iterator.remove();
                     }
                 }
-                resources = (URL[])matchedResources.toArray(new URL[0]);
+                resources = (URL[])paths.toArray(new URL[0]);
             }
         }
         else
@@ -111,60 +115,7 @@ public class Location
     }
 
     /**
-     * Gets the contents of the directory, only the first level is retrieved
-     * if no patterns are defined, otherwise all levels are retrieved.
-     * @param url the URL of the directory.
-     * @return a collection of paths.
-     */
-    private Collection getDirectoryContents(final URL url)
-    {
-        final boolean patternsDefined = this.patterns != null && this.patterns.length() > 0;
-        return ResourceUtils.getDirectoryContents(
-            url,
-            0,
-            patternsDefined);
-    }
-
-    /**
-     * The forward slash character.
-     */
-    private static final String FORWARD_SLASH = "/";
-
-    /**
      * The delimiter for seperating location patterns.
      */
     private static final String PATTERN_DELIMITER = ",";
-
-    /**
-     * Indicates whether or not the given <code>path</code> matches on
-     * one or more of the patterns defined within this class (this automatically)
-     * returns true if no patterns are defined.
-     *
-     * @param path the path to match on.
-     * @return true/false
-     */
-    private boolean matchesPattern(final String path)
-    {
-        boolean matches = patterns == null;
-        if (!matches)
-        {
-            String[] patterns = this.patterns.split(PATTERN_DELIMITER);
-            if (patterns.length > 0)
-            {
-                final int patternNumber = patterns.length;
-                for (int ctr = 0; ctr < patternNumber; ctr++)
-                {
-                    final String pattern = patterns[ctr];
-                    if (PathMatcher.wildcardMatch(
-                            path,
-                            pattern))
-                    {
-                        matches = true;
-                        break;
-                    }
-                }
-            }
-        }
-        return matches;
-    }
 }

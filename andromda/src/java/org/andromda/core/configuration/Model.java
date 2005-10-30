@@ -88,7 +88,7 @@ public class Model
     {
         this.packages = packages;
     }
-    
+
     /**
      * Stores the informationj about what constraints should and shouldn't
      * be enforced.
@@ -166,7 +166,9 @@ public class Model
     {
         try
         {
-            final URL url = new URL(uri.replace('\\', '/'));
+            final URL url = new URL(uri.replace(
+                        '\\',
+                        '/'));
             try
             {
                 // - Get around the fact the URL won't be released until the JVM
@@ -184,7 +186,7 @@ public class Model
             throw new ConfigurationException(throwable);
         }
     }
-    
+
     /**
      * Stores the transformations for this Configuration instance.
      */
@@ -277,8 +279,8 @@ public class Model
                 final URL[] resources = location.getResources();
                 final int resourceNumber = resources.length;
                 for (int ctr = 0; ctr < resourceNumber; ctr++)
-                {   
-                    paths.add(resources[ctr].toString());   
+                {
+                    paths.add(resources[ctr].toString());
                 }
                 paths.add(location.getPath());
             }
@@ -409,7 +411,8 @@ public class Model
             //   if they haven't been loaded yet
             if (lastModifiedTimes != null)
             {
-                final long modelLastModified = ((Long)lastModifiedTimes.get(modelKey)).longValue();;
+                final long modelLastModified = ((Long)lastModifiedTimes.get(modelKey)).longValue();
+                ;
                 changed = this.getLastModified() > modelLastModified;
                 if (!changed)
                 {
@@ -471,7 +474,9 @@ public class Model
         lastModifiedTimes.put(
             modelKey,
             new Long(this.getLastModified()));
-        modelModifiedTimes.put(modelKey, lastModifiedTimes);
+        modelModifiedTimes.put(
+            modelKey,
+            lastModifiedTimes);
     }
 
     /**
