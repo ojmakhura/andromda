@@ -519,4 +519,103 @@ public class ResourceUtils
             }
         }
     }
+    
+    /**
+     * The forward slash character.
+     */
+    private static final String FORWARD_SLASH = "/";
+    
+    /**
+     * Gets the contents of the directory, only the first level is retrieved
+     * if no patterns are defined, otherwise all levels are retrieved.
+     * @param url the URL of the directory.
+     * @param absolute whether or not the returned content paths should be absoluate (if 
+     *        false paths will be relative to URL).
+     * @return a collection of paths.
+     */
+    public static List getDirectoryContents(final URL url, boolean absolute, final String[] patterns)
+    {
+        final boolean patternsDefined = patterns != null && patterns.length > 0;
+        List contents = ResourceUtils.getDirectoryContents(
+            url,
+            0,
+            patternsDefined);
+        if (!contents.isEmpty())
+        {
+            for (final ListIterator iterator = contents.listIterator(); iterator.hasNext();)
+            {
+                String path = (String)iterator.next();
+                if (!matchesAtLeastOnePattern(path, patterns))
+                {
+                    iterator.remove();
+                }
+                else if (absolute)
+                {
+                    path = url.toString().endsWith(FORWARD_SLASH) ? path : FORWARD_SLASH + path;
+                    final URL resource = ResourceUtils.toURL(url + path);
+                    if (resource != null)
+                    {
+                        iterator.set(resource.toString());
+                    }
+                }
+            }
+        }
+        else
+        {
+            final String urlAsString = url.toString();
+            final String delimiter = "!/";
+            final String archivePath = urlAsString.replaceAll(delimiter + ".*", delimiter);
+            contents = ResourceUtils.getClassPathArchiveContents(url);
+            for (final ListIterator iterator = contents.listIterator(); iterator.hasNext();)
+            {
+                final String relativePath = (String)iterator.next();
+                final String fullPath = archivePath + relativePath;
+                if (!fullPath.startsWith(urlAsString) || fullPath.equals(urlAsString + FORWARD_SLASH))
+                {
+                    iterator.remove();
+                }
+                else if (!matchesAtLeastOnePattern(relativePath, patterns))
+                {
+                    iterator.remove();                    
+                }
+                else if (absolute)
+                {
+                    iterator.set(fullPath);
+                }
+            }
+        }
+        return contents;
+    }
+    
+    /**
+     * Indicates whether or not the given <code>path</code> matches on
+     * one or more of the patterns defined within this class (this automatically)
+     * returns true if no patterns are defined.
+     *
+     * @param path the path to match on.
+     * @return true/false
+     */
+    public static boolean matchesAtLeastOnePattern(final String path, final String[] patterns)
+    {
+        boolean matches = patterns == null || patterns.length == 0;
+        if (!matches)
+        {
+            if (patterns.length > 0)
+            {
+                final int patternNumber = patterns.length;
+                for (int ctr = 0; ctr < patternNumber; ctr++)
+                {
+                    final String pattern = patterns[ctr];
+                    if (PathMatcher.wildcardMatch(
+                            path,
+                            pattern))
+                    {
+                        matches = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return matches;
+    }
 }

@@ -35,7 +35,7 @@ public class AndroMDAMojo
     /**
      * This is the URI to the AndroMDA configuration file.
      *
-     * @parameter expression="file:mda/conf/andromda.xml"
+     * @parameter expression="file:conf/andromda.xml"
      * @required
      */
     private String configurationUri;
