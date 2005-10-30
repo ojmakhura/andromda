@@ -412,7 +412,6 @@ public class Model
             if (lastModifiedTimes != null)
             {
                 final long modelLastModified = ((Long)lastModifiedTimes.get(modelKey)).longValue();
-                ;
                 changed = this.getLastModified() > modelLastModified;
                 if (!changed)
                 {
