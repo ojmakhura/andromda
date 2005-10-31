@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -51,7 +53,7 @@ public class AndroMDAMojo
      * @parameter expression="${project.build.filters}"
      */
     private List propertyFiles;
-    
+
     /**
      * The current user system settings for use in Maven. (allows us to pass the user
      * settings to the AndroMDA configuration).
@@ -104,7 +106,7 @@ public class AndroMDAMojo
     private Configuration getConfiguration()
         throws IOException
     {
-        final URL uri = new URL(this.configurationUri);
+        final URL uri = ResourceUtils.toURL(this.configurationUri);
         final String contents = this.replaceProperties(ResourceUtils.getContents(uri));
         final Configuration configuration = Configuration.getInstance(contents);
         final URL mappingsUrl = ResourceUtils.getResource(MAPPINGS_PATH);
