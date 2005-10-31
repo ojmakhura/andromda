@@ -6,13 +6,25 @@
         <version>3.1-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-metafacades-uml</artifactId>
-    <packaging>jar</packaging>
+    <packaging>model</packaging>
     <name>AndroMDA UML Common Metafacades</name>
   	<description>
   		The common UML metafacades.  This is the set of core UML metafacades
   		used to provide access UML meta models. 
   	</description>
-  	<build>
+    <build>
+        <plugins>
+            <plugin>
+                <extensions>true</extensions>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-model-archiver-plugin</artifactId>
+                <configuration>
+                    <modelSourceDirectory>src/uml</modelSourceDirectory>
+                    <generateJar>true</generateJar>
+                    <buildSourceDirectory>target/src</buildSourceDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
 		<resources>
 	      	<resource>
 		        <directory>src/java</directory>
