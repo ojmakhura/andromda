@@ -1,44 +1,44 @@
 module UML2Spring;
 
-create OUT: Spring from IN: UML;
+create OUT: Spring from IN: UML, CONFIG: Configuration;
 
 uses UMLHelpers;
 
 -- Transform UML classes that have the stereotype "Service"
 -- to Spring services.
 rule UMLServiceToSpringService {
-	from e : UML!Class (e.hasStereotype('Service'))
+	from class : UML!Class (class.hasStereotype('Service'))
 	to out : Spring!Service (
-		name <- e.name,
-		methods <- e.feature->select (f|f.oclIsTypeOf(UML!Operation))
+		name <- class.getFullyQualifiedName(),
+		methods <- class.feature->select (f|f.oclIsTypeOf(UML!Operation))
 	)
 }
 
 -- Transform UML operations to 3GL methods.
 
 rule UMLOpTo3GLMethod {
-	from e : UML!Operation
+	from method : UML!Operation
 	to out : Spring!Method (
-		name <- e.name ,
-		returnType <- e.parameter->select(x|x.kind=#pdk_return)->asSequence()->first().type,
-		parameters <- e.parameter->select(x|x.kind<>#pdk_return)->asSequence()
+		name <- method.name ,
+		returnType <- method.parameter->select(x|x.kind=#pdk_return)->asSequence()->first().type,
+		parameters <- method.parameter->select(x|x.kind<>#pdk_return)->asSequence()
 	)
 }
 
 
 -- Transform UML parameters to 3GL parameters.
 rule UMLParameterTo3GLParameter {
- 	from e : UML!Parameter (e.kind <> #pdk_return)
+ 	from param : UML!Parameter (param.kind <> #pdk_return)
  	to out : Spring!Parameter (
- 		name <- e.name ,
- 		type <- e.type
+ 		name <- param.name ,
+ 		type <- param.type
  	)
 }
 
 rule UMLDatatypeTo3GLDatatype {
-	from e : UML!DataType
+	from type : UML!DataType
 	to out : Spring!Type (
-		name <- e.name
+		name <- type.name
 	)
 }
 

@@ -3,3 +3,31 @@ library UMLHelpers;
 -- tells whether an UML model element has a certain stereotype
 helper context UML!ModelElement def: hasStereotype(name : String) : Boolean =
     self.stereotype->exists(e | e.name = name);
+
+-- gets the extended name of a UML namespace, i.e. including all nestings
+helper context UML!Namespace def: getExtendedName() : String =
+	if self.namespace.oclIsUndefined() then
+		''
+	else if self.namespace.oclIsKindOf(UML!Model) then
+		''
+	else
+		self.namespace.getExtendedName() + '::'
+	endif endif + self.name;
+
+-- returns the name of the classifier, translated to the target language (e.g. Java)
+helper context UML!Classifier def: getFullyQualifiedName() : String =
+    Configuration!TypeMappings->getLanguageMapping(self.getExtendedName());
+
+
+
+-- other tiny helpers
+
+helper context UML!ModelElement def: isPublic() : Boolean =
+	self.visibility = #vk_public;
+
+helper context UML!Feature def: isStatic() : Boolean =
+	self.ownerScope = #sk_static;
+
+helper context UML!Attribute def: isReadonly() : Boolean =
+	self.changeability = #ck_frozen;
+
