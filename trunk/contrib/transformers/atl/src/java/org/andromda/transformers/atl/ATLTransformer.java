@@ -24,10 +24,11 @@ import org.atl.engine.vm.nativelib.ASMModel;
 
 
 /**
- * Facilitates MOF transformations using ATL (ATLAS Model Language).
+ * Facilitates MOF transformations using ATL (ATLAS Transformation Language).
  * model transformer
  *
  * @author Chad Brandon
+ * @author Matthias Bohlen (some fixes)
  */
 public class ATLTransformer
 {
@@ -165,8 +166,10 @@ public class ATLTransformer
                         metamodels,
                         metamodelName);
                 final String modelName = model.getName();
-                final ATLModelHandler handler = ATLModelHandler.getInstance(model.getRepository());
-                final ASMModel mofMetamodel = handler.getMOF();
+                
+                final ATLModelHandler metamodelHandler = ATLModelHandler.getInstance(metamodel.getRepository());
+                final ASMModel mofMetamodel = metamodelHandler.getMOF();
+                
                 mofMetamodel.setIsTarget(false);
 
                 // - check to see if we've already loaded the meta model once before
@@ -174,7 +177,7 @@ public class ATLTransformer
                 if (inputMetaModel == null)
                 {
                     inputMetaModel =
-                        handler.loadModel(
+                        metamodelHandler.loadModel(
                             metamodelName,
                             mofMetamodel,
                             metamodel.getPath(),
@@ -184,8 +187,11 @@ public class ATLTransformer
                         inputMetaModel);
                 }
                 inputMetaModel.setIsTarget(false);
+                
+                final ATLModelHandler modelHandler = ATLModelHandler.getInstance(model.getRepository());
+
                 final ASMModel inputModel =
-                    handler.loadModel(
+                    modelHandler.loadModel(
                         modelName,
                         inputMetaModel,
                         model.getPath(),
