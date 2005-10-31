@@ -11,6 +11,7 @@ import org.apache.maven.archiver.MavenArchiver;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.jar.JarArchiver;
@@ -88,6 +89,15 @@ public class XmiZipMojo
      * @required
      */
     protected ArchiverManager archiverManager;
+    
+    /**
+     * The model Jar archiver.
+     *
+     * @parameter expression="${component.org.codehaus.plexus.archiver.Archiver#jar}"
+     * @required
+     */
+    private JarArchiver modelJarArchiver;
+
 
     /**
      * The extensions to search for when doing replacement of embedded model HREF references
@@ -97,6 +107,36 @@ public class XmiZipMojo
      * @required
      */
     protected String replacementExtensions;
+
+    /**
+     * Whether or not the model should have a jar created with it as well.
+     *
+     * @parameter
+     */
+    private boolean generateJar;
+    
+    /**
+     * The maven project's helper.
+     *
+     * @parameter expression="${component.org.apache.maven.project.MavenProjectHelper}"
+     * @required
+     * @readonly
+     */
+    private MavenProjectHelper projectHelper;
+    
+    /**
+     * What to include in the jar directory.
+     */
+    private static final String[] JAR_INCLUDES = new String[]{"**/**"};
+    
+    /**
+     * The pattern of the model file(s) to which to apply the archiving.
+     * 
+     * @parameter expression=".*(\\.xml|\\.xmi|\\.xml\\.zip)}"
+     * @required
+     * @readonly
+     */
+    private final String modelFilePattern;
 
     /**
      * The maven archiver to use.
@@ -132,15 +172,15 @@ public class XmiZipMojo
                 for (int ctr = 0; ctr < modelFiles.length; ctr++)
                 {
                     final File file = modelFiles[ctr];
-                    if (file.isFile())
+                    if (file.isFile() && file.toString().matches(this.modelFilePattern))
                     {
                         this.unpack(
                             file,
                             buildDirectory);
                         final File[] extractedModelFiles = buildDirectory.listFiles();
-                        for (int ctr2 = 0; ctr2 < modelFiles.length; ctr2++)
+                        for (int ctr2 = 0; ctr2 < extractedModelFiles.length; ctr2++)
                         {
-                            final File extractedFile = extractedModelFiles[ctr];
+                            final File extractedFile = extractedModelFiles[ctr2];
                             if (extractedFile.isFile())
                             {
                                 final File newFile =
@@ -171,6 +211,7 @@ public class XmiZipMojo
         }
         catch (final Throwable throwable)
         {
+            throwable.printStackTrace();
             throw new MojoExecutionException("Error copying model resources", throwable);
         }
 
@@ -186,6 +227,35 @@ public class XmiZipMojo
             archiver.createArchive(
                 project,
                 archive);
+
+            if (this.generateJar)
+            {
+                getLog().info("Building model jar " + finalName);
+
+                File modelJar = new File(outputDirectory, finalName + ".jar");
+
+                MavenArchiver clientArchiver = new MavenArchiver();
+
+                clientArchiver.setArchiver(this.modelJarArchiver);
+
+                clientArchiver.setOutputFile(modelJar);
+
+                clientArchiver.getArchiver().addDirectory(
+                    new File(outputDirectory),
+                    JAR_INCLUDES,
+                    null);
+
+                // create archive
+                clientArchiver.createArchive(
+                    project,
+                    archive);
+
+                projectHelper.attachArtifact(
+                    project,
+                    "ejb-client",
+                    "client",
+                    modelJar);
+            }
         }
         catch (final Throwable throwable)
         {
@@ -257,5 +327,10 @@ public class XmiZipMojo
         {
             throw new MojoExecutionException("Error unpacking file: " + file + "to: " + location, e);
         }
+    }
+    
+    public static void main(String args[])
+    {
+        System.out.println("my-model.xml.zip".matches(MODEL_FILE_PATTERN));
     }
 }
