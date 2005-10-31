@@ -1,0 +1,180 @@
+<cartridge>
+
+    <templateEngine>
+        <macrolibrary name="templates/nhibernate/nhibernate.cs.vm"/>
+        <macrolibrary name="templates/nhibernate/nhibernate.hbm.xml.vm"/>
+        <!-- cartridge-macrolibrary merge-point-->
+    </templateEngine>
+
+    <!-- define the template objects that are made availble to the template -->
+    <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
+    <templateObject name="hibernateUtils" className="org.andromda.cartridges.nhibernate.HibernateUtils">
+        <property reference="hibernateVersion"/>
+    </templateObject>
+    <!-- cartridge-templateObject merge-point-->
+
+    <property reference="securityRealm"/>
+    <property reference="customTypesPackage"/>
+    <!-- contains the package for the Hibernate user types -->
+    <property reference="userTypesPackage"/>
+    <!-- the name to give the service locator class -->
+    <property reference="hibernateVersion"/>
+    <property reference="serviceLocatorName"/>
+    <property reference="sequenceIdentifierSuffix"/>
+    <property reference="driver"/>
+    <property reference="username"/>
+    <property reference="password"/>
+    <property reference="connectionUrl"/>
+    <property reference="dataSource"/>
+    <property reference="hibernateDefaultCascade"/>
+    <property reference="hibernatePoolSize"/>
+    <property reference="hibernateTransactionFactoryClass"/>
+    <property reference="hibernateTransactionManagerStrategy"/>
+    <property reference="hibernateUserTransactionName"/>
+    <property reference="hibernateTransactionManagerLookup"/>
+    <property reference="hibernateUseOuterJoin"/>
+    <property reference="hibernateShowSql"/>
+    <property reference="hibernateJndiName"/>
+    <property reference="hibernateDialect"/>
+    <property reference="hibernateDefaultSchema"/>
+    <property reference="hibernateMaxFetchDepth"/>
+    <property reference="hibernateJdbcFetchSize"/>
+    <property reference="hibernateJdbcBatchSize"/>
+    <property reference="hibernateJdbcUseScrollableResultSet"/>
+    <property reference="hibernateJdbcUseStreamsForBinary"/>
+    <property reference="hibernateHbm2DDLAuto"/>
+    <property reference="hibernateQuerySubstitutions"/>
+    <property reference="hibernateEnableCache"/>
+    <property reference="hibernateEnableAssociationsCache"/>
+    <property reference="hibernateEhCacheDiskStore"/>
+    <property reference="hibernateCacheProvider"/>
+    <property reference="hibernateQueryCacheFactory"/>
+    <property reference="xmlEncoding"/>
+    <property reference="generateEntityEqualsAndHashCode"/>
+    <property reference="hibernateProxy"/>
+    <!-- This property is only relevant for Hibernate 3 -->
+    <property reference="hibernateQueryFactory"/>
+
+    <!-- These properties are only relevant for .NET -->
+    <property reference="commonAssemblyName"/>
+    <property reference="coreAssemblyName"/>
+
+    <!-- cartridge-property merge-point-->
+
+    <!-- cartridge-resource merge-point -->
+
+<!---
+    <template
+        path="templates/hibernate/nhibernate.cfg.xml.vsl"
+        outputPattern="hibernate.cfg.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="entities">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="requiresMapping"/>
+                    <property name="version">2</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+-->
+
+    <template
+        path="templates/nhibernate/nhibernate.hbm.xml.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.nhibernate.metafacades.HibernateEntity">
+                    <property name="requiresMapping"/>
+                    <property name="version">2</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/nhibernate/NHibernateEmbeddedValue.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true">
+        <modelElements variable="embeddedValue">
+            <modelElement>
+                <type name="org.andromda.cartridges.nhibernate.metafacades.HibernateEmbeddedValue"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/nhibernate/NHibernateEmbeddedValueImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="entity-impls"
+        overwrite="false">
+        <modelElements variable="embeddedValue">
+            <modelElement>
+                <type name="org.andromda.cartridges.nhibernate.metafacades.HibernateEmbeddedValue"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/nhibernate/NHibernateEntity.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.nhibernate.metafacades.HibernateEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/nhibernate/NHibernateEntityImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.nhibernate.metafacades.HibernateEntity">
+                    <property name="businessOperationsPresent">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/nhibernate/NHibernateEntityImplManual.vsl"
+        outputPattern="$generatedFile"
+        outlet="entity-impls"
+        overwrite="false">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.nhibernate.metafacades.HibernateEntity">
+                    <property name="businessOperationsPresent"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+<!--
+    <template
+        path="templates/nhibernate/NHibernateEnumeration.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true">
+        <modelElements variable="enumeration">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.EnumerationFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+-->
+
+    <!-- cartridge-template merge-point -->
+
+</cartridge>

@@ -1,0 +1,45 @@
+#set ($generatedFile = "${entity.packagePath}/${entity.entityImplementationName}.cs")
+// Name: ${entity.entityImplementationName}.cs
+// license-header cs merge-point
+//
+// This is only generated once! It will never be overwritten.
+// You can (and have to!) safely modify it by hand.
+
+using System;
+
+#if ($stringUtils.isNotBlank($entity.packageName))
+namespace $entity.packageName
+{
+#end
+    /// <summary>
+    /// @see $entity.fullyQualifiedEntityName
+    /// </summary>
+    public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
+        : $entity.fullyQualifiedEntityName
+    {
+#foreach ($operation in $entity.businessOperations)
+        /// <summary>
+        /// @see ${entity.fullyQualifiedEntityName}#${operation.getSignature(false)}
+        /// </summary>
+#set ($abstract = $entity.abstract && $operation.abstract)
+        $operation.visibility#if ($abstract) abstract#end override $operation.returnType.fullyQualifiedName $operation.signature#if ($abstract && !$operation.exceptionsPresent);#end
+#if ($operation.exceptionsPresent)
+
+            throws $operation.exceptionList#if ($abstract);#end
+#end
+#if (!$abstract)
+
+        {
+            //@todo implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+#if ($operation.returnTypePresent)
+            return $operation.returnType.javaNullString;
+#else
+            throw new InvalidOperationException("${entity.fullyQualifiedName}.${operation.signature} Not implemented!");
+#end
+        }
+#end
+#end
+    }
+#if ($stringUtils.isNotBlank($entity.packageName))
+}
+#end
