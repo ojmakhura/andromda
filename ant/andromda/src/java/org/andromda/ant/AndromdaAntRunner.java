@@ -1,13 +1,5 @@
 package org.andromda.ant;
 
-import org.apache.commons.io.CopyUtils;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.IOFileFilter;
-import org.apache.commons.io.filefilter.TrueFileFilter;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -29,6 +21,14 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.filefilter.IOFileFilter;
+import org.apache.commons.io.filefilter.TrueFileFilter;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
 
 /**
  * @todo: document this class
@@ -203,7 +203,7 @@ public class AndromdaAntRunner
 
             InputStream instream = new FileInputStream(templateFile);
             Writer writer = new BufferedWriter(new FileWriter(target));
-            CopyUtils.copy(instream, writer);
+            IOUtils.copy(instream, writer);
             instream.close();
             writer.close();
         }
