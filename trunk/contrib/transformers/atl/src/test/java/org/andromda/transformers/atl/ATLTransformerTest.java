@@ -33,6 +33,7 @@ public class ATLTransformerTest
         assertNotNull(umlMetamodelPath);
         umlMetamodel.setName(umlMetamodelName);
         umlMetamodel.setPath(umlMetamodelPath.toString());
+        umlMetamodel.setRepository(mdrRepository);
         
         // - setup the source model.
         final Model sourceModel = new Model();
@@ -42,6 +43,7 @@ public class ATLTransformerTest
         sourceModel.setPath(sourceModelPath.toString());
         // - set this first input model's meta model as UML
         sourceModel.setMetamodel(umlMetamodelName);
+        sourceModel.setRepository(mdrRepository);
         
         // - setup the target metamodel (this is the output model's metamodel)
         final String javaMetamodelName = "JAVA";
@@ -49,6 +51,7 @@ public class ATLTransformerTest
         javaMetamodel.setName(javaMetamodelName);
         final String javaMetamodelPath = testResourcePath + "Java-20040316.xmi";
         javaMetamodel.setPath(javaMetamodelPath);
+        javaMetamodel.setRepository(mdrRepository);
         
         // - setup the target model
         final Model targetModel = new Model();
@@ -58,6 +61,7 @@ public class ATLTransformerTest
         final String targetModelPath = testResourcePath + "transformed-output.xmi";
         targetModel.setPath(targetModelPath);
         targetModel.setMetamodel(javaMetamodelName);
+        targetModel.setRepository(mdrRepository);
         
         // - load up the metamodels and models
         Model[] metamodels = new Model[] {umlMetamodel, javaMetamodel};
