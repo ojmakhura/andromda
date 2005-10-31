@@ -1,0 +1,77 @@
+##
+##  This macro will render the Equals() method
+##  If an entity is rendered, the attributeSet consists of the identifiers,
+##  if an value type is renderer, the attributeSet consists of all attributes
+##
+#macro (renderEqualsMethod $class $className $attributeSet)
+        public override bool Equals(Object obj)
+        {
+#if ($attributeSet.empty)
+            return base.Equals(obj);
+#else
+            if (this == obj)
+            {
+                return true;
+            }
+            if (GetType() != obj.GetType())
+            {
+                return false;
+            }
+            $className that = ($className)obj;
+#foreach ($attribute in $attributeSet)
+#set ($idType = $attribute.type)
+#set ($propertyName = ${stringUtils.upperCamelCaseName($attribute.name)})
+#if ($idType.primitive || $idType.enumeration)
+            if (this.$propertyName != that.$propertyName)
+            {
+                return false;
+            }
+#elseif ($idType.arrayType)
+            if (!cs.util.Arrays.equals(this.$propertyName, that.$propertyName))
+            {
+                return false;
+            }
+#else
+            if (this.$propertyName == null || that.$propertyName == null || !this.${propertyName}.Equals(that.$propertyName))
+            {
+                return false;
+            }
+#end
+#end
+            return true;
+#end
+        }
+#end
+##
+##  This macro will render the GetHashCode() method
+##  If an entity is rendered, the attributeSet consists of the identifiers,
+##  if an value type is renderer, the attributeSet consists of all attributes
+##
+#macro (renderHashCodeMethod $class $attributeSet)
+        public override int GetHashCode()
+        {
+#if ($attributeSet.empty)
+            return base.GetHashCode();
+#else
+#if ($class.generalization)
+            int hashCode = base.GetHashCode();
+#else
+            int hashCode = 0;
+#end
+#foreach ($attribute in $attributeSet)
+#set ($attrType = $attribute.type)
+#set ($propertyName = ${stringUtils.upperCamelCaseName($attribute.name)})
+#if  ($attribute.getterSetterTypeName == "bool")
+            hashCode = 29 * hashCode + (${propertyName} ? 1 : 0);
+#elseif ($attrType.arrayType)
+            // arrays are not part of the hashCode calculation
+#elseif ($attrType.primitive || $attrType.enumeration)
+            hashCode = 29 * hashCode + (int)${propertyName};
+#else
+            hashCode = 29 * hashCode + (${propertyName} == null ? 0 : ${propertyName}.GetHashCode());
+#end## if
+#end## foreach
+            return hashCode;
+#end## $attributeSet.empty
+        }
+#end

@@ -1,0 +1,40 @@
+#set ($generatedFile = "${embeddedValue.packagePath}/${embeddedValue.implementationName}.cs")
+// Name: ${embeddedValue.implementationName}.cs
+// license-header cs merge-point
+//
+// This is only generated once! It will never be overwritten.
+// You can (and have to!) safely modify it by hand.
+
+using System;
+
+#if ($stringUtils.isNotBlank($embeddedValue.packageName))
+namespace $embeddedValue.packageName
+{
+#end
+    /// <summary>
+    /// @see $embeddedValue.fullyQualifiedName
+    /// </summary>
+    public#if ($embeddedValue.abstract) abstract#end class $embeddedValue.implementationName
+        : $embeddedValue.fullyQualifiedName
+    {
+#foreach ($operation in $embeddedValue.operations)
+        /// <summary>
+        /// @see ${embeddedValue.fullyQualifiedName}#${operation.getSignature(false)}
+        /// </summary>
+        $operation.visibility override $operation.returnType.fullyQualifiedName $operation.signature
+#if ($operation.exceptionsPresent)
+            throws $operation.exceptionList
+#end
+        {
+            //@todo implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+#if ($operation.returnTypePresent)
+            return $operation.returnType.javaNullString;
+#else
+            throw new InvalidOperationException("${embeddedValue.fullyQualifiedName}.${operation.signature} Not implemented!");
+#end
+        }
+#end
+    }
+#if ($stringUtils.isNotBlank($embeddedValue.packageName))
+}
+#end

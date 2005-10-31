@@ -1,0 +1,107 @@
+<cartridge>
+
+    <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
+    <!-- cartridge-templateObject merge-point-->
+
+    <property reference="serializable"/>
+    <property reference="enablePropertyConstructors"/>
+    <!-- cartridge-property merge-point-->
+
+    <!-- cartridge-resource merge-point -->
+
+<!--
+    <template
+        path="templates/cs/Service.vsl"
+        outputPattern="{0}/{1}.cs"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Service"/>
+            </modelElement>
+        </modelElements>
+    </template>
+-->
+
+<!--
+    <template
+        path="templates/cs/ServiceImpl.vsl"
+        outputPattern="{0}/{1}Impl.cs"
+        outlet="service-impls"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Service"/>
+            </modelElement>
+        </modelElements>
+    </template>
+-->
+
+    <template
+        path="templates/cs/ValueObject.vsl"
+        outputPattern="{0}/{1}.cs"
+        outlet="value-objects"
+        overwrite="true">
+        <modelElements variable="class">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ValueObject"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+<!--
+    <template
+        path="templates/cs/ApplicationException.vsl"
+        outputPattern="{0}/{1}.cs"
+        outlet="exceptions"
+        overwrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="EXCEPTION"/>
+            <modelElement stereotype="APPLICATION_EXCEPTION"/>
+        </modelElements>
+    </template>
+-->
+
+<!--
+    <template
+        path="templates/cs/UnexpectedException.vsl"
+        outputPattern="{0}/{1}.cs"
+        outlet="exceptions"
+        overwrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="UNEXPECTED_EXCEPTION"/>
+        </modelElements>
+    </template>
+-->
+
+    <template
+        path="templates/cs/Enumeration.vsl"
+        outputPattern="{0}/{1}.cs"
+        outlet="enumerations"
+        overwrite="true">
+        <modelElements variable="enumeration">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.EnumerationFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+<!--
+    <template
+        path="templates/cs/Interface.vsl"
+        outputPattern="{0}/{1}.cs"
+        outlet="interfaces"
+        overwrite="true">
+        <modelElements variable="interface">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ClassifierFacade">
+                    <property name="interface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+-->
+
+    <!-- cartridge-template merge-point -->
+
+</cartridge>

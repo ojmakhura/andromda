@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <extend>../project.xml</extend>
+    <artifactId>andromda-nhibernate-cartridge</artifactId>
+    <currentVersion>1.0-SNAPSHOT</currentVersion>
+    <name>AndroMDA NHibernate Cartridge</name>
+    <shortDescription>NHibernate Cartridge</shortDescription>
+    <description>
+        Produces NHibernate entities optionally services implemented as Session EJB facades.
+    </description>
+    <issueTrackingUrl>${issue.tracking.location}/BrowseProject.jspa?id=10012&amp;decorator=none</issueTrackingUrl>
+    <developers>
+        <developer>
+            <name>Naresh Bhatia</name>
+            <id>nbhatia</id>
+            <email>naresh@andromda.org</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+    <contributors>
+        <contributor>
+            <name>Louis Coude</name>
+            <id>Louis</id>
+            <email>l_coude@hotmail.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </contributor>
+    </contributors>
+    <dependencies>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>maven-andromda-plugin</artifactId>
+            <version>${andromda.version}</version>
+            <type>plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${andromda.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <version>${andromda.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-metafacades-uml14</artifactId>
+            <version>${andromda.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-meta-cartridge</artifactId>
+            <version>${andromda.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+            <version>${andromda.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+             <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.8</version>
+            <properties/>
+        </dependency>
+        <!-- test dependencies -->
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-cartridge-plugin</artifactId>
+            <version>${andromda.version}</version>
+            <type>plugin</type>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-ocl-query-library</artifactId>
+            <version>${andromda.version}</version>
+            <properties>
+                <cartridge.testDependency/>
+            </properties>
+        </dependency>
+    </dependencies>
+</project>
