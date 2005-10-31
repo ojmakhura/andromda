@@ -22,6 +22,42 @@
                     final String name = String.valueOf(names.nextElement());
                     parameters.put(name, request.getParameter(name));
                 }
+##
+## Checkbox fields need to be reset since the request will not contain parameters for unchecked
+## checkboxes.
+##
+#set ($actionParameters = $action.actionParameters)
+#set ($formHasCheckboxes = false)
+#foreach ($field in $actionParameters)
+#if ($field.checkbox)
+#set ($formHasCheckboxes = true)
+#end
+#end
+#if ($formHasCheckboxes)
+
+                // reset all checkbox fields
+                final java.util.Map resetMethods = new java.util.HashMap();
+                final Class currentFormClass = currentForm.getClass();
+                try
+                {
+#foreach ($field in $actionParameters)
+#if ($field.checkbox)
+                    resetMethods.put("${field.resetName}", currentFormClass.getMethod("${field.resetName}", null));
+#end
+#end
+                    for (final java.util.Iterator iterator = resetMethods.keySet().iterator(); iterator.hasNext();)
+                    {
+                        final java.lang.reflect.Method method =
+                            (java.lang.reflect.Method)resetMethods.get((String)iterator.next());
+                        method.invoke(currentForm, null);
+                    }
+                }
+                catch (java.lang.Exception reflectionException)
+                {
+                     // ignore if we have a reflection exception (the form doesn't contain desired checkbox fields)
+                }
+
+#end
                 try
                 {
                     org.apache.commons.beanutils.BeanUtils.populate(currentForm, parameters);
