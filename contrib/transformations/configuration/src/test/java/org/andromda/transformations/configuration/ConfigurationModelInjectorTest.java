@@ -82,23 +82,20 @@ public class ConfigurationModelInjectorTest extends TestCase
     /**
      * Dumps an array of mapping locations for debugging purposes.
      * 
-     * @param mappingsSearchLocations
-     *            the locations to dump
-     * @throws IOException
-     *             when something goes wrong
+     * @param mappingsSearchLocations the locations to dump
+     * @throws IOException when something goes wrong
      */
     private void dumpMappings(Location[] mappingsSearchLocations)
-            throws IOException
     {
         for (int i = 0; i < mappingsSearchLocations.length; i++)
         {
             Location loc = mappingsSearchLocations[i];
             AndroMDALogger.debug("Mappings search location = " + loc.getPath());
-            File[] files = loc.getFiles();
-            for (int k = 0; k < files.length; k++)
+            URL[] resources = loc.getResources();
+            for (int k = 0; k < resources.length; k++)
             {
                 AndroMDALogger.debug("  file: "
-                        + files[k].getCanonicalPath().toString());
+                        + resources[k].toString());
             }
         }
     }
@@ -106,8 +103,7 @@ public class ConfigurationModelInjectorTest extends TestCase
     /**
      * Dumps a Namespace for debugging purposes.
      * 
-     * @param ns
-     *            the Namespace to dump
+     * @param ns the Namespace to dump
      */
     private void dumpNamespace(Namespace ns)
     {
@@ -118,10 +114,8 @@ public class ConfigurationModelInjectorTest extends TestCase
     /**
      * Dumps an array of properties for debugging purposes.
      * 
-     * @param headline
-     *            a title to be written
-     * @param properties
-     *            the properties to be dumped
+     * @param headline a title to be written
+     * @param properties the properties to be dumped
      */
     private void dumpProperties(String headline, Object[] properties)
     {
