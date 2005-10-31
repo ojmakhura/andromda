@@ -44,6 +44,20 @@ public abstract class ATLModelHandler
     }
 
     /**
+     * Registers an additional model handler for a particular kind of 
+     * metadata repository.
+     * 
+     * @author Matthias Bohlen
+     * 
+     * @param repositoryTypeName name of the repository type
+     * @param modelHandler the instance to use for this type of repository
+     */
+    public static void registerModelHandler (final String repositoryTypeName, final ATLModelHandler modelHandler)
+    {
+    	modelHandlerInstances.put(repositoryTypeName, modelHandler);
+    }
+    
+    /**
      * Writes the <code>model</code> to the given
      * <code>uri</code>.
      * 
