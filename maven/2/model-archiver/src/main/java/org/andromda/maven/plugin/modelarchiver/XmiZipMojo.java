@@ -4,14 +4,19 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
 import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.archiver.MavenArchiver;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
-import org.apache.maven.project.MavenProjectHelper;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.jar.JarArchiver;
@@ -113,18 +118,20 @@ public class XmiZipMojo
      * @parameter
      */
     private boolean generateJar;
-
-    /**
-     * The maven project's helper.
-     *
-     * @parameter expression="${component.org.apache.maven.project.MavenProjectHelper}"
-     * @required
-     * @readonly
-     */
-    private MavenProjectHelper projectHelper;
     private static final String[] MODEL_INCLUDES = new String[] {"*.xml", "*.xmi"};
     private static final String[] JAR_INCLUDES = new String[] {"**/*.class", "**/*.propertes", "**/*.xml"};
-    private static final String[] EXCLUDES = new String[] {"*.xml.zip, **/*.java", "*reports*/**", "tests*/**"};
+    private final Collection excludes =
+        new ArrayList(Arrays.asList(new String[] {"*.xml.zip, **/*.java", "*reports*/**", "tests*/**"}));
+
+    /**
+     * Gets the current excludes as an array.
+     *
+     * @return the exclude patterns.
+     */
+    private String[] getExcludes()
+    {
+        return (String[])this.excludes.toArray(new String[0]);
+    }
 
     /**
      * The pattern of the archived model files that should be extracted
@@ -158,6 +165,13 @@ public class XmiZipMojo
      * @parameter
      */
     private MavenArchiveConfiguration archive = new MavenArchiveConfiguration();
+
+    /**
+     * @parameter expression="${localRepository}"
+     * @required
+     * @readonly
+     */
+    protected ArtifactRepository localRepository;
 
     public void execute()
         throws MojoExecutionException
@@ -196,13 +210,21 @@ public class XmiZipMojo
                         for (int ctr2 = 0; ctr2 < extractedModelFiles.length; ctr2++)
                         {
                             final File extractedFile = extractedModelFiles[ctr2];
-                            if (extractedFile.isFile() && extractedFile.toString().matches(this.modelFilePattern))
+                            final String extractedFilePath = extractedFile.toString();
+                            if (extractedFile.isFile() && extractedFilePath.matches(this.modelFilePattern))
                             {
                                 final File newFile =
                                     new File(outputDirectory,
                                         finalName + '.' + FileUtils.getExtension(extractedFile.toString()));
 
-                                // - remove any already existing files with the same name
+                                // - exclude the file that we extracted
+                                if (!newFile.equals(extractedFile))
+                                {
+                                    final String shortPath = extractedFilePath.replaceAll(
+                                            ".*\\\\|/",
+                                            "");
+                                    this.excludes.add(shortPath);
+                                }
                                 extractedFile.renameTo(newFile);
                                 String contents = ResourceUtils.getContents(newFile.toURL());
                                 for (int ctr3 = 0; ctr3 < replacementExtensions.length; ctr3++)
@@ -233,14 +255,14 @@ public class XmiZipMojo
         try
         {
             final File xmlZipFile = new File(outputDirectory, finalName + ".xml.zip");
-            project.getArtifact().setFile(xmlZipFile);
+            final Artifact artifact = project.getArtifact();
             final MavenArchiver archiver = new MavenArchiver();
             archiver.setArchiver(jarArchiver);
             archiver.setOutputFile(xmlZipFile);
             archiver.getArchiver().addDirectory(
                 this.getBuildDirectory(),
                 MODEL_INCLUDES,
-                EXCLUDES);
+                this.getExcludes());
             archiver.createArchive(
                 project,
                 archive);
@@ -266,24 +288,56 @@ public class XmiZipMojo
                 modelJarArchiver.getArchiver().addDirectory(
                     this.getBuildDirectory(),
                     JAR_INCLUDES,
-                    EXCLUDES);
+                    this.getExcludes());
 
                 // - create archive
                 modelJarArchiver.createArchive(
                     project,
                     archive);
 
-                projectHelper.attachArtifact(
+                modelJarArchiver.createArchive(
                     project,
-                    "model-jar",
-                    "t",
+                    archive);
+
+                // - set the artifact file as the modelJar so that we can install the model jar
+                artifact.setFile(modelJar);
+                this.installModelJar(
+                    artifact,
                     modelJar);
             }
+
+            // - set the artifact file back to the correct file (since we've installed modelJar already)
+            artifact.setFile(xmlZipFile);
         }
         catch (final Throwable throwable)
         {
             throw new MojoExecutionException("Error assembling model", throwable);
         }
+    }
+
+    /**
+     * Installs the model jar for this xml.zip artifact into the local repository.
+     * @param artifact
+     * @param source
+     * @throws IOException
+     */
+    private void installModelJar(
+        final Artifact artifact,
+        final File source)
+        throws IOException
+    {
+        // - change the extension to the correct 'jar' extension
+        final String localPath = localRepository.pathOf(artifact).replaceAll(
+                "\\.xml\\.zip",
+                "\\.jar");
+        final File destination = new File(
+                this.localRepository.getBasedir(),
+                localPath);
+        this.getLog().info("Installing " + source.getPath() + " to " + destination);
+
+        FileUtils.copyFile(
+            source,
+            destination);
     }
 
     /**
