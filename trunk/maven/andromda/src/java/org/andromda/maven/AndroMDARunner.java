@@ -110,7 +110,7 @@ public class AndroMDARunner
     private Configuration getConfiguration()
         throws MalformedURLException
     {
-        final URL uri = new URL(this.configurationUri);
+        final URL uri = ResourceUtils.toURL(this.configurationUri);;
         final Configuration configuration =
             Configuration.getInstance(
                 this.replaceProperties(ResourceUtils.getContents(uri)));
