@@ -16,7 +16,6 @@ import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.jar.JarArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
-import org.codehaus.plexus.archiver.manager.NoSuchArchiverException;
 import org.codehaus.plexus.util.FileUtils;
 
 
@@ -26,6 +25,7 @@ import org.codehaus.plexus.util.FileUtils;
  * @author Chad Brandon
  * @goal xml.zip
  * @phase package
+ * @requiresDependencyResolution runtime
  * @description builds a versioned xml.zip
  */
 public class XmiZipMojo
@@ -89,7 +89,7 @@ public class XmiZipMojo
      * @required
      */
     protected ArchiverManager archiverManager;
-    
+
     /**
      * The model Jar archiver.
      *
@@ -97,7 +97,6 @@ public class XmiZipMojo
      * @required
      */
     private JarArchiver modelJarArchiver;
-
 
     /**
      * The extensions to search for when doing replacement of embedded model HREF references
@@ -114,7 +113,7 @@ public class XmiZipMojo
      * @parameter
      */
     private boolean generateJar;
-    
+
     /**
      * The maven project's helper.
      *
@@ -123,20 +122,25 @@ public class XmiZipMojo
      * @readonly
      */
     private MavenProjectHelper projectHelper;
-    
-    /**
-     * What to include in the jar directory.
-     */
-    private static final String[] JAR_INCLUDES = new String[]{"**/**"};
-    
+    private static final String[] MODEL_INCLUDES = new String[] {"*.xml", "*.xmi"};
+    private static final String[] JAR_INCLUDES = new String[] {"**/*.class", "**/*.propertes", "**/*.xml"};
+    private static final String[] EXCLUDES = new String[] {"*.xml.zip, **/*.java", "*reports*/**", "tests*/**"};
+
     /**
      * The pattern of the model file(s) to which to apply the archiving.
-     * 
-     * @parameter expression=".*(\\.xml|\\.xmi|\\.xml\\.zip)}"
+     *
+     * @parameter expression=".*(\\.xml|\\.xmi|\\.xml\\.zip)"
      * @required
      * @readonly
      */
-    private final String modelFilePattern;
+    private String modelFilePattern;
+
+    /**
+     * The directory to which the build source is located (any generated source).
+     *
+     * @parameter expression="${project.build.directory}/src/main/java"
+     */
+    private String buildSourceDirectory;
 
     /**
      * The maven archiver to use.
@@ -159,7 +163,8 @@ public class XmiZipMojo
         {
             // - delete and remake the directory each time
             final File buildDirectory = this.getBuildDirectory();
-            FileUtils.deleteDirectory(buildDirectory);
+
+            //FileUtils.deleteDirectory(buildDirectory);
             buildDirectory.mkdirs();
 
             final File modelSourceDir = modelSourceDirectory;
@@ -222,38 +227,46 @@ public class XmiZipMojo
             final MavenArchiver archiver = new MavenArchiver();
             archiver.setArchiver(jarArchiver);
             archiver.setOutputFile(xmlZipFile);
-
-            archiver.getArchiver().addDirectory(getBuildDirectory());
+            archiver.getArchiver().addDirectory(
+                this.getBuildDirectory(),
+                MODEL_INCLUDES,
+                EXCLUDES);
             archiver.createArchive(
                 project,
                 archive);
 
             if (this.generateJar)
             {
+                final File buildSourceDirectory =
+                    this.buildSourceDirectory != null ? new File(this.buildSourceDirectory) : null;
+                if (buildSourceDirectory != null)
+                {
+                    this.project.addCompileSourceRoot(buildSourceDirectory.toString());
+                }
                 getLog().info("Building model jar " + finalName);
 
                 File modelJar = new File(outputDirectory, finalName + ".jar");
 
-                MavenArchiver clientArchiver = new MavenArchiver();
+                final MavenArchiver modelJarArchiver = new MavenArchiver();
 
-                clientArchiver.setArchiver(this.modelJarArchiver);
+                modelJarArchiver.setArchiver(this.modelJarArchiver);
 
-                clientArchiver.setOutputFile(modelJar);
+                modelJarArchiver.setOutputFile(modelJar);
 
-                clientArchiver.getArchiver().addDirectory(
-                    new File(outputDirectory),
+                modelJarArchiver.getArchiver().addDirectory(
+                    this.getBuildDirectory(),
                     JAR_INCLUDES,
-                    null);
+                    EXCLUDES);
 
-                // create archive
-                clientArchiver.createArchive(
+                // - create archive
+                modelJarArchiver.createArchive(
                     project,
                     archive);
 
                 projectHelper.attachArtifact(
                     project,
-                    "ejb-client",
-                    "client",
+                    "model-jar",
+                    "t",
                     modelJar);
             }
         }
@@ -307,7 +320,7 @@ public class XmiZipMojo
     protected void unpack(
         final File file,
         final File location)
-        throws MojoExecutionException, NoSuchArchiverException
+        throws MojoExecutionException
     {
         String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase();
 
@@ -319,18 +332,12 @@ public class XmiZipMojo
             unArchiver.setDestDirectory(location);
             unArchiver.extract();
         }
-        catch (IOException e)
+        catch (Throwable throwable)
         {
-            throw new MojoExecutionException("Error unpacking file: " + file + "to: " + location, e);
+            if (throwable instanceof IOException || throwable instanceof ArchiverException)
+            {
+                throw new MojoExecutionException("Error unpacking file: " + file + "to: " + location, throwable);
+            }
         }
-        catch (ArchiverException e)
-        {
-            throw new MojoExecutionException("Error unpacking file: " + file + "to: " + location, e);
-        }
-    }
-    
-    public static void main(String args[])
-    {
-        System.out.println("my-model.xml.zip".matches(MODEL_FILE_PATTERN));
     }
 }
