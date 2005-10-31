@@ -202,12 +202,11 @@ public class Namespaces
     private final Map registries = new HashMap();
 
     /**
-     * Adds a property definition to this instance.  Property definitions
-     * are properties that are registered defined within a {@link NamespaceRegistry}
+     * Adds a namespace registrt to this instance.  Namespace registries contain
+     * property deifnitions that are defined within a {@link NamespaceRegistry}
      * descriptor (used to describe {@link NamespaceComponent} instances.
      *
-     * @param namespace the namespace under which to add the property reference.
-     * @param propertyDefinition the property definition.
+     * @param registry the {@link NamespaceRegistry} instance to add.
      */
     public void addRegistry(final NamespaceRegistry registry)
     {
