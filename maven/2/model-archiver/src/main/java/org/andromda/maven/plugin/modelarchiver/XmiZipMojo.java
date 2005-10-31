@@ -127,9 +127,19 @@ public class XmiZipMojo
     private static final String[] EXCLUDES = new String[] {"*.xml.zip, **/*.java", "*reports*/**", "tests*/**"};
 
     /**
-     * The pattern of the model file(s) to which to apply the archiving.
+     * The pattern of the archived model files that should be extracted
+     * before being re-created as versioned model archives.
      *
-     * @parameter expression=".*(\\.xml|\\.xmi|\\.xml\\.zip)"
+     * @parameter expression=".*(\\.xml\\.zip)"
+     * @required
+     * @readonly
+     */
+    private String modelArchivePattern;
+
+    /**
+     * The pattern of the non-archived model file(s) that should be archived.
+     *
+     * @parameter expression=".*(\\.xml|\\.xmi)"
      * @required
      * @readonly
      */
@@ -177,7 +187,7 @@ public class XmiZipMojo
                 for (int ctr = 0; ctr < modelFiles.length; ctr++)
                 {
                     final File file = modelFiles[ctr];
-                    if (file.isFile() && file.toString().matches(this.modelFilePattern))
+                    if (file.isFile() && file.toString().matches(this.modelArchivePattern))
                     {
                         this.unpack(
                             file,
@@ -186,14 +196,14 @@ public class XmiZipMojo
                         for (int ctr2 = 0; ctr2 < extractedModelFiles.length; ctr2++)
                         {
                             final File extractedFile = extractedModelFiles[ctr2];
-                            if (extractedFile.isFile())
+                            if (extractedFile.isFile() && extractedFile.toString().matches(this.modelFilePattern))
                             {
                                 final File newFile =
                                     new File(outputDirectory,
                                         finalName + '.' + FileUtils.getExtension(extractedFile.toString()));
-                                FileUtils.rename(
-                                    extractedFile,
-                                    newFile);
+
+                                // - remove any already existing files with the same name
+                                extractedFile.renameTo(newFile);
                                 String contents = ResourceUtils.getContents(newFile.toURL());
                                 for (int ctr3 = 0; ctr3 < replacementExtensions.length; ctr3++)
                                 {
