@@ -55,7 +55,7 @@ public class XmiZipMojo
     /**
      * The directory for the generated xml.zip.
      *
-     * @parameter expression="${project.build.directory}"
+     * @parameter expression="${project.build.outputDirectory}"
      * @required
      */
     private String outputDirectory;
@@ -118,9 +118,10 @@ public class XmiZipMojo
      * @parameter
      */
     private boolean generateJar;
+    private static final String[] JAR_INCLUDES = new String[] {"**/*"};
+    private static final String[] JAR_EXCLUDES = new String[] {"**/package.html"};
     private static final String[] MODEL_INCLUDES = new String[] {"*.xml", "*.xmi"};
-    private static final String[] JAR_INCLUDES = new String[] {"**/*.class", "**/*.propertes", "**/*.xml"};
-    private final Collection excludes =
+    private final Collection modelArchiveExcludes =
         new ArrayList(Arrays.asList(new String[] {"*.xml.zip, **/*.java", "*reports*/**", "tests*/**"}));
 
     /**
@@ -128,9 +129,9 @@ public class XmiZipMojo
      *
      * @return the exclude patterns.
      */
-    private String[] getExcludes()
+    private String[] getModelArchiveExcludes()
     {
-        return (String[])this.excludes.toArray(new String[0]);
+        return (String[])this.modelArchiveExcludes.toArray(new String[0]);
     }
 
     /**
@@ -151,13 +152,6 @@ public class XmiZipMojo
      * @readonly
      */
     private String modelFilePattern;
-
-    /**
-     * The directory to which the build source is located (any generated source).
-     *
-     * @parameter expression="${project.build.directory}/src/main/java"
-     */
-    private String buildSourceDirectory;
 
     /**
      * The maven archiver to use.
@@ -185,10 +179,7 @@ public class XmiZipMojo
         // - extract model file
         try
         {
-            // - delete and remake the directory each time
             final File buildDirectory = this.getBuildDirectory();
-
-            //FileUtils.deleteDirectory(buildDirectory);
             buildDirectory.mkdirs();
 
             final File modelSourceDir = modelSourceDirectory;
@@ -214,7 +205,7 @@ public class XmiZipMojo
                             if (extractedFile.isFile() && extractedFilePath.matches(this.modelFilePattern))
                             {
                                 final File newFile =
-                                    new File(outputDirectory,
+                                    new File(buildDirectory,
                                         finalName + '.' + FileUtils.getExtension(extractedFile.toString()));
 
                                 // - exclude the file that we extracted
@@ -223,7 +214,7 @@ public class XmiZipMojo
                                     final String shortPath = extractedFilePath.replaceAll(
                                             ".*\\\\|/",
                                             "");
-                                    this.excludes.add(shortPath);
+                                    this.modelArchiveExcludes.add(shortPath);
                                 }
                                 extractedFile.renameTo(newFile);
                                 String contents = ResourceUtils.getContents(newFile.toURL());
@@ -248,36 +239,29 @@ public class XmiZipMojo
         }
         catch (final Throwable throwable)
         {
-            throwable.printStackTrace();
             throw new MojoExecutionException("Error copying model resources", throwable);
         }
 
         try
         {
-            final File xmlZipFile = new File(outputDirectory, finalName + ".xml.zip");
-            final Artifact artifact = project.getArtifact();
+            final File xmlZipFile = new File(buildDirectory, finalName + ".xml.zip");
+            final Artifact artifact = this.project.getArtifact();
             final MavenArchiver archiver = new MavenArchiver();
-            archiver.setArchiver(jarArchiver);
+            archiver.setArchiver(this.jarArchiver);
             archiver.setOutputFile(xmlZipFile);
             archiver.getArchiver().addDirectory(
                 this.getBuildDirectory(),
                 MODEL_INCLUDES,
-                this.getExcludes());
+                this.getModelArchiveExcludes());
             archiver.createArchive(
                 project,
                 archive);
 
             if (this.generateJar)
             {
-                final File buildSourceDirectory =
-                    this.buildSourceDirectory != null ? new File(this.buildSourceDirectory) : null;
-                if (buildSourceDirectory != null)
-                {
-                    this.project.addCompileSourceRoot(buildSourceDirectory.toString());
-                }
                 getLog().info("Building model jar " + finalName);
 
-                File modelJar = new File(outputDirectory, finalName + ".jar");
+                File modelJar = new File(buildDirectory, finalName + ".jar");
 
                 final MavenArchiver modelJarArchiver = new MavenArchiver();
 
@@ -286,15 +270,11 @@ public class XmiZipMojo
                 modelJarArchiver.setOutputFile(modelJar);
 
                 modelJarArchiver.getArchiver().addDirectory(
-                    this.getBuildDirectory(),
+                    new File(this.outputDirectory),
                     JAR_INCLUDES,
-                    this.getExcludes());
+                    JAR_EXCLUDES);
 
                 // - create archive
-                modelJarArchiver.createArchive(
-                    project,
-                    archive);
-
                 modelJarArchiver.createArchive(
                     project,
                     archive);
@@ -368,11 +348,11 @@ public class XmiZipMojo
      */
     protected File getBuildDirectory()
     {
-        if (buildDirectory == null)
+        if (this.buildDirectory == null)
         {
-            buildDirectory = new File(workDirectory);
+            this.buildDirectory = new File(workDirectory);
         }
-        return buildDirectory;
+        return this.buildDirectory;
     }
 
     /**
