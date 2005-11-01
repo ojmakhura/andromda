@@ -526,8 +526,9 @@ public class ResourceUtils
     private static final String FORWARD_SLASH = "/";
     
     /**
-     * Gets the contents of the directory, only the first level is retrieved
-     * if no patterns are defined, otherwise all levels are retrieved.
+     * Gets the contents of this directory and any of its sub directories based on the given <code>patterns</code>.  
+     * And returns absolute or relative paths depending on the value of <code>absolute</code>.
+     * 
      * @param url the URL of the directory.
      * @param absolute whether or not the returned content paths should be absoluate (if 
      *        false paths will be relative to URL).
@@ -589,7 +590,7 @@ public class ResourceUtils
     
     /**
      * Indicates whether or not the given <code>path</code> matches on
-     * one or more of the patterns defined within this class (this automatically)
+     * one or more of the patterns defined within this class
      * returns true if no patterns are defined.
      *
      * @param path the path to match on.
