@@ -541,6 +541,7 @@ public class ResourceUtils
             url,
             0,
             patternsDefined);
+        // - first see if its a directory
         if (!contents.isEmpty())
         {
             for (final ListIterator iterator = contents.listIterator(); iterator.hasNext();)
@@ -561,7 +562,7 @@ public class ResourceUtils
                 }
             }
         }
-        else
+        else // - otherwise handle archives (i.e. jars, etc).
         {
             final String urlAsString = url.toString();
             final String delimiter = "!/";
