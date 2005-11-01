@@ -37,6 +37,7 @@
                 <configuration>
                     <buildSourceDirectory>${basedir}/target/src</buildSourceDirectory>
                     <configurationUri>file:${basedir}/../conf/andromda.xml</configurationUri>
+                    <lastModifiedCheck>true</lastModifiedCheck>
                 </configuration>
                 <dependencies>
                     <dependency>
