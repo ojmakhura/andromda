@@ -9,6 +9,8 @@
                     <uri>${maven.andromda.model.uri}</uri>
                     <moduleSearchLocations>
                         <location>${maven.repo.local}/andromda/xml.zips</location>
+                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles</location>
+                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/metafacades</location>
                     </moduleSearchLocations>
                     <modelPackages>
                         <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
@@ -25,7 +27,7 @@
                 <property name="facades">${maven.build.src}</property>
                 <property name="facade-logics">${maven.build.src}</property>
                 <property name="facades-to-impls">${maven.build.src}</property>
-                <property name="facade-logic-impls">${basedir}/src/java</property>
+                <property name="facade-logic-impls">${java.src.dir}</property>
             </properties>
         </namespace>
     </namespaces>

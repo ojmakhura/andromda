@@ -31,7 +31,7 @@
   	<goal name="xml.zip:prepare">
   	   <j:set var="modelName" value="UMLMetafacadeModel"/>
 	   <j:set var="maven.xml.zip.final.name" 
-	          value="${maven.build.dir}/${modelName}-${pom.currentVersion}"/>
+	          value="${maven.build.dir}/${maven.final.name}"/>
   	    <j:set var="modelXml" value="${modelName}.xml"/>
 		<ant:unzip 
 		    src="${maven.src.dir}/uml/${modelXml}.zip" 
@@ -42,7 +42,6 @@
 	    <ant:zip destfile="${maven.xml.zip.final.name}.xml.zip"
 	             basedir="${maven.build.dir}"
 	             includes="*.xml"/>	 	
-	    <j:set var="dummy" value="${pom.setArtifactId(modelName)}"/>	
   	</goal>
 
 </project>
