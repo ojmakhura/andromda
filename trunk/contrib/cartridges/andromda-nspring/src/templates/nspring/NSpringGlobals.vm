@@ -1,0 +1,7 @@
+## Define whether Session Ejbs are enabled
+#set ($ejbsEnabled = $stringUtils.isNotBlank($session-ejbs))
+## Define whether or not daos are enabled
+#set ($daosEnabled = $stringUtils.isNotBlank($daos))
+#set ($requiredCheckEnabled = $parameterRequiredCheck.equalsIgnoreCase('true'))
+#set ($adviceEnabled = $stringUtils.isNotBlank($advice-impls))
+#set ($acegiServiceSecurityEnabled = $acegiServiceSecurity.equalsIgnoreCase('true'))
