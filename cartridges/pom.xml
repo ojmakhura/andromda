@@ -98,6 +98,29 @@
                 </dependencies>    
             </plugin>
         </plugins>    
+        <resources>
+            <resource>
+                <directory>src/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src</directory>
+                <excludes>
+                    <exclude>java/**/*.java</exclude>
+                    <exclude>uml/**/*</exclude>
+                    <exclude>test/**/*</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>target/src</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>    
     </build>
     <modules>
         <module>andromda-bpm4struts</module>
