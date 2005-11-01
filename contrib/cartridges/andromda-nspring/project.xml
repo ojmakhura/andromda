@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <project>
     <extend>../project.xml</extend>
-    <artifactId>andromda-nhibernate-cartridge</artifactId>
+    <artifactId>andromda-nspring-cartridge</artifactId>
     <currentVersion>1.0-SNAPSHOT</currentVersion>
-    <name>AndroMDA NHibernate Cartridge</name>
-    <shortDescription>NHibernate Cartridge</shortDescription>
+    <name>AndroMDA Spring Cartridge</name>
+    <package>org.andromda.cartridges.nspring</package>
     <description>
-        Produces NHibernate entities optionally services implemented as Session EJB facades.
-    </description>
-    <issueTrackingUrl>${issue.tracking.location}/BrowseProject.jspa?id=10012&amp;decorator=none</issueTrackingUrl>
+        Generates Spring with NHibernate
+      </description>
+    <shortDescription>AndroMDA NSpring Cartridge</shortDescription>
     <developers>
         <developer>
             <name>Naresh Bhatia</name>
@@ -19,16 +17,7 @@
                 <role>Developer</role>
             </roles>
         </developer>
-        <developer>
-            <name>Louis Coude</name>
-            <id>Louis</id>
-            <email>l_coude@hotmail.com</email>
-            <roles>
-                <role>Developer</role>
-            </roles>
-        </developer>
     </developers>
-    <contributors/>
     <dependencies>
         <dependency>
             <groupId>andromda</groupId>
@@ -40,15 +29,11 @@
             <groupId>andromda</groupId>
             <artifactId>andromda-core</artifactId>
             <version>${andromda.version}</version>
+            <properties/>
         </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
-            <version>${andromda.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-metafacades-uml14</artifactId>
             <version>${andromda.version}</version>
         </dependency>
         <dependency>
@@ -62,20 +47,44 @@
             <version>${andromda.version}</version>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-             <version>3.1</version>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-utils</artifactId>
+            <version>${andromda.version}</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.8</version>
             <properties/>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.0</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.1</version>
+            <properties/>
+        </dependency>
+        <!-- howto artifact generation dependencies -->
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-java-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <properties>
+                <cartridge.howtoDependency/>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-hibernate-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <properties>
+                <cartridge.howtoDependency/>
+            </properties>
         </dependency>
         <!-- test dependencies -->
         <dependency>
@@ -91,6 +100,7 @@
             <version>${andromda.version}</version>
             <properties>
                 <cartridge.testDependency/>
+                <cartridge.howtoDependency/>
             </properties>
         </dependency>
     </dependencies>

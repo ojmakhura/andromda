@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - Spring - HowTo (4)</title>
+    </properties>
+
+    <body>
+        <section name="Value Objects">
+            <p>
+                In many cases it is a good idea to never expose your persistence layer to the presentation layer
+                directly, this dependency could cause your application to be difficult to maintain. 
+                For that reason one can use value objects, these are simple classes that simply encapsulate 
+                information to be presented to an end-user.  Although these value objects represent different views 
+                on the existing business objects, they do need to map onto those objects directly. Most of the time 
+                you will want to collect some information coming from several entities. For this reason value objects are
+                <i>coarse-grain</i> objects.
+            </p>
+            <p>
+                Probably the most common situation where value objects are used is the one where you have a list
+                of items to be displayed, selecting one of them will show that item's
+                details in its entirety. Here we have two value objects: one for the representation in the list, and
+                one for the detailed view.
+            </p>
+            <p>
+                In the spring cartridge you can simply model your value objects to be classes with the
+                <![CDATA[<<ValueObject>>]]> stereotype, you then add attributes for all fields you want to be
+                present. Doing this will generate a simple Java class adhering to the Java Bean specification.
+            </p>
+            <p>
+                An interesting feature is that you can draw a dependency from any <![CDATA[<<Entity>>]]> to a
+                <![CDATA[<<ValueObject>>]]> or UML datatype.  This will instruct the cartridge to generate a transformation
+                method in the entity's DAO class, this transformation method can be called directly or
+                it can be invoked from any finder or load operation that exists: just use the
+                public constant associated with this transformation and specify it as the optional
+                transformation flag, the next example will clarify this in detail.
+            </p>
+            <p>
+                <img src="resources/howto/org/andromda/test/4/uml.gif"/>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/4/Car.hbm.xml"><code>Car.hbm.xml</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/4/Car.java"><code>Car.java</code></a></li>
+                    <li class="impl"><a href="resources/howto/org/andromda/test/4/CarImpl.java"><code>CarImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/4/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/4/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a class="changed" href="resources/howto/org/andromda/test/4/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/4/CarListItem.java"><code>CarListItem.java</code></a></li>
+                    <li class="gen"><a class="changed" href="resources/howto/org/andromda/test/4/CarDetails.java"><code>CarDetails.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/4/Person.hbm.xml"><code>Person.hbm.xml</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/4/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/4/PersonImpl.java"><code>PersonImpl.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/4/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/4/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/4/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/4/RentalService.java"><code>RentalService.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/4/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="impl"><a href="resources/howto/org/andromda/test/4/RentalServiceImpl.java"><code>RentalServiceImpl.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/4/ejb/RentalService.java"><code>ejb/RentalService.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/4/ejb/RentalServiceBean.java"><code>ejb/RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="resources/howto/org/andromda/test/4/ejb/RentalServiceHome.java"><code>ejb/RentalServiceHome.java</code></a></li>
+                </ul>
+            </p>
+            <p>
+                Please note that an entity may be dependent on any number of value objects, and
+                different entities may be dependent on the same value object.
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                As promised we'll learn how to model enumerations, click <a href="howto5.html">here</a>.
+            </p>
+        </section>
+    </body>
+</document>
