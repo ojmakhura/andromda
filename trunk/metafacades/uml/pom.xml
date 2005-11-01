@@ -29,8 +29,16 @@
 	      	<artifactId>commons-lang</artifactId>
 	      	<version>2.1</version>
 	    </dependency>	
+    	<dependency>
+    	    <groupId>org.andromda.translationlibraries</groupId>
+    	    <artifactId>andromda-ocl-translation-core</artifactId>
+    	    <version>${version}</version>
+    	</dependency> 
     </dependencies>
     <build>
+        <filters>
+            <filter>mda.properties</filter>
+        </filters>
 		<resources>
 	      	<resource>
 		        <directory>src/java</directory>
