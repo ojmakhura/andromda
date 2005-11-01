@@ -14,26 +14,6 @@
     </description>
     <dependencies>
         <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-core</artifactId>
-            <version>${version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-utils</artifactId>
-            <version>${version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.metafacades</groupId>
-            <artifactId>andromda-metafacades-uml</artifactId>
-            <version>${version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.translationlibraries</groupId>
-            <artifactId>andromda-ocl-validation-library</artifactId>
-            <version>${version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.andromda.taglibs</groupId>
             <artifactId>andromda-breadcrumbs-taglib</artifactId>
             <version>${version}</version>
