@@ -37,7 +37,7 @@ public class AndroMDAMojo
     /**
      * This is the URI to the AndroMDA configuration file.
      *
-     * @parameter expression="file:conf/andromda.xml"
+     * @parameter expression="file:${basedir}/conf/andromda.xml"
      * @required
      */
     private String configurationUri;
@@ -69,6 +69,13 @@ public class AndroMDAMojo
      */
     private static final String MAPPINGS_PATH = "META-INF/andromda/mappings";
 
+    /**
+     * The directory to which the build source is located (any generated source).
+     *
+     * @parameter expression="${project.build.directory}/src/main/java"
+     */
+    private String buildSourceDirectory;
+
     public void execute()
         throws MojoExecutionException
     {
@@ -77,6 +84,13 @@ public class AndroMDAMojo
             final AndroMDA andromda = AndroMDA.newInstance();
             andromda.run(this.getConfiguration());
             andromda.shutdown();
+            final File buildSourceDirectory =
+                this.buildSourceDirectory != null ? new File(this.buildSourceDirectory) : null;
+            if (buildSourceDirectory != null)
+            {
+                this.project.addCompileSourceRoot(buildSourceDirectory.toString());
+            }
+            this.project = null;
         }
         catch (Throwable throwable)
         {
@@ -117,38 +131,30 @@ public class AndroMDAMojo
         return configuration;
     }
 
-    /**
-     * Stores all properties.
-     */
-    private Properties properties;
-
     protected Properties getProperties()
         throws IOException
     {
-        if (this.properties == null)
+        // System properties
+        Properties properties = new Properties(System.getProperties());
+
+        properties.put(
+            "settings",
+            this.settings);
+
+        // Project properties
+        properties.putAll(this.project.getProperties());
+        for (final Iterator iterator = propertyFiles.iterator(); iterator.hasNext();)
         {
-            // System properties
-            this.properties = new Properties(System.getProperties());
+            final String propertiesFile = (String)iterator.next();
 
-            this.properties.put(
-                "settings",
-                this.settings);
+            final Properties projectProperties = PropertyUtils.loadPropertyFile(
+                    new File(propertiesFile),
+                    true,
+                    true);
 
-            // Project properties
-            this.properties.putAll(this.project.getProperties());
-            for (final Iterator iterator = propertyFiles.iterator(); iterator.hasNext();)
-            {
-                final String propertiesFile = (String)iterator.next();
-
-                final Properties properties = PropertyUtils.loadPropertyFile(
-                        new File(propertiesFile),
-                        true,
-                        true);
-
-                this.properties.putAll(properties);
-            }
+            properties.putAll(projectProperties);
         }
-        return this.properties;
+        return properties;
     }
 
     /**
@@ -164,6 +170,7 @@ public class AndroMDAMojo
         final Properties properties = this.getProperties();
         final StringReader stringReader = new StringReader(string);
         InterpolationFilterReader reader = new InterpolationFilterReader(stringReader, properties, "${", "}");
+        reader.reset();
         reader = new InterpolationFilterReader(
                 reader,
                 new BeanProperties(project),
@@ -174,6 +181,7 @@ public class AndroMDAMojo
                 new BeanProperties(settings),
                 "${",
                 "}");
-        return ResourceUtils.getContents(reader);
+        final String contents = ResourceUtils.getContents(reader);
+        return contents;
     }
 }
