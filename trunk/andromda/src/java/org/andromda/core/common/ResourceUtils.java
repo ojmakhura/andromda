@@ -11,6 +11,7 @@ import java.net.URLConnection;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.zip.ZipEntry;
@@ -221,20 +222,26 @@ public class ResourceUtils
         final List fileList,
         boolean includeSubdirectories)
     {
-        final File[] files = directory.listFiles();
-        for (int ctr = 0; ctr < files.length; ctr++)
+        if (directory != null)
         {
-            File file = files[ctr];
-            if (!file.isDirectory())
+            final File[] files = directory.listFiles();
+            if (files != null)
             {
-                fileList.add(file);
-            }
-            else if (includeSubdirectories)
-            {
-                loadFiles(
-                    file,
-                    fileList,
-                    includeSubdirectories);
+                for (int ctr = 0; ctr < files.length; ctr++)
+                {
+                    File file = files[ctr];
+                    if (!file.isDirectory())
+                    {
+                        fileList.add(file);
+                    }
+                    else if (includeSubdirectories)
+                    {
+                        loadFiles(
+                            file,
+                            fileList,
+                            includeSubdirectories);
+                    }
+                }
             }
         }
     }
@@ -519,35 +526,41 @@ public class ResourceUtils
             }
         }
     }
-    
+
     /**
      * The forward slash character.
      */
     private static final String FORWARD_SLASH = "/";
-    
+
     /**
-     * Gets the contents of this directory and any of its sub directories based on the given <code>patterns</code>.  
+     * Gets the contents of this directory and any of its sub directories based on the given <code>patterns</code>.
      * And returns absolute or relative paths depending on the value of <code>absolute</code>.
-     * 
+     *
      * @param url the URL of the directory.
-     * @param absolute whether or not the returned content paths should be absoluate (if 
+     * @param absolute whether or not the returned content paths should be absoluate (if
      *        false paths will be relative to URL).
      * @return a collection of paths.
      */
-    public static List getDirectoryContents(final URL url, boolean absolute, final String[] patterns)
+    public static List getDirectoryContents(
+        final URL url,
+        boolean absolute,
+        final String[] patterns)
     {
         final boolean patternsDefined = patterns != null && patterns.length > 0;
         List contents = ResourceUtils.getDirectoryContents(
-            url,
-            0,
-            patternsDefined);
+                url,
+                0,
+                patternsDefined);
+
         // - first see if its a directory
         if (!contents.isEmpty())
         {
             for (final ListIterator iterator = contents.listIterator(); iterator.hasNext();)
             {
                 String path = (String)iterator.next();
-                if (!matchesAtLeastOnePattern(path, patterns))
+                if (!matchesAtLeastOnePattern(
+                        path,
+                        patterns))
                 {
                     iterator.remove();
                 }
@@ -566,7 +579,9 @@ public class ResourceUtils
         {
             final String urlAsString = url.toString();
             final String delimiter = "!/";
-            final String archivePath = urlAsString.replaceAll(delimiter + ".*", delimiter);
+            final String archivePath = urlAsString.replaceAll(
+                    delimiter + ".*",
+                    delimiter);
             contents = ResourceUtils.getClassPathArchiveContents(url);
             for (final ListIterator iterator = contents.listIterator(); iterator.hasNext();)
             {
@@ -576,9 +591,11 @@ public class ResourceUtils
                 {
                     iterator.remove();
                 }
-                else if (!matchesAtLeastOnePattern(relativePath, patterns))
+                else if (!matchesAtLeastOnePattern(
+                        relativePath,
+                        patterns))
                 {
-                    iterator.remove();                    
+                    iterator.remove();
                 }
                 else if (absolute)
                 {
@@ -588,7 +605,7 @@ public class ResourceUtils
         }
         return contents;
     }
-    
+
     /**
      * Indicates whether or not the given <code>path</code> matches on
      * one or more of the patterns defined within this class
@@ -597,7 +614,9 @@ public class ResourceUtils
      * @param path the path to match on.
      * @return true/false
      */
-    public static boolean matchesAtLeastOnePattern(final String path, final String[] patterns)
+    public static boolean matchesAtLeastOnePattern(
+        final String path,
+        final String[] patterns)
     {
         boolean matches = patterns == null || patterns.length == 0;
         if (!matches)
@@ -619,5 +638,35 @@ public class ResourceUtils
             }
         }
         return matches;
+    }
+
+    /**
+     * Indicates whether or not the contents of the given <code>directory</code>
+     * and any of its sub directories have been modified after the given <code>time</code>.
+     *
+     * @param directory the directory to check
+     * @param time the time to check against
+     * @return true/false
+     */
+    public static boolean modifiedAfter(
+        long time,
+        final File directory)
+    {
+        final List files = new ArrayList();
+        ResourceUtils.loadFiles(
+            directory,
+            files,
+            true);
+        boolean changed = files.isEmpty();
+        for (final Iterator iterator = files.iterator(); iterator.hasNext();)
+        {
+            final File file = (File)iterator.next();
+            changed = file.lastModified() < time;
+            if (changed)
+            {
+                break;
+            }
+        }
+        return changed;
     }
 }

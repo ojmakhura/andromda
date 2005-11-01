@@ -70,6 +70,14 @@ public class AndroMDAMojo
     private static final String MAPPINGS_PATH = "META-INF/andromda/mappings";
 
     /**
+     * Whether or not a last modified check should be performed before running AndroMDA again.
+     *
+     * @parameter expression="false"
+     * @required
+     */
+    private boolean lastModifiedCheck;
+
+    /**
      * The directory to which the build source is located (any generated source).
      *
      * @parameter expression="${project.build.directory}/src/main/java"
@@ -81,16 +89,31 @@ public class AndroMDAMojo
     {
         try
         {
-            final AndroMDA andromda = AndroMDA.newInstance();
-            andromda.run(this.getConfiguration());
-            andromda.shutdown();
-            final File buildSourceDirectory =
-                this.buildSourceDirectory != null ? new File(this.buildSourceDirectory) : null;
-            if (buildSourceDirectory != null)
+            boolean execute = true;
+            if (this.lastModifiedCheck)
             {
-                this.project.addCompileSourceRoot(buildSourceDirectory.toString());
+                final URL uri = ResourceUtils.toURL(this.configurationUri);
+                execute =
+                    ResourceUtils.modifiedAfter(
+                        ResourceUtils.getLastModifiedTime(uri),
+                        new File(this.buildSourceDirectory));
             }
-            this.project = null;
+            if (execute)
+            {
+                final AndroMDA andromda = AndroMDA.newInstance();
+                andromda.run(this.getConfiguration());
+                andromda.shutdown();
+                final File buildSourceDirectory =
+                    this.buildSourceDirectory != null ? new File(this.buildSourceDirectory) : null;
+                if (buildSourceDirectory != null)
+                {
+                    this.project.addCompileSourceRoot(buildSourceDirectory.toString());
+                }
+            }
+            else
+            {
+                this.getLog().info("Files are up-to-date, skipping AndroMDA execution");
+            }
         }
         catch (Throwable throwable)
         {
