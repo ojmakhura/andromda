@@ -206,7 +206,7 @@ public class XmiZipMojo
                             {
                                 final File newFile =
                                     new File(buildDirectory,
-                                        finalName + '.' + FileUtils.getExtension(extractedFile.toString()));
+                                        this.finalName + '.' + FileUtils.getExtension(extractedFile.toString()));
 
                                 // - exclude the file that we extracted
                                 if (!newFile.equals(extractedFile))
@@ -244,7 +244,7 @@ public class XmiZipMojo
 
         try
         {
-            final File xmlZipFile = new File(buildDirectory, finalName + ".xml.zip");
+            final File xmlZipFile = new File(buildDirectory, this.finalName + ".xml.zip");
             final Artifact artifact = this.project.getArtifact();
             final MavenArchiver archiver = new MavenArchiver();
             archiver.setArchiver(this.jarArchiver);
@@ -266,9 +266,7 @@ public class XmiZipMojo
                 final MavenArchiver modelJarArchiver = new MavenArchiver();
 
                 modelJarArchiver.setArchiver(this.modelJarArchiver);
-
                 modelJarArchiver.setOutputFile(modelJar);
-
                 modelJarArchiver.getArchiver().addDirectory(
                     new File(this.outputDirectory),
                     JAR_INCLUDES,
@@ -297,8 +295,8 @@ public class XmiZipMojo
 
     /**
      * Installs the model jar for this xml.zip artifact into the local repository.
-     * @param artifact
-     * @param source
+     * @param artifact the artifact to install.
+     * @param source the source of the artifact.
      * @throws IOException
      */
     private void installModelJar(
@@ -307,7 +305,7 @@ public class XmiZipMojo
         throws IOException
     {
         // - change the extension to the correct 'jar' extension
-        final String localPath = localRepository.pathOf(artifact).replaceAll(
+        final String localPath = this.localRepository.pathOf(artifact).replaceAll(
                 "\\.xml\\.zip",
                 "\\.jar");
         final File destination = new File(
@@ -366,11 +364,10 @@ public class XmiZipMojo
         final File location)
         throws MojoExecutionException
     {
-        String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase();
-
+        final String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase();
         try
         {
-            UnArchiver unArchiver;
+            final UnArchiver unArchiver;
             unArchiver = this.archiverManager.getUnArchiver(archiveExt);
             unArchiver.setSourceFile(file);
             unArchiver.setDestDirectory(location);
