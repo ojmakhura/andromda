@@ -18,6 +18,12 @@
     	    <artifactId>andromda-metafacades-uml</artifactId>
     	    <version>${version}</version>
     	</dependency>
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+            <version>${version}</version>
+            <type>jar</type>
+        </dependency> 
     	<dependency> 
     		<groupId>jmi</groupId>
       		<artifactId>jmiuml</artifactId>
@@ -34,4 +40,70 @@
      		<version>1.2.8</version>
     	</dependency>	
 	</dependencies>	
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <buildSourceDirectory>${basedir}/target/src</buildSourceDirectory>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.andromda.metafacades</groupId>
+                        <artifactId>andromda-metafacades-uml</artifactId>
+                        <version>${version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.andromda.cartridges</groupId>
+                        <artifactId>andromda-meta-cartridge</artifactId>
+                        <version>${version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.andromda.translationlibraries</groupId>
+                        <artifactId>andromda-ocl-validation-library</artifactId>
+                        <version>${version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.andromda.translationlibraries</groupId>
+                        <artifactId>andromda-ocl-query-library</artifactId>
+                        <version>${version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+ 		<resources>
+	      	<resource>
+		        <directory>src/java</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
+	      	</resource>
+	      	<resource>
+		        <directory>src</directory>
+	        	<includes>
+	        		<include>META-INF/**/*</include>
+	        	</includes>
+	      	</resource>
+	      	<resource>
+		        <directory>../common/src</directory>
+	        	<includes>
+	        		<include>META-INF/**/*</include>
+	        	</includes>
+	      	</resource>
+	  		<resource>
+				<directory>target/src</directory>
+	        	<includes>
+	        		<include>**/*.properties</include>
+	        	</includes>
+	  		</resource>
+    	</resources>
+    </build>
 </project>
