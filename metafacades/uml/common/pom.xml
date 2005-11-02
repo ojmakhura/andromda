@@ -9,6 +9,16 @@
     <packaging>model</packaging>
     <name>AndroMDA UML Common Metafacades</name>
     <description>The common UML metafacades.  This is the set of core UML metafacades used to provide access UML meta models.</description>
+    <dependencies>
+        <!-- normally this dependency would be in the dependencies section of the andromda-bootstrap-plugin
+             however, for some reason it appears that it doesn't see it for some strange reason -->
+        <dependency>
+            <groupId>org.andromda.bootstrap.cartridges</groupId>
+            <artifactId>andromda-meta-cartridge</artifactId>
+            <version>${version}</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
     <build>
         <filters>
             <filter>mda.properties</filter>
@@ -31,11 +41,6 @@
                   <installDirectory>${basedir}/../../../lib</installDirectory>
               </configuration>
               <dependencies>
-                  <dependency>
-                      <groupId>org.andromda.cartridges</groupId>
-                      <artifactId>andromda-meta-cartridge</artifactId>
-                      <version>${version}</version>
-                  </dependency>
                   <dependency>
                       <groupId>org.andromda.translationlibraries</groupId>
                       <artifactId>andromda-ocl-validation-library</artifactId>

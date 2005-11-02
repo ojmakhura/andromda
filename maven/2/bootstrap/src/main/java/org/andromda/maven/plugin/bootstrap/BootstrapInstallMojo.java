@@ -89,6 +89,11 @@ public class BootstrapInstallMojo
         {
             try
             {
+                final File installDirectory = new File(this.installDirectory);
+                if (!installDirectory.exists() || !installDirectory.isDirectory())
+                {
+                    throw new MojoExecutionException("'" + installDirectory + "' is not a valid install directory");
+                }
                 Artifact artifact = this.project.getArtifact();
 
                 final String path = this.replaceExtension(
@@ -104,7 +109,7 @@ public class BootstrapInstallMojo
                 final String bootstrapPath = bootstrapGroupId.replace(
                         '.',
                         '/') + '/' + artifact.getArtifactId();
-                final File bootstrapFile = new File(this.installDirectory, bootstrapPath + '.' + JAR_EXTENSION);
+                final File bootstrapFile = new File(installDirectory, bootstrapPath + '.' + JAR_EXTENSION);
                 this.getLog().info("Installing bootstrap artifact: " + bootstrapFile);
                 FileUtils.copyFile(
                     existingFile,
@@ -114,7 +119,7 @@ public class BootstrapInstallMojo
                         this.replaceExtension(
                             artifact,
                             POM_EXTENSION));
-                final File bootstrapPomFile = new File(this.installDirectory, bootstrapPath + '.' + POM_EXTENSION);
+                final File bootstrapPomFile = new File(installDirectory, bootstrapPath + '.' + POM_EXTENSION);
                 this.getLog().info("Installing bootstrap artifact jar: " + bootstrapPomFile);
                 FileUtils.copyFile(
                     existingPomFile,
