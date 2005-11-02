@@ -36,20 +36,6 @@
                 <value>CreateMethod</value>
                 <appliedOnElement>Entity operation</appliedOnElement>
             </element>
-            <element name="ENTITY_REF">
-                <documentation>
-                    Used to reference an entity from another entity or service.
-                </documentation>
-                <value>EntityRef</value>
-                <appliedOnElement>A dependency going into an Entity</appliedOnElement>
-            </element>
-            <element name="SERVICE_REF">
-                <documentation>
-                    Used to reference a service from an entity or another service.
-                </documentation>
-                <value>ServiceRef</value>
-                <appliedOnElement>A dependency going into a Service</appliedOnElement>
-            </element>
             <element name="VALUE_REF">
                 <documentation>
                     Used to generate an association between an entity and a value object class.
