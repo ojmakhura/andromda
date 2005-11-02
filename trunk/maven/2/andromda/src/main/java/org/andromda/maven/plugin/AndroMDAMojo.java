@@ -91,29 +91,36 @@ public class AndroMDAMojo
     {
         try
         {
-            final Configuration configuration = this.getConfiguration();
+            final URL configurationUri = ResourceUtils.toURL(this.configurationUri);
+            final Configuration configuration = this.getConfiguration(configurationUri);
             boolean execute = true;
             if (this.lastModifiedCheck)
             {
-                final Repository[] repositories = configuration.getRepositories();
-                int repositoryCount = repositories.length;
-                for (int ctr = 0; ctr < repositoryCount; ctr++)
+                final File directory = new File(this.buildSourceDirectory);
+                execute = ResourceUtils.modifiedAfter(
+                        ResourceUtils.getLastModifiedTime(configurationUri),
+                        directory);
+                if (!execute)
                 {
-                    final Repository repository = repositories[ctr];
-                    if (repository != null)
+                    final Repository[] repositories = configuration.getRepositories();
+                    int repositoryCount = repositories.length;
+                    for (int ctr = 0; ctr < repositoryCount; ctr++)
                     {
-                        final Model[] models = repository.getModels();
-                        final int modelCount = models.length;
-                        for (int ctr2 = 0; ctr2 < modelCount; ctr2++)
+                        final Repository repository = repositories[ctr];
+                        if (repository != null)
                         {
-                            final Model model = models[ctr2];
-                            execute =
-                                ResourceUtils.modifiedAfter(
-                                    model.getLastModified(),
-                                    new File(this.buildSourceDirectory));
-                            if (execute)
+                            final Model[] models = repository.getModels();
+                            final int modelCount = models.length;
+                            for (int ctr2 = 0; ctr2 < modelCount; ctr2++)
                             {
-                                break;
+                                final Model model = models[ctr2];
+                                execute = ResourceUtils.modifiedAfter(
+                                        model.getLastModified(),
+                                        directory);
+                                if (execute)
+                                {
+                                    break;
+                                }
                             }
                         }
                     }
@@ -161,11 +168,10 @@ public class AndroMDAMojo
      * @return the configuration instance
      * @throws MalformedURLException if the URL is invalid.
      */
-    private Configuration getConfiguration()
+    private Configuration getConfiguration(final URL configurationUri)
         throws IOException
     {
-        final URL uri = ResourceUtils.toURL(this.configurationUri);
-        final String contents = this.replaceProperties(ResourceUtils.getContents(uri));
+        final String contents = this.replaceProperties(ResourceUtils.getContents(configurationUri));
         final Configuration configuration = Configuration.getInstance(contents);
         final URL mappingsUrl = ResourceUtils.getResource(MAPPINGS_PATH);
         if (mappingsUrl != null)
