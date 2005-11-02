@@ -141,10 +141,9 @@
     </build>
     <modules>
         <module>andromda</module>
-        <module>maven</module>
         <module>cartridges</module>
-        <module>utils</module>
         <module>metafacades</module>
+        <module>utils</module>
         <module>repositories</module>
         <module>templateengines</module>
         <module>translation-libraries</module>
@@ -152,6 +151,7 @@
         <module>profiles</module>
         <module>etc/web/taglibs</module>
         <module>etc/schema2xmi</module>
+        <module>maven</module>
     </modules>
     <repositories>
       <repository>

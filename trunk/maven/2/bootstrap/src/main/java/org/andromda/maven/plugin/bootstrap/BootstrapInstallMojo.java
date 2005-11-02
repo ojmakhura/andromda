@@ -54,12 +54,20 @@ public class BootstrapInstallMojo
     protected String installDirectory;
 
     /**
-     * @parameter expression="bootstrap"
+     * @parameter expression="org.andromda"
      * @required
      * @readonly
-     * @description the name root directory of the bootstrap artifacts.
+     * @description the name of the project groupId.
      */
-    protected String bootstrapDirectoryName;
+    protected String projectGroupId;
+
+    /**
+     * @parameter expression="org.andromda.bootstrap"
+     * @required
+     * @readonly
+     * @description the name of the project bootstrap groupId.
+     */
+    protected String projectBootstrapGroupId;
 
     /**
      * The extension for "JAR" files.
@@ -88,9 +96,12 @@ public class BootstrapInstallMojo
                         JAR_EXTENSION);
                 final String localRepositoryDirectory = this.localRepository.getBasedir();
                 final File existingFile = new File(localRepositoryDirectory, path);
-                final String bootstrapPath =
-                    this.bootstrapDirectoryName + '/' +
-                    StringUtils.trimToEmpty(artifact.getGroupId()).replace(
+                final String bootstrapGroupId =
+                    StringUtils.replaceOnce(
+                        artifact.getGroupId(),
+                        this.projectGroupId,
+                        this.projectBootstrapGroupId);
+                final String bootstrapPath = bootstrapGroupId.replace(
                         '.',
                         '/') + '/' + artifact.getArtifactId();
                 final File bootstrapFile = new File(this.installDirectory, bootstrapPath + '.' + JAR_EXTENSION);

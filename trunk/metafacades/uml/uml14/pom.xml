@@ -13,17 +13,17 @@
   		implementations.  These implement the common UML metafacades.
   	</description>
 	<dependencies>
-    	<dependency>
-    	    <groupId>${pom.groupId}</groupId>
-    	    <artifactId>andromda-metafacades-uml</artifactId>
-    	    <version>${version}</version>
-    	</dependency>
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
             <version>${version}</version>
             <type>jar</type>
         </dependency> 
+        <dependency>
+            <groupId>org.andromda.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <version>${version}</version>
+        </dependency>
     	<dependency> 
     		<groupId>jmi</groupId>
       		<artifactId>jmiuml</artifactId>
@@ -41,26 +41,24 @@
     	</dependency>	
 	</dependencies>	
     <build>
-        <plugins>
+        <plugins>  
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-maven-plugin</artifactId>
+                <artifactId>andromda-bootstrap-plugin</artifactId>
                 <executions>
                     <execution>
                         <goals>
                             <goal>run</goal>
+                            <goal>install</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
+                    <installDirectory>${basedir}/../../../lib</installDirectory>
                     <buildSourceDirectory>${basedir}/target/src</buildSourceDirectory>
+                    <lastModifiedCheck>true</lastModifiedCheck>
                 </configuration>
                 <dependencies>
-                    <dependency>
-                        <groupId>org.andromda.metafacades</groupId>
-                        <artifactId>andromda-metafacades-uml</artifactId>
-                        <version>${version}</version>
-                    </dependency>
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
@@ -69,11 +67,6 @@
                     <dependency>
                         <groupId>org.andromda.translationlibraries</groupId>
                         <artifactId>andromda-ocl-validation-library</artifactId>
-                        <version>${version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.andromda.translationlibraries</groupId>
-                        <artifactId>andromda-ocl-query-library</artifactId>
                         <version>${version}</version>
                     </dependency>
                 </dependencies>

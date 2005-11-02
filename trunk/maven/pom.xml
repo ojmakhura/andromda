@@ -20,8 +20,13 @@
             <scope>compile</scope>
         </dependency>
     </dependencies>
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+    </build>
     <modules>
+        <module>2/initialize</module>
         <module>2/andromda</module>
         <module>2/model-archiver</module>
+        <module>2/bootstrap</module>
     </modules>
 </project>
