@@ -7,7 +7,7 @@
     </parent>
     <artifactId>andromda-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
-    <name>AndroMDA Maven2 Plugin</name>
+    <name>AndroMDA Maven Plugin</name>
     <inceptionYear>2005</inceptionYear>
     <dependencies>
         <dependency>
@@ -58,7 +58,6 @@
         </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <resource>
                 <targetPath>META-INF/andromda/mappings</targetPath>

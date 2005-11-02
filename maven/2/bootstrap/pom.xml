@@ -12,10 +12,28 @@
     <inceptionYear>2005</inceptionYear>
     <dependencies>
         <dependency>
-            <groupId>org.andromda</groupId>
+            <groupId>org.andromda.bootstrap</groupId>
             <artifactId>andromda-core</artifactId>
             <version>${version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.bootstrap.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml14</artifactId>
+            <version>${version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.bootstrap.repositories</groupId>
+            <artifactId>andromda-repository-mdr</artifactId>
+            <version>${version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.bootstrap.templateengines</groupId>
+            <artifactId>andromda-templateengine-velocity</artifactId>
+            <version>${version}</version>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
@@ -39,27 +57,24 @@
             <artifactId>maven-settings</artifactId>
             <version>2.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.andromda.metafacades</groupId>
-            <artifactId>andromda-metafacades-uml14</artifactId>
-            <version>${version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.repositories</groupId>
-            <artifactId>andromda-repository-mdr</artifactId>
-            <version>${version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.templateengines</groupId>
-            <artifactId>andromda-templateengine-velocity</artifactId>
-            <version>${version}</version>
-            <scope>runtime</scope>
-        </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-initialize-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>initialize</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <localArtifactDirectory>${basedir}/../../../lib</localArtifactDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
         <resources>
             <resource>
                 <targetPath>META-INF/andromda/mappings</targetPath>

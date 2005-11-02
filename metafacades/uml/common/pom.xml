@@ -16,16 +16,19 @@
         <plugins>
             <plugin>
               <groupId>org.andromda.maven.plugins</groupId>
-              <artifactId>andromda-maven-plugin</artifactId>
+              <artifactId>andromda-bootstrap-plugin</artifactId>
               <executions>
                   <execution>
                       <goals>
                           <goal>run</goal>
+                          <goal>install</goal>
                       </goals>
                   </execution>
               </executions>
               <configuration>
                   <buildSourceDirectory>${basedir}/target/src</buildSourceDirectory>
+                  <lastModifiedCheck>true</lastModifiedCheck>
+                  <installDirectory>${basedir}/../../../lib</installDirectory>
               </configuration>
               <dependencies>
                   <dependency>
@@ -38,17 +41,19 @@
                       <artifactId>andromda-ocl-validation-library</artifactId>
                       <version>${version}</version>
                   </dependency>
-                  <dependency>
-                      <groupId>org.andromda.translationlibraries</groupId>
-                      <artifactId>andromda-ocl-query-library</artifactId>
-                      <version>${version}</version>
-                  </dependency>
               </dependencies>
             </plugin>
             <plugin>
                 <extensions>true</extensions>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>xml.zip</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <modelSourceDirectory>src/uml</modelSourceDirectory>
                     <generateJar>true</generateJar>

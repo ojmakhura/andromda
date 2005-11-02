@@ -9,9 +9,6 @@
     <packaging>maven-plugin</packaging>
     <name>AndroMDA Model Archiver Plugin</name>
     <inceptionYear>2005</inceptionYear>
-    <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-    </build>
     <dependencies>
         <dependency>
             <groupId>org.andromda</groupId>

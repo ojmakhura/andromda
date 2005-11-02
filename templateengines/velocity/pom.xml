@@ -17,4 +17,22 @@
             <scope>compile</scope>
     	</dependency> 	
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-bootstrap-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <installDirectory>${basedir}/../../lib</installDirectory>
+                </configuration>
+            </plugin>            
+        </plugins>
+    </build>
 </project>
