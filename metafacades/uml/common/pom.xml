@@ -31,7 +31,6 @@
                   <execution>
                       <goals>
                           <goal>run</goal>
-                          <goal>install</goal>
                       </goals>
                   </execution>
               </executions>
@@ -40,13 +39,6 @@
                   <lastModifiedCheck>true</lastModifiedCheck>
                   <installDirectory>${basedir}/../../../lib</installDirectory>
               </configuration>
-              <dependencies>
-                  <dependency>
-                      <groupId>org.andromda.translationlibraries</groupId>
-                      <artifactId>andromda-ocl-validation-library</artifactId>
-                      <version>${version}</version>
-                  </dependency>
-              </dependencies>
             </plugin>
             <plugin>
                 <extensions>true</extensions>
