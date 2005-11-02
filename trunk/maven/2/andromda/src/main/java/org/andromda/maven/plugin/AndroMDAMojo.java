@@ -15,6 +15,8 @@ import java.util.Properties;
 import org.andromda.core.AndroMDA;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
+import org.andromda.core.configuration.Model;
+import org.andromda.core.configuration.Repository;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -89,19 +91,38 @@ public class AndroMDAMojo
     {
         try
         {
+            final Configuration configuration = this.getConfiguration();
             boolean execute = true;
             if (this.lastModifiedCheck)
             {
-                final URL uri = ResourceUtils.toURL(this.configurationUri);
-                execute =
-                    ResourceUtils.modifiedAfter(
-                        ResourceUtils.getLastModifiedTime(uri),
-                        new File(this.buildSourceDirectory));
+                final Repository[] repositories = configuration.getRepositories();
+                int repositoryCount = repositories.length;
+                for (int ctr = 0; ctr < repositoryCount; ctr++)
+                {
+                    final Repository repository = repositories[ctr];
+                    if (repository != null)
+                    {
+                        final Model[] models = repository.getModels();
+                        final int modelCount = models.length;
+                        for (int ctr2 = 0; ctr2 < modelCount; ctr2++)
+                        {
+                            final Model model = models[ctr2];
+                            execute =
+                                ResourceUtils.modifiedAfter(
+                                    model.getLastModified(),
+                                    new File(this.buildSourceDirectory));
+                            if (execute)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
             }
             if (execute)
             {
                 final AndroMDA andromda = AndroMDA.newInstance();
-                andromda.run(this.getConfiguration());
+                andromda.run(configuration);
                 andromda.shutdown();
                 final File buildSourceDirectory =
                     this.buildSourceDirectory != null ? new File(this.buildSourceDirectory) : null;
