@@ -1,0 +1,75 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>andromda-maven-plugins</artifactId>
+        <groupId>org.andromda.maven.plugins</groupId>
+        <version>3.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-bootstrap-plugin</artifactId>
+    <packaging>maven-plugin</packaging>
+    <name>AndroMDA Bootstrap Plugin</name>
+    <description>For dealing with AndroMDA "bootstrap" artifacts, that is artifacts that are used to build other parts of AndroMDA</description>
+    <inceptionYear>2005</inceptionYear>
+    <dependencies>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+            <version>1.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-settings</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml14</artifactId>
+            <version>${version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.repositories</groupId>
+            <artifactId>andromda-repository-mdr</artifactId>
+            <version>${version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.templateengines</groupId>
+            <artifactId>andromda-templateengine-velocity</artifactId>
+            <version>${version}</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <resources>
+            <resource>
+                <targetPath>META-INF/andromda/mappings</targetPath>
+                <directory>../../../etc/mappings</directory>
+                <includes name="**/*.xml"/>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes name="**/*"/>                
+            </resource>
+        </resources>
+    </build>
+</project>
