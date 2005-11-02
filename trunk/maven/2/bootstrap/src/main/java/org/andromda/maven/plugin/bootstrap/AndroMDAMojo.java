@@ -35,6 +35,7 @@ import org.codehaus.plexus.util.InterpolationFilterReader;
  * @author Chad Brandon
  * @goal run
  * @phase generate-sources
+ * @requiresDependencyResolution runtime
  */
 public class AndroMDAMojo
     extends AbstractMojo
