@@ -21,13 +21,13 @@ $class.getDocumentation("    /// ")
         // ----- Attributes and Associations -----
 ## **** Generate attribute ****
 #foreach ($attribute in $class.attributes)
-        private $attribute.getterSetterTypeName m_$attribute.name;
+        private $attribute.getterSetterTypeName $attribute.name;
 #end
 ## **** Generate associations ****
 #foreach ($associationEnd in $class.associationEnds)
 #set ($target = $associationEnd.otherEnd)
 #if ($target.navigable)
-    private $target.getterSetterTypeName m_$target.name;
+    private $target.getterSetterTypeName $target.name;
 #end
 #end
 
@@ -56,7 +56,7 @@ $class.getDocumentation("    /// ")
 #end
         {
 #foreach ($property in $class.properties)
-            m_${property.name} = ${property.name};
+            this.${property.name} = ${property.name};
 #end
         }
 
@@ -70,7 +70,7 @@ $class.getDocumentation("    /// ")
             if (otherBean != null)
             {
 #foreach ( $property in $class.properties)
-                m_${property.name} = otherBean.m_${property.name};
+                this.${property.name} = otherBean.${property.name};
 #end
             }
         }
@@ -83,8 +83,8 @@ $attribute.getDocumentation("        /// ")
         /// </summary>
         public $attribute.getterSetterTypeName ${stringUtils.upperCamelCaseName($attribute.name)}
         {
-            get { return m_$attribute.name; }
-            set { m_$attribute.name = value; }
+            get { return $attribute.name; }
+            set { this.$attribute.name = value; }
         }
 
 #end
@@ -97,8 +97,8 @@ $target.getDocumentation("        /// ")
         /// </summary>
         public $target.getterSetterTypeName ${stringUtils.upperCamelCaseName($target.name)}
         {
-            get { return m_$target.name; }
-            set { m_$target.name = value; }
+            get { return $target.name; }
+            set { this.$target.name = value; }
         }
 
 #end

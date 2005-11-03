@@ -45,16 +45,16 @@ $entity.getDocumentation("    /// ")
 #if ($attribute.containsEmbeddedObject)
 #set ($typeName = $attribute.type.fullyQualifiedEntityName)
 #end
-        private $typeName m_$attribute.name;
+        private $typeName $attribute.name;
 #end
 ## **** Generate associations ****
 #foreach ($associationEnd in $entity.associationEnds)
 #set ($target = $associationEnd.otherEnd)
 #if ($target.navigable || ($associationEnd.child && $entity.foreignHibernateGeneratorClass))
 #if ($target.many)
-        private $target.getterSetterTypeName m_$target.name = $target.collectionTypeImplementation;
+        private $target.getterSetterTypeName $target.name = $target.collectionTypeImplementation;
 #else
-        private $target.getterSetterTypeName m_$target.name;
+        private $target.getterSetterTypeName $target.name;
 #end
 #end
 #end
@@ -71,8 +71,8 @@ $attribute.getDocumentation("        /// ")
         /// </summary>
         public $typeName ${stringUtils.upperCamelCaseName($attribute.name)}
         {
-            get { return m_$attribute.name; }
-            set { m_$attribute.name = value; }
+            get { return $attribute.name; }
+            set { this.$attribute.name = value; }
         }
 
 #end
@@ -85,8 +85,8 @@ $target.getDocumentation("        /// ")
         /// </summary>
         public $target.getterSetterTypeName ${stringUtils.upperCamelCaseName($target.name)}
         {
-            get { return m_$target.name; }
-            set { m_$target.name = value; }
+            get { return $target.name; }
+            set { this.$target.name = value; }
         }
 
 #end

@@ -175,7 +175,7 @@ public class SpringDependencyLogicImpl
      */
     protected String handleGetTransformationToEntityMethodName()
     {
-        return this.getName() + TRANSFORMATION_TO_ENTITY_METHOD_NAME_SUFFIX;
+        return StringUtils.capitalize(this.getName()) + TRANSFORMATION_TO_ENTITY_METHOD_NAME_SUFFIX;
     }
 
     /**

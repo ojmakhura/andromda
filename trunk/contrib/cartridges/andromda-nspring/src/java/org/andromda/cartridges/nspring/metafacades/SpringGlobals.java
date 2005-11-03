@@ -82,4 +82,23 @@ class SpringGlobals
      */
     static final String WEBSERVICE_INCOMING_ATTACHMENT_HANDLER_CALL_PATTERN = "webServiceIncomingAttachmentHandlerCallPattern";
 
+    /**
+     * The namespace property storing default collection type for associations
+     */
+    static final String ASSOCIATION_COLLECTION_TYPE = "associationCollectionType";
+
+    /**
+     * A flag indicating whether or not specific (java.util.Set, java.util.List,
+     * etc) collection interfaces should be used in assocation mutators and
+     * accessors or whether the generic java.util.Collection interface should be
+     * used.
+     */
+    static final String SPECIFIC_COLLECTION_INTERFACES = "specificCollectionInterfaces";
+
+    /**
+     * The property that defines the default collection interface, this is the
+     * interface used if the property defined by
+     * {@link #SPECIFIC_COLLECTION_INTERFACES} is true.
+     */
+    static final String DEFAULT_COLLECTION_INTERFACE = "defaultCollectionInterface";
 }

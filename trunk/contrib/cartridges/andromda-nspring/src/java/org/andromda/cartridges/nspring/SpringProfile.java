@@ -182,4 +182,10 @@ public class SpringProfile
      * Descending sort order.
      */
     public static final String TAGGEDVALUEVALUE_ORDER_DESCENDING = profile.get("ORDER_DESCENDING");
+
+    /**
+     * Defines the association collection type
+     */
+    public static final String TAGGEDVALUE_ASSOCIATION_COLLECTION_TYPE =
+        profile.get("ASSOCIATION_COLLECTION_TYPE");
 }

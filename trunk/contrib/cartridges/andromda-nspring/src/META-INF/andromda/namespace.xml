@@ -555,6 +555,29 @@
                     The encoding for xml documents
                 </documentation>
             </property>
+            <property name="associationCollectionType">
+                <default>set</default>
+                <documentation>
+                    Used to define the default mapping for collections.
+                </documentation>
+            </property>
+            <property name="specificCollectionInterfaces">
+                <default>false</default>
+                <documentation>
+                    A flag indicating whether or not specific collection interfaces will be used
+                    in association end mutators and accessors (i.e. java.util.Set, java.util.List, etc).
+                    If this is set to false, then the value of the <a href="#defaultCollectionInterface">defaultCollectionInterface</a>
+                    property will used to provide the collection interface.
+                </documentation>
+            </property>
+            <property name="defaultCollectionInterface">
+                <default>Iesi.Collections.ISet</default>
+                <documentation>
+                    The default collection interface, this is the interface used with association end
+                    accessors and mutators if the <a href="#specificCollectionInterfaces">specificCollectionInterfaces</a>
+                    flag is set to <code>false</code>.
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="Hibernate">
             <documentation>

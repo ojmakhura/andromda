@@ -21,6 +21,7 @@
     <property reference="ejbServiceOperationTransactionType"/>
     <property reference="serviceHibernateInterceptorEnabled"/>
     <property reference="ejbViewType"/>
+    <property reference="associationCollectionType"/>
     <metafacade class="org.andromda.cartridges.nspring.metafacades.SpringQueryOperationLogicImpl">
         <mapping>
             <stereotype>FINDER_METHOD</stereotype>
@@ -32,6 +33,13 @@
             <context>org.andromda.cartridges.nspring.metafacades.SpringEntity</context>
             <property name="query"/>
         </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.nspring.metafacades.SpringAssociationEndLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl">
+            <context>org.andromda.cartridges.nspring.metafacades.SpringEntity</context>
+        </mapping>
+        <property reference="specificCollectionInterfaces"/>
+        <property reference="defaultCollectionInterface"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.nspring.metafacades.SpringCriteriaSearchLogicImpl" contextRoot="true">
         <mapping>
