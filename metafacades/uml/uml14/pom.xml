@@ -49,12 +49,10 @@
                     <execution>
                         <goals>
                             <goal>run</goal>
-                            <goal>install</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <installDirectory>${basedir}/../../../lib</installDirectory>
                     <buildSourceDirectory>${basedir}/target/src</buildSourceDirectory>
                     <lastModifiedCheck>true</lastModifiedCheck>
                 </configuration>
@@ -70,6 +68,20 @@
                         <version>${version}</version>
                     </dependency>
                 </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-bootstrap-install-plugin</artifactId>    
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                </executions> 
+                <configuration>
+                    <installDirectory>${basedir}/../../../lib</installDirectory>
+                </configuration>           
             </plugin>
         </plugins>
  		<resources>

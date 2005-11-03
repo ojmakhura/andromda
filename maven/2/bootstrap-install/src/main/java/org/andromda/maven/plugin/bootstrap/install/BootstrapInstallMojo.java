@@ -1,4 +1,4 @@
-package org.andromda.maven.plugin.bootstrap;
+package org.andromda.maven.plugin.bootstrap.install;
 
 import java.io.File;
 

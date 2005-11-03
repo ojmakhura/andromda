@@ -1,14 +1,14 @@
 package org.andromda.maven.plugin.modelarchiver;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.andromda.core.common.ResourceUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.archiver.MavenArchiver;
@@ -217,7 +217,7 @@ public class XmiZipMojo
                                     this.modelArchiveExcludes.add(shortPath);
                                 }
                                 extractedFile.renameTo(newFile);
-                                String contents = ResourceUtils.getContents(newFile.toURL());
+                                String contents = IOUtils.toString(new FileReader(newFile));
                                 for (int ctr3 = 0; ctr3 < replacementExtensions.length; ctr3++)
                                 {
                                     final String version = escapePattern(this.project.getVersion());

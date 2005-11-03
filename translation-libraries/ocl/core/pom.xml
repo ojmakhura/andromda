@@ -12,8 +12,8 @@
     <build>
          <plugins>
             <plugin>
-               <groupId>org.codehaus.mojo</groupId>
-               <artifactId>sablecc-maven-plugin</artifactId>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-sablecc-plugin</artifactId>
                 <executions>
                     <execution>
                         <goals>

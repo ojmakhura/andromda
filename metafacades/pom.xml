@@ -11,18 +11,6 @@
     <name>AndroMDA Metafacades</name>
     <dependencies>
         <dependency>
-            <groupId>org.andromda.profiles.uml14</groupId>
-            <artifactId>andromda-profile</artifactId>
-            <version>${version}</version>
-            <type>xml.zip</type>
-        </dependency>
-        <dependency>
-            <groupId>org.andromda.profiles.uml14</groupId>
-            <artifactId>andromda-profile-datatype</artifactId>
-            <version>${version}</version>
-            <type>xml.zip</type>
-        </dependency>
-        <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-utils</artifactId>
             <version>${version}</version>
