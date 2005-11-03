@@ -66,9 +66,9 @@ namespace $entity.packageName
 #set ($identifier = $entity.identifiers.iterator().next())
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#load(int, $identifier.type.fullyQualifiedName)
+        /// @see ${entity.fullyQualifiedDaoName}#Load(int, $identifier.type.fullyQualifiedName)
         /// </summary>
-        public ${newKeyword}Object load(int transform, $identifier.type.fullyQualifiedName $identifier.name)
+        public ${newKeyword}Object Load(int transform, $identifier.type.fullyQualifiedName $identifier.name)
         {
 #set ($argument = $identifier.name)
 #if($identifier.type.primitive)
@@ -77,36 +77,36 @@ namespace $entity.packageName
             if ($argument == null)
             {
                 throw new ArgumentNullException(
-                    "${entity.name}.load - '$argument' can not be null");
+                    "${entity.name}.Load - '$argument' can not be null");
             }
 #end
             Object entity = Session.Load(typeof($entity.fullyQualifiedName), ${identifier.name});
-            return transformEntity(transform, ($entity.fullyQualifiedName)entity);
+            return TransformEntity(transform, ($entity.fullyQualifiedName)entity);
         }
 
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#load($identifier.type.fullyQualifiedName)
+        /// @see ${entity.fullyQualifiedDaoName}#Load($identifier.type.fullyQualifiedName)
         /// </summary>
-        public ${newKeyword}$entity.root.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name)
+        public ${newKeyword}$entity.root.fullyQualifiedEntityName Load($identifier.type.fullyQualifiedName $identifier.name)
         {
-            return ($entity.fullyQualifiedEntityName)this.load((int)$daoNoTransformationEnumName, $identifier.name);
+            return ($entity.fullyQualifiedEntityName)this.Load((int)$daoNoTransformationEnumName, $identifier.name);
         }
 
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#loadAll()
+        /// @see ${entity.fullyQualifiedDaoName}#LoadAll()
         /// </summary>
-        public ${newKeyword}System.Collections.ICollection loadAll()
+        public ${newKeyword}System.Collections.ICollection LoadAll()
         {
-            return this.loadAll((int)$daoNoTransformationEnumName);
+            return this.LoadAll((int)$daoNoTransformationEnumName);
         }
 
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#loadAll(int)
+        /// @see ${entity.fullyQualifiedDaoName}#LoadAll(int)
         /// </summary>
-        public ${newKeyword}System.Collections.ICollection loadAll(int transform)
+        public ${newKeyword}System.Collections.ICollection LoadAll(int transform)
         {
             System.Collections.ICollection entities = Session.Find("from ${entity.fullyQualifiedEntityImplementationName}");
-            System.Collections.ICollection results = this.transformEntities(transform, entities);
+            System.Collections.ICollection results = this.TransformEntities(transform, entities);
             return results;
         }
 
@@ -114,22 +114,22 @@ namespace $entity.packageName
 #if (!$entity.abstract)
 
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#create($entity.fullyQualifiedEntityName)
+        /// @see ${entity.fullyQualifiedDaoName}#Create($entity.fullyQualifiedEntityName)
         /// </summary>
-        public $entity.root.fullyQualifiedEntityName create($entity.fullyQualifiedEntityName $argumentName)
+        public $entity.root.fullyQualifiedEntityName Create($entity.fullyQualifiedEntityName $argumentName)
         {
-            return ($entity.fullyQualifiedEntityName)this.create((int)$daoNoTransformationEnumName, $argumentName);
+            return ($entity.fullyQualifiedEntityName)this.Create((int)$daoNoTransformationEnumName, $argumentName);
         }
 
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#create(int transform, $entity.fullyQualifiedEntityName)
+        /// @see ${entity.fullyQualifiedDaoName}#Create(int transform, $entity.fullyQualifiedEntityName)
         /// </summary>
-        public Object create(int transform, $entity.fullyQualifiedName $argumentName)
+        public Object Create(int transform, $entity.fullyQualifiedName $argumentName)
         {
             if ($argumentName == null)
             {
                 throw new ArgumentNullException(
-                    "${entity.name}.create - '$argumentName' can not be null");
+                    "${entity.name}.Create - '$argumentName' can not be null");
             }
             Object identifier = Session.Save($argumentName);
 #set ($identifierProperty = "identifier")
@@ -139,32 +139,32 @@ namespace $entity.packageName
 #set ($identifierProperty = "($identifier.type.fullyQualifiedName)$identifierProperty")
 #end
             ${argumentName}.${stringUtils.upperCamelCaseName($identifier.name)} = $identifierProperty;
-            return this.transformEntity(transform, $argumentName);
+            return this.TransformEntity(transform, $argumentName);
         }
 
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#create(System.Collections.ICollection)
+        /// @see ${entity.fullyQualifiedDaoName}#Create(System.Collections.ICollection)
         /// </summary>
-        public ${newKeyword}System.Collections.ICollection create(System.Collections.ICollection entities)
+        public ${newKeyword}System.Collections.ICollection Create(System.Collections.ICollection entities)
         {
-            return create((int)$daoNoTransformationEnumName, entities);
+            return Create((int)$daoNoTransformationEnumName, entities);
         }
 
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#create(int, System.Collections.ICollection)
+        /// @see ${entity.fullyQualifiedDaoName}#Create(int, System.Collections.ICollection)
         /// </summary>
-        public ${newKeyword}System.Collections.ICollection create(int transform, System.Collections.ICollection entities)
+        public ${newKeyword}System.Collections.ICollection Create(int transform, System.Collections.ICollection entities)
         {
             if (entities == null)
             {
                 throw new ArgumentNullException(
-                    "${entity.name}.create - 'entities' can not be null");
+                    "${entity.name}.Create - 'entities' can not be null");
             }
 
             System.Collections.ArrayList result = new System.Collections.ArrayList();
             foreach (Object entity in entities)
             {
-                result.Add(create(transform, ($entity.fullyQualifiedEntityName)entity));
+                result.Add(Create(transform, ($entity.fullyQualifiedEntityName)entity));
             }
 
             return result;
@@ -174,21 +174,21 @@ namespace $entity.packageName
 #set ($attributes = $entity.getAttributes(true,false))
 #if (!$attributes.empty)
         /// <summary>
-        /// @see ${entity.root.fullyQualifiedDaoName}#create(${entity.getAttributeTypeList(true, false)})
+        /// @see ${entity.root.fullyQualifiedDaoName}#Create(${entity.getAttributeTypeList(true, false)})
         /// </summary>
-        public $entity.root.fullyQualifiedEntityName create(
+        public $entity.root.fullyQualifiedEntityName Create(
 #foreach($attribute in $attributes)
             $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else)#end
 
 #end
         {
-            return ($entity.root.fullyQualifiedEntityName)this.create((int)$daoNoTransformationEnumName, ${entity.getAttributeNameList(true,false)});
+            return ($entity.root.fullyQualifiedEntityName)this.Create((int)$daoNoTransformationEnumName, ${entity.getAttributeNameList(true,false)});
         }
 
         /// <summary>
-        /// @see ${entity.root.fullyQualifiedDaoName}#create(int, ${entity.getAttributeTypeList(true, false)})
+        /// @see ${entity.root.fullyQualifiedDaoName}#Create(int, ${entity.getAttributeTypeList(true, false)})
         /// </summary>
-        public Object create(
+        public Object Create(
             int transform,
 #foreach($attribute in $attributes)
             $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else)#end
@@ -199,28 +199,28 @@ namespace $entity.packageName
 #foreach ($attribute in $attributes)
             entity.${stringUtils.upperCamelCaseName($attribute.name)} = $attribute.name;
 #end
-            return this.create(transform, entity);
+            return this.Create(transform, entity);
         }
 
 #end
 #set ($requiredProperties = $entity.getRequiredProperties(true,false))
 #if (!$requiredProperties.empty && $entity.getRequiredAttributes(true,false).size() != $requiredProperties.size())
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#create(${entity.getRequiredPropertyTypeList(true, false)})
+        /// @see ${entity.fullyQualifiedDaoName}#Create(${entity.getRequiredPropertyTypeList(true, false)})
         /// </summary>
-        public $entity.root.fullyQualifiedEntityName create(
+        public $entity.root.fullyQualifiedEntityName Create(
 #foreach($property in $requiredProperties)
             $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else)#end
 
 #end
         {
-            return ($entity.root.fullyQualifiedEntityName)this.create((int)$daoNoTransformationEnumName, ${entity.getRequiredPropertyNameList(true,false)});
+            return ($entity.root.fullyQualifiedEntityName)this.Create((int)$daoNoTransformationEnumName, ${entity.getRequiredPropertyNameList(true,false)});
         }
 
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#create(int, ${entity.getRequiredPropertyTypeList(true, false)})
+        /// @see ${entity.fullyQualifiedDaoName}#Create(int, ${entity.getRequiredPropertyTypeList(true, false)})
         /// </summary>
-        public Object create(
+        public Object Create(
             int transform,
 #foreach($property in $requiredProperties)
             $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else)#end
@@ -231,34 +231,34 @@ namespace $entity.packageName
 #foreach ($property in $requiredProperties)
             entity.${stringUtils.upperCamelCaseName($property.name)} = $property.name;
 #end
-            return this.create(transform, entity);
+            return this.Create(transform, entity);
         }
 
 #end
 #end
 #end
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#update($entity.fullyQualifiedEntityName)
+        /// @see ${entity.fullyQualifiedDaoName}#Update($entity.fullyQualifiedEntityName)
         /// </summary>
-        public void update($entity.fullyQualifiedEntityName $argumentName)
+        public void Update($entity.fullyQualifiedEntityName $argumentName)
         {
             if ($argumentName == null)
             {
                 throw new ArgumentNullException(
-                    "${entity.name}.update - '$argumentName' can not be null");
+                    "${entity.name}.Update - '$argumentName' can not be null");
             }
             Session.Update($argumentName);
         }
 
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#update(System.Collections.ICollection)
+        /// @see ${entity.fullyQualifiedDaoName}#Update(System.Collections.ICollection)
         /// </summary>
-        public ${newKeyword}void update(System.Collections.ICollection entities)
+        public ${newKeyword}void Update(System.Collections.ICollection entities)
         {
             if (entities == null)
             {
                 throw new ArgumentNullException(
-                    "${entity.name}.update - 'entities' can not be null");
+                    "${entity.name}.Update - 'entities' can not be null");
             }
 
             foreach (Object entity in entities)
@@ -268,22 +268,22 @@ namespace $entity.packageName
         }
 
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#remove($entity.fullyQualifiedEntityName)
+        /// @see ${entity.fullyQualifiedDaoName}#Remove($entity.fullyQualifiedEntityName)
         /// </summary>
-        public void remove($entity.fullyQualifiedEntityName $argumentName)
+        public void Remove($entity.fullyQualifiedEntityName $argumentName)
         {
             if ($argumentName == null)
             {
                 throw new ArgumentNullException(
-                    "${entity.name}.remove - '$argumentName' can not be null");
+                    "${entity.name}.Remove - '$argumentName' can not be null");
             }
             Session.Delete($argumentName);
         }
 
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#remove($identifier.type.fullyQualifiedName)
+        /// @see ${entity.fullyQualifiedDaoName}#Remove($identifier.type.fullyQualifiedName)
         /// </summary>
-        public ${newKeyword}void remove($identifier.type.fullyQualifiedName $identifier.name)
+        public ${newKeyword}void Remove($identifier.type.fullyQualifiedName $identifier.name)
         {
 #set ($argument = $identifier.name)
 #if($identifier.type.primitive)
@@ -292,32 +292,32 @@ namespace $entity.packageName
             if ($argument == null)
             {
                 throw new ArgumentNullException(
-                    "${entity.name}.remove - '$identifier.name' can not be null");
+                    "${entity.name}.Remove - '$identifier.name' can not be null");
             }
 #end
-#set ($loadCall = "this.load($identifier.name)")
+#set ($loadCall = "this.Load($identifier.name)")
 #if ($entity.generalization)
 #set ($loadCall = "($entity.fullyQualifiedEntityName)${loadCall}")
 #end
             $entity.fullyQualifiedEntityName entity = $loadCall;
             if (entity != null)
             {
-                this.remove(entity);
+                this.Remove(entity);
             }
         }
 
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#remove(System.Collections.ICollection)
+        /// @see ${entity.fullyQualifiedDaoName}#Remove(System.Collections.ICollection)
         /// </summary>
-        public ${newKeyword}void remove(System.Collections.ICollection entities)
+        public ${newKeyword}void Remove(System.Collections.ICollection entities)
         {
             if (entities == null)
             {
                 throw new ArgumentNullException(
-                    "${entity.name}.remove - 'entities' can not be null");
+                    "${entity.name}.Remove - 'entities' can not be null");
             }
             foreach (${entity.name} entity in entities)
-                this.remove(entity);
+                this.Remove(entity);
         }
 
 #foreach ($finder in $entity.getQueryOperations(true))
@@ -413,10 +413,10 @@ namespace $entity.packageName
                         result = obj;
                 }
             }
-            result = transformEntity(transform, ($entity.fullyQualifiedName)result);
+            result = TransformEntity(transform, ($entity.fullyQualifiedName)result);
             return result;
 #else
-            results = transformEntities(transform, results);
+            results = TransformEntities(transform, results);
             return results;
 #end
         }
@@ -470,7 +470,7 @@ namespace $entity.packageName
 #else
                 System.Collections.IList results = criteriaSearch.executeAsList();
 #end
-                results = transformEntities(transform, results);
+                results = TransformEntities(transform, results);
                 return results;
             }
             catch (${hibernateUtils.basePackage}.HibernateException ex)
@@ -540,9 +540,9 @@ namespace $entity.packageName
         /// @param transform one of the constants declared in {@link $entity.fullyQualifiedDaoName}
         /// @param entity an entity that was found
         /// @return the transformed entity (i.e. new value object, etc)
-        /// @see #transformEntities(int,System.Collections.ICollection)
+        /// @see #TransformEntities(int,System.Collections.ICollection)
         /// </summary>
-        protected Object transformEntity(int transform, $entity.fullyQualifiedName entity)
+        protected Object TransformEntity(int transform, $entity.fullyQualifiedName entity)
         {
             Object target = null;
             if (entity != null)
@@ -578,7 +578,7 @@ namespace $entity.packageName
 
         /// <summary>
         /// Transforms a collection of entities using the
-        /// {@link #transformEntity(int,$entity.fullyQualifiedName)}
+        /// {@link #TransformEntity(int,$entity.fullyQualifiedName)}
         /// method. This method does not instantiate a new collection.
         /// <p/>
         /// This method is to be used internally only.
@@ -586,9 +586,9 @@ namespace $entity.packageName
         /// @param transform one of the constants declared in <code>$entity.fullyQualifiedDaoName</code>
         /// @param entities the collection of entities to transform
         /// @return the same collection as the argument, but this time containing the transformed entities
-        /// @see #transformEntity(int,$entity.fullyQualifiedName)
+        /// @see #TransformEntity(int,$entity.fullyQualifiedName)
         /// </summary>
-        protected ${newKeyword}System.Collections.ICollection transformEntities(int transform, System.Collections.ICollection entities)
+        protected ${newKeyword}System.Collections.ICollection TransformEntities(int transform, System.Collections.ICollection entities)
         {
             switch (transform)
             {

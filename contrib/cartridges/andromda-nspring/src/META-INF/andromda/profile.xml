@@ -236,6 +236,21 @@
                     <value>an integer</value>
                 </allowedValues>
             </element>
+            <element name="ASSOCIATION_COLLECTION_TYPE">
+                <documentation>
+                    Used to define the mapping for collections.
+                    This value overrides the
+                    <a href="namespace.html#associationCollectionType">namespace property</a>.
+                </documentation>
+                <value>@andromda.spring.collection.type</value>
+                <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
+                <allowedValues>
+                    <value>set</value>
+                    <value>map</value>
+                    <value>bag</value>
+                    <value>valuest</value>
+                </allowedValues>
+            </element>
         </elementGroup>
         <elementGroup name="Constants">
             <documentation>

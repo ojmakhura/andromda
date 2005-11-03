@@ -21,7 +21,7 @@ $embeddedValue.getDocumentation("    /// ")
     {
         // ----- Attributes -----
 #foreach ($attribute in $embeddedValue.attributes)
-        private $attribute.getterSetterTypeName m_$attribute.name;
+        private $attribute.getterSetterTypeName $attribute.name;
 #end
 
         // ----- Constructors -----
@@ -42,7 +42,7 @@ $embeddedValue.getDocumentation("    /// ")
         {
             $embeddedValue.implementationName obj = new ${embeddedValue.implementationName}();
 #foreach ($attribute in $embeddedValue.attributes)
-            obj.m_${attribute.name} = ${attribute.name};
+            obj.${attribute.name} = ${attribute.name};
 #end
             obj.initialize();
             return obj;
@@ -57,7 +57,7 @@ $embeddedValue.getDocumentation("    /// ")
             {
                 return newInstance(
 #foreach ($attribute in $embeddedValue.attributes)
-                    otherObject.m_${attribute.name}#if($velocityCount != $embeddedValue.attributes.size()),#else);
+                    otherObject.${attribute.name}#if($velocityCount != $embeddedValue.attributes.size()),#else);
 #end
 
 #end
@@ -88,17 +88,17 @@ $attribute.getDocumentation("        /// ")
 #if ($embeddedValue.immutable)
         public $typeName ${stringUtils.upperCamelCaseName($attribute.name)}
         {
-            get { return m_$attribute.name; }
+            get { return $attribute.name; }
         }
         protected void ${attribute.setterName}($attribute.getterSetterTypeName $attribute.name)
         {
-            m_${attribute.name} = $attribute.name;
+            this.${attribute.name} = $attribute.name;
         }
 #else
         public $typeName ${stringUtils.upperCamelCaseName($attribute.name)}
         {
-            get { return m_$attribute.name; }
-            set { m_$attribute.name = value; }
+            get { return $attribute.name; }
+            set { this.$attribute.name = value; }
         }
 #end
 

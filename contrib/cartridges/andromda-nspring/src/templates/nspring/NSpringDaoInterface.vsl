@@ -76,11 +76,11 @@ namespace $entity.packageName
         /// <summary>
         /// Loads an instance of $entity.fullyQualifiedEntityName from the persistent store.
         /// </summary>
-        ${newKeyword}$entity.root.fullyQualifiedEntityName load($identifier.type.fullyQualifiedName $identifier.name);
+        ${newKeyword}$entity.root.fullyQualifiedEntityName Load($identifier.type.fullyQualifiedName $identifier.name);
 
         /// <summary>
         /// <p>
-        ///   Does the same thing as {@link #load($identifier.type.fullyQualifiedName)} with an
+        ///   Does the same thing as {@link #Load($identifier.type.fullyQualifiedName)} with an
         ///   additional flag called <code>transform</code>.  If this flag is set to <code>$daoNoTransformationEnumName</code> then
         ///   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
         ///   defined in this class then the result <strong>WILL BE</strong> passed through an operation which can
@@ -91,18 +91,18 @@ namespace $entity.packageName
         /// @param $identifier.name the identifier of the entity to load.
         /// @return either the entity or the object transformed from the entity.
         /// </summary>
-        ${newKeyword}Object load(int transform, $identifier.type.fullyQualifiedName $identifier.name);
+        ${newKeyword}Object Load(int transform, $identifier.type.fullyQualifiedName $identifier.name);
 
         /// <summary>
         /// Loads all entities of type {@link ${entity.fullyQualifiedEntityName}}.
         ///
         /// @return the loaded entities.
         /// </summary>
-        ${newKeyword}System.Collections.ICollection loadAll();
+        ${newKeyword}System.Collections.ICollection LoadAll();
 
         /// <summary>
         /// <p>
-        ///   Does the same thing as {@link #loadAll()} with an
+        ///   Does the same thing as {@link #LoadAll()} with an
         ///   additional flag called <code>transform</code>.  If this flag is set to <code>$daoNoTransformationEnumName</code> then
         ///   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
         ///   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -113,18 +113,18 @@ namespace $entity.packageName
         /// @param transform the flag indicating what transformation to use.
         /// @return the loaded entities.
         /// </summary>
-        ${newKeyword}System.Collections.ICollection loadAll(int transform);
+        ${newKeyword}System.Collections.ICollection LoadAll(int transform);
 
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
         /// <summary>
         /// Creates an instance of $entity.fullyQualifiedEntityName and adds it to the persistent store.
         /// </summary>
-        $entity.root.fullyQualifiedEntityName create($entity.fullyQualifiedEntityName $argumentName);
+        $entity.root.fullyQualifiedEntityName Create($entity.fullyQualifiedEntityName $argumentName);
 
         /// <summary>
         /// <p>
-        ///   Does the same thing as {@link #create($entity.fullyQualifiedEntityName)} with an
+        ///   Does the same thing as {@link #Create($entity.fullyQualifiedEntityName)} with an
         ///   additional flag called <code>transform</code>.  If this flag is set to <code>$daoNoTransformationEnumName</code> then
         ///   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
         ///   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -132,7 +132,7 @@ namespace $entity.packageName
         ///   not occur.
         /// </p>
         /// </summary>
-        Object create(int transform, $entity.fullyQualifiedEntityName $argumentName);
+        Object Create(int transform, $entity.fullyQualifiedEntityName $argumentName);
 
         /// <summary>
         /// Creates a new instance of $entity.fullyQualifiedEntityName and adds
@@ -143,11 +143,11 @@ namespace $entity.packageName
         ///
         /// @return the created instances.
         /// </summary>
-        ${newKeyword}System.Collections.ICollection create(System.Collections.ICollection entities);
+        ${newKeyword}System.Collections.ICollection Create(System.Collections.ICollection entities);
 
         /// <summary>
         /// <p>
-        ///   Does the same thing as {@link #create($entity.fullyQualifiedEntityName)} with an
+        ///   Does the same thing as {@link #Create($entity.fullyQualifiedEntityName)} with an
         ///   additional flag called <code>transform</code>.  If this flag is set to <code>$daoNoTransformationEnumName</code> then
         ///   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
         ///   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -155,7 +155,7 @@ namespace $entity.packageName
         ///   not occur.
         /// </p>
         /// </summary>
-        ${newKeyword}System.Collections.ICollection create(int transform, System.Collections.ICollection entities);
+        ${newKeyword}System.Collections.ICollection Create(int transform, System.Collections.ICollection entities);
 
 #if ($enableDaoPropertiesCreateMethod.equalsIgnoreCase('true'))
 #set ($attributes = $entity.getAttributes(true,false))
@@ -167,7 +167,7 @@ namespace $entity.packageName
         ///   the persistent store.
         /// </p>
         /// </summary>
-        $entity.root.fullyQualifiedEntityName create(
+        $entity.root.fullyQualifiedEntityName Create(
 #foreach($attribute in $attributes)
             $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else);#end
 
@@ -175,7 +175,7 @@ namespace $entity.packageName
 
         /// <summary>
         /// <p>
-        ///   Does the same thing as {@link #create($entity.getAttributeTypeList(true,false))} with an
+        ///   Does the same thing as {@link #Create($entity.getAttributeTypeList(true,false))} with an
         ///   additional flag called <code>transform</code>.  If this flag is set to <code>$daoNoTransformationEnumName</code> then
         ///   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
         ///   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -183,7 +183,7 @@ namespace $entity.packageName
         ///   not occur.
         /// </p>
         /// </summary>
-        Object create(
+        Object Create(
             int transform,
 #foreach($attribute in $attributes)
             $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else);#end
@@ -200,7 +200,7 @@ namespace $entity.packageName
         ///  and association ends) and adds it to the persistent store.
         /// </p>
         /// </summary>
-        $entity.root.fullyQualifiedEntityName create(
+        $entity.root.fullyQualifiedEntityName Create(
 #foreach($property in $requiredProperties)
             $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else);#end
 
@@ -208,7 +208,7 @@ namespace $entity.packageName
 
         /// <summary>
         /// <p>
-        ///   Does the same thing as {@link #create($entity.getRequiredAttributeTypeList(true,false))} with an
+        ///   Does the same thing as {@link #Create($entity.getRequiredAttributeTypeList(true,false))} with an
         ///   additional flag called <code>transform</code>.  If this flag is set to <code>$daoNoTransformationEnumName</code> then
         ///   the returned entity will <strong>NOT</strong be transformed.  If this flag is any of the other constants
         ///   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -216,7 +216,7 @@ namespace $entity.packageName
         ///   not occur.
         /// </p>
         /// </summary>
-        Object create(
+        Object Create(
             int transform,
 #foreach($property in $requiredProperties)
             $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else);#end
@@ -229,28 +229,28 @@ namespace $entity.packageName
         /// <summary>
         /// Updates the <code>$argumentName</code> instance in the persistent store.
         /// </summary>
-        void update($entity.fullyQualifiedEntityName $argumentName);
+        void Update($entity.fullyQualifiedEntityName $argumentName);
 
         /// <summary>
         /// Updates all instances in the <code>entities</code> collection in the persistent store.
         /// </summary>
-        ${newKeyword}void update(System.Collections.ICollection entities);
+        ${newKeyword}void Update(System.Collections.ICollection entities);
 
         /// <summary>
         /// Removes the instance of $entity.fullyQualifiedEntityName from the persistent store.
         /// </summary>
-        void remove($entity.fullyQualifiedEntityName $argumentName);
+        void Remove($entity.fullyQualifiedEntityName $argumentName);
 
         /// <summary>
         /// Removes the instance of $entity.fullyQualifiedEntityName having the given
         /// <code>identifier</code> from the persistent store.
         /// </summary>
-        ${newKeyword}void remove($identifier.type.fullyQualifiedName $identifier.name);
+        ${newKeyword}void Remove($identifier.type.fullyQualifiedName $identifier.name);
 
         /// <summary>
         /// Removes all entities in the given <code>entities<code> collection.
         /// </summary>
-        ${newKeyword}void remove(System.Collections.ICollection entities);
+        ${newKeyword}void Remove(System.Collections.ICollection entities);
 
 #foreach ($operation in $entity.queryOperations)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
