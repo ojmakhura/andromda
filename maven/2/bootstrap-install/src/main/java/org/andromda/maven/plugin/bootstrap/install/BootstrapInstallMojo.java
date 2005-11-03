@@ -11,6 +11,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.model.Build;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Parent;
 import org.apache.maven.plugin.AbstractMojo;
@@ -119,7 +120,7 @@ public class BootstrapInstallMojo
                     existingFile,
                     bootstrapFile);
                 final File bootstrapPomFile = new File(installDirectory, bootstrapPath + '.' + POM_EXTENSION);
-                this.writePomFileWithNoDependenciesOrParent(bootstrapPomFile);
+                this.writeMinimalPom(bootstrapPomFile);
             }
             catch (final Throwable throwable)
             {
@@ -135,7 +136,7 @@ public class BootstrapInstallMojo
      *
      * @param bootstrapPomFile the bootstrap POM file to write.
      */
-    private void writePomFileWithNoDependenciesOrParent(final File bootstrapPomFile)
+    private void writeMinimalPom(final File bootstrapPomFile)
         throws MojoExecutionException, IOException
     {
         if (this.project != null)
@@ -151,17 +152,26 @@ public class BootstrapInstallMojo
             final List dependencies = new ArrayList(model.getDependencies());
             final String groupId = model.getGroupId();
             final Artifact artifact = this.project.getArtifact();
+            final Build build = this.project.getBuild();
+            final List developers = new ArrayList(model.getDevelopers());
+            final List contributors = new ArrayList(model.getContributors());
             model.setGroupId(this.getBootstrapGroupId(artifact));
             model.setParent(null);
+            model.setBuild(null);
             model.setDependencies(Collections.EMPTY_LIST);
+            model.setDevelopers(Collections.EMPTY_LIST);
+            model.setContributors(Collections.EMPTY_LIST);
             final FileWriter fileWriter = new FileWriter(bootstrapPomFile);
             this.project.writeModel(fileWriter);
             fileWriter.flush();
 
-            // - set the parent and dependencies back since we've written the POM
+            // - set any removed items back to the way it was since we've written the POM
             model.setParent(parent);
             model.setGroupId(groupId);
             model.setDependencies(dependencies);
+            model.setBuild(build);
+            model.setDevelopers(developers);
+            model.setContributors(contributors);
         }
     }
 
