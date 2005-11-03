@@ -1,0 +1,130 @@
+#set($generatedFile = "${webform.getFullyQualifiedPath()}/${webform.getNormalizedName()}.aspx.cs")
+using System;
+using System.Collections;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Web;
+using System.Web.SessionState;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
+
+using Microsoft.ApplicationBlocks.UIProcess;
+
+using ${webAssemblyName};
+
+namespace ${webAssemblyName}
+{
+	/// <summary>
+	/// Summary description for ${webform.getNormalizedName()}.
+	/// </summary>
+	public class ${webform.getNormalizedName()} : WebFormView
+	{
+		#foreach($transition in ${webform.getOutgoing()})
+	#foreach($parameter in ${transition.getParameters()})
+							protected System.Web.UI.WebControls.Label ${parameter.getName()}lbl;
+							protected System.Web.UI.WebControls.${parameter.getViewType()} ${parameter.getName()}${parameter.getViewType()};
+														#end
+			protected System.Web.UI.WebControls.Button ${transition.getSignalName()}Button;
+				#end
+		
+		#region Web Form Designer generated code
+		override protected void OnInit(EventArgs e)
+		{
+			//
+			// CODEGEN: This call is required by the ASP.NET Web Form Designer.
+			//
+			InitializeComponent();
+			base.OnInit(e);
+		}
+		
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
+		#foreach($transition in ${webform.getOutgoing()})    
+			this.${transition.getSignalName()}Button.Click += new System.EventHandler(${transition.getSignalName()}Button_Click);
+			#end
+			this.Load += new System.EventHandler(this.Page_Load);
+		}
+		#endregion
+
+		protected ${webform.getControllerName()}Impl ${webform.getControllerName()}
+		{
+			get 
+			{
+				return Controller as ${webform.getControllerName()}Impl;
+			}
+		}
+		
+		protected void Page_Load(object sender, System.EventArgs e)
+		{
+			if (!this.IsPostBack)
+			{
+				LoadState();
+			}
+		}
+		#foreach($transition in ${webform.getOutgoing()})
+		protected void ${transition.getSignalName()}Button_Click(object sender, System.EventArgs e)
+		{
+			SaveState();
+			this.${webform.getControllerName()}.${transition.getSignalName()}${webform.getNormalizedName()}();
+		}
+#end
+		private void SaveState()
+		{
+		#foreach($transition in ${webform.getOutgoing()})
+		#foreach($textBox in ${transition.getTextBoxes()})
+String ${textBox.getName()} = ${textBox.getName()}TextBox.Text;
+			${webform.getControllerName()}.${webform.getNormalizedName()}FormData.${textBox.getCapitalisedName()} = ${textBox.getName()};
+		#end
+				#foreach($dropDownList in ${transition.getDropDownLists()})
+Object ${dropDownList.getName()} = ${dropDownList.getName()}DropDownList.SelectedItem;
+					${webform.getControllerName()}.${webform.getNormalizedName()}FormData.Selected${dropDownList.getCapitalisedName()} = ${dropDownList.getName()};
+		#end
+		#foreach($listBox in ${transition.getListBoxes()})
+Object ${listBox.getName()} = ${listBox.getName()}ListBox.SelectedItem;
+					${webform.getControllerName()}.${webform.getNormalizedName()}FormData.Selected${listBox.getCapitalisedName()} = ${listBox.getName()};
+		#end
+		#foreach($radiobutton in ${transition.getRadioButtons()})
+bool ${radiobutton.getName()} = ${radiobutton.getName()}RadioButton.Checked;
+					${webform.getControllerName()}.${webform.getNormalizedName()}FormData.${radiobutton.getCapitalisedName()} = ${radiobutton.getName()};
+		#end
+				#foreach($checkbox in ${transition.getCheckBoxes()})
+bool ${checkbox.getName()} = ${checkbox.getName()}CheckBox.Checked;
+					${webform.getControllerName()}.${webform.getNormalizedName()}FormData.${checkbox.getCapitalisedName()} = ${checkbox.getName()};
+		#end
+		#end
+		}
+
+		private void LoadState()
+		{
+			#foreach($transition in ${webform.getOutgoing()})
+		#foreach($textBox in ${transition.getTextBoxes()})
+${textBox.getName()}TextBox.Text = 			${webform.getControllerName()}.${webform.getNormalizedName()}FormData.${textBox.getCapitalisedName()};
+		#end
+		#foreach($dropDownList in ${transition.getDropDownLists()})
+${dropDownList.getName()}DropDownList.DataSource = 				${webform.getControllerName()}.${webform.getNormalizedName()}FormData.${dropDownList.getCapitalisedName()}BackingList;
+					${dropDownList.getName()}DropDownList.DataTextField = "Label";
+										${dropDownList.getName()}DropDownList.DataValueField = "LabelValue";
+					${dropDownList.getName()}DropDownList.DataBind();
+							#end
+		#foreach($listbox in ${transition.getListBoxes()})
+${listbox.getName()}DropDownList.DataSource = 				${webform.getControllerName()}.${webform.getNormalizedName()}FormData.${listbox.getCapitalisedName()}BackingList;
+					${listbox.getName()}DropDownList.DataTextField = "Label";
+					${listbox.getName()}DropDownList.DataValueField = "LabelValue";
+					${listbox.getName()}DropDownList.DataBind();
+							#end
+				#foreach($radiobutton in ${transition.getRadioButtons()})
+${radiobutton.getName()}RadioButton.Checked = ${webform.getControllerName()}.${webform.getNormalizedName()}FormData.${radiobutton.getCapitalisedName()};
+		#end
+						#foreach($checkbox in ${transition.getCheckBoxes()})
+${checkbox.getName()}RadioButton.Checked = ${webform.getControllerName()}.${webform.getNormalizedName()}FormData.${checkbox.getCapitalisedName()};
+		#end
+				#end	
+		}
+	}
+}

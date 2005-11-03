@@ -1,0 +1,59 @@
+#set($generatedFile = "${webform.getFullyQualifiedPath()}/${webform.getNormalizedName()}.aspx")
+<%@ Page language="c#" Codebehind="${webform.getNormalizedName()}.aspx.cs" AutoEventWireup="false" Inherits="${webAssemblyName}.${webform.getNormalizedName()}" %>
+<%@ Register TagPrefix="menuUserControl" TagName="menu" Src="${webform.getMenuPath()}\Layout\menu.ascx" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" > 
+
+<html>
+  <head>
+    <title>${webform.getName()}</title>
+    		<style type="text/css" title="currentStyle" media="screen">
+				    @import "${webform.getCSSPath()}\\Layout\\default.css";
+	    </style>
+    <meta name="GENERATOR" Content="Microsoft Visual Studio .NET 7.1">
+    <meta name="CODE_LANGUAGE" Content="C#">
+    <meta name=vs_defaultClientScript content="JavaScript">
+    <meta name=vs_targetSchema content="http://schemas.microsoft.com/intellisense/ie5">
+  </head>
+  <body MS_POSITIONING="GridLayout">
+	<div id="container">
+				<p class="spacer"></p>
+		<h4>${webform.getName()}</h4>
+		<form id="Form1" method="post" runat="server">
+		<div id="menu">
+			<menuUserControl:menu id="menu" runat="server"></menuUserControl:menu>
+	</div>
+	<div id="content">
+						#foreach($transition in ${webform.getOutgoing()})
+	<div class="action">
+			<h3>${transition.getSignalName()}</h3>
+		<table id="${transition.getSignalName()}Table" cellspacing="0" cellpadding="1" width="100%" border="0">
+									#foreach($parameter in ${transition.getParameters()})
+							#set($type = 	${parameter.getViewType()})
+							#set($type = "asp:$type")
+														<tr>
+							<td>
+							<asp:label id="${parameter.getName()}lbl" runat="server">${parameter.getName()}</asp:label></td>
+					<td>
+						<$type id="${parameter.getName()}${parameter.getViewType()}" #if(${parameter.getViewType().equals('RadioButton')}) GroupName="${parameter.getRadioButtonGroup()}" #end runat="server"></$type>
+						#if(${parameter.isMandatoryField()})
+						<asp:RequiredFieldValidator id="${parameter.getName()}RF" runat="server" ErrorMessage="*" ControlToValidate="${parameter.getName()}TextBox"></asp:RequiredFieldValidator>
+						#end
+												</td>							
+						#if(${parameter.getViewType().equals('TextBox')})
+						<asp:CompareValidator id="${parameter.getName()}CV" runat="server" ErrorMessage="Warning: type of the field  ''${parameter.getName()}'' is not ${parameter.getComparatorType()}!" Operator="DataTypeCheck" 										Type="${parameter.getComparatorType()}" Display="Dynamic" ControlToValidate="${parameter.getName()}TextBox"></asp:CompareValidator>
+						#end				
+							</tr>		
+							#end
+							<tr>
+					<td>
+						<asp:button id="${transition.getSignalName()}Button" runat="server" text="${transition.getSignalName()}"></asp:button></td>
+					<td></td>
+				</tr>
+			</table>
+			</div>
+							#end
+							</div>
+</form>
+	</div>
+</body>
+</html>
