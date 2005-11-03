@@ -36,7 +36,7 @@ public class SableCCMojo
     /**
      * Directory to which the build source is generated.
      *
-     * @parameter expression="${project.build.directory}/src/maven/java"
+     * @parameter expression="${project.build.directory}/src/main/java"
      */
     private String buildSourceDirectory;
 
