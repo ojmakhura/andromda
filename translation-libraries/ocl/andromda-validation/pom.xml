@@ -15,5 +15,43 @@
             <artifactId>andromda-ocl-translation-core</artifactId>
             <version>${version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.andromda.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <version>${version}</version>
+        </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-bootstrap-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <installDirectory>${basedir}/../../../lib</installDirectory>
+                </configuration>
+            </plugin>            
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src</directory>
+                <includes>
+                    <include>META-INF/**/*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 </project>

@@ -17,7 +17,6 @@
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
             <version>${version}</version>
-            <type>jar</type>
         </dependency> 
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
@@ -56,18 +55,6 @@
                     <buildSourceDirectory>${basedir}/target/src</buildSourceDirectory>
                     <lastModifiedCheck>true</lastModifiedCheck>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.andromda.bootstrap.cartridges</groupId>
-                        <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>${version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.andromda.translationlibraries</groupId>
-                        <artifactId>andromda-ocl-validation-library</artifactId>
-                        <version>${version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>

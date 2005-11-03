@@ -8,7 +8,7 @@
     <artifactId>andromda-bootstrap-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>AndroMDA Bootstrap Plugin</name>
-    <description>A plugin used to run AndroMDA in "bootstrap" mode.</description>
+    <description>A plugin used to run AndroMDA in "bootstrap" mode</description>
     <inceptionYear>2005</inceptionYear>
     <dependencies>
         <dependency>
@@ -16,6 +16,21 @@
             <artifactId>andromda-core</artifactId>
             <version>${version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.bootstrap.translationlibraries</groupId>
+            <artifactId>andromda-ocl-translation-core</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.bootstrap.translationlibraries</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.bootstrap.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <version>${version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.bootstrap.metafacades</groupId>
@@ -32,6 +47,18 @@
         <dependency>
             <groupId>org.andromda.bootstrap.templateengines</groupId>
             <artifactId>andromda-templateengine-velocity</artifactId>
+            <version>${version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.bootstrap.cartridges</groupId>
+            <artifactId>andromda-meta-cartridge</artifactId>
+            <version>${version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.bootstrap</groupId>
+            <artifactId>andromda-utils</artifactId>
             <version>${version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -57,6 +84,83 @@
             <artifactId>maven-settings</artifactId>
             <version>2.0</version>
         </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.8</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.4</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.1</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-digester</groupId>
+            <artifactId>commons-digester</artifactId>
+            <version>1.7</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xerces</artifactId>
+            <version>2.4.0</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.0.b2</version>
+            <scope>runtime</scope>
+        </dependency>
+    	<dependency> 
+    		<groupId>org.netbeans.mdr</groupId>
+      		<artifactId>jmiutils</artifactId>
+     		<version>20050630</version>
+    	</dependency>  
+    	<dependency> 
+    		<groupId>org.netbeans.mdr</groupId>
+      		<artifactId>mdrapi</artifactId>
+     		<version>20050630</version>
+    	</dependency>  
+     	<dependency> 
+    		<groupId>org.netbeans.mdr</groupId>
+      		<artifactId>nbmdr</artifactId>
+     		<version>20050630</version>
+    	</dependency>     	
+     	<dependency> 
+    		<groupId>org.netbeans.mdr</groupId>
+      		<artifactId>openide-util</artifactId>
+     		<version>20050630</version>
+    	</dependency> 
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>jmiuml</artifactId>
+     		<version>1.4di</version>
+    	</dependency>   
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>mof</artifactId>
+     		<version>20030918</version>
+    	</dependency>  
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>jmi</artifactId>
+     		<version>20030918</version>
+    	</dependency>  
     </dependencies>
     <build>
         <plugins>

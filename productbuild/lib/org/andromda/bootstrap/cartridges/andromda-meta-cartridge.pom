@@ -1,106 +1,246 @@
 <project>
-  <parent>
-    <artifactId>andromda-cartridges</artifactId>
-    <groupId>org.andromda.cartridges</groupId>
-    <version>3.1-SNAPSHOT</version>
-  </parent>
   <modelVersion>4.0.0</modelVersion>
+  <groupId>org.andromda.bootstrap.cartridges</groupId>
   <artifactId>andromda-meta-cartridge</artifactId>
   <name>AndroMDA Meta Cartridge</name>
   <version>3.1-SNAPSHOT</version>
   <description>Produces AndroMDA Metafacades.</description>
+  <url>http://www.andromda.org/andromda-cartridges/andromda-meta-cartridge</url>
+  <issueManagement>
+    <system>jira</system>
+    <url>http://jira.andromda.org/</url>
+  </issueManagement>
+  <inceptionYear>2003</inceptionYear>
+  <mailingLists>
+    <mailingList>
+      <name>AndroMDA User List</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-user</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-user</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-user</archive>
+    </mailingList>
+    <mailingList>
+      <name>AndroMDA Developer List</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-devel</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-devel</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-devel</archive>
+    </mailingList>
+    <mailingList>
+      <name>AndroMDA CVS List</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-cvs</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-cvs</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-cvs</archive>
+    </mailingList>
+  </mailingLists>
+  <developers>
+    <developer>
+      <id>mattes3</id>
+      <name>Matthias Bohlen</name>
+      <email>matthias@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+        <role>Documentation</role>
+        <role>Project Admin</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>cwbrandon</id>
+      <name>Chad Brandon</name>
+      <email>chad@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+        <role>Documentation</role>
+        <role>Release Manager</role>
+        <role>Project Admin</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
+    <developer>
+      <id>draftdog</id>
+      <name>Wouter Zoons</name>
+      <email>wouter@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+        <role>Documentation</role>
+        <role>Project Admin</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>amartinwest</id>
+      <name>Martin West</name>
+      <email>martin@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <id>carloslcuenca</id>
+      <name>Carlos Cuenca</name>
+      <email>carlos@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>freter</id>
+      <name>Peter Friese</name>
+      <email>peter@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+  </developers>
+  <scm>
+    <url>http://cvs.sourceforge.net/viewcvs.py/andromda/andromda-cartridges/andromda-meta-cartridge</url>
+  </scm>
+  <organization>
+    <name>AndroMDA.org</name>
+    <url>http://www.andromda.org/</url>
+  </organization>
   <build>
+    <sourceDirectory>f:\java\development\andromda-all\cartridges\andromda-meta\src\java</sourceDirectory>
+    <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+    <testSourceDirectory>f:\java\development\andromda-all\cartridges\andromda-meta\src\test\java</testSourceDirectory>
+    <outputDirectory>f:\java\development\andromda-all\cartridges\andromda-meta\target\classes</outputDirectory>
+    <testOutputDirectory>f:\java\development\andromda-all\cartridges\andromda-meta\target\test-classes</testOutputDirectory>
+    <resources>
+      <resource>
+        <directory>f:\java\development\andromda-all\cartridges\andromda-meta\src\java</directory>
+        <includes>
+          <include>**/*.xml</include>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>f:\java\development\andromda-all\cartridges\andromda-meta\src</directory>
+        <excludes>
+          <exclude>java/**/*.java</exclude>
+          <exclude>uml/**/*</exclude>
+          <exclude>test/**/*</exclude>
+        </excludes>
+      </resource>
+      <resource>
+        <directory>f:\java\development\andromda-all\cartridges\andromda-meta\target\src</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>f:\java\development\andromda-all\cartridges\andromda-meta\src\test\resources</directory>
+      </testResource>
+    </testResources>
+    <directory>f:\java\development\andromda-all\cartridges\andromda-meta\target</directory>
+    <finalName>andromda-meta-cartridge-3.1-SNAPSHOT</finalName>
     <filters>
-      <filter>${basedir}/mda.properties</filter>
+      <filter>f:\java\development\andromda-all\cartridges\andromda-meta/mda.properties</filter>
     </filters>
     <plugins>
       <plugin>
         <groupId>org.andromda.maven.plugins</groupId>
         <artifactId>andromda-bootstrap-plugin</artifactId>
+        <version>3.1-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>
               <goal>run</goal>
-              <goal>install</goal>
             </goals>
           </execution>
         </executions>
         <dependencies>
           <dependency>
-            <groupId>org.andromda.cartridges</groupId>
+            <groupId>org.andromda.bootstrap.cartridges</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
-            <version>${version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.andromda.profiles.uml14</groupId>
-            <artifactId>andromda-profile</artifactId>
-            <version>${version}</version>
-            <type>xml.zip</type>
-          </dependency>
-          <dependency>
-            <groupId>org.andromda.profiles.uml14</groupId>
-            <artifactId>andromda-profile-datatype</artifactId>
-            <version>${version}</version>
-            <type>xml.zip</type>
-          </dependency>
-          <dependency>
-            <groupId>org.andromda.profiles.uml14</groupId>
-            <artifactId>andromda-profile-webservice</artifactId>
-            <version>${version}</version>
-            <type>xml.zip</type>
-          </dependency>
-          <dependency>
-            <groupId>org.andromda.profiles.uml14</groupId>
-            <artifactId>andromda-profile-service</artifactId>
-            <version>${version}</version>
-            <type>xml.zip</type>
-          </dependency>
-          <dependency>
-            <groupId>org.andromda.profiles.uml14</groupId>
-            <artifactId>andromda-profile-process</artifactId>
-            <version>${version}</version>
-            <type>xml.zip</type>
-          </dependency>
-          <dependency>
-            <groupId>org.andromda.profiles.uml14</groupId>
-            <artifactId>andromda-profile-meta</artifactId>
-            <version>${version}</version>
-            <type>xml.zip</type>
-          </dependency>
-          <dependency>
-            <groupId>org.andromda.profiles.uml14</groupId>
-            <artifactId>andromda-profile-xml</artifactId>
-            <version>${version}</version>
-            <type>xml.zip</type>
-          </dependency>
-          <dependency>
-            <groupId>org.andromda.profiles.uml14</groupId>
-            <artifactId>andromda-profile-persistence</artifactId>
-            <version>${version}</version>
-            <type>xml.zip</type>
-          </dependency>
-          <dependency>
-            <groupId>org.andromda.profiles.uml14</groupId>
-            <artifactId>andromda-profile-presentation</artifactId>
-            <version>${version}</version>
-            <type>xml.zip</type>
-          </dependency>
-          <dependency>
-            <groupId>org.andromda.cartridges</groupId>
-            <artifactId>andromda-meta-cartridge</artifactId>
-            <version>${version}</version>
+            <version>3.1-SNAPSHOT</version>
           </dependency>
         </dependencies>
         <configuration>
-          <installDirectory>${basedir}/../../lib</installDirectory>
-          <buildSourceDirectory>${basedir}/target/src</buildSourceDirectory>
-          <configurationUri>file:${basedir}/../conf/andromda.xml</configurationUri>
+          <buildSourceDirectory>f:\java\development\andromda-all\cartridges\andromda-meta/target/src</buildSourceDirectory>
+          <configurationUri>file:f:\java\development\andromda-all\cartridges\andromda-meta/../conf/andromda.xml</configurationUri>
           <lastModifiedCheck>true</lastModifiedCheck>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.andromda.maven.plugins</groupId>
+        <artifactId>andromda-bootstrap-install-plugin</artifactId>
+        <version>3.1-SNAPSHOT</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>install</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <installDirectory>f:\java\development\andromda-all\cartridges\andromda-meta/../../lib</installDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.0-rc2-SNAPSHOT</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.0-beta-3-SNAPSHOT</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.0-beta-2-SNAPSHOT</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.0-beta-2-SNAPSHOT</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.0-rc2-SNAPSHOT</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.0-beta-2-SNAPSHOT</version>
+      </plugin>
     </plugins>
   </build>
-  <distributionManagement>
-    <status>deployed</status>
-  </distributionManagement>
+  <repositories>
+    <repository>
+      <id>andromda</id>
+      <name>AndroMDA Repository</name>
+      <url>http://team.andromda.org/maven2</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <url>http://repo1.maven.org/maven2</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Maven Plugin Repository</name>
+      <url>http://repo1.maven.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <reporting>
+    <outputDirectory>target/site</outputDirectory>
+  </reporting>
 </project>
