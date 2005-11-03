@@ -37,6 +37,22 @@
         </dependency>
     </dependencies>
     <build>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-bootstrap-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <installDirectory>${basedir}/../lib</installDirectory>
+                </configuration>
+            </plugin>            
+        </plugins>
         <resources>
             <resource>
                 <directory>src/java</directory>

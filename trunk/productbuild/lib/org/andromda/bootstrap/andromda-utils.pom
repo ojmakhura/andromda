@@ -1,12 +1,12 @@
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.andromda.bootstrap.metafacades</groupId>
-  <artifactId>andromda-metafacades-uml14</artifactId>
-  <name>AndroMDA UML 1.4 Metafacades</name>
+  <groupId>org.andromda.bootstrap</groupId>
+  <artifactId>andromda-utils</artifactId>
+  <name>AndroMDA Utils</name>
   <version>3.1-SNAPSHOT</version>
-  <description>The UML 1.4 metafacades.  This is the set of UML 1.4 metafacades
-  		implementations.  These implement the common UML metafacades.</description>
-  <url>http://www.andromda.org/andromda-metafacades/andromda-uml-metafacades/andromda-metafacades-uml14</url>
+  <description>AndroMDA (pronounced: andromeda) is an open source code generation framework that follows the Model Driven Architecture  
+        (MDA) paradigm. It takes model(s) from CASE-tool(s) and generates fully deployable applications and other components.</description>
+  <url>http://www.andromda.org/andromda-utils</url>
   <issueManagement>
     <system>jira</system>
     <url>http://jira.andromda.org/</url>
@@ -102,84 +102,34 @@
     </developer>
   </developers>
   <scm>
-    <url>http://cvs.sourceforge.net/viewcvs.py/andromda/andromda-metafacades/andromda-uml-metafacades/andromda-metafacades-uml14</url>
+    <url>http://cvs.sourceforge.net/viewcvs.py/andromda/andromda-utils</url>
   </scm>
   <organization>
     <name>AndroMDA.org</name>
     <url>http://www.andromda.org/</url>
   </organization>
   <build>
-    <sourceDirectory>f:\java\development\andromda-all\metafacades\uml\uml14\src\java</sourceDirectory>
+    <sourceDirectory>f:\java\development\andromda-all\utils\src\java</sourceDirectory>
     <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
-    <testSourceDirectory>f:\java\development\andromda-all\metafacades\uml\uml14\src\test\java</testSourceDirectory>
-    <outputDirectory>f:\java\development\andromda-all\metafacades\uml\uml14\target\classes</outputDirectory>
-    <testOutputDirectory>f:\java\development\andromda-all\metafacades\uml\uml14\target\test-classes</testOutputDirectory>
+    <testSourceDirectory>f:\java\development\andromda-all\utils\src\test\java</testSourceDirectory>
+    <outputDirectory>f:\java\development\andromda-all\utils\target\classes</outputDirectory>
+    <testOutputDirectory>f:\java\development\andromda-all\utils\target\test-classes</testOutputDirectory>
     <resources>
       <resource>
-        <directory>f:\java\development\andromda-all\metafacades\uml\uml14\src\java</directory>
+        <directory>f:\java\development\andromda-all\utils\src\java</directory>
         <excludes>
           <exclude>**/*.java</exclude>
         </excludes>
       </resource>
-      <resource>
-        <directory>f:\java\development\andromda-all\metafacades\uml\uml14\src</directory>
-        <includes>
-          <include>META-INF/**/*</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>f:\java\development\andromda-all\metafacades\uml\uml14\..\common\src</directory>
-        <includes>
-          <include>META-INF/**/*</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>f:\java\development\andromda-all\metafacades\uml\uml14\target\src</directory>
-        <includes>
-          <include>**/*.properties</include>
-        </includes>
-      </resource>
     </resources>
     <testResources>
       <testResource>
-        <directory>f:\java\development\andromda-all\metafacades\uml\uml14\src\test\java</directory>
-      </testResource>
-      <testResource>
-        <directory>f:\java\development\andromda-all\metafacades\uml\uml14\src\test\conf</directory>
-        <includes>
-          <include>**/*.xml</include>
-          <include>**/*.properties</include>
-        </includes>
-      </testResource>
-      <testResource>
-        <directory>f:\java\development\andromda-all\metafacades\uml\uml14\src\test\uml</directory>
-        <includes>
-          <include>**/*</include>
-        </includes>
+        <directory>f:\java\development\andromda-all\utils\src\test\resources</directory>
       </testResource>
     </testResources>
-    <directory>f:\java\development\andromda-all\metafacades\uml\uml14\target</directory>
-    <finalName>andromda-metafacades-uml14-3.1-SNAPSHOT</finalName>
-    <filters>
-      <filter>f:\java\development\andromda-all\metafacades\uml\uml14\mda.properties</filter>
-    </filters>
+    <directory>f:\java\development\andromda-all\utils\target</directory>
+    <finalName>andromda-utils-3.1-SNAPSHOT</finalName>
     <plugins>
-      <plugin>
-        <groupId>org.andromda.maven.plugins</groupId>
-        <artifactId>andromda-bootstrap-plugin</artifactId>
-        <version>3.1-SNAPSHOT</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <buildSourceDirectory>f:\java\development\andromda-all\metafacades\uml\uml14/target/src</buildSourceDirectory>
-          <lastModifiedCheck>true</lastModifiedCheck>
-        </configuration>
-      </plugin>
       <plugin>
         <groupId>org.andromda.maven.plugins</groupId>
         <artifactId>andromda-bootstrap-install-plugin</artifactId>
@@ -192,7 +142,7 @@
           </execution>
         </executions>
         <configuration>
-          <installDirectory>f:\java\development\andromda-all\metafacades\uml\uml14/../../../lib</installDirectory>
+          <installDirectory>f:\java\development\andromda-all\utils/../lib</installDirectory>
         </configuration>
       </plugin>
       <plugin>

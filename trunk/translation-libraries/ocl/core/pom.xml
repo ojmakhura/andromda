@@ -2,12 +2,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.translationlibraries</groupId>
-    <artifactId>andromda-ocl-translation-libraries</artifactId>
+        <artifactId>andromda-ocl-translation-libraries</artifactId>
         <version>3.1-SNAPSHOT</version>
     </parent>
-  	<artifactId>andromda-ocl-translation-core</artifactId>
+      <artifactId>andromda-ocl-translation-core</artifactId>
     <packaging>jar</packaging>
-  	<name>AndroMDA OCL Translation Core</name>
+      <name>AndroMDA OCL Translation Core</name>
     <description>The AndroMDA OCL translation engine, providing the OCL translation support.</description>
     <build>
          <plugins>
@@ -22,7 +22,21 @@
                     </execution>
                 </executions>
             </plugin>
-         </plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-bootstrap-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <installDirectory>${basedir}/../../../lib</installDirectory>
+                </configuration>
+            </plugin>
+        </plugins>
         <resources>
             <resource>
                 <directory>src/java</directory>

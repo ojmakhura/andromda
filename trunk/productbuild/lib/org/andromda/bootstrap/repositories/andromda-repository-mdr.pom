@@ -1,19 +1,144 @@
 <project>
-  <parent>
-    <artifactId>andromda-repositories</artifactId>
-    <groupId>org.andromda.repositories</groupId>
-    <version>3.1-SNAPSHOT</version>
-  </parent>
   <modelVersion>4.0.0</modelVersion>
+  <groupId>org.andromda.bootstrap.repositories</groupId>
   <artifactId>andromda-repository-mdr</artifactId>
   <name>AndroMDA MDR Repository</name>
   <version>3.1-SNAPSHOT</version>
   <description>This MDR repository module allows AndroMDA to use the NetBeans MDR as a repository for loading, and querying object models.</description>
+  <url>http://www.andromda.org/andromda-repositories/andromda-repository-mdr</url>
+  <issueManagement>
+    <system>jira</system>
+    <url>http://jira.andromda.org/</url>
+  </issueManagement>
+  <inceptionYear>2003</inceptionYear>
+  <mailingLists>
+    <mailingList>
+      <name>AndroMDA User List</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-user</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-user</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-user</archive>
+    </mailingList>
+    <mailingList>
+      <name>AndroMDA Developer List</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-devel</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-devel</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-devel</archive>
+    </mailingList>
+    <mailingList>
+      <name>AndroMDA CVS List</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-cvs</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-cvs</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-cvs</archive>
+    </mailingList>
+  </mailingLists>
+  <developers>
+    <developer>
+      <id>mattes3</id>
+      <name>Matthias Bohlen</name>
+      <email>matthias@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+        <role>Documentation</role>
+        <role>Project Admin</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>cwbrandon</id>
+      <name>Chad Brandon</name>
+      <email>chad@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+        <role>Documentation</role>
+        <role>Release Manager</role>
+        <role>Project Admin</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
+    <developer>
+      <id>draftdog</id>
+      <name>Wouter Zoons</name>
+      <email>wouter@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+        <role>Documentation</role>
+        <role>Project Admin</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>amartinwest</id>
+      <name>Martin West</name>
+      <email>martin@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+    <developer>
+      <id>carloslcuenca</id>
+      <name>Carlos Cuenca</name>
+      <email>carlos@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+    <developer>
+      <id>freter</id>
+      <name>Peter Friese</name>
+      <email>peter@andromda.org</email>
+      <organization>AndroMDA</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>1</timezone>
+    </developer>
+  </developers>
+  <scm>
+    <url>http://cvs.sourceforge.net/viewcvs.py/andromda/andromda-repositories/andromda-repository-mdr</url>
+  </scm>
+  <organization>
+    <name>AndroMDA.org</name>
+    <url>http://www.andromda.org/</url>
+  </organization>
   <build>
+    <sourceDirectory>f:\java\development\andromda-all\repositories\mdr\src\java</sourceDirectory>
+    <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+    <testSourceDirectory>f:\java\development\andromda-all\repositories\mdr\src\test\java</testSourceDirectory>
+    <outputDirectory>f:\java\development\andromda-all\repositories\mdr\target\classes</outputDirectory>
+    <testOutputDirectory>f:\java\development\andromda-all\repositories\mdr\target\test-classes</testOutputDirectory>
+    <resources>
+      <resource>
+        <directory>f:\java\development\andromda-all\repositories\mdr\src</directory>
+        <includes>
+          <include>META-INF/**/*</include>
+        </includes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>f:\java\development\andromda-all\repositories\mdr\src\test\java</directory>
+      </testResource>
+      <testResource>
+        <directory>f:\java\development\andromda-all\repositories\mdr\src\test\uml</directory>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </testResource>
+    </testResources>
+    <directory>f:\java\development\andromda-all\repositories\mdr\target</directory>
+    <finalName>andromda-repository-mdr-3.1-SNAPSHOT</finalName>
     <plugins>
       <plugin>
         <groupId>org.andromda.maven.plugins</groupId>
-        <artifactId>andromda-bootstrap-plugin</artifactId>
+        <artifactId>andromda-bootstrap-install-plugin</artifactId>
+        <version>3.1-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>
@@ -22,60 +147,64 @@
           </execution>
         </executions>
         <configuration>
-          <installDirectory>${basedir}/../../lib</installDirectory>
+          <installDirectory>f:\java\development\andromda-all\repositories\mdr/../../lib</installDirectory>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>2.0-rc2-SNAPSHOT</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.0-beta-3-SNAPSHOT</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.0-beta-2-SNAPSHOT</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.0-beta-2-SNAPSHOT</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>2.0-rc2-SNAPSHOT</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.0-beta-2-SNAPSHOT</version>
       </plugin>
     </plugins>
   </build>
-  <dependencies>
-    <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.netbeans.mdr</groupId>
-      <artifactId>jmiutils</artifactId>
-      <version>20050630</version>
-    </dependency>
-    <dependency>
-      <groupId>org.netbeans.mdr</groupId>
-      <artifactId>mdrapi</artifactId>
-      <version>20050630</version>
-    </dependency>
-    <dependency>
-      <groupId>org.netbeans.mdr</groupId>
-      <artifactId>nbmdr</artifactId>
-      <version>20050630</version>
-    </dependency>
-    <dependency>
-      <groupId>org.netbeans.mdr</groupId>
-      <artifactId>openide-util</artifactId>
-      <version>20050630</version>
-    </dependency>
-    <dependency>
-      <groupId>jmi</groupId>
-      <artifactId>jmiuml</artifactId>
-      <version>1.4di</version>
-    </dependency>
-    <dependency>
-      <groupId>jmi</groupId>
-      <artifactId>mof</artifactId>
-      <version>20030918</version>
-    </dependency>
-    <dependency>
-      <groupId>jmi</groupId>
-      <artifactId>jmi</artifactId>
-      <version>20030918</version>
-    </dependency>
-    <dependency>
-      <groupId>org.andromda.metafacades</groupId>
-      <artifactId>andromda-metafacades-uml14</artifactId>
-      <version>${version}</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  <distributionManagement>
-    <status>deployed</status>
-  </distributionManagement>
+  <repositories>
+    <repository>
+      <id>andromda</id>
+      <name>AndroMDA Repository</name>
+      <url>http://team.andromda.org/maven2</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <url>http://repo1.maven.org/maven2</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Maven Plugin Repository</name>
+      <url>http://repo1.maven.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <reporting>
+    <outputDirectory>target/site</outputDirectory>
+  </reporting>
 </project>

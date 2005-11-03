@@ -1,10 +1,18 @@
 package org.andromda.maven.plugin.bootstrap.install;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.Parent;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -41,7 +49,7 @@ public class BootstrapInstallMojo
     protected ArtifactRepository localRepository;
 
     /**
-     * @parameter expression="${installBootstraps}"
+     * @parameter expression="${bootstrap.artifacts}"
      * @description whether or not bootstrap artifacts should be installed, by default they are not.
      */
     protected boolean installBootstraps;
@@ -101,11 +109,7 @@ public class BootstrapInstallMojo
                         JAR_EXTENSION);
                 final String localRepositoryDirectory = this.localRepository.getBasedir();
                 final File existingFile = new File(localRepositoryDirectory, path);
-                final String bootstrapGroupId =
-                    StringUtils.replaceOnce(
-                        artifact.getGroupId(),
-                        this.projectGroupId,
-                        this.projectBootstrapGroupId);
+                final String bootstrapGroupId = this.getBootstrapGroupId(artifact);
                 final String bootstrapPath = bootstrapGroupId.replace(
                         '.',
                         '/') + '/' + artifact.getArtifactId();
@@ -114,22 +118,65 @@ public class BootstrapInstallMojo
                 FileUtils.copyFile(
                     existingFile,
                     bootstrapFile);
-                final File existingPomFile =
-                    new File(localRepositoryDirectory,
-                        this.replaceExtension(
-                            artifact,
-                            POM_EXTENSION));
                 final File bootstrapPomFile = new File(installDirectory, bootstrapPath + '.' + POM_EXTENSION);
-                this.getLog().info("Installing bootstrap artifact jar: " + bootstrapPomFile);
-                FileUtils.copyFile(
-                    existingPomFile,
-                    bootstrapPomFile);
+                this.writePomFileWithNoDependenciesOrParent(bootstrapPomFile);
             }
             catch (final Throwable throwable)
             {
                 throw new MojoExecutionException("Error creating bootstrap artifact", throwable);
             }
         }
+    }
+
+    /**
+     * Clears the POM's model of its parent or any dependencies
+     * it may have so that we can write a POM that isn't dependant on anything
+     * (which we need for bootstrap artifacts).
+     *
+     * @param bootstrapPomFile the bootstrap POM file to write.
+     */
+    private void writePomFileWithNoDependenciesOrParent(final File bootstrapPomFile)
+        throws MojoExecutionException, IOException
+    {
+        if (this.project != null)
+        {
+            Model model = this.project.getModel();
+            if (model == null)
+            {
+                throw new MojoExecutionException("Model could not be retrieved from current project");
+            }
+
+            // - remove the parent
+            final Parent parent = model.getParent();
+            final List dependencies = new ArrayList(model.getDependencies());
+            final String groupId = model.getGroupId();
+            final Artifact artifact = this.project.getArtifact();
+            model.setGroupId(this.getBootstrapGroupId(artifact));
+            model.setParent(null);
+            model.setDependencies(Collections.EMPTY_LIST);
+            final FileWriter fileWriter = new FileWriter(bootstrapPomFile);
+            this.project.writeModel(fileWriter);
+            fileWriter.flush();
+
+            // - set the parent and dependencies back since we've written the POM
+            model.setParent(parent);
+            model.setGroupId(groupId);
+            model.setDependencies(dependencies);
+        }
+    }
+
+    /**
+     * Retrieves the project's bootstrap groupId from the given <code>artifact</code>.
+     *
+     * @param artifact the artfact from which to retrieve the group Id.
+     * @return the bootstrap groupId.
+     */
+    private String getBootstrapGroupId(final Artifact artifact)
+    {
+        return StringUtils.replaceOnce(
+            artifact.getGroupId(),
+            this.projectGroupId,
+            this.projectBootstrapGroupId);
     }
 
     /**
