@@ -3,7 +3,7 @@
          xmlns:maven="jelly:maven"
          xmlns:ant="jelly:ant">
 
-    <j:set var="parser.src.dir" value="${maven.src.dir}/parser"/>
+    <j:set var="parser.src.dir" value="${maven.src.dir}/main/sablecc"/>
     <j:set var="parser.src.generated.dir" value="${maven.build.src}/java"/>
     <j:set var="parser.grammar.file" value="ocl.grammar"/>
 
