@@ -3,7 +3,7 @@
   This is used to map the model types to
   hibernate types.
 -->
-<mappings name="Hibernate">
+<mappings name="NHibernate">
     <mapping>
         <from>datatype::Time</from>
         <from>datatype::Date</from>
