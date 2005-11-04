@@ -1,0 +1,180 @@
+<project xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+         xmlns:util="jelly:util"
+         xmlns:maven="jelly:maven"
+         xmlns:i="jelly:interaction"
+         xmlns:velocity="jelly:velocity">
+
+  <!--==================================================================
+              Creates an empty deployable application Maven J2EE project
+        ==================================================================-->
+    <goal name="andromdacsapp:generate"
+          prereqs="andromdacsapp:init"
+          description="Generates an empty AndroMDA Maven C# application">
+
+        <ant:echo>+---------------------------------------------------------------------+</ant:echo>
+        <ant:echo>|     G E N E R A T I N G   A n d r o M D A   DOTNET APPLICATION      |</ant:echo>
+        <ant:echo>+---------------------------------------------------------------------+</ant:echo>
+
+        <ant:mkdir dir="${applicationNameNoWhitespace}"/>
+
+        <velocity:merge
+            name="${applicationNameNoWhitespace}/project.xml"
+            basedir="${templatesDir}"
+            template="project.xml.vsl"/>
+
+        <velocity:merge
+            name="${applicationNameNoWhitespace}/maven.xml"
+            basedir="${templatesDir}"
+            template="maven.xml.vsl"/>
+
+        <velocity:merge
+            name="${applicationNameNoWhitespace}/project.properties"
+            basedir="${templatesDir}"
+            template="project.properties.vsl"/>
+
+        <velocity:merge
+            name="${applicationNameNoWhitespace}/build.properties"
+            basedir="${templatesDir}"
+            template="build.properties.vsl"/>
+
+		<velocity:merge
+            name="${applicationNameNoWhitespace}/${applicationNameNoWhitespace}.sln"
+            basedir="${templatesDir}"
+            template="CsApp.sln.vsl"/>
+
+        <velocity:merge
+            name="${applicationNameNoWhitespace}/${applicationNameNoWhitespace}.build"
+            basedir="${templatesDir}"
+            template="CsApp.build.vsl"/>
+
+        <attainGoal name="andromdacsapp:generate-src-subproject"/>
+
+        <ant:echo>New application generated to: '${basedir}/${applicationNameNoWhitespace}'</ant:echo>
+
+    </goal>
+
+  <!--==================================================================
+              Creates the src directory.
+        ==================================================================-->
+    <goal name="andromdacsapp:generate-src-subproject"
+          prereqs="andromdacsapp:init"
+          description="private internal goal">
+
+        <j:set var="mda" value="${applicationNameNoWhitespace}/mda"/>
+        <j:set var="lib" value="${applicationNameNoWhitespace}/Lib"/>
+        <j:set var="web" value="${applicationNameNoWhitespace}/${applicationNameNoWhitespace}Web"/>
+		<j:set var="core" value="${applicationNameNoWhitespace}/${applicationNameNoWhitespace}Core"/>
+		<j:set var="common" value="${applicationNameNoWhitespace}/${applicationNameNoWhitespace}Common"/>
+
+		<ant:property environment ="env"/>
+		<j:set var="windir" value="${env.windir}"/>
+
+        <ant:mkdir dir="${mda}"/>
+        <ant:mkdir dir="${lib}"/>
+		<ant:mkdir dir="${web}"/>
+		<ant:mkdir dir="${core}"/>
+		<ant:mkdir dir="${common}"/>
+
+		<!-- Part regarding Lib directory -->
+         <ant:copy todir="${lib}">
+            <ant:fileset dir="${templatesDir}/Lib">
+                <include name="*.dll"/>
+            </ant:fileset>
+        </ant:copy>
+
+        <!-- Part regarding mda directory -->
+        <ant:copy
+            file="${templatesDir}/mda/src/uml/EmptyModel.xml"
+            tofile="${mda}/src/uml/${applicationNameNoWhitespace}Model.xml"/>
+
+        <velocity:merge
+          name="${mda}/project.xml"
+          basedir="${templatesDir}/mda"
+          template="project.xml.vsl"/>
+
+        <velocity:merge
+          name="${mda}/maven.xml"
+          basedir="${templatesDir}/mda"
+          template="maven.xml.vsl"/>
+
+        <velocity:merge
+          name="${mda}/project.properties"
+          basedir="${templatesDir}/mda"
+          template="project.properties.vsl"/>
+
+        <ant:copy todir="${mda}/conf">
+            <ant:fileset dir="${templatesDir}/mda/conf">
+                <include name="*.xml"/>
+            </ant:fileset>
+        </ant:copy>
+
+        <ant:copy todir="${mda}/conf/mappings">
+            <ant:fileset dir="${templatesDir}/mda/conf/mappings">
+                <include name="*.xml"/>
+            </ant:fileset>
+        </ant:copy>
+
+         <!-- Part regarding web directory -->
+
+         <velocity:merge
+          name="${web}/${applicationNameNoWhitespace}.csproj.webinfo"
+          basedir="${templatesDir}/CsAppWeb"
+          template="CsAppWeb.csproj.webinfo.vsl"/>
+
+         <ant:copy todir="${web}">
+            <ant:fileset dir="${templatesDir}/CsAppWeb">
+                <include name="*.xml"/>
+                <include name="*.properties"/>
+            </ant:fileset>
+        </ant:copy>
+
+        <!-- Part regarding core directory -->
+
+        <ant:copy todir="${core}">
+            <ant:fileset dir="${templatesDir}/CsAppCore">
+                <include name="*.xml"/>
+                <include name="*.properties"/>
+            </ant:fileset>
+        </ant:copy>
+
+        <!-- Part regarding common directory -->
+
+        <ant:copy todir="${common}">
+            <ant:fileset dir="${templatesDir}/CsAppCommon">
+                <include name="*.xml"/>
+                <include name="*.properties"/>
+            </ant:fileset>
+        </ant:copy>
+
+    </goal>
+
+    <!--==================================================================
+              Asks the generate questions to get the required input.
+        ==================================================================-->
+    <goal name="andromdacsapp:init" description="private internal goal">
+        <j:while test="${empty(applicationCreator)}">
+            <i:ask
+                question="Please enter your first and last name (i.e. Louis Coude):"
+                answer="applicationCreator"/>
+        </j:while>
+		<j:while test="${empty(applicationName)}">
+            <i:ask
+                question="Please enter the name of your application (i.e. Beer Shop):"
+                answer="applicationName"/>
+        </j:while>
+		<j:while test="${empty(applicationVersion)}">
+            <i:ask
+                question="Please enter the application version (i.e. 1.0):"
+                answer="applicationVersion"/>
+        </j:while>
+        <j:new var="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+
+        <j:set var="applicationId" value="${stringUtils.deleteWhitespace(applicationName)}"/>
+        <j:set var="applicationNameNoWhitespace" value="${stringUtils.deleteWhitespace(applicationName)}"/>
+
+        <j:set var="templatesDir" value="${plugin.resources}/templates/csapp"/>
+
+
+    </goal>
+</project>

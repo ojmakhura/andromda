@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <artifactId>${application.id}</artifactId>
+    <groupId>${application.id}</groupId>
+    <name>${application.name}</name>
+    <currentVersion>${application.version}</currentVersion>
+    <shortDescription>${applicationName}</shortDescription>
+    <description>
+        Contains the ${applicationName} Project.
+    </description>
+    <developers>
+    	<developer>
+              <name>${applicationCreator}</name>
+              <id></id>
+              <email></email>
+        </developer>
+    </developers>
+    <dependencies>
+        <dependency>
+            <groupId>commons-jelly</groupId>
+            <artifactId>commons-jelly-tags-interaction</artifactId>
+            <version>${commons.jelly.version}</version>
+        </dependency>
+    </dependencies>
+</project>
