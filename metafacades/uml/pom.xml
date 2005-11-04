@@ -36,6 +36,39 @@
     	</dependency> 
     </dependencies>
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                  <groupId>org.andromda.maven.plugins</groupId>
+                  <artifactId>andromda-bootstrap-plugin</artifactId>
+                  <executions>
+                      <execution>
+                          <goals>
+                              <goal>run</goal>
+                          </goals>
+                      </execution>
+                  </executions>
+                  <configuration>
+                      <buildSourceDirectory>${basedir}/target/src</buildSourceDirectory>
+                      <lastModifiedCheck>true</lastModifiedCheck>
+                  </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.andromda.maven.plugins</groupId>
+                    <artifactId>andromda-bootstrap-install-plugin</artifactId>    
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>install</goal>
+                            </goals>
+                        </execution>
+                    </executions> 
+                    <configuration>
+                        <installDirectory>${basedir}/../../../lib</installDirectory>
+                    </configuration>           
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <filters>
             <filter>mda.properties</filter>
         </filters>
