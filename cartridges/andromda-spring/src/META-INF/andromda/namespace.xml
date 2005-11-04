@@ -104,12 +104,6 @@
                     directly in the XML.
                 </documentation>
             </property>
-            <property name="evictEntitiesOnTransformation">
-                <default>false</default>
-                <documentation>
-                    Whether or not each entity shall be evicted from the session during transformation to a value object.
-                </documentation>
-            </property>
             <property name="enableDaoPropertiesCreateMethod">
                 <default>true</default>
                 <documentation>

@@ -576,19 +576,6 @@ public abstract class $entity.daoBaseName
                 default:
                     target = entity;
             }
-#if ($evictEntitiesOnTransformation.equalsIgnoreCase("true"))
-            if (transform != $entity.daoNoTransformationConstantName)
-            {
-                try
-                {
-                    this.getSession(false).evict(entity);
-                }
-                catch (${hibernateUtils.basePackage}.HibernateException exception)
-                {
-                    // ignore
-                }
-            }
-#end
         }
         return target;
     }
