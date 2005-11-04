@@ -24,19 +24,7 @@
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <buildSourceDirectory>${basedir}/target/src</buildSourceDirectory>
-                    <configurationUri>file:${basedir}/../conf/andromda.xml</configurationUri>
-                    <lastModifiedCheck>true</lastModifiedCheck>
-                </configuration>
+                <artifactId>andromda-maven-plugin</artifactId>  
                 <dependencies>
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
