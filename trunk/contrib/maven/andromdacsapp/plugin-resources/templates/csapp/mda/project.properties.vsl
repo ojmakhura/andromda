@@ -1,0 +1,33 @@
+maven.multiproject.type=pom
+
+maven.andromda.model.uri=file:${maven.src.dir}/uml/${applicationNameNoWhitespace}Model.xml
+
+# Configures AndroMDA
+maven.andromda.configuration.uri=file:${maven.conf.dir}/andromda.xml
+
+# Tells the AndroMDA maven plugin to not use Ant when running (speeds initialization)
+maven.andromda.run.without.ant=true
+
+# Define the assembly names for Common and Core projects
+maven.andromda.commonAssemblyName=${application.name}Common
+maven.andromda.coreAssemblyName=${application.name}Core
+maven.andromda.webAssemblyName=${application.name}Web
+
+# Define the output locations for the cartridge dependencies in the project.xml
+maven.andromda.common.dir=${maven.src.dir}/../../${application.name}Common
+maven.andromda.common.generated.dir=${maven.src.dir}/../../${application.name}Common/target
+
+maven.andromda.core.dir=${maven.src.dir}/../../${application.name}Core
+maven.andromda.core.generated.dir=${maven.andromda.core.dir}/target
+maven.andromda.core.manual.dir=${maven.andromda.core.dir}/src
+
+#regarding web part
+maven.andromda.web.dir=${maven.src.dir}/../../${application.name}Web
+maven.andromda.web.generated.dir=${maven.andromda.web.dir}/target
+maven.andromda.web.manual.dir=${maven.andromda.web.dir}/src
+
+# The default strategy to use when using inhertiance
+hibernate.inheritance.strategy=subclass
+hibernate.db.showSql=true
+
+

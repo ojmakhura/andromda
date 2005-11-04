@@ -1,0 +1,58 @@
+<project default="mda"
+         xmlns:ant="jelly:ant"
+         xmlns:maven="jelly:maven"
+         xmlns:j="jelly:core"
+         xmlns:util="jelly:util"
+         xmlns:i="jelly:interaction">
+
+    <ant:property environment="env"/>
+
+    <!-- ==================================================================
+           Cleans Everything
+         ================================================================== -->
+    <goal name="clean">
+        <attainGoal name="multiproject:clean"/>
+        <!-- get rid of all the log files -->
+        <ant:delete>
+            <ant:fileset dir=".">
+                <ant:include name="**/*.log*"/>
+                <ant:exclude name="maven.log"/>
+                <ant:exclude name="**/*andromda*.log"/>
+            </ant:fileset>
+        </ant:delete>
+    </goal>
+
+    <!-- ==================================================================
+            Runs the MDA component
+         ================================================================== -->
+    <goal name="mda">
+        <maven:maven
+            descriptor="mda/project.xml"
+            goals="pom:install"/>
+    </goal>
+
+    <!-- ==================================================================
+            Starts the AndroMDA server
+         ================================================================== -->
+    <goal name="start-andromda-server">
+        <maven:maven
+            descriptor="mda/project.xml"
+            goals="andromda:start-server"/>
+    </goal>
+
+    <!-- ==================================================================
+            Stops the AndroMDA server
+         ================================================================== -->
+    <goal name="stop-andromda-server">
+        <maven:maven
+            descriptor="mda/project.xml"
+            goals="andromda:stop-server"/>
+    </goal>
+    	 <!-- ==================================================================
+            Runs the Nant task
+         ================================================================== -->
+	 			   <goal name="nant">
+           <ant:exec executable="nant"/>
+	    </goal> 
+
+</project>

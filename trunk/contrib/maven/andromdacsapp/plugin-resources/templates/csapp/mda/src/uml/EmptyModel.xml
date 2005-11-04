@@ -1,0 +1,3381 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- <!DOCTYPE XMI SYSTEM "uml14xmi12.dtd"> -->
+<!-- This xmi file is optimized for MagicDraw UML. Some references are not saved. -->
+<!-- Change MagicDraw UML environment options property General->.Save Rich XMI -->
+
+<XMI xmi.version='1.2' timestamp='Thu Oct 27 15:50:11 CEST 2005' xmlns:UML='omg.org/UML/1.4'>
+	<XMI.header>
+		<XMI.documentation>
+			<XMI.exporter>MagicDraw UML</XMI.exporter>
+			<XMI.exporterVersion>9.5</XMI.exporterVersion>
+		</XMI.documentation>
+		<XMI.metamodel xmi.name='UML' xmi.version='1.4'/>
+	</XMI.header>
+	<XMI.content>
+		<UML:Model xmi.id='eee_1045467100313_135436_1' name='Data'>
+			<UML:ModelElement.comment>
+				<UML:Comment xmi.id='_24400562_1092013275546_280654_0' name='Author:Administrator.&#10;Created:8/8/04 8:58 PM.&#10;Title:.&#10;Comment:.&#10;'/>
+			</UML:ModelElement.comment>
+			<XMI.extension xmi.extender='MagicDraw UML 9.5' xmi.extenderID='MagicDraw UML 9.5'>
+				<ignoredInModule xmi.value='true'/>
+			</XMI.extension>
+			<UML:Namespace.ownedElement>
+				<UML:Package xmi.id='eee_1045467100313_365297_7' name='Component View'/>
+				<UML:Package href='andromda-profile-3.1-SNAPSHOT.xml.zip|_8a70287_1078771814628_224704_589'>
+					<XMI.extension xmi.extender='MagicDraw UML 9.5' xmi.extenderID='MagicDraw UML 9.5'>
+						<referentPath xmi.value='::org.andromda.profile'/>
+					</XMI.extension>
+				</UML:Package>
+				<UML:Package href='andromda-profile-datatype-3.1-SNAPSHOT.xml.zip|_9_0_1fe00f9_1119336925546_238419_77'>
+					<XMI.extension xmi.extender='MagicDraw UML 9.5' xmi.extenderID='MagicDraw UML 9.5'>
+						<referentPath xmi.value='::datatype'/>
+					</XMI.extension>
+				</UML:Package>
+			</UML:Namespace.ownedElement>
+		</UML:Model>
+	</XMI.content>
+	<XMI.extensions xmi.extender='MagicDraw UML 9.5'>
+		<mdOwnedDiagrams/>
+		<options>
+			<mdElement elementClass='SimpleStyle'>
+				<name>Default</name>
+				<default xmi.value='false'/>
+				<mdElement elementClass='PropertyManager'>
+					<name>PROJECT_GENERAL_PROPERTIES</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333694_866819_575</propertyManagerID>
+					<mdElement elementClass='ModelElementProperty'>
+						<propertyID>DEFAULT_PROFILE_PACKAGE</propertyID>
+						<displayableTypes xmi.value='Subsystem^ModelPackage^Model'/>
+						<selectableTypes xmi.value='Subsystem^ModelPackage^Model'/>
+						<useUnspecified xmi.value='true'/>
+						<parentApplicant xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_PROFILE_PACKAGE_SELECTION_DIALOG</propertyID>
+						<propertyDescriptionID>SHOW_PROFILE_PACKAGE_SELECTION_DIALOG_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ClassPathListProperty'>
+						<propertyID>MODULES_DIRS</propertyID>
+						<propertyDescriptionID>MODULES_DIRS_DESCRIPTION</propertyDescriptionID>
+						<mdElement elementClass='FileProperty'>
+							<value>&lt;install.root&gt;\profiles</value>
+							<selectionMode xmi.value='0'/>
+						</mdElement>
+						<mdElement elementClass='FileProperty'>
+							<value>&lt;install.root&gt;\templates</value>
+							<selectionMode xmi.value='0'/>
+						</mdElement>
+						<mdElement elementClass='FileProperty'>
+							<value>D:\java\eclipse\workspace\andromda-all\etc\profile</value>
+							<selectionMode xmi.value='0'/>
+						</mdElement>
+						<mdElement elementClass='FileProperty'>
+							<value>E:\development\andromda\etc\profile\src\uml</value>
+							<selectionMode xmi.value='0'/>
+						</mdElement>
+						<mdElement elementClass='FileProperty'>
+							<value>F:\java\development\andromda-all\etc\profile\src\uml</value>
+							<selectionMode xmi.value='0'/>
+						</mdElement>
+						<mdElement elementClass='FileProperty'>
+							<value>C:\Documents and Settings\Administrator\.maven\repository\andromda\xml.zips</value>
+							<selectionMode xmi.value='0'/>
+						</mdElement>
+						<mdElement elementClass='FileProperty'>
+							<value>C:\Documents and Settings\Administrator\.maven\repository\andromda\xml.zips\</value>
+							<selectionMode xmi.value='0'/>
+						</mdElement>
+						<mdElement elementClass='FileProperty'>
+							<value>C:\Documents and Settings\cbrandon\.maven\repository\andromda\xml.zips\</value>
+							<selectionMode xmi.value='0'/>
+						</mdElement>
+						<mdElement elementClass='FileProperty'>
+							<value>C:\Documents and Settings\ZOO\.maven\repository\andromda\xml.zips\</value>
+							<selectionMode xmi.value='0'/>
+						</mdElement>
+						<mdElement elementClass='FileProperty'>
+							<value>C:\Documents and Settings\cwbrandon\.maven\repository\andromda\xml.zips\</value>
+							<selectionMode xmi.value='0'/>
+						</mdElement>
+						<mdElement elementClass='FileProperty'>
+							<value>D:\maven\repository\andromda\xml.zips\</value>
+							<selectionMode xmi.value='0'/>
+						</mdElement>
+						<mdElement elementClass='FileProperty'>
+							<value>C:\dev\Maven-1.0.2\repository\andromda\xml.zips\</value>
+							<selectionMode xmi.value='0'/>
+						</mdElement>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='PropertyManager'>
+					<name>PROJECT_INVISIBLE_PROPERTIES</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333694_414093_576</propertyManagerID>
+					<mdElement elementClass='NumberProperty'>
+						<propertyID>TOOL_TIP_STYLE</propertyID>
+						<propertyDescriptionID>TOOL_TIP_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='0.0'/>
+						<type xmi.value='0'/>
+						<lowRange xmi.value='0.0'/>
+						<highRange xmi.value='2.0'/>
+					</mdElement>
+					<mdElement elementClass='NumberProperty'>
+						<propertyID>LAST_INTERFACE_STYLE</propertyID>
+						<propertyDescriptionID>LAST_INTERFACE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='2.0'/>
+						<type xmi.value='0'/>
+						<lowRange xmi.value='0.0'/>
+						<highRange xmi.value='1.0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>IS_BROWSER_VISIBLE</propertyID>
+						<propertyDescriptionID>IS_BROWSER_VISIBLE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>BROWSER_ITEM_TYPES</propertyID>
+						<propertyDescriptionID>BROWSER_ITEM_TYPES_DESCRIPTION</propertyDescriptionID>
+						<choice xmi.value=''/>
+						<index xmi.value='-1'/>
+					</mdElement>
+					<mdElement elementClass='NumberProperty'>
+						<propertyID>BROWSER_DIVIDER_LOCATION</propertyID>
+						<propertyDescriptionID>BROWSER_DIVIDER_LOCATION_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-1.0'/>
+						<type xmi.value='0'/>
+						<lowRange xmi.value='-1.0'/>
+						<highRange xmi.value='2.147483647E9'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>BROWSER_BOUNDS</propertyID>
+						<propertyDescriptionID>BROWSER_BOUNDS_DESCRIPTION</propertyDescriptionID>
+						<choice xmi.value=''/>
+						<index xmi.value='-1'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>IS_DOCS_TAB_VISIBLE</propertyID>
+						<propertyDescriptionID>IS_DOCS_TAB_VISIBLE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='StringProperty'>
+						<propertyID>BROWSER_LAYOUT</propertyID>
+						<propertyDescriptionID>BROWSER_LAYOUT_DESCRIPTION</propertyDescriptionID>
+						<value>0 13 0 0 0 0 0 0 0 0 0 0 4 c 0 0 3 c 0 0 0 6 0 0 0 9 0 0 0 d 0 44 0 4f 0 43 0 55 0 4d 0 45 0 4e 0 54 0 41 0 54 0 49 0 4f 0 4e 0 0 bb bb 0 0 0 8 0 0 0 1 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 3 0 0 1 a9 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 bb bb 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 0 0 0 3 87 0 0 0 8 0 0 0 0 0 0 51 70 0 0 0 3 0 0 e1 57 0 0 bb bb 0 0 c 2f 0 0 0 2 0 0 2f fa 0 0 51 70 0 0 0 0 0 0 0 2 0 0 ae 94 0 0 51 70 0 0 f1 6e 0 0 2f fa 0 0 0 1 0 0 0 2 0 0 2f fa ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 d 0 44 0 49 0 41 0 47 0 52 0 41 0 4d 0 53 0 5f 0 54 0 52 0 45 0 45 0 0 7 3a 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 3 0 0 1 a8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 7 3a 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 0 0 0 3 87 0 0 0 8 0 0 0 0 0 0 ae 94 0 0 0 5 0 0 a4 a2 0 0 a7 d4 0 0 7 3a 0 0 24 f6 0 0 3f 72 0 0 0 2 0 0 2f fa 0 0 ae 94 0 0 0 0 0 0 0 2 0 0 ae 94 0 0 51 70 0 0 f1 6e 0 0 2f fa 0 0 0 1 0 0 0 2 0 0 2f fa ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 c 0 5a 0 4f 0 4f 0 4d 0 5f 0 43 0 4f 0 4e 0 54 0 52 0 4f 0 4c 0 0 e1 57 0 0 0 8 0 0 0 1 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 3 0 0 1 a9 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 e1 57 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 0 0 0 3 87 0 0 0 8 0 0 0 0 0 0 51 70 0 0 0 3 0 0 e1 57 0 0 bb bb 0 0 c 2f 0 0 0 2 0 0 2f fa 0 0 51 70 0 0 0 0 0 0 0 2 0 0 ae 94 0 0 51 70 0 0 f1 6e 0 0 2f fa 0 0 0 1 0 0 0 2 0 0 2f fa ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 f 0 45 0 58 0 54 0 45 0 4e 0 53 0 49 0 4f 0 4e 0 53 0 5f 0 54 0 52 0 45 0 45 0 0 24 f6 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 3 0 0 1 a8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 24 f6 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 0 0 0 3 87 0 0 0 8 0 0 0 0 0 0 ae 94 0 0 0 5 0 0 a4 a2 0 0 a7 d4 0 0 7 3a 0 0 24 f6 0 0 3f 72 0 0 0 2 0 0 2f fa 0 0 ae 94 0 0 0 0 0 0 0 2 0 0 ae 94 0 0 51 70 0 0 f1 6e 0 0 2f fa 0 0 0 1 0 0 0 2 0 0 2f fa ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 0 49 0 4e 0 48 0 45 0 52 0 49 0 54 0 41 0 4e 0 43 0 45 0 5f 0 54 0 52 0 45 0 45 0 0 a7 d4 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 3 0 0 1 a8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 a7 d4 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 0 0 0 3 87 0 0 0 8 0 0 0 0 0 0 ae 94 0 0 0 5 0 0 a4 a2 0 0 a7 d4 0 0 7 3a 0 0 24 f6 0 0 3f 72 0 0 0 2 0 0 2f fa 0 0 ae 94 0 0 0 0 0 0 0 2 0 0 ae 94 0 0 51 70 0 0 f1 6e 0 0 2f fa 0 0 0 1 0 0 0 2 0 0 2f fa ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 13 0 53 0 45 0 41 0 52 0 43 0 48 0 5f 0 52 0 45 0 53 0 55 0 4c 0 54 0 53 0 5f 0 54 0 52 0 45 0 45 0 0 3f 72 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 3 0 0 1 a8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 3f 72 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 0 0 0 3 87 0 0 0 8 0 0 0 0 0 0 ae 94 0 0 0 5 0 0 a4 a2 0 0 a7 d4 0 0 7 3a 0 0 24 f6 0 0 3f 72 0 0 0 2 0 0 2f fa 0 0 ae 94 0 0 0 0 0 0 0 2 0 0 ae 94 0 0 51 70 0 0 f1 6e 0 0 2f fa 0 0 0 1 0 0 0 2 0 0 2f fa ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 f 0 4d 0 45 0 53 0 53 0 41 0 47 0 45 0 53 0 5f 0 57 0 49 0 4e 0 44 0 4f 0 57 0 0 ed 7 0 0 0 2 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 0 0 0 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 ed 7 0 0 0 0 0 0 0 3c 0 0 0 3c 0 0 0 c8 0 0 0 c8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 a 0 50 0 52 0 4f 0 50 0 45 0 52 0 54 0 49 0 45 0 53 0 0 c 2f 0 0 0 8 0 0 0 1 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 3 0 0 1 a9 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 c 2f 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 0 0 0 3 87 0 0 0 8 0 0 0 0 0 0 51 70 0 0 0 3 0 0 e1 57 0 0 bb bb 0 0 c 2f 0 0 0 2 0 0 2f fa 0 0 51 70 0 0 0 0 0 0 0 2 0 0 ae 94 0 0 51 70 0 0 f1 6e 0 0 2f fa 0 0 0 1 0 0 0 2 0 0 2f fa ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 10 0 43 0 4f 0 4e 0 54 0 41 0 49 0 4e 0 4d 0 45 0 4e 0 54 0 5f 0 54 0 52 0 45 0 45 0 0 a4 a2 0 0 0 8 0 0 0 0 0 0 0 1 0 0 0 f 0 0 0 4 0 0 0 4 0 0 0 8 0 0 1 3 0 0 1 a8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 4 0 0 a4 a2 0 0 0 2 0 0 0 0 0 0 0 0 0 0 5 0 0 0 3 87 0 0 0 8 0 0 0 0 0 0 ae 94 0 0 0 5 0 0 a4 a2 0 0 a7 d4 0 0 7 3a 0 0 24 f6 0 0 3f 72 0 0 0 2 0 0 2f fa 0 0 ae 94 0 0 0 0 0 0 0 2 0 0 ae 94 0 0 51 70 0 0 f1 6e 0 0 2f fa 0 0 0 1 0 0 0 2 0 0 2f fa ff ff ff ff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 4 63 0 0 0 0 0 0 12 a0 0 0 0 1 0 0 4 63 0 0 0 1 0 0 f1 6e 0 0 0 2 0 0 4 63 0 0 0 0 0 0 2f fa 0 0 0 2 0 0 4 64 0 0 ae 94 0 0 0 5 0 0 4 65 0 0 0 10 0 43 0 4f 0 4e 0 54 0 41 0 49 0 4e 0 4d 0 45 0 4e 0 54 0 5f 0 54 0 52 0 45 0 45 0 0 4 65 0 0 0 10 0 49 0 4e 0 48 0 45 0 52 0 49 0 54 0 41 0 4e 0 43 0 45 0 5f 0 54 0 52 0 45 0 45 0 0 4 65 0 0 0 d 0 44 0 49 0 41 0 47 0 52 0 41 0 4d 0 53 0 5f 0 54 0 52 0 45 0 45 0 0 4 65 0 0 0 f 0 45 0 58 0 54 0 45 0 4e 0 53 0 49 0 4f 0 4e 0 53 0 5f 0 54 0 52 0 45 0 45 0 0 4 65 0 0 0 13 0 53 0 45 0 41 0 52 0 43 0 48 0 5f 0 52 0 45 0 53 0 55 0 4c 0 54 0 53 0 5f 0 54 0 52 0 45 0 45 0 0 1 3 0 0 0 ed 0 0 0 0 0 0 4 64 0 0 51 70 0 0 0 3 0 0 4 65 0 0 0 c 0 5a 0 4f 0 4f 0 4d 0 5f 0 43 0 4f 0 4e 0 54 0 52 0 4f 0 4c 0 0 4 65 0 0 0 d 0 44 0 4f 0 43 0 55 0 4d 0 45 0 4e 0 54 0 41 0 54 0 49 0 4f 0 4e 0 0 4 65 0 0 0 a 0 50 0 52 0 4f 0 50 0 45 0 52 0 54 0 49 0 45 0 53 0 0 1 3 0 0 0 ed 0 0 0 0 0 0 1 3 0 0 1 de 0 0 4 66 0 0 0 1 0 0 0 2a 0 0 0 0 0 0 1 8 0 0 1 de 0 0 1 8 0 0 1 de 0 0 0 3 0 0 0 0 0 0 0 7 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 5 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 f 0 4d 0 45 0 53 0 53 0 41 0 47 0 45 0 53 0 5f 0 57 0 49 0 4e 0 44 0 4f 0 57 </value>
+						<multiline xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='StringProperty'>
+						<propertyID>MT_LAST_SELECTED_TRANSFORMATION</propertyID>
+						<propertyDescriptionID>MT_LAST_SELECTED_TRANSFORMATION_DESCRIPTION</propertyDescriptionID>
+						<multiline xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>MT_TRANSFORMATION_IN_PLACE</propertyID>
+						<propertyDescriptionID>MT_TRANSFORMATION_IN_PLACE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='ModelElementProperty'>
+						<propertyID>MT_DESTINATION_PACKAGE</propertyID>
+						<displayableTypes xmi.value=''/>
+						<selectableTypes xmi.value=''/>
+						<useUnspecified xmi.value='false'/>
+						<parentApplicant xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='StringProperty'>
+						<propertyID>MT_LAST_SELECTED_TYPE_MAP_PROFILE</propertyID>
+						<propertyDescriptionID>MT_LAST_SELECTED_TYPE_MAP_PROFILE_DESCRIPTION</propertyDescriptionID>
+						<multiline xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>MT_LAST_SELECTED_TYPE_MAP_PROFILE_DIRECTION</propertyID>
+						<propertyDescriptionID>MT_LAST_SELECTED_TYPE_MAP_PROFILE_DIRECTION_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>DIAGRAM_INFO_CUSTOM_MODE</propertyID>
+						<propertyDescriptionID>DIAGRAM_INFO_CUSTOM_MODE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>DIAGRAM_INFO_SELECTED_KEYWORDS</propertyID>
+						<propertyDescriptionID>DIAGRAM_INFO_SELECTED_KEYWORDS_DESCRIPTION</propertyDescriptionID>
+						<choice xmi.value='Diagram name^Author^Creation date^Modification date'/>
+						<index xmi.value='-1'/>
+					</mdElement>
+					<mdElement elementClass='StringProperty'>
+						<propertyID>DIAGRAM_INFO_CUSTOM_HTML</propertyID>
+						<propertyDescriptionID>DIAGRAM_INFO_CUSTOM_HTML_DESCRIPTION</propertyDescriptionID>
+						<multiline xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='StringProperty'>
+						<propertyID>INFO_PROPERTY</propertyID>
+						<propertyDescriptionID>INFO_PROPERTY_DESCRIPTION</propertyDescriptionID>
+						<value>30 40 62 26 4 1d 31 16 39 19 88 14 8d 62 9 ba 53 80 1 28 bd 21 6a c3 f7 72 f3 1c 9 cc 59 e8 9c 5d de bb f4 c8 85 17 d9 87 b 36 fe 8b e0 b4 86 75 42 dd 9a 91 a0 c8 c0 59 39 89 a7 ae 82 fb 21 2 2d 1d b3 71 aa a4 </value>
+						<multiline xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>RECENT_DIAGRAMS</propertyID>
+						<propertyDescriptionID>RECENT_DIAGRAMS_DESCRIPTION</propertyDescriptionID>
+						<choice xmi.value='_9_5_8980277_1129673505305_422343_399'/>
+						<index xmi.value='-1'/>
+					</mdElement>
+				</mdElement>
+			</mdElement>
+			<favoriteElements xmi.value=''/>
+		</options>
+		<componentView>
+			<UML:Package xmi.idref='eee_1045467100313_365297_7'/>
+		</componentView>
+		<hasSharedPackages xmi.value='false'/>
+		<mdElement elementClass='StyleManager'>
+			<mdElement elementClass='SimpleStyle'>
+				<name>Default</name>
+				<default xmi.value='true'/>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Abstraction</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_154673_577</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>STEREOTYPE_COLOR</propertyID>
+						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>STEREOTYPE_FONT</propertyID>
+						<propertyDescriptionID>STEREOTYPE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_STEREOTYPE</propertyID>
+						<propertyDescriptionID>SHOW_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TAGGED_VALUES</propertyID>
+						<propertyDescriptionID>SHOW_TAGGED_VALUES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Action State</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_94673_579</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_STATE_ACTIONS</propertyID>
+						<propertyDescriptionID>SUPPRESS_STATE_ACTIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Actor</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_930473_581</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-13159'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>OPERATION_COLOR</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777176'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>OPERATION_FONT</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_SIGNATURE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_SIGNATURE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_OPERATIONS_MODE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_OPERATIONS_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_VISIBILITY</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_STEREOTYPE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PROPERTIES</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_CONSTRAINTS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_ATTRIBUTES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>ATTRIBUTE_COLOR</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>ATTRIBUTE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-14155776'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>ATTRIBUTE_FONT</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>ATTRIBUTE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_ATTRIBUTES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_ATTRIBUTES_MODE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_ATTRIBUTES_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_VISIBILITY</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_STEREOTYPE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_PROPERTIES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_CONSTRAINTS</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_INIT_VALUE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_INIT_VALUE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Artifact</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_31018_582</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-13159'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>OPERATION_COLOR</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777176'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>OPERATION_FONT</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_SIGNATURE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_SIGNATURE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_OPERATIONS_MODE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_OPERATIONS_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_VISIBILITY</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_STEREOTYPE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PROPERTIES</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_CONSTRAINTS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_ATTRIBUTES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>ATTRIBUTE_COLOR</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>ATTRIBUTE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-14155776'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>ATTRIBUTE_FONT</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>ATTRIBUTE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_ATTRIBUTES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_ATTRIBUTES_MODE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_ATTRIBUTES_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_VISIBILITY</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_STEREOTYPE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_PROPERTIES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_CONSTRAINTS</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_INIT_VALUE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_INIT_VALUE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Association</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_284147_583</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>STEREOTYPE_COLOR</propertyID>
+						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>STEREOTYPE_FONT</propertyID>
+						<propertyDescriptionID>STEREOTYPE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_STEREOTYPE</propertyID>
+						<propertyDescriptionID>SHOW_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TAGGED_VALUES</propertyID>
+						<propertyDescriptionID>SHOW_TAGGED_VALUES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ASSOCIATION_DIRECTION_ICON</propertyID>
+						<propertyDescriptionID>SHOW_ASSOCIATION_DIRECTION_ICON_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Binding Dependency</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_981973_584</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>STEREOTYPE_COLOR</propertyID>
+						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>STEREOTYPE_FONT</propertyID>
+						<propertyDescriptionID>STEREOTYPE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_STEREOTYPE</propertyID>
+						<propertyDescriptionID>SHOW_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TAGGED_VALUES</propertyID>
+						<propertyDescriptionID>SHOW_TAGGED_VALUES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Call State</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_38679_585</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_STATE_ACTIONS</propertyID>
+						<propertyDescriptionID>SUPPRESS_STATE_ACTIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Class</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_358284_586</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-13159'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>OPERATION_COLOR</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777176'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>OPERATION_FONT</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_SIGNATURE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_SIGNATURE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_OPERATIONS_MODE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_OPERATIONS_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_VISIBILITY</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_STEREOTYPE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PROPERTIES</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_CONSTRAINTS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_ATTRIBUTES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>ATTRIBUTE_COLOR</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>ATTRIBUTE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-14155776'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>ATTRIBUTE_FONT</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>ATTRIBUTE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_ATTRIBUTES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_ATTRIBUTES_MODE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_ATTRIBUTES_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_VISIBILITY</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_STEREOTYPE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_PROPERTIES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_CONSTRAINTS</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_INIT_VALUE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_INIT_VALUE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Classifier Role</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_330899_587</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-3605816'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OBJECT_CLASS</propertyID>
+						<propertyDescriptionID>SHOW_OBJECT_CLASS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Classifier Role(in Sequence Diagram)</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_858011_588</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-3605816'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OBJECT_CLASS</propertyID>
+						<propertyDescriptionID>SHOW_OBJECT_CLASS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ENTIRE_ACTIVATION</propertyID>
+						<propertyDescriptionID>SHOW_ENTIRE_ACTIVATION_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Collaboration</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_818752_589</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Combined Fragment</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_835638_590</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Component</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_300750_591</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_INTERFACES</propertyID>
+						<propertyDescriptionID>SUPPRESS_INTERFACES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_REALIZATIONS</propertyID>
+						<propertyDescriptionID>SUPPRESS_REALIZATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_ARTIFACTS</propertyID>
+						<propertyDescriptionID>SUPPRESS_ARTIFACTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Component Instance</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_361473_592</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OBJECT_CLASS</propertyID>
+						<propertyDescriptionID>SHOW_OBJECT_CLASS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Concurrent State</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_797891_593</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_STATE_ACTIONS</propertyID>
+						<propertyDescriptionID>SUPPRESS_STATE_ACTIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_STATE_ATTRIBUTES</propertyID>
+						<propertyDescriptionID>SUPPRESS_STATE_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Constraint</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_719361_594</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>LINK_LINE_STYLE</propertyID>
+						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value>OBLIQUE</value>
+						<choice xmi.value='RECTILINEAR^OBLIQUE^BEZIER'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Containment</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_426603_595</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>LINK_LINE_STYLE</propertyID>
+						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value>OBLIQUE</value>
+						<choice xmi.value='RECTILINEAR^OBLIQUE^BEZIER'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>ContentShape</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_457932_596</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>DataType</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_690916_597</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-13159'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>OPERATION_COLOR</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777176'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>OPERATION_FONT</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_SIGNATURE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_SIGNATURE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_OPERATIONS_MODE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_OPERATIONS_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_VISIBILITY</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_STEREOTYPE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PROPERTIES</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_CONSTRAINTS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Decision</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_652999_598</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FIXED_CONNECTION_POINTS</propertyID>
+						<propertyDescriptionID>USE_FIXED_CONNECTION_POINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Dependency</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_176700_599</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>STEREOTYPE_COLOR</propertyID>
+						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>STEREOTYPE_FONT</propertyID>
+						<propertyDescriptionID>STEREOTYPE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_STEREOTYPE</propertyID>
+						<propertyDescriptionID>SHOW_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TAGGED_VALUES</propertyID>
+						<propertyDescriptionID>SHOW_TAGGED_VALUES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>LINK_LINE_STYLE</propertyID>
+						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value>OBLIQUE</value>
+						<choice xmi.value='RECTILINEAR^OBLIQUE^BEZIER'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Diagram</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_136503_600</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_342177_601</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>DIAGRAM_BACKGROUND_COLOR</propertyID>
+						<propertyDescriptionID>DIAGRAM_BACKGROUND_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-1'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_GRID</propertyID>
+						<propertyDescriptionID>SHOW_GRID_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_GRID_FOR_PATHS</propertyID>
+						<propertyDescriptionID>USE_GRID_FOR_PATHS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_GRID_FOR_SHAPES</propertyID>
+						<propertyDescriptionID>USE_GRID_FOR_SHAPES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='NumberProperty'>
+						<propertyID>GRID_SIZE</propertyID>
+						<propertyDescriptionID>GRID_SIZE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='10.0'/>
+						<type xmi.value='0'/>
+						<lowRange xmi.value='2.0'/>
+						<highRange xmi.value='30.0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MESSAGE_NUMBERS</propertyID>
+						<propertyDescriptionID>SHOW_MESSAGE_NUMBERS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ACTIVATIONS</propertyID>
+						<propertyDescriptionID>SHOW_ACTIVATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_DIAGRAM_INFO</propertyID>
+						<propertyDescriptionID>SHOW_DIAGRAM_INFO_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Diagram Shape</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_285323_602</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>DiagramInfo</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_46963_603</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-1'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>AUTOSIZE</propertyID>
+						<propertyDescriptionID>AUTOSIZE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Enumeration</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_428864_604</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-13159'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>OPERATION_COLOR</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777176'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>OPERATION_FONT</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_SIGNATURE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_SIGNATURE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_OPERATIONS_MODE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_OPERATIONS_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_VISIBILITY</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_STEREOTYPE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PROPERTIES</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_CONSTRAINTS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_ATTRIBUTES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>ATTRIBUTE_COLOR</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>ATTRIBUTE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-14155776'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>ATTRIBUTE_FONT</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>ATTRIBUTE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_ATTRIBUTES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_ATTRIBUTES_MODE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_ATTRIBUTES_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_VISIBILITY</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_STEREOTYPE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_PROPERTIES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_CONSTRAINTS</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_INIT_VALUE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_INIT_VALUE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_ENUMERATION_LITERALS</propertyID>
+						<propertyGroup>ENUMERATION_LITERALS</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_ENUMERATION_LITERALS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>ENUMERATION_LITERAL_COLOR</propertyID>
+						<propertyGroup>ENUMERATION_LITERALS</propertyGroup>
+						<propertyDescriptionID>ENUMERATION_LITERAL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-14155776'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ENUMERATION_LITERAL_CONSTRAINTS</propertyID>
+						<propertyGroup>ENUMERATION_LITERALS</propertyGroup>
+						<propertyDescriptionID>SHOW_ENUMERATION_LITERAL_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ENUMERATION_LITERAL_PROPERTIES</propertyID>
+						<propertyGroup>ENUMERATION_LITERALS</propertyGroup>
+						<propertyDescriptionID>SHOW_ENUMERATION_LITERAL_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ENUMERATION_LITERAL_STEREOTYPE</propertyID>
+						<propertyGroup>ENUMERATION_LITERALS</propertyGroup>
+						<propertyDescriptionID>SHOW_ENUMERATION_LITERAL_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>ENUMERATION_LITERAL_FONT</propertyID>
+						<propertyGroup>ENUMERATION_LITERALS</propertyGroup>
+						<propertyDescriptionID>ENUMERATION_LITERAL_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Extend</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_354507_605</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>STEREOTYPE_COLOR</propertyID>
+						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>STEREOTYPE_FONT</propertyID>
+						<propertyDescriptionID>STEREOTYPE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_STEREOTYPE</propertyID>
+						<propertyDescriptionID>SHOW_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TAGGED_VALUES</propertyID>
+						<propertyDescriptionID>SHOW_TAGGED_VALUES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>LINK_LINE_STYLE</propertyID>
+						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value>OBLIQUE</value>
+						<choice xmi.value='RECTILINEAR^OBLIQUE^BEZIER'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Final State</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_868549_606</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FIXED_CONNECTION_POINTS</propertyID>
+						<propertyDescriptionID>USE_FIXED_CONNECTION_POINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Generalization</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_766284_607</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>STEREOTYPE_COLOR</propertyID>
+						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>STEREOTYPE_FONT</propertyID>
+						<propertyDescriptionID>STEREOTYPE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_STEREOTYPE</propertyID>
+						<propertyDescriptionID>SHOW_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TAGGED_VALUES</propertyID>
+						<propertyDescriptionID>SHOW_TAGGED_VALUES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='PropertyManagerByDiagram'>
+					<diagramType>Implementation Diagram</diagramType>
+					<removable xmi.value='true'/>
+					<extendableByDiagram xmi.value='false'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Implementation Diagram</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_949028_608</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_514503_609</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='PropertyManagerByDiagram'>
+					<diagramType>Implementation Diagram</diagramType>
+					<removable xmi.value='true'/>
+					<extendableByDiagram xmi.value='false'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Implementation Diagram</name>
+					<propertyManagerID>_9_0_be00301_1102495986564_458307_303</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_77222_610</parentPropertyManager>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>LINK_LINE_STYLE</propertyID>
+						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value>OBLIQUE</value>
+						<choice xmi.value='RECTILINEAR^OBLIQUE^BEZIER'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='PropertyManagerByDiagram'>
+					<diagramType>Implementation Diagram</diagramType>
+					<removable xmi.value='true'/>
+					<extendableByDiagram xmi.value='false'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Implementation Diagram</name>
+					<propertyManagerID>_9_0_be00301_1102495862296_461313_216</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_546025_611</parentPropertyManager>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>LINK_LINE_STYLE</propertyID>
+						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value>OBLIQUE</value>
+						<choice xmi.value='RECTILINEAR^OBLIQUE^BEZIER'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Include</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_251375_612</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>STEREOTYPE_COLOR</propertyID>
+						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>STEREOTYPE_FONT</propertyID>
+						<propertyDescriptionID>STEREOTYPE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_STEREOTYPE</propertyID>
+						<propertyDescriptionID>SHOW_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TAGGED_VALUES</propertyID>
+						<propertyDescriptionID>SHOW_TAGGED_VALUES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>LINK_LINE_STYLE</propertyID>
+						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value>OBLIQUE</value>
+						<choice xmi.value='RECTILINEAR^OBLIQUE^BEZIER'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Instance</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_893936_613</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OBJECT_CLASS</propertyID>
+						<propertyDescriptionID>SHOW_OBJECT_CLASS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_OBJECT_ATTRIBUTES</propertyID>
+						<propertyDescriptionID>SUPPRESS_OBJECT_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Interaction Use</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_691452_614</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Interface</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_514503_609</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-13159'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>OPERATION_COLOR</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777176'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>OPERATION_FONT</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_SIGNATURE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_SIGNATURE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_OPERATIONS_MODE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_OPERATIONS_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_VISIBILITY</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_STEREOTYPE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PROPERTIES</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_CONSTRAINTS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_ATTRIBUTES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>ATTRIBUTE_COLOR</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>ATTRIBUTE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-14155776'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>ATTRIBUTE_FONT</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>ATTRIBUTE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_ATTRIBUTES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_ATTRIBUTES_MODE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_ATTRIBUTES_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_VISIBILITY</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_STEREOTYPE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_PROPERTIES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_CONSTRAINTS</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_INIT_VALUE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_INIT_VALUE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>ENABLE_UML_2_0_NOTATION</propertyID>
+						<propertyDescriptionID>ENABLE_UML_2_0_NOTATION_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Link</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_853621_615</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>STEREOTYPE_COLOR</propertyID>
+						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>STEREOTYPE_FONT</propertyID>
+						<propertyDescriptionID>STEREOTYPE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_STEREOTYPE</propertyID>
+						<propertyDescriptionID>SHOW_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TAGGED_VALUES</propertyID>
+						<propertyDescriptionID>SHOW_TAGGED_VALUES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Link Attribute</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_910920_616</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Message</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_683823_617</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_PREDECESSORS</propertyID>
+						<propertyDescriptionID>SHOW_PREDECESSORS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Message(in Sequence Diagram)</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_847798_618</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Model</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_945046_619</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-3355393'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>FONT</propertyID>
+						<propertyDescriptionID>FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='14'/>
+						<style xmi.value='1'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>PACKAGE_HEADER_POSITION</propertyID>
+						<propertyDescriptionID>PACKAGE_HEADER_POSITION_DESCRIPTION</propertyDescriptionID>
+						<value>TOP</value>
+						<choice xmi.value='TOP^IN_TAB'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ELEMENTS_LIST</propertyID>
+						<propertyDescriptionID>SHOW_ELEMENTS_LIST_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>N-ary Association</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_992448_620</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Node</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_400735_621</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-13159'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>FONT</propertyID>
+						<propertyDescriptionID>FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='14'/>
+						<style xmi.value='1'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_DEPLOYED_ELEMENTS</propertyID>
+						<propertyDescriptionID>SUPPRESS_DEPLOYED_ELEMENTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Node Instance</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_276881_622</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-13159'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>FONT</propertyID>
+						<propertyDescriptionID>FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='14'/>
+						<style xmi.value='1'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OBJECT_CLASS</propertyID>
+						<propertyDescriptionID>SHOW_OBJECT_CLASS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_DEPLOYED_ELEMENTS</propertyID>
+						<propertyDescriptionID>SUPPRESS_DEPLOYED_ELEMENTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Note</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_52060_623</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_494150_624</parentPropertyManager>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Note Anchor</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_94140_625</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>LINK_LINE_STYLE</propertyID>
+						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value>OBLIQUE</value>
+						<choice xmi.value='RECTILINEAR^OBLIQUE^BEZIER'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Note(with Comment)</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_318911_626</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_494150_624</parentPropertyManager>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Note(with Constraint)</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_687512_627</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_494150_624</parentPropertyManager>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Note(with TaggedValue)</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_426529_628</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_494150_624</parentPropertyManager>
+				</mdElement>
+				<mdElement elementClass='PropertyManager'>
+					<name>Notes</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_494150_624</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-1'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>AUTOSIZE</propertyID>
+						<propertyDescriptionID>AUTOSIZE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>HTML_TEXT</propertyID>
+						<propertyDescriptionID>HTML_TEXT_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Object</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_579115_629</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OBJECT_CLASS</propertyID>
+						<propertyDescriptionID>SHOW_OBJECT_CLASS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_OBJECT_ATTRIBUTES</propertyID>
+						<propertyDescriptionID>SUPPRESS_OBJECT_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>ObjectFlow State</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_536599_630</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OBJECT_CLASS</propertyID>
+						<propertyDescriptionID>SHOW_OBJECT_CLASS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Package</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_5633_631</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-3355393'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>FONT</propertyID>
+						<propertyDescriptionID>FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='14'/>
+						<style xmi.value='1'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>PACKAGE_HEADER_POSITION</propertyID>
+						<propertyDescriptionID>PACKAGE_HEADER_POSITION_DESCRIPTION</propertyDescriptionID>
+						<value>TOP</value>
+						<choice xmi.value='TOP^IN_TAB'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ELEMENTS_LIST</propertyID>
+						<propertyDescriptionID>SHOW_ELEMENTS_LIST_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='false'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Paths</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_853823_578</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_342177_601</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>LINK_LINE_STYLE</propertyID>
+						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value>RECTILINEAR</value>
+						<choice xmi.value='RECTILINEAR^OBLIQUE^BEZIER'/>
+						<index xmi.value='0'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Permission</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_418834_632</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>STEREOTYPE_COLOR</propertyID>
+						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>STEREOTYPE_FONT</propertyID>
+						<propertyDescriptionID>STEREOTYPE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_STEREOTYPE</propertyID>
+						<propertyDescriptionID>SHOW_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TAGGED_VALUES</propertyID>
+						<propertyDescriptionID>SHOW_TAGGED_VALUES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Pin</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_520505_633</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>AUTOSIZE</propertyID>
+						<propertyDescriptionID>AUTOSIZE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FIXED_CONNECTION_POINTS</propertyID>
+						<propertyDescriptionID>USE_FIXED_CONNECTION_POINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Port</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_429531_634</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Pseudo State</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_534107_635</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FIXED_CONNECTION_POINTS</propertyID>
+						<propertyDescriptionID>USE_FIXED_CONNECTION_POINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Realization</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_546025_611</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>STEREOTYPE_COLOR</propertyID>
+						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>STEREOTYPE_FONT</propertyID>
+						<propertyDescriptionID>STEREOTYPE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_STEREOTYPE</propertyID>
+						<propertyDescriptionID>SHOW_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TAGGED_VALUES</propertyID>
+						<propertyDescriptionID>SHOW_TAGGED_VALUES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Role</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_132961_636</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ROLE_NAME</propertyID>
+						<propertyDescriptionID>SHOW_ROLE_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ROLE_VISIBILITY</propertyID>
+						<propertyDescriptionID>SHOW_ROLE_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ROLE_MULTIPLICITY</propertyID>
+						<propertyDescriptionID>SHOW_ROLE_MULTIPLICITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Separator</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_402609_637</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-1'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>HTML_TEXT</propertyID>
+						<propertyDescriptionID>HTML_TEXT_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>TEXT_POSITION</propertyID>
+						<propertyDescriptionID>TEXT_POSITION_DESCRIPTION</propertyDescriptionID>
+						<value>LEFT</value>
+						<choice xmi.value='CENTER^LEFT^RIGHT'/>
+						<index xmi.value='1'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>LINE_STYLE</propertyID>
+						<propertyDescriptionID>LINE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value>DASHED</value>
+						<choice xmi.value='DASHED^SOLID'/>
+						<index xmi.value='0'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='false'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Shapes</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_445738_580</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_342177_601</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>AUTOSIZE</propertyID>
+						<propertyDescriptionID>AUTOSIZE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FIXED_CONNECTION_POINTS</propertyID>
+						<propertyDescriptionID>USE_FIXED_CONNECTION_POINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_HEADER_IN_BOLD</propertyID>
+						<propertyDescriptionID>SHOW_HEADER_IN_BOLD_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>STEREOTYPE_COLOR</propertyID>
+						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>STEREOTYPE_FONT</propertyID>
+						<propertyDescriptionID>STEREOTYPE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_STEREOTYPE</propertyID>
+						<propertyDescriptionID>SHOW_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_VISIBILITY</propertyID>
+						<propertyDescriptionID>SHOW_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TAGGED_VALUES</propertyID>
+						<propertyDescriptionID>SHOW_TAGGED_VALUES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CONTEXT</propertyID>
+						<propertyDescriptionID>SUPPRESS_CONTEXT_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Signal Classifier</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_94865_638</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-13159'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>OPERATION_COLOR</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777176'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>OPERATION_FONT</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_SIGNATURE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_SIGNATURE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_OPERATIONS_MODE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_OPERATIONS_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_VISIBILITY</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_STEREOTYPE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PROPERTIES</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_CONSTRAINTS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CLASS_ATTRIBUTES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_CLASS_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>ATTRIBUTE_COLOR</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>ATTRIBUTE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-14155776'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>ATTRIBUTE_FONT</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>ATTRIBUTE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_ATTRIBUTES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_ATTRIBUTES_MODE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_ATTRIBUTES_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_VISIBILITY</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_STEREOTYPE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_PROPERTIES</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ATTRIBUTES_CONSTRAINTS</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_ATTRIBUTES_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_INIT_VALUE</propertyID>
+						<propertyGroup>ATTRIBUTES</propertyGroup>
+						<propertyDescriptionID>SHOW_INIT_VALUE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>SignalRS</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_880864_639</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>DIRECTION</propertyID>
+						<propertyDescriptionID>DIRECTION_DESCRIPTION</propertyDescriptionID>
+						<value>RIGHT</value>
+						<choice xmi.value='RIGHT^LEFT'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FIXED_CONNECTION_POINTS</propertyID>
+						<propertyDescriptionID>USE_FIXED_CONNECTION_POINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>State</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_308684_640</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_STATE_ACTIONS</propertyID>
+						<propertyDescriptionID>SUPPRESS_STATE_ACTIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_STATE_ATTRIBUTES</propertyID>
+						<propertyDescriptionID>SUPPRESS_STATE_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Stereotype</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_32750_641</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_TAGS</propertyID>
+						<propertyDescriptionID>SUPPRESS_TAGS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SUPPRESS_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_BASE_CLASSES</propertyID>
+						<propertyDescriptionID>SHOW_BASE_CLASSES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='false'/>
+					<extendableByStereotype xmi.value='true'/>
+					<name>Stereotypes</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_676319_642</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_342177_601</parentPropertyManager>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Stimulus</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_210920_643</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Stub State</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_964327_644</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Subactivity State</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_247582_645</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_STATE_ACTIONS</propertyID>
+						<propertyDescriptionID>SUPPRESS_STATE_ACTIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Submachine State</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_96699_646</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_STATE_ACTIONS</propertyID>
+						<propertyDescriptionID>SUPPRESS_STATE_ACTIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_STATE_ATTRIBUTES</propertyID>
+						<propertyDescriptionID>SUPPRESS_STATE_ATTRIBUTES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Subsystem</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_387195_647</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-3355393'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>FONT</propertyID>
+						<propertyDescriptionID>FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='14'/>
+						<style xmi.value='1'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>PACKAGE_HEADER_POSITION</propertyID>
+						<propertyDescriptionID>PACKAGE_HEADER_POSITION_DESCRIPTION</propertyDescriptionID>
+						<value>IN_TAB</value>
+						<choice xmi.value='TOP^IN_TAB'/>
+						<index xmi.value='1'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRES_SUBSYSTEM_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SUPPRES_SUBSYSTEM_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_SIGNATURE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_SIGNATURE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SORT_CLASS_OPERATIONS_MODE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SORT_CLASS_OPERATIONS_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>NO_SORT</value>
+						<choice xmi.value='NO_SORT^BY_NAME^BY_STEREOTYPE^BY_VISIBILITY'/>
+						<index xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>OPERATION_COLOR</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777176'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>OPERATION_FONT</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>OPERATION_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_MORE_SIGN_FOR_OPERATIONS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_MORE_SIGN_FOR_OPERATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_VISIBILITY</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_VISIBILITY_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_STEREOTYPE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PROPERTIES</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PROPERTIES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_CONSTRAINTS</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_OPERATIONS_PARAMETERS_DIRECTION_KIND_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyGroup>OPERATIONS</propertyGroup>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRES_SUBSYSTEM_REALIZATIONS</propertyID>
+						<propertyDescriptionID>SUPPRES_SUBSYSTEM_REALIZATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRES_SUBSYSTEM_SPECIFICATIONS</propertyID>
+						<propertyDescriptionID>SUPPRES_SUBSYSTEM_SPECIFICATIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_ELEMENTS_LIST</propertyID>
+						<propertyDescriptionID>SHOW_ELEMENTS_LIST_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Subsystem Instance</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_133373_648</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OBJECT_CLASS</propertyID>
+						<propertyDescriptionID>SHOW_OBJECT_CLASS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Swimlane</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_917727_649</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>FONT</propertyID>
+						<propertyDescriptionID>FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='14'/>
+						<style xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='false'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Symbol</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_342177_601</propertyManagerID>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-52'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>PEN_COLOR</propertyID>
+						<propertyDescriptionID>PEN_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-12434878'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>TEXT_COLOR</propertyID>
+						<propertyDescriptionID>TEXT_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>FONT</propertyID>
+						<propertyDescriptionID>FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Synch State</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_878830_650</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FIXED_CONNECTION_POINTS</propertyID>
+						<propertyDescriptionID>USE_FIXED_CONNECTION_POINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Synchronization Bar</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_674168_651</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>SYNCH_BAR_ORIENTATION</propertyID>
+						<propertyDescriptionID>SYNCH_BAR_ORIENTATION_DESCRIPTION</propertyDescriptionID>
+						<value>HORIZONTAL</value>
+						<choice xmi.value='HORIZONTAL^VERTICAL'/>
+						<index xmi.value='0'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>TextBox</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_530237_652</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>AUTOSIZE</propertyID>
+						<propertyDescriptionID>AUTOSIZE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>HTML_TEXT</propertyID>
+						<propertyDescriptionID>HTML_TEXT_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Transition</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_179395_653</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>STEREOTYPE_COLOR</propertyID>
+						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>STEREOTYPE_FONT</propertyID>
+						<propertyDescriptionID>STEREOTYPE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_STEREOTYPE</propertyID>
+						<propertyDescriptionID>SHOW_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TAGGED_VALUES</propertyID>
+						<propertyDescriptionID>SHOW_TAGGED_VALUES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Transition Connector</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_825529_654</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FIXED_CONNECTION_POINTS</propertyID>
+						<propertyDescriptionID>USE_FIXED_CONNECTION_POINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>AUTOSIZE</propertyID>
+						<propertyDescriptionID>AUTOSIZE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Tree</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_814320_655</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>USE_FILL_COLOR</propertyID>
+						<propertyDescriptionID>USE_FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Usage</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_77222_610</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_853823_578</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>STEREOTYPE_COLOR</propertyID>
+						<propertyDescriptionID>STEREOTYPE_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-16777216'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>STEREOTYPE_FONT</propertyID>
+						<propertyDescriptionID>STEREOTYPE_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>WRAP_WORDS</propertyID>
+						<propertyDescriptionID>WRAP_WORDS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_NAME</propertyID>
+						<propertyDescriptionID>SHOW_NAME_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_STEREOTYPE</propertyID>
+						<propertyDescriptionID>SHOW_STEREOTYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_TAGGED_VALUES</propertyID>
+						<propertyDescriptionID>SHOW_TAGGED_VALUES_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_CONSTRAINTS</propertyID>
+						<propertyDescriptionID>SHOW_CONSTRAINTS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>CONSTRAINT_TEXT_MODE</propertyID>
+						<propertyDescriptionID>CONSTRAINT_TEXT_MODE_DESCRIPTION</propertyDescriptionID>
+						<value>EXPRESSION_MODE</value>
+						<choice xmi.value='NAME_MODE^EXPRESSION_MODE'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Use Case</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_707374_656</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>FILL_COLOR</propertyID>
+						<propertyDescriptionID>FILL_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-103'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SUPPRESS_EXTENSIONS</propertyID>
+						<propertyGroup>EXTENSION_POINTS</propertyGroup>
+						<propertyDescriptionID>SUPPRESS_EXTENSIONS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+					<mdElement elementClass='ColorProperty'>
+						<propertyID>EXT_POINT_COLOR</propertyID>
+						<propertyGroup>EXTENSION_POINTS</propertyGroup>
+						<propertyDescriptionID>EXT_POINT_COLOR_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='-14155776'/>
+					</mdElement>
+					<mdElement elementClass='FontProperty'>
+						<propertyID>EXT_POINT_FONT</propertyID>
+						<propertyGroup>EXTENSION_POINTS</propertyGroup>
+						<propertyDescriptionID>EXT_POINT_FONT_DESCRIPTION</propertyDescriptionID>
+						<fontName>SansSerif</fontName>
+						<size xmi.value='12'/>
+						<style xmi.value='0'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='PropertyManagerByDiagram'>
+					<diagramType>Use Case Diagram</diagramType>
+					<removable xmi.value='true'/>
+					<extendableByDiagram xmi.value='false'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Use Case Diagram</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_60832_657</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_766284_607</parentPropertyManager>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>LINK_LINE_STYLE</propertyID>
+						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value>OBLIQUE</value>
+						<choice xmi.value='RECTILINEAR^OBLIQUE^BEZIER'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='PropertyManagerByDiagram'>
+					<diagramType>Use Case Diagram</diagramType>
+					<removable xmi.value='true'/>
+					<extendableByDiagram xmi.value='false'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Use Case Diagram</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_951367_658</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_546025_611</parentPropertyManager>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>LINK_LINE_STYLE</propertyID>
+						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value>OBLIQUE</value>
+						<choice xmi.value='RECTILINEAR^OBLIQUE^BEZIER'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='PropertyManagerByDiagram'>
+					<diagramType>Use Case Diagram</diagramType>
+					<removable xmi.value='true'/>
+					<extendableByDiagram xmi.value='false'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Use Case Diagram</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_104714_659</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_284147_583</parentPropertyManager>
+					<mdElement elementClass='ChoiceProperty'>
+						<propertyID>LINK_LINE_STYLE</propertyID>
+						<propertyDescriptionID>LINK_LINE_STYLE_DESCRIPTION</propertyDescriptionID>
+						<value>OBLIQUE</value>
+						<choice xmi.value='RECTILINEAR^OBLIQUE^BEZIER'/>
+						<index xmi.value='1'/>
+					</mdElement>
+				</mdElement>
+				<mdElement elementClass='ExtendableManager'>
+					<removable xmi.value='false'/>
+					<extendableByDiagram xmi.value='true'/>
+					<extendableByStereotype xmi.value='false'/>
+					<name>Use Case Instance</name>
+					<propertyManagerID>_9_5_1_1ada046b_1130327333710_591079_660</propertyManagerID>
+					<parentPropertyManager>_9_5_1_1ada046b_1130327333710_445738_580</parentPropertyManager>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_OBJECT_CLASS</propertyID>
+						<propertyDescriptionID>SHOW_OBJECT_CLASS_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='true'/>
+					</mdElement>
+					<mdElement elementClass='BooleanProperty'>
+						<propertyID>SHOW_FULL_TYPE</propertyID>
+						<propertyDescriptionID>SHOW_FULL_TYPE_DESCRIPTION</propertyDescriptionID>
+						<value xmi.value='false'/>
+					</mdElement>
+				</mdElement>
+			</mdElement>
+		</mdElement>
+	</XMI.extensions>
+</XMI>

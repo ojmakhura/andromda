@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<project name="nant" default="iis">
+    <!-- set build.date property to current date in format yyyy-MM-dd -->
+    <tstamp property="build.date" pattern="yyyy-MM-dd" />
+    <!-- global project settings -->
+    <property name="project.name" value="${applicationNameNoWhitespace}Web" />
+    
+    <target name="clean">
+    	    <delete dir="bin" failonerror="false" />
+    	    <delete dir="doc" failonerror="false" />
+    	    <delete dir="obj" failonerror="false" />
+    </target>
+    
+    <target name="iis">
+        	<mkiisdir dirpath="${nant.project.basedir}/${applicationNameNoWhitespace}Web" vdirname="${applicationNameNoWhitespace}Web" />
+    </target>
+
+    <target name="build" depends="iis">
+				        <solution solutionfile="${applicationNameNoWhitespace}.sln" configuration="release">
+				            <webmap>
+				                <map url="http://localhost/${applicationNameNoWhitespace}/${applicationNameNoWhitespace}Web.csproj" path=".\${applicationNameNoWhitespace}Web.csproj" />
+				            </webmap>
+				        </solution>
+		    </target>
+</project>

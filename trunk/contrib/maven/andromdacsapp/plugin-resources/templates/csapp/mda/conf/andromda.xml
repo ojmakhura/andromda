@@ -1,0 +1,106 @@
+<andromda>
+    <properties>
+        <property name="modelValidation">true</property>
+        <property name="cartridgeFilter">${filter}</property>
+    </properties>
+    <server>
+        <host>localhost</host>
+        <port>4446</port>
+    </server>
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>${maven.andromda.model.uri}</uri>
+                    <moduleSearchLocations>
+                        <location>${maven.repo.local}/andromda/xml.zips</location>
+                    </moduleSearchLocations>
+                </model>
+            </models>
+        </repository>
+    </repositories>
+    <namespaces>
+        <namespace name="default">
+            <properties>
+                <property name="languageMappingsUri">file:${maven.conf.dir}/mappings/CsMappings.xml</property>
+                <property name="wrapperMappingsUri">file:${maven.conf.dir}/mappings/CsWrapperMappings.xml</property>
+                <property name="sqlMappingsUri">${sql.mappings}</property>
+                <property name="jdbcMappingsUri">JDBC</property>
+                <property name="maxSqlNameLength">30</property>
+                <property name="foreignKeySuffix">_FK</property>
+                <property name="ejbJndiNamePrefix">${application.id}-${application.version}</property>
+                 <!-- these masking properties allow you to configure the way
+                      your model element names are generated -->
+                <property name="classifierNameMask">none</property>
+                <property name="operationNameMask">none</property>
+                <property name="roleNameMask">none</property>
+                <property name="enumerationNameMask">none</property>
+                <property name="enumerationLiteralNameMask">uppercamelcase</property>
+                <property name="entityNameMask">none</property>
+                <property name="entityPropertyNameMask">none</property>
+                <property name="parameterNameMask">none</property>
+                <property name="defaultIdentifierType">datatype::long</property>
+                
+                <property name="webAssemblyName">${maven.andromda.webAssemblyName}</property>
+                <property name="coreAssemblyName">${maven.andromda.coreAssemblyName}</property>
+                <property name="commonAssemblyName">${maven.andromda.commonAssemblyName}</property>
+            	<property name="AssemblyCulture"></property>
+                <property name="AssemblyKeyFile"></property>
+                <property name="AssemblyKeyName"></property>
+                <property name="AssemblyTitle">STIBStopCentralDatabase</property>
+                <property name="AssemblyDescription">STIBStopCentralDatabase</property>
+                <property name="AssemblyConfiguration"></property>
+                <property name="AssemblyCompany">Thales</property>
+                <property name="AssemblyProduct">poc</property>
+                <property name="AssemblyCopyright">(c)2005 Thales</property>
+                <property name="AssemblyTrademark"></property>
+                <property name="AssemblyVersion">1.0</property>
+                <property name="AssemblyDelaySign">false</property>                
+                <property name="projectuuid"></property>
+            </properties>
+        </namespace>
+        <namespace name="nhibernate">
+            <properties>
+                <property name="driver">NHibernate.Driver.MySqlDataDriver</property>
+                <property name="server">${datasource.server}</property>
+                <property name="database">${datasource.name}</property>
+                <property name="user">${datasource.user}</property>
+                <property name="password">${datasource.password}</property>
+                <property name="hibernateDialect">NHibernate.Dialect.MySQLDialect</property>
+                <property name="compositionDefinesEagerLoading">true</property>
+                <property name="hibernateTypeMappingsUri">Hibernate</property>
+                <property name="hibernateInheritanceStrategy">subclass</property>
+                <property name="hibernateUseQueryCache">false</property>
+                <property name="hibernateQueryUseNamedParameters">true</property>
+                <property name="hibernateCacheProvider">NHibernate.Caches.SysCache.SysCacheProvider, NHibernate.Caches.SysCache</property>
+                <property name="sysCacheRelativeExpiration">360</property>
+                <property name="sysCachePriority">3</property>
+                <property name="hibernateEnableCache">true</property>
+                <property name="hibernateEnableAssociationsCache">true</property>                
+                
+                <property name="core">${maven.andromda.core.dir}</property>
+                <property name="core_manual">${maven.andromda.core.manual.dir}</property>
+                <property name="core_generated">${maven.andromda.core.generated.dir}</property>
+                <property name="configuration">${maven.andromda.core.generated.dir}</property> 
+            </properties>
+        </namespace>
+        <namespace name="cs">
+            <properties>
+                <property name="enumerations">${maven.andromda.common.generated.dir}</property>
+                <property name="exceptions">${maven.andromda.common.generated.dir}</property>
+                <property name="value-objects">${maven.andromda.common.generated.dir}</property>
+                                
+                <property name="common">${maven.andromda.common.dir}</property>
+                <property name="common_manual">${maven.andromda.common.manual.dir}</property>
+                <property name="common_generated">${maven.andromda.common.generated.dir}</property>                
+            </properties>
+        </namespace>
+        <namespace name="aspdotnet">
+            <properties>
+            	<property name="web">${maven.andromda.web.dir}</property>
+            	<property name="web_generated">${maven.andromda.web.generated.dir}</property>
+            	<property name="web_manual">${maven.andromda.web.manual.dir}</property>                
+           </properties>
+        </namespace>
+    </namespaces>
+</andromda>
