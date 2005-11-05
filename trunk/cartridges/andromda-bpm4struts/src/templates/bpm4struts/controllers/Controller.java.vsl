@@ -15,6 +15,11 @@ $controller.getDocumentation(" * ")
  */
 public abstract class ${controller.name} implements java.io.Serializable
 {
+    /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+    private static final long serialVersionUID = ${controller.serialVersionUID}L;
+
 #foreach ($operation in $operations)
 #set ($parameters = $operation.arguments)
 #set ($visibility = $operation.visibility)
