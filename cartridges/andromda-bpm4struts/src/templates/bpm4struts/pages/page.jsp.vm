@@ -101,6 +101,48 @@ ${indent}<nobr><html:link href="javascript:document.location=${link};" styleClas
 #end
 ##
 ##
+##      This macro takes care of rendering the appropriate
+##      displaytag export formats.
+##
+##
+#macro ( renderTableExportFormats $tableExportTypes $indent )
+#if ( $stringUtils.isNotBlank($tableExportTypes) )
+#set ($csv = "false")
+#set ($pdf = "false")
+#set ($excel = "false")
+#set ($xml = "false")
+#set ($none = "false")
+#set ($exportTypes = $stringUtils.split($tableExportTypes))
+#foreach ($exportType in $exportTypes)
+#if ($exportType == "csv")
+#set ($csv = "true")
+#elseif ($exportType == "pdf")
+#set ($pdf = "true")
+#elseif ($exportType == "excel")
+#set ($excel = "true")
+#elseif ($exportType == "xml")
+#set ($xml = "true")
+#elseif ($exportType == "none")
+#set ($none = "true")
+#end
+#end
+##
+## "none" takes priority over all others
+##
+#if ($none == "true")
+#set ($csv = "false")
+#set ($pdf = "false")
+#set ($excel = "false")
+#set ($xml = "false")
+#end
+${indent}<display:setProperty name="export.csv" value="$csv"/>
+${indent}<display:setProperty name="export.pdf" value="$pdf"/>
+${indent}<display:setProperty name="export.excel" value="$excel"/>
+${indent}<display:setProperty name="export.xml" value="$xml"/>
+#end
+#end
+##
+##
 ##      This macro takes care of rendering the appropriate Struts
 ##      HTML button tags for the argument action
 ##

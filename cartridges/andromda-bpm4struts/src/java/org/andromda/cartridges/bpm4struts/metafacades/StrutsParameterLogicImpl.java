@@ -1159,8 +1159,10 @@ public class StrutsParameterLogicImpl
      */
     protected boolean handleIsStrictDateFormat()
     {
-        final String format = getValidatorFormat();
-        return (format != null) && isStrictDateFormat(format);
+        final String format = this.getValidatorFormat();
+        return format == null 
+            ? Bpm4StrutsUtils.isTrue((String)this.getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_STRICT_DATETIMEFORMAT))
+            : this.isStrictDateFormat(format);
     }
 
     /**

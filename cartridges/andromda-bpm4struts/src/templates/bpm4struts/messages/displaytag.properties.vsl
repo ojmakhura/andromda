@@ -8,10 +8,46 @@ locale.resolver=org.displaytag.localization.I18nStrutsAdapter
 # behaviour of common frameworks.
 locale.provider=org.displaytag.localization.I18nStrutsAdapter
 
+#if ($stringUtils.isNotEmpty($defaultTableExportTypes))
+#set ($csv = "false")
+#set ($pdf = "false")
+#set ($excel = "false")
+#set ($xml = "false")
+#set ($none = "false")
+#set ($exportTypes = $stringUtils.split($defaultTableExportTypes))
+#foreach ($exportType in $exportTypes)
+#if ($exportType == "csv")
+#set ($csv = "true")
+#elseif ($exportType == "pdf")
+#set ($pdf = "true")
+#elseif ($exportType == "excel")
+#set ($excel = "true")
+#elseif ($exportType == "xml")
+#set ($xml = "true")
+#elseif ($exportType == "none")
+#set ($none = "true")
+#end
+#end
+##
+## "none" takes priority over all others
+##
+#if ($none == "true")
+#set ($csv = "false")
+#set ($pdf = "false")
+#set ($excel = "false")
+#set ($xml = "false")
+#end
+export.csv=$csv
+export.pdf=$pdf
+export.excel=$excel
+export.xml=$xml
+#else
 #
 # By default we support the PDF export feature, needs the IText dependency
 #
 export.pdf=true
+#end
+
 export.pdf.filename=export.pdf
 
 #

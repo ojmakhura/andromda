@@ -11,7 +11,7 @@
 #set ($displayTableName = "form.${table.name}")
     <display:table name="${${displayTableName}}" id="row"
         requestURIcontext="false"
-        requestURI="${pageContext.request.requestURL}"
+        requestURI="${pageContext.request.requestURI}"
 #if ($table.tableDecoratorRequired)
         decorator="${table.tableDecoratorFullyQualifiedName}"
 #end
@@ -20,6 +20,7 @@
 #set ($exportFileName = "${jsp.name}-${table.name}")
 #set ($exportFileName = "$bpmUtils.toWebFileName($exportFileName)")
         <display:setProperty name="export.pdf.filename" value="${exportFileName}.pdf" />
+#renderTableExportFormats($table.tableExportTypes "        ")
 #end
 ##
 ##  rendering a checkbox in the first column in case we need to allow the selection of rows
