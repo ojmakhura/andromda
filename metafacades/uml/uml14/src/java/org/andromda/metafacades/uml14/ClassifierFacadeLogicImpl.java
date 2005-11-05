@@ -675,9 +675,7 @@ public class ClassifierFacadeLogicImpl
             byte[] hashBytes = md.digest(signature.getBytes());
 
             long hash = 0;
-            for (int ctr = Math.min(
-                        hashBytes.length,
-                        8) - 1; ctr >= 0; ctr--)
+            for (int ctr = Math.min(hashBytes.length, 8) - 1; ctr >= 0; ctr--)
             {
                 hash = (hash << 8) | (hashBytes[ctr] & 0xFF);
             }
@@ -686,9 +684,7 @@ public class ClassifierFacadeLogicImpl
         catch (final NoSuchAlgorithmException exception)
         {
             final String errMsg = "Error performing ModelElementFacadeImpl.getSerialVersionUID";
-            logger.error(
-                errMsg,
-                exception);
+            logger.error(errMsg, exception);
         }
         return serialVersionUID;
     }
@@ -699,7 +695,7 @@ public class ClassifierFacadeLogicImpl
     protected Long handleGetSerialVersionUID()
     {
         Long serialVersionUID;
-        String serialVersionString = UML14MetafacadeUtils.getSerialVersionUID(this);
+        final String serialVersionString = UML14MetafacadeUtils.getSerialVersionUID(this);
         if (serialVersionString != null)
         {
             serialVersionUID = Long.valueOf(serialVersionString);

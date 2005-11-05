@@ -26,6 +26,12 @@ public class $className
     implements Serializable
 {
     /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+## the value of this field should change whenever the class signature changes
+    private static final long serialVersionUID = 20000L;
+
+    /**
      * <p>
      * Validates whether the URL string passed in is a valid URL or not. Does
      * this by attempting to construct a java.net.URL instance and checking

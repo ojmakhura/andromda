@@ -19,6 +19,13 @@ public class $formBeanClassName
         , $operation.interfaceType
 #end
 {
+    /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+## if the collection of fields changes then this form changes
+## change the integer in front of the 'L' when this template changes
+    private static final long serialVersionUID = ${fields.toString().hashCode()}1L;
+
 #foreach ($field in $fields)
 #if ($field.file)
     private org.apache.struts.upload.FormFile $field.name = null;

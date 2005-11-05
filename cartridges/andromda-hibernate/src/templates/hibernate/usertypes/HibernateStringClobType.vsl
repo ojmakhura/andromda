@@ -27,6 +27,12 @@ public class $className
     extends ImmutableType
 {
     /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+## the value of this field should change whenever the class signature changes
+    private static final long serialVersionUID = 10000L;
+
+    /**
      * @see ${hibernateUtils.hibernatePackage}.type.NullableType#get(java.sql.ResultSet,
      *      java.lang.String)
      */
