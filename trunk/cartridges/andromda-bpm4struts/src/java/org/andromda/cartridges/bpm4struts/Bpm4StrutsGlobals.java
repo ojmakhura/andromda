@@ -29,6 +29,11 @@ public class Bpm4StrutsGlobals
     public static final String PROPERTY_DEFAULT_TIMEFORMAT = "defaultTimeFormat";
 
     /**
+     * Are date and time format to be strictly applied to the entered input ?
+     */
+    public static final String PROPERTY_STRICT_DATETIMEFORMAT = "strictDateTimeFormat";
+
+    /**
      * Contains the default value for whether or not all forwards should perform a HTTP redirect or not.
      */
     public static final String PROPERTY_DEFAULT_ACTION_REDIRECT = "defaultActionRedirect";

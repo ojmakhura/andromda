@@ -101,6 +101,16 @@
                     to see how to properly construct time formats.
                 </documentation>
             </property>
+            <property name="strictDateTimeFormat">
+                <default>false</default>
+                <documentation>
+                    Specifies whether or not date and time formats are to be strictly matched.
+                    This property takes either true or false as values. If set to true all dates and times
+                    entered by the end-user will fail validation if they do not strictly adhere to their given format.
+                    Note that this strictness can always be overriden locally
+                    using the @andromda.struts.view.field.format tagged value.
+                </documentation>
+            </property>
             <property name="defaultInputColumnCount" required="false">
                 <documentation>
                     If specified denotes the default length of text input fields,

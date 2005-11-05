@@ -27,7 +27,7 @@
         <div class="col-a2">
             <h3><bean:message key="login.login.user"/></h3>
             <div class="login">
-                <form id="login" name="login" action="j_security_check" method="post">
+                <form id="login" name="login" action="<html:rewrite page="/j_security_check"/>" method="post">
                     <div><bean:message key="login.username"/> :</div>
                     <div><input class="login" type="text" name="j_username" title="<bean:message key="login.username"/>"/></div>
                     <div><bean:message key="login.password"/> :</div>
@@ -38,10 +38,10 @@
                             <p class="error">
                                 <bean:message key="login.error"/>
                             </p>
-                        </c:when>   
+                        </c:when>
                         <c:otherwise>
-                            <br/>                        
-                        </c:otherwise> 
+                            <br/>
+                        </c:otherwise>
                     </c:choose>
                     <div class="submit">
                         <html:submit titleKey="login.submit.title"><bean:message key="login.submit"/></html:submit>

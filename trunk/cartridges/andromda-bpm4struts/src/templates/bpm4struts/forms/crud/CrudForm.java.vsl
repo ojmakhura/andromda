@@ -94,11 +94,15 @@ public final class $manageable.formBeanClassName
     {
         try
         {
+#if ($member.type.name.equals("Timestamp"))
+            this.$member.name = (org.apache.commons.lang.StringUtils.isBlank($member.name)) ? null : new java.sql.Timestamp(${member.name}Formatter.parse($member.name).getTime());
+#else
             this.$member.name = (org.apache.commons.lang.StringUtils.isBlank($member.name)) ? null : ${member.name}Formatter.parse($member.name);
+#end
         }
         catch (java.text.ParseException pe)
         {
-            throw new RuntimeException(pe);
+            throw new java.lang.RuntimeException(pe);
         }
     }
 
