@@ -250,8 +250,8 @@
       <p>
         The AndroMDA core uses this descriptor to discover the capabilities of a cartridge: the
         supported metafacades, stereotypes, outlets, templates, property references, etc.
-        The cartridge descriptor <strong>must</strong> reside in the <code>META-INF</code>
-        subdirectory and <strong>must</strong> be named <code>andromda-cartridge.xml</code>.
+        The cartridge descriptor <strong>must</strong> reside in the <code>META-INF/andromda</code>
+        subdirectory and <strong>must</strong> be named <code>cartridge.xml</code>.
       </p>
 
       <p>
