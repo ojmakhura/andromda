@@ -348,9 +348,10 @@ public class Model
     public String toString()
     {
         String toString = super.toString();
-        if (this.getKey() != null)
+        final String key = this.getKey();
+        if (key != null || key.trim().length() == 0)
         {
-            toString = this.getKey();
+            toString = key;
         }
         return toString;
     }
@@ -376,7 +377,7 @@ public class Model
      */
     private final String getKey()
     {
-        if (this.key == null)
+        if (this.key == null || this.key.trim().length() == 0)
         {
             final StringBuffer buffer = new StringBuffer();
             for (final Iterator iterator = this.uris.iterator(); iterator.hasNext();)
