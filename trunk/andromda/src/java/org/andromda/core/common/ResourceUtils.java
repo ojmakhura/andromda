@@ -18,7 +18,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 
 /**
@@ -28,8 +27,6 @@ import org.apache.log4j.Logger;
  */
 public class ResourceUtils
 {
-    private static final Logger logger = Logger.getLogger(ResourceUtils.class);
-
     /**
      * All archive files start with this prefix.
      */
@@ -83,12 +80,6 @@ public class ResourceUtils
      */
     public static String getContents(final Reader resource)
     {
-        final String methodName = "ResourceUtils.getContents";
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("performing " + methodName + " with resource '" + resource + "'");
-        }
-
         final StringBuffer contents = new StringBuffer();
         try
         {
@@ -363,9 +354,7 @@ public class ResourceUtils
                 }
                 catch (final MalformedURLException exception)
                 {
-                    logger.warn(
-                        "'" + file + "' is an invalid resource, attempting to find resource '" + resourceName +
-                        "' on classpath");
+                    // - ignore, we just try to find the resource on the classpath
                 }
             }
         }
