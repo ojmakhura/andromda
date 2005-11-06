@@ -39,12 +39,18 @@ public class CartridgeTest
      * Points to the directory were the expected files are stored which will be
      * compared to the generated ones.
      */
-    private static final String EXPECTED_DIRECTORY = "expected.dir";
+    public static final String EXPECTED_DIRECTORY = "expected.dir";
 
     /**
      * Points to the directory were the generated files are located.
      */
-    private static final String ACTUAL_DIRECTORY = "actual.dir";
+    public static final String ACTUAL_DIRECTORY = "actual.dir";
+
+    /**
+     * Defines the suffixes of binary files (files that will be not be
+     * compared as strings).
+     */
+    public static final String BINARY_SUFFIXES = "binary.suffixes";
 
     static
     {
@@ -171,15 +177,15 @@ public class CartridgeTest
 
     private static String getDirectoryName(String propertyKey)
     {
-        String dirName = getSystemProperty(propertyKey);
+        String name = getSystemProperty(propertyKey);
 
         // Replace the path-separator character in the given directory name
         // by the path-separator character used by the actual system
-        char ch = dirName.indexOf('\\') != -1 ? '\\' : '/';
-        dirName = dirName.replace(
-                ch,
+        final char character = name.indexOf('\\') != -1 ? '\\' : '/';
+        name = name.replace(
+                character,
                 File.separatorChar);
-        return dirName;
+        return name;
     }
 
     /**
