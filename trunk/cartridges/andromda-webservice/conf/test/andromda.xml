@@ -40,7 +40,7 @@
                 <property name="cryptoKeyStorePassword">SomePassword</property>
                 <property name="defaultProvider">EJB</property>
                 <property name="securityRealm">SomeRealm</property>
-                <property name="mergeMappingsUri">file:${maven.src.dir}/test/mappings/MergeMappings.xml</property>
+                <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
             </properties>
         </namespace>
     </namespaces>

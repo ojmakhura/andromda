@@ -35,7 +35,7 @@
                 <property name="password">apassword</property>
                 <property name="driver">a.driver.Class</property>
                 <property name="connectionUrl">a:connection:url</property>
-                <property name="mergeMappingsUri">file:${maven.src.dir}/test/mappings/MergeMappings.xml</property>
+                <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
                 <property name="advice-impls">${test.output.dir}</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="open-session-in-view">${test.output.dir}</property>

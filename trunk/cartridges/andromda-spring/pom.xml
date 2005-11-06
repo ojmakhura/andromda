@@ -30,6 +30,18 @@
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
                         <version>${version}</version>
+                        <scope>test</scope>
+                    </dependency>
+                </dependencies>    
+            </plugin>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-cartridge-plugin</artifactId>  
+                <dependencies>
+                    <dependency>
+                        <groupId>org.andromda.translationlibraries</groupId>
+                        <artifactId>andromda-ocl-query-library</artifactId>
+                        <version>${version}</version>
                     </dependency>
                 </dependencies>    
             </plugin>

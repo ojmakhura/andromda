@@ -27,7 +27,7 @@
                 <property name="session-beans">${test.output.dir}</property>
                 <property name="session-impls">${test.output.dir}</property>
                 <property name="value-objects">${test.output.dir}</property>
-                <property name="mergeMappingsUri">file:${maven.src.dir}/test/mappings/MergeMappings.xml</property>
+                <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
             </properties>
         </namespace>
     </namespaces>
