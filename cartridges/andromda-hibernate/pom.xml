@@ -33,6 +33,17 @@
                     </dependency>
                 </dependencies>    
             </plugin>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-cartridge-plugin</artifactId>     
+                <dependencies>
+                    <dependency>
+                        <groupId>org.andromda.translationlibraries</groupId>
+                        <artifactId>andromda-ocl-query-library</artifactId>
+                        <version>${version}</version>
+                    </dependency>
+                </dependencies>    
+            </plugin>
         </plugins> 
     </build> 
 </project>

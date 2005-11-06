@@ -38,7 +38,7 @@
                 <property name="securityRealm">SomeDomain</property>
                 <property name="hibernateDefaultCascade">save-update</property>
                 <property name="hibernateAggregationCascade">all</property>
-                <property name="mergeMappingsUri">file:${maven.src.dir}/test/mappings/MergeMappings.xml</property>
+                <property name="mergeMappingsUri">file:${test.src.dir}//mappings/MergeMappings.xml</property>
                 <property name="specificCollectionInterfaces">true</property>
                 <property name="versionProperty">version</property>
             </properties>

@@ -10,6 +10,7 @@
                     <moduleSearchLocations>
                         <location>${basedir}/../../metafacades/uml/common/src/uml</location>
                         <location>${maven.repo.local}/andromda/xml.zips</location>
+                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles</location>
                     </moduleSearchLocations>
                 </model>
             </models>            

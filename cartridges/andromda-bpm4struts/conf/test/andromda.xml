@@ -41,7 +41,7 @@
                 <property name="servicePackageNamePattern">{0}.ws</property>
                 <property name="roleNameMask">uppercamelcase</property>
                 <property name="generateWebXmlIds">true</property>
-                <property name="mergeMappingsUri">file:${maven.src.dir}/test/mappings/MergeMappings.xml</property>
+                <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
                 <property name="actionPathPrefix">/testPrefix/{0}</property>
                 <property name="decorators">${test.output.dir}</property>
                 <property name="preventDirectPageAccess">true</property>

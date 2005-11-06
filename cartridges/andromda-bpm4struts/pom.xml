@@ -51,6 +51,10 @@
                     </dependency>
                 </dependencies>    
             </plugin>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-cartridge-plugin</artifactId>     
+            </plugin>
         </plugins> 
     </build> 
 </project>
