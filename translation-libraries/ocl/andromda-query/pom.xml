@@ -16,4 +16,15 @@
             <version>${version}</version>
         </dependency>
     </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>src</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                    <exclude>test/**/*</exclude>
+                </excludes>
+            </resource>
+        </resources>
+    </build>
 </project>
