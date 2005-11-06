@@ -10,7 +10,7 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.1-SNAPSHOT" date="2005-08-25" description="First release candidate of version 3.1">
+        <release version="3.1" date="2005-08-25" description="First release candidate of version 3.1">
             <action dev="cwbrandon" type="update">
                 The <![CDATA[UMLMetafacadeModel-<version>.xml.zip]]> has been renamed to <![CDATA[andromda-metafacades-uml-<version>.xml.zip]]>.
                 This requires that you update any cartridge models that point to the old file name by doing a search and replace in your XMI
