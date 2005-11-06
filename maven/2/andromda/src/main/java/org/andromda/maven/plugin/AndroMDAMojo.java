@@ -7,17 +7,19 @@ import java.io.StringReader;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLClassLoader;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
 import org.andromda.core.AndroMDA;
+import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.Repository;
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.resources.PropertyUtils;
@@ -129,6 +131,7 @@ public class AndroMDAMojo
             }
             if (execute)
             {
+                this.initializeClasspathFromRuntimeClassPathElements();
                 final AndroMDA andromda = AndroMDA.newInstance();
                 andromda.run(configuration);
                 andromda.shutdown();
@@ -147,11 +150,7 @@ public class AndroMDAMojo
         catch (Throwable throwable)
         {
             String message = "Error running AndroMDA";
-            final Throwable cause = ExceptionUtils.getCause(throwable);
-            if (cause != null)
-            {
-                throwable = cause;
-            }
+            throwable = ExceptionUtils.getRootCause(throwable);
             if (throwable instanceof FileNotFoundException)
             {
                 message = "No configuration could be loaded from --> '" + configurationUri + "'";
@@ -234,5 +233,96 @@ public class AndroMDAMojo
                 "}");
         final String contents = ResourceUtils.getContents(reader);
         return contents;
+    }
+
+    /**
+     * Sets the current context class loader from the given runtime classpath elements.
+     *
+     * @throws DependencyResolutionRequiredException
+     * @throws MalformedURLException
+     */
+    private void initializeClasspathFromRuntimeClassPathElements()
+        throws DependencyResolutionRequiredException, MalformedURLException
+    {
+        final List classpathFiles = this.project.getRuntimeClasspathElements();
+        final URL[] classpathUrls = new URL[classpathFiles.size()];
+
+        for (int ctr = 0; ctr < classpathFiles.size(); ++ctr)
+        {
+            final File file = new File((String)classpathFiles.get(ctr));
+            if (this.getLog().isDebugEnabled())
+            {
+                getLog().debug("adding to classpath '" + file + "'");
+            }
+            classpathUrls[ctr] = file.toURL();
+        }
+
+        final URLClassLoader loader = new URLClassLoader(classpathUrls,
+                Thread.currentThread().getContextClassLoader());
+        Thread.currentThread().setContextClassLoader(loader);
+    }
+
+    /**
+     * @return Returns the configurationUri.
+     */
+    public String getConfigurationUri()
+    {
+        return configurationUri;
+    }
+
+    /**
+     * @param configurationUri The configurationUri to set.
+     */
+    public void setConfigurationUri(String configurationUri)
+    {
+        this.configurationUri = configurationUri;
+    }
+
+    /**
+     * @return Returns the project.
+     */
+    public MavenProject getProject()
+    {
+        return project;
+    }
+
+    /**
+     * @param project The project to set.
+     */
+    public void setProject(MavenProject project)
+    {
+        this.project = project;
+    }
+
+    /**
+     * @return Returns the propertyFiles.
+     */
+    public List getPropertyFiles()
+    {
+        return propertyFiles;
+    }
+
+    /**
+     * @param propertyFiles The propertyFiles to set.
+     */
+    public void setPropertyFiles(List propertyFiles)
+    {
+        this.propertyFiles = propertyFiles;
+    }
+
+    /**
+     * @return Returns the settings.
+     */
+    public Settings getSettings()
+    {
+        return settings;
+    }
+
+    /**
+     * @param settings The settings to set.
+     */
+    public void setSettings(Settings settings)
+    {
+        this.settings = settings;
     }
 }
