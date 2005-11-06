@@ -3,6 +3,7 @@ package org.andromda.metafacades.uml14;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -213,7 +214,7 @@ public class ClassifierFacadeLogicImpl
             this,
             UMLProfile.DATE_TYPE_NAME);
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isTimeType()
      */
@@ -269,13 +270,15 @@ public class ClassifierFacadeLogicImpl
      */
     protected java.util.Collection handleGetAttributes()
     {
-        return new FilteredCollection(metaObject.getFeature())
+        final Collection attributes = new ArrayList(this.metaObject.getFeature());
+        for (final Iterator iterator = attributes.iterator(); iterator.hasNext();)
+        {
+            if (!(iterator.next() instanceof Attribute))
             {
-                public boolean evaluate(final Object object)
-                {
-                    return object instanceof Attribute;
-                }
-            };
+                iterator.remove();
+            }
+        }
+        return attributes;
     }
 
     /**
@@ -283,29 +286,28 @@ public class ClassifierFacadeLogicImpl
      */
     protected Collection handleGetAttributes(boolean follow)
     {
-        final Collection attributes = this.getAttributes();
+        final Collection attributes = new ArrayList(this.getAttributes());
         for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
             superClass = (ClassifierFacade)superClass.getGeneralization())
         {
-            attributes.addAll(
-                new FilteredCollection(superClass.getAttributes(follow))
+            for (final Iterator iterator = superClass.getAttributes().iterator(); iterator.hasNext();)
+            {
+                final AttributeFacade superAttribute = (AttributeFacade)iterator.next();
+                boolean present = false;
+                for (final Iterator attributeIterator = this.getAttributes().iterator(); attributeIterator.hasNext();)
                 {
-                    public boolean evaluate(final Object object)
+                    final AttributeFacade attribute = (AttributeFacade)attributeIterator.next();
+                    if (!attribute.getName().equals(superAttribute.getName()))
                     {
-                        boolean valid = true;
-                        for (final Iterator iterator = attributes.iterator(); iterator.hasNext();)
-                        {
-                            final AttributeFacade attribute = (AttributeFacade)iterator.next();
-                            final AttributeFacade superAttribute = (AttributeFacade)object;
-                            if (attribute.getName().equals(superAttribute.getName()))
-                            {
-                                valid = false;
-                                break;
-                            }
-                        }
-                        return valid;
+                        present = true;
+                        break;
                     }
-                });
+                }
+                if (!present)
+                {
+                    attributes.add(superAttribute);
+                }
+            }
         }
         return attributes;
     }
