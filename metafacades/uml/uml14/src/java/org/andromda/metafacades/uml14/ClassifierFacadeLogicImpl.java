@@ -297,7 +297,7 @@ public class ClassifierFacadeLogicImpl
                 for (final Iterator attributeIterator = this.getAttributes().iterator(); attributeIterator.hasNext();)
                 {
                     final AttributeFacade attribute = (AttributeFacade)attributeIterator.next();
-                    if (!attribute.getName().equals(superAttribute.getName()))
+                    if (attribute.getName().equals(superAttribute.getName()))
                     {
                         present = true;
                         break;
@@ -327,36 +327,33 @@ public class ClassifierFacadeLogicImpl
      */
     protected Collection handleGetProperties(boolean follow)
     {
-        final Collection properties = this.getAttributes(follow);
-        final Collection associations = this.getNavigableConnectingEnds();
+        final Collection properties = new ArrayList(this.getAttributes(follow));
+        properties.addAll(this.getNavigableConnectingEnds());
         if (follow)
         {
             for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
                 superClass = (ClassifierFacade)superClass.getGeneralization())
             {
-                // - filter duplicate association ends from each generalization.
-                properties.addAll(
-                    new FilteredCollection(superClass.getNavigableConnectingEnds())
+                for (final Iterator iterator = superClass.getNavigableConnectingEnds().iterator(); iterator.hasNext();)
+                {
+                    final AssociationEndFacade superAssociationEnd = (AssociationEndFacade)iterator.next();
+                    boolean present = false;
+                    for (final Iterator attributeIterator = this.getAttributes().iterator(); attributeIterator.hasNext();)
                     {
-                        public boolean evaluate(final Object object)
+                        final AssociationEndFacade associationEnd = (AssociationEndFacade)attributeIterator.next();
+                        if (associationEnd.getName().equals(superAssociationEnd.getName()))
                         {
-                            boolean valid = true;
-                            for (final Iterator iterator = associations.iterator(); iterator.hasNext();)
-                            {
-                                final AssociationEndFacade association = (AssociationEndFacade)iterator.next();
-                                final AssociationEndFacade superAssociation = (AssociationEndFacade)object;
-                                if (association.getName().equals(superAssociation.getName()))
-                                {
-                                    valid = false;
-                                    break;
-                                }
-                            }
-                            return valid;
+                            present = true;
+                            break;
                         }
-                    });
+                    }
+                    if (!present)
+                    {
+                        properties.add(superAssociationEnd);
+                    }
+                }
             }
         }
-        properties.addAll(associations);
         return properties;
     }
 
