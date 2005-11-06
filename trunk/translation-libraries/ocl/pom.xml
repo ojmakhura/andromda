@@ -8,6 +8,23 @@
     <artifactId>andromda-ocl-translation-libraries</artifactId>
     <packaging>pom</packaging>
     <name>AndroMDA OCL Translation Libraries</name>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src</directory>
+                <includes>
+                    <include>META-INF/**/*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
     <modules>
         <module>core</module>
         <module>testsuite</module>
