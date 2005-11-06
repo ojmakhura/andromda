@@ -28,7 +28,7 @@ public class ResourceFinder
         try
         {
             final Collection resources = new ArrayList();
-            for (final Enumeration enumeration = Thread.currentThread().getContextClassLoader().getResources(resource);
+            for (final Enumeration enumeration = ClassUtils.getClassLoader().getResources(resource);
                  enumeration.hasMoreElements();)
             {
                 resources.add(enumeration.nextElement());
