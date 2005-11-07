@@ -198,6 +198,7 @@ public class CartridgeTestFormatter
                 this.reportWriter.println("ERROR:");
                 information.printStackTrace(this.reportWriter);
             }
+            this.reportWriter.println();
         }
 
         if (this.reportFile != null)
