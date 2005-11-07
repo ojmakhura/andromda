@@ -194,6 +194,7 @@ public class CartridgeTestMojo
             final Test suite = CartridgeTest.suite();
             formatter.startTestSuite(this.project.getName());
             suite.run(result);
+            this.getLog().info("");
             this.getLog().info("Results:");
             this.getLog().info(formatter.endTestSuite(suite));
             if (result.failureCount() > 0 || result.errorCount() > 0)
@@ -213,6 +214,10 @@ public class CartridgeTestMojo
         }
     }
 
+    /**
+     * Adds any dependencies for the the cartridge plugin
+     * to the current dependencies of the project.
+     */
     private void addCartridgeTestDependencies()
     {
         for (final Iterator iterator = this.plugins.iterator(); iterator.hasNext();)
@@ -226,14 +231,19 @@ public class CartridgeTestMojo
                     for (final Iterator dependencyIterator = plugin.getDependencies().iterator();
                         dependencyIterator.hasNext();)
                     {
-                        this.addDependencyPath((Dependency)dependencyIterator.next());
+                        this.addDependency((Dependency)dependencyIterator.next());
                     }
                 }
             }
         }
     }
 
-    private void addDependencyPath(final Dependency dependency)
+    /**
+     * Adds a dependency to the current project's dependencies.
+     * 
+     * @param dependency
+     */
+    private void addDependency(final Dependency dependency)
     {
         if (dependency != null)
         {

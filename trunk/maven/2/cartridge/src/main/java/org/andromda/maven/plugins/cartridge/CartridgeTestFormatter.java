@@ -5,10 +5,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestListener;
+
+import org.andromda.cartridges.testsuite.FileComparator;
 
 
 /**
@@ -64,8 +69,7 @@ public class CartridgeTestFormatter
         Throwable throwable)
     {
         this.numberOfErrors++;
-        formatError(
-            "\tCaused an ERROR",
+        this.collectFailure(
             test,
             throwable);
     }
@@ -83,8 +87,7 @@ public class CartridgeTestFormatter
         AssertionFailedError failure)
     {
         this.numberOfFailures++;
-        formatError(
-            "\tFAILED",
+        this.collectFailure(
             test,
             failure);
     }
@@ -124,15 +127,25 @@ public class CartridgeTestFormatter
         this.reportWriter.println("-------------------------------------------------------------------------------");
     }
 
-    private void formatError(
-        String type,
+    /**
+     * Adds a failure to the current <code>failures</code>
+     * collection (these are rendered at the end of test suite
+     * execution).
+     *
+     * @param type the failure type (error or failure).
+     * @param test the actual test.
+     * @param throwable the failure information.
+     */
+    private void collectFailure(
         Test test,
         Throwable throwable)
     {
-        this.reportWriter.println(type);
-        this.reportWriter.println(throwable.getMessage());
-        throwable.printStackTrace(this.reportWriter);
+        this.failures.add(new Failure(
+                test,
+                throwable));
     }
+
+    private Collection failures = new ArrayList();
 
     /**
      * Signifies the test suite ended and returns the summary of the
@@ -151,6 +164,42 @@ public class CartridgeTestFormatter
         summary.append(newLine);
         summary.append(newLine);
         this.reportWriter.print(summary);
+        if (this.numberOfFailures > 0)
+        {
+            this.reportWriter.println("Failures: " + this.numberOfFailures);
+            this.reportWriter.println("-------------------------------------------------------------------------------");
+            int ctr = 1;
+            for (final Iterator iterator = this.failures.iterator(); iterator.hasNext(); ctr++)
+            {
+                final Failure failure = (Failure)iterator.next();
+                final Throwable information = failure.information;
+                if (information instanceof AssertionFailedError)
+                {
+                    FileComparator comparator = (FileComparator)failure.test;
+                    this.reportWriter.println(ctr + ") " + comparator.getActualFile());
+                }
+            }
+            this.reportWriter.println("-------------------------------------------------------------------------------");
+            this.reportWriter.println();
+        }
+
+        for (final Iterator iterator = this.failures.iterator(); iterator.hasNext();)
+        {
+            final Failure failure = (Failure)iterator.next();
+            FileComparator comparator = (FileComparator)failure.test;
+            final Throwable information = failure.information;
+            if (information instanceof AssertionFailedError)
+            {
+                this.reportWriter.println("FAILURE: " + comparator.getActualFile());
+                this.reportWriter.println(failure.information.getMessage());
+            }
+            else
+            {
+                this.reportWriter.println("ERROR:");
+                information.printStackTrace(this.reportWriter);
+            }
+        }
+
         if (this.reportFile != null)
         {
             try
@@ -171,5 +220,22 @@ public class CartridgeTestFormatter
             }
         }
         return summary.toString();
+    }
+
+    /**
+     * Stores the information about a test failure.
+     */
+    private static final class Failure
+    {
+        Test test;
+        Throwable information;
+
+        Failure(
+            final Test test,
+            final Throwable information)
+        {
+            this.test = test;
+            this.information = information;
+        }
     }
 }
