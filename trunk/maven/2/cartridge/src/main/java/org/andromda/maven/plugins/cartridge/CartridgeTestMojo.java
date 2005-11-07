@@ -224,7 +224,7 @@ public class CartridgeTestMojo
         }
         else
         {
-            this.getLog().info("Skip is true, by-passing AndroMDA cartridge test suite");
+            this.getLog().info("By-passing AndroMDA cartridge test suite");
         }
     }
 
