@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
-import junit.textui.TestRunner;
+import junit.framework.Test;
+import junit.framework.TestResult;
 
 import org.andromda.cartridges.testsuite.CartridgeTest;
 import org.andromda.core.common.ExceptionUtils;
@@ -40,11 +41,11 @@ public class CartridgeTestMojo
     extends AbstractMojo
 {
     /**
-     * Base directory to which all reports are written
+     * Base directory to which the cartridge test report is written
      *
-     * @parameter expression="${project.build.directory}/cartridge-reports"
+     * @parameter expression="${project.build.directory}/cartridge-test/reports"
      */
-    private String reportsDirectory;
+    private String reportDirectory;
 
     /**
      * Specifies the directory that contains the "actual" output (meaning the output
@@ -152,6 +153,10 @@ public class CartridgeTestMojo
 
         try
         {
+            this.getLog().info("----------------------------------------------------------------------------");
+            this.getLog().info("          A n d r o M D A   C a r t r i d g e   T e s t   S u i t e         ");
+            this.getLog().info("----------------------------------------------------------------------------");
+
             // - add the cartridge test dependencies (any dependencies of the cartridge test plugin)
             this.addCartridgeTestDependencies();
 
@@ -179,10 +184,29 @@ public class CartridgeTestMojo
             System.setProperty(
                 CartridgeTest.BINARY_SUFFIXES,
                 this.binaryOutputSuffixes);
-            TestRunner.run(CartridgeTest.suite());
+            final CartridgeTestFormatter formatter = new CartridgeTestFormatter();
+
+            // - set the report location
+            final File report = new File(this.reportDirectory, this.project.getArtifactId() + ".txt");
+            formatter.setReportFile(report);
+            final TestResult result = new TestResult();
+            result.addListener(formatter);
+            final Test suite = CartridgeTest.suite();
+            formatter.startTestSuite(this.project.getName());
+            suite.run(result);
+            this.getLog().info("Results:");
+            this.getLog().info(formatter.endTestSuite(suite));
+            if (result.failureCount() > 0 || result.errorCount() > 0)
+            {
+                throw new MojoExecutionException("Test are some test failures");
+            }
         }
         catch (final Throwable throwable)
         {
+            if (throwable instanceof MojoExecutionException)
+            {
+                throw (MojoExecutionException)throwable;
+            }
             throw new MojoExecutionException("An error occured while testing cartridge '" +
                 this.project.getArtifactId() + "'",
                 ExceptionUtils.getRootCause(throwable));
