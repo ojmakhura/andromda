@@ -81,9 +81,9 @@ public class FileComparator
                     actualContents.trim());
             }
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            fail(th.toString());
+            fail(throwable.toString());
         }
     }
 
