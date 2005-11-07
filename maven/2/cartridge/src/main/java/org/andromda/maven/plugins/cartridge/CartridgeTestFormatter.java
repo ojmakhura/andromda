@@ -3,6 +3,8 @@ package org.andromda.maven.plugins.cartridge;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
@@ -23,9 +25,20 @@ public class CartridgeTestFormatter
     private File reportFile;
 
     /**
-     * The actual report contents.
+     * Stores the contents of the report.
      */
-    private StringBuffer report = new StringBuffer();
+    private StringWriter report;
+
+    /**
+     * The print writer for the report.
+     */
+    private PrintWriter reportWriter;
+
+    public CartridgeTestFormatter()
+    {
+        this.report = new StringWriter();
+        this.reportWriter = new PrintWriter(this.report);
+    }
 
     /**
      * Sets the file that will contain the report results (i.e.
@@ -51,6 +64,10 @@ public class CartridgeTestFormatter
         Throwable throwable)
     {
         this.numberOfErrors++;
+        formatError(
+            "\tCaused an ERROR",
+            test,
+            throwable);
     }
 
     /**
@@ -65,7 +82,11 @@ public class CartridgeTestFormatter
         Test test,
         AssertionFailedError failure)
     {
-        numberOfFailures++;
+        this.numberOfFailures++;
+        formatError(
+            "\tFAILED",
+            test,
+            failure);
     }
 
     public void endTest(Test test)
@@ -98,31 +119,38 @@ public class CartridgeTestFormatter
     public void startTestSuite(final String name)
     {
         startTime = System.currentTimeMillis();
-        this.report.append("-------------------------------------------------------------------------------");
-        this.report.append(newLine);
-        this.report.append(name + " Test Suite");
-        this.report.append(newLine);
-        this.report.append("-------------------------------------------------------------------------------");
-        this.report.append(newLine);
+        this.reportWriter.println("-------------------------------------------------------------------------------");
+        this.reportWriter.println(name + " Test Suite");
+        this.reportWriter.println("-------------------------------------------------------------------------------");
+    }
+
+    private void formatError(
+        String type,
+        Test test,
+        Throwable throwable)
+    {
+        this.reportWriter.println(type);
+        this.reportWriter.println(throwable.getMessage());
+        throwable.printStackTrace(this.reportWriter);
     }
 
     /**
-     * Signifies the test suite ended and returns the footer message of the
+     * Signifies the test suite ended and returns the summary of the
      * test.
      *
      * @param test the test suite being run.
-     * @return the test footer.
+     * @return the test summary.
      */
     String endTestSuite(Test test)
     {
         final double elapsed = ((System.currentTimeMillis() - this.startTime) / 1000.0);
-        final StringBuffer footer = new StringBuffer("Tests: " + String.valueOf(this.numberOfTests) + ", ");
-        footer.append("Failures: " + String.valueOf(this.numberOfFailures) + ", ");
-        footer.append("Errors: " + String.valueOf(this.numberOfErrors) + ", ");
-        footer.append("Time elapsed: " + elapsed).append(" sec");
-        footer.append(newLine);
-        footer.append(newLine);
-        this.report.append(footer);
+        final StringBuffer summary = new StringBuffer("Tests: " + String.valueOf(this.numberOfTests) + ", ");
+        summary.append("Failures: " + String.valueOf(this.numberOfFailures) + ", ");
+        summary.append("Errors: " + String.valueOf(this.numberOfErrors) + ", ");
+        summary.append("Time elapsed: " + elapsed).append(" sec");
+        summary.append(newLine);
+        summary.append(newLine);
+        this.reportWriter.print(summary);
         if (this.reportFile != null)
         {
             try
@@ -142,6 +170,6 @@ public class CartridgeTestFormatter
                 throw new RuntimeException(exception);
             }
         }
-        return footer.toString();
+        return summary.toString();
     }
 }
