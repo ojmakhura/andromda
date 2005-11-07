@@ -137,6 +137,7 @@
       <url>http://www.andromda.org/</url>
     </organization>
     <build>
+        <defaultGoal>install</defaultGoal>
         <sourceDirectory>src/java</sourceDirectory>
     </build>
     <modules>
