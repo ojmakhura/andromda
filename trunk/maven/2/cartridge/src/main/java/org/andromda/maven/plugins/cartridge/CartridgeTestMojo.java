@@ -137,6 +137,13 @@ public class CartridgeTestMojo
      * @readonly
      */
     protected ArtifactRepository localRepository;
+    
+    /**
+     * Set this to 'true' to bypass cartridge tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
+     *
+     * @parameter expression="${maven.test.skip}"
+     */
+    protected boolean skip;
 
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
@@ -144,73 +151,80 @@ public class CartridgeTestMojo
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-        final File expectedOutputArchive = new File(this.expectedOutputArchive);
-        if (!expectedOutputArchive.exists() || !expectedOutputArchive.isFile())
+        if (!this.skip)
         {
-            throw new MojoExecutionException("The path specifying the expectedOutputArchive '" +
-                this.expectedOutputArchive + "' must be a file");
-        }
-
-        try
-        {
-            this.getLog().info("----------------------------------------------------------------------------");
-            this.getLog().info("          A n d r o M D A   C a r t r i d g e   T e s t   S u i t e         ");
-            this.getLog().info("----------------------------------------------------------------------------");
-
-            // - add the cartridge test dependencies (any dependencies of the cartridge test plugin)
-            this.addCartridgeTestDependencies();
-
-            // - first run AndroMDA with the test configuration
-            final AndroMDAMojo andromdaMojo = new AndroMDAMojo();
-            andromdaMojo.setConfigurationUri(this.configurationUri);
-            andromdaMojo.setProject(this.project);
-            andromdaMojo.setSettings(this.settings);
-            andromdaMojo.setPropertyFiles(this.propertyFiles);
-            andromdaMojo.execute();
-
-            // - unpack the expected output archive
-            this.unpack(
-                expectedOutputArchive,
-                new File(this.expectedDirectory));
-
-            // TODO: - these should really be changed to set properties on an instance of a CartridgeTest
-            // instead of just setting system properties
-            System.setProperty(
-                CartridgeTest.ACTUAL_DIRECTORY,
-                this.actualDirectory);
-            System.setProperty(
-                CartridgeTest.EXPECTED_DIRECTORY,
-                this.expectedDirectory);
-            System.setProperty(
-                CartridgeTest.BINARY_SUFFIXES,
-                this.binaryOutputSuffixes);
-            final CartridgeTestFormatter formatter = new CartridgeTestFormatter();
-
-            // - set the report location
-            final File report = new File(this.reportDirectory, this.project.getArtifactId() + ".txt");
-            formatter.setReportFile(report);
-            final TestResult result = new TestResult();
-            result.addListener(formatter);
-            final Test suite = CartridgeTest.suite();
-            formatter.startTestSuite(this.project.getName());
-            suite.run(result);
-            this.getLog().info("");
-            this.getLog().info("Results:");
-            this.getLog().info(formatter.endTestSuite(suite));
-            if (result.failureCount() > 0 || result.errorCount() > 0)
+            final File expectedOutputArchive = new File(this.expectedOutputArchive);
+            if (!expectedOutputArchive.exists() || !expectedOutputArchive.isFile())
             {
-                throw new MojoExecutionException("Test are some test failures");
+                throw new MojoExecutionException("The path specifying the expectedOutputArchive '" +
+                    this.expectedOutputArchive + "' must be a file");
+            }
+    
+            try
+            {
+                this.getLog().info("----------------------------------------------------------------------------");
+                this.getLog().info("          A n d r o M D A   C a r t r i d g e   T e s t   S u i t e         ");
+                this.getLog().info("----------------------------------------------------------------------------");
+    
+                // - add the cartridge test dependencies (any dependencies of the cartridge test plugin)
+                this.addCartridgeTestDependencies();
+    
+                // - first run AndroMDA with the test configuration
+                final AndroMDAMojo andromdaMojo = new AndroMDAMojo();
+                andromdaMojo.setConfigurationUri(this.configurationUri);
+                andromdaMojo.setProject(this.project);
+                andromdaMojo.setSettings(this.settings);
+                andromdaMojo.setPropertyFiles(this.propertyFiles);
+                andromdaMojo.execute();
+    
+                // - unpack the expected output archive
+                this.unpack(
+                    expectedOutputArchive,
+                    new File(this.expectedDirectory));
+    
+                // TODO: - these should really be changed to set properties on an instance of a CartridgeTest
+                // instead of just setting system properties
+                System.setProperty(
+                    CartridgeTest.ACTUAL_DIRECTORY,
+                    this.actualDirectory);
+                System.setProperty(
+                    CartridgeTest.EXPECTED_DIRECTORY,
+                    this.expectedDirectory);
+                System.setProperty(
+                    CartridgeTest.BINARY_SUFFIXES,
+                    this.binaryOutputSuffixes);
+                final CartridgeTestFormatter formatter = new CartridgeTestFormatter();
+    
+                // - set the report location
+                final File report = new File(this.reportDirectory, this.project.getArtifactId() + ".txt");
+                formatter.setReportFile(report);
+                final TestResult result = new TestResult();
+                result.addListener(formatter);
+                final Test suite = CartridgeTest.suite();
+                formatter.startTestSuite(this.project.getName());
+                suite.run(result);
+                this.getLog().info("");
+                this.getLog().info("Results:");
+                this.getLog().info(formatter.endTestSuite(suite));
+                if (result.failureCount() > 0 || result.errorCount() > 0)
+                {
+                    throw new MojoExecutionException("Test are some test failures");
+                }
+            }
+            catch (final Throwable throwable)
+            {
+                if (throwable instanceof MojoExecutionException)
+                {
+                    throw (MojoExecutionException)throwable;
+                }
+                throw new MojoExecutionException("An error occured while testing cartridge '" +
+                    this.project.getArtifactId() + "'",
+                    ExceptionUtils.getRootCause(throwable));
             }
         }
-        catch (final Throwable throwable)
+        else
         {
-            if (throwable instanceof MojoExecutionException)
-            {
-                throw (MojoExecutionException)throwable;
-            }
-            throw new MojoExecutionException("An error occured while testing cartridge '" +
-                this.project.getArtifactId() + "'",
-                ExceptionUtils.getRootCause(throwable));
+            this.getLog().info("Skip is true, by-passing AndroMDA cartridge test suite");
         }
     }
 
