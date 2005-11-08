@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrackerCommon", "TimeTrackerCommon\TimeTrackerCommon.csproj", "{86042F67-530C-4565-BB72-1521921C08B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrackerCore", "TimeTrackerCore\TimeTrackerCore.csproj", "{3A62609D-65D7-46D3-9C0A-7DDBD03C8D31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchemaExport", "SchemaExport\SchemaExport.csproj", "{B43F9232-273F-464D-960C-E4B02EA9EE54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTrackerConsole", "TimeTrackerConsole\TimeTrackerConsole.csproj", "{95CF1B2A-2A47-496D-B8E3-D7FF59AD2E19}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86042F67-530C-4565-BB72-1521921C08B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86042F67-530C-4565-BB72-1521921C08B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86042F67-530C-4565-BB72-1521921C08B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86042F67-530C-4565-BB72-1521921C08B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A62609D-65D7-46D3-9C0A-7DDBD03C8D31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A62609D-65D7-46D3-9C0A-7DDBD03C8D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A62609D-65D7-46D3-9C0A-7DDBD03C8D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A62609D-65D7-46D3-9C0A-7DDBD03C8D31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B43F9232-273F-464D-960C-E4B02EA9EE54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B43F9232-273F-464D-960C-E4B02EA9EE54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B43F9232-273F-464D-960C-E4B02EA9EE54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B43F9232-273F-464D-960C-E4B02EA9EE54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95CF1B2A-2A47-496D-B8E3-D7FF59AD2E19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95CF1B2A-2A47-496D-B8E3-D7FF59AD2E19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95CF1B2A-2A47-496D-B8E3-D7FF59AD2E19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95CF1B2A-2A47-496D-B8E3-D7FF59AD2E19}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
