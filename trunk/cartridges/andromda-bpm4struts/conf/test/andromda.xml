@@ -19,6 +19,7 @@
         <namespace name="bpm4struts">
             <properties>
                 <property name="overwrite">true</property>
+                <property name="renderPageVariables">true</property>
                 <property name="xhtml">false</property>
                 <property name="dummyData">true</property>
                 <property name="breadCrumbs">true</property>
