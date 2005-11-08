@@ -6,7 +6,7 @@
         <version>3.1-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-bpm4struts-cartridge</artifactId>
-    <packaging>jar</packaging>
+    <packaging>andromda-cartridge</packaging>
     <name>AndroMDA BPM4Struts Cartridge</name>
     <description>
         The Bpm4Struts cartridge is used to generate Struts applications from UML models using both static and dynamic model elements.
@@ -54,6 +54,25 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-cartridge-plugin</artifactId>     
+                <configuration>
+                    <artifacts>
+                        <artifact>
+                            <groupId>org.andromda.taglibs</groupId>
+                            <artifactId>andromda-breadcrumbs-taglib</artifactId>
+                            <path>resources/WEB-INF/lib</path>
+                        </artifact>
+                        <artifact>
+                            <groupId>org.andromda.taglibs</groupId>
+                            <artifactId>andromda-formatting-taglib</artifactId>
+                            <path>resources/WEB-INF/lib</path>
+                        </artifact>
+                        <artifact>
+                            <groupId>org.andromda.taglibs</groupId>
+                            <artifactId>andromda-collections-taglib</artifactId>
+                            <path>resources/WEB-INF/lib</path>
+                        </artifact>
+                    </artifacts>
+                </configuration>
             </plugin>
         </plugins> 
     </build> 

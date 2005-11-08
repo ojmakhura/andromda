@@ -6,7 +6,7 @@
         <version>3.1-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-jsf-cartridge</artifactId>
-    <packaging>jar</packaging>
+    <packaging>andromda-cartridge</packaging>
     <name>AndroMDA JSF Cartridge</name>
     <description>
         The JSF cartridge is used to generate JSF applications from UML models using both static and dynamic model elements.
@@ -43,7 +43,16 @@
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-cartridge-plugin</artifactId>     
+                <artifactId>andromda-cartridge-plugin</artifactId>      
+                <configuration>
+                    <artifacts>
+                        <artifact>
+                            <groupId>${pom.groupId}</groupId>
+                            <artifactId>${pom.artifactId}-components</artifactId>
+                            <path>resources/WEB-INF/lib</path>
+                        </artifact>
+                    </artifacts>
+                </configuration>
             </plugin>
         </plugins> 
     </build> 

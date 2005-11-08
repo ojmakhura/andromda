@@ -17,13 +17,6 @@
                 <extensions>true</extensions>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>xml.zip</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -30,10 +30,10 @@ import org.codehaus.plexus.util.FileUtils;
  * @author Chad Brandon
  * @goal xml.zip
  * @phase package
- * @requiresDependencyResolution runtime
+ * @requiresProject
  * @description builds a versioned xml.zip
  */
-public class XmiZipMojo
+public class XmiZipArchiverMojo
     extends AbstractMojo
 {
     /**
@@ -170,13 +170,11 @@ public class XmiZipMojo
     public void execute()
         throws MojoExecutionException
     {
-        getLog().debug(" ======= XmlZipMojo settings =======");
+        getLog().debug(" ======= XmlZipArchiverMojo settings =======");
         getLog().debug("modelSourceDirectory[" + modelSourceDirectory + "]");
         getLog().debug("workDirectory[" + workDirectory + "]");
         getLog().debug("outputDirectory[" + outputDirectory + "]");
         getLog().debug("finalName[" + finalName + "]");
-
-        // - extract model file
         try
         {
             final File buildDirectory = this.getBuildDirectory();
@@ -194,6 +192,7 @@ public class XmiZipMojo
                     final File file = modelFiles[ctr];
                     if (file.isFile() && file.toString().matches(this.modelArchivePattern))
                     {
+                        // - extract model file
                         this.unpack(
                             file,
                             buildDirectory);
@@ -259,7 +258,7 @@ public class XmiZipMojo
 
             if (this.generateJar)
             {
-                getLog().info("Building model jar " + finalName);
+                this.getLog().info("Building model jar " + finalName);
 
                 File modelJar = new File(buildDirectory, finalName + ".jar");
 
