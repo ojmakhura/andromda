@@ -338,9 +338,9 @@ public class ClassifierFacadeLogicImpl
                 {
                     final AssociationEndFacade superAssociationEnd = (AssociationEndFacade)iterator.next();
                     boolean present = false;
-                    for (final Iterator attributeIterator = this.getAttributes().iterator(); attributeIterator.hasNext();)
+                    for (final Iterator endIterator = this.getAssociationEnds().iterator(); endIterator.hasNext();)
                     {
-                        final AssociationEndFacade associationEnd = (AssociationEndFacade)attributeIterator.next();
+                        final AssociationEndFacade associationEnd = (AssociationEndFacade)endIterator.next();
                         if (associationEnd.getName().equals(superAssociationEnd.getName()))
                         {
                             present = true;
