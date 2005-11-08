@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <extend>../project.xml</extend>
+    <artifactId>${pom.groupId}-core</artifactId>
+    <name>${applicationName} Core</name>
+    <shortDescription>${pom.name} Component</shortDescription>
+    <description>
+          Contains the ${pom.name} module.
+    </description>
+</project>

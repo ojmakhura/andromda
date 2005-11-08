@@ -1,7 +1,48 @@
-<project default="plugin:install"
+<project default="clean-install"
          xmlns:j="jelly:core"
          xmlns:ant="jelly:ant"
          xmlns:velocity="jelly:velocity"
          xmlns:artifact="artifact">
+
+   <goal name="clean-install">
+        <attainGoal name="clean"/>
+        <attainGoal name="plugin:install"/>
+   </goal>
+
+   <preGoal name="jar:jar">
+        <!-- Replace references to the version properties' -->
+        <j:set var="pluginResources" value="plugin-resources/andromdacsapp"/>
+        <j:set var="pluginResourceCsDir" value="${pluginResources}/templates/csapp"/>
+
+        <ant:replace
+            file="${maven.build.dest}/${pluginResourceCsDir}/project.properties.vsl"
+            token="andromda.current.version"
+            value="${andromda.current.version}"/>
+        <ant:replace
+            file="${maven.build.dest}/${pluginResourceCsDir}/project.properties.vsl"
+            token="andromda.cs.current.version"
+            value="${andromda.cs.current.version}"/>
+        <ant:replace
+            file="${maven.build.dest}/${pluginResourceCsDir}/project.properties.vsl"
+            token="andromda.nhibernate.current.version"
+            value="${andromda.nhibernate.current.version}"/>
+        <ant:replace
+            file="${maven.build.dest}/${pluginResourceCsDir}/project.properties.vsl"
+            token="andromda.nspring.current.version"
+            value="${andromda.nspring.current.version}"/>
+        <ant:replace
+            file="${maven.build.dest}/${pluginResourceCsDir}/project.properties.vsl"
+            token="andromda.aspdotnet.current.version"
+            value="${andromda.aspdotnet.current.version}"/>
+    </preGoal>
+
+    <!-- Install into the local repository -->
+    <postGoal name="plugin:install">
+        <attainGoal name="jar:jar"/>
+        <artifact:install
+            artifact="${maven.build.dir}/${maven.final.name}.jar"
+            type="plugin"
+            project="${pom}"/>
+    </postGoal>
 
 </project>

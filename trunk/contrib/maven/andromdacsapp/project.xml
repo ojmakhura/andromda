@@ -3,11 +3,12 @@
 <project>
     <artifactId>maven-andromdacsapp-plugin</artifactId>
     <currentVersion>1.0-SNAPSHOT</currentVersion>
-    <name>C# Application Maven Plugin</name>
-    <shortDescription>C# Application Maven Plugin</shortDescription>
+    <name>andromdacsapp Maven Plugin</name>
+    <shortDescription>andromdacsapp Maven Plugin</shortDescription>
     <description>
-        Provides the ability to generate AndroMDA C# Visual Studio applications.
+        Provides the ability to generate AndroMDA C# Maven applications.
     </description>
+
     <developers>
         <developer>
             <name>Louis Coude</name>
@@ -26,6 +27,7 @@
             </roles>
         </developer>
     </developers>
+
     <dependencies>
         <dependency>
             <groupId>velocity</groupId>
@@ -48,6 +50,7 @@
             <version>1.0</version>
         </dependency>
     </dependencies>
+
     <build>
         <sourceDirectory>src/java</sourceDirectory>
         <resources>
