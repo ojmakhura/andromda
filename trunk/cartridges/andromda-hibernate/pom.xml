@@ -6,7 +6,7 @@
         <version>3.1-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-hibernate-cartridge</artifactId>
-    <packaging>jar</packaging>
+    <packaging>andromda-cartridge</packaging>
     <name>AndroMDA Hibernate Cartridge</name>
     <description>Produces Hibernate entities optionally services implemented as Session EJB facades.</description>
     <dependencies>
@@ -15,6 +15,12 @@
             <artifactId>andromda-meta-cartridge</artifactId>
             <version>${version}</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-query-library</artifactId>
+            <version>${version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
