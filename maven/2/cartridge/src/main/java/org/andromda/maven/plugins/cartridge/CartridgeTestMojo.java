@@ -162,9 +162,9 @@ public class CartridgeTestMojo
     
             try
             {
-                this.getLog().info("----------------------------------------------------------------------------");
-                this.getLog().info("          A n d r o M D A   C a r t r i d g e   T e s t   S u i t e         ");
-                this.getLog().info("----------------------------------------------------------------------------");
+                this.getLog().info("-----------------------------------------------------------------------------");
+                this.getLog().info("          A n d r o M D A   C a r t r i d g e   T e s t   S u i t e          ");
+                this.getLog().info("-----------------------------------------------------------------------------");
     
                 // - add the cartridge test dependencies (any dependencies of the cartridge test plugin)
                 this.addCartridgeTestDependencies();
