@@ -82,6 +82,15 @@
                     toggled. Set to <code>true</code> if you want to prevent direct access to pages.
                 </documentation>
             </property>
+            <property name="renderPageVariables">
+                <default>false</default>
+                <documentation>
+                    By enabling this property the cartridge will generate a table containing the current set of
+                    page-variables, this table (if any) will be shown in the upper part of the JSP page.
+                    This feature is particularly useful for debugging purposes or when giving
+                    a demonstration or when showing a prototype.
+                </documentation>
+            </property>
             <property name="defaultDateFormat">
                 <default>dd/MM/yyyy</default>
                 <documentation>
