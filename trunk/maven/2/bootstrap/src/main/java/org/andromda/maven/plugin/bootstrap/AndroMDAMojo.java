@@ -7,12 +7,12 @@ import java.net.URL;
 import java.util.List;
 
 import org.andromda.core.AndroMDA;
+import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.Repository;
 import org.andromda.maven.plugin.configuration.AbstractConfigurationMojo;
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
