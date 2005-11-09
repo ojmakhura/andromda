@@ -134,7 +134,10 @@ public class Namespaces
         final String namespaceName,
         final String propertyName)
     {
-        return this.getProperty(namespaceName, propertyName, true);
+        return this.getProperty(
+            namespaceName,
+            propertyName,
+            true);
     }
 
     /**
@@ -152,9 +155,12 @@ public class Namespaces
         final String propertyName,
         final boolean showWarning)
     {
-        final String methodName = "Namespaces.getProperty";
-        ExceptionUtils.checkEmpty(methodName, "namespaceName", namespaceName);
-        ExceptionUtils.checkEmpty(methodName, "propertyName", propertyName);
+        ExceptionUtils.checkEmpty(
+            "namespaceName",
+            namespaceName);
+        ExceptionUtils.checkEmpty(
+            "propertyName",
+            propertyName);
 
         Property property = null;
         final Namespace namespace = (Namespace)namespaces.get(namespaceName);
@@ -223,7 +229,9 @@ public class Namespaces
                 {
                     defaultRegistry.addPropertyDefinitions(registry.getPropertyDefinitions());
                 }
-                this.registries.put(DEFAULT, defaultRegistry);
+                this.registries.put(
+                    DEFAULT,
+                    defaultRegistry);
             }
             else
             {
@@ -260,16 +268,20 @@ public class Namespaces
         final String namespace,
         final String name)
     {
-        final PropertyDefinition definition = this.getPropertyDefinition(namespace, name);
+        final PropertyDefinition definition = this.getPropertyDefinition(
+                namespace,
+                name);
         if (definition == null)
         {
-            throw new NamespacesException(
-                "Property '" + name + "' is not registered in either the '" + namespace + "' or '" +
-                Namespaces.DEFAULT + "' namespaces");
+            throw new NamespacesException("Property '" + name + "' is not registered in either the '" + namespace +
+                "' or '" + Namespaces.DEFAULT + "' namespaces");
         }
         final String defaultValue = definition != null ? definition.getDefaultValue() : null;
         boolean warning = defaultValue == null && definition != null ? definition.isRequired() : false;
-        final Property property = this.getProperty(namespace, name, warning);
+        final Property property = this.getProperty(
+                namespace,
+                name,
+                warning);
         return property != null && !property.isIgnore() ? property.getValue() : defaultValue;
     }
 

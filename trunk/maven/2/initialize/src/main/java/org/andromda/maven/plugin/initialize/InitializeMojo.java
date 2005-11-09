@@ -1,4 +1,4 @@
-package org.andromda.maven.plugins.initialize;
+package org.andromda.maven.plugin.initialize;
 
 import java.io.File;
 

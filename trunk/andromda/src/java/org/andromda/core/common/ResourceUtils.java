@@ -40,9 +40,7 @@ public class ResourceUtils
      */
     public static URL getResource(final String resourceName)
     {
-        final String methodName = "ResourceUtils.getResource";
         ExceptionUtils.checkEmpty(
-            methodName,
             "resourceName",
             resourceName);
         final ClassLoader loader = ClassUtils.getClassLoader();
@@ -300,9 +298,7 @@ public class ResourceUtils
      */
     public static URL getClassResource(final String className)
     {
-        final String methodName = "ResourceUtils.getClassResource";
         ExceptionUtils.checkEmpty(
-            methodName,
             "className",
             className);
         return getResource(getClassNameAsResource(className));
@@ -337,9 +333,7 @@ public class ResourceUtils
         final String resourceName,
         final String directory)
     {
-        final String methodName = "ResourceUtils.getResource";
         ExceptionUtils.checkEmpty(
-            methodName,
             "resourceName",
             resourceName);
 

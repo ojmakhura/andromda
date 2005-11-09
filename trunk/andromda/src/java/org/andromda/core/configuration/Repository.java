@@ -52,6 +52,7 @@ public class Repository
      */
     public void addModel(final Model model)
     {
+        model.setRepository(this);
         this.models.add(model);
     }
 

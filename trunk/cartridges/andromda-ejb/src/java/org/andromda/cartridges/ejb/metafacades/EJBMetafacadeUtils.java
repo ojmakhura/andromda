@@ -32,8 +32,7 @@ class EJBMetafacadeUtils
      */
     static Collection getCreateMethods(ClassifierFacade classifier, boolean follow)
     {
-        final String methodName = "EJBMetafacadeUtils.getCreateMethods";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         Collection retval = new ArrayList();
         ClassifierFacade entity = classifier;
         do
@@ -64,8 +63,7 @@ class EJBMetafacadeUtils
      */
     static String getHomeInterfaceName(ClassifierFacade classifier)
     {
-        final String methodName = "EJBMetafacadeUtils.getHomeInterfaceName";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         String homeInterfaceName;
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_ENTITY))
         {
@@ -86,8 +84,7 @@ class EJBMetafacadeUtils
      */
     static String getViewType(ClassifierFacade classifier)
     {
-        final String methodName = "EJBMetafacadeUtils.getViewType";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         String viewType = "local";
         if (classifier.hasStereotype(EJBProfile.STEREOTYPE_SERVICE))
         {
@@ -125,8 +122,7 @@ class EJBMetafacadeUtils
      */
     static List getInheritedInstanceAttributes(ClassifierFacade classifier)
     {
-        final String methodName = "EJBMetafacadeUtils.getInheritedInstanceAttributes";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         ClassifierFacade current = (ClassifierFacade)classifier.getGeneralization();
         if (current == null)
         {
@@ -150,8 +146,7 @@ class EJBMetafacadeUtils
      */
     static List getAllInstanceAttributes(ClassifierFacade classifier)
     {
-        final String methodName = "EJBMetafacadeUtils.getAllInstanceAttributes";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         List retval = getInheritedInstanceAttributes(classifier);
         retval.addAll(classifier.getInstanceAttributes());
         return retval;
@@ -169,8 +164,7 @@ class EJBMetafacadeUtils
      */
     static Collection getEnvironmentEntries(ClassifierFacade classifier, boolean follow)
     {
-        final String methodName = "EJBMetafacadeUtils.getEnvironmentEntries";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
 
         Collection attributes = classifier.getStaticAttributes();
 
@@ -205,8 +199,7 @@ class EJBMetafacadeUtils
      */
     static Collection getConstants(ClassifierFacade classifier, boolean follow)
     {
-        final String methodName = "EJBMetafacadeUtils.getEnvironmentEntries";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
 
         Collection attributes = classifier.getStaticAttributes();
 
@@ -238,8 +231,7 @@ class EJBMetafacadeUtils
      */
     static boolean allowSyntheticCreateMethod(ClassifierFacade classifier)
     {
-        final String methodName = "EJBMetafacadeUtils.allowSyntheticCreateMethod";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         return !classifier.isAbstract() && classifier.findTaggedValue(
                 EJBProfile.TAGGEDVALUE_EJB_NO_SYNTHETIC_CREATE_METHOD) == null;
     }

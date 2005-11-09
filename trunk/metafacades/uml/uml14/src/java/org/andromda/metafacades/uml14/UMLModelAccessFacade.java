@@ -38,10 +38,8 @@ public class UMLModelAccessFacade
      */
     public void setModel(final Object model)
     {
-        final String methodName = "UMLModelAccessFacade.setModel";
-        ExceptionUtils.checkNull(methodName, "model", model);
+        ExceptionUtils.checkNull("model", model);
         ExceptionUtils.checkAssignable(
-            methodName,
             UmlPackage.class,
             "modelElement",
             model.getClass());
@@ -61,10 +59,8 @@ public class UMLModelAccessFacade
      */
     public String getName(final Object modelElement)
     {
-        final String methodName = "UMLModelAccessFacade.getName";
-        ExceptionUtils.checkNull(methodName, "modelElement", modelElement);
+        ExceptionUtils.checkNull("modelElement", modelElement);
         ExceptionUtils.checkAssignable(
-            methodName,
             ModelElementFacade.class,
             "modelElement",
             modelElement.getClass());
@@ -76,10 +72,8 @@ public class UMLModelAccessFacade
      */
     public String getPackageName(final Object modelElement)
     {
-        final String methodName = "UMLModelAccessFacade.getPackageName";
-        ExceptionUtils.checkNull(methodName, "modelElement", modelElement);
+        ExceptionUtils.checkNull("modelElement", modelElement);
         ExceptionUtils.checkAssignable(
-            methodName,
             ModelElementFacade.class,
             "modelElement",
             modelElement.getClass());

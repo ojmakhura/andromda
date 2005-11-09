@@ -76,12 +76,9 @@ public class XmlObjectFactory
      */
     private XmlObjectFactory(final URL objectRulesXml)
     {
-        final String methodName = "XmlObjectFactory.XmlObjectFactory";
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("performing " + methodName + " with objectRulesXml '" + objectRulesXml + "'");
-        }
-        ExceptionUtils.checkNull(methodName, "objectRulesXml", objectRulesXml);
+        ExceptionUtils.checkNull(
+            "objectRulesXml",
+            objectRulesXml);
         this.digester = DigesterLoader.createDigester(objectRulesXml);
     }
 
@@ -93,14 +90,17 @@ public class XmlObjectFactory
      */
     public static final XmlObjectFactory getInstance(final Class objectClass)
     {
-        final String methodName = "XmlObjectFactory.getInstance";
-        ExceptionUtils.checkNull(methodName, "objectClass", objectClass);
+        ExceptionUtils.checkNull(
+            "objectClass",
+            objectClass);
 
         XmlObjectFactory factory = (XmlObjectFactory)factoryCache.get(objectClass);
         if (factory == null)
         {
             final URL objectRulesXml =
-                XmlObjectFactory.class.getResource('/' + objectClass.getName().replace('.', '/') + RULES_SUFFIX);
+                XmlObjectFactory.class.getResource('/' + objectClass.getName().replace(
+                        '.',
+                        '/') + RULES_SUFFIX);
             if (objectRulesXml == null)
             {
                 throw new XmlObjectFactoryException("No configuration rules found for class --> '" + objectClass + "'");
@@ -109,7 +109,9 @@ public class XmlObjectFactory
             factory.objectClass = objectClass;
             factory.objectRulesXml = objectRulesXml;
             factory.setValidating(defaultValidating);
-            factoryCache.put(objectClass, factory);
+            factoryCache.put(
+                objectClass,
+                factory);
         }
 
         return factory;
@@ -141,7 +143,9 @@ public class XmlObjectFactory
         {
             if (this.schemaUri == null)
             {
-                final String schemaLocation = '/' + this.objectClass.getName().replace('.', '/') + SCHEMA_SUFFIX;
+                final String schemaLocation = '/' + this.objectClass.getName().replace(
+                        '.',
+                        '/') + SCHEMA_SUFFIX;
                 this.schemaUri = XmlObjectFactory.class.getResource(schemaLocation);
                 try
                 {
@@ -182,7 +186,8 @@ public class XmlObjectFactory
                 {
                     logger.warn(
                         "WARNING! Your parser does NOT support the " +
-                        " schema validation continuing in non validation mode", exception);
+                        " schema validation continuing in non validation mode",
+                        exception);
                 }
             }
         }
@@ -228,14 +233,9 @@ public class XmlObjectFactory
      */
     public Object getObject(String objectXml)
     {
-        final String methodName = "XmlObjectFactoryException.getObject";
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("performing " + methodName + " with objectXml '" + objectXml + "'");
-        }
-
-        ExceptionUtils.checkNull(methodName, "objectXml", objectXml);
-
+        ExceptionUtils.checkNull(
+            "objectXml",
+            objectXml);
         Object object = null;
         try
         {
@@ -264,8 +264,7 @@ public class XmlObjectFactory
         }
         catch (final Throwable throwable)
         {
-            final String message =
-                "Error performing " + methodName + ", XML resource could not be loaded --> '" + objectXml + "'";
+            final String message = "XML resource could not be loaded --> '" + objectXml + "'";
             throw new XmlObjectFactoryException(message, throwable);
         }
         return object;

@@ -140,12 +140,10 @@ public class SchemaTransformer
         String jdbcUser,
         String jdbcPassword)
     {
-        final String constructorName = "SchemaTransformer";
-
-        ExceptionUtils.checkEmpty(constructorName, "jdbcDriver", jdbcDriver);
-        ExceptionUtils.checkEmpty(constructorName, "jdbcConnectionUrl", jdbcConnectionUrl);
-        ExceptionUtils.checkEmpty(constructorName, "jdbcUser", jdbcUser);
-        ExceptionUtils.checkEmpty(constructorName, "jdbcPassword", jdbcPassword);
+        ExceptionUtils.checkEmpty("jdbcDriver", jdbcDriver);
+        ExceptionUtils.checkEmpty("jdbcConnectionUrl", jdbcConnectionUrl);
+        ExceptionUtils.checkEmpty("jdbcUser", jdbcUser);
+        ExceptionUtils.checkEmpty("jdbcPassword", jdbcPassword);
 
         this.jdbcDriver = jdbcDriver;
         this.jdbcConnectionUrl = jdbcConnectionUrl;

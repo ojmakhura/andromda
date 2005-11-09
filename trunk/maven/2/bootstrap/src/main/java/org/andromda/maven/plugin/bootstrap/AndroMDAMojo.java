@@ -2,28 +2,20 @@ package org.andromda.maven.plugin.bootstrap;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.StringReader;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
 
 import org.andromda.core.AndroMDA;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.Repository;
+import org.andromda.maven.plugin.configuration.AbstractConfigurationMojo;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.resources.PropertyUtils;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
-import org.codehaus.plexus.util.InterpolationFilterReader;
 
 
 /**
@@ -38,57 +30,52 @@ import org.codehaus.plexus.util.InterpolationFilterReader;
  * @requiresDependencyResolution runtime
  */
 public class AndroMDAMojo
-    extends AbstractMojo
+    extends AbstractConfigurationMojo
 {
-    /**
-     * This is the URI to the AndroMDA configuration file.
-     *
-     * @parameter expression="file:${basedir}/conf/andromda.xml"
-     * @required
-     */
+/**
+ * This is the URI to the AndroMDA configuration file.
+ *
+ * @parameter expression="file:${basedir}/conf/andromda.xml"
+ * @required
+ */
     private String configurationUri;
 
-    /**
-     * @parameter expression="${project}"
-     * @required
-     * @readonly
-     */
+/**
+ * @parameter expression="${project}"
+ * @required
+ * @readonly
+ */
     private MavenProject project;
 
-    /**
-     * @parameter expression="${project.build.filters}"
-     */
+/**
+ * @parameter expression="${project.build.filters}"
+ */
     private List propertyFiles;
 
-    /**
-     * The current user system settings for use in Maven. (allows us to pass the user
-     * settings to the AndroMDA configuration).
-     *
-     * @parameter expression="${settings}"
-     * @required
-     * @readonly
-     */
-    private Settings settings;
-
-    /**
-     * The path to the mappings within the plugin.
-     */
-    private static final String MAPPINGS_PATH = "META-INF/andromda/mappings";
-
-    /**
-     * Whether or not a last modified check should be performed before running AndroMDA again.
-     *
-     * @parameter expression="false"
-     * @required
-     */
+/**
+ * Whether or not a last modified check should be performed before running AndroMDA again.
+ *
+ * @parameter expression="false"
+ * @required
+ */
     private boolean lastModifiedCheck;
 
-    /**
-     * The directory to which the build source is located (any generated source).
-     *
-     * @parameter expression="${project.build.directory}/src/main/java"
-     */
+/**
+ * The directory to which the build source is located (any generated source).
+ *
+ * @parameter expression="${project.build.directory}/src/main/java"
+ */
     private String buildSourceDirectory;
+
+/**
+ * The current user system settings for use in Maven. (allows us to pass the user
+ * settings to the AndroMDA configuration).
+ *
+ * @parameter expression="${settings}"
+ * @required
+ * @readonly
+ */
+    private Settings settings;
 
     public void execute()
         throws MojoExecutionException
@@ -96,6 +83,11 @@ public class AndroMDAMojo
         try
         {
             final URL configurationUri = ResourceUtils.toURL(this.configurationUri);
+            if (configurationUri == null)
+            {
+                throw new MojoExecutionException("Configuration could not be loaded from '" + this.configurationUri +
+                    "'");
+            }
             final Configuration configuration = this.getConfiguration(configurationUri);
             boolean execute = true;
             if (this.lastModifiedCheck)
@@ -132,6 +124,7 @@ public class AndroMDAMojo
             }
             if (execute)
             {
+                this.initializeClasspathFromClassPathElements(this.project.getRuntimeClasspathElements());
                 final AndroMDA andromda = AndroMDA.newInstance();
                 andromda.run(configuration);
                 andromda.shutdown();
@@ -139,7 +132,7 @@ public class AndroMDAMojo
                     this.buildSourceDirectory != null ? new File(this.buildSourceDirectory) : null;
                 if (buildSourceDirectory != null)
                 {
-                    this.project.addCompileSourceRoot(buildSourceDirectory.toString());
+                    this.getProject().addCompileSourceRoot(buildSourceDirectory.toString());
                 }
             }
             else
@@ -150,92 +143,76 @@ public class AndroMDAMojo
         catch (Throwable throwable)
         {
             String message = "Error running AndroMDA";
-            final Throwable cause = ExceptionUtils.getCause(throwable);
-            if (cause != null)
-            {
-                throwable = cause;
-            }
+            throwable = ExceptionUtils.getRootCause(throwable);
             if (throwable instanceof FileNotFoundException)
             {
-                message = "No configuration could be loaded from --> '" + configurationUri + "'";
+                message = "No configuration could be loaded from --> '" + this.configurationUri + "'";
             }
             else if (throwable instanceof MalformedURLException)
             {
-                message = "Configuration is not a valid URI --> '" + configurationUri + "'";
+                message = "Configuration is not a valid URI --> '" + this.configurationUri + "'";
             }
             throw new MojoExecutionException(message, throwable);
         }
     }
 
-    /**
-     * Creates the Configuration instance from the {@link #configurationUri}
-     * @return the configuration instance
-     * @throws MalformedURLException if the URL is invalid.
-     */
-    private Configuration getConfiguration(final URL configurationUri)
-        throws IOException
+/**
+ * @param configurationUri The configurationUri to set.
+ */
+    public void setConfigurationUri(String configurationUri)
     {
-        final String contents = this.replaceProperties(ResourceUtils.getContents(configurationUri));
-        final Configuration configuration = Configuration.getInstance(contents);
-        final URL mappingsUrl = ResourceUtils.getResource(MAPPINGS_PATH);
-        if (mappingsUrl != null)
-        {
-            configuration.addMappingsSearchLocation(mappingsUrl.toString());
-        }
-        return configuration;
+        this.configurationUri = configurationUri;
     }
 
-    protected Properties getProperties()
-        throws IOException
+/**
+ * @param project The project to set.
+ */
+    public void setProject(MavenProject project)
     {
-        // System properties
-        Properties properties = new Properties(System.getProperties());
-
-        properties.put(
-            "settings",
-            this.settings);
-
-        // Project properties
-        properties.putAll(this.project.getProperties());
-        for (final Iterator iterator = propertyFiles.iterator(); iterator.hasNext();)
-        {
-            final String propertiesFile = (String)iterator.next();
-
-            final Properties projectProperties = PropertyUtils.loadPropertyFile(
-                    new File(propertiesFile),
-                    true,
-                    true);
-
-            properties.putAll(projectProperties);
-        }
-        return properties;
+        this.project = project;
     }
 
-    /**
-     * Replaces all properties having the style
-     * <code>${some.property}</code> with the value
-     * of the specified property if there is one.
-     *
-     * @param fileContents the fileContents to perform replacement on.
-     */
-    protected String replaceProperties(final String string)
-        throws IOException
+/**
+ * Sets the current settings for this Mojo.
+ *
+ * @param settings The settings to set.
+ */
+    public void setSettings(Settings settings)
     {
-        final Properties properties = this.getProperties();
-        final StringReader stringReader = new StringReader(string);
-        InterpolationFilterReader reader = new InterpolationFilterReader(stringReader, properties, "${", "}");
-        reader.reset();
-        reader = new InterpolationFilterReader(
-                reader,
-                new BeanProperties(project),
-                "${",
-                "}");
-        reader = new InterpolationFilterReader(
-                reader,
-                new BeanProperties(settings),
-                "${",
-                "}");
-        final String contents = ResourceUtils.getContents(reader);
-        return contents;
+        this.settings = settings;
+    }
+
+/**
+ * Sets the property files for this project.
+ *
+ * @param propertyFiles
+ */
+    public void setPropertyFiles(List propertyFiles)
+    {
+        this.propertyFiles = propertyFiles;
+    }
+
+/**
+ * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getProject()
+ */
+    protected MavenProject getProject()
+    {
+        return this.project;
+    }
+
+/**
+ * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getPropertyFiles()
+ */
+    protected List getPropertyFiles()
+    {
+        return this.propertyFiles;
+    }
+
+/**
+ * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getSettings()
+ */
+    protected Settings getSettings()
+    {
+        return this.settings;
     }
 }

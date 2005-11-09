@@ -1,11 +1,13 @@
 package org.andromda.core;
 
 import java.io.InputStream;
+
 import java.net.ConnectException;
 import java.net.URL;
 
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ComponentContainer;
+import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.configuration.Configuration;
 import org.andromda.core.engine.Engine;
 import org.andromda.core.metafacade.ModelValidationMessage;
@@ -61,6 +63,9 @@ public class AndroMDA
      */
     public void run(final URL configurationUri)
     {
+        ExceptionUtils.checkNull(
+            "configurationUri",
+            configurationUri);
         this.run(Configuration.getInstance(configurationUri));
     }
 
@@ -72,6 +77,9 @@ public class AndroMDA
      */
     public void run(final InputStream configurationStream)
     {
+        ExceptionUtils.checkNull(
+            "configurationStream",
+            configurationStream);
         this.run(Configuration.getInstance(configurationStream));
     }
 
@@ -83,7 +91,65 @@ public class AndroMDA
      */
     public void run(final String configuration)
     {
+        ExceptionUtils.checkEmpty(
+            "configuration",
+            configuration);
         this.run(Configuration.getInstance(configuration));
+    }
+
+    /**
+     * Initializes AndroMDA without running the engine.
+     *
+     * @param configuration the configuration from which to initialize AndroMDA
+     */
+    public void initialize(final Configuration configuration)
+    {
+        ExceptionUtils.checkNull(
+            "configuration",
+            configuration);
+        this.engine.initialize(configuration);
+    }
+
+    /**
+     * Initializes AndroMDA without running the engine.
+     *
+     * @param configurationStream the InputStream that contains the
+     *        configuration contents for configuring AndroMDA.
+     */
+    public void initialize(final InputStream configurationStream)
+    {
+        ExceptionUtils.checkNull(
+            "configurationStream",
+            configurationStream);
+        this.engine.initialize(Configuration.getInstance(configurationStream));
+    }
+
+    /**
+     * Initializes AndroMDA without running the engine.
+     *
+     * @param configuration the String that contains the configuration contents
+     *        for configuring AndroMDA.
+     */
+    public void initialize(final String configuration)
+    {
+        ExceptionUtils.checkEmpty(
+            "configuration",
+            configuration);
+        this.engine.initialize(Configuration.getInstance(configuration));
+    }
+
+    /**
+     * Initializes AndroMDA without running the engine.
+     *
+     * @param configurationUri the URI to the configuration file that configures
+     *        AndroMDA.
+     */
+    public void initialize(final URL configurationUri)
+    {
+        ExceptionUtils.checkNull(
+            "configurationUri",
+            configurationUri);
+        this.run(Configuration.getInstance(configurationUri));
     }
 
     /**
@@ -123,7 +189,7 @@ public class AndroMDA
             {
                 client = false;
             }
-            
+
             // - since we aren't running in 'client' mode, run the engine as usual
             if (!client)
             {

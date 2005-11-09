@@ -213,8 +213,8 @@ public class VelocityTemplateEngine
                 "performing " + methodName + " with templateFile '" + templateFile + "' and templateObjects '" +
                 templateObjects + "'");
         }
-        ExceptionUtils.checkEmpty(methodName, "templateFile", templateFile);
-        ExceptionUtils.checkNull(methodName, "output", output);
+        ExceptionUtils.checkEmpty("templateFile", templateFile);
+        ExceptionUtils.checkNull("output", output);
         this.velocityContext = new VelocityContext();
         this.loadVelocityContext(templateObjects);
 

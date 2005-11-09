@@ -39,11 +39,10 @@ public class TranslationUtils
         final String pattern,
         final String replaceWith)
     {
-        final String methodName = "TranslationUtils.replacePattern";
         if (string != null)
         {
-            ExceptionUtils.checkNull(methodName, "pattern", pattern);
-            ExceptionUtils.checkNull(methodName, "replaceWith", replaceWith);
+            ExceptionUtils.checkNull("pattern", pattern);
+            ExceptionUtils.checkNull("replaceWith", replaceWith);
             string = StringUtils.replace(string, "{" + pattern + "}", replaceWith);
         }
         return string;
@@ -63,11 +62,10 @@ public class TranslationUtils
         final String pattern,
         final String replaceWith)
     {
-        final String methodName = "TranslationUtils.replacePattern";
         if (string != null)
         {
-            ExceptionUtils.checkNull(methodName, "pattern", pattern);
-            ExceptionUtils.checkNull(methodName, "replaceWith", replaceWith);
+            ExceptionUtils.checkNull("pattern", pattern);
+            ExceptionUtils.checkNull("replaceWith", replaceWith);
             string = StringUtils.replaceOnce(string, "{" + pattern + "}", replaceWith);
         }
         return string;

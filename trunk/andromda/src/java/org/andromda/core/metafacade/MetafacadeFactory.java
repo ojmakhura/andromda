@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.profile.Profile;
 import org.apache.log4j.Logger;
 
 
@@ -23,16 +24,6 @@ import org.apache.log4j.Logger;
  */
 public class MetafacadeFactory
 {
-    /**
-     * The namespace that is currently active (i.e. being used) within the factory
-     */
-    private String namespace;
-
-    /**
-     * The model facade which provides access to the underlying meta model.
-     */
-    private ModelAccessFacade model;
-
     /**
      * Caches the registered properties used within metafacades.
      */
@@ -82,6 +73,16 @@ public class MetafacadeFactory
     }
 
     /**
+     * The shared profile instance.
+     */
+    private final Profile profile = Profile.instance();
+
+    /**
+     * The namespace that is currently active (i.e. being used) within the factory
+     */
+    private String namespace;
+
+    /**
      * Sets the active namespace. The AndroMDA core and each cartridge have their own namespace for metafacade
      * registration.
      *
@@ -90,6 +91,7 @@ public class MetafacadeFactory
     public void setNamespace(final String namespace)
     {
         this.namespace = namespace;
+        this.profile.setNamespace(namespace);
         this.cache.setNamespace(this.namespace);
     }
 
@@ -100,6 +102,11 @@ public class MetafacadeFactory
      */
     public String getNamespace()
     {
+        if (this.namespace == null)
+        {
+            throw new MetafacadeFactoryException("This metafacade factory's namespace must be populated before " +
+                "metafacade construction can occur");
+        }
         return this.namespace;
     }
 
@@ -118,7 +125,10 @@ public class MetafacadeFactory
         final Object mappingObject,
         final String context)
     {
-        return this.createMetafacade(mappingObject, context, null);
+        return this.createMetafacade(
+            mappingObject,
+            context,
+            null);
     }
 
     /**
@@ -142,7 +152,9 @@ public class MetafacadeFactory
         Class metafacadeClass)
     {
         final String methodName = "MetafacadeFactory.createMetafacade";
-        ExceptionUtils.checkNull(methodName, "mappingObject", mappingObject);
+        ExceptionUtils.checkNull(
+            "mappingObject",
+            mappingObject);
 
         // - register the namespace properties (if they haven't been)
         this.registerNamespaceProperties();
@@ -188,11 +200,14 @@ public class MetafacadeFactory
 
             if (metafacadeClass == null)
             {
-                throw new MetafacadeMappingsException(
-                    methodName + " metafacadeClass was not retrieved from mappings" +
+                throw new MetafacadeMappingsException(methodName + " metafacadeClass was not retrieved from mappings" +
                     " or specified as an argument in this method for mappingObject --> '" + mappingObject + "'");
             }
-            final MetafacadeBase metafacade = this.getMetafacade(metafacadeClass, mappingObject, context, mapping);
+            final MetafacadeBase metafacade = this.getMetafacade(
+                    metafacadeClass,
+                    mappingObject,
+                    context,
+                    mapping);
 
             // IMPORTANT: initialize each metafacade ONLY once (otherwise we
             // get stack overflow errors)
@@ -286,21 +301,30 @@ public class MetafacadeFactory
         final MetafacadeMapping mapping)
         throws Exception
     {
-        MetafacadeBase metafacade = this.cache.get(mappingObject, metafacadeClass);
+        MetafacadeBase metafacade = this.cache.get(
+                mappingObject,
+                metafacadeClass);
         if (metafacade == null)
         {
             final Object value = this.metafacadesInCreation.get(mappingObject);
             if (value == null || !value.equals(metafacadeClass))
             {
-                this.metafacadesInCreation.put(mappingObject, metafacadeClass);
-                metafacade = MetafacadeUtils.constructMetafacade(metafacadeClass, mappingObject, context);
+                this.metafacadesInCreation.put(
+                    mappingObject,
+                    metafacadeClass);
+                metafacade = MetafacadeUtils.constructMetafacade(
+                        metafacadeClass,
+                        mappingObject,
+                        context);
                 this.metafacadesInCreation.remove(mappingObject);
                 if (mapping != null)
                 {
                     // set whether or not this metafacade is a context root
                     metafacade.setContextRoot(mapping.isContextRoot());
                 }
-                this.cache.add(mappingObject, metafacade);
+                this.cache.add(
+                    mappingObject,
+                    metafacade);
             }
         }
 
@@ -333,7 +357,10 @@ public class MetafacadeFactory
      */
     public MetafacadeBase createMetafacade(final Object mappingObject)
     {
-        return this.createMetafacade(mappingObject, null, null);
+        return this.createMetafacade(
+            mappingObject,
+            null,
+            null);
     }
 
     /**
@@ -353,15 +380,21 @@ public class MetafacadeFactory
         final Object mappingObject,
         final String context)
     {
-        final String methodName = "MetafacadeFactory.createFacadeImpl";
-        ExceptionUtils.checkEmpty(methodName, "interfaceName", interfaceName);
-        ExceptionUtils.checkNull(methodName, "mappingObject", mappingObject);
+        ExceptionUtils.checkEmpty(
+            "interfaceName",
+            interfaceName);
+        ExceptionUtils.checkNull(
+            "mappingObject",
+            mappingObject);
 
         Class metafacadeClass = null;
         try
         {
             metafacadeClass = MetafacadeImpls.instance().getMetafacadeImplClass(interfaceName);
-            return this.createMetafacade(mappingObject, context, metafacadeClass);
+            return this.createMetafacade(
+                mappingObject,
+                context,
+                metafacadeClass);
         }
         catch (final Throwable throwable)
         {
@@ -415,20 +448,30 @@ public class MetafacadeFactory
      */
     public Collection createMetafacades(final Collection mappingObjects)
     {
-        return this.createMetafacades(mappingObjects, null);
+        return this.createMetafacades(
+            mappingObjects,
+            null);
     }
 
     /**
+     * The model facade which provides access to the underlying meta model.
+     */
+    private ModelAccessFacade model;
+
+    /**
+     * Gets the model which provides access to the underlying model and is used
+     * to construct metafacades.
+     *
      * @return the model
      */
     public ModelAccessFacade getModel()
     {
-        final String methodName = "MetafacadeFactory.getModel";
         if (this.model == null)
         {
-            throw new MetafacadeFactoryException(methodName + " - model is null!");
+            throw new MetafacadeFactoryException("This metafacade factory's model must be populated before " +
+                "metafacade construction can occur");
         }
-        return model;
+        return this.model;
     }
 
     /**
@@ -466,21 +509,28 @@ public class MetafacadeFactory
         final String name,
         final Object value)
     {
-        final String methodName = "MetafacadeFactory.registerProperty";
-        ExceptionUtils.checkEmpty(methodName, "name", name);
+        ExceptionUtils.checkEmpty(
+            "name",
+            name);
         Map metafacadeNamespace = (Map)this.metafacadeNamespaces.get(namespace);
         if (metafacadeNamespace == null)
         {
             metafacadeNamespace = new HashMap();
-            this.metafacadeNamespaces.put(namespace, metafacadeNamespace);
+            this.metafacadeNamespaces.put(
+                namespace,
+                metafacadeNamespace);
         }
         Map propertyNamespace = (Map)metafacadeNamespace.get(metafacadeName);
         if (propertyNamespace == null)
         {
             propertyNamespace = new HashMap();
-            metafacadeNamespace.put(metafacadeName, propertyNamespace);
+            metafacadeNamespace.put(
+                metafacadeName,
+                propertyNamespace);
         }
-        propertyNamespace.put(name, value);
+        propertyNamespace.put(
+            name,
+            value);
     }
 
     /**
@@ -570,12 +620,16 @@ public class MetafacadeFactory
         final String name)
     {
         final String methodName = "MetafacadeFactory.getRegisteredProperty";
-        final Object registeredProperty = this.findProperty(metafacade, name);
-        if (registeredProperty == null && !this.isPropertyRegistered(metafacade, name))
+        final Object registeredProperty = this.findProperty(
+                metafacade,
+                name);
+        if (registeredProperty == null && !this.isPropertyRegistered(
+                metafacade,
+                name))
         {
-            throw new MetafacadeFactoryException(
-                methodName + " - no property '" + name + "' registered under metafacade '" + metafacade.getName() +
-                "' for namespace '" + this.getNamespace() + "'");
+            throw new MetafacadeFactoryException(methodName + " - no property '" + name +
+                "' registered under metafacade '" + metafacade.getName() + "' for namespace '" + this.getNamespace() +
+                "'");
         }
         return registeredProperty;
     }
@@ -625,7 +679,9 @@ public class MetafacadeFactory
             if (metafacades == null)
             {
                 metafacades = this.createMetafacades(this.getModel().getModelElements());
-                allMetafacades.put(namespace, metafacades);
+                allMetafacades.put(
+                    namespace,
+                    metafacades);
             }
             if (metafacades != null)
             {
@@ -668,8 +724,12 @@ public class MetafacadeFactory
             if (metafacades == null)
             {
                 metafacades = this.createMetafacades(this.getModel().findByStereotype(stereotype));
-                stereotypeMetafacades.put(stereotype, metafacades);
-                this.metafacadesByStereotype.put(namespace, stereotypeMetafacades);
+                stereotypeMetafacades.put(
+                    stereotype,
+                    metafacades);
+                this.metafacadesByStereotype.put(
+                    namespace,
+                    stereotypeMetafacades);
             }
             if (metafacades != null)
             {
@@ -690,6 +750,9 @@ public class MetafacadeFactory
         this.mappings.shutdown();
         this.model = null;
         instance = null;
+
+        // - shutdown the profile instance
+        this.profile.shutdown();
     }
 
     /**
@@ -710,6 +773,9 @@ public class MetafacadeFactory
      */
     public void reset()
     {
+        // - refresh the profile
+        this.profile.refresh();
+
         // - clear out the namespace properties so we can re-register them next run
         this.metafacadeNamespaces.clear();
 

@@ -11,7 +11,7 @@
             <xs:sequence>
                 <xs:element ref="properties" minOccurs="0"/>
                 <xs:element ref="server" minOccurs="0"/>
-                <xs:element ref="repositories"/>
+                <xs:element ref="repositories" minOccurs="0"/>
                 <xs:element ref="mappingsSearchLocations" minOccurs="0"/>
                 <xs:element ref="namespaces"/>
             </xs:sequence>
@@ -99,7 +99,7 @@
     <xs:element name="models">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="model" maxOccurs="unbounded"/>
+                <xs:element ref="model" minOccurs="1" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

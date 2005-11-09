@@ -34,13 +34,10 @@ public class SortCriteria
         final String sortBy,
         final Ordering ordering)
     {
-        String methodName = "SortCriteria";
         ExceptionUtils.checkEmpty(
-            methodName,
             "sortBy",
             sortBy);
         ExceptionUtils.checkNull(
-            methodName,
             "ordering",
             ordering);
         try
@@ -50,7 +47,7 @@ public class SortCriteria
                     SortCriteria.class);
             if (validOrderings.contains(ordering))
             {
-                throw new IllegalArgumentException(methodName + " ordering must be of one of the following types: " +
+                throw new IllegalArgumentException("ordering must be of one of the following types: " +
                     validOrderings);
             }
         }

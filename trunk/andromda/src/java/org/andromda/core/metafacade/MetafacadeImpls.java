@@ -114,8 +114,7 @@ public class MetafacadeImpls
      */
     public Class getMetafacadeImplClass(final String metafacadeClass)
     {
-        final String methodName = "MetafacadeImpls.getMetafacadeImplClass";
-        ExceptionUtils.checkEmpty(methodName, "metafacadeClass", metafacadeClass);
+        ExceptionUtils.checkEmpty("metafacadeClass", metafacadeClass);
         Class metafacadeImplementationClass = null;
         if (this.implsByMetafacades != null)
         {
@@ -148,8 +147,7 @@ public class MetafacadeImpls
      */
     public Class getMetafacadeClass(final String metafacadeImplClass)
     {
-        final String methodName = "MetafacadeImpls.getMetafacadeClass";
-        ExceptionUtils.checkEmpty(methodName, "metafacadeImplClass", metafacadeImplClass);
+        ExceptionUtils.checkEmpty("metafacadeImplClass", metafacadeImplClass);
         Class metafacadeClass = null;
         if (this.metafacadesByImpls != null)
         {

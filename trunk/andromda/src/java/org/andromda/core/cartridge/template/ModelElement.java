@@ -77,9 +77,8 @@ public class ModelElement
      */
     public void setStereotype(final String stereotype)
     {
-        final String methodName = "ModelElement.setStereotype";
         this.stereotype = stereotype;
-        ExceptionUtils.checkEmpty(methodName, "stereotype", this.stereotype);
+        ExceptionUtils.checkEmpty("stereotype", this.stereotype);
     }
 
     /**
@@ -89,8 +88,7 @@ public class ModelElement
      */
     public void addType(final Type type)
     {
-        final String methodName = "ModelElement.addType";
-        ExceptionUtils.checkNull(methodName, "type", type);
+        ExceptionUtils.checkNull("type", type);
         this.types.add(type);
     }
 
@@ -132,8 +130,7 @@ public class ModelElement
      */
     public void setMetafacades(final Collection metafacades)
     {
-        final String methodName = "ModelElement.setMetafacades";
-        ExceptionUtils.checkNull(methodName, "metafacades", metafacades);
+        ExceptionUtils.checkNull("metafacades", metafacades);
         this.metafacades = metafacades;
         this.applyTypeFiltering();
     }

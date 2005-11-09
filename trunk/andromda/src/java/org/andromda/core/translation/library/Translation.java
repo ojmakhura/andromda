@@ -10,7 +10,6 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.TranslationUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.log4j.Logger;
 
 
 /**
@@ -20,7 +19,6 @@ import org.apache.log4j.Logger;
  */
 public class Translation
 {
-    private static final Logger logger = Logger.getLogger(Translation.class);
     private String name;
     private final Map fragments = new HashMap();
     private final Collection ignorePatterns = new ArrayList();
@@ -103,8 +101,9 @@ public class Translation
      */
     public void addFragment(final Fragment fragment)
     {
-        final String methodName = "Translation.addFragment";
-        ExceptionUtils.checkNull(methodName, "fragment", fragment);
+        ExceptionUtils.checkNull(
+            "fragment",
+            fragment);
         fragment.setTranslation(this);
         this.fragments.put(
             fragment.getName(),
@@ -189,17 +188,13 @@ public class Translation
         String name,
         String kind)
     {
-        final String methodName = "Translation.getTranslated";
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("performing " + methodName + " with name '" + name + "' and kind '" + kind + "'");
-        }
-
         // clean the strings first
         name = StringUtils.trimToEmpty(name);
         kind = StringUtils.trimToEmpty(kind);
 
-        ExceptionUtils.checkEmpty(methodName, "name", name);
+        ExceptionUtils.checkEmpty(
+            "name",
+            name);
 
         Fragment fragment = this.getFragment(name);
         String translated = "";
@@ -218,7 +213,9 @@ public class Translation
                 int endIndex = fragmentName.indexOf(end);
                 if (endIndex != -1)
                 {
-                    fragmentName = fragmentName.substring(0, endIndex);
+                    fragmentName = fragmentName.substring(
+                            0,
+                            endIndex);
                 }
                 StringBuffer toReplace = new StringBuffer(begin);
                 toReplace.append(fragmentName);
@@ -227,7 +224,9 @@ public class Translation
                     StringUtils.replace(
                         translated,
                         toReplace.toString(),
-                        this.getTranslated(fragmentName, kind));
+                        this.getTranslated(
+                            fragmentName,
+                            kind));
             }
         }
         return TranslationUtils.removeExtraWhitespace(translated);

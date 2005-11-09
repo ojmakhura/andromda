@@ -186,8 +186,7 @@ public class LibraryTranslation
         final String kind,
         final Object node)
     {
-        final String methodName = "LibraryTranslation.handleTranslationFragment";
-        ExceptionUtils.checkNull(methodName, "node", node);
+        ExceptionUtils.checkNull("node", node);
         if (this.translation != null && this.getTranslator() != null)
         {
             final String translation = this.getTranslationFragment(name, kind);
@@ -254,8 +253,7 @@ public class LibraryTranslation
      */
     protected void setTranslation(final Reader translationInput)
     {
-        final String methodName = "LibraryTranslation.setTranslation";
-        ExceptionUtils.checkNull(methodName, "translationInput", translationInput);
+        ExceptionUtils.checkNull("translationInput", translationInput);
         try
         {
             this.translation = (Translation)XmlObjectFactory.getInstance(Translation.class).getObject(translationInput);

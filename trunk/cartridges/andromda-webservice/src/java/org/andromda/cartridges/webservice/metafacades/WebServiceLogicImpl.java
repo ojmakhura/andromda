@@ -226,9 +226,8 @@ public class WebServiceLogicImpl
         Set types,
         Collection nonArrayTypes)
     {
-        final String methodName = "WebServiceImpl.loadTypes";
-        ExceptionUtils.checkNull(methodName, "types", types);
-        ExceptionUtils.checkNull(methodName, "nonArrayTypes", nonArrayTypes);
+        ExceptionUtils.checkNull("types", types);
+        ExceptionUtils.checkNull("nonArrayTypes", nonArrayTypes);
         try
         {
             if (modelElement != null && !this.checkedTypes.contains(modelElement))

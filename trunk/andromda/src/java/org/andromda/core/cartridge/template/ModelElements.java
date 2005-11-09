@@ -41,9 +41,8 @@ public class ModelElements
      */
     public void setVariable(String variable)
     {
-        final String methodName = "ModelElements.setVariable";
         variable = StringUtils.trimToEmpty(variable);
-        ExceptionUtils.checkEmpty(methodName, "variable", variable);
+        ExceptionUtils.checkEmpty("variable", variable);
         this.variable = variable;
     }
 
@@ -54,8 +53,7 @@ public class ModelElements
      */
     public void addModelElement(final ModelElement modelElement)
     {
-        final String methodName = "ModelElements.addModelElement";
-        ExceptionUtils.checkNull(methodName, "modelElement", modelElement);
+        ExceptionUtils.checkNull("modelElement", modelElement);
         modelElements.add(modelElement);
     }
 

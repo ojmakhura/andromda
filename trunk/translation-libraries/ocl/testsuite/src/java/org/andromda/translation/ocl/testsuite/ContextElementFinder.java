@@ -39,7 +39,7 @@ public class ContextElementFinder
      */
     public ContextElementFinder(ModelAccessFacade model)
     {
-        ExceptionUtils.checkNull("ContextElementFinder", "model", model);
+        ExceptionUtils.checkNull("model", model);
         this.model = model;
     }
 
@@ -170,9 +170,8 @@ public class ContextElementFinder
      */
     private boolean argumentCountsMatch(OperationDeclaration oclOperation, OperationFacade facadeOperation)
     {
-        final String methodName = "ContextElementFinder.argumentCountMatch";
-        ExceptionUtils.checkNull(methodName, "oclOperation", oclOperation);
-        ExceptionUtils.checkNull(methodName, "facadeOperation", facadeOperation);
+        ExceptionUtils.checkNull("oclOperation", oclOperation);
+        ExceptionUtils.checkNull("facadeOperation", facadeOperation);
         VariableDeclaration[] expressionOpArgs = oclOperation.getArguments();
         Collection facadeOpArgs = facadeOperation.getArguments();
         boolean countsMatch = (expressionOpArgs == null || expressionOpArgs.length == 0) &&
@@ -195,10 +194,8 @@ public class ContextElementFinder
      */
     private boolean argumentNamesMatch(OperationDeclaration oclOperation, OperationFacade facadeOperation)
     {
-
-        final String methodName = "ContextElementFinder.argumentNamesMatch";
-        ExceptionUtils.checkNull(methodName, "oclOperation", oclOperation);
-        ExceptionUtils.checkNull(methodName, "facadeOperation", facadeOperation);
+        ExceptionUtils.checkNull("oclOperation", oclOperation);
+        ExceptionUtils.checkNull("facadeOperation", facadeOperation);
 
         Collection facadeOpArguments = facadeOperation.getArguments();
         VariableDeclaration[] expressionOpArgs = oclOperation.getArguments();

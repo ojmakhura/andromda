@@ -78,17 +78,14 @@ public class Fragment
      */
     public String getKind(String name)
     {
-        final String methodName = "Fragment.getKind";
-
         // clean the name first
         name = StringUtils.trimToEmpty(name);
-
-        ExceptionUtils.checkEmpty(methodName, "name", name);
+        ExceptionUtils.checkEmpty("name", name);
         String kind = StringUtils.trimToEmpty((String)kinds.get(name));
         if (kind == null)
         {
             throw new LibraryException(
-                methodName + " - no kind '" + name + "' could be found for the translation fragment '" +
+                "No kind '" + name + "' could be found for the translation fragment '" +
                 this.getName() + "' check the fragment '" + this.getName() + "' in translation template --> '" +
                 getTranslation().getLibraryTranslation().getTemplate() + "'");
         }

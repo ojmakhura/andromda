@@ -62,13 +62,10 @@ public class MetafacadeMappings
      */
     public void addMapping(final MetafacadeMapping mapping)
     {
-        final String methodName = "MetafacadeMappings.addMapping";
         ExceptionUtils.checkNull(
-            methodName,
             "mapping",
             mapping);
         ExceptionUtils.checkNull(
-            methodName,
             "mapping.metafacadeClass",
             mapping.getMetafacadeClass());
         mapping.setMetafacadeMappings(this);
@@ -130,9 +127,7 @@ public class MetafacadeMappings
      */
     private final void copyMappings(final MetafacadeMappings mappings)
     {
-        final String methodName = "MetafacadeMappings.copyMappings";
         ExceptionUtils.checkNull(
-            methodName,
             "mappings",
             mappings);
 

@@ -1,4 +1,4 @@
-package org.andromda.maven.plugins.cartridge;
+package org.andromda.maven.plugin.cartridge;
 
 /**
  * Constains constants used within the AndroMDA maven cartridge

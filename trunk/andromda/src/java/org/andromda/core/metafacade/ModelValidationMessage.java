@@ -48,9 +48,8 @@ public class ModelValidationMessage
         final String name,
         final String message)
     {
-        final String constructorName = "MetafacadeValidationMessage";
-        ExceptionUtils.checkNull(constructorName, "metafacade", metafacade);
-        ExceptionUtils.checkEmpty(constructorName, "message", message);
+        ExceptionUtils.checkNull("metafacade", metafacade);
+        ExceptionUtils.checkEmpty("message", message);
         this.metafacade = metafacade;
         this.name = name;
         this.message = message;

@@ -630,8 +630,7 @@ public class UML14MetafacadeUtils
      */
     static String getSerialVersionUID(ClassifierFacade classifier)
     {
-        final String methodName = "UML14MetafacadeUtils.getSerialVersionUID";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         String serialVersionString = (String)classifier
                 .findTaggedValue(UMLProfile.TAGGEDVALUE_SERIALVERSION_UID);
         return StringUtils.trimToNull(serialVersionString);
