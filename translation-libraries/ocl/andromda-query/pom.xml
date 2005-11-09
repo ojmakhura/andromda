@@ -17,6 +17,15 @@
         </dependency>
     </dependencies>
     <build>
+        <filters>
+            <filter>mda.properties</filter>
+        </filters>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-translation-library-plugin</artifactId>  
+            </plugin>
+        </plugins>
         <resources>
             <resource>
                 <directory>src</directory>

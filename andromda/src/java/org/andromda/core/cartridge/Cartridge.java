@@ -47,9 +47,7 @@ public class Cartridge
      */
     public void processModelElements(final MetafacadeFactory factory)
     {
-        final String methodName = "Cartridge.processModelElements";
         ExceptionUtils.checkNull(
-            methodName,
             "factory",
             factory);
         final Collection resources = this.getResources();
@@ -82,9 +80,7 @@ public class Cartridge
         final MetafacadeFactory factory,
         final Template template)
     {
-        final String methodName = "Cartridge.processTemplate";
         ExceptionUtils.checkNull(
-            methodName,
             "template",
             template);
         final ModelElements templateModelElements = template.getSupportedModeElements();
@@ -132,9 +128,7 @@ public class Cartridge
         final MetafacadeFactory factory,
         final Template template)
     {
-        final String methodName = "Cartridge.processTemplateWithMetafacades";
         ExceptionUtils.checkNull(
-            methodName,
             "template",
             template);
         final ModelElements modelElements = template.getSupportedModeElements();
@@ -340,9 +334,7 @@ public class Cartridge
      */
     protected void processTemplateWithoutMetafacades(final Template template)
     {
-        final String methodName = "Cartridge.processTemplateWithoutMetafacades";
         ExceptionUtils.checkNull(
-            methodName,
             "template",
             template);
         final String outlet = Namespaces.instance().getPropertyValue(
@@ -384,17 +376,13 @@ public class Cartridge
         final String metafacadeName,
         final String metafacadePackage)
     {
-        final String methodName = "Cartridge.processWithTemplate";
         ExceptionUtils.checkNull(
-            methodName,
             "template",
             template);
         ExceptionUtils.checkNull(
-            methodName,
             "templateContext",
             templateContext);
         ExceptionUtils.checkNull(
-            methodName,
             "outlet",
             outlet);
 
@@ -472,9 +460,7 @@ public class Cartridge
      */
     protected void processResource(final Resource resource)
     {
-        final String methodName = "Cartridge.processResource";
         ExceptionUtils.checkNull(
-            methodName,
             "resource",
             resource);
 
@@ -613,7 +599,6 @@ public class Cartridge
     public void addResource(final Resource resource)
     {
         ExceptionUtils.checkNull(
-            "Cartridge.addResource",
             "resource",
             resource);
         resource.setCartridge(this);

@@ -57,9 +57,8 @@ public class Mappings
      */
     public static final Mappings getInstance(String mappingsUri)
     {
-        final String methodName = "Mappings.getInstance";
         mappingsUri = StringUtils.trimToEmpty(mappingsUri);
-        ExceptionUtils.checkEmpty(methodName, "mappingsUri", mappingsUri);
+        ExceptionUtils.checkEmpty("mappingsUri", mappingsUri);
         try
         {
             Mappings mappings = (Mappings)logicalMappings.get(mappingsUri);
@@ -174,8 +173,7 @@ public class Mappings
         final URL mappingsUri,
         final boolean ignoreInheritanceFailure)
     {
-        final String methodName = "Mappings.getInstance";
-        ExceptionUtils.checkNull(methodName, "mappingsUri", mappingsUri);
+        ExceptionUtils.checkNull("mappingsUri", mappingsUri);
         try
         {
             final Mappings mappings = (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(mappingsUri);
@@ -281,10 +279,9 @@ public class Mappings
      */
     public void addMapping(final Mapping mapping)
     {
-        final String methodName = "Mappings.addMapping";
-        ExceptionUtils.checkNull(methodName, "mapping", mapping);
+        ExceptionUtils.checkNull("mapping", mapping);
         final Collection fromTypes = mapping.getFroms();
-        ExceptionUtils.checkNull(methodName, "mapping.fromTypes", fromTypes);
+        ExceptionUtils.checkNull("mapping.fromTypes", fromTypes);
         for (final Iterator typeIterator = fromTypes.iterator(); typeIterator.hasNext();)
         {
             mapping.setMappings(this);

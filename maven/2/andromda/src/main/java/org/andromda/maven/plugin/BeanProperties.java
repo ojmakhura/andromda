@@ -41,7 +41,6 @@ public class BeanProperties
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
             // ignore
         }
         return value;

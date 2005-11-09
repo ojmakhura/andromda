@@ -1,13 +1,16 @@
 package org.andromda.translation.ocl.testsuite;
 
+import java.io.File;
+
+import java.net.URL;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.andromda.core.common.XmlObjectFactory;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import java.io.File;
-import java.net.URL;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * Finds all translation tests from the current base directory up.
@@ -16,45 +19,22 @@ import java.util.Map;
  */
 public class TranslationTestDiscoverer
 {
-
     private static Logger logger = Logger.getLogger(TranslationTestDiscoverer.class);
-
-    private static final String CURRENT_DIRECTORY = "current.directory";
-
-    /**
-     * If this is specified as a system property, then the TraceTranslator will run instead of the specified translator.
-     * This is helpful, in allowing us to see which expressions are being parsed in what order, etc.
-     */
-    private File currentDirectory;
 
     /**
      * This is the prefix of translation tests, each translation test must start with this in order to be found.
      */
     private static final String TEST_PREFIX = "TranslationTest-";
 
-    private Map translationTests = null;
-
     /**
-     * Constructs an instance of TranslationTestDiscoverer.
+     * Stores the discovered translation tests.
      */
-    public TranslationTestDiscoverer()
-    {
-        String currentDirectory = System.getProperty(CURRENT_DIRECTORY);
-        if (StringUtils.isEmpty(currentDirectory))
-        {
-            throw new TranslationTestDiscovererException("Current directory" +
-                    " has not be set, please specify the system property '" + CURRENT_DIRECTORY +
-                    "' with the location from which to" +
-                    " begin the discovery of translation test files");
-        }
-        this.currentDirectory = new File(currentDirectory);
-        this.translationTests = new LinkedHashMap();
-    }
+    private Map translationTests = new LinkedHashMap();
 
     /**
      * The shared instance
      */
-    private static final TranslationTestDiscoverer testFinder = new TranslationTestDiscoverer();
+    private static TranslationTestDiscoverer instance;
 
     /**
      * Gets the shared instance of this TranslationTestDiscoverer.
@@ -63,18 +43,27 @@ public class TranslationTestDiscoverer
      */
     public static TranslationTestDiscoverer instance()
     {
-        return testFinder;
+        if (instance == null)
+        {
+            instance = new TranslationTestDiscoverer();
+        }
+        return instance;
     }
 
     /**
-     * This method discovers all translation tests within the current directory as specified by the system property
-     * <code>current.directory</code>.
+     * This method discovers all translation tests within the given <code>directory</code>.
      */
-    public void discoverTests()
+    public void discoverTests(final String directory)
     {
+        if (directory == null || directory.trim().length() == 0)
+        {
+            throw new TranslationTestDiscovererException("The 'directory' " +
+                " was not specified, please specify this value with the location from which to" +
+                " begin the discovery of translation test files");
+        }
         if (this.translationTests.isEmpty())
         {
-            this.discoverTests(this.currentDirectory);
+            this.discoverTests(new File(directory));
         }
     }
 
@@ -82,32 +71,37 @@ public class TranslationTestDiscoverer
      * This method discovers all translation tests within the <code>currentDirectory</code>, it travels down the
      * directory structure looking for files that have a prefix of 'TranslationTest-'.
      */
-    private void discoverTests(File currentDirectory)
+    private void discoverTests(final File currentDirectory)
     {
-        final String methodName = "TranslationTestDiscoverer.discoverTests";
         try
         {
-            String files[] = currentDirectory.list();
+            final String[] files = currentDirectory.list();
             if (files == null || files.length == 0)
             {
                 if (logger.isDebugEnabled())
+                {
                     logger.debug("no files or directories found in directory '" + currentDirectory + "'");
+                }
             }
             else
             {
-                for (int i = 0; i < files.length; i++)
+                for (int ctr = 0; ctr < files.length; ctr++)
                 {
-                    File file = new File(currentDirectory, files[i]);
+                    File file = new File(currentDirectory, files[ctr]);
                     if (StringUtils.trimToEmpty(file.getName()).startsWith(TEST_PREFIX))
                     {
-                        URL testUrl = file.toURL();
+                        final URL testUrl = file.toURL();
                         if (logger.isInfoEnabled())
+                        {
                             logger.info("found translation test --> '" + testUrl + "'");
+                        }
 
-                        TranslationTest test = (TranslationTest)XmlObjectFactory.getInstance(TranslationTest.class)
-                                .getObject(testUrl);
+                        TranslationTest test =
+                            (TranslationTest)XmlObjectFactory.getInstance(TranslationTest.class).getObject(testUrl);
                         test.setUri(testUrl);
-                        this.translationTests.put(test.getTranslation(), test);
+                        this.translationTests.put(
+                            test.getTranslation(),
+                            test);
                     }
                     else if (file.isDirectory())
                     {
@@ -116,11 +110,10 @@ public class TranslationTestDiscoverer
                 }
             }
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
-            throw new TranslationTestDiscovererException(errMsg, th);
+            logger.error(throwable);
+            throw new TranslationTestDiscovererException(throwable);
         }
     }
 
@@ -142,5 +135,14 @@ public class TranslationTestDiscoverer
     public Map getTests()
     {
         return this.translationTests;
+    }
+
+    /**
+     * Shuts down this instance and releases any resources.
+     */
+    public void shutdown()
+    {
+        this.translationTests.clear();
+        instance = null;
     }
 }

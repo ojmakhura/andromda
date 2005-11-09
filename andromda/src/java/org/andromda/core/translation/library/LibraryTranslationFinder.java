@@ -44,8 +44,7 @@ public class LibraryTranslationFinder
      */
     public static LibraryTranslation findLibraryTranslation(final String translation)
     {
-        final String methodName = "LibraryTranslation.findLibraryTranslation";
-        ExceptionUtils.checkEmpty(methodName, "translation", translation);
+        ExceptionUtils.checkEmpty("translation", translation);
 
         LibraryTranslation libraryTranslation = (LibraryTranslation)libraryTranslations.get(translation);
 
@@ -56,7 +55,7 @@ public class LibraryTranslationFinder
             if (index == -1)
             {
                 throw new IllegalArgumentException(
-                    methodName + " -  libraryTranslation '" + translation + "' must contain the character '" +
+                    "libraryTranslation '" + translation + "' must contain the character '" +
                     libSeparator + "' in order to seperate the library name from the translation" +
                     " name (must be in the form: <library name>.<translation name>)");
             }

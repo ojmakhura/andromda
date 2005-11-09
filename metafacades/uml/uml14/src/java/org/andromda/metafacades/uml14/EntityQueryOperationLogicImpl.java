@@ -22,8 +22,7 @@ public class EntityQueryOperationLogicImpl
      */
     protected java.lang.String handleGetQuery(String translation)
     {
-        final String methodName = "EntityQueryOperationLogicImpl.handleGetQuery";
-        ExceptionUtils.checkEmpty(methodName, "translation", translation);
+        ExceptionUtils.checkEmpty("translation", translation);
         final String[] translatedExpressions = this.translateConstraints(ExpressionKinds.BODY, translation);
         String query = null;
 

@@ -65,9 +65,7 @@ public class ClassUtils
      */
     public static Class loadClass(String className)
     {
-        final String methodName = "ClassUtils.loadClass";
         ExceptionUtils.checkEmpty(
-            methodName,
             "className",
             className);
         className = StringUtils.trimToNull(className);
@@ -131,13 +129,10 @@ public class ClassUtils
         final String name,
         final ClassLoader loader)
     {
-        final String methodName = "ClassUtils.getPrimitiveClass";
         ExceptionUtils.checkEmpty(
-            methodName,
             "name",
             name);
         ExceptionUtils.checkNull(
-            methodName,
             "loader",
             loader);
 
@@ -185,9 +180,7 @@ public class ClassUtils
         final Class type)
         throws IllegalAccessException
     {
-        final String methodName = "ClassUtils.getStaticFieldValues";
         ExceptionUtils.checkNull(
-            methodName,
             "clazz",
             clazz);
         final Field[] fields = clazz.getFields();

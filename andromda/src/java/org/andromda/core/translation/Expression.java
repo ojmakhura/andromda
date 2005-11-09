@@ -24,8 +24,7 @@ public class Expression
      */
     public Expression(final String originalExpression)
     {
-        final String methodName = "Expression";
-        ExceptionUtils.checkEmpty(methodName, "originalExpression", originalExpression);
+        ExceptionUtils.checkEmpty("originalExpression", originalExpression);
         this.originalExpression = StringUtils.trimToEmpty(originalExpression);
         this.translatedExpression = new StringBuffer();
     }

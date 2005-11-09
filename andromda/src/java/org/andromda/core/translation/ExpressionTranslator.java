@@ -63,9 +63,8 @@ public class ExpressionTranslator
         final String expression,
         final Object contextElement)
     {
-        final String methodName = "ExpressionTranslator.translate";
-        ExceptionUtils.checkEmpty(methodName, "translationName", translationName);
-        ExceptionUtils.checkEmpty(methodName, "expression", expression);
+        ExceptionUtils.checkEmpty("translationName", translationName);
+        ExceptionUtils.checkEmpty("expression", expression);
 
         Expression translatedExpression = null;
         try

@@ -115,8 +115,7 @@ public class ComponentContainer
      */
     public Object newDefaultComponent(final Class type)
     {
-        final String methodName = "Component.newComponent";
-        ExceptionUtils.checkNull(methodName, "type", type);
+        ExceptionUtils.checkNull("type", type);
         Object component = null;
         try
         {
@@ -144,8 +143,7 @@ public class ComponentContainer
      */
     protected final String getComponentDefaultConfigurationPath(final Class type)
     {
-        final String methodName = "ComponentContainer.getComponentConfigurationPath";
-        ExceptionUtils.checkNull(methodName, "type", type);
+        ExceptionUtils.checkNull("type", type);
         return SERVICES + type.getName();
     }
 
@@ -160,8 +158,7 @@ public class ComponentContainer
      */
     public Object findComponent(final Class key)
     {
-        final String methodName = "ComponentContainer.findComponent";
-        ExceptionUtils.checkNull(methodName, "key", key);
+        ExceptionUtils.checkNull("key", key);
         return this.findComponent(null, key);
     }
 
@@ -201,8 +198,7 @@ public class ComponentContainer
         final String key,
         final Class type)
     {
-        final String methodName = "ComponentContainer.findComponent";
-        ExceptionUtils.checkNull(methodName, "type", type);
+        ExceptionUtils.checkNull("type", type);
         try
         {
             Object component = this.findComponent(key);
@@ -294,8 +290,7 @@ public class ComponentContainer
      */
     public Object unregisterComponent(final String key)
     {
-        final String methodName = "ComponentContainer.unregisterComponent";
-        ExceptionUtils.checkEmpty(methodName, "key", key);
+        ExceptionUtils.checkEmpty("key", key);
         if (logger.isDebugEnabled())
         {
             logger.debug("unregistering component with key --> '" + key + "'");
@@ -315,9 +310,8 @@ public class ComponentContainer
         final String namespace,
         final Object key)
     {
-        final String methodName = "findComponentByNamespace";
-        ExceptionUtils.checkEmpty(methodName, "namespace", namespace);
-        ExceptionUtils.checkNull(methodName, "key", key);
+        ExceptionUtils.checkEmpty("namespace", namespace);
+        ExceptionUtils.checkNull("key", key);
 
         Object component = null;
         final ComponentContainer namespaceContainer = this.getNamespaceContainer(namespace);
@@ -353,9 +347,8 @@ public class ComponentContainer
         final String namespace,
         final Object key)
     {
-        final String methodName = "ComponentContainer.isRegisteredByNamespace";
-        ExceptionUtils.checkEmpty(methodName, "namespace", namespace);
-        ExceptionUtils.checkNull(methodName, "key", key);
+        ExceptionUtils.checkEmpty("namespace", namespace);
+        ExceptionUtils.checkNull("key", key);
         final ComponentContainer namespaceContainer = this.getNamespaceContainer(namespace);
         return namespaceContainer != null && namespaceContainer.isRegistered(key);
     }
@@ -385,9 +378,8 @@ public class ComponentContainer
         final Object key,
         final Object component)
     {
-        final String methodName = "ComponentContainer.registerComponentByNamespace";
-        ExceptionUtils.checkEmpty(methodName, "namespace", namespace);
-        ExceptionUtils.checkNull(methodName, "component", component);
+        ExceptionUtils.checkEmpty("namespace", namespace);
+        ExceptionUtils.checkNull("component", component);
         if (logger.isDebugEnabled())
         {
             logger.debug("registering component '" + component + "' with key --> '" + key + "'");
@@ -412,8 +404,7 @@ public class ComponentContainer
         final Object key,
         final Object component)
     {
-        final String methodName = "ComponentContainer.registerComponent";
-        ExceptionUtils.checkNull(methodName, "component", component);
+        ExceptionUtils.checkNull("component", component);
         if (logger.isDebugEnabled())
         {
             logger.debug("registering component '" + component + "' with key --> '" + key + "'");
@@ -434,9 +425,8 @@ public class ComponentContainer
         final Class componentInterface,
         final String defaultTypeName)
     {
-        final String methodName = "ComponentContainer.registerDefaultComponent";
-        ExceptionUtils.checkNull(methodName, "componentInterface", componentInterface);
-        ExceptionUtils.checkEmpty(methodName, "defaultTypeName", defaultTypeName);
+        ExceptionUtils.checkNull("componentInterface", componentInterface);
+        ExceptionUtils.checkEmpty("defaultTypeName", defaultTypeName);
         try
         {
             this.registerDefaultComponent(
@@ -461,9 +451,8 @@ public class ComponentContainer
         final Class componentInterface,
         final Class defaultType)
     {
-        final String methodName = "ComponentContainer.registerDefaultComponent";
-        ExceptionUtils.checkNull(methodName, "componentInterface", componentInterface);
-        ExceptionUtils.checkNull(methodName, "defaultType", defaultType);
+        ExceptionUtils.checkNull("componentInterface", componentInterface);
+        ExceptionUtils.checkNull("defaultType", defaultType);
         if (logger.isDebugEnabled())
         {
             logger.debug(
@@ -497,8 +486,7 @@ public class ComponentContainer
      */
     public void registerComponentType(final Class type)
     {
-        final String methodName = "ComponentContainer.registerComponent";
-        ExceptionUtils.checkNull(methodName, "type", type);
+        ExceptionUtils.checkNull("type", type);
         try
         {
             this.container.put(
@@ -520,8 +508,7 @@ public class ComponentContainer
      */
     public Object registerComponentType(final String type)
     {
-        final String methodName = "ComponentContainer.registerComponent";
-        ExceptionUtils.checkNull(methodName, "type", type);
+        ExceptionUtils.checkNull("type", type);
         try
         {
             return this.registerComponent(

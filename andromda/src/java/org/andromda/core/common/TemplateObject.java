@@ -142,8 +142,7 @@ public class TemplateObject
      */
     public void setClassName(final String className)
     {
-        final String methodName = "TemplateObject.setTransformationClass";
-        ExceptionUtils.checkEmpty(methodName, "className", className);
+        ExceptionUtils.checkEmpty("className", className);
         this.className = className;
     }
 

@@ -1,7 +1,6 @@
-package org.andromda.maven.plugin.bootstrap;
+package org.andromda.maven.plugin.configuration;
 
 import java.io.File;
-
 import java.util.Properties;
 
 import org.codehaus.plexus.util.introspection.ReflectionValueExtractor;
@@ -33,20 +32,15 @@ public class BeanProperties
             value = ReflectionValueExtractor.evaluate(
                     key + "",
                     bean);
-
             // - convert file instances to strings
             if (value instanceof File)
             {
                 value = ((File)value).getPath();
-                this.put(
-                    key,
-                    value);
+                this.put(key, value);
             }
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
-
             // ignore
         }
         return value;

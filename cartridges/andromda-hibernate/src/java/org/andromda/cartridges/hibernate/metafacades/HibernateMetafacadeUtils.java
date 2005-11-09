@@ -31,8 +31,7 @@ class HibernateMetafacadeUtils
         ClassifierFacade classifier,
         String defaultViewType)
     {
-        final String methodName = "HibernateMetafacadeUtils.getViewType";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         String viewType = null;
         if (classifier.hasStereotype(HibernateProfile.STEREOTYPE_SERVICE))
         {

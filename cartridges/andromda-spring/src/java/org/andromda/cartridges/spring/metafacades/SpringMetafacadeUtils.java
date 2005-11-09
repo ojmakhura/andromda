@@ -62,8 +62,7 @@ class SpringMetafacadeUtils
      */
     static String getServiceRemotingType(ClassifierFacade classifier, String defaultServiceRemotingType)
     {
-        final String methodName = "SpringMetafacadeUtils.getServiceRemotingType";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         String remotingType = null;
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_SERVICE))
         {
@@ -106,8 +105,7 @@ class SpringMetafacadeUtils
     static String[] getServiceInterceptors(ClassifierFacade classifier,
         String[] defaultInterceptors)
     {
-        final String methodName = "SpringMetafacadeUtils.getServiceInterceptors";
-        ExceptionUtils.checkNull(methodName, "classifier", classifier);
+        ExceptionUtils.checkNull("classifier", classifier);
         String[] interceptors = null;
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_SERVICE))
         {
@@ -147,8 +145,7 @@ class SpringMetafacadeUtils
      */
     static String getServiceRemotePort(ClassifierFacade classifier, String defaultRemoteServicePort)
     {
-        final String methodName = "SpringMetafacadeUtils.getRemoteServicePort";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         String remoteServicePort = null;
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_SERVICE))
         {

@@ -393,6 +393,31 @@ public class Model
         }
         return this.key;
     }
+    
+    /**
+     * The repository to which this model belongs.
+     */
+    private Repository repository;
+    
+    /**
+     * Gets the repository to which this model belongs.
+     * 
+     * @return the repository to which this model belongs.
+     */
+    public Repository getRepository()
+    {
+        return this.repository;
+    }
+    
+    /**
+     * Sets the repository to which this model belongs.
+     * 
+     * @param repository the repository configuration to which this model belongs.
+     */
+    void setRepository(final Repository repository)
+    {
+        this.repository = repository;
+    }
 
     /**
      * Indicates whether or not the given <code>model</code>

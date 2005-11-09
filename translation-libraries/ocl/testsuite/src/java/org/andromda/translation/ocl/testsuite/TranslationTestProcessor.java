@@ -1,50 +1,112 @@
 package org.andromda.translation.ocl.testsuite;
 
+import java.util.Iterator;
+import java.util.Map;
+
 import junit.framework.TestCase;
+import junit.framework.TestResult;
 import junit.framework.TestSuite;
-import org.andromda.core.common.XmlObjectFactory;
+
+import org.andromda.core.AndroMDA;
+import org.andromda.core.configuration.Configuration;
+import org.andromda.core.configuration.Model;
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.configuration.Repository;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
+import org.andromda.core.repository.Repositories;
+import org.andromda.core.repository.RepositoryFacade;
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.ExpressionTranslator;
 import org.andromda.core.translation.TranslationUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * This object is used to test Translations during development.
+ *
+ * @author Chad Brandon
  */
 public class TranslationTestProcessor
-        extends TestCase
+    extends TestCase
 {
-
     private static Logger logger = Logger.getLogger(TranslationTestProcessor.class);
 
     /**
-     * If this is specified as a system property, then the TraceTranslator will run instead of the specified translator.
-     * This is helpful, in allowing us to see which expressions are being parsed in what order, etc.
+     * The shared instance of this class.
      */
-    private boolean useTraceTranslator = StringUtils.isNotEmpty(System.getProperty("trace.expression"));
+    private static TranslationTestProcessor instance;
 
     /**
-     * If this is specified as a system property, then the only this translation will be tested (If .more than one
-     * TestTranslation-* file is found)
+     * Gets the shared instance of this class.
+     *
+     * @return the shared instance of this class.
      */
-    private String translationName = StringUtils.trimToEmpty(System.getProperty("translation.name"));
+    public static final TranslationTestProcessor instance()
+    {
+        if (instance == null)
+        {
+            instance = new TranslationTestProcessor();
+        }
+        return instance;
+    }
+
+    private TranslationTestProcessor()
+    {
+        super();
+    }
 
     /**
-     * Flag indicating whether or not we want to perform model validation when running the tests.
+     * Sets whether or not to use the trace translator.
+     *
+     * @param useTraceTranslator true/false
      */
-    private boolean modelValidation = Boolean.valueOf(StringUtils.trimToEmpty(System.getProperty("model.validation")))
-            .booleanValue();
-
-    private ModelAccessFacade model = null;
+    public void setUseTraceTranslator(final boolean useTraceTranslator)
+    {
+        this.useTraceTranslator = useTraceTranslator;
+    }
 
     /**
-     * In charge of discovering the translation tests.
+     * Indicates whether or not the TraceTranslator will run instead
+     * of the specified translator. This is helpful, in allowing us to see which
+     * expressions are being parsed in what order, etc.
+     */
+    private boolean useTraceTranslator;
+
+    /**
+     * Thbe name of the translation to test.
+     */
+    private String translationName;
+
+    /**
+     * Sets the name of the translation to test.
+     *
+     * @param translationName the name of the translation to test.
+     */
+    public void setTranslationName(final String translationName)
+    {
+        this.translationName = translationName;
+    }
+
+    /**
+     * The location of the directory that contains the test source.
+     */
+    private String testSourceDirectory;
+    ;
+
+    /**
+     * Sets the location of the directory that contains the test souce.
+     *
+     * @param testSourceDirectory
+     */
+    public void setTestSourceDirectory(final String testSourceDirectory)
+    {
+        this.testSourceDirectory = testSourceDirectory;
+    }
+
+    /**
+     * Handles the discovering of the translation tests.
      */
     private static final TranslationTestDiscoverer testDiscoverer = TranslationTestDiscoverer.instance();
 
@@ -62,30 +124,105 @@ public class TranslationTestProcessor
     }
 
     /**
-     * Assembles test suite if all known tests
+     * The test result
+     */
+    private TestResult testResult;
+
+    /**
+     * Sets the test result in which the result of the run will be stored.
+     *
+     * @param testResult the test result instance.
+     */
+    public void setResult(final TestResult testResult)
+    {
+        this.testResult = testResult;
+    }
+
+    /**
+     * Runs the test suite.
+     *
+     * @see junit.framework.TestCase#run()
+     */
+    public void runSuite()
+    {
+        if (this.testResult == null)
+        {
+            throw new TranslationTestProcessorException(
+                "You must set the test result before attempting to run the suite");
+        }
+        final AndroMDA andromda = AndroMDA.newInstance();
+        MetafacadeFactory factory = MetafacadeFactory.getInstance();
+        andromda.initialize(this.configuration);
+        factory.setNamespace(Namespaces.DEFAULT);
+        if (this.model == null)
+        {
+            final Repositories repositoriesContainer = Repositories.instance();
+            final Repository[] repositories = this.configuration.getRepositories();
+            if (repositories != null && repositories.length > 0)
+            {
+                final int numberOfRepositories = repositories.length;
+                for (int ctr = 0; ctr < numberOfRepositories; ctr++)
+                {
+                    final Repository repository = repositories[ctr];
+                    final Model[] models = repository.getModels();
+                    if (models != null)
+                    {
+                        // - we just load only the first model (since it doesn't
+                        // make sense
+                        // to test with more than one model)
+                        repositoriesContainer.loadModel(models[0]);
+                        final RepositoryFacade repositoryImplementation =
+                            repositoriesContainer.getImplementation(repository.getName());
+                        this.model = repositoryImplementation.getModel();
+
+                        // - make sure the factory has access to the model
+                        factory.setModel(this.model);
+                    }
+                }
+            }
+        }
+        this.getSuite().run(this.testResult);
+        andromda.shutdown();
+    }
+
+    /**
+     * Assembles and retrieves the test suite of all known transation-library tests.
      *
      * @return non-null test suite
      */
-    public static TestSuite suite() throws Exception
+    private TestSuite getSuite()
     {
-        XmlObjectFactory.setDefaultValidating(false);
-        ExpressionTranslator.instance().initialize();
-        MetafacadeFactory.getInstance().initialize();
-        testDiscoverer.discoverTests();
-        Map tests = testDiscoverer.getTests();
-        TestSuite suite = new TestSuite();
-        Iterator testIt = tests.keySet().iterator();
-        while (testIt.hasNext())
+        testDiscoverer.discoverTests(this.testSourceDirectory);
+        final Map tests = testDiscoverer.getTests();
+        final TestSuite suite = new TestSuite();
+        for (final Iterator iterator = tests.keySet().iterator(); iterator.hasNext();)
         {
-            TranslationTestProcessor unitTest = new TranslationTestProcessor("testTranslation");
-            unitTest.setTestTranslation((String)testIt.next());
+            final TranslationTestProcessor unitTest = new TranslationTestProcessor("testTranslation");
+
+            // - pass on the variables to each test
+            unitTest.setConfiguration(this.configuration);
+            unitTest.setTestTranslation((String)iterator.next());
+            unitTest.model = this.model;
             suite.addTest(unitTest);
         }
         return suite;
     }
 
+    private Configuration configuration;
+
     /**
-     * Sets the value for the test translation which is the translation that will be tested.
+     * Sets AndroMDA configuration instance.
+     *
+     * @param configuration the AndroMDA configuration instance.
+     */
+    public void setConfiguration(final Configuration configuration)
+    {
+        this.configuration = configuration;
+    }
+
+    /**
+     * Sets the value for the test translation which is the translation that
+     * will be tested.
      *
      * @param testTranslation
      */
@@ -95,34 +232,45 @@ public class TranslationTestProcessor
     }
 
     /**
-     * Finds the classifier having <code>fullyQualifiedName</code> in the model.
+     * The model that was loaded.
+     */
+    private ModelAccessFacade model;
+
+    /**
+     * Finds the classifier having <code>fullyQualifiedName</code> in the
+     * model.
      *
      * @param translation the translation we're using
-     * @param expression  the expression from which we'll find the model element.
+     * @param expression the expression from which we'll find the model element.
      * @return Object the found model element.
      */
-    protected Object findModelElement(String translation, String expression)
+    protected Object findModelElement(
+        String translation,
+        String expression)
     {
         final String methodName = "TranslationTestProcessor.findClassifier";
         Object element = null;
         if (StringUtils.isNotEmpty(expression))
         {
-            model = ModelLoader.instance().getModel();
-            if (model == null)
+            if (this.model == null)
             {
-                throw new RuntimeException(methodName + " - model can not be null");
+                throw new RuntimeException(methodName + " could not retrieve model from repository");
             }
 
             ContextElementFinder finder = new ContextElementFinder(model);
-            finder.translate(translation, expression, null);
+            finder.translate(
+                translation,
+                expression,
+                null);
             element = finder.getContextElement();
 
             if (element == null)
             {
-                String errMsg = "No element found in model in expression --> '" + expression +
-                        "', please check your model or your TranslationTest file";
-                logger.error("ERROR! " + errMsg);
-                TestCase.fail(errMsg);
+                final String message =
+                    "No element found in model in expression --> '" + expression +
+                    "', please check your model or your TranslationTest file";
+                logger.error("ERROR! " + message);
+                TestCase.fail(message);
             }
         }
         return element;
@@ -133,12 +281,10 @@ public class TranslationTestProcessor
      */
     public void testTranslation()
     {
-
         String translation = this.testTranslation;
 
         if (this.shouldTest(translation))
         {
-
             if (logger.isInfoEnabled())
             {
                 logger.info("testing translation --> '" + translation + "'");
@@ -153,19 +299,18 @@ public class TranslationTestProcessor
                 Iterator expressionIt = expressions.keySet().iterator();
                 while (expressionIt.hasNext())
                 {
-
                     String fromExpression = (String)expressionIt.next();
 
-                    //if the fromExpression body isn't defined, skip expression
+                    // if the fromExpression body isn't defined, skip expression
                     // test
                     if (StringUtils.isEmpty(fromExpression))
                     {
                         if (logger.isInfoEnabled())
                         {
-                            logger.info("No body for the 'from' element was defined " +
-                                    "within translation test --> '" + test.getUri() +
-                                    "', please define the body of this element with " +
-                                    "the expression you want to translate from");
+                            logger.info(
+                                "No body for the 'from' element was defined " + "within translation test --> '" +
+                                test.getUri() + "', please define the body of this element with " +
+                                "the expression you want to translate from");
                         }
                         continue;
                     }
@@ -173,28 +318,41 @@ public class TranslationTestProcessor
                     Expression translated;
                     if (useTraceTranslator)
                     {
-                        translated = TraceTranslator.getInstance().translate(translation, fromExpression, null);
+                        translated = TraceTranslator.getInstance().translate(
+                                translation,
+                                fromExpression,
+                                null);
                     }
                     else
                     {
-
-                        ExpressionTest expressionConfig = (ExpressionTest)expressions.get(fromExpression);
+                        final ExpressionTest expressionConfig = (ExpressionTest)expressions.get(fromExpression);
                         String toExpression = expressionConfig.getTo();
 
                         Object modelElement = null;
-                        // only find the model element if modelValidation
-                        // is set to true
-                        if (this.modelValidation)
+
+                        // - only find the model element if we have a model
+                        // defined in our AndroMDA configuration
+                        final Repository[] repositories = this.configuration.getRepositories();
+                        if (repositories != null && repositories.length > 0)
                         {
-                            modelElement = this.findModelElement(translation, fromExpression);
+                            modelElement = this.findModelElement(
+                                    translation,
+                                    fromExpression);
+                        }
+                        else
+                        {
+                            logger.info("No repositories defined in configuration, not finding for model elements");
                         }
 
-                        translated = ExpressionTranslator.instance().translate(translation, fromExpression,
+                        translated =
+                            ExpressionTranslator.instance().translate(
+                                translation,
+                                fromExpression,
                                 modelElement);
 
                         if (translated != null)
                         {
-                            //remove the extra whitespace from both so as to
+                            // remove the extra whitespace from both so as to
                             // have an accurrate comarison
                             toExpression = TranslationUtils.removeExtraWhitespace(toExpression);
                             if (logger.isInfoEnabled())
@@ -202,7 +360,9 @@ public class TranslationTestProcessor
                                 logger.info("translated: --> '" + translated.getTranslatedExpression() + "'");
                                 logger.info("expected:   --> '" + toExpression + "'");
                             }
-                            TestCase.assertEquals(toExpression, translated.getTranslatedExpression());
+                            TestCase.assertEquals(
+                                toExpression,
+                                translated.getTranslatedExpression());
                         }
                     }
                 }
@@ -218,8 +378,9 @@ public class TranslationTestProcessor
     }
 
     /**
-     * This method returns true if we should allow the translation to be tested. This is so we can specify on the
-     * command line, the translation to be tested, if we don't want all to be tested.
+     * This method returns true if we should allow the translation to be tested.
+     * This is so we can specify on the command line, the translation to be
+     * tested, if we don't want all to be tested.
      *
      * @param translation
      * @return boolean
@@ -227,23 +388,16 @@ public class TranslationTestProcessor
     private boolean shouldTest(String translation)
     {
         translation = StringUtils.trimToEmpty(translation);
-        return StringUtils.isEmpty(this.translationName) || (StringUtils.isNotEmpty(this.translationName) && this.translationName.equals(
-                translation));
+        return StringUtils.isEmpty(this.translationName) ||
+        (StringUtils.isNotEmpty(this.translationName) && this.translationName.equals(translation));
     }
-
+    
     /**
-     * Runs the test suite
+     * Shuts down this instance.
      */
-    public static void main(String[] args)
+    public void shutdown()
     {
-        try
-        {
-            junit.textui.TestRunner.run(suite());
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-            logger.error(ex);
-        }
+        testDiscoverer.shutdown();
+        instance = null;
     }
 }

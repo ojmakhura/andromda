@@ -1,4 +1,4 @@
-package org.andromda.maven.plugins.cartridge;
+package org.andromda.maven.plugin.bootstrap;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,15 +13,13 @@ import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestListener;
 
-import org.andromda.cartridges.testsuite.FileComparator;
-
 
 /**
- * Formats the cartridge test results into the correct format.
+ * Formats the translation-library test results into the correct format.
  *
  * @author Chad Brandon
  */
-public class CartridgeTestFormatter
+public class TranslationLibraryTestFormatter
     implements TestListener
 {
     /**
@@ -39,7 +37,7 @@ public class CartridgeTestFormatter
      */
     private PrintWriter reportWriter;
 
-    public CartridgeTestFormatter()
+    public TranslationLibraryTestFormatter()
     {
         this.report = new StringWriter();
         this.reportWriter = new PrintWriter(this.report);
@@ -154,7 +152,7 @@ public class CartridgeTestFormatter
      * @param test the test suite being run.
      * @return the test summary.
      */
-    String endTestSuite(Test test)
+    String endTestSuite()
     {
         final double elapsed = ((System.currentTimeMillis() - this.startTime) / 1000.0);
         final StringBuffer summary = new StringBuffer("Tests: " + String.valueOf(this.numberOfTests) + ", ");
@@ -164,40 +162,20 @@ public class CartridgeTestFormatter
         summary.append(newLine);
         summary.append(newLine);
         this.reportWriter.print(summary);
-        if (this.numberOfFailures > 0)
-        {
-            this.reportWriter.println("Failures: " + this.numberOfFailures);
-            this.reportWriter.println("-------------------------------------------------------------------------------");
-            int ctr = 1;
-            for (final Iterator iterator = this.failures.iterator(); iterator.hasNext(); ctr++)
-            {
-                final Failure failure = (Failure)iterator.next();
-                final Throwable information = failure.information;
-                if (information instanceof AssertionFailedError)
-                {
-                    FileComparator comparator = (FileComparator)failure.test;
-                    this.reportWriter.println(ctr + ") " + comparator.getActualFile());
-                }
-            }
-            this.reportWriter.println("-------------------------------------------------------------------------------");
-            this.reportWriter.println();
-        }
 
         for (final Iterator iterator = this.failures.iterator(); iterator.hasNext();)
         {
             final Failure failure = (Failure)iterator.next();
-            FileComparator comparator = (FileComparator)failure.test;
             final Throwable information = failure.information;
             if (information instanceof AssertionFailedError)
             {
-                this.reportWriter.println("FAILURE: " + comparator.getActualFile());
                 this.reportWriter.println(failure.information.getMessage());
             }
             else
             {
                 this.reportWriter.println("ERROR:");
-                information.printStackTrace(this.reportWriter);
             }
+            information.printStackTrace(this.reportWriter);
             this.reportWriter.println();
         }
 

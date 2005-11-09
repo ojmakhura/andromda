@@ -61,9 +61,7 @@ public class BeanComparator
 
     public BeanComparator(SortCriteria sortCriteria)
     {
-        final String methodName = "BeanComparator";
         ExceptionUtils.checkNull(
-            methodName,
             "sortCriteria",
             sortCriteria);
         this.sortCriteria = sortCriteria;
@@ -82,11 +80,9 @@ public class BeanComparator
     {
         final String methodName = "BeanComparator.compare";
         ExceptionUtils.checkNull(
-            methodName,
             "objectA",
             objectA);
         ExceptionUtils.checkNull(
-            methodName,
             "objectB",
             objectB);
 
@@ -265,9 +261,7 @@ public class BeanComparator
      */
     public void setSortCriteria(final SortCriteria sortCriteria)
     {
-        String methodName = "sortCriteria";
         ExceptionUtils.checkNull(
-            methodName,
             "sortCriteria",
             sortCriteria);
         this.sortCriteria = sortCriteria;

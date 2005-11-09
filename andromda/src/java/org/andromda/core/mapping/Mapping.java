@@ -34,8 +34,7 @@ public class Mapping
      */
     public void addFrom(final String from)
     {
-        final String methodName = "Mappings.addFrom";
-        ExceptionUtils.checkNull(methodName, "from", from);
+        ExceptionUtils.checkNull("from", from);
         froms.add(from);
     }
 

@@ -1,4 +1,4 @@
-package org.andromda.maven.plugins.cartridge;
+package org.andromda.maven.plugin.cartridge;
 
 import java.io.File;
 import java.io.IOException;

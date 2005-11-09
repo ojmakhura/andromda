@@ -76,13 +76,10 @@ public class BeanSorter
         final Collection beans,
         final SortCriteria[] sortBy)
     {
-        String methodName = "BeanSorter.sort";
         ExceptionUtils.checkNull(
-            methodName,
             "beans",
             beans);
         ExceptionUtils.checkNull(
-            methodName,
             "sortBy",
             sortBy);
 

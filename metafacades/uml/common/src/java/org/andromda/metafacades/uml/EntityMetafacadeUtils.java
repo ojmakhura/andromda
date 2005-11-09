@@ -31,9 +31,7 @@ public class EntityMetafacadeUtils
         String modelElementName,
         Object separator)
     {
-        final String methodName = "EntityMetaFacadeUtils.toSqlName";
         ExceptionUtils.checkEmpty(
-            methodName,
             "modelElementName",
             modelElementName);
 

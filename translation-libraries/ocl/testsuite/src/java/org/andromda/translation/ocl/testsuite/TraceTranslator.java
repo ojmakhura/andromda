@@ -269,8 +269,7 @@ public class TraceTranslator
      */
     protected String getCaseMethodBody(CtMethod method)
     {
-        final String methodDebugName = "TraceTranslator.getCaseAMethodBody";
-        ExceptionUtils.checkNull(methodDebugName, "method", method);
+        ExceptionUtils.checkNull("method", method);
         StringBuffer methodBody = new StringBuffer("{");
         String methodName = method.getName();
         methodBody.append("String methodName = \"" + methodName + "\";");
@@ -291,8 +290,7 @@ public class TraceTranslator
      */
     protected String getInAMethodBody(CtMethod method)
     {
-        final String methodDebugName = "TraceTranslator.getInAMethodBody";
-        ExceptionUtils.checkNull(methodDebugName, "method", method);
+        ExceptionUtils.checkNull("method", method);
         StringBuffer methodBody = new StringBuffer("{");
         String methodName = method.getName();
         methodBody.append("String methodName = \"" + methodName + "\";");
@@ -313,8 +311,7 @@ public class TraceTranslator
      */
     protected String getOutAMethodBody(CtMethod method)
     {
-        final String methodDebugName = "TraceTranslator.getOutAMethodBody";
-        ExceptionUtils.checkNull(methodDebugName, "method", method);
+        ExceptionUtils.checkNull("method", method);
         StringBuffer methodBody = new StringBuffer("{");
         String methodName = method.getName();
         methodBody.append("String methodName = \"" + methodName + "\";");
@@ -336,8 +333,7 @@ public class TraceTranslator
      */
     protected String getOclFragmentName(CtMethod method)
     {
-        final String methodName = "TraceTranslator.getOclFragmentName";
-        ExceptionUtils.checkNull(methodName, "method", method);
+        ExceptionUtils.checkNull("method", method);
         String fragment = method.getName();
         String prefix = this.getMethodPrefix(method);
         int index = fragment.indexOf(prefix);
@@ -356,8 +352,7 @@ public class TraceTranslator
      */
     protected String getMethodPrefix(CtMethod method)
     {
-        final String methodName = "TraceTranslator.getMethodPrefix";
-        ExceptionUtils.checkNull(methodName, "method", method);
+        ExceptionUtils.checkNull("method", method);
         String mName = method.getName();
         String prefix = INA_PREFIX;
         if (mName.startsWith(OUTA_PREFIX))
@@ -375,8 +370,7 @@ public class TraceTranslator
      */
     protected String getMethodTrace(CtMethod method)
     {
-        final String methodName = "TraceTranslator.getMethodDebug";
-        ExceptionUtils.checkNull(methodName, "method", method);
+        ExceptionUtils.checkNull("method", method);
         StringBuffer buf = new StringBuffer("if (logger.isInfoEnabled()) {logger.info(\"");
         buf.append("\" + methodName + \" --> ");
         //javaassist names the arguments $1,$2,$3, etc.

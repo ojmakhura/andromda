@@ -216,11 +216,9 @@ public class MDRepositoryFacade
         String xmiVersion,
         String encoding)
     {
-        final String methodName = "MDRepositoryFacade.writeMode";
-        ExceptionUtils.checkNull(methodName, "model", model);
-        ExceptionUtils.checkNull(methodName, "outputLocation", outputLocation);
+        ExceptionUtils.checkNull("model", model);
+        ExceptionUtils.checkNull("outputLocation", outputLocation);
         ExceptionUtils.checkAssignable(
-            methodName,
             RefPackage.class,
             "model",
             model.getClass());

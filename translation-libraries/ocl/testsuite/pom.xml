@@ -35,4 +35,22 @@
             <version>3.8.1</version>
         </dependency> 
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-bootstrap-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <installDirectory>${basedir}/../../../lib</installDirectory>
+                </configuration>
+            </plugin>  
+        </plugins>
+    </build>
 </project>

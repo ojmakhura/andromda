@@ -52,8 +52,7 @@ public class ResourceWriter
         final String namespace)
         throws IOException
     {
-        final String methodName = "ResourceWriter.writeStringToFile";
-        ExceptionUtils.checkNull(methodName, "file", file);
+        ExceptionUtils.checkNull("file", file);
         this.writeStringToFile(
             string,
             file.toString(),
@@ -142,12 +141,11 @@ public class ResourceWriter
         final boolean recordHistory)
         throws IOException
     {
-        final String methodName = "ResourceWriter.writeStringToFile";
         if (string == null)
         {
             string = "";
         }
-        ExceptionUtils.checkEmpty(methodName, "fileLocation", fileLocation);
+        ExceptionUtils.checkEmpty("fileLocation", fileLocation);
         final File file = new File(fileLocation);
         ResourceUtils.makeDirectories(fileLocation);
         final Merger merger = Merger.instance();
@@ -186,9 +184,8 @@ public class ResourceWriter
         final String fileLocation)
         throws IOException
     {
-        final String methodName = "ResourceWriter.writeUrlToFile";
-        ExceptionUtils.checkNull(methodName, "url", url);
-        ExceptionUtils.checkEmpty(methodName, "fileLocation", fileLocation);
+        ExceptionUtils.checkNull("url", url);
+        ExceptionUtils.checkEmpty("fileLocation", fileLocation);
         final File file = new File(fileLocation);
         final File parent = file.getParentFile();
         if (parent != null)

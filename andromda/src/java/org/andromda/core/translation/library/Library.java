@@ -36,8 +36,7 @@ public class Library
      */
     public void addLibraryTranslation(final LibraryTranslation libraryTranslation)
     {
-        final String methodName = "Library.addLibraryTranslation";
-        ExceptionUtils.checkNull(methodName, "libraryTranslation", libraryTranslation);
+        ExceptionUtils.checkNull("libraryTranslation", libraryTranslation);
         libraryTranslation.setLibrary(this);
         this.libraryTranslations.put(
             libraryTranslation.getName(),
@@ -62,8 +61,7 @@ public class Library
      */
     public LibraryTranslation getLibraryTranslation(final String name)
     {
-        final String methodName = "Library.getLibraryTranslation";
-        ExceptionUtils.checkEmpty(methodName, "name", name);
+        ExceptionUtils.checkEmpty("name", name);
         return (LibraryTranslation)this.libraryTranslations.get(name);
     }
 

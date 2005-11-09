@@ -1,7 +1,5 @@
 package org.andromda.core.engine;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,10 +27,7 @@ import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.namespace.NamespaceComponents;
-import org.andromda.core.profile.Profile;
 import org.andromda.core.repository.Repositories;
-import org.andromda.core.repository.RepositoryFacade;
-import org.andromda.core.transformation.Transformer;
 import org.apache.commons.collections.comparators.ComparatorChain;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -165,16 +160,11 @@ public class ModelProcessor
      * The shared metafacade factory instance.
      */
     private final MetafacadeFactory factory = MetafacadeFactory.getInstance();
-    
+
     /**
      * The shared repositories instance.
      */
     private final Repositories repositories = Repositories.instance();
-
-    /**
-     * The shared profile instance.
-     */
-    private final Profile profile = Profile.instance();
 
     /**
      * Processes multiple <code>models</code>.
@@ -219,9 +209,7 @@ public class ModelProcessor
                 }
 
                 // - pre-load the models
-                messages = this.loadIfNecessary(
-                        repositoryName,
-                        models);
+                messages = this.loadIfNecessary(models);
                 for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
                 {
                     final Cartridge cartridge = (Cartridge)iterator.next();
@@ -230,7 +218,6 @@ public class ModelProcessor
                     {
                         // - set the active namespace on the shared factory and profile instances
                         this.factory.setNamespace(cartridgeName);
-                        this.profile.setNamespace(cartridgeName);
                         cartridge.initialize();
 
                         // - process each model
@@ -311,62 +298,19 @@ public class ModelProcessor
      * @param repositoryName the name of the repository that will load/read the model.
      * @param model the model to be loaded.
      */
-    protected final List loadModelIfNecessary(
-        final String repositoryName,
-        final Model model)
+    protected final List loadModelIfNecessary(final Model model)
     {
         final List validationMessages = new ArrayList();
-
-        // - only load if the model has been changed from last time it was loaded
-        if (model.isChanged())
+        final long startTime = System.currentTimeMillis();
+        if (this.repositories.loadModel(model))
         {
-            final long startTime = System.currentTimeMillis();
-
-            // - first perform any transformations
-            final Transformer transformer =
-                (Transformer)ComponentContainer.instance().findRequiredComponent(Transformer.class);
-            final String[] uris = model.getUris();
-            final int uriNumber = uris.length;
-            final InputStream[] streams = new InputStream[uriNumber];
-            for (int ctr = 0; ctr < uriNumber; ctr++)
-            {
-                streams[ctr] = transformer.transform(
-                        uris[ctr],
-                        model.getTransformations());
-            }
-
-            // - now load the models into the repository
-            for (int ctr = 0; ctr < uriNumber; ctr++)
-            {
-                final String uri = uris[ctr];
-                AndroMDALogger.info("loading model --> '" + uri + "'");
-            }
-            final RepositoryFacade repositoryImplementation = repositories.getImplementation(repositoryName);
-            repositoryImplementation.readModel(
-                streams,
-                uris,
-                model.getModuleSearchLocationPaths());
-
-            // - set the package filter
-            repositoryImplementation.getModel().setPackageFilter(model.getPackages());
-            try
-            {
-                for (int ctr = 0; ctr < uriNumber; ctr++)
-                {
-                    InputStream stream = streams[ctr];
-                    stream.close();
-                    stream = null;
-                }
-            }
-            catch (final IOException exception)
-            {
-                // ignore since the stream just couldn't be closed
-            }
             this.printWorkCompleteMessage(
                 "loading",
                 startTime);
 
             // - validate the model since loading has successfully occurred
+            final org.andromda.core.configuration.Repository repository = model.getRepository();
+            final String repositoryName = repository != null ? repository.getName() : null;
             validationMessages.addAll(this.validateModel(
                     repositoryName,
                     model.getConstraints()));
@@ -407,7 +351,6 @@ public class ModelProcessor
                 {
                     // - set the active namespace on the shared factory and profile instances
                     this.factory.setNamespace(cartridgeName);
-                    this.profile.setNamespace(cartridgeName);
                     this.factory.validateAllMetafacades();
                 }
             }
@@ -524,9 +467,7 @@ public class ModelProcessor
                 final org.andromda.core.configuration.Repository repository = repositories[repositoryCtr];
                 if (repository != null)
                 {
-                    messages.addAll(this.loadIfNecessary(
-                            repository.getName(),
-                            repository.getModels()));
+                    messages.addAll(this.loadIfNecessary(repository.getModels()));
                 }
             }
         }
@@ -540,9 +481,7 @@ public class ModelProcessor
      * @param models that will be loaded (if necessary).
      * @return any validation messages collected during loading.
      */
-    private List loadIfNecessary(
-        final String repositoryName,
-        final Model[] models)
+    private List loadIfNecessary(final Model[] models)
     {
         final List messages = new ArrayList();
         if (models != null && models.length > 0)
@@ -550,9 +489,7 @@ public class ModelProcessor
             final int modelNumber = models.length;
             for (int modelCtr = 0; modelCtr < modelNumber; modelCtr++)
             {
-                messages.addAll(this.loadModelIfNecessary(
-                        repositoryName,
-                        models[modelCtr]));
+                messages.addAll(this.loadModelIfNecessary(models[modelCtr]));
             }
         }
         return messages;
@@ -751,10 +688,7 @@ public class ModelProcessor
 
         // - shutdown the namespace components registry
         NamespaceComponents.instance().shutdown();
-
-        // - shutdown the profile instance
-        this.profile.shutdown();
-
+        
         // - shutdown the introspector
         Introspector.instance().shutdown();
 
@@ -770,7 +704,6 @@ public class ModelProcessor
      */
     private void reset()
     {
-        this.profile.refresh();
         this.factory.reset();
         this.cartridgeFilter = null;
         this.setXmlValidation(true);

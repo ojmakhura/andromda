@@ -23,8 +23,7 @@ public class ResourceFinder
      */
     public static URL[] findResources(final String resource)
     {
-        final String methodName = "ResourceFinder.findResource";
-        ExceptionUtils.checkEmpty(methodName, "resource", resource);
+        ExceptionUtils.checkEmpty("resource", resource);
         try
         {
             final Collection resources = new ArrayList();

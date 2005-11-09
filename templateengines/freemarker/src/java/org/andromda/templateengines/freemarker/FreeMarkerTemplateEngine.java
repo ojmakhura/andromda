@@ -59,13 +59,10 @@ public class FreeMarkerTemplateEngine
         Writer output)
         throws Exception
     {
-        final String methodName = "processTranslation";
         ExceptionUtils.checkEmpty(
-            methodName,
             "templateFile",
             templateFile);
         ExceptionUtils.checkNull(
-            methodName,
             "output",
             output);
 
