@@ -3,7 +3,7 @@
     <parent>
         <artifactId>andromda-maven-plugins</artifactId>
         <groupId>org.andromda.maven.plugins</groupId>
-        <version>3.1-SNAPSHOT</version>
+        <version>3.2-RC1-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-bootstrap-plugin</artifactId>
     <packaging>maven-plugin</packaging>
@@ -192,11 +192,15 @@
             <resource>
                 <targetPath>META-INF/andromda/mappings</targetPath>
                 <directory>../../../etc/mappings</directory>
-                <includes name="**/*.xml"/>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
-                <includes name="**/*"/>                
+                <includes>
+                    <include>**/*</include>
+                </includes>                
             </resource>
         </resources>
     </build>
