@@ -704,12 +704,12 @@
                             Note that you can use wild card matching within the modelPackage element.  For example:
                         </p>
                         <source language="xml">
-<![CDATA[<constraints>
+<![CDATA[<modelPackages>
     ...
-    <constraint enforce="false">name="my::package::bar::*</constraint>                                
-    <constraint enforce="false">name="my::package::bar**</constraint>
+    <modelPackage process="false">name="my::package::bar::*</modelPackage>                                
+    <modelPackage process="false">name="my::package::bar**</modelPackage>
     ...
-</constraints>]]>                                
+</modelPackages>]]>                                
                         </source>
                         <tr>
                             <td>
