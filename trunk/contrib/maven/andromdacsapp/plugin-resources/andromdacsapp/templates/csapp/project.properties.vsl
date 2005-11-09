@@ -1,5 +1,4 @@
-########## Default Build Properties ##########
-
+# ---------- Default Build Properties ----------
 # Change this to generate to the correct MDA database mappings
 # For SQL Server use: MSSQL
 # For MySql use: MySQL
@@ -13,7 +12,7 @@ sql.mappings=MSSQL
 # For Oracle9i use: net.sf.hibernate.dialect.Oracle9Dialect
 hibernate.db.dialect=net.sf.hibernate.dialect.SQLServerDialect
 
-########## Project Properties ##########
+# ---------- Project Properties ----------
 application.id=${applicationId}
 application.package=${applicationPackage}
 application.version=${applicationVersion}
