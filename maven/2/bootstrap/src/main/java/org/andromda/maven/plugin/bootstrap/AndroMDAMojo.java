@@ -144,13 +144,9 @@ public class AndroMDAMojo
         {
             String message = "Error running AndroMDA";
             throwable = ExceptionUtils.getRootCause(throwable);
-            if (throwable instanceof FileNotFoundException)
+            if (throwable instanceof MalformedURLException || throwable instanceof FileNotFoundException)
             {
-                message = "No configuration could be loaded from --> '" + this.configurationUri + "'";
-            }
-            else if (throwable instanceof MalformedURLException)
-            {
-                message = "Configuration is not a valid URI --> '" + this.configurationUri + "'";
+                message = "Configuration is not valid '" + this.configurationUri + "'";
             }
             throw new MojoExecutionException(message, throwable);
         }
