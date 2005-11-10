@@ -137,7 +137,7 @@ public class CartridgeTestMojo
      * @readonly
      */
     protected ArtifactRepository localRepository;
-    
+
     /**
      * Set this to 'true' to bypass cartridge tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
      *
@@ -159,16 +159,16 @@ public class CartridgeTestMojo
                 throw new MojoExecutionException("The path specifying the expectedOutputArchive '" +
                     this.expectedOutputArchive + "' must be a file");
             }
-    
+
             try
             {
                 this.getLog().info("-----------------------------------------------------------------------------");
                 this.getLog().info("          A n d r o M D A   C a r t r i d g e   T e s t   S u i t e          ");
                 this.getLog().info("-----------------------------------------------------------------------------");
-    
+
                 // - add the cartridge test dependencies (any dependencies of the cartridge test plugin)
                 this.addCartridgeTestDependencies();
-    
+
                 // - first run AndroMDA with the test configuration
                 final AndroMDAMojo andromdaMojo = new AndroMDAMojo();
                 andromdaMojo.setConfigurationUri(this.configurationUri);
@@ -176,19 +176,19 @@ public class CartridgeTestMojo
                 andromdaMojo.setSettings(this.settings);
                 andromdaMojo.setPropertyFiles(this.propertyFiles);
                 andromdaMojo.execute();
-    
+
                 // - unpack the expected output archive
                 this.unpack(
                     expectedOutputArchive,
                     new File(this.expectedDirectory));
-                
+
                 final CartridgeTest cartridgeTest = CartridgeTest.instance();
                 cartridgeTest.setActualOutputPath(this.actualDirectory);
                 cartridgeTest.setExpectedOutputPath(this.expectedDirectory);
                 cartridgeTest.setBinarySuffixes(this.binaryOutputSuffixes);
-    
+
                 final CartridgeTestFormatter formatter = new CartridgeTestFormatter();
-    
+
                 // - set the report location
                 final File report = new File(this.reportDirectory, this.project.getArtifactId() + ".txt");
                 formatter.setReportFile(report);
@@ -219,7 +219,7 @@ public class CartridgeTestMojo
         }
         else
         {
-            this.getLog().info("By-passing AndroMDA cartridge test suite");
+            this.getLog().info("Skipping cartridge tests");
         }
     }
 
@@ -242,17 +242,34 @@ public class CartridgeTestMojo
                         for (final Iterator dependencyIterator = plugin.getDependencies().iterator();
                             dependencyIterator.hasNext();)
                         {
-                            this.addDependency((Dependency)dependencyIterator.next());
+                            final Dependency dependency = (Dependency)dependencyIterator.next();
+                            dependency.setScope(Artifact.SCOPE_RUNTIME);
+                            this.addDependency(dependency);
                         }
                     }
                 }
             }
         }
+
+        // - get all test dependencies, change the scope and add them to them to the dependencies of this
+        //   project as runtime scope so that the AndroMDA plugin can see them.
+        for (final Iterator iterator = this.project.getTestDependencies().iterator(); iterator.hasNext();)
+        {
+            final Dependency dependency = (Dependency)iterator.next();
+            dependency.setScope(Artifact.SCOPE_RUNTIME);
+            this.project.getDependencies().add(dependency);
+        }
+        for (final Iterator iterator = this.project.getTestArtifacts().iterator(); iterator.hasNext();)
+        {
+            final Artifact artifact = (Artifact)iterator.next();
+            artifact.setScope(Artifact.SCOPE_RUNTIME);
+            this.project.getArtifacts().add(artifact);
+        }
     }
 
     /**
      * Adds a dependency to the current project's dependencies.
-     * 
+     *
      * @param dependency
      */
     private void addDependency(final Dependency dependency)
@@ -264,7 +281,7 @@ public class CartridgeTestMojo
                     dependency.getGroupId(),
                     dependency.getArtifactId(),
                     dependency.getVersion(),
-                    Artifact.SCOPE_RUNTIME,
+                    dependency.getScope(),
                     dependency.getType());
             final File file = new File(
                     this.localRepository.getBasedir(),
