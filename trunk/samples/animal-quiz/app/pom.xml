@@ -12,24 +12,24 @@
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>animal-quiz-common</artifactId>
-            <version>{version}</version>            
+            <version>${version}</version>            
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>animal-quiz-core</artifactId>
-            <version>{version}</version>  
+            <version>${version}</version>  
             <type>ejb</type>          
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>animal-quiz-web</artifactId>
-            <version>{version}</version>            
+            <version>${version}</version>            
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>animal-quiz-webservice</artifactId>
-            <version>{version}</version>      
+            <version>${version}</version>      
             <type>war</type>      
         </dependency>
     </dependencies>
