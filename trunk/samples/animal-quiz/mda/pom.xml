@@ -12,8 +12,8 @@
         <defaultGoal>andromda:run</defaultGoal>
         <sourceDirectory>${basedir}/src/uml</sourceDirectory>
         <filters>
-            <filter>mda.properties</filter>
             <filter>../project.properties</filter>
+            <filter>mda.properties</filter>
         </filters>
         <plugins>
             <plugin>
