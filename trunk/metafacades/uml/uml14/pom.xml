@@ -6,7 +6,7 @@
         <version>3.2-RC1-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-metafacades-uml14</artifactId>
-    <packaging>jar</packaging>
+    <packaging>xml.zip</packaging>
     <name>AndroMDA UML 1.4 Metafacades</name>
   	<description>
   		The UML 1.4 metafacades.  This is the set of UML 1.4 metafacades
@@ -48,6 +48,10 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-install-plugin</artifactId>            
+            </plugin>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-model-archiver-plugin</artifactId>
             </plugin>
         </plugins>
  		<resources>

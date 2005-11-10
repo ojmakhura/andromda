@@ -29,7 +29,7 @@
          Prepare the xml.zip for install/deploy
          =================================================================== --> 	
   	<goal name="xml.zip:prepare">
-  	   <j:set var="modelName" value="UMLMetafacadeModel"/>
+  	   <j:set var="modelName" value="${pom.artifactId}"/>
 	   <j:set var="maven.xml.zip.final.name" 
 	          value="${maven.build.dir}/${maven.final.name}"/>
   	    <j:set var="modelXml" value="${modelName}.xml"/>
