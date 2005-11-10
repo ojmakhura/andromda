@@ -17,4 +17,20 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-multi-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <warSourceDirectory>target/src</warSourceDirectory>
+                    <excludes>**/*.java</excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
