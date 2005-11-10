@@ -1,4 +1,6 @@
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda.animalquiz</groupId>
@@ -8,6 +10,24 @@
     <artifactId>animal-quiz-app</artifactId>
     <packaging>ear</packaging>
     <name>Animal Quiz Application</name>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>animal-quiz-common</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>${pom.groupId}</groupId>
+                        <artifactId>animal-quiz-mda</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.andromda.profiles.uml14</groupId>
+                        <artifactId>andromda-profile</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
