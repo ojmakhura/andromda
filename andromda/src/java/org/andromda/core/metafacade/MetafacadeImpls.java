@@ -161,7 +161,7 @@ public class MetafacadeImpls
                         "', please check your classpath and verify you have a '" + METAFACADE_IMPLS +
                         "' file available with this mapping.  If you're sure its on your classpath with this mapping" +
                         ", then make sure you don't have another '" + METAFACADE_IMPLS 
-                        + "' on your classpath with the metafacade interface that '" + metafacadeClass + "' is mapped to.");
+                        + "' on your classpath with the metafacade interface that '" + metafacadeImplClass + "' is mapped to.");
                 }
                 metafacadeClass = ClassUtils.loadClass(metafacadeClassName);
             }
