@@ -1,7 +1,9 @@
 package org.andromda.maven.plugin.bootstrap;
 
 import java.io.File;
+
 import java.net.URL;
+
 import java.util.List;
 
 import junit.framework.TestResult;
@@ -10,6 +12,7 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.maven.plugin.configuration.AbstractConfigurationMojo;
 import org.andromda.translation.ocl.testsuite.TranslationTestProcessor;
+import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -52,15 +55,6 @@ public class TranslationLibraryTestMojo
     protected String translationName;
 
     /**
-     * The registered plugin implementations.
-     *
-     * @parameter expression="${project.build.plugins}"
-     * @required
-     * @readonly
-     */
-    protected List plugins;
-
-    /**
      * The directory containing the test source.
      *
      * @parameter expression="${basedir}"
@@ -68,13 +62,6 @@ public class TranslationLibraryTestMojo
      * @readonly
      */
     protected String testSourceDirectory;
-
-    /**
-     * @parameter expression="${localRepository}"
-     * @required
-     * @readonly
-     */
-    protected ArtifactRepository localRepository;
 
     /**
      * Set this to 'true' to bypass translation-library tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
@@ -112,6 +99,29 @@ public class TranslationLibraryTestMojo
      * @readonly
      */
     private Settings settings;
+
+    /**
+     * @parameter expression="${component.org.apache.maven.artifact.factory.ArtifactFactory}"
+     * @required
+     * @readonly
+     */
+    private ArtifactFactory factory;
+
+    /**
+     * The registered plugin implementations.
+     *
+     * @parameter expression="${project.build.plugins}"
+     * @required
+     * @readonlya
+     */
+    protected List plugins;
+
+    /**
+     * @parameter expression="${localRepository}"
+     * @required
+     * @readonly
+     */
+    protected ArtifactRepository localRepository;
 
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
@@ -198,5 +208,29 @@ public class TranslationLibraryTestMojo
     protected Settings getSettings()
     {
         return this.settings;
+    }
+
+    /**
+     * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getFactory()
+     */
+    protected ArtifactFactory getFactory()
+    {
+        return this.factory;
+    }
+
+    /**
+     * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getPlugins()
+     */
+    protected List getPlugins()
+    {
+        return this.plugins;
+    }
+
+    /**
+     * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getLocalRepository()
+     */
+    protected ArtifactRepository getLocalRepository()
+    {
+        return this.localRepository;
     }
 }

@@ -181,18 +181,12 @@ public class CartridgeTestMojo
                 this.unpack(
                     expectedOutputArchive,
                     new File(this.expectedDirectory));
+                
+                final CartridgeTest cartridgeTest = CartridgeTest.instance();
+                cartridgeTest.setActualOutputPath(this.actualDirectory);
+                cartridgeTest.setExpectedOutputPath(this.expectedDirectory);
+                cartridgeTest.setBinarySuffixes(this.binaryOutputSuffixes);
     
-                // TODO: - these should really be changed to set properties on an instance of a CartridgeTest
-                // instead of just setting system properties
-                System.setProperty(
-                    CartridgeTest.ACTUAL_DIRECTORY,
-                    this.actualDirectory);
-                System.setProperty(
-                    CartridgeTest.EXPECTED_DIRECTORY,
-                    this.expectedDirectory);
-                System.setProperty(
-                    CartridgeTest.BINARY_SUFFIXES,
-                    this.binaryOutputSuffixes);
                 final CartridgeTestFormatter formatter = new CartridgeTestFormatter();
     
                 // - set the report location
@@ -206,6 +200,7 @@ public class CartridgeTestMojo
                 this.getLog().info("");
                 this.getLog().info("Results:");
                 this.getLog().info(formatter.endTestSuite(suite));
+                cartridgeTest.shutdown();
                 if (result.failureCount() > 0 || result.errorCount() > 0)
                 {
                     throw new MojoExecutionException("Test are some test failures");
@@ -229,23 +224,26 @@ public class CartridgeTestMojo
     }
 
     /**
-     * Adds any dependencies for the the cartridge plugin
+     * Adds any dependencies for the cartridge plugin
      * to the current dependencies of the project.
      */
     private void addCartridgeTestDependencies()
     {
-        for (final Iterator iterator = this.plugins.iterator(); iterator.hasNext();)
+        if (this.plugins != null && !this.plugins.isEmpty())
         {
-            final Plugin plugin = (Plugin)iterator.next();
-            if (Constants.ARTIFACT_ID.equals(plugin.getArtifactId()))
+            for (final Iterator iterator = this.plugins.iterator(); iterator.hasNext();)
             {
-                final List dependencies = plugin.getDependencies();
-                if (dependencies != null)
+                final Plugin plugin = (Plugin)iterator.next();
+                if (Constants.ARTIFACT_ID.equals(plugin.getArtifactId()))
                 {
-                    for (final Iterator dependencyIterator = plugin.getDependencies().iterator();
-                        dependencyIterator.hasNext();)
+                    final List dependencies = plugin.getDependencies();
+                    if (dependencies != null)
                     {
-                        this.addDependency((Dependency)dependencyIterator.next());
+                        for (final Iterator dependencyIterator = plugin.getDependencies().iterator();
+                            dependencyIterator.hasNext();)
+                        {
+                            this.addDependency((Dependency)dependencyIterator.next());
+                        }
                     }
                 }
             }
