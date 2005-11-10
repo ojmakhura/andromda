@@ -2,10 +2,8 @@ package org.andromda.maven.plugin;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.List;
 
 import org.andromda.core.AndroMDA;
@@ -15,6 +13,9 @@ import org.andromda.core.configuration.Configuration;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.Repository;
 import org.andromda.maven.plugin.configuration.AbstractConfigurationMojo;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
@@ -75,12 +76,39 @@ public class AndroMDAMojo
      * @readonly
      */
     private Settings settings;
+    
+    /**
+     * @parameter expression="${component.org.apache.maven.artifact.factory.ArtifactFactory}"
+     * @required
+     * @readonly
+     */
+    private ArtifactFactory factory;
+    
+    /**
+     * The registered plugin implementations.
+     *
+     * @parameter expression="${project.build.plugins}"
+     * @required
+     * @readonlya
+     */
+    protected List plugins;
+    
+    /**
+     * @parameter expression="${localRepository}"
+     * @required
+     * @readonly
+     */
+    protected ArtifactRepository localRepository;
 
+    /**
+     * @see org.apache.maven.plugin.Mojo#execute()
+     */
     public void execute()
         throws MojoExecutionException
     {
         try
         {
+            this.addPluginDependencies(Constants.ARTIFACT_ID, Artifact.SCOPE_RUNTIME);
             final URL configurationUri = ResourceUtils.toURL(this.configurationUri);
             if (configurationUri == null)
             {
@@ -208,5 +236,29 @@ public class AndroMDAMojo
     protected Settings getSettings()
     {
         return this.settings;
+    }
+
+    /**
+     * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getFactory()
+     */
+    protected ArtifactFactory getFactory()
+    {
+        return this.factory;
+    }
+
+    /**
+     * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getPlugins()
+     */
+    protected List getPlugins()
+    {
+        return this.plugins;
+    }
+
+    /**
+     * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getLocalRepository()
+     */
+    protected ArtifactRepository getLocalRepository()
+    {
+        return this.localRepository;
     }
 }

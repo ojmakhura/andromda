@@ -1,7 +1,6 @@
 package org.andromda.cartridges.testsuite;
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,6 +13,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.andromda.core.common.AndroMDALogger;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 
@@ -51,15 +51,83 @@ public class CartridgeTest
      * compared as strings).
      */
     public static final String BINARY_SUFFIXES = "binary.suffixes";
+    
+    /**
+     * The shared instanceo of this class.
+     */
+    private static CartridgeTest instance;
+    
+    /**
+     * Retrieves the shared instance of this class.
+     * 
+     * @return the shared instance.
+     */
+    public static final CartridgeTest instance()
+    {
+        if (instance == null)
+        {
+            instance = new CartridgeTest();
+        }
+        return instance;
+    }
+    
+    private CartridgeTest()
+    {
+        super();
+    }
+    
+    /**
+     * Stores a comma seperated list of binary suffixes.
+     */
+    private String binarySuffixes = StringUtils.trimToEmpty(System.getProperty(BINARY_SUFFIXES));
+    
+    /**
+     * Sets the value of the suffixes that indicate a binary file (binary files
+     * are not compared as text).
+     * 
+     * @param binarySuffixes a comma seperated list of binary suffixes.
+     */
+    public void setBinarySuffixes(final String binarySuffixes)
+    {
+        this.binarySuffixes = binarySuffixes;
+    }
+    
+    /**
+     * Stores the actual directory.
+     */
+    private String actualOutputPath = StringUtils.trimToEmpty(System.getProperty(ACTUAL_DIRECTORY));
+    
+    /**
+     * Sets the path to the <em>actual</em> directory (that is the 
+     * directory which contains the actual output being tested.
+     * 
+     * @param actualOutputPath the path to the actual directory.
+     */
+    public void setActualOutputPath(final String actualOutputPath)
+    {
+        this.actualOutputPath = actualOutputPath;
+    }
+    
+    /**
+     * Stores the path to the excepted directory.
+     */
+    private String expectedOutputPath = StringUtils.trimToEmpty(System.getProperty(EXPECTED_DIRECTORY));
+    
+    /**
+     * Sets the path to the <em>expected</em> directory.  This is the directory
+     * to which the expected output is extracted.
+     * 
+     * @param expectedOutputPath the path to the expected output directory.
+     */
+    public void setExpectedOutputPath(final String expectedOutputPath)
+    {
+        this.expectedOutputPath = expectedOutputPath;
+    }
 
     static
     {
         AndroMDALogger.initialize();
     }
-
-    private static final File expectedDir = getDirectory(EXPECTED_DIRECTORY);
-    private static final File actualDir = getDirectory(ACTUAL_DIRECTORY);
-    private static Collection binarySuffixes = getBinarySuffixes();
 
     public CartridgeTest(final String name)
     {
@@ -69,7 +137,7 @@ public class CartridgeTest
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
-        addTests(suite);
+        instance().addTests(suite);
         return suite;
     }
 
@@ -79,15 +147,15 @@ public class CartridgeTest
      *
      * @param suite the test suite to which we'll add the tests.
      */
-    private static void addTests(final TestSuite suite)
+    private void addTests(final TestSuite suite)
     {
         final List expectedFiles = new ArrayList();
         getAllFiles(
-            expectedDir,
+            this.getExpectedOutputDirectory(),
             expectedFiles);
         final Iterator iterator = expectedFiles.iterator();
         logger.info(" --- Expecting " + expectedFiles.size() + " Generated Files --- ");
-        logger.info("binary suffixes --> " + binarySuffixes);
+        logger.info("binary suffixes --> " + getBinarySuffixes());
         final List missingFiles = new ArrayList();
         for (int ctr = 1; iterator.hasNext(); ctr++)
         {
@@ -137,72 +205,76 @@ public class CartridgeTest
      * @param actualFile the actual generated file
      * @return the new expected file.
      */
-    private static File getActualFile(final File expectedFile)
+    private File getActualFile(final File expectedFile)
     {
         String actualFile;
+        final File actualOutputDirectory = this.getActualOutputDirectory();
+        final File expectedOutputDirectory = this.getExpectedOutputDirectory();
         final String path = expectedFile.getPath();
-        if (expectedFile.getPath().startsWith(actualDir.getPath()))
+        if (expectedFile.getPath().startsWith(actualOutputDirectory.getPath()))
         {
             actualFile = path.substring(
-                    actualDir.getPath().length(),
+                actualOutputDirectory.getPath().length(),
                     path.length());
-            actualFile = expectedDir + expectedFile.toString();
+            actualFile = expectedOutputDirectory + expectedFile.toString();
         }
         else
         {
             actualFile = path.substring(
-                    expectedDir.getPath().length(),
+                expectedOutputDirectory.getPath().length(),
                     path.length());
-            actualFile = actualDir + actualFile;
+            actualFile = actualOutputDirectory + actualFile;
         }
         return new File(actualFile);
     }
+    
+    /**
+     * The expected output directory.
+     */
+    private File expectedOutputDirectory;
 
     /**
-     * Just gets the system property having the given <code>propertyKey</code>,
-     * throwing a run time exception if none exists.
-     *
-     * @param propertyKey the property key name.
-     * @return the value of the system property
+     * Retrieves the expected output directory.
+     * 
+     * @return the file representing the directory.
      */
-    private static String getSystemProperty(final String propertyKey)
+    private File getExpectedOutputDirectory()
     {
-        final String value = System.getProperty(propertyKey);
-        if (value == null)
+       if (this.expectedOutputDirectory == null)
+       {
+           this.expectedOutputDirectory = this.getDirectory(this.expectedOutputPath);
+       }
+       return this.expectedOutputDirectory;
+    }
+    
+    /**
+     * The actual output directory.
+     */
+    private File actualOutputDirectory;
+    
+    private File getActualOutputDirectory()
+    {
+        if (this.actualOutputDirectory == null)
         {
-            throw new RuntimeException("System property '" + propertyKey + "' not set");
+            this.actualOutputDirectory = this.getDirectory(this.actualOutputPath);
         }
-        return value;
+        return this.actualOutputDirectory;
     }
-
-    private static String getDirectoryName(String propertyKey)
-    {
-        String name = getSystemProperty(propertyKey);
-
-        // Replace the path-separator character in the given directory name
-        // by the path-separator character used by the actual system
-        final char character = name.indexOf('\\') != -1 ? '\\' : '/';
-        name = name.replace(
-                character,
-                File.separatorChar);
-        return name;
-    }
-
+    
     /**
      * Gets the directory from the system property key.
      *
-     * @param propertyKey the system property key name.
+     * @param path the system property key name.
      * @return the directory as a File instance.
      */
-    private static File getDirectory(final String propertyKey)
+    private File getDirectory(final String path)
     {
-        final String dirName = getDirectoryName(propertyKey);
-        File dir = new File(dirName);
-        if (!dir.exists() || !dir.isDirectory())
+        File directory = new File(path);
+        if (!directory.exists() || !directory.isDirectory())
         {
-            throw new RuntimeException("directory <" + dirName + "> doesn't exist");
+            throw new RuntimeException("directory <" + path + "> doesn't exist");
         }
-        return dir;
+        return directory;
     }
 
     /**
@@ -212,7 +284,7 @@ public class CartridgeTest
      * @param file the file to check
      * @return true/false
      */
-    private static boolean isBinary(final File file)
+    private boolean isBinary(final File file)
     {
         String suffix = "";
         final String fileName = file.getName();
@@ -223,8 +295,10 @@ public class CartridgeTest
                     dotIndex + 1,
                     fileName.length());
         }
-        return binarySuffixes.contains(suffix);
+        return this.getBinarySuffixes().contains(suffix);
     }
+    
+    private Collection binarySuffixCollection;
 
     /**
      * Gets the binary suffixes for the <code>binary.suffixes</code> system
@@ -232,11 +306,15 @@ public class CartridgeTest
      *
      * @return the Collection of binary suffixes. (ie. jpg, jar, zip, etc).
      */
-    private static Collection getBinarySuffixes()
+    private Collection getBinarySuffixes()
     {
-        final String suffixes = getSystemProperty("binary.suffixes");
-        final String[] suffixArray = suffixes.split("\\s*,\\s*");
-        return Arrays.asList(suffixArray);
+        if (this.binarySuffixCollection == null)
+        {
+            final String suffixes = this.binarySuffixes != null ? this.binarySuffixes.trim() : "";
+            final String[] suffixArray = suffixes.split("\\s*,\\s*");
+            this.binarySuffixCollection = Arrays.asList(suffixArray);
+        }
+        return this.binarySuffixCollection;
     }
 
     /**
@@ -246,7 +324,7 @@ public class CartridgeTest
      * @param directory the directory from which to load all files.
      * @param fileList the List of files to which we'll add the found files.
      */
-    private static void getAllFiles(
+    private void getAllFiles(
         final File directory,
         final List fileList)
     {
@@ -265,5 +343,13 @@ public class CartridgeTest
                     fileList);
             }
         }
+    }
+    
+    /**
+     * Releases any resouces help by this cartridge test instance.
+     */
+    public void shutdown()
+    {
+        instance = null;
     }
 }

@@ -3,18 +3,21 @@ package org.andromda.maven.plugin.configuration;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
+import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.resources.PropertyUtils;
 import org.apache.maven.project.MavenProject;
@@ -26,7 +29,7 @@ import org.codehaus.plexus.util.InterpolationFilterReader;
  * An abstract Mojo for dealing with the AndroMDA configuration,
  * if a plugin needs to use the AndroMDA configuration, it should extend this
  * class.
- * 
+ *
  * @author Chad Brandon
  */
 public abstract class AbstractConfigurationMojo
@@ -106,8 +109,7 @@ public abstract class AbstractConfigurationMojo
                 new BeanProperties(this.getSettings()),
                 "${",
                 "}");
-        final String contents = ResourceUtils.getContents(reader);
-        return contents;
+        return ResourceUtils.getContents(reader);
     }
 
     /**
@@ -141,6 +143,70 @@ public abstract class AbstractConfigurationMojo
     }
 
     /**
+     * Adds any dependencies to the current project from the plugin
+     * having the given <code>pluginArtifactId</code>.
+     *
+     * @param pluginArtifactId the artifactId of the plugin of which to add its dependencies.
+     * @param scope the artifact scope in which to add them (runtime, compile, etc).
+     */
+    protected void addPluginDependencies(final String pluginArtifactId, final String scope)
+    {
+        if (pluginArtifactId != null)
+        {
+            final List plugins = this.getPlugins();
+            if (plugins != null && !plugins.isEmpty())
+            {
+                for (final Iterator iterator = plugins.iterator(); iterator.hasNext();)
+                {
+                    final Plugin plugin = (Plugin)iterator.next();
+                    if (pluginArtifactId.equals(plugin.getArtifactId()))
+                    {
+                        final List dependencies = plugin.getDependencies();
+                        if (dependencies != null)
+                        {
+                            for (final Iterator dependencyIterator = plugin.getDependencies().iterator();
+                                dependencyIterator.hasNext();)
+                            {
+                                this.addDependency((Dependency)dependencyIterator.next(), scope);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Adds a dependency to the current project's dependencies.
+     *
+     * @param dependency
+     */
+    private void addDependency(final Dependency dependency, final String scope)
+    {
+        final ArtifactRepository localRepository = this.getLocalRepository();
+        final MavenProject project = this.getProject();
+        if (project != null && localRepository != null)
+        {
+            if (dependency != null)
+            {
+                final Artifact artifact =
+                    this.getFactory().createArtifact(
+                        dependency.getGroupId(),
+                        dependency.getArtifactId(),
+                        dependency.getVersion(),
+                        scope,
+                        dependency.getType());
+                final File file = new File(
+                        localRepository.getBasedir(),
+                        localRepository.pathOf(artifact));
+                artifact.setFile(file);
+                project.getDependencies().add(dependency);
+                project.getArtifacts().add(artifact);
+            }
+        }
+    }
+
+    /**
      * Gets the current project.
      *
      * @return Returns the project.
@@ -161,4 +227,25 @@ public abstract class AbstractConfigurationMojo
      * @return Returns the settings.
      */
     protected abstract Settings getSettings();
+
+    /**
+     * Gets the artifact factory used to construct any new required artifacts.
+     */
+    protected abstract ArtifactFactory getFactory();
+
+    /**
+     * Gets the current project's registered plugin implementations.
+     *
+     * @parameter expression="${project.build.plugins}"
+     * @required
+     * @readonlya
+     */
+    protected abstract List getPlugins();
+
+    /**
+     * Gets the current local repository instance.
+     *
+     * @return the local repository instance of the current project.
+     */
+    protected abstract ArtifactRepository getLocalRepository();
 }

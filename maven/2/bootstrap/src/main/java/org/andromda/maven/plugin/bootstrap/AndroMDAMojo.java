@@ -2,8 +2,10 @@ package org.andromda.maven.plugin.bootstrap;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.util.List;
 
 import org.andromda.core.AndroMDA;
@@ -13,6 +15,8 @@ import org.andromda.core.configuration.Configuration;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.Repository;
 import org.andromda.maven.plugin.configuration.AbstractConfigurationMojo;
+import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.settings.Settings;
@@ -20,9 +24,8 @@ import org.apache.maven.settings.Settings;
 
 /**
  * This is exactly the same as the regular AndroMDAMojo in the
- * andromda-maven-plugin, however this is the <em>bootstrap</em>
- * plugin which is used to run AndroMDA in bootstrap mode (with the
- * bootstrap artifacts).
+ * andromda-maven-plugin, however this is the <em>bootstrap</em> plugin which
+ * is used to run AndroMDA in bootstrap mode (with the bootstrap artifacts).
  *
  * @author Chad Brandon
  * @goal run
@@ -32,50 +35,75 @@ import org.apache.maven.settings.Settings;
 public class AndroMDAMojo
     extends AbstractConfigurationMojo
 {
-/**
- * This is the URI to the AndroMDA configuration file.
- *
- * @parameter expression="file:${basedir}/conf/andromda.xml"
- * @required
- */
+    /**
+     * This is the URI to the AndroMDA configuration file.
+     *
+     * @parameter expression="file:${basedir}/conf/andromda.xml"
+     * @required
+     */
     private String configurationUri;
 
-/**
- * @parameter expression="${project}"
- * @required
- * @readonly
- */
+    /**
+     * @parameter expression="${project}"
+     * @required
+     * @readonly
+     */
     private MavenProject project;
 
-/**
- * @parameter expression="${project.build.filters}"
- */
+    /**
+     * @parameter expression="${project.build.filters}"
+     */
     private List propertyFiles;
 
-/**
- * Whether or not a last modified check should be performed before running AndroMDA again.
- *
- * @parameter expression="false"
- * @required
- */
+    /**
+     * Whether or not a last modified check should be performed before running
+     * AndroMDA again.
+     *
+     * @parameter expression="false"
+     * @required
+     */
     private boolean lastModifiedCheck;
 
-/**
- * The directory to which the build source is located (any generated source).
- *
- * @parameter expression="${project.build.directory}/src/main/java"
- */
+    /**
+     * The directory to which the build source is located (any generated
+     * source).
+     *
+     * @parameter expression="${project.build.directory}/src/main/java"
+     */
     private String buildSourceDirectory;
 
-/**
- * The current user system settings for use in Maven. (allows us to pass the user
- * settings to the AndroMDA configuration).
- *
- * @parameter expression="${settings}"
- * @required
- * @readonly
- */
+    /**
+     * The current user system settings for use in Maven. (allows us to pass the
+     * user settings to the AndroMDA configuration).
+     *
+     * @parameter expression="${settings}"
+     * @required
+     * @readonly
+     */
     private Settings settings;
+
+    /**
+     * @parameter expression="${component.org.apache.maven.artifact.factory.ArtifactFactory}"
+     * @required
+     * @readonly
+     */
+    private ArtifactFactory factory;
+
+    /**
+     * The registered plugin implementations.
+     *
+     * @parameter expression="${project.build.plugins}"
+     * @required
+     * @readonlya
+     */
+    protected List plugins;
+
+    /**
+     * @parameter expression="${localRepository}"
+     * @required
+     * @readonly
+     */
+    protected ArtifactRepository localRepository;
 
     public void execute()
         throws MojoExecutionException
@@ -152,63 +180,87 @@ public class AndroMDAMojo
         }
     }
 
-/**
- * @param configurationUri The configurationUri to set.
- */
+    /**
+     * @param configurationUri The configurationUri to set.
+     */
     public void setConfigurationUri(String configurationUri)
     {
         this.configurationUri = configurationUri;
     }
 
-/**
- * @param project The project to set.
- */
+    /**
+     * @param project The project to set.
+     */
     public void setProject(MavenProject project)
     {
         this.project = project;
     }
 
-/**
- * Sets the current settings for this Mojo.
- *
- * @param settings The settings to set.
- */
+    /**
+     * Sets the current settings for this Mojo.
+     *
+     * @param settings The settings to set.
+     */
     public void setSettings(Settings settings)
     {
         this.settings = settings;
     }
 
-/**
- * Sets the property files for this project.
- *
- * @param propertyFiles
- */
+    /**
+     * Sets the property files for this project.
+     *
+     * @param propertyFiles
+     */
     public void setPropertyFiles(List propertyFiles)
     {
         this.propertyFiles = propertyFiles;
     }
 
-/**
- * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getProject()
- */
+    /**
+     * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getProject()
+     */
     protected MavenProject getProject()
     {
         return this.project;
     }
 
-/**
- * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getPropertyFiles()
- */
+    /**
+     * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getPropertyFiles()
+     */
     protected List getPropertyFiles()
     {
         return this.propertyFiles;
     }
 
-/**
- * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getSettings()
- */
+    /**
+     * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getSettings()
+     */
     protected Settings getSettings()
     {
         return this.settings;
+    }
+
+    /**
+     * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getFactory()
+     */
+    protected ArtifactFactory getFactory()
+    {
+        return this.factory;
+    }
+
+    /**
+     * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getPlugins()
+     */
+    protected List getPlugins()
+    {
+        return this.plugins;
+    }
+
+    /**
+     * @see org.andromda.maven.plugin.configuration.AbstractConfigurationMojo#getLocalRepository()
+     */
+    protected ArtifactRepository getLocalRepository()
+    {
+        return this.localRepository;
     }
 }
