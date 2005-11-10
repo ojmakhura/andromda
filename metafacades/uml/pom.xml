@@ -67,6 +67,16 @@
                         <installDirectory>${basedir}/../../../lib</installDirectory>
                     </configuration>           
                 </plugin>
+                <plugin>
+                    <extensions>true</extensions>
+                    <groupId>org.andromda.maven.plugins</groupId>
+                    <artifactId>andromda-model-archiver-plugin</artifactId>
+                    <configuration>
+                        <modelSourceDirectory>src/uml</modelSourceDirectory>
+                        <generateJar>true</generateJar>
+                        <buildSourceDirectory>target/src</buildSourceDirectory>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <filters>

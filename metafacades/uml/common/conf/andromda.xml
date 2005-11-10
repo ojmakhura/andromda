@@ -1,6 +1,7 @@
 <andromda>
     <properties>
         <property name="cartridgeFilter">meta</property>
+        <property name="modelValidation">true</property>
     </properties>
     <repositories>
         <repository name="netBeansMDR">
@@ -11,6 +12,9 @@
                         <location>${maven.repo.local}/andromda/xml.zips</location>
                         <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles</location>
                     </moduleSearchLocations>
+                    <constraints>
+                        <constraint enforce="false">org::andromda::cartridges::meta::metafacades::Metafacade::a metafacade must either extend an existing metafacade or have a directy dependency to a metaclass</constraint>
+                    </constraints>
                 </model>
             </models>            
         </repository>
