@@ -7,7 +7,7 @@
     </parent>
     <artifactId>animal-quiz-mda</artifactId>
     <packaging>jar</packaging>
-    <name>Animal Quiz MDA</name>
+    <name>AndroMDA Animal Quiz MDA</name>
     <build>
         <defaultGoal>andromda:run</defaultGoal>
         <sourceDirectory>${basedir}/src/uml</sourceDirectory>
