@@ -35,12 +35,6 @@
     <dependencies>
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>animal-quiz-mda</artifactId>
-            <version>${version}</version>
-            <type>pom</type>
-        </dependency>
-        <dependency>
-            <groupId>${pom.groupId}</groupId>
             <artifactId>animal-quiz-common</artifactId>
             <version>${version}</version>
             <scope>compile</scope>
