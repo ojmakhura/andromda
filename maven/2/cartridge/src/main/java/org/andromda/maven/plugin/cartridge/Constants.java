@@ -1,7 +1,7 @@
 package org.andromda.maven.plugin.cartridge;
 
 /**
- * Constains constants used within the AndroMDA maven cartridge
+ * Constants constants used within the AndroMDA maven cartridge
  * test plugin.
  * 
  * @author Chad Brandon
