@@ -4,9 +4,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -80,14 +83,6 @@ public class XmiZipArchiverMojo
     private MavenProject project;
 
     /**
-     * The Jar archiver.
-     *
-     * @parameter expression="${component.org.codehaus.plexus.archiver.Archiver#jar}"
-     * @required
-     */
-    private JarArchiver jarArchiver;
-
-    /**
      * To look up Archiver/UnArchiver implementations
      *
      * @parameter expression="${component.org.codehaus.plexus.archiver.manager.ArchiverManager}"
@@ -120,19 +115,8 @@ public class XmiZipArchiverMojo
     private boolean generateJar;
     private static final String[] JAR_INCLUDES = new String[] {"**/*"};
     private static final String[] JAR_EXCLUDES = new String[] {"**/package.html"};
-    private static final String[] MODEL_INCLUDES = new String[] {"*.xml", "*.xmi"};
     private final Collection modelArchiveExcludes =
         new ArrayList(Arrays.asList(new String[] {"*.xml.zip, **/*.java", "*reports*/**", "tests*/**"}));
-
-    /**
-     * Gets the current excludes as an array.
-     *
-     * @return the exclude patterns.
-     */
-    private String[] getModelArchiveExcludes()
-    {
-        return (String[])this.modelArchiveExcludes.toArray(new String[0]);
-    }
 
     /**
      * The pattern of the archived model files that should be extracted
@@ -175,17 +159,20 @@ public class XmiZipArchiverMojo
         getLog().debug("workDirectory[" + workDirectory + "]");
         getLog().debug("outputDirectory[" + outputDirectory + "]");
         getLog().debug("finalName[" + finalName + "]");
+
         try
         {
-            final File buildDirectory = this.getBuildDirectory();
-            buildDirectory.mkdirs();
+            // - the directory which to extract the model file
+            final File modelExtractDirectory = new File(this.workDirectory, "models/xmi");
+            modelExtractDirectory.mkdirs();
+            final File buildDirectory = new File(this.workDirectory);
 
             final File modelSourceDir = modelSourceDirectory;
             final String[] replacementExtensions =
                 this.replacementExtensions != null ? this.replacementExtensions.split(",\\s*") : new String[0];
             if (modelSourceDir.exists())
             {
-                getLog().info("Copy xml.zip resources to " + this.getBuildDirectory().getAbsolutePath());
+                getLog().info("Copy xml.zip resources to " + buildDirectory.getAbsolutePath());
                 final File[] modelFiles = modelSourceDir.listFiles();
                 for (int ctr = 0; ctr < modelFiles.length; ctr++)
                 {
@@ -195,8 +182,8 @@ public class XmiZipArchiverMojo
                         // - extract model file
                         this.unpack(
                             file,
-                            buildDirectory);
-                        final File[] extractedModelFiles = buildDirectory.listFiles();
+                            modelExtractDirectory);
+                        final File[] extractedModelFiles = modelExtractDirectory.listFiles();
                         for (int ctr2 = 0; ctr2 < extractedModelFiles.length; ctr2++)
                         {
                             final File extractedFile = extractedModelFiles[ctr2];
@@ -204,7 +191,7 @@ public class XmiZipArchiverMojo
                             if (extractedFile.isFile() && extractedFilePath.matches(this.modelFilePattern))
                             {
                                 final File newFile =
-                                    new File(buildDirectory,
+                                    new File(modelExtractDirectory,
                                         this.finalName + '.' + FileUtils.getExtension(extractedFile.toString()));
 
                                 // - exclude the file that we extracted
@@ -230,37 +217,24 @@ public class XmiZipArchiverMojo
                                 final FileWriter fileWriter = new FileWriter(newFile);
                                 fileWriter.write(contents);
                                 fileWriter.flush();
+                                final File xmlZipFile = new File(buildDirectory, this.finalName + ".xml.zip");
+                                this.writeModelArchive(
+                                    xmlZipFile,
+                                    newFile.toString());
                             }
                         }
                     }
                 }
             }
-        }
-        catch (final Throwable throwable)
-        {
-            throw new MojoExecutionException("Error copying model resources", throwable);
-        }
 
-        try
-        {
             final File xmlZipFile = new File(buildDirectory, this.finalName + ".xml.zip");
             final Artifact artifact = this.project.getArtifact();
-            final MavenArchiver archiver = new MavenArchiver();
-            archiver.setArchiver(this.jarArchiver);
-            archiver.setOutputFile(xmlZipFile);
-            archiver.getArchiver().addDirectory(
-                this.getBuildDirectory(),
-                MODEL_INCLUDES,
-                this.getModelArchiveExcludes());
-            archiver.createArchive(
-                project,
-                archive);
-
             if (this.generateJar)
             {
+                final File workDirectory = new File(this.workDirectory);
                 this.getLog().info("Building model jar " + finalName);
 
-                File modelJar = new File(buildDirectory, finalName + ".jar");
+                File modelJar = new File(workDirectory, finalName + ".jar");
 
                 final MavenArchiver modelJarArchiver = new MavenArchiver();
 
@@ -336,22 +310,6 @@ public class XmiZipArchiverMojo
         return pattern;
     }
 
-    private File buildDirectory;
-
-    /**
-     * Gets the current build directory as a file instance.
-     *
-     * @return the build directory as a file.
-     */
-    protected File getBuildDirectory()
-    {
-        if (this.buildDirectory == null)
-        {
-            this.buildDirectory = new File(workDirectory);
-        }
-        return this.buildDirectory;
-    }
-
     /**
      * Unpacks the archive file.
      *
@@ -379,5 +337,48 @@ public class XmiZipArchiverMojo
                 throw new MojoExecutionException("Error unpacking file: " + file + "to: " + location, throwable);
             }
         }
+    }
+
+    /**
+     * The regular expression pattern used to remove the beginning of the path from the file (and leave the name).
+     */
+    private static final String PATH_REMOVE_PATTERN = ".*(\\\\|/)";
+
+    /**
+     * Writes the given given <code>model</code> archive file and includes
+     * the file given by the <code>path</code>
+     * @param modelArchive the model archive.
+     * @param path
+     * @throws IOException
+     */
+    private void writeModelArchive(
+        final File modelArchive,
+        final String path)
+        throws IOException
+    {
+        // - retrieve the name of the file given by the path.
+        final String name = path.replaceAll(
+                PATH_REMOVE_PATTERN,
+                "");
+        final ZipOutputStream zipOutputStream = new ZipOutputStream(new java.io.FileOutputStream(modelArchive));
+        final ZipEntry zipEntry = new ZipEntry(name);
+        zipEntry.setMethod(ZipEntry.DEFLATED);
+        zipOutputStream.putNextEntry(zipEntry);
+        final java.io.FileInputStream inputStream = new java.io.FileInputStream(path);
+        final byte[] buffer = new byte[1024];
+        int n = 0;
+        while ((n = inputStream.read(
+                    buffer,
+                    0,
+                    buffer.length)) > 0)
+        {
+            zipOutputStream.write(
+                buffer,
+                0,
+                n);
+        }
+        inputStream.close();
+        zipOutputStream.closeEntry();
+        zipOutputStream.close();
     }
 }
