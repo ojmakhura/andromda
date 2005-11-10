@@ -23,9 +23,11 @@ import org.codehaus.plexus.util.InterpolationFilterReader;
 
 
 /**
- * A an abstract Mojo for dealing with the AndroMDA configuration,
+ * An abstract Mojo for dealing with the AndroMDA configuration,
  * if a plugin needs to use the AndroMDA configuration, it should extend this
  * class.
+ * 
+ * @author Chad Brandon
  */
 public abstract class AbstractConfigurationMojo
     extends AbstractMojo
@@ -64,7 +66,7 @@ public abstract class AbstractConfigurationMojo
             "settings",
             this.getSettings());
 
-        // Project properties
+        // - project properties
         properties.putAll(this.getProject().getProperties());
         for (final Iterator iterator = this.getPropertyFiles().iterator(); iterator.hasNext();)
         {
