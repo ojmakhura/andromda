@@ -13,18 +13,22 @@
     <developers/>
     <dependencies>
         <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>UMLMetafacadeModel</artifactId>
-            <version>${andromda.version}</version>
-            <type>xml.zip</type>
-            <properties/>
-        </dependency>
-        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.8</version>
             <type>jar</type>
             <properties/>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>andromda-site-plugin</artifactId>
+            <version>${andromda.version}</version>
+            <type>plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-utils</artifactId>
+            <version>${andromda.version}</version>
         </dependency>
     </dependencies>
     <properties/>

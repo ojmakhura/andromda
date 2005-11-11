@@ -22,12 +22,6 @@
         </developer>
     </developers>
     <dependencies>
-        <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-profile</artifactId>
-            <version>${andromda.version}</version>
-            <type>xml.zip</type>
-        </dependency>
 		<dependency>
 	      	<groupId>andromda</groupId>
 	      	<artifactId>maven-andromda-plugin</artifactId>
@@ -51,12 +45,12 @@
 	      	<groupId>andromda</groupId>
 	      	<artifactId>andromda-metafacades-uml</artifactId>
 	      	<version>${andromda.version}</version>
-	    </dependency> 
+	    </dependency>
     	<dependency>
 	      	<groupId>andromda</groupId>
 	      	<artifactId>andromda-meta-cartridge</artifactId>
 	      	<version>${andromda.version}</version>
-	    </dependency> 
+	    </dependency>
         <dependency>
             <groupId>andromda</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
@@ -82,7 +76,7 @@
             <artifactId>log4j</artifactId>
             <version>1.2.8</version>
             <properties/>
-        </dependency> 
+        </dependency>
         <!-- test dependencies -->
         <dependency>
             <groupId>andromda</groupId>
@@ -91,7 +85,7 @@
             <type>plugin</type>
             <properties/>
         </dependency>
-    </dependencies> 
+    </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
     </build>
