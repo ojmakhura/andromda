@@ -1,9 +1,7 @@
 package org.andromda.core.configuration;
 
 import java.io.Serializable;
-
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -205,7 +203,7 @@ public class Namespaces
     /**
      * Stores the namespace registries
      */
-    private final Map registries = new HashMap();
+    private final Map registries = new LinkedHashMap();
 
     /**
      * Adds a namespace registrt to this instance.  Namespace registries contain

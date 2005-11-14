@@ -2,8 +2,8 @@ package org.andromda.core.cartridge.template;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.andromda.core.common.ExceptionUtils;
@@ -64,7 +64,7 @@ public class ModelElements
      */
     public Set getAllMetafacades()
     {
-        final Set allMetafacades = new HashSet();
+        final Set allMetafacades = new LinkedHashSet();
         for (final Iterator iterator = this.modelElements.iterator(); iterator.hasNext();)
         {
             allMetafacades.addAll(((ModelElement)iterator.next()).getMetafacades());

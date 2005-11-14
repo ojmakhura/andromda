@@ -1,6 +1,6 @@
 package org.andromda.core.translation.library;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.andromda.core.common.ComponentContainer;
@@ -23,7 +23,7 @@ public class LibraryTranslationFinder
     /**
      * Stores the found library translations.
      */
-    protected static final Map libraryTranslations = new HashMap();
+    protected static final Map libraryTranslations = new LinkedHashMap();
 
     /**
      * Finds the library with the specified libraryName.

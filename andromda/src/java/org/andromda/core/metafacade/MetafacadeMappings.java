@@ -3,8 +3,8 @@ package org.andromda.core.metafacade;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -149,7 +149,7 @@ public class MetafacadeMappings
     /**
      * Contains references to properties populated in the Namespaces.
      */
-    private final Collection propertyReferences = new HashSet();
+    private final Collection propertyReferences = new LinkedHashSet();
 
     /**
      * Gets all property references defined in this mappings

@@ -2,11 +2,10 @@ package org.andromda.core.mapping;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.andromda.core.common.ExceptionUtils;
@@ -25,7 +24,7 @@ public class Mapping
     /**
      * Stores the from elements.
      */
-    private final Collection froms = new HashSet();
+    private final Collection froms = new LinkedHashSet();
 
     /**
      * Adds the <code>from</code> type to the mapping.

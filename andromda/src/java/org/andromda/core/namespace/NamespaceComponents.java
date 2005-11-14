@@ -1,12 +1,10 @@
 package org.andromda.core.namespace;
 
 import java.io.InputStream;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.andromda.core.common.AndroMDALogger;
@@ -243,7 +241,7 @@ public class NamespaceComponents
      * Stores the actual component definitions for this
      * namespace registry.
      */
-    private final Map components = new HashMap();
+    private final Map components = new LinkedHashMap();
 
     /**
      * Adds a new component to this namespace registry.

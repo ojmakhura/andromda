@@ -2,9 +2,9 @@ package org.andromda.core.metafacade;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -167,7 +167,7 @@ public class MetafacadeMapping
     /**
      * Used to hold references to language mapping classes.
      */
-    private final Collection propertyReferences = new HashSet();
+    private final Collection propertyReferences = new LinkedHashSet();
 
     /**
      * Adds a mapping property reference. These are used to populate metafacade impl classes with mapping files, etc.

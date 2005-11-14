@@ -1,7 +1,7 @@
 package org.andromda.cartridges.spring;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import org.andromda.cartridges.spring.metafacades.SpringService;
 import org.andromda.metafacades.uml.Service;
@@ -25,7 +25,7 @@ public class SpringUtils
      */
     public Collection getAllRoles(Collection services)
     {
-        final Collection allRoles = new HashSet();
+        final Collection allRoles = new LinkedHashSet();
         CollectionUtils.forAllDo(
             services,
             new Closure()

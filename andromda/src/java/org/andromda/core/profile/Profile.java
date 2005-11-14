@@ -2,8 +2,8 @@ package org.andromda.core.profile;
 
 import java.net.URL;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.andromda.core.common.ComponentContainer;
@@ -45,7 +45,7 @@ public class Profile
     /**
      * Stores the elements for the profile (by name).
      */
-    private final Map elements = new HashMap();
+    private final Map elements = new LinkedHashMap();
 
     /**
      * Adds a new element to this namespace registry.
@@ -137,7 +137,7 @@ public class Profile
     /**
      * Stores all elements.
      */
-    private final Map allElements = new HashMap();
+    private final Map allElements = new LinkedHashMap();
 
     /**
      * Adds the elements to the interal elements map.
@@ -188,7 +188,7 @@ public class Profile
         Map namespaceElements = (Map)this.allElements.get(namespace);
         if (namespaceElements == null)
         {
-            namespaceElements = new HashMap();
+            namespaceElements = new LinkedHashMap();
             this.allElements.put(
                 namespace,
                 namespaceElements);

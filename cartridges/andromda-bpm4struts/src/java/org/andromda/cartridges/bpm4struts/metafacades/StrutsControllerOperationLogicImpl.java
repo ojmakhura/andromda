@@ -1,7 +1,16 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -12,15 +21,7 @@ import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.ServiceOperation;
 import org.andromda.metafacades.uml.StateVertexFacade;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import org.andromda.utils.StringUtilsHelper;
 
 
 /**
@@ -65,7 +66,7 @@ public class StrutsControllerOperationLogicImpl
      */
     public java.util.List getDeferringActions()
     {
-        final Collection deferringActions = new HashSet();
+        final Collection deferringActions = new LinkedHashSet();
 
         final FrontEndActivityGraph graph = getActivityGraph();
         if (graph != null)
@@ -139,11 +140,11 @@ public class StrutsControllerOperationLogicImpl
      */
     public List getFormFields()
     {
-        final Map formFieldsMap = new HashMap();
+        final Map formFieldsMap = new LinkedHashMap();
 
         // for quick lookup we use a hashset for the argument names, we only consider parameters with a name
         // which is also present in this set
-        final Set argumentNames = new HashSet();
+        final Set argumentNames = new LinkedHashSet();
         final Collection arguments = this.getArguments();
         for (final Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
         {

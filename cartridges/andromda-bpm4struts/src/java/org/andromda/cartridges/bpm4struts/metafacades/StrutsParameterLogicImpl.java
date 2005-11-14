@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -601,7 +600,7 @@ public class StrutsParameterLogicImpl
 
         final StrutsJsp page = this.getJsp();
 
-        final Collection tableActions = new HashSet();
+        final Collection tableActions = new LinkedHashSet();
 
         final Collection allUseCases = getModel().getAllUseCases();
         for (final Iterator useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
@@ -1355,7 +1354,7 @@ public class StrutsParameterLogicImpl
      */
     protected java.util.Collection handleGetValidatorVars()
     {
-        final Map vars = new HashMap();
+        final Map vars = new LinkedHashMap();
 
         final ClassifierFacade type = getType();
         if (type != null)

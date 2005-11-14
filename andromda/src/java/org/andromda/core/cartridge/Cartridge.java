@@ -2,13 +2,11 @@ package org.andromda.core.cartridge;
 
 import java.io.File;
 import java.io.StringWriter;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -151,7 +149,7 @@ public class Cartridge
                     if (template.isOutputToSingleFile() &&
                         (template.isOutputOnEmptyElements() || !allMetafacades.isEmpty()))
                     {
-                        final Map templateContext = new HashMap();
+                        final Map templateContext = new LinkedHashMap();
 
                         // - first place all relevant model elements by the
                         //   <modelElements/> variable name. If the variable
@@ -206,7 +204,7 @@ public class Cartridge
                         //   template.
                         for (final Iterator iterator = allMetafacades.iterator(); iterator.hasNext();)
                         {
-                            final Map templateContext = new HashMap();
+                            final Map templateContext = new LinkedHashMap();
                             final Object metafacade = iterator.next();
                             final ModelAccessFacade model = factory.getModel();
                             for (final Iterator elements = modelElements.getModelElements().iterator();
@@ -342,7 +340,7 @@ public class Cartridge
                 template.getOutlet());
         if (outlet != null)
         {
-            final Map templateContext = new HashMap();
+            final Map templateContext = new LinkedHashMap();
             this.processWithTemplate(
                 template,
                 templateContext,
@@ -544,7 +542,7 @@ public class Cartridge
                             "");
                 }
 
-                final Map templateContext = new HashMap();
+                final Map templateContext = new LinkedHashMap();
                 this.populateTemplateContext(templateContext);
                 outFile =
                     resource.getOutputLocation(

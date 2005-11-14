@@ -4,10 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
-
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.andromda.core.configuration.NamespaceProperties;
@@ -38,7 +37,7 @@ public class Merger
     /**
      * Stores the cached merge mappings already found (so we don't need to reconstruct again each time).
      */
-    private final Map mergeMappingsCache = new HashMap();
+    private final Map mergeMappingsCache = new LinkedHashMap();
 
     /**
      * Gets the shared Merger instance. Normally you'll want to retrieve the instance through this method.

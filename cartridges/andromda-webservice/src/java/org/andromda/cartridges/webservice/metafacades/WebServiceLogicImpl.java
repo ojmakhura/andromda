@@ -2,13 +2,12 @@ package org.andromda.cartridges.webservice.metafacades;
 
 import java.text.Collator;
 import java.text.MessageFormat;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -170,7 +169,7 @@ public class WebServiceLogicImpl
      */
     protected java.util.Collection handleGetTypeMappingElements()
     {
-        Collection paramTypes = new HashSet();
+        Collection paramTypes = new LinkedHashSet();
         Iterator operationIt = this.getAllowedOperations().iterator();
         while (operationIt.hasNext())
         {
@@ -686,7 +685,7 @@ public class WebServiceLogicImpl
      */
     public Collection getAllRoles()
     {
-        final Collection roles = new HashSet(this.getRoles());
+        final Collection roles = new LinkedHashSet(this.getRoles());
         CollectionUtils.forAllDo(
             this.getAllowedOperations(),
             new Closure()
