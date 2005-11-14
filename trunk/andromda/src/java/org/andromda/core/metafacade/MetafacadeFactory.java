@@ -2,9 +2,9 @@ package org.andromda.core.metafacade;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +27,7 @@ public class MetafacadeFactory
     /**
      * Caches the registered properties used within metafacades.
      */
-    private final Map metafacadeNamespaces = new HashMap();
+    private final Map metafacadeNamespaces = new LinkedHashMap();
 
     /**
      * The shared instance of this factory.
@@ -347,7 +347,7 @@ public class MetafacadeFactory
      * Stores the metafacades being created, so that we don't get stuck in
      * endless recursion during creation.
      */
-    private final Map metafacadesInCreation = new HashMap();
+    private final Map metafacadesInCreation = new LinkedHashMap();
 
     /**
      * Returns a metafacade for a mappingObject, depending on its <code>mappingClass</code>.
@@ -515,7 +515,7 @@ public class MetafacadeFactory
         Map metafacadeNamespace = (Map)this.metafacadeNamespaces.get(namespace);
         if (metafacadeNamespace == null)
         {
-            metafacadeNamespace = new HashMap();
+            metafacadeNamespace = new LinkedHashMap();
             this.metafacadeNamespaces.put(
                 namespace,
                 metafacadeNamespace);
@@ -523,7 +523,7 @@ public class MetafacadeFactory
         Map propertyNamespace = (Map)metafacadeNamespace.get(metafacadeName);
         if (propertyNamespace == null)
         {
-            propertyNamespace = new HashMap();
+            propertyNamespace = new LinkedHashMap();
             metafacadeNamespace.put(
                 metafacadeName,
                 propertyNamespace);
@@ -638,7 +638,7 @@ public class MetafacadeFactory
      * The validation messages that have been collected during the
      * execution of this factory.
      */
-    private final Collection validationMessages = new HashSet();
+    private final Collection validationMessages = new LinkedHashSet();
 
     /**
      * Gets the list of all validation messages collection during model processing.
@@ -655,7 +655,7 @@ public class MetafacadeFactory
      * Stores the collection of all metafacades for
      * each namespace.
      */
-    private final Map allMetafacades = new HashMap();
+    private final Map allMetafacades = new LinkedHashMap();
 
     /**
      * <p>
@@ -694,7 +694,7 @@ public class MetafacadeFactory
     /**
      * Caches the metafacdaes by stereotype.
      */
-    private final Map metafacadesByStereotype = new HashMap();
+    private final Map metafacadesByStereotype = new LinkedHashMap();
 
     /**
      * <p>
@@ -718,7 +718,7 @@ public class MetafacadeFactory
             Map stereotypeMetafacades = (Map)this.metafacadesByStereotype.get(namespace);
             if (stereotypeMetafacades == null)
             {
-                stereotypeMetafacades = new HashMap();
+                stereotypeMetafacades = new LinkedHashMap();
             }
             metafacades = (Collection)stereotypeMetafacades.get(stereotype);
             if (metafacades == null)

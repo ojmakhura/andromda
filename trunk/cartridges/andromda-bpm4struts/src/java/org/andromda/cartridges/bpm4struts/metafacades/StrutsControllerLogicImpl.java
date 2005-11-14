@@ -1,15 +1,15 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 
 
 /**
@@ -40,7 +40,7 @@ public class StrutsControllerLogicImpl
      */
     public List getDeferringActions()
     {
-        final Collection deferringActions = new HashSet();
+        final Collection deferringActions = new LinkedHashSet();
 
         final Collection operations = getOperations();
         for (final Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)

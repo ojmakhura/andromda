@@ -55,6 +55,21 @@
                 </plugin>
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
+                    <artifactId>andromda-maven-plugin</artifactId>    
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>run</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <buildSourceDirectory>${basedir}/target/src</buildSourceDirectory>
+                        <lastModifiedCheck>true</lastModifiedCheck>
+                    </configuration>        
+                </plugin>
+                <plugin>
+                    <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-bootstrap-install-plugin</artifactId>    
                     <executions>
                         <execution>
@@ -127,5 +142,8 @@
     <modules>
         <module>common</module>
         <module>uml14</module>
+        <!--
+        <module>emf/uml2</module>
+        -->
     </modules>
 </project>

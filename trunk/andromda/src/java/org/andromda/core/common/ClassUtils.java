@@ -3,8 +3,11 @@ package org.andromda.core.common;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
+import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -260,5 +263,40 @@ public class ClassUtils
         return ("void".equals(name) || "char".equals(name) || "byte".equals(name) || "short".equals(name) ||
         "int".equals(name) || "long".equals(name) || "float".equals(name) || "double".equals(name) ||
         "boolean".equals(name));
+    }
+
+    /**
+     * Searches the contents of the <code>uri</code> and returns the first
+     * Class found that is of the given <code>type</code>.
+     *
+     * @param uri the URI to search, ie. a directory or an archive.
+     * @param type the type to check.
+     * @return the class or null if not found.
+     */
+    public static Class findClassOfType(
+        final URL uri,
+        Class type)
+    {
+        Class found = null;
+        final List contents = ResourceUtils.getDirectoryContents(uri, false, null);
+        for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
+        {
+            final String path = (String)iterator.next();
+            final String typeName = path.replace('\\', '/').replace('/', '.');
+            try
+            {
+                final Class loadedClass = getClassLoader().loadClass(typeName);
+                if (type.isAssignableFrom(loadedClass))
+                {
+                    found = loadedClass;
+                    break;
+                }
+            }
+            catch (final ClassNotFoundException exception)
+            {
+                // - ignore, means the file wasn't a class
+            }
+        }
+        return found;
     }
 }

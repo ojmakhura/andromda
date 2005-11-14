@@ -1,6 +1,6 @@
 package org.andromda.core.translation.library;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.andromda.core.common.ExceptionUtils;
@@ -27,7 +27,7 @@ public class Fragment
     /**
      * The possible kinds available to this Fragment
      */
-    private Map kinds = new HashMap();
+    private Map kinds = new LinkedHashMap();
 
     /**
      * It doesn't make any sense to instatiate this object explicitly. It intended to be instantiated as part of a

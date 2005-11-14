@@ -1,16 +1,16 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 
 /**
@@ -118,7 +118,7 @@ public class StrutsFinalStateLogicImpl
 
     protected List handleGetActions()
     {
-        Set actions = new HashSet();
+        Set actions = new LinkedHashSet();
         Collection incoming = this.getIncoming();
 
         for (final Iterator incomingIterator = incoming.iterator(); incomingIterator.hasNext();)

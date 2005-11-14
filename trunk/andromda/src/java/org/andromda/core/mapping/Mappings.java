@@ -2,12 +2,9 @@ package org.andromda.core.mapping;
 
 import java.io.File;
 import java.io.FileReader;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -41,7 +38,7 @@ public class Mappings
     /**
      * A static mapping containing all logical mappings currently available.
      */
-    private static final Map logicalMappings = new HashMap();
+    private static final Map logicalMappings = new LinkedHashMap();
 
     /**
      * Holds the resource path from which this Mappings object was loaded.
@@ -211,7 +208,7 @@ public class Mappings
      */
     public static void initializeLogicalMappings()
     {
-        final Map initialized = new HashMap();
+        final Map initialized = new LinkedHashMap();
         for (final Iterator nameIterator = logicalMappings.keySet().iterator(); nameIterator.hasNext();)
         {
             final String name = (String)nameIterator.next();
@@ -395,7 +392,7 @@ public class Mappings
     /**
      * Caches the complete path.
      */
-    private final Map completePaths = new HashMap();
+    private final Map completePaths = new LinkedHashMap();
 
     /**
      * Constructs the complete path from the given <code>relativePath</code>

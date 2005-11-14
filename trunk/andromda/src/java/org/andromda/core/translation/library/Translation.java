@@ -2,8 +2,8 @@ package org.andromda.core.translation.library;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.andromda.core.common.ExceptionUtils;
@@ -20,7 +20,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class Translation
 {
     private String name;
-    private final Map fragments = new HashMap();
+    private final Map fragments = new LinkedHashMap();
     private final Collection ignorePatterns = new ArrayList();
     private Collection validatePatterns;
 

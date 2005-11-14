@@ -1,6 +1,6 @@
 package org.andromda.core.namespace;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -68,7 +68,7 @@ public class NamespaceRegistry
      * within this namespace registry and the paths from which 
      * they can be initialized.
      */
-    private final Map components = new HashMap();
+    private final Map components = new LinkedHashMap();
 
     /**
      * Registers the component with the
@@ -108,7 +108,7 @@ public class NamespaceRegistry
     /**
      * Stores the property definitions.
      */
-    private final Map definitions = new HashMap();
+    private final Map definitions = new LinkedHashMap();
 
     /**
      * Attempts to retrieve the property definition for the given

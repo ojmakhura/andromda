@@ -3,9 +3,9 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -171,8 +171,8 @@ public class StrutsForwardLogicImpl
      */
     public java.util.List getActions()
     {
-        final Set actions = new HashSet();
-        this.findActions(actions, new HashSet());
+        final Set actions = new LinkedHashSet();
+        this.findActions(actions, new LinkedHashSet());
         return new ArrayList(actions);
     }
 

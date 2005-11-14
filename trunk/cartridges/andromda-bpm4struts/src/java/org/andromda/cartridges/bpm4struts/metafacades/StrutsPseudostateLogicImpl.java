@@ -1,16 +1,16 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.utils.StringUtilsHelper;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
+import org.andromda.utils.StringUtilsHelper;
 
 
 /**
@@ -50,7 +50,7 @@ public class StrutsPseudostateLogicImpl
      */
     public List getContainerActions()
     {
-        final Collection actionSet = new HashSet();
+        final Collection actionSet = new LinkedHashSet();
         final StateMachineFacade graphContext = getStateMachine();
 
         if (graphContext instanceof ActivityGraphFacade)

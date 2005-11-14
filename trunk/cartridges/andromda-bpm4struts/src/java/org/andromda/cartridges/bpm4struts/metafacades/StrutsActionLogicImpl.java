@@ -1,9 +1,18 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.FrontEndEvent;
@@ -16,21 +25,11 @@ import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -74,10 +73,10 @@ public class StrutsActionLogicImpl
      */
     private void initializeCollections()
     {
-        actionStates = new HashSet();
+        actionStates = new LinkedHashSet();
         actionForwards = new HashMap();
-        decisionTransitions = new HashSet();
-        transitions = new HashSet();
+        decisionTransitions = new LinkedHashSet();
+        transitions = new LinkedHashSet();
         collectTransitions(this, transitions);
     }
 
@@ -620,7 +619,7 @@ public class StrutsActionLogicImpl
 
     protected List handleGetActionExceptions()
     {
-        final Collection exceptions = new HashSet();
+        final Collection exceptions = new LinkedHashSet();
         final Collection actionStates = getActionStates();
         for (final Iterator iterator = actionStates.iterator(); iterator.hasNext();)
         {
@@ -843,7 +842,7 @@ public class StrutsActionLogicImpl
      */
     protected List handleGetTargetPages()
     {
-        Collection targetPages = new HashSet();
+        Collection targetPages = new LinkedHashSet();
 
         Collection forwards = getActionForwards();
         for (final Iterator forwardIterator = forwards.iterator(); forwardIterator.hasNext();)

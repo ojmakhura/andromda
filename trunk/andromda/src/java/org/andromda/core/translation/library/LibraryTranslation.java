@@ -4,10 +4,8 @@ import java.io.BufferedReader;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
-
 import java.lang.reflect.Method;
-
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.andromda.core.common.ComponentContainer;
@@ -283,7 +281,7 @@ public class LibraryTranslation
         {
             if (templateContext == null)
             {
-                templateContext = new HashMap();
+                templateContext = new LinkedHashMap();
             }
             this.getLibrary().populateTemplateContext(templateContext);
 

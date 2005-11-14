@@ -43,7 +43,6 @@ public class $controller.implementationName
 #elseif ($tableActionFound)
         // we don't set row selection parameters such as ${field.name}RowSelection
 #end
-
 #if (!$field.complex)
 #if ($field.selectable)
 #set ($valueListMethod = $stringUtils.capitalize($field.valueListName))

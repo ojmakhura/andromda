@@ -1,5 +1,16 @@
 package org.andromda.cartridges.meta.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.andromda.cartridges.meta.MetaProfile;
 import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -14,17 +25,6 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 
 /**
@@ -234,7 +234,7 @@ public class MetafacadeLogicImpl
     {
         try
         {
-            final Set declarationSet = new HashSet();
+            final Set declarationSet = new LinkedHashSet();
             if (this.featureMap == null)
             {
                 this.featureMap = new HashMap();

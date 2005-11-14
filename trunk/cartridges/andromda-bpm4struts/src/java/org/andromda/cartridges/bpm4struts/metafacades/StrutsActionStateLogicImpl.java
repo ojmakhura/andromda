@@ -1,17 +1,17 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -36,7 +36,7 @@ public class StrutsActionStateLogicImpl
      */
     public List getContainerActions()
     {
-        final Collection actionSet = new HashSet();
+        final Collection actionSet = new LinkedHashSet();
 
         final StateMachineFacade stateMachineFacade = this.getStateMachine();
         if (stateMachineFacade instanceof ActivityGraphFacade)
@@ -65,7 +65,7 @@ public class StrutsActionStateLogicImpl
      */
     public java.util.List getExceptions()
     {
-        final Map exceptionsMap = new HashMap();
+        final Map exceptionsMap = new LinkedHashMap();
         final Collection outgoing = getOutgoing();
         for (final Iterator iterator = outgoing.iterator(); iterator.hasNext();)
         {

@@ -1,5 +1,8 @@
 package org.andromda.cartridges.webservice;
 
+import java.util.Collection;
+import java.util.LinkedHashSet;
+
 import org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType;
 import org.andromda.cartridges.webservice.metafacades.WSDLType;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -8,9 +11,6 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.Collection;
-import java.util.HashSet;
 
 /**
  * Contains utilities used within the WebService cartridge.
@@ -27,7 +27,7 @@ public class WebServiceUtils
      */
     public Collection getAllRoles(Collection services)
     {
-        final Collection allRoles = new HashSet();
+        final Collection allRoles = new LinkedHashSet();
         CollectionUtils.forAllDo(services, new Closure()
         {
             public void execute(Object object)
