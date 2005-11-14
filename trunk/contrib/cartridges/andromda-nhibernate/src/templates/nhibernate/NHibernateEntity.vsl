@@ -69,7 +69,7 @@ $entity.getDocumentation("    /// ")
         /// <summary>
 $attribute.getDocumentation("        /// ")
         /// </summary>
-        public $typeName ${stringUtils.upperCamelCaseName($attribute.name)}
+        $attribute.visibility $typeName ${stringUtils.upperCamelCaseName($attribute.name)}
         {
             get { return $attribute.name; }
             set { this.$attribute.name = value; }
