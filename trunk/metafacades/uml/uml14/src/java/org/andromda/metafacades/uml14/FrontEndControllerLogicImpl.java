@@ -2,8 +2,8 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.andromda.metafacades.uml.ActivityGraphFacade;
@@ -76,7 +76,7 @@ public class FrontEndControllerLogicImpl
      */
     protected List handleGetDeferringActions()
     {
-        final Collection deferringActions = new HashSet();
+        final Collection deferringActions = new LinkedHashSet();
 
         final Collection operations = getOperations();
         for (final Iterator operationIterator = operations.iterator(); operationIterator.hasNext();)

@@ -2,8 +2,8 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
@@ -66,7 +66,7 @@ public class GeneralizableElementFacadeLogicImpl
      */
     protected Collection handleGetGeneralizations()
     {
-        Collection parents = new HashSet();
+        Collection parents = new LinkedHashSet();
         Collection generalizations = metaObject.getGeneralization();
         if (generalizations != null && !generalizations.isEmpty())
         {
@@ -130,7 +130,7 @@ public class GeneralizableElementFacadeLogicImpl
      */
     protected Collection handleGetAllSpecializations()
     {
-        final Set allSpecializations = new HashSet();
+        final Set allSpecializations = new LinkedHashSet();
         if (this.getSpecializations() != null)
         {
             allSpecializations.addAll(this.getSpecializations());

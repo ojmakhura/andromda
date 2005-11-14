@@ -3,8 +3,8 @@ package org.andromda.metafacades.uml14;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -185,7 +185,7 @@ public class FrontEndActionLogicImpl
     private void initializeCollections()
     {
         this.actionStates = new LinkedHashSet();
-        this.actionForwards = new HashMap();
+        this.actionForwards = new LinkedHashMap();
         this.decisionTransitions = new LinkedHashSet();
         this.transitions = new LinkedHashSet();
         this.collectTransitions(
@@ -330,7 +330,7 @@ public class FrontEndActionLogicImpl
      */
     protected List handleGetFormFields()
     {
-        final Map formFieldMap = new HashMap();
+        final Map formFieldMap = new LinkedHashMap();
 
         // - For an action that starts the use case, we need to detect all usecases forwarding to the one 
         //   belonging to this action if there are any parameters in those transitions we need to have 

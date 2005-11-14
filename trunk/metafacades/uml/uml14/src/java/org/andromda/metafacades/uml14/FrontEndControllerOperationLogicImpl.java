@@ -2,9 +2,9 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -66,11 +66,11 @@ public class FrontEndControllerOperationLogicImpl
      */
     protected java.util.List handleGetFormFields()
     {
-        final Map formFieldsMap = new HashMap();
+        final Map formFieldsMap = new LinkedHashMap();
 
         // for quick lookup we use a hashset for the argument names, we only consider parameters with a name
         // which is also present in this set
-        final Set argumentNames = new HashSet();
+        final Set argumentNames = new LinkedHashSet();
         final Collection arguments = this.getArguments();
         for (final Iterator argumentIterator = arguments.iterator(); argumentIterator.hasNext();)
         {
@@ -161,7 +161,7 @@ public class FrontEndControllerOperationLogicImpl
      */
     protected java.util.List handleGetDeferringActions()
     {
-        final Collection deferringActions = new HashSet();
+        final Collection deferringActions = new LinkedHashSet();
 
         final FrontEndActivityGraph graph = this.getActivityGraph();
         if (graph != null)

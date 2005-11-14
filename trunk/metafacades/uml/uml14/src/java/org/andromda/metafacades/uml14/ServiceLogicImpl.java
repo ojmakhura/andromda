@@ -1,5 +1,8 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.LinkedHashSet;
+
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.FilteredCollection;
@@ -11,9 +14,6 @@ import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
-
-import java.util.Collection;
-import java.util.HashSet;
 
 /**
  * Metaclass facade implementation.
@@ -79,7 +79,7 @@ public class ServiceLogicImpl
                 return ((DependencyFacade)object).getSourceElement();
             }
         });
-        final Collection allRoles = new HashSet(roles);
+        final Collection allRoles = new LinkedHashSet(roles);
         // add all roles which are generalizations of this one
         CollectionUtils.forAllDo(roles, new Closure()
         {
@@ -96,7 +96,7 @@ public class ServiceLogicImpl
      */
     protected Collection handleGetAllRoles()
     {
-        final Collection roles = new HashSet(this.getRoles());
+        final Collection roles = new LinkedHashSet(this.getRoles());
         CollectionUtils.forAllDo(this.getOperations(), new Closure()
         {
             public void execute(Object object)

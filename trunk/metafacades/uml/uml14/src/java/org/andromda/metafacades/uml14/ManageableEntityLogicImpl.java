@@ -3,13 +3,12 @@ package org.andromda.metafacades.uml14;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActorFacade;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -23,6 +22,7 @@ import org.andromda.metafacades.uml.ManageableEntityAttribute;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -236,7 +236,7 @@ public class ManageableEntityLogicImpl
 
     protected java.util.List handleGetReferencingManageables()
     {
-        final Set referencingManageables = new HashSet();
+        final Set referencingManageables = new LinkedHashSet();
         final Collection associationEnds = getAssociationEnds();
         for (final Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
@@ -295,7 +295,7 @@ public class ManageableEntityLogicImpl
 
     protected java.util.List handleGetUsers()
     {
-        final Set users = new HashSet();
+        final Set users = new LinkedHashSet();
 
         final Collection dependencies = getTargetDependencies();
         for (final Iterator dependencyIterator = dependencies.iterator(); dependencyIterator.hasNext();)

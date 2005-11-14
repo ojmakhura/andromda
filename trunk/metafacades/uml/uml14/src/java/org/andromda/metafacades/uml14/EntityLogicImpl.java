@@ -2,8 +2,8 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -596,7 +596,7 @@ public class EntityLogicImpl
         final boolean follow,
         final boolean withIdentifiers)
     {
-        final Set properties = new HashSet(this.getProperties(
+        final Set properties = new LinkedHashSet(this.getProperties(
                     follow,
                     withIdentifiers));
         CollectionUtils.filter(
