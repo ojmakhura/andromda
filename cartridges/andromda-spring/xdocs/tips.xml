@@ -42,7 +42,7 @@ protected PersonDetails handleGet(Long id) throws Exception
             </p>
             <p>
                 With the change of a single line it is possible to enable or disable the usage of stateless session
-                EJBs, simply put the <![CDATA[<session-ejbs>]]> outlet in comment, like this 
+                EJBs, simply put the <![CDATA[<session-ejbs>]]> outlet in comment, like this
                 (this is done in <code>mda/conf/andromda.xml</code>):
 <source language="xml"><![CDATA[
 <namespace name="spring">
@@ -88,7 +88,7 @@ protected boolean doSomethingWithUserGroups(User user) throws Exception
         </section>
         <section name="Connecting to JBoss with Remote EJBs">
             <p>
-                When connecting to a remote EJB wrapped Spring service deployed in JBoss, its possible you'll get 
+                When connecting to a remote EJB wrapped Spring service deployed in JBoss, its possible you'll get
                 the following exception:
 <source>
 org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'transactionManager' defined in c
@@ -101,19 +101,44 @@ javax.naming.NameNotFoundException: UserTransaction not bound
         at org.jnp.server.NamingServer.getBinding(NamingServer.java:491)
         at org.jnp.server.NamingServer.getBinding(NamingServer.java:499)
         at org.jnp.server.NamingServer.getObject(NamingServer.java:505)
-        at org.jnp.server.NamingServer.lookup(NamingServer.java:278)    
+        at org.jnp.server.NamingServer.lookup(NamingServer.java:278)
 </source>
                 To get around this, place the following 2 properties in your <em>spring</em> namespace:
                 <source language="xml"><![CDATA[
-                    
+
 <namespace name="spring">
     ...
     <property name="userTransactionName">null</property>
-    <property name="transactionManagerName">java:/TransactionManager</property>    
-    ...  
-</namespace>              
+    <property name="transactionManagerName">java:/TransactionManager</property>
+    ...
+</namespace>
                 ]]></source>
             </p>
         </section>
+
+        <section name="Using foreign services">
+            <p>
+                You can connect to "foreign" spring services, which are not implemented  in your application but in
+                another one (e.g. a other ear), as with "normal" services: just draw a dependency to the "foreign"
+                service class. The foreign service class has to be defined as any other service but without any method
+                or property.
+            </p>
+            <p>
+                To prevent the spring cartridge from generating java code you have to exclude the packages with a
+                process="false" statement in the andromda configuration just in your appropriate
+                <code>&lt;model&gt;</code> tag:
+                <source language="xml"><![CDATA[
+<modelPackages>
+    <modelPackage process="false">de::my::foreign.package::name</modelPackage>
+</modelPackages>
+                ]]></source>
+                (look at http://team.andromda.org/docs/configuration.html#modelPackage)
+                The spring cartridge will generate the dependency code for the source class (property class with
+                getter/setter) and the bean-ref tag in the spring application context file. The only thing you now
+                have to do is to provide the "foreign" spring bean definition file to your application context (in the
+                beanRefFactory file).
+            </p>
+        </section>
+
     </body>
 </document>
