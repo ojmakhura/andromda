@@ -1183,8 +1183,8 @@ public class StrutsParameterLogicImpl
                 if (isValidatorBoolean()) return "false";
                 if (isValidatorLong()) return "(long)" + name.hashCode();
                 if (isValidatorChar()) return "(char)" + name.hashCode();
-                if (isValidatorFloat()) return "(float)" + name.hashCode() / hashCode();
-                if (isValidatorDouble()) return "(double)" + name.hashCode() / hashCode();
+                if (isValidatorFloat()) return "(float)" + name.hashCode();
+                if (isValidatorDouble()) return "(double)" + name.hashCode();
                 if (isValidatorShort()) return "(short)" + name.hashCode();
                 if (isValidatorByte()) return "(byte)" + name.hashCode();
             }
@@ -1194,8 +1194,8 @@ public class StrutsParameterLogicImpl
                 if (isValidatorBoolean()) return "Boolean.FALSE";
                 if (isValidatorLong()) return "new Long((long)" + name.hashCode() + ")";
                 if (isValidatorChar()) return "new Character(char)" + name.hashCode() + ")";
-                if (isValidatorFloat()) return "new Float((float)" + name.hashCode() / hashCode() + ")";
-                if (isValidatorDouble()) return "new Double((double)" + name.hashCode() / hashCode() + ")";
+                if (isValidatorFloat()) return "new Float((float)" + name.hashCode() + ")";
+                if (isValidatorDouble()) return "new Double((double)" + name.hashCode() + ")";
                 if (isValidatorShort()) return "new Short((short)" + name.hashCode() + ")";
                 if (isValidatorByte()) return "new Byte((byte)" + name.hashCode() + ")";
             }
