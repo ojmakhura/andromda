@@ -1,0 +1,1055 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+    <properties>
+        <author email="naresh@andromda.org">Naresh Bhatia</author>
+        <title>AndroMDA.NET - Getting Started</title>
+    </properties>
+    
+    <body>
+        <section name="Getting started with AndroMDA.NET">
+            <p>
+                Understanding new tools and technologies can be a daunting task. AndroMDA
+                is no exception. This tutorial serves as a gentle introduction to the power
+                of AndroMDA. We will show you step-by-step how to set up your development
+                environment and build your first .NET application. Instead of mechanically
+                going through a series of steps, we will focus on ideas and concepts behind
+                what we are doing. Armed with this knowledge you will be well positioned to
+                take on real world challenges. Please set aside half a day of quality
+                uninterrupted time to learn AndroMDA as there is lot to learn. Then brew a
+                good cup of coffee and immerse yourself in the wonderful world of Model
+                Driven Architecture.
+            </p>
+        </section>
+
+        <section name="Prepare the development environment">
+            <p>
+                What follows is a step-by-step guide to set up your development environment
+                for AndroMDA. We assume that you are working on a Windows platform.
+            </p>
+            
+            <subsection name="Install Visual Studio">
+                <p>
+                    Install Visual Studio 2005. You may be able to use AndroMDA with
+                    Visual Studio 2003 (and .NET 1.1) but you will have to do bunch of
+                    configuration manually. In comparison, Visual Studio 2005 is a
+                    much more productive environment and if you have any flexibility
+                    switch over to this version as quickly as you possibly can!
+                </p>
+            </subsection>
+            
+            <subsection name="Install SQL Server">
+                <p>
+                    Install SQL Server 2000 or SQL Server 2005. You should be able to use
+                    other databases by configuring NHibernate appropriately. However for the
+                    purpose of this tutorial we will assume SQL Server.
+                </p>
+            </subsection>
+            
+            <subsection name="Install Java 2 SDK">
+                <p>
+                    Install Java 2 SDK version 1.4 or later. You may go
+                    <a href="http://java.sun.com/j2se" target="_blank">here</a>
+                    to download the version of your choice.
+                </p>
+                
+                <p>
+                    After installing Java, make sure that the <code>JAVA_HOME</code>
+                    environment variable is pointing to your Java home directory.
+                    It is possible you have this variable set already, but just to
+                    make sure here's how to check.
+                </p>
+                <p>
+                    <ol>
+                        <li>
+                            Go to the control panel and double-click on <code>System</code>.
+                            If you are a Windows XP user it's possible you have to open
+                            <code>Performance and Maintenance</code> before you will see
+                            the <code>System</code> icon.
+                        </li>
+                        <li>
+                            Go to the <code>Advanced</code> tab and click on
+                            <code>Environment Variables</code>
+                        </li>
+                        <li>
+                            Make sure you have set the <code>JAVA_HOME</code> variable set
+                            and it is pointing to the directory where you installed the JDK.
+                            If not, add/edit the variable and set it to the Java SDK
+                            installation directory, e.g. C:\j2sdk1.4.2_08.
+                        </li>
+                    </ol>
+                </p>
+            </subsection>
+
+            <subsection name="Install Maven">
+                <p>
+                    Next we will install Maven and configure it to download dependencies
+                    from the AndroMDA server whenever it needs to.
+                    <ol>
+                        <li>
+                            Download Maven 1.0.2 from this site:
+                            <a href="http://maven.apache.org/start/download.html" target="_blank">
+                            http://maven.apache.org/start/download.html</a>. Note that later 
+                            versions of Maven are not yet supported by AndroMDA.NET.
+                        </li>
+                        <li>
+                            Install the downloaded binary. (We will assume you installed it in
+                            <code>C:\Program Files\Apache Software Foundation\Maven 1.0.2</code>)
+                        </li>
+                        <li>
+                            If the installation would complain that the JAVA_HOME environment
+                            is not set then make sure you have correctly set it and close
+                            Windows Explorer or <a href="http://www.ghisler.com" target="_blank">
+                            Total Commander</a>, whatever it is you are using and start it again.
+                        </li>
+                        <li>
+                            Go to your <code>home</code> directory. (If your login is
+                            <code>foo</code> this means here:
+                            <code>C:\Documents and Settings\foo</code>)
+                        </li>
+                        <li>
+                            Create a file there, called <code>build.properties</code> and
+                            add the following line in there:
+<code>maven.repo.remote=http://www.ibiblio.org/maven,http://team.andromda.org/maven</code>.
+                            This step sets up Maven to look for artifacts at the AndroMDA
+                            site in addition to the ibiblio site.
+                        </li>
+                    </ol>
+                </p>
+            </subsection>
+            
+            <subsection name="Install MagicDraw">
+                <p>
+                    Install MagicDraw 9.5. MagicDraw allows you to model your application in UML
+                    and export the model into a format that AndroMDA understands (UML 1.4).
+                    Note that version 10 of MagicDraw outputs UML 2.0 which is not yet
+                    compatible with AndroMDA. You can download MagicDraw 9.5 from
+                    <a href="http://www.magicdraw.com" target="_blank">http://www.magicdraw.com</a>
+                </p>
+                    
+                <p class="highlight">
+                    Please note that MagicDraw is a commercial tool but has a free Community
+                    Edition that can be downloaded at no cost. The Community Edition
+                    is <i>not</i> open-source. There are several other vendors who offer UML
+                    tools with UML 1.4 output capabilities, however for use with AndroMDA we
+                    recommend MagicDraw. It is fast, relatively light-weight and provides the best
+                    support for almost any UML feature. We aren't affiliated with MagicDraw or
+                    other UML tools in any way... if you find another tool that is suitable
+                    please let us know.
+                </p>
+            </subsection>
+
+            <subsection name="Setup Environment variables">
+                <p>
+                    We have seen earlier how to set environment variables such as
+                    <code>JAVA_HOME</code>, it is strongly recommended to set the
+                    following variables before continuing. We repeat <code>JAVA_HOME</code>
+                    here just for completeness.
+                </p>
+                <p>
+                    <table>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                            <th>Required?</th>
+                        </tr>
+                        <tr>
+                            <td>JAVA_HOME</td>
+                            <td>Java installation directory, e.g. <code>C:\j2sdk1.4.2_08</code>.</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>MAVEN_HOME</td>
+                            <td>Maven installation directory, e.g.
+                                <code>C:\Program Files\Apache Software Foundation\Maven 1.0.2</code>,
+                                this might have already been set by the Maven installer.</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>MAVEN_OPTS</td>
+                            <td>Parameters to pass to the Java VM when running Maven. Set this
+                                value to <code>-XX:MaxPermSize=128m -Xmx512m</code>. This is
+                                required to build the AndroMDA Contrib project.</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>PATH</td>
+                            <td>This makes sure the system will search for console commands in
+                                the directories listed here. If this property already exists you
+                                should simply add <code>%JAVA_HOME%\bin;%MAVEN_HOME%\bin</code>.
+                            </td>
+                            <td>Yes</td>
+                        </tr>
+                    </table>
+                </p>
+            </subsection>
+
+            <subsection name="Build AndroMDA Contrib">
+                <p>
+                    Next we will download and build the AndroMDA contrib module which contains
+                    the .NET cartridges and plugins. When AndroMDA.NET is integrated with the
+                    main AndroMDA source repository this step will not be necessary.
+                    <ol>
+                        <li>
+                            Checkout AndroMDA contrib module from CVS using the CVS root
+                            <code>:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda</code>.
+                            Specify <code>contrib</code> as the module name. You can use any CVS
+                            client to do this. If you have not used CVS before, we recommend that
+                            you download and install
+                            <a href="http://www.tortoisecvs.org/" target="_blank">TortoiseCVS</a>.
+                            This tool is tightly integrated with Windows Explorer and is very
+                            easy to use. We will assume that you have checked out the contrib
+                            module under <code>C:\AndroMDA\contrib</code>
+                        </li>
+                        <li>
+                            Open a Command Prompt and change your directory to
+                            <code>C:\AndroMDA\contrib</code>.
+                        </li>
+                        <li>
+                            Execute the command <code>maven</code>. This will build the contrib
+                            module and install the .NET cartridges in your local maven repository.
+                            Make sure you get a "BUILD SUCCESSFUL" message and the end of the build.
+                        </li>
+                    </ol>
+                </p>
+            </subsection>
+        </section>
+
+        <section name="My first AndroMDA application">
+            <p>
+                Now that the development environment is ready to go, it is time to build our first AndroMDA
+                application. We will design and implement a simple TimeTracker application that allows users
+                to enter timecards. Note that a completed version of this application is available under the
+                samples directory. Please feel free to refer to it while going through this tutorial.
+            </p>
+            
+            <p>
+                The diagram below shows four key components of the TimeTracker application and their relationships.
+                We will create a Visual Studio project for each of these components. What follows is a high-level
+                description of each component.
+                <p>
+                    <div align="center">
+                        <img src="images/TimeTrackerComponents.gif"/>
+                    </div>
+                </p>
+                    <ol>
+                        <li><strong>TimeTrackerCommon</strong> is a class library that contains classes common to
+                        multiple tiers, for example value objects and enumerations.</li>
+                        
+                        <li><strong>TimeTrackerCore</strong> is a class library that packages the entities and the
+                        data access layer for the TimeTracker application. A key design principle
+                        used throughout AndroMDA recommends that entities should reside only in the middle-tier of an
+                        application, i.e. in the data-access layer and/or in the services layer. Specifically, the
+                        front-end and other applications should not have direct access to entities. Instead
+                        should be converted to value objects before transfer to/from other tiers. This approach
+                        has several advantages. First of all the data passed to other tiers can be massaged to
+                        present a view that is more useful or efficient compared to passing entities in their
+                        entirety. Sometimes you may want to limit what gets passed to other tiers based on the
+                        access rights of the requesting user. For example you may want to return an EmployeeVO
+                        object as the return value of a web service call which has the salary field stripped out.
+                        The second benefit of this approach is that it allows the middle-tier to act as a gatekeeper
+                        of data that can be merged into entities without compromising their integrity. The middle-tier
+                        can perform business validations and check for sanity of incoming data. Finally, this
+                        approach also helps in controlling what exactly gets serialized when passing information
+                        between tiers. As you know, entities can be interconnected to form complex networks.
+                        Automatic serialization of these networks could result in transfer of more then necessary
+                        set of entities across the wire. In addition, some transport layers have restrictions
+                        on how entities can be serialized. For example, in case of web services it is easier to
+                        represent data in tree structures compared to networks. Also web services do not understand
+                        C# collections. Collections have to be converted into arrays before passing them back and
+                        forth. This translation is easily facilitated by the use of value objects.</li>
+                        
+                        <li><strong>TimeTrackerConsole</strong> is an administrative console application that allows
+                        creation and display of various entities used in the TimeTracker application. It demonstrates
+                        how to use the entities and data access layer provided by the <code>TimeTrackerCore</code>
+                        library.</li>
+                        
+                        <li><strong>SchemaExport</strong> is another administrative application that generates DDL from
+                        the entities defined in the <code>TimeTrackerCore</code> library. This DDL can be used to
+                        create tables that will store the TimeTracker entities. SchemaExport also has the
+                        capability to directly create the tables in a database.</li>
+                    </ol>
+            </p>
+            
+            <p>
+                In this section we will perform the one-time set up that is necessary to start any AndroMDA
+                application. Subsequent sections will describe the iterative development process that follows
+                this initial set up. So roll up your sleeves and let's get started!
+            </p>
+            
+            <subsection name="Create a Visual Studio Solution">
+                <p>
+                    We start by creating a blank Visual Studio solution and populating it with the projects
+                    that make up the TimeTracker application.
+                    <ol>
+                        <li>Start Visual Studio 2005.</li>
+                        <li>Select File > New > Project...</li>
+                        <li>Under Project types (left panel) select Other Project Types > Visual Studio Solutions</li>
+                        <li>Under Templates (right panel) choose Blank Solution.</li>
+                        <li>In the Name field below, enter <code>TimeTracker</code> as the name of the solution.</li>
+                        <li>In the Location field, enter a directory where you want to create the solution.
+                            We will assume the location to be C:\.</li>
+                        <li>Now click OK. A blank solution will be created at C:\TimeTracker.</li>
+                    </ol>
+                </p>
+
+                <p>
+                    Follow the steps below to add a project called TimeTrackerCommon to our solution. As mentioned
+                    earlier, this project will generate a class library containing classes common to multiple tiers.
+                    <ol>
+                        <li>In Solution Explorer, right-click on the TimeTracker solution and
+                            select Add > New Project....</li>
+                        <li>Under Project types (left panel) select Visual C# > Windows</li>
+                        <li>Under Templates (right panel) choose Class Library.</li>
+                        <li>In the Name field below, enter <code>TimeTrackerCommon</code>
+                            as the name of the project.</li>
+                        <li>Make sure the Location field contains the name of the solution directory.
+                            In this example, the location should be C:\TimeTracker.</li>
+                        <li>Now click OK. A class library project will be created at
+                            C:\TimeTracker\TimeTrackerCommon.</li>
+                        <li>Delete the automatically generated class file called Class1.cs.</li>
+                    </ol>
+                </p>
+
+                <p>
+                    Follow the steps below to add a project called TimeTrackerCore to our solution. This project will
+                    generate a class library containing the entities and the data access layer for the
+                    TimeTracker application.
+                    <ol>
+                        <li>In Solution Explorer, right-click on the TimeTracker solution and
+                            select Add > New Project....</li>
+                        <li>Under Project types (left panel) select Visual C# > Windows</li>
+                        <li>Under Templates (right panel) choose Class Library.</li>
+                        <li>In the Name field below, enter <code>TimeTrackerCore</code>
+                            as the name of the project.</li>
+                        <li>Make sure the Location field contains the name of the solution directory.
+                            In this example, the location should be C:\TimeTracker.</li>
+                        <li>Now click OK. A class library project will be created at
+                            C:\TimeTracker\TimeTrackerCore.</li>
+                        <li>Delete the automatically generated class file called Class1.cs.</li>
+                    </ol>
+                </p>
+
+                <p>
+                    Follow the steps below to add a project called TimeTrackerConsole to our solution.
+                    This project will generate a console application that allows creation and display
+                    of various entities used by TimeTracker.
+                    <ol>
+                        <li>In Solution Explorer, right-click on the TimeTracker solution and
+                            select Add > New Project....</li>
+                        <li>Under Project types (left panel) select Visual C# > Windows</li>
+                        <li>Under Templates (right panel) choose Console Application.</li>
+                        <li>In the Name field below, enter <code>TimeTrackerConsole</code>
+                            as the name of the project.</li>
+                        <li>Make sure the Location field contains the name of the solution directory.
+                            In this example, the location should be C:\TimeTracker.</li>
+                        <li>Now click OK. A console application project will be created at
+                            C:\TimeTracker\TimeTrackerConsole.</li>
+                        <li>In Solution Explorer, right-click on the TimeTrackerConsole project and
+                            select Add > New Item....</li>
+                        <li>Select the template called Application Configuration File.</li>
+                        <li>Make sure the Name field contains the name App.config and click Add.
+                            A new App.config file will be added to the project.</li>
+                    </ol>
+                </p>
+
+                <p>
+                    Follow the steps below to add a project called SchemaExport to our solution.
+                    This project will generate a console application that allows DDL generation from
+                    the entities defined in the <code>TimeTrackerCore</code> library.
+                    <ol>
+                        <li>In Solution Explorer, right-click on the TimeTracker solution and
+                            select Add > New Project....</li>
+                        <li>Under Project types (left panel) select Visual C# > Windows</li>
+                        <li>Under Templates (right panel) choose Console Application.</li>
+                        <li>In the Name field below, enter <code>SchemaExport</code>
+                            as the name of the project.</li>
+                        <li>Make sure the Location field contains the name of the solution directory.
+                            In this example, the location should be C:\TimeTracker.</li>
+                        <li>Now click OK. A console application project will be created at
+                            C:\TimeTracker\SchemaExport.</li>
+                        <li>In Solution Explorer, right-click on the SchemaExport project and
+                            select Add > New Item....</li>
+                        <li>Select the template called Application Configuration File.</li>
+                        <li>Make sure the Name field contains the name App.config and click Add.
+                            A new App.config file will be added to the project.</li>
+                    </ol>
+                </p>
+                
+                <p>
+                    Now save the Visual Studio Solution by selecting File > Save All. Exit Visual Studio
+                    by selecting File > Exit. At this point the preliminary set up of our Visual Studio solution
+                    is complete.
+                </p>
+            </subsection>
+                
+            <subsection name="Create Maven scripts for code generation">
+                <p>
+                    Let us turn our attention to the one-time setup required for code generation from
+                    AndroMDA. This procedure will add Maven build scripts, an empty UML model and a Lib
+                    directory to the TimeTracker solution. The Maven scripts will be used to generate code
+                    from our UML model. So let's get started.
+                    <ol>
+                        <li>Open a Command Prompt and change directory to the parent directory of the
+                            TimeTracker solution. In this example, that would be the C:\ directory.</li>
+                        <li>Now execute the following command to generate Maven scripts in the
+                            TimeTracker solution. Answer the questions exactly as shown in the output that follows.
+                            You are allowed to enter your own name in response to the first question :-).
+                            <p>
+                                <code>maven andromdacsapp:generate</code>
+                            </p>
+                        </li>
+                    </ol>
+                </p>
+
+                <pre class="console">
+ __  __
+|  \/  |__ _Apache__ ___
+| |\/| / _` \ V / -_) ' \  ~ intelligent projects ~
+|_|  |_\__,_|\_/\___|_||_|  v. 1.0.2
+
+Please enter your first and last name (e.g. Louis Coude):
+Naresh Bhatia
+Please enter the name of your C# application (e.g. Time Tracker):
+Time Tracker
+Please enter a version for your application (e.g. 1.0-SNAPSHOT):
+1.0-SNAPSHOT
+Would you like to create an ASP.NET web site? (enter 'yes' or 'no'):
+no
+build:start:
+
+andromdacsapp:init:
+
+andromdacsapp:generate:
+    [echo] +------------------------------------------------------------------+
+    [echo] |   G E N E R A T I N G   A n d r o M D A   C#   S O L U T I O N   |
+    [echo] +------------------------------------------------------------------+
+andromdacsapp:init:
+
+andromdacsapp:generate-mda-project:
+    [mkdir] Created dir: C:\TimeTracker\mda\src\uml
+    [copy] Copying 1 file to C:\TimeTracker\mda\src\uml
+    [zip] Building zip: C:\TimeTracker\mda\src\uml\TimeTrackerModel.xml.zip
+    [delete] Deleting: C:\TimeTracker\mda\src\uml\TimeTrackerModel.xml
+    [mkdir] Created dir: C:\TimeTracker\mda\conf
+    [copy] Copying 1 file to C:\TimeTracker\mda
+
+andromdacsapp:init:
+
+andromdacsapp:generate-common-project:
+andromdacsapp:generate-project:
+
+    [mkdir] Created dir: C:\TimeTracker\TimeTrackerCommon\src
+    [mkdir] Created dir: C:\TimeTracker\TimeTrackerCommon\target
+
+andromdacsapp:init:
+
+andromdacsapp:generate-core-project:
+andromdacsapp:generate-project:
+
+    [mkdir] Created dir: C:\TimeTracker\TimeTrackerCore\src
+    [mkdir] Created dir: C:\TimeTracker\TimeTrackerCore\target
+
+andromdacsapp:init:
+
+andromdacsapp:generate-schema-export-project:
+    [copy] Copying 2 files to C:\TimeTracker\SchemaExport
+
+andromdacsapp:init:
+
+andromdacsapp:generate-lib-directory:
+    [mkdir] Created dir: C:\TimeTracker\Lib
+    [copy] Copying 11 files to C:\TimeTracker\Lib
+
+    [echo]
+    [echo] ***  New C# solution generated in 'C:\\TimeTracker'  ***
+    [echo]
+BUILD SUCCESSFUL
+Total time: 51 seconds
+Finished at: Sat Nov 12 17:06:50 EST 2005
+                </pre>
+                
+                <p>
+                    Examine the various folders and files created by the <code>andromdacsapp</code> plugin. You
+                    will notice files called <code>project.xml</code>, <code>maven.xml</code> and
+                    <code>project.properties</code> at various levels in the TimeTracker solutions. These
+                    files represent Maven projects, scripts and properties. You will also notice a <code>mda</code>
+                    folder which contains an empty UML model under <code>mda\src\uml</code>. Finally you will see a
+                    <code>Lib</code> folder containing dlls to be used by the generated code. Most dlls belong to
+                    the <a href="http://wiki.nhibernate.org/display/NH/Home" target="_blank">NHibernate library</a>
+                    which is used for object persistence. In addition you will find the following dlls:
+                    
+                    <ul>
+                        <li><code>NHibernate.Support.dll</code>: used to manage NHibernate sessions</li>
+                        <li><code>NHibernate.Nullables2.dll</code>: used to store .NET 2.0 Nullable types using NHibernate</li>
+                        <li><code>log4net.dll</code>: used for general purpose logging</li>
+                    </ul>
+                </p>
+            </subsection>
+            
+            <subsection name="Create a database">
+                <p>
+                    Create a new database in your SQL Server instance using SQL Server Enterprise Manager
+                    and name it TimeTracker. You may use an existing database, just be sure to replace the name
+                    TimeTracker with the name of your database later in the tutorial. 
+                </p>
+            </subsection>
+            
+            <p>
+                Congratulations! You have now completed the one-time setup for TimeTracker. We are now
+                ready to start modeling!
+            </p>
+        </section>
+            
+        <section name="First Iteration - Implement key TimeTracker classes">
+            <p>
+                In this section we will implement four key entities of the TimeTracker application - Person, Timecard,
+                TimeAllocation and Task. In addition we will implement two supporting classes - TimecardStatus and
+                Quantity. TimecardStatus is an enumeration and Quantity is an embedded value inside the Person entity.
+                The diagram below shows these classes and their relationships.
+            </p>
+
+            <p>
+                <div align="center">
+                    <img src="images/TimeTrackerEntities.gif"/>
+                </div>
+            </p>
+            
+            <p>
+                Note the level of detail in this diagram. Every detail has some meaning - none of the content is
+                "fluff". For example we use stereotypes to indicate the "flavor" of each class - Entity vs.
+                Enumeration vs. EmbeddedValue. Stereotypes tell AndroMDA the pattern of code to generate for
+                each class. More specifically, stereotypes determine which AndroMDA templates get triggered
+                to generate code. Similarly the various decorations you see on associations have very specific
+                meanings. It is this level of preciseness that enables AndroMDA to generate major portions of
+                your application - this is truly what Model Driven Architecture is! Here are some of the
+                advantages of this approach:
+                
+                <ol>
+                    <li>The model provides a common language for business users and developers.
+                        It describe business requirements precisely and succinctly.</li>
+                    <li>Developers can focus on implementing higher level business logic rather than doing
+                        mundane tasks such as writing repetitive code to implement the data access layer.</li>
+                    <li>Developers can be more responsive to changing business needs. Relatively large changes
+                        to the business model can be handled more easily, because AndroMDA is there to help
+                        you generate major portions of these changes.</li>
+                    <li>The quality of your application will undoubtedly be superior because you are now
+                        generating tested and proven patterns instead of writing one-of-a-kind code.
+                        Possibility of human error is minimized. In addition, your focus will shift from
+                        writing custom code for each situation to discovering commonalities and patterns that
+                        can be coded into templates.</li>
+                    <li>Models always represent the current state of the system, not just an outdated piece
+                        of documentation. When you are done with your system, the model truly represents
+                        the system "as-delivered" - there is no need to go back and retrofit the "documentation"
+                        to match what was implemented. AndroMDA indeed makes the model a first-class system
+                        artifact as is source code.</li>
+                </ol>
+            </p>
+            
+            <p>
+                Now that you are fully bought into the idea of Model Drive Architecture :-), let's get started
+                with the TimeTracker model shown above.
+            </p>
+
+            <subsection name="Create the TimeTracker Model">
+                <p>
+                    As part of the setup procedure performed earlier, AndroMDA had created an empty UML model
+                    in the TimeTracker solution. We will now start populating this model.
+                    <ol>
+                        <li>Start MagicDraw.</li>
+                        <li>Select File > Open Project... and traverse to
+                            C:\TimeTracker\mda\src\uml\TimeTrackerModel.xml.zip. Click Open to open this model.</li>
+                        <li>If you get a warning message such as "Module andromda-profile-3.1-SNAPSHOT.xml.zip
+                            is not found", just click OK. A file dialog will come up asking you to locate
+                            andromda-profile-3.1-SNAPSHOT.xml.zip. To do this traverse to your Maven repository.
+                            The default location for this repository is
+                            C:\Documents and Settings\&lt;your username&gt;\.maven\repository. You will find
+                            andromda-profile-3.1-SNAPSHOT.xml.zip under this repository at andromda\xml.zips.
+                            Select this file and click Open.</li>
+                        <li>The TimeTracker model will now open showing the only class diagram present in this
+                            model. The title of this diagram is "DataTypes[datatype]". This diagram contains
+                            platform independent datatypes that should be used in your UML model. Look
+                            at the TimeTracker model at the beginning of this section. All data types used in
+                            this model are present in the DataTypes diagram. When AndroMDA generates code
+                            it will map the platform independent data types to C# data types.</li>
+                        <li>In the Containment Tree on the left, right-click on the root element called Data
+                            and select New Element > Package. A new package will be created under the root element
+                            with an edit box to its side. Type in TimeTracker as the name of this package. AndroMDA
+                            will map the TimeTracker package into a C# namespace called TimeTracker.</li>
+                        <li>Now create a package called Domain under TimeTracker. We will create our entities
+                            and supporting classes under this package. Note that AndroMDA does not force this
+                            package structure. We are doing it simply to separate our business domain classes
+                            from other things such as value objects etc.</li>
+                        <li>In the Containment Tree on the left, right-click on the Domain package and select
+                            New Diagram > Class Diagram. A Class Diagram Specification dialog appears. Type in
+                            Domain Objects as the name of this diagram and click OK. The diagram is created and
+                            opened in a new window.</li>
+                        <li>In the toolbar on the left of the class diagram click on the Class icon (6th icon
+                            from the top. Now click anywhere inside the diagram. A new class will be created.
+                            The class will be automatically selected as indicated by the 4 knobs around it.
+                            (If you somehow deselected the class, then select it again by clicking on it.)
+                            Now type the word "Person". This word will be entered as the name of the class.</li>
+                        <li>Let's add some documentation for the <code>Person</code> class. It is always a good
+                            idea to document your model. Documentation added to model elements such as classes,
+                            attributes and methods is carried over to the code as comments. Double-click on
+                            the Person class to bring up the Class Specification dialog. Add the following
+                            sentence in the Documentation field and click OK:
+                            "This class represents any person whose time needs to be tracked."</li>
+                        <li>Now let's enter the <code>name</code> attribute of the <code>Person</code> class.
+                            Right-click on this class and select Insert New Attribute. A new attribute is
+                            inserted with the specification "-unnamed1". Write over this specification with
+                            this new one: "+name : String" (be sure to delete the minus sign in front of the name).
+                            This new specification indicates that <code>name</code> is an attribute of class
+                            <code>Person</code> with a platform independent type of String. Attributes are always
+                            generated as private members of the class. However the visibility of the associated
+                            property is determined by the visibility of the attribute specification. In this case
+                            we have specified public visibility (by using the plus sign) and hence the
+                            <code>Name</code> property will be public.</li>
+                        <li>Now we need to add the <code>rate</code> attribute to class <code>Person</code>.
+                            However the type of this attribute is <code>Quantity</code>, which is an embedded value
+                            representing a <code>value</code> and a <code>unit</code>. So let's first define the class
+                            <code>Quantity</code>. Add a new class called <code>Quantity</code> using the class icon
+                            in the toolbar. Add two attributes to this class with specifications "+value : double" and
+                            "+unit : String". Now we can add the attribute <code>rate</code> to class <code>Person</code>.
+                            Add this attribute with the specification "+rate : Quantity"</li>
+                        <li>Add the stereotype <code>Entity</code> to class <code>Person</code>. To do this, right-click on
+                            the class and select Stereotype. In the next level menu, check Entity and click Apply. The
+                            <code>Person</code> class will now have the <code>Entity</code> stereotype.</li>
+                        <li>Similarly add the <code>EmbeddedValue</code> stereotype to class <code>Quantity</code>.</li>
+                        <li>Now add the class <code>Timecard</code> as shown in the diagram. Remember that before entering
+                            the attribute called <code>status</code> you will have to create its type, namely
+                            <code>TimecardStatus</code>, which has a stereotype of <code>Enumeration</code>.</li>
+                        <li>Next we must add a one-to-many association between <code>Person</code> and <code>Timecard</code>.
+                            To do this, click on the Association icon in the toolbar (13th icon from top). Click on the
+                            <code>Person</code> class, drag your mouse to the <code>Timecard</code> class and release the
+                            mouse. A new association will be created. Right-click on the Person end of the association and
+                            select the multiplicity of 1. Similarly set the multiplicity of the <code>Timecard</code> end to
+                            many (*). Again right-click on the <code>Person</code> end of the association and select
+                            Edit Name. Type the following specification for this association end: "+owner". Similarly
+                            enter the following specification for the <code>Timecard</code> end of the association:
+                            "+timecards".</li>
+                        <li>Create the class <code>TimeAllocation</code> as shown in the diagram above.</li>
+                        <li>Create the one-to-many association between <code>Timecard</code> and <code>TimeAllocation</code>.
+                            Note that this is a special kind of association called Composition. To select a Composition
+                            in the toolbar, you must right-click on the Aggregation icon (14th from the top) and select
+                            Composition from the second level of icons.</li>
+                        <li>Now add the class <code>Task</code> and its association relationship with class
+                            <code>TimeAllocation</code>.</li>
+                        <li>To complete the class diagram add the convenience methods to the three classes as
+                            shown above. To add a method to a class, right-click on it and select Insert New Operation.</li>
+                        <li>Make sure your class diagram matches the one shown above exactly. (It is okay if your
+                            classes show empty operation compartments. These can be hidden very easily).</li>
+                        <li>Save your <code>TimeTracker</code> model by selecting File > Save Project.</li>
+                    </ol>
+                </p>
+                
+                <p>
+                    Congratulations! You have now specified the key classes of the <code>TimeTracker</code> application.
+                    We are now ready to generate some code.
+                </p>
+            </subsection>
+            
+            <subsection name="Generate code and build the application">
+                <p> Follow the steps below to generate code.
+                    <ol>
+                        <li>Open a Command Prompt and change your directory to <code>C:\TimeTracker</code>.</li>
+                        <li>Execute the command <code>maven -o</code> and boom, there you have it - code for all the
+                            classes in your model is generated! (Make sure you get a <code>BUILD SUCCESSFUL</code>
+                            message when the Maven script finishes execution.)</li>
+                    </ol>
+                </p>
+            
+                <p>
+                    Notice that code is generated in the following folders.
+                    <ol>
+                        <li><strong>C:\TimeTracker\TimeTrackerCommon\target\TimeTracker\Domain:</strong>
+                            This folder contains only one file, <code>TimecardStatus.cs</code>, representing
+                            the enumeration <code>TimecardStatus</code>.</li>
+                        <li><strong>C:\TimeTracker\TimeTrackerCore\target\TimeTracker\Domain:</strong>
+                            This folder contains the majority of generated files representing entities,
+                            embedded values, data access objects and NHibernate mappings. In addition
+                            it contains a file called <code>DaoFactory.cs</code> which is used to get
+                            instances of the DAOs.</li>
+                        <li><strong>C:\TimeTracker\TimeTrackerCore\src\TimeTracker\Domain:</strong>
+                            This folder contains several files with <code>Impl</code> suffix. These files
+                            are intended for modification by the developer.</li>
+                    </ol>
+                </p>
+                
+                <p>
+                    Note that code produced in <code>target</code> folders should never be modified by hand.
+                    It will be deleted completely before regeneration in the next iteration. It is also
+                    a best practice not to check this code into your source repository. Instead let your
+                    build script generate this code on the fly. On the other hand, code generated in the
+                    <code>src</code> directory is intended for modification by the developer. AndroMDA will
+                    never overwrite code in these directories. It is generated one-time only.
+                </p>
+                
+                <p>
+                    Now that you understand the code that has been generated, it is time to compile it.
+                    In order to avoid adding each individual file to our solution we will perform a neat
+                    trick to make our job easier. We will edit the <code>TimeTrackerCommon</code> and
+                    <code>TimeTrackerCore</code> projects so they will compile any C# file in a specified
+                    folder. Follow the steps below to implement this trick.
+                    <ol>
+                        <li>Open <code>TimeTrackerCommon.csproj</code> in a text editor.</li>
+                        <li>
+                            Search for the following ItemGroup:
+                            <source language="xml"><![CDATA[
+<ItemGroup>
+  <Compile Include="Properties\AssemblyInfo.cs" />
+</ItemGroup>]]>
+                            </source>
+                        </li>
+                        <li>
+                            Modify the ItemGroup as follows to compile all C# files in the <code>target</code> directory:
+                            <source language="xml"><![CDATA[
+<ItemGroup>
+  <Compile Include="Properties\AssemblyInfo.cs" />
+  <Compile Include="target\TimeTracker\Domain\*.cs" />
+</ItemGroup>]]>
+                            </source>
+                        </li>
+                        <li>Save and close <code>TimeTrackerCommon.csproj</code>.</li>
+                        <li>Open <code>TimeTrackerCore.csproj</code> in a text editor.</li>
+                        <li>
+                            Search for the following ItemGroup:
+                            <source language="xml"><![CDATA[
+<ItemGroup>
+  <Compile Include="Properties\AssemblyInfo.cs" />
+</ItemGroup>]]>
+                            </source>
+                        </li>
+                        <li>
+                            Modify the ItemGroup as follows to compile all C# files in the <code>src</code> and
+                            <code>target</code> directories:
+                            <source language="xml"><![CDATA[
+<ItemGroup>
+  <Compile Include="Properties\AssemblyInfo.cs" />
+  <Compile Include="src\TimeTracker\Domain\*.cs" />
+  <Compile Include="target\TimeTracker\Domain\*.cs" />
+</ItemGroup>]]>
+                            </source>
+                        </li>
+                        <li>
+                            Add another ItemGroup right after the one above to embed the NHibernate mapping files
+                            in the project:
+                            <source language="xml"><![CDATA[
+<ItemGroup>
+  <EmbeddedResource Include="target\TimeTracker\Domain\*.hbm.xml" />
+</ItemGroup>]]>
+                            </source>
+                        </li>
+                        <li>Save and close <code>TimeTrackerCommon.csproj</code>.</li>
+                        <li>Now open the TimeTracker solution in Visual Studio and notice that it shows the
+                            C# files and NHibernate mappings added to the two projects.</li>
+                    </ol>
+                </p>
+                
+                <p>
+                    Let's implement the convenience methods added to the 3 classes in the diagram shown earlier.
+                    <ol>
+                        <li>Open the file <code>PersonImpl.cs</code> in the project <code>TimeTrackerCore</code>.
+                            Implement <code>AddTimecard()</code> as follows:
+                            <source language="java">
+                                <![CDATA[
+public override void AddTimecard(TimeTracker.Domain.Timecard timecard)
+{
+    Timecards.Add(timecard);
+    timecard.Owner = this;
+}]]>
+                            </source>
+                        </li>
+                        <li>Open the file <code>TimecardImpl.cs</code> in the project <code>TimeTrackerCore</code>.
+                            Implement <code>AddTimeAllocation()</code> as follows:
+                            <source language="java">
+                                <![CDATA[
+public override void AddTimeAllocation(TimeTracker.Domain.TimeAllocation timeAllocation)
+{
+    Allocations.Add(timeAllocation);
+    timeAllocation.Timecard = this;
+}]]>
+                            </source>
+                        </li>
+                        <li>Open the file <code>TaskImpl.cs</code> in the project <code>TimeTrackerCore</code>.
+                            Implement <code>AddTimeAllocation()</code> as follows:
+                            <source language="java">
+                                <![CDATA[
+public override void AddTimeAllocation(TimeTracker.Domain.TimeAllocation timeAllocation)
+{
+    Allocations.Add(timeAllocation);
+    timeAllocation.Task = this;
+}]]>
+                            </source>
+                        </li>
+                    </ol>
+                </p>
+
+                <p>
+                    Let us now add references to the various projects to reflect their dependencies. To add a reference,
+                    simply right-click on the project in the Solution Explorer and select Add Reference. Then select
+                    the Projects tab to add a reference to an internal project or select the Browse tab to add a
+                    reference to an external DLL (for example, a DLL in the Lib directory).
+                    <ul>
+                        <li>
+                            Add the following references to the <code>TimeTrackerCore</code> project:
+                            <ol>
+                                <li>TimeTrackerCommon project</li>
+                                <li>Iesi.Collections.dll</li>
+                                <li>log4net.dll</li>
+                                <li>NHibernate.dll</li>
+                                <li>NHibernate.Caches.SysCache.dll</li>
+                                <li>NHibernate.Nullables2.dll</li>
+                                <li>NHibernate.Support.dll</li>
+                            </ol>
+                        </li>
+                        <li>
+                            Add the following references to the <code>TimeTrackerConsole</code> project:
+                            <ol>
+                                <li>All references that are included above in the TimeTrackerCore project</li>
+                                <li>TimeTrackerCore project</li>
+                            </ol>
+                        </li>
+                        <li>
+                            Add the following references to the <code>SchemaExport</code> project:
+                            <ol>
+                                <li>All references that are included above in the TimeTrackerCore project</li>
+                                <li>TimeTrackerCore project</li>
+                            </ol>
+                        </li>
+                    </ul>
+                </p>
+                
+                <p>
+                    We need to do one more thing before building the application. As part of the initial setup,
+                    AndroMDA had generated the NHibernate configuration file for the SchemaExport application.
+                    This file needs to be added to the SchemaExport project. Here are the steps to do this.
+                    <ol>
+                        <li>Right-click on the SchemaExport project in the Solution Explorer and select
+                            Add > Existing Item.</li>
+                        <li>In the Add Existing dialog, change the value for the drop down "Files of type"
+                            to "All Files(*.*). Now the file called <code>nhibernate.config</code> will be visible in
+                            the dialog. Select it and click Add. The file will be added to the project.</li>
+                        <li>Select the file <code>nhibernate.config</code> in Solution Explorer.</li>
+                        <li>In the Properties window, change the value of the field "Copy to output directory" to
+                            "Copy if newer"</li>
+                        <li>Open the <code>nhibernate.config</code> file in Visual Studio and change any values
+                            if necessary. For example, if the name of your database is not TimeTracker, then change
+                            the value of the <code>hibernate.connection.connection_string</code> property
+                            accordingly.</li>
+                        <li>Save the solution by selecting File > Save All.</li>
+                    </ol>
+                </p>
+                
+                <p>
+                  At this point we are ready to build the solution. Select Build > Build Solution. Visual Studio
+                  should be able to build the solution without any errors.
+                </p>
+            </subsection>
+            
+            <subsection name="Create the database schema">
+                <p>
+                    It is now time to create the database schema for TimeTracker entities and relations.
+                    Use the SchemaExport application generated by AndroMDA to do this. Here are the steps.
+                    <ol>
+                        <li>Open a Command Prompt and change your directory to
+                            <code>C:\TimeTracker\SchemaExport\bin\Debug</code></li>
+                        <li>Execute the command <code>SchemaExport t t</code>. This will create the
+                            TimeTracker schema in the database.</li>
+                    </ol>
+                    
+                    The output from the execution of SchemaExport is shown below. Notice that you can
+                    copy the DDL script from the output and use it in your own build scripts.
+                    
+                    <pre class="console">
+C:\TimeTracker\SchemaExport\bin\Debug>SchemaExport t t
+
+Usage:
+SchemaExport [script] [export]
+script=t outputs DDL to the console
+export=t exports schema to the database
+Example:
+SchemaExport t f
+
+Calling CreateDatabase with script = True and export = True...
+
+alter table TIMECARD  drop constraint TIMECARD_OWNER_FKC
+Unsuccessful: Cannot alter table 'TIMECARD' because this table does not exist in database 'TestDB'.
+alter table TIME_ALLOCATION  drop constraint TIME_ALLOCATION_TASK_FKC
+Unsuccessful: Cannot alter table 'TIME_ALLOCATION' because this table does not exist in database 'TestDB'.
+alter table TIME_ALLOCATION  drop constraint TIME_ALLOCATION_TIMECARD_FKC
+Unsuccessful: Cannot alter table 'TIME_ALLOCATION' because this table does not exist in database 'TestDB'.
+drop table TIMECARD
+Unsuccessful: Cannot drop the table 'TIMECARD', because it does not exist in the system catalog.
+drop table TASK
+Unsuccessful: Cannot drop the table 'TASK', because it does not exist in the system catalog.
+drop table PERSON
+Unsuccessful: Cannot drop the table 'PERSON', because it does not exist in the system catalog.
+drop table TIME_ALLOCATION
+Unsuccessful: Cannot drop the table 'TIME_ALLOCATION', because it does not exist in the system catalog.
+create table TIMECARD (
+ID NUMERIC(19,0) IDENTITY NOT NULL,
+STATUS INT not null,
+BEG_DATE DATETIME not null,
+OWNER_FK NUMERIC(19,0) not null,
+primary key (ID)
+)
+create table TASK (
+ID NUMERIC(19,0) IDENTITY NOT NULL,
+NAME VARCHAR(255) not null,
+primary key (ID)
+)
+create table PERSON (
+ID NUMERIC(19,0) IDENTITY NOT NULL,
+NAME VARCHAR(255) not null,
+RATE_VALUE FLOAT not null,
+RATE_UNIT VARCHAR(255) not null,
+primary key (ID)
+)
+create table TIME_ALLOCATION (
+ID NUMERIC(19,0) IDENTITY NOT NULL,
+BEG_TIME DATETIME not null,
+END_TIME DATETIME not null,
+TIMECARD_FK NUMERIC(19,0) not null,
+TASK_FK NUMERIC(19,0) not null,
+primary key (ID)
+)
+alter table TIMECARD  add constraint TIMECARD_OWNER_FKC foreign key (OWNER_FK) references PERSON
+alter table TIME_ALLOCATION  add constraint TIME_ALLOCATION_TASK_FKC foreign key (TASK_FK) references TASK
+alter table TIME_ALLOCATION  add constraint TIME_ALLOCATION_TIMECARD_FKC foreign key (TIMECARD_FK) references TIMECARD
+                    </pre>
+                </p>
+            </subsection>
+            
+            <subsection name="Build and test the TimeTrackerConsole application">
+                <p>
+                    It is now time to test all the functionality we have implemented so far using the
+                    <code>TimeTrackerConsole</code> application. Follow the steps below to do this.
+                    <ol>
+                        <li>Instead of writing the entire console program from scratch we will copy it
+                            from the <code>samples</code> folder in the <code>contrib</code> module.
+                            So go to Windows Explorer and copy the file <code>Program.cs</code> under
+                            <code>contrib\samples\time-tracker-dotnet\TimeTrackerConsole</code> to the
+                            folder <code>C:\TimeTracker\TimeTrackerConsole</code>
+                            (overwriting the original file).</li>
+                        <li>Review the Program.cs file to understand how the DAO classes are used to
+                            manipulate entities. Specifically look at the methods <code>AddPerson()</code>,
+                            <code>AddTask()</code>, <code>AddTimecard()</code> and <code>ShowData()</code>.</li>
+                        <li>Now copy the two files <code>App.config</code> and <code>nhibernate.config</code>
+                            from the directory <code>C:\TimeTracker\SchemaExport</code> to
+                            <code>C:\TimeTracker\TimeTrackerConsole</code>. This will configure the application
+                            to work with NHibernate.</li>
+                        <li>Right-click on the TimeTrackerConsole project in the Solution Explorer and select
+                            Add > Existing Item.</li>
+                        <li>In the Add Existing dialog, change the value for the drop down "Files of type"
+                            to "All Files(*.*). Now the file called <code>nhibernate.config</code> will be visible in
+                            the dialog. Select it and click Add. The file will be added to the project.</li>
+                        <li>Select the file <code>nhibernate.config</code> in Solution Explorer.</li>
+                        <li>In the Properties window, change the value of the field "Copy to output directory" to
+                            "Copy if newer"</li>
+                        <li>Save the solution by selecting File > Save All.</li>
+                        <li>Select Build > Rebuild Solution. Visual Studio should be able to build the solution
+                            without any errors.</li>
+                        <li>Open a Command Prompt and change your directory to
+                            <code>C:\TimeTracker\TimeTrackerConsole\bin\Debug</code></li>
+                        <li>Execute the command <code>TimeTrackerConsole</code>. This will display menu.</li>
+                        <li>Select various menu items to add people, tasks and timecards to the database.</li>
+                    </ol>
+                    
+                    A sample run of  TimeTrackerConsole is shown below.
+                    
+                    <pre class="console">
+C:\TimeTracker\TimeTrackerConsole\bin\Debug>TimeTrackerConsole
+
+1. Create Database
+2. Add Person
+3. Add Task
+4. Add Timecard
+5. Show Data
+
+Please make a choice ([h]elp [q]uit): 2
+
+Person Name: Naresh Bhatia
+Naresh Bhatia added.
+
+Please make a choice ([h]elp [q]uit): 2
+
+Person Name: Louis Coude
+Louis Coude added.
+
+Please make a choice ([h]elp [q]uit): 3
+
+Task Name: Research
+Task 1 added: Research
+
+Please make a choice ([h]elp [q]uit): 3
+
+Task Name: Development
+Task 2 added: Development
+
+Please make a choice ([h]elp [q]uit): 4
+
+Adding timecard...
+Timecard 1 created.
+
+Please make a choice ([h]elp [q]uit): 4
+
+Adding timecard...
+Timecard 2 created.
+
+Please make a choice ([h]elp [q]uit): 4
+
+Adding timecard...
+Timecard 3 created.
+
+Please make a choice ([h]elp [q]uit): 4
+
+Adding timecard...
+Timecard 4 created.
+
+Please make a choice ([h]elp [q]uit): 5
+
+People:
+1: Naresh Bhatia, rate=10 USD/hour
+2: Louis Coude, rate=10 USD/hour
+
+Tasks:
+1: Research
+2: Development
+
+Timecards:
+1: Naresh Bhatia, Draft, 11/14/2005 1:32:51 AM
+    1: 11/14/2005 1:32:51 AM, 11/14/2005 2:32:51 AM, Research
+    2: 11/14/2005 2:32:51 AM, 11/14/2005 3:32:51 AM, Research
+    3: 11/14/2005 3:32:51 AM, 11/14/2005 4:32:51 AM, Research
+2: Naresh Bhatia, Draft, 11/14/2005 1:32:53 AM
+    4: 11/14/2005 1:32:53 AM, 11/14/2005 2:32:53 AM, Development
+    5: 11/14/2005 2:32:53 AM, 11/14/2005 3:32:53 AM, Research
+    6: 11/14/2005 3:32:53 AM, 11/14/2005 4:32:53 AM, Development
+3: Louis Coude, Draft, 11/14/2005 1:32:55 AM
+    7: 11/14/2005 1:32:55 AM, 11/14/2005 2:32:55 AM, Development
+4: Louis Coude, Draft, 11/14/2005 1:32:56 AM
+    8: 11/14/2005 1:32:56 AM, 11/14/2005 2:32:56 AM, Development
+
+Please make a choice ([h]elp [q]uit): q
+
+C:\TimeTracker\TimeTrackerConsole\bin\Debug>
+                    </pre>
+                </p>
+            </subsection>
+                
+        </section>
+            
+        <section name="Where to go from here ?">
+            <p>
+                In this tutorial we have shown you how to set up your development environment and
+                build your first .NET application using AndroMDA. But this is just the beginning.
+                You can now use AndroMDA to build your own applications. Try out the various features
+                documented under each .NET cartridge. If you don't find a feature that you need,
+                write yourself a template or an entire cartridge. If you think your work might be
+                useful to other developers, don't forget to contribute it to the AndroMDA project.
+            </p>
+        </section>
+
+    </body>
+</document>
