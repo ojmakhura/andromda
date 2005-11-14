@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project>
+  	<extend>../project.xml</extend>
+	<artifactId>andromda-contrib-documentation</artifactId>
+	<name>AndroMDA Contrib Documentation</name>
+	<package>org.andromda</package>
+	<description>The top level module for all AndroMDA Contrib documentation</description>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>andromda-site-plugin</artifactId>
+            <version>${andromda.version}</version>
+            <type>plugin</type>
+        </dependency>
+    </dependencies>
+</project>
