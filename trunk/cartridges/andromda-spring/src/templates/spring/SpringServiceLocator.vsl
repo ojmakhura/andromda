@@ -176,4 +176,12 @@ public class $serviceLocatorName
     }
 
 #end
+    /**
+     * Gets an instance of the given service.
+     */
+    public final Object getService(String serviceName)
+    {
+        return getContext().getBean(serviceName);
+    }
+
 }
