@@ -12,7 +12,7 @@
     </bean>
 
     <!-- applicationContext merge-point -->
-
+#set ($daoRefsEnabled = !$entities.empty)
 #set ($daosEnabled = $daosEnabled && !$entities.empty)
 ## only generate this stuff if 'daos' has been defined in a namespace
 #if ($daosEnabled)
@@ -169,7 +169,7 @@
     <bean id="$service.getBeanName(false)" class="org.springframework.aop.framework.ProxyFactoryBean">
         <property name="target">
             <bean class="$service.fullyQualifiedImplementationName">
-#if ($daosEnabled)
+#if ($daoRefsEnabled)
 #foreach($entityRef in $service.entityReferences)
                 <property name="$entityRef.daoName"><ref bean="$entityRef.targetElement.getBeanName(false)"/></property>
 #end
@@ -256,8 +256,8 @@
     </bean>
 
     <bean id="serviceDecisionVoter" class="$acegiServiceDecisionVoter">
-		<property name="rolePrefix"><value>$acegiRolePrefix</value></property>
-	</bean>
+        <property name="rolePrefix"><value>$acegiRolePrefix</value></property>
+    </bean>
 
     <!-- ================== End of ACEGI SERVICE SECURITY DEFINITIONS ================= -->
 
