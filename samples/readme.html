@@ -30,7 +30,8 @@
             <ol>
                 <li>
                     Install the latest version of <a href="http://maven.apache.org">Maven</a>
-                    and add it to your $PATH or %PATH%
+                    and add it to your $PATH or %PATH%. This sample has been tested with version
+                    1.0.2.
                 </li>
                 <li>
                     From this directory (the directory in which this file you're reading is located) type 'maven'; 
@@ -50,8 +51,14 @@
         <p>
             To run:
             <ol>
-                <li>[Re]Start JBoss.</li>
-                <li>Open <a href="http://localhost:8080/OnlineStore">Local OnlineStore</a></li>
+                <li>Dpeloy the ear to the app server as follows:
+                <ol>
+                  <li>cd online-store/app
+                  <li>maven deploy
+                  <li>Check the jboss log for successful activation of the ear.
+                </ol>
+                <li>Start JBoss.</li>
+                <li>Open <a href="http://localhost:8080/online-store-web">Local OnlineStore</a></li>
                 <li>
                     The first page expects the user to enter his name and password, his
                     name must be at least 3 characters and start with a capital, the password
