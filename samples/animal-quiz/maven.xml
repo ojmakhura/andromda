@@ -155,21 +155,34 @@
              Executes the given DDL script
          ============================================================ -->
     <goal name="execute-script">
-        <j:if test="${script != null}">
-            <util:file var="scriptFile" name="${script}"/>
-            <j:if test="${scriptFile.exists()}">
-                <ant:sql driver="${dataSource.driver.class}" 
-                         src="${scriptFile}"
-                         url="${dataSource.url}" 
-                         userid="${dataSource.user}" 
-                         password="${dataSource.password}" 
-                         onerror="${dataSource.sql.onError}">
-                    <ant:classpath>
-                        <ant:pathelement location="${dataSource.driver.jar}"/>
-                    </ant:classpath>
-                </ant:sql>
-            </j:if>
-        </j:if>
+        <ant:available
+            file="${dataSource.driver.jar}"
+            type="file"
+            property="jarAvailable"/>
+
+        <j:choose>
+            <j:when test="${jarAvailable}">
+                <j:if test="${script != null}">
+                    <util:file var="scriptFile" name="${script}"/>
+                    <j:if test="${scriptFile.exists()}">
+                        <ant:sql driver="${dataSource.driver.class}" 
+                                 src="${scriptFile}"
+                                 url="${dataSource.url}" 
+                                 userid="${dataSource.user}" 
+                                 password="${dataSource.password}" 
+                                 onerror="${dataSource.sql.onError}">
+                            <ant:classpath>
+                                <ant:pathelement location="${dataSource.driver.jar}"/>
+                            </ant:classpath>
+                        </ant:sql>
+                    </j:if>
+                </j:if>
+            </j:when>
+            <j:otherwise>
+            	<j:set var="message" value="Jar ${dataSource.driver.jar} not found."/>
+                <ant:echo message="${message}"/>                        
+            </j:otherwise>
+        </j:choose>
     </goal>
 
 </project>
