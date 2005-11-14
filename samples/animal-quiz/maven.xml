@@ -179,7 +179,7 @@
                 </j:if>
             </j:when>
             <j:otherwise>
-            	<j:set var="message" value="Jar ${dataSource.driver.jar} not found."/>
+            	<j:set var="message" value="Jar ${dataSource.driver.jar} not found, is JBOSS_HOME set?"/>
                 <ant:echo message="${message}"/>                        
             </j:otherwise>
         </j:choose>
