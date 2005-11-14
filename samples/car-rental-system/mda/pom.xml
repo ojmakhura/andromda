@@ -1,13 +1,13 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.andromda.animalquiz</groupId>
-        <artifactId>animal-quiz</artifactId>
+        <groupId>org.andromda.carrental</groupId>
+        <artifactId>car-rental-system</artifactId>
         <version>3.2-RC1-SNAPSHOT</version>
     </parent>
-    <artifactId>animal-quiz-mda</artifactId>
+    <artifactId>car-rental-system-mda</artifactId>
     <packaging>jar</packaging>
-    <name>AndroMDA Animal Quiz MDA</name>
+    <name>AndroMDA Car Rental System MDA</name>
     <build>
         <defaultGoal>andromda:run</defaultGoal>
         <sourceDirectory>${basedir}/src/uml</sourceDirectory>
@@ -26,7 +26,6 @@
                         </goals>
                         <configuration>
                             <configurationUri>file:${basedir}/conf/andromda.xml</configurationUri>
-                            <lastModifiedCheck>true</lastModifiedCheck>
                         </configuration>
                     </execution>
                 </executions>
@@ -47,12 +46,6 @@
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-hibernate-cartridge</artifactId>
-                        <version>${version}</version>
-                        <scope>provided</scope>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.andromda.cartridges</groupId>
-                        <artifactId>andromda-webservice-cartridge</artifactId>
                         <version>${version}</version>
                         <scope>provided</scope>
                     </dependency>

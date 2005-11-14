@@ -1,7 +1,10 @@
 <project default="install"
          xmlns:ant="jelly:ant"
          xmlns:maven="jelly:maven"
-         xmlns:j="jelly:core">
+         xmlns:j="jelly:core"
+         xmlns:util="jelly:util">
+
+    <ant:property environment="env"/>
 
     <!-- ==================================================================
            Builds everything and installs it into the local Maven repository
@@ -29,7 +32,7 @@
          ================================================================== -->
     <goal name="deploy">
         <maven:maven
-            descriptor="${maven.src.dir}/../app/project.xml"
+            descriptor="app/project.xml"
             goals="deploy"/>
     </goal>
 
@@ -38,25 +41,25 @@
          ================================================================== -->
     <goal name="undeploy">
         <maven:maven
-            descriptor="${maven.src.dir}/../app/project.xml"
+            descriptor="app/project.xml"
             goals="undeploy"/>
     </goal>
-    
+
     <!-- ==================================================================
            Builds the Web component
          ================================================================== -->
     <goal name="web">
         <maven:maven
-            descriptor="${maven.src.dir}/../web/project.xml"
+            descriptor="web/project.xml"
             goals="war:install"/>
     </goal>
-    
+
     <!-- ==================================================================
             Builds the Core component
          ================================================================== -->
     <goal name="core">
         <maven:maven
-            descriptor="${maven.src.dir}/../core/project.xml"
+            descriptor="core/project.xml"
             goals="ejb:install"/>
     </goal>
 
@@ -65,7 +68,7 @@
          ================================================================== -->
     <goal name="common">
         <maven:maven
-        descriptor="${maven.src.dir}/../common/project.xml"
+        descriptor="common/project.xml"
         goals="jar:install"/>
     </goal>
 
@@ -74,8 +77,99 @@
          ================================================================== -->
     <goal name="mda">
         <maven:maven
-            descriptor="${maven.src.dir}/../mda/project.xml"
+            descriptor="mda/project.xml"
             goals="pom:install"/>
+    </goal>
+
+    <!-- ==================================================================
+            Builds the WebService component
+         ================================================================== -->
+    <goal name="webservice">
+        <maven:maven
+            descriptor="webservice/project.xml"
+            goals="war:install"/>
+    </goal>
+
+    <!-- ============================================================
+             Initializes the database schema for this application
+         ============================================================ -->
+    <goal name="create-schema">
+        <j:set var="script" value="${dataSource.sql.init}"/>
+        <attainGoal name="execute-script"/>
+    </goal>
+
+    <!-- ============================================================
+             Drops the database schema for this application
+         ============================================================ -->
+    <goal name="drop-schema">
+        <j:set var="script" value="${dataSource.sql.drop}"/>
+        <attainGoal name="execute-script"/>
+    </goal>
+
+    <j:set var="generatedSourceDir" value="${maven.build.dir}"/>
+    <ant:available
+        file="${maven.build.src}"
+        type="dir"
+        property="generatedSrcAvailable"/>
+
+     <!-- ============================================================
+            Adds the generated source to the compile path for
+            each subproject (if any exists)
+          ============================================================ -->
+    <preGoal name="java:compile">
+        <!-- only attempt to add the generated source to the classpath
+             if we have a source directory -->
+        <j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
+        <j:if test="${!empty sourceDirectory}">
+            <j:if test="${generatedSrcAvailable}">
+                <ant:available
+                    file="${sourceDirectory}"
+                    type="dir"
+                    property="srcAvailable"/>
+                <j:choose>
+                    <j:when test="${srcAvailable}">
+                        <!-- add the paths of the generated source to the
+                             maven compile path -->
+                        <ant:path
+                            id="andromda.java.gen.src"
+                            location="${generatedSourceDir}"/>
+                        <maven:addPath
+                            id="maven.compile.src.set"
+                            refid="andromda.java.gen.src"/>                    
+                    </j:when>
+                    <j:otherwise>
+                        <ant:path id="maven.compile.src.set">
+                            <!-- need to set sources present to true since
+                                 maven thinks no source exist if the directory
+                                 specified by pom.build.sourceDirectory doesn't exist -->
+                            <j:set var="sourcesPresent" value="true"/>
+                            <ant:pathelement location="${generatedSourceDir}"/>
+                        </ant:path>                        
+                    </j:otherwise>
+                </j:choose>
+            </j:if>
+        </j:if>
+    </preGoal>
+
+    <!-- ============================================================
+             Executes the given DDL script
+         ============================================================ -->
+    <goal name="execute-script">
+        <j:if test="${script != null}">
+            <util:file var="scriptFile" name="${script}"/>
+            <j:if test="${scriptFile.exists()}">
+                <ant:sql driver="${dataSource.driver.class}" 
+                         src="${scriptFile}"
+                         url="${dataSource.url}" 
+                         userid="${dataSource.user}" 
+                         password="${dataSource.password}" 
+                         onerror="${dataSource.sql.onError}">
+                    <ant:classpath>
+                        <ant:pathelement location="${dataSource.driver.jar}"/>
+                    </ant:classpath>
+                </ant:sql>
+            </j:if>
+        </j:if>
     </goal>
 
 </project>
