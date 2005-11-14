@@ -81,7 +81,7 @@ $class.getDocumentation("    /// ")
         /// <summary>
 $attribute.getDocumentation("        /// ")
         /// </summary>
-        public $attribute.getterSetterTypeName ${stringUtils.upperCamelCaseName($attribute.name)}
+        $attribute.visibility $attribute.getterSetterTypeName ${stringUtils.upperCamelCaseName($attribute.name)}
         {
             get { return $attribute.name; }
             set { this.$attribute.name = value; }
