@@ -1,8 +1,8 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -62,7 +62,7 @@ public class RoleLogicImpl
      */
     protected boolean handleIsReferencesPresent()
     {
-        final Collection allSourceDependencies = new HashSet(this.getSourceDependencies());
+        final Collection allSourceDependencies = new LinkedHashSet(this.getSourceDependencies());
         for (
             GeneralizableElementFacade parent = this.getGeneralization(); parent != null;
             parent = parent.getGeneralization())

@@ -1,7 +1,7 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.Role;
@@ -33,7 +33,7 @@ public class ServiceOperationLogicImpl
      */
     public java.util.Collection handleGetRoles()
     {
-        final Collection roles = new HashSet();
+        final Collection roles = new LinkedHashSet();
         if (this.getOwner() instanceof Service)
         {
             roles.addAll(((Service)this.getOwner()).getRoles());
@@ -60,7 +60,7 @@ public class ServiceOperationLogicImpl
                 }
             });
         roles.addAll(operationRoles);
-        final Collection allRoles = new HashSet(roles);
+        final Collection allRoles = new LinkedHashSet(roles);
 
         // add all roles which are specializations of this one
         CollectionUtils.forAllDo(

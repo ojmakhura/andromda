@@ -2,8 +2,8 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import org.andromda.metafacades.uml.ActivityGraphFacade;
@@ -43,7 +43,7 @@ public class FrontEndPseudostateLogicImpl
      */
     protected List handleGetContainerActions()
     {
-        final Collection actionSet = new HashSet();
+        final Collection actionSet = new LinkedHashSet();
         final StateMachineFacade graphContext = getStateMachine();
 
         if (graphContext instanceof ActivityGraphFacade)

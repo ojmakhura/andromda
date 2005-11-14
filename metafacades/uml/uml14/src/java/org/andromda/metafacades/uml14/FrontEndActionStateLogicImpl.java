@@ -2,12 +2,11 @@ package org.andromda.metafacades.uml14;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.CallEventFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -20,6 +19,7 @@ import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.utils.StringUtilsHelper;
 
 
 /**
@@ -114,7 +114,7 @@ public class FrontEndActionStateLogicImpl
      */
     protected List handleGetExceptions()
     {
-        final Set exceptions = new HashSet();
+        final Set exceptions = new LinkedHashSet();
         final Collection outgoing = getOutgoing();
         for (final Iterator iterator = outgoing.iterator(); iterator.hasNext();)
         {
@@ -132,7 +132,7 @@ public class FrontEndActionStateLogicImpl
      */
     protected List handleGetContainerActions()
     {
-        final Collection actionSet = new HashSet();
+        final Collection actionSet = new LinkedHashSet();
 
         final StateMachineFacade stateMachineFacade = this.getStateMachine();
         if (stateMachineFacade instanceof ActivityGraphFacade)

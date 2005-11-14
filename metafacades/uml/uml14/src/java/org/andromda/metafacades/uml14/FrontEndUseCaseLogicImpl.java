@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -217,7 +216,7 @@ public class FrontEndUseCaseLogicImpl
      */
     protected List handleGetActions()
     {
-        final Collection actions = new HashSet();
+        final Collection actions = new LinkedHashSet();
         final Collection pages = this.getViews();
         for (final Iterator pageIterator = pages.iterator(); pageIterator.hasNext();)
         {

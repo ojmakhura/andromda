@@ -3,8 +3,8 @@ package org.andromda.metafacades.uml14;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.andromda.metafacades.uml.EventFacade;
@@ -159,8 +159,8 @@ public class FrontEndForwardLogicImpl
      */
     private void initializeCollections()
     {
-        this.actionStates = new HashSet();
-        this.transitions = new HashSet();
+        this.actionStates = new LinkedHashSet();
+        this.transitions = new LinkedHashSet();
         this.collectTransitions(
             this,
             transitions);
@@ -214,10 +214,10 @@ public class FrontEndForwardLogicImpl
      */
     protected java.util.List handleGetActions()
     {
-        final Set actions = new HashSet();
+        final Set actions = new LinkedHashSet();
         this.findActions(
             actions,
-            new HashSet());
+            new LinkedHashSet());
         return new ArrayList(actions);
     }
 
