@@ -1,87 +1,121 @@
 package org.andromda.samples.carrental.contracts.web.reserveCar;
 
-import org.apache.struts.action.ActionMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionMapping;
+
 
 /**
  * @see org.andromda.samples.carrental.contracts.web.reserveCar.CustomerReservesCarController
  */
 public class CustomerReservesCarControllerImpl
-        extends CustomerReservesCarController
+    extends CustomerReservesCarController
 {
     /**
      * @see org.andromda.samples.carrental.contracts.web.reserveCar.CustomerReservesCarController#searchForReservationsOfCustomer(org.apache.struts.action.ActionMapping,
-            *      org.andromda.samples.carrental.contracts.web.reserveCar.SearchForReservationsOfCustomerForm,
-            *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     *      org.andromda.samples.carrental.contracts.web.reserveCar.SearchForReservationsOfCustomerForm,
+     *      javax.servlet.http.HttpServletRequest,
+     *      javax.servlet.http.HttpServletResponse)
      */
-    public final void searchForReservationsOfCustomer(ActionMapping mapping,
-                                                      org.andromda.samples.carrental.contracts.web.reserveCar.SearchForReservationsOfCustomerForm form,
-                                                      HttpServletRequest request, HttpServletResponse response)
-            throws Exception
+    public final void searchForReservations(
+        ActionMapping mapping,
+        org.andromda.samples.carrental.contracts.web.reserveCar.SearchForReservationsForm form,
+        HttpServletRequest request,
+        HttpServletResponse response)
+        throws Exception
     {
-        // all properties receive a default value, just to have the application running properly
+        // all properties receive a default value, just to have the application
+        // running properly
         form.setReservations(reservationsDummyList);
         form.setComfortClass("comfortClass-test");
         form.setComfortClassValueList(
-                new Object[]{"comfortClass-1", "comfortClass-2", "comfortClass-3", "comfortClass-4", "comfortClass-5"});
+            new Object[] {"comfortClass-1", "comfortClass-2", "comfortClass-3", "comfortClass-4", "comfortClass-5"});
         form.setComfortClassLabelList(form.getComfortClassValueList());
     }
 
     /**
      * @see org.andromda.samples.carrental.contracts.web.reserveCar.CustomerReservesCarController#reserve(org.apache.struts.action.ActionMapping,
-            *      org.andromda.samples.carrental.contracts.web.reserveCar.ReserveForm, javax.servlet.http.HttpServletRequest,
-            *      javax.servlet.http.HttpServletResponse)
+     *      org.andromda.samples.carrental.contracts.web.reserveCar.ReserveForm,
+     *      javax.servlet.http.HttpServletRequest,
+     *      javax.servlet.http.HttpServletResponse)
      */
-    public final void reserve(ActionMapping mapping,
-                              org.andromda.samples.carrental.contracts.web.reserveCar.ReserveForm form,
-                              HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void reserve(
+        ActionMapping mapping,
+        org.andromda.samples.carrental.contracts.web.reserveCar.ReserveForm form,
+        HttpServletRequest request,
+        HttpServletResponse response)
+        throws Exception
     {
-        // all properties receive a default value, just to have the application running properly
+        // all properties receive a default value, just to have the application
+        // running properly
         form.setComfortClass("comfortClass-test");
         form.setComfortClassValueList(
-                new Object[]{"comfortClass-1", "comfortClass-2", "comfortClass-3", "comfortClass-4", "comfortClass-5"});
+            new Object[] {"comfortClass-1", "comfortClass-2", "comfortClass-3", "comfortClass-4", "comfortClass-5"});
         form.setComfortClassLabelList(form.getComfortClassValueList());
         form.setReservationDateAsDate(new java.util.Date());
     }
 
     /**
      * @see org.andromda.samples.carrental.contracts.web.reserveCar.CustomerReservesCarController#deleteReservation(org.apache.struts.action.ActionMapping,
-            *      org.andromda.samples.carrental.contracts.web.reserveCar.DeleteReservationForm,
-            *      javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     *      org.andromda.samples.carrental.contracts.web.reserveCar.DeleteReservationForm,
+     *      javax.servlet.http.HttpServletRequest,
+     *      javax.servlet.http.HttpServletResponse)
      */
-    public final void deleteReservation(ActionMapping mapping,
-                                        org.andromda.samples.carrental.contracts.web.reserveCar.DeleteReservationForm form,
-                                        HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void deleteReservation(
+        ActionMapping mapping,
+        org.andromda.samples.carrental.contracts.web.reserveCar.DeleteReservationForm form,
+        HttpServletRequest request,
+        HttpServletResponse response)
+        throws Exception
     {
-        // all properties receive a default value, just to have the application running properly
+        // all properties receive a default value, just to have the application
+        // running properly
         form.setIdReservation("idReservation-test");
     }
 
     /**
-     * This dummy variable is used to populate the "reservations" table. You may delete it when you add you own code in
-     * this controller.
+     * This dummy variable is used to populate the "reservations" table. You may
+     * delete it when you add you own code in this controller.
      */
-    private final java.util.Collection reservationsDummyList = java.util.Arrays.asList(new Object[]{
-        new ReservationsDummy("reservationDate-1", "comfortClass-1", "idReservation-1"),
-        new ReservationsDummy("reservationDate-2", "comfortClass-2", "idReservation-2"),
-        new ReservationsDummy("reservationDate-3", "comfortClass-3", "idReservation-3"),
-        new ReservationsDummy("reservationDate-4", "comfortClass-4", "idReservation-4"),
-        new ReservationsDummy("reservationDate-5", "comfortClass-5", "idReservation-5")});
+    private final java.util.Collection reservationsDummyList =
+        java.util.Arrays.asList(
+            new Object[]
+            {
+                new ReservationsDummy(
+                    "reservationDate-1",
+                    "comfortClass-1",
+                    "idReservation-1"), new ReservationsDummy(
+                    "reservationDate-2",
+                    "comfortClass-2",
+                    "idReservation-2"), new ReservationsDummy(
+                    "reservationDate-3",
+                    "comfortClass-3",
+                    "idReservation-3"), new ReservationsDummy(
+                    "reservationDate-4",
+                    "comfortClass-4",
+                    "idReservation-4"), new ReservationsDummy(
+                    "reservationDate-5",
+                    "comfortClass-5",
+                    "idReservation-5")
+            });
 
     /**
-     * This inner class is used in the dummy implementation in order to get the web application running without any
-     * manual programming. You may delete this class when you add you own code in this controller.
+     * This inner class is used in the dummy implementation in order to get the
+     * web application running without any manual programming. You may delete
+     * this class when you add you own code in this controller.
      */
     public final class ReservationsDummy
-            implements java.io.Serializable
+        implements java.io.Serializable
     {
         private String reservationDate = null;
         private String comfortClass = null;
         private String idReservation = null;
 
-        public ReservationsDummy(String reservationDate, String comfortClass, String idReservation)
+        public ReservationsDummy(
+            String reservationDate,
+            String comfortClass,
+            String idReservation)
         {
             this.reservationDate = reservationDate;
             this.comfortClass = comfortClass;
@@ -117,7 +151,5 @@ public class CustomerReservesCarControllerImpl
         {
             return this.idReservation;
         }
-
     }
-
 }
