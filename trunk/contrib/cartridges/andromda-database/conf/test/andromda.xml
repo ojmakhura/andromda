@@ -27,6 +27,7 @@
                 <property name="sqlMappingsUri">Oracle9i</property>
                 <property name="maxSqlNameLength">30</property>
                 <property name="foreignKeySuffix">_FK</property>
+                <property name="dummy-data-script">${test.output.dir}</property>
                 <property name="scripts">${test.output.dir}</property>
             </properties>
         </namespace>
