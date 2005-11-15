@@ -248,7 +248,7 @@ public class Model
             this.moduleSearchLocations.add(location);
         }
     }
-    
+
     /**
      * The type of model (i.e. uml-1.4, uml-2.0, etc).
      */
@@ -257,22 +257,22 @@ public class Model
     /**
      * Gets the type of the model (i.e. the type of metamodel this
      * model is based upon).
-     * 
+     *
      * @return Returns the type.
      */
     public String getType()
     {
         return this.type;
     }
-    
+
     /**
      * Stores the model facade types keyed by namespace.
      */
     private Map accessFacadeTypes = new HashMap();
-    
+
     /**
      * Gets the facade type of the model (i.e. the type of {@link ModelAccessFacade}).
-     * 
+     *
      * @return Returns the type.
      */
     public Class getAccessFacadeType()
@@ -283,13 +283,15 @@ public class Model
             type = (Class)this.accessFacadeTypes.get(this.type);
             if (type == null)
             {
-                type = ClassUtils.findClassOfType(
+                type =
+                    ClassUtils.findClassOfType(
                         Namespaces.instance().getResourceRoot(this.type),
                         ModelAccessFacade.class);
                 if (type == null)
                 {
                     throw new ModelProcessorException("No model access facade could be found within namespace '" +
-                        this.type + "'");
+                        this.type + "', verify the value of your model 'type' attribute is a namespace which " +
+                        "contains a model access facade");
                 }
             }
         }
@@ -299,7 +301,7 @@ public class Model
     /**
      * Sets the type of model (i.e. the type of metamodel this model
      * is based upon).
-     * 
+     *
      * @param type The type to set.
      */
     public void setType(final String type)
@@ -454,25 +456,25 @@ public class Model
         }
         return this.key;
     }
-    
+
     /**
      * The repository to which this model belongs.
      */
     private Repository repository;
-    
+
     /**
      * Gets the repository to which this model belongs.
-     * 
+     *
      * @return the repository to which this model belongs.
      */
     public Repository getRepository()
     {
         return this.repository;
     }
-    
+
     /**
      * Sets the repository to which this model belongs.
-     * 
+     *
      * @param repository the repository configuration to which this model belongs.
      */
     void setRepository(final Repository repository)
