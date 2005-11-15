@@ -86,7 +86,10 @@ public class ComponentContainer
      * implementation of the given <code>type</code> by searching the
      * <code>META-INF/services</code> directory for the default
      * implementation.
-     *
+     * 
+     * @param implemenation the fully qualified name of the implementation
+     *        class.
+     * @param the type to retrieve if the implementation is empty.
      * @return a new instance of the given <code>type</code>
      */
     public Object newComponent(
@@ -96,6 +99,33 @@ public class ComponentContainer
         Object component = null;
         implementation = implementation != null ? implementation.trim() : "";
         if (implementation.length() == 0)
+        {
+            component = this.newDefaultComponent(type);
+        }
+        else
+        {
+            component = ClassUtils.newInstance(implementation);
+        }
+        return component;
+    }
+    
+    /**
+     * Creates a new component of the given <code>implementation</code> (if it
+     * isn't null or empty), otherwise attempts to find the default
+     * implementation of the given <code>type</code> by searching the
+     * <code>META-INF/services</code> directory for the default
+     * implementation.
+     * 
+     * @param implemenation the implementation class.
+     * @param the type to retrieve if the implementation is empty.
+     * @return a new instance of the given <code>type</code>
+     */
+    public Object newComponent(
+        final Class implementation,
+        final Class type)
+    {
+        Object component = null;
+        if (implementation == null)
         {
             component = this.newDefaultComponent(type);
         }

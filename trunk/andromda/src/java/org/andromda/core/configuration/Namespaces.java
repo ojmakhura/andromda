@@ -1,6 +1,9 @@
 package org.andromda.core.configuration;
 
 import java.io.Serializable;
+
+import java.net.URL;
+
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -13,7 +16,8 @@ import org.apache.log4j.Logger;
 
 
 /**
- * Dictionary of configurable Namespace objects. Namespace objects are used for configuring Plugin instances.
+ * Directory of configurable Namespace objects. Namespace objects are used for configuring AndroMDA
+ * namespaces.
  *
  * @author Chad Brandon
  * @see org.andromda.core.configuration.Namespace
@@ -74,7 +78,7 @@ public class Namespaces
      */
     public void addNamespace(final Namespace namespace)
     {
-        namespaces.put(
+        this.namespaces.put(
             namespace.getName(),
             namespace);
     }
@@ -206,9 +210,9 @@ public class Namespaces
     private final Map registries = new LinkedHashMap();
 
     /**
-     * Adds a namespace registrt to this instance.  Namespace registries contain
-     * property deifnitions that are defined within a {@link NamespaceRegistry}
-     * descriptor (used to describe {@link NamespaceComponent} instances.
+     * Adds a namespace registry to this instance.  Namespace registries contain
+     * property definitions that are defined within a {@link NamespaceRegistry}
+     * descriptor (used to describe {@link NamespaceComponent}) instances.
      *
      * @param registry the {@link NamespaceRegistry} instance to add.
      */
@@ -216,9 +220,15 @@ public class Namespaces
     {
         if (registry != null)
         {
+            // - first add the registry directly under its own name
+            this.registries.put(
+                registry.getName(),
+                registry);
+
+            // - if the registry is shared, we add the registry to the default namespace as well
             if (registry.isShared())
             {
-                NamespaceRegistry defaultRegistry = (NamespaceRegistry)this.registries.get(DEFAULT);
+                NamespaceRegistry defaultRegistry = this.getNamespaceRegistry(DEFAULT);
                 if (defaultRegistry == null)
                 {
                     defaultRegistry = registry;
@@ -230,12 +240,6 @@ public class Namespaces
                 this.registries.put(
                     DEFAULT,
                     defaultRegistry);
-            }
-            else
-            {
-                this.registries.put(
-                    registry.getName(),
-                    registry);
             }
         }
     }
@@ -284,6 +288,28 @@ public class Namespaces
     }
 
     /**
+     * Attempts to retrieve the resource root of the namespace. The resource root is the directory
+     * or archive root which contains all namespace resources.
+     *
+     * @param namespace the namespace of which to retrieve the resource.
+     * @return the resource or null if it could not be found.
+     */
+    public URL getResourceRoot(final String namespace)
+    {
+        final NamespaceRegistry registry = this.getNamespaceRegistry(namespace);
+        if (registry == null)
+        {
+            throw new NamespacesException("'" + namespace + "' is not a registered namespace");
+        }
+        final URL resourceRoot = registry != null ? registry.getResourceRoot() : null;
+        if (resourceRoot == null)
+        {
+            throw new NamespacesException("No resource root could be retrieved for namespace '" + namespace + "'");
+        }
+        return resourceRoot;
+    }
+
+    /**
      * Attempts to get the value of a property from the given
      * <code>namespace</code> with the given <code>name</code> by first attempting
      * to retreive it from the namespace and if no property is defined
@@ -297,7 +323,7 @@ public class Namespaces
         final String namespace,
         final String name)
     {
-        final NamespaceRegistry registry = (NamespaceRegistry)this.registries.get(namespace);
+        final NamespaceRegistry registry = this.getNamespaceRegistry(namespace);
         PropertyDefinition definition = null;
         if (registry != null)
         {
@@ -305,13 +331,25 @@ public class Namespaces
         }
         if (definition == null)
         {
-            final NamespaceRegistry defaultRegistry = (NamespaceRegistry)this.registries.get(Namespaces.DEFAULT);
+            final NamespaceRegistry defaultRegistry = this.getNamespaceRegistry(Namespaces.DEFAULT);
             if (defaultRegistry != null)
             {
                 definition = defaultRegistry.getPropertyDefinition(name);
             }
         }
         return definition;
+    }
+
+    /**
+     * Retrieves the namespace registry for the given namespace, or returns null
+     * if it doesn't exist.
+     *
+     * @param namespace the namespace name.
+     * @return the registry, or null if not found.
+     */
+    private NamespaceRegistry getNamespaceRegistry(final String namespace)
+    {
+        return (NamespaceRegistry)this.registries.get(namespace);
     }
 
     /**

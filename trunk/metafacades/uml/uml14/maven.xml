@@ -11,7 +11,7 @@
     <preGoal name="jar:jar">
         <ant:copy todir="${maven.build.dest}">
             <ant:fileset dir="../common/src">
-                <ant:include name="META-INF/andromda/namespace.xml"/>
+                <ant:include name="META-INF/andromda/namespace.ent"/>
                 <ant:include name="META-INF/andromda/profile.xml"/>
             </ant:fileset>
         </ant:copy>

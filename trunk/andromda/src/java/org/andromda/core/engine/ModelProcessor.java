@@ -60,7 +60,7 @@ public class ModelProcessor
 
     private ModelProcessor()
     {
-        // do not allow instantiation
+        // - do not allow instantiation
     }
 
     /**
@@ -162,6 +162,11 @@ public class ModelProcessor
     private final MetafacadeFactory factory = MetafacadeFactory.getInstance();
 
     /**
+     * The shared namespaces instance.
+     */
+    private final Namespaces namespaces = Namespaces.instance();
+
+    /**
      * The shared repositories instance.
      */
     private final Repositories repositories = Repositories.instance();
@@ -223,7 +228,9 @@ public class ModelProcessor
                         // - process each model
                         for (int ctr = 0; ctr < models.length; ctr++)
                         {
-                            this.factory.setModel(repositories.getImplementation(repositoryName).getModel());
+                            final Model model = models[ctr];
+                            this.factory.setModel(
+                                this.repositories.getImplementation(repositoryName).getModel(model.getAccessFacadeType()));
                             cartridge.processModelElements(factory);
                             writer.writeHistory();
                         }
@@ -313,7 +320,7 @@ public class ModelProcessor
             final String repositoryName = repository != null ? repository.getName() : null;
             validationMessages.addAll(this.validateModel(
                     repositoryName,
-                    model.getConstraints()));
+                    model));
         }
         return validationMessages;
     }
@@ -330,15 +337,17 @@ public class ModelProcessor
      */
     private List validateModel(
         final String repositoryName,
-        final Filters constraints)
+        final Model model)
     {
+        final Filters constraints = model != null ? model.getConstraints() : null;
         final List validationMessages = new ArrayList();
         if (this.modelValidation)
         {
             final long startTime = System.currentTimeMillis();
             AndroMDALogger.info("- validating model -");
             final Collection cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
-            final ModelAccessFacade modelAccessFacade = repositories.getImplementation(repositoryName).getModel();
+            final ModelAccessFacade modelAccessFacade =
+                this.repositories.getImplementation(repositoryName).getModel(model.getAccessFacadeType());
 
             // - clear out the factory's caches (such as any previous validation messages, etc.)
             this.factory.clearCaches();
@@ -563,7 +572,7 @@ public class ModelProcessor
      */
     protected boolean shouldProcess(final String namespace)
     {
-        boolean shouldProcess = Namespaces.instance().namespacePresent(namespace);
+        boolean shouldProcess = this.namespaces.namespacePresent(namespace);
         if (shouldProcess)
         {
             shouldProcess = this.cartridgeFilter == null || this.cartridgeFilter.isEmpty();
@@ -678,17 +687,17 @@ public class ModelProcessor
     public void shutdown()
     {
         // - shutdown the metafacade factory instance
-        MetafacadeFactory.getInstance().shutdown();
+        this.factory.shutdown();
 
         // - shutdown the configuration namespaces instance
-        Namespaces.instance().shutdown();
+        this.namespaces.shutdown();
 
         // - shutdown the container instance
         ComponentContainer.instance().shutdown();
 
         // - shutdown the namespace components registry
         NamespaceComponents.instance().shutdown();
-        
+
         // - shutdown the introspector
         Introspector.instance().shutdown();
 
@@ -725,13 +734,16 @@ public class ModelProcessor
         final List messages,
         final Filters constraints)
     {
-        // - perform constraint filtering (if any applies)
-        for (final Iterator iterator = messages.iterator(); iterator.hasNext();)
+        if (constraints != null)
         {
-            final ModelValidationMessage message = (ModelValidationMessage)iterator.next();
-            if (message != null && !constraints.isApply(message.getName()))
+            // - perform constraint filtering (if any applies)
+            for (final Iterator iterator = messages.iterator(); iterator.hasNext();)
             {
-                iterator.remove();
+                final ModelValidationMessage message = (ModelValidationMessage)iterator.next();
+                if (message != null && !constraints.isApply(message.getName()))
+                {
+                    iterator.remove();
+                }
             }
         }
 

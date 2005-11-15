@@ -170,10 +170,11 @@ public class TranslationTestProcessor
                         // - we just load only the first model (since it doesn't
                         // make sense
                         // to test with more than one model)
-                        repositoriesContainer.loadModel(models[0]);
+                        final Model model = models[0];
+                        repositoriesContainer.loadModel(model);
                         final RepositoryFacade repositoryImplementation =
                             repositoriesContainer.getImplementation(repository.getName());
-                        this.model = repositoryImplementation.getModel();
+                        this.model = repositoryImplementation.getModel(model.getAccessFacadeType());
 
                         // - make sure the factory has access to the model
                         factory.setModel(this.model);

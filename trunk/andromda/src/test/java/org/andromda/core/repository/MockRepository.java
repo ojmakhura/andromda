@@ -50,4 +50,9 @@ public class MockRepository
     {
     }
 
+    public ModelAccessFacade getModel(Class type)
+    {
+        return null;
+    }
+
 }

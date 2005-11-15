@@ -8,6 +8,7 @@ import org.omg.uml.foundation.core.Namespace;
 import org.omg.uml.foundation.core.UmlClass;
 import org.omg.uml.modelmanagement.Model;
 import org.omg.uml.modelmanagement.ModelManagementPackage;
+import org.andromda.core.metafacade.ModelAccessFacade;
 
 import java.net.URL;
 import java.util.Collection;
@@ -57,7 +58,8 @@ public class MDRepositoryTransformationTest
     public void testTransformModel() throws Exception
     {
         repository.readModel(new String[]{modelURL.toString()}, null);
-        UmlPackage umlPackage = (UmlPackage)repository.getModel().getModel();
+        final ModelAccessFacade modelFacade = repository.getModel(null);
+        UmlPackage umlPackage = (UmlPackage)modelFacade.getModel();
         ModelManagementPackage modelManagementPackage = umlPackage.getModelManagement();
 
         // A given XMI file can contain multiptle models.

@@ -115,21 +115,6 @@ public class MDRepositoryFacade
     }
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.net.URL, java.lang.String[])
-     */
-    public void readModel(
-        final URL modelUrl,
-        final String[] moduleSearchPath)
-    {
-        String[] uris = null;
-        if (modelUrl != null)
-        {
-            uris = new String[] {modelUrl.toString()};
-        }
-        this.readModel(uris, moduleSearchPath);
-    }
-
-    /**
      * @see org.andromda.core.repository.RepositoryFacade#readModel(java.lang.String[], java.lang.String[])
      */
     public void readModel(
@@ -139,26 +124,15 @@ public class MDRepositoryFacade
         try
         {
             final MofPackage metaModel = this.loadMetaModel(metaModelURL);
-            this.model = this.loadModel(uris, moduleSearchPath, metaModel);
+            this.model = this.loadModel(
+                    uris,
+                    moduleSearchPath,
+                    metaModel);
         }
         catch (final Throwable throwable)
         {
             throw new RepositoryFacadeException(throwable);
         }
-    }
-
-    /**
-     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.io.InputStream, java.lang.String, java.lang.String[])
-     */
-    public void readModel(
-        final InputStream stream,
-        final String uri,
-        final String[] moduleSearchPath)
-    {
-        this.readModel(
-            new InputStream[] {stream},
-            new String[] {uri},
-            moduleSearchPath);
     }
 
     /**
@@ -176,7 +150,11 @@ public class MDRepositoryFacade
         try
         {
             final MofPackage metaModel = this.loadMetaModel(metaModelURL);
-            this.model = this.loadModel(streams, uris, moduleSearchPath, metaModel);
+            this.model = this.loadModel(
+                    streams,
+                    uris,
+                    moduleSearchPath,
+                    metaModel);
         }
         catch (final Throwable throwable)
         {
@@ -203,7 +181,11 @@ public class MDRepositoryFacade
         String outputLocation,
         String xmiVersion)
     {
-        this.writeModel(model, outputLocation, xmiVersion, null);
+        this.writeModel(
+            model,
+            outputLocation,
+            xmiVersion,
+            null);
     }
 
     /**
@@ -216,8 +198,12 @@ public class MDRepositoryFacade
         String xmiVersion,
         String encoding)
     {
-        ExceptionUtils.checkNull("model", model);
-        ExceptionUtils.checkNull("outputLocation", outputLocation);
+        ExceptionUtils.checkNull(
+            "model",
+            model);
+        ExceptionUtils.checkNull(
+            "outputLocation",
+            outputLocation);
         ExceptionUtils.checkAssignable(
             RefPackage.class,
             "model",
@@ -242,7 +228,11 @@ public class MDRepositoryFacade
             FileOutputStream outputStream = new FileOutputStream(file);
             final XMIWriter xmiWriter = XMIWriterFactory.getDefault().createXMIWriter();
             xmiWriter.getConfiguration().setEncoding(encoding);
-            xmiWriter.write(outputStream, outputLocation, (RefPackage)model, xmiVersion);
+            xmiWriter.write(
+                outputStream,
+                outputLocation,
+                (RefPackage)model,
+                xmiVersion);
             outputStream.close();
             outputStream = null;
         }
@@ -253,21 +243,18 @@ public class MDRepositoryFacade
     }
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#getModel()
+     * @see org.andromda.core.repository.RepositoryFacade#getModel(java.lang.String)
      */
-    public ModelAccessFacade getModel()
+    public ModelAccessFacade getModel(final Class type)
     {
         if (this.modelFacade == null)
         {
             try
             {
                 this.modelFacade =
-                    (ModelAccessFacade)ComponentContainer.instance().findComponent(ModelAccessFacade.class);
-                if (this.modelFacade == null)
-                {
-                    throw new RepositoryFacadeException(
-                        "Could not find implementation for the component --> '" + ModelAccessFacade.class + "'");
-                }
+                    (ModelAccessFacade)ComponentContainer.instance().newComponent(
+                        type,
+                        ModelAccessFacade.class);
             }
             catch (final Throwable throwable)
             {
@@ -311,7 +298,9 @@ public class MDRepositoryFacade
             metaModelExtent = (ModelPackage)repository.createExtent(metaModelURL.toExternalForm());
         }
 
-        MofPackage metaModelPackage = findPackage(META_PACKAGE, metaModelExtent);
+        MofPackage metaModelPackage = findPackage(
+                META_PACKAGE,
+                metaModelExtent);
         if (metaModelPackage == null)
         {
             XMIReader xmiReader = XMIReaderFactory.getDefault().createXMIReader();
@@ -320,7 +309,9 @@ public class MDRepositoryFacade
                 metaModelExtent);
 
             // locate the UML package definition that was just loaded in
-            metaModelPackage = findPackage(META_PACKAGE, metaModelExtent);
+            metaModelPackage = findPackage(
+                    META_PACKAGE,
+                    metaModelExtent);
         }
 
         if (logger.isDebugEnabled())
@@ -387,7 +378,9 @@ public class MDRepositoryFacade
                         final String uri = modelUris[ctr];
                         if (uri != null)
                         {
-                            xmiReader.read(modelUris[ctr], model);
+                            xmiReader.read(
+                                modelUris[ctr],
+                                model);
                         }
                     }
                 }
@@ -444,7 +437,10 @@ public class MDRepositoryFacade
                         }
                         if (stream != null)
                         {
-                            xmiReader.read(stream, uri, model);
+                            xmiReader.read(
+                                stream,
+                                uri,
+                                model);
                         }
                     }
                 }
@@ -487,7 +483,9 @@ public class MDRepositoryFacade
         {
             logger.debug("creating the new meta model");
         }
-        model = repository.createExtent(EXTENT_NAME, metaModel);
+        model = repository.createExtent(
+                EXTENT_NAME,
+                metaModel);
         if (logger.isDebugEnabled())
         {
             logger.debug("created model extent");

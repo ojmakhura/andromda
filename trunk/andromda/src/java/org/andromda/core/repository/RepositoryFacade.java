@@ -2,8 +2,6 @@ package org.andromda.core.repository;
 
 import java.io.InputStream;
 
-import java.net.URL;
-
 import org.andromda.core.metafacade.ModelAccessFacade;
 
 
@@ -20,37 +18,19 @@ import org.andromda.core.metafacade.ModelAccessFacade;
 public interface RepositoryFacade
 {
     /**
-     * open and initialize the repository.
+     * Opens and initialize the repository.
      */
     public void open();
 
     /**
-     * close the repository and reclaim all resources
+     * Closes the repository and reclaims all resources.
      */
     public void close();
 
     /**
      * <p>
-     * Reads the object model into the repository from a single modelURL. If the URL is <strong>null </strong> then an empty
-     * model will be created in the repository and can be retrieved from {@link #getModel()}.
-     * <p>
-     * URLs can be used to point to files on the filesystem, a file in a jar file, a file from a website, data from a
-     * database, etc... </p>
-     *
-     * @param modelUrl url of model <strong>NOTE: </strong> if the url of the model isn't specified, then an
-     *                 empty model will be created and can be retrieved from {@link #getModel()}
-     * @param moduleSearchPath a list of paths from which to search for module models (i.e. models that can be used from
-     *                         within other models).
-     * @deprecated use {@link #readModel(String[], String[])}
-     */
-    public void readModel(
-        URL modelUrl,
-        String[] moduleSearchPath);
-    
-    /**
-     * <p>
-     * Reads the object model into the repository from one or more model URIs. If uris is 
-     * <strong>null </strong> or zero length, then an empty model will be created in the repository 
+     * Reads the object model into the repository from one or more model URIs. If uris is
+     * <strong>null </strong> or zero length, then an empty model will be created in the repository
      * and can be retrieved from {@link #getModel()}.
      * </p>
      *
@@ -63,23 +43,7 @@ public interface RepositoryFacade
         String[] moduleSearchPath);
 
     /**
-     * Reads the object model into the repository from the given stream. If the stream is <strong>null </strong> then an empty
-     * model will be created in the repository and can be retrieved from {@link #getModel()}.
-     * <p/>
-     *
-     * @param stream an InputStream containing a model.
-     * @param uri URI of the model that was read into the stream.
-     * @param moduleSearchPath a list of paths from which to search for module models (i.e. models that can be referenced from
-     *                         within other models).
-     * @deprecated use {@link #readModel(InputStream[], String[], String[])}
-     */
-    public void readModel(
-        InputStream stream,
-        String uri,
-        String[] moduleSearchPath);
-   
-    /**
-     * Reads the object model into the repository from the given model streams. If the streams is 
+     * Reads the object model into the repository from the given model streams. If the streams is
      * <strong>null </strong> then an empty model will be created in the repository and can be retrieved from {@link #getModel()}.
      * <p/>
      *
@@ -122,14 +86,16 @@ public interface RepositoryFacade
         Object model,
         String outputLocation,
         String version);
-
+    
     /**
-     * Returns a facade for the top-level model object from the repository. This model object contains all models
-     * <code>read</code> into the repository.
+     * Returns the facade as the given <code>type</code> for the top-level model object from the repository. This model object
+     * contains all models <code>read</code> into the repository.  If the type is not specified, the default model access
+     * facade will be used.
      *
+     * @param type the type of the model facade.
      * @return the model value (or <code>null</code> if no models exist in the repository).
      */
-    public ModelAccessFacade getModel();
+    public ModelAccessFacade getModel(final Class type);
 
     /**
      * Clears the repository of any model(s)

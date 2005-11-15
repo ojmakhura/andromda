@@ -36,6 +36,7 @@
             <groupId>org.andromda.profiles.uml14</groupId>
             <artifactId>andromda-profile</artifactId>
             <version>${version}</version>
+            <scope>provided</scope>
             <type>xml.zip</type>
         </dependency>
         <dependency>

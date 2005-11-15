@@ -216,9 +216,13 @@
                     <set-next-rule methodname="setConstraints" />
 
                 </pattern>
-
+                
                 <set-properties-rule>
                      <alias attr-name="lastModifiedCheck" prop-name="lastModifiedCheck" />
+                </set-properties-rule>
+
+                <set-properties-rule>
+                     <alias attr-name="type" prop-name="type" />
                 </set-properties-rule>
 
                 <set-next-rule methodname="addModel" />

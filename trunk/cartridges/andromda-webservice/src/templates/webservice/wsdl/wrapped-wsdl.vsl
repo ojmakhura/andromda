@@ -121,7 +121,7 @@ $attribute.getDocumentation("                                ", 64, false)
 #else
 #set ($schemaType = "${type.namespacePrefix}:${type.qName}")
 #end                
-                    <xsd:element name="$otherEnd.name" nillable="$otherEnd.nillable" type="${schemaType}">
+                    <xsd:element name="$otherEnd.name" nillable="$otherEnd.nillable" type="$schemaType">
                         <xsd:annotation>     
                             <xsd:documentation> 
 $otherEnd.getDocumentation("                                ", 64, false)
