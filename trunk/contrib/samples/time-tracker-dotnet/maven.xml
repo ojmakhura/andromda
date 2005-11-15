@@ -34,10 +34,10 @@
                 <attainGoal name="clean"/>
                 <ant:delete>
                     <fileset dir="TimeTrackerCommon/src">
-                        <include name="**/*Impl.java"/>
+                        <include name="**/*Impl.cs"/>
                     </fileset>
                     <fileset dir="TimeTrackerCore/src">
-                        <include name="**/*Impl.java"/>
+                        <include name="**/*Impl.cs"/>
                     </fileset>
                 </ant:delete>
                 <ant:echo>Finished nuke.</ant:echo>
