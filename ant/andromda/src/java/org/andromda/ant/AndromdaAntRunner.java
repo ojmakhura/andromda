@@ -119,6 +119,7 @@ public class AndromdaAntRunner
     {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Please enter the " + property + ": ");
+        System.out.flush();
         String inputString = null;
         try
         {
