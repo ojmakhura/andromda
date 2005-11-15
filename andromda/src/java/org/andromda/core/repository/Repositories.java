@@ -150,7 +150,7 @@ public class Repositories
                 model.getModuleSearchLocationPaths());
     
             // - set the package filter
-            repositoryImplementation.getModel().setPackageFilter(model.getPackages());
+            repositoryImplementation.getModel(model.getAccessFacadeType()).setPackageFilter(model.getPackages());
             try
             {
                 for (int ctr = 0; ctr < uriNumber; ctr++)

@@ -3,6 +3,7 @@ package org.andromda.repositories.mdr;
 import junit.framework.TestCase;
 import org.apache.log4j.Logger;
 import org.omg.uml.UmlPackage;
+import org.andromda.core.metafacade.ModelAccessFacade;
 
 import java.net.URL;
 
@@ -50,9 +51,10 @@ public class MDRepositoryFacadeTest
     public void testGetModel()
     {
         repository.readModel(new String[]{modelURL.toString()}, null);
-        assertNotNull(repository.getModel());
-        assertNotNull(repository.getModel().getModel());
-        assertTrue(repository.getModel().getModel() instanceof UmlPackage);
+        final ModelAccessFacade model = repository.getModel(null);
+        assertNotNull(model);
+        assertNotNull(model.getModel());
+        assertTrue(model.getModel() instanceof UmlPackage);
     }
 
     /**

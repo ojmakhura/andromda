@@ -1,5 +1,6 @@
 package org.andromda.core.namespace;
 
+import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -157,5 +158,38 @@ public class NamespaceRegistry
                 propertyDefinition.getName(),
                 propertyDefinition);
         }
+    }
+    
+    /**
+     * The root of this namespace which stores all resources.
+     */
+    private URL resourceRoot;
+
+    /**
+     * Gets the resource root of this namespace.
+     * 
+     * @return Returns the resource.
+     */
+    public URL getResourceRoot()
+    {
+        return resourceRoot;
+    }
+
+    /**
+     * Sets the resource root of this namespace.
+     * 
+     * @param resource The resource to set.
+     */
+    final void setResourceRoot(URL resource)
+    {
+        this.resourceRoot = resource;
+    }
+    
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return super.toString() + "[" + this.getName()+ "]";
     }
 }

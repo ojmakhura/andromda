@@ -266,35 +266,54 @@ public class ClassUtils
     }
 
     /**
-     * Searches the contents of the <code>uri</code> and returns the first
+     * The suffix for class files.
+     */
+    private static final String CLASS_SUFFIX = ".class";
+
+    /**
+     * Searches the contents of the <code>directoryUri</code> and returns the first
      * Class found that is of the given <code>type</code>.
      *
-     * @param uri the URI to search, ie. a directory or an archive.
+     * @param directoryUri the URI to search, ie. a directory or an archive.
      * @param type the type to check.
      * @return the class or null if not found.
      */
     public static Class findClassOfType(
-        final URL uri,
-        Class type)
+        final URL directoryUri,
+        final Class type)
     {
         Class found = null;
-        final List contents = ResourceUtils.getDirectoryContents(uri, false, null);
+        final List contents = ResourceUtils.getDirectoryContents(
+                directoryUri,
+                false,
+                null);
         for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
         {
             final String path = (String)iterator.next();
-            final String typeName = path.replace('\\', '/').replace('/', '.');
-            try
+            if (path.endsWith(CLASS_SUFFIX))
             {
-                final Class loadedClass = getClassLoader().loadClass(typeName);
-                if (type.isAssignableFrom(loadedClass))
+                final String typeName =
+                    StringUtils.replace(
+                        path.replaceAll(
+                            "\\+",
+                            "/").replace(
+                            '/',
+                            '.'),
+                        CLASS_SUFFIX,
+                        "");
+                try
                 {
-                    found = loadedClass;
-                    break;
+                    final Class loadedClass = getClassLoader().loadClass(typeName);
+                    if (type.isAssignableFrom(loadedClass))
+                    {
+                        found = loadedClass;
+                        break;
+                    }
                 }
-            }
-            catch (final ClassNotFoundException exception)
-            {
-                // - ignore, means the file wasn't a class
+                catch (final ClassNotFoundException exception)
+                {
+                    // - ignore, means the file wasn't a class
+                }
             }
         }
         return found;

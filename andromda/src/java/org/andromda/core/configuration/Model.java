@@ -13,7 +13,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ResourceUtils;
+import org.andromda.core.engine.ModelProcessorException;
+import org.andromda.core.metafacade.ModelAccessFacade;
 
 
 /**
@@ -244,6 +247,64 @@ public class Model
             location.setPath(path);
             this.moduleSearchLocations.add(location);
         }
+    }
+    
+    /**
+     * The type of model (i.e. uml-1.4, uml-2.0, etc).
+     */
+    private String type;
+
+    /**
+     * Gets the type of the model (i.e. the type of metamodel this
+     * model is based upon).
+     * 
+     * @return Returns the type.
+     */
+    public String getType()
+    {
+        return this.type;
+    }
+    
+    /**
+     * Stores the model facade types keyed by namespace.
+     */
+    private Map accessFacadeTypes = new HashMap();
+    
+    /**
+     * Gets the facade type of the model (i.e. the type of {@link ModelAccessFacade}).
+     * 
+     * @return Returns the type.
+     */
+    public Class getAccessFacadeType()
+    {
+        Class type = null;
+        if (this.type != null && this.type.trim().length() > 0)
+        {
+            type = (Class)this.accessFacadeTypes.get(this.type);
+            if (type == null)
+            {
+                type = ClassUtils.findClassOfType(
+                        Namespaces.instance().getResourceRoot(this.type),
+                        ModelAccessFacade.class);
+                if (type == null)
+                {
+                    throw new ModelProcessorException("No model access facade could be found within namespace '" +
+                        this.type + "'");
+                }
+            }
+        }
+        return type;
+    }
+
+    /**
+     * Sets the type of model (i.e. the type of metamodel this model
+     * is based upon).
+     * 
+     * @param type The type to set.
+     */
+    public void setType(final String type)
+    {
+        this.type = type;
     }
 
     /**

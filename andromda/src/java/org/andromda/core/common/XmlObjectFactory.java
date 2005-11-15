@@ -12,7 +12,10 @@ import java.util.Map;
 
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
@@ -51,11 +54,35 @@ public class XmlObjectFactory
      * The class logger. Note: visibility is protected to improve access within {@link XmlObjectValidator}
      */
     protected static final Logger logger = Logger.getLogger(XmlObjectFactory.class);
+
+    /**
+     * The expected suffixes for rule files.
+     */
     private static final String RULES_SUFFIX = "-Rules.xml";
+
+    /**
+     * The expected suffix for XSD files.
+     */
     private static final String SCHEMA_SUFFIX = ".xsd";
+
+    /**
+     * The digester instance.
+     */
     private Digester digester = null;
+
+    /**
+     * The class of which the object we're instantiating.
+     */
     private Class objectClass = null;
+
+    /**
+     * The URL to the object rules.
+     */
     private URL objectRulesXml = null;
+
+    /**
+     * The URL of the schema.
+     */
     private URL schemaUri = null;
 
     /**
@@ -80,6 +107,7 @@ public class XmlObjectFactory
             "objectRulesXml",
             objectRulesXml);
         this.digester = DigesterLoader.createDigester(objectRulesXml);
+        this.digester.setUseContextClassLoader(true);
     }
 
     /**
@@ -211,6 +239,7 @@ public class XmlObjectFactory
      */
     public Object getObject(final URL objectXml)
     {
+        this.digester.setEntityResolver(new XmlObjectEntityResolver(objectXml));
         return this.getObject(objectXml != null ? ResourceUtils.getContents(objectXml) : null);
     }
 
@@ -319,6 +348,101 @@ public class XmlObjectFactory
                 message.append(", column: " + exception.getColumnNumber());
             }
             return message.toString();
+        }
+    }
+
+    /**
+     * The prefix that the systemId should start with when attempting
+     * to resolve it within a jar.
+     */
+    private static final String SYSTEM_ID_FILE = "file:";
+
+    /**
+     * Provides the resolution of external entities from the classpath.
+     */
+    private static final class XmlObjectEntityResolver
+        implements EntityResolver
+    {
+        private URL xmlResource;
+
+        XmlObjectEntityResolver(final URL xmlResource)
+        {
+            this.xmlResource = xmlResource;
+        }
+
+        /**
+         * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
+         */
+        public InputSource resolveEntity(
+            final String publicId,
+            final String systemId)
+            throws SAXException, IOException
+        {
+            InputSource source = null;
+            String path = systemId;
+            if (path != null && path.startsWith(SYSTEM_ID_FILE))
+            {
+                final String xmlResource = this.xmlResource.toString();
+                path = path.replaceFirst(
+                        SYSTEM_ID_FILE,
+                        "");
+                // - remove any extra starting slashes
+                path = path.replaceAll(
+                        "\\+",
+                        "/").replaceAll(
+                        "/+",
+                        "/");
+
+                // - if we still have one starting slash, remove it
+                if (path.startsWith("/"))
+                {
+                    path = path.substring(
+                            1,
+                            path.length());
+                }
+                final String xmlResourceName = xmlResource.replaceAll(
+                        ".*(\\+|/)",
+                        "");
+                URL uri = null;
+                InputStream inputStream = null;
+                try
+                {
+                    uri = ResourceUtils.toURL(StringUtils.replace(
+                                xmlResource,
+                                xmlResourceName,
+                                path));
+                    if (uri != null)
+                    {
+                        inputStream = uri.openStream();
+                    }
+                }
+                catch (final IOException exception)
+                {
+                    // - ignore
+                }
+                if (inputStream == null)
+                {
+                    try
+                    {
+                        uri = ResourceUtils.getResource(path);
+                        if (uri != null)
+                        {
+                            inputStream = uri.openStream();
+                        }
+                    }
+                    catch (final IOException exception)
+                    {
+                        // - ignore
+                    }
+                }
+                if (inputStream != null)
+                {
+                    source = new InputSource(inputStream);
+                    source.setPublicId(publicId);
+                    source.setSystemId(uri.toString());
+                }
+            }
+            return source;
         }
     }
 }

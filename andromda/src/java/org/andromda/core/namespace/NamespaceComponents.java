@@ -79,6 +79,7 @@ public class NamespaceComponents
             {
                 final URL resource = resources[ctr];
                 NamespaceRegistry registry = (NamespaceRegistry)registryFactory.getObject(resource);
+                registry.setResourceRoot(this.getNamespaceResourceRoot(resource));
                 final String registryName = registry.getName();
 
                 // - only register if we haven't yet registered the namespace
@@ -210,6 +211,20 @@ public class NamespaceComponents
             }
         }
         return relativeResource;
+    }
+    
+    /**
+     * Attempts to retrieve the resource root of the namespace; that is the 
+     * directory (whether it be a regular directory or achive root)
+     * which this namespace spans.
+     * 
+     * @param resource the resource from which to retrieve the root.
+     * @return the namespace root, or null if could not be found.
+     */
+    private URL getNamespaceResourceRoot(final URL resource)
+    {
+        final String resourcePath = resource != null ? resource.toString().replace('\\', '/') : null;
+        return ResourceUtils.toURL(StringUtils.replace(resourcePath, this.path, ""));
     }
 
     /**
