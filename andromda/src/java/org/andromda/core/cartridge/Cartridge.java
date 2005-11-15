@@ -528,7 +528,7 @@ public class Cartridge
             {
                 // - make sure we don't have any back slashes
                 final String resourceUri = resourceUrl.toString().replaceAll(
-                        "\\\\",
+                        "\\+",
                         FORWARD_SLASH);
                 final String uriSuffix =
                     resourceUri.substring(
