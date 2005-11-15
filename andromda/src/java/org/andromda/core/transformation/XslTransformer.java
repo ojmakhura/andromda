@@ -37,7 +37,7 @@ public class XslTransformer
     implements Transformer
 {
     /**
-     * Applies the given XSLT files to the model in the order which they are found.
+     * Applies the given XSLT files to the model in the order in which they are found.
      *
      * @see org.andromda.core.transformation.Transformer#transform(java.net.URL, org.andromda.core.configuration.Transformation[])
      */
@@ -122,14 +122,14 @@ public class XslTransformer
          * @see javax.xml.transform.URIResolver#resolve(java.lang.String, java.lang.String)
          */
         public Source resolve(
-            String href,
-            String base)
+            final String href,
+            final String base)
             throws TransformerException
         {
             Source source = null;
             if (this.location != null)
             {
-                String locationUri = new String(location.toString().replace('\\', '/'));
+                String locationUri = new String(location.toString().replaceAll("\\+", "/"));
                 locationUri = locationUri.substring(0, locationUri.toString().lastIndexOf('/') + 1);
                 source = new StreamSource(locationUri + href);
             }
