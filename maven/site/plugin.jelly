@@ -47,7 +47,7 @@
     </goal>
 
     <goal name="xdoc:namespace-xsl">
-        <!-- if a profile.xml is present then generate documentation for it -->
+        <!-- if a namespace.xml is present then generate documentation for it -->
         <u:available file="${maven.src.dir}/META-INF/andromda/namespace.xml">
             <!-- setting the XSLT factory provider @todo: do this only once (wouter)-->
             <j:invokeStatic var="dummy" method="setProperty" className="java.lang.System">
@@ -59,10 +59,11 @@
             <!-- replace the variable property in the stylesheet -->
             <ant:replace file="${maven.build.dir}/xsl/namespace.xsl" token="%module%" value="${pom.name}"/>
             <!-- performing the transformations -->
-            <ant:xslt force="true"
-                in="${maven.src.dir}/META-INF/andromda/namespace.xml"
-                out="${maven.gen.docs}/namespace.xml"
-                style="${maven.build.dir}/xsl/namespace.xsl"/>
+            <j:new var="transformer" className="org.andromda.maven.site.XslTransformer"/>
+            <j:set var="inputDocument" value="${maven.build.dest}/META-INF/andromda/namespace.xml"/>
+            <j:set var="transformation" value="${maven.build.dir}/xsl/namespace.xsl"/>
+            <j:set var="outputDocument" value="${maven.gen.docs}/namespace.xml"/>
+            <j:set var="dummy" value="${transformer.transform(inputDocument,transformation,outputDocument)}"/>
         </u:available>
     </goal>
 
