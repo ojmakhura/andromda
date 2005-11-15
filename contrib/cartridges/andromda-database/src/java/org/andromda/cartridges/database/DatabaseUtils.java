@@ -1,5 +1,7 @@
 package org.andromda.cartridges.database;
 
+import org.andromda.cartridges.database.metafacades.AssociationTable;
+import org.andromda.cartridges.database.metafacades.Column;
 import org.andromda.cartridges.database.metafacades.ForeignKeyColumn;
 import org.andromda.cartridges.database.metafacades.Table;
 
@@ -11,6 +13,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Contains services to use in the generation of the dummy data creation and table creation scripts.
+ * 
+ * @author Chad Brandon
+ * @author Wouter Zoons
+ * @author Juan Carlos Gastélum Rocha
+ */
 public class DatabaseUtils
 {
     /**
@@ -19,11 +28,16 @@ public class DatabaseUtils
      * @param table cannot be null
      * @param columns if null this method will simply return all columns found on this table
      */
-    public static Collection getOtherColumns(Table table, Collection columns)
+    public static Collection getOtherColumns(Object table, Collection columns)
     {
-        final Collection otherColumns = new ArrayList(table.getColumns());
+        final Collection otherColumns;
+        
+        if (table instanceof Table)
+            otherColumns = new ArrayList(((Table) table).getColumns());
+        else
+            otherColumns = new ArrayList(((AssociationTable) table).getForeignKeyColumns());
 
-        if (columns != null)
+        if (columns.isEmpty() == false)
         {
             otherColumns.removeAll(columns);
         }
@@ -83,7 +97,7 @@ public class DatabaseUtils
                 tableProcessed = resolveUpdateableTables(tables, orderedTableMap);
             }
         }
-
+        
         return orderedTableMap;
     }
 
@@ -114,11 +128,16 @@ public class DatabaseUtils
 
         for (Iterator tableIterator = tablesToProcess.iterator(); tableIterator.hasNext();)
         {
-            final Table table = (Table) tableIterator.next();
+            final Object table = tableIterator.next();
             if (isInsertable(table, processedTableMap))
             {
                 tableIterator.remove();
-                processedTableMap.put(table, null);
+                
+                if (table instanceof Table)
+                    processedTableMap.put((Table) table, new ArrayList());
+                else
+                    processedTableMap.put((AssociationTable) table, new ArrayList());
+
                 inserted = true;
             }
         }
@@ -134,15 +153,27 @@ public class DatabaseUtils
      * @param processedTableMap cannot be null
      * @return true if this table is insertable, false otherwise
      */
-    private static boolean isInsertable(Table table, Map processedTableMap)
+    private static boolean isInsertable(Object table, Map processedTableMap)
     {
         boolean insertable = true;
+        Object importedTable;
+        Collection foreignKeyColumns;
+        
+        if (table instanceof Table)
+            foreignKeyColumns = ((Table) table).getForeignKeyColumns();
+        else
+            foreignKeyColumns = ((AssociationTable) table).getForeignKeyColumns();
 
-        Collection foreignKeyColumns = table.getForeignKeyColumns();
         for (Iterator foreignKeyIterator = foreignKeyColumns.iterator(); foreignKeyIterator.hasNext() && insertable;)
         {
-            final ForeignKeyColumn foreignKeyColumn = (ForeignKeyColumn) foreignKeyIterator.next();
-            if (!processedTableMap.containsKey(foreignKeyColumn.getImportedTable()))
+            final Object foreignKeyColumn = foreignKeyIterator.next();
+            
+            if (foreignKeyColumn instanceof ForeignKeyColumn)
+                importedTable = ((ForeignKeyColumn) foreignKeyColumn).getImportedTable();
+            else
+                importedTable = ((Column) foreignKeyColumn).getImportedTable();
+                        
+            if (!processedTableMap.containsKey(importedTable))
             {
                 insertable = false;
             }
@@ -176,12 +207,17 @@ public class DatabaseUtils
 
         for (Iterator tableIterator = tablesToProcess.iterator(); tableIterator.hasNext() && !resolved;)
         {
-            final Table table = (Table) tableIterator.next();
+            final Object table = tableIterator.next();
             Collection updateableColumns = getUpdateableColumns(table, processedTableMap);
             if (updateableColumns.isEmpty() == false)
             {
                 tableIterator.remove();
-                processedTableMap.put(table, updateableColumns);
+                
+                if (table instanceof Table)
+                    processedTableMap.put((Table) table, updateableColumns);
+                else
+                    processedTableMap.put((AssociationTable) table, updateableColumns);
+
                 resolved = true;
             }
         }
@@ -202,22 +238,54 @@ public class DatabaseUtils
      * @param processedTableMap cannot be null
      * @return nullable foreign key columns that import tables not in the map
      */
-    private static Collection getUpdateableColumns(Table table, Map processedTableMap)
+    private static Collection getUpdateableColumns(Object table, Map processedTableMap)
     {
         final Collection updateableColumns = new ArrayList();
+        Collection foreignKeyColumns;
+        boolean isRequired;
+        Object importedTable;
 
-        Collection foreignKeyColumns = table.getForeignKeyColumns();
+        if (table instanceof Table)
+            foreignKeyColumns = ((Table) table).getForeignKeyColumns();
+        else
+            foreignKeyColumns = ((AssociationTable) table).getForeignKeyColumns();
+        
         for (Iterator foreignKeyIterator = foreignKeyColumns.iterator(); foreignKeyIterator.hasNext();)
         {
-            ForeignKeyColumn foreignKeyColumn = (ForeignKeyColumn) foreignKeyIterator.next();
+            Object foreignKeyColumn = foreignKeyIterator.next();
+
+            if (foreignKeyColumn instanceof ForeignKeyColumn)
+            {
+                importedTable = ((ForeignKeyColumn) foreignKeyColumn).getImportedTable();
+                isRequired = ((ForeignKeyColumn) foreignKeyColumn).isRequired();
+            }
+            else
+            {
+                importedTable = ((Column) foreignKeyColumn).getImportedTable();
+                isRequired = ((Column) foreignKeyColumn).isRequired();
+            }
+
 
             // only update those ones that really can't be inserted the first time
             // (nullable foreign key columns that import a table not present in the map)
-            if (!foreignKeyColumn.isRequired() && !processedTableMap.containsKey(foreignKeyColumn.getImportedTable()))
+            if (!isRequired && !processedTableMap.containsKey(importedTable))
             {
-                updateableColumns.add(foreignKeyColumn);
+                if (foreignKeyColumn instanceof ForeignKeyColumn)
+                    updateableColumns.add((ForeignKeyColumn) foreignKeyColumn);
+                else
+                    updateableColumns.add((Column) foreignKeyColumn);               
             }
         }
         return updateableColumns;
     }
+    
+    /**
+     * Returns a logical value which indicate if the Object received is an instance of a Table.
+     * @param instance the instance to analize
+     * @return a <boolean> that especifies if the object received is an instance of a Table.
+     */
+    public static boolean isTable(Object instance)
+    {
+        return (instance instanceof Table);
+    }    
 }

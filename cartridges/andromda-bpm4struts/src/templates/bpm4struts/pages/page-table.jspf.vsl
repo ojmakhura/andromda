@@ -46,13 +46,14 @@
 #if ($exportable)
         <display:column media="$table.tableExportTypes"
             titleKey="$table.getTableColumnMessageKey($columnName)"
-            autolink="true" paramId="$columnName">
+            autolink="true" paramId="$columnName"
 #if ($column.type.dateType)
+			>
             ${value}
-#else
-            ${${valueProperty}}
-#end
         </display:column>
+#else
+			property="$columnName" />
+#end
 #end
 ## this column is the HTML representation of the value
         <display:column media="html"
@@ -60,23 +61,28 @@
 #if (!$table.tableDecoratorRequired && $table.tableSortable && (!$column.actionParameter || $column.sortableBy))
             sortProperty="$columnName" sortable="true"
 #end
-            titleKey="$table.getTableColumnMessageKey($columnName)">
+            titleKey="$table.getTableColumnMessageKey($columnName)"
 #if ($column.actionParameter)
+			>
             <div class="$columnName">
 #renderFormField($column.strutsAction $column '${row_rowNum}' "                ")
             </div>
+        </display:column>
 #elseif (!$tableColumnActions.empty)
+			>
 #foreach ($tableColumnAction in $tableColumnActions)
 #renderTableHyperlink($tableColumnAction $columnName "            ")
 #end
+		</display:column>
 #else
 #if ($column.type.dateType)
+			>
             <div class="$columnName">${value}</div>
-#else
-            <div class="$columnName">${${valueProperty}}</div>
-#end
-#end
         </display:column>
+#else
+            property="$columnName" />
+#end
+#end
 #end
 ##
 ##  any hyperlink actions ?
