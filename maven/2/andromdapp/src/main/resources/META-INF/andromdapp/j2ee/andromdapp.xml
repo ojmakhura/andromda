@@ -21,6 +21,12 @@
                 <response>ear</response>
                 <response>war</response>
             </responses>
+            <conditions>
+                <condition>
+                    <equal>war</equal>
+                    <prompt id="transactionPersistenceType">spring</prompt>
+                </condition>
+            </conditions>
         </prompt>
         <prompt id="transactionPersistenceType">
             <text>Please enter the type of transactional/persistence cartridge to use</text>
@@ -36,6 +42,12 @@
                 <response>yes</response>
                 <response>no</response>
             </responses>
+            <conditions>
+                <condition>
+                    <equal>yes</equal>
+                    <prompt id="hibernateVersion">3</prompt>
+                </condition>
+            </conditions>
         </prompt>
         <prompt id="hibernateVersion">
             <text>Please enter the hibernate version number  (enter '2' for 2.1.x or '3' for 3.0.x)</text>

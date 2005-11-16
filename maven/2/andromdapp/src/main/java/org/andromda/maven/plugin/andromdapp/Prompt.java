@@ -154,4 +154,29 @@ public class Prompt
         responses.append("]");
         return responses.toString();
     }
+    
+    /**
+     * The conditions that apply to this prompt.
+     */
+    private List conditions = new ArrayList();
+    
+    /**
+     * Adds a condition to this prompt.
+     * 
+     * @param condition the condition which must apply to this prompt.
+     */
+    public void addCondition(final Condition condition)
+    {
+        this.conditions.add(condition);
+    }
+    
+    /**
+     * Gets the conditions defined in this prompt.
+     * 
+     * @return the conditions that are defined within this prompt.
+     */
+    public List getConditions()
+    {
+        return this.conditions;
+    }
 }

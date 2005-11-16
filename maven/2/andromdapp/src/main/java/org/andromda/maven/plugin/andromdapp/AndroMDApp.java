@@ -7,8 +7,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -112,15 +110,14 @@ public class AndroMDApp
             ClasspathResourceLoader.class.getName());
 
         Velocity.init(properties);
-        this.templateContext = new VelocityContext(this.promptUser());
+        this.templateContext = new VelocityContext();
     }
 
     /**
      * Prompts the user for the input required to generate an application with the correct information.
      */
-    private Map promptUser()
+    private void promptUser()
     {
-        final Map properties = new HashMap();
         AndroMDApp andromdapp = null;
         if (this.types.size() > 1)
         {
@@ -157,19 +154,21 @@ public class AndroMDApp
         {
             final Prompt prompt = (Prompt)iterator.next();
             final String id = prompt.getId();
-            String response = this.promptForInput(prompt);
-            while (!prompt.isValidResponse(response))
+
+            // - only prompt when the id isn't already in the context
+            if (!this.templateContext.containsKey(id))
             {
-                response = this.promptForInput(prompt);
+                String response = this.promptForInput(prompt);
+                while (!prompt.isValidResponse(response))
+                {
+                    response = this.promptForInput(prompt);
+                }
+
+                this.templateContext.put(
+                    id,
+                    response);
             }
-
-            properties.put(
-                id,
-                response);
         }
-
-        System.out.println("the end!!!!!");
-        return Collections.unmodifiableMap(properties);
     }
 
     /**
@@ -181,7 +180,42 @@ public class AndroMDApp
     private String promptForInput(final Prompt prompt)
     {
         this.printText(prompt.getText());
-        return this.readLine();
+        final String input = this.readLine();
+        for (final Iterator iterator = prompt.getConditions().iterator(); iterator.hasNext();)
+        {
+            final Condition condition = (Condition)iterator.next();
+            final String equalCondition = condition.getEqual();
+            if (equalCondition != null && equalCondition.equals(input))
+            {
+                this.setPromptValues(condition);
+            }
+            final String notEqualCondition = condition.getNotEqual();
+            if (notEqualCondition != null && !notEqualCondition.equals(input))
+            {
+                this.setPromptValues(condition);
+            }
+        }
+        return input;
+    }
+
+    /**
+     * Sets the prompt values from the given <code>condition</code>.
+     *
+     * @param condition the condition from which to populate the values.
+     */
+    private void setPromptValues(final Condition condition)
+    {
+        if (condition != null)
+        {
+            final Map values = condition.getPromptValues();
+            for (final Iterator valueIterator = values.keySet().iterator(); valueIterator.hasNext();)
+            {
+                final String id = (String)valueIterator.next();
+                this.templateContext.put(
+                    id,
+                    values.get(id));
+            }
+        }
     }
 
     /**
