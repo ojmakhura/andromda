@@ -8,6 +8,10 @@
     <artifactId>andromda-cartridge-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>AndroMDA Cartridge Maven Plugin</name>
+    <description>
+        A Maven plugin for performing AndroMDA cartridge related tasks (such
+        as running cartridge tests).
+    </description>
     <inceptionYear>2005</inceptionYear>
     <dependencies>
         <dependency>
