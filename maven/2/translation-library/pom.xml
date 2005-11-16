@@ -8,6 +8,10 @@
     <artifactId>andromda-translation-library-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>AndroMDA Translation Library Maven Plugin</name>
+    <description>
+        A Maven plugin for performing AndroMDA translation-library related tasks (such
+        as running translation-library tests).
+    </description>
     <inceptionYear>2005</inceptionYear>
     <dependencies>
         <dependency>

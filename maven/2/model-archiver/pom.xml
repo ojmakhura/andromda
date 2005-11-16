@@ -8,6 +8,10 @@
     <artifactId>andromda-model-archiver-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>AndroMDA Model Archiver Plugin</name>
+    <description>
+        A Maven plugin used for archiving models (for example by calling the
+        xml.zip goal you can create a versioned xml.zip artifact).
+    </description>
     <inceptionYear>2005</inceptionYear>
     <dependencies>
         <dependency>
