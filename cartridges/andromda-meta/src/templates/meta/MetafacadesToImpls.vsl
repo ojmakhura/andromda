@@ -1,5 +1,0 @@
-# Attention: generated code (by MetafacadesToImpls.vsl) - do not modify!
-#set ($metafacades = $metaUtils.sortByFullyQualifiedName($metafacades))
-#foreach ( $metafacade in $metafacades )
-$metafacade.fullyQualifiedName=$metafacade.fullyQualifiedLogicImplName
-#end
