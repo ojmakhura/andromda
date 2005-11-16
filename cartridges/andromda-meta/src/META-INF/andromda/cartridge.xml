@@ -49,17 +49,4 @@
         </modelElements>
     </template>
 
-    <template
-        path="templates/meta/MetafacadesToImpls.vsl"
-        outputPattern="metafacade-impls.properties"
-        outlet="facades-to-impls"
-        overwrite="true"
-        outputToSingleFile="true">
-        <modelElements variable="metafacades">
-            <modelElement>
-                <type name="org.andromda.cartridges.meta.metafacades.Metafacade"/>                
-            </modelElement>
-        </modelElements>
-    </template>
-
 </cartridge>

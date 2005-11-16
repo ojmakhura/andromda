@@ -215,7 +215,7 @@ public class ClassUtils
     }
 
     /**
-     * Retrieves all interfaces for the given <code>className</code> (including the interface for <code>className</code>
+     * Retrieves all interfaces for the given <code>className</code> (including <code>className</code>
      * itself, assuming it's an interface as well).
      *
      * @param className the root interface className
@@ -224,13 +224,32 @@ public class ClassUtils
     public static final List getInterfaces(final String className)
     {
         final List interfaces = new ArrayList();
-        if (StringUtils.isNotEmpty(className))
+        if (className != null && className.trim().length() > 0)
         {
-            final Class interfaceClass = ClassUtils.loadClass(className);
-            interfaces.addAll(ClassUtils.getAllInterfaces(interfaceClass));
-            interfaces.add(
-                0,
-                interfaceClass);
+            interfaces.addAll(getInterfaces(ClassUtils.loadClass(className.trim())));
+        }
+        return interfaces;
+    }
+
+    /**
+     * Retrieves all interfaces for the given <code>clazz</code> (including <code>clazz</code>
+     * itself, assuming it's an interface as well).
+     *
+     * @param className the root interface className
+     * @return a list containing all interfaces ordered from the root down.
+     */
+    public static final List getInterfaces(final Class clazz)
+    {
+        final List interfaces = new ArrayList();
+        if (clazz != null)
+        {
+            interfaces.addAll(ClassUtils.getAllInterfaces(clazz));
+            if (clazz.isInterface())
+            {
+                interfaces.add(
+                    0,
+                    clazz);
+            }
         }
         return interfaces;
     }
@@ -268,7 +287,7 @@ public class ClassUtils
     /**
      * The suffix for class files.
      */
-    private static final String CLASS_SUFFIX = ".class";
+    public static final String CLASS_EXTENSION = ".class";
 
     /**
      * Searches the contents of the <code>directoryUri</code> and returns the first
@@ -290,7 +309,7 @@ public class ClassUtils
         for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
         {
             final String path = (String)iterator.next();
-            if (path.endsWith(CLASS_SUFFIX))
+            if (path.endsWith(CLASS_EXTENSION))
             {
                 final String typeName =
                     StringUtils.replace(
@@ -299,7 +318,7 @@ public class ClassUtils
                             "/").replace(
                             '/',
                             '.'),
-                        CLASS_SUFFIX,
+                        CLASS_EXTENSION,
                         "");
                 try
                 {

@@ -37,4 +37,9 @@ public class Constants
         }
         TEMPORARY_DIRECTORY = directory.toString();
     }
+    
+    /**
+     * The name of the metafacades component.
+     */
+    public static final String COMPONENT_METAFACADES = "metafacades";
 }
