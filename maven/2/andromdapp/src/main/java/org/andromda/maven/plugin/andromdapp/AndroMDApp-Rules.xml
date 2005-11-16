@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<!-- Digester rules used to load an AndroMDApp instance by the Apache Digester -->
+
+<digester-rules>
+
+    <pattern value="andromdapp">
+        
+        <object-create-rule classname="org.andromda.maven.plugin.andromdapp.AndroMDApp"/>
+        
+        <set-properties-rule>
+
+            <alias attr-name="type" prop-name="type"/>
+            
+            <alias attr-name="required" prop-name="required"/>
+
+        </set-properties-rule>
+
+        <pattern value="prompts/prompt">
+
+            <object-create-rule classname="org.andromda.maven.plugin.andromdapp.Prompt"/>
+
+            <set-properties-rule>
+
+                 <alias attr-name="id" prop-name="id"/>
+
+            </set-properties-rule>
+
+            <pattern value="text">
+
+                <call-method-rule methodname="setText" paramcount="1" paramtypes="java.lang.String"/>
+
+                <call-param-rule paramnumber="0"/>
+
+            </pattern>
+
+            <pattern value="responses/response">
+
+                <call-method-rule methodname="addResponse" paramcount="1" paramtypes="java.lang.String"/>
+
+                <call-param-rule paramnumber="0"/>
+
+             </pattern>
+            
+             <set-next-rule methodname="addPrompt" />
+
+        </pattern>
+
+    </pattern>
+
+</digester-rules>
