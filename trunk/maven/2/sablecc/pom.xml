@@ -8,6 +8,9 @@
     <artifactId>andromda-sablecc-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>AndroMDA SableCC Maven Plugin</name>
+    <description>
+        A plugin for generating Java source from SableCC grammar files.
+    </description>
     <inceptionYear>2005</inceptionYear>
     <dependencies>
         <dependency>
