@@ -51,9 +51,7 @@ $attribute.getterSetterTypeName ${attribute.name}#if($velocityCount != $embedded
         if (otherObject != null)
         {
             return newInstance(#foreach ($attribute in $embeddedValue.attributes)
-otherObject.${attribute.getterName}()#if($velocityCount != $embeddedValue.attributes.size()),#else);
-#end
-#end
+otherObject.${attribute.getterName}()#if($velocityCount != $embeddedValue.attributes.size()),#end#end);
         }
         return null;
     }
