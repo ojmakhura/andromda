@@ -13,6 +13,31 @@ import java.util.Map;
 public class Condition
 {
     /**
+     * The id of the prompt to which this condition applies.
+     */
+    private String id;
+
+    /**
+     * Gets the id of the prompt to which this condition applies.
+     *
+     * @return Returns the id.
+     */
+    public String getId()
+    {
+        return id;
+    }
+
+    /**
+     * Sets the id of the prompt to which this condition applies.
+     *
+     * @param id The id to set.
+     */
+    public void setId(String id)
+    {
+        this.id = id;
+    }
+    
+    /**
      * Stores the prompt values to set if the condition is true.
      */
     private final Map promptValues = new LinkedHashMap();

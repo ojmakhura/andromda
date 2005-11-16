@@ -179,4 +179,30 @@ public class Prompt
     {
         return this.conditions;
     }
+    
+    /**
+     * The preconditions that must be valid for this prompt
+     * in order for it to be executed.
+     */
+    private List preconditions = new ArrayList();
+    
+    /**
+     * Adds a precondition to this prompt.
+     * 
+     * @param precondition the precondition to add.
+     */
+    public void addPrecondition(final Condition precondition)
+    {
+        this.preconditions.add(precondition);
+    }
+    
+    /**
+     * Gets the preconditions for this prompt.
+     * 
+     * @return the prompt preconditions.
+     */
+    public List getPreconditions()
+    {
+        return this.preconditions;
+    }
 }
