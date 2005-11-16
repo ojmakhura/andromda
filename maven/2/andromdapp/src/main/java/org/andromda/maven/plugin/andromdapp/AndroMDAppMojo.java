@@ -1,5 +1,6 @@
 package org.andromda.maven.plugin.andromdapp;
 
+import org.andromda.andromdapp.AndroMDApp;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
