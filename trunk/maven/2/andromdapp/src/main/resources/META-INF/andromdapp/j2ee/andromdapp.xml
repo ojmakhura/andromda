@@ -1,0 +1,69 @@
+<andromdapp type="j2ee">
+    <prompts>
+        <prompt id="author">
+            <text>Please enter your first and last last name (i.e. Chad Brandon)</text>
+        </prompt>
+        <prompt id="applicationName">
+            <text>Please enter the name of your J2EE project (i.e. Animal Quiz)</text>
+        </prompt>
+        <prompt id="applicationId">
+            <text>Please enter an id for your J2EE project (i.e. animalquiz)</text>
+        </prompt>
+        <prompt id="applicationVersion">
+            <text>Please enter a version for your project (i.e. 1.0-SNAPSHOT)</text>
+        </prompt>
+        <prompt id="applicationPackageName">
+            <text>Please enter the root package name for your J2EE project (i.e. org.andromda.samples.animalquiz)</text>
+        </prompt>
+        <prompt id="applicationType">
+            <text>Would you like an EAR or standalone WAR?</text>
+            <responses>
+                <response>ear</response>
+                <response>war</response>
+            </responses>
+        </prompt>
+        <prompt id="transactionPersistenceType">
+            <text>Please enter the type of transactional/persistence cartridge to use</text>
+            <responses>
+                <response>hibernate</response>
+                <response>ejb</response>
+                <response>spring</response>
+            </responses>
+        </prompt>
+        <prompt id="jbpmEnabled">
+            <text>Will your project use the jBpm workflow engine, it uses Hibernate3?</text>
+            <responses>
+                <response>yes</response>
+                <response>no</response>
+            </responses>
+        </prompt>
+        <prompt id="hibernateVersion">
+            <text>Please enter the hibernate version number  (enter '2' for 2.1.x or '3' for 3.0.x)</text>
+            <responses>
+                <response>2</response>
+                <response>3</response>
+            </responses>
+        </prompt>
+        <prompt id="webUiEnabled">
+            <text>Will your project have a web user interface?</text>
+            <responses>
+                <response>yes</response>
+                <response>no</response>
+            </responses>
+        </prompt>
+        <prompt id="webUiType">
+            <text>Would you like your web user interface to use JSF or Struts?</text>
+            <responses>
+                <response>jsf</response>
+                <response>struts</response>
+            </responses>
+        </prompt>
+        <prompt id="webservicesEnabled">
+            <text>Would you like to be able to expose your services as web services?</text>
+            <responses>
+                <response>yes</response>
+                <response>no</response>
+            </responses>
+        </prompt>
+    </prompts>
+</andromdapp>
