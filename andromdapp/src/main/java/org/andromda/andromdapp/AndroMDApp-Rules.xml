@@ -6,15 +6,34 @@
 
     <pattern value="andromdapp">
 
-        <object-create-rule classname="org.andromda.andromdapp.AndroMDApp"/>
+        <object-create-rule classname="org.andromda.andromdapp.AndroMDAppType"/>
 
         <set-properties-rule>
 
             <alias attr-name="type" prop-name="type"/>
 
-            <alias attr-name="required" prop-name="required"/>
-
         </set-properties-rule>
+        
+        <pattern value="templateEngine">
+
+            <set-properties-rule>
+                 <alias attr-name="className" prop-name="templateEngineClass" />
+            </set-properties-rule>
+
+            <pattern value="macrolibrary">
+
+                <call-method-rule
+                    methodname="addMacrolibrary"
+                    paramcount="1"
+                    paramtypes="java.lang.String"/>
+
+                <call-param-rule
+                    attrname="name"
+                    paramnumber="0" />
+
+             </pattern>
+
+        </pattern>
 
         <pattern value="prompts/prompt">
 
@@ -22,7 +41,9 @@
 
             <set-properties-rule>
 
-                 <alias attr-name="id" prop-name="id"/>
+                <alias attr-name="id" prop-name="id"/>
+                
+                <alias attr-name="required" prop-name="required"/>
 
             </set-properties-rule>
 

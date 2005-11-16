@@ -6,21 +6,14 @@ import java.io.InputStreamReader;
 
 import java.net.URL;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 
 /**
@@ -39,7 +32,7 @@ public class AndroMDApp
         try
         {
             this.initialize();
-            this.promptUser();
+            this.chooseTypeAndRun();
         }
         catch (final Throwable throwable)
         {
@@ -56,11 +49,6 @@ public class AndroMDApp
      * The directory in which the descriptors are kept.
      */
     private static final String DESCRIPTOR_DIRECTORY = "META-INF/andromdapp";
-
-    /**
-     * The velocity template context.
-     */
-    private VelocityContext templateContext = null;
 
     /**
      * All types of discovered AndroMDApps
@@ -93,7 +81,7 @@ public class AndroMDApp
                             "").equals(DESCRIPTOR))
                     {
                         final XmlObjectFactory factory = XmlObjectFactory.getInstance(AndroMDApp.class);
-                        final AndroMDApp andromdapp = (AndroMDApp)factory.getObject(ResourceUtils.toURL(uri));
+                        final AndroMDAppType andromdapp = (AndroMDAppType)factory.getObject(ResourceUtils.toURL(uri));
                         this.types.put(
                             andromdapp.getType(),
                             andromdapp);
@@ -101,144 +89,45 @@ public class AndroMDApp
                 }
             }
         }
-
-        final Properties properties = new Properties();
-        properties.put(
-            VelocityEngine.RESOURCE_LOADER,
-            "classpath");
-        properties.put(
-            "classpath." + VelocityEngine.RESOURCE_LOADER + ".class",
-            ClasspathResourceLoader.class.getName());
-
-        Velocity.init(properties);
-        this.templateContext = new VelocityContext();
     }
 
     /**
-     * Prompts the user for the input required to generate an application with the correct information.
+     * Prompts the user to choose the type of application, and then runs that AndroMDAppType.
      */
-    private void promptUser()
+    private void chooseTypeAndRun()
     {
-        AndroMDApp andromdapp = null;
+        AndroMDAppType andromdapp = null;
         if (this.types.size() > 1)
         {
-            final List types = new ArrayList();
             final StringBuffer typesChoice = new StringBuffer("[");
             for (final Iterator iterator = this.types.keySet().iterator(); iterator.hasNext();)
             {
-                final AndroMDApp type = (AndroMDApp)iterator.next();
-                typesChoice.append(type.getType());
-                types.add(types);
+                final String type = (String)iterator.next();
+                typesChoice.append(type);
                 if (iterator.hasNext())
                 {
-                    typesChoice.append("|");
+                    typesChoice.append(", ");
                 }
             }
+            typesChoice.append("]");
             this.printText("Please choose the type of application to generate " + typesChoice);
             String selectedType = this.readLine();
-            while (!types.contains(selectedType))
+            while (!this.types.containsKey(selectedType))
             {
                 selectedType = this.readLine();
             }
-            andromdapp = (AndroMDApp)this.types.get(selectedType);
+            andromdapp = (AndroMDAppType)this.types.get(selectedType);
         }
         else if (!this.types.isEmpty())
         {
-            andromdapp = (AndroMDApp)((Map.Entry)this.types.entrySet().iterator().next()).getValue();
+            andromdapp = (AndroMDAppType)((Map.Entry)this.types.entrySet().iterator().next()).getValue();
         }
         else
         {
             throw new AndroMDAppException("No '" + DESCRIPTOR + "' descriptor files could be found");
         }
 
-        for (final Iterator iterator = andromdapp.prompts.iterator(); iterator.hasNext();)
-        {
-            final Prompt prompt = (Prompt)iterator.next();
-            final String id = prompt.getId();
-            
-            boolean validPreconditions = true;
-            for (final Iterator preconditionIterator = prompt.getPreconditions().iterator(); preconditionIterator.hasNext();)
-            {
-                final Condition precondition = (Condition)preconditionIterator.next();
-                final String value = ObjectUtils.toString(this.templateContext.get(precondition.getId()));
-                final String equalCondition = precondition.getEqual();
-                if (equalCondition != null && !equalCondition.equals(value))
-                {
-                    validPreconditions = false;
-                    break;
-                }
-                final String notEqualCondition = precondition.getNotEqual();
-                if (notEqualCondition != null && notEqualCondition.equals(value))
-                {
-                    validPreconditions = false;
-                    break;
-                }
-            }
-
-            if (validPreconditions)
-            {
-                // - only prompt when the id isn't already in the context
-                if (!this.templateContext.containsKey(id))
-                {
-                    String response = this.promptForInput(prompt);
-                    while (!prompt.isValidResponse(response))
-                    {
-                        response = this.promptForInput(prompt);
-                    }
-    
-                    this.templateContext.put(
-                        id,
-                        response);
-                }
-            }
-        }
-    }
-
-    /**
-     * Prompts the user for the information contained in the given <code>prompt</code>.
-     *
-     * @param prompt the prompt from which to format the prompt text.
-     * @return the response of the prompt.
-     */
-    private String promptForInput(final Prompt prompt)
-    {
-        this.printText(prompt.getText());
-        final String input = this.readLine();
-        for (final Iterator iterator = prompt.getConditions().iterator(); iterator.hasNext();)
-        {
-            final Condition condition = (Condition)iterator.next();
-            final String equalCondition = condition.getEqual();
-            if (equalCondition != null && equalCondition.equals(input))
-            {
-                this.setPromptValues(condition);
-            }
-            final String notEqualCondition = condition.getNotEqual();
-            if (notEqualCondition != null && !notEqualCondition.equals(input))
-            {
-                this.setPromptValues(condition);
-            }
-        }
-        return input;
-    }
-
-    /**
-     * Sets the prompt values from the given <code>condition</code>.
-     *
-     * @param condition the condition from which to populate the values.
-     */
-    private void setPromptValues(final Condition condition)
-    {
-        if (condition != null)
-        {
-            final Map values = condition.getPromptValues();
-            for (final Iterator valueIterator = values.keySet().iterator(); valueIterator.hasNext();)
-            {
-                final String id = (String)valueIterator.next();
-                this.templateContext.put(
-                    id,
-                    values.get(id));
-            }
-        }
+        andromdapp.run();
     }
 
     /**
@@ -271,56 +160,5 @@ public class AndroMDApp
             inputString = null;
         }
         return inputString == null || inputString.trim().length() == 0 ? null : inputString;
-    }
-
-    /**
-     * The type of this AndroMDApp (i.e. 'j2ee', '.net', etc).
-     */
-    private String type;
-
-    /**
-     * Gets the type of this AndroMDApp.
-     *
-     * @return Returns the type.
-     */
-    public String getType()
-    {
-        return type;
-    }
-
-    /**
-     * Sets the type of this AndroMDApp.
-     *
-     * @param type The type to set.
-     */
-    public void setType(String type)
-    {
-        this.type = type;
-    }
-
-    /**
-     * Stores the available prompts for this andromdapp.
-     */
-    private List prompts = new ArrayList();
-
-    /**
-     * Adds a prompt to the collection of prompts
-     * contained within this instance.
-     *
-     * @param prompt the prompt to add.
-     */
-    public void addPrompt(final Prompt prompt)
-    {
-        this.prompts.add(prompt);
-    }
-
-    /**
-     * Gets all available prompts.
-     *
-     * @return the list of prompts.
-     */
-    public List getPrompts()
-    {
-        return this.prompts;
     }
 }
