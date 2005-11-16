@@ -11,27 +11,10 @@
     <name>AndroMDA Application Generator Maven Plugin</name>
     <inceptionYear>2005</inceptionYear>
     <dependencies>
-    	<dependency> 
-    		<groupId>velocity</groupId>
-      		<artifactId>velocity</artifactId>
-     		<version>1.4</version>
-            <scope>compile</scope>
-    	</dependency> 	
-    	<dependency> 
-    		<groupId>velocity</groupId>
-      		<artifactId>velocity</artifactId>
-     		<version>1.4</version>
-            <scope>compile</scope>
-    	</dependency> 
         <dependency>
             <groupId>org.andromda</groupId>
-            <artifactId>andromda-core</artifactId>
+            <artifactId>andromda-andromdapp</artifactId>
             <version>${version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-utils</artifactId>
-            <version>1.0.4</version>
         </dependency>
     </dependencies>
     <build>
