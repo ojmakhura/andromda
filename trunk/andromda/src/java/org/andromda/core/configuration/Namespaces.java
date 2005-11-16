@@ -62,7 +62,7 @@ public class Namespaces
     }
 
     /**
-     * Gets all namespaces belonging to this namespaces instance.
+     * Gets the namespaces registered in this namespaces instance.
      *
      * @return all namespaces.
      */
@@ -210,6 +210,17 @@ public class Namespaces
     private final Map registries = new LinkedHashMap();
 
     /**
+     * Gets all available namespace registries (these are namespaces
+     * which have been discovered but are not necessarily configured).
+     *
+     * @return the collection of namespace registries
+     */
+    public Collection getNamespaceRegistries()
+    {
+        return this.registries.values();
+    }
+
+    /**
      * Adds a namespace registry to this instance.  Namespace registries contain
      * property definitions that are defined within a {@link NamespaceRegistry}
      * descriptor (used to describe {@link NamespaceComponent}) instances.
@@ -301,12 +312,42 @@ public class Namespaces
         {
             throw new NamespacesException("'" + namespace + "' is not a registered namespace");
         }
-        final URL resourceRoot = registry != null ? registry.getResourceRoot() : null;
+
+        final URL resourceRoot = registry.getResourceRoot();
         if (resourceRoot == null)
         {
             throw new NamespacesException("No resource root could be retrieved for namespace '" + namespace + "'");
         }
         return resourceRoot;
+    }
+
+    /**
+     * Indicates whether or not the <code>component</code> is present within the given
+     * <code>namespace</code>
+     * @param namespace the name of the namespace.
+     * @param component the name of the component type.
+     * @return true/false
+     */
+    public boolean isComponentPresent(
+        final String namespace,
+        final String component)
+    {
+        boolean present = false;
+        final NamespaceRegistry registry = this.getNamespaceRegistry(namespace);
+        if (namespace != null && component != null && registry != null)
+        {
+            final String[] components = registry.getRegisteredComponents();
+            final int numberOfComponents = components.length;
+            for (int ctr = 0; ctr < numberOfComponents; ctr++)
+            {
+                if (component.equals(components[ctr]))
+                {
+                    present = true;
+                    break;
+                }
+            }
+        }
+        return present;
     }
 
     /**
@@ -358,14 +399,5 @@ public class Namespaces
     public void clear()
     {
         this.namespaces.clear();
-    }
-
-    /**
-     * Shuts down this namespaces instance.
-     */
-    public void shutdown()
-    {
-        this.clear();
-        instance = null;
     }
 }

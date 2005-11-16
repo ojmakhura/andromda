@@ -690,7 +690,7 @@ public class ModelProcessor
         this.factory.shutdown();
 
         // - shutdown the configuration namespaces instance
-        this.namespaces.shutdown();
+        this.namespaces.clear();
 
         // - shutdown the container instance
         ComponentContainer.instance().shutdown();

@@ -79,7 +79,6 @@ public class NamespaceComponents
             {
                 final URL resource = resources[ctr];
                 NamespaceRegistry registry = (NamespaceRegistry)registryFactory.getObject(resource);
-                registry.setResourceRoot(this.getNamespaceResourceRoot(resource));
                 final String registryName = registry.getName();
 
                 // - only register if we haven't yet registered the namespace
@@ -88,10 +87,8 @@ public class NamespaceComponents
                     AndroMDALogger.info("found namespace --> '" + registryName + "'");
                     final String namespace = registry.isShared() ? Namespaces.DEFAULT : registry.getName();
 
-                    // - now perform a merge of the descriptor (if we require one)
+                    // - first merge on the namespace registry descriptor (if needed)
                     final Merger merger = Merger.instance();
-
-                    // - perform a merge on the namespace registry descriptor (if needed)
                     if (merger.requiresMerge(namespace))
                     {
                         registry =
@@ -100,6 +97,9 @@ public class NamespaceComponents
                                     ResourceUtils.getContents(resource),
                                     namespace));
                     }
+                    
+                    // - set the resource root
+                    registry.setResourceRoot(this.getNamespaceResourceRoot(resource));
 
                     // - add the registry to the namespaces instance
                     Namespaces.instance().addRegistry(registry);

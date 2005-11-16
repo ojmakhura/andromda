@@ -529,12 +529,11 @@ public class ResourceUtils
         boolean absolute,
         final String[] patterns)
     {
-        final boolean patternsDefined = patterns != null && patterns.length > 0;
         List contents = ResourceUtils.getDirectoryContents(
                 url,
                 0,
-                patternsDefined);
-
+                true);
+       
         // - first see if its a directory
         if (!contents.isEmpty())
         {

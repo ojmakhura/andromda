@@ -1,19 +1,19 @@
 package org.andromda.core.metafacade;
 
-import java.io.InputStream;
-
 import java.net.URL;
-
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 import org.andromda.core.common.ClassUtils;
+import org.andromda.core.common.Constants;
 import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.ResourceFinder;
+import org.andromda.core.common.ResourceUtils;
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.namespace.NamespaceRegistry;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
 
 /**
@@ -24,8 +24,6 @@ import org.apache.log4j.Logger;
  */
 public class MetafacadeImpls
 {
-    private static final Logger logger = Logger.getLogger(MetafacadeImpls.class);
-
     /**
      * Stores all <code>metafacade</code> implementation classes keyed by <code>metafacade</code> interface class.
      */
@@ -35,11 +33,6 @@ public class MetafacadeImpls
      * Stores all <code>metafacade</code> interface classes keyed by <code>metafacade</code> implementation class.
      */
     private Map metafacadesByImpls = null;
-
-    /**
-     * This contains a key/value mapping of metafacades to their implementation classes.
-     */
-    private static final String METAFACADE_IMPLS = "metafacade-impls.properties";
 
     /**
      * The shared instance.
@@ -57,44 +50,80 @@ public class MetafacadeImpls
     }
 
     /**
-     * Discovers all metafacade-impls.properties files on the classpath. Note that this method must be called before any
+     * The extension for the metafacade implementation files.
+     */
+    private final static String METAFACADE_IMPLEMENTATION_SUFFIX =
+        MetafacadeConstants.METAFACADE_IMPLEMENTATION_SUFFIX + ClassUtils.CLASS_EXTENSION;
+
+    /**
+     * The shared namespaces instance.
+     */
+    private Namespaces namespaces = Namespaces.instance();
+
+    /**
+     * Discovers all metafacade implementation classes and interfaces in each namespace. Note that this method must be called before any
      * metafacade implementation classes will be able to be retrieved when calling {@link #getMetafacadeClass(String)}or
      * {@link #getMetafacadeImplClass(String)}.
      */
-    public void discoverMetafacadeImpls()
+    public void discover()
     {
-        final String methodName = "MetafacadeImpls.discoverMetafacadeImpls";
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("performing " + methodName + " with propertiesName '" + METAFACADE_IMPLS + "'");
-        }
+        this.implsByMetafacades = new LinkedHashMap();
+        this.metafacadesByImpls = new LinkedHashMap();
         try
         {
-            this.implsByMetafacades = new HashMap();
-            this.metafacadesByImpls = new HashMap();
-
-            final Properties properties = new Properties();
-            final URL[] resources = ResourceFinder.findResources(METAFACADE_IMPLS);
-            if (resources != null && resources.length > 0)
+            for (final Iterator iterator = this.namespaces.getNamespaceRegistries().iterator(); iterator.hasNext();)
             {
-                for (int ctr = 0; ctr < resources.length; ctr++)
+                final NamespaceRegistry namespaceRegistry = (NamespaceRegistry)iterator.next();
+                final String namespace = namespaceRegistry.getName();
+                if (this.namespaces.isComponentPresent(
+                        namespace,
+                        Constants.COMPONENT_METAFACADES))
                 {
-                    URL resource = resources[ctr];
-                    if (logger.isDebugEnabled())
+                    final URL namespaceRoot = this.namespaces.getResourceRoot(namespace);
+                    final Collection contents = ResourceUtils.getDirectoryContents(
+                            namespaceRoot,
+                            false,
+                            null);
+                    for (final Iterator contentsIterator = contents.iterator(); contentsIterator.hasNext();)
                     {
-                        logger.debug("loading metafacade implementations from resource --> '" + resource + "'");
+                        final String path = ((String)contentsIterator.next());
+                        if (path.endsWith(METAFACADE_IMPLEMENTATION_SUFFIX))
+                        {
+                            final String typeName =
+                                StringUtils.replace(
+                                    path.replaceAll(
+                                        "\\+|/+",
+                                        "."),
+                                    ClassUtils.CLASS_EXTENSION,
+                                    "");
+                            Class implementationClass = null;
+                            try
+                            {
+                                implementationClass = ClassUtils.loadClass(typeName);
+                            }
+                            catch (final Exception exception)
+                            {
+                                // - ignore
+                            }
+                            if (implementationClass != null &&
+                                MetafacadeBase.class.isAssignableFrom(implementationClass))
+                            {
+                                final List allInterfaces = ClassUtils.getInterfaces(implementationClass);
+                                if (!allInterfaces.isEmpty())
+                                {
+                                    final Class interfaceClass = (Class)allInterfaces.iterator().next();
+                                    final String implementationClassName = implementationClass.getName();
+                                    final String interfaceClassName = interfaceClass.getName();
+                                    this.metafacadesByImpls.put(
+                                        implementationClassName,
+                                        interfaceClassName);
+                                    this.implsByMetafacades.put(
+                                        interfaceClassName,
+                                        implementationClassName);
+                                }
+                            }
+                        }
                     }
-                    InputStream stream = resource.openStream();
-                    properties.load(stream);
-                    stream.close();
-                    stream = null;
-                }
-                for (final Iterator iterator = properties.keySet().iterator(); iterator.hasNext();)
-                {
-                    final String metafacade = (String)iterator.next();
-                    final String metafacadeImplementation = properties.getProperty(metafacade);
-                    this.metafacadesByImpls.put(metafacadeImplementation, metafacade);
-                    this.implsByMetafacades.put(metafacade, metafacadeImplementation);
                 }
             }
         }
@@ -114,7 +143,9 @@ public class MetafacadeImpls
      */
     public Class getMetafacadeImplClass(final String metafacadeClass)
     {
-        ExceptionUtils.checkEmpty("metafacadeClass", metafacadeClass);
+        ExceptionUtils.checkEmpty(
+            "metafacadeClass",
+            metafacadeClass);
         Class metafacadeImplementationClass = null;
         if (this.implsByMetafacades != null)
         {
@@ -123,10 +154,8 @@ public class MetafacadeImpls
                 final String metafacadeImplementationClassName = (String)this.implsByMetafacades.get(metafacadeClass);
                 if (StringUtils.isEmpty(metafacadeImplementationClassName))
                 {
-                    throw new MetafacadeImplsException(
-                        "Can not find a metafacade implementation class for --> '" + metafacadeClass +
-                        "', please check your classpath and verify you have a '" + METAFACADE_IMPLS +
-                        "' file available with this mapping.");
+                    throw new MetafacadeImplsException("Can not find a metafacade implementation class for --> '" +
+                        metafacadeClass + "' check your classpath");
                 }
                 metafacadeImplementationClass = ClassUtils.loadClass(metafacadeImplementationClassName);
             }
@@ -147,7 +176,9 @@ public class MetafacadeImpls
      */
     public Class getMetafacadeClass(final String metafacadeImplClass)
     {
-        ExceptionUtils.checkEmpty("metafacadeImplClass", metafacadeImplClass);
+        ExceptionUtils.checkEmpty(
+            "metafacadeImplClass",
+            metafacadeImplClass);
         Class metafacadeClass = null;
         if (this.metafacadesByImpls != null)
         {
@@ -156,12 +187,8 @@ public class MetafacadeImpls
                 final String metafacadeClassName = (String)this.metafacadesByImpls.get(metafacadeImplClass);
                 if (StringUtils.isEmpty(metafacadeClassName))
                 {
-                    throw new MetafacadeImplsException(
-                        "Can not find a metafacade interface for --> '" + metafacadeImplClass +
-                        "', please check your classpath and verify you have a '" + METAFACADE_IMPLS +
-                        "' file available with this mapping.  If you're sure its on your classpath with this mapping" +
-                        ", then make sure you don't have another '" + METAFACADE_IMPLS 
-                        + "' on your classpath with the metafacade interface that '" + metafacadeImplClass + "' is mapped to.");
+                    throw new MetafacadeImplsException("Can not find a metafacade interface for --> '" +
+                        metafacadeImplClass + "', check your classpath");
                 }
                 metafacadeClass = ClassUtils.loadClass(metafacadeClassName);
             }
@@ -172,5 +199,4 @@ public class MetafacadeImpls
         }
         return metafacadeClass;
     }
-
 }

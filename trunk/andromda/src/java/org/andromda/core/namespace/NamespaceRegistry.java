@@ -1,6 +1,7 @@
 package org.andromda.core.namespace;
 
 import java.net.URL;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -66,7 +67,7 @@ public class NamespaceRegistry
 
     /**
      * Stores the names of the components registered
-     * within this namespace registry and the paths from which 
+     * within this namespace registry and the paths from which
      * they can be initialized.
      */
     private final Map components = new LinkedHashMap();
@@ -81,7 +82,9 @@ public class NamespaceRegistry
     {
         if (component != null)
         {
-           this.components.put(component.getName(), component.getPaths());
+            this.components.put(
+                component.getName(),
+                component.getPaths());
         }
     }
 
@@ -94,10 +97,10 @@ public class NamespaceRegistry
     {
         return (String[])this.components.keySet().toArray(new String[0]);
     }
-    
+
     /**
      * Gets the initialization paths for the given component name.
-     * 
+     *
      * @param name the name of the component.
      * @return the paths or null if none are found.
      */
@@ -159,7 +162,7 @@ public class NamespaceRegistry
                 propertyDefinition);
         }
     }
-    
+
     /**
      * The root of this namespace which stores all resources.
      */
@@ -167,29 +170,29 @@ public class NamespaceRegistry
 
     /**
      * Gets the resource root of this namespace.
-     * 
+     *
      * @return Returns the resource.
      */
     public URL getResourceRoot()
     {
-        return resourceRoot;
+        return this.resourceRoot;
     }
 
     /**
      * Sets the resource root of this namespace.
-     * 
+     *
      * @param resource The resource to set.
      */
-    final void setResourceRoot(URL resource)
+    final void setResourceRoot(final URL resourceRoot)
     {
-        this.resourceRoot = resource;
+        this.resourceRoot = resourceRoot;
     }
-    
+
     /**
      * @see java.lang.Object#toString()
      */
     public String toString()
     {
-        return super.toString() + "[" + this.getName()+ "]";
+        return super.toString() + "[" + this.getName() + "]";
     }
 }

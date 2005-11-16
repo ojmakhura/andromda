@@ -795,7 +795,7 @@ public class MetafacadeMappings
      */
     public void initialize()
     {
-        MetafacadeImpls.instance().discoverMetafacadeImpls();
+        MetafacadeImpls.instance().discover();
         this.initializeMappings();
     }
 
