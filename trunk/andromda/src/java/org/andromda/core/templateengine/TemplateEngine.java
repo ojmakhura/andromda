@@ -18,7 +18,7 @@ public interface TemplateEngine
     /**
      * Initializes the TempateEngine.
      *
-     * @param namespace The name of the plugin this can be used for whatever the
+     * @param namespace The name of a namespace this can be used for whatever the
      *        template engine implementation likes. For example, it can help
      *        determine the name of the log file to which output is logged.
      */
