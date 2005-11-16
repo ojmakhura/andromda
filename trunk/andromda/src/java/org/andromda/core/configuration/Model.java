@@ -290,7 +290,7 @@ public class Model
                 if (type == null)
                 {
                     throw new ModelProcessorException("No model access facade could be found within namespace '" +
-                        this.type + "', verify the value of your model 'type' attribute is a namespace which " +
+                        this.type + "', verify that the value of your model 'type' attribute is a namespace which " +
                         "contains a model access facade");
                 }
             }
