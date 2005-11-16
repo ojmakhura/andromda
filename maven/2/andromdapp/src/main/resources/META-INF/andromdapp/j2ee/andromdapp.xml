@@ -24,7 +24,7 @@
             <conditions>
                 <condition>
                     <equal>war</equal>
-                    <prompt id="transactionPersistenceType">spring</prompt>
+                    <setPrompt id="transactionPersistenceType">spring</setPrompt>
                 </condition>
             </conditions>
         </prompt>
@@ -45,7 +45,7 @@
             <conditions>
                 <condition>
                     <equal>yes</equal>
-                    <prompt id="hibernateVersion">3</prompt>
+                    <setPrompt id="hibernateVersion">3</setPrompt>
                 </condition>
             </conditions>
         </prompt>
@@ -65,6 +65,13 @@
         </prompt>
         <prompt id="webUiType">
             <text>Would you like your web user interface to use JSF or Struts?</text>
+            <preconditions>
+                <precondition>
+                    <prompt id="webUiEnabled">
+                        <equal>yes</equal>
+                    </prompt>
+                </precondition>
+            </preconditions>
             <responses>
                 <response>jsf</response>
                 <response>struts</response>

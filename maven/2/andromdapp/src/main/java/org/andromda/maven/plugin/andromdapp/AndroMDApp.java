@@ -16,6 +16,7 @@ import java.util.Properties;
 import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
@@ -154,19 +155,41 @@ public class AndroMDApp
         {
             final Prompt prompt = (Prompt)iterator.next();
             final String id = prompt.getId();
-
-            // - only prompt when the id isn't already in the context
-            if (!this.templateContext.containsKey(id))
+            
+            boolean validPreconditions = true;
+            for (final Iterator preconditionIterator = prompt.getPreconditions().iterator(); preconditionIterator.hasNext();)
             {
-                String response = this.promptForInput(prompt);
-                while (!prompt.isValidResponse(response))
+                final Condition precondition = (Condition)preconditionIterator.next();
+                final String value = ObjectUtils.toString(this.templateContext.get(precondition.getId()));
+                final String equalCondition = precondition.getEqual();
+                if (equalCondition != null && !equalCondition.equals(value))
                 {
-                    response = this.promptForInput(prompt);
+                    validPreconditions = false;
+                    break;
                 }
+                final String notEqualCondition = precondition.getNotEqual();
+                if (notEqualCondition != null && notEqualCondition.equals(value))
+                {
+                    validPreconditions = false;
+                    break;
+                }
+            }
 
-                this.templateContext.put(
-                    id,
-                    response);
+            if (validPreconditions)
+            {
+                // - only prompt when the id isn't already in the context
+                if (!this.templateContext.containsKey(id))
+                {
+                    String response = this.promptForInput(prompt);
+                    while (!prompt.isValidResponse(response))
+                    {
+                        response = this.promptForInput(prompt);
+                    }
+    
+                    this.templateContext.put(
+                        id,
+                        response);
+                }
             }
         }
     }

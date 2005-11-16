@@ -33,12 +33,54 @@
                 <call-param-rule paramnumber="0"/>
 
             </pattern>
+            
+            <pattern value="preconditions/precondition">
+
+                <object-create-rule classname="org.andromda.maven.plugin.andromdapp.Condition"/>
+
+                <pattern value="prompt">
+
+                    <set-properties-rule>
+        
+                         <alias attr-name="id" prop-name="id"/>
+        
+                    </set-properties-rule>
+                    
+                    <pattern value="equal">
+    
+                        <call-method-rule methodname="setEqual" paramcount="1" paramtypes="java.lang.String"/>
+    
+                        <call-param-rule paramnumber="0"/>
+    
+                    </pattern>
+                    
+                    <pattern value="notEqual">
+    
+                        <call-method-rule methodname="setNotEqual" paramcount="1" paramtypes="java.lang.String"/>
+    
+                        <call-param-rule paramnumber="0"/>
+    
+                    </pattern>
+
+                </pattern>
+
+                <set-next-rule methodname="addPrecondition" />
+
+            </pattern>
+            
+            <pattern value="responses/response">
+
+                <call-method-rule methodname="addResponse" paramcount="1" paramtypes="java.lang.String"/>
+
+                <call-param-rule paramnumber="0"/>
+
+            </pattern>
 
             <pattern value="conditions/condition">
 
                 <object-create-rule classname="org.andromda.maven.plugin.andromdapp.Condition"/>
 
-                <pattern value="prompt">
+                <pattern value="setPrompt">
 
                     <call-method-rule methodname="addPromptValue" paramcount="2" paramtypes="java.lang.String,java.lang.String"/>
 
@@ -65,14 +107,6 @@
                 </pattern>
 
                  <set-next-rule methodname="addCondition" />
-
-             </pattern>
-
-            <pattern value="responses/response">
-
-                <call-method-rule methodname="addResponse" paramcount="1" paramtypes="java.lang.String"/>
-
-                <call-param-rule paramnumber="0"/>
 
              </pattern>
 
