@@ -9,6 +9,10 @@
     <artifactId>andromdapp-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
     <name>AndroMDA Application Generator Maven Plugin</name>
+    <description>
+        A plugin for running AndroMDA's AndroMDApp application generator
+        to generate Maven2 AndroMDA powered applications.
+    </description>
     <inceptionYear>2005</inceptionYear>
     <dependencies>
         <dependency>
