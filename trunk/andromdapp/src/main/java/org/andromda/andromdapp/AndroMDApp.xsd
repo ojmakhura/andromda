@@ -7,6 +7,7 @@
 	<xs:element name="andromdapp">
 		<xs:complexType>
 			<xs:sequence>
+                <xs:element ref="templateEngine"/>
 				<xs:element ref="prompts"/>
 			</xs:sequence>
 			<xs:attribute name="type" type="xs:NMTOKEN" use="required"/>
@@ -37,6 +38,16 @@
         </xs:unique>
 	</xs:element>
 	<xs:element name="equal" type="xs:string"/>
+    <xs:element name="macrolibrary">
+        <xs:annotation>
+            <xs:documentation>
+                Defines a macro library for use with the template engine.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="notEqual" type="xs:string"/>
 	<xs:element name="precondition">
 		<xs:complexType>
@@ -91,5 +102,25 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+    <xs:element name="templateEngine">
+        <xs:annotation>
+            <xs:documentation>
+                Used to configure the template engine instance; this is the engine
+                that actually processes your templates (such as Velocity, Freemarker, etc).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="macrolibrary" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="className" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The implementation class name of the TemplateEngine (must have a default constructor)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
 	<xs:element name="text" type="xs:string"/>
 </xs:schema>

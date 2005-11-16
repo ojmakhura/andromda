@@ -1,4 +1,5 @@
 <andromdapp type="j2ee">
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine"/>
     <prompts>
         <prompt id="author">
             <text>Please enter your first and last last name (i.e. Chad Brandon)</text>
