@@ -17,8 +17,9 @@ import org.apache.commons.lang.StringUtils;
 
 
 /**
- * Finds and loads metafacade-impl.properties files on the classpath. These files are used to map metafacades and their
- * associated implementation classes in a simple manner.
+ * Discovers all metafacade interfaces and implementation classes in each namespace registry. This class is
+ * then used to retrieve both the appropriate metafacade interface and/or metafacade implementation class based
+ * on one or the other.
  *
  * @author Chad Brandon
  */
