@@ -1,9 +1,8 @@
-<andromdapp type="j2ee">
-    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
-        <templateLocations>
-            <location>META-INF/andromdapp/j2ee/templates</location>
-        </templateLocations>
-    </templateEngine>
+<andromdapp type="j2ee" root="$applicationId">
+    <resourceLocations>
+        <location>META-INF/andromdapp/j2ee/resources</location>        
+    </resourceLocations>
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" patterns="**/*.vsl"/>
     <prompts>
         <prompt id="author">
             <text>Please enter your first and last last name (i.e. Chad Brandon)</text>
@@ -20,7 +19,7 @@
         <prompt id="applicationPackage">
             <text>Please enter the root package name for your J2EE project (i.e. org.andromda.samples.animalquiz)</text>
         </prompt>
-        <prompt id="applicationType">
+        <prompt id="applicationType" setResponseAsTrue="true">
             <text>Would you like an EAR or standalone WAR?</text>
             <responses>
                 <response>ear</response>
@@ -33,7 +32,7 @@
                 </condition>
             </conditions>
         </prompt>
-        <prompt id="transactionPersistenceType">
+        <prompt id="transactionPersistenceType" setResponseAsTrue="true">
             <text>Please enter the type of transactional/persistence cartridge to use</text>
             <responses>
                 <response>hibernate</response>
@@ -41,7 +40,7 @@
                 <response>spring</response>
             </responses>
         </prompt>
-        <prompt id="jbpmEnabled">
+        <prompt id="jbpm">
             <text>Will your project use the jBpm workflow engine (it uses Hibernate3)?</text>
             <responses>
                 <response type="java.lang.Boolean">yes</response>
@@ -61,18 +60,18 @@
                 <response>3</response>
             </responses>
         </prompt>
-        <prompt id="webUiEnabled">
+        <prompt id="web">
             <text>Will your project have a web user interface?</text>
             <responses>
                 <response type="java.lang.Boolean">yes</response>
                 <response type="java.lang.Boolean">no</response>
             </responses>
         </prompt>
-        <prompt id="webUiType">
+        <prompt id="webType" setResponseAsTrue="true">
             <text>Would you like your web user interface to use JSF or Struts?</text>
             <preconditions>
                 <precondition>
-                    <prompt id="webUiEnabled">
+                    <prompt id="web">
                         <equal>yes</equal>
                     </prompt>
                 </precondition>
@@ -82,7 +81,7 @@
                 <response>struts</response>
             </responses>
         </prompt>
-        <prompt id="webservicesEnabled">
+        <prompt id="webservices">
             <text>Would you like to be able to expose your services as web services?</text>
             <responses>
                 <response type="java.lang.Boolean">yes</response>

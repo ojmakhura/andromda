@@ -246,4 +246,30 @@ public class Prompt
     {
         return this.preconditions;
     }
+
+    /**
+     * Whether or not the value of the response should be
+     * set to a boolean value of true.
+     */
+    private boolean setResponseAsTrue;
+
+    /**
+     * Whether or not the response should be set to a boolean value of <code>true</code>.
+     *
+     * @return Returns the setResponseAsTrue.
+     */
+    public boolean isSetResponseAsTrue()
+    {
+        return setResponseAsTrue;
+    }
+
+    /**
+     * Sets whether or not the response should be set to a boolean value of true.
+     * 
+     * @param setResponseAsTrue The setResponseAsTrue to set.
+     */
+    public void setSetResponseAsTrue(boolean setResponseAsBoolean)
+    {
+        this.setResponseAsTrue = setResponseAsBoolean;
+    }
 }

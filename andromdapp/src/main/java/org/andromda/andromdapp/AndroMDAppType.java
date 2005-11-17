@@ -1,9 +1,12 @@
 package org.andromda.andromdapp;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -50,7 +53,7 @@ public class AndroMDAppType
         {
             this.initialize();
             this.promptUser();
-            this.processTemplates();
+            this.processResources();
         }
         catch (final Throwable throwable)
         {
@@ -105,6 +108,13 @@ public class AndroMDAppType
                     }
                     while (!prompt.isValidResponse(response));
 
+                    if (prompt.isSetResponseAsTrue())
+                    {
+                        this.templateContext.put(
+                            response,
+                            Boolean.TRUE);
+                    }
+
                     this.templateContext.put(
                         id,
                         prompt.getResponse(response));
@@ -121,7 +131,7 @@ public class AndroMDAppType
      */
     private String promptForInput(final Prompt prompt)
     {
-        this.printText(prompt.getText());
+        this.printPromptText(prompt.getText());
         final String input = this.readLine();
         for (final Iterator iterator = prompt.getConditions().iterator(); iterator.hasNext();)
         {
@@ -198,11 +208,30 @@ public class AndroMDAppType
     }
 
     /**
-     * Processes the templates found in the templatesLocation.
+     * The 'yes' response.
      */
-    private void processTemplates()
+    private static final String RESPONSE_YES = "yes";
+
+    /**
+     * The 'no' response.
+     */
+    private static final String RESPONSE_NO = "no";
+
+    /**
+     * Processes the files for the project.
+     */
+    private void processResources()
     {
-        for (final Iterator iterator = this.templateLocations.iterator(); iterator.hasNext();)
+        final File rootDirectory =
+            this.verifyRootDirectory(
+                new File(this.getTemplateEngine().getEvaluatedExpression(
+                        this.getRoot(),
+                        this.templateContext)));
+        this.printLine();
+        this.printText("    G e n e r a t i n g   A n d r o M D A   P o w e r e d   A p p l i c a t i o n    ");
+        this.printLine();
+        rootDirectory.mkdirs();
+        for (final Iterator iterator = this.resourceLocations.iterator(); iterator.hasNext();)
         {
             final String location = (String)iterator.next();
             final URL[] resourceDirectories = ResourceFinder.findResources(location);
@@ -218,10 +247,73 @@ public class AndroMDAppType
                     for (final Iterator contentsIterator = contents.iterator(); contentsIterator.hasNext();)
                     {
                         final String path = (String)contentsIterator.next();
+                        if (ResourceUtils.matchesAtLeastOnePattern(
+                                path,
+                                this.templatePatterns))
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
                     }
                 }
             }
         }
+        this.printLine();
+        this.printText("    New application generated to --> '" + rootDirectory.getAbsolutePath() + "'");
+        this.printLine();
+    }
+
+    /**
+     * Prints a line separator.
+     */
+    private void printLine()
+    {
+        this.printText("-------------------------------------------------------------------------------------");
+    }
+
+    /**
+     * Verifies that if the root directory already exists, the user is prompted
+     * to make sure its ok if we generate over it, otherwise the user can change his/her
+     * application directory.
+     *
+     * @param rootDirectory the root directory that will be verified.
+     * @return the appropriate root directory.
+     */
+    private File verifyRootDirectory(final File rootDirectory)
+    {
+        File applicationRoot = rootDirectory;
+        if (rootDirectory.exists())
+        {
+            this.printPromptText(
+                "'" + rootDirectory.getAbsolutePath() +
+                "' already exists, would you like to try a new name? [yes, no]: ");
+            String response = this.readLine();
+            while (!RESPONSE_YES.equals(response) && !RESPONSE_NO.equals(response))
+            {
+                response = this.readLine();
+            }
+            if (RESPONSE_YES.equals(response))
+            {
+                this.printPromptText("Please enter the name for your application root directory: ");
+                String rootName = this.readLine();
+                applicationRoot = this.verifyRootDirectory(new File(rootName));
+            }
+        }
+        return applicationRoot;
+    }
+
+    /**
+     * Prints text to the console.
+     *
+     * @param text the text to print to the console;
+     */
+    private void printPromptText(final String text)
+    {
+        System.out.println();
+        this.printText(text);
     }
 
     /**
@@ -231,7 +323,6 @@ public class AndroMDAppType
      */
     private void printText(final String text)
     {
-        System.out.println();
         System.out.println(text);
         System.out.flush();
     }
@@ -268,7 +359,7 @@ public class AndroMDAppType
      */
     public String getType()
     {
-        return type;
+        return this.type;
     }
 
     /**
@@ -279,6 +370,31 @@ public class AndroMDAppType
     public void setType(String type)
     {
         this.type = type;
+    }
+
+    /**
+     * The root directory in which the application will be created.
+     */
+    private String root;
+
+    /**
+     * Gets the application root directory name.
+     *
+     * @return Returns the root.
+     */
+    public String getRoot()
+    {
+        return this.root;
+    }
+
+    /**
+     * Sets the application root directory name.
+     *
+     * @param root The root to set.
+     */
+    public void setRoot(String root)
+    {
+        this.root = root;
     }
 
     /**
@@ -310,17 +426,36 @@ public class AndroMDAppType
     /**
      * The locations where templates are stored.
      */
-    private List templateLocations = new ArrayList();
+    private List resourceLocations = new ArrayList();
 
     /**
-     * Adds a location which to find templates.
+     * Adds a location where templates and or project files are located.
      *
-     * @param templateLocation the template location to add.
+     * @param resourceLocation the path to location.
      */
-    public void addTemplateLocation(final String templateLocation)
+    public void addResourceLocation(final String resourceLocation)
     {
-        this.templateLocations.add(templateLocation);
+        this.resourceLocations.add(resourceLocation);
     }
+
+    /**
+     * Stores the patterns of the templates that the template engine should
+     * process.
+     */
+    private String[] templatePatterns;
+
+    /**
+     * @param templatePatterns The templatePatterns to set.
+     */
+    public void setTemplatePatterns(String templatePatterns)
+    {
+        this.templatePatterns = templatePatterns != null ? templatePatterns.split(PATTERN_DELIMITER) : null;
+    }
+
+    /**
+     * The delimiter for seperating location patterns.
+     */
+    private static final String PATTERN_DELIMITER = ",";
 
     /**
      * @see java.lang.Object#toString()
