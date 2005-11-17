@@ -3,9 +3,7 @@ package org.andromda.andromdapp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -100,15 +98,16 @@ public class AndroMDAppType
                 // - only prompt when the id isn't already in the context
                 if (!this.templateContext.containsKey(id))
                 {
-                    String response = this.promptForInput(prompt);
-                    while (!prompt.isValidResponse(response))
+                    String response;
+                    do
                     {
                         response = this.promptForInput(prompt);
                     }
+                    while (!prompt.isValidResponse(response));
 
                     this.templateContext.put(
                         id,
-                        response);
+                        prompt.getResponse(response));
                 }
             }
         }

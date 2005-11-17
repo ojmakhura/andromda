@@ -2,7 +2,13 @@ package org.andromda.andromdapp;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.andromda.core.common.ClassUtils;
+import org.andromda.core.common.Converter;
+import org.apache.commons.lang.BooleanUtils;
 
 
 /**
@@ -97,29 +103,25 @@ public class Prompt
     /**
      * Stores the possible responses of the prompt.
      */
-    private List responses = new ArrayList();
+    private Map responses = new LinkedHashMap();
 
     /**
      * Adds a reponse to the possible responses.
      *
      * @param response the response to add.
+     * @param type the full qualified type of the response (if undefined
+     *        the type is left as a string).
      */
-    public void addResponse(final String response)
+    public void addResponse(
+        final String response,
+        final String type)
     {
         if (response != null && response.trim().length() > 0)
         {
-            this.responses.add(response.trim());
+            this.responses.put(
+                response.trim(),
+                type);
         }
-    }
-
-    /**
-     * Gets any possible responses.
-     *
-     * @return the possible responses of this prompt.
-     */
-    public String[] getResponse()
-    {
-        return (String[])this.responses.toArray(new String[0]);
     }
 
     /**
@@ -131,19 +133,58 @@ public class Prompt
      */
     public boolean isValidResponse(final String response)
     {
-        return this.responses.contains(response) ||
+        return this.responses.containsKey(response) ||
         (this.responses.isEmpty() && (!this.isRequired() || (response != null && response.trim().length() > 0)));
     }
-    
+
+    /**
+     * Gets the response object converted to the appropriate
+     * type or just as it is (if no conversion took place or conversion
+     * failed).
+     *
+     * @param response the response to convert.
+     * @return the response as an object.
+     */
+    public Object getResponse(final String response)
+    {
+        Object object = response;
+        final String type = (String)this.responses.get(response);
+        if (type != null && type.trim().length() > 0)
+        {
+            try
+            {
+                final Class typeClass = ClassUtils.getClassLoader().loadClass(type);
+
+                // - handle booleans differently, since we want to be able to convert 'yes/no', 'on/off', etc
+                //   to boolean values
+                if (typeClass == Boolean.class)
+                {
+                    object = BooleanUtils.toBooleanObject(response);
+                }
+                else
+                {
+                    object = Converter.convert(
+                            response,
+                            typeClass);
+                }
+            }
+            catch (final ClassNotFoundException exception)
+            {
+                // - ignore
+            }
+        }
+        return object;
+    }
+
     /**
      * Gets the responses as a formatted string.
-     * 
+     *
      * @return the responses list as a string.
      */
     private String getResponsesAsString()
     {
         final StringBuffer responses = new StringBuffer("[");
-        for (final Iterator iterator = this.responses.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = this.responses.keySet().iterator(); iterator.hasNext();)
         {
             responses.append(iterator.next());
             if (iterator.hasNext())
@@ -154,51 +195,51 @@ public class Prompt
         responses.append("]");
         return responses.toString();
     }
-    
+
     /**
      * The conditions that apply to this prompt.
      */
     private List conditions = new ArrayList();
-    
+
     /**
      * Adds a condition to this prompt.
-     * 
+     *
      * @param condition the condition which must apply to this prompt.
      */
     public void addCondition(final Condition condition)
     {
         this.conditions.add(condition);
     }
-    
+
     /**
      * Gets the conditions defined in this prompt.
-     * 
+     *
      * @return the conditions that are defined within this prompt.
      */
     public List getConditions()
     {
         return this.conditions;
     }
-    
+
     /**
      * The preconditions that must be valid for this prompt
      * in order for it to be executed.
      */
     private List preconditions = new ArrayList();
-    
+
     /**
      * Adds a precondition to this prompt.
-     * 
+     *
      * @param precondition the precondition to add.
      */
     public void addPrecondition(final Condition precondition)
     {
         this.preconditions.add(precondition);
     }
-    
+
     /**
      * Gets the preconditions for this prompt.
-     * 
+     *
      * @return the prompt preconditions.
      */
     public List getPreconditions()

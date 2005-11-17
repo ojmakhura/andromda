@@ -17,7 +17,7 @@
         <prompt id="applicationVersion">
             <text>Please enter a version for your project (i.e. 1.0-SNAPSHOT)</text>
         </prompt>
-        <prompt id="applicationPackageName">
+        <prompt id="applicationPackage">
             <text>Please enter the root package name for your J2EE project (i.e. org.andromda.samples.animalquiz)</text>
         </prompt>
         <prompt id="applicationType">
@@ -42,10 +42,10 @@
             </responses>
         </prompt>
         <prompt id="jbpmEnabled">
-            <text>Will your project use the jBpm workflow engine, it uses Hibernate3?</text>
+            <text>Will your project use the jBpm workflow engine (it uses Hibernate3)?</text>
             <responses>
-                <response>yes</response>
-                <response>no</response>
+                <response type="java.lang.Boolean">yes</response>
+                <response type="java.lang.Boolean">no</response>
             </responses>
             <conditions>
                 <condition>
@@ -64,8 +64,8 @@
         <prompt id="webUiEnabled">
             <text>Will your project have a web user interface?</text>
             <responses>
-                <response>yes</response>
-                <response>no</response>
+                <response type="java.lang.Boolean">yes</response>
+                <response type="java.lang.Boolean">no</response>
             </responses>
         </prompt>
         <prompt id="webUiType">
@@ -85,8 +85,8 @@
         <prompt id="webservicesEnabled">
             <text>Would you like to be able to expose your services as web services?</text>
             <responses>
-                <response>yes</response>
-                <response>no</response>
+                <response type="java.lang.Boolean">yes</response>
+                <response type="java.lang.Boolean">no</response>
             </responses>
         </prompt>
     </prompts>
