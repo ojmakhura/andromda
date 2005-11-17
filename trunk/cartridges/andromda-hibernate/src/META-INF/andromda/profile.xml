@@ -92,6 +92,7 @@
                 <documentation>
                     Defines whether the marked finder will use named parameters or not.
                 </documentation>
+                <value>@andromda.hibernate.query.useNamedParameters</value>
                 <appliedOnElement>An Entity operation marked as a
                     <code>query</code>.
                 </appliedOnElement>
@@ -99,7 +100,6 @@
                     <value>true</value>
                     <value>false</value>
                 </allowedValues>
-                <value>@andromda.hibernate.query.useNamedParameters</value>
             </element>
             <element name="EJB_VIEWTYPE">
                 <documentation>
