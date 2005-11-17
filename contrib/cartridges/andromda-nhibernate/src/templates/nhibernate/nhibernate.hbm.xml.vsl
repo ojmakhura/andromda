@@ -26,7 +26,7 @@
 #if (!$entity.identifiers.empty)
 #set ($identifier = $entity.identifiers.iterator().next())
 #end
-        <id name="${stringUtils.upperCamelCaseName($identifier.name)}" type="$identifier.type.fullyQualifiedName" unsaved-value="$identifier.type.javaNullString">
+        <id name="${stringUtils.upperCamelCaseName($identifier.name)}" type="$identifier.type.fullyQualifiedHibernateType" unsaved-value="$identifier.type.javaNullString">
             <column name="$identifier.columnName" sql-type="$identifier.sqlType"/>
             <generator class="$entity.hibernateGeneratorClass">
 #if ($entity.sequenceHibernateGeneratorClass)
