@@ -88,6 +88,10 @@
                     <code>query</code>.
                 </appliedOnElement>
             </element>
+            <element name="HIBERNATE_USE_NAMED_PARAMETERS">
+                <documentation></documentation>
+                <value>@andromda.hibernate.query.useNamedParameters</value>
+            </element>
             <element name="EJB_VIEWTYPE">
                 <documentation>
                     Defines the view type for a Session EJB. If undefined,

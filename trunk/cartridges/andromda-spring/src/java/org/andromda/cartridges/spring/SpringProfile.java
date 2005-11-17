@@ -85,6 +85,12 @@ public class SpringProfile
     public static final String TAGGEDVALUE_HIBERNATE_INHERITANCE = profile.get("HIBERNATE_INHERITANCE");
 
     /**
+     * Define whether the marked finder will use named parameters or positional parameters.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS = profile
+            .get("HIBERNATE_USE_NAMED_PARAMETERS");
+
+    /**
      * Defines the remoting type for spring services.
      */
     public static final String TAGGEDVALUE_SPRING_SERVICE_REMOTING_TYPE = profile.get("SPRING_SERVICE_REMOTING_TYPE");
@@ -100,7 +106,7 @@ public class SpringProfile
     public static final String TAGGEDVALUE_SPRING_SERVICE_INTERCEPTORS = profile.get("SPRING_SERVICE_INTERCEPTORS");
 
     /**
-     * Define whether the we will render only the configuration, but not the service itself.
+     * Define whether we will render only the configuration, but not the service itself.
      */
     public static final String TAGGEDVALUE_SERVICE_CONFIG_ONLY = profile.get("SPRING_SERVICE_CONFIG_ONLY");
 

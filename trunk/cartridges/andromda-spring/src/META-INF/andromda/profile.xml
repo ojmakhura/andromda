@@ -106,6 +106,10 @@
                 <documentation></documentation>
                 <value>@andromda.hibernate.query</value>
             </element>
+            <element name="HIBERNATE_USE_NAMED_PARAMETERS">
+                <documentation></documentation>
+                <value>@andromda.hibernate.query.useNamedParameters</value>
+            </element>
             <element name="HIBERNATE_INHERITANCE">
                 <documentation></documentation>
                 <value>@andromda.hibernate.inheritance</value>

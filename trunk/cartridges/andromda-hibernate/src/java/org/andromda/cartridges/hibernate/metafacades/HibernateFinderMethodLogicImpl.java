@@ -106,8 +106,9 @@ public class HibernateFinderMethodLogicImpl
      */
     protected boolean handleIsUseNamedParameters()
     {
-        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS))).booleanValue() ||
-        StringUtils.isNotBlank(this.getTranslatedQuery());
+        boolean useNamedParameters = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS))).booleanValue()
+                || StringUtils.isNotBlank(this.getTranslatedQuery());
+        return HibernateMetafacadeUtils.getUseNamedParameters(this, useNamedParameters);
     }
 
     /**

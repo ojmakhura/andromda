@@ -4,6 +4,7 @@ import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -173,5 +174,29 @@ class SpringMetafacadeUtils
             remoteServicePort = defaultRemoteServicePort;
         }
         return remoteServicePort.toLowerCase().trim();
+    }
+
+    /**
+     * Checks whether the passed in operation is a query and should be using named parameters.
+     *
+     * @param operation the operation.
+     * @param defaultUseNamedParameters the default value.
+     * @return whether named parameters should be used.
+     */
+    static boolean getUseNamedParameters(OperationFacade operation,
+        boolean defaultUseNamedParameters)
+    {
+        ExceptionUtils.checkNull("operation", operation);
+        boolean useNamedParameters = defaultUseNamedParameters;
+        if (operation.isQuery())
+        {
+            String useNamedParametersValue = (String)operation
+                    .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS);
+            if (StringUtils.isNotEmpty(useNamedParametersValue))
+            {
+                useNamedParameters = Boolean.valueOf(useNamedParametersValue).booleanValue();
+            }
+        }
+        return useNamedParameters;
     }
 }
