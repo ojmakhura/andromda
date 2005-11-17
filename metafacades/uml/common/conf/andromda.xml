@@ -26,7 +26,6 @@
                 <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="facades">${maven.build.src}</property>
                 <property name="facade-logics" ignore="true"/>
-                <property name="facades-to-impls" ignore="true"/>
                 <property name="facade-logic-impls" ignore="true"/> 
             </properties>
         </namespace>
