@@ -80,7 +80,7 @@ namespace $entity.packageName
                     "${entity.name}.Load - '$argument' can not be null");
             }
 #end
-            Object entity = Session.Load(typeof($entity.fullyQualifiedName), ${identifier.name});
+            Object entity = Session.Load(typeof($entity.fullyQualifiedEntityImplementationName), ${identifier.name});
             return TransformEntity(transform, ($entity.fullyQualifiedName)entity);
         }
 
