@@ -23,7 +23,6 @@
                 <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="facades" ignore="true"/>
                 <property name="facade-logics">${maven.build.src}</property>
-                <property name="facades-to-impls">${maven.build.src}</property>
                 <property name="facade-logic-impls">${maven.src.dir}/java</property>
                 <property name="metamodelVersionPackage">org.andromda.metafacades.uml14</property>            
             </properties>
