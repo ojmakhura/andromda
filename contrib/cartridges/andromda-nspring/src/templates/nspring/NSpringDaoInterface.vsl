@@ -46,6 +46,8 @@ namespace $entity.packageName
     public interface $entity.daoName
 #if($superclass)
         : $superclass.fullyQualifiedDaoName
+#else
+        : NHibernate.Support.INHibernateDaoSupport
 #end
     {
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
