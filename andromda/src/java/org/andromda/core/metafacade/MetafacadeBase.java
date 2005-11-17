@@ -353,12 +353,13 @@ public class MetafacadeBase
      */
     public boolean equals(Object object)
     {
+        boolean equals = false;
         if (object instanceof MetafacadeBase)
         {
             MetafacadeBase that = (MetafacadeBase)object;
-            return this.metaObject.equals(that.metaObject);
+            equals = this.metaObject.equals(that.metaObject);
         }
-        return false;
+        return equals;
     }
 
     /**

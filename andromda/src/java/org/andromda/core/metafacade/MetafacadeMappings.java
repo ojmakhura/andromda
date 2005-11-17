@@ -793,9 +793,9 @@ public class MetafacadeMappings
      * Initializes this mappings instance, which includes discovery of all metafacade
      * mappings instances on the classpath.
      */
-    public void initialize()
+    public void initialize(final String[] namespaces)
     {
-        MetafacadeImpls.instance().discover();
+        MetafacadeImpls.instance().discover(namespaces);
         this.initializeMappings();
     }
 

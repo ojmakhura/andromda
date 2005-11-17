@@ -177,7 +177,7 @@ public class TranslationTestProcessor
                         this.model = repositoryImplementation.getModel(model.getAccessFacadeType());
 
                         // - make sure the factory has access to the model
-                        factory.setModel(this.model);
+                        factory.setModel(this.model, model.getType());
                     }
                 }
             }
