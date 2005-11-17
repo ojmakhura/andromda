@@ -103,11 +103,27 @@
                 </allowedValues>
             </element>
             <element name="HIBERNATE_QUERY">
-                <documentation></documentation>
+                <documentation>
+                    Defines a hibernate query expression. Note that it's encouraged
+                    to model your query body as an OCL constraint (instead of using
+                    this tagged value).
+                </documentation>
                 <value>@andromda.hibernate.query</value>
+                <appliedOnElement>An Entity operation marked as a
+                    <code>query</code>.
+                </appliedOnElement>
             </element>
             <element name="HIBERNATE_USE_NAMED_PARAMETERS">
-                <documentation></documentation>
+                <documentation>
+                    Defines whether the marked finder will use named parameters or not.
+                </documentation>
+                <appliedOnElement>An Entity operation marked as a
+                    <code>query</code>.
+                </appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
                 <value>@andromda.hibernate.query.useNamedParameters</value>
             </element>
             <element name="HIBERNATE_INHERITANCE">
