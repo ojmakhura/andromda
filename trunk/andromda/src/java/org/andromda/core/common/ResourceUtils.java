@@ -147,6 +147,29 @@ public class ResourceUtils
     }
 
     /**
+     * The character used for substituing whitespace in paths.
+     */
+    private static final String PATH_WHITESPACE_CHARACTER = "%20";
+
+    /**
+     * Replaces any escape characters in the given file path with their
+     * counterparts.
+     *
+     * @param filePath the path of the file to unescape.
+     * @return the unescaped path.
+     */
+    public static String unescapeFilePath(String filePath)
+    {
+        if (filePath != null && filePath.length() > 0)
+        {
+            filePath = filePath.replaceAll(
+                    PATH_WHITESPACE_CHARACTER,
+                    " ");
+        }
+        return filePath;
+    }
+
+    /**
      * If this <code>resource</code> happens to be a directory, it will load the contents of that directory into a
      * List and return the list of names relative to the given <code>resource</code> (otherwise it will return an empty
      * List).
@@ -165,11 +188,10 @@ public class ResourceUtils
         final List contents = new ArrayList();
         if (resource != null)
         {
-            final File fileResource = new File(resource.getFile());
+            // - create the file and make sure we remove any path white space characters
+            final File fileResource = new File(unescapeFilePath(resource.getFile()));
             if (fileResource.isDirectory())
             {
-                // we go two levels since descriptors reside in META-INF
-                // and we want the parent of the META-INF directory
                 File rootDirectory = fileResource;
                 for (int ctr = 0; ctr < levels; ctr++)
                 {
@@ -533,7 +555,7 @@ public class ResourceUtils
                 url,
                 0,
                 true);
-       
+
         // - first see if its a directory
         if (!contents.isEmpty())
         {
