@@ -118,8 +118,8 @@ class HibernateMetafacadeUtils
         boolean useNamedParameters = defaultUseNamedParameters;
         if (operation.isQuery())
         {
-            String useNamedParametersValue = (String)operation
-                    .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS);
+            String useNamedParametersValue = StringUtils.trimToEmpty((String)operation
+                    .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS));
             if (StringUtils.isNotEmpty(useNamedParametersValue))
             {
                 useNamedParameters = Boolean.valueOf(useNamedParametersValue).booleanValue();

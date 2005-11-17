@@ -190,8 +190,8 @@ class SpringMetafacadeUtils
         boolean useNamedParameters = defaultUseNamedParameters;
         if (operation.isQuery())
         {
-            String useNamedParametersValue = (String)operation
-                    .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS);
+            String useNamedParametersValue = StringUtils.trimToEmpty((String)operation
+                    .findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS));
             if (StringUtils.isNotEmpty(useNamedParametersValue))
             {
                 useNamedParameters = Boolean.valueOf(useNamedParametersValue).booleanValue();
