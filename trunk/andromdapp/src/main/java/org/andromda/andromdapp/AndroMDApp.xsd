@@ -7,10 +7,19 @@
 	<xs:element name="andromdapp">
 		<xs:complexType>
 			<xs:sequence>
+                <xs:element ref="resourceLocations"/>
                 <xs:element ref="templateEngine"/>
 				<xs:element ref="prompts"/>
 			</xs:sequence>
-			<xs:attribute name="type" type="xs:NMTOKEN" use="required"/>
+			<xs:attribute name="type" type="xs:string" use="required"/>
+			<xs:attribute name="root" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines the root of the application (that is where the name of the directory
+                        in which the application will be created)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="condition">
@@ -18,18 +27,15 @@
 			<xs:sequence>
 				<xs:element ref="equal" minOccurs="0"/>
                 <xs:element ref="notEqual" minOccurs="0"/>
-                <xs:element name="setPrompt">
-                    <xs:complexType mixed="true">
-                        <xs:attribute name="id" type="xs:string" use="required"/>
-                    </xs:complexType>
-                </xs:element>
+                <xs:element ref="setPrompt" minOccurs="0"/>
+                <xs:element ref="setProperty" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="conditions">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="condition"/>
+				<xs:element ref="condition" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
         <xs:unique name="uniqueConditionId">
@@ -76,6 +82,14 @@
 			</xs:sequence>
 			<xs:attribute name="id" type="xs:string" use="required"/>
             <xs:attribute name="required" type="xs:boolean" use="optional" default="true"/>
+            <xs:attribute name="setResponseAsTrue" type="xs:boolean" use="optional" default="false">
+                <xs:annotation>
+                    <xs:documentation>
+                        Whether or not the response should be set as a property in the template context with
+                        a boolean value of <code>true</code>.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="prompts">
@@ -89,9 +103,26 @@
             <xs:field xpath="@id"/>
         </xs:unique>
 	</xs:element>
+	<xs:element name="resourceLocations">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="location" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 	<xs:element name="response">
-		<xs:complexType mixed="true">
-            <xs:attribute name="type" type="xs:string" use="optional"/>
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+                    <xs:attribute name="type" type="xs:string" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Defines the type (i.e. 'java.lang.Boolean') the response shall be when its added to the template context.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="responses">
@@ -99,6 +130,25 @@
 			<xs:sequence>
 				<xs:element ref="response" maxOccurs="unbounded"/>
 			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="setPrompt">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="id" type="xs:string" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="setProperty">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="id" type="xs:string" use="required"/>
+					<xs:attribute name="type" type="xs:string" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
     <xs:element name="templateEngine">
@@ -119,6 +169,15 @@
                         The implementation class name of the TemplateEngine (must have a default constructor)
                     </xs:documentation>
                 </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="patterns" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines the file patterns that the template engine will process. (i.e. you'd
+                        typically define it as "**/*.vsl" if you were using Velocity as your templating
+                        engine).
+                    </xs:documentation>
+                </xs:annotation>                
             </xs:attribute>
         </xs:complexType>
     </xs:element>

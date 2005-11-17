@@ -11,22 +11,28 @@
         <set-properties-rule>
 
             <alias attr-name="type" prop-name="type"/>
+            
+            <alias attr-name="root" prop-name="root"/>
 
         </set-properties-rule>
+        
+        <pattern value="resourceLocations/location">
+                
+            <call-method-rule methodname="addResourceLocation" paramcount="1" paramtypes="java.lang.String"/>
+
+            <call-param-rule paramnumber="0"/>
+
+        </pattern>
         
         <pattern value="templateEngine">
 
             <set-properties-rule>
-                 <alias attr-name="className" prop-name="templateEngineClass" />
+                
+                 <alias attr-name="className" prop-name="templateEngineClass"/>
+                
+                 <alias attr-name="patterns" prop-name="templatePatterns"/>
+                
             </set-properties-rule>
-            
-            <pattern value="templateLocations/location">
-
-                <call-method-rule methodname="addTemplateLocation" paramcount="1" paramtypes="java.lang.String"/>
-
-                <call-param-rule paramnumber="0" />
-
-             </pattern>
 
             <pattern value="macrolibrary">
 
@@ -47,6 +53,8 @@
                 <alias attr-name="id" prop-name="id"/>
                 
                 <alias attr-name="required" prop-name="required"/>
+                
+                <alias attr-name="setResponseAsTrue" prop-name="setResponseAsTrue"/>
 
             </set-properties-rule>
 
