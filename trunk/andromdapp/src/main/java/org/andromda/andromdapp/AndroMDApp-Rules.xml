@@ -19,17 +19,20 @@
             <set-properties-rule>
                  <alias attr-name="className" prop-name="templateEngineClass" />
             </set-properties-rule>
+            
+            <pattern value="templateLocations/location">
+
+                <call-method-rule methodname="addTemplateLocation" paramcount="1" paramtypes="java.lang.String"/>
+
+                <call-param-rule paramnumber="0" />
+
+             </pattern>
 
             <pattern value="macrolibrary">
 
-                <call-method-rule
-                    methodname="addMacrolibrary"
-                    paramcount="1"
-                    paramtypes="java.lang.String"/>
+                <call-method-rule methodname="addMacrolibrary" paramcount="1" paramtypes="java.lang.String"/>
 
-                <call-param-rule
-                    attrname="name"
-                    paramnumber="0" />
+                <call-param-rule attrname="name" paramnumber="0" />
 
              </pattern>
 

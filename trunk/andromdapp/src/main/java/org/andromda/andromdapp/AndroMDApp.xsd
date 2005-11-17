@@ -38,6 +38,7 @@
         </xs:unique>
 	</xs:element>
 	<xs:element name="equal" type="xs:string"/>
+	<xs:element name="location" type="xs:string"/>
     <xs:element name="macrolibrary">
         <xs:annotation>
             <xs:documentation>
@@ -111,6 +112,7 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
+                <xs:element ref="templateLocations" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="macrolibrary" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="className" type="xs:string">
@@ -122,5 +124,12 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
+	<xs:element name="templateLocations">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="location"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 	<xs:element name="text" type="xs:string"/>
 </xs:schema>

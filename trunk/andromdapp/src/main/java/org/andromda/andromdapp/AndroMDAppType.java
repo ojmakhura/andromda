@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -11,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.andromda.core.common.ComponentContainer;
+import org.andromda.core.common.ResourceFinder;
+import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.templateengine.TemplateEngine;
 import org.apache.commons.lang.ObjectUtils;
 
@@ -48,6 +52,7 @@ public class AndroMDAppType
         {
             this.initialize();
             this.promptUser();
+            this.processTemplates();
         }
         catch (final Throwable throwable)
         {
@@ -177,7 +182,9 @@ public class AndroMDAppType
     private TemplateEngine templateEngine = null;
 
     /**
-     * @see org.andromda.core.common.Plugin#getTemplateEngine()
+     * Gets the template that that will process the templates.
+     *
+     * @return the template engine instance.
      */
     private TemplateEngine getTemplateEngine()
     {
@@ -189,6 +196,33 @@ public class AndroMDAppType
                     TemplateEngine.class);
         }
         return this.templateEngine;
+    }
+
+    /**
+     * Processes the templates found in the templatesLocation.
+     */
+    private void processTemplates()
+    {
+        for (final Iterator iterator = this.templateLocations.iterator(); iterator.hasNext();)
+        {
+            final String location = (String)iterator.next();
+            final URL[] resourceDirectories = ResourceFinder.findResources(location);
+            if (resourceDirectories != null)
+            {
+                final int numberOfResourceDirectories = resourceDirectories.length;
+                for (int ctr = 0; ctr < numberOfResourceDirectories; ctr++)
+                {
+                    final List contents = ResourceUtils.getDirectoryContents(
+                            resourceDirectories[ctr],
+                            false,
+                            null);
+                    for (final Iterator contentsIterator = contents.iterator(); contentsIterator.hasNext();)
+                    {
+                        final String path = (String)contentsIterator.next();
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -251,7 +285,7 @@ public class AndroMDAppType
     /**
      * Stores the available prompts for this andromdapp.
      */
-    private List prompts = new ArrayList();
+    private final List prompts = new ArrayList();
 
     /**
      * Adds a prompt to the collection of prompts
@@ -272,6 +306,21 @@ public class AndroMDAppType
     public List getPrompts()
     {
         return this.prompts;
+    }
+
+    /**
+     * The locations where templates are stored.
+     */
+    private List templateLocations = new ArrayList();
+
+    /**
+     * Adds a location which to find templates.
+     *
+     * @param templateLocation the template location to add.
+     */
+    public void addTemplateLocation(final String templateLocation)
+    {
+        this.templateLocations.add(templateLocation);
     }
 
     /**

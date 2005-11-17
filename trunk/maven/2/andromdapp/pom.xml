@@ -15,12 +15,6 @@
     </description>
     <inceptionYear>2005</inceptionYear>
     <dependencies>
-    	<dependency> 
-    		<groupId>velocity</groupId>
-      		<artifactId>velocity</artifactId>
-     		<version>1.4</version>
-            <scope>runtime</scope>
-    	</dependency> 	
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-andromdapp</artifactId>
@@ -30,6 +24,7 @@
             <groupId>org.andromda.templateengines</groupId>
             <artifactId>andromda-templateengine-velocity</artifactId>
             <version>${version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
     <build>

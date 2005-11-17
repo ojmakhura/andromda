@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
@@ -31,6 +32,7 @@ public class AndroMDApp
     {
         try
         {
+            AndroMDALogger.initialize();
             this.initialize();
             this.chooseTypeAndRun();
         }
@@ -82,8 +84,10 @@ public class AndroMDApp
                     {
                         final XmlObjectFactory factory = XmlObjectFactory.getInstance(AndroMDApp.class);
                         final AndroMDAppType andromdapp = (AndroMDAppType)factory.getObject(ResourceUtils.toURL(uri));
+                        final String type = andromdapp.getType();
+                        AndroMDALogger.info("discovered andromdapp type --> '" + type + "'");
                         this.types.put(
-                            andromdapp.getType(),
+                            type,
                             andromdapp);
                     }
                 }
