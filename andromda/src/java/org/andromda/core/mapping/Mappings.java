@@ -2,14 +2,17 @@ package org.andromda.core.mapping;
 
 import java.io.File;
 import java.io.FileReader;
+
 import java.net.MalformedURLException;
 import java.net.URL;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -55,7 +58,9 @@ public class Mappings
     public static final Mappings getInstance(String mappingsUri)
     {
         mappingsUri = StringUtils.trimToEmpty(mappingsUri);
-        ExceptionUtils.checkEmpty("mappingsUri", mappingsUri);
+        ExceptionUtils.checkEmpty(
+            "mappingsUri",
+            mappingsUri);
         try
         {
             Mappings mappings = (Mappings)logicalMappings.get(mappingsUri);
@@ -92,7 +97,9 @@ public class Mappings
     private static final Mappings getInheritedMappings(final Mappings mappings)
         throws Exception
     {
-        return getInheritedMappings(mappings, false);
+        return getInheritedMappings(
+            mappings,
+            false);
     }
 
     /**
@@ -154,7 +161,9 @@ public class Mappings
      */
     public static final Mappings getInstance(final URL mappingsUri)
     {
-        return getInstance(mappingsUri, false);
+        return getInstance(
+            mappingsUri,
+            false);
     }
 
     /**
@@ -170,12 +179,16 @@ public class Mappings
         final URL mappingsUri,
         final boolean ignoreInheritanceFailure)
     {
-        ExceptionUtils.checkNull("mappingsUri", mappingsUri);
+        ExceptionUtils.checkNull(
+            "mappingsUri",
+            mappingsUri);
         try
         {
             final Mappings mappings = (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(mappingsUri);
             mappings.resource = mappingsUri;
-            return getInheritedMappings(mappings, ignoreInheritanceFailure);
+            return getInheritedMappings(
+                mappings,
+                ignoreInheritanceFailure);
         }
         catch (final Throwable throwable)
         {
@@ -276,9 +289,13 @@ public class Mappings
      */
     public void addMapping(final Mapping mapping)
     {
-        ExceptionUtils.checkNull("mapping", mapping);
+        ExceptionUtils.checkNull(
+            "mapping",
+            mapping);
         final Collection fromTypes = mapping.getFroms();
-        ExceptionUtils.checkNull("mapping.fromTypes", fromTypes);
+        ExceptionUtils.checkNull(
+            "mapping.fromTypes",
+            fromTypes);
         for (final Iterator typeIterator = fromTypes.iterator(); typeIterator.hasNext();)
         {
             mapping.setMappings(this);
@@ -341,7 +358,9 @@ public class Mappings
      */
     public static void addLogicalMappings(final URL mappingsUri)
     {
-        final Mappings mappings = Mappings.getInstance(mappingsUri, true);
+        final Mappings mappings = Mappings.getInstance(
+                mappingsUri,
+                true);
         logicalMappings.put(
             mappings.getName(),
             mappings);
@@ -412,8 +431,12 @@ public class Mappings
                 final URL resource = this.getResource();
                 if (resource != null)
                 {
-                    String rootPath = resource.getFile().replace('\\', '/');
-                    rootPath = rootPath.substring(0, rootPath.lastIndexOf('/') + 1);
+                    String rootPath = resource.getFile().replace(
+                            '\\',
+                            '/');
+                    rootPath = rootPath.substring(
+                            0,
+                            rootPath.lastIndexOf('/') + 1);
                     path.append(rootPath);
                 }
             }
@@ -422,9 +445,11 @@ public class Mappings
                 path.append(StringUtils.trimToEmpty(relativePath));
             }
             completePath = path.toString();
-            this.completePaths.put(relativePath, completePath);
+            this.completePaths.put(
+                relativePath,
+                completePath);
         }
-        return completePath;
+        return ResourceUtils.unescapeFilePath(completePath);
     }
 
     /**
