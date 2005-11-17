@@ -103,4 +103,29 @@ class HibernateMetafacadeUtils
             };
         return businessOperations;
     }
+
+    /**
+     * Checks whether the passed in operation is a query and should be using named parameters.
+     *
+     * @param operation the operation.
+     * @param defaultUseNamedParameters the default value.
+     * @return whether named parameters should be used.
+     */
+    static boolean getUseNamedParameters(OperationFacade operation,
+        boolean defaultUseNamedParameters)
+    {
+        ExceptionUtils.checkNull("operation", operation);
+        boolean useNamedParameters = defaultUseNamedParameters;
+        if (operation.isQuery())
+        {
+            String useNamedParametersValue = (String)operation
+                    .findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS);
+            if (StringUtils.isNotEmpty(useNamedParametersValue))
+            {
+                useNamedParameters = Boolean.valueOf(useNamedParametersValue).booleanValue();
+            }
+        }
+        return useNamedParameters;
+    }
+
 }
