@@ -1,5 +1,9 @@
 <andromdapp type="j2ee">
-    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine"/>
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
+        <templateLocations>
+            <location>META-INF/andromdapp/j2ee/templates</location>
+        </templateLocations>
+    </templateEngine>
     <prompts>
         <prompt id="author">
             <text>Please enter your first and last last name (i.e. Chad Brandon)</text>
