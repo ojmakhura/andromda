@@ -94,9 +94,11 @@
             
             <pattern value="responses/response">
 
-                <call-method-rule methodname="addResponse" paramcount="1" paramtypes="java.lang.String"/>
+                <call-method-rule methodname="addResponse" paramcount="2" paramtypes="java.lang.String,java.lang.String"/>
 
                 <call-param-rule paramnumber="0"/>
+                
+                <call-param-rule attrname="type" paramnumber="1" />
 
             </pattern>
 
