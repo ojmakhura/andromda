@@ -5,7 +5,7 @@
         <author email="naresh@andromda.org">Naresh Bhatia</author>
         <title>AndroMDA.NET - Getting Started</title>
     </properties>
-    
+
     <body>
         <section name="Getting started with AndroMDA.NET">
             <p>
@@ -27,7 +27,7 @@
                 What follows is a step-by-step guide to set up your development environment
                 for AndroMDA. We assume that you are working on a Windows platform.
             </p>
-            
+
             <subsection name="Install Visual Studio">
                 <p>
                     Install Visual Studio 2005. You may be able to use AndroMDA with
@@ -37,7 +37,7 @@
                     switch over to this version as quickly as you possibly can!
                 </p>
             </subsection>
-            
+
             <subsection name="Install SQL Server">
                 <p>
                     Install SQL Server 2000 or SQL Server 2005. You should be able to use
@@ -45,14 +45,14 @@
                     purpose of this tutorial we will assume SQL Server.
                 </p>
             </subsection>
-            
+
             <subsection name="Install Java 2 SDK">
                 <p>
                     Install Java 2 SDK version 1.4 or later. You may go
                     <a href="http://java.sun.com/j2se" target="_blank">here</a>
                     to download the version of your choice.
                 </p>
-                
+
                 <p>
                     After installing Java, make sure that the <code>JAVA_HOME</code>
                     environment variable is pointing to your Java home directory.
@@ -83,13 +83,17 @@
 
             <subsection name="Install Maven">
                 <p>
-                    Next we will install Maven and configure it to download dependencies
+                    <a href="http://maven.apache.org/" target="_blank">Maven</a> is a
+                    software project management and comprehension tool. Based on the
+                    concept of a project object model (POM), Maven can manage a project's
+                    build, reporting and documentation from a central piece of information.
+                    We will now install Maven and configure it to download dependencies
                     from the AndroMDA server whenever it needs to.
                     <ol>
                         <li>
                             Download Maven 1.0.2 from this site:
                             <a href="http://maven.apache.org/start/download.html" target="_blank">
-                            http://maven.apache.org/start/download.html</a>. Note that later 
+                            http://maven.apache.org/start/download.html</a>. Note that later
                             versions of Maven are not yet supported by AndroMDA.NET.
                         </li>
                         <li>
@@ -117,7 +121,7 @@
                     </ol>
                 </p>
             </subsection>
-            
+
             <subsection name="Install MagicDraw">
                 <p>
                     Install MagicDraw 9.5. MagicDraw allows you to model your application in UML
@@ -126,7 +130,7 @@
                     compatible with AndroMDA. You can download MagicDraw 9.5 from
                     <a href="http://www.magicdraw.com" target="_blank">http://www.magicdraw.com</a>
                 </p>
-                    
+
                 <p class="highlight">
                     Please note that MagicDraw is a commercial tool but has a free Community
                     Edition that can be downloaded at no cost. The Community Edition
@@ -193,9 +197,10 @@
                         <li>
                             Checkout AndroMDA contrib module from CVS using the CVS root
                             <code>:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda</code>.
-                            Specify <code>contrib</code> as the module name. You can use any CVS
-                            client to do this. If you have not used CVS before, we recommend that
-                            you download and install
+                            Specify <code>contrib</code> as the module name. Note the use
+                            of pserver (password server). Some CVS clients use ssh by default
+                            which will not work. You can use any CVS client to do this.
+                            If you have not used CVS before, we recommend that you download and install
                             <a href="http://www.tortoisecvs.org/" target="_blank">TortoiseCVS</a>.
                             This tool is tightly integrated with Windows Explorer and is very
                             easy to use. We will assume that you have checked out the contrib
@@ -222,7 +227,7 @@
                 to enter timecards. Note that a completed version of this application is available under the
                 samples directory. Please feel free to refer to it while going through this tutorial.
             </p>
-            
+
             <p>
                 The diagram below shows four key components of the TimeTracker application and their relationships.
                 We will create a Visual Studio project for each of these components. What follows is a high-level
@@ -235,7 +240,7 @@
                     <ol>
                         <li><strong>TimeTrackerCommon</strong> is a class library that contains classes common to
                         multiple tiers, for example value objects and enumerations.</li>
-                        
+
                         <li><strong>TimeTrackerCore</strong> is a class library that packages the entities and the
                         data access layer for the TimeTracker application. A key design principle
                         used throughout AndroMDA recommends that entities should reside only in the middle-tier of an
@@ -258,25 +263,25 @@
                         represent data in tree structures compared to networks. Also web services do not understand
                         C# collections. Collections have to be converted into arrays before passing them back and
                         forth. This translation is easily facilitated by the use of value objects.</li>
-                        
+
                         <li><strong>TimeTrackerConsole</strong> is an administrative console application that allows
                         creation and display of various entities used in the TimeTracker application. It demonstrates
                         how to use the entities and data access layer provided by the <code>TimeTrackerCore</code>
                         library.</li>
-                        
+
                         <li><strong>SchemaExport</strong> is another administrative application that generates DDL from
                         the entities defined in the <code>TimeTrackerCore</code> library. This DDL can be used to
                         create tables that will store the TimeTracker entities. SchemaExport also has the
                         capability to directly create the tables in a database.</li>
                     </ol>
             </p>
-            
+
             <p>
                 In this section we will perform the one-time set up that is necessary to start any AndroMDA
                 application. Subsequent sections will describe the iterative development process that follows
                 this initial set up. So roll up your sleeves and let's get started!
             </p>
-            
+
             <subsection name="Create a Visual Studio Solution">
                 <p>
                     We start by creating a blank Visual Studio solution and populating it with the projects
@@ -375,14 +380,14 @@
                             A new App.config file will be added to the project.</li>
                     </ol>
                 </p>
-                
+
                 <p>
                     Now save the Visual Studio Solution by selecting File > Save All. Exit Visual Studio
                     by selecting File > Exit. At this point the preliminary set up of our Visual Studio solution
                     is complete.
                 </p>
             </subsection>
-                
+
             <subsection name="Create Maven scripts for code generation">
                 <p>
                     Let us turn our attention to the one-time setup required for code generation from
@@ -468,7 +473,7 @@ BUILD SUCCESSFUL
 Total time: 51 seconds
 Finished at: Sat Nov 12 17:06:50 EST 2005
                 </pre>
-                
+
                 <p>
                     Examine the various folders and files created by the <code>andromdacsapp</code> plugin. You
                     will notice files called <code>project.xml</code>, <code>maven.xml</code> and
@@ -478,7 +483,7 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                     <code>Lib</code> folder containing dlls to be used by the generated code. Most dlls belong to
                     the <a href="http://wiki.nhibernate.org/display/NH/Home" target="_blank">NHibernate library</a>
                     which is used for object persistence. In addition you will find the following dlls:
-                    
+
                     <ul>
                         <li><code>NHibernate.Support.dll</code>: used to manage NHibernate sessions</li>
                         <li><code>NHibernate.Nullables2.dll</code>: used to store .NET 2.0 Nullable types using NHibernate</li>
@@ -486,21 +491,21 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                     </ul>
                 </p>
             </subsection>
-            
+
             <subsection name="Create a database">
                 <p>
                     Create a new database in your SQL Server instance using SQL Server Enterprise Manager
                     and name it TimeTracker. You may use an existing database, just be sure to replace the name
-                    TimeTracker with the name of your database later in the tutorial. 
+                    TimeTracker with the name of your database later in the tutorial.
                 </p>
             </subsection>
-            
+
             <p>
                 Congratulations! You have now completed the one-time setup for TimeTracker. We are now
                 ready to start modeling!
             </p>
         </section>
-            
+
         <section name="First Iteration - Implement key TimeTracker classes">
             <p>
                 In this section we will implement four key entities of the TimeTracker application - Person, Timecard,
@@ -514,7 +519,7 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                     <img src="images/TimeTrackerEntities.gif"/>
                 </div>
             </p>
-            
+
             <p>
                 Note the level of detail in this diagram. Every detail has some meaning - none of the content is
                 "fluff". For example we use stereotypes to indicate the "flavor" of each class - Entity vs.
@@ -524,7 +529,7 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                 meanings. It is this level of preciseness that enables AndroMDA to generate major portions of
                 your application - this is truly what Model Driven Architecture is! Here are some of the
                 advantages of this approach:
-                
+
                 <ol>
                     <li>The model provides a common language for business users and developers.
                         It describe business requirements precisely and succinctly.</li>
@@ -545,9 +550,9 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                         artifact as is source code.</li>
                 </ol>
             </p>
-            
+
             <p>
-                Now that you are fully bought into the idea of Model Drive Architecture :-), let's get started
+                Now that you are fully bought into the idea of Model Driven Architecture :-), let's get started
                 with the TimeTracker model shown above.
             </p>
 
@@ -642,23 +647,23 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                         <li>Save your <code>TimeTracker</code> model by selecting File > Save Project.</li>
                     </ol>
                 </p>
-                
+
                 <p>
                     Congratulations! You have now specified the key classes of the <code>TimeTracker</code> application.
                     We are now ready to generate some code.
                 </p>
             </subsection>
-            
+
             <subsection name="Generate code and build the application">
                 <p> Follow the steps below to generate code.
                     <ol>
                         <li>Open a Command Prompt and change your directory to <code>C:\TimeTracker</code>.</li>
-                        <li>Execute the command <code>maven -o</code> and boom, there you have it - code for all the
+                        <li>Execute the command <code>maven</code> and boom, there you have it - code for all the
                             classes in your model is generated! (Make sure you get a <code>BUILD SUCCESSFUL</code>
                             message when the Maven script finishes execution.)</li>
                     </ol>
                 </p>
-            
+
                 <p>
                     Notice that code is generated in the following folders.
                     <ol>
@@ -675,7 +680,7 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                             are intended for modification by the developer.</li>
                     </ol>
                 </p>
-                
+
                 <p>
                     Note that code produced in <code>target</code> folders should never be modified by hand.
                     It will be deleted completely before regeneration in the next iteration. It is also
@@ -684,7 +689,7 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                     <code>src</code> directory is intended for modification by the developer. AndroMDA will
                     never overwrite code in these directories. It is generated one-time only.
                 </p>
-                
+
                 <p>
                     Now that you understand the code that has been generated, it is time to compile it.
                     In order to avoid adding each individual file to our solution we will perform a neat
@@ -745,7 +750,7 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                             C# files and NHibernate mappings added to the two projects.</li>
                     </ol>
                 </p>
-                
+
                 <p>
                     Let's implement the convenience methods added to the 3 classes in the diagram shown earlier.
                     <ol>
@@ -819,7 +824,7 @@ public override void AddTimeAllocation(TimeTracker.Domain.TimeAllocation timeAll
                         </li>
                     </ul>
                 </p>
-                
+
                 <p>
                     We need to do one more thing before building the application. As part of the initial setup,
                     AndroMDA had generated the NHibernate configuration file for the SchemaExport application.
@@ -840,13 +845,13 @@ public override void AddTimeAllocation(TimeTracker.Domain.TimeAllocation timeAll
                         <li>Save the solution by selecting File > Save All.</li>
                     </ol>
                 </p>
-                
+
                 <p>
                   At this point we are ready to build the solution. Select Build > Build Solution. Visual Studio
                   should be able to build the solution without any errors.
                 </p>
             </subsection>
-            
+
             <subsection name="Create the database schema">
                 <p>
                     It is now time to create the database schema for TimeTracker entities and relations.
@@ -857,10 +862,10 @@ public override void AddTimeAllocation(TimeTracker.Domain.TimeAllocation timeAll
                         <li>Execute the command <code>SchemaExport t t</code>. This will create the
                             TimeTracker schema in the database.</li>
                     </ol>
-                    
+
                     The output from the execution of SchemaExport is shown below. Notice that you can
                     copy the DDL script from the output and use it in your own build scripts.
-                    
+
                     <pre class="console">
 C:\TimeTracker\SchemaExport\bin\Debug>SchemaExport t t
 
@@ -920,7 +925,7 @@ alter table TIME_ALLOCATION  add constraint TIME_ALLOCATION_TIMECARD_FKC foreign
                     </pre>
                 </p>
             </subsection>
-            
+
             <subsection name="Build and test the TimeTrackerConsole application">
                 <p>
                     It is now time to test all the functionality we have implemented so far using the
@@ -955,9 +960,9 @@ alter table TIME_ALLOCATION  add constraint TIME_ALLOCATION_TIMECARD_FKC foreign
                         <li>Execute the command <code>TimeTrackerConsole</code>. This will display menu.</li>
                         <li>Select various menu items to add people, tasks and timecards to the database.</li>
                     </ol>
-                    
+
                     A sample run of  TimeTrackerConsole is shown below.
-                    
+
                     <pre class="console">
 C:\TimeTracker\TimeTrackerConsole\bin\Debug>TimeTrackerConsole
 
@@ -965,7 +970,9 @@ C:\TimeTracker\TimeTrackerConsole\bin\Debug>TimeTrackerConsole
 2. Add Person
 3. Add Task
 4. Add Timecard
-5. Show Data
+5. Update Timecard
+6. Delete Timecard
+7. Show Data
 
 Please make a choice ([h]elp [q]uit): 2
 
@@ -990,24 +997,24 @@ Task 2 added: Development
 Please make a choice ([h]elp [q]uit): 4
 
 Adding timecard...
-Timecard 1 created.
+Timecard 1 created with 1 allocations
 
 Please make a choice ([h]elp [q]uit): 4
 
 Adding timecard...
-Timecard 2 created.
+Timecard 2 created with 2 allocations
 
 Please make a choice ([h]elp [q]uit): 4
 
 Adding timecard...
-Timecard 3 created.
+Timecard 3 created with 2 allocations
 
 Please make a choice ([h]elp [q]uit): 4
 
 Adding timecard...
-Timecard 4 created.
+Timecard 4 created with 2 allocations
 
-Please make a choice ([h]elp [q]uit): 5
+Please make a choice ([h]elp [q]uit): 7
 
 People:
 1: Naresh Bhatia, rate=10 USD/hour
@@ -1018,18 +1025,17 @@ Tasks:
 2: Development
 
 Timecards:
-1: Naresh Bhatia, Draft, 11/14/2005 1:32:51 AM
-    1: 11/14/2005 1:32:51 AM, 11/14/2005 2:32:51 AM, Research
-    2: 11/14/2005 2:32:51 AM, 11/14/2005 3:32:51 AM, Research
-    3: 11/14/2005 3:32:51 AM, 11/14/2005 4:32:51 AM, Research
-2: Naresh Bhatia, Draft, 11/14/2005 1:32:53 AM
-    4: 11/14/2005 1:32:53 AM, 11/14/2005 2:32:53 AM, Development
-    5: 11/14/2005 2:32:53 AM, 11/14/2005 3:32:53 AM, Research
-    6: 11/14/2005 3:32:53 AM, 11/14/2005 4:32:53 AM, Development
-3: Louis Coude, Draft, 11/14/2005 1:32:55 AM
-    7: 11/14/2005 1:32:55 AM, 11/14/2005 2:32:55 AM, Development
-4: Louis Coude, Draft, 11/14/2005 1:32:56 AM
-    8: 11/14/2005 1:32:56 AM, 11/14/2005 2:32:56 AM, Development
+1: Naresh Bhatia, Draft, 11/16/2005 5:58:29 PM
+    1: 11/16/2005 5:58:29 PM, 11/16/2005 6:58:29 PM, Research
+2: Naresh Bhatia, Draft, 11/16/2005 5:58:31 PM
+    2: 11/16/2005 5:58:31 PM, 11/16/2005 6:58:31 PM, Research
+    3: 11/16/2005 6:58:31 PM, 11/16/2005 7:58:31 PM, Development
+3: Louis Coude, Draft, 11/16/2005 5:58:32 PM
+    4: 11/16/2005 5:58:32 PM, 11/16/2005 6:58:32 PM, Research
+    5: 11/16/2005 6:58:32 PM, 11/16/2005 7:58:32 PM, Research
+4: Louis Coude, Draft, 11/16/2005 5:58:33 PM
+    6: 11/16/2005 5:58:33 PM, 11/16/2005 6:58:33 PM, Research
+    7: 11/16/2005 6:58:33 PM, 11/16/2005 7:58:33 PM, Research
 
 Please make a choice ([h]elp [q]uit): q
 
@@ -1037,9 +1043,9 @@ C:\TimeTracker\TimeTrackerConsole\bin\Debug>
                     </pre>
                 </p>
             </subsection>
-                
+
         </section>
-            
+
         <section name="Where to go from here ?">
             <p>
                 In this tutorial we have shown you how to set up your development environment and
