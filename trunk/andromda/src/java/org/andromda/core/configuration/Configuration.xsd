@@ -60,7 +60,7 @@
                 </xs:element>
             </xs:sequence>
             <xs:attribute name="lastModifiedCheck" type="xs:boolean" use="optional"/>
-            <xs:attribute name="type" type="xs:string" use="optional"/>
+            <xs:attribute name="type" type="xs:string" use="optional" default="uml-1.4"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="modelPackage">

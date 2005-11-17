@@ -66,10 +66,12 @@ public class MetafacadeFactory
     /**
      * Performs any initialization required by the factory (i.e. discovering all
      * <code>metafacade</code> mappings, etc).
+     * 
+     * @param modelTypeNamespaces defines the possible model type namespaces.
      */
-    public void initialize()
+    public void initialize(final String[] modelTypeNamespaces)
     {
-        this.mappings.initialize();
+        this.mappings.initialize(modelTypeNamespaces);
     }
 
     /**
@@ -227,7 +229,6 @@ public class MetafacadeFactory
             final String message =
                 "Failed to construct a meta facade of type '" + metafacadeClass + "' with mappingObject of type --> '" +
                 mappingObject.getClass() + "'";
-            throwable.printStackTrace();
             this.getLogger().error(message);
             throw new MetafacadeFactoryException(message, throwable);
         }
@@ -390,7 +391,7 @@ public class MetafacadeFactory
         Class metafacadeClass = null;
         try
         {
-            metafacadeClass = MetafacadeImpls.instance().getMetafacadeImplClass(interfaceName);
+            metafacadeClass = this.metafacadeImpls.getMetafacadeImplClass(interfaceName);
             return this.createMetafacade(
                 mappingObject,
                 context,
@@ -462,7 +463,7 @@ public class MetafacadeFactory
      * Gets the model which provides access to the underlying model and is used
      * to construct metafacades.
      *
-     * @return the model
+     * @return the model access facade.
      */
     public ModelAccessFacade getModel()
     {
@@ -473,14 +474,23 @@ public class MetafacadeFactory
         }
         return this.model;
     }
+    
+    /**
+     * The shared metafacade impls instance.
+     */
+    private MetafacadeImpls metafacadeImpls = MetafacadeImpls.instance();
 
     /**
      * The model access facade instance (provides access to the meta model).
      *
      * @param model the model
+     * @param type the type of model (i.e. the namespace in which the model resides)
      */
-    public void setModel(final ModelAccessFacade model)
+    public void setModel(final ModelAccessFacade model, final String type)
     {
+        // - set the model type as the namespace for the metafacade impls so we have
+        //   access to the correct metafacade classes
+        this.metafacadeImpls.setModelType(type);
         this.model = model;
     }
 

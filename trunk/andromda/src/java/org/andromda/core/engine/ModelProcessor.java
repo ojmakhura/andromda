@@ -1,6 +1,7 @@
 package org.andromda.core.engine;
 
 import java.text.Collator;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,6 +24,7 @@ import org.andromda.core.configuration.Filters;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
+import org.andromda.core.configuration.Repository;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.metafacade.ModelValidationMessage;
@@ -225,13 +227,18 @@ public class ModelProcessor
                         this.factory.setNamespace(cartridgeName);
                         cartridge.initialize();
 
-                        // - process each model
+                        // - process each model with the cartridge
                         for (int ctr = 0; ctr < models.length; ctr++)
                         {
                             final Model model = models[ctr];
+
+                            // - set the namespace on the metafacades instance so we know the 
+                            //   correct facades to use
                             this.factory.setModel(
-                                this.repositories.getImplementation(repositoryName).getModel(model.getAccessFacadeType()));
-                            cartridge.processModelElements(factory);
+                                this.repositories.getImplementation(repositoryName).getModel(
+                                    model.getAccessFacadeType()),
+                                model.getType());
+                            cartridge.processModelElements(this.factory);
                             writer.writeHistory();
                         }
                         cartridge.shutdown();
@@ -292,7 +299,30 @@ public class ModelProcessor
         repositories.initialize();
 
         // - finally initialize the metafacade factory
-        this.factory.initialize();
+        final Repository[] repositories = configuration.getRepositories();
+        final List modelTypes = new ArrayList();
+        if (repositories != null)
+        {
+            final int numberOfRepositories = repositories.length;
+            for (int ctr = 0; ctr < numberOfRepositories; ctr++)
+            {
+                final Repository repository = repositories[ctr];
+                final Model[] models = repository != null ? repository.getModels() : null;
+                if (models != null)
+                {
+                    final int numberOfModels = models.length;
+                    for (int ctr2 = 0; ctr2 < numberOfModels; ctr2++)
+                    {
+                        final Model model = models[ctr2];
+                        if (model != null)
+                        {
+                            modelTypes.add(model.getType());
+                        }
+                    }
+                }
+            }
+        }
+        this.factory.initialize((String[])modelTypes.toArray(new String[0]));
         this.printWorkCompleteMessage(
             "core initialization",
             startTime);
@@ -351,7 +381,9 @@ public class ModelProcessor
 
             // - clear out the factory's caches (such as any previous validation messages, etc.)
             this.factory.clearCaches();
-            this.factory.setModel(modelAccessFacade);
+            this.factory.setModel(
+                modelAccessFacade,
+                model.getType());
             for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
             {
                 final Cartridge cartridge = (Cartridge)iterator.next();
