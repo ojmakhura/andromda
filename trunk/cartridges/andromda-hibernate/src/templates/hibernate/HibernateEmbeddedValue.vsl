@@ -22,6 +22,7 @@ public abstract class $embeddedValue.name
      */
     private static final long serialVersionUID = ${embeddedValue.serialVersionUID}L;
 
+#if (!$embeddedValue.abstract)
     /**
      * Creates a new instance of {@link ${embeddedValue.name}}
      * taking all properties.
@@ -102,6 +103,7 @@ $operation.getDocumentation("     * ")
     $operation.visibility abstract $returnType.fullyQualifiedName $signature;
 #end
 
+#end
 #end
     /**
      * Indicates if the argument is of the same type and all values are equal.
