@@ -295,6 +295,9 @@ namespace TimeTracker
             System.Threading.Thread.Sleep(1); // wait to allow the timer to advance
             random = new Random();
 
+            // Initialize Log4Net
+            log4net.Config.XmlConfigurator.Configure();
+
             // Initialize NHibernate
             SessionManagerFactory.SessionManager = new ThreadLocalSessionManager();
             SessionManagerFactory.SessionManager.HandleApplicationStart();
