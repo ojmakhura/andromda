@@ -5,9 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -149,12 +147,12 @@ public class AndroMDAppType
             final String equalCondition = condition.getEqual();
             if (equalCondition != null && equalCondition.equals(input))
             {
-                this.setPromptValues(condition);
+                this.setProperties(condition);
             }
             final String notEqualCondition = condition.getNotEqual();
             if (notEqualCondition != null && !notEqualCondition.equals(input))
             {
-                this.setPromptValues(condition);
+                this.setProperties(condition);
             }
         }
         return input;
@@ -165,11 +163,11 @@ public class AndroMDAppType
      *
      * @param condition the condition from which to populate the values.
      */
-    private void setPromptValues(final Condition condition)
+    private void setProperties(final Condition condition)
     {
         if (condition != null)
         {
-            final Map values = condition.getPromptValues();
+            final Map values = condition.getProperties();
             for (final Iterator valueIterator = values.keySet().iterator(); valueIterator.hasNext();)
             {
                 final String id = (String)valueIterator.next();
@@ -292,7 +290,7 @@ public class AndroMDAppType
                                 catch (final Throwable throwable)
                                 {
                                     throw new AndroMDAppException("An error occured while processing template --> '" +
-                                        path + "'", throwable);
+                                        path + "' with template context '" + this.templateContext + "'", throwable);
                                 }
                                 writer.flush();
                                 ResourceWriter.instance().writeStringToFile(
@@ -361,47 +359,71 @@ public class AndroMDAppType
      */
     private boolean isWriteable(String path)
     {
-        path = path.replaceAll("\\\\+", "/");
+        path = path.replaceAll(
+                "\\\\+",
+                "/");
         if (path.startsWith("/"))
         {
-            path = path.substring(1, path.length());
+            path = path.substring(
+                    1,
+                    path.length());
         }
         boolean writable = true;
         for (final Iterator iterator = this.outputConditions.iterator(); iterator.hasNext();)
         {
-            final Condition condition = (Condition)iterator.next();
-            final String id = condition.getId();
-            if (id != null && id.trim().length() > 0)
+            final Conditions conditions = (Conditions)iterator.next();
+            final Map outputPaths = conditions.getOutputPaths();
+            final String conditionsType = conditions.getType();
+            for (final Iterator pathIterator = outputPaths.keySet().iterator(); pathIterator.hasNext();)
             {
-                final String equal = condition.getEqual();
-                final String notEqual = condition.getNotEqual();
-                final boolean equalConditionPresent = equal != null && equal.trim().length() > 0;
-                final boolean notEqualConditionPresent = notEqual != null && notEqual.trim().length() > 0;
-                if (equalConditionPresent || notEqualConditionPresent)
+                final String outputPath = (String)pathIterator.next();
+                if (path.startsWith(outputPath))
                 {
-                    final Map outputPaths = condition.getOutputPaths();
-                    for (final Iterator pathIterator = outputPaths.keySet().iterator(); pathIterator.hasNext();)
+                    final String[] patterns = (String[])outputPaths.get(outputPath);
+                    if (ResourceUtils.matchesAtLeastOnePattern(
+                            path,
+                            patterns))
                     {
-                        final String outputPath = (String)pathIterator.next();
-                        if (path.startsWith(outputPath))
+                        for (final Iterator conditionIterator = conditions.getConditions().iterator();
+                            conditionIterator.hasNext();)
                         {
-                            final String[] patterns = (String[])outputPaths.get(outputPath);
-                            if (ResourceUtils.matchesAtLeastOnePattern(
-                                    path,
-                                    patterns))
+                            final Condition condition = (Condition)conditionIterator.next();
+                            final String id = condition.getId();
+                            if (id != null && id.trim().length() > 0)
                             {
-                                final Object value = ObjectUtils.toString(this.templateContext.get(id));
-                                if (equalConditionPresent)
+                                final String equal = condition.getEqual();
+                                final String notEqual = condition.getNotEqual();
+                                final boolean equalConditionPresent = equal != null && equal.trim().length() > 0;
+                                final boolean notEqualConditionPresent =
+                                    notEqual != null && notEqual.trim().length() > 0;
+                                if (equalConditionPresent || notEqualConditionPresent)
                                 {
-                                    writable = equal.equals(value);
-                                }
-                                else if (notEqualConditionPresent)
-                                {
-                                    writable = !notEqual.equals(value);
-                                }
-                                if (!writable)
-                                {
-                                    break;
+                                    final Object value = ObjectUtils.toString(this.templateContext.get(id));
+                                    if (equalConditionPresent)
+                                    {
+                                        writable = equal.equals(value);
+                                    }
+                                    else if (notEqualConditionPresent)
+                                    {
+                                        writable = !notEqual.equals(value);
+                                    }
+
+                                    // - if we're 'anding' the conditions, we break at the first false
+                                    if (Conditions.TYPE_AND.equals(conditionsType))
+                                    {
+                                        if (!writable)
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // otherwise we break at the first true condition
+                                        if (writable)
+                                        {
+                                            break;
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -659,13 +681,13 @@ public class AndroMDAppType
     private List outputConditions = new ArrayList();
 
     /**
-     * Adds an condition to the output conditions..
+     * Adds an conditions element to the output conditions..
      *
-     * @param outputCondition the output condition to add.
+     * @param outputCondition the output conditions to add.
      */
-    public void addOutputCondition(final Condition outputCondition)
+    public void addOutputConditions(final Conditions outputConditions)
     {
-        this.outputConditions.add(outputCondition);
+        this.outputConditions.add(outputConditions);
     }
 
     /**

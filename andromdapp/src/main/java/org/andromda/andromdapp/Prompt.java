@@ -6,10 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.andromda.core.common.ClassUtils;
-import org.andromda.core.common.Converter;
-import org.apache.commons.lang.BooleanUtils;
-
 
 /**
  * Represents a user prompt used by AndroMDApp.
@@ -147,33 +143,9 @@ public class Prompt
      */
     public Object getResponse(final String response)
     {
-        Object object = response;
-        final String type = (String)this.responses.get(response);
-        if (type != null && type.trim().length() > 0)
-        {
-            try
-            {
-                final Class typeClass = ClassUtils.getClassLoader().loadClass(type);
-
-                // - handle booleans differently, since we want to be able to convert 'yes/no', 'on/off', etc
-                //   to boolean values
-                if (typeClass == Boolean.class)
-                {
-                    object = BooleanUtils.toBooleanObject(response);
-                }
-                else
-                {
-                    object = Converter.convert(
-                            response,
-                            typeClass);
-                }
-            }
-            catch (final ClassNotFoundException exception)
-            {
-                // - ignore
-            }
-        }
-        return object;
+        return AndroMDAppUtils.convert(
+            response,
+            (String)this.responses.get(response));
     }
 
     /**
@@ -265,7 +237,7 @@ public class Prompt
 
     /**
      * Sets whether or not the response should be set to a boolean value of true.
-     * 
+     *
      * @param setResponseAsTrue The setResponseAsTrue to set.
      */
     public void setSetResponseAsTrue(boolean setResponseAsBoolean)

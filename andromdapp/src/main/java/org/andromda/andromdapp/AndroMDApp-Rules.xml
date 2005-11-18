@@ -17,19 +17,26 @@
             <call-method-rule methodname="addDirectory" paramcount="1" paramtypes="java.lang.String"/>
             <call-param-rule paramnumber="0"/>
         </pattern>
-        <pattern value="outputConditions/condition">
-            <object-create-rule classname="org.andromda.andromdapp.Condition"/>
+        <pattern value="conditionalOutput/conditions">
+            <object-create-rule classname="org.andromda.andromdapp.Conditions"/>
             <set-properties-rule>
-                <alias attr-name="id" prop-name="id"/>
-                <alias attr-name="equal" prop-name="equal"/>
-                <alias attr-name="notEqual" prop-name="equal"/>
+                <alias attr-name="type" prop-name="type"/>
             </set-properties-rule>
+            <pattern value="condition">
+                <object-create-rule classname="org.andromda.andromdapp.Condition"/>
+                <set-properties-rule>
+                    <alias attr-name="id" prop-name="id"/>
+                    <alias attr-name="equal" prop-name="equal"/>
+                    <alias attr-name="notEqual" prop-name="equal"/>
+                </set-properties-rule>
+                <set-next-rule methodname="addCondition"/>                
+            </pattern>
             <pattern value="output">
                 <call-method-rule methodname="addOutputPath" paramcount="2" paramtypes="java.lang.String,java.lang.String"/>
                 <call-param-rule paramnumber="0"/>        
                 <call-param-rule attrname="patterns" paramnumber="1"/>            
             </pattern>
-            <set-next-rule methodname="addOutputCondition"/>
+            <set-next-rule methodname="addOutputConditions"/>
         </pattern>
         <pattern value="instructions">
             <call-method-rule methodname="setInstructions" paramcount="1" paramtypes="java.lang.String"/>
@@ -77,10 +84,11 @@
                     <alias attr-name="equal" prop-name="equal"/>
                     <alias attr-name="notEqual" prop-name="equal"/>
                 </set-properties-rule>
-                <pattern value="setPrompt">
-                    <call-method-rule methodname="addPromptValue" paramcount="2" paramtypes="java.lang.String,java.lang.String"/>
+                <pattern value="setProperty">
+                    <call-method-rule methodname="setProperty" paramcount="3" paramtypes="java.lang.String,java.lang.String,java.lang.String"/>
                     <call-param-rule attrname="id" paramnumber="0"/>
                     <call-param-rule paramnumber="1"/>
+                    <call-param-rule attrname="type" paramnumber="2"/>
                 </pattern>
                  <set-next-rule methodname="addCondition"/>
              </pattern>
