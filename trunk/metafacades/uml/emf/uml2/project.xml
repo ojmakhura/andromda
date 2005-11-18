@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../../project.xml</extend>
+  	<artifactId>andromda-metafacades-emf-uml2</artifactId>
+  	<name>EMF UML 2 Metafacades</name>
+  	<shortDescription>EMF UML 2  Metafacade Library</shortDescription>
+  	<description>
+  		The Eclipse EMF UML 2 metafacades.  This is the set of EMF UML 2 metafacades
+  		implementations.  These implement the common UML metafacades.
+  	</description>
+  	<repository>
+    	<connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot:andromda/metafacades/uml/emf/uml2</connection>
+    	<url>http://cvs.sourceforge.net/viewcvs.py/andromda/metafacades/uml/emf/uml2</url>
+  	</repository>
+	<dependencies>
+    	<dependency>
+	      	<groupId>andromda-bootstrap</groupId>
+	      	<artifactId>maven-andromda-bootstrap-plugin</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	      	<type>plugin</type>
+	    </dependency>
+    	<dependency>
+    	    <groupId>${pom.groupId}</groupId>
+    	    <artifactId>andromda-metafacades-uml</artifactId>
+    	    <version>${pom.currentVersion}</version>
+    	</dependency>
+      	<dependency>
+    	    <groupId>${pom.groupId}</groupId>
+    	    <artifactId>andromda-ocl-validation-library</artifactId>
+    	    <version>${pom.currentVersion}</version>
+            <type>jar</type>
+    	</dependency> 
+    	<dependency> 
+    		<groupId>log4j</groupId>
+      		<artifactId>log4j</artifactId>
+     		<version>1.2.8</version>
+    	</dependency>	
+		<dependency> 
+    		<groupId>emf</groupId>
+      		<artifactId>emf-common</artifactId>
+     		<version>2.1.0</version>
+    	</dependency>
+		<dependency> 
+    		<groupId>emf</groupId>
+      		<artifactId>emf-ecore.xmi</artifactId>
+     		<version>2.1.0</version>
+    	</dependency>    	
+		<dependency> 
+    		<groupId>emf</groupId>
+      		<artifactId>emf-ecore</artifactId>
+     		<version>2.1.0</version>
+    	</dependency>    
+		<dependency> 
+    		<groupId>eclipse-uml2</groupId>
+      		<artifactId>eclipse-uml2-common</artifactId>
+     		<version>1.1.1</version>
+    	</dependency>    
+		<dependency> 
+    		<groupId>eclipse-uml2</groupId>
+      		<artifactId>eclipse-uml2</artifactId>
+     		<version>1.1.1</version>
+    	</dependency>
+	</dependencies>	
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+    </build>
+</project>
