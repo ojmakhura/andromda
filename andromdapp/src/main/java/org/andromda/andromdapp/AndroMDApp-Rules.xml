@@ -17,6 +17,19 @@
             <call-method-rule methodname="addDirectory" paramcount="1" paramtypes="java.lang.String"/>
             <call-param-rule paramnumber="0"/>
         </pattern>
+        <pattern value="outputConditions/condition">
+            <object-create-rule classname="org.andromda.andromdapp.Condition"/>
+            <set-properties-rule>
+                <alias attr-name="id" prop-name="id"/>
+                <alias attr-name="equal" prop-name="equal"/>
+                <alias attr-name="notEqual" prop-name="equal"/>
+            </set-properties-rule>
+            <pattern value="output">
+                <call-method-rule methodname="addOutputPath" paramcount="2" paramtypes="java.lang.String,java.lang.String"/>
+                <call-param-rule paramnumber="0"/>        
+                <call-param-rule attrname="patterns" paramnumber="1"/>            
+            </pattern>
+        </pattern>
         <pattern value="instructions">
             <call-method-rule methodname="setInstructions" paramcount="1" paramtypes="java.lang.String"/>
             <call-param-rule paramnumber="0"/>
@@ -28,7 +41,7 @@
             </set-properties-rule>
             <pattern value="macrolibrary">
                 <call-method-rule methodname="addMacrolibrary" paramcount="1" paramtypes="java.lang.String"/>
-                <call-param-rule attrname="name" paramnumber="0" />
+                <call-param-rule attrname="name" paramnumber="0"/>
              </pattern>
         </pattern>
         <pattern value="prompts/prompt">

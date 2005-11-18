@@ -5,15 +5,13 @@
     <directories>
         <directory>core/src/main/java</directory>
     </directories>
-    <instructions>readme.txt</instructions>
-    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>
-    <!--
     <outputConditions>
-        <condition id="web" equal="yes">
-            <output></output>         
+        <condition id="worflow" equal="true">
+            <output patterns="**/*">worflow</output>         
         </condition>
     </outputConditions>
-    -->
+    <instructions>readme.txt</instructions>
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>
     <prompts>
         <prompt id="author">
             <text>Please enter your first and last last name (i.e. Chad Brandon)</text>
