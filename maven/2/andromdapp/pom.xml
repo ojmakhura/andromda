@@ -33,7 +33,8 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*</include>
-                </includes>              
+                </includes>          
+                <filtering>true</filtering>    
             </resource>
             <resource>
                 <directory>src/main/java</directory>
