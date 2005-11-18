@@ -1,12 +1,19 @@
 <andromdapp type="j2ee" root="$applicationId">
     <resourceLocations>
-        <location>META-INF/andromdapp/j2ee/resources</location>        
+        <location>META-INF/andromdapp/j2ee/resources</location>      
     </resourceLocations>
     <directories>
         <directory>core/src/main/java</directory>
     </directories>
     <instructions>readme.txt</instructions>
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>
+    <!--
+    <outputConditions>
+        <condition id="web" equal="yes">
+            <output></output>         
+        </condition>
+    </outputConditions>
+    -->
     <prompts>
         <prompt id="author">
             <text>Please enter your first and last last name (i.e. Chad Brandon)</text>
@@ -30,8 +37,7 @@
                 <response>war</response>
             </responses>
             <conditions>
-                <condition>
-                    <equal>war</equal>
+                <condition equal="war">
                     <setPrompt id="transactionPersistenceType">spring</setPrompt>
                 </condition>
             </conditions>
@@ -51,8 +57,7 @@
                 <response type="java.lang.Boolean">no</response>
             </responses>
             <conditions>
-                <condition>
-                    <equal>yes</equal>
+                <condition equal="yes">
                     <setPrompt id="hibernateVersion">3</setPrompt>
                 </condition>
             </conditions>
@@ -74,11 +79,7 @@
         <prompt id="webType" setResponseAsTrue="true">
             <text>Would you like your web user interface to use JSF or Struts?</text>
             <preconditions>
-                <precondition>
-                    <prompt id="web">
-                        <equal>yes</equal>
-                    </prompt>
-                </precondition>
+                <condition id="web" equal="yes"/>
             </preconditions>
             <responses>
                 <response>jsf</response>

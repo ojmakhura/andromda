@@ -27,11 +27,31 @@
 	<xs:element name="condition">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="equal" minOccurs="0"/>
-                <xs:element ref="notEqual" minOccurs="0"/>
                 <xs:element ref="setPrompt" minOccurs="0"/>
                 <xs:element ref="setProperty" minOccurs="0"/>
 			</xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specifies the identifier for the prompt, if unspecified the condition is assumed
+                        to apply to the prompt its nested within.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="equal" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specifies that the condition must be equal to the value defined by this attribute.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="notEqual" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specifies that the condition must NOT be equal to the value defined by this attribute.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="conditions">
@@ -60,7 +80,6 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="directory" type="xs:string"/>
-	<xs:element name="equal" type="xs:string"/>
 	<xs:element name="instructions" type="xs:string">
         <xs:annotation>
             <xs:documentation>
@@ -80,18 +99,10 @@
             <xs:attribute name="name" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="notEqual" type="xs:string"/>
-	<xs:element name="precondition">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="prompt"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
 	<xs:element name="preconditions">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="precondition"/>
+				<xs:element ref="condition" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -99,8 +110,6 @@
 		<xs:complexType>
 			<xs:sequence>
                 <xs:element ref="text" minOccurs="0"/>
-                <xs:element ref="equal" minOccurs="0"/>
-                <xs:element ref="notEqual" minOccurs="0"/>
 				<xs:element ref="preconditions" minOccurs="0"/>
 				<xs:element ref="responses" minOccurs="0"/>
 				<xs:element ref="conditions" minOccurs="0"/>
