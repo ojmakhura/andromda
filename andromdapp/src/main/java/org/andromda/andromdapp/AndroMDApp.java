@@ -38,6 +38,10 @@ public class AndroMDApp
         }
         catch (final Throwable throwable)
         {
+            if (throwable instanceof AndroMDAppException)
+            {
+                throw (AndroMDAppException)throwable;
+            }
             throw new AndroMDAppException(throwable);
         }
     }
@@ -45,7 +49,7 @@ public class AndroMDApp
     /**
      * The name of the AndroMDApp descriptor.
      */
-    private static final String DESCRIPTOR = "andromdapp.xml";
+    static final String DESCRIPTOR = "andromdapp.xml";
 
     /**
      * The directory in which the descriptors are kept.
@@ -83,7 +87,9 @@ public class AndroMDApp
                             "").equals(DESCRIPTOR))
                     {
                         final XmlObjectFactory factory = XmlObjectFactory.getInstance(AndroMDApp.class);
-                        final AndroMDAppType andromdapp = (AndroMDAppType)factory.getObject(ResourceUtils.toURL(uri));
+                        final URL descriptorUri = ResourceUtils.toURL(uri);
+                        final AndroMDAppType andromdapp = (AndroMDAppType)factory.getObject(descriptorUri);
+                        andromdapp.setResource(descriptorUri);
                         final String type = andromdapp.getType();
                         AndroMDALogger.info("discovered andromdapp type --> '" + type + "'");
                         this.types.put(

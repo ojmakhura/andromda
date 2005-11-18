@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -59,6 +61,10 @@ public class AndroMDAppType
         }
         catch (final Throwable throwable)
         {
+            if (throwable instanceof AndroMDAppException)
+            {
+                throw (AndroMDAppException)throwable;
+            }
             throw new AndroMDAppException(throwable);
         }
     }
@@ -218,7 +224,7 @@ public class AndroMDAppType
      * The 'no' response.
      */
     private static final String RESPONSE_NO = "no";
-    
+
     /**
      * A margin consisting of some whitespace.
      */
@@ -226,9 +232,10 @@ public class AndroMDAppType
 
     /**
      * Processes the files for the project.
-     * @throws Exception 
+     * @throws Exception
      */
-    private void processResources() throws Exception
+    private void processResources()
+        throws Exception
     {
         final File rootDirectory =
             this.verifyRootDirectory(
@@ -256,30 +263,46 @@ public class AndroMDAppType
                     for (final Iterator contentsIterator = contents.iterator(); contentsIterator.hasNext();)
                     {
                         final String path = (String)contentsIterator.next();
-                        String projectRelativePath = StringUtils.replace(path, location, "");
+                        String projectRelativePath = StringUtils.replace(
+                                path,
+                                location,
+                                "");
                         if (this.hasTemplateExtension(path))
                         {
-                            final File outputFile = new File(rootDirectory.getAbsolutePath(), this.trimTemplateExtension(projectRelativePath));
+                            final File outputFile =
+                                new File(
+                                    rootDirectory.getAbsolutePath(),
+                                    this.trimTemplateExtension(projectRelativePath));
                             final StringWriter writer = new StringWriter();
-                            this.getTemplateEngine().processTemplate(path, this.templateContext, writer);
+                            this.getTemplateEngine().processTemplate(
+                                path,
+                                this.templateContext,
+                                writer);
                             writer.flush();
-                            ResourceWriter.instance().writeStringToFile(writer.toString(), outputFile);
+                            ResourceWriter.instance().writeStringToFile(
+                                writer.toString(),
+                                outputFile);
                             this.printText(MARGIN + "Output : '" + outputFile.toURL() + "'");
                         }
-                        else if(!path.endsWith("/"))
+                        else if (!path.endsWith("/"))
                         {
-                            final File outputFile = new File(rootDirectory.getAbsolutePath(), projectRelativePath);
+                            final File outputFile = new File(
+                                    rootDirectory.getAbsolutePath(),
+                                    projectRelativePath);
                             final URL resource = ClassUtils.getClassLoader().getResource(path);
                             if (resource != null)
                             {
-                                ResourceWriter.instance().writeUrlToFile(resource, outputFile.toString());
+                                ResourceWriter.instance().writeUrlToFile(
+                                    resource,
+                                    outputFile.toString());
                                 this.printText(MARGIN + "Output : '" + outputFile.toURL() + "'");
                             }
                         }
                     }
                     for (final Iterator directoryIterator = this.directories.iterator(); directoryIterator.hasNext();)
                     {
-                        final File directory = new File(rootDirectory, (String)directoryIterator.next());
+                        final File directory = new File(rootDirectory,
+                                ((String)directoryIterator.next()).trim());
                         directory.mkdirs();
                         this.printText(MARGIN + "Output : '" + directory.toURL() + "'");
                     }
@@ -288,14 +311,31 @@ public class AndroMDAppType
         }
         this.printLine();
         this.printText(MARGIN + "New application generated to --> '" + rootDirectory.toURL() + "'");
+
+        if (this.instructions != null && this.instructions.trim().length() > 0)
+        {
+            File instructions = new File(
+                        rootDirectory.getAbsolutePath(),
+                        this.instructions);
+            if (!instructions.exists())
+            {
+                throw new AndroMDAppException("No instructions are available at --> '" + instructions +
+                    "', please make sure you have the correct instructions defined in your descriptor --> '" + this.resource +
+                    "'");
+            }
+            this.printText(MARGIN + 
+                "Instructions for your new application --> '" + instructions.toURL() +
+                "'");
+        }
+
         this.printLine();
     }
-    
+
     /**
      * Indicates whether or not the given <code>path</code>
      * matches at least one of the file extensions stored in the
      * {@link #templateExtensions}.
-     * 
+     *
      * @param path the path to check.
      * @return true/false
      */
@@ -317,10 +357,10 @@ public class AndroMDAppType
         }
         return hasTemplateExtension;
     }
-    
+
     /**
      * Trims the first template extension it encounters and returns.
-     * 
+     *
      * @param path the path of which to trim the extension.
      * @return the trimmed path.
      */
@@ -331,14 +371,16 @@ public class AndroMDAppType
             final int numberOfExtensions = this.templateExtensions.length;
             for (int ctr = 0; ctr < numberOfExtensions; ctr++)
             {
-                final String extension =  '.' +this.templateExtensions[ctr];
+                final String extension = '.' + this.templateExtensions[ctr];
                 if (extension != null && path.endsWith(extension))
                 {
-                    path = path.substring(0, path.length() - extension.length());
+                    path = path.substring(
+                            0,
+                            path.length() - extension.length());
                     break;
                 }
             }
-        }  
+        }
         return path;
     }
 
@@ -532,15 +574,15 @@ public class AndroMDAppType
      * The delimiter for seperating location patterns.
      */
     private static final String EXTENSION_DELIMITER = ",";
-    
+
     /**
      * The any empty directories that should be created when generating the application.
      */
     private List directories = new ArrayList();
-    
+
     /**
      * The relative path to the directory to be created.
-     * 
+     *
      * @param directory the path to the directory.
      */
     public void addDirectory(final String directory)
@@ -549,10 +591,40 @@ public class AndroMDAppType
     }
 
     /**
+     * The path to the instructions on how to operation the build of the new application.
+     */
+    private String instructions;
+
+    /**
+     * Sets the path to the instructions (i.e.could be a path to a readme file).
+     *
+     * @param instructions the path to the instructions.
+     */
+    public void setInstructions(final String instructions)
+    {
+        this.instructions = instructions;
+    }
+
+    /**
      * @see java.lang.Object#toString()
      */
     public String toString()
     {
         return super.toString() + "[" + this.getType() + "]";
+    }
+
+    /**
+     * The resource that configured this AndroMDAppType instance.
+     */
+    URL resource;
+
+    /**
+     * Sets the resource that configured this AndroMDAppType instance.
+     *
+     * @param resource the resource.
+     */
+    final void setResource(final URL resource)
+    {
+        this.resource = resource;
     }
 }
