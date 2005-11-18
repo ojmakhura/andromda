@@ -170,12 +170,11 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="patterns" type="xs:string" use="required">
+            <xs:attribute name="extensions" type="xs:string" use="required">
                 <xs:annotation>
                     <xs:documentation>
-                        Defines the file patterns that the template engine will process. (i.e. you'd
-                        typically define it as "**/*.vsl" if you were using Velocity as your templating
-                        engine).
+                        Defines the extensions of files that the template engine will process. (i.e. you'd
+                        typically define it as "vsl" if you were using Velocity as your templating engine).
                     </xs:documentation>
                 </xs:annotation>                
             </xs:attribute>

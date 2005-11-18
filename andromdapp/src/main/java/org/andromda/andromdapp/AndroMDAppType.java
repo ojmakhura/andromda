@@ -4,20 +4,22 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+import java.io.StringWriter;
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.common.ResourceUtils;
+import org.andromda.core.common.ResourceWriter;
 import org.andromda.core.templateengine.TemplateEngine;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -216,11 +218,17 @@ public class AndroMDAppType
      * The 'no' response.
      */
     private static final String RESPONSE_NO = "no";
+    
+    /**
+     * A margin consisting of some whitespace.
+     */
+    private static final String MARGIN = "    ";
 
     /**
      * Processes the files for the project.
+     * @throws Exception 
      */
-    private void processResources()
+    private void processResources() throws Exception
     {
         final File rootDirectory =
             this.verifyRootDirectory(
@@ -228,7 +236,7 @@ public class AndroMDAppType
                         this.getRoot(),
                         this.templateContext)));
         this.printLine();
-        this.printText("    G e n e r a t i n g   A n d r o M D A   P o w e r e d   A p p l i c a t i o n    ");
+        this.printText(MARGIN + "G e n e r a t i n g   A n d r o M D A   P o w e r e d   A p p l i c a t i o n");
         this.printLine();
         rootDirectory.mkdirs();
         for (final Iterator iterator = this.resourceLocations.iterator(); iterator.hasNext();)
@@ -240,30 +248,92 @@ public class AndroMDAppType
                 final int numberOfResourceDirectories = resourceDirectories.length;
                 for (int ctr = 0; ctr < numberOfResourceDirectories; ctr++)
                 {
+                    final URL resourceDirectory = resourceDirectories[ctr];
                     final List contents = ResourceUtils.getDirectoryContents(
-                            resourceDirectories[ctr],
+                            resourceDirectory,
                             false,
                             null);
                     for (final Iterator contentsIterator = contents.iterator(); contentsIterator.hasNext();)
                     {
                         final String path = (String)contentsIterator.next();
-                        if (ResourceUtils.matchesAtLeastOnePattern(
-                                path,
-                                this.templatePatterns))
+                        String projectRelativePath = StringUtils.replace(path, location, "");
+                        if (this.hasTemplateExtension(path))
                         {
-
+                            final File outputFile = new File(rootDirectory.getAbsolutePath(), this.trimTemplateExtension(projectRelativePath));
+                            final StringWriter writer = new StringWriter();
+                            this.getTemplateEngine().processTemplate(path, this.templateContext, writer);
+                            writer.flush();
+                            ResourceWriter.instance().writeStringToFile(writer.toString(), outputFile);
+                            this.printText(MARGIN + "Output : '" + outputFile.toURL() + "'");
                         }
-                        else
+                        else if(!path.endsWith("/"))
                         {
-
+                            final File outputFile = new File(rootDirectory.getAbsolutePath(), projectRelativePath);
+                            final URL resource = ClassUtils.getClassLoader().getResource(path);
+                            if (resource != null)
+                            {
+                                ResourceWriter.instance().writeUrlToFile(resource, outputFile.toString());
+                                this.printText(MARGIN + "Output : '" + outputFile.toURL() + "'");
+                            }
                         }
                     }
                 }
             }
         }
         this.printLine();
-        this.printText("    New application generated to --> '" + rootDirectory.getAbsolutePath() + "'");
+        this.printText(MARGIN + "New application generated to --> '" + rootDirectory.toURL() + "'");
         this.printLine();
+    }
+    
+    /**
+     * Indicates whether or not the given <code>path</code>
+     * matches at least one of the file extensions stored in the
+     * {@link #templateExtensions}.
+     * 
+     * @param path the path to check.
+     * @return true/false
+     */
+    private boolean hasTemplateExtension(final String path)
+    {
+        boolean hasTemplateExtension = false;
+        if (this.templateExtensions != null)
+        {
+            final int numberOfExtensions = this.templateExtensions.length;
+            for (int ctr = 0; ctr < numberOfExtensions; ctr++)
+            {
+                final String extension = '.' + this.templateExtensions[ctr];
+                if (extension != null && path.endsWith(extension))
+                {
+                    hasTemplateExtension = true;
+                    break;
+                }
+            }
+        }
+        return hasTemplateExtension;
+    }
+    
+    /**
+     * Trims the first template extension it encounters and returns.
+     * 
+     * @param path the path of which to trim the extension.
+     * @return the trimmed path.
+     */
+    private String trimTemplateExtension(String path)
+    {
+        if (this.templateExtensions != null)
+        {
+            final int numberOfExtensions = this.templateExtensions.length;
+            for (int ctr = 0; ctr < numberOfExtensions; ctr++)
+            {
+                final String extension =  '.' +this.templateExtensions[ctr];
+                if (extension != null && path.endsWith(extension))
+                {
+                    path = path.substring(0, path.length() - extension.length());
+                    break;
+                }
+            }
+        }  
+        return path;
     }
 
     /**
@@ -442,20 +512,20 @@ public class AndroMDAppType
      * Stores the patterns of the templates that the template engine should
      * process.
      */
-    private String[] templatePatterns;
+    private String[] templateExtensions;
 
     /**
-     * @param templatePatterns The templatePatterns to set.
+     * @param templateExtensions The templateExtensions to set.
      */
-    public void setTemplatePatterns(String templatePatterns)
+    public void setTemplateExtensions(String templateExtensions)
     {
-        this.templatePatterns = templatePatterns != null ? templatePatterns.split(PATTERN_DELIMITER) : null;
+        this.templateExtensions = templateExtensions != null ? templateExtensions.split(EXTENSION_DELIMITER) : null;
     }
 
     /**
      * The delimiter for seperating location patterns.
      */
-    private static final String PATTERN_DELIMITER = ",";
+    private static final String EXTENSION_DELIMITER = ",";
 
     /**
      * @see java.lang.Object#toString()
