@@ -385,7 +385,7 @@ public class HibernateAssociationEndLogicImpl
     public boolean isRequired()
     {
         boolean required = super.isRequired();
-        Object type = this.getType();
+        Object type = this.getOtherEnd().getType();
 
         if ((type != null) && HibernateEntity.class.isAssignableFrom(type.getClass()))
         {
