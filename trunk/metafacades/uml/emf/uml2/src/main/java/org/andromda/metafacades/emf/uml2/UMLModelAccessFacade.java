@@ -22,13 +22,13 @@ import org.eclipse.uml2.Model;
 import org.eclipse.uml2.NamedElement;
 
 /**
- * Model access facade implementation for the Eclipse/UML2
+ * Model access facade implementation for the EMF/UML2
  * metafacades
  * 
  * @author Steve Jerman
  * @author Chad Brandon
  */
-public class UmlModelAccessFacade
+public class UMLModelAccessFacade
     implements ModelAccessFacade
 {
     /**
@@ -42,7 +42,7 @@ public class UmlModelAccessFacade
      * 
      * @param model the underlying model
      */
-    public UmlModelAccessFacade(Model model)
+    public UMLModelAccessFacade(Model model)
     {
         this.theModel = model;
     }
