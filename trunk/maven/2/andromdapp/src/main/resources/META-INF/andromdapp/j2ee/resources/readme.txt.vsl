@@ -1,6 +1,6 @@
 
     
-    A n d r o M D A  -  current.version
+    A n d r o M D A  -  ${pom.version}
 
 
     AndroMDA is an open-source MDA framework distributed under the BSD license.
@@ -345,7 +345,7 @@
         C:\Documents and Settings\\${author}\.m2\repository\\${applicationId}\
 
         (*nix)
-        /home/${author}/.maven/repository/${applicatoinId}/
+        /home/${author}/.maven/repository/${applicationId}/
 
     For questions or feature requests please use our forum:
     http://forum.andromda.org/
