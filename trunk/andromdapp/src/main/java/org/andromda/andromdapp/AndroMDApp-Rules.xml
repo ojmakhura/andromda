@@ -32,6 +32,14 @@
 
         </pattern>
         
+        <pattern value="instructions">
+                
+            <call-method-rule methodname="setInstructions" paramcount="1" paramtypes="java.lang.String"/>
+
+            <call-param-rule paramnumber="0"/>
+
+        </pattern>
+        
         <pattern value="templateEngine">
 
             <set-properties-rule>

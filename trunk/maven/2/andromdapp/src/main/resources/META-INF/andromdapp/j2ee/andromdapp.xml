@@ -5,6 +5,7 @@
     <directories>
         <directory>core/src/main/java</directory>
     </directories>
+    <instructions>readme.txt</instructions>
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>
     <prompts>
         <prompt id="author">
