@@ -2,7 +2,7 @@
     <resourceLocations>
         <location>META-INF/andromdapp/j2ee/resources</location>        
     </resourceLocations>
-    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" patterns="**/*.vsl"/>
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>
     <prompts>
         <prompt id="author">
             <text>Please enter your first and last last name (i.e. Chad Brandon)</text>
