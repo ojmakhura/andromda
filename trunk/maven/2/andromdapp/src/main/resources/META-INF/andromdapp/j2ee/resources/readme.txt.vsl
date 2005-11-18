@@ -1,6 +1,6 @@
 
     
-    A n d r o M D A  -  ${pom.version}
+    A n d r o M D A  -  ${version}
 
 
     AndroMDA is an open-source MDA framework distributed under the BSD license.
@@ -19,7 +19,7 @@
 
     Custom configuration can be done by updating the project.properties files
 
-    /$applicationName J2EE project
+    /$applicationId J2EE project
          |
          |    The root of the project contains a few files that control the overall
          |    build process and common properties
@@ -156,7 +156,7 @@
          |              directory.
          |
 #end
-#if ($jbpm)
+#if ($workflow)
          +-- /workflow
          |     |
          |     |    The Workflow module collects those resources and classes
@@ -274,7 +274,7 @@
 
             only build the core module
 
-#if ($jbpm)
+#if ($workflow)
         %> mvn workflow
 
             only build the workflow module
