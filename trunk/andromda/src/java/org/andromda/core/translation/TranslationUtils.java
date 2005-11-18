@@ -140,7 +140,7 @@ public class TranslationUtils
      */
     public static String removeExtraWhitespace(final String string)
     {
-        return (string == null) ? "" : string.replaceAll("[$\\s]+", " ").trim();
+        return string == null ? "" : string.replaceAll("[$\\s]+", " ").trim();
     }
 
     /**
