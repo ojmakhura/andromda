@@ -37,17 +37,6 @@ public class UMLModelAccessFacade
     protected Filters modelPackages = new Filters();
 
     /**
-     * Constructor taking the org.eclipse.uml2.Model
-     * instance.
-     * 
-     * @param model the underlying model
-     */
-    public UMLModelAccessFacade(Model model)
-    {
-        this.theModel = model;
-    }
-
-    /**
      * Set the current model.
      */
     public void setModel(Object model)
