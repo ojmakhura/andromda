@@ -282,7 +282,7 @@ public class AndroMDAppType
                             ResourceWriter.instance().writeStringToFile(
                                 writer.toString(),
                                 outputFile);
-                            this.printText(MARGIN + "Output : '" + outputFile.toURL() + "'");
+                            this.printText(MARGIN + "Output: '" + outputFile.toURL() + "'");
                         }
                         else if (!path.endsWith("/"))
                         {
@@ -295,7 +295,7 @@ public class AndroMDAppType
                                 ResourceWriter.instance().writeUrlToFile(
                                     resource,
                                     outputFile.toString());
-                                this.printText(MARGIN + "Output : '" + outputFile.toURL() + "'");
+                                this.printText(MARGIN + "Output: '" + outputFile.toURL() + "'");
                             }
                         }
                     }
@@ -304,7 +304,7 @@ public class AndroMDAppType
                         final File directory = new File(rootDirectory,
                                 ((String)directoryIterator.next()).trim());
                         directory.mkdirs();
-                        this.printText(MARGIN + "Output : '" + directory.toURL() + "'");
+                        this.printText(MARGIN + "Output: '" + directory.toURL() + "'");
                     }
                 }
             }
