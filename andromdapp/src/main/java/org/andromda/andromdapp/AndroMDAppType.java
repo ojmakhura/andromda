@@ -250,6 +250,8 @@ public class AndroMDAppType
         this.printText(MARGIN + "G e n e r a t i n g   A n d r o M D A   P o w e r e d   A p p l i c a t i o n");
         this.printLine();
         rootDirectory.mkdirs();
+
+        // - first process and write any output from the defined resource locations.
         for (final Iterator iterator = this.resourceLocations.iterator(); iterator.hasNext();)
         {
             final String location = (String)iterator.next();
@@ -267,63 +269,72 @@ public class AndroMDAppType
                     for (final Iterator contentsIterator = contents.iterator(); contentsIterator.hasNext();)
                     {
                         final String path = (String)contentsIterator.next();
-                        String projectRelativePath = StringUtils.replace(
+                        final String projectRelativePath = StringUtils.replace(
                                 path,
                                 location,
                                 "");
-                        if (this.hasTemplateExtension(path))
+                        if (this.isWriteable(projectRelativePath))
                         {
-                            final File outputFile =
-                                new File(
-                                    rootDirectory.getAbsolutePath(),
-                                    this.trimTemplateExtension(projectRelativePath));
-                            final StringWriter writer = new StringWriter();
-                            try
+                            if (this.hasTemplateExtension(path))
                             {
-                                this.getTemplateEngine().processTemplate(
-                                    path,
-                                    this.templateContext,
-                                    writer);
-                            }
-                            catch (final Throwable throwable)
-                            {
-                                throw new AndroMDAppException("An error occured while processing template --> '" +
-                                    path + "'", throwable);
-                            }
-                            writer.flush();
-                            ResourceWriter.instance().writeStringToFile(
-                                writer.toString(),
-                                outputFile);
-                            this.printText(MARGIN + "Output: '" + outputFile.toURL() + "'");
-                        }
-                        else if (!path.endsWith("/"))
-                        {
-                            final File outputFile = new File(
-                                    rootDirectory.getAbsolutePath(),
-                                    projectRelativePath);
-                            final URL resource = ClassUtils.getClassLoader().getResource(path);
-                            if (resource != null)
-                            {
-                                ResourceWriter.instance().writeUrlToFile(
-                                    resource,
-                                    outputFile.toString());
+                                final File outputFile =
+                                    new File(
+                                        rootDirectory.getAbsolutePath(),
+                                        this.trimTemplateExtension(projectRelativePath));
+                                final StringWriter writer = new StringWriter();
+                                try
+                                {
+                                    this.getTemplateEngine().processTemplate(
+                                        path,
+                                        this.templateContext,
+                                        writer);
+                                }
+                                catch (final Throwable throwable)
+                                {
+                                    throw new AndroMDAppException("An error occured while processing template --> '" +
+                                        path + "'", throwable);
+                                }
+                                writer.flush();
+                                ResourceWriter.instance().writeStringToFile(
+                                    writer.toString(),
+                                    outputFile);
                                 this.printText(MARGIN + "Output: '" + outputFile.toURL() + "'");
                             }
+                            else if (!path.endsWith("/"))
+                            {
+                                final File outputFile = new File(
+                                        rootDirectory.getAbsolutePath(),
+                                        projectRelativePath);
+                                final URL resource = ClassUtils.getClassLoader().getResource(path);
+                                if (resource != null)
+                                {
+                                    ResourceWriter.instance().writeUrlToFile(
+                                        resource,
+                                        outputFile.toString());
+                                    this.printText(MARGIN + "Output: '" + outputFile.toURL() + "'");
+                                }
+                            }
                         }
-                    }
-                    for (final Iterator directoryIterator = this.directories.iterator(); directoryIterator.hasNext();)
-                    {
-                        final File directory = new File(rootDirectory,
-                                ((String)directoryIterator.next()).trim());
-                        directory.mkdirs();
-                        this.printText(MARGIN + "Output: '" + directory.toURL() + "'");
                     }
                 }
             }
         }
+
+        // - write any directories that are defined.
+        for (final Iterator directoryIterator = this.directories.iterator(); directoryIterator.hasNext();)
+        {
+            final String directoryPath = ((String)directoryIterator.next()).trim();
+            final File directory = new File(rootDirectory, directoryPath);
+            if (this.isWriteable(directoryPath))
+            {
+                directory.mkdirs();
+                this.printText(MARGIN + "Output: '" + directory.toURL() + "'");
+            }
+        }
+
+        // - write the "instructions can be found" information
         this.printLine();
         this.printText(MARGIN + "New application generated to --> '" + rootDirectory.toURL() + "'");
-
         if (this.instructions != null && this.instructions.trim().length() > 0)
         {
             File instructions = new File(
@@ -339,6 +350,66 @@ public class AndroMDAppType
         }
 
         this.printLine();
+    }
+
+    /**
+     * Indicates whether or not this path is <em>writable</em>
+     * based on the path and any output conditions that may be specified.
+     *
+     * @param path the path tot check.
+     * @return true/false
+     */
+    private boolean isWriteable(String path)
+    {
+        path = path.replaceAll("\\\\+", "/");
+        if (path.startsWith("/"))
+        {
+            path = path.substring(1, path.length());
+        }
+        boolean writable = true;
+        for (final Iterator iterator = this.outputConditions.iterator(); iterator.hasNext();)
+        {
+            final Condition condition = (Condition)iterator.next();
+            final String id = condition.getId();
+            if (id != null && id.trim().length() > 0)
+            {
+                final String equal = condition.getEqual();
+                final String notEqual = condition.getNotEqual();
+                final boolean equalConditionPresent = equal != null && equal.trim().length() > 0;
+                final boolean notEqualConditionPresent = notEqual != null && notEqual.trim().length() > 0;
+                if (equalConditionPresent || notEqualConditionPresent)
+                {
+                    final Map outputPaths = condition.getOutputPaths();
+                    for (final Iterator pathIterator = outputPaths.keySet().iterator(); pathIterator.hasNext();)
+                    {
+                        final String outputPath = (String)pathIterator.next();
+                        if (path.startsWith(outputPath))
+                        {
+                            final String[] patterns = (String[])outputPaths.get(outputPath);
+                            if (ResourceUtils.matchesAtLeastOnePattern(
+                                    path,
+                                    patterns))
+                            {
+                                final Object value = ObjectUtils.toString(this.templateContext.get(id));
+                                if (equalConditionPresent)
+                                {
+                                    writable = equal.equals(value);
+                                }
+                                else if (notEqualConditionPresent)
+                                {
+                                    writable = !notEqual.equals(value);
+                                }
+                                if (!writable)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return writable;
     }
 
     /**

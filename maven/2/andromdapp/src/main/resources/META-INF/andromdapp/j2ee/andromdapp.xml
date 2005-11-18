@@ -4,10 +4,11 @@
     </resourceLocations>
     <directories>
         <directory>core/src/main/java</directory>
+        <directory>workflow/src/main/java</directory>
     </directories>
     <outputConditions>
-        <condition id="worflow" equal="true">
-            <output patterns="**/*">worflow</output>         
+        <condition id="workflow" equal="true">
+            <output patterns="**/*">workflow</output>         
         </condition>
     </outputConditions>
     <instructions>readme.txt</instructions>

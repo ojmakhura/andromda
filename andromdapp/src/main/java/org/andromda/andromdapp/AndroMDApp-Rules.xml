@@ -29,6 +29,7 @@
                 <call-param-rule paramnumber="0"/>        
                 <call-param-rule attrname="patterns" paramnumber="1"/>            
             </pattern>
+            <set-next-rule methodname="addOutputCondition"/>
         </pattern>
         <pattern value="instructions">
             <call-method-rule methodname="setInstructions" paramcount="1" paramtypes="java.lang.String"/>
@@ -78,12 +79,12 @@
                 </set-properties-rule>
                 <pattern value="setPrompt">
                     <call-method-rule methodname="addPromptValue" paramcount="2" paramtypes="java.lang.String,java.lang.String"/>
-                    <call-param-rule attrname="id" paramnumber="0" />
+                    <call-param-rule attrname="id" paramnumber="0"/>
                     <call-param-rule paramnumber="1"/>
                 </pattern>
-                 <set-next-rule methodname="addCondition" />
+                 <set-next-rule methodname="addCondition"/>
              </pattern>
-             <set-next-rule methodname="addPrompt" />
+             <set-next-rule methodname="addPrompt"/>
         </pattern>
     </pattern>
 </digester-rules>

@@ -83,7 +83,7 @@ public class AndroMDApp
                 {
                     final String uri = (String)iterator.next();
                     if (uri.replaceAll(
-                            ".*(\\+|/)",
+                            ".*(\\\\+|/)",
                             "").equals(DESCRIPTOR))
                     {
                         final XmlObjectFactory factory = XmlObjectFactory.getInstance(AndroMDApp.class);

@@ -132,4 +132,14 @@ public class Condition
             path,
             AndroMDAppUtils.stringToArray(patterns));
     }
+    
+    /**
+     * Gets the current output paths for this condition.
+     * 
+     * @return the map of output paths and its patterns (if it has any defined).
+     */
+    final Map getOutputPaths()
+    {
+        return this.outputPaths;
+    }
 }
