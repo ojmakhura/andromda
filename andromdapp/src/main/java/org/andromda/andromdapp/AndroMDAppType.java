@@ -274,10 +274,17 @@ public class AndroMDAppType
                                     rootDirectory.getAbsolutePath(),
                                     this.trimTemplateExtension(projectRelativePath));
                             final StringWriter writer = new StringWriter();
-                            this.getTemplateEngine().processTemplate(
-                                path,
-                                this.templateContext,
-                                writer);
+                            try
+                            {
+                                this.getTemplateEngine().processTemplate(
+                                    path,
+                                    this.templateContext,
+                                    writer);
+                            }
+                            catch (final Throwable throwable)
+                            {
+                                throw new AndroMDAppException("An error occured while processing template --> '" + path + "'", throwable);
+                            }
                             writer.flush();
                             ResourceWriter.instance().writeStringToFile(
                                 writer.toString(),
