@@ -122,7 +122,7 @@
             <groupId>jboss</groupId>
             <artifactId>jboss-j2ee</artifactId>
         </dependency>
-#if ($webservices)
+#if ($webservice)
         <dependency>
             <groupId>axis</groupId>
             <artifactId>axis</artifactId>

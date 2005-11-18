@@ -6,11 +6,17 @@
         <directory>core/src/main/java</directory>
         <directory>workflow/src/main/java</directory>
     </directories>
-    <outputConditions>
-        <condition id="workflow" equal="true">
-            <output patterns="**/*">workflow</output>         
-        </condition>
-    </outputConditions>
+    <conditionalOutput>
+        <conditions>
+            <condition id="workflow" equal="true"/>           
+            <output patterns="**/*">workflow</output>  
+        </conditions>
+        <conditions>
+            <condition id="webservice" equal="true"/>   
+            <condition id="ear" equal="true"/>         
+            <output patterns="**/*">webservice</output>  
+        </conditions>
+    </conditionalOutput>
     <instructions>readme.txt</instructions>
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>
     <prompts>
@@ -37,7 +43,7 @@
             </responses>
             <conditions>
                 <condition equal="war">
-                    <setPrompt id="transactionPersistenceType">spring</setPrompt>
+                    <setProperty id="transactionPersistenceType">spring</setProperty>
                 </condition>
             </conditions>
         </prompt>
@@ -57,7 +63,7 @@
             </responses>
             <conditions>
                 <condition equal="yes">
-                    <setPrompt id="hibernateVersion">3</setPrompt>
+                    <setProperty id="hibernateVersion">3</setProperty>
                 </condition>
             </conditions>
         </prompt>
@@ -85,7 +91,7 @@
                 <response>struts</response>
             </responses>
         </prompt>
-        <prompt id="webservices">
+        <prompt id="webservice">
             <text>Would you like to be able to expose your services as web services?</text>
             <responses>
                 <response type="java.lang.Boolean">yes</response>

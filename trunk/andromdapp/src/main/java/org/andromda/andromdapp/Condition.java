@@ -36,33 +36,43 @@ public class Condition
     {
         this.id = id;
     }
-    
+
     /**
-     * Stores the prompt values to set if the condition is true.
+     * Stores the properties to set if the condition is true.
      */
-    private final Map promptValues = new LinkedHashMap();
-    
+    private final Map properties = new LinkedHashMap();
+
     /**
-     * Adds the prompt id and the value to give the prompt.
-     * 
+     * Sets the value of the property in the template context
+     * with the given <code>id</code> to have the given <code>value</code>
+     * if this condition is true.
+     *
      * @param id the identifier of the prompt.
      * @param value the value to give the prompt.
+     * @param type the fully qualified type name.
      */
-    public void addPromptValue(final String id, final String value)
+    public void setProperty(
+        final String id,
+        final String value,
+        final String type)
     {
-        this.promptValues.put(id, value);
+        this.properties.put(
+            id,
+            AndroMDAppUtils.convert(
+                value,
+                type));
     }
-    
+
     /**
-     * Gets all prompt values for this condition.
-     * 
+     * Gets all properties to set for this condition.
+     *
      * @return the prompt values.
      */
-    public Map getPromptValues()
+    public Map getProperties()
     {
-        return this.promptValues;
+        return this.properties;
     }
-    
+
     /**
      * The value of which the condition must be equal.
      */
@@ -111,35 +121,5 @@ public class Condition
     public void setNotEqual(final String notEqual)
     {
         this.notEqual = notEqual;
-    }
-    
-    /**
-     * Stores the output paths.
-     */
-    private Map outputPaths = new LinkedHashMap();
-
-    /**
-     * Adds a path to the output paths.
-     *
-     * @param path the path to the resulting output
-     * @param patterns any patterns to which the condition should apply
-     */
-    public void addOutputPath(
-        final String path,
-        final String patterns)
-    {
-        this.outputPaths.put(
-            path,
-            AndroMDAppUtils.stringToArray(patterns));
-    }
-    
-    /**
-     * Gets the current output paths for this condition.
-     * 
-     * @return the map of output paths and its patterns (if it has any defined).
-     */
-    final Map getOutputPaths()
-    {
-        return this.outputPaths;
     }
 }

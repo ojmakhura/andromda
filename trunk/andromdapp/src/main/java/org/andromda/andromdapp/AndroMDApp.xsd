@@ -9,7 +9,7 @@
 			<xs:sequence>
                 <xs:element ref="resourceLocations"/>
                 <xs:element ref="directories" minOccurs="0"/>
-				<xs:element ref="outputConditions" minOccurs="0"/>
+				<xs:element ref="conditionalOutput" minOccurs="0"/>
 				<xs:element ref="instructions" minOccurs="0"/>
                 <xs:element ref="templateEngine"/>
 				<xs:element ref="prompts"/>
@@ -28,14 +28,13 @@
 	<xs:element name="condition">
 		<xs:complexType>
 			<xs:sequence>
-                <xs:element ref="setPrompt" minOccurs="0"/>
-                <xs:element ref="setProperty" minOccurs="0"/>
+                <xs:element ref="setProperty" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
             <xs:attribute name="id" type="xs:string" use="optional">
                 <xs:annotation>
                     <xs:documentation>
-                        Specifies the identifier for the prompt, if unspecified the condition is assumed
-                        to apply to the prompt its nested within.
+                        Specifies the identifier for a property in the template context, if unspecified the condition is assumed
+                        to apply to the response of prompt its nested within.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -99,39 +98,50 @@
 			</xs:simpleContent>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="outputConditions">
+	<xs:element name="conditionalOutput">
         <xs:annotation>
             <xs:documentation>
-                Defines the output that should be conditionally written.  If a condition
-                is specified, then that condition must be met before the file will be written.
+                Defines the output that should be conditionally written.  If conditions
+                are specified, then those conditions must be met before the file will be written.
             </xs:documentation>
         </xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-                <xs:element name="condition">
+                <xs:element name="conditions" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element ref="output" maxOccurs="unbounded"/>
+                            <xs:element name="condition" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="equal" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Specifies that the condition must be equal to the value defined by this attribute.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="notEqual" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Specifies that the condition must NOT be equal to the value defined by this attribute.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="id" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Specifies the identifier for a property in the template context, if unspecified the condition is assumed
+                                                to apply to the response of prompt its nested within.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>                   
+                            <xs:element ref="output" maxOccurs="unbounded"/>         
                         </xs:sequence>
-                        <xs:attribute name="equal" type="xs:string" use="optional">
+                        <xs:attribute name="type" type="conditionsType" use="optional" default="and">
                             <xs:annotation>
                                 <xs:documentation>
-                                    Specifies that the condition must be equal to the value defined by this attribute.
-                                </xs:documentation>
-                            </xs:annotation>
-                        </xs:attribute>
-                        <xs:attribute name="notEqual" type="xs:string" use="optional">
-                            <xs:annotation>
-                                <xs:documentation>
-                                    Specifies that the condition must NOT be equal to the value defined by this attribute.
-                                </xs:documentation>
-                            </xs:annotation>
-                        </xs:attribute>
-                        <xs:attribute name="id" type="xs:string">
-                            <xs:annotation>
-                                <xs:documentation>
-                                    Specifies the identifier for the prompt, if unspecified the condition is assumed
-                                    to apply to the prompt its nested within.
+                                    Represents the type of conditions and/o'.
                                 </xs:documentation>
                             </xs:annotation>
                         </xs:attribute>
@@ -140,6 +150,27 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+    <xs:simpleType name="conditionsType">
+        <xs:annotation>
+            <xs:documentation> Stores the possible component names </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="and">
+                <xs:annotation>
+                    <xs:documentation>
+                        When the condition should be "anded" together".
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="or">
+                <xs:annotation>
+                    <xs:documentation>
+                       When the condition should be "ored" together.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+       </xs:restriction>
+    </xs:simpleType>
     <xs:element name="macrolibrary">
         <xs:annotation>
             <xs:documentation>
@@ -165,7 +196,14 @@
 				<xs:element ref="responses" minOccurs="0"/>
 				<xs:element ref="conditions" minOccurs="0"/>
 			</xs:sequence>
-			<xs:attribute name="id" type="xs:string" use="required"/>
+			<xs:attribute name="id" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Serves as the identifier of the prompt.  The result of the response to the prompt from the user
+                        is stored in as a variable in the template context with this this as the name of the variable.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:attribute name="required" type="xs:boolean" use="optional" default="true"/>
             <xs:attribute name="setResponseAsTrue" type="xs:boolean" use="optional" default="false">
                 <xs:annotation>
@@ -217,21 +255,29 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="setPrompt">
-		<xs:complexType>
-			<xs:simpleContent>
-				<xs:extension base="xs:string">
-					<xs:attribute name="id" type="xs:string" use="required"/>
-				</xs:extension>
-			</xs:simpleContent>
-		</xs:complexType>
-	</xs:element>
 	<xs:element name="setProperty">
+        <xs:annotation>
+            <xs:documentation>
+                Allows you to set the value of a property in the template context.
+            </xs:documentation>
+        </xs:annotation>
 		<xs:complexType>
 			<xs:simpleContent>
 				<xs:extension base="xs:string">
-					<xs:attribute name="id" type="xs:string" use="required"/>
-					<xs:attribute name="type" type="xs:string" use="required"/>
+					<xs:attribute name="id" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>
+                                The identifier of the property in the template context.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+					<xs:attribute name="type" type="xs:string" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Defines the type (i.e. 'java.lang.Boolean') the response shall be when its added to the template context.                                
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
 				</xs:extension>
 			</xs:simpleContent>
 		</xs:complexType>
