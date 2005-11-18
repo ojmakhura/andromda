@@ -75,7 +75,8 @@ public class AndroMDAppType
     private static final String NAMESPACE = "andromdapp";
 
     /**
-     * Prompts the user for the input required to generate an application with the correct information.
+     * Prompts the user for the input required to generate an application with
+     * the correct information.
      */
     private void promptUser()
     {
@@ -132,7 +133,8 @@ public class AndroMDAppType
     }
 
     /**
-     * Prompts the user for the information contained in the given <code>prompt</code>.
+     * Prompts the user for the information contained in the given
+     * <code>prompt</code>.
      *
      * @param prompt the prompt from which to format the prompt text.
      * @return the response of the prompt.
@@ -186,7 +188,8 @@ public class AndroMDAppType
     /**
      * Sets the class of the template engine to use.
      *
-     * @param templateEngineClass the Class of the template engine implementation.
+     * @param templateEngineClass the Class of the template engine
+     *        implementation.
      */
     public void setTemplateEngineClass(final String templateEngineClass)
     {
@@ -232,6 +235,7 @@ public class AndroMDAppType
 
     /**
      * Processes the files for the project.
+     *
      * @throws Exception
      */
     private void processResources()
@@ -283,7 +287,8 @@ public class AndroMDAppType
                             }
                             catch (final Throwable throwable)
                             {
-                                throw new AndroMDAppException("An error occured while processing template --> '" + path + "'", throwable);
+                                throw new AndroMDAppException("An error occured while processing template --> '" +
+                                    path + "'", throwable);
                             }
                             writer.flush();
                             ResourceWriter.instance().writeStringToFile(
@@ -322,26 +327,23 @@ public class AndroMDAppType
         if (this.instructions != null && this.instructions.trim().length() > 0)
         {
             File instructions = new File(
-                        rootDirectory.getAbsolutePath(),
-                        this.instructions);
+                    rootDirectory.getAbsolutePath(),
+                    this.instructions);
             if (!instructions.exists())
             {
                 throw new AndroMDAppException("No instructions are available at --> '" + instructions +
-                    "', please make sure you have the correct instructions defined in your descriptor --> '" + this.resource +
-                    "'");
+                    "', please make sure you have the correct instructions defined in your descriptor --> '" +
+                    this.resource + "'");
             }
-            this.printText(MARGIN + 
-                "Instructions for your new application --> '" + instructions.toURL() +
-                "'");
+            this.printText(MARGIN + "Instructions for your new application --> '" + instructions.toURL() + "'");
         }
 
         this.printLine();
     }
 
     /**
-     * Indicates whether or not the given <code>path</code>
-     * matches at least one of the file extensions stored in the
-     * {@link #templateExtensions}.
+     * Indicates whether or not the given <code>path</code> matches at least
+     * one of the file extensions stored in the {@link #templateExtensions}.
      *
      * @param path the path to check.
      * @return true/false
@@ -401,8 +403,8 @@ public class AndroMDAppType
 
     /**
      * Verifies that if the root directory already exists, the user is prompted
-     * to make sure its ok if we generate over it, otherwise the user can change his/her
-     * application directory.
+     * to make sure its ok if we generate over it, otherwise the user can change
+     * his/her application directory.
      *
      * @param rootDirectory the root directory that will be verified.
      * @return the appropriate root directory.
@@ -528,8 +530,8 @@ public class AndroMDAppType
     private final List prompts = new ArrayList();
 
     /**
-     * Adds a prompt to the collection of prompts
-     * contained within this instance.
+     * Adds a prompt to the collection of prompts contained within this
+     * instance.
      *
      * @param prompt the prompt to add.
      */
@@ -564,26 +566,8 @@ public class AndroMDAppType
     }
 
     /**
-     * Stores the patterns of the templates that the template engine should
-     * process.
-     */
-    private String[] templateExtensions;
-
-    /**
-     * @param templateExtensions The templateExtensions to set.
-     */
-    public void setTemplateExtensions(String templateExtensions)
-    {
-        this.templateExtensions = templateExtensions != null ? templateExtensions.split(EXTENSION_DELIMITER) : null;
-    }
-
-    /**
-     * The delimiter for seperating location patterns.
-     */
-    private static final String EXTENSION_DELIMITER = ",";
-
-    /**
-     * The any empty directories that should be created when generating the application.
+     * The any empty directories that should be created when generating the
+     * application.
      */
     private List directories = new ArrayList();
 
@@ -598,7 +582,38 @@ public class AndroMDAppType
     }
 
     /**
-     * The path to the instructions on how to operation the build of the new application.
+     * Stores the output conditions (that is the conditions
+     * that must apply for the defined output to be written).
+     */
+    private List outputConditions = new ArrayList();
+
+    /**
+     * Adds an condition to the output conditions..
+     *
+     * @param outputCondition the output condition to add.
+     */
+    public void addOutputCondition(final Condition outputCondition)
+    {
+        this.outputConditions.add(outputCondition);
+    }
+
+    /**
+     * Stores the patterns of the templates that the template engine should
+     * process.
+     */
+    private String[] templateExtensions;
+
+    /**
+     * @param templateExtensions The templateExtensions to set.
+     */
+    public void setTemplateExtensions(final String templateExtensions)
+    {
+        this.templateExtensions = AndroMDAppUtils.stringToArray(templateExtensions);
+    }
+
+    /**
+     * The path to the instructions on how to operation the build of the new
+     * application.
      */
     private String instructions;
 

@@ -9,6 +9,7 @@
 			<xs:sequence>
                 <xs:element ref="resourceLocations"/>
                 <xs:element ref="directories" minOccurs="0"/>
+				<xs:element ref="outputConditions" minOccurs="0"/>
 				<xs:element ref="instructions" minOccurs="0"/>
                 <xs:element ref="templateEngine"/>
 				<xs:element ref="prompts"/>
@@ -89,6 +90,56 @@
         </xs:annotation>
     </xs:element>
 	<xs:element name="location" type="xs:string"/>
+	<xs:element name="output">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="patterns" type="xs:string" use="optional"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="outputConditions">
+        <xs:annotation>
+            <xs:documentation>
+                Defines the output that should be conditionally written.  If a condition
+                is specified, then that condition must be met before the file will be written.
+            </xs:documentation>
+        </xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+                <xs:element name="condition">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element ref="output" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                        <xs:attribute name="equal" type="xs:string" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Specifies that the condition must be equal to the value defined by this attribute.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="notEqual" type="xs:string" use="optional">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Specifies that the condition must NOT be equal to the value defined by this attribute.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                        <xs:attribute name="id" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Specifies the identifier for the prompt, if unspecified the condition is assumed
+                                    to apply to the prompt its nested within.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
     <xs:element name="macrolibrary">
         <xs:annotation>
             <xs:documentation>
@@ -215,6 +266,11 @@
         </xs:complexType>
     </xs:element>
 	<xs:element name="templateLocations">
+        <xs:annotation>
+            <xs:documentation>
+                Defines the location(s) of template files.
+            </xs:documentation>
+        </xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="location"/>

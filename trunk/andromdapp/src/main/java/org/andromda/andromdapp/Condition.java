@@ -112,4 +112,24 @@ public class Condition
     {
         this.notEqual = notEqual;
     }
+    
+    /**
+     * Stores the output paths.
+     */
+    private Map outputPaths = new LinkedHashMap();
+
+    /**
+     * Adds a path to the output paths.
+     *
+     * @param path the path to the resulting output
+     * @param patterns any patterns to which the condition should apply
+     */
+    public void addOutputPath(
+        final String path,
+        final String patterns)
+    {
+        this.outputPaths.put(
+            path,
+            AndroMDAppUtils.stringToArray(patterns));
+    }
 }
