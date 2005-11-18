@@ -1,9 +1,3 @@
-/*
- * Created on Oct 26, 2005
- *
- * TODO To change the template for this generated file go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
 package org.andromda.metafacades.emf.uml2;
 
 import java.util.ArrayList;
@@ -35,7 +29,12 @@ import org.eclipse.uml2.TemplateBinding;
 import org.eclipse.uml2.TemplateSignature;
 import org.eclipse.uml2.VisibilityKind;
 
-
+/**
+ * Represents a TagDefinition metaclass (was needed because it doesn't
+ * exist in the uml2 metamodel).
+ * 
+ * @author Steve Jermain
+ */
 public class TagDefinitionImpl
     implements TagDefinition
 {
