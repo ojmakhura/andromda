@@ -2,6 +2,9 @@
     <resourceLocations>
         <location>META-INF/andromdapp/j2ee/resources</location>        
     </resourceLocations>
+    <directories>
+        <directory>core/src/main/java</directory>
+    </directories>
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>
     <prompts>
         <prompt id="author">

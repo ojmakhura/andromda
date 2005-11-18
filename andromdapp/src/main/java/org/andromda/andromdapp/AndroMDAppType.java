@@ -277,6 +277,12 @@ public class AndroMDAppType
                             }
                         }
                     }
+                    for (final Iterator directoryIterator = this.directories.iterator(); directoryIterator.hasNext();)
+                    {
+                        final File directory = new File(rootDirectory, (String)directoryIterator.next());
+                        directory.mkdirs();
+                        this.printText(MARGIN + "Output : '" + directory.toURL() + "'");
+                    }
                 }
             }
         }
@@ -526,6 +532,21 @@ public class AndroMDAppType
      * The delimiter for seperating location patterns.
      */
     private static final String EXTENSION_DELIMITER = ",";
+    
+    /**
+     * The any empty directories that should be created when generating the application.
+     */
+    private List directories = new ArrayList();
+    
+    /**
+     * The relative path to the directory to be created.
+     * 
+     * @param directory the path to the directory.
+     */
+    public void addDirectory(final String directory)
+    {
+        this.directories.add(directory);
+    }
 
     /**
      * @see java.lang.Object#toString()
