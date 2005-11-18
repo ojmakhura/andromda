@@ -44,8 +44,8 @@
                 <response>spring</response>
             </responses>
         </prompt>
-        <prompt id="jbpm">
-            <text>Will your project use the jBpm workflow engine (it uses Hibernate3)?</text>
+        <prompt id="workflow">
+            <text>Will your project need workflow engine capabilities? (it uses jBPM and Hibernate3)?</text>
             <responses>
                 <response type="java.lang.Boolean">yes</response>
                 <response type="java.lang.Boolean">no</response>
