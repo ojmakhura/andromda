@@ -12,6 +12,17 @@ import org.apache.commons.lang.StringUtils;
  */
 public class PathMatcher
 {
+    
+    /**
+     * A forward slash.
+     */
+    private static final String FORWARD_SLASH = "/";
+    
+    /**
+     * A double star within a pattern.
+     */
+    private static final String DOUBLE_STAR = "**/";
+    
     /**
      * Provides matching of simple wildcards. (i.e. '*.java' etc.)
      *
@@ -23,22 +34,43 @@ public class PathMatcher
         String path,
         String pattern)
     {
-        path = StringUtils.trimToEmpty(path);
+        ExceptionUtils.checkNull(
+            "path",
+            path);
+        ExceptionUtils.checkNull(
+            "pattern",
+            pattern);
+        // - remove any starting slashes, as they interfere with the matching
+        if (path.startsWith(FORWARD_SLASH))
+        {
+            path = path.substring(
+                    1,
+                    path.length());
+        }
+        path = path.trim();
+        pattern = pattern.trim();
         boolean matches = false;
-        final String doubleStar = "**/";
-        final String slash = "/";
-        pattern = StringUtils.replace(pattern, ".", "\\.");
-        boolean matchAll = pattern.startsWith(doubleStar);
+        pattern = StringUtils.replace(
+                pattern,
+                ".",
+                "\\.");
+        boolean matchAll = pattern.startsWith(DOUBLE_STAR);
         if (matchAll)
         {
             String replacement = ".*/";
-            if (path.indexOf(slash) == -1)
+            if (path.indexOf(FORWARD_SLASH) == -1)
             {
                 replacement = ".*";
             }
-            pattern = StringUtils.replaceOnce(pattern, doubleStar, replacement);
+            pattern = StringUtils.replaceOnce(
+                    pattern,
+                    DOUBLE_STAR,
+                    replacement);
         }
-        pattern = StringUtils.replace(pattern, "*", ".*");
+        pattern = StringUtils.replace(
+                pattern,
+                "*",
+                ".*");
         try
         {
             matches = path.matches(pattern);
@@ -49,7 +81,11 @@ public class PathMatcher
         }
         if (!matchAll)
         {
-            matches = matches && StringUtils.countMatches(pattern, slash) == StringUtils.countMatches(path, slash);
+            matches = matches && StringUtils.countMatches(
+                    pattern,
+                    FORWARD_SLASH) == StringUtils.countMatches(
+                    path,
+                    FORWARD_SLASH);
         }
         return matches;
     }
