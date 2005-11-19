@@ -8,15 +8,6 @@
     <artifactId>animal-quiz-webservice</artifactId>
     <packaging>war</packaging>
     <name>AndroMDA Animal Quiz WebService</name>
-    <dependencies>
-        <dependency>
-            <groupId>${pom.groupId}</groupId>
-            <artifactId>animal-quiz-core</artifactId>
-            <version>${version}</version>
-            <type>ejb</type>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
     <build>
         <plugins>
             <plugin>
