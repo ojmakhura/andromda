@@ -388,7 +388,7 @@ public class XmlObjectFactory
                         "");
                 // - remove any extra starting slashes
                 path = path.replaceAll(
-                        "\\+",
+                        "\\\\+",
                         "/").replaceAll(
                         "/+",
                         "/");

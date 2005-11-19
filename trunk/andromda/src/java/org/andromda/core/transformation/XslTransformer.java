@@ -129,7 +129,7 @@ public class XslTransformer
             Source source = null;
             if (this.location != null)
             {
-                String locationUri = new String(location.toString().replaceAll("\\+", "/"));
+                String locationUri = new String(location.toString().replaceAll("\\\\+", "/"));
                 locationUri = locationUri.substring(0, locationUri.toString().lastIndexOf('/') + 1);
                 source = new StreamSource(locationUri + href);
             }

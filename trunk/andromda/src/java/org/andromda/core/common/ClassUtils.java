@@ -314,7 +314,7 @@ public class ClassUtils
                 final String typeName =
                     StringUtils.replace(
                         path.replaceAll(
-                            "\\+",
+                            "\\\\+",
                             "/").replace(
                             '/',
                             '.'),

@@ -169,7 +169,7 @@ public class MetafacadeImpls
                     final String typeName =
                         StringUtils.replace(
                             path.replaceAll(
-                                "\\+|/+",
+                                "\\\\+|/+",
                                 "."),
                             ClassUtils.CLASS_EXTENSION,
                             "");
