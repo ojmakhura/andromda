@@ -6,12 +6,8 @@
     <groupId>andromda</groupId>
     <name>AndroMDA Repositories</name>
     <repository>
-        <connection>
-            scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda/repositories/${pom.artifactId.replaceAll('andromda-repository-',
-            '')}</connection>
-        <url>
-            http://cvs.sourceforge.net/viewcvs.py/andromda/repositories/${pom.artifactId.replaceAll('andromda-repository-',
-            '')}/</url>
+        <connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda/repositories/${pom.artifactId.replaceAll('andromda-repository-','')}</connection>
+        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/repositories/${pom.artifactId.replaceAll('andromda-repository-','')}/</url>
     </repository>
     <dependencies>
         <dependency>
@@ -75,7 +71,6 @@
             </resource>
         </resources>
     </build>
-
     <!-- restrict the reports generated -->
     <reports>
         <report>maven-jxr-plugin</report>
@@ -89,5 +84,4 @@
         <report>maven-developer-activity-plugin</report>
         <report>maven-junit-report-plugin</report>
     </reports>
-
 </project>
