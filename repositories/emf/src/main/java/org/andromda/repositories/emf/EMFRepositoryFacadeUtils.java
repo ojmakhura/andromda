@@ -10,7 +10,7 @@ import org.eclipse.emf.common.util.URI;
  * 
  * @author Chad Brandon
  */
-public class EMFRepositoryFacadeUtils
+class EMFRepositoryFacadeUtils
 {
     /**
      * The URI file prefix.
@@ -23,7 +23,7 @@ public class EMFRepositoryFacadeUtils
      * @param uri the path from which to create the URI.
      * @return the URI
      */
-    public static URI createUri(String uri)
+    static final URI createUri(String uri)
     {
         if (uri.startsWith(FILE_PREFIX))
         {
