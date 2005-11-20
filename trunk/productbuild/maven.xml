@@ -394,7 +394,6 @@
            CC_TEST  = ${CC_TEST}
            rsync_target_prefix = ${rsync_target_prefix}
        </ant:echo>
-       <attainGoal name="deploy-docs"/>
        <attainGoal name="deploy-repository"/>
        <attainGoal name="deploy-build"/>
     </goal>
