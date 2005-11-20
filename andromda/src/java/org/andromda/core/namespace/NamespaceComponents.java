@@ -1,10 +1,19 @@
 package org.andromda.core.namespace;
 
 import java.io.InputStream;
+
 import java.net.URL;
+
+import java.text.Collator;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.andromda.core.common.AndroMDALogger;
@@ -19,9 +28,8 @@ import org.apache.commons.lang.StringUtils;
 
 
 /**
- * The registry for namespace components.
- * Namespace components are components that reside
- * within a namespace and can be configured by a namespace.
+ * The registry for namespace components. Namespace components are components
+ * that reside within a namespace and can be configured by a namespace.
  *
  * @author Chad Brandon
  */
@@ -53,11 +61,10 @@ public class NamespaceComponents
     private static final String CONFIGURATION_URI = "META-INF/andromda/namespace-components.xml";
 
     /**
-     * This class should not be instantiated
-     * through this constructor, it is only
-     * here to allow construction by the {@link XmlObjectFactory}.
-     * The instance of this class should be retrieved through
-     * the call to {@link #instance()}.
+     * This class should not be instantiated through this constructor, it is
+     * only here to allow construction by the {@link XmlObjectFactory}. The
+     * instance of this class should be retrieved through the call to
+     * {@link #instance()}.
      */
     public NamespaceComponents()
     {
@@ -69,162 +76,231 @@ public class NamespaceComponents
     public void discover()
     {
         AndroMDALogger.info("- discovering namespaces -");
+
+        final XmlObjectFactory registryFactory = XmlObjectFactory.getInstance(NamespaceRegistry.class);
+        final ComponentContainer container = ComponentContainer.instance();
+
+        // - discover all registries and sort them by name
+        final Map registryMap = this.discoverAllRegistries();
+        final List registries = new ArrayList(registryMap.keySet());
+        Collections.sort(
+            registries,
+            new NamespaceRegistryComparator());
+        for (final Iterator iterator = registries.iterator(); iterator.hasNext();)
+        {
+            NamespaceRegistry registry = (NamespaceRegistry)iterator.next();
+            final URL resource = (URL)registryMap.get(registry);
+            final String registryName = registry.getName();
+
+            // - only register if we haven't yet registered the namespace resource
+            if (!this.registeredNamespaceResources.contains(resource))
+            {
+                final Namespaces namespaces = Namespaces.instance();
+                final String namespace = registry.isShared() ? Namespaces.DEFAULT : registry.getName();
+
+                // - first merge on the namespace registry descriptor (if needed)
+                final Merger merger = Merger.instance();
+                if (merger.requiresMerge(namespace))
+                {
+                    registry =
+                        (NamespaceRegistry)registryFactory.getObject(
+                            merger.getMergedString(
+                                ResourceUtils.getContents(resource),
+                                namespace));
+                }
+
+                // - add the resource root
+                registry.addResourceRoot(this.getNamespaceResourceRoot(resource));
+                
+                // - only log the fact we've found the namespace registry, if we haven't done it yet
+                if (!this.registeredRegistries.contains(registryName))
+                {
+                    AndroMDALogger.info("found namespace --> '" + registryName + "'");
+                    this.registeredRegistries.add(registryName);
+                }
+
+                final NamespaceRegistry existingRegistry = namespaces.getRegistry(registryName);
+                if (existingRegistry != null)
+                {
+                    // - if we already have an existing registry with the same name, copy
+                    //   over any resources.
+                    registry.copy(existingRegistry);
+                }
+
+                // - add the registry to the namespaces instance
+                namespaces.addRegistry(registry);
+                final String[] components = registry.getRegisteredComponents();
+                final int componentNumber = components.length;
+                for (int componentCtr = 0; componentCtr < componentNumber; componentCtr++)
+                {
+                    final String componentName = components[componentCtr];
+                    final Component component = this.getComponent(componentName);
+                    if (component == null)
+                    {
+                        throw new NamespaceComponentsException("'" + componentName +
+                            "' is not a valid namespace component");
+                    }
+
+                    // - add any paths defined within the registry
+                    component.addPaths(registry.getPaths(component.getName()));
+                    if (!container.isRegisteredByNamespace(
+                            registryName,
+                            component.getType()))
+                    {
+                        AndroMDALogger.info("  +  registering component '" + componentName + "'");
+                        final XmlObjectFactory componentFactory = XmlObjectFactory.getInstance(component.getType());
+                        final URL componentResource =
+                            this.getNamespaceResource(
+                                registry.getResourceRoots(),
+                                component.getPaths());
+                        if (componentResource == null)
+                        {
+                            throw new NamespaceComponentsException("'" + componentName +
+                                "' is not a valid component within namespace '" + namespace + "' (the " +
+                                componentName + "'s descriptor can not be found)");
+                        }
+                        NamespaceComponent namespaceComponent =
+                            (NamespaceComponent)componentFactory.getObject(componentResource);
+
+                        // - now perform a merge of the descriptor (if we
+                        // require one)
+                        if (merger.requiresMerge(namespace))
+                        {
+                            namespaceComponent =
+                                (NamespaceComponent)componentFactory.getObject(
+                                    merger.getMergedString(
+                                        ResourceUtils.getContents(componentResource),
+                                        namespace));
+                        }
+
+                        namespaceComponent.setNamespace(namespace);
+                        namespaceComponent.setResource(componentResource);
+                        container.registerComponentByNamespace(
+                            registryName,
+                            component.getType(),
+                            namespaceComponent);
+                    }
+                }
+            }
+            this.registeredNamespaceResources.add(resource);
+        }
+
+        // - initialize the profile
+        Profile.instance().initialize();
+    }
+
+    /**
+     * Discovers all registries and loads them into a map with the registry as the key
+     * and the resource that configured the registry as the value.
+     *
+     * @return the registries in a Map
+     */
+    private Map discoverAllRegistries()
+    {
+        final Map registries = new HashMap();
         final URL[] resources = ResourceFinder.findResources(this.getPath());
         final XmlObjectFactory registryFactory = XmlObjectFactory.getInstance(NamespaceRegistry.class);
         if (resources != null && resources.length > 0)
         {
-            final int resourceNumber = resources.length;
-            final ComponentContainer container = ComponentContainer.instance();
-            for (int ctr = 0; ctr < resourceNumber; ctr++)
+            final int numberOfResources = resources.length;
+            for (int ctr = 0; ctr < numberOfResources; ctr++)
             {
                 final URL resource = resources[ctr];
-                NamespaceRegistry registry = (NamespaceRegistry)registryFactory.getObject(resource);
-                final String registryName = registry.getName();
-
-                // - only register if we haven't yet registered the namespace
-                if (!this.registeredNamespaces.contains(registryName))
-                {
-                    AndroMDALogger.info("found namespace --> '" + registryName + "'");
-                    final String namespace = registry.isShared() ? Namespaces.DEFAULT : registry.getName();
-
-                    // - first merge on the namespace registry descriptor (if needed)
-                    final Merger merger = Merger.instance();
-                    if (merger.requiresMerge(namespace))
-                    {
-                        registry =
-                            (NamespaceRegistry)registryFactory.getObject(
-                                merger.getMergedString(
-                                    ResourceUtils.getContents(resource),
-                                    namespace));
-                    }
-                    
-                    // - set the resource root
-                    registry.setResourceRoot(this.getNamespaceResourceRoot(resource));
-
-                    // - add the registry to the namespaces instance
-                    Namespaces.instance().addRegistry(registry);
-                    final String[] components = registry.getRegisteredComponents();
-                    final int componentNumber = components.length;
-                    for (int componentCtr = 0; componentCtr < componentNumber; componentCtr++)
-                    {
-                        final String componentName = components[componentCtr];
-                        final Component component = this.getComponent(componentName);
-                        if (component == null)
-                        {
-                            throw new NamespaceComponentsException(
-                                "'" + componentName + "' is not a valid namespace component");
-                        }
-
-                        // - add any paths defined within the registry
-                        component.addPaths(registry.getPaths(component.getName()));
-                        if (!container.isRegisteredByNamespace(
-                                namespace,
-                                component.getType()))
-                        {
-                            AndroMDALogger.info("  +  registering component '" + componentName + "'");
-                            final XmlObjectFactory componentFactory = XmlObjectFactory.getInstance(component.getType());
-                            final URL componentResource = this.getRelativeResource(
-                                    resource,
-                                    component.getPaths());
-                            if (componentResource == null)
-                            {
-                                throw new NamespaceComponentsException(
-                                    "'" + componentName + "' is not a valid component within namespace '" + namespace +
-                                    "' (the " + componentName + "'s descriptor can not be found)");
-                            }
-                            NamespaceComponent namespaceComponent =
-                                (NamespaceComponent)componentFactory.getObject(componentResource);
-
-                            // - now perform a merge of the descriptor (if we require one)
-                            if (merger.requiresMerge(namespace))
-                            {
-                                namespaceComponent =
-                                    (NamespaceComponent)componentFactory.getObject(
-                                        merger.getMergedString(
-                                            ResourceUtils.getContents(componentResource),
-                                            namespace));
-                            }
-
-                            namespaceComponent.setNamespace(namespace);
-                            namespaceComponent.setResource(componentResource);
-                            container.registerComponentByNamespace(
-                                registry.getName(),
-                                component.getType(),
-                                namespaceComponent);
-                        }
-                    }
-                }
-                this.registeredNamespaces.add(registryName);
+                final NamespaceRegistry registry = (NamespaceRegistry)registryFactory.getObject(resource);
+                registries.put(
+                    registry,
+                    resource);
             }
-
-            // - initialize the profile
-            Profile.instance().initialize();
         }
+        return registries;
     }
 
     /**
-     * Keeps track of the namespaces that have been already registered.
+     * Keeps track of the namespaces resources that have been already registered.
      */
-    private Collection registeredNamespaces = new ArrayList();
+    private Collection registeredNamespaceResources = new ArrayList();
 
     /**
-     * Attempts to retrieve a resource relative to the given <code>resource</code>
-     * by computing the complete path from the given relative <code>path</code>.  Retrieves
-     * the first valid one found.
+     * Keeps track of the namespace registries that have been registered.
+     */
+    private Collection registeredRegistries = new ArrayList();
+
+    /**
+     * Attempts to retrieve a resource relative to the given
+     * <code>resourceRoots</code> by computing the complete path from the given
+     * relative <code>path</code>. Retrieves the first valid one found.
      *
-     * @param resource the resource from which to search.
+     * @param resourceRoots the resourceRoots from which to perform search.
      * @param paths the relative paths to check.
      * @return the resource found or null if invalid.
      */
-    private URL getRelativeResource(
-        final URL resource,
+    private URL getNamespaceResource(
+        final URL[] resourceRoots,
         final String[] paths)
     {
-        URL relativeResource = null;
-        final int pathNumber = paths.length;
-        for (int ctr = 0; ctr < pathNumber; ctr++)
+        URL namespaceResource = null;
+        if (resourceRoots != null)
         {
-            final String path = paths[ctr];
-            InputStream stream = null;
-            try
+            final int numberOfResourceRoots = resourceRoots.length;
+            for (int ctr = 0; ctr < numberOfResourceRoots; ctr++)
             {
-                relativeResource = new URL(StringUtils.replace(
-                            resource.toString(),
-                            this.getPath(),
-                            path));
-                stream = relativeResource.openStream();
-                stream.close();
-            }
-            catch (final Throwable throwable)
-            {
-                relativeResource = null;
-            }
-            finally
-            {
-                stream = null;
-            }
+                final URL resource = resourceRoots[ctr];
+                final int pathNumber = paths.length;
+                for (int ctr2 = 0; ctr2 < pathNumber; ctr2++)
+                {
+                    final String path = paths[ctr2];
+                    InputStream stream = null;
+                    try
+                    {
+                        namespaceResource = new URL((resource + path).replaceAll(
+                                    "\\\\+|/",
+                                    "/"));
+                        stream = namespaceResource.openStream();
+                        stream.close();
+                    }
+                    catch (final Throwable throwable)
+                    {
+                        namespaceResource = null;
+                    }
+                    finally
+                    {
+                        stream = null;
+                    }
 
-            // - break at the first valid one
-            if (relativeResource != null)
-            {
-                break;
+                    // - break if we've found one
+                    if (namespaceResource != null)
+                    {
+                        break;
+                    }
+                }
+
+                // - break if we've found one
+                if (namespaceResource != null)
+                {
+                    break;
+                }
             }
         }
-        return relativeResource;
+        return namespaceResource;
     }
-    
+
     /**
-     * Attempts to retrieve the resource root of the namespace; that is the 
-     * directory (whether it be a regular directory or achive root)
-     * which this namespace spans.
-     * 
+     * Attempts to retrieve the resource root of the namespace; that is the
+     * directory (whether it be a regular directory or achive root) which this
+     * namespace spans.
+     *
      * @param resource the resource from which to retrieve the root.
      * @return the namespace root, or null if could not be found.
      */
     private URL getNamespaceResourceRoot(final URL resource)
     {
-        final String resourcePath = resource != null ? resource.toString().replace('\\', '/') : null;
-        return ResourceUtils.toURL(StringUtils.replace(resourcePath, this.path, ""));
+        final String resourcePath = resource != null ? resource.toString().replace(
+                '\\',
+                '/') : null;
+        return ResourceUtils.toURL(StringUtils.replace(
+                resourcePath,
+                this.path,
+                ""));
     }
 
     /**
@@ -253,8 +329,7 @@ public class NamespaceComponents
     }
 
     /**
-     * Stores the actual component definitions for this
-     * namespace registry.
+     * Stores the actual component definitions for this namespace registry.
      */
     private final Map components = new LinkedHashMap();
 
@@ -274,18 +349,18 @@ public class NamespaceComponents
     }
 
     /**
-     * Shuts down this component registry and reclaims
-     * any resources used.
+     * Shuts down this component registry and reclaims any resources used.
      */
     public void shutdown()
     {
         this.components.clear();
+        this.registeredNamespaceResources.clear();
+        this.registeredRegistries.clear();
         instance = null;
     }
 
     /**
-     * Retrieves a component by name (or returns null if one
-     * can not be found).
+     * Retrieves a component by name (or returns null if one can not be found).
      *
      * @param name the name of the component to retrieve.
      * @return the component instance or null.
@@ -293,5 +368,30 @@ public class NamespaceComponents
     private Component getComponent(final String name)
     {
         return (Component)this.components.get(name);
+    }
+
+    /**
+     * Used to sort namespace registries by name.
+     */
+    private final static class NamespaceRegistryComparator
+        implements Comparator
+    {
+        private final Collator collator = Collator.getInstance();
+
+        private NamespaceRegistryComparator()
+        {
+            collator.setStrength(Collator.PRIMARY);
+        }
+
+        public int compare(
+            final Object objectA,
+            final Object objectB)
+        {
+            final NamespaceRegistry a = (NamespaceRegistry)objectA;
+            final NamespaceRegistry b = (NamespaceRegistry)objectB;
+            return collator.compare(
+                a.getName(),
+                b.getName());
+        }
     }
 }
