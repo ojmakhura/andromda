@@ -9,7 +9,7 @@
             <cvs localWorkingCopy="/var/andromda-build/andromda-all" cvsroot=":ext:andromda-build@cvs.sourceforge.net:/cvsroot/andromda"/>
         </modificationset>
         <schedule interval="900">
-            <maven goal="scm:update-project|clean|dist|docs|deploy-distribution" projectfile="/var/andromda-build/andromda-all/project.xml" mavenscript="/opt/maven/bin/maven"/>
+            <maven goal="scm:update-project|clean|dist|deploy-distribution" projectfile="/var/andromda-build/andromda-all/project.xml" mavenscript="/opt/maven/bin/maven"/>
             <pause starttime="0505" endtime="0605"/>
         </schedule>
         <log dir="/var/andromda-build/logs/andromda-all">
