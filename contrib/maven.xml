@@ -11,7 +11,7 @@
             CC Build
          ================================================================== -->
     <goal name="cc-build">
-        <attainGoal name="install"/>
+        <attainGoal name="deploy"/>
         <attainGoal name="docs"/>
     </goal>
 
