@@ -14,7 +14,6 @@ import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.repository.RepositoryFacade;
 import org.andromda.core.repository.RepositoryFacadeException;
-import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EcorePackage;
