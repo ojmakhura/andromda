@@ -24,6 +24,93 @@
             goals="xdoc"/>
     </goal>
 
+    <!-- =================================================================
+             Copy the distribution to the server.
+         ================================================================= -->
+    <goal name="deploy-distribution">
+ 	   <j:set var="andromda_distribution_mode" value="${andromda.distribution.mode}"/>
+	   <j:if test="${andromda_distribution_mode != 'local'}">
+	      <j:if test="${andromda_distribution_mode != 'remote'}">
+                <ant:fail>
+                   andromda.distribution.mode(${andromda.distribution.mode}) must be local or remote.
+                </ant:fail>
+	      </j:if>
+	   </j:if>
+	   <j:if test="${andromda_distribution_mode == 'remote'}">
+ 	       <j:set var="rsync_target_prefix" value="${andromda.distribution.username}@${andromda.distribution.server}:"/>
+	   </j:if>
+	   <j:if test="${andromda_distribution_mode == 'local'}">
+ 	       <j:set var="rsync_target_prefix" value=""/>
+	   </j:if>
+       <ant:echo>
+           user = ${andromda.distribution.username}
+           server = ${andromda.distribution.server}
+           andromda.distribution.mode = ${andromda.distribution.mode}
+           CC_TEST  = ${CC_TEST}
+           rsync_target_prefix = ${rsync_target_prefix}
+       </ant:echo>
+       <attainGoal name="deploy-repository"/>
+       <attainGoal name="deploy-docs"/>
+    </goal>
+
+    <!-- =================================================================
+             Copy the build artifacts to the server.
+         ================================================================= -->
+    <goal name="deploy-build">
+        <!-- Add -n to test, just lists out the files that would be xfr'ed -->
+        <j:set var="rsync_arg1" value="-vCuoprz"/>
+        <j:set var="rsync_arg2" value="--include='/distributions/*.zip'"/>
+        <j:set var="rsync_arg3" value="--exclude='/distributions/*'"/>
+        <j:set var="rsync_src" value="${distribution.dir}"/>
+        <j:set var="rsync_target" value="${rsync_target_prefix}${andromda.server.distribution.directory}"/>
+        <ant:echo message="rsync ${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_src} ${rsync_target}"/>
+        <j:if test="${CC_TEST != 'true'}">
+        <!-- NB if you specify as individual args someone mangles the arg
+            and you get stat errors -->
+        <ant:exec executable="rsync">
+            <ant:arg line="${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_src} ${rsync_target}"/>
+        </ant:exec>
+        </j:if>
+    </goal>
+
+     <!-- =================================================================
+             Copy the repository artifacts to the server.
+         ================================================================= -->
+    <goal name="deploy-repository">
+        <!-- rsync the local maven andromda repository
+             until we figure out were deploy is sending stuff -->
+        <j:set var="rsync_arg1" value="-Cvuaz"/>
+        <j:set var="rsync_src" value="${maven.home.local}/repository/andromda"/>
+        <j:set var="rsync_target" value="${rsync_target_prefix}${andromda.server.repository.directory}"/>
+        <ant:echo message="rsync ${rsync_arg1} ${rsync_src} ${rsync_target}"/>
+        <j:if test="${CC_TEST != 'true'}">
+        <ant:exec executable="rsync">
+            <ant:arg line="${rsync_arg1} ${rsync_src} ${rsync_target}"/>
+        </ant:exec>
+        </j:if>
+    </goal>
+
+    <!-- =================================================================
+             Copy the documentation to the server.
+         ================================================================= -->
+    <goal name="deploy-docs">
+        <!-- rsync the docs first, they should go quite quick unless there are
+             major changes -->
+        <!-- Add -n to test, just lists out the files that would be xfr'ed -->
+        <j:set var="rsync_arg1" value="-uaz"/>
+        <j:set var="rsync_src" value="${basedir}/documentation/target/docs"/>
+        <j:set var="rsync_target" value="${rsync_target_prefix}${andromda.server.directory}/contrib"/>
+        <ant:echo message="rsync ${rsync_arg1} ${rsync_src} ${rsync_target}"/>
+        <j:if test="${CC_TEST != 'true'}">
+        <ant:exec executable="rsync">
+            <ant:arg line="${rsync_arg1} ${rsync_src} ${rsync_target}"/>
+        </ant:exec>
+        </j:if>
+    </goal>
+
+    <!-- =================================================================
+             Clean up.
+         ================================================================= -->
     <goal name="clean">
         <attainGoal name="multiproject:clean"/>
         <attainGoal name="clean:clean"/>
