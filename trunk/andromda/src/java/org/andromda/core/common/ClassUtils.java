@@ -298,40 +298,48 @@ public class ClassUtils
      * @return the class or null if not found.
      */
     public static Class findClassOfType(
-        final URL directoryUri,
+        final URL directoryUris[],
         final Class type)
     {
         Class found = null;
-        final List contents = ResourceUtils.getDirectoryContents(
-                directoryUri,
-                false,
-                null);
-        for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
+        if (directoryUris != null && directoryUris.length > 0)
         {
-            final String path = (String)iterator.next();
-            if (path.endsWith(CLASS_EXTENSION))
+            final int numberOfDirectoryUris = directoryUris.length;
+            for (int ctr = 0; ctr < numberOfDirectoryUris; ctr++)
             {
-                final String typeName =
-                    StringUtils.replace(
-                        path.replaceAll(
-                            "\\\\+",
-                            "/").replace(
-                            '/',
-                            '.'),
-                        CLASS_EXTENSION,
-                        "");
-                try
+                final URL directoryUri = directoryUris[ctr];
+                final List contents = ResourceUtils.getDirectoryContents(
+                        directoryUri,
+                        false,
+                        null);
+                for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
                 {
-                    final Class loadedClass = getClassLoader().loadClass(typeName);
-                    if (type.isAssignableFrom(loadedClass))
+                    final String path = (String)iterator.next();
+                    if (path.endsWith(CLASS_EXTENSION))
                     {
-                        found = loadedClass;
-                        break;
+                        final String typeName =
+                            StringUtils.replace(
+                                path.replaceAll(
+                                    "\\\\+",
+                                    "/").replace(
+                                    '/',
+                                    '.'),
+                                CLASS_EXTENSION,
+                                "");
+                        try
+                        {
+                            final Class loadedClass = getClassLoader().loadClass(typeName);
+                            if (type.isAssignableFrom(loadedClass))
+                            {
+                                found = loadedClass;
+                                break;
+                            }
+                        }
+                        catch (final ClassNotFoundException exception)
+                        {
+                            // - ignore, means the file wasn't a class
+                        }
                     }
-                }
-                catch (final ClassNotFoundException exception)
-                {
-                    // - ignore, means the file wasn't a class
                 }
             }
         }

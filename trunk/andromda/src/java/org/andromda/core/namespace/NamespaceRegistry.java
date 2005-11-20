@@ -1,8 +1,9 @@
 package org.andromda.core.namespace;
 
 import java.net.URL;
-
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -137,6 +138,26 @@ public class NamespaceRegistry
             this.addPropertyDefinition(propertyDefinitions[ctr]);
         }
     }
+    
+    /**
+     * Copies all contents from the <code>registry</code>
+     * to this instance.
+     * 
+     * @param registry the registry to copy.
+     */
+    final void copy(final NamespaceRegistry registry)
+    {
+        if (registry != null)
+        {
+            this.addPropertyDefinitions(registry.getPropertyDefinitions());
+            this.components.putAll(registry.components);
+            if (registry.isShared())
+            {
+                this.shared = registry.isShared();
+            }
+            this.resourceRoots.addAll(registry.resourceRoots);
+        }
+    }
 
     /**
      * Gets all property definitions belonging to this registry.
@@ -166,26 +187,27 @@ public class NamespaceRegistry
     /**
      * The root of this namespace which stores all resources.
      */
-    private URL resourceRoot;
+    private List resourceRoots = new ArrayList();
 
     /**
      * Gets the resource root of this namespace.
      *
      * @return Returns the resource.
      */
-    public URL getResourceRoot()
+    public URL[] getResourceRoots()
     {
-        return this.resourceRoot;
+        return (URL[])this.resourceRoots.toArray(new URL[0]);
     }
 
     /**
-     * Sets the resource root of this namespace.
+     * Adds a resource root to this namespace (since a namespace can consist of multiple
+     * locations)
      *
      * @param resource The resource to set.
      */
-    final void setResourceRoot(final URL resourceRoot)
+    final void addResourceRoot(final URL resourceRoot)
     {
-        this.resourceRoot = resourceRoot;
+        this.resourceRoots.add(resourceRoot);
     }
 
     /**

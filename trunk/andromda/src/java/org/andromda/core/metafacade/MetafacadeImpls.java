@@ -156,46 +156,54 @@ public class MetafacadeImpls
                 namespaceRegistryName,
                 Constants.COMPONENT_METAFACADES))
         {
-            final URL namespaceRoot = namespaceRegistry.getResourceRoot();
-            final Collection contents = ResourceUtils.getDirectoryContents(
-                    namespaceRoot,
-                    false,
-                    null);
-            for (final Iterator contentsIterator = contents.iterator(); contentsIterator.hasNext();)
+            final URL[] namespaceRoots = namespaceRegistry.getResourceRoots();
+            if (namespaceRoots != null && namespaceRoots.length > 0)
             {
-                final String path = ((String)contentsIterator.next());
-                if (path.endsWith(METAFACADE_IMPLEMENTATION_SUFFIX))
+                final int numberOfNamespaceRoots = namespaceRoots.length;
+                for (int ctr = 0; ctr < numberOfNamespaceRoots; ctr++)
                 {
-                    final String typeName =
-                        StringUtils.replace(
-                            path.replaceAll(
-                                "\\\\+|/+",
-                                "."),
-                            ClassUtils.CLASS_EXTENSION,
-                            "");
-                    Class implementationClass = null;
-                    try
+                    final URL namespaceRoot = namespaceRoots[ctr];
+                    final Collection contents = ResourceUtils.getDirectoryContents(
+                            namespaceRoot,
+                            false,
+                            null);
+                    for (final Iterator contentsIterator = contents.iterator(); contentsIterator.hasNext();)
                     {
-                        implementationClass = ClassUtils.loadClass(typeName);
-                    }
-                    catch (final Exception exception)
-                    {
-                        // - ignore
-                    }
-                    if (implementationClass != null && MetafacadeBase.class.isAssignableFrom(implementationClass))
-                    {
-                        final List allInterfaces = ClassUtils.getInterfaces(implementationClass);
-                        if (!allInterfaces.isEmpty())
+                        final String path = ((String)contentsIterator.next());
+                        if (path.endsWith(METAFACADE_IMPLEMENTATION_SUFFIX))
                         {
-                            final Class interfaceClass = (Class)allInterfaces.iterator().next();
-                            final String implementationClassName = implementationClass.getName();
-                            final String interfaceClassName = interfaceClass.getName();
-                            metafacadeClasses.metafacadesByImpls.put(
-                                implementationClassName,
-                                interfaceClassName);
-                            metafacadeClasses.implsByMetafacades.put(
-                                interfaceClassName,
-                                implementationClassName);
+                            final String typeName =
+                                StringUtils.replace(
+                                    path.replaceAll(
+                                        "\\\\+|/+",
+                                        "."),
+                                    ClassUtils.CLASS_EXTENSION,
+                                    "");
+                            Class implementationClass = null;
+                            try
+                            {
+                                implementationClass = ClassUtils.loadClass(typeName);
+                            }
+                            catch (final Exception exception)
+                            {
+                                // - ignore
+                            }
+                            if (implementationClass != null && MetafacadeBase.class.isAssignableFrom(implementationClass))
+                            {
+                                final List allInterfaces = ClassUtils.getInterfaces(implementationClass);
+                                if (!allInterfaces.isEmpty())
+                                {
+                                    final Class interfaceClass = (Class)allInterfaces.iterator().next();
+                                    final String implementationClassName = implementationClass.getName();
+                                    final String interfaceClassName = interfaceClass.getName();
+                                    metafacadeClasses.metafacadesByImpls.put(
+                                        implementationClassName,
+                                        interfaceClassName);
+                                    metafacadeClasses.implsByMetafacades.put(
+                                        interfaceClassName,
+                                        implementationClassName);
+                                }
+                            }
                         }
                     }
                 }

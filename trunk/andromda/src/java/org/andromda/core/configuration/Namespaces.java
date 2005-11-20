@@ -239,7 +239,7 @@ public class Namespaces
             // - if the registry is shared, we add the registry to the default namespace as well
             if (registry.isShared())
             {
-                NamespaceRegistry defaultRegistry = this.getNamespaceRegistry(DEFAULT);
+                NamespaceRegistry defaultRegistry = this.getRegistry(DEFAULT);
                 if (defaultRegistry == null)
                 {
                     defaultRegistry = registry;
@@ -305,20 +305,20 @@ public class Namespaces
      * @param namespace the namespace of which to retrieve the resource.
      * @return the resource or null if it could not be found.
      */
-    public URL getResourceRoot(final String namespace)
+    public URL[] getResourceRoots(final String namespace)
     {
-        final NamespaceRegistry registry = this.getNamespaceRegistry(namespace);
+        final NamespaceRegistry registry = this.getRegistry(namespace);
         if (registry == null)
         {
             throw new NamespacesException("'" + namespace + "' is not a registered namespace");
         }
 
-        final URL resourceRoot = registry.getResourceRoot();
-        if (resourceRoot == null)
+        final URL[] resourceRoots = registry.getResourceRoots();
+        if (resourceRoots == null || resourceRoots.length == 0)
         {
-            throw new NamespacesException("No resource root could be retrieved for namespace '" + namespace + "'");
+            throw new NamespacesException("No resource root(s) could be retrieved for namespace '" + namespace + "'");
         }
-        return resourceRoot;
+        return resourceRoots;
     }
 
     /**
@@ -333,7 +333,7 @@ public class Namespaces
         final String component)
     {
         boolean present = false;
-        final NamespaceRegistry registry = this.getNamespaceRegistry(namespace);
+        final NamespaceRegistry registry = this.getRegistry(namespace);
         if (namespace != null && component != null && registry != null)
         {
             final String[] components = registry.getRegisteredComponents();
@@ -364,7 +364,7 @@ public class Namespaces
         final String namespace,
         final String name)
     {
-        final NamespaceRegistry registry = this.getNamespaceRegistry(namespace);
+        final NamespaceRegistry registry = this.getRegistry(namespace);
         PropertyDefinition definition = null;
         if (registry != null)
         {
@@ -372,7 +372,7 @@ public class Namespaces
         }
         if (definition == null)
         {
-            final NamespaceRegistry defaultRegistry = this.getNamespaceRegistry(Namespaces.DEFAULT);
+            final NamespaceRegistry defaultRegistry = this.getRegistry(Namespaces.DEFAULT);
             if (defaultRegistry != null)
             {
                 definition = defaultRegistry.getPropertyDefinition(name);
@@ -388,7 +388,7 @@ public class Namespaces
      * @param namespace the namespace name.
      * @return the registry, or null if not found.
      */
-    private NamespaceRegistry getNamespaceRegistry(final String namespace)
+    public NamespaceRegistry getRegistry(final String namespace)
     {
         return (NamespaceRegistry)this.registries.get(namespace);
     }

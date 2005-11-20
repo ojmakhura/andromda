@@ -285,7 +285,7 @@ public class Model
             {
                 type =
                     ClassUtils.findClassOfType(
-                        Namespaces.instance().getResourceRoot(this.type),
+                        Namespaces.instance().getResourceRoots(this.type),
                         ModelAccessFacade.class);
                 if (type == null)
                 {
