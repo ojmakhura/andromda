@@ -156,16 +156,16 @@ public class AndroMDAMojo
                 final AndroMDA andromda = AndroMDA.newInstance();
                 andromda.run(configuration);
                 andromda.shutdown();
-                final File buildSourceDirectory =
-                    this.buildSourceDirectory != null ? new File(this.buildSourceDirectory) : null;
-                if (buildSourceDirectory != null)
-                {
-                    this.getProject().addCompileSourceRoot(buildSourceDirectory.toString());
-                }
             }
             else
             {
                 this.getLog().info("Files are up-to-date, skipping AndroMDA execution");
+            }
+            final File buildSourceDirectory =
+                this.buildSourceDirectory != null ? new File(this.buildSourceDirectory) : null;
+            if (buildSourceDirectory != null)
+            {
+                this.getProject().addCompileSourceRoot(buildSourceDirectory.toString());
             }
         }
         catch (Throwable throwable)
