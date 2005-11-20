@@ -72,6 +72,27 @@
     </goal>
 
     <!-- ==================================================================
+               Get the docs built by the cron job	       
+         ================================================================== -->
+	<goal name="get-cron-docs" >
+		<j:set var="docsTargetDir" value="../andromda-docs/andromda-all/documentation/target"/>
+		<available property="cronDocsAvailable" type="dir"
+			file="${docsTargetDir}"/>
+		<j:if test="${cronDocsAvailable} == 'true'">
+			<ant:copy todir="${binaryDistDir}">
+				<ant:fileset dir="${docsTargetDir}">
+					<ant:include name="*.zip"/>
+				</ant:fileset>
+			</ant:copy>
+			<!-- include it in the binary dist -->
+			<j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
+			<ant:zip zipfile="${zipFile}">
+				<ant:zipfileset dir="${binaryDistDir}" prefix="${distName}"/>
+			</ant:zip>
+		</j:if>
+	</goal>
+
+    <!-- ==================================================================
                Builds ALL documentation and includes it in the binary dist
          ================================================================== -->
     <goal name="docs" prereqs="dist-init,initialize">
