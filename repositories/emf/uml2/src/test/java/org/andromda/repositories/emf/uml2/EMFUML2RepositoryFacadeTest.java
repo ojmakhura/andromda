@@ -10,7 +10,6 @@ import junit.framework.TestCase;
 
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.metafacade.ModelAccessFacade;
-import org.andromda.metafacades.emf.uml2.UMLModelAccessFacade;
 import org.eclipse.uml2.Model;
 import org.eclipse.uml2.NamedElement;
 import org.eclipse.uml2.Stereotype;
@@ -94,7 +93,7 @@ public class EMFUML2RepositoryFacadeTest
         repository.readModel(
             new String[] {modelUrl.toString()},
             null);
-        final ModelAccessFacade modelFacade = repository.getModel(UMLModelAccessFacade.class);
+        final ModelAccessFacade modelFacade = repository.getModel(null);
         assertNotNull(modelFacade);
         assertNotNull(modelFacade.getModel());
         assertTrue(modelFacade.getModel() instanceof Model);
