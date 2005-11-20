@@ -7,11 +7,28 @@
     <ant:property environment="env"/>
 
     <!-- ==================================================================
+         Do some checks 
+         ================================================================== -->
+    <goal name="check">
+       <j:set var="jbossHome" value="${env.JBOSS_HOME}" defaultValue=""/>
+		 
+       <j:if test="${jbossHome == '' }">
+ 	      <fail>*** JBOSS_HOME not set.</fail>
+       </j:if>
+       <available property="jbossPresent" type="dir" file="${jbossHome}"/>
+	   <j:if test="${jbossPresent != 'true'}">
+	      <fail>*** JBOSS_HOME ${jbossHome} not found.</fail>
+       </j:if>
+									       
+    </goal>
+
+    <!-- ==================================================================
            Builds everything and installs it into the local Maven repository
          ================================================================== -->
     <goal name="install">
         <attainGoal name="multiproject:install"/>
     </goal>
+
 
     <!-- ==================================================================
            Cleans Everything
@@ -28,9 +45,22 @@
     </goal>
 
     <!-- ==================================================================
+            Build and Deploy the Application
+         ================================================================== -->
+    <goal name="build-deploy">
+        <attainGoal name="check"/>
+        <attainGoal name="mda"/>
+        <attainGoal name="common"/>
+        <attainGoal name="web"/>
+        <attainGoal name="core"/>
+        <attainGoal name="deploy"/>
+    </goal>
+
+    <!-- ==================================================================
             Deploy the Application
          ================================================================== -->
     <goal name="deploy">
+        <attainGoal name="check"/>
         <maven:maven
             descriptor="app/project.xml"
             goals="deploy"/>
@@ -40,6 +70,7 @@
            Undeploy the Application
          ================================================================== -->
     <goal name="undeploy">
+        <attainGoal name="check"/>
         <maven:maven
             descriptor="app/project.xml"
             goals="undeploy"/>
@@ -155,34 +186,34 @@
              Executes the given DDL script
          ============================================================ -->
     <goal name="execute-script">
-        <ant:available
-            file="${dataSource.driver.jar}"
-            type="file"
-            property="jarAvailable"/>
-
-        <j:choose>
-            <j:when test="${jarAvailable}">
-                <j:if test="${script != null}">
-                    <util:file var="scriptFile" name="${script}"/>
-                    <j:if test="${scriptFile.exists()}">
-                        <ant:sql driver="${dataSource.driver.class}" 
-                                 src="${scriptFile}"
-                                 url="${dataSource.url}" 
-                                 userid="${dataSource.user}" 
-                                 password="${dataSource.password}" 
-                                 onerror="${dataSource.sql.onError}">
-                            <ant:classpath>
-                                <ant:pathelement location="${dataSource.driver.jar}"/>
-                            </ant:classpath>
-                        </ant:sql>
-                    </j:if>
-                </j:if>
-            </j:when>
-            <j:otherwise>
-            	<j:set var="message" value="Jar ${dataSource.driver.jar} not found, is JBOSS_HOME set?"/>
-                <ant:echo message="${message}"/>                        
-            </j:otherwise>
-        </j:choose>
+	    <ant:available
+			  file="${dataSource.driver.jar}"
+			  type="file"
+			  property="jarAvailable"/>
+	    
+	    <j:choose>
+		    <j:when test="${jarAvailable}">
+			    <j:if test="${script != null}">
+				    <util:file var="scriptFile" name="${script}"/>
+				    <j:if test="${scriptFile.exists()}">
+					    <ant:sql driver="${dataSource.driver.class}" 
+						     src="${scriptFile}"
+						     url="${dataSource.url}" 
+						     userid="${dataSource.user}" 
+						     password="${dataSource.password}" 
+						     onerror="${dataSource.sql.onError}">
+						    <ant:classpath>
+							    <ant:pathelement location="${dataSource.driver.jar}"/>
+						    </ant:classpath>
+					    </ant:sql>
+				    </j:if>
+			    </j:if>
+		    </j:when>
+		    <j:otherwise>
+			    <j:set var="message" value="Jar ${dataSource.driver.jar} not found."/>
+			    <ant:echo message="${message}"/>                        
+		    </j:otherwise>
+	    </j:choose>
     </goal>
 
 </project>
