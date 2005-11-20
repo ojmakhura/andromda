@@ -57,5 +57,11 @@
       		<artifactId>jmi</artifactId>
      		<version>20030918</version>
     	</dependency>  
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-metafacades-uml14</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>test</type>
+        </dependency>
 	</dependencies>	
 </project>
