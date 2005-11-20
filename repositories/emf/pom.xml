@@ -10,11 +10,6 @@
     <name>AndroMDA EMF Repository</name>
   	<description>This abstract EMF repository module should be extended by those repository implementations wishing to load EMF based models.</description>
     <dependencies> 
-        <dependency>
-            <groupId>org.andromda.metafacades</groupId>
-            <artifactId>andromda-metafacades-emf-uml2</artifactId>
-            <version>${version}</version>
-        </dependency>
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>emf-common</artifactId>
@@ -40,6 +35,12 @@
             <artifactId>log4j</artifactId>
             <version>1.2.12</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.metafacades</groupId>
+            <artifactId>andromda-metafacades-emf-uml2</artifactId>
+            <version>${version}</version>
+            <scope>runtime</scope>
         </dependency>
 	</dependencies>	
     <build>
