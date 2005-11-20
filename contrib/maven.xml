@@ -7,6 +7,23 @@
         <attainGoal name="multiproject:install"/>
     </goal>
     
+    <!-- ==================================================================
+            CC Build
+         ================================================================== -->
+    <goal name="cc-build">
+        <attainGoal name="install"/>
+        <attainGoal name="docs"/>
+    </goal>
+
+    <!-- ==================================================================
+            Build the docs
+         ================================================================== -->
+    <goal name="docs">
+        <maven:maven
+            descriptor="documentation/project.xml"
+            goals="xdoc"/>
+    </goal>
+
     <goal name="clean">
         <attainGoal name="multiproject:clean"/>
         <attainGoal name="clean:clean"/>
