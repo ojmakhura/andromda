@@ -63,6 +63,12 @@
             <maven goal="scm:update-project|cc-build|deploy-distribution" projectfile="/var/andromda-build/andromda-contrib/contrib/project.xml" mavenscript="/opt/maven/bin/maven"/>
         </schedule>
         <log dir="/var/andromda-build/logs/andromda-contrib">
+			<merge dir="/var/andromda-build/andromda-contrib/contrib/cartridges/andromda-costcalculator/target/test-reports"/>
+			<merge dir="/var/andromda-build/andromda-contrib/contrib/cartridges/andromda-database/target/test-reports"/>
+			<merge dir="/var/andromda-build/andromda-contrib/contrib/maven/site/target/test-reports"/>
+			<merge dir="/var/andromda-build/andromda-contrib/contrib/transformations/configuration/target/test-reports"/>
+			<merge dir="/var/andromda-build/andromda-contrib/contrib/transformations/spring/target/test-reports"/>
+			<merge dir="/var/andromda-build/andromda-contrib/contrib/transformers/atl/target/test-reports"/>
         </log>
         <publishers>
             <currentbuildstatuspublisher file="/var/andromda-build/logs/andromda-contrib/currentbuildstatus.txt"/>
