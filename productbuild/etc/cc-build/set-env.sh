@@ -25,15 +25,15 @@ fi
 
 case "$JDK" in
   "IBMJava142" )
-     export MAVEN_OPTS="-Xmx512m"
+     export MAVEN_OPTS="-Xmx1024m"
      export JAVA_HOME=/opt/java/IBMJava2-142
   ;;
   "SUNJava142" )
-     export MAVEN_OPTS="-XX:MaxPermSize=128m -Xmx512m"
+     export MAVEN_OPTS="-XX:MaxPermSize=512m -Xmx1024m"
      export JAVA_HOME=/opt/java/j2sdk1.4
   ;;
   "SUNJava150" )
-     export MAVEN_OPTS="-XX:MaxPermSize=128m -Xmx512m"
+     export MAVEN_OPTS="-XX:MaxPermSize=512m -Xmx1024m"
      export JAVA_HOME=/opt/java/jdk1.5
   ;;
   * )
