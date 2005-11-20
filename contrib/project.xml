@@ -7,9 +7,9 @@
     <description>This module stores all those contributions to AndroMDA that have not yet been moved to the AndroMDA distribution (but could at some point).</description>
     <shortDescription>AndroMDA Contributions</shortDescription>
     <repository>
-        <connection>scm:cvs:pserver:anonymous@cvs.sourceforge.net:/cvsroot/andromda:contrib</connection>
-        <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/andromda:contrib</developerConnection>
-        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/contrib/</url>
+        <connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@cvs.sourceforge.net:/cvsroot/andromda:andromda-all</connection>
+        <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
+        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/</url>
     </repository>
     <dependencies>
         <dependency>
