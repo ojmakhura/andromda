@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -10,6 +10,65 @@
     <artifactId>${applicationId}-mda</artifactId>
     <packaging>jar</packaging>
     <name>$applicationName MDA</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.andromda.profiles.uml14</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <type>xml.zip</type>
+        </dependency>
+#if ($ejb)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-ejb-cartridge</artifactId>
+        </dependency>
+#elseif ($spring)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-spring-cartridge</artifactId>
+        </dependency>
+#end
+#if ($hibernate || $spring)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-hibernate-cartridge</artifactId>
+        </dependency>
+#end
+#if ($workflow)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-jbpm-cartridge</artifactId>
+        </dependency>
+#end
+#if ($webservice)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-webservice-cartridge</artifactId>
+        </dependency>
+#end
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-java-cartridge</artifactId>
+        </dependency>
+#if ($struts)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-bpm4struts-cartridge</artifactId>
+        </dependency>
+#elseif ($jsf)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-jsf-cartridge</artifactId>
+        </dependency>
+#end
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-query-library</artifactId>
+        </dependency>
+    </dependencies>
     <build>
         <defaultGoal>andromda:run</defaultGoal>
         <sourceDirectory>src/main/uml</sourceDirectory>
@@ -31,65 +90,6 @@
                         </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.andromda.profiles.uml14</groupId>
-                        <artifactId>andromda-profile</artifactId>
-                        <type>xml.zip</type>
-                    </dependency>
-#if ($ejb)
-                    <dependency>
-                        <groupId>andromda</groupId>
-                        <artifactId>andromda-ejb-cartridge</artifactId>
-                    </dependency>
-#elseif ($spring)
-                    <dependency>
-                        <groupId>andromda</groupId>
-                        <artifactId>andromda-spring-cartridge</artifactId>
-                    </dependency>
-#end
-#if ($hibernate || $spring)
-                    <dependency>
-                        <groupId>andromda</groupId>
-                        <artifactId>andromda-hibernate-cartridge</artifactId>
-                    </dependency>
-#end
-#if ($workflow)
-                    <dependency>
-                        <groupId>andromda</groupId>
-                        <artifactId>andromda-jbpm-cartridge</artifactId>
-                    </dependency>
-#end
-#if ($webservice)
-                    <dependency>
-                        <groupId>andromda</groupId>
-                        <artifactId>andromda-webservice-cartridge</artifactId>
-                    </dependency>
-#end
-                    <dependency>
-                        <groupId>andromda</groupId>
-                        <artifactId>andromda-java-cartridge</artifactId>
-                    </dependency>
-#if ($struts)
-                    <dependency>
-                        <groupId>andromda</groupId>
-                        <artifactId>andromda-bpm4struts-cartridge</artifactId>
-                    </dependency>
-#elseif ($jsf)
-                    <dependency>
-                        <groupId>andromda</groupId>
-                        <artifactId>andromda-jsf-cartridge</artifactId>
-                    </dependency>
-#end
-                    <dependency>
-                        <groupId>org.andromda.translationlibraries</groupId>
-                        <artifactId>andromda-ocl-validation-library</artifactId>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.andromda.translationlibraries</groupId>
-                        <artifactId>andromda-ocl-query-library</artifactId>
-                    </dependency>                    
-                </dependencies>
             </plugin>
         </plugins>
     </build>
