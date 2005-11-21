@@ -35,6 +35,7 @@
                     <dependency>
                         <groupId>org.andromda.profiles.uml14</groupId>
                         <artifactId>andromda-profile</artifactId>
+                        <type>xml.zip</type>
                     </dependency>
 #if ($ejb)
                     <dependency>
