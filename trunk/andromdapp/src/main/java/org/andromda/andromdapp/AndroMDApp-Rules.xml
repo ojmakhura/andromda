@@ -38,6 +38,18 @@
             </pattern>
             <set-next-rule methodname="addOutputConditions"/>
         </pattern>
+        <pattern value="mappings/mapping">
+            <object-create-rule classname="org.andromda.andromdapp.Mapping" />
+            <pattern value="from">
+                <call-method-rule methodname="addFrom" paramcount="1" />
+                <call-param-rule paramnumber="0"/>
+            </pattern>
+            <pattern value="to">
+                <call-method-rule methodname="setTo" paramcount="1" />
+                <call-param-rule paramnumber="0"/>
+            </pattern>
+            <set-next-rule methodname="addMapping"/>
+        </pattern>
         <pattern value="instructions">
             <call-method-rule methodname="setInstructions" paramcount="1" paramtypes="java.lang.String"/>
             <call-param-rule paramnumber="0"/>

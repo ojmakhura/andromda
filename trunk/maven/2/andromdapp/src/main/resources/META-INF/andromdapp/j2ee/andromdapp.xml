@@ -17,6 +17,12 @@
             <output patterns="**/*">webservice</output>  
         </conditions>
     </conditionalOutput>
+    <mappings>
+        <mapping>
+            <from>empty-model.xmi</from>
+            <to>${applicationId}.xmi.vsl</to>
+        </mapping>
+    </mappings>
     <instructions>readme.txt</instructions>
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>
     <prompts>
