@@ -710,7 +710,9 @@ public override void AddTimeAllocation(TimeTracker.Domain.TimeAllocation timeAll
                     reference to an external DLL (for example, a DLL in the Lib directory).
                     <ul>
                         <li>
-                            Add the following references to the <code>TimeTrackerCore</code> project:
+                            Add the following references to the <code>TimeTrackerCore</code>
+                            project. Note that all the DLLs listed below are in the
+                            Lib directory of the TimeTracker solution.
                             <ol>
                                 <li>TimeTrackerCommon project</li>
                                 <li>Iesi.Collections.dll</li>
