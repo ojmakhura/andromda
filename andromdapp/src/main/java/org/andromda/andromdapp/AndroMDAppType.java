@@ -790,4 +790,19 @@ public class AndroMDAppType
     {
         this.resource = resource;
     }
+    
+    /**
+     * Stores any of the mappings available to this type.
+     */
+    private List mappings = new ArrayList();
+    
+    /**
+     * Adds a new mapping to this type.
+     * 
+     * @param mapping the mapping which maps the new output paths.
+     */
+    public void addMapping(final Mapping mapping)
+    {
+        this.mappings.add(mapping);
+    }
 }

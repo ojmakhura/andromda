@@ -4,18 +4,19 @@
      CODING CONVENTION: NO TABS, INDENT 4 SPACES
      ========================================================================= -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:element name="andromdapp">
-		<xs:complexType>
-			<xs:sequence>
+    <xs:element name="andromdapp">
+        <xs:complexType>
+            <xs:sequence>
                 <xs:element ref="resourceLocations"/>
                 <xs:element ref="directories" minOccurs="0"/>
-				<xs:element ref="conditionalOutput" minOccurs="0"/>
-				<xs:element ref="instructions" minOccurs="0"/>
+                <xs:element ref="conditionalOutput" minOccurs="0"/>
+                <xs:element ref="mappings" minOccurs="0"/>
+                <xs:element ref="instructions" minOccurs="0"/>
                 <xs:element ref="templateEngine"/>
-				<xs:element ref="prompts"/>
-			</xs:sequence>
-			<xs:attribute name="type" type="xs:string" use="required"/>
-			<xs:attribute name="root" type="xs:string" use="required">
+                <xs:element ref="prompts"/>
+            </xs:sequence>
+            <xs:attribute name="type" type="xs:string" use="required"/>
+            <xs:attribute name="root" type="xs:string" use="required">
                 <xs:annotation>
                     <xs:documentation>
                         Defines the root of the application (that is where the name of the directory
@@ -23,13 +24,13 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="condition">
-		<xs:complexType>
-			<xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="condition">
+        <xs:complexType>
+            <xs:sequence>
                 <xs:element ref="setProperty" minOccurs="0" maxOccurs="unbounded"/>
-			</xs:sequence>
+            </xs:sequence>
             <xs:attribute name="id" type="xs:string" use="optional">
                 <xs:annotation>
                     <xs:documentation>
@@ -52,20 +53,20 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="conditions">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="condition" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="conditions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="condition" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
         <xs:unique name="uniqueConditionId">
             <xs:selector xpath="condition"/>
             <xs:field xpath="@id"/>
         </xs:unique>
-	</xs:element>
-	<xs:element name="directories">
+    </xs:element>
+    <xs:element name="directories">
         <xs:annotation>
             <xs:documentation>
                 Defines the empty directories to create along with the resources found in the locations defined within resourceLocations.
@@ -73,14 +74,15 @@
                 element a value of 'core/src/main/java'.
             </xs:documentation>
         </xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="directory" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="directory" type="xs:string"/>
-	<xs:element name="instructions" type="xs:string">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="directory" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="directory" type="xs:string"/>
+    <xs:element name="from" type="xs:string"/>
+    <xs:element name="instructions" type="xs:string">
         <xs:annotation>
             <xs:documentation>
                 Defines the location of the instructions on using the new application after the application
@@ -88,25 +90,47 @@
             </xs:documentation>
         </xs:annotation>
     </xs:element>
-	<xs:element name="location" type="xs:string"/>
-	<xs:element name="output">
-		<xs:complexType>
-			<xs:simpleContent>
-				<xs:extension base="xs:string">
-					<xs:attribute name="patterns" type="xs:string" use="optional"/>
-				</xs:extension>
-			</xs:simpleContent>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="conditionalOutput">
+    <xs:element name="location" type="xs:string"/>
+    <xs:element name="mapping">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="from" maxOccurs="unbounded"/>
+                <xs:element ref="to"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="mappings">
+        <xs:annotation>
+            <xs:documentation>
+                Mappings are used to map output patterns to new output patterns.  They can be used to map
+                a non velocity file that is copied into your andromdapp bundle to a file with the same name
+                with a velocity extension (in order to allow processing by the template engine) for example.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mapping"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="output">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="patterns" type="xs:string" use="optional"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="conditionalOutput">
         <xs:annotation>
             <xs:documentation>
                 Defines the output that should be conditionally written.  If conditions
                 are specified, then those conditions must be met before the file will be written.
             </xs:documentation>
         </xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
+        <xs:complexType>
+            <xs:sequence>
                 <xs:element name="conditions" maxOccurs="unbounded">
                     <xs:complexType>
                         <xs:sequence>
@@ -135,8 +159,8 @@
                                         </xs:annotation>
                                     </xs:attribute>
                                 </xs:complexType>
-                            </xs:element>                   
-                            <xs:element ref="output" maxOccurs="unbounded"/>         
+                            </xs:element>
+                            <xs:element ref="output" maxOccurs="unbounded"/>
                         </xs:sequence>
                         <xs:attribute name="type" type="conditionsType" use="optional" default="and">
                             <xs:annotation>
@@ -147,9 +171,9 @@
                         </xs:attribute>
                     </xs:complexType>
                 </xs:element>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
     <xs:simpleType name="conditionsType">
         <xs:annotation>
             <xs:documentation> Stores the possible component names </xs:documentation>
@@ -181,22 +205,22 @@
             <xs:attribute name="name" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
-	<xs:element name="preconditions">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="condition" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="prompt">
-		<xs:complexType>
-			<xs:sequence>
+    <xs:element name="preconditions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="condition" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="prompt">
+        <xs:complexType>
+            <xs:sequence>
                 <xs:element ref="text" minOccurs="0"/>
-				<xs:element ref="preconditions" minOccurs="0"/>
-				<xs:element ref="responses" minOccurs="0"/>
-				<xs:element ref="conditions" minOccurs="0"/>
-			</xs:sequence>
-			<xs:attribute name="id" type="xs:string" use="required">
+                <xs:element ref="preconditions" minOccurs="0"/>
+                <xs:element ref="responses" minOccurs="0"/>
+                <xs:element ref="conditions" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required">
                 <xs:annotation>
                     <xs:documentation>
                         Serves as the identifier of the prompt.  The result of the response to the prompt from the user
@@ -213,30 +237,30 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="prompts">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="prompt" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="prompts">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="prompt" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
         <xs:unique name="uniquePromptId">
             <xs:selector xpath="prompt"/>
             <xs:field xpath="@id"/>
         </xs:unique>
-	</xs:element>
-	<xs:element name="resourceLocations">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="location" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="response">
-		<xs:complexType>
-			<xs:simpleContent>
-				<xs:extension base="xs:string">
+    </xs:element>
+    <xs:element name="resourceLocations">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="location" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="response">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
                     <xs:attribute name="type" type="xs:string" use="optional">
                         <xs:annotation>
                             <xs:documentation>
@@ -244,44 +268,44 @@
                             </xs:documentation>
                         </xs:annotation>
                     </xs:attribute>
-				</xs:extension>
-			</xs:simpleContent>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="responses">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="response" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="setProperty">
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="responses">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="response" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="setProperty">
         <xs:annotation>
             <xs:documentation>
                 Allows you to set the value of a property in the template context.
             </xs:documentation>
         </xs:annotation>
-		<xs:complexType>
-			<xs:simpleContent>
-				<xs:extension base="xs:string">
-					<xs:attribute name="id" type="xs:string" use="required">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="id" type="xs:string" use="required">
                         <xs:annotation>
                             <xs:documentation>
                                 The identifier of the property in the template context.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:attribute>
-					<xs:attribute name="type" type="xs:string" use="optional">
+                    <xs:attribute name="type" type="xs:string" use="optional">
                         <xs:annotation>
                             <xs:documentation>
-                                Defines the type (i.e. 'java.lang.Boolean') the response shall be when its added to the template context.                                
+                                Defines the type (i.e. 'java.lang.Boolean') the response shall be when its added to the template context.
                             </xs:documentation>
                         </xs:annotation>
                     </xs:attribute>
-				</xs:extension>
-			</xs:simpleContent>
-		</xs:complexType>
-	</xs:element>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="templateEngine">
         <xs:annotation>
             <xs:documentation>
@@ -307,21 +331,22 @@
                         Defines the extensions of files that the template engine will process. (i.e. you'd
                         typically define it as "vsl" if you were using Velocity as your templating engine).
                     </xs:documentation>
-                </xs:annotation>                
+                </xs:annotation>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-	<xs:element name="templateLocations">
+    <xs:element name="templateLocations">
         <xs:annotation>
             <xs:documentation>
                 Defines the location(s) of template files.
             </xs:documentation>
         </xs:annotation>
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="location"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="text" type="xs:string"/>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="location"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="text" type="xs:string"/>
+    <xs:element name="to" type="xs:string"/>
 </xs:schema>
