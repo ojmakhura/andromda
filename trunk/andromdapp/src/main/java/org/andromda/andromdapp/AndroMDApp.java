@@ -100,6 +100,26 @@ public class AndroMDApp
             }
         }
     }
+    
+    /**
+     * Stores the optional configuration instance.
+     */
+    private Configuration configuration;
+    
+    /**
+     * Sets the URI to the optional configuration.  This is useful if you want
+     * to preconfigure the andromdapp in order to by-pass any prompting.
+     * 
+     * @param configurationUri the URI to the configuration.
+     */
+    public void setConfigurationUri(final String configurationUri)
+    {
+        if (configurationUri != null && configurationUri.trim().length() > 0)
+        {
+            final XmlObjectFactory factory = XmlObjectFactory.getInstance(Configuration.class);
+            this.configuration = (Configuration)factory.getObject(ResourceUtils.toURL(configurationUri));
+        }
+    }
 
     /**
      * Prompts the user to choose the type of application, and then runs that AndroMDAppType.
@@ -137,6 +157,7 @@ public class AndroMDApp
             throw new AndroMDAppException("No '" + DESCRIPTOR + "' descriptor files could be found");
         }
 
+        andromdapp.setConfiguration(this.configuration);
         andromdapp.run();
     }
 

@@ -141,7 +141,7 @@ public class Prompt
      * @param response the response to convert.
      * @return the response as an object.
      */
-    public Object getResponse(final String response)
+    public Object getResponse(final Object response)
     {
         return AndroMDAppUtils.convert(
             response,

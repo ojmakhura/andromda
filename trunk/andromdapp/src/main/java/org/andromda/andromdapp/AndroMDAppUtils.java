@@ -3,6 +3,7 @@ package org.andromda.andromdapp;
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.Converter;
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.ObjectUtils;
 
 
 /**
@@ -34,12 +35,12 @@ public class AndroMDAppUtils
      * returns the value unchanged.
      *
      * @param value the value to convert.
-     * @param type the type to conver it to.
+     * @param type the type to convert it to.
      * @return the converted, or unconverted dependending on whether ir needed
      *         to be converted.
      */
     public static Object convert(
-        final String value,
+        final Object value,
         final String type)
     {
         Object object = value;
@@ -54,7 +55,7 @@ public class AndroMDAppUtils
                 // to boolean values
                 if (typeClass == Boolean.class)
                 {
-                    object = BooleanUtils.toBooleanObject(value);
+                    object = BooleanUtils.toBooleanObject(ObjectUtils.toString(value));
                 }
                 else
                 {
