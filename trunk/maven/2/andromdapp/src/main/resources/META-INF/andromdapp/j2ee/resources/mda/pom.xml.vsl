@@ -85,7 +85,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
-                            <configurationUri>file:${project.build.sourceDirectory}/../../conf/andromda.xml</configurationUri>
+                            <configurationUri>file:${basedir}/conf/andromda.xml</configurationUri>
                             <lastModifiedCheck>true</lastModifiedCheck>
                         </configuration>
                     </execution>
