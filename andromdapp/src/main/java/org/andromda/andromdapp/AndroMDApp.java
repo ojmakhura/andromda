@@ -3,9 +3,8 @@ package org.andromda.andromdapp;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import java.net.URL;
-
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -104,20 +103,20 @@ public class AndroMDApp
     /**
      * Stores the optional configuration instance.
      */
-    private Configuration configuration;
+    private List configurations = new ArrayList();
     
     /**
-     * Sets the URI to the optional configuration.  This is useful if you want
-     * to preconfigure the andromdapp in order to by-pass any prompting.
+     * Adds the URI for an optional configuration  These are useful if you want
+     * to preconfigure the andromdapp when any properties, etc.
      * 
      * @param configurationUri the URI to the configuration.
      */
-    public void setConfigurationUri(final String configurationUri)
+    public void addConfigurationUri(final String configurationUri)
     {
         if (configurationUri != null && configurationUri.trim().length() > 0)
         {
             final XmlObjectFactory factory = XmlObjectFactory.getInstance(Configuration.class);
-            this.configuration = (Configuration)factory.getObject(ResourceUtils.toURL(configurationUri));
+            this.configurations.add(factory.getObject(ResourceUtils.toURL(configurationUri)));
         }
     }
 
@@ -157,7 +156,7 @@ public class AndroMDApp
             throw new AndroMDAppException("No '" + DESCRIPTOR + "' descriptor files could be found");
         }
 
-        andromdapp.setConfiguration(this.configuration);
+        andromdapp.setConfigurations(this.configurations);
         andromdapp.run();
     }
 

@@ -25,7 +25,7 @@
             <dependency>
                 <groupId>org.andromda.profiles.uml14</groupId>
                 <artifactId>andromda-profile</artifactId>
-                <version>${version}</version>
+                <version>$andromdaVersion</version>
                 <type>xml.zip</type>
                 <scope>provided</scope>
             </dependency>
@@ -33,32 +33,32 @@
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-ejb-cartridge</artifactId>
-                <version>${version}</version>
+                <version>$andromdaVersion</version>
                 <scope>provided</scope>
             </dependency>
 #elseif ($spring)
             <dependency>
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-core</artifactId>
-                <version>${version}</version>
+                <version>$andromdaVersion</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-translation-core</artifactId>
-                <version>${version}</version>
+                <version>$andromdaVersion</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-validation-library</artifactId>
-                <version>${version}</version>
+                <version>$andromdaVersion</version>
                 <scope>compile</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-spring-cartridge</artifactId>
-                <version>${version}</version>
+                <version>$andromdaVersion</version>
                 <scope>provided</scope>
             </dependency>
 #end
@@ -66,7 +66,7 @@
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-hibernate-cartridge</artifactId>
-                <version>${version}</version>
+                <version>$andromdaVersion</version>
                 <scope>provided</scope>
             </dependency>
 #end
@@ -74,41 +74,41 @@
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-webservice-cartridge</artifactId>
-                <version>${version}</version>
+                <version>$andromdaVersion</version>
                 <scope>provided</scope>
             </dependency>
 #end
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-java-cartridge</artifactId>
-                <version>${version}</version>
+                <version>$andromdaVersion</version>
                 <scope>provided</scope>
             </dependency>
 #if ($struts)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-bpm4struts-cartridge</artifactId>
-                <version>${version}</version>
+                <version>$andromdaVersion</version>
                 <scope>provided</scope>
             </dependency>
 #elseif ($jsf)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf-cartridge</artifactId>
-                <version>${version}</version>
+                <version>$andromdaVersion</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda</groupId>
                 <artifactId>andromda-utils</artifactId>
-                <version>${version}</version>
+                <version>$andromdaVersion</version>
                 <scope>compile</scope>
             </dependency>
 #end
             <dependency>
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-query-library</artifactId>
-                <version>${version}</version>
+                <version>$andromdaVersion</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>

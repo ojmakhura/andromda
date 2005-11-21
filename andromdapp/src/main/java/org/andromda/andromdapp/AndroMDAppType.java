@@ -46,9 +46,12 @@ public class AndroMDAppType
     {
         this.getTemplateEngine().initialize(NAMESPACE);
         this.templateContext = new LinkedHashMap();
-        if (this.configuration != null)
+        if (this.configurations != null)
         {
-            this.templateContext.putAll(this.configuration.getAllProperties());
+            for (final Iterator iterator = this.configurations.iterator(); iterator.hasNext();)
+            {
+                this.templateContext.putAll(((Configuration)iterator.next()).getAllProperties());
+            }
         }
     }
 
@@ -510,7 +513,7 @@ public class AndroMDAppType
     private File verifyRootDirectory(final File rootDirectory)
     {
         File applicationRoot = rootDirectory;
-        if (rootDirectory.exists() && (this.configuration == null || !this.configuration.isOverwrite()))
+        if (rootDirectory.exists() && !this.isOvewrite())
         {
             this.printPromptText(
                 "'" + rootDirectory.getAbsolutePath() +
@@ -528,6 +531,31 @@ public class AndroMDAppType
             }
         }
         return applicationRoot;
+    }
+    
+    /**
+     * Indicates whether or not this andromdapp type should overwrite any 
+     * previous applications with the same name.  This returns true on the first
+     * configuration that has that flag set to true.
+     * 
+     * @return true/false
+     */
+    private boolean isOvewrite()
+    {
+        boolean overwrite = false;
+        if (this.configurations != null)
+        {
+            for (final Iterator iterator = this.configurations.iterator(); iterator.hasNext();)
+            {
+                final Configuration configuration = (Configuration)iterator.next();
+                overwrite = configuration.isOverwrite();
+                if (overwrite)
+                {
+                    break;
+                }
+            }
+        }
+        return overwrite;
     }
 
     /**
@@ -625,16 +653,16 @@ public class AndroMDAppType
     /**
      * Stores any configuration information used when running this type.
      */
-    private Configuration configuration;
+    private List configurations;
 
     /**
      * Sets the configuration instance for this type.
      *
      * @param configuration the optional configuration instance.
      */
-    final void setConfiguration(final Configuration configuration)
+    final void setConfigurations(final List configurations)
     {
-        this.configuration = configuration;
+        this.configurations = configurations;
     }
 
     /**
