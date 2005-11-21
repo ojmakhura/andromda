@@ -7,6 +7,18 @@
     <packaging>pom</packaging>
     <name>$applicationName</name>
     <description>The $applicationName Project.</description>
+    <developers>
+        <developer>
+            <id></id>
+            <name>$author</name>
+            <email></email>
+            <organization></organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone></timezone>
+        </developer>
+    </developers>
     <dependencyManagement>
         <dependencies>
             <dependency>

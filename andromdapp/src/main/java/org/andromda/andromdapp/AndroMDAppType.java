@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+
 import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -44,6 +46,10 @@ public class AndroMDAppType
     {
         this.getTemplateEngine().initialize(NAMESPACE);
         this.templateContext = new LinkedHashMap();
+        if (this.configuration != null)
+        {
+            this.templateContext.putAll(this.configuration.getAllProperties());
+        }
     }
 
     /**
@@ -105,27 +111,26 @@ public class AndroMDAppType
 
             if (validPreconditions)
             {
+                Object response = this.templateContext.get(id);
+
                 // - only prompt when the id isn't already in the context
-                if (!this.templateContext.containsKey(id))
+                if (response == null)
                 {
-                    String response;
                     do
                     {
                         response = this.promptForInput(prompt);
                     }
-                    while (!prompt.isValidResponse(response));
-
-                    if (prompt.isSetResponseAsTrue())
-                    {
-                        this.templateContext.put(
-                            response,
-                            Boolean.TRUE);
-                    }
-
-                    this.templateContext.put(
-                        id,
-                        prompt.getResponse(response));
+                    while (!prompt.isValidResponse(ObjectUtils.toString(response)));
                 }
+                if (prompt.isSetResponseAsTrue())
+                {
+                    this.templateContext.put(
+                        response,
+                        Boolean.TRUE);
+                }
+                this.templateContext.put(
+                    id,
+                    prompt.getResponse(response));
             }
         }
     }
@@ -505,7 +510,7 @@ public class AndroMDAppType
     private File verifyRootDirectory(final File rootDirectory)
     {
         File applicationRoot = rootDirectory;
-        if (rootDirectory.exists())
+        if (rootDirectory.exists() && (this.configuration == null || !this.configuration.isOverwrite()))
         {
             this.printPromptText(
                 "'" + rootDirectory.getAbsolutePath() +
@@ -615,6 +620,21 @@ public class AndroMDAppType
     public void setRoot(String root)
     {
         this.root = root;
+    }
+
+    /**
+     * Stores any configuration information used when running this type.
+     */
+    private Configuration configuration;
+
+    /**
+     * Sets the configuration instance for this type.
+     *
+     * @param configuration the optional configuration instance.
+     */
+    final void setConfiguration(final Configuration configuration)
+    {
+        this.configuration = configuration;
     }
 
     /**
