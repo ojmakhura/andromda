@@ -7,6 +7,7 @@
    <goal name="clean-install">
         <attainGoal name="clean"/>
         <attainGoal name="plugin:install"/>
+        <attainGoal name="plugin:repository-install"/>
    </goal>
 
    <preGoal name="jar:jar">
@@ -44,12 +45,5 @@
             type="plugin"
             project="${pom}"/>
     </postGoal>
-	
-	    <!-- Override plugin:deploy so it implements the 
-         muliproject:deploy interface -->
-    <goal name="plugin:deploy">
-        <attainGoal name="plugin:repository-deploy"/>
-    </goal>
-
 
 </project>
