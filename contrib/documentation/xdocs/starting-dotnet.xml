@@ -44,8 +44,8 @@
                     currently supports generation of C# only, other .NET languages are not
                     supported.
                 </p>
-                
-                <p> 
+
+                <p>
                     You may be able to use AndroMDA with Visual Studio 2003 (and .NET 1.1)
                     but you will have to do bunch of configuration manually. In comparison,
                     Visual Studio 2005 is a much more productive environment and if you
@@ -161,8 +161,8 @@
                             <td>MAVEN_OPTS</td>
                             <td>Parameters to pass to the Java VM when running Maven. Set this
                                 value to: <code>-XX:MaxPermSize=128m -Xmx512m</code>
-                                (required to build the AndroMDA contrib project)</td>
-                            <td>Yes</td>
+                                (required to build large maven projects such as AndroMDA itself)</td>
+                            <td>No</td>
                         </tr>
                         <tr>
                             <td>PATH</td>
@@ -223,8 +223,7 @@
             <p>
                 Now that the development environment is ready to go, it is time to build our first AndroMDA
                 application. We will design and implement a simple TimeTracker application that allows users
-                to enter timecards. Note that a completed version of this application is available under the
-                samples directory. Please feel free to refer to it while going through this tutorial.
+                to enter timecards.
             </p>
 
             <p>
@@ -562,7 +561,7 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                     of the links below to edit the TimeTracker model with the UML tool of your choice. (There
                     is only one choice at the time of this writing.)
                 </p>
-                
+
                 <p>
                     <a href="resources/uml-tools/magicdraw/create-time-tracker-model.html" target="_blank">MagicDraw</a>
                 </p>
@@ -845,13 +844,10 @@ alter table TIME_ALLOCATION  add constraint TIME_ALLOCATION_TIMECARD_FKC foreign
                     It is now time to test all the functionality we have implemented so far using the
                     <code>TimeTrackerConsole</code> application. Follow the steps below to do this.
                     <ol>
-                        <li>Instead of writing the entire console program from scratch we will copy it
-                            from the <code>samples</code> folder in the <code>contrib</code> module.
-                            So go to Windows Explorer and copy the file <code>Program.cs</code> under
-                            <code>contrib\samples\time-tracker-dotnet\TimeTrackerConsole</code> to the
-                            folder <code>C:\TimeTracker\TimeTrackerConsole</code>
-                            (overwriting the original file).</li>
-                        <li>Review the Program.cs file to understand how the DAO classes are used to
+                        <li>Instead of writing the entire console application from scratch copy it
+                            from <a href="resources/sample-code/time-tracker-dotnet/Program.cs">here</a>
+                            to C:\TimeTracker\TimeTrackerConsole\Program.cs.</li>
+                        <li>Review the new code in Program.cs and understand how the DAO classes are used to
                             manipulate entities. Specifically look at the methods <code>AddPerson()</code>,
                             <code>AddTask()</code>, <code>AddTimecard()</code> and <code>ShowData()</code>.</li>
                         <li>Now copy the two files <code>App.config</code> and <code>nhibernate.config</code>
