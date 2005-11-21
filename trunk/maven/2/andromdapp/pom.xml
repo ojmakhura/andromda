@@ -1,4 +1,6 @@
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>andromda-maven-plugins</artifactId>
@@ -33,8 +35,18 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*</include>
+                </includes>    
+                <excludes>
+                    <exclude>**/configuration.xml</exclude>
+                </excludes>        
+            </resource>
+            <resource>
+                <directory>src/main/resources/META-INF/andromdapp</directory>
+                <includes>
+                    <include>configuration.xml</include>
                 </includes>          
-                <filtering>true</filtering>    
+                <filtering>true</filtering>   
+                <targetPath>META-INF/andromdapp</targetPath> 
             </resource>
             <resource>
                 <directory>src/main/java</directory>
