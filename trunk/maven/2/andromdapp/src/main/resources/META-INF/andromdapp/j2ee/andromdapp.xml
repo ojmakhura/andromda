@@ -4,7 +4,11 @@
     </resourceLocations>
     <directories>
         <directory>core/src/main/java</directory>
+        <directory>web/src/main/java</directory>
+        <directory>webservice/src/main/java</directory>
+        <directory>webservice/target/classes</directory>
         <directory>workflow/src/main/java</directory>
+        <directory>workflow/target/classes</directory>
     </directories>
     <conditionalOutput>
         <conditions>
@@ -21,6 +25,10 @@
         <mapping>
             <from>empty-model.xmi</from>
             <to>${applicationId}.xmi.vsl</to>
+        </mapping>
+        <mapping>
+            <from>web-war</from>
+            <to>${applicationId}-web-${applicationVersion}</to>
         </mapping>
     </mappings>
     <instructions>readme.txt</instructions>

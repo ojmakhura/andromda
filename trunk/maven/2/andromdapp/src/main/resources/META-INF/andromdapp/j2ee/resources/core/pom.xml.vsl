@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -43,14 +43,19 @@
             <artifactId>andromda-ocl-validation-library</artifactId>
         </dependency>
         <dependency>
-            <groupId>aopalliance</groupId>
-            <artifactId>aopalliance</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-hibernate</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
+            <artifactId>spring-remoting</artifactId>
+        </dependency>
+         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-dao</artifactId>
         </dependency>
 #end
+#if ($hibernateVersion.equals("2"))
         <dependency>
             <groupId>hibernate</groupId>
             <artifactId>hibernate</artifactId>
@@ -75,6 +80,12 @@
             <groupId>ehcache</groupId>
             <artifactId>ehcache</artifactId>
         </dependency>
+#else
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate</artifactId>
+        </dependency>
+#end
 #end
         <dependency>
             <groupId>commons-collections</groupId>
@@ -148,7 +159,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                         </manifest>
-                    </archive>  
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
