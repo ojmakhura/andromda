@@ -40,12 +40,12 @@ public abstract class AbstractAndroMDAMojo
      * @required
      * @readonly
      */
-    private MavenProject project;
+    protected MavenProject project;
 
     /**
      * @parameter expression="${project.build.filters}"
      */
-    private List propertyFiles;
+    protected List propertyFiles;
 
     /**
      * The current user system settings for use in Maven. (allows us to pass the user
@@ -55,14 +55,14 @@ public abstract class AbstractAndroMDAMojo
      * @required
      * @readonly
      */
-    private Settings settings;
+    protected Settings settings;
 
     /**
      * @parameter expression="${component.org.apache.maven.artifact.factory.ArtifactFactory}"
      * @required
      * @readonly
      */
-    private ArtifactFactory factory;
+    protected ArtifactFactory factory;
 
     /**
      * The registered plugin implementations.
@@ -121,7 +121,7 @@ public abstract class AbstractAndroMDAMojo
      * 
      * @param configuration the configuration to use for AndroMDA service execution
      */
-    protected abstract void execute(final Configuration configuration) throws MojoExecutionException;
+    protected abstract void execute(final Configuration configuration) throws Exception;
 
     /**
      * @param configurationUri The configurationUri to set.
