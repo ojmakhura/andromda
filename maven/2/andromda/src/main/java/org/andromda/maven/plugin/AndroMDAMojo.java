@@ -38,7 +38,7 @@ public class AndroMDAMojo
     private String buildSourceDirectory;
 
     /**
-     * @see org.apache.maven.plugin.Mojo#execute()
+     * @see org.andromda.maven.plugin.AbstractAndroMDAMojo#execute(org.andromda.core.configuration.Configuration)
      */
     public void execute(final Configuration configuration)
         throws MojoExecutionException
