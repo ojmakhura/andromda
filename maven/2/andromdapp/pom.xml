@@ -49,11 +49,11 @@
                 <targetPath>META-INF/andromdapp</targetPath> 
             </resource>
             <resource>
-                <directory>${basedir}/../../../etc</directory>
+                <directory>${basedir}/../../../etc/mda/uml</directory>
                 <includes>
-                    <include>mda/uml/**/*</include>
+                    <include>**/*</include>
                 </includes>
-                <targetPath>META-INF/andromdapp/j2ee/resources</targetPath> 
+                <targetPath>META-INF/andromdapp/j2ee/resources/mda/src/main/uml</targetPath> 
             </resource>
             <resource>
                 <directory>src/main/java</directory>

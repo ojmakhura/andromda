@@ -1,7 +1,10 @@
 package org.andromda.andromdapp;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Represents a mapping within an AndroMDApp descriptor.
@@ -26,11 +29,24 @@ public class Mapping
     }
     
     /**
-     * @return Returns the froms.
+     * Attempts to match the given <code>path</code> on one of the 
+     * the from values, if a match can be made, the new path value is returned,
+     * otherwise null is returned.
+     * 
+     * @return true/false
      */
-    public List getFroms()
+    public String getMatch(final String path)
     {
-        return froms;
+        String match = null;
+        for (final Iterator iterator = this.froms.iterator(); iterator.hasNext();)
+        {
+            final String from = (String)iterator.next();
+            if (path.endsWith(from))
+            {
+                match = StringUtils.replace(path, from, to);
+            }
+        }
+        return match;
     }
     
     
