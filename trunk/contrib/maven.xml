@@ -98,7 +98,7 @@
              major changes -->
         <!-- Add -n to test, just lists out the files that would be xfr'ed -->
         <j:set var="rsync_arg1" value="-Cvuaz"/>
-        <j:set var="rsync_src" value="${basedir}/documentation/target/docs"/>
+        <j:set var="rsync_src" value="${basedir}/documentation/target/docs/*"/>
         <j:set var="rsync_target" value="${rsync_target_prefix}${andromda.server.directory}/contrib"/>
         <ant:echo message="rsync ${rsync_arg1} ${rsync_src} ${rsync_target}"/>
         <j:if test="${CC_TEST != 'true'}">
