@@ -13,7 +13,7 @@
                 <model>
                     <uri>${maven.andromda.model.uri}</uri>
                     <moduleSearchLocations>
-                        <location>${maven.repo.local}/andromda/xml.zips</location>
+                        <location patterns="**/*">${settings.localRepository}/org/andromda/profiles</location>
                     </moduleSearchLocations>
                 </model>
             </models>
