@@ -12,10 +12,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ComponentContainer;
+import org.andromda.core.common.Constants;
 import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.ResourceWriter;
@@ -37,6 +39,16 @@ public class AndroMDAppType
     private Map templateContext = null;
 
     /**
+     * The namespace used to initialize the template engine.
+     */
+    private static final String NAMESPACE = "andromdapp";
+
+    /**
+     * The location to which temporary merge location files are written.
+     */
+    private static final String TEMPORARY_MERGE_LOCATION = Constants.TEMPORARY_DIRECTORY;
+
+    /**
      * Performs any required initialization for the type.
      *
      * @throws Exception
@@ -44,6 +56,7 @@ public class AndroMDAppType
     private void initialize()
         throws Exception
     {
+        this.getTemplateEngine().setMergeLocation(TEMPORARY_MERGE_LOCATION);
         this.getTemplateEngine().initialize(NAMESPACE);
         this.templateContext = new LinkedHashMap();
         if (this.configurations != null)
@@ -75,11 +88,6 @@ public class AndroMDAppType
             throw new AndroMDAppException(throwable);
         }
     }
-
-    /**
-     * The namespace used to initialize the template engine.
-     */
-    private static final String NAMESPACE = "andromdapp";
 
     /**
      * Prompts the user for the input required to generate an application with
@@ -257,7 +265,9 @@ public class AndroMDAppType
         this.printLine();
         rootDirectory.mkdirs();
 
-        // - first process and write any output from the defined resource locations.
+        final Map locations = new LinkedHashMap();
+
+        // - first write any mapped resources
         for (final Iterator iterator = this.resourceLocations.iterator(); iterator.hasNext();)
         {
             final String location = (String)iterator.next();
@@ -272,53 +282,90 @@ public class AndroMDAppType
                             resourceDirectory,
                             false,
                             null);
-                    for (final Iterator contentsIterator = contents.iterator(); contentsIterator.hasNext();)
+                    locations.put(
+                        location,
+                        contents);
+                    for (final ListIterator contentsIterator = contents.listIterator(); contentsIterator.hasNext();)
                     {
                         final String path = (String)contentsIterator.next();
-                        final String projectRelativePath = StringUtils.replace(
-                                path,
-                                location,
-                                "");
-                        if (this.isWriteable(projectRelativePath))
+                        for (final Iterator mappingIterator = this.mappings.iterator(); mappingIterator.hasNext();)
                         {
-                            if (this.hasTemplateExtension(path))
+                            final Mapping mapping = (Mapping)mappingIterator.next();
+                            String newPath = mapping.getMatch(path);
+                            if (newPath != null && newPath.length() > 0)
                             {
-                                final File outputFile =
-                                    new File(
-                                        rootDirectory.getAbsolutePath(),
-                                        this.trimTemplateExtension(projectRelativePath));
-                                final StringWriter writer = new StringWriter();
-                                try
+                                final URL absolutePath = ResourceUtils.getResource(path);
+                                if (absolutePath != null)
                                 {
-                                    this.getTemplateEngine().processTemplate(
-                                        path,
-                                        this.templateContext,
-                                        writer);
-                                }
-                                catch (final Throwable throwable)
-                                {
-                                    throw new AndroMDAppException("An error occured while processing template --> '" +
-                                        path + "' with template context '" + this.templateContext + "'", throwable);
-                                }
-                                writer.flush();
-                                ResourceWriter.instance().writeStringToFile(
-                                    writer.toString(),
-                                    outputFile);
-                                this.printText(MARGIN + "Output: '" + outputFile.toURL() + "'");
-                            }
-                            else if (!path.endsWith("/"))
-                            {
-                                final File outputFile = new File(
-                                        rootDirectory.getAbsolutePath(),
-                                        projectRelativePath);
-                                final URL resource = ClassUtils.getClassLoader().getResource(path);
-                                if (resource != null)
-                                {
+                                    newPath =
+                                        this.getTemplateEngine().getEvaluatedExpression(
+                                            newPath,
+                                            this.templateContext);
                                     ResourceWriter.instance().writeUrlToFile(
-                                        resource,
-                                        outputFile.toString());
-                                    this.printText(MARGIN + "Output: '" + outputFile.toURL() + "'");
+                                        absolutePath,
+                                        ResourceUtils.normalizePath(TEMPORARY_MERGE_LOCATION + '/' + newPath));
+                                    contentsIterator.set(newPath);
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // - second process and write any output from the defined resource locations.
+        for (final Iterator iterator = locations.keySet().iterator(); iterator.hasNext();)
+        {
+            final String location = (String)iterator.next();
+            final List contents = (List)locations.get(location);
+            if (contents != null)
+            {
+                for (final Iterator contentsIterator = contents.iterator(); contentsIterator.hasNext();)
+                {
+                    final String path = (String)contentsIterator.next();
+                    final String projectRelativePath = StringUtils.replace(
+                            path,
+                            location,
+                            "");
+                    if (this.isWriteable(projectRelativePath))
+                    {
+                        if (this.hasTemplateExtension(path))
+                        {
+                            final File outputFile =
+                                new File(
+                                    rootDirectory.getAbsolutePath(),
+                                    this.trimTemplateExtension(projectRelativePath));
+                            final StringWriter writer = new StringWriter();
+                            try
+                            {
+                                this.getTemplateEngine().processTemplate(
+                                    path,
+                                    this.templateContext,
+                                    writer);
+                            }
+                            catch (final Throwable throwable)
+                            {
+                                throw new AndroMDAppException("An error occured while processing template --> '" +
+                                    path + "' with template context '" + this.templateContext + "'", throwable);
+                            }
+                            writer.flush();
+                            ResourceWriter.instance().writeStringToFile(
+                                writer.toString(),
+                                outputFile);
+                            this.printText(MARGIN + "Output: '" + outputFile.toURL() + "'");
+                        }
+                        else if (!path.endsWith("/"))
+                        {
+                            final File outputFile = new File(
+                                    rootDirectory.getAbsolutePath(),
+                                    projectRelativePath);
+                            final URL resource = ClassUtils.getClassLoader().getResource(path);
+                            if (resource != null)
+                            {
+                                ResourceWriter.instance().writeUrlToFile(
+                                    resource,
+                                    outputFile.toString());
+                                this.printText(MARGIN + "Output: '" + outputFile.toURL() + "'");
                             }
                         }
                     }
@@ -532,12 +579,12 @@ public class AndroMDAppType
         }
         return applicationRoot;
     }
-    
+
     /**
-     * Indicates whether or not this andromdapp type should overwrite any 
+     * Indicates whether or not this andromdapp type should overwrite any
      * previous applications with the same name.  This returns true on the first
      * configuration that has that flag set to true.
-     * 
+     *
      * @return true/false
      */
     private boolean isOvewrite()
@@ -790,15 +837,15 @@ public class AndroMDAppType
     {
         this.resource = resource;
     }
-    
+
     /**
      * Stores any of the mappings available to this type.
      */
     private List mappings = new ArrayList();
-    
+
     /**
      * Adds a new mapping to this type.
-     * 
+     *
      * @param mapping the mapping which maps the new output paths.
      */
     public void addMapping(final Mapping mapping)
