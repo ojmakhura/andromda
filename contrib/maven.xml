@@ -97,7 +97,9 @@
         <!-- rsync the docs first, they should go quite quick unless there are
              major changes -->
         <!-- Add -n to test, just lists out the files that would be xfr'ed -->
-        <j:set var="rsync_arg1" value="-Cvuaz"/>
+		<available property="docsAvailable" type="dir" file="${basedir}/documentation/target/docs"/>
+		<echo message="${basedir}/documentation/target/docs ${docsAvailable)"/>
+        <j:set var="rsync_arg1" value="-vuaz"/>
         <j:set var="rsync_src" value="${basedir}/documentation/target/docs/*"/>
         <j:set var="rsync_target" value="${rsync_target_prefix}${andromda.server.directory}/contrib"/>
         <ant:echo message="rsync ${rsync_arg1} ${rsync_src} ${rsync_target}"/>
