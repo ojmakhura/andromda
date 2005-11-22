@@ -58,7 +58,7 @@ public class SableCCMojo
     /**
      * The pattern to use to include all .dat files
      */
-    private static final String DAT_FILE_PATTERN = "**/**.dat";
+    private static final String DAT_FILE_PATTERN = "**/*.dat";
 
     /**
      * The pattern for the grammar files.
