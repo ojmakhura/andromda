@@ -248,6 +248,11 @@ public class AndroMDAppType
     private static final String MARGIN = "    ";
 
     /**
+     * Stores the forward slash character.
+     */
+    private static final String FORWARD_SLASH = "/";
+
+    /**
      * Processes the files for the project.
      *
      * @throws Exception
@@ -288,25 +293,33 @@ public class AndroMDAppType
                     for (final ListIterator contentsIterator = contents.listIterator(); contentsIterator.hasNext();)
                     {
                         final String path = (String)contentsIterator.next();
-                        for (final Iterator mappingIterator = this.mappings.iterator(); mappingIterator.hasNext();)
+                        if (!path.endsWith(FORWARD_SLASH))
                         {
-                            final Mapping mapping = (Mapping)mappingIterator.next();
-                            String newPath = mapping.getMatch(path);
-                            if (newPath != null && newPath.length() > 0)
+                            for (final Iterator mappingIterator = this.mappings.iterator(); mappingIterator.hasNext();)
                             {
-                                final URL absolutePath = ResourceUtils.getResource(path);
-                                if (absolutePath != null)
+                                final Mapping mapping = (Mapping)mappingIterator.next();
+                                String newPath = mapping.getMatch(path);
+                                if (newPath != null && newPath.length() > 0)
                                 {
-                                    newPath =
-                                        this.getTemplateEngine().getEvaluatedExpression(
-                                            newPath,
-                                            this.templateContext);
-                                    ResourceWriter.instance().writeUrlToFile(
-                                        absolutePath,
-                                        ResourceUtils.normalizePath(TEMPORARY_MERGE_LOCATION + '/' + newPath));
-                                    contentsIterator.set(newPath);
+                                    final URL absolutePath = ResourceUtils.getResource(path);
+                                    if (absolutePath != null)
+                                    {
+                                        newPath =
+                                            this.getTemplateEngine().getEvaluatedExpression(
+                                                newPath,
+                                                this.templateContext);
+                                        ResourceWriter.instance().writeUrlToFile(
+                                            absolutePath,
+                                            ResourceUtils.normalizePath(TEMPORARY_MERGE_LOCATION + '/' + newPath));
+                                        contentsIterator.set(newPath);
+                                    }
                                 }
                             }
+                        }
+                        else
+                        {
+                            // - remove any directories from the contents
+                            contentsIterator.remove();
                         }
                     }
                 }
@@ -354,12 +367,20 @@ public class AndroMDAppType
                                 outputFile);
                             this.printText(MARGIN + "Output: '" + outputFile.toURL() + "'");
                         }
-                        else if (!path.endsWith("/"))
+                        else if (!path.endsWith(FORWARD_SLASH))
                         {
                             final File outputFile = new File(
                                     rootDirectory.getAbsolutePath(),
                                     projectRelativePath);
-                            final URL resource = ClassUtils.getClassLoader().getResource(path);
+
+                            // - try the template engine merge location first
+                            URL resource =
+                                ResourceUtils.toURL(ResourceUtils.normalizePath(TEMPORARY_MERGE_LOCATION + '/' + path));
+                            if (resource == null)
+                            {
+                                // - if we didn't find the file in the merge location, try the classpath
+                                resource = ClassUtils.getClassLoader().getResource(path);
+                            }
                             if (resource != null)
                             {
                                 ResourceWriter.instance().writeUrlToFile(
@@ -416,8 +437,8 @@ public class AndroMDAppType
     {
         path = path.replaceAll(
                 "\\\\+",
-                "/");
-        if (path.startsWith("/"))
+                FORWARD_SLASH);
+        if (path.startsWith(FORWARD_SLASH))
         {
             path = path.substring(
                     1,
