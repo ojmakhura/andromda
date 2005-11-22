@@ -27,8 +27,16 @@
             <to>${applicationId}.xmi.vsl</to>
         </mapping>
         <mapping>
-            <from>web-war</from>
-            <to>${applicationId}-web-${applicationVersion}</to>
+            <from>ejb-jar.xml</from>
+            <to>target/classes/META-INF/ejb-jar.xml</to>
+        </mapping>
+        <mapping>
+            <from>web/web.xml</from>
+            <to>web/target/${applicationId}-web-${applicationVersion}/WEB-INF/web.xml</to>
+        </mapping>
+        <mapping>
+            <from>webservice/web.xml</from>
+            <to>webservice/target/${applicationId}-webservice-${applicationVersion}/WEB-INF/web.xml</to>
         </mapping>
     </mappings>
     <instructions>readme.txt</instructions>
