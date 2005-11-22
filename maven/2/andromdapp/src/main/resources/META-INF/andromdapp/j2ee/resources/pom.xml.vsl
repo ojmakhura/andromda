@@ -147,15 +147,12 @@
                 <scope>provided</scope>
             </dependency>
 #if (!$ejb)
+#if ($hibernateVersion.equals("2"))
             <dependency>
                 <groupId>hibernate</groupId>
                 <artifactId>hibernate</artifactId>
-#if ($hibernateVersion.equals("2"))
                 <version>2.1.8</version>
-#else
-                <version>3.0.5</version>
-#end
-            </dependency>
+           </dependency>
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>
@@ -181,19 +178,162 @@
                 <artifactId>asm</artifactId>
                 <version>1.4.3 </version>
             </dependency>
+#else
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate</artifactId>
+                <version>3.0.5</version>
+#end
+            </dependency>
 #end
 #if ($spring)
             <dependency>
                 <groupId>org.springframework</groupId>
-                <artifactId>spring</artifactId>
-                <version>1.2.6</version>
+                <artifactId>spring-aop</artifactId>
+                <version>1.2.5</version>
                 <scope>compile</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-attributes</groupId>
+                        <artifactId>commons-attributes-compiler</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-attributes</groupId>
+                        <artifactId>commons-attributes-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>aopalliance</groupId>
+                        <artifactId>aopalliance</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-pool</groupId>
+                        <artifactId>commons-pool</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>oro</groupId>
+                        <artifactId>oro</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.jamonapi</groupId>
+                        <artifactId>jamon</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
-                <groupId>aopalliance</groupId>
-                <artifactId>aopalliance</artifactId>
-                <version>1.0</version>
-                <scope>runtime</scope>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>1.2.5</version>
+                <scope>compile</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>cglib</groupId>
+                        <artifactId>cglib</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                 <groupId>org.springframework</groupId>
+                 <artifactId>spring-context</artifactId>
+                 <version>1.2.5</version>
+                 <scope>compile</scope>
+                 <exclusions>
+                     <exclusion>
+                         <groupId>velocity</groupId>
+                         <artifactId>velocity</artifactId>
+                     </exclusion>
+                     <exclusion>
+                         <groupId>freemarker</groupId>
+                         <artifactId>freemarker</artifactId>
+                     </exclusion>
+                     <exclusion>
+                         <groupId>jasperreports</groupId>
+                         <artifactId>jasperreports</artifactId>
+                     </exclusion>
+                 </exclusions>
+             </dependency>
+             <dependency>
+                 <groupId>org.springframework</groupId>
+                 <artifactId>spring-core</artifactId>
+                 <version>1.2.5</version>
+                 <scope>compile</scope>
+             </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-dao</artifactId>
+                <version>1.2.5</version>
+                <scope>compile</scope>
+                <exclusions>
+                     <exclusion>
+                         <groupId>javax.transaction</groupId>
+                         <artifactId>jta</artifactId>
+                     </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                 <groupId>org.springframework</groupId>
+                 <artifactId>spring-hibernate</artifactId>
+                 <version>1.2.5</version>
+                 <scope>compile</scope>
+                 <!--
+                 <exclusions>
+                     <exclusion>
+                         <groupId>org.hibernate</groupId>
+                         <artifactId>hibernate-annotations</artifactId>
+                     </exclusion>
+                     <exclusion>
+                         <groupId>net.sf.hibernate</groupId>
+                         <artifactId>hibernate</artifactId>
+                     </exclusion>
+                 </exclusions>
+                 -->
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>1.2.5</version>
+                <scope>compile</scope>
+                <exclusions>
+                     <exclusion>
+                         <groupId>springframework</groupId>
+                         <artifactId>spring-webmvc</artifactId>
+                     </exclusion>
+                     <exclusion>
+                         <groupId>javax.jdo</groupId>
+                         <artifactId>jdo</artifactId>
+                     </exclusion>
+                     <exclusion>
+                         <groupId>com.oracle</groupId>
+                         <artifactId>toplink-api</artifactId>
+                     </exclusion>
+                     <exclusion>
+                         <groupId>com.ibatis</groupId>
+                         <artifactId>ibatis-sqlmap</artifactId>
+                     </exclusion>
+                     <exclusion>
+                         <groupId>com.ibatis</groupId>
+                         <artifactId>ibatis2-sqlmap</artifactId>
+                     </exclusion>
+                     <exclusion>
+                         <groupId>ojb</groupId>
+                         <artifactId>db-ojb</artifactId>
+                     </exclusion>
+                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-remoting</artifactId>
+                <version>1.2.5</version>
+                <scope>compile</scope>
+                <exclusions>
+                     <exclusion>
+                         <groupId>springframework</groupId>
+                         <artifactId>spring-webmvc</artifactId>
+                     </exclusion>
+                      <exclusion>
+                         <groupId>springframework</groupId>
+                         <artifactId>spring-web</artifactId>
+                     </exclusion>
+                 </exclusions>
             </dependency>
 #end
 #if ($workflow)
@@ -318,7 +458,7 @@
                     </exclusion>
                     <exclusion>
                         <groupId>commons-digester</groupId>
-                        <artifactId>commons-digester</artifactId>                        
+                        <artifactId>commons-digester</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -393,6 +533,7 @@
         </dependency>
     </dependencies>
     <build>
+        <defaultGoal>install</defaultGoal>
         <pluginManagement>
             <plugins>
                 <plugin>
