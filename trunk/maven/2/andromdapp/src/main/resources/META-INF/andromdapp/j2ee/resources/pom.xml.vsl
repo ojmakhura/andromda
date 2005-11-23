@@ -224,10 +224,10 @@
                 <version>1.2.5</version>
                 <scope>compile</scope>
                 <exclusions>
-		     <exclusion>
-		         <groupId>org.springframework</groupId>
-		         <artifactId>spring-webmvc</artifactId>
-		     </exclusion>
+                     <exclusion>
+                         <groupId>org.springframework</groupId>
+                         <artifactId>spring-webmvc</artifactId>
+                     </exclusion>
                  </exclusions>
             </dependency>
             <dependency>
@@ -237,7 +237,7 @@
                 <scope>compile</scope>
                 <exclusions>
                      <exclusion>
-                         <groupId>springframework</groupId>
+                         <groupId>org.springframework</groupId>
                          <artifactId>spring-webmvc</artifactId>
                      </exclusion>
                  </exclusions>
