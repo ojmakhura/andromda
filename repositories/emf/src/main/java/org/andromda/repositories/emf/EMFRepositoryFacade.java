@@ -64,7 +64,7 @@ public abstract class EMFRepositoryFacade
      * @param uri the URI to the model
      * @return the model element instance.
      */
-    private EObject readModel(final String uri)
+    protected EObject readModel(final String uri)
     {
         EObject modelPackage = null;
         try
