@@ -387,11 +387,7 @@ public class XmlObjectFactory
                         SYSTEM_ID_FILE,
                         "");
                 // - remove any extra starting slashes
-                path = path.replaceAll(
-                        "\\\\+",
-                        "/").replaceAll(
-                        "/+",
-                        "/");
+                path = ResourceUtils.normalizePath(path);
 
                 // - if we still have one starting slash, remove it
                 if (path.startsWith("/"))

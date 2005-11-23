@@ -66,12 +66,12 @@ public class MetafacadeFactory
     /**
      * Performs any initialization required by the factory (i.e. discovering all
      * <code>metafacade</code> mappings, etc).
-     * 
+     *
      * @param modelTypeNamespaces defines the possible model type namespaces.
      */
-    public void initialize(final String[] modelTypeNamespaces)
+    public void initialize()
     {
-        this.mappings.initialize(modelTypeNamespaces);
+        this.mappings.initialize();
     }
 
     /**
@@ -174,8 +174,9 @@ public class MetafacadeFactory
                 this.getLogger().debug("mappingObject stereotypes --> '" + stereotypes + "'");
             }
 
+            final MetafacadeMappings modelMetafacadeMappings = this.getModelMetafacadeMappings();
             final MetafacadeMapping mapping =
-                this.mappings.getMetafacadeMapping(
+                modelMetafacadeMappings.getMetafacadeMapping(
                     mappingObject,
                     this.getNamespace(),
                     context,
@@ -189,7 +190,7 @@ public class MetafacadeFactory
                 else
                 {
                     // get the default since no mapping was found.
-                    metafacadeClass = this.mappings.getDefaultMetafacadeClass(this.getNamespace());
+                    metafacadeClass = modelMetafacadeMappings.getDefaultMetafacadeClass(this.getNamespace());
                     if (this.getLogger().isDebugEnabled())
                     {
                         this.getLogger().debug(
@@ -232,6 +233,17 @@ public class MetafacadeFactory
             this.getLogger().error(message);
             throw new MetafacadeFactoryException(message, throwable);
         }
+    }
+
+    /**
+     * Gets the model metafacade mappings (that is the mappings that corresponding
+     * to the current metafacade model namespace).
+     *
+     * @return the model metafacade mappings.
+     */
+    private MetafacadeMappings getModelMetafacadeMappings()
+    {
+        return this.mappings.getModelMetafacadeMappings(this.metafacadeModelNamespace);
     }
 
     /**
@@ -474,23 +486,32 @@ public class MetafacadeFactory
         }
         return this.model;
     }
-    
+
     /**
      * The shared metafacade impls instance.
      */
     private MetafacadeImpls metafacadeImpls = MetafacadeImpls.instance();
 
     /**
+     * Stores the namespace that contains the metafacade model implementation.
+     */
+    private String metafacadeModelNamespace;
+
+    /**
      * The model access facade instance (provides access to the meta model).
      *
      * @param model the model
-     * @param type the type of model (i.e. the namespace in which the model resides)
+     * @param metafacadeModelNamespace the namespace that contains the metafacade facade implementation.
      */
-    public void setModel(final ModelAccessFacade model, final String type)
+    public void setModel(
+        final ModelAccessFacade model,
+        final String metafacadeModelNamespace)
     {
+        this.metafacadeModelNamespace = metafacadeModelNamespace;
+
         // - set the model type as the namespace for the metafacade impls so we have
         //   access to the correct metafacade classes
-        this.metafacadeImpls.setModelType(type);
+        this.metafacadeImpls.setMetafacadeModelNamespace(metafacadeModelNamespace);
         this.model = model;
     }
 
@@ -773,7 +794,14 @@ public class MetafacadeFactory
         // - only register them if they already aren't registered
         if (this.metafacadeNamespaces.isEmpty())
         {
-            this.mappings.registerAllProperties();
+            if (this.metafacadeModelNamespace != null && this.metafacadeModelNamespace.trim().length() > 0)
+            {
+                final MetafacadeMappings modelMappings = this.getModelMetafacadeMappings();
+                if (modelMappings != null)
+                {
+                    modelMappings.registerAllProperties();
+                }
+            }
         }
     }
 

@@ -2,9 +2,7 @@ package org.andromda.core.common;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -294,7 +292,7 @@ public class ClassUtils
      * Class found that is of the given <code>type</code>.
      *
      * @param directoryUri the URI to search, ie. a directory or an archive.
-     * @param type the type to check.
+     * @param type the type to find.
      * @return the class or null if not found.
      */
     public static Class findClassOfType(
@@ -319,9 +317,7 @@ public class ClassUtils
                     {
                         final String typeName =
                             StringUtils.replace(
-                                path.replaceAll(
-                                    "\\\\+",
-                                    "/").replace(
+                                ResourceUtils.normalizePath(path).replace(
                                     '/',
                                     '.'),
                                 CLASS_EXTENSION,
@@ -344,5 +340,20 @@ public class ClassUtils
             }
         }
         return found;
+    }
+    
+    /**
+     * Indicates whether or not a class of the given <code>type</code>
+     * is present in one of the given <code>directoryUris</code>.
+     * 
+     * @param directoryUri the URI to search, ie. a directory or an archive.
+     * @param type the type to check.
+     * @return true/false.
+     */
+    public static boolean isClassOfTypePresent(
+        final URL directoryUris[],
+        final Class type)
+    {
+        return ClassUtils.findClassOfType(directoryUris, type) != null;
     }
 }

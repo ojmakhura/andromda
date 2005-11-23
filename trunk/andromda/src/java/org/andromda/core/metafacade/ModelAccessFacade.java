@@ -86,4 +86,9 @@ public interface ModelAccessFacade
      * @return Collection of all metafacades
      */
     public Collection getModelElements();
+    
+    public static final class Finder
+    {
+        
+    }
 }

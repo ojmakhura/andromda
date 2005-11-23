@@ -102,6 +102,12 @@ public class Profile
         for (final Iterator iterator = profiles.iterator(); iterator.hasNext();)
         {
             final Profile profile = (Profile)iterator.next();
+            
+            String namespace = profile.getNamespace();
+            if (Namespaces.instance().isShared(namespace))
+            {
+                profile.setNamespace(Namespaces.DEFAULT);
+            }
             this.addElements(profile);
         }
     }

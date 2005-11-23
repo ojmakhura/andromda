@@ -105,8 +105,9 @@ public class MetafacadeMappingsTest
     {
 
         MetafacadeMappings mappings = MetafacadeMappings.newInstance();
+        mappings.initialize();
         final String modelTypeNamespace = "test";
-        mappings.initialize(new String[] {modelTypeNamespace});
+        mappings = mappings.getModelMetafacadeMappings(modelTypeNamespace);
         final String namespace = mappings.getNamespace();
         final MetafacadeFactory factory = MetafacadeFactory.getInstance();
         factory.setModel(new Model(), modelTypeNamespace);
