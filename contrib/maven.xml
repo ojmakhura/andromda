@@ -95,6 +95,15 @@
              Copy the documentation to the server.
          ================================================================= -->
     <goal name="deploy-docs">
+	    <ant:copy todir="${andromda.server.directory}/contrib" >
+			<ant:fileset dir="${basedir}/documentation/target/docs"/>
+		</ant:copy>
+    </goal>
+
+    <!-- =================================================================
+             Copy the documentation to the server.
+         ================================================================= -->
+    <goal name="deploy-docs-rsync">
         <!-- rsync the docs first, they should go quite quick unless there are
              major changes -->
         <!-- Add -n to test, just lists out the files that would be xfr'ed -->
