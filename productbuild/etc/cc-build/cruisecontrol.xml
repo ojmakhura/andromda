@@ -74,7 +74,7 @@
             <currentbuildstatuspublisher file="/var/andromda-build/logs/andromda-contrib/currentbuildstatus.txt"/>
             <htmlemail logdir="/var/andromda-build/logs/andromda-contrib"
                 mailhost="localhost"
-                buildresultsurl="http://thecla.homeftp.net:8080/cruisecontrol/buildresults/andromda-all"
+                buildresultsurl="http://thecla.homeftp.net:8080/cruisecontrol/buildresults/andromda-contrib"
                 spamwhilebroken="true"
                 subjectprefix="[BUILD]"
                 returnaddress="committers@andromda.org"
