@@ -2,6 +2,7 @@ package org.andromda.maven.plugin.andromdapp.eclipse;
 
 import java.io.File;
 import java.io.FileWriter;
+
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -21,25 +22,22 @@ import org.codehaus.plexus.util.xml.XMLWriter;
 
 
 /**
- * Writes the Eclipse .classpath file.
+ * Writes the Eclipse .classpath files.
  *
  * @author Chad Brandon
  */
 public class ClasspathWriter
+    extends EclipseWriter
 {
-    
-    private Log logger;
-    
-    public ClasspathWriter(final Log logger)
+    public ClasspathWriter(final MavenProject project, final Log logger)
     {
-        this.logger = logger;
+        super(project, logger);
     }
-    
+
     /**
-     * Writes the .classpath file for Eclipse.
+     * Writes the .classpath files for Eclipse.
      */
     public void write(
-        final MavenProject rootProject,
         final List projects,
         final String repositoryVariableName,
         final ArtifactFactory artifactFactory,
@@ -47,9 +45,8 @@ public class ClasspathWriter
         final ArtifactRepository localRepository)
         throws Exception
     {
-        final String rootDirectory = ResourceUtils.normalizePath(rootProject.getBasedir().toString());
-        final File classpathFile = new File(
-            rootDirectory, ".classpath");
+        final String rootDirectory = ResourceUtils.normalizePath(this.project.getBasedir().toString());
+        final File classpathFile = new File(rootDirectory, ".classpath");
         final FileWriter fileWriter = new FileWriter(classpathFile);
         final XMLWriter writer = new PrettyPrintXMLWriter(fileWriter);
 
@@ -113,7 +110,7 @@ public class ClasspathWriter
             final Artifact artifact = (Artifact)iterator.next();
             artifactResolver.resolve(
                 artifact,
-                rootProject.getRemoteArtifactRepositories(),
+                this.project.getRemoteArtifactRepositories(),
                 localRepository);
             if (Artifact.SCOPE_COMPILE.equals(artifact.getScope()))
             {
@@ -138,7 +135,7 @@ public class ClasspathWriter
 
         writer.endElement();
 
-        logger.info("Wrote classpath file '" + classpathFile + "'");
+        logger.info("Classpath file written --> '" + classpathFile + "'");
         IOUtil.close(fileWriter);
     }
 }
