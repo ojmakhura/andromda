@@ -2,10 +2,14 @@ package org.andromda.repositories.emf.uml2;
 
 import java.util.Map;
 
+import org.andromda.core.metafacade.ModelAccessFacade;
+import org.andromda.core.repository.RepositoryFacadeException;
 import org.andromda.repositories.emf.EMFRepositoryFacade;
 import org.apache.log4j.Logger;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.uml2.Model;
 import org.eclipse.uml2.UML2Package;
 import org.eclipse.uml2.util.UML2Resource;
 
@@ -55,5 +59,20 @@ public class EMFUML2RepositoryFacade
         loadOptions.put(
             XMLResource.OPTION_RECORD_UNKNOWN_FEATURE,
             Boolean.TRUE);
+    }
+    
+    /**
+     * Overrridden to check that the model is of the correct type.
+     * 
+     * @see org.andromda.repositories.emf.EMFRepositoryFacade#readModel(java.lang.String)
+     */
+    protected EObject readModel(final String uri)
+    {
+        EObject model = super.readModel(uri);
+        if (!(model instanceof Model))
+        {
+            throw new RepositoryFacadeException("Model '" + uri + "' is not a valid EMF UML2 model");
+        }
+        return model;
     }
 }
