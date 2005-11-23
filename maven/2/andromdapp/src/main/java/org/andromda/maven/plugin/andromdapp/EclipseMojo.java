@@ -110,6 +110,7 @@ public class EclipseMojo
                     this.artifactFactory,
                     this.artifactResolver,
                     this.localRepository);
+            }
         }
         catch (Throwable throwable)
         {
