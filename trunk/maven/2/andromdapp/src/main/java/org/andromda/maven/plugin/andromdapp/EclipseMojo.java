@@ -1,17 +1,12 @@
 package org.andromda.maven.plugin.andromdapp;
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.andromda.core.common.Constants;
-import org.andromda.core.common.ResourceUtils;
-import org.andromda.core.common.ResourceWriter;
 import org.andromda.maven.plugin.andromdapp.eclipse.ClasspathWriter;
 import org.andromda.maven.plugin.andromdapp.eclipse.ProjectWriter;
-import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactResolver;
