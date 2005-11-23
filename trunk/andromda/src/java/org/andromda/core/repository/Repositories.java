@@ -11,7 +11,6 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.configuration.Model;
-import org.andromda.core.engine.ModelProcessorException;
 import org.andromda.core.transformation.Transformer;
 import org.apache.commons.lang.StringUtils;
 
@@ -96,7 +95,7 @@ public class Repositories
                         this.repositories.keySet().iterator(),
                         ",") + "'";
             }
-            throw new ModelProcessorException(message);
+            throw new RepositoryException(message);
         }
         return implementation;
     }
