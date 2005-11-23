@@ -10,6 +10,7 @@ import org.andromda.core.common.Constants;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.ResourceWriter;
 import org.andromda.maven.plugin.andromdapp.eclipse.ClasspathWriter;
+import org.andromda.maven.plugin.andromdapp.eclipse.ProjectWriter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -97,9 +98,10 @@ public class EclipseMojo
     {
         try
         {
-            final ClasspathWriter writer = new ClasspathWriter(this.getLog());
-            writer.write(
-                this.project,
+            final ProjectWriter projectWriter = new ProjectWriter(this.project, this.getLog());
+            projectWriter.write();
+            final ClasspathWriter classpathWriter = new ClasspathWriter(this.project, this.getLog());
+            classpathWriter.write(
                 this.collectProjects(),
                 this.repositoryVariableName,
                 this.artifactFactory,
