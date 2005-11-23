@@ -1494,7 +1494,7 @@ public class StrutsParameterLogicImpl
             {
                 // this means the value wasn't a valid integer, we'll interpret it is a comma-separated
                 // list of option-values
-                final String[] options = taggedValue.replaceAll("[\\s]+", "").split("[,]");
+                final String[] options = taggedValue.split("[,]");
                 for (int i = 0; i < options.length; i++)
                 {
                     optionValues.add(options[i].trim());
