@@ -90,10 +90,10 @@ public class Repositories
             {
                 message =
                     "No repository implementation registered under namespace '" + name +
-                    "', you must specify one of the available as your repository name: '" +
+                    "', you must specify one of the following as your repository name: [" +
                     StringUtils.join(
                         this.repositories.keySet().iterator(),
-                        ",") + "'";
+                        ", ") + "]";
             }
             throw new RepositoryException(message);
         }
