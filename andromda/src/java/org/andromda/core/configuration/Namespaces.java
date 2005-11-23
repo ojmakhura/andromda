@@ -178,9 +178,9 @@ public class Namespaces
         {
             if (logger.isDebugEnabled())
             {
-                logger.debug("no namespace with name '" + namespaceName + "' found, looking for '" + DEFAULT + "'");
+                logger.debug("no namespace with name '" + namespaceName + "' found, looking for '" + Namespaces.DEFAULT + "'");
             }
-            defaultNamespace = (Namespace)namespaces.get(DEFAULT);
+            defaultNamespace = (Namespace)namespaces.get(Namespaces.DEFAULT);
             if (defaultNamespace != null)
             {
                 property = defaultNamespace.getProperty(propertyName);
@@ -239,7 +239,7 @@ public class Namespaces
             // - if the registry is shared, we add the registry to the default namespace as well
             if (registry.isShared())
             {
-                NamespaceRegistry defaultRegistry = this.getRegistry(DEFAULT);
+                NamespaceRegistry defaultRegistry = this.getRegistry(Namespaces.DEFAULT);
                 if (defaultRegistry == null)
                 {
                     defaultRegistry = registry;
@@ -249,7 +249,7 @@ public class Namespaces
                     defaultRegistry.addPropertyDefinitions(registry.getPropertyDefinitions());
                 }
                 this.registries.put(
-                    DEFAULT,
+                    Namespaces.DEFAULT,
                     defaultRegistry);
             }
         }
@@ -264,7 +264,8 @@ public class Namespaces
      */
     public boolean isShared(final String namespace)
     {
-        return Namespaces.DEFAULT.equals(namespace);
+        final NamespaceRegistry registry = this.getRegistry(namespace);
+        return registry != null ? registry.isShared() : false;
     }
 
     /**

@@ -169,9 +169,7 @@ public class Model
     {
         try
         {
-            final URL url = new URL(uri.replace(
-                        '\\',
-                        '/'));
+            final URL url = ResourceUtils.toURL(uri);
             try
             {
                 // - Get around the fact the URL won't be released until the JVM

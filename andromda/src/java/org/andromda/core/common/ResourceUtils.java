@@ -462,30 +462,34 @@ public class ResourceUtils
      * @param path the path from which to construct the URL.
      * @return the constructed URL or null if one couldn't be constructed.
      */
-    public static URL toURL(final String path)
+    public static URL toURL(String path)
     {
         URL url = null;
-        final File file = new File(path);
-        if (file.exists())
+        if (path != null)
         {
-            try
+            path = ResourceUtils.normalizePath(path);
+            final File file = new File(path);
+            if (file.exists())
             {
-                url = file.toURL();
+                try
+                {
+                    url = file.toURL();
+                }
+                catch (MalformedURLException exception)
+                {
+                    // ignore
+                }
             }
-            catch (MalformedURLException exception)
+            else
             {
-                // ignore
-            }
-        }
-        else
-        {
-            try
-            {
-                url = new URL(path);
-            }
-            catch (MalformedURLException exception)
-            {
-                // ignore
+                try
+                {
+                    url = new URL(path);
+                }
+                catch (MalformedURLException exception)
+                {
+                    // ignore
+                }
             }
         }
         return url;
@@ -672,5 +676,32 @@ public class ResourceUtils
             }
         }
         return changed;
+    }
+
+    /**
+     * The pattern used for normalizing paths paths with more than one back slash.
+     */
+    private static final String BACK_SLASH_NORMALIZATION_PATTERN = "\\\\+";
+
+    /**
+     * The pattern used for normalizing paths with more than one forward slash.
+     */
+    private static final String FORWARD_SLASH_NORMALIZATION_PATTERN = FORWARD_SLASH + "+";
+
+    /**
+     * Removes any extra path separators and converts all from back slashes
+     * to forward slashes.
+     *
+     * @param path the path to normalize.
+     * @return the normalizd path
+     */
+    public static String normalizePath(final String path)
+    {
+        return path != null
+        ? path.replaceAll(
+            BACK_SLASH_NORMALIZATION_PATTERN,
+            FORWARD_SLASH).replaceAll(
+            FORWARD_SLASH_NORMALIZATION_PATTERN,
+            FORWARD_SLASH) : null;
     }
 }

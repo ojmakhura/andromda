@@ -21,6 +21,7 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.andromda.core.common.AndroMDALogger;
+import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Transformation;
 import org.apache.commons.lang.StringUtils;
 
@@ -129,7 +130,7 @@ public class XslTransformer
             Source source = null;
             if (this.location != null)
             {
-                String locationUri = new String(location.toString().replaceAll("\\\\+", "/"));
+                String locationUri = ResourceUtils.normalizePath(this.location.toString());
                 locationUri = locationUri.substring(0, locationUri.toString().lastIndexOf('/') + 1);
                 source = new StreamSource(locationUri + href);
             }

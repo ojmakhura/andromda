@@ -100,7 +100,8 @@ public class NamespaceComponents
 
                 // - first merge on the namespace registry descriptor (if needed)
                 final Merger merger = Merger.instance();
-                if (merger.requiresMerge(namespace))
+                boolean requiresMerge = merger.requiresMerge(namespace);
+                if (requiresMerge)
                 {
                     registry =
                         (NamespaceRegistry)registryFactory.getObject(
@@ -162,9 +163,8 @@ public class NamespaceComponents
                         NamespaceComponent namespaceComponent =
                             (NamespaceComponent)componentFactory.getObject(componentResource);
 
-                        // - now perform a merge of the descriptor (if we
-                        // require one)
-                        if (merger.requiresMerge(namespace))
+                        // - now perform a merge of the descriptor (if we require one)
+                        if (requiresMerge)
                         {
                             namespaceComponent =
                                 (NamespaceComponent)componentFactory.getObject(
@@ -173,7 +173,7 @@ public class NamespaceComponents
                                         namespace));
                         }
 
-                        namespaceComponent.setNamespace(namespace);
+                        namespaceComponent.setNamespace(registryName);
                         namespaceComponent.setResource(componentResource);
                         container.registerComponentByNamespace(
                             registryName,
@@ -252,9 +252,7 @@ public class NamespaceComponents
                     InputStream stream = null;
                     try
                     {
-                        namespaceResource = new URL((resource + path).replaceAll(
-                                    "\\\\+|/",
-                                    "/"));
+                        namespaceResource = new URL(ResourceUtils.normalizePath(resource + path));
                         stream = namespaceResource.openStream();
                         stream.close();
                     }

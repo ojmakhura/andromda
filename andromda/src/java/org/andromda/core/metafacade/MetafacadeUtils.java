@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.Introspector;
+import org.andromda.core.configuration.Namespaces;
 import org.apache.log4j.Logger;
 
 
@@ -150,6 +151,25 @@ final class MetafacadeUtils
                 "'");
         }
         return className;
+    }
+    
+    /**
+     * Indicates whether or not a metafacade model facade is present within the 
+     * given namespace
+     * 
+     * @param namespace the namespace to check.
+     * @return true/false
+     */
+    public static boolean isMetafacadeModelPresent(final String namespace)
+    {
+        boolean  present = false;
+        if (ClassUtils.isClassOfTypePresent(
+            Namespaces.instance().getResourceRoots(namespace),
+            ModelAccessFacade.class))
+        {
+            present = true;
+        }
+        return present;
     }
 
     /**

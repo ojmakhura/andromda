@@ -1,7 +1,6 @@
 package org.andromda.core.engine;
 
 import java.text.Collator;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,7 +23,6 @@ import org.andromda.core.configuration.Filters;
 import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
-import org.andromda.core.configuration.Repository;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.metafacade.ModelValidationMessage;
@@ -299,30 +297,7 @@ public class ModelProcessor
         repositories.initialize();
 
         // - finally initialize the metafacade factory
-        final Repository[] repositories = configuration.getRepositories();
-        final List modelTypes = new ArrayList();
-        if (repositories != null)
-        {
-            final int numberOfRepositories = repositories.length;
-            for (int ctr = 0; ctr < numberOfRepositories; ctr++)
-            {
-                final Repository repository = repositories[ctr];
-                final Model[] models = repository != null ? repository.getModels() : null;
-                if (models != null)
-                {
-                    final int numberOfModels = models.length;
-                    for (int ctr2 = 0; ctr2 < numberOfModels; ctr2++)
-                    {
-                        final Model model = models[ctr2];
-                        if (model != null)
-                        {
-                            modelTypes.add(model.getType());
-                        }
-                    }
-                }
-            }
-        }
-        this.factory.initialize((String[])modelTypes.toArray(new String[0]));
+        this.factory.initialize();
         this.printWorkCompleteMessage(
             "core initialization",
             startTime);

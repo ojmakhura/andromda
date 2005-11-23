@@ -2,6 +2,8 @@ package org.andromda.core.metafacade;
 
 import java.net.URL;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -49,17 +51,17 @@ public class MetafacadeImpls
     /**
      * The current model type to which metafacade class retrieval applies.
      */
-    private String modelType;
+    private String metafacadeModelNamespace;
 
     /**
      * Sets the current model type to which this instance's metafacade class retrieval
      * should apply.
      *
-     * @param modelType the namespace storing the available model access facade.
+     * @param metafacadeModelNamespace the namespace that has the metafacade model implementation.
      */
-    public void setModelType(final String modelType)
+    public void setMetafacadeModelNamespace(final String metafacadeModelNamespace)
     {
-        this.modelType = modelType;
+        this.metafacadeModelNamespace = metafacadeModelNamespace;
     }
 
     /**
@@ -74,45 +76,42 @@ public class MetafacadeImpls
      * Note that this method must be called before any metafacade implementation classes will be able to be retrieved
      * when calling {@link #getMetafacadeClass(String)}or {@link #getMetafacadeImplClass(String)}.
      *
-     * @param modelTypes a list of each namespace used as a model type in the current andromda configuration.
+     * @param metafacadeModelNamespaces a list of each namespace containing a metafacade model facade implementation.
      */
-    public void discover(final String[] modelTypes)
+    public void discover(final String[] metafacadeModelNamespaces)
     {
         ExceptionUtils.checkNull(
             "modelTypes",
-            modelTypes);
-        final int numberOfNamespaces = modelTypes.length;
-        for (int ctr = 0; ctr < numberOfNamespaces; ctr++)
+            metafacadeModelNamespaces);
+        final List modelNamespaces = new ArrayList(Arrays.asList(metafacadeModelNamespaces));
+        final int numberOfModelTypes = metafacadeModelNamespaces.length;
+        for (int ctr = 0; ctr < numberOfModelTypes; ctr++)
         {
-            final String namespace = modelTypes[ctr];
-            if (namespace != null)
+            final String modelNamespace = metafacadeModelNamespaces[ctr];
+            if (modelNamespace != null)
             {
-                MetafacadeClasses metafacadeClasses = (MetafacadeClasses)this.metafacadeClasses.get(namespace);
+                // - remove the current model type so that we don't keep out the namespace
+                //   that stores the metafacade model
+                modelNamespaces.remove(modelNamespace);
+
+                MetafacadeClasses metafacadeClasses = (MetafacadeClasses)this.metafacadeClasses.get(modelNamespace);
                 if (metafacadeClasses == null)
                 {
                     metafacadeClasses = new MetafacadeClasses();
                     this.metafacadeClasses.put(
-                        namespace,
+                        modelNamespace,
                         metafacadeClasses);
                 }
                 metafacadeClasses.clear();
                 try
                 {
-                    NamespaceRegistry storageRegistry = null;
                     final Namespaces namespacesConfiguration = Namespaces.instance();
                     for (final Iterator iterator = namespacesConfiguration.getNamespaceRegistries().iterator();
                         iterator.hasNext();)
                     {
                         final NamespaceRegistry namespaceRegistry = (NamespaceRegistry)iterator.next();
                         final String namespaceRegistryName = namespaceRegistry.getName();
-
-                        // - if the namespace equals the registry name, then we set the storageRegistry
-                        //   since we want that added last.
-                        if (namespace.equals(namespaceRegistryName))
-                        {
-                            storageRegistry = namespaceRegistry;
-                        }
-                        else
+                        if (!modelNamespaces.contains(namespaceRegistryName))
                         {
                             this.registerMetafacadeClasses(
                                 metafacadeClasses,
@@ -120,21 +119,14 @@ public class MetafacadeImpls
                                 namespaceRegistry);
                         }
                     }
-
-                    // - we make sure the storageRegistry classes are registered last so that they override any
-                    //   clases that were previously stored.
-                    if (storageRegistry != null)
-                    {
-                        this.registerMetafacadeClasses(
-                            metafacadeClasses,
-                            namespacesConfiguration,
-                            storageRegistry);
-                    }
                 }
                 catch (final Throwable throwable)
                 {
                     throw new MetafacadeImplsException(throwable);
                 }
+
+                // - add the metafacade model namespace back
+                modelNamespaces.add(modelNamespace);
             }
         }
     }
@@ -174,9 +166,9 @@ public class MetafacadeImpls
                         {
                             final String typeName =
                                 StringUtils.replace(
-                                    path.replaceAll(
-                                        "\\\\+|/+",
-                                        "."),
+                                    ResourceUtils.normalizePath(path).replace(
+                                        '/',
+                                        '.'),
                                     ClassUtils.CLASS_EXTENSION,
                                     "");
                             Class implementationClass = null;
@@ -188,7 +180,8 @@ public class MetafacadeImpls
                             {
                                 // - ignore
                             }
-                            if (implementationClass != null && MetafacadeBase.class.isAssignableFrom(implementationClass))
+                            if (implementationClass != null &&
+                                MetafacadeBase.class.isAssignableFrom(implementationClass))
                             {
                                 final List allInterfaces = ClassUtils.getInterfaces(implementationClass);
                                 if (!allInterfaces.isEmpty())
@@ -219,10 +212,10 @@ public class MetafacadeImpls
      */
     private MetafacadeClasses getMetafacadeClasses()
     {
-        final MetafacadeClasses classes = (MetafacadeClasses)this.metafacadeClasses.get(this.modelType);
+        final MetafacadeClasses classes = (MetafacadeClasses)this.metafacadeClasses.get(this.metafacadeModelNamespace);
         if (classes == null)
         {
-            throw new MetafacadeImplsException("Namespace '" + this.modelType + "' is not a registered model type");
+            throw new MetafacadeImplsException("Namespace '" + this.metafacadeModelNamespace + "' is not a registered metafacade model facade namespace");
         }
         return classes;
     }
@@ -341,6 +334,14 @@ public class MetafacadeImpls
         {
             this.metafacadesByImpls.clear();
             this.implsByMetafacades.clear();
+        }
+
+        /**
+         * @see java.lang.Object#toString()
+         */
+        public String toString()
+        {
+            return super.toString() + "[" + this.metafacadesByImpls + "]";
         }
     }
 }
