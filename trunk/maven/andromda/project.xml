@@ -153,6 +153,47 @@
             <artifactId>openide-util</artifactId>
             <version>20050630</version>
         </dependency>
+        <!-- EMF dependencies -->
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-repository-emf</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-repository-emf-uml2</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-metafacades-emf-uml2</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+		<dependency>
+			<groupId>emf</groupId>
+			<artifactId>emf-common</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>emf</groupId>
+			<artifactId>emf-ecore.xmi</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>emf</groupId>
+			<artifactId>emf-ecore</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>eclipse-uml2</groupId>
+			<artifactId>eclipse-uml2-common</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>eclipse-uml2</groupId>
+			<artifactId>eclipse-uml2</artifactId>
+			<version>1.1.1</version>
+		</dependency>
         <!-- for XSL transformation preprocessing -->
         <dependency>
             <groupId>xalan</groupId>
