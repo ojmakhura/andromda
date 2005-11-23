@@ -98,15 +98,18 @@ public class EclipseMojo
     {
         try
         {
-            final ProjectWriter projectWriter = new ProjectWriter(this.project, this.getLog());
-            projectWriter.write();
-            final ClasspathWriter classpathWriter = new ClasspathWriter(this.project, this.getLog());
-            classpathWriter.write(
-                this.collectProjects(),
-                this.repositoryVariableName,
-                this.artifactFactory,
-                this.artifactResolver,
-                this.localRepository);
+            final List projects = this.collectProjects();
+            if (!projects.isEmpty())
+            {
+                final ProjectWriter projectWriter = new ProjectWriter(this.project, this.getLog());
+                projectWriter.write();
+                final ClasspathWriter classpathWriter = new ClasspathWriter(this.project, this.getLog());
+                classpathWriter.write(
+                    this.collectProjects(),
+                    this.repositoryVariableName,
+                    this.artifactFactory,
+                    this.artifactResolver,
+                    this.localRepository);
         }
         catch (Throwable throwable)
         {
