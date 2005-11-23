@@ -488,6 +488,22 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                         <li><code>log4net.dll</code>: used for general purpose logging</li>
                     </ul>
                 </p>
+
+                <p>
+                    By the way, do you remember that so far we have downloaded only one AndroMDA artifact?
+                    It was the AndroMDA C# Application plugin. Well, its time to pull in the remaining artifacts. We
+                    will do this implicitly by running the maven scripts generated above. These scripts specify
+                    all dependencies the application has on AndroMDA. So if we execute them on our blank model,
+                    all the necessary dependencies will be pulled into our Maven repository. Of course, since the
+                    model is blank, no code will be generated. However getting the dependencies now is important
+                    since we will need them very soon. Follow the steps below to download the required dependencies.
+                    <ol>
+                        <li>Open a Command Prompt and change your directory to <code>C:\TimeTracker</code>.</li>
+                        <li>Execute the command <code>maven</code>. You will see messages on your screen showing
+                            artifacts that are being downloaded. Make sure you get a <code>BUILD SUCCESSFUL</code>
+                            message when the Maven script ends.</li>
+                    </ol>
+                </p>
             </subsection>
 
             <subsection name="Create a database">
