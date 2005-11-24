@@ -6,12 +6,12 @@
             <currentbuildstatusbootstrapper file="/var/andromda-build/logs/andromda-all/currentbuildstatus.txt"/>
         </bootstrappers>
         <modificationset>
-            <cvs localWorkingCopy="/var/andromda-build/andromda-all" cvsroot=":ext:it-androbuild2@cvs.sourceforge.net:/cvsroot/andromda"/>
+            <cvs localWorkingCopy="/var/andromda-build/andromda-all" cvsroot=":ext:amartinwest@cvs.sourceforge.net:/cvsroot/andromda"/>
         </modificationset>
         <labelincrementer defaultLabel="stockholm-build.1"/>
         <!-- 3 hours -->
         <!--schedule interval="10"-->
-        <schedule interval="10">
+        <schedule interval="10800">
             <maven goal="scm:update-project|clean|-e dist|-e docs|deploy-distribution" projectfile="/var/andromda-build/andromda-all/project.xml" mavenscript="/opt/maven/bin/maven"/>
         </schedule>
         <log dir="/var/andromda-build/logs/andromda-all">
