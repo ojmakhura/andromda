@@ -7,6 +7,7 @@ import java.util.Iterator;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
@@ -452,7 +453,7 @@ public class ModelElementFacadeLogicImpl
             final Collection taggedValues = this.getTaggedValues();
             for (final Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext();)
             {
-                TagDefinition taggedValue = (TagDefinition)taggedValueIterator.next();
+                TaggedValueFacade taggedValue = (TaggedValueFacade)taggedValueIterator.next();
 
                 // does this name match the argument tagged value name ?
                 if (name.equals(taggedValue.getName()))

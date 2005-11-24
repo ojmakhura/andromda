@@ -29,13 +29,14 @@
     <property reference="hibernateQueryUseSpecializedSetters"/>
     <property reference="versionProperty"/>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
-        <mapping>
+        <mapping >
             <stereotype>ENTITY</stereotype>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEndLogicImpl">
-        <mapping>
+        <mapping >
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
+            <property name="association"/>
         </mapping>
         <property reference="hibernateAssociationEndOuterJoin"/>
         <property reference="listTypeImplementation"/>
