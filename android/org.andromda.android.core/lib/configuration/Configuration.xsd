@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================
+     This schema defines the AndroMDA configuration xml file.
+     CODING CONVENTION: NO TABS, INDENT 4 SPACES
+     ========================================================================= -->
+<xs:schema 
+    targetNamespace="http://andromda.org/core/configuration"
+    xmlns="http://andromda.org/core/configuration"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    elementFormDefault="qualified">
+    <xs:element name="andromda">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="properties" minOccurs="0"/>
+                <xs:element ref="server" minOccurs="0"/>
+                <xs:element ref="repositories" minOccurs="0"/>
+                <xs:element ref="mappingsSearchLocations" minOccurs="0"/>
+                <xs:element ref="namespaces"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="host" type="xs:string"/>
+    <xs:element name="loadInterval" type="xs:integer"/>
+    <xs:element name="location">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="patterns" type="xs:string" use="optional"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="moduleSearchLocations">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="location" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="mappingsSearchLocations">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="location" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="maximumFailedLoadAttempts" type="xs:integer"/>
+    <xs:element name="model">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="uri" minOccurs="1" maxOccurs="unbounded"/>
+                <xs:element ref="transformations" minOccurs="0"/>
+                <xs:element ref="moduleSearchLocations" minOccurs="0"/>
+                <xs:element ref="modelPackages" minOccurs="0"/>
+                <xs:element ref="constraints" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>
+                            These control the way model validation is handled, it is possible to filter
+                            out certain constraints so that they are not applied to your model(s).
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="lastModifiedCheck" type="xs:boolean" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="modelPackage">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="process" type="xs:boolean" use="optional"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="modelPackages">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="modelPackage" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="processAll" type="xs:boolean" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="constraint">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="enforce" type="xs:boolean" use="optional"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="constraints">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="constraint" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="enforceAll" type="xs:boolean" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="models">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="model" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="namespace">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="properties"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="namespaces">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="namespace" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueNamespaceName">
+            <xs:selector xpath="namespace"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+    </xs:element>
+    <xs:element name="port" type="xs:integer"/>
+    <xs:element name="properties">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="property" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniquePropertyName">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+    </xs:element>
+    <xs:element name="property">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="name" type="xs:string" use="required"/>
+                    <xs:attribute name="ignore" type="xs:boolean" use="optional"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="repository">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="models" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The unique name of the repository.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="repositories">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="repository" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueRepositoryName">
+            <xs:selector xpath="repository"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+    </xs:element>
+    <xs:element name="server">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="host"/>
+                <xs:element ref="port"/>
+                <xs:element ref="loadInterval" minOccurs="0"/>
+                <xs:element ref="maximumFailedLoadAttempts" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="transformation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="uri" minOccurs="1"/>
+                <xs:element ref="moduleSearchLocations" minOccurs="0"/>
+                <xs:element ref="modelPackages" minOccurs="0"/>
+            </xs:sequence>
+            <xs:attribute name="output" type="xs:string" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="transformations">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="transformation" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="uri" type="xs:string"/>
+</xs:schema>
