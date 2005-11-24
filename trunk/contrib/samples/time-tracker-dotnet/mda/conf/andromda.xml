@@ -23,6 +23,7 @@
     <namespaces>
         <namespace name="default">
             <properties>
+                <property name="visualStudioVersion">${visual.studio.version}</property>
                 <property name="languageMappingsUri">Cs</property>
                 <property name="wrapperMappingsUri">CsWrapper</property>
                 <property name="sqlMappingsUri">${sql.mappings}</property>
