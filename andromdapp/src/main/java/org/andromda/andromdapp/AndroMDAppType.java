@@ -46,7 +46,7 @@ public class AndroMDAppType
     /**
      * The location to which temporary merge location files are written.
      */
-    private static final String TEMPORARY_MERGE_LOCATION = Constants.TEMPORARY_DIRECTORY;
+    private static final String TEMPORARY_MERGE_LOCATION = Constants.TEMPORARY_DIRECTORY + '/' + NAMESPACE;
 
     /**
      * Performs any required initialization for the type.

@@ -121,8 +121,9 @@ public class ClasspathWriter
                         ResourceUtils.normalizePath(localRepository.getBasedir()),
                         repositoryVariableName);
                 writer.startElement("classpathentry");
+                writer.addAttribute("kind", "var");
                 writer.addAttribute(
-                    "var",
+                    "path",
                     path);
                 writer.endElement();
             }

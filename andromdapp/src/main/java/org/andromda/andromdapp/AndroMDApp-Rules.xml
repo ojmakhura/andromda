@@ -64,7 +64,7 @@
                 <call-param-rule attrname="name" paramnumber="0"/>
              </pattern>
         </pattern>
-        <pattern value="prompts/prompt">
+        <pattern value="prompts/promptGroup/prompt">
             <object-create-rule classname="org.andromda.andromdapp.Prompt"/>
             <set-properties-rule>
                 <alias attr-name="id" prop-name="id"/>

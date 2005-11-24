@@ -195,6 +195,7 @@
             </xs:enumeration>
        </xs:restriction>
     </xs:simpleType>
+    <xs:element name="documentation" type="xs:anyType"/>
     <xs:element name="macrolibrary">
         <xs:annotation>
             <xs:documentation>
@@ -239,12 +240,25 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
+	<xs:element name="promptGroup">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="documentation" minOccurs="0"/>
+				<xs:element ref="prompt" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
     <xs:element name="prompts">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="prompt" maxOccurs="unbounded"/>
+                <xs:element ref="promptGroup" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
+        <xs:unique name="uniquePromptGroupName">
+            <xs:selector xpath="promptGroup"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
         <xs:unique name="uniquePromptId">
             <xs:selector xpath="prompt"/>
             <xs:field xpath="@id"/>
