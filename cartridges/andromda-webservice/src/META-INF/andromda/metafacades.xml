@@ -24,6 +24,12 @@
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl" contextRoot="true">
         <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl" contextRoot="true">
+        <mapping class="org.eclipse.uml2.impl.ClassImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl" contextRoot="true">
+        <mapping class="org.eclipse.uml2.impl.DataTypeImpl"/>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
         <mapping>
             <stereotype>ENUMERATION</stereotype>
@@ -32,6 +38,7 @@
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEndLogicImpl">
         <mapping>
             <context>org.andromda.cartridges.webservice.metafacades.WSDLType</context>
+            <property name="association"/>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeAttributeLogicImpl">
