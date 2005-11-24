@@ -88,9 +88,9 @@
             </prompt>
             <prompt id="workflow">
                 <text>Will your project need workflow engine capabilities? (it uses jBPM and Hibernate3)?</text>
-                <responses>
-                    <response type="java.lang.Boolean">yes</response>
-                    <response type="java.lang.Boolean">no</response>
+                <responses type="java.lang.Boolean">
+                    <response>yes</response>
+                    <response>no</response>
                 </responses>
                 <conditions>
                     <condition equal="yes">
@@ -107,9 +107,9 @@
             </prompt>
             <prompt id="web">
                 <text>Will your project have a web user interface?</text>
-                <responses>
-                    <response type="java.lang.Boolean">yes</response>
-                    <response type="java.lang.Boolean">no</response>
+                <responses type="java.lang.Boolean">
+                    <response>yes</response>
+                    <response>no</response>
                 </responses>
             </prompt>
             <prompt id="webType" setResponseAsTrue="true">
@@ -124,9 +124,9 @@
             </prompt>
             <prompt id="webservice">
                 <text>Would you like to be able to expose your services as web services?</text>
-                <responses>
-                    <response type="java.lang.Boolean">yes</response>
-                    <response type="java.lang.Boolean">no</response>
+                <responses type="java.lang.Boolean">
+                    <response>yes</response>
+                    <response>no</response>
                 </responses>
             </prompt>
         </promptGroup>

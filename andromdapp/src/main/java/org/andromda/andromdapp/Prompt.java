@@ -99,7 +99,7 @@ public class Prompt
     /**
      * Stores the possible responses of the prompt.
      */
-    private Map responses = new LinkedHashMap();
+    private List responses = new ArrayList();
 
     /**
      * Adds a reponse to the possible responses.
@@ -109,14 +109,12 @@ public class Prompt
      *        the type is left as a string).
      */
     public void addResponse(
-        final String response,
-        final String type)
+        final String response)
     {
         if (response != null && response.trim().length() > 0)
         {
-            this.responses.put(
-                response.trim(),
-                type);
+            this.responses.add(
+                response.trim());
         }
     }
 
@@ -129,7 +127,7 @@ public class Prompt
      */
     public boolean isValidResponse(final String response)
     {
-        return this.responses.containsKey(response) ||
+        return this.responses.contains(response) ||
         (this.responses.isEmpty() && (!this.isRequired() || (response != null && response.trim().length() > 0)));
     }
 
@@ -145,7 +143,23 @@ public class Prompt
     {
         return AndroMDAppUtils.convert(
             response,
-            (String)this.responses.get(response));
+            this.responseType);
+    }
+    
+    /**
+     * Stores the response type.
+     */
+    private String responseType;
+    
+    /**
+     * Sets the response type to use (i.e the fully qualified name of the
+     * type to which it should be converted when placed into the the template context).
+     * 
+     * @param responseType the fully qualified response type name.
+     */
+    public void setResponseType(final String responseType)
+    {
+        this.responseType = responseType;
     }
 
     /**
@@ -156,7 +170,7 @@ public class Prompt
     private String getResponsesAsString()
     {
         final StringBuffer responses = new StringBuffer("[");
-        for (final Iterator iterator = this.responses.keySet().iterator(); iterator.hasNext();)
+        for (final Iterator iterator = this.responses.iterator(); iterator.hasNext();)
         {
             responses.append(iterator.next());
             if (iterator.hasNext())

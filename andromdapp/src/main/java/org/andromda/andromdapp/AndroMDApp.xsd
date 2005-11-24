@@ -271,26 +271,19 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="response">
-        <xs:complexType>
-            <xs:simpleContent>
-                <xs:extension base="xs:string">
-                    <xs:attribute name="type" type="xs:string" use="optional">
-                        <xs:annotation>
-                            <xs:documentation>
-                                Defines the type (i.e. 'java.lang.Boolean') the response shall be when its added to the template context.
-                            </xs:documentation>
-                        </xs:annotation>
-                    </xs:attribute>
-                </xs:extension>
-            </xs:simpleContent>
-        </xs:complexType>
-    </xs:element>
+    <xs:element name="response" type="xs:string"/>
     <xs:element name="responses">
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="response" maxOccurs="unbounded"/>
             </xs:sequence>
+            <xs:attribute name="type" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines the type (i.e. 'java.lang.Boolean') the response shall be when its added to the template context.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="setProperty">
