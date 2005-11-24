@@ -38,19 +38,19 @@
 
             <subsection name="Install Visual Studio">
                 <p>
-                    Install Visual Studio 2005. During the installation proces, do not use the
-                    default option of installing SQL Server Express Edition. You have already
-                    installed SQL Server in the previous step. Also note that AndroMDA.NET
-                    currently supports generation of C# only, other .NET languages are not
-                    supported.
+                    Install Visual Studio 2003 or Visual Studio 2005. Our preference, without
+                    any doubt, is Visual Studio 2005. It is a much more productive environment.
+                    So if you have any flexibility in this matter, do yourself a favor
+                    and choose this newer version! The instructions in this tutorial assume
+                    VS 2005. If you are using VS 2003, you will have to make minor adjustments
+                    to do equivalent tasks.
                 </p>
-
+                    
                 <p>
-                    You may be able to use AndroMDA with Visual Studio 2003 (and .NET 1.1)
-                    but you will have to do bunch of configuration manually. In comparison,
-                    Visual Studio 2005 is a much more productive environment and if you
-                    have any flexibility switch over to this version as quickly as you
-                    possibly can!
+                    During Visual Studio 2005 installation, do not use the default option of
+                    installing SQL Server Express Edition. You have already installed SQL Server
+                    in the previous step. Also note that AndroMDA.NET currently supports
+                    generation of C# only, other .NET languages are not supported.
                 </p>
             </subsection>
 
@@ -348,6 +348,8 @@
                             In this example, the location should be C:\TimeTracker.</li>
                         <li>Now click OK. A console application project will be created at
                             C:\TimeTracker\TimeTrackerConsole.</li>
+                        <li>[VS 2003 only] In the Solution Explorer, rename the automatically generated
+                            class file called Class1.cs to Program.cs.</li>
                         <li>In Solution Explorer, right-click on the TimeTrackerConsole project and
                             select Add > New Item....</li>
                         <li>Select the template called Application Configuration File.</li>
@@ -371,6 +373,8 @@
                             In this example, the location should be C:\TimeTracker.</li>
                         <li>Now click OK. A console application project will be created at
                             C:\TimeTracker\SchemaExport.</li>
+                        <li>[VS 2003 only] In the Solution Explorer, rename the automatically generated
+                            class file called Class1.cs to Program.cs.</li>
                         <li>In Solution Explorer, right-click on the SchemaExport project and
                             select Add > New Item....</li>
                         <li>Select the template called Application Configuration File.</li>
@@ -587,9 +591,15 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                 <p> Follow the steps below to generate code.
                     <ol>
                         <li>Open a Command Prompt and change your directory to <code>C:\TimeTracker</code>.</li>
-                        <li>Execute the command <code>maven</code> and boom, there you have it - code for all the
-                            classes in your model is generated! (Make sure you get a <code>BUILD SUCCESSFUL</code>
-                            message when the Maven script finishes execution.)</li>
+                        <li>Execute the command <code>maven -o</code> and boom, there you have it - code for all the
+                            classes in your model is generated! Make sure you get a <code>BUILD SUCCESSFUL</code>
+                            message when Maven finishes execution. Note that we ran Maven with the "-o"
+                            option this time. This option runs Maven "offline", which means there is no attempt
+                            to fetch required dependencies from the Internet. It is assumed that they
+                            are all available on your local hard drive. Running Maven with this option is much
+                            faster and hence is used more often. However if Maven complains that it cannot find
+                            some dependencies locally then it is easy enough to run it without the "-o" option
+                            and get them from a remote repository.</li>
                     </ol>
                 </p>
 
@@ -623,8 +633,11 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                     Now that you understand the code that has been generated, it is time to compile it.
                     In order to avoid adding each individual file to our solution we will perform a neat
                     trick to make our job easier. We will edit the <code>TimeTrackerCommon</code> and
-                    <code>TimeTrackerCore</code> projects so they will compile any C# file in a specified
-                    folder. Follow the steps below to implement this trick.
+                    <code>TimeTrackerCore</code> projects so they will compile all C# files in a specified
+                    folder. Follow the steps below to implement this trick. Note that this "feature" is not
+                    available in VS 2003. You will have to create the src and target directory structures
+                    yourself and add the C# files manually. Also don't forget to add the *.hbm.xml
+                    files as embedded resources.
                     <ol>
                         <li>Open <code>TimeTrackerCommon.csproj</code> in a text editor.</li>
                         <li>
@@ -735,7 +748,7 @@ public override void AddTimeAllocation(TimeTracker.Domain.TimeAllocation timeAll
                                 <li>log4net.dll</li>
                                 <li>NHibernate.dll</li>
                                 <li>NHibernate.Caches.SysCache.dll</li>
-                                <li>NHibernate.Nullables2.dll</li>
+                                <li>NHibernate.Nullables2.dll (VS 2005 only)</li>
                                 <li>NHibernate.Support.dll</li>
                             </ol>
                         </li>
@@ -768,7 +781,9 @@ public override void AddTimeAllocation(TimeTracker.Domain.TimeAllocation timeAll
                             the dialog. Select it and click Add. The file will be added to the project.</li>
                         <li>Select the file <code>nhibernate.config</code> in Solution Explorer.</li>
                         <li>In the Properties window, change the value of the field "Copy to output directory" to
-                            "Copy if newer"</li>
+                            "Copy if newer". This feature is not available in VS 2003. You will have to add the
+                            following post-build event to the SchemaExport project:
+                            <code>copy "$(ProjectDir)nhibernate.config" "$(TargetDir)"</code></li>
                         <li>Open the <code>nhibernate.config</code> file in Visual Studio and change any values
                             if necessary. For example, if the name of your database is not TimeTracker, then change
                             the value of the <code>hibernate.connection.connection_string</code> property
@@ -810,11 +825,11 @@ SchemaExport t f
 Calling CreateDatabase with script = True and export = True...
 
 alter table TIMECARD  drop constraint TIMECARD_OWNER_FKC
-Unsuccessful: Cannot alter table 'TIMECARD' because this table does not exist in database 'TestDB'.
+Unsuccessful: Cannot alter table 'TIMECARD' because this table does not exist in database 'TimeTracker'.
 alter table TIME_ALLOCATION  drop constraint TIME_ALLOCATION_TASK_FKC
-Unsuccessful: Cannot alter table 'TIME_ALLOCATION' because this table does not exist in database 'TestDB'.
+Unsuccessful: Cannot alter table 'TIME_ALLOCATION' because this table does not exist in database 'TimeTracker'.
 alter table TIME_ALLOCATION  drop constraint TIME_ALLOCATION_TIMECARD_FKC
-Unsuccessful: Cannot alter table 'TIME_ALLOCATION' because this table does not exist in database 'TestDB'.
+Unsuccessful: Cannot alter table 'TIME_ALLOCATION' because this table does not exist in database 'TimeTracker'.
 drop table TIMECARD
 Unsuccessful: Cannot drop the table 'TIMECARD', because it does not exist in the system catalog.
 drop table TASK
@@ -865,6 +880,16 @@ alter table TIME_ALLOCATION  add constraint TIME_ALLOCATION_TIMECARD_FKC foreign
                         <li>Instead of writing the entire console application from scratch copy it
                             from <a href="resources/sample-code/time-tracker-dotnet/Program.cs">here</a>
                             to C:\TimeTracker\TimeTrackerConsole\Program.cs.</li>
+                        <li>[VS 2003 only] In Program.cs, change all occurences of <code>.Factory.newInstance()</code>
+                            to <code>Factory.newInstance()</code> (i.e. remove the "." before <code>Factory</code>).
+                            The reason for this is that .NET 1.1 and VS 2003 do not support static
+                            classes and hence AndroMDA generates slightly different code for VS 2003.
+                            </li>
+                        <li>[VS 2003 only] In Program.cs, change all occurences of <code>.Value.Add</code> to
+                            <code>.Add</code> (i.e. remove the ".Value" before <code>.Add</code>).
+                            The reason for this is that .NET 1.1 and VS 2003 do not support nullable
+                            types and hence AndroMDA generates slightly different code for VS 2003.
+                            </li>
                         <li>Review the new code in Program.cs and understand how the DAO classes are used to
                             manipulate entities. Specifically look at the methods <code>AddPerson()</code>,
                             <code>AddTask()</code>, <code>AddTimecard()</code> and <code>ShowData()</code>.</li>
@@ -879,7 +904,9 @@ alter table TIME_ALLOCATION  add constraint TIME_ALLOCATION_TIMECARD_FKC foreign
                             the dialog. Select it and click Add. The file will be added to the project.</li>
                         <li>Select the file <code>nhibernate.config</code> in Solution Explorer.</li>
                         <li>In the Properties window, change the value of the field "Copy to output directory" to
-                            "Copy if newer"</li>
+                            "Copy if newer". This feature is not available in VS 2003. You will have to add the
+                            following post-build event to the TimeTrackerConsole project:
+                            <code>copy "$(ProjectDir)nhibernate.config" "$(TargetDir)"</code></li>
                         <li>Save the solution by selecting File > Save All.</li>
                         <li>Select Build > Rebuild Solution. Visual Studio should be able to build the solution
                             without any errors.</li>
