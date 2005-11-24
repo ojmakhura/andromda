@@ -1,5 +1,7 @@
 maven.andromda.model.uri=file:${project.build.sourceDirectory}/${applicationId}.xmi
 
+filter=
+
 # Configures AndroMDA
 maven.andromda.configuration.uri=file:${maven.conf.dir}/andromda.xml
 
