@@ -24,6 +24,10 @@ fi
 # version.
 
 case "$JDK" in
+  "Stockholm" )
+     export MAVEN_OPTS="-XX:MaxPermSize=512m -Xmx1024m"
+     export JAVA_HOME=/pkg/jdk/1.4.2_06
+  ;;
   "IBMJava142" )
      export MAVEN_OPTS="-Xmx1024m"
      export JAVA_HOME=/opt/java/IBMJava2-142
