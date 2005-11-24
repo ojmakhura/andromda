@@ -115,7 +115,7 @@
             <prompt id="webType" setResponseAsTrue="true">
                 <text>Would you like your web user interface to use JSF or Struts?</text>
                 <preconditions>
-                    <condition id="web" equal="yes"/>
+                    <condition id="web" equal="true"/>
                 </preconditions>
                 <responses>
                     <response>jsf</response>

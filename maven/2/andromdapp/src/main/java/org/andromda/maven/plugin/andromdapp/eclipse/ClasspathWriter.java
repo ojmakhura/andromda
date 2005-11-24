@@ -113,7 +113,8 @@ public class ClasspathWriter
                 artifact,
                 this.project.getRemoteArtifactRepositories(),
                 localRepository);
-            if (Artifact.SCOPE_COMPILE.equals(artifact.getScope()))
+            final String scope = artifact.getScope();
+            if (Artifact.SCOPE_COMPILE.equals(scope) || Artifact.SCOPE_PROVIDED.equals(scope))
             {
                 final File artifactFile = artifact.getFile();
                 final String path =
