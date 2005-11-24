@@ -2,7 +2,6 @@ package org.andromda.repositories.emf.uml2;
 
 import java.util.Map;
 
-import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.repository.RepositoryFacadeException;
 import org.andromda.repositories.emf.EMFRepositoryFacade;
 import org.apache.log4j.Logger;
