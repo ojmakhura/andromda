@@ -133,6 +133,7 @@ public class AndroMDAppType
                     }
                     while (!prompt.isValidResponse(ObjectUtils.toString(response)));
                 }
+                this.setConditionalProperties(prompt.getConditions(), response);
                 if (prompt.isSetResponseAsTrue())
                 {
                     this.templateContext.put(
@@ -145,7 +146,7 @@ public class AndroMDAppType
             }
         }
     }
-
+    
     /**
      * Prompts the user for the information contained in the given
      * <code>prompt</code>.
@@ -157,21 +158,33 @@ public class AndroMDAppType
     {
         this.printPromptText(prompt.getText());
         final String input = this.readLine();
-        for (final Iterator iterator = prompt.getConditions().iterator(); iterator.hasNext();)
+        return input;
+    }
+
+    /**
+     * Prompts the user for the information contained in the given
+     * <code>prompt</code>.
+     *
+     * @param prompt the prompt from which to format the prompt text.
+     * @return the response of the prompt.
+     */
+    private void setConditionalProperties(final List conditions, final Object value)
+    {
+        for (final Iterator iterator = conditions.iterator(); iterator.hasNext();)
         {
             final Condition condition = (Condition)iterator.next();
             final String equalCondition = condition.getEqual();
-            if (equalCondition != null && equalCondition.equals(input))
+            if (equalCondition != null && equalCondition.equals(value))
             {
                 this.setProperties(condition);
             }
             final String notEqualCondition = condition.getNotEqual();
-            if (notEqualCondition != null && !notEqualCondition.equals(input))
+            if (notEqualCondition != null && !notEqualCondition.equals(value))
             {
                 this.setProperties(condition);
             }
         }
-        return input;
+
     }
 
     /**
@@ -594,7 +607,12 @@ public class AndroMDAppType
             if (RESPONSE_YES.equals(response))
             {
                 this.printPromptText("Please enter the name for your application root directory: ");
-                String rootName = this.readLine();
+                String rootName;
+                do 
+                {
+                    rootName = this.readLine();
+                }
+                while (rootName == null || rootName.trim().length() == 0);
                 applicationRoot = this.verifyRootDirectory(new File(rootName));
             }
         }
