@@ -29,7 +29,9 @@ import org.codehaus.plexus.util.xml.XMLWriter;
 public class ClasspathWriter
     extends EclipseWriter
 {
-    public ClasspathWriter(final MavenProject project, final Log logger)
+    public ClasspathWriter(
+        final MavenProject project,
+        final Log logger)
     {
         super(project, logger);
     }
@@ -68,14 +70,10 @@ public class ClasspathWriter
                     sourceRootPath = sourceRootPath.substring(
                             1,
                             sourceRootPath.length());
-                    writer.startElement("classpathentry");
-                    writer.addAttribute(
-                        "kind",
-                        "src");
-                    writer.addAttribute(
-                        "path",
+                    this.writeClasspathEntry(
+                        writer,
+                        "src",
                         sourceRootPath);
-                    writer.endElement();
                 }
             }
             allArtifacts.addAll(project.createArtifacts(
@@ -120,23 +118,59 @@ public class ClasspathWriter
                         ResourceUtils.normalizePath(artifactFile.toString()),
                         ResourceUtils.normalizePath(localRepository.getBasedir()),
                         repositoryVariableName);
-                writer.startElement("classpathentry");
-                writer.addAttribute("kind", "var");
-                writer.addAttribute(
-                    "path",
+                this.writeClasspathEntry(
+                    writer,
+                    "var",
                     path);
-                writer.endElement();
             }
         }
-        writer.startElement("classpathentry");
-        writer.addAttribute(
+
+        this.writeClasspathEntry(
+            writer,
             "con",
             "org.eclipse.jdt.launching.JRE_CONTAINER");
-        writer.endElement();
+
+        String outputPath =
+            StringUtils.replace(
+                ResourceUtils.normalizePath(this.project.getBuild().getOutputDirectory()),
+                rootDirectory,
+                "");
+        if (outputPath.startsWith("/"))
+        {
+            outputPath = outputPath.substring(
+                    1,
+                    outputPath.length());
+        }
+        this.writeClasspathEntry(
+            writer,
+            "output",
+            outputPath);
 
         writer.endElement();
 
         logger.info("Classpath file written --> '" + classpathFile + "'");
         IOUtil.close(fileWriter);
+    }
+
+    /**
+     * Writes a classpathentry with the given <code>kind</code> and <code>path</code> values.
+     *
+     * @param writer the XML writer with which to write.
+     * @param kind the kind of the classpath entry.
+     * @param path the path of the classpath entry.
+     */
+    private void writeClasspathEntry(
+        final XMLWriter writer,
+        final String kind,
+        final String path)
+    {
+        writer.startElement("classpathentry");
+        writer.addAttribute(
+            "kind",
+            kind);
+        writer.addAttribute(
+            "path",
+            path);
+        writer.endElement();
     }
 }
