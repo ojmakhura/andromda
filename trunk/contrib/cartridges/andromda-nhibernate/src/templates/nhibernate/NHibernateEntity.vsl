@@ -162,7 +162,7 @@ $operation.getDocumentation("        /// ")
 #renderHashCodeMethod($entity $identifiers)
 
 #end
-#if (!$entity.abstract)
+#if (!$entity.abstract && ($visualStudioVersion != "2003"))
 #set ($concreteBaseClass = $entity.generalization && !$entity.generalization.abstract)
         /// <summary>
         /// Constructs new instances of {@link ${entity.fullyQualifiedName}}.
@@ -181,6 +181,23 @@ $operation.getDocumentation("        /// ")
 #end
     // HibernateEntity.vsl merge-point
     }
+#if (!$entity.abstract && ($visualStudioVersion == "2003"))
+#set ($concreteBaseClass = $entity.generalization && !$entity.generalization.abstract)
+
+    /// <summary>
+    /// Constructs new instances of {@link ${entity.fullyQualifiedName}}.
+    /// </summary>
+    public class ${entity.Name}Factory
+    {
+        /// <summary>
+        /// Constructs a new instance of {@link ${entity.fullyQualifiedName}}.
+        /// </summary>
+        public static $entity.fullyQualifiedName newInstance()
+        {
+            return new ${entity.fullyQualifiedEntityImplementationName}();
+        }
+    }
+#end
 #if ($stringUtils.isNotBlank($entity.packageName))
 }
 #end

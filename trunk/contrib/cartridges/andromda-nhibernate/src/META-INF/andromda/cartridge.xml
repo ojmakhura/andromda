@@ -18,6 +18,7 @@
     <!-- contains the package for the Hibernate user types -->
     <property reference="userTypesPackage"/>
     <!-- the name to give the service locator class -->
+    <property reference="visualStudioVersion"/>
     <property reference="hibernateVersion"/>
     <property reference="serviceLocatorName"/>
     <property reference="sequenceIdentifierSuffix"/>

@@ -131,14 +131,7 @@ namespace $entity.packageName
                 throw new ArgumentNullException(
                     "${entity.name}.Create - '$argumentName' can not be null");
             }
-            Object identifier = Session.Save($argumentName);
-#set ($identifierProperty = "identifier")
-#if($identifier.type.primitive)
-#set ($identifierProperty = "(($identifier.type.wrapperName)$identifierProperty).Value")
-#else
-#set ($identifierProperty = "($identifier.type.fullyQualifiedName)$identifierProperty")
-#end
-            ${argumentName}.${stringUtils.upperCamelCaseName($identifier.name)} = $identifierProperty;
+            Session.Save($argumentName);
             return this.TransformEntity(transform, $argumentName);
         }
 

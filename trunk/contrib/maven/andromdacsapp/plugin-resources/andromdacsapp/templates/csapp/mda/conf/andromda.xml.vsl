@@ -23,8 +23,14 @@
     <namespaces>
         <namespace name="default">
             <properties>
+                <property name="visualStudioVersion">${visual.studio.version}</property>
+#if (${visualStudioVersion} == "2003")
+                <property name="languageMappingsUri">file:${maven.conf.dir}/mappings/CsMappings.xml</property>
+                <property name="wrapperMappingsUri">file:${maven.conf.dir}/mappings/CsWrapperMappings.xml</property>
+#else
                 <property name="languageMappingsUri">Cs</property>
                 <property name="wrapperMappingsUri">CsWrapper</property>
+#end
                 <property name="sqlMappingsUri">${sql.mappings}</property>
                 <property name="jdbcMappingsUri">JDBC</property>
                 <property name="maxSqlNameLength">30</property>
@@ -55,7 +61,11 @@
         <namespace name="nhibernate">
             <properties>
                 <property name="hibernateVersion">2</property>
+#if (${visualStudioVersion} == "2003")
+                <property name="hibernateTypeMappingsUri">file:${maven.conf.dir}/mappings/NHibernateTypeMappings.xml</property>
+#else
                 <property name="hibernateTypeMappingsUri">NHibernate</property>
+#end
                 <property name="dataSource">${dataSource}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
                 <property name="hibernateDialect">${hibernate.db.dialect}</property>

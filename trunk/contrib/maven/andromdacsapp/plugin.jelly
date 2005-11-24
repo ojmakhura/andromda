@@ -84,11 +84,8 @@
           description="private internal goal">
 
         <j:set var="mdaDir" value="${applicationId}/mda"/>
-
         <j:set var="mdaModelDir" value="${mdaDir}/src/uml"/>
-
         <j:set var="mdaTemplatesDir" value="${templatesDir}/mda"/>
-
         <ant:mkdir dir="${mdaModelDir}"/>
 
         <!-- copy the model file and zip it -->
@@ -103,8 +100,8 @@
             includes="${modelFileXml}"/>
         <ant:delete file="${mdaModelDir}/${modelFileXml}"/>
 
+        <!-- Create configuration files -->
         <j:set var="mdaConfDir" value="${mdaDir}/conf"/>
-
         <ant:mkdir dir="${mdaConfDir}"/>
 
         <velocity:merge
@@ -127,6 +124,16 @@
                 <ant:include name="*.xml"/>
             </ant:fileset>
         </ant:copy>
+
+        <j:if test="${visualStudioVersion eq '2003'}">
+            <j:set var="mdaMappingsDir" value="${mdaConfDir}/mappings"/>
+            <ant:mkdir dir="${mdaMappingsDir}"/>
+            <ant:copy todir="${mdaMappingsDir}">
+                <ant:fileset dir="${mdaTemplatesDir}/conf/vs2003-mappings">
+                    <ant:include name="*.xml"/>
+                </ant:fileset>
+            </ant:copy>
+        </j:if>
 
         <j:if test="${web}">
         </j:if>
@@ -208,8 +215,11 @@
 
         <ant:mkdir dir="${applicationId}/Lib"/>
 
-        <ant:copy todir="${applicationId}/Lib">
-            <ant:fileset dir="${templatesDir}/lib"/>
+        <ant:copy todir="${applicationId}/Lib" flatten="true">
+            <ant:fileset dir="${templatesDir}/lib">
+                <ant:include name="*.dll"/>
+                <ant:include name="vs${visualStudioVersion}/*.dll"/>
+            </ant:fileset>
         </ant:copy>
 
     </goal>
@@ -235,6 +245,12 @@
             <i:ask
                 question="Please enter a version for your application (e.g. 1.0-SNAPSHOT):"
                 answer="applicationVersion"/>
+        </j:while>
+
+        <j:while test="${empty(visualStudioVersion)}">
+            <i:ask
+                question="Please enter the version of Visual Studio you are using (2003 or 2005):"
+                answer="visualStudioVersion"/>
         </j:while>
 
         <j:while test="${empty(webSite) or (webSite ne 'yes' and webSite ne 'no')}">

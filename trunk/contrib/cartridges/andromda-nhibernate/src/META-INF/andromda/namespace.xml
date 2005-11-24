@@ -355,6 +355,17 @@
             </property>
         </propertyGroup>
         <propertyGroup name="Other">
+            <property name="visualStudioVersion">
+                <default>2</default>
+                <documentation>
+                    The version of Visual Studio to use when generating.
+                    Allowable values are:
+                    <ul>
+                        <li>2003 - Visual Studio 2003</li>
+                        <li>2005 - Visual Studio 2005</li>
+                    </ul>
+                </documentation>
+            </property>
             <property name="hibernateVersion">
                 <default>2</default>
                 <documentation>
