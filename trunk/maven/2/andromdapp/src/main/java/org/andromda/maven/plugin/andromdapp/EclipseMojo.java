@@ -26,6 +26,7 @@ import org.codehaus.plexus.util.DirectoryScanner;
  * for a new eclipse application.
  *
  * @goal eclipse
+ * @phase validate
  * @author Chad Brandon
  */
 public class EclipseMojo
@@ -44,11 +45,15 @@ public class EclipseMojo
     private MavenProject project;
 
     /**
+     * Defines the POMs to include when generating the eclipse files.
+     * 
      * @parameter
      */
     private String[] includes = new String[] {"*/pom.xml"};
 
     /**
+     * Defines the POMs to exclude when generating the eclipse files.
+     * 
      * @parameter
      */
     private String[] excludes = new String[0];

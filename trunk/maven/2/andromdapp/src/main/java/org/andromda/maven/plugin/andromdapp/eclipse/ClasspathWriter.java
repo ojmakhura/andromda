@@ -61,19 +61,22 @@ public class ClasspathWriter
             for (final Iterator sourceIterator = project.getCompileSourceRoots().iterator(); sourceIterator.hasNext();)
             {
                 final String sourceRoot = ResourceUtils.normalizePath((String)sourceIterator.next());
-                String sourceRootPath = StringUtils.replace(
-                        sourceRoot,
-                        rootDirectory,
-                        "");
-                if (sourceRootPath.startsWith("/"))
+                if (new File(sourceRoot).isDirectory())
                 {
-                    sourceRootPath = sourceRootPath.substring(
-                            1,
-                            sourceRootPath.length());
-                    this.writeClasspathEntry(
-                        writer,
-                        "src",
-                        sourceRootPath);
+                    String sourceRootPath = StringUtils.replace(
+                            sourceRoot,
+                            rootDirectory,
+                            "");
+                    if (sourceRootPath.startsWith("/"))
+                    {
+                        sourceRootPath = sourceRootPath.substring(
+                                1,
+                                sourceRootPath.length());
+                        this.writeClasspathEntry(
+                            writer,
+                            "src",
+                            sourceRootPath);
+                    }
                 }
             }
             allArtifacts.addAll(project.createArtifacts(
