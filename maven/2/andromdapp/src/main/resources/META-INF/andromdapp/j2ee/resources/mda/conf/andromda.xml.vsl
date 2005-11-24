@@ -63,7 +63,7 @@
                 <property name="hibernateDialect">${hibernate.db.dialect}</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="hibernateTransactionManagerLookup">${hibernate.transaction.manager.lookup}</property>
-                <property name="customTypesPackage">${application.package}</property>
+                <property name="customTypesPackage">${groupId}</property>
                 <property name="hibernateJdbcBatchSize">0</property>
                 <property name="hibernateEnableCache">false</property>
                 <property name="hibernateEnableAssociationsCache">false</property>
@@ -112,7 +112,7 @@
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
 #end
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
-                <property name="springTypesPackage">${application.package}</property>
+                <property name="springTypesPackage">${groupId}</property>
                 <property name="daos">${maven.andromda.core.generated.dir}</property>
                 <property name="dao-impls">${maven.andromda.core.manual.dir}</property>
                 <property name="spring-configuration">${maven.andromda.core.generated.dir}</property>
@@ -127,8 +127,8 @@
                  -->
 #end
 #if ($webservice)
-                <property name="webServiceOutgoingAttachmentHandlerCallPattern">${application.package}.AxisAttachmentHandler.saveAttachment(content, contentType, dime)</property>
-                <property name="webServiceIncomingAttachmentHandlerCallPattern">${application.package}.AxisAttachmentHandler.getAttachments()</property>
+                <property name="webServiceOutgoingAttachmentHandlerCallPattern">${groupId}.AxisAttachmentHandler.saveAttachment(content, contentType, dime)</property>
+                <property name="webServiceIncomingAttachmentHandlerCallPattern">${groupId}.AxisAttachmentHandler.getAttachments()</property>
 #end
             </properties>
         </namespace>
@@ -142,7 +142,7 @@
                 <property name="hibernateDefaultCascade">none</property>
                 <property name="entities">${maven.andromda.core.generated.dir}</property>
                 <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
-                <property name="customTypesPackage">${application.package}</property>
+                <property name="customTypesPackage">${groupId}</property>
                 <property name="compositionDefinesEagerLoading">true</property>
                 <property name="cache">${maven.andromda.core.generated.dir}</property>
             </properties>
@@ -158,7 +158,7 @@
                 <property name="nodes">${maven.andromda.workflow.generated.dir}</property>
                 <property name="clients">${maven.andromda.workflow.generated.dir}</property>
                 <property name="configuration">${maven.andromda.workflow.manual.dir}/conf</property>
-                <property name="clientPackage">${application.package}.business.process</property>
+                <property name="clientPackage">${groupId}.business.process</property>
             </properties>
         </namespace>
 #end
@@ -170,7 +170,7 @@
                 <property name="defaultProvider">${default.provider}</property>
                 <property name="applicationName">${application.id}</property>
                 <property name="wsdlSoapAddress">${wsdl.soap.address}</property>
-                <property name="webserviceTypesPackage">${application.package}</property>
+                <property name="webserviceTypesPackage">${groupId}</property>
 #if ($hibernate)
                 <property name="ejbInterfacePattern">{0}.ejb.{1}</property>
                 <property name="ejbHomeInterfacePattern">{0}.ejb.{1}Home</property>
@@ -212,10 +212,10 @@
 #if ($ejb)
                 <property name="serviceAccessorPattern">{0}.{1}Util.getHome().create()</property>
 #else
-                <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
+                <property name="serviceAccessorPattern">${groupId}.ServiceLocator.instance().get{1}()</property>
 #end
                 <property name="mergeMappingsUri">file:${maven.conf.dir}/mappings/WebMergeMappings.xml</property>
-                <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
+                <property name="manageableServiceAccessorPattern">${groupId}.ManageableServiceLocator.instance().get{1}()</property>
             </properties>
         </namespace>
 #elseif ($jsf)
@@ -237,7 +237,7 @@
 #if ($ejb)
                 <property name="serviceAccessorPattern">{0}.{1}Util.getHome().create()</property>
 #else
-                <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
+                <property name="serviceAccessorPattern">${groupId}.ServiceLocator.instance().get{1}()</property>
 #end
                 <property name="mergeMappingsUri">file:${maven.conf.dir}/mappings/WebMergeMappings.xml</property>
             </properties>
