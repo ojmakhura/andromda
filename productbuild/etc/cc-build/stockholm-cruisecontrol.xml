@@ -5,9 +5,9 @@
         <bootstrappers>
         </bootstrappers>
         <modificationset>
-            <cvs localWorkingCopy="/var/andromda/andromda-all" />
+            <cvs cvsroot=":ext:it-androbuild@cvs.sourceforge.net:/cvsroot/andromda" module="andromda-all"/>
         </modificationset>
-        <labelincrementer defaultLabel="thecla-build.1"/>
+        <labelincrementer defaultLabel="stockholm-build.1"/>
         <!-- 3 hours -->
         <!--schedule interval="10"-->
         <schedule interval="10800">
