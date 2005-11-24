@@ -409,12 +409,15 @@ public class UmlUtilities
     {
         final Collection stereotypes = element.getAppliedStereotypes();
         final List names = new ArrayList();
-        for (final Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
+        if (stereotypes != null)
         {
-            final Stereotype stereotype = (Stereotype)iterator.next();
-            if (stereotype.getQualifiedName().startsWith(PROFILE_NAME))
+            for (final Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
             {
-                names.add(stereotype.getName());
+                final Stereotype stereotype = (Stereotype)iterator.next();
+                if (stereotype.getQualifiedName().startsWith(PROFILE_NAME))
+                {
+                    names.add(stereotype.getName());
+                }
             }
         }
         return names;
