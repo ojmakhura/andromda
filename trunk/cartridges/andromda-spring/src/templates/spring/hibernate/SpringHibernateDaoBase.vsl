@@ -76,7 +76,7 @@ public abstract class $entity.daoBaseName
     {
         return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName, $identifier.name);
     }
-    
+
     /**
      * @see ${entity.fullyQualifiedDaoName}#loadAll()
      */
@@ -84,7 +84,7 @@ public abstract class $entity.daoBaseName
     {
         return this.loadAll(TRANSFORM_NONE);
     }
-    
+
     /**
      * @see ${entity.fullyQualifiedDaoName}#loadAll(int)
      */
@@ -94,7 +94,7 @@ public abstract class $entity.daoBaseName
         this.transformEntities(transform, results);
         return results;
     }
-    
+
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
 
@@ -116,14 +116,7 @@ public abstract class $entity.daoBaseName
             throw new IllegalArgumentException(
                 "${entity.name}.create - '$argumentName' can not be null");
         }
-        Object identifier = this.getHibernateTemplate().save($argumentName);
-#set ($identifierProperty = "identifier")
-#if($identifier.type.primitive)
-#set ($identifierProperty = "(($identifier.type.wrapperName)$identifierProperty).${identifier.type.fullyQualifiedName}Value()")
-#else
-#set ($identifierProperty = "($identifier.type.fullyQualifiedName)$identifierProperty")
-#end
-        ${argumentName}.${identifier.setterName}($identifierProperty);
+        this.getHibernateTemplate().save($argumentName);
         return this.transformEntity(transform, $argumentName);
     }
 
@@ -652,7 +645,7 @@ public abstract class $entity.daoBaseName
                 return result;
             }
         };
-        
+
     /**
      * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection)
      */
@@ -671,7 +664,7 @@ public abstract class $entity.daoBaseName
             org.apache.commons.collections.CollectionUtils.transform(instances, $valueObjectRef.valueObjectToEntityTransformerName);
         }
     }
-    
+
     private final org.apache.commons.collections.Transformer $valueObjectRef.valueObjectToEntityTransformerName =
         new org.apache.commons.collections.Transformer()
         {
