@@ -16,6 +16,11 @@ class EMFRepositoryFacadeUtils
      * The URI file prefix.
      */
     private static final String FILE_PREFIX = "file:";
+    
+    /**
+     * The URI archive file prefix.
+     */
+    private static final String ARCHIVE_FILE_PREFIX = "jar:file:";
 
     /**
      * Creates the EMF URI instance from the given <code>uri</code>.
@@ -25,7 +30,7 @@ class EMFRepositoryFacadeUtils
      */
     static final URI createUri(String uri)
     {
-        if (uri.startsWith(FILE_PREFIX))
+        if (!uri.startsWith(ARCHIVE_FILE_PREFIX) && uri.startsWith(FILE_PREFIX))
         {
             final String filePrefixWithSlash = FILE_PREFIX + "/";
             if (!uri.startsWith(filePrefixWithSlash))

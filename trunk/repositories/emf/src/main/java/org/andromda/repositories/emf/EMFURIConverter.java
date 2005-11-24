@@ -46,40 +46,38 @@ public class EMFURIConverter
     private final Map normalizedUris = new HashMap();
 
     /**
-     * Overwridden
-     *
+     * Overwridden to provide the normalization of uris given the module searech paths.
+     * 
      * @see org.eclipse.emf.ecore.resource.URIConverter#normalize(org.eclipse.emf.common.util.URI)
      */
-    public URI normalize(URI uri)
+    public URI normalize(final URI uri)
     {
-        try
+        URI normalizedUri = super.normalize(uri);
+        if (normalizedUri.equals(uri))
         {
-            URI normalizedUri = super.normalize(uri);
-            if (normalizedUri.equals(uri))
+            final String resourceName = uri.toString().replaceAll(
+                    ".*(\\\\+|/)",
+                    "");
+            if (this.moduleSearchPaths != null)
             {
-                final String resourceName = uri.toString().replaceAll(
-                        ".*(\\\\+|/)",
-                        "");
-                if (this.moduleSearchPaths != null)
+                if (!normalizedUris.containsKey(uri))
                 {
-                    if (!normalizedUris.containsKey(uri))
+                    for (final Iterator iterator = this.moduleSearchPaths.iterator(); iterator.hasNext();)
                     {
-                        for (final Iterator iterator = this.moduleSearchPaths.iterator(); iterator.hasNext();)
+                        String searchPath = (String)iterator.next();
+                        final String completePath = ResourceUtils.normalizePath(searchPath + '/' + resourceName);
+
+                        try
                         {
-                            String searchPath = (String)iterator.next();
-                            final String completePath = (searchPath + "/" + resourceName).replaceAll(
-                                    "\\\\+|/",
-                                    "/");
-                            try
+                            InputStream stream = null;
+                            URL url = ResourceUtils.toURL(completePath);
+                            if (url != null)
                             {
-                                InputStream stream = null;
-                                URL url = ResourceUtils.toURL(completePath);
                                 try
                                 {
                                     stream = url.openStream();
                                     stream.close();
-                                    normalizedUri = EMFRepositoryFacadeUtils.createUri(completePath);
-                                    AndroMDALogger.info("referenced model --> '" + normalizedUri + "'");
+                                    AndroMDALogger.info("referenced model --> '" + url + "'");
                                 }
                                 catch (final Exception exception)
                                 {
@@ -89,32 +87,28 @@ public class EMFURIConverter
                                 {
                                     stream = null;
                                 }
-                            }
-                            catch (final Throwable throwable)
-                            {
-                                // - ignore
-                            }
-                            if (normalizedUri != null)
-                            {
-                                this.normalizedUris.put(
-                                    uri,
-                                    normalizedUri);
-                                break;
+                                if (url != null)
+                                {
+                                    normalizedUri = EMFRepositoryFacadeUtils.createUri(completePath);
+                                    this.normalizedUris.put(
+                                        uri,
+                                        normalizedUri);
+                                    break;
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        normalizedUri = (URI)this.normalizedUris.get(uri);
+                        catch (final Exception exception)
+                        {
+                            // - ignore
+                        }
                     }
                 }
+                else
+                {
+                    normalizedUri = (URI)this.normalizedUris.get(uri);
+                }
             }
-            return normalizedUri;
         }
-        catch (Throwable th)
-        {
-            th.printStackTrace();
-            throw new RuntimeException(th);
-        }
+        return normalizedUri;
     }
 }

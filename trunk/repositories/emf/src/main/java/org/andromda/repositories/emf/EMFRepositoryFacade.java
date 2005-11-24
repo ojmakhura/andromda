@@ -124,6 +124,7 @@ public abstract class EMFRepositoryFacade
 
         // - first add the default module search paths maps that are found on the classpath
         final URL[] classpathSearchPaths = ResourceFinder.findResources(MODULES_PATH);
+
         if (classpathSearchPaths != null)
         {
             final int numberOfClasspathSearchPaths = classpathSearchPaths.length;
