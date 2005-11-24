@@ -1,0 +1,27 @@
+Manifest-Version: 1.0
+Bundle-Name: Android Core Plug-in
+Bundle-SymbolicName: org.andromda.android.core; singleton=true
+Bundle-Version: 0.0.1
+Bundle-ClassPath: org.andromda.android.core.jar,
+ lib/commons-lang-2.1.jar,
+ lib/xbean.jar,
+ lib/jsr173_api.jar,
+ lib/configuration/andromda-configuration.jar,
+ lib/namespace/andromda-namespace.jar,
+ lib/commons-collections-3.1.jar
+Bundle-Activator: org.andromda.android.core.AndroidCore
+Bundle-Vendor: AndroMDA.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.debug.core,
+ org.eclipse.jdt.launching,
+ org.eclipse.debug.ui,
+ org.junit
+Eclipse-AutoStart: true
+Provide-Package: org.andromda.android.core,
+ org.andromda.android.core.internal,
+ org.andromda.android.core.project,
+ org.andromda.core.configuration,
+ org.andromda.core.namespace,
+ org.apache.xmlbeans
