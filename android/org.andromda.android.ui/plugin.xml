@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="org.andromda.android"
+            name="AndroMDA"/>
+      <wizard
+            category="org.andromda.android"
+            class="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"
+            icon="icons/ModelFile.gif"
+            id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"
+            name="AndroMDA Project"
+            project="true"/>
+      <primaryWizard id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.importWizards">
+      <wizard
+            class="org.andromda.android.ui.project.wizard.ConvertToAndroidProjectWizard"
+            icon="icons/ModelFile.gif"
+            id="org.andromda.android.ui.project.wizard.ConvertToAndroidProjectWizard"
+            name="Convert Java Project to Android Project"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.andromda.android.ui.project.preferences.AndroidProjectPreferencePage"
+            id="org.andromda.android.ui.project.preferences.AndroidProjectPreferencePage"
+            name="Android Project Layout">
+         <keywordReference id="org.andromda.android.ui.keywords.andromda"/>
+         <keywordReference id="org.andromda.android.ui.keywords.mda"/>
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            adaptable="false"
+            class="org.andromda.android.ui.project.preferences.AndroidProjectPropertyPage"
+            id="org.andromda.android.ui.project.preferences.AndroidProjectPropertyPage"
+            name="Android Project Layout"
+            objectClass="org.eclipse.core.resources.IProject">
+         <filter
+               name="nature"
+               value="org.andromda.android.core.androidnature"/>
+         <keywordReference id="org.andromda.android.ui.keywords.andromda"/>
+         <keywordReference id="org.andromda.android.ui.keywords.mda"/>
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.keywords">
+      <keyword
+            id="org.andromda.android.ui.keywords.andromda"
+            label="AndroMDA"/>
+      <keyword
+            id="org.andromda.android.ui.keywords.mda"
+            label="MDA"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.ide.projectNatureImages">
+      <image
+            icon="icons/andromda_co.GIF"
+            id="org.andromda.android.ui.androidprojectNatureImage"
+            natureId="org.andromda.android.core.androidnature">
+      </image>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.andromda.android.ui.configuration.editor.ConfigurationEditor"
+            default="true"
+            filenames="andromda.xml"
+            icon="icons/ModelFile.gif"
+            id="org.andromda.android.ui.editors.configuration.ConfigurationEditor"
+            name="AndroMDA Configuration Editor"/>
+   </extension>
+</plugin>
