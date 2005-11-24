@@ -18,6 +18,9 @@
     <property reference="defaultResolveable"/>
     <property reference="defaultPageSize"/>
     <property reference="defaultMaximumListSize"/>
+    <metafacade class="org.andromda.metafacades.emf.uml2.TaggedValueFacadeLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml2.TagDefinitionImpl"/>
+    </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml2.PackageFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.impl.PackageImpl"/>
     </metafacade>
