@@ -12,7 +12,7 @@
         <!-- 3 hours -->
         <!--schedule interval="10"-->
         <schedule interval="10800">
-            <maven goal="scm:update-project|clean|-e dist|-e docs|deploy-distribution" projectfile="/var/andromda/andromda-all/project.xml" mavenscript="/opt/maven/bin/maven"/>
+            <maven goal="scm:update-project|clean|-e dist|-e docs|deploy-distribution" projectfile="/var/andromda/andromda-all/project.xml" mavenscript="/pkg/maven/default/bin/maven"/>
         </schedule>
         <log dir="/var/andromda/logs/andromda-all">
             <merge dir="/var/andromda/andromda-all/andromda/target/test-reports"/>
