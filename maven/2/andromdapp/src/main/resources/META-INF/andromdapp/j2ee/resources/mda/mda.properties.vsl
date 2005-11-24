@@ -9,27 +9,27 @@ maven.andromda.configuration.uri=file:${maven.conf.dir}/andromda.xml
 maven.andromda.run.without.ant=true
 
 # Define the output locations for the cartridge dependencies in the project.xml
-maven.andromda.core.generated.dir=${project.build.sourceDirectory}/../../../core/target/src
-maven.andromda.core.manual.dir=${project.build.sourceDirectory}/../../../core/src/java
+maven.andromda.core.generated.dir=${project.build.sourceDirectory}/../../../../core/target/src
+maven.andromda.core.manual.dir=${project.build.sourceDirectory}/../../../../core/src/java
 
-maven.andromda.web.generated.dir=${project.build.sourceDirectory}/../../../web/target/src
-maven.andromda.web.manual.java.dir=${project.build.sourceDirectory}/../../../web/src/java
+maven.andromda.web.generated.dir=${project.build.sourceDirectory}/../../../../web/target/src
+maven.andromda.web.manual.java.dir=${project.build.sourceDirectory}/../../../../web/src/java
 
 #if ($workflow)
-maven.andromda.workflow.generated.dir=${project.build.sourceDirectory}/../../../workflow/target/src
-maven.andromda.workflow.manual.dir=${project.build.sourceDirectory}/../../../workflow/src
+maven.andromda.workflow.generated.dir=${project.build.sourceDirectory}/../../../../workflow/target/src
+maven.andromda.workflow.manual.dir=${project.build.sourceDirectory}/../../../../workflow/src
 #end
 
 #if ($webservice)
 #if ($war)
 maven.andromda.webservice.generated.dir=${maven.andromda.web.generated.dir}
 #else
-maven.andromda.webservice.generated.dir=${project.build.sourceDirectory}/../../../webservice/target/src
+maven.andromda.webservice.generated.dir=${project.build.sourceDirectory}/../../../../webservice/target/src
 #end
 maven.andromda.webservice.generated.wsdl.dir=${maven.andromda.webservice.generated.dir}/WEB-INF/classes/
 #end
 
-maven.andromda.common.generated.dir=${project.build.sourceDirectory}/../../../common/target/src
+maven.andromda.common.generated.dir=${project.build.sourceDirectory}/../../../../common/target/src
 
 #if ($hibernate || $spring)
 #if ($hibernate)
