@@ -84,10 +84,14 @@
                 </set-properties-rule>
                 <set-next-rule methodname="addPrecondition" />
             </pattern>
-            <pattern value="responses/response">
-                <call-method-rule methodname="addResponse" paramcount="2" paramtypes="java.lang.String,java.lang.String"/>
-                <call-param-rule paramnumber="0"/>
-                <call-param-rule attrname="type" paramnumber="1" />
+            <pattern value="responses">
+                <set-properties-rule>
+                    <alias attr-name="type" prop-name="responseType"/>
+                </set-properties-rule>  
+                <pattern value="response">
+                    <call-method-rule methodname="addResponse" paramcount="1" paramtypes="java.lang.String"/>
+                    <call-param-rule paramnumber="0"/>
+                </pattern>              
             </pattern>
             <pattern value="conditions/condition">
                 <object-create-rule classname="org.andromda.andromdapp.Condition"/>
