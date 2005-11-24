@@ -73,6 +73,7 @@
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-spring-cartridge</artifactId>
                 <version>$andromdaVersion</version>
+                <scope>runtime</scope>
             </dependency>
 #end
 #if ($spring || $hibernate)
@@ -80,6 +81,7 @@
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-hibernate-cartridge</artifactId>
                 <version>$andromdaVersion</version>
+                <scope>runtime</scope>
             </dependency>
 #end
 #if ($webservice)
@@ -87,24 +89,28 @@
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-webservice-cartridge</artifactId>
                 <version>$andromdaVersion</version>
+                <scope>runtime</scope>
             </dependency>
 #end
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-java-cartridge</artifactId>
                 <version>$andromdaVersion</version>
+                <scope>runtime</scope>
             </dependency>
 #if ($struts)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-bpm4struts-cartridge</artifactId>
                 <version>$andromdaVersion</version>
+                <scope>runtime</scope>
             </dependency>
 #elseif ($jsf)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
                 <artifactId>andromda-jsf-cartridge</artifactId>
                 <version>$andromdaVersion</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>org.andromda</groupId>
@@ -117,7 +123,7 @@
                 <groupId>org.andromda.translationlibraries</groupId>
                 <artifactId>andromda-ocl-query-library</artifactId>
                 <version>$andromdaVersion</version>
-                <scope>provided</scope>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>commons-beanutils</groupId>
