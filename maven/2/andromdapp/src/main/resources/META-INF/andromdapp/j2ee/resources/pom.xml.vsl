@@ -461,6 +461,19 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>andromdapp-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>eclipse</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
     <modules>
         <module>mda</module>
