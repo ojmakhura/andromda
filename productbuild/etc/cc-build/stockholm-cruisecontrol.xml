@@ -36,7 +36,7 @@
         </log>
         <publishers>
             <currentbuildstatuspublisher file="/var/andromda/logs/andromda-all/currentbuildstatus.txt"/>
-            <htmlemail logdir="/var/andromda/logs/andromda-contrib"
+            <htmlemail logdir="/var/andromda/logs/andromda-all"
                 mailhost="localhost"
                 buildresultsurl="http://thecla.homeftp.net:8080/cruisecontrol/buildresults/andromda-all"
                 spamwhilebroken="true"
