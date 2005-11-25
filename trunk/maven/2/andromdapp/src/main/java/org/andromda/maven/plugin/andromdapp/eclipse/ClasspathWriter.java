@@ -15,14 +15,10 @@ import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
-import org.apache.maven.artifact.metadata.ArtifactMetadataRetrievalException;
 import org.apache.maven.artifact.metadata.ArtifactMetadataSource;
-import org.apache.maven.artifact.metadata.ResolutionGroup;
 import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.artifact.resolver.ArtifactResolutionException;
 import org.apache.maven.artifact.resolver.ArtifactResolutionResult;
 import org.apache.maven.artifact.resolver.ArtifactResolver;
-import org.apache.maven.artifact.resolver.filter.AndArtifactFilter;
 import org.apache.maven.artifact.resolver.filter.ScopeArtifactFilter;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
@@ -117,18 +113,19 @@ public class ClasspathWriter
 
                 allArtifacts.addAll(result.getArtifacts());
             }
-
-            // - resolve the artifacts
-            for (final Iterator artifactIterator = artifacts.iterator(); artifactIterator.hasNext();)
+            else
             {
-                final Artifact artifact = (Artifact)artifactIterator.next();
-                artifactResolver.resolve(
-                    artifact,
-                    project.getRemoteArtifactRepositories(),
-                    localRepository);
+                // - resolve the artifacts in a non-transitive manner
+                for (final Iterator artifactIterator = artifacts.iterator(); artifactIterator.hasNext();)
+                {
+                    final Artifact artifact = (Artifact)artifactIterator.next();
+                    artifactResolver.resolve(
+                        artifact,
+                        project.getRemoteArtifactRepositories(),
+                        localRepository);
+                    directArtifacts.addAll(artifacts);
+                }
             }
-
-            directArtifacts.addAll(artifacts);
         }
 
         // - let the direct artifact versions override any other versions from transitive dependencies
@@ -169,21 +166,25 @@ public class ClasspathWriter
                 }
             }
         }
-        
-        final Artifact rootProjectArtifact = artifactFactory.createArtifact(
-            this.project.getGroupId(),
-            this.project.getArtifactId(),
-            this.project.getVersion(),
-            null,
-            this.project.getPackaging());
-        
-        ArtifactResolutionResult result = artifactResolver.resolveTransitively(
-            allArtifacts,
-            rootProjectArtifact,
-            Collections.EMPTY_LIST,
-            localRepository,
-            artifactMetadataSource);
-        
+
+        // - now we create the root project artifact so that we get rid of any duplicate
+        //   artifacts with different versions.
+        final Artifact rootProjectArtifact =
+            artifactFactory.createArtifact(
+                this.project.getGroupId(),
+                this.project.getArtifactId(),
+                this.project.getVersion(),
+                null,
+                this.project.getPackaging());
+
+        final ArtifactResolutionResult result =
+            artifactResolver.resolveTransitively(
+                allArtifacts,
+                rootProjectArtifact,
+                Collections.EMPTY_LIST,
+                localRepository,
+                artifactMetadataSource);
+
         allArtifacts.clear();
         allArtifacts.addAll(result.getArtifacts());
 
