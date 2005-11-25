@@ -462,7 +462,7 @@
                             </goals>
                             <configuration>
                                 <sourceDirectories>
-                                    <directory>target/src</directory>
+                                    <directory>${basedir}/target/src</directory>
                                 </sourceDirectories>
                             </configuration>
                         </execution>
