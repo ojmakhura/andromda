@@ -131,16 +131,16 @@ public class EclipseMojo
         try
         {
             final MavenProject rootProject = this.getRootProject();
+            final ProjectWriter projectWriter = new ProjectWriter(rootProject,
+                this.getLog());
+            projectWriter.write();
             final List projects = this.collectProjects();
             if (!projects.isEmpty())
             {
-                final ProjectWriter projectWriter = new ProjectWriter(rootProject,
-                        this.getLog());
-                projectWriter.write();
                 final ClasspathWriter classpathWriter = new ClasspathWriter(rootProject,
                         this.getLog());
                 classpathWriter.write(
-                    this.collectProjects(),
+                    projects,
                     this.repositoryVariableName,
                     this.artifactFactory,
                     this.artifactResolver,
