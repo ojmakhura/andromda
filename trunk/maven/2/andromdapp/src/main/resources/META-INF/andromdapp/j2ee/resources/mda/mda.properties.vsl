@@ -2,12 +2,6 @@ maven.andromda.model.uri=file:${project.build.sourceDirectory}/${applicationId}.
 
 filter=
 
-# Configures AndroMDA
-maven.andromda.configuration.uri=file:${maven.conf.dir}/andromda.xml
-
-# Tells the AndroMDA maven plugin to not use Ant when running (speeds initialization)
-maven.andromda.run.without.ant=true
-
 # Define the output locations for the cartridge dependencies in the project.xml
 maven.andromda.core.generated.dir=${project.build.sourceDirectory}/../../../../core/target/src
 maven.andromda.core.manual.dir=${project.build.sourceDirectory}/../../../../core/src/java
