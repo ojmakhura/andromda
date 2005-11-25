@@ -84,10 +84,6 @@
                         <goals>
                             <goal>run</goal>
                         </goals>
-                        <configuration>
-                            <configurationUri>file:${basedir}/conf/andromda.xml</configurationUri>
-                            <lastModifiedCheck>true</lastModifiedCheck>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -101,6 +97,12 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>app/pom.xml</exclude>
+                        <exclude>mda/pom.xml</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
