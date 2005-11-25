@@ -98,6 +98,14 @@
                 <version>$andromdaVersion</version>
                 <scope>runtime</scope>
             </dependency>
+#if ($workflow)
+            <dependency>
+                <groupId>org.andromda.cartridges</groupId>
+                <artifactId>andromda-jbpm-cartridge</artifactId>
+                <version>$andromdaVersion</version>
+                <scope>runtime</scope>
+            </dependency>
+#end
 #if ($struts)
             <dependency>
                 <groupId>org.andromda.cartridges</groupId>
