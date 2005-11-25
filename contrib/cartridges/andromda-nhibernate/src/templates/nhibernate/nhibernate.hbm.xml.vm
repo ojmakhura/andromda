@@ -40,7 +40,7 @@
             <column name="$otherEnd.columnName" not-null="$otherEnd.required" sql-type="$otherEnd.sqlType"#if ($otherEnd.required) unique="true"#end/>
         </many-to-one>
 #else
-        <one-to-one name="$stringUtils.upperCamelCaseName($otherEnd.name)" class="$otherEnd.type.fullyQualifiedEntityImplementationName, ${coreAssemblyName}" outer-join="$otherEnd.outerJoin" property-ref="$sourceEnd.name"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end foreign-key="$otherEnd.foreignKeyConstraintName"/>
+        <one-to-one name="$stringUtils.upperCamelCaseName($otherEnd.name)" class="$otherEnd.type.fullyQualifiedEntityImplementationName, ${coreAssemblyName}" outer-join="$otherEnd.outerJoin" property-ref="$stringUtils.upperCamelCaseName($sourceEnd.name)"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end foreign-key="$otherEnd.foreignKeyConstraintName"/>
 #end
 #end
 #end
