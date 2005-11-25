@@ -37,6 +37,7 @@
             <artifactId>andromda-profile</artifactId>
             <version>${version}</version>
             <scope>runtime</scope>
+            <optional>true</optional>
             <type>xml.zip</type>
         </dependency>
         <dependency>
