@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.FileWriter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 
 import org.andromda.core.common.ResourceUtils;
@@ -51,7 +51,8 @@ public class ClasspathWriter
         final ArtifactResolver artifactResolver,
         final ArtifactRepository localRepository,
         final ArtifactMetadataSource artifactMetadataSource,
-        final Set classpathArtifactTypes)
+        final Set classpathArtifactTypes,
+        final boolean resolveTransitiveDependencies)
         throws Exception
     {
         final String rootDirectory = ResourceUtils.normalizePath(this.project.getBasedir().toString());
@@ -94,19 +95,18 @@ public class ClasspathWriter
 
             final Artifact projectArtifact = project.getArtifact();
 
-            // - override the scope so that the dependencies don't get the same
-            //   scope (for some reason this seems to happen).
-            projectArtifact.setScope(null);
-            ArtifactResolutionResult result =
-                artifactResolver.resolveTransitively(
-                    artifacts,
-                    projectArtifact,
-                    Collections.EMPTY_LIST,
-                    localRepository,
-                    artifactMetadataSource);
-            allArtifacts.addAll(result.getArtifacts());
-
-            // - resolve the artifacts
+            if (resolveTransitiveDependencies)
+            {
+                ArtifactResolutionResult result =
+                    artifactResolver.resolveTransitively(
+                        artifacts,
+                        projectArtifact,
+                        Collections.EMPTY_LIST,
+                        localRepository,
+                        artifactMetadataSource);
+                allArtifacts.addAll(result.getArtifacts());
+            }
+            /* - resolve the artifacts
             for (final Iterator artifactIterator = artifacts.iterator(); artifactIterator.hasNext();)
             {
                 final Artifact artifact = (Artifact)artifactIterator.next();
@@ -114,9 +114,9 @@ public class ClasspathWriter
                     artifact,
                     project.getRemoteArtifactRepositories(),
                     localRepository);
-            }
+            }*/
 
-            allArtifacts.addAll(artifacts);
+            //allArtifacts.addAll(artifacts);
         }
 
         // - remove the project artifacts
@@ -141,26 +141,38 @@ public class ClasspathWriter
             }
         }
 
-        for (final Iterator iterator = allArtifacts.iterator(); iterator.hasNext();)
+        final List allArtifactPaths = new ArrayList(allArtifacts);
+        for (final ListIterator iterator = allArtifactPaths.listIterator(); iterator.hasNext();)
         {
             final Artifact artifact = (Artifact)iterator.next();
             final String scope = artifact.getScope();
-            if (classpathArtifactTypes.contains(artifact.getType()))
+            if (classpathArtifactTypes.contains(artifact.getType()) && Artifact.SCOPE_COMPILE.equals(scope) ||
+                Artifact.SCOPE_PROVIDED.equals(scope))
             {
-                if (Artifact.SCOPE_COMPILE.equals(scope) || Artifact.SCOPE_PROVIDED.equals(scope))
-                {
-                    final File artifactFile = artifact.getFile();
-                    final String path =
-                        StringUtils.replace(
-                            ResourceUtils.normalizePath(artifactFile.toString()),
-                            ResourceUtils.normalizePath(localRepository.getBasedir()),
-                            repositoryVariableName);
-                    this.writeClasspathEntry(
-                        writer,
-                        "var",
-                        path);
-                }
+                final File artifactFile = artifact.getFile();
+                final String path =
+                    StringUtils.replace(
+                        ResourceUtils.normalizePath(artifactFile.toString()),
+                        ResourceUtils.normalizePath(localRepository.getBasedir()),
+                        repositoryVariableName);
+                iterator.set(path);
             }
+            else
+            {
+                iterator.remove();
+            }
+        }
+
+        // - sort the paths
+        Collections.sort(allArtifactPaths);
+
+        for (final Iterator iterator = allArtifactPaths.iterator(); iterator.hasNext();)
+        {
+            final String path = (String)iterator.next();
+            this.writeClasspathEntry(
+                writer,
+                "var",
+                path);
         }
 
         this.writeClasspathEntry(
