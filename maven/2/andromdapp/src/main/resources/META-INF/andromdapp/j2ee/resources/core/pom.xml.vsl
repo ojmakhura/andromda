@@ -24,7 +24,7 @@
 #if ($workflow)
         <dependency>
             <groupId>${pom.groupId}</groupId>
-            <artifactId>${pom.groupId}-workflow</artifactId>
+            <artifactId>${applicationId}-workflow</artifactId>
             <version>${version}</version>
         </dependency>
 #end
