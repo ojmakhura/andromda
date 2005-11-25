@@ -17,6 +17,7 @@
             <version>${version}</version>
             <type>pom</type>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
