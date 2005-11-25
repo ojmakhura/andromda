@@ -62,6 +62,7 @@ public class ClasspathWriter
 
         writer.startElement("classpath");
 
+        final Set directArtifacts = new LinkedHashSet();
         final Set allArtifacts = new LinkedHashSet();
         for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
         {
@@ -106,7 +107,7 @@ public class ClasspathWriter
                         artifactMetadataSource);
                 allArtifacts.addAll(result.getArtifacts());
             }
-            /* - resolve the artifacts
+            // - resolve the artifacts
             for (final Iterator artifactIterator = artifacts.iterator(); artifactIterator.hasNext();)
             {
                 final Artifact artifact = (Artifact)artifactIterator.next();
@@ -114,11 +115,27 @@ public class ClasspathWriter
                     artifact,
                     project.getRemoteArtifactRepositories(),
                     localRepository);
-            }*/
+            }
 
-            //allArtifacts.addAll(artifacts);
+            directArtifacts.addAll(artifacts);
         }
-
+        
+        // - let the direct artifact versions override any other versions
+        for (final Iterator iterator = allArtifacts.iterator(); iterator.hasNext();)
+        {
+            final Artifact artifact = (Artifact)iterator.next();
+            final String groupId = artifact.getGroupId();
+            final String artifactId = artifact.getArtifactId();
+            for (final Iterator directIterator = directArtifacts.iterator(); directIterator.hasNext();)
+            {
+                final Artifact directArtifact = (Artifact)directIterator.next();
+                if (groupId.equals(directArtifact.getGroupId()) && artifactId.equals(directArtifact.getArtifactId()) && !artifact.equals(directArtifact))
+                {
+                    iterator.remove();    
+                }
+            }
+        }
+        
         // - remove the project artifacts
         for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
         {
