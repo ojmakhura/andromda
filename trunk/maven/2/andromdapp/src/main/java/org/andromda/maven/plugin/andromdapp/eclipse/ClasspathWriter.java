@@ -95,53 +95,15 @@ public class ClasspathWriter
                     null,
                     null);
 
-            final Artifact projectArtifact = project.getArtifact();
-
-            if (resolveTransitiveDependencies)
+            // - get the direct dependencies
+            for (final Iterator artifactIterator = artifacts.iterator(); artifactIterator.hasNext();)
             {
-                final OrArtifactFilter filter = new OrArtifactFilter();
-                filter.add(new ScopeArtifactFilter(Artifact.SCOPE_COMPILE));
-                filter.add(new ScopeArtifactFilter(Artifact.SCOPE_PROVIDED));
-                ArtifactResolutionResult result =
-                    artifactResolver.resolveTransitively(
-                        artifacts,
-                        projectArtifact,
-                        localRepository,
-                        project.getRemoteArtifactRepositories(),
-                        artifactMetadataSource,
-                        filter);
-
-                allArtifacts.addAll(result.getArtifacts());
-            }
-            else
-            {
-                // - resolve the artifacts in a non-transitive manner
-                for (final Iterator artifactIterator = artifacts.iterator(); artifactIterator.hasNext();)
-                {
-                    final Artifact artifact = (Artifact)artifactIterator.next();
-                    artifactResolver.resolve(
-                        artifact,
-                        project.getRemoteArtifactRepositories(),
-                        localRepository);
-                    directArtifacts.addAll(artifacts);
-                }
-            }
-        }
-
-        // - let the direct artifact versions override any other versions from transitive dependencies
-        for (final Iterator iterator = allArtifacts.iterator(); iterator.hasNext();)
-        {
-            final Artifact artifact = (Artifact)iterator.next();
-            final String groupId = artifact.getGroupId();
-            final String artifactId = artifact.getArtifactId();
-            for (final Iterator directIterator = directArtifacts.iterator(); directIterator.hasNext();)
-            {
-                final Artifact directArtifact = (Artifact)directIterator.next();
-                if (groupId.equals(directArtifact.getGroupId()) && artifactId.equals(directArtifact.getArtifactId()) &&
-                    !artifact.equals(directArtifact))
-                {
-                    iterator.remove();
-                }
+                final Artifact artifact = (Artifact)artifactIterator.next();
+                artifactResolver.resolve(
+                    artifact,
+                    project.getRemoteArtifactRepositories(),
+                    localRepository);
+                allArtifacts.add(artifact);
             }
         }
 
@@ -167,26 +129,28 @@ public class ClasspathWriter
             }
         }
 
-        // - now we create the root project artifact so that we get rid of any duplicate
-        //   artifacts with different versions.
-        final Artifact rootProjectArtifact =
-            artifactFactory.createArtifact(
-                this.project.getGroupId(),
-                this.project.getArtifactId(),
-                this.project.getVersion(),
-                null,
-                this.project.getPackaging());
+        // - now we resolve transitively, if we have the flag on
+        if (resolveTransitiveDependencies)
+        {
+            final Artifact rootProjectArtifact =
+                artifactFactory.createArtifact(
+                    this.project.getGroupId(),
+                    this.project.getArtifactId(),
+                    this.project.getVersion(),
+                    null,
+                    this.project.getPackaging());
 
-        final ArtifactResolutionResult result =
-            artifactResolver.resolveTransitively(
-                allArtifacts,
-                rootProjectArtifact,
-                Collections.EMPTY_LIST,
-                localRepository,
-                artifactMetadataSource);
+            final ArtifactResolutionResult result =
+                artifactResolver.resolveTransitively(
+                    allArtifacts,
+                    rootProjectArtifact,
+                    Collections.EMPTY_LIST,
+                    localRepository,
+                    artifactMetadataSource);
 
-        allArtifacts.clear();
-        allArtifacts.addAll(result.getArtifacts());
+            allArtifacts.clear();
+            allArtifacts.addAll(result.getArtifacts());
+        }
 
         final List allArtifactPaths = new ArrayList(allArtifacts);
         for (final ListIterator iterator = allArtifactPaths.listIterator(); iterator.hasNext();)
@@ -194,7 +158,6 @@ public class ClasspathWriter
             final Artifact artifact = (Artifact)iterator.next();
             if (classpathArtifactTypes.contains(artifact.getType()))
             {
-                System.out.println("artifact latest version: " + artifact.getBaseVersion() + " artifact=" + artifact);
                 final File artifactFile = artifact.getFile();
                 final String path =
                     StringUtils.replace(
@@ -211,8 +174,6 @@ public class ClasspathWriter
 
         // - sort the paths
         Collections.sort(allArtifactPaths);
-
-        System.out.println("all the paths: " + allArtifactPaths.size());
 
         for (final Iterator iterator = allArtifactPaths.iterator(); iterator.hasNext();)
         {
