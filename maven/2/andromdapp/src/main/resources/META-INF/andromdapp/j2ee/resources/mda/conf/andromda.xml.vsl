@@ -214,7 +214,7 @@
 #else
                 <property name="serviceAccessorPattern">${groupId}.ServiceLocator.instance().get{1}()</property>
 #end
-                <property name="mergeMappingsUri">file:${maven.conf.dir}/mappings/WebMergeMappings.xml</property>
+                <property name="mergeMappingsUri">file:${conf.dir}/mappings/WebMergeMappings.xml</property>
                 <property name="manageableServiceAccessorPattern">${groupId}.ManageableServiceLocator.instance().get{1}()</property>
             </properties>
         </namespace>
@@ -239,7 +239,7 @@
 #else
                 <property name="serviceAccessorPattern">${groupId}.ServiceLocator.instance().get{1}()</property>
 #end
-                <property name="mergeMappingsUri">file:${maven.conf.dir}/mappings/WebMergeMappings.xml</property>
+                <property name="mergeMappingsUri">file:${conf.dir}/mappings/WebMergeMappings.xml</property>
             </properties>
         </namespace>
 #end

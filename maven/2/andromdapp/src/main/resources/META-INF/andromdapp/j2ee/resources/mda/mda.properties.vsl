@@ -2,6 +2,8 @@ maven.andromda.model.uri=file:${project.build.sourceDirectory}/${applicationId}.
 
 filter=
 
+conf.dir=${basedir}/conf
+
 # Define the output locations for the cartridge dependencies in the project.xml
 maven.andromda.core.generated.dir=${project.build.sourceDirectory}/../../../../core/target/src
 maven.andromda.core.manual.dir=${project.build.sourceDirectory}/../../../../core/src/java
