@@ -1,17 +1,20 @@
 package org.andromda.maven.plugin.andromdapp;
 
 import java.io.File;
-
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.maven.plugin.andromdapp.eclipse.ClasspathWriter;
 import org.andromda.maven.plugin.andromdapp.eclipse.ProjectWriter;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.artifact.metadata.ArtifactMetadataSource;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactResolver;
 import org.apache.maven.execution.MavenSession;
@@ -98,6 +101,18 @@ public class EclipseMojo
      * @readonly
      */
     protected ArtifactRepository localRepository;
+    
+    /**
+     * @component
+     */
+    private ArtifactMetadataSource artifactMetadataSource;
+    
+    /**
+     * The artifact types which should be included in the generated Eclipse classpath.
+     * 
+     * @parameter 
+     */
+    private Set classpathArtifactTypes = new HashSet(Arrays.asList(new String[]{"jar"}));
 
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
@@ -121,7 +136,9 @@ public class EclipseMojo
                     this.repositoryVariableName,
                     this.artifactFactory,
                     this.artifactResolver,
-                    this.localRepository);
+                    this.localRepository,
+                    this.artifactMetadataSource,
+                    this.classpathArtifactTypes);
             }
         }
         catch (Throwable throwable)

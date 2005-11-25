@@ -3,6 +3,9 @@ package org.andromda.maven.plugin.andromdapp.eclipse;
 import java.io.File;
 import java.io.FileWriter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -12,7 +15,9 @@ import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
+import org.apache.maven.artifact.metadata.ArtifactMetadataSource;
 import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.artifact.resolver.ArtifactResolutionResult;
 import org.apache.maven.artifact.resolver.ArtifactResolver;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
@@ -44,7 +49,9 @@ public class ClasspathWriter
         final String repositoryVariableName,
         final ArtifactFactory artifactFactory,
         final ArtifactResolver artifactResolver,
-        final ArtifactRepository localRepository)
+        final ArtifactRepository localRepository,
+        final ArtifactMetadataSource artifactMetadataSource,
+        final Set classpathArtifactTypes)
         throws Exception
     {
         final String rootDirectory = ResourceUtils.normalizePath(this.project.getBasedir().toString());
@@ -79,12 +86,26 @@ public class ClasspathWriter
                     }
                 }
             }
-            
+
             final Set artifacts = project.createArtifacts(
-                artifactFactory,
-                null,
-                null);
-            
+                    artifactFactory,
+                    null,
+                    null);
+
+            final Artifact projectArtifact = project.getArtifact();
+
+            // - override the scope so that the dependencies don't get the same
+            //   scope (for some reason this seems to happen).
+            projectArtifact.setScope(null);
+            ArtifactResolutionResult result =
+                artifactResolver.resolveTransitively(
+                    artifacts,
+                    projectArtifact,
+                    Collections.EMPTY_LIST,
+                    localRepository,
+                    artifactMetadataSource);
+            allArtifacts.addAll(result.getArtifacts());
+
             // - resolve the artifacts
             for (final Iterator artifactIterator = artifacts.iterator(); artifactIterator.hasNext();)
             {
@@ -94,10 +115,9 @@ public class ClasspathWriter
                     project.getRemoteArtifactRepositories(),
                     localRepository);
             }
-            
+
             allArtifacts.addAll(artifacts);
         }
-
 
         // - remove the project artifacts
         for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
@@ -120,22 +140,26 @@ public class ClasspathWriter
                 }
             }
         }
+
         for (final Iterator iterator = allArtifacts.iterator(); iterator.hasNext();)
         {
             final Artifact artifact = (Artifact)iterator.next();
             final String scope = artifact.getScope();
-            if (Artifact.SCOPE_COMPILE.equals(scope) || Artifact.SCOPE_PROVIDED.equals(scope))
+            if (classpathArtifactTypes.contains(artifact.getType()))
             {
-                final File artifactFile = artifact.getFile();
-                final String path =
-                    StringUtils.replace(
-                        ResourceUtils.normalizePath(artifactFile.toString()),
-                        ResourceUtils.normalizePath(localRepository.getBasedir()),
-                        repositoryVariableName);
-                this.writeClasspathEntry(
-                    writer,
-                    "var",
-                    path);
+                if (Artifact.SCOPE_COMPILE.equals(scope) || Artifact.SCOPE_PROVIDED.equals(scope))
+                {
+                    final File artifactFile = artifact.getFile();
+                    final String path =
+                        StringUtils.replace(
+                            ResourceUtils.normalizePath(artifactFile.toString()),
+                            ResourceUtils.normalizePath(localRepository.getBasedir()),
+                            repositoryVariableName);
+                    this.writeClasspathEntry(
+                        writer,
+                        "var",
+                        path);
+                }
             }
         }
 
