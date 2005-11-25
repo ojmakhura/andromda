@@ -35,7 +35,7 @@ import org.codehaus.plexus.util.xml.Xpp3Dom;
  * for a new eclipse application.
  *
  * @goal eclipse
- * @phase validate
+ * @phase generate-sources
  * @author Chad Brandon
  */
 public class EclipseMojo
@@ -58,7 +58,7 @@ public class EclipseMojo
      *
      * @parameter
      */
-    private String[] includes = new String[] {"*/pom.xml"};
+    private String[] includes = new String[] {"**/pom.xml"};
 
     /**
      * Defines the POMs to exclude when generating the eclipse files.
@@ -107,13 +107,14 @@ public class EclipseMojo
     {
         try
         {
+            final MavenProject rootProject = this.getRootProject();
             final List projects = this.collectProjects();
             if (!projects.isEmpty())
             {
-                final ProjectWriter projectWriter = new ProjectWriter(this.project,
+                final ProjectWriter projectWriter = new ProjectWriter(rootProject,
                         this.getLog());
                 projectWriter.write();
-                final ClasspathWriter classpathWriter = new ClasspathWriter(this.project,
+                final ClasspathWriter classpathWriter = new ClasspathWriter(rootProject,
                         this.getLog());
                 classpathWriter.write(
                     this.collectProjects(),
@@ -245,16 +246,49 @@ public class EclipseMojo
         }
         return sourceDirectories;
     }
+    
+    /**
+     * Stores the root project.
+     */
+    private MavenProject rootProject;
+
+    /**
+     * Retrieves the root project (i.e. the root parent project)
+     * for this project.
+     *
+     * @return the root project.
+     * @throws MojoExecutionException
+     */
+    private MavenProject getRootProject()
+        throws MojoExecutionException
+    {
+        if (this.rootProject == null)
+        {
+            MavenProject root = null;
+            for (root = this.project.getParent(); root.getParent() != null; root = root.getParent())
+            {
+                ;
+            }
+            if (root == null)
+            {
+                throw new MojoExecutionException("No parent could be retrieved for project --> " + this.project.getId() +
+                    "', you must specify a parent project");
+            }
+            this.rootProject = root;
+        }
+        return this.rootProject;
+    }
 
     /**
      * Retrieves all the POMs for the given project.
      *
      * @return all poms found.
+     * @throws MojoExecutionException 
      */
-    private List getPoms()
+    private List getPoms() throws MojoExecutionException
     {
         final DirectoryScanner scanner = new DirectoryScanner();
-        scanner.setBasedir(this.project.getBasedir());
+        scanner.setBasedir(this.getRootProject().getBasedir());
         scanner.setIncludes(includes);
         scanner.setExcludes(excludes);
         scanner.scan();
@@ -264,7 +298,7 @@ public class EclipseMojo
         for (int ctr = 0; ctr < scanner.getIncludedFiles().length; ctr++)
         {
             poms.add(new File(
-                    this.project.getBasedir(),
+                    this.getRootProject().getBasedir(),
                     scanner.getIncludedFiles()[ctr]));
         }
 

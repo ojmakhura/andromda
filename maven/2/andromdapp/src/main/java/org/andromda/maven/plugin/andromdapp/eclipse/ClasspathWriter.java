@@ -79,11 +79,25 @@ public class ClasspathWriter
                     }
                 }
             }
-            allArtifacts.addAll(project.createArtifacts(
-                    artifactFactory,
-                    null,
-                    null));
+            
+            final Set artifacts = project.createArtifacts(
+                artifactFactory,
+                null,
+                null);
+            
+            // - resolve the artifacts
+            for (final Iterator artifactIterator = artifacts.iterator(); artifactIterator.hasNext();)
+            {
+                final Artifact artifact = (Artifact)artifactIterator.next();
+                artifactResolver.resolve(
+                    artifact,
+                    project.getRemoteArtifactRepositories(),
+                    localRepository);
+            }
+            
+            allArtifacts.addAll(artifacts);
         }
+
 
         // - remove the project artifacts
         for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
@@ -109,10 +123,6 @@ public class ClasspathWriter
         for (final Iterator iterator = allArtifacts.iterator(); iterator.hasNext();)
         {
             final Artifact artifact = (Artifact)iterator.next();
-            artifactResolver.resolve(
-                artifact,
-                this.project.getRemoteArtifactRepositories(),
-                localRepository);
             final String scope = artifact.getScope();
             if (Artifact.SCOPE_COMPILE.equals(scope) || Artifact.SCOPE_PROVIDED.equals(scope))
             {
