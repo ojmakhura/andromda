@@ -259,8 +259,13 @@
 #end
 #if ($workflow)
             <dependency>
-                <groupId>jbpm</groupId>
+                <groupId>org.jbpm</groupId>
                 <artifactId>jbpm</artifactId>
+                <version>3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jbpm</groupId>
+                <artifactId>jbpm-identity</artifactId>
                 <version>3.0</version>
             </dependency>
             <dependency>
@@ -278,16 +283,6 @@
                 <artifactId>xerces</artifactId>
                 <version>2.4.0</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>jbpm</groupId>
-                <artifactId>jbpm</artifactId>
-                <version>3.0</version>
-            </dependency>
-            <dependency>
-                <groupId>jbpm</groupId>
-                <artifactId>jbpm-identity</artifactId>
-                <version>3.0</version>
             </dependency>
 #end
 #if ($web || $hibernate || $workflow)
