@@ -497,6 +497,9 @@
 #if ($webservice && $ear)
         <module>webservice</module>
 #end
+#if ($workflow)
+        <module>workflow</module>
+#end
         <module>app</module>
     </modules>
 </project>
