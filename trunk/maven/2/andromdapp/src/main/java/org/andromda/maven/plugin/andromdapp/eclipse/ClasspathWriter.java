@@ -120,7 +120,7 @@ public class ClasspathWriter
             directArtifacts.addAll(artifacts);
         }
         
-        // - let the direct artifact versions override any other versions
+        // - let the direct artifact versions override any other versions from transitive dependencies
         for (final Iterator iterator = allArtifacts.iterator(); iterator.hasNext();)
         {
             final Artifact artifact = (Artifact)iterator.next();
