@@ -3,8 +3,8 @@ package org.andromda.maven.plugin.andromdapp;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
@@ -112,7 +112,7 @@ public class EclipseMojo
      * 
      * @parameter 
      */
-    private Set classpathArtifactTypes = new HashSet(Arrays.asList(new String[]{"jar"}));
+    private Set classpathArtifactTypes = new LinkedHashSet(Arrays.asList(new String[]{"jar"}));
     
     /**
      * Whether or not transitive dependencies shall be included in any resources (i.e. .classpath
@@ -189,10 +189,7 @@ public class EclipseMojo
                         this.session.getLocalRepository(),
                         new DefaultProfileManager(this.session.getContainer()));
                 project.getCompileSourceRoots().addAll(this.getExtraSourceDirectories(project));
-                if (this.getLog().isDebugEnabled())
-                {
-                    this.getLog().debug("Adding project " + project.getId());
-                }
+                this.getLog().info("Processing project " + project.getId());
                 projects.add(project);
             }
             catch (ProjectBuildingException exception)
