@@ -63,7 +63,6 @@ public class ClasspathWriter
 
         writer.startElement("classpath");
 
-        final Set directArtifacts = new LinkedHashSet();
         final Set allArtifacts = new LinkedHashSet();
         for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
         {
