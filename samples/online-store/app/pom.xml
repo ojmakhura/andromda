@@ -1,0 +1,37 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda.samples.onlinestore</groupId>
+        <artifactId>online-store</artifactId>
+        <version>3.2-RC1-SNAPSHOT</version>
+    </parent>
+    <artifactId>onlinestore-app</artifactId>
+    <packaging>ear</packaging>
+    <name>AndroMDA Online Store Application</name>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>online-store-web</artifactId>
+            <version>${version}</version>            
+            <type>war</type>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <version>1.4</version>
+                    <modules>
+                        <webModule>
+                            <groupId>${pom.groupId}</groupId>
+                            <artifactId>online-store-web</artifactId>
+                            <contextRoot>/online-store</contextRoot>
+                        </webModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
