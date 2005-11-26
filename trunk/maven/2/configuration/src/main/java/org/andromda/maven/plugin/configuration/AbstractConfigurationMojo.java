@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.factory.ArtifactFactory;
@@ -74,13 +75,19 @@ public abstract class AbstractConfigurationMojo
         for (final Iterator iterator = this.getPropertyFiles().iterator(); iterator.hasNext();)
         {
             final String propertiesFile = (String)iterator.next();
-
             final Properties projectProperties = PropertyUtils.loadPropertyFile(
                     new File(propertiesFile),
                     true,
                     true);
 
             properties.putAll(projectProperties);
+        }
+
+        for (final Iterator iterator = properties.keySet().iterator(); iterator.hasNext();)
+        {
+            final String property = (String)iterator.next();
+            final String value = this.replaceProperties(properties, ObjectUtils.toString(properties.get(property)).trim());
+            properties.put(property, value);
         }
         
         properties.putAll(System.getProperties());
@@ -93,12 +100,24 @@ public abstract class AbstractConfigurationMojo
      * <code>${some.property}</code> with the value
      * of the specified property if there is one.
      *
-     * @param fileContents the fileContents to perform replacement on.
+     * @param string the string to perform replacement on.
      */
     protected String replaceProperties(final String string)
         throws IOException
     {
-        final Properties properties = this.getProperties();
+        return this.replaceProperties(this.getProperties(), string);
+    }
+    
+    /**
+     * Replaces all properties having the style
+     * <code>${some.property}</code> with the value
+     * of the specified property if there is one.
+     *
+     * @param properties the properties used to perform the replacement.
+     * @param fileContents the fileContents to perform replacement on.
+     */
+    private String replaceProperties(final Properties properties, final String string) throws IOException
+    {
         final StringReader stringReader = new StringReader(string);
         InterpolationFilterReader reader = new InterpolationFilterReader(stringReader, properties, "${", "}");
         reader.reset();
