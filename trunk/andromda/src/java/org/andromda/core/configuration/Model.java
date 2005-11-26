@@ -170,6 +170,10 @@ public class Model
         try
         {
             final URL url = ResourceUtils.toURL(uri);
+            if (url == null)
+            {
+                throw new ConfigurationException("Model could not be loaded from invalid path --> '" + uri + "'");
+            }
             try
             {
                 // - Get around the fact the URL won't be released until the JVM
