@@ -14,6 +14,7 @@ namespace $entity.packageName
     /// <summary>
 $entity.getDocumentation("    /// ")
     /// </summary>
+    [Serializable]
     public abstract class $entity.entityName
 #if($entity.generalization)
         : $entity.generalization.fullyQualifiedEntityImplementationName
