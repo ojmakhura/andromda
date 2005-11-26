@@ -9,7 +9,6 @@
     <packaging>jar</packaging>
     <name>AndroMDA Animal Quiz MDA</name>
     <build>
-        <defaultGoal>andromda:run</defaultGoal>
         <sourceDirectory>${basedir}/src/uml</sourceDirectory>
         <filters>
             <filter>../project.properties</filter>
