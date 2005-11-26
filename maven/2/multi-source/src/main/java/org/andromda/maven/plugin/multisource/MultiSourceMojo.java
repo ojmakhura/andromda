@@ -1,7 +1,10 @@
 package org.andromda.maven.plugin.multisource;
 
+import java.util.Iterator;
 import java.util.List;
 
+import org.andromda.core.common.ResourceUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -45,6 +48,15 @@ public class MultiSourceMojo
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-        this.project.getCompileSourceRoots().addAll(this.sourceDirectories);
+        final String baseDirectory = ResourceUtils.normalizePath(ObjectUtils.toString(project.getBasedir()) + '/');
+        for (final Iterator iterator = this.sourceDirectories.iterator(); iterator.hasNext();)
+        {
+            String path = ResourceUtils.normalizePath((String)iterator.next());
+            if (!path.startsWith(baseDirectory))
+            {
+                path = ResourceUtils.normalizePath(baseDirectory + path);
+            }
+            this.project.getCompileSourceRoots().add(path);
+        }
     }
 }
