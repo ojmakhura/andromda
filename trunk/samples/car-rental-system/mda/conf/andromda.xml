@@ -5,7 +5,7 @@
     <repositories>
         <repository name="netBeansMDR">
             <models>
-                <model>
+                <model type="uml-1.4">
                     <uri>${maven.andromda.model.uri}</uri>
                     <moduleSearchLocations>
                         <location>${maven.repo.local}/andromda/xml.zips</location>
