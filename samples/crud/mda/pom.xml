@@ -9,7 +9,6 @@
     <packaging>jar</packaging>
     <name>AndroMDA CRUD MDA</name>
     <build>
-        <defaultGoal>andromda:run</defaultGoal>
         <sourceDirectory>${basedir}/src/uml</sourceDirectory>
         <filters>
             <filter>../project.properties</filter>
