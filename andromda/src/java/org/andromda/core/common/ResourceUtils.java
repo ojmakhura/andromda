@@ -96,7 +96,7 @@ public class ResourceUtils
         {
             throw new RuntimeException(throwable);
         }
-        return contents.toString();
+        return contents.toString().trim();
     }
 
     /**

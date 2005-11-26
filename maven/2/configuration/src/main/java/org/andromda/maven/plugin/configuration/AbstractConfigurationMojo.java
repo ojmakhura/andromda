@@ -86,7 +86,7 @@ public abstract class AbstractConfigurationMojo
         for (final Iterator iterator = properties.keySet().iterator(); iterator.hasNext();)
         {
             final String property = (String)iterator.next();
-            final String value = this.replaceProperties(properties, ObjectUtils.toString(properties.get(property)).trim());
+            final String value = this.replaceProperties(properties, ObjectUtils.toString(properties.get(property)));
             properties.put(property, value);
         }
         
