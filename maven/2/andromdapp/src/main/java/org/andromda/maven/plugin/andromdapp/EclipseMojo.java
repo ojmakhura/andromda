@@ -233,38 +233,32 @@ public class EclipseMojo
                         break;
                     }
                 }
-                if (multiSourcePlugin != null && !multiSourcePlugin.getExecutions().isEmpty())
+                final Xpp3Dom configuration = this.getConfiguration(multiSourcePlugin);
+                if (configuration != null && configuration.getChildCount() > 0)
                 {
-                    // - there should only be one execution so we get the first
-                    final PluginExecution execution =
-                        (PluginExecution)multiSourcePlugin.getExecutions().iterator().next();
-                    final Xpp3Dom configuration = (Xpp3Dom)execution.getConfiguration();
-                    if (configuration != null && configuration.getChildCount() > 0)
+                    final Xpp3Dom directories = configuration.getChild(0);
+                    if (directories != null)
                     {
-                        final Xpp3Dom directories = configuration.getChild(0);
-                        if (directories != null)
+                        final int childCount = directories.getChildCount();
+                        if (childCount > 0)
                         {
-                            final int childCount = directories.getChildCount();
-                            if (childCount > 0)
+                            final String baseDirectory =
+                                ResourceUtils.normalizePath(ObjectUtils.toString(project.getBasedir()) + '/');
+                            final Xpp3Dom[] children = directories.getChildren();
+                            for (int ctr = 0; ctr < childCount; ctr++)
                             {
-                                final String baseDirectory =
-                                    ResourceUtils.normalizePath(ObjectUtils.toString(project.getBasedir()) + '/');
-                                final Xpp3Dom[] children = directories.getChildren();
-                                for (int ctr = 0; ctr < childCount; ctr++)
+                                final Xpp3Dom child = children[ctr];
+                                if (child != null)
                                 {
-                                    final Xpp3Dom child = children[ctr];
-                                    if (child != null)
+                                    String directoryValue = ResourceUtils.normalizePath(child.getValue());
+                                    if (directoryValue != null)
                                     {
-                                        String directoryValue = ResourceUtils.normalizePath(child.getValue());
-                                        if (directoryValue != null)
+                                        if (!directoryValue.startsWith(baseDirectory))
                                         {
-                                            if (!directoryValue.startsWith(baseDirectory))
-                                            {
-                                                directoryValue =
-                                                    ResourceUtils.normalizePath(baseDirectory + directoryValue.trim());
-                                            }
-                                            sourceDirectories.add(directoryValue);
+                                            directoryValue =
+                                                ResourceUtils.normalizePath(baseDirectory + directoryValue.trim());
                                         }
+                                        sourceDirectories.add(directoryValue);
                                     }
                                 }
                             }
@@ -274,6 +268,37 @@ public class EclipseMojo
             }
         }
         return sourceDirectories;
+    }
+
+    /**
+     * Retrieves the appropriate configuration instance (first tries
+     * to get the configuration from the plugin, then tries from the plugin's
+     * executions.
+     *
+     * @param plugin the plugin from which the retrieve the configuration.
+     * @return the plugin's configuration, or null if not found.
+     */
+    private Xpp3Dom getConfiguration(final Plugin plugin)
+    {
+        Xpp3Dom configuration = null;
+        if (plugin != null)
+        {
+            if (plugin.getConfiguration() != null)
+            {
+                configuration = (Xpp3Dom)plugin.getConfiguration();
+            }
+            else
+            {
+                final List executions = plugin.getExecutions();
+                if (executions != null && !executions.isEmpty())
+                {
+                    // - there should only be one execution so we get the first one
+                    final PluginExecution execution = (PluginExecution)plugin.getExecutions().iterator().next();
+                    configuration = (Xpp3Dom)execution.getConfiguration();
+                }
+            }
+        }
+        return configuration;
     }
 
     /**
