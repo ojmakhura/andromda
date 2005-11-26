@@ -70,7 +70,6 @@
         </dependency>
     </dependencies>
     <build>
-        <defaultGoal>andromda:run</defaultGoal>
         <sourceDirectory>src/main/uml</sourceDirectory>
         <filters>
             <filter>mda.properties</filter>
