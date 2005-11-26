@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.io.StringWriter;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -66,11 +67,6 @@ public class ResourceUtils
     }
 
     /**
-     * The line separator.
-     */
-    private static final char LINE_SEPARATOR = '\n';
-
-    /**
      * Loads the resource and returns the contents as a String.
      *
      * @param resource the name of the resource.
@@ -78,16 +74,15 @@ public class ResourceUtils
      */
     public static String getContents(final Reader resource)
     {
-        final StringBuffer contents = new StringBuffer();
+        final StringWriter contents = new StringWriter();
         try
         {
             if (resource != null)
             {
                 BufferedReader resourceInput = new BufferedReader(resource);
-                String line;
-                while ((line = resourceInput.readLine()) != null)
+                for (int character = resourceInput.read(); character != -1; character = resourceInput.read())
                 {
-                    contents.append(line + LINE_SEPARATOR);
+                    contents.write(character);
                 }
                 resourceInput.close();
                 resourceInput = null;
