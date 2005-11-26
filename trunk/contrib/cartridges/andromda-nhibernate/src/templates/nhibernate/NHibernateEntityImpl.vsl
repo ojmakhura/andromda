@@ -14,6 +14,7 @@ namespace $entity.packageName
     /// <summary>
     /// @see $entity.fullyQualifiedEntityName
     /// </summary>
+    [Serializable]
     public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
         : $entity.fullyQualifiedEntityName
     {

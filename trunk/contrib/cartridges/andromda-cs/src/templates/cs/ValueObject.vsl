@@ -13,6 +13,7 @@ namespace $class.packageName
     /// <summary>
 $class.getDocumentation("    /// ")
     /// </summary>
+    [Serializable]
     public class $class.name
 #if($class.generalization)
         : ${class.generalization.fullyQualifiedName}
