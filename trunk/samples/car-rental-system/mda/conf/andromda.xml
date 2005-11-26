@@ -1,6 +1,7 @@
 <andromda>
     <properties>
         <property name="modelValidation">true</property>
+        <property name="cartridgeFilter">${filter}</property>
     </properties>
     <repositories>
         <repository name="netBeansMDR">
