@@ -63,7 +63,7 @@ public abstract class AbstractConfigurationMojo
         throws IOException
     {
         // System properties
-        Properties properties = new Properties(System.getProperties());
+        final Properties properties = new Properties();
 
         properties.put(
             "settings",
@@ -82,6 +82,9 @@ public abstract class AbstractConfigurationMojo
 
             properties.putAll(projectProperties);
         }
+        
+        properties.putAll(System.getProperties());
+        
         return properties;
     }
 
