@@ -37,7 +37,7 @@ public class UMLModelAccessFacade
     protected Filters modelPackages = new Filters();
 
     /**
-     * Set the current model.
+     * @see org.andromda.core.metafacade.ModelAccessFacade#setModel(java.lang.Object)
      */
     public void setModel(Object model)
     {
@@ -61,7 +61,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * Get a wrapped version of the model.
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getModel()
      */
     public Object getModel()
     {
@@ -69,7 +69,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * Get the name of the passed ModelElement
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getName(java.lang.Object)
      */
     public String getName(Object modelElement)
     {
@@ -84,7 +84,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * Get the name of the enclosing package
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getPackageName(java.lang.Object)
      */
     public String getPackageName(Object modelElement)
     {
@@ -113,7 +113,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * Package filter set up... ignored for now.
+     * @see org.andromda.core.metafacade.ModelAccessFacade#setPackageFilter(org.andromda.core.configuration.Filters)
      */
     public void setPackageFilter(Filters modelPackages)
     {
@@ -121,7 +121,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     *
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getStereotypeNames(java.lang.Object)
      */
     public Collection getStereotypeNames(Object modelElement)
     {
@@ -135,7 +135,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * find by stereotype ... case insensitive
+     * @see org.andromda.core.metafacade.ModelAccessFacade#findByStereotype(java.lang.String)
      */
     public Collection findByStereotype(String name)
     {
@@ -158,18 +158,18 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * Return a collection of modelelements filtered by filterpackages
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getModelElements()
      */
     public Collection getModelElements()
     {
         Collection metafacades = Collections.EMPTY_LIST;
         ArrayList elements = new ArrayList();
-        for (TreeIterator i = theModel.eAllContents(); i.hasNext();)
+        for (TreeIterator iterator = theModel.eAllContents(); iterator.hasNext();)
         {
-            EObject e = (EObject)i.next();
-            if (e instanceof NamedElement)
+            EObject object = (EObject)iterator.next();
+            if (object instanceof NamedElement)
             {
-                elements.add(e);
+                elements.add(object);
             }
         }
         if (elements != null)
