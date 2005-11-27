@@ -8,7 +8,6 @@ import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.configuration.Filters;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeConstants;
-import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -121,10 +120,13 @@ public class UMLModelAccessFacade
      */
     public Collection getStereotypeNames(Object modelElement)
     {
-        if (!(modelElement instanceof NamedElement))
-        {
-            throw new MetafacadeException("argument is not a org.eclipse.uml2.Element : " + modelElement);
-        }
+        ExceptionUtils.checkNull(
+            "modelElement",
+            modelElement);
+        ExceptionUtils.checkAssignable(
+            NamedElement.class,
+            "modelElement",
+            modelElement.getClass());
         final NamedElement namedElement = (NamedElement)modelElement;
         final Collection names = UmlUtilities.getStereotypeNames(namedElement);
         return names;
