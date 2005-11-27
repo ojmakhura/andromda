@@ -166,6 +166,7 @@ public class EntityLogicImpl
         org.eclipse.uml2.Class umlClass = (org.eclipse.uml2.Class)metaObject;
         if (umlClass.getAttribute(name) == null)
         {
+            // TODO: fix this (this shouldn't be hardcoded)
             final String actualType = "AndroMDA datatypes::" + type;
             final Collection elements =
                 UML2Util.findNamedElements(
