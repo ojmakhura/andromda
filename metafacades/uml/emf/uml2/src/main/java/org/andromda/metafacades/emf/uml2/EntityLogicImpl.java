@@ -8,7 +8,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.andromda.core.metafacade.MetafacadeImplsException;
+import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -174,7 +174,7 @@ public class EntityLogicImpl
                     true);
             if (elements == null || elements.isEmpty())
             {
-                throw new MetafacadeImplsException("Cannot find type '" + actualType + "' " + elements);
+                throw new MetafacadeException("Cannot find type '" + actualType + "' " + elements);
             }
             org.eclipse.uml2.Type element = (org.eclipse.uml2.Type)elements.iterator().next();
             Property property = umlClass.createOwnedAttribute(
@@ -201,7 +201,7 @@ public class EntityLogicImpl
                     UMLProfile.STEREOTYPE_IDENTIFIER);
             if (stereotype == null)
             {
-                throw new MetafacadeImplsException("Could not apply '" + UMLProfile.STEREOTYPE_IDENTIFIER + "' to " +
+                throw new MetafacadeException("Could not apply '" + UMLProfile.STEREOTYPE_IDENTIFIER + "' to " +
                     property + ", the stereotype could not be found");
             }
             property.apply(stereotype);
