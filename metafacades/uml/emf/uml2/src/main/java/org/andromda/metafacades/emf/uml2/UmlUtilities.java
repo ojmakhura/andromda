@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.metafacade.MetafacadeException;
@@ -45,13 +46,6 @@ public class UmlUtilities
      * The logger instance.
      */
     private static Logger logger = Logger.getLogger(UmlUtilities.class);
-    
-    /**
-     * The name of the AndroMDA profile.
-     * 
-     * TODO: should be extracted into something configurable
-     */
-    public static String PROFILE_NAME = "ANDROMDA";
 
     /**
      * Get the comments for a UML Element. This will be a string with
@@ -413,11 +407,8 @@ public class UmlUtilities
         {
             for (final Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
             {
-                final Stereotype stereotype = (Stereotype)iterator.next();
-                if (stereotype.getQualifiedName().startsWith(PROFILE_NAME))
-                {
-                    names.add(stereotype.getName());
-                }
+                final Stereotype stereotype = (Stereotype)iterator.next();              
+                names.add(stereotype.getName());
             }
         }
         return names;
@@ -450,13 +441,22 @@ public class UmlUtilities
         }
         return result;
     }
+    
+    /**
+     * Stores the tagged values that may be applied to an element.
+     */
+    private static final String TAGGED_VALUES_STEREOTYPE = "AndroMDATags";
 
+    /**
+     * Retrieges the TagDefinitions for the given element.
+     * 
+     * @param element the element from which to retrieve the tagged values.
+     * @return the collection of {@TagDefinition} instances.
+     */
     public static Collection getAndroMDATags(Element element)
     {
-        Collection tags = new ArrayList();
-
-        // TODO: Clean up this hard coded reference to "AndroMDATags"
-        Stereotype tagStereotype = element.getAppliedStereotype(PROFILE_NAME + "::" + "AndroMdaTags");
+        final Collection tags = new ArrayList();
+        Stereotype tagStereotype = findAppliedStereotype(element, TAGGED_VALUES_STEREOTYPE);
         if (tagStereotype != null)
         {
             List tagNames = (List)element.getValue(
@@ -474,6 +474,64 @@ public class UmlUtilities
         }
         return tags;
     }
+    
+    /**
+     * Attempts to find the applied stereotype with the given name on the given <code>element</code>.
+     * First tries to find it with the fully qualified name, and then tries it with just the name.
+     * 
+     * @param name the name of the stereotype
+     * @return the found stereotype or null if not found.
+     */
+    public static Stereotype findAppliedStereotype(final Element element, final String name)
+    {
+        Stereotype foundStereotype = element.getAppliedStereotype(name);
+        if (foundStereotype == null)
+        {
+            final Set stereotypes = element.getAppliedStereotypes();
+            if (stereotypes != null)
+            {
+                for (final Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
+                {
+                    final Stereotype stereotype = (Stereotype)iterator.next();
+                    if (stereotype.getName().equals(name))
+                    {
+                        foundStereotype = stereotype;
+                        break;
+                    }
+                }
+            }
+        }
+        return foundStereotype;
+    }
+    
+    /**
+     * Attempts to find the applicable stereotype with the given name on the given <code>element</code>.
+     * First tries to find it with the fully qualified name, and then tries it with just the name.
+     * 
+     * @param name the name of the stereotype
+     * @return the found stereotype or null if not found.
+     */
+    public static Stereotype findApplicableStereotype(final Element element, final String name)
+    {
+        Stereotype foundStereotype = element.getApplicableStereotype(name);
+        if (foundStereotype == null)
+        {
+            final Set stereotypes = element.getApplicableStereotypes();
+            if (stereotypes != null)
+            {
+                for (final Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
+                {
+                    final Stereotype stereotype = (Stereotype)iterator.next();
+                    if (stereotype.getName().equals(name))
+                    {
+                        foundStereotype = stereotype;
+                        break;
+                    }
+                }
+            }
+        }
+        return foundStereotype;
+    }    
 
     /**
      * Retrieves the serial version UID by reading the tagged value

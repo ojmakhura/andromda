@@ -167,7 +167,8 @@ public class EntityLogicImpl
         if (umlClass.getAttribute(name) == null)
         {
             final String actualType = "AndroMDA datatypes::" + type;
-            final Collection elements = UML2Util.findNamedElements(
+            final Collection elements =
+                UML2Util.findNamedElements(
                     umlClass.eResource().getResourceSet(),
                     actualType,
                     true);
@@ -194,14 +195,16 @@ public class EntityLogicImpl
             {
                 kind = VisibilityKind.PROTECTED_LITERAL;
             }
-            // TODO: Clean up these hard coded references to these stereotypes
             property.setVisibility(kind);
-            Stereotype stereo = property.getApplicableStereotype(UmlUtilities.PROFILE_NAME + "::Identifier");
-            if (stereo == null)
+            Stereotype stereotype = UmlUtilities.findApplicableStereotype(
+                    property,
+                    UMLProfile.STEREOTYPE_IDENTIFIER);
+            if (stereotype == null)
             {
-                throw new MetafacadeImplsException("Cannot apply 'ANDROMDA::Identifier' to " + property);
+                throw new MetafacadeImplsException("Could not apply '" + UMLProfile.STEREOTYPE_IDENTIFIER + "' to " +
+                    property + ", the stereotype could not be found");
             }
-            property.apply(stereo);
+            property.apply(stereotype);
         }
     }
 
