@@ -48,11 +48,11 @@ public class UMLModelAccessFacade
             Model.class,
             "modelElement",
             model.getClass());
-        this.theModel = (Model)model;
+        this.model = (Model)model;
 
         if (model instanceof Model)
         {
-            theModel = (Model)model;
+            this.model = (Model)model;
         }
         else
         {
@@ -65,7 +65,7 @@ public class UMLModelAccessFacade
      */
     public Object getModel()
     {
-        return theModel;
+        return this.model;
     }
 
     /**
@@ -111,6 +111,11 @@ public class UMLModelAccessFacade
         }
         return packageName.toString();
     }
+    
+    /**
+     * The actual underlying model instance.
+     */
+    Model model;
 
     /**
      * @see org.andromda.core.metafacade.ModelAccessFacade#setPackageFilter(org.andromda.core.configuration.Filters)
@@ -140,7 +145,7 @@ public class UMLModelAccessFacade
     public Collection findByStereotype(String name)
     {
         final ArrayList elements = new ArrayList();
-        for (TreeIterator iterator = theModel.eAllContents(); iterator.hasNext();)
+        for (TreeIterator iterator = this.model.eAllContents(); iterator.hasNext();)
         {
             EObject object = (EObject)iterator.next();
             if (object instanceof NamedElement)
@@ -164,7 +169,7 @@ public class UMLModelAccessFacade
     {
         Collection metafacades = Collections.EMPTY_LIST;
         ArrayList elements = new ArrayList();
-        for (TreeIterator iterator = theModel.eAllContents(); iterator.hasNext();)
+        for (TreeIterator iterator = this.model.eAllContents(); iterator.hasNext();)
         {
             EObject object = (EObject)iterator.next();
             if (object instanceof NamedElement)
@@ -219,6 +224,4 @@ public class UMLModelAccessFacade
                 });
         }
     }
-
-    Model theModel;
 }
