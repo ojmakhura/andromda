@@ -115,7 +115,7 @@ public class UMLModelAccessFacade
     /**
      * The actual underlying model instance.
      */
-    Model model;
+    private Model model;
 
     /**
      * @see org.andromda.core.metafacade.ModelAccessFacade#setPackageFilter(org.andromda.core.configuration.Filters)
@@ -134,8 +134,8 @@ public class UMLModelAccessFacade
         {
             throw new MetafacadeException("argument is not a org.eclipse.uml2.Element : " + modelElement);
         }
-        NamedElement el = (NamedElement)modelElement;
-        Collection names = UmlUtilities.getStereotypeNames(el);
+        final NamedElement namedElement = (NamedElement)modelElement;
+        final Collection names = UmlUtilities.getStereotypeNames(namedElement);
         return names;
     }
 
@@ -168,10 +168,10 @@ public class UMLModelAccessFacade
     public Collection getModelElements()
     {
         Collection metafacades = Collections.EMPTY_LIST;
-        ArrayList elements = new ArrayList();
-        for (TreeIterator iterator = this.model.eAllContents(); iterator.hasNext();)
+        final ArrayList elements = new ArrayList();
+        for (final TreeIterator iterator = this.model.eAllContents(); iterator.hasNext();)
         {
-            EObject object = (EObject)iterator.next();
+            final EObject object = (EObject)iterator.next();
             if (object instanceof NamedElement)
             {
                 elements.add(object);
