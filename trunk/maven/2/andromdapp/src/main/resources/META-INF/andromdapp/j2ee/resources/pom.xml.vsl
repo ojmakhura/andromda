@@ -297,6 +297,7 @@
                 <groupId>commons-digester</groupId>
                 <artifactId>commons-digester</artifactId>
                 <version>1.7</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>commons-validator</groupId>
@@ -307,11 +308,7 @@
                 <groupId>commons-fileupload</groupId>
                 <artifactId>commons-fileupload</artifactId>
                 <version>1.0</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>1.0</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>javax.servlet</groupId>
@@ -389,6 +386,7 @@
                 <groupId>myfaces</groupId>
                 <artifactId>myfaces-impl</artifactId>
                 <version>1.1.1</version>
+                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>myfaces</groupId>
@@ -404,6 +402,7 @@
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
                 <version>1.3</version>
+                <scope>runtime</scope>
             </dependency>
 #end
 #if ($webservice)
@@ -419,11 +418,6 @@
             </dependency>
             <dependency>
                 <groupId>axis</groupId>
-                <artifactId>axis-schema</artifactId>
-                <version>1.3</version>
-            </dependency>
-            <dependency>
-                <groupId>axis</groupId>
                 <artifactId>axis-saaj</artifactId>
                 <version>1.3</version>
             </dependency>
@@ -433,9 +427,16 @@
                 <version>1.3</version>
             </dependency>
             <dependency>
+                <groupId>axis</groupId>
+                <artifactId>axis-schema</artifactId>
+                <version>1.3</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
                 <groupId>commons-discovery</groupId>
                 <artifactId>commons-discovery</artifactId>
                 <version>0.2</version>
+                <scope>runtime</scope>
             </dependency>
 #end
         </dependencies>
