@@ -14,6 +14,7 @@ if [ -z $CCDIR ]; then
   echo CCDIR not defined, using /opt/cruisecontrol
   CCDIR=/opt/cruisecontrol/main
   export CCDIR
+  export PATH=$CCDIR/bin:$PATH
 fi
 
 # Set the JDK to use
@@ -23,6 +24,7 @@ fi
 # NB j2sdk1.4 and jdk1.5 are symlinks to the actual installed 
 # version.
 
+if [ -z $JAVA_HOME ];then
 case "$JDK" in
   "Stockholm" )
      export MAVEN_OPTS="-XX:MaxPermSize=512m -Xmx1024m"
@@ -50,8 +52,9 @@ case "$JDK" in
      export JAVA_HOME=/opt/java/j2sdk1.4
   ;;
 esac
+export PATH=$JAVA_HOME/bin:$PATH
+fi
 
-export PATH=$CCDIR/bin:$JAVA_HOME/bin:$PATH
 
 echo "**** Java Version "
 java -fullversion
