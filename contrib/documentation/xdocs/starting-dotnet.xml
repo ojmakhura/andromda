@@ -45,7 +45,7 @@
                     VS 2005. If you are using VS 2003, you will have to make minor adjustments
                     to do equivalent tasks.
                 </p>
-                    
+
                 <p>
                     During Visual Studio 2005 installation, do not use the default option of
                     installing SQL Server Express Edition. You have already installed SQL Server
@@ -487,7 +487,7 @@ Finished at: Sat Nov 12 17:06:50 EST 2005
                     which is used for object persistence. In addition you will find the following dlls:
 
                     <ul>
-                        <li><code>NHibernate.Support.dll</code>: used to manage NHibernate sessions</li>
+                        <li><code>AndroMDA.NHibernateSupport.dll</code>: used to manage NHibernate sessions</li>
                         <li><code>NHibernate.Nullables2.dll</code>: used to store .NET 2.0 Nullable types using NHibernate</li>
                         <li><code>log4net.dll</code>: used for general purpose logging</li>
                     </ul>
@@ -749,7 +749,7 @@ public override void AddTimeAllocation(TimeTracker.Domain.TimeAllocation timeAll
                                 <li>NHibernate.dll</li>
                                 <li>NHibernate.Caches.SysCache.dll</li>
                                 <li>NHibernate.Nullables2.dll (VS 2005 only)</li>
-                                <li>NHibernate.Support.dll</li>
+                                <li>AndroMDA.NHibernateSupport.dll</li>
                             </ol>
                         </li>
                         <li>

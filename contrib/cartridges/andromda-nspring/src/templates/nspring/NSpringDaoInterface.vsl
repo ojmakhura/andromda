@@ -47,7 +47,7 @@ namespace $entity.packageName
 #if($superclass)
         : $superclass.fullyQualifiedDaoName
 #else
-        : NHibernate.Support.INHibernateDaoSupport
+        : AndroMDA.NHibernateSupport.INHibernateDaoSupport
 #end
     {
 #foreach ($valueObjectRef in $entity.valueObjectReferences)

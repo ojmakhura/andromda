@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using NHibernate.Support;
+using AndroMDA.NHibernateSupport;
 using TimeTracker.Domain;
 
 namespace TimeTracker
