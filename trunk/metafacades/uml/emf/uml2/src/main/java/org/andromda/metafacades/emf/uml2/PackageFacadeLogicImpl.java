@@ -2,7 +2,7 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.Collection;
 
-import org.andromda.core.metafacade.MetafacadeImplsException;
+import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.eclipse.uml2.Element;
@@ -49,7 +49,7 @@ public class PackageFacadeLogicImpl
         }
         else
         {
-            throw new MetafacadeImplsException("Did not find" + fullyQualifiedName);
+            throw new MetafacadeException("Could not find --> '" + fullyQualifiedName + "'");
         }
         return (ModelElementFacade)this.shieldedElement(element);
     }

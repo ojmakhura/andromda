@@ -2,7 +2,7 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.Collection;
 
-import org.andromda.core.metafacade.MetafacadeImplsException;
+import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -99,7 +99,7 @@ public class EnumerationFacadeLogicImpl
             }
             else
             {
-                throw new MetafacadeImplsException("Note that real Literals are not supported yet.");
+                throw new MetafacadeException("Note that real Literals are not supported yet.");
             }
         }
         return type;
