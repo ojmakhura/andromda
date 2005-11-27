@@ -6,8 +6,6 @@
 // You can (and have to!) safely modify it by hand.
 
 using System;
-using NHibernate;
-using NHibernate.Support;
 
 #if ($stringUtils.isNotBlank($entity.packageName))
 namespace $entity.packageName

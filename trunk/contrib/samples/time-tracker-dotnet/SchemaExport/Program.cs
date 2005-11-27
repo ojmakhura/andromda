@@ -1,6 +1,6 @@
 using System;
 using NHibernate;
-using NHibernate.Support;
+using AndroMDA.NHibernateSupport;
 
 namespace SchemaExport
 {
