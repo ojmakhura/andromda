@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.resource.impl.URIConverterImpl;
 
 
 /**
- * Extends the default URIConverterImpl to be able to find the discover physical path of URIs when
+ * Extends the default URIConverterImpl to be able to discover the physical path of URIs when
  * given the moduleSearchPaths.
  *
  * @author Chad Brandon
