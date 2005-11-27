@@ -49,15 +49,6 @@ public class UMLModelAccessFacade
             "modelElement",
             model.getClass());
         this.model = (Model)model;
-
-        if (model instanceof Model)
-        {
-            this.model = (Model)model;
-        }
-        else
-        {
-            throw new MetafacadeException("Object is not an instance of org.eclipse.uml2.Model");
-        }
     }
 
     /**
