@@ -11,14 +11,6 @@ public class PluginException
 {
     /**
      * Constructor for PluginException.
-     */
-    public PluginException()
-    {
-        super();
-    }
-
-    /**
-     * Constructor for PluginException.
      *
      * @param message
      */
