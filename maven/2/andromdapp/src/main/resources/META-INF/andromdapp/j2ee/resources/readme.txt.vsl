@@ -28,17 +28,8 @@
          |        contains information about this project, you may add more information
          |        as long as you do not violate the Maven POM schema, see
          |        http://maven.apache.org/reference/project-descriptor.html
-         |-- maven.xml
-         |        this file defines the goals that can be called from the root of the
-         |        project, most of the time just calling goals in submodules, see below
-         |        for examples
          |-- project.properties
          |        common properties that might be changed to configure the project
-         |-- build.properties
-         |        properties related to versions of external dependencies such as
-         |        libraries, also defines project identifier properties; usually
-         |        this file is not edited (except perhaps when upgrading to
-         |        another AndroMDA version)
          |
          +-- /mda
          |     |
@@ -46,16 +37,14 @@
          |     |    AndroMDA is configured to generate the files needed to
          |     |    assemble the application
          |     |
-         |     +-- project.xml
-         |     |        contains the AndroMDA dependencies
-         |     +-- project.properties
+         |     +-- pom.xml
+         |     |        contains the AndroMDA dependencies (cartridges, translation-libraries, etc)
+         |     +-- mda.properties
          |     |        specific AndroMDA properties, can be configured here,
          |     |        such as toggling the validation errors on/off
-         |     +-- maven.xml
-         |     |        no need to edit this file
          |     +-- /src
          |     |        additional sources such as merge-mappings can be
-         |     |        placed here, check out the /uml directory, it contains
+         |     |        placed here, check out the /main/uml directory, it contains
          |     |        the UML model from which AndroMDA will generate code
          |     +-- /conf/andromda.xml
          |              configures AndroMDA and its components, most
@@ -68,7 +57,7 @@
          |     |    The COMMON module collects those resources and classes
          |     |    that are shared between the other modules.
          |     |
-         |     +-- project.xml
+         |     +-- pom.xml
          |     |        lists common dependencies
          |     +-- /target
          |              shared resources and java classes are generated here,
@@ -80,13 +69,9 @@
          |     |    The CORE module collects those resources and classes
          |     |    that use the EJB framework
          |     |
-         |     +-- project.xml
+         |     +-- pom.xml
          |     |        lists EJB dependencies
-         |     +-- project.properties
-         |     |        specific EJB build properties, no need to edit these
-         |     +-- maven.xml
-         |     |        runs XDoclet on the generated sources
-         |     +-- /src
+         |     +-- /src/main/java
          |     |        EJB classes that need manual implementation are
          |     |        generated here, they will not be overwritten upon
          |     |        regeneration
@@ -101,16 +86,9 @@
          |     |    The CORE module collects those resources and classes
          |     |    that use the Hibernate framework
          |     |
-         |     +-- project.xml
+         |     +-- pom.xml
          |     |        lists Hibernate dependencies
-         |     +-- project.properties
-         |     |        specific Hibernate build properties,
-         |     |        no need to edit these
-         |     +-- maven.xml
-         |     |        defines goals for the generation of the database
-         |     |        specific DDL code for the creation/deletion of the
-         |     |        schema (using SchemaExport)
-         |     +-- /src
+         |     +-- /src/main/java
          |     |        Hibernate classes that need manual implementation are
          |     |        generated here, they will not be overwritten upon
          |     |        regeneration; these are the entities containing
@@ -131,16 +109,9 @@
          |     |    that use the Spring framework, optionally making
          |     |    use of Hibernate and/or EJB under the hood.
          |     |
-         |     +-- project.xml
+         |     +-- pom.xml
          |     |        lists Spring dependencies
-         |     +-- project.properties
-         |     |        specific Spring build properties,
-         |     |        no need to edit these
-         |     +-- maven.xml
-         |     |        defines goals for the generation of the database
-         |     |        specific DDL code for the creation/deletion of the
-         |     |        schema (using Hibernate's SchemaExport)
-         |     +-- /src
+         |     +-- /src/main/java
          |     |        Spring classes that need manual implementation are
          |     |        generated here, they will not be overwritten upon
          |     |        regeneration; this includes the service, DAO and
@@ -162,13 +133,8 @@
          |     |    The Workflow module collects those resources and classes
          |     |    that are needed to support the workflow engine
          |     |
-         |     +-- project.xml
+         |     +-- pom.xml
          |     |        lists Workflow dependencies
-         |     +-- project.properties
-         |     |        no need to edit this file
-         |     +-- maven.xml
-         |     |        contains a goal that will take care of bundling the proper
-         |     |        configuration into this module
          |     +-- /src/sar
          |     |        files used to configure the workflow engine connection,
          |     |        please note that these files contain properties
@@ -188,17 +154,9 @@
          |     |    bundling all other modules to create a deployable war.
 #end
          |     |
-         |     +-- project.xml
+         |     +-- pom.xml
          |     |        lists WebApp dependencies
-         |     +-- project.properties
-         |     |        specific Spring build properties,
-         |     |        you can set precompileJsps=true to enable the
-         |     |        automatic precompilation of JSPs
-         |     +-- maven.xml
-         |     |        defines specific goals related to JSP precompilation,
-         |     |        uncomment the war:init preGoal to enable the copy-over
-         |     |        feature
-         |     +-- /src
+         |     +-- /src/main/java
          |     |        controller implementations and editable resource bundles
          |     |        will be generated here,
          |     |        you might consider putting your own JSPs here to
@@ -206,7 +164,11 @@
          |     |        .war file
          |     +-- /target
 #if ($ear)
+#if ($struts)
          |              any Struts classes, JSPs, resource bundles and
+#else
+         |              any JSF classes, JSPs, resource bundles and
+#end
          |              configuration files are generated here
 #else
          |              a deployable war is bundled here
@@ -219,10 +181,8 @@
          |     |    The WEBSERVICE module collects those resources and
          |     |    classes that use the AXIS framework
          |     |
-         |     +-- project.xml
-         |     |        lists AXIS dependencies for webservices
-         |     +-- project.properties
-         |     |        no need to edit this file
+         |     +-- pom.xml
+         |     |        lists any dependencies for webservices
          |     +-- /target
          |              generated files are emitted here
          |
@@ -233,15 +193,9 @@
                |    The APP module collects those resources and classes
                |    that are required to actually build the .ear bundle
                |
-               +-- project.xml
+               +-- pom.xml
                |        lists dependencies to be bundles into the
                |        root of the .ear
-               +-- project.properties
-               |        properties controlling the bundling and deploying
-               |        process set the JBoss server directory here, or
-               |        choose to explode the .ear bundle on deploy
-               +-- maven.xml
-               |        goals to deploy and undeploy the application
                +-- /src
                |        any custom resources that should be deployed
                |        together with the application
@@ -270,18 +224,18 @@
             deletes all generated files, rebuilds and deploys; files in /src
             directories are *not* deleted
 
-        %> mvn core
+        %> mvn -N andromdapp:module -Dmodules=core
 
             only build the core module
 
 #if ($workflow)
-        %> mvn workflow
+        %> mvn -N andromdapp:module -Dmodules=workflow
 
             only build the workflow module
 
 #end
 #if ($web)
-        %> mvn web
+        %> mvn -N andromdapp:module -Dmodules=web
 
             only build the web module
 
@@ -303,32 +257,32 @@
             invokes the generated DDL code and subsequently tells the database
             to drop the schema for the entities
 
-        %> mvn start-andromda-server
+        %> mvn -N andromdapp:module -Dmodules=mda:[andromda:start-server]
 
             starts the AndroMDA server, with this server running you will be able
             to significantly speedup the generation process although it will require
             you to use another console while it is running
 
-        %> mvn stop-andromda-server
+        %> mvn -N andromdapp:module -Dmodules=mda:[andromda:stop-server]
 
             stops the AndroMDA server
 
-        %> mvn mda
+        %> mvn -N andromdapp:module -Dmodules=mda
 
             runs AndroMDA on your model and thereby generating files in
             the subdirectories of the existing modules
 
-        %> mvn mda -Dfilter=java,hibernate
+        %> mvn -N andromdapp:module -Dmodules=mda -Dfilter=java,hibernate
 
             runs AndroMDA, but this time only using the Java and Hibernate
             cartridges (in that order)
 
-        %> mvn mda -Dfilter=~java,hibernate
+        %> mvn -N andromdapp:module -Dmodules=mda -Dfilter=~java,hibernate
 
             runs AndroMDA, but this time using all cartridges *except*
             the Java and Hibernate cartridges
 
-        %> mvn mda -Dfilter=java core web deploy
+        %> mvn -N andromdapp:module -Dmodules=mda,core,web,deploy -Dfilter=java 
 
             runs AndroMDA using only the Java cartridge, rebuilds the core
             module and then the web module and deploys afterwards
