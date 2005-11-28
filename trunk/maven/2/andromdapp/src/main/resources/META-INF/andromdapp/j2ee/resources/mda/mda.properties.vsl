@@ -13,7 +13,7 @@ maven.andromda.web.manual.java.dir=${project.build.sourceDirectory}/../../../../
 
 #if ($workflow)
 maven.andromda.workflow.generated.dir=${project.build.sourceDirectory}/../../../../workflow/target/src
-maven.andromda.workflow.manual.dir=${project.build.sourceDirectory}/../../../../workflow/src
+maven.andromda.workflow.manual.dir=${project.build.sourceDirectory}/../../../../workflow/src/main
 #end
 
 #if ($webservice)
