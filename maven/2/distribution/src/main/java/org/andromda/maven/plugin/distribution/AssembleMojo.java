@@ -1,7 +1,9 @@
 package org.andromda.maven.plugin.distribution;
 
 import java.io.File;
+
 import java.text.Collator;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -11,6 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.andromda.core.common.ResourceUtils;
+import org.apache.maven.archiver.MavenArchiveConfiguration;
+import org.apache.maven.archiver.MavenArchiver;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.metadata.ArtifactMetadataSource;
@@ -22,11 +26,13 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.archiver.jar.JarArchiver;
 import org.codehaus.plexus.util.FileUtils;
+
 
 /**
  * A Mojo for assembling the AndroMDA distribution.
- * 
+ *
  * @goal assemble
  * @phase validate
  * @author Chad Brandon
@@ -36,15 +42,15 @@ public class AssembleMojo
 {
     /**
      * The name of the distribution
-     * 
-     * @parameter expression="andromda"
+     *
+     * @parameter expression="andromda-bin-${project.version}"
      * @required
      */
-    private String name;
+    private String binaryName;
 
     /**
      * Directory that resources are copied to during the build.
-     * 
+     *
      * @parameter expression="${project.build.directory}"
      * @required
      */
@@ -52,7 +58,7 @@ public class AssembleMojo
 
     /**
      * The maven project.
-     * 
+     *
      * @parameter expression="${project}"
      * @required
      * @readonly
@@ -63,7 +69,7 @@ public class AssembleMojo
     /**
      * Artifact factory, needed to download source jars for inclusion in
      * classpath.
-     * 
+     *
      * @component role="org.apache.maven.artifact.factory.ArtifactFactory"
      * @required
      * @readonly
@@ -73,7 +79,7 @@ public class AssembleMojo
     /**
      * Artifact resolver, needed to download source jars for inclusion in
      * classpath.
-     * 
+     *
      * @component role="org.apache.maven.artifact.resolver.ArtifactResolver"
      * @required
      * @readonly
@@ -88,6 +94,14 @@ public class AssembleMojo
     protected ArtifactRepository localRepository;
 
     /**
+     * The archiver.
+     *
+     * @parameter expression="${component.org.codehaus.plexus.archiver.Archiver#jar}"
+     * @required
+     */
+    private JarArchiver binArchiver;
+
+    /**
      * @component
      */
     private ArtifactMetadataSource artifactMetadataSource;
@@ -95,19 +109,27 @@ public class AssembleMojo
     /**
      * The pattern for AndroMDA specific artifacts (these are bundled in the
      * andromda specific directory).
-     * 
+     *
      * @parameter
      */
     private String andromdaArtifactPattern = "org\\.andromda.*";
 
     /**
+     * The maven archiver to use.
+     *
+     * @parameter
+     */
+    private MavenArchiveConfiguration archive = new MavenArchiveConfiguration();
+
+    /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
-    public void execute() throws MojoExecutionException, MojoFailureException
+    public void execute()
+        throws MojoExecutionException, MojoFailureException
     {
         try
         {
-            final File directory = this.getOutputDirectory();
+            final File directory = this.getBinaryDistributionDirectory();
             directory.mkdirs();
             final List dependencies = this.project.getDependencies();
             final Set artifacts = new LinkedHashSet();
@@ -116,52 +138,84 @@ public class AssembleMojo
                 for (final Iterator iterator = dependencies.iterator(); iterator.hasNext();)
                 {
                     final Dependency dependency = (Dependency)iterator.next();
-                    final Artifact artifact = this.artifactFactory.createArtifact(
-                        dependency.getGroupId(),
-                        dependency.getArtifactId(),
-                        dependency.getVersion(),
-                        null,
-                        dependency.getType());
-                    this.artifactResolver.resolve(artifact, this.project
-                        .getRemoteArtifactRepositories(), this.localRepository);
+                    final Artifact artifact =
+                        this.artifactFactory.createArtifact(
+                            dependency.getGroupId(),
+                            dependency.getArtifactId(),
+                            dependency.getVersion(),
+                            null,
+                            dependency.getType());
+                    this.artifactResolver.resolve(
+                        artifact,
+                        this.project.getRemoteArtifactRepositories(),
+                        this.localRepository);
                     artifacts.add(artifact);
                 }
             }
 
-            final Artifact projectArtifact = artifactFactory.createArtifact(
-                this.project.getGroupId(),
-                this.project.getArtifactId(),
-                this.project.getVersion(),
-                null,
-                this.project.getPackaging());
+            final Artifact projectArtifact =
+                artifactFactory.createArtifact(
+                    this.project.getGroupId(),
+                    this.project.getArtifactId(),
+                    this.project.getVersion(),
+                    null,
+                    this.project.getPackaging());
 
-            final ArtifactResolutionResult result = artifactResolver.resolveTransitively(
-                artifacts,
-                projectArtifact,
-                Collections.EMPTY_LIST,
-                this.localRepository,
-                this.artifactMetadataSource);
+            final ArtifactResolutionResult result =
+                artifactResolver.resolveTransitively(
+                    artifacts,
+                    projectArtifact,
+                    Collections.EMPTY_LIST,
+                    this.localRepository,
+                    this.artifactMetadataSource);
             artifacts.addAll(result.getArtifacts());
             final List artifactList = new ArrayList(artifacts);
-            Collections.sort(artifactList, new ArtifactComparator());
+            Collections.sort(
+                artifactList,
+                new ArtifactComparator());
             for (final Iterator iterator = artifactList.iterator(); iterator.hasNext();)
             {
                 final Artifact artifact = (Artifact)iterator.next();
-                final String relativePath = ResourceUtils.normalizePath(this.localRepository
-                    .pathOf(artifact));
+                final String relativePath = ResourceUtils.normalizePath(this.localRepository.pathOf(artifact));
                 File outputFile;
                 final String artifactId = artifact.getId();
                 if (artifactId.matches(this.andromdaArtifactPattern))
                 {
-                    outputFile = new File(this.getOutputDirectory() + "/andromda", relativePath);
+                    outputFile = new File(
+                            this.getBinaryDistributionDirectory() + "/andromda",
+                            relativePath);
                 }
                 else
                 {
-                    outputFile = new File(this.getOutputDirectory() + "/lib", relativePath);
+                    outputFile = new File(
+                            this.getBinaryDistributionDirectory() + "/lib",
+                            relativePath);
                 }
                 this.getLog().info("bundling: " + artifactId);
-                FileUtils.copyFile(artifact.getFile(), outputFile);
+                FileUtils.copyFile(
+                    artifact.getFile(),
+                    outputFile);
             }
+
+            final File workDirectory = new File(this.workDirectory);
+
+            final File distributionZip = new File(workDirectory, this.binaryName + ".zip");
+
+            this.getLog().info("Building distribution " + this.binaryName);
+
+            final MavenArchiver archiver = new MavenArchiver();
+
+            archiver.setArchiver(this.binArchiver);
+            archiver.setOutputFile(distributionZip);
+            archiver.getArchiver().addDirectory(
+                directory,
+                new String[] {"**/*"},
+                null);
+
+            // - create archive
+            archiver.createArchive(
+                project,
+                archive);
         }
         catch (final Throwable throwable)
         {
@@ -182,21 +236,25 @@ public class AssembleMojo
             collator.setStrength(Collator.PRIMARY);
         }
 
-        public int compare(final Object objectA, final Object objectB)
+        public int compare(
+            final Object objectA,
+            final Object objectB)
         {
             final Artifact a = (Artifact)objectA;
             final Artifact b = (Artifact)objectB;
-            return collator.compare(a.getId(), b.getId());
+            return collator.compare(
+                a.getId(),
+                b.getId());
         }
     }
 
     /**
-     * Gets the directory to which the output is written for the distribution.
-     * 
+     * Gets the directory to which the output is written for the binary distribution.
+     *
      * @return the directory output distribution.
      */
-    private File getOutputDirectory()
+    private File getBinaryDistributionDirectory()
     {
-        return new File(workDirectory + '/' + name + '-' + project.getVersion());
+        return new File(this.workDirectory + '/' + this.binaryName + '-' + this.project.getVersion());
     }
 }
