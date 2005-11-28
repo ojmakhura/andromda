@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.andromda.core.common.ResourceUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.archiver.MavenArchiver;
 import org.apache.maven.artifact.Artifact;
@@ -195,6 +196,10 @@ public class AssembleMojo
                 FileUtils.copyFile(
                     artifact.getFile(),
                     outputFile);
+                // - bundle the POM as well
+                final File artifactPom = new File(StringUtils.replace(artifact.getFile().toString(), artifact.getType(), POM_TYPE));
+                final File outputPom = new File(StringUtils.replace(outputFile.toString(), artifact.getType(), POM_TYPE));
+                FileUtils.copyFile(artifactPom, outputPom);
             }
 
             final File workDirectory = new File(this.workDirectory);
@@ -222,6 +227,11 @@ public class AssembleMojo
             throw new MojoExecutionException("Error assembling distribution", throwable);
         }
     }
+    
+    /**
+     * The POM artifact type.
+     */
+    private static final String POM_TYPE = "pom";
 
     /**
      * Used to sort artifacts by <code>id</code>.
