@@ -348,7 +348,7 @@ public class XmiZipArchiverMojo
      * Writes the given given <code>model</code> archive file and includes
      * the file given by the <code>path</code>
      * @param modelArchive the model archive.
-     * @param path
+     * @param path the path of the model to write.
      * @throws IOException
      */
     private void writeModelArchive(
