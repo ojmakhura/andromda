@@ -125,7 +125,7 @@ public class SWTResourceManager {
      * @return Image The image stored in the file at the specified path
      */
     public static Image getImage(String path) {
-    	return getImage("default", path); //$NON-NLS-1$
+    	return getImage("default", path);
     }
 
     /**
@@ -135,7 +135,7 @@ public class SWTResourceManager {
      * @return Image The image stored in the file at the specified path
      */
     public static Image getImage(String section, String path) {
-        String key = section + '|' + SWTResourceManager.class.getName() + '|' + path;
+        String key = section + "|" + SWTResourceManager.class.getName() + "|" + path;
         Image image = (Image) m_ClassImageMap.get(key);
         if (image == null) {
             try {
@@ -158,7 +158,7 @@ public class SWTResourceManager {
      * @return Image The image stored in the file at the specified path
      */
     public static Image getImage(Class clazz, String path) {
-        String key = clazz.getName() + '|' + path;
+        String key = clazz.getName() + "|" + path;
         Image image = (Image) m_ClassImageMap.get(key);
         if (image == null) {
         	try {
@@ -277,7 +277,7 @@ public class SWTResourceManager {
 	public static void disposeImages(String section) {
 		for (Iterator I = m_ClassImageMap.keySet().iterator(); I.hasNext();) {
 			String key = (String) I.next();
-			if (!key.startsWith(section + '|'))
+			if (!key.startsWith(section + "|"))
 				continue;
 			Image image = (Image) m_ClassImageMap.get(key);
 			image.dispose();
@@ -315,32 +315,32 @@ public class SWTResourceManager {
      * Returns a font based on its name, height and style. 
      * Windows-specific strikeout and underline flags are also supported.
      * @param name String The name of the font
-     * @param size int The size of the font
+     * @param height int The height of the font
      * @param style int The style of the font
      * @param strikeout boolean The strikeout flag (warning: Windows only)
      * @param underline boolean The underline flag (warning: Windows only)
      * @return Font The font matching the name, height, style, strikeout and underline
      */
 	public static Font getFont(String name, int size, int style, boolean strikeout, boolean underline) {
-		String fontName = name + '|' + size + '|' + style + '|' + strikeout + '|' + underline;
+		String fontName = name + "|" + size + "|" + style + "|" + strikeout + "|" + underline;
         Font font = (Font) m_FontMap.get(fontName);
         if (font == null) {
         	FontData fontData = new FontData(name, size, style);
     		if (strikeout || underline) {
     			try {
-    				Class logFontClass = Class.forName("org.eclipse.swt.internal.win32.LOGFONT"); //$NON-NLS-1$
-    				Object logFont = FontData.class.getField("data").get(fontData); //$NON-NLS-1$
+    				Class logFontClass = Class.forName("org.eclipse.swt.internal.win32.LOGFONT");
+    				Object logFont = FontData.class.getField("data").get(fontData);
     				if (logFont != null && logFontClass != null) {
     					if (strikeout) {
-							logFontClass.getField("lfStrikeOut").set(logFont, new Byte((byte) 1)); //$NON-NLS-1$
+							logFontClass.getField("lfStrikeOut").set(logFont, new Byte((byte) 1));
 						}
     					if (underline) {
-							logFontClass.getField("lfUnderline").set(logFont, new Byte((byte) 1)); //$NON-NLS-1$
+							logFontClass.getField("lfUnderline").set(logFont, new Byte((byte) 1));
 						}
     				}
     			} catch (Throwable e) {
     				System.err.println(
-    					"Unable to set underline or strikeout" + " (probably on a non-Windows platform). " + e); //$NON-NLS-1$ //$NON-NLS-2$
+    					"Unable to set underline or strikeout" + " (probably on a non-Windows platform). " + e);
     			}
     		}
     		font = new Font(Display.getCurrent(), fontData);
@@ -390,7 +390,7 @@ public class SWTResourceManager {
             CoolItem item = items[i];
             if (item.getControl() == null)
                 item.setControl(new Canvas(bar, SWT.NONE) {
-				public Point computeSize(int wHint, int hHint, boolean changed) {
+                public Point computeSize(int wHint, int hHint, boolean changed) {
                     return new Point(20, 20);
                 }
             });

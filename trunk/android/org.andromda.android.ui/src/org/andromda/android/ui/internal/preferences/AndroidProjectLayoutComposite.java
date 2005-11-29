@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.andromda.android.ui.project.preferences;
+package org.andromda.android.ui.internal.preferences;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -17,7 +17,7 @@ import org.eclipse.swt.widgets.Text;
  * @author Peter Friese
  * @since 30.09.2005
  */
-public class ProjectPropertiesComposite
+public class AndroidProjectLayoutComposite
         extends Composite
 {
 
@@ -25,7 +25,7 @@ public class ProjectPropertiesComposite
     private Label configurationLabel;
     private Text configurationText;
 
-    public ProjectPropertiesComposite(Composite parent,
+    public AndroidProjectLayoutComposite(Composite parent,
         int style)
     {
         super(parent, style);
@@ -33,7 +33,7 @@ public class ProjectPropertiesComposite
 
         final Group locationsGroup = new Group(this, SWT.NONE);
         locationsGroup.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-        locationsGroup.setText("Locations");
+        locationsGroup.setText("Relative Locations");
         final GridLayout gridLayout = new GridLayout();
         gridLayout.numColumns = 3;
         locationsGroup.setLayout(gridLayout);
@@ -51,7 +51,7 @@ public class ProjectPropertiesComposite
 
         //
     }
-
+    
     /**
      * @return a reference to the text field containg the configuration path.
      */

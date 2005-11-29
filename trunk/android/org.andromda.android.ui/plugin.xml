@@ -26,9 +26,25 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="org.andromda.android.ui.project.preferences.AndroidProjectPreferencePage"
-            id="org.andromda.android.ui.project.preferences.AndroidProjectPreferencePage"
-            name="Android Project Layout">
+            class="org.andromda.android.ui.internal.preferences.AndroMDAPreferencePage"
+            id="org.andromda.android.ui.internal.preferences.AndroMDAPreferencePage"
+            name="AndroMDA">
+         <keywordReference id="org.andromda.android.ui.keywords.andromda"/>
+         <keywordReference id="org.andromda.android.ui.keywords.mda"/>
+      </page>
+      <page
+            category="org.andromda.android.ui.internal.preferences.AndroMDAPreferencePage"
+            class="org.andromda.android.ui.internal.preferences.AndroidProjectLayoutPreferencePage"
+            id="org.andromda.android.ui.internal.preferences.AndroidProjectLayoutPreferencePage"
+            name="Project Layout">
+         <keywordReference id="org.andromda.android.ui.keywords.andromda"/>
+         <keywordReference id="org.andromda.android.ui.keywords.mda"/>
+      </page>
+      <page
+            category="org.andromda.android.ui.internal.preferences.AndroMDAPreferencePage"
+            class="org.andromda.android.ui.internal.preferences.AndroMDALocationsPreferencePage"
+            id="org.andromda.android.ui.internal.preferences.AndroMDALocationsPreferencePage"
+            name="Locations">
          <keywordReference id="org.andromda.android.ui.keywords.andromda"/>
          <keywordReference id="org.andromda.android.ui.keywords.mda"/>
       </page>
@@ -37,9 +53,9 @@
          point="org.eclipse.ui.propertyPages">
       <page
             adaptable="false"
-            class="org.andromda.android.ui.project.preferences.AndroidProjectPropertyPage"
-            id="org.andromda.android.ui.project.preferences.AndroidProjectPropertyPage"
-            name="Android Project Layout"
+            class="org.andromda.android.ui.internal.properties.AndroMDAPropertyPage"
+            id="org.andromda.android.ui.internal.properties.AndroMDAPropertyPage"
+            name="AndroMDA"
             objectClass="org.eclipse.core.resources.IProject">
          <filter
                name="nature"
@@ -47,6 +63,32 @@
          <keywordReference id="org.andromda.android.ui.keywords.andromda"/>
          <keywordReference id="org.andromda.android.ui.keywords.mda"/>
       </page>
+      <page
+            adaptable="false"
+            category="org.andromda.android.ui.internal.properties.AndroMDAPropertyPage"
+            class="org.andromda.android.ui.internal.properties.AndroidProjectLayoutPropertyPage"
+            id="org.andromda.android.ui.internal.properties.AndroidProjectLayoutPropertyPage"
+            name="Project Layout"
+            objectClass="org.eclipse.core.resources.IProject">
+         <filter
+               name="nature"
+               value="org.andromda.android.core.androidnature"/>
+         <keywordReference id="org.andromda.android.ui.keywords.andromda"/>
+         <keywordReference id="org.andromda.android.ui.keywords.mda"/>
+      </page>
+      <page
+            adaptable="false"
+            category="org.andromda.android.ui.internal.properties.AndroMDAPropertyPage"
+            class="org.andromda.android.ui.internal.properties.AndroMDALocationsPropertyPage"
+            id="org.andromda.android.ui.internal.properties.AndroMDALocationsPropertyPage"
+            name="Locations"
+            objectClass="org.eclipse.core.resources.IProject">
+         <filter
+               name="nature"
+               value="org.andromda.android.core.androidnature"/>
+         <keywordReference id="org.andromda.android.ui.keywords.andromda"/>
+         <keywordReference id="org.andromda.android.ui.keywords.mda"/>
+      </page>	            
    </extension>
    <extension
          point="org.eclipse.ui.keywords">
