@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="andromda/src/java"/>
+	<classpathentry kind="src" path="andromdapp/src/main/java"/>
+	<classpathentry kind="src" path="metafacades/uml/emf/uml2/src/main/java"/>
+	<classpathentry kind="src" path="metafacades/uml/emf/uml2/target/src"/>
+	<classpathentry kind="src" path="translation-libraries/ocl/core/target/src/main/java"/>
+	<classpathentry kind="src" path="repositories/emf/uml2/src/test/java"/>
+	<classpathentry kind="src" path="repositories/emf/uml2/src/main/java"/>
+	<classpathentry kind="src" path="repositories/emf/src/main/java"/>
 	<classpathentry kind="src" path="templateengines/freemarker/src/java"/>
 	<classpathentry kind="src" path="metafacades/uml/common/src/test/java"/>
 	<classpathentry kind="src" path="metafacades/uml/common/target/src"/>
@@ -8,7 +15,6 @@
 	<classpathentry kind="src" path="metafacades/uml/uml14/target/src"/>
 	<classpathentry kind="src" path="translation-libraries/ocl/core/src/java"/>
 	<classpathentry kind="src" path="translation-libraries/ocl/core/src/test/java"/>
-	<classpathentry kind="src" path="translation-libraries/ocl/core/target/src/java"/>
 	<classpathentry kind="src" path="translation-libraries/ocl/andromda-query/src/java"/>
 	<classpathentry kind="src" path="translation-libraries/ocl/andromda-validation/src/java"/>
 	<classpathentry kind="src" path="translation-libraries/ocl/testsuite/src/java"/>
@@ -59,5 +65,16 @@
 	<classpathentry kind="var" path="MAVEN_REPO/commons-digester/jars/commons-digester-1.6.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/jboss/jars/javassist-2.6.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/freemarker/jars/freemarker-2.3.1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/emf/jars/emf-common-2.1.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/emf/jars/emf-ecore.xmi-2.1.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/emf/jars/emf-ecore-2.1.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/eclipse-uml2/jars/eclipse-uml2-1.1.1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/eclipse-uml2/jars/eclipse-uml2-common-1.1.1.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/hibernate/jars/hibernate-2.1.8.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/hibernate/jars/hibernate-3.0.5.jar">
+		<attributes>
+			<attribute value="http://www.hibernate.org/hib_docs/v3/api/" name="javadoc_location"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target"/>
 </classpath>
