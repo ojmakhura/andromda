@@ -1,0 +1,104 @@
+<project default="install"
+         xmlns:ant="jelly:ant"
+         xmlns:j="jelly:core"
+         xmlns:artifact="artifact">
+
+    <!-- ===================================================================
+         Install the model into the repository
+         =================================================================== -->
+    <goal name="xml.zip:install">
+        <attainGoal name="clean:clean"/>
+        <attainGoal name="xml.zip:prepare"/>
+        <j:if test="${srcAvailable}">
+            <!-- construct the suffix shared by all profiles -->
+            <j:set var="versionSuffix" value="-${pom.currentVersion}.xml.zip"/>
+            <!-- backup the original artifact id -->
+            <j:set var="originalArtifactId" value="${pom.artifactId}"/>
+            <!-- update the versions in the XMI to the current version -->
+            <j:set var="xmiToken" value=".xml.zip"/>
+            <j:set var="xmiValue" value="-${pom.currentVersion}.xml.zip"/>
+            <j:set var="directory" value="${maven.build.dir}"/>
+            <attainGoal name="update-xmi"/>
+            <!-- loop over the profiles and install them one by one -->
+            <j:forEach var="model" items="${models.iterator()}">
+                <j:set var="replacement" value="-${pom.currentVersion}.xml.zip"/>
+                <j:set var="dummy" value="${pom.setArtifactId(model.name.replaceAll(replacement,''))}"/>
+                <artifact:install
+                    artifact="${maven.build.dir}/${model.name}"
+                    type="xml.zip"
+                    project="${pom}"/>
+            </j:forEach>
+            <!-- recover the original artifact id -->
+            <j:set var="dummy" value="${pom.setArtifactId(originalArtifactId)}"/>
+        </j:if>
+     </goal>
+
+    <!-- ===================================================================
+         Deploy the model into the remote repository
+         =================================================================== -->
+    <goal name="xml.zip:deploy">
+        <attainGoal name="clean:clean"/>
+        <attainGoal name="xml.zip:prepare"/>
+        <j:if test="${srcAvailable}">
+            <!-- construct the suffix shared by all profiles -->
+            <j:set var="versionSuffix" value="-${pom.currentVersion}.xml.zip"/>
+            <!-- backup the original artifact id -->
+            <j:set var="originalArtifactId" value="${pom.artifactId}"/>
+            <!-- update the versions in the XMI to the current version -->
+            <j:set var="xmiToken" value=".xml.zip"/>
+            <j:set var="xmiValue" value="-${pom.currentVersion}.xml.zip"/>
+            <j:set var="directory" value="${maven.build.dir}"/>
+            <attainGoal name="update-xmi"/>
+            <!-- loop over the profiles and deploy them one by one -->
+            <j:forEach var="model" items="${models.iterator()}">
+                <j:set var="replacement" value="-${pom.currentVersion}.xml.zip"/>
+                <j:set var="dummy" value="${pom.setArtifactId(model.name.replaceAll(replacement,''))}"/>
+                <artifact:deploy
+                    artifact="${maven.build.dir}/${model.name}"
+                    type="xml.zip"
+                    project="${pom}"/>
+            </j:forEach>
+            <!-- recover the original artifact id -->
+            <j:set var="dummy" value="${pom.setArtifactId(originalArtifactId)}"/>
+        </j:if>
+    </goal>
+
+    <!-- ===================================================================
+         Prepare the xml.zip for install/deploy
+         =================================================================== -->
+    <goal name="xml.zip:prepare">
+        
+        <ant:available 
+            file="${pom.build.sourceDirectory}"
+            type="dir" 
+            property="srcAvailable"/> 	
+        
+        <j:if test="${srcAvailable}">
+            <ant:mkdir dir="${maven.build.dir}"/>
+            <!-- collect all profiles -->
+            <ant:fileScanner var="models">
+                <ant:fileset dir="${pom.build.sourceDirectory}">
+                    <ant:include name="**/*.xml.zip"/>
+                </ant:fileset>
+            </ant:fileScanner>
+            <!-- loop over each model -->
+            <j:forEach var="model" items="${models.iterator()}">
+                <!-- record the model's name, without extension or version -->
+                <j:set var="nameWithoutExtension" value="${model.name.replaceAll('.xml.zip','')}"/>
+                <!-- expand the xml.zip -->
+                <ant:unzip
+                    src="${pom.build.sourceDirectory}/${model.name}"
+                    dest="${maven.build.dir}"/>
+                <!-- rename the file found in the zip by suffixing it with the proper version -->
+                <ant:move
+                    file="${maven.build.dir}/${nameWithoutExtension}.xml"
+                    tofile="${maven.build.dir}/${nameWithoutExtension}-${pom.currentVersion}.xml"/>
+                <!-- pack it into a zip again -->
+                <ant:zip destfile="${maven.build.dir}/${nameWithoutExtension}-${pom.currentVersion}.xml.zip"
+                         basedir="${maven.build.dir}"
+                         includes="${nameWithoutExtension}-${pom.currentVersion}.xml"/>
+            </j:forEach>
+        </j:if>
+    </goal>
+
+</project>
