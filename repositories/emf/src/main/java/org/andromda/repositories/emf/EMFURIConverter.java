@@ -46,7 +46,7 @@ public class EMFURIConverter
     private final Map normalizedUris = new HashMap();
 
     /**
-     * Overwridden to provide the normalization of uris given the module searech paths.
+     * Overwridden to provide the normalization of uris given the module search paths.
      * 
      * @see org.eclipse.emf.ecore.resource.URIConverter#normalize(org.eclipse.emf.common.util.URI)
      */
