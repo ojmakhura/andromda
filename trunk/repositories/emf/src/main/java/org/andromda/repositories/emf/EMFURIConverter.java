@@ -28,7 +28,8 @@ public class EMFURIConverter
      * Creates a new instance of EMFURIConvert taking the <code>moduleSearchPaths</code>
      * as an argument. These are the paths used to attempt to normalize a given URI during
      * the call to {@link #normalize(URI)} provided that it couldn't be found in the normal manner.
-     * @param moduleSearchPaths
+     * 
+     * @param moduleSearchPaths the paths to search for modules.
      */
     public EMFURIConverter(final List moduleSearchPaths)
     {
