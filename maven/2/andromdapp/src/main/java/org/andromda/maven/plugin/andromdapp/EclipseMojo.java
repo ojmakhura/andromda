@@ -1,7 +1,6 @@
 package org.andromda.maven.plugin.andromdapp;
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -29,7 +28,6 @@ import org.apache.maven.profiles.DefaultProfileManager;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
-import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 
@@ -122,6 +120,13 @@ public class EclipseMojo
      * @parameter expression="${resolveTransitiveDependencies}"
      */
     private boolean resolveTransitiveDependencies = true;
+    
+    /**
+     * Used to contruct Maven project instances from POMs.
+     * 
+     * @component
+     */
+    private MavenProjectBuilder projectBuilder;
 
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
@@ -168,15 +173,6 @@ public class EclipseMojo
         throws Exception
     {
         final List projects = new ArrayList();
-        MavenProjectBuilder projectBuilder;
-        try
-        {
-            projectBuilder = (MavenProjectBuilder)this.session.getContainer().lookup(MavenProjectBuilder.ROLE);
-        }
-        catch (ComponentLookupException exception)
-        {
-            throw new MojoExecutionException("Cannot get a MavenProjectBuilder instance", exception);
-        }
 
         final List poms = this.getPoms();
         for (ListIterator iterator = poms.listIterator(); iterator.hasNext();)

@@ -1,9 +1,7 @@
 package org.andromda.maven.plugin.distribution;
 
 import java.io.File;
-
 import java.text.Collator;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -22,7 +20,6 @@ import org.apache.maven.artifact.metadata.ArtifactMetadataSource;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactResolutionResult;
 import org.apache.maven.artifact.resolver.ArtifactResolver;
-import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -31,7 +28,6 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
 import org.codehaus.plexus.archiver.jar.JarArchiver;
-import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.util.FileUtils;
 
 
@@ -125,11 +121,13 @@ public class AssembleMojo
      * @parameter
      */
     private MavenArchiveConfiguration archive = new MavenArchiveConfiguration();
-
+    
     /**
-     * @parameter expression="${session}"
+     * Used to contruct Maven project instances from POMs.
+     * 
+     * @component
      */
-    private MavenSession session;
+    private MavenProjectBuilder projectBuilder;
 
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
@@ -278,11 +276,6 @@ public class AssembleMojo
     }
 
     /**
-     * Used to contruct Maven project instances from POMs.
-     */
-    private MavenProjectBuilder projectBuilder;
-
-    /**
      * Builds the project for the given <code>pom</code>.
      *
      * @param pom the POM from which to build the projet.
@@ -291,19 +284,8 @@ public class AssembleMojo
      * @throws MojoExecutionException
      */
     private MavenProject buildProject(final Artifact artifact)
-        throws ProjectBuildingException, MojoExecutionException
+        throws ProjectBuildingException
     {
-        if (this.projectBuilder == null)
-        {
-            try
-            {
-                projectBuilder = (MavenProjectBuilder)this.session.getContainer().lookup(MavenProjectBuilder.ROLE);
-            }
-            catch (ComponentLookupException exception)
-            {
-                throw new MojoExecutionException("Cannot get a MavenProjectBuilder instance", exception);
-            }
-        }
         return this.projectBuilder.buildFromRepository(
             artifact,
             this.project.getRemoteArtifactRepositories(),
