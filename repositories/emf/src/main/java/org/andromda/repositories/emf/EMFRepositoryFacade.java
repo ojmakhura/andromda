@@ -219,7 +219,6 @@ public abstract class EMFRepositoryFacade
             }
             catch (final Throwable throwable)
             {
-                throwable.printStackTrace();
                 throw new RepositoryFacadeException(throwable);
             }
         }
