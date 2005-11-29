@@ -32,8 +32,8 @@ import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.ObjectUtils;
 import org.eclipse.uml2.Property;
 import org.eclipse.uml2.Stereotype;
+import org.eclipse.uml2.Type;
 import org.eclipse.uml2.VisibilityKind;
-import org.eclipse.uml2.util.UML2Util;
 
 
 /**
@@ -164,48 +164,44 @@ public class EntityLogicImpl
         final String visibility)
     {
         org.eclipse.uml2.Class umlClass = (org.eclipse.uml2.Class)metaObject;
+
         if (umlClass.getAttribute(name) == null)
         {
-            // TODO: fix this (this shouldn't be hardcoded)
-            final String actualType = "AndroMDA datatypes::" + type;
-            final Collection elements =
-                UML2Util.findNamedElements(
-                    umlClass.eResource().getResourceSet(),
-                    actualType,
-                    true);
-            if (elements == null || elements.isEmpty())
+            ((org.eclipse.uml2.Classifier)metaObject).getModel();
+            final String actualType = type;
+            final Object modelElement = UmlUtilities.findByName(umlClass.eResource().getResourceSet(), actualType);
+            if (modelElement instanceof Type)
             {
-                throw new MetafacadeException("Cannot find type '" + actualType + "' " + elements);
+                Type element = (Type)modelElement;
+                final Property property = umlClass.createOwnedAttribute(
+                        name,
+                        element,
+                        0,
+                        1);
+                VisibilityKind kind = VisibilityKind.PUBLIC_LITERAL;
+                if (visibility.equalsIgnoreCase("package"))
+                {
+                    kind = VisibilityKind.PACKAGE_LITERAL;
+                }
+                if (visibility.equalsIgnoreCase("private"))
+                {
+                    kind = VisibilityKind.PRIVATE_LITERAL;
+                }
+                if (visibility.equalsIgnoreCase("protected"))
+                {
+                    kind = VisibilityKind.PROTECTED_LITERAL;
+                }
+                property.setVisibility(kind);
+                Stereotype stereotype = UmlUtilities.findApplicableStereotype(
+                        property,
+                        UMLProfile.STEREOTYPE_IDENTIFIER);
+                if (stereotype == null)
+                {
+                    throw new MetafacadeException("Could not apply '" + UMLProfile.STEREOTYPE_IDENTIFIER + "' to " +
+                        property + ", the stereotype could not be found");
+                }
+                property.apply(stereotype);
             }
-            org.eclipse.uml2.Type element = (org.eclipse.uml2.Type)elements.iterator().next();
-            Property property = umlClass.createOwnedAttribute(
-                    name,
-                    element,
-                    0,
-                    1);
-            VisibilityKind kind = VisibilityKind.PUBLIC_LITERAL;
-            if (visibility.equalsIgnoreCase("package"))
-            {
-                kind = VisibilityKind.PACKAGE_LITERAL;
-            }
-            if (visibility.equalsIgnoreCase("private"))
-            {
-                kind = VisibilityKind.PRIVATE_LITERAL;
-            }
-            if (visibility.equalsIgnoreCase("protected"))
-            {
-                kind = VisibilityKind.PROTECTED_LITERAL;
-            }
-            property.setVisibility(kind);
-            Stereotype stereotype = UmlUtilities.findApplicableStereotype(
-                    property,
-                    UMLProfile.STEREOTYPE_IDENTIFIER);
-            if (stereotype == null)
-            {
-                throw new MetafacadeException("Could not apply '" + UMLProfile.STEREOTYPE_IDENTIFIER + "' to " +
-                    property + ", the stereotype could not be found");
-            }
-            property.apply(stereotype);
         }
     }
 
