@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -15,6 +16,8 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.Association;
 import org.eclipse.uml2.AssociationClass;
@@ -27,10 +30,12 @@ import org.eclipse.uml2.Model;
 import org.eclipse.uml2.MultiplicityElement;
 import org.eclipse.uml2.NamedElement;
 import org.eclipse.uml2.Operation;
+import org.eclipse.uml2.Package;
 import org.eclipse.uml2.Property;
 import org.eclipse.uml2.Stereotype;
 import org.eclipse.uml2.Type;
 import org.eclipse.uml2.TypedElement;
+import org.eclipse.uml2.UML2Package;
 
 
 /**
@@ -41,7 +46,6 @@ import org.eclipse.uml2.TypedElement;
  */
 public class UmlUtilities
 {
-
     /**
      * The logger instance.
      */
@@ -50,7 +54,7 @@ public class UmlUtilities
     /**
      * Get the comments for a UML Element. This will be a string with
      * each comment separated by a 2 newlines.
-     * 
+     *
      * @param element
      * @return concatenated string
      */
@@ -58,7 +62,7 @@ public class UmlUtilities
     {
         String commentString = "";
         EList comments = element.getOwnedComments();
-        
+
         for (Iterator iterator = comments.iterator(); iterator.hasNext();)
         {
             final Comment comment = (Comment)iterator.next();
@@ -73,7 +77,7 @@ public class UmlUtilities
 
     /**
      * Gets read of all excess whitespace.
-     * 
+     *
      * @param text the text from which to remove the white space.
      * @return the cleaned text.
      */
@@ -91,7 +95,7 @@ public class UmlUtilities
 
     /**
      * Retrieves the name of the type for the given <code>element</code>.
-     * 
+     *
      * @param element the element for which to retrieve the type.
      * @return the type name.
      */
@@ -120,7 +124,7 @@ public class UmlUtilities
                         type = type + multiplicity.upper() + "]";
                     }
                 }
-            }            
+            }
         }
         return type;
     }
@@ -407,7 +411,7 @@ public class UmlUtilities
         {
             for (final Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
             {
-                final Stereotype stereotype = (Stereotype)iterator.next();              
+                final Stereotype stereotype = (Stereotype)iterator.next();
                 names.add(stereotype.getName());
             }
         }
@@ -441,7 +445,7 @@ public class UmlUtilities
         }
         return result;
     }
-    
+
     /**
      * Stores the tagged values that may be applied to an element.
      */
@@ -449,14 +453,16 @@ public class UmlUtilities
 
     /**
      * Retrieges the TagDefinitions for the given element.
-     * 
+     *
      * @param element the element from which to retrieve the tagged values.
      * @return the collection of {@TagDefinition} instances.
      */
     public static Collection getAndroMDATags(Element element)
     {
         final Collection tags = new ArrayList();
-        Stereotype tagStereotype = findAppliedStereotype(element, TAGGED_VALUES_STEREOTYPE);
+        Stereotype tagStereotype = findAppliedStereotype(
+                element,
+                TAGGED_VALUES_STEREOTYPE);
         if (tagStereotype != null)
         {
             List tagNames = (List)element.getValue(
@@ -474,15 +480,17 @@ public class UmlUtilities
         }
         return tags;
     }
-    
+
     /**
      * Attempts to find the applied stereotype with the given name on the given <code>element</code>.
      * First tries to find it with the fully qualified name, and then tries it with just the name.
-     * 
+     *
      * @param name the name of the stereotype
      * @return the found stereotype or null if not found.
      */
-    public static Stereotype findAppliedStereotype(final Element element, final String name)
+    public static Stereotype findAppliedStereotype(
+        final Element element,
+        final String name)
     {
         Stereotype foundStereotype = element.getAppliedStereotype(name);
         if (foundStereotype == null)
@@ -503,15 +511,17 @@ public class UmlUtilities
         }
         return foundStereotype;
     }
-    
+
     /**
      * Attempts to find the applicable stereotype with the given name on the given <code>element</code>.
      * First tries to find it with the fully qualified name, and then tries it with just the name.
-     * 
+     *
      * @param name the name of the stereotype
      * @return the found stereotype or null if not found.
      */
-    public static Stereotype findApplicableStereotype(final Element element, final String name)
+    public static Stereotype findApplicableStereotype(
+        final Element element,
+        final String name)
     {
         Stereotype foundStereotype = element.getApplicableStereotype(name);
         if (foundStereotype == null)
@@ -531,7 +541,7 @@ public class UmlUtilities
             }
         }
         return foundStereotype;
-    }    
+    }
 
     /**
      * Retrieves the serial version UID by reading the tagged value
@@ -579,5 +589,52 @@ public class UmlUtilities
             }
         }
         return opposite;
+    }
+
+    /**
+     * Finds and returns the first model element having the given <code>name</code> in the <code>modelPackage</code>,
+     * returns <code>null</code> if not found.
+     *
+     * @param model The model to search.
+     * @param name the name of the model element to find.
+     * @return the found model element.
+     */
+    static Object findByName(
+        final ResourceSet resourceSet,
+        final String name)
+    {
+        Object modelElement = null;
+        if (StringUtils.isNotBlank(name))
+        {
+            for (final Iterator iterator = resourceSet.getResources().iterator(); iterator.hasNext();)
+            {
+                final Resource resource = (Resource)iterator.next();
+                final Package model =
+                    (Package)EcoreUtil.getObjectByType(
+                        resource.getContents(),
+                        UML2Package.eINSTANCE.getPackage());
+                if (model != null)
+                {
+                    for (final TreeIterator elementIterator = model.eAllContents(); elementIterator.hasNext();)
+                    {
+                        final Object object = elementIterator.next();
+                        if (object instanceof NamedElement)
+                        {
+                            final NamedElement element = (NamedElement)object;
+                            final Package nearestPackage = element.getNearestPackage();
+                            final String packageName = nearestPackage != null ? nearestPackage.getName() : "";
+                            final String fullyQualifiedName =
+                                packageName + MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR + element.getName();
+                            if (fullyQualifiedName.equals(name))
+                            {
+                                modelElement = object;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return modelElement;
     }
 }

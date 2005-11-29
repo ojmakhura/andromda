@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.Collection;
 
-import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.eclipse.uml2.Element;
@@ -30,6 +29,7 @@ public class PackageFacadeLogicImpl
     protected org.andromda.metafacades.uml.ModelElementFacade handleFindModelElement(
         java.lang.String fullyQualifiedName)
     {
+        Element  modelElement = null;
         if (logger.isDebugEnabled())
         {
             logger.debug("Looking for " + fullyQualifiedName);
@@ -38,20 +38,15 @@ public class PackageFacadeLogicImpl
                 metaObject.eResource().getResourceSet(),
                 fullyQualifiedName,
                 true);
-        Element element;
         if (elements.iterator().hasNext())
         {
-            element = (Element)elements.iterator().next();
+            modelElement = (Element)elements.iterator().next();
             if (logger.isDebugEnabled())
             {
-                logger.debug("Found " + element);
+                logger.debug("Found: '" + modelElement + "'");
             }
         }
-        else
-        {
-            throw new MetafacadeException("Could not find --> '" + fullyQualifiedName + "'");
-        }
-        return (ModelElementFacade)this.shieldedElement(element);
+        return (ModelElementFacade)this.shieldedElement(modelElement);
     }
 
     /**
