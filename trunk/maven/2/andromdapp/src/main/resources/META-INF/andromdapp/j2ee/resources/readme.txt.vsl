@@ -247,15 +247,20 @@
             web modules); this goal asks for confirmation, but be careful calling it
             anyway as you will lose your manually edited files
 
-        %> mvn create-schema
+        %>  mvn -N -f core/pom.xml andromdapp:schema -Dtasks=create
 
-            invokes the generated DDL code and subsequently tells the database
+            generates the DDL create code and subsequently tells the database
             to create the schema for the entities
 
-        %> mvn drop-schema
+        %> mvn -N -f core/pom.xml andromdapp:schema -Dtasks=drop
 
-            invokes the generated DDL code and subsequently tells the database
+            generates the DDL drop code and subsequently tells the database
             to drop the schema for the entities
+            
+        %> mvn -N -f core/pom.xml andromdapp:schema -Dtasks=drop,create
+
+            generates the drop and create DDL code and subsequently tells the database
+            to drop and then create the schema for the entities
 
         %> mvn -N andromdapp:module -Dmodules=mda:[andromda:start-server]
 

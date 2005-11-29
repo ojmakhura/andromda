@@ -144,12 +144,55 @@
 #end
     </dependencies>
     <build>
-#if ($ear)
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-multi-source-plugin</artifactId>
             </plugin>
+#if ($spring || $hibernate)
+            <plugin>
+                <artifactId>andromdapp-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>schema</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <propertyFiles>
+                        <path>${basedir}/../project.properties</path>
+                    </propertyFiles>
+                    <properties>
+                        <property>
+                            <name>mappingsLocation</name>
+                            <value>${basedir}/target/src</value>
+                        </property>
+                        <property>
+                            <name>mappingFileExtension</name>
+                            <value>hbm.xml</value>
+                        </property>
+                        <property>
+                            <name>createOutputPath</name>
+#if ($ear)
+                            <value>${basedir}/../app/target/schema-create.sql</value>
+#else
+                            <value>${basedir}/../web/target/schema-create.sql</value>
+#end
+                        </property>
+                        <property>
+                            <name>dropOutputPath</name>
+#if ($ear)
+                            <value>${basedir}/../app/target/schema-drop.sql</value>
+#else
+                            <value>${basedir}/../web/target/schema-drop.sql</value>
+#end
+                        </property>
+                    </properties>
+                </configuration>
+            </plugin>
+#end
+#if ($ear)
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-ejb-plugin</artifactId>
@@ -161,8 +204,8 @@
                     </archive>
                 </configuration>
             </plugin>
-        </plugins>
 #end
+        </plugins>
         <resources>
             <resource>
                 <directory>target/src</directory>
