@@ -1,9 +1,7 @@
 package org.andromda.repositories.emf;
 
 import java.io.InputStream;
-
 import java.net.URL;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -90,7 +88,7 @@ public class EMFURIConverter
                                 }
                                 if (url != null)
                                 {
-                                    normalizedUri = EMFRepositoryFacadeUtils.createUri(completePath);
+                                    normalizedUri = EMFRepositoryFacadeUtils.createUri(url.toString());
                                     this.normalizedUris.put(
                                         uri,
                                         normalizedUri);
