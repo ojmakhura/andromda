@@ -124,15 +124,15 @@
              Clean up.
          ================================================================= -->
     <goal name="clean">
-        <attainGoal name="multiproject:clean"/>
-        <attainGoal name="clean:clean"/>
-		<!-- get rid of all the log files -->
-		<ant:delete>
-			<ant:fileset dir=".">
-				<ant:include name="**/*.log*"/>
-				<ant:exclude name="maven.log"/>
-			</ant:fileset>
-		</ant:delete>
+        <!-- get rid of all the log files and any exception recorder files -->
+        <ant:delete includeEmptyDirs="true">
+            <ant:fileset dir=".">
+                <ant:include name="**/target/**"/>
+                <ant:include name="**/*.log*"/>
+                <ant:include name="**/*.exc"/>
+                <ant:exclude name="*.log"/>
+            </ant:fileset>
+        </ant:delete>
     </goal>
   		 
 </project>
