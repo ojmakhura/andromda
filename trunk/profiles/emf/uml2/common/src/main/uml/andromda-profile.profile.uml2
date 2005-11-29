@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/1.0.0/UML" xmi:id="_ePNjx0SaEdqI2ak_YF0tpQ" name="ANDROMDA" metamodelReference="_ePNj_kSaEdqI2ak_YF0tpQ">
+  <eAnnotations xmi:id="_ePNjyESaEdqI2ak_YF0tpQ" source="attributes">
+    <details xmi:id="_ePNjyUSaEdqI2ak_YF0tpQ" key="version" value="11"/>
+  </eAnnotations>
+  <eAnnotations xmi:id="_ePNjykSaEdqI2ak_YF0tpQ" source="ePackages">
+    <contents xmi:type="ecore:EPackage" xmi:id="_ePNjy0SaEdqI2ak_YF0tpQ" name="ANDROMDA_11" nsURI="http:///_JumGwESXEdqLV6OmEedM9g.profile.uml2" nsPrefix="ANDROMDA_11">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNjzESaEdqI2ak_YF0tpQ" name="ANDROMDA__XmlSchemaType">
+        <eAnnotations xmi:id="_ePNjzUSaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkdESaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNjzkSaEdqI2ak_YF0tpQ" name="ANDROMDA__ValueObject">
+        <eAnnotations xmi:id="_ePNjz0SaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkDkSaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj0ESaEdqI2ak_YF0tpQ" name="ANDROMDA__FrontEndException">
+        <eAnnotations xmi:id="_ePNj0USaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkJESaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj0kSaEdqI2ak_YF0tpQ" name="ANDROMDA__XmlAttribute">
+        <eAnnotations xmi:id="_ePNj00SaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkeUSaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj1ESaEdqI2ak_YF0tpQ" name="ANDROMDA__WebServiceOperation">
+        <eAnnotations xmi:id="_ePNj1USaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkb0SaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj1kSaEdqI2ak_YF0tpQ" name="ANDROMDA__CreateMethod">
+        <eAnnotations xmi:id="_ePNj10SaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkPUSaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj2ESaEdqI2ak_YF0tpQ" name="ANDROMDA__ServiceRef">
+        <eAnnotations xmi:id="_ePNj2USaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkR0SaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj2kSaEdqI2ak_YF0tpQ" name="ANDROMDA__Nullable">
+        <eAnnotations xmi:id="_ePNj20SaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkakSaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj3ESaEdqI2ak_YF0tpQ" name="ANDROMDA__UnexpectedException">
+        <eAnnotations xmi:id="_ePNj3USaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkW0SaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj3kSaEdqI2ak_YF0tpQ" name="ANDROMDA__Entity">
+        <eAnnotations xmi:id="_ePNj30SaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNj_0SaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj4ESaEdqI2ak_YF0tpQ" name="ANDROMDA__Service">
+        <eAnnotations xmi:id="_ePNj4USaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkM0SaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj4kSaEdqI2ak_YF0tpQ" name="ANDROMDA__ValueRef">
+        <eAnnotations xmi:id="_ePNj40SaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkTESaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj5ESaEdqI2ak_YF0tpQ" name="ANDROMDA__Unique">
+        <eAnnotations xmi:id="_ePNj5USaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkCUSaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj5kSaEdqI2ak_YF0tpQ" name="ANDROMDA__metaclass">
+        <eAnnotations xmi:id="_ePNj50SaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkYESaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj6ESaEdqI2ak_YF0tpQ" name="ANDROMDA__Identifier">
+        <eAnnotations xmi:id="_ePNj6USaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkOESaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj6kSaEdqI2ak_YF0tpQ" name="ANDROMDA__EntityRef">
+        <eAnnotations xmi:id="_ePNj60SaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkQkSaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj7ESaEdqI2ak_YF0tpQ" name="ANDROMDA__ApplicationException">
+        <eAnnotations xmi:id="_ePNj7USaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkUUSaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj7kSaEdqI2ak_YF0tpQ" name="ANDROMDA__Enumeration">
+        <eAnnotations xmi:id="_ePNj70SaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkE0SaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj8ESaEdqI2ak_YF0tpQ" name="ANDROMDA__Exception">
+        <eAnnotations xmi:id="_ePNj8USaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkVkSaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj8kSaEdqI2ak_YF0tpQ" name="ANDROMDA__FrontEndSessionObject">
+        <eAnnotations xmi:id="_ePNj80SaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkKkSaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj9ESaEdqI2ak_YF0tpQ" name="ANDROMDA__metafacade">
+        <eAnnotations xmi:id="_ePNj9USaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkZUSaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj9kSaEdqI2ak_YF0tpQ" name="ANDROMDA__AndroMdaTags">
+        <eAnnotations xmi:id="_ePNj90SaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkGUSaEdqI2ak_YF0tpQ"/>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_ePNj-ESaEdqI2ak_YF0tpQ" name="TagName" upperBound="-1" defaultValueLiteral="">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_ePNj-USaEdqI2ak_YF0tpQ" name="TagValue" upperBound="-1" defaultValueLiteral="">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_ePNj-kSaEdqI2ak_YF0tpQ" name="ANDROMDA__WebService">
+        <eAnnotations xmi:id="_ePNj-0SaEdqI2ak_YF0tpQ" source="stereotype" references="_ePNkBESaEdqI2ak_YF0tpQ"/>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <packageImport xmi:id="_ePNj_ESaEdqI2ak_YF0tpQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML2_LIBRARIES/UML2PrimitiveTypes.library.uml2#_EfRZoK86EdieaYgxtVWN8Q"/>
+  </packageImport>
+  <packageImport xmi:id="_ePNj_USaEdqI2ak_YF0tpQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML2_LIBRARIES/JavaPrimitiveTypes.library.uml2#_RjmyoK86EdieaYgxtVWN8Q"/>
+  </packageImport>
+  <packageImport xmi:id="_ePNj_kSaEdqI2ak_YF0tpQ" visibility="private">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m8qbA686EdiEh75YJ_3n8g"/>
+  </packageImport>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNj_0SaEdqI2ak_YF0tpQ" name="Entity">
+    <ownedAttribute xmi:id="_ePNkAESaEdqI2ak_YF0tpQ" name="base$Class" association="_ePNkAUSaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m88uxq86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkAUSaEdqI2ak_YF0tpQ" name="Class_Entity" memberEnd="_ePNkAkSaEdqI2ak_YF0tpQ _ePNkAESaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkAkSaEdqI2ak_YF0tpQ" name="extension$Entity" type="_ePNj_0SaEdqI2ak_YF0tpQ" association="_ePNkAUSaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkA0SaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkBESaEdqI2ak_YF0tpQ" name="WebService">
+    <ownedAttribute xmi:id="_ePNkBUSaEdqI2ak_YF0tpQ" name="base$Class" association="_ePNkBkSaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m88uxq86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkBkSaEdqI2ak_YF0tpQ" name="Class_WebService" memberEnd="_ePNkB0SaEdqI2ak_YF0tpQ _ePNkBUSaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkB0SaEdqI2ak_YF0tpQ" name="extension$WebService" type="_ePNkBESaEdqI2ak_YF0tpQ" association="_ePNkBkSaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkCESaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkCUSaEdqI2ak_YF0tpQ" name="Unique">
+    <ownedAttribute xmi:id="_ePNkCkSaEdqI2ak_YF0tpQ" name="base$Property" association="_ePNkC0SaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m9C1la86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkC0SaEdqI2ak_YF0tpQ" name="Property_Stereotype1" memberEnd="_ePNkDESaEdqI2ak_YF0tpQ _ePNkCkSaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkDESaEdqI2ak_YF0tpQ" name="extension$Stereotype1" type="_ePNkCUSaEdqI2ak_YF0tpQ" association="_ePNkC0SaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkDUSaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkDkSaEdqI2ak_YF0tpQ" name="ValueObject">
+    <ownedAttribute xmi:id="_ePNkD0SaEdqI2ak_YF0tpQ" name="base$Class" association="_ePNkEESaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m88uxq86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkEESaEdqI2ak_YF0tpQ" name="Class_ValueObject" memberEnd="_ePNkEUSaEdqI2ak_YF0tpQ _ePNkD0SaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkEUSaEdqI2ak_YF0tpQ" name="extension$ValueObject" type="_ePNkDkSaEdqI2ak_YF0tpQ" association="_ePNkEESaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkEkSaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkE0SaEdqI2ak_YF0tpQ" name="Enumeration">
+    <ownedAttribute xmi:id="_ePNkFESaEdqI2ak_YF0tpQ" name="base$Class" association="_ePNkFkSaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m88uxq86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_ePNkFUSaEdqI2ak_YF0tpQ" name="base$Enumeration" association="_ePNkMESaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m9bRea86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkFkSaEdqI2ak_YF0tpQ" name="Class_Enumeration" memberEnd="_ePNkF0SaEdqI2ak_YF0tpQ _ePNkFESaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkF0SaEdqI2ak_YF0tpQ" name="extension$Enumeration" type="_ePNkE0SaEdqI2ak_YF0tpQ" association="_ePNkFkSaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkGESaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkGUSaEdqI2ak_YF0tpQ" name="AndroMDATags">
+    <ownedAttribute xmi:id="_ePNkGkSaEdqI2ak_YF0tpQ" name="base$NamedElement" association="_ePNkIUSaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m8qb_a86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_ePNkG0SaEdqI2ak_YF0tpQ" name="TagName" isOrdered="true">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML2_LIBRARIES/UML2PrimitiveTypes.library.uml2#_IXlH8a86EdieaYgxtVWN8Q"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ePNkHESaEdqI2ak_YF0tpQ" value="-1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkHUSaEdqI2ak_YF0tpQ"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_ePNkHkSaEdqI2ak_YF0tpQ" name="TagValue">
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML2_LIBRARIES/UML2PrimitiveTypes.library.uml2#_IXlH8a86EdieaYgxtVWN8Q"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ePNkH0SaEdqI2ak_YF0tpQ" value="-1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkIESaEdqI2ak_YF0tpQ"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkIUSaEdqI2ak_YF0tpQ" name="NamedElement_AndroMDATags" memberEnd="_ePNkIkSaEdqI2ak_YF0tpQ _ePNkGkSaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkIkSaEdqI2ak_YF0tpQ" name="extension$AndroMDATags" type="_ePNkGUSaEdqI2ak_YF0tpQ" association="_ePNkIUSaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkI0SaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkJESaEdqI2ak_YF0tpQ" name="FrontEndException">
+    <ownedComment xmi:id="_ePNkJUSaEdqI2ak_YF0tpQ" body=" Modeled on a transition it designates an exception occuring while processing an action, must exit an action state and enter a JSP page." annotatedElement="_ePNkJESaEdqI2ak_YF0tpQ"/>
+    <ownedAttribute xmi:id="_ePNkJkSaEdqI2ak_YF0tpQ" name="base$Transition" association="_ePNkJ0SaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m9VKGK86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkJ0SaEdqI2ak_YF0tpQ" name="Transition_FrontEndException" memberEnd="_ePNkKESaEdqI2ak_YF0tpQ _ePNkJkSaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkKESaEdqI2ak_YF0tpQ" name="extension$FrontEndException" type="_ePNkJESaEdqI2ak_YF0tpQ" association="_ePNkJ0SaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkKUSaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkKkSaEdqI2ak_YF0tpQ" name="FrontEndSessionObject">
+    <ownedComment xmi:id="_ePNkK0SaEdqI2ak_YF0tpQ" body=" These classes can be associated to controllers. They represent objects that persist during the session of the user. For each such session object associated with a controller the controller will have accessor methods for this object.  Use a dependency from the controller to the session object to properly model this relationship, a controller can depend on many such session objects; and in the same way a session object might be shared between controllers." annotatedElement="_ePNkKkSaEdqI2ak_YF0tpQ"/>
+    <ownedAttribute xmi:id="_ePNkLESaEdqI2ak_YF0tpQ" name="base$Class" association="_ePNkLUSaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m88uxq86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkLUSaEdqI2ak_YF0tpQ" name="Class_FrontEndSessionObject" memberEnd="_ePNkLkSaEdqI2ak_YF0tpQ _ePNkLESaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkLkSaEdqI2ak_YF0tpQ" name="extension$FrontEndSessionObject" type="_ePNkKkSaEdqI2ak_YF0tpQ" association="_ePNkLUSaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkL0SaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkMESaEdqI2ak_YF0tpQ" name="Enumeration_Enumeration" memberEnd="_ePNkMUSaEdqI2ak_YF0tpQ _ePNkFUSaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkMUSaEdqI2ak_YF0tpQ" name="extension$Enumeration" type="_ePNkE0SaEdqI2ak_YF0tpQ" association="_ePNkMESaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkMkSaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkM0SaEdqI2ak_YF0tpQ" name="Service">
+    <ownedAttribute xmi:id="_ePNkNESaEdqI2ak_YF0tpQ" name="base$Class" association="_ePNkNUSaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m88uxq86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkNUSaEdqI2ak_YF0tpQ" name="Class_Service" memberEnd="_ePNkNkSaEdqI2ak_YF0tpQ _ePNkNESaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkNkSaEdqI2ak_YF0tpQ" name="extension$Service" type="_ePNkM0SaEdqI2ak_YF0tpQ" association="_ePNkNUSaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkN0SaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkOESaEdqI2ak_YF0tpQ" name="Identifier">
+    <ownedAttribute xmi:id="_ePNkOUSaEdqI2ak_YF0tpQ" name="base$Property" association="_ePNkOkSaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m9C1la86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkOkSaEdqI2ak_YF0tpQ" name="Property_Identifier" memberEnd="_ePNkO0SaEdqI2ak_YF0tpQ _ePNkOUSaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkO0SaEdqI2ak_YF0tpQ" name="extension$Identifier" type="_ePNkOESaEdqI2ak_YF0tpQ" association="_ePNkOkSaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkPESaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkPUSaEdqI2ak_YF0tpQ" name="CreateMethod">
+    <ownedAttribute xmi:id="_ePNkPkSaEdqI2ak_YF0tpQ" name="base$Operation" association="_ePNkP0SaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m9C2ja86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkP0SaEdqI2ak_YF0tpQ" name="Operation_CreateMethod" memberEnd="_ePNkQESaEdqI2ak_YF0tpQ _ePNkPkSaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkQESaEdqI2ak_YF0tpQ" name="extension$CreateMethod" type="_ePNkPUSaEdqI2ak_YF0tpQ" association="_ePNkP0SaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkQUSaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkQkSaEdqI2ak_YF0tpQ" name="EntityRef">
+    <ownedAttribute xmi:id="_ePNkQ0SaEdqI2ak_YF0tpQ" name="base$Dependency" association="_ePNkRESaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m9C2JK86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkRESaEdqI2ak_YF0tpQ" name="Dependency_EntityRef" memberEnd="_ePNkRUSaEdqI2ak_YF0tpQ _ePNkQ0SaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkRUSaEdqI2ak_YF0tpQ" name="extension$EntityRef" type="_ePNkQkSaEdqI2ak_YF0tpQ" association="_ePNkRESaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkRkSaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkR0SaEdqI2ak_YF0tpQ" name="ServiceRef">
+    <ownedAttribute xmi:id="_ePNkSESaEdqI2ak_YF0tpQ" name="base$Dependency" association="_ePNkSUSaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m9C2JK86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkSUSaEdqI2ak_YF0tpQ" name="Dependency_ServiceRef" memberEnd="_ePNkSkSaEdqI2ak_YF0tpQ _ePNkSESaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkSkSaEdqI2ak_YF0tpQ" name="extension$ServiceRef" type="_ePNkR0SaEdqI2ak_YF0tpQ" association="_ePNkSUSaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkS0SaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkTESaEdqI2ak_YF0tpQ" name="ValueRef">
+    <ownedAttribute xmi:id="_ePNkTUSaEdqI2ak_YF0tpQ" name="base$Dependency" association="_ePNkTkSaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m9C2JK86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkTkSaEdqI2ak_YF0tpQ" name="Dependency_ValueRef" memberEnd="_ePNkT0SaEdqI2ak_YF0tpQ _ePNkTUSaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkT0SaEdqI2ak_YF0tpQ" name="extension$ValueRef" type="_ePNkTESaEdqI2ak_YF0tpQ" association="_ePNkTkSaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkUESaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkUUSaEdqI2ak_YF0tpQ" name="ApplicationException">
+    <ownedAttribute xmi:id="_ePNkUkSaEdqI2ak_YF0tpQ" name="base$Class" association="_ePNkU0SaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m88uxq86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkU0SaEdqI2ak_YF0tpQ" name="Class_ApplicationException" memberEnd="_ePNkVESaEdqI2ak_YF0tpQ _ePNkUkSaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkVESaEdqI2ak_YF0tpQ" name="extension$ApplicationException" type="_ePNkUUSaEdqI2ak_YF0tpQ" association="_ePNkU0SaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkVUSaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkVkSaEdqI2ak_YF0tpQ" name="Exception">
+    <ownedAttribute xmi:id="_ePNkV0SaEdqI2ak_YF0tpQ" name="base$Class" association="_ePNkWESaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m88uxq86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkWESaEdqI2ak_YF0tpQ" name="Class_Exception" memberEnd="_ePNkWUSaEdqI2ak_YF0tpQ _ePNkV0SaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkWUSaEdqI2ak_YF0tpQ" name="extension$Exception" type="_ePNkVkSaEdqI2ak_YF0tpQ" association="_ePNkWESaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkWkSaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkW0SaEdqI2ak_YF0tpQ" name="UnexpectedException">
+    <ownedAttribute xmi:id="_ePNkXESaEdqI2ak_YF0tpQ" name="base$Class" association="_ePNkXUSaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m88uxq86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkXUSaEdqI2ak_YF0tpQ" name="Class_ApplicationException" memberEnd="_ePNkXkSaEdqI2ak_YF0tpQ _ePNkXESaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkXkSaEdqI2ak_YF0tpQ" name="extension$ApplicationException" type="_ePNkW0SaEdqI2ak_YF0tpQ" association="_ePNkXUSaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkX0SaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkYESaEdqI2ak_YF0tpQ" name="metaclass">
+    <ownedAttribute xmi:id="_ePNkYUSaEdqI2ak_YF0tpQ" name="base$Class" association="_ePNkYkSaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m88uxq86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkYkSaEdqI2ak_YF0tpQ" name="Class_metaclass" memberEnd="_ePNkY0SaEdqI2ak_YF0tpQ _ePNkYUSaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkY0SaEdqI2ak_YF0tpQ" name="extension$metaclass" type="_ePNkYESaEdqI2ak_YF0tpQ" association="_ePNkYkSaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkZESaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkZUSaEdqI2ak_YF0tpQ" name="metafacade">
+    <ownedAttribute xmi:id="_ePNkZkSaEdqI2ak_YF0tpQ" name="base$Class" association="_ePNkZ0SaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m88uxq86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkZ0SaEdqI2ak_YF0tpQ" name="Class_metafacade" memberEnd="_ePNkaESaEdqI2ak_YF0tpQ _ePNkZkSaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkaESaEdqI2ak_YF0tpQ" name="extension$metafacade" type="_ePNkZUSaEdqI2ak_YF0tpQ" association="_ePNkZ0SaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkaUSaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkakSaEdqI2ak_YF0tpQ" name="Nullable">
+    <ownedAttribute xmi:id="_ePNka0SaEdqI2ak_YF0tpQ" name="base$Parameter" association="_ePNkbESaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m9C2dK86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkbESaEdqI2ak_YF0tpQ" name="Parameter_Nullable" memberEnd="_ePNkbUSaEdqI2ak_YF0tpQ _ePNka0SaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkbUSaEdqI2ak_YF0tpQ" name="extension$Nullable" type="_ePNkakSaEdqI2ak_YF0tpQ" association="_ePNkbESaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkbkSaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkb0SaEdqI2ak_YF0tpQ" name="WebServiceOperation">
+    <ownedAttribute xmi:id="_ePNkcESaEdqI2ak_YF0tpQ" name="base$Operation" association="_ePNkcUSaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m9C2ja86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkcUSaEdqI2ak_YF0tpQ" name="Operation_WebServiceOperation" memberEnd="_ePNkckSaEdqI2ak_YF0tpQ _ePNkcESaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkckSaEdqI2ak_YF0tpQ" name="extension$WebServiceOperation" type="_ePNkb0SaEdqI2ak_YF0tpQ" association="_ePNkcUSaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkc0SaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkdESaEdqI2ak_YF0tpQ" name="XmlSchemaType">
+    <ownedAttribute xmi:id="_ePNkdUSaEdqI2ak_YF0tpQ" name="base$Class" association="_ePNkdkSaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m88uxq86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNkdkSaEdqI2ak_YF0tpQ" name="Class_XmlSchemaType" memberEnd="_ePNkd0SaEdqI2ak_YF0tpQ _ePNkdUSaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkd0SaEdqI2ak_YF0tpQ" name="extension$XmlSchemaType" type="_ePNkdESaEdqI2ak_YF0tpQ" association="_ePNkdkSaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkeESaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Stereotype" xmi:id="_ePNkeUSaEdqI2ak_YF0tpQ" name="XmlAttribute">
+    <ownedAttribute xmi:id="_ePNkekSaEdqI2ak_YF0tpQ" name="base$Property" association="_ePNke0SaEdqI2ak_YF0tpQ">
+      <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m9C1la86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+  </ownedMember>
+  <ownedMember xmi:type="uml:Extension" xmi:id="_ePNke0SaEdqI2ak_YF0tpQ" name="Property_XmlAttribute" memberEnd="_ePNkfESaEdqI2ak_YF0tpQ _ePNkekSaEdqI2ak_YF0tpQ">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_ePNkfESaEdqI2ak_YF0tpQ" name="extension$XmlAttribute" type="_ePNkeUSaEdqI2ak_YF0tpQ" association="_ePNke0SaEdqI2ak_YF0tpQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ePNkfUSaEdqI2ak_YF0tpQ"/>
+    </ownedEnd>
+  </ownedMember>
+</uml:Profile>
