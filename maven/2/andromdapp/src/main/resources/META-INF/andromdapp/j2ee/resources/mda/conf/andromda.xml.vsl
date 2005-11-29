@@ -60,7 +60,7 @@
                 <property name="hibernateTypeMappingsUri">Hibernate</property>
                 <property name="dataSource">${dataSource}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
-                <property name="hibernateDialect">${hibernate.db.dialect}</property>
+                <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="hibernateTransactionManagerLookup">${hibernate.transaction.manager.lookup}</property>
                 <property name="customTypesPackage">${applicationPackage}</property>
@@ -97,7 +97,7 @@
                 <property name="password">${dataSource.password}</property>
                 <property name="driver">${dataSource.driver.class}</property>
                 <property name="connectionUrl">${dataSource.url}</property>
-                <property name="hibernateDialect">${hibernate.db.dialect}</property>
+                <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
 #if ($hibernateVersion == "2")
