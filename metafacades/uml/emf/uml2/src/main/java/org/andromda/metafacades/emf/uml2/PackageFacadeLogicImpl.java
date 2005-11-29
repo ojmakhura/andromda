@@ -1,11 +1,7 @@
 package org.andromda.metafacades.emf.uml2;
 
-import java.util.Collection;
-
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
-import org.eclipse.uml2.Element;
-import org.eclipse.uml2.util.UML2Util;
 
 
 /**
@@ -29,22 +25,17 @@ public class PackageFacadeLogicImpl
     protected org.andromda.metafacades.uml.ModelElementFacade handleFindModelElement(
         java.lang.String fullyQualifiedName)
     {
-        Element  modelElement = null;
+        Object modelElement = null;
         if (logger.isDebugEnabled())
         {
-            logger.debug("Looking for " + fullyQualifiedName);
+            logger.debug("Looking for >> " + fullyQualifiedName);
         }
-        Collection elements = UML2Util.findNamedElements(
+        modelElement = UmlUtilities.findByName(
                 metaObject.eResource().getResourceSet(),
-                fullyQualifiedName,
-                true);
-        if (elements.iterator().hasNext())
+                fullyQualifiedName);
+        if (logger.isDebugEnabled())
         {
-            modelElement = (Element)elements.iterator().next();
-            if (logger.isDebugEnabled())
-            {
-                logger.debug("Found: '" + modelElement + "'");
-            }
+            logger.debug("Found: '" + modelElement + "'");
         }
         return (ModelElementFacade)this.shieldedElement(modelElement);
     }
