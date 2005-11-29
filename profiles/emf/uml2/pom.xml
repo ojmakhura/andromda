@@ -1,0 +1,27 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda.profiles</groupId>
+        <artifactId>andromda-profiles</artifactId>
+        <version>3.2-RC1-SNAPSHOT</version>
+    </parent>
+    <groupId>org.andromda.profiles.emf.uml2</groupId>
+    <artifactId>andromda-profiles-emf-uml2</artifactId>
+    <name>AndroMDA EMF UML2 Profile</name>
+	<description>
+        Contains the AndroMDA EMF UML2 profiles.
+    </description>
+    <build>
+        <plugins>
+            <plugin>
+                <extensions>true</extensions>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-model-archiver-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    <modules>
+        <module>common</module>
+        <module>datatype</module>
+    </modules>
+</project>
