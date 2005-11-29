@@ -140,7 +140,6 @@ public class Uml2ArchiverMojo
                         for (int ctr2 = 0; ctr2 < extractedModelFiles.length; ctr2++)
                         {
                             final File extractedFile = extractedModelFiles[ctr2];
-                            System.out.println("the extractedFile: " + extractedFile);
                             final String extractedFilePath = extractedFile.toString();
                             if (extractedFile.isFile() && extractedFilePath.matches(this.modelFilePattern))
                             {
