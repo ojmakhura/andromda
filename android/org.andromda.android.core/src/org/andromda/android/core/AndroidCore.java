@@ -60,36 +60,43 @@ public class AndroidCore
     {
         return plugin;
     }
-    
+
     /**
      * @return the plug-ins ID.
      */
-    public static String getPluginId() {
+    public static String getPluginId()
+    {
         return getDefault().getBundle().getSymbolicName();
     }
-    
-    public static void log(IStatus status) {
+
+    public static void log(IStatus status)
+    {
         getDefault().getLog().log(status);
     }
-    
-    public static void logErrorMessage(String message) {
+
+    public static void logErrorMessage(String message)
+    {
         log(new Status(IStatus.ERROR, getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, message, null));
     }
 
-    public static void logErrorStatus(String message, IStatus status) {
-        if (status == null) {
+    public static void logErrorStatus(String message,
+        IStatus status)
+    {
+        if (status == null)
+        {
             logErrorMessage(message);
             return;
         }
-        MultiStatus multi= new MultiStatus(getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, message, null);
+        MultiStatus multi = new MultiStatus(getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, message, null);
         multi.add(status);
         log(multi);
     }
-    
-    public static void log(Throwable e) {
-        log(new Status(IStatus.ERROR, getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, "Internal Error", e)); 
+
+    public static void log(Throwable e)
+    {
+        log(new Status(IStatus.ERROR, getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, "Internal Error", e));
     }
-    
+
     /**
      * Returns the single instance of the Android Core. Equivalent to <code>getDefault()</code>.
      * 
