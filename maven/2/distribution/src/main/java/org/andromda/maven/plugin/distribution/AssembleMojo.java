@@ -22,12 +22,16 @@ import org.apache.maven.artifact.metadata.ArtifactMetadataSource;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.artifact.resolver.ArtifactResolutionResult;
 import org.apache.maven.artifact.resolver.ArtifactResolver;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.MavenProjectBuilder;
+import org.apache.maven.project.ProjectBuildingException;
 import org.codehaus.plexus.archiver.jar.JarArchiver;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
 import org.codehaus.plexus.util.FileUtils;
 
 
@@ -123,6 +127,11 @@ public class AssembleMojo
     private MavenArchiveConfiguration archive = new MavenArchiveConfiguration();
 
     /**
+     * @parameter expression="${session}"
+     */
+    private MavenSession session;
+
+    /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute()
@@ -170,6 +179,32 @@ public class AssembleMojo
                     this.localRepository,
                     this.artifactMetadataSource);
             artifacts.addAll(result.getArtifacts());
+
+            // - load any parent artifacts
+            final Set parentArtifacts = new LinkedHashSet();
+            for (final Iterator iterator = artifacts.iterator(); iterator.hasNext();)
+            {
+                final Artifact artifact = (Artifact)iterator.next();
+                MavenProject project = this.buildProject(artifact);
+                for (project = project.getParent(); project != null; project = project.getParent())
+                {
+                    final Artifact parentArtifact =
+                        this.artifactFactory.createArtifact(
+                            project.getGroupId(),
+                            project.getArtifactId(),
+                            project.getVersion(),
+                            null,
+                            project.getPackaging());
+                    this.artifactResolver.resolve(
+                        parentArtifact,
+                        this.project.getRemoteArtifactRepositories(),
+                        this.localRepository);
+                    parentArtifacts.add(parentArtifact);
+                }
+            }
+
+            artifacts.addAll(parentArtifacts);
+
             final List artifactList = new ArrayList(artifacts);
             Collections.sort(
                 artifactList,
@@ -196,10 +231,24 @@ public class AssembleMojo
                 FileUtils.copyFile(
                     artifact.getFile(),
                     outputFile);
-                // - bundle the POM as well
-                final File artifactPom = new File(StringUtils.replace(artifact.getFile().toString(), artifact.getType(), POM_TYPE));
-                final File outputPom = new File(StringUtils.replace(outputFile.toString(), artifact.getType(), POM_TYPE));
-                FileUtils.copyFile(artifactPom, outputPom);
+
+                // - bundle the POM as well (if the artifact isn't a POM
+                final String artifactType = artifact.getType();
+                if (!POM_TYPE.equals(artifactType))
+                {
+                    final File artifactPom =
+                        new File(StringUtils.replace(
+                                artifact.getFile().toString(),
+                                artifactType,
+                                POM_TYPE));
+                    final File outputPom = new File(StringUtils.replace(
+                                outputFile.toString(),
+                                artifactType,
+                                POM_TYPE));
+                    FileUtils.copyFile(
+                        artifactPom,
+                        outputPom);
+                }
             }
 
             final File workDirectory = new File(this.workDirectory);
@@ -227,7 +276,40 @@ public class AssembleMojo
             throw new MojoExecutionException("Error assembling distribution", throwable);
         }
     }
-    
+
+    /**
+     * Used to contruct Maven project instances from POMs.
+     */
+    private MavenProjectBuilder projectBuilder;
+
+    /**
+     * Builds the project for the given <code>pom</code>.
+     *
+     * @param pom the POM from which to build the projet.
+     * @return the built project.
+     * @throws ProjectBuildingException
+     * @throws MojoExecutionException
+     */
+    private MavenProject buildProject(final Artifact artifact)
+        throws ProjectBuildingException, MojoExecutionException
+    {
+        if (this.projectBuilder == null)
+        {
+            try
+            {
+                projectBuilder = (MavenProjectBuilder)this.session.getContainer().lookup(MavenProjectBuilder.ROLE);
+            }
+            catch (ComponentLookupException exception)
+            {
+                throw new MojoExecutionException("Cannot get a MavenProjectBuilder instance", exception);
+            }
+        }
+        return this.projectBuilder.buildFromRepository(
+            artifact,
+            this.project.getRemoteArtifactRepositories(),
+            this.localRepository);
+    }
+
     /**
      * The POM artifact type.
      */
