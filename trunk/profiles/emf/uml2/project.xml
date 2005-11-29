@@ -1,0 +1,14 @@
+<project>
+    <extend>../../project.xml</extend>
+    <name>AndroMDA EMF UML2 Profiles</name>
+    <artifactId>andromda-profiles-emf-uml2</artifactId>
+    <shortDescription>The AndroMDA profile for EMF UML2 models.</shortDescription>
+    <description>
+        This profile should be imported as a model when possible so
+        that all AndroMDA stereotypes, tagged values and datatypes
+        can be used.
+    </description>
+    <build>
+        <sourceDirectory>src/main/uml</sourceDirectory>
+    </build>
+</project>
