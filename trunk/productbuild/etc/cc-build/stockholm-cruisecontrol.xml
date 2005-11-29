@@ -68,17 +68,17 @@
         <schedule interval="900">
             <maven goal="scm:update-project|cc-build|deploy-distribution" projectfile="/var/andromda/contrib/project.xml" mavenscript="/usr/local/maven-1.0.2/bin/maven"/>
         </schedule>
-        <log dir="/var/andromda-build/logs/andromda-contrib">
-			<merge dir="/var/andromda-build/andromda-contrib/contrib/cartridges/andromda-costcalculator/target/test-reports"/>
-			<merge dir="/var/andromda-build/andromda-contrib/contrib/cartridges/andromda-database/target/test-reports"/>
-			<merge dir="/var/andromda-build/andromda-contrib/contrib/maven/site/target/test-reports"/>
-			<merge dir="/var/andromda-build/andromda-contrib/contrib/transformations/configuration/target/test-reports"/>
-			<merge dir="/var/andromda-build/andromda-contrib/contrib/transformations/spring/target/test-reports"/>
-			<merge dir="/var/andromda-build/andromda-contrib/contrib/transformers/atl/target/test-reports"/>
+        <log dir="/var/andromda/logs/andromda-contrib">
+			<merge dir="/var/andromda/andromda-contrib/contrib/cartridges/andromda-costcalculator/target/test-reports"/>
+			<merge dir="/var/andromda/andromda-contrib/contrib/cartridges/andromda-database/target/test-reports"/>
+			<merge dir="/var/andromda/andromda-contrib/contrib/maven/site/target/test-reports"/>
+			<merge dir="/var/andromda/andromda-contrib/contrib/transformations/configuration/target/test-reports"/>
+			<merge dir="/var/andromda/andromda-contrib/contrib/transformations/spring/target/test-reports"/>
+			<merge dir="/var/andromda/andromda-contrib/contrib/transformers/atl/target/test-reports"/>
         </log>
         <publishers>
-            <currentbuildstatuspublisher file="/var/andromda-build/logs/andromda-contrib/currentbuildstatus.txt"/>
-            <htmlemail logdir="/var/andromda-build/logs/andromda-contrib"
+            <currentbuildstatuspublisher file="/var/andromda/logs/andromda-contrib/currentbuildstatus.txt"/>
+            <htmlemail logdir="/var/andromda/logs/andromda-contrib"
                 mailhost="localhost"
                 buildresultsurl="http://thecla.homeftp.net:8080/cruisecontrol/buildresults/andromda-contrib"
                 spamwhilebroken="true"
