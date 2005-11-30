@@ -2,9 +2,15 @@ package org.andromda.maven.plugin.andromdapp;
 
 import java.io.File;
 import java.io.InputStream;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -83,7 +89,7 @@ public class SchemaMojo
      * @required
      * @readonly
      */
-    protected ArtifactFactory factory;
+    private ArtifactFactory factory;
 
     /**
      * Artifact resolver, needed to download source jars for inclusion in classpath.
@@ -99,7 +105,47 @@ public class SchemaMojo
      * @required
      * @readonly
      */
-    protected ArtifactRepository localRepository;
+    private ArtifactRepository localRepository;
+
+    /**
+     * The name of the JDBC driver class.
+     *
+     * @parameter
+     * @required
+     */
+    private String jdbcDriver;
+
+    /**
+     * The JDBC connection URL.
+     *
+     * @parameter
+     * @required
+     */
+    private String jdbcConnectionUrl;
+
+    /**
+     * The JDBC username for the database.
+     *
+     * @parameter
+     * @required
+     */
+    private String jdbcUsername;
+
+    /**
+     * The JDBC password for the database.
+     *
+     * @parameter
+     * @required
+     */
+    private String jdbcPassword;
+
+    /**
+     * The jar containing the JDBC driver.
+     *
+     * @parameter
+     * @required
+     */
+    private String jdbcDriverJar;
 
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
@@ -140,7 +186,7 @@ public class SchemaMojo
                         }
                     }
                 }
-    
+
                 final List classpathElements = new ArrayList(this.project.getRuntimeClasspathElements());
                 classpathElements.addAll(this.getProvidedClasspathElements());
                 this.initializeClasspathFromClassPathElements(classpathElements);
@@ -150,7 +196,10 @@ public class SchemaMojo
                     throw new MojoExecutionException("'" + task + "' is not a valid task, valid types are: " +
                         tasksMap.keySet());
                 }
-                ((SchemaManagement)ClassUtils.newInstance(type)).execute(this.properties);
+                final SchemaManagement schemaManagement = (SchemaManagement)ClassUtils.newInstance(type);
+                schemaManagement.execute(
+                    this.getConnection(),
+                    this.properties);
             }
         }
         catch (final Throwable throwable)
@@ -187,6 +236,30 @@ public class SchemaMojo
                     Thread.currentThread().getContextClassLoader());
             Thread.currentThread().setContextClassLoader(loader);
         }
+    }
+
+    /**
+     * The class loader containing the jdbc driver.
+     */
+    private ClassLoader jdbcDriverJarLoader = null;
+
+    /**
+     * Sets the current context class loader from the given <code>jdbcDriverJar</code>
+     *
+     * @throws DependencyResolutionRequiredException
+     * @throws MalformedURLException
+     */
+    protected ClassLoader getJdbcDriverJarLoader()
+        throws MalformedURLException
+    {
+        if (this.jdbcDriverJarLoader == null)
+        {
+            jdbcDriverJarLoader =
+                new URLClassLoader(
+                    new URL[] {new File(this.jdbcDriverJar).toURL()},
+                    Thread.currentThread().getContextClassLoader());
+        }
+        return jdbcDriverJarLoader;
     }
 
     /**
@@ -246,6 +319,36 @@ public class SchemaMojo
             file = artifact.getFile() != null ? artifact.getFile().toString() : null;
         }
         return file;
+    }
+
+    /**
+     * Retrieves a database connection, given the appropriate database information.
+     *
+     * @return the retrieved connection.
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     * @throws MalformedURLException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
+    protected Connection getConnection()
+        throws ClassNotFoundException, SQLException, MalformedURLException, InstantiationException, 
+            IllegalAccessException
+    {
+        Driver driver = (Driver)this.getJdbcDriverJarLoader().loadClass(this.jdbcDriver).newInstance();
+        final Properties properties = new Properties();
+        properties.setProperty(
+            "user",
+            this.jdbcUsername);
+        properties.setProperty(
+            "password",
+            this.jdbcPassword);
+
+        // - need to connect this way since we can't use the driver manager when not using
+        //   the system class loader
+        return driver.connect(
+            this.jdbcConnectionUrl,
+            properties);
     }
 
     /**
