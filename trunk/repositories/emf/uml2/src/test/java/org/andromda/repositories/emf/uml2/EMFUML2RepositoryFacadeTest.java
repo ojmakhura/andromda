@@ -104,7 +104,7 @@ public class EMFUML2RepositoryFacadeTest
             model.getName());
         Collection elements = UML2Util.findNamedElements(
                 model.eResource(),
-                "test model::com::cisco::test::Top",
+                "Test Model::testPackage::Top",
                 true);
         org.eclipse.uml2.Class umlClass = (org.eclipse.uml2.Class)elements.iterator().next();
         assertEquals(
