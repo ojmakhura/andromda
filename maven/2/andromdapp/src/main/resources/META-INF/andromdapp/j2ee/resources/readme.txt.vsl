@@ -247,17 +247,17 @@
             web modules); this goal asks for confirmation, but be careful calling it
             anyway as you will lose your manually edited files
 
-        %>  mvn -N -f core/pom.xml andromdapp:schema -Dtasks=create
+        %>  mvn -f core/pom.xml andromdapp:schema -Dtasks=create
 
             generates the DDL create code and subsequently tells the database
             to create the schema for the entities
 
-        %> mvn -N -f core/pom.xml andromdapp:schema -Dtasks=drop
+        %> mvn -f core/pom.xml andromdapp:schema -Dtasks=drop
 
             generates the DDL drop code and subsequently tells the database
             to drop the schema for the entities
             
-        %> mvn -N -f core/pom.xml andromdapp:schema -Dtasks=drop,create
+        %> mvn -f core/pom.xml andromdapp:schema -Dtasks=drop,create
 
             generates the drop and create DDL code and subsequently tells the database
             to drop and then create the schema for the entities
