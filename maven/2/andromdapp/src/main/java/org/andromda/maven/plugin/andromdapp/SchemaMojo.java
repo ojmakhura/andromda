@@ -1,12 +1,16 @@
 package org.andromda.maven.plugin.andromdapp;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.sql.Connection;
 import java.sql.Driver;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -194,9 +198,8 @@ public class SchemaMojo
                         tasksMap.keySet());
                 }
                 final SchemaManagement schemaManagement = (SchemaManagement)ClassUtils.newInstance(type);
-                schemaManagement.execute(
-                    this.getConnection(),
-                    this.properties);
+                final Connection connection = this.getConnection();
+                this.executeSql(connection, schemaManagement.execute(connection, this.properties));
             }
         }
         catch (final Throwable throwable)
@@ -341,6 +344,109 @@ public class SchemaMojo
         return driver.connect(
             this.jdbcConnectionUrl,
             properties);
+    }
+    
+    /**
+     * The statement end character.
+     */
+    private static final String STATEMENT_END = ";";
+    
+    /**
+     * Executes the SQL contained with the file located at the <code>sqlPath</code>.
+     * 
+     * @param connection the connection used to execute the SQL.
+     * @param sqlPath the path to the SQL file.
+     * @throws Exception
+     */
+    public void executeSql(
+        final Connection connection,
+        final String sqlPath)
+        throws Exception
+    {
+
+        if (sqlPath != null && sqlPath.length() > 0)
+        {
+            final URL sqlUrl = ResourceUtils.toURL(sqlPath);
+            if (sqlUrl != null)
+            {
+                this.successes = 0;
+                this.failures = 0;
+                final Statement statement = connection.createStatement();
+                final InputStream stream = sqlUrl.openStream();
+                final BufferedReader resourceInput = new BufferedReader(new InputStreamReader(stream));
+                StringBuffer sql = new StringBuffer();
+                for (String line = resourceInput.readLine(); line != null; line = resourceInput.readLine())
+                {
+                    if (line.startsWith("//"))
+                    {
+                        continue;
+                    }
+                    if (line.startsWith("--"))
+                    {
+                        continue;
+                    }
+                    sql.append(line);
+                    if (line.endsWith(STATEMENT_END))
+                    {
+                        this.executeSql(
+                            statement,
+                            sql.toString().replaceAll(
+                                STATEMENT_END,
+                                ""));
+                        sql = new StringBuffer();
+                    }
+                    sql.append("\n");
+                }
+                resourceInput.close();
+                if (statement != null)
+                {
+                    statement.close();
+                }
+                if (connection != null)
+                {
+                    connection.close();
+                }
+            }
+            this.getLog().info(" Executed script: " + sqlPath);
+            final String count = String.valueOf((this.successes + this.failures)).toString();
+            this.getLog().info(" " + count + "  SQL statements executed");
+            this.getLog().info(" Failures: " + this.failures);
+            this.getLog().info(" Successes: " + this.successes);
+        }
+    }
+    
+    /**
+     * Stores the count of statements that were executed successfully.
+     */
+    private int successes;
+
+    /**
+     * Stores the count of statements that failed.
+     */
+    private int failures;
+    
+    /**
+     * Executes the given <code>sql</code>, using the given <code>statement</code>.
+     *
+     * @param statement the statement to use to execute the SQL.
+     * @param sql the SQL to execute.
+     * @throws SQLException
+     */
+    private void executeSql(
+        final Statement statement,
+        final String sql)
+    {
+        this.getLog().info(sql.trim());
+        try
+        {
+            statement.execute(sql.toString());
+            this.successes++;
+        }
+        catch (final SQLException exception)
+        {
+            this.failures++;
+            this.getLog().warn(exception.toString());
+        }
     }
 
     /**
