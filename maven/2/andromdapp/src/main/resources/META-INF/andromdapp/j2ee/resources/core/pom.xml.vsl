@@ -189,6 +189,13 @@
 #end
                         </property>
                     </properties>
+                    <!-- You might need to execute additional scripts, just uncomment and add
+                         them here:
+                    <scripts>
+                        <script>${basedir}/path/to/scripts/script1.sql</script>
+                        <script>${basedir}/path/to/scripts/script2.sql</script>
+                    </scripts>
+                    -->
                 </configuration>
             </plugin>
 #end
