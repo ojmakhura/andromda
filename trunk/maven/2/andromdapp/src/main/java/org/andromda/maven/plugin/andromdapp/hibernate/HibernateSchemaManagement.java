@@ -1,18 +1,8 @@
 package org.andromda.maven.plugin.andromdapp.hibernate;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import java.lang.reflect.Method;
-
-import java.net.URL;
-
 import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -20,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.andromda.core.common.ClassUtils;
-import org.andromda.core.common.ResourceUtils;
 import org.andromda.maven.plugin.andromdapp.SchemaManagement;
 import org.andromda.maven.plugin.andromdapp.SchemaManagementException;
 import org.apache.commons.lang.ObjectUtils;
@@ -157,11 +146,6 @@ public abstract class HibernateSchemaManagement
     }
 
     /**
-     * The statement end character.
-     */
-    private static final String STATEMENT_END = ";";
-
-    /**
      * Returns the name of the class that performs the execution.
      *
      * @return the execution class.
@@ -171,7 +155,7 @@ public abstract class HibernateSchemaManagement
     /**
      * @see org.andromda.maven.plugin.andromdapp.SchemaManagement#execute(java.sql.Connection, java.util.Map)
      */
-    public void execute(
+    public String execute(
         Connection connection,
         java.util.Map options)
         throws Exception
@@ -191,57 +175,7 @@ public abstract class HibernateSchemaManagement
             executionClass,
             new Object[] {arguments});
 
-        final String outputPath = this.getExecutionOuputPath(options);
-
-        if (outputPath != null && outputPath.length() > 0)
-        {
-            final URL sqlUrl = ResourceUtils.toURL(outputPath);
-            if (sqlUrl != null)
-            {
-                this.successes = 0;
-                this.failures = 0;
-                final Statement statement = connection.createStatement();
-                final InputStream stream = sqlUrl.openStream();
-                final BufferedReader resourceInput = new BufferedReader(new InputStreamReader(stream));
-                StringBuffer sql = new StringBuffer();
-                for (String line = resourceInput.readLine(); line != null; line = resourceInput.readLine())
-                {
-                    if (line.startsWith("//"))
-                    {
-                        continue;
-                    }
-                    if (line.startsWith("--"))
-                    {
-                        continue;
-                    }
-                    sql.append(line);
-                    if (line.endsWith(STATEMENT_END))
-                    {
-                        this.executeSql(
-                            statement,
-                            sql.toString().replaceAll(
-                                STATEMENT_END,
-                                ""));
-                        sql = new StringBuffer();
-                    }
-                    sql.append("\n");
-                }
-                resourceInput.close();
-                if (statement != null)
-                {
-                    statement.close();
-                }
-                if (connection != null)
-                {
-                    connection.close();
-                }
-            }
-            logger.info(" Executed script: " + outputPath);
-            final String count = String.valueOf((this.successes + this.failures)).toString();
-            logger.info(" " + count + "  SQL statements executed");
-            logger.info(" Failures: " + this.failures);
-            logger.info(" Successes: " + this.successes);
-        }
+        return this.getExecutionOuputPath(options);
     }
 
     /**
@@ -251,40 +185,6 @@ public abstract class HibernateSchemaManagement
      * @return the output path.
      */
     protected abstract String getExecutionOuputPath(final Map options);
-
-    /**
-     * Stores the count of statements that were executed successfully.
-     */
-    private int successes;
-
-    /**
-     * Stores the count of statements that failed.
-     */
-    private int failures;
-
-    /**
-     * Executes the given <code>sql</code>, using the given <code>statement</code>.
-     *
-     * @param statement the statement to use to execute the SQL.
-     * @param sql the SQL to execute.
-     * @throws SQLException
-     */
-    private void executeSql(
-        final Statement statement,
-        final String sql)
-    {
-        logger.info(sql.trim());
-        try
-        {
-            statement.execute(sql.toString());
-            this.successes++;
-        }
-        catch (final SQLException exception)
-        {
-            this.failures++;
-            logger.warn(exception.toString());
-        }
-    }
 
     /**
      * Retrieves the arguments common to all Hibernate schema management
