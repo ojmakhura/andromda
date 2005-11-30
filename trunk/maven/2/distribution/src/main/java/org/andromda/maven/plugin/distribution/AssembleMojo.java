@@ -226,8 +226,11 @@ public class AssembleMojo
                             relativePath);
                 }
                 this.getLog().info("bundling: " + artifactId);
+                
+                // - create the artifactFile explictly so we know for sure we have the correct path
+                final File artifactFile = new File(this.localRepository.getBasedir(), relativePath);
                 FileUtils.copyFile(
-                    artifact.getFile(),
+                    artifactFile,
                     outputFile);
 
                 // - bundle the POM as well (if the artifact isn't a POM
@@ -236,7 +239,7 @@ public class AssembleMojo
                 {
                     final File artifactPom =
                         new File(StringUtils.replace(
-                                artifact.getFile().toString(),
+                                artifactFile.toString(),
                                 artifactType,
                                 POM_TYPE));
                     final File outputPom = new File(StringUtils.replace(
