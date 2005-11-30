@@ -251,14 +251,15 @@ public class AssembleMojo
 
             final File workDirectory = new File(this.workDirectory);
 
-            final File distributionZip = new File(workDirectory, this.binaryName + ".zip");
+            final File distribution = new File(workDirectory, this.binaryName + ".zip");
 
-            this.getLog().info("Building distribution " + this.binaryName);
+            this.getLog().info("Bundled " + artifactList.size() + " artifacts");
+            this.getLog().info("Building distribution " + distribution);
 
             final MavenArchiver archiver = new MavenArchiver();
 
             archiver.setArchiver(this.binArchiver);
-            archiver.setOutputFile(distributionZip);
+            archiver.setOutputFile(distribution);
             archiver.getArchiver().addDirectory(
                 directory,
                 new String[] {"**/*"},
