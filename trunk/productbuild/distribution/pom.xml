@@ -102,6 +102,46 @@
             <artifactId>andromda-xmlschema-cartridge</artifactId>
             <version>${version}</version>        
         </dependency>
+        <dependency>
+            <groupId>org.andromda.maven.plugins</groupId>
+            <artifactId>andromda-maven-plugin</artifactId>
+            <version>${version}</version>        
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>andromdapp-maven-plugin</artifactId>
+            <version>${version}</version>        
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.maven.plugins</groupId>
+            <artifactId>andromda-cartridge-plugin</artifactId>
+            <version>${version}</version>        
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.maven.plugins</groupId>
+            <artifactId>andromda-configuration-mojo</artifactId>
+            <version>${version}</version>        
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.maven.plugins</groupId>
+            <artifactId>andromda-model-archiver-plugin</artifactId>
+            <version>${version}</version>        
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.maven.plugins</groupId>
+            <artifactId>andromda-multi-source-plugin</artifactId>
+            <version>${version}</version>        
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.maven.plugins</groupId>
+            <artifactId>andromda-sablecc-plugin</artifactId>
+            <version>${version}</version>        
+        </dependency>
+         <dependency>
+            <groupId>org.andromda.maven.plugins</groupId>
+            <artifactId>andromda-translation-library-plugin</artifactId>
+            <version>${version}</version>        
+        </dependency>
     </dependencies>
     <build>
         <plugins>
