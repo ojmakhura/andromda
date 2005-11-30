@@ -12,6 +12,7 @@ import java.sql.Driver;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ import org.andromda.core.common.ResourceUtils;
 import org.andromda.maven.plugin.andromdapp.hibernate.HibernateCreateSchema;
 import org.andromda.maven.plugin.andromdapp.hibernate.HibernateDropSchema;
 import org.andromda.maven.plugin.andromdapp.hibernate.HibernateUpdateSchema;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.factory.ArtifactFactory;
@@ -52,7 +54,6 @@ public class SchemaMojo
      * The schema task to execute (create, drop, update)
      *
      * @parameter expression="${tasks}"
-     * @required
      */
     private String tasks;
 
@@ -93,7 +94,8 @@ public class SchemaMojo
     private ArtifactFactory factory;
 
     /**
-     * Artifact resolver, needed to download source jars for inclusion in classpath.
+     * Artifact resolver, needed to download source jars for inclusion in
+     * classpath.
      *
      * @component role="org.apache.maven.artifact.resolver.ArtifactResolver"
      * @required
@@ -149,67 +151,139 @@ public class SchemaMojo
     private String jdbcDriverJar;
 
     /**
+     * Defines the location(s) of any SQL scripts to be executed.
+     *
+     * @parameter
+     */
+    private List scripts;
+
+    /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
+        Connection connection = null;
         try
         {
             AndroMDALogger.initialize();
-            if (this.tasks == null || this.tasks.length() == 0)
+            connection = this.getConnection();
+            final List tasks = this.getTasks();
+            if (tasks != null && !tasks.isEmpty())
             {
-                throw new MojoExecutionException("The schema 'tasks' must be specified");
-            }
-            final Map tasksMap = (Map)SchemaMojo.tasksCache.get(this.taskType);
-            if (tasksMap == null)
-            {
-                throw new MojoExecutionException("'" + taskType + "' is not a valid task type, valid task types are: " +
-                    tasksMap.keySet());
-            }
-
-            final String[] tasks = this.tasks.split(",");
-            final int numberOfTasks = tasks.length;
-            for (int ctr = 0; ctr < numberOfTasks; ctr++)
-            {
-                final String task = tasks[ctr].trim();
-                if (this.propertyFiles != null)
+                final Map tasksMap = (Map)SchemaMojo.tasksCache.get(this.taskType);
+                if (tasksMap == null)
                 {
-                    final int numberOfPropertyFiles = propertyFiles.length;
-                    for (int ctr2 = 0; ctr2 < numberOfPropertyFiles; ctr2++)
-                    {
-                        final URL propertyFileUri = ResourceUtils.toURL(propertyFiles[ctr2]);
-                        if (propertyFileUri != null)
-                        {
-                            final InputStream stream = propertyFileUri.openStream();
-                            this.properties.load(stream);
-                            stream.close();
-                        }
-                    }
-                }
-
-                final List classpathElements = new ArrayList(this.project.getRuntimeClasspathElements());
-                classpathElements.addAll(this.getProvidedClasspathElements());
-                this.initializeClasspathFromClassPathElements(classpathElements);
-                final Class type = (Class)tasksMap.get(task);
-                if (type == null)
-                {
-                    throw new MojoExecutionException("'" + task + "' is not a valid task, valid types are: " +
+                    throw new MojoExecutionException("'" + taskType + "' is not a valid task type, valid task types are: " +
                         tasksMap.keySet());
                 }
-                final SchemaManagement schemaManagement = (SchemaManagement)ClassUtils.newInstance(type);
-                final Connection connection = this.getConnection();
-                this.executeSql(connection, schemaManagement.execute(connection, this.properties));
+    
+                for (final Iterator iterator = this.getTasks().iterator(); iterator.hasNext();)
+                {
+                    final String task = ObjectUtils.toString(iterator.next()).trim();
+                    if (this.propertyFiles != null)
+                    {
+                        final int numberOfPropertyFiles = propertyFiles.length;
+                        for (int ctr2 = 0; ctr2 < numberOfPropertyFiles; ctr2++)
+                        {
+                            final URL propertyFileUri = ResourceUtils.toURL(propertyFiles[ctr2]);
+                            if (propertyFileUri != null)
+                            {
+                                final InputStream stream = propertyFileUri.openStream();
+                                this.properties.load(stream);
+                                stream.close();
+                            }
+                        }
+                    }
+    
+                    final List classpathElements = new ArrayList(this.project.getRuntimeClasspathElements());
+                    classpathElements.addAll(this.getProvidedClasspathElements());
+                    this.initializeClasspathFromClassPathElements(classpathElements);
+                    final Class type = (Class)tasksMap.get(task);
+                    if (type == null)
+                    {
+                        throw new MojoExecutionException("'" + task + "' is not a valid task, valid types are: " +
+                            tasksMap.keySet());
+                    }
+                    final SchemaManagement schemaManagement = (SchemaManagement)ClassUtils.newInstance(type);
+                    this.executeSql(
+                        connection,
+                        schemaManagement.execute(
+                            connection,
+                            this.properties));
+                }
             }
+            // - execute any additional scripts
+            this.executeScripts(connection);
         }
         catch (final Throwable throwable)
         {
             throw new MojoExecutionException("An error occured while attempting to create the schema", throwable);
         }
+        finally
+        {
+            if (connection != null)
+            {
+                try
+                {
+                    connection.close();
+                }
+                catch (SQLException e)
+                {
+                    // - ignore
+                }
+            }
+        }
     }
 
     /**
-     * Sets the current context class loader from the given runtime classpath elements.
+     * Retrieves the tasks as a List.
+     *
+     * @return the tasks as a List.
+     */
+    private List getTasks()
+    {
+        return this.tasks != null ? Arrays.asList(this.tasks.split(",")) : null;
+    }
+
+    /**
+     * Executes any scripts found within the {@link #scriptLocations} and
+     * included using the {@link #scriptIncludes}
+     *
+     * @param connection the SQL connection used to execute the scripts.
+     * @throws MojoExecutionException
+     * @throws Exception
+     */
+    private void executeScripts(final Connection connection)
+        throws MojoExecutionException
+    {
+        final List tasks = this.getTasks();
+        if (this.scripts != null && !this.scripts.isEmpty())
+        {
+            for (final Iterator iterator = scripts.iterator(); iterator.hasNext();)
+            {
+                final String location = (String)iterator.next();
+                try
+                {
+                    this.executeSql(
+                        connection,
+                        location);
+                }
+                catch (final Exception exception)
+                {
+                    throw new MojoExecutionException("Execution failed on script: " + location, exception);
+                }
+            }
+        }
+        else if (tasks == null || tasks.isEmpty())
+        {
+            this.getLog().info("No scripts found to execute");
+        }
+    }
+
+    /**
+     * Sets the current context class loader from the given runtime classpath
+     * elements.
      *
      * @throws DependencyResolutionRequiredException
      * @throws MalformedURLException
@@ -244,7 +318,8 @@ public class SchemaMojo
     private ClassLoader jdbcDriverJarLoader = null;
 
     /**
-     * Sets the current context class loader from the given <code>jdbcDriverJar</code>
+     * Sets the current context class loader from the given
+     * <code>jdbcDriverJar</code>
      *
      * @throws DependencyResolutionRequiredException
      * @throws MalformedURLException
@@ -263,8 +338,9 @@ public class SchemaMojo
     }
 
     /**
-     * Adds any dependencies with a scope of 'provided' to the current project with a scope
-     * of runtime.
+     * Adds any dependencies with a scope of 'provided' to the current project
+     * with a scope of runtime.
+     *
      * @throws ArtifactNotFoundException
      * @throws ArtifactResolutionException
      */
@@ -322,7 +398,8 @@ public class SchemaMojo
     }
 
     /**
-     * Retrieves a database connection, given the appropriate database information.
+     * Retrieves a database connection, given the appropriate database
+     * information.
      *
      * @return the retrieved connection.
      * @throws Exception
@@ -339,21 +416,23 @@ public class SchemaMojo
             "password",
             this.jdbcPassword);
 
-        // - need to connect this way since we can't use the driver manager when not using
-        //   the system class loader
+        // - need to connect this way since we can't use the driver manager when
+        // not using
+        // the system class loader
         return driver.connect(
             this.jdbcConnectionUrl,
             properties);
     }
-    
+
     /**
      * The statement end character.
      */
     private static final String STATEMENT_END = ";";
-    
+
     /**
-     * Executes the SQL contained with the file located at the <code>sqlPath</code>.
-     * 
+     * Executes the SQL contained with the file located at the
+     * <code>sqlPath</code>.
+     *
      * @param connection the connection used to execute the SQL.
      * @param sqlPath the path to the SQL file.
      * @throws Exception
@@ -363,7 +442,6 @@ public class SchemaMojo
         final String sqlPath)
         throws Exception
     {
-
         if (sqlPath != null && sqlPath.length() > 0)
         {
             final URL sqlUrl = ResourceUtils.toURL(sqlPath);
@@ -402,10 +480,6 @@ public class SchemaMojo
                 {
                     statement.close();
                 }
-                if (connection != null)
-                {
-                    connection.close();
-                }
             }
             this.getLog().info(" Executed script: " + sqlPath);
             final String count = String.valueOf((this.successes + this.failures)).toString();
@@ -414,7 +488,7 @@ public class SchemaMojo
             this.getLog().info(" Successes: " + this.successes);
         }
     }
-    
+
     /**
      * Stores the count of statements that were executed successfully.
      */
@@ -424,9 +498,10 @@ public class SchemaMojo
      * Stores the count of statements that failed.
      */
     private int failures;
-    
+
     /**
-     * Executes the given <code>sql</code>, using the given <code>statement</code>.
+     * Executes the given <code>sql</code>, using the given
+     * <code>statement</code>.
      *
      * @param statement the statement to use to execute the SQL.
      * @param sql the SQL to execute.
