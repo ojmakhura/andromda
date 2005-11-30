@@ -10,11 +10,9 @@ import java.util.Map;
  *
  * @author Chad Brandon
  */
-public class HibernateCreateSchema
+public class HibernateUpdateSchema
     extends HibernateSchemaManagement
 {
-    private static final String CREATE_OUTPUT_PATH = "createOutputPath";
-
     /**
      * @see org.andromda.maven.plugin.andromdapp.hibernate.HibernateSchemaManagement#addArguments(java.util.Map, java.util.List)
      */
@@ -22,11 +20,6 @@ public class HibernateCreateSchema
         final Map options,
         final List arguments)
     {
-        arguments.add("--output=" + this.getRequiredProperty(
-                options,
-                CREATE_OUTPUT_PATH));
-        arguments.add("--text");
-        arguments.add("--quiet");
     }
 
     /**
@@ -34,9 +27,7 @@ public class HibernateCreateSchema
      */
     protected String getExecutionOuputPath(final Map options)
     {
-        return this.getRequiredProperty(
-            options,
-            CREATE_OUTPUT_PATH);
+        return null;
     }
 
     /**
@@ -44,6 +35,6 @@ public class HibernateCreateSchema
      */
     protected String getExecutionClassName()
     {
-        return "SchemaExport";
+        return "SchemaUpdate";
     }
 }

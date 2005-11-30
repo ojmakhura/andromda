@@ -41,12 +41,12 @@ public abstract class HibernateSchemaManagement
     /**
      * The Hibernate 2 schema export class name.
      */
-    protected static final String HIBERNATE_2_SCHEMA_EXPORT = "net.sf.hibernate.tool.hbm2ddl.SchemaExport";
+    protected static final String HIBERNATE_2_PACKAGE = "net.sf.hibernate.tool.hbm2ddl";
 
     /**
      * The Hibernate 3 schema export class name.
      */
-    protected static final String HIBERNATE_3_SCHEMA_EXPORT = "org.hibernate.tool.hbm2ddl.SchemaExport";
+    protected static final String HIBERNATE_3_PACKAGE = "org.hibernate.tool.hbm2ddl";
 
     /**
      * The Hibernate version
@@ -64,26 +64,28 @@ public abstract class HibernateSchemaManagement
     }
 
     /**
-     * Attempts to retrieve the schema export class.
+     * Retrieves the class that performs the execution work.
      *
-     * @return the schema export class.
+     * @return the Hibernate class that performs the work.
      */
-    protected Class getSchemaExportClass()
+    protected Class getExecutionClass()
     {
         Class hibernateClass = null;
+        String hibernate2ClassName = null;
+        String hibernate3ClassName = null;
         try
         {
-            hibernateClass = ClassUtils.loadClass(HIBERNATE_3_SCHEMA_EXPORT);
+            hibernate3ClassName = HIBERNATE_3_PACKAGE + "." + this.getExecutionClassName();
+            hibernateClass = ClassUtils.loadClass(hibernate3ClassName);
         }
         catch (Exception exception)
         {
-            exception.printStackTrace();
-
             // - ignore, means we can't find the Hibernate 3 class
         }
         try
         {
-            hibernateClass = ClassUtils.loadClass(HIBERNATE_2_SCHEMA_EXPORT);
+            hibernate2ClassName = HIBERNATE_3_PACKAGE + "." + this.getExecutionClassName();
+            hibernateClass = ClassUtils.loadClass(hibernate2ClassName);
         }
         catch (Exception exception)
         {
@@ -91,7 +93,9 @@ public abstract class HibernateSchemaManagement
         }
         if (hibernateClass == null)
         {
-            throw new RuntimeException("There appear to be no Hibernate 2 or 3 jars are your classpath");
+            throw new RuntimeException(
+                "There appear to be no Hibernate 2 or 3 jars are your classpath, because neither '" +
+                hibernate2ClassName + "', nor '" + hibernate3ClassName + "' could be found");
         }
         return hibernateClass;
     }
@@ -158,6 +162,13 @@ public abstract class HibernateSchemaManagement
     private static final String STATEMENT_END = ";";
 
     /**
+     * Returns the name of the class that performs the execution.
+     *
+     * @return the execution class.
+     */
+    protected abstract String getExecutionClassName();
+
+    /**
      * @see org.andromda.maven.plugin.andromdapp.SchemaManagement#execute(java.sql.Connection, java.util.Map)
      */
     public void execute(
@@ -172,61 +183,65 @@ public abstract class HibernateSchemaManagement
                 options,
                 hibernateDialect));
         final String[] arguments = (String[])this.getArguments(options).toArray(new String[0]);
-        final Class schemaExportClass = this.getSchemaExportClass();
-        final Method method = schemaExportClass.getMethod(
+        final Class executionClass = this.getExecutionClass();
+        final Method method = executionClass.getMethod(
                 "main",
                 new Class[] {String[].class});
         method.invoke(
-            schemaExportClass,
+            executionClass,
             new Object[] {arguments});
 
-        final String createOutputPath = this.getExecutionOuputPath(options);
+        final String outputPath = this.getExecutionOuputPath(options);
 
-        final URL sqlUrl = ResourceUtils.toURL(createOutputPath);
-        if (sqlUrl != null)
+        if (outputPath != null && outputPath.length() > 0)
         {
-            this.successes = 0;
-            this.failures = 0;
-            final Statement statement = connection.createStatement();
-            final InputStream stream = sqlUrl.openStream();
-            final BufferedReader resourceInput = new BufferedReader(new InputStreamReader(stream));
-            StringBuffer sql = new StringBuffer();
-            for (String line = resourceInput.readLine(); line != null; line = resourceInput.readLine())
+            final URL sqlUrl = ResourceUtils.toURL(outputPath);
+            if (sqlUrl != null)
             {
-                if (line.startsWith("//"))
+                this.successes = 0;
+                this.failures = 0;
+                final Statement statement = connection.createStatement();
+                final InputStream stream = sqlUrl.openStream();
+                final BufferedReader resourceInput = new BufferedReader(new InputStreamReader(stream));
+                StringBuffer sql = new StringBuffer();
+                for (String line = resourceInput.readLine(); line != null; line = resourceInput.readLine())
                 {
-                    continue;
+                    if (line.startsWith("//"))
+                    {
+                        continue;
+                    }
+                    if (line.startsWith("--"))
+                    {
+                        continue;
+                    }
+                    sql.append(line);
+                    if (line.endsWith(STATEMENT_END))
+                    {
+                        this.executeSql(
+                            statement,
+                            sql.toString().replaceAll(
+                                STATEMENT_END,
+                                ""));
+                        sql = new StringBuffer();
+                    }
+                    sql.append("\n");
                 }
-                if (line.startsWith("--"))
+                resourceInput.close();
+                if (statement != null)
                 {
-                    continue;
+                    statement.close();
                 }
-                sql.append(line);
-                if (line.endsWith(STATEMENT_END))
+                if (connection != null)
                 {
-                    this.executeSql(
-                        statement,
-                        sql.toString().replaceAll(
-                            STATEMENT_END,
-                            ""));
-                    sql = new StringBuffer();
+                    connection.close();
                 }
-                sql.append("\n");
             }
-            resourceInput.close();
-            if (statement != null)
-            {
-                statement.close();
-            }
-            if (connection != null)
-            {
-                connection.close();
-            }
+            logger.info(" Executed script: " + outputPath);
+            final String count = String.valueOf((this.successes + this.failures)).toString();
+            logger.info(" " + count + "  SQL statements executed");
+            logger.info(" Failures: " + this.failures);
+            logger.info(" Successes: " + this.successes);
         }
-        final String count = String.valueOf((this.successes + this.failures)).toString();
-        logger.info(" Executed " + count + " SQL statements");
-        logger.info(" Failures: " + this.failures);
-        logger.info(" Successes: " + this.successes);
     }
 
     /**
@@ -288,7 +303,7 @@ public abstract class HibernateSchemaManagement
                 this.getRequiredProperty(
                     options,
                     "mappingsLocation"));
-        final String[] args = new String[] {"--text", "--quiet", "--delimiter=;", "--format"};
+        final String[] args = new String[] {"--delimiter=;", "--format"};
         final List arguments = new ArrayList(Arrays.asList(args));
         arguments.addAll(mappingFiles);
         this.addArguments(

@@ -2,15 +2,12 @@ package org.andromda.maven.plugin.andromdapp;
 
 import java.io.File;
 import java.io.InputStream;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -23,6 +20,7 @@ import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.maven.plugin.andromdapp.hibernate.HibernateCreateSchema;
 import org.andromda.maven.plugin.andromdapp.hibernate.HibernateDropSchema;
+import org.andromda.maven.plugin.andromdapp.hibernate.HibernateUpdateSchema;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.factory.ArtifactFactory;
@@ -371,6 +369,6 @@ public class SchemaMojo
             HibernateDropSchema.class);
         hibernateTasks.put(
             "update",
-            null);
+            HibernateUpdateSchema.class);
     }
 }
