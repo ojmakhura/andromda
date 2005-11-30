@@ -7,7 +7,6 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.sql.Connection;
 import java.sql.Driver;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -323,15 +322,10 @@ public class SchemaMojo
      * Retrieves a database connection, given the appropriate database information.
      *
      * @return the retrieved connection.
-     * @throws ClassNotFoundException
-     * @throws SQLException
-     * @throws MalformedURLException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
+     * @throws Exception
      */
     protected Connection getConnection()
-        throws ClassNotFoundException, SQLException, MalformedURLException, InstantiationException, 
-            IllegalAccessException
+        throws Exception
     {
         Driver driver = (Driver)this.getJdbcDriverJarLoader().loadClass(this.jdbcDriver).newInstance();
         final Properties properties = new Properties();
