@@ -28,6 +28,8 @@ public class HibernateDropSchema
         arguments.add("--output=" + this.getRequiredProperty(
                 options,
                 DROP_OUTPUT_PATH));
+        arguments.add("--text");
+        arguments.add("--quiet");
         arguments.add("--drop");
     }
 
@@ -39,5 +41,13 @@ public class HibernateDropSchema
         return this.getRequiredProperty(
             options,
             DROP_OUTPUT_PATH);
+    }
+
+    /**
+     * @see org.andromda.maven.plugin.andromdapp.hibernate.HibernateSchemaManagement#getExecutionClassName()
+     */
+    protected String getExecutionClassName()
+    {
+        return "SchemaExport";
     }
 }
