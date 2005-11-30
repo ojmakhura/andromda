@@ -14,6 +14,11 @@ public class HibernateDropSchema
     extends HibernateSchemaManagement
 {
     /**
+     * The drop output path.
+     */
+    private static final String DROP_OUTPUT_PATH = "dropOutputPath";
+
+    /**
      * @see org.andromda.maven.plugin.andromdapp.hibernate.HibernateSchemaManagement#addArguments(java.util.List)
      */
     protected void addArguments(
@@ -22,7 +27,17 @@ public class HibernateDropSchema
     {
         arguments.add("--output=" + this.getRequiredProperty(
                 options,
-                "dropOutputPath"));
+                DROP_OUTPUT_PATH));
         arguments.add("--drop");
+    }
+
+    /**
+     * @see org.andromda.maven.plugin.andromdapp.hibernate.HibernateSchemaManagement#getExecutionOuputPath(java.util.Map)
+     */
+    protected String getExecutionOuputPath(final Map options)
+    {
+        return this.getRequiredProperty(
+            options,
+            DROP_OUTPUT_PATH);
     }
 }

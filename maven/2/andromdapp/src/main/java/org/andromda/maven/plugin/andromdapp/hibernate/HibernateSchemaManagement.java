@@ -1,8 +1,17 @@
 package org.andromda.maven.plugin.andromdapp.hibernate;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import java.lang.reflect.Method;
+
+import java.net.URL;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,9 +20,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.andromda.core.common.ClassUtils;
+import org.andromda.core.common.ResourceUtils;
 import org.andromda.maven.plugin.andromdapp.SchemaManagement;
 import org.andromda.maven.plugin.andromdapp.SchemaManagementException;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.log4j.Logger;
 import org.codehaus.plexus.util.DirectoryScanner;
 
 
@@ -25,6 +36,8 @@ import org.codehaus.plexus.util.DirectoryScanner;
 public abstract class HibernateSchemaManagement
     implements SchemaManagement
 {
+    protected static Logger logger = Logger.getLogger(HibernateSchemaManagement.class);
+
     /**
      * The Hibernate 2 schema export class name.
      */
@@ -140,9 +153,16 @@ public abstract class HibernateSchemaManagement
     }
 
     /**
-     * Performs the execution of the Hibernate related task.
+     * The statement end character.
      */
-    public void execute(java.util.Map options)
+    private static final String STATEMENT_END = ";";
+
+    /**
+     * @see org.andromda.maven.plugin.andromdapp.SchemaManagement#execute(java.sql.Connection, java.util.Map)
+     */
+    public void execute(
+        Connection connection,
+        java.util.Map options)
         throws Exception
     {
         final String hibernateDialect = "hibernate.dialect";
@@ -159,6 +179,96 @@ public abstract class HibernateSchemaManagement
         method.invoke(
             schemaExportClass,
             new Object[] {arguments});
+
+        final String createOutputPath = this.getExecutionOuputPath(options);
+
+        final URL sqlUrl = ResourceUtils.toURL(createOutputPath);
+        if (sqlUrl != null)
+        {
+            this.successes = 0;
+            this.failures = 0;
+            final Statement statement = connection.createStatement();
+            final InputStream stream = sqlUrl.openStream();
+            final BufferedReader resourceInput = new BufferedReader(new InputStreamReader(stream));
+            StringBuffer sql = new StringBuffer();
+            for (String line = resourceInput.readLine(); line != null; line = resourceInput.readLine())
+            {
+                if (line.startsWith("//"))
+                {
+                    continue;
+                }
+                if (line.startsWith("--"))
+                {
+                    continue;
+                }
+                sql.append(line);
+                if (line.endsWith(STATEMENT_END))
+                {
+                    this.executeSql(
+                        statement,
+                        sql.toString().replaceAll(
+                            STATEMENT_END,
+                            ""));
+                    sql = new StringBuffer();
+                }
+                sql.append("\n");
+            }
+            resourceInput.close();
+            if (statement != null)
+            {
+                statement.close();
+            }
+            if (connection != null)
+            {
+                connection.close();
+            }
+        }
+        final String count = String.valueOf((this.successes + this.failures)).toString();
+        logger.info(" Executed " + count + " SQL statements");
+        logger.info(" Failures: " + this.failures);
+        logger.info(" Successes: " + this.successes);
+    }
+
+    /**
+     * Returns the path of the execution output file.
+     *
+     * @param options the options from which to retrieve properties.
+     * @return the output path.
+     */
+    protected abstract String getExecutionOuputPath(final Map options);
+
+    /**
+     * Stores the count of statements that were executed successfully.
+     */
+    private int successes;
+
+    /**
+     * Stores the count of statements that failed.
+     */
+    private int failures;
+
+    /**
+     * Executes the given <code>sql</code>, using the given <code>statement</code>.
+     *
+     * @param statement the statement to use to execute the SQL.
+     * @param sql the SQL to execute.
+     * @throws SQLException
+     */
+    private void executeSql(
+        final Statement statement,
+        final String sql)
+    {
+        logger.info(sql.trim());
+        try
+        {
+            statement.execute(sql.toString());
+            this.successes++;
+        }
+        catch (final SQLException exception)
+        {
+            this.failures++;
+            logger.warn(exception.toString());
+        }
     }
 
     /**
@@ -181,7 +291,9 @@ public abstract class HibernateSchemaManagement
         final String[] args = new String[] {"--text", "--quiet", "--delimiter=;", "--format"};
         final List arguments = new ArrayList(Arrays.asList(args));
         arguments.addAll(mappingFiles);
-        this.addArguments(options, arguments);
+        this.addArguments(
+            options,
+            arguments);
         return arguments;
     }
 
@@ -191,7 +303,9 @@ public abstract class HibernateSchemaManagement
      * @param options any options from which to retrieve argument values.
      * @param arguments the list of arguments to add.
      */
-    protected abstract void addArguments(final Map options, final List arguments);
+    protected abstract void addArguments(
+        final Map options,
+        final List arguments);
 
     /**
      * Retrieves all mapping files having the given <code>extension</code>
