@@ -2,6 +2,7 @@ package org.andromda.maven.plugin.andromdapp.eclipse;
 
 import java.io.File;
 import java.io.FileWriter;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -62,6 +63,20 @@ public class ClasspathWriter
 
         writer.startElement("classpath");
 
+        final Set projectArtifactIds = new LinkedHashSet();
+        for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
+        {
+            final MavenProject project = (MavenProject)iterator.next();
+            final Artifact projectArtifact =
+                artifactFactory.createArtifact(
+                    project.getGroupId(),
+                    project.getArtifactId(),
+                    project.getVersion(),
+                    null,
+                    project.getPackaging());
+            projectArtifactIds.add(projectArtifact.getId());
+        }
+
         final Set allArtifacts = new LinkedHashSet();
         for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
         {
@@ -97,11 +112,23 @@ public class ClasspathWriter
             for (final Iterator artifactIterator = artifacts.iterator(); artifactIterator.hasNext();)
             {
                 final Artifact artifact = (Artifact)artifactIterator.next();
-                artifactResolver.resolve(
-                    artifact,
-                    project.getRemoteArtifactRepositories(),
-                    localRepository);
-                allArtifacts.add(artifact);
+
+                // - don't attempt to resolve the artifact if its part of the project (we
+                //   infer this if it has the same id has one of the projects or is in
+                //   the same groupId).
+                if (!projectArtifactIds.contains(artifact.getId()) &&
+                    !project.getGroupId().equals(artifact.getGroupId()))
+                {
+                    artifactResolver.resolve(
+                        artifact,
+                        project.getRemoteArtifactRepositories(),
+                        localRepository);
+                    allArtifacts.add(artifact);
+                }
+                else
+                {
+                    allArtifacts.add(artifact);
+                }
             }
         }
 
