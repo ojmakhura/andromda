@@ -149,6 +149,23 @@
     <build>
         <defaultGoal>install</defaultGoal>
         <sourceDirectory>src/java</sourceDirectory>
+        <plugins>
+            <!-- This antrun configuration is a hack until the issue with plugins that create archives is fixed
+                 (i.e a plugin that has '<extensions>true</extensions>' set).  Before this project can be built,
+                 the command "mvn -N antrun:run' must be executed in order to install these plugins here below (since these
+                 plugins must exist before the build even starts) -->  
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <configuration>
+                    <tasks>
+                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-cartridge-plugin/andromda-cartridge-plugin.jar" 
+                              tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-cartridge-plugin/${version}/andromda-cartridge-plugin-${version}.jar"/>
+                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar" 
+                              tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-model-archiver-plugin/${version}/andromda-model-archiver-plugin-${version}.jar"/>
+                    </tasks>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
     <modules>
         <module>andromda</module>
