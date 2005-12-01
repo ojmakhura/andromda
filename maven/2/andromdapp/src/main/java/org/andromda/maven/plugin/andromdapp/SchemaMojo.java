@@ -4,13 +4,19 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
+import java.lang.reflect.Field;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+
 import java.sql.Connection;
 import java.sql.Driver;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -80,7 +86,7 @@ public class SchemaMojo
     private String[] propertyFiles;
 
     /**
-     * The options that can be passed to the schema task.
+     * The properties that can be passed to the schema task.
      *
      * @parameter
      */
@@ -167,6 +173,9 @@ public class SchemaMojo
         try
         {
             AndroMDALogger.initialize();
+            
+            this.initializeClassLoaderWithJdbcDriver();
+            
             connection = this.getConnection();
             final List tasks = this.getTasks();
             if (tasks != null && !tasks.isEmpty())
@@ -174,10 +183,10 @@ public class SchemaMojo
                 final Map tasksMap = (Map)SchemaMojo.tasksCache.get(this.taskType);
                 if (tasksMap == null)
                 {
-                    throw new MojoExecutionException("'" + taskType + "' is not a valid task type, valid task types are: " +
-                        tasksMap.keySet());
+                    throw new MojoExecutionException("'" + taskType +
+                        "' is not a valid task type, valid task types are: " + tasksMap.keySet());
                 }
-    
+
                 for (final Iterator iterator = this.getTasks().iterator(); iterator.hasNext();)
                 {
                     final String task = ObjectUtils.toString(iterator.next()).trim();
@@ -195,7 +204,25 @@ public class SchemaMojo
                             }
                         }
                     }
-    
+
+                    // - load all the fields of this class into the properties
+                    final Field[] fields = this.getClass().getDeclaredFields();
+                    if (fields != null)
+                    {
+                        final int numberOfFields = fields.length;
+                        for (int ctr = 0; ctr < numberOfFields; ctr++)
+                        {
+                            final Field field = fields[ctr];
+                            final Object value = field.get(this);
+                            if (value != null)
+                            {
+                                this.properties.put(
+                                    field.getName(),
+                                    value);
+                            }
+                        }
+                    }
+
                     final List classpathElements = new ArrayList(this.project.getRuntimeClasspathElements());
                     classpathElements.addAll(this.getProvidedClasspathElements());
                     this.initializeClasspathFromClassPathElements(classpathElements);
@@ -213,6 +240,7 @@ public class SchemaMojo
                             this.properties));
                 }
             }
+
             // - execute any additional scripts
             this.executeScripts(connection);
         }
@@ -313,28 +341,19 @@ public class SchemaMojo
     }
 
     /**
-     * The class loader containing the jdbc driver.
-     */
-    private ClassLoader jdbcDriverJarLoader = null;
-
-    /**
-     * Sets the current context class loader from the given
+     * Initializes the context class loader with the given
      * <code>jdbcDriverJar</code>
      *
      * @throws DependencyResolutionRequiredException
      * @throws MalformedURLException
      */
-    protected ClassLoader getJdbcDriverJarLoader()
+    protected void initializeClassLoaderWithJdbcDriver()
         throws MalformedURLException
     {
-        if (this.jdbcDriverJarLoader == null)
-        {
-            jdbcDriverJarLoader =
-                new URLClassLoader(
-                    new URL[] {new File(this.jdbcDriverJar).toURL()},
-                    Thread.currentThread().getContextClassLoader());
-        }
-        return jdbcDriverJarLoader;
+        Thread.currentThread().setContextClassLoader(
+            new URLClassLoader(
+                new URL[] {new File(this.jdbcDriverJar).toURL()},
+                Thread.currentThread().getContextClassLoader()));
     }
 
     /**
@@ -407,21 +426,12 @@ public class SchemaMojo
     protected Connection getConnection()
         throws Exception
     {
-        Driver driver = (Driver)this.getJdbcDriverJarLoader().loadClass(this.jdbcDriver).newInstance();
-        final Properties properties = new Properties();
-        properties.setProperty(
-            "user",
-            this.jdbcUsername);
-        properties.setProperty(
-            "password",
-            this.jdbcPassword);
-
-        // - need to connect this way since we can't use the driver manager when
-        // not using
-        // the system class loader
-        return driver.connect(
+        Driver driver = (Driver)ClassUtils.loadClass(this.jdbcDriver).newInstance();
+        DriverManager.registerDriver(new JdbcDriverWrapper(driver));
+        return DriverManager.getConnection(
             this.jdbcConnectionUrl,
-            properties);
+            this.jdbcUsername,
+            this.jdbcPassword);
     }
 
     /**
