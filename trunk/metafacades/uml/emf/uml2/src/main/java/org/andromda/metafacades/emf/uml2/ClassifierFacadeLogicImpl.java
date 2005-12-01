@@ -561,7 +561,7 @@ public class ClassifierFacadeLogicImpl
         {
             final Collection properties = UmlUtilities.getProperties(
                     (org.eclipse.uml2.Class)metaObject,
-                    true,
+                    false,
                     false);
             for (final Iterator iterator = properties.iterator(); iterator.hasNext();)
             {
@@ -588,7 +588,7 @@ public class ClassifierFacadeLogicImpl
         {
             final Collection properties = UmlUtilities.getProperties(
                     (org.eclipse.uml2.Class)metaObject,
-                    true,
+                    false,
                     false);
             for (final Iterator iterator = properties.iterator(); iterator.hasNext();)
             {
