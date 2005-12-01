@@ -194,6 +194,7 @@ public abstract class HibernateSchemaManagement
      * @return the list of common arguments.
      */
     private List getArguments(final Map options)
+        throws Exception
     {
         final List mappingFiles =
             this.getMappingFilesList(
@@ -220,7 +221,7 @@ public abstract class HibernateSchemaManagement
      */
     protected abstract void addArguments(
         final Map options,
-        final List arguments);
+        final List arguments) throws Exception;
 
     /**
      * Retrieves all mapping files having the given <code>extension</code>
