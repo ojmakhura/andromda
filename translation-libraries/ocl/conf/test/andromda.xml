@@ -5,7 +5,7 @@
                 <model>
                     <uri>${andromda.translationlibrary.model.uri}</uri>
                     <moduleSearchLocations>
-                        <location patterns="**/*.xml.zip">${basedir}/../../../profiles/uml-1.4</location>
+                        <location patterns="**/*.xml.zip">${pom.basedir}/../../../profiles/uml-1.4</location>
                     </moduleSearchLocations>
                 </model>
             </models>            
