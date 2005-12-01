@@ -78,6 +78,12 @@
             <type>xml.zip</type>    
         </dependency>
         <dependency>
+            <groupId>org.andromda.profiles.emf.uml2</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <version>${version}</version>        
+            <type>uml2</type>    
+        </dependency>
+        <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-bpm4struts-cartridge</artifactId>
             <version>${version}</version>        
