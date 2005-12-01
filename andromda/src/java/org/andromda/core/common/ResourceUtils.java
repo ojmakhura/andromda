@@ -703,4 +703,37 @@ public class ResourceUtils
             FORWARD_SLASH_NORMALIZATION_PATTERN,
             FORWARD_SLASH) : null;
     }
+
+    /**
+     * Takes a path and replaces the oldException with the newExtension.
+     *
+     * @param path the path to rename.
+     * @param oldExtension the extension to rename from.
+     * @param newExtension the extension to rename to.
+     * @return the path with the new extension.
+     */
+    public static String renameExtension(
+        final String path,
+        final String oldExtension,
+        final String newExtension)
+    {
+        ExceptionUtils.checkEmpty(
+            "path",
+            path);
+        ExceptionUtils.checkNull(
+            "oldExtension",
+            oldExtension);
+        ExceptionUtils.checkNull(
+            "newExtension",
+            newExtension);
+        String newPath = path;
+        final int oldExtensionIndex = path.lastIndexOf(oldExtension);
+        if (oldExtensionIndex != -1)
+        {
+            newPath = path.substring(
+                    0,
+                    oldExtensionIndex) + newExtension;
+        }
+        return newPath;
+    }
 }
