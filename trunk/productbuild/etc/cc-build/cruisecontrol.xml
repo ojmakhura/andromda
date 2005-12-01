@@ -6,7 +6,7 @@
             <currentbuildstatusbootstrapper file="/var/andromda-build/logs/andromda-all/currentbuildstatus.txt"/>
         </bootstrappers>
         <modificationset>
-            <cvs localWorkingCopy="/var/andromda-build/andromda-all" cvsroot=":ext:andromda-build@cvs.sourceforge.net:/cvsroot/andromda"/>
+            <cvs tag="3_x_HEAD"  cvsroot=":ext:andromda-build@cvs.sourceforge.net:/cvsroot/andromda"/>
         </modificationset>
         <schedule interval="900">
             <maven goal="scm:update-project|clean|dist|get-cron-docs|deploy-distribution" projectfile="/var/andromda-build/andromda-all/project.xml" mavenscript="/opt/maven/bin/maven"/>
