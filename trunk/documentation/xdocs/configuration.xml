@@ -577,7 +577,7 @@
                         element used to tell AndroMDA to apply an XSL transformation to the model(s) <em>before</em>
                         modeling processing occurs.  Note, that as many
                         transformations can be specified as you like, the transformations will be applied
-                        in the order that they are specified in your build.xml.  Also note that any imports
+                        in the order that they are specified in your andromda.xml.  Also note that any imports
                         are assumed to be relative to the transformation itself.
                     </p>
                     <tr>
