@@ -15,14 +15,22 @@
             <groupId>${pom.groupId}</groupId>
             <artifactId>${applicationId}-common</artifactId>
             <version>${version}</version>
+#if ($ear)
+            <scope>provided</scope>
+#else
             <scope>compile</scope>
+#end
         </dependency>
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>${applicationId}-core</artifactId>
             <version>${version}</version>
+#if ($ear)
             <type>ejb</type>
             <scope>provided</scope>
+#else
+            <scope>compile</scope>
+#end
        </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -126,11 +134,11 @@
                         <goals>
                             <goal>deploy</goal>
                         </goals>
-                        <configuration>
-                            <deployLocation></deployLocation>
-                        </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <deployLocation>${tomcat.home}/webapps</deployLocation>
+                </configuration>
             </plugin>
 #end
         </plugins>

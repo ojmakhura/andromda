@@ -2,10 +2,9 @@ package org.andromda.maven.plugin.andromdapp;
 
 import java.io.File;
 
-import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.model.Build;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.util.FileUtils;
 
 
@@ -17,29 +16,19 @@ import org.codehaus.plexus.util.FileUtils;
  * @author Chad Brandon
  */
 public class DeployMojo
-    extends AbstractMojo
+    extends AppManagementMojo
 {
     /**
      * Indicates whether or not this plugin should perform the deploy.
      *
      * @parameter expression="${deploy}"
      */
-    private boolean deploy;
+    private String deploy;
 
     /**
-     * The location (i.e. path) to deploy.
-     *
-     * @parameter
-     * @required
+     * The string indicating whether or not the deploy should be exploded or not.
      */
-    private String deployLocation;
-
-    /**
-     * @parameter expression="${project}"
-     * @required
-     * @readonly
-     */
-    private MavenProject project;
+    private static final String EXPLODED = "exploded";
 
     /**
      * @see org.apache.maven.plugin.AbstractMojo#execute()
@@ -47,20 +36,47 @@ public class DeployMojo
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-        if (this.deploy)
+        File artifactFile = this.project.getArtifact().getFile();
+
+        // - if we're deploying within a phase then deploy has to be set, otherwise
+        //   its not needed (we know we're not deploying in a phase when the artifactFile is null).
+        if (this.deploy != null || artifactFile == null)
         {
-            final File artifactFile = this.project.getArtifact().getFile();
-            if (artifactFile != null)
+            final Build build = this.project.getBuild();
+            if (EXPLODED.equalsIgnoreCase(this.deploy))
+            {
+                artifactFile = new File(
+                        build.getDirectory(),
+                        build.getFinalName());
+            }
+            else if (artifactFile == null)
+            {
+                artifactFile = new File(
+                        build.getDirectory(),
+                        build.getFinalName() + '.' + this.getPackaging());
+            }
+            if (artifactFile.exists())
             {
                 final File deployDirectory = new File(this.deployLocation);
                 if (deployDirectory.exists() && deployDirectory.isDirectory())
                 {
                     try
                     {
-                        this.getLog().info("Deploying " + artifactFile + " to " + deployDirectory);
-                        FileUtils.copyFileToDirectory(
-                            artifactFile,
-                            deployDirectory);
+                        if (EXPLODED.equalsIgnoreCase(this.deploy))
+                        {
+                            final File destintation = this.getDeployFile();
+                            this.getLog().info("Deploying exploded " + artifactFile + " to " + destintation);
+                            FileUtils.copyDirectoryStructure(
+                                artifactFile,
+                                destintation);
+                        }
+                        else
+                        {
+                            this.getLog().info("Deploying " + artifactFile + " to " + deployDirectory);
+                            FileUtils.copyFileToDirectory(
+                                artifactFile,
+                                deployDirectory);
+                        }
                     }
                     catch (final Throwable throwable)
                     {
@@ -77,7 +93,8 @@ public class DeployMojo
             }
             else
             {
-                this.getLog().warn("Deploy did not occur because the no artifact file could be found");
+                this.getLog().warn(
+                    "Deploy did not occur because file '" +  artifactFile + "' does not exist");
             }
         }
     }
