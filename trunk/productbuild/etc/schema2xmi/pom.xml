@@ -54,28 +54,8 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.8</version>
+            <version>1.2.12</version>
         </dependency>
-    	<dependency> 
-    		<groupId>jmi</groupId>
-      		<artifactId>jmiuml</artifactId>
-     		<version>1.4di</version>
-    	</dependency>   
-    	<dependency> 
-    		<groupId>jmi</groupId>
-      		<artifactId>mof</artifactId>
-     		<version>20030918</version>
-    	</dependency>  
-    	<dependency> 
-    		<groupId>jmi</groupId>
-      		<artifactId>jmi</artifactId>
-     		<version>20030918</version>
-    	</dependency>  
-    	<dependency> 
-    		<groupId>org.netbeans.mdr</groupId>
-      		<artifactId>jmiutils</artifactId>
-     		<version>20050630</version>
-    	</dependency> 
     </dependencies>
     <build>
         <resources>
