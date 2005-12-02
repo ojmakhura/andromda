@@ -214,28 +214,32 @@
 
             simply builds all modules
 
-        %> mvn deploy
+#if ($ear)
+        %> mvn -f app/pom.xml -Ddeploy=true
+#else
+        %> mvn -f web/pom.xml -Ddeploy=true
+#end
 
             collects all artifacts and builds a deployable .$projectType which is then
-            deployed, you will need to have built the other modules before
+            deployed
 
-        %> mvn clean install deploy
+        %> mvn clean install -Ddeploy=true
 
             deletes all generated files, rebuilds and deploys; files in /src
             directories are *not* deleted
 
-        %> mvn -N andromdapp:module -Dmodules=core
+        %> mvn -N andromdapp:module -Dmodules=core (or mvn -f core/pom.xml)
 
             only build the core module
 
 #if ($workflow)
-        %> mvn -N andromdapp:module -Dmodules=workflow
+        %> mvn -N andromdapp:module -Dmodules=workflow (or mvn -f workflow/pom.xml)
 
             only build the workflow module
 
 #end
 #if ($web)
-        %> mvn -N andromdapp:module -Dmodules=web
+        %> mvn -N andromdapp:module -Dmodules=web (or mvn -f web/pom.xml)
 
             only build the web module
 
@@ -262,32 +266,32 @@
             generates the drop and create DDL code and subsequently tells the database
             to drop and then create the schema for the entities
 
-        %> mvn -N andromdapp:module -Dmodules=mda:[andromda:start-server]
+        %> mvn -N andromdapp:module -Dmodules=mda:[andromda:start-server] (or mvn -f mda/pom.xml andromda:start-server)
 
             starts the AndroMDA server, with this server running you will be able
             to significantly speedup the generation process although it will require
             you to use another console while it is running
 
-        %> mvn -N andromdapp:module -Dmodules=mda:[andromda:stop-server]
+        %> mvn -N andromdapp:module -Dmodules=mda:[andromda:stop-server] (or mvn -f mda/pom.xml andromda:stopt-server)
 
             stops the AndroMDA server
 
-        %> mvn -N andromdapp:module -Dmodules=mda
+        %> mvn -N andromdapp:module -Dmodules=mda (or mvn -f mda/pom.xml)
 
             runs AndroMDA on your model and thereby generating files in
             the subdirectories of the existing modules
 
-        %> mvn -N andromdapp:module -Dmodules=mda -Dfilter=java,hibernate
+        %> mvn -N andromdapp:module -Dmodules=mda -Dfilter=java,hibernate (or mvn -f mda/pom.xml -Dfilter=java,hibernate)
 
             runs AndroMDA, but this time only using the Java and Hibernate
             cartridges (in that order)
 
-        %> mvn -N andromdapp:module -Dmodules=mda -Dfilter=~java,hibernate
+        %> mvn -N andromdapp:module -Dmodules=mda -Dfilter=~java,hibernate (or mvn -f mda/pom.xml -Dfilter=~java,hibernate)
 
             runs AndroMDA, but this time using all cartridges *except*
             the Java and Hibernate cartridges
 
-        %> mvn -N andromdapp:module -Dmodules=mda,core,web,deploy -Dfilter=java 
+        %> mvn -N andromdapp:module -Dmodules=mda,core,web,app -Dfilter=java -Ddeploy=true
 
             runs AndroMDA using only the Java cartridge, rebuilds the core
             module and then the web module and deploys afterwards

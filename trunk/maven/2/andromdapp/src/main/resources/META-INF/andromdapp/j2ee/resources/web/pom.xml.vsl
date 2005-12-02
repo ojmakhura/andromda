@@ -47,6 +47,10 @@
             <groupId>commons-validator</groupId>
             <artifactId>commons-validator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
 #if ($struts)
         <dependency>
             <groupId>struts</groupId>
@@ -113,6 +117,22 @@
                     <excludes>**/*.java</excludes>
                 </configuration>
             </plugin>
+#if (!$ear)
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>andromdapp-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                        <configuration>
+                            <deployLocation></deployLocation>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+#end
         </plugins>
     </build>
 </project>
