@@ -294,12 +294,6 @@
                 <artifactId>c3p0</artifactId>
                 <version>0.8.5.2</version>
             </dependency>
-            <dependency>
-                <groupId>xerces</groupId>
-                <artifactId>xerces</artifactId>
-                <version>2.4.0</version>
-                <scope>provided</scope>
-            </dependency>
 #end
 #if ($web || $hibernate || $workflow)
             <dependency>
@@ -314,6 +308,12 @@
                 <artifactId>commons-digester</artifactId>
                 <version>1.7</version>
                 <scope>runtime</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>xml-apis</groupId>
+                        <artifactId>xml-apis</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>commons-validator</groupId>
