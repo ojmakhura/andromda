@@ -215,18 +215,29 @@
             simply builds all modules
 
 #if ($ear)
-        %> mvn -f app/pom.xml -Ddeploy=true
+        %> mvn -f app/pom.xml -Ddeploy -Djboss.home=$JBOSS_HOME
 #else
-        %> mvn -f web/pom.xml -Ddeploy=true
+        %> mvn -f web/pom.xml -Ddeploy -Dtomcat.home=$CATALINA_HOME
 #end
 
             collects all artifacts and builds a deployable .$projectType which is then
             deployed
 
-        %> mvn clean install -Ddeploy=true
+#if ($ear)
+        %> mvn clean install -Ddeploy -Djboss.home=$JBOSS_HOME
+#else
+        %> mvn clean install -Ddeploy -Dtomcat.home=$CATALINA_HOME
+#end
 
             deletes all generated files, rebuilds and deploys; files in /src
             directories are *not* deleted
+         
+#if ($ear)   
+        % > mvn -f app/pom.xml andromdapp:undeploy -o -Djboss.home=$JBOSS_HOME
+#else        
+        % > mvn -f web/pom.xml andromdapp:undeploy -o -Dtomcat.home=$CATALINA_HOME     
+#end
+            undeploys the $projectType from your app server
 
         %> mvn -N andromdapp:module -Dmodules=core (or mvn -f core/pom.xml)
 
