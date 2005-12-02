@@ -508,4 +508,11 @@
             <url>http://team.andromda.org/maven2</url>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>andromda</id>
+            <name>AndroMDA Repository</name>
+            <url>http://team.andromda.org/maven2</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
