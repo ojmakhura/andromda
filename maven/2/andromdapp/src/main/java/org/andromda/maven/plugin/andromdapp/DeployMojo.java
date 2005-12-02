@@ -2,10 +2,10 @@ package org.andromda.maven.plugin.andromdapp;
 
 import java.io.File;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.model.Build;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.codehaus.plexus.util.FileUtils;
 
 
 /**
@@ -57,6 +57,7 @@ public class DeployMojo
             }
             if (artifactFile.exists())
             {
+                final File deployFile = this.getDeployFile();
                 final File deployDirectory = new File(this.deployLocation);
                 if (deployDirectory.exists() && deployDirectory.isDirectory())
                 {
@@ -64,14 +65,20 @@ public class DeployMojo
                     {
                         if (EXPLODED.equalsIgnoreCase(this.deploy))
                         {
-                            final File destintation = this.getDeployFile();
-                            this.getLog().info("Deploying exploded " + artifactFile + " to " + destintation);
-                            FileUtils.copyDirectoryStructure(
+                            this.getLog().info("Deploying exploded " + artifactFile + " to " + deployFile);
+                            FileUtils.copyDirectory(
                                 artifactFile,
-                                destintation);
+                                deployFile);
                         }
                         else
                         {
+                            // - if the deploy file is a directory, then attempt to delete it first before we 
+                            //   attempting deploying
+                            if (deployFile.exists() && deployFile.isDirectory())
+                            {
+                                this.getLog().info("Removing exploded artifact: " + deployFile);
+                                FileUtils.deleteDirectory(deployFile);
+                            }
                             this.getLog().info("Deploying " + artifactFile + " to " + deployDirectory);
                             FileUtils.copyFileToDirectory(
                                 artifactFile,
