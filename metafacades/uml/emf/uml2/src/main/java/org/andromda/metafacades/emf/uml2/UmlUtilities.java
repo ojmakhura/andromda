@@ -403,7 +403,7 @@ public class UmlUtilities
      * @param element the element for which to retrieve the stereotypes.
      * @return all stereotype names
      */
-    public static List getStereotypeNames(NamedElement element)
+    public static List getStereotypeNames(Element element)
     {
         final Collection stereotypes = element.getAppliedStereotypes();
         final List names = new ArrayList();
@@ -426,7 +426,7 @@ public class UmlUtilities
      * @return true/false
      */
     public static boolean containsStereotype(
-        final NamedElement element,
+        final Element element,
         final String name)
     {
         boolean result = false;
@@ -441,7 +441,10 @@ public class UmlUtilities
         }
         if (logger.isDebugEnabled())
         {
-            logger.debug(element.getQualifiedName() + " has stereotype:" + name + " : " + result);
+        	if (element instanceof NamedElement)
+        		logger.debug(((NamedElement)element).getQualifiedName() + " has stereotype:" + name + " : " + result);
+        	else
+        		logger.debug(element.toString() + " has stereotype:" + name + " : " + result);
         }
         return result;
     }

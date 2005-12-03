@@ -81,7 +81,7 @@ public class GeneralizableElementFacadeLogicImpl
     protected java.util.Collection handleGetGeneralizations()
     {
         Collection parents = new HashSet();
-        Collection generalizations = ((Classifier)metaObject).getGenerals();
+        Collection generalizations = ((Classifier)metaObject).getGeneralizations();
         if (generalizations != null && !generalizations.isEmpty())
         {
             Iterator iterator = generalizations.iterator();

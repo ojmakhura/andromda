@@ -234,7 +234,7 @@ public class ModelElementFacadeLogicImpl
      */
     protected java.util.Collection handleGetStereotypeNames()
     {
-        return UmlUtilities.getStereotypeNames((NamedElement)metaObject);
+        return UmlUtilities.getStereotypeNames(this.metaObject);
     }
 
     /**
@@ -269,7 +269,7 @@ public class ModelElementFacadeLogicImpl
     protected boolean handleHasStereotype(java.lang.String stereotypeName)
     {
         return UmlUtilities.containsStereotype(
-            (NamedElement)metaObject,
+            this.metaObject,
             stereotypeName);
     }
 
@@ -333,7 +333,7 @@ public class ModelElementFacadeLogicImpl
     protected boolean handleHasExactStereotype(java.lang.String stereotypeName)
     {
         return UmlUtilities.containsStereotype(
-            (NamedElement)metaObject,
+            this.metaObject,
             stereotypeName);
     }
 

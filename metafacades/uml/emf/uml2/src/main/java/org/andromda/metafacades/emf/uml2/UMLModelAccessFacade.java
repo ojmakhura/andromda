@@ -17,13 +17,15 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.uml2.Element;
 import org.eclipse.uml2.Model;
 import org.eclipse.uml2.NamedElement;
+
 
 /**
  * Model access facade implementation for the EMF/UML2
  * metafacades
- * 
+ *
  * @author Steve Jerman
  * @author Chad Brandon
  */
@@ -101,7 +103,7 @@ public class UMLModelAccessFacade
         }
         return packageName.toString();
     }
-    
+
     /**
      * The actual underlying model instance.
      */
@@ -120,15 +122,16 @@ public class UMLModelAccessFacade
      */
     public Collection getStereotypeNames(Object modelElement)
     {
-        ExceptionUtils.checkNull(
-            "modelElement",
-            modelElement);
-        ExceptionUtils.checkAssignable(
-            NamedElement.class,
-            "modelElement",
-            modelElement.getClass());
-        final NamedElement namedElement = (NamedElement)modelElement;
-        final Collection names = UmlUtilities.getStereotypeNames(namedElement);
+        final Collection names = new ArrayList();
+            ExceptionUtils.checkNull(
+                "modelElement",
+                modelElement);
+            ExceptionUtils.checkAssignable(
+                Element.class,
+                "modelElement",
+                modelElement.getClass());
+            final Element element = (Element)modelElement;
+            names.addAll(UmlUtilities.getStereotypeNames(element));
         return names;
     }
 
