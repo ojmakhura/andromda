@@ -116,6 +116,11 @@ public class AndroMDApp
         if (configurationUri != null && configurationUri.trim().length() > 0)
         {
             final XmlObjectFactory factory = XmlObjectFactory.getInstance(Configuration.class);
+            final URL configurationUrl = ResourceUtils.toURL(configurationUri);
+            if (configurationUrl == null)
+            {
+                throw new AndroMDAppException("configuriationUri is invalid --> '" + configurationUri + "'");
+            }
             this.configurations.add(factory.getObject(ResourceUtils.toURL(configurationUri)));
         }
     }
