@@ -14,7 +14,7 @@
                         <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
                     </modelPackages>
                 </model>
-            </models>            
+            </models>
         </repository>
     </repositories>
     <namespaces>
@@ -27,7 +27,9 @@
                 <property name="sqlMappingsUri">Oracle9i</property>
                 <property name="maxSqlNameLength">30</property>
                 <property name="foreignKeySuffix">_FK</property>
+                <!--  Do not test dummy data because it generates random numbers
                 <property name="dummy-data-script">${test.output.dir}</property>
+                -->
                 <property name="scripts">${test.output.dir}</property>
             </properties>
         </namespace>
