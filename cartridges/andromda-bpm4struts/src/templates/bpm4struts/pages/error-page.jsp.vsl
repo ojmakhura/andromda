@@ -20,7 +20,6 @@
 
     <head>
         <title><bean:message key="error.${param.code}.title"/></title>
-        <base href="${pageContext.request.contextPath}">
 #if ($xhtml == "true")
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset:utf-8" />
 #else
@@ -38,7 +37,12 @@
         <div id="error">
             <div id="title"><bean:message key="error.${param.code}.title"/></div>
             <div id="message"><bean:message key="error.${param.code}.message"/></div>
-            <div id="link"><html:link page="/$welcomeFileName" titleKey="error.link.title"><bean:message key="error.link.text"/></html:link></div>
+            <c:set var="link"><html:rewrite page="/$welcomeFileName"/></c:set>
+            <div id="link">
+               <html:link href="${link}" titleKey="error.link.title">
+                  <bean:message key="error.link.text"/>
+               </html:link>
+            </div>
 #set ($quote = '"')
 #set ($requestScopePrefix = "requestScope[${quote}")
 #set ($requestScopeSuffix = "${quote}]")
