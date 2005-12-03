@@ -390,7 +390,7 @@ namespace $entity.packageName
 #if ($finder.returnType.setType)
             Iesi.Collections.ISet results = new Iesi.Collections.HashedSet(queryObject.list());
 #else
-            System.Collections.ICollection results = queryObject.List();
+            System.Collections.IList results = queryObject.List();
 #end
 #if (!$finder.returnType.collectionType)
             Object result = null;
