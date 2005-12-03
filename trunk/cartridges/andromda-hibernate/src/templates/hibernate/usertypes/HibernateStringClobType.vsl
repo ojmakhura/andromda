@@ -7,16 +7,17 @@
 #set ($generatedFile = "$stringUtils.replace($userTypesPackage, '.', '/')/${className}.java")
 package $userTypesPackage;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.Reader;
+import java.io.InputStream;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import ${hibernateUtils.hibernatePackage}.type.ImmutableType;
-
-import org.apache.commons.lang.ObjectUtils;
+import ${hibernateUtils.hibernatePackage}.HibernateException;
+import ${hibernateUtils.hibernateUserTypePackage}.UserType;
 
 /**
  * <p>
@@ -24,99 +25,169 @@ import org.apache.commons.lang.ObjectUtils;
  * </p>
  */
 public class $className
-    extends ImmutableType
+    implements UserType
 {
     /**
      * The serial version UID of this class. Needed for serialization.
      */
 ## the value of this field should change whenever the class signature changes
     private static final long serialVersionUID = 10000L;
-
+    
     /**
-     * @see ${hibernateUtils.hibernatePackage}.type.NullableType#get(java.sql.ResultSet,
-     *      java.lang.String)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#sqlTypes()
      */
-    public Object get(ResultSet rs, String name)
-        throws SQLException
+    public int[] sqlTypes()
     {
-
-        Reader reader = rs.getCharacterStream(name);
-        if (reader == null)
-        {
-            return null;
-        }
-        StringBuffer sb = new StringBuffer();
-        try
-        {
-            char[] charbuf = new char[4096];
-            for (int i = reader.read(charbuf); i > 0; i = reader.read(charbuf))
-            {
-                sb.append(charbuf, 0, i);
-            }
-        }
-        catch (IOException e)
-        {
-            throw new SQLException(e.getMessage());
-        }
-        return sb.toString();
+        return new int[] {Types.CLOB};
     }
 
     /**
-     * @see ${hibernateUtils.hibernatePackage}.type.Type#getReturnedClass()
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#returnedClass()
      */
-    public Class getReturnedClass()
+    public Class returnedClass()
     {
         return String.class;
     }
 
     /**
-     * @see ${hibernateUtils.hibernatePackage}.type.NullableType\#set(java.sql.PreparedStatement,
-     *      java.lang.Object, int)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#equals(java.lang.Object, java.lang.Object)
      */
-    public void set(PreparedStatement st, Object value, int index)
-        throws SQLException
+    public boolean equals(
+        Object x,
+        Object y)
+        throws HibernateException
     {
-        st.setString(index, (String)value);
+        boolean equal = false;
+        if (x == null || y == null)
+        {
+            equal = false;
+        }
+        else if (!(x instanceof String) || !(y instanceof String))
+        {
+            equal = false;
+        }
+        else
+        {
+            equal = ((String)x).equals(y);
+        }
+        return equal;
     }
 
     /**
-     * @see ${hibernateUtils.hibernatePackage}.type.NullableType#sqlType()
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#nullSafeGet(java.sql.ResultSet, java.lang.String[], java.lang.Object)
      */
-    public int sqlType()
+    public Object nullSafeGet(
+        ResultSet resultSet,
+        String[] names,
+        Object owner)
+        throws HibernateException, SQLException
     {
-        return Types.CLOB;
+        final StringBuffer buffer = new StringBuffer();
+        try
+        {
+            //First we get the stream
+            InputStream inputStream = resultSet.getAsciiStream(names[0]);
+            byte[] buf = new byte[1024];
+            int read = -1;
+
+            while ((read = inputStream.read(buf)) > 0)
+            {
+                buffer.append(new String(
+                        buf,
+                        0,
+                        read));
+            }
+            inputStream.close();
+        }
+        catch (IOException exception)
+        {
+            throw new HibernateException("Unable to read from resultset", exception);
+        }
+        return buffer.toString();
     }
 
     /**
-     * @see ${hibernateUtils.hibernatePackage}.type.Type#getName()
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#nullSafeSet(java.sql.PreparedStatement, java.lang.Object, int)
      */
-    public String getName()
+    public void nullSafeSet(
+        PreparedStatement preparedStatement,
+        Object data,
+        int index)
+        throws HibernateException, SQLException
     {
-        return "string";
+        data = data == null ? new String() : data;
+        String in = (String)data;
+
+        byte[] buf = in.getBytes();
+        int len = buf.length;
+
+        ByteArrayInputStream bais = new ByteArrayInputStream(buf);
+
+        preparedStatement.setAsciiStream(
+            index,
+            bais,
+            len);
     }
 
     /**
-     * @see ${hibernateUtils.hibernatePackage}.type.Type#equals(java.lang.Object,
-     *      java.lang.Object)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#deepCopy(java.lang.Object)
      */
-    public boolean equals(Object x, Object y)
+    public Object deepCopy(Object value)
+        throws HibernateException
     {
-        return ObjectUtils.equals(x, y);
+        String ret = null;
+        value = value == null ? new String() : value;
+        String in = (String)value;
+        int len = in.length();
+        char[] buf = new char[len];
+
+        for (int i = 0; i < len; i++)
+        {
+            buf[i] = in.charAt(i);
+        }
+        ret = new String(buf);
+        return ret;
     }
 
     /**
-     * @see ${hibernateUtils.hibernatePackage}.type.NullableType#fromString(java.lang.String)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#isMutable()
      */
-    public Object fromStringValue(String xml)
+    public boolean isMutable()
     {
-        return xml;
+        return false;
+    }    
+#if ($hibernateUtils.version3)
+
+    /**
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#replace(Object original, Object target, Object owner)
+     */
+    public Object replace(Object original, Object target, Object owner)
+    {
+        return this.deepCopy(original);
     }
 
     /**
-     * @see ${hibernateUtils.hibernatePackage}.type.NullableType#toString(java.lang.Object)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(java.io.Serializable cached, Object owner)
      */
-    public String toString(Object val)
+    public Object assemble(java.io.Serializable cached, Object owner)
     {
-        return val.toString();
+        return this.deepCopy(cached);
     }
+
+    /**
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(Object value)
+     */
+     public java.io.Serializable disassemble(Object value)
+     {
+        return (java.io.Serializable)value;
+     }
+
+     /**
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(Object value)
+     */
+     public int hashCode(Object x)
+     {
+        return x.hashCode();
+     }
+#end
 }
