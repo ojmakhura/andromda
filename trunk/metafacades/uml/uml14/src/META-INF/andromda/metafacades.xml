@@ -45,6 +45,7 @@
         <mapping class="org.omg.uml.foundation.core.AssociationEnd$Impl"/>
         <property reference="defaultMultiplicity"/>
         <property reference="pluralizeAssociationEndNames"/>
+        <property reference="enableTemplating"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.uml14.AssociationFacadeLogicImpl">
         <mapping class="org.omg.uml.foundation.core.UmlAssociation$Impl"/>

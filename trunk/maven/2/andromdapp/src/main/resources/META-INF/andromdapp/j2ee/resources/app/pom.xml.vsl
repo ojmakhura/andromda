@@ -60,12 +60,21 @@
             <version>${version}</version>            
             <type>war</type>
         </dependency>
+#if ($webservice)
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>${applicationId}-webservice</artifactId>
             <version>${version}</version>      
             <type>war</type>      
         </dependency>
+#end
+#if ($workflow)
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${applicationId}-workflow</artifactId>
+            <version>${version}</version>            
+        </dependency>
+#end
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>    
@@ -92,11 +101,19 @@
                             <artifactId>${applicationId}-web</artifactId>
                             <contextRoot>/${applicationId}</contextRoot>
                         </webModule>
+#if ($webservice)
                         <webModule>
                             <groupId>${pom.groupId}</groupId>
                             <artifactId>${applicationId}-webservice</artifactId>
                             <contextRoot>/${applicationId}-ws</contextRoot>
                         </webModule>
+#end
+#if ($workflow)
+                        <javaModule>
+                            <groupId>${pom.groupId}</groupId>
+                            <artifactId>${applicationId}-workflow</artifactId>
+                        </javaModule>
+#end
                     </modules>
                 </configuration>
             </plugin>

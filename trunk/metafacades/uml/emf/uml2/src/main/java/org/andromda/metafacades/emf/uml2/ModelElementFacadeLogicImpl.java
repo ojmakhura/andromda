@@ -12,6 +12,8 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.TemplateParameterFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.translation.ocl.ExpressionKinds;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
@@ -311,6 +313,47 @@ public class ModelElementFacadeLogicImpl
                         namespaceScopeOperator);
             }
         }
+
+        if (this.isTemplateParametersPresent() &&
+            "true".equals(String.valueOf(getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+        {
+            // we'll be constructing the parameter list in this buffer
+            final StringBuffer buffer = new StringBuffer();
+
+            // add the name we've constructed so far
+            buffer.append(fullName);
+
+            // start the parameter list
+            buffer.append("<");
+
+            // loop over the parameters, we are so to have at least one (see outer condition)
+            final Collection templateParameters = this.getTemplateParameters();
+            for (Iterator parameterIterator = templateParameters.iterator(); parameterIterator.hasNext();)
+            {
+                final ModelElementFacade modelElement = ((TemplateParameterFacade)parameterIterator.next()).getParameter();
+
+                if (modelElement instanceof ParameterFacade)
+                {
+                    buffer.append(((ParameterFacade)modelElement).getType().getFullyQualifiedName());
+                }
+                else
+                {
+                    buffer.append(modelElement.getFullyQualifiedName());
+                }
+
+                if (parameterIterator.hasNext())
+                {
+                    buffer.append(", ");
+                }
+            }
+
+            // we're finished listing the parameters
+            buffer.append(">");
+
+            // we have constructed the full name in the buffer
+            fullName = buffer.toString();
+        }
+
         return fullName;
     }
 

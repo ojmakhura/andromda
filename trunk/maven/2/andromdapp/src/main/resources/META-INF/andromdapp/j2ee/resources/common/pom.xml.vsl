@@ -16,7 +16,7 @@
             <artifactId>${applicationId}-mda</artifactId>
             <version>${version}</version>
             <type>pom</type>
-            <scope>provided</scope>
+            <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
         <dependency>

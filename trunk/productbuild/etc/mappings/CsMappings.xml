@@ -105,6 +105,10 @@
         <to>bool</to>
     </mapping>
     <mapping>
+        <from>datatype::Guid</from>
+        <to>System.Guid</to>
+    </mapping>
+    <mapping>
         <from>datatype::Collection</from>
         <to>System.Collections.ICollection</to>
     </mapping>

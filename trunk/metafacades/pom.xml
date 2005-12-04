@@ -20,6 +20,8 @@
             <artifactId>andromda-profile</artifactId>
             <version>${version}</version>
             <type>xml.zip</type>
+            <scope>runtime</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

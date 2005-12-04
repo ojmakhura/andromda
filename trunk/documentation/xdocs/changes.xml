@@ -10,7 +10,17 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="4.0-M1-SNAPSHOT" date="2005-08-25" description="First release candidate of version 4.0-M1-SNAPSHOT">
+        <release version="3.2-RC1-SNAPSHOT" date="2005-12-04" description="First release candidate of version 3.2">
+            <action dev="draftdog" type="add" issue="UMLMETA-58">
+                Using the <code>enableTemplating</code> namespace property it is now possible to enable
+                templating (i.e. generics in Java). A class or datatype with template parameters will have them
+                rendered in their fully qualified name if this property is set to <code>true</code>.
+                In addition the Hibernate cartridge also supports strongly typed associations, instead of just
+                return a <code>java.util.Collection</code> the cartridge will now return
+                <code>java.util.Collection&lt;MyType&gt;</code>.
+            </action>
+        </release>
+        <release version="3.1" date="2005-11-10" description="Version 3.1 final">
             <action dev="cwbrandon" type="update">
                 The <![CDATA[UMLMetafacadeModel-<version>.xml.zip]]> has been renamed to <![CDATA[andromda-metafacades-uml-<version>.xml.zip]]>.
                 This requires that you update any cartridge models that point to the old file name by doing a search and replace in your XMI
@@ -253,7 +263,7 @@
                 this would lead into compilation errors during build time.
             </action>
         </release>
-        <release version="4.0-M1-SNAPSHOT-M1" date="2005-06-19" description="First milestone release of version 4.0-M1-SNAPSHOT">
+        <release version="3.1-RC1" date="2005-06-19" description="First milestone release of version 3.1">
             <action dev="cwbrandon" type="fix" issue="SCHEMATOXMI-1">
                 Schema2XMI is now able to map to database types with their precision defined.
             </action>
@@ -261,7 +271,7 @@
                 Property references are now defined in a namespace descriptor in which each namespace component
                 (cartridge, translation-library, and metafacades must be registered within).
                 Unfortunately this change is not backwards compatible with 3.0 cartridges, to upgrade 3.0 cartridges
-                to be 4.0-M1-SNAPSHOT compatible, you will need to create a META-INF/andromda/namespace.xml descriptor per cartridge
+                to be 3.2-RC1-SNAPSHOT compatible, you will need to create a META-INF/andromda/namespace.xml descriptor per cartridge
                 and register the cartridge and metafacades (as well as any namespace properties and its defaults) in this file.
             </action>
             <action dev="cwbrandon" type="add">

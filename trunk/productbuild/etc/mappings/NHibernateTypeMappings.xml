@@ -81,6 +81,10 @@
         <to>Boolean</to>
     </mapping>
     <mapping>
+        <from>datatype::Guid</from>
+        <to>Guid</to>
+    </mapping>
+    <mapping>
         <from>datatype::Clob</from>
         <to>StringClob</to>
     </mapping>
