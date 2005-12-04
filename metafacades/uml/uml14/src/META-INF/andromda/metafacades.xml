@@ -18,6 +18,7 @@
     <property reference="defaultResolveable"/>
     <property reference="defaultPageSize"/>
     <property reference="defaultMaximumListSize"/>
+    <property reference="enableTemplating"/>
     <metafacade class="org.andromda.metafacades.uml14.PackageFacadeLogicImpl">
         <mapping class="org.omg.uml.modelmanagement.UmlPackage$Impl"/>
     </metafacade>

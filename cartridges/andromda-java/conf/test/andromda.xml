@@ -20,6 +20,7 @@
                 <property name="overwrite">true</property>
                 <property name="languageMappingsUri">Java</property>
                 <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="enableTemplating">true</property>
                 <property name="services">${test.output.dir}</property>
                 <property name="service-impls">${test.output.dir}</property>
                 <property name="value-objects">${test.output.dir}</property>
