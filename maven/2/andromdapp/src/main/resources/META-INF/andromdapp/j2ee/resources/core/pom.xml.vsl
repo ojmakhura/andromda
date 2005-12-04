@@ -57,28 +57,8 @@
 #end
 #if ($hibernateVersion.equals("2"))
         <dependency>
-            <groupId>hibernate</groupId>
+            <groupId>net.sf.hibernate</groupId>
             <artifactId>hibernate</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>asm</groupId>
-            <artifactId>asm</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>odmg</groupId>
-            <artifactId>odmg</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ehcache</groupId>
-            <artifactId>ehcache</artifactId>
         </dependency>
 #else
         <dependency>
