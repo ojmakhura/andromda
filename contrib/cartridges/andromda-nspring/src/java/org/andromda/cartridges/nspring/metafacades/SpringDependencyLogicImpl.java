@@ -115,12 +115,12 @@ public class SpringDependencyLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.nspring.metafacades.SpringDependency#getTransformationToCollectionMethodName()
+     * @see org.andromda.cartridges.nspring.metafacades.SpringDependency#getTransformationToListMethodName()
      */
-    protected String handleGetTransformationToCollectionMethodName()
+    protected String handleGetTransformationToListMethodName()
     {
         return SpringGlobals.TRANSFORMATION_METHOD_PREFIX + StringUtils.capitalize(this.getName()) +
-                SpringGlobals.TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX;
+                SpringGlobals.TRANSFORMATION_TO_LIST_METHOD_SUFFIX;
     }
 
     /**
@@ -158,11 +158,11 @@ public class SpringDependencyLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.nspring.metafacades.SpringDependency#getTransformationToEntityCollectionMethodName()
+     * @see org.andromda.cartridges.nspring.metafacades.SpringDependency#getTransformationToEntityListMethodName()
      */
-    protected String handleGetTransformationToEntityCollectionMethodName()
+    protected String handleGetTransformationToEntityListMethodName()
     {
-        return this.getTransformationToEntityMethodName() + SpringGlobals.TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX;
+        return this.getTransformationToEntityMethodName() + SpringGlobals.TRANSFORMATION_TO_LIST_METHOD_SUFFIX;
     }
 
     /**
