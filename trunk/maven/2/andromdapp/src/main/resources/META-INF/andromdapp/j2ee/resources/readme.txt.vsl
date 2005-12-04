@@ -283,7 +283,7 @@
             to significantly speedup the generation process although it will require
             you to use another console while it is running
 
-        %> mvn -N andromdapp:module -Dmodules=mda:[andromda:stop-server] (or mvn -f mda/pom.xml andromda:stopt-server)
+        %> mvn -N andromdapp:module -Dmodules=mda:[andromda:stop-server] (or mvn -f mda/pom.xml andromda:stop-server)
 
             stops the AndroMDA server
 

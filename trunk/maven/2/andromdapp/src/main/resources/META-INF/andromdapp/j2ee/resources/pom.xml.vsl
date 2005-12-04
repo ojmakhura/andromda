@@ -183,14 +183,12 @@
                 <scope>provided</scope>
             </dependency>
 #if (!$ejb)
-#if ($hibernateVersion.equals("2"))
             <dependency>
+#if ($hibernateVersion.equals("2"))
                 <groupId>net.sf.hibernate</groupId>
                 <artifactId>hibernate</artifactId>
                 <version>2.1.8</version>
-           </dependency>
 #else
-            <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate</artifactId>
                 <version>3.0.5</version>
