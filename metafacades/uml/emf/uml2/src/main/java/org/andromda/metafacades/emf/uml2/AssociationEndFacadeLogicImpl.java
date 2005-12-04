@@ -3,6 +3,7 @@ package org.andromda.metafacades.emf.uml2;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.uml2.AggregationKind;
@@ -125,6 +126,12 @@ public class AssociationEndFacadeLogicImpl
                 name =
                     this.isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
                                      : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
+            }
+
+            // set this association end's type as a template parameter if required
+            if ("true".equals(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
+            {
+                name = name + "<" + this.getType().getFullyQualifiedName() + ">";
             }
         }
         if (name == null && this.getType() != null)

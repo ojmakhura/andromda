@@ -18,6 +18,7 @@
     <property reference="defaultResolveable"/>
     <property reference="defaultPageSize"/>
     <property reference="defaultMaximumListSize"/>
+    <property reference="enableTemplating"/>
     <metafacade class="org.andromda.metafacades.emf.uml2.TaggedValueFacadeLogicImpl">
         <mapping class="org.andromda.metafacades.emf.uml2.TagDefinitionImpl"/>
     </metafacade>
@@ -65,6 +66,7 @@
         </mapping>
         <property reference="enumerationLiteralNameMask"/>
         <property reference="defaultMultiplicity"/>
+        <property reference="enableTemplating"/>
     </metafacade>
     <metafacade class="org.andromda.metafacades.emf.uml2.AttributeFacadeLogicImpl">
         <mapping class="org.eclipse.uml2.impl.PropertyImpl"/>

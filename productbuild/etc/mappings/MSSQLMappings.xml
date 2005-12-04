@@ -75,4 +75,8 @@
         <from>datatype::Blob</from>
         <to>IMAGE</to>
     </mapping>
+    <mapping>
+        <from>datatype::Guid</from>
+        <to>UNIQUEIDENTIFIER</to>
+    </mapping>
 </mappings>

@@ -119,6 +119,16 @@
                 the name used (instead of null).
             </documentation>
         </property>
+        <property name="enableTemplating">
+            <default>false</default>
+            <documentation>
+                Determines whether or not to enable templating, enabling this feature will produce
+                fully qualified names with their template parameters. Also, class names that are
+                implicitly templates will also have them present (eg.
+                <code>Person:addresses : datatype::List&lt;Address&gt;</code> for class associations).
+                Set this property to <code>true</code> if you want to enable this feature.
+            </documentation>
+        </property>
         <property name="arrayNameSuffix">
             <default>[]</default>
             <documentation>

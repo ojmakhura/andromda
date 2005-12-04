@@ -13,6 +13,12 @@ public class UMLMetafacadeProperties
     public static final String LANGUAGE_MAPPINGS_URI = "languageMappingsUri";
 
     /**
+     * This property controls whether or not to produce templating parameters
+     * where possible.
+     */
+    public static final String ENABLE_TEMPLATING = "enableTemplating";
+    
+    /**
      * Stores the property defining the prefix for entity table names.
      */
     public static final String TABLE_NAME_PREFIX = "tableNamePrefix";

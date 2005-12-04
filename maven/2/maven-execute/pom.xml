@@ -1,0 +1,22 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>andromda-maven-plugins</artifactId>
+        <groupId>org.andromda.maven.plugins</groupId>
+        <version>4.0-M1-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-maven-execute-plugin</artifactId>
+    <packaging>maven-plugin</packaging>
+    <name>AndroMDA Maven Execute Plugin</name>
+    <description>
+        A plugin for executing Maven from inside another project
+    </description>
+    <inceptionYear>2005</inceptionYear>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-core</artifactId>
+            <version>2.0</version>
+        </dependency>
+    </dependencies>
+</project>
