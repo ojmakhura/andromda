@@ -40,7 +40,7 @@ class SpringGlobals
     /**
      * The suffix given to transformation method names.
      */
-    static final String TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX = "Collection";
+    static final String TRANSFORMATION_TO_LIST_METHOD_SUFFIX = "List";
 
     /**
      * Defines the prefix given to the transformation constants.

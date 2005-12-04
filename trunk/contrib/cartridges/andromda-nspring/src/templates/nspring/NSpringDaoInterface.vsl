@@ -57,9 +57,9 @@ namespace $entity.packageName
         $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName entity);
 
         /// <summary>
-        /// Converts this DAO's entity collection to a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
+        /// Converts this DAO's entity collection to a list of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName}.
         /// </summary>
-        System.Collections.ICollection ${valueObjectRef.transformationToCollectionMethodName}(System.Collections.ICollection entities);
+        System.Collections.IList ${valueObjectRef.transformationToListMethodName}(System.Collections.ICollection entities);
 
         /// <summary>
         /// Converts an instance of type {@link $valueObjectRef.targetElement.fullyQualifiedName} to this DAO's entity.
@@ -67,10 +67,9 @@ namespace $entity.packageName
         $entity.fullyQualifiedEntityName ${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.name));
 
         /// <summary>
-        /// Converts a Collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName} to this
-        /// DAO's entity collection.
+        /// Converts a collection of instances of type {@link $valueObjectRef.targetElement.fullyQualifiedName} to this DAO's entity list.
         /// </summary>
-        System.Collections.ICollection ${valueObjectRef.transformationToEntityCollectionMethodName}(System.Collections.ICollection instances);
+        System.Collections.IList ${valueObjectRef.transformationToEntityListMethodName}(System.Collections.ICollection instances);
 
 #end
 #set ($identifier = $entity.identifiers.iterator().next())
@@ -100,7 +99,7 @@ namespace $entity.packageName
         ///
         /// @return the loaded entities.
         /// </summary>
-        ${newKeyword}System.Collections.ICollection LoadAll();
+        ${newKeyword}System.Collections.IList LoadAll();
 
         /// <summary>
         /// <p>
@@ -115,7 +114,7 @@ namespace $entity.packageName
         /// @param transform the flag indicating what transformation to use.
         /// @return the loaded entities.
         /// </summary>
-        ${newKeyword}System.Collections.ICollection LoadAll(int transform);
+        ${newKeyword}System.Collections.IList LoadAll(int transform);
 
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)

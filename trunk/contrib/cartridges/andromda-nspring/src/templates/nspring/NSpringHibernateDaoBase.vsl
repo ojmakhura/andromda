@@ -95,7 +95,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#LoadAll()
         /// </summary>
-        public ${newKeyword}System.Collections.ICollection LoadAll()
+        public ${newKeyword}System.Collections.IList LoadAll()
         {
             return this.LoadAll((int)$daoNoTransformationEnumName);
         }
@@ -103,10 +103,10 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#LoadAll(int)
         /// </summary>
-        public ${newKeyword}System.Collections.ICollection LoadAll(int transform)
+        public ${newKeyword}System.Collections.IList LoadAll(int transform)
         {
-            System.Collections.ICollection entities = Session.Find("from ${entity.fullyQualifiedEntityImplementationName}");
-            System.Collections.ICollection results = this.TransformEntities(transform, entities);
+            System.Collections.IList entities = Session.Find("from ${entity.fullyQualifiedEntityImplementationName}");
+            System.Collections.IList results = this.TransformEntities(transform, entities);
             return results;
         }
 
@@ -387,29 +387,30 @@ namespace $entity.packageName
             queryObject.${setParameterOperation}($count, $argumentValue);
 #end
 #end
-#if ($finder.returnType.setType)
-            Iesi.Collections.ISet results = new Iesi.Collections.HashedSet(queryObject.list());
-#else
-            System.Collections.IList results = queryObject.List();
-#end
+            System.Collections.IList resultList = queryObject.List();
 #if (!$finder.returnType.collectionType)
             Object result = null;
-            if (results != null)
+            if (resultList != null)
             {
-                if (results.Count > 1)
+                if (resultList.Count > 1)
                 {
-                    throw new NHibernate.NonUniqueResultException(results.Count);
+                    throw new NHibernate.NonUniqueResultException(resultList.Count);
                 }
-                else if (results.Count == 1)
+                else if (resultList.Count == 1)
                 {
-                    foreach (Object obj in results)
+                    foreach (Object obj in resultList)
                         result = obj;
                 }
             }
             result = TransformEntity(transform, ($entity.fullyQualifiedName)result);
             return result;
 #else
-            results = TransformEntities(transform, results);
+#if ($finder.returnType.setType)
+            Iesi.Collections.ISet results =
+                new Iesi.Collections.HashedSet(TransformEntities(transform, resultList));
+#else
+            System.Collections.IList results = TransformEntities(transform, resultList);
+#end
             return results;
 #end
         }
@@ -571,37 +572,41 @@ namespace $entity.packageName
 
         /// <summary>
         /// Transforms a collection of entities using the
-        /// {@link #TransformEntity(int,$entity.fullyQualifiedName)}
-        /// method. This method does not instantiate a new collection.
+        /// {@link #TransformEntity(int,$entity.fullyQualifiedName)} method.
         /// <p/>
         /// This method is to be used internally only.
         ///
         /// @param transform one of the constants declared in <code>$entity.fullyQualifiedDaoName</code>
         /// @param entities the collection of entities to transform
-        /// @return the same collection as the argument, but this time containing the transformed entities
+        /// @return a new list containing the transformed entities
         /// @see #TransformEntity(int,$entity.fullyQualifiedName)
         /// </summary>
-        protected ${newKeyword}System.Collections.ICollection TransformEntities(int transform, System.Collections.ICollection entities)
+        protected ${newKeyword}System.Collections.IList TransformEntities(int transform, System.Collections.ICollection entities)
         {
+            System.Collections.IList entityList = null;
             switch (transform)
             {
 #foreach ($valueObjectRef in $entity.allValueObjectReferences)
                 case (int)Transform${valueObjectRef.sourceElement.Name}.${valueObjectRef.transformationConstantName} :
-                    entities = ${valueObjectRef.transformationToCollectionMethodName}(entities);
+                    entityList = ${valueObjectRef.transformationToListMethodName}(entities);
                     break;
 #end
                 case (int)$daoNoTransformationEnumName : // fall-through
                 default:
-                    break; // do nothing;
+                    // Convert collection to list if necesary
+                    entityList = entities as System.Collections.IList;
+                    if (entityList == null)
+                        entityList = new System.Collections.ArrayList(entities);
+                    break;
             }
-            return entities;
+            return entityList;
         }
 
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToCollectionMethodName}(System.Collections.ICollection)
+        /// @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToListMethodName}(System.Collections.ICollection)
         /// </summary>
-        public System.Collections.ICollection ${valueObjectRef.transformationToCollectionMethodName}(System.Collections.ICollection entities)
+        public System.Collections.IList ${valueObjectRef.transformationToListMethodName}(System.Collections.ICollection entities)
         {
             if (entities == null)
                 return null;
@@ -626,9 +631,9 @@ namespace $entity.packageName
         }
 
         /// <summary>
-        /// @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToEntityCollectionMethodName}(System.Collections.ICollection)
+        /// @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToEntityListMethodName}(System.Collections.ICollection)
         /// </summary>
-        public System.Collections.ICollection ${valueObjectRef.transformationToEntityCollectionMethodName}(System.Collections.ICollection instances)
+        public System.Collections.IList ${valueObjectRef.transformationToEntityListMethodName}(System.Collections.ICollection instances)
         {
 
             if (instances == null)
