@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -8,7 +8,7 @@
     <version>4.0-M1-SNAPSHOT</version>
     <name>AndroMDA: The Open Source MDA Tool</name>
     <description>
-         AndroMDA (pronounced: andromeda) is an open source code generation framework that follows the Model Driven Architecture  
+         AndroMDA (pronounced: andromeda) is an open source code generation framework that follows the Model Driven Architecture
         (MDA) paradigm. It takes model(s) from CASE-tool(s) and generates fully deployable applications and other components.
     </description>
     <inceptionYear>2003</inceptionYear>
@@ -127,6 +127,17 @@
             </roles>
             <timezone>-5</timezone>
         </developer>
+        <developer>
+            <id>stjerman</id>
+            <name>Steve Jerman</name>
+            <email>steve@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>6</timezone>
+        </developer>
+
     </developers>
     <!--
     <licenses>
@@ -140,7 +151,7 @@
     <scm>
         <connection></connection>
         <developerConnection></developerConnection>
-        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/</url> 
+        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/</url>
     </scm>
     <organization>
       <name>AndroMDA.org</name>
@@ -153,19 +164,27 @@
             <!-- This antrun configuration is a hack until the issue with plugins that create archives is fixed
                  (i.e a plugin that has '<extensions>true</extensions>' set).  Before this project can be built,
                  the command "mvn -N antrun:run' must be executed in order to install these plugins here below (since these
-                 plugins must exist before the build even starts) -->  
+                 plugins must exist before the build even starts) -->
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <configuration>
                     <tasks>
-                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-cartridge-plugin/andromda-cartridge-plugin.jar" 
+                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-cartridge-plugin/andromda-cartridge-plugin.jar"
                               tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-cartridge-plugin/${version}/andromda-cartridge-plugin-${version}.jar"/>
-                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar" 
+                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar"
                               tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-model-archiver-plugin/${version}/andromda-model-archiver-plugin-${version}.jar"/>
                     </tasks>
                 </configuration>
             </plugin>
         </plugins>
+        <!-- required for deploying to remote repository using the maven-deploy-plugin -->
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh-external</artifactId>
+                <version>1.0-alpha-5</version>
+            </extension>
+        </extensions>
     </build>
     <modules>
         <module>andromda</module>
@@ -201,4 +220,11 @@
     <prerequisites>
         <maven>2.0</maven>
     </prerequisites>
+    <distributionManagement>
+        <repository>
+            <id>andromda-repository</id>
+            <name>AndroMDA Repository</name>
+            <url>scp://galaxy.andromda.org/var/www/andromda/maven2</url>
+        </repository>
+    </distributionManagement>
 </project>
