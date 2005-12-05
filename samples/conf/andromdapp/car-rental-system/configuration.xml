@@ -14,6 +14,5 @@
         <property name="webType">struts</property>
         <property name="webservice">no</property>
         <property name="model">jar:file:${project.build.sourceDirectory}/CarRentalSystem.xml.zip!/CarRentalSystem.xml</property>
-        <property name="configurationUri">${project.basedir}/conf/andromda.xml</property>
     </properties>
 </andromdapp>
