@@ -348,9 +348,13 @@ public class EclipseMojo
 
         for (int ctr = 0; ctr < scanner.getIncludedFiles().length; ctr++)
         {
-            poms.add(new File(
-                    this.getRootProject().getBasedir(),
-                    scanner.getIncludedFiles()[ctr]));
+            final File file = new File(
+                this.getRootProject().getBasedir(),
+                scanner.getIncludedFiles()[ctr]);
+            if (file.exists())
+            {
+                poms.add(file);
+            }
         }
 
         return poms;

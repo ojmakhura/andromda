@@ -137,7 +137,7 @@
         <attainGoal name="execute-script"/>
     </goal>
 
-    <j:set var="generatedSourceDir" value="${maven.build.dir}"/>
+    <j:set var="generatedSourceDir" value="${maven.build.src}"/>
     <ant:available
         file="${maven.build.src}"
         type="dir"
@@ -180,6 +180,9 @@
                 </j:choose>
             </j:if>
         </j:if>
+
+            <property name="path" refid="maven.compile.src.set"/>
+            <echo>path==============${path}</echo>
     </preGoal>
 
     <!-- ============================================================

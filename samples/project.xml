@@ -10,7 +10,7 @@
         <url>http://cvs.sourceforge.net/viewcvs.py/andromda/samples/${pom.artifactId}/</url>
     </repository>
     <build>
-        <sourceDirectory>src/java</sourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
 
         <!-- Unit test classes -->
@@ -21,7 +21,7 @@
         </unitTest>
         <resources>
             <resource>
-                <directory>src/java</directory>
+                <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.xml</include>
                     <include>**/*.properties</include>

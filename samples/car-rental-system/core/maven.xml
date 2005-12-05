@@ -25,7 +25,7 @@
             <ant:arg value="--delimiter=;"/>
             <ant:arg value="--format"/>
             <ant:arg line="${hibernate.mappings}"/>
-            <ant:jvmarg value="-Dhibernate.dialect=${hibernate.db.dialect}"/>
+            <ant:jvmarg value="-Dhibernate.dialect=${hibernate.dialect}"/>
             <ant:classpath refid="schema.classpath" />
         </ant:java>
 
@@ -43,7 +43,7 @@
             <ant:arg value="--delimiter=;"/>
             <ant:arg value="--format"/>
             <ant:arg line="${hibernate.mappings}"/>
-            <ant:jvmarg value="-Dhibernate.dialect=${hibernate.db.dialect}"/>
+            <ant:jvmarg value="-Dhibernate.dialect=${hibernate.dialect}"/>
             <ant:classpath refid="schema.classpath" />
         </ant:java>
 

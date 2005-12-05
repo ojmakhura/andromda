@@ -313,6 +313,8 @@ public class SpringServiceLogicImpl
     protected String handleGetRemoteUrl()
     {
         String result = "";
+        
+        String propertyPrefix = ObjectUtils.toString(this.getConfiguredProperty("configPropertyPrefix"));
 
         if (this.isRemotingTypeNone())
         {
@@ -321,18 +323,18 @@ public class SpringServiceLogicImpl
         else if (this.isRemotingTypeHttpInvoker() || this.isRemotingTypeHessian() || this.isRemotingTypeBurlap())
         {
             // server
-            result = "http://${remoteServer}";
+            result = "http://${" + propertyPrefix + "remoteServer}";
 
             // port
             if (hasServiceRemotePort())
             {
-                result += ":${remotePort}";
+                result += ":${" + propertyPrefix + "remotePort}";
             }
 
             // context
             if (hasServiceRemoteContext())
             {
-                result += "/${remoteContext}";
+                result += "/${" + propertyPrefix + "remoteContext}";
             }
 
             // service name
@@ -341,12 +343,12 @@ public class SpringServiceLogicImpl
         else if (this.isRemotingTypeRmi())
         {
             // server
-            result = "rmi://${remoteServer}";
+            result = "rmi://${" + propertyPrefix + "remoteServer}";
 
             // port
             if (hasServiceRemotePort())
             {
-                result += ":${remotePort}";
+                result += ":${" + propertyPrefix + "remotePort}";
             }
 
             // service name
@@ -598,5 +600,16 @@ public class SpringServiceLogicImpl
             }
         }
         return call;        
+    }
+
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#isRichClient()
+     */
+    protected boolean handleIsRichClient() 
+    {
+        String richClient =
+            StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty("richClient")));
+
+        return richClient.equalsIgnoreCase("true");
     }
 }

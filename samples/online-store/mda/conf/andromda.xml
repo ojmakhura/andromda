@@ -25,7 +25,7 @@
         </namespace>
         <namespace name="java">
             <properties>
-                <property name="value-objects">${maven.andromda.bpm4struts.generated.dir}</property>
+                <property name="value-objects">${maven.andromda.web.generated.dir}</property>
             </properties>
         </namespace>
         <namespace name="bpm4struts">
@@ -39,14 +39,14 @@
                 <property name="welcomeFileName">index.jsp</property>
                 <property name="clientValidation">true</property>
                 <property name="serverValidation">true</property>
-                <property name="server">${maven.andromda.bpm4struts.generated.dir}</property>
-                <property name="forms">${maven.andromda.bpm4struts.generated.dir}</property>
-                <property name="pages">${maven.andromda.bpm4struts.generated.dir}</property>
-                <property name="actions">${maven.andromda.bpm4struts.generated.dir}</property>
-                <property name="controllers">${maven.andromda.bpm4struts.generated.dir}</property>
-                <property name="controller-impls">${maven.andromda.bpm4struts.generated.dir}</property>
-                <property name="messages">${maven.andromda.bpm4struts.generated.dir}/WEB-INF/classes</property>
-                <property name="configuration">${maven.andromda.bpm4struts.generated.dir}/WEB-INF</property>
+                <property name="server">${maven.andromda.web.generated.dir}</property>
+                <property name="forms">${maven.andromda.web.generated.dir}</property>
+                <property name="pages">${maven.andromda.web.generated.dir}</property>
+                <property name="actions">${maven.andromda.web.generated.dir}</property>
+                <property name="controllers">${maven.andromda.web.generated.dir}</property>
+                <property name="controller-impls">${maven.andromda.web.generated.dir}</property>
+                <property name="messages">${maven.andromda.web.generated.dir}/WEB-INF/classes</property>
+                <property name="configuration">${maven.andromda.web.generated.dir}/WEB-INF</property>
             </properties>
         </namespace>
     </namespaces>

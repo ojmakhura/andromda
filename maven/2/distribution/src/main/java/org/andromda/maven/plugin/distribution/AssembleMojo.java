@@ -335,6 +335,6 @@ public class AssembleMojo
      */
     private File getBinaryDistributionDirectory()
     {
-        return new File(this.workDirectory + '/' + this.binaryName + '-' + this.project.getVersion());
+        return new File(this.workDirectory + '/' + this.binaryName);
     }
 }

@@ -159,4 +159,27 @@ public class SpringUtils
         }
         return propertyValue;
     }
+    
+    /**
+     * Are we generating code for a rich client?
+     */
+    private boolean richClient = false;
+
+    
+    /**
+     * Sets if code is being generated for a rich client.
+     */
+    public void setRichClient(final boolean richClientProperty)
+    {
+        this.richClient = richClientProperty;
+    }
+    
+    /**
+     * Returns TRUE if code is being generated for a rich client environment 
+     */
+    public boolean isRichClient()
+    {
+        return this.richClient;
+    }
+    
 }
