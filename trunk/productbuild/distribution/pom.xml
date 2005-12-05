@@ -27,7 +27,12 @@
         </dependency>
         <dependency>
             <groupId>org.andromda</groupId>
-            <artifactId>andromda-andromdapp</artifactId>
+            <artifactId>andromda-andromdapp-core</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.andromdapp.projects</groupId>
+            <artifactId>andromda-andromdapp-project-j2ee-maven2</artifactId>
             <version>${version}</version>
         </dependency>
         <dependency>
