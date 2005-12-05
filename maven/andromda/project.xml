@@ -72,6 +72,21 @@
             <artifactId>andromda-maven-core</artifactId>
             <version>${pom.currentVersion}</version>
         </dependency>
+        <dependency>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-repository-emf</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-repository-emf-uml2</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda${bootstrap}</groupId>
+            <artifactId>andromda-metafacades-emf-uml2</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
         ${bootstrapMetaCartridge}
         <dependency>
             <groupId>maven</groupId>
@@ -154,21 +169,6 @@
             <version>20050711</version>
         </dependency>
         <!-- EMF dependencies -->
-        <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-repository-emf</artifactId>
-            <version>${pom.currentVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-repository-emf-uml2</artifactId>
-            <version>${pom.currentVersion}</version>
-        </dependency>
-        <dependency>
-            <groupId>andromda</groupId>
-            <artifactId>andromda-metafacades-emf-uml2</artifactId>
-            <version>${pom.currentVersion}</version>
-        </dependency>
 		<dependency>
 			<groupId>emf</groupId>
 			<artifactId>emf-common</artifactId>
