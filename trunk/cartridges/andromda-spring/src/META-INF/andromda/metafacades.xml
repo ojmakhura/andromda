@@ -21,6 +21,8 @@
     <property reference="ejbServiceOperationTransactionType"/>
     <property reference="serviceHibernateInterceptorEnabled"/>
     <property reference="ejbViewType"/>
+    <property reference="richClient"/>    
+    <property reference="configPropertyPrefix"/>    
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
         <mapping>
             <stereotype>FINDER_METHOD</stereotype>

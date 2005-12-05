@@ -1,0 +1,19 @@
+<andromdapp overwrite="true">
+    <properties>
+        <property name="author">AndroMDA Team</property>
+        <property name="applicationParentDirectory">$${project.basedir}</property>
+        <property name="applicationId">online-store</property>
+        <property name="applicationName">AndroMDA Online Store Sample</property>
+        <property name="applicationVersion">1.0</property>
+        <property name="applicationPackage">org.andromda.samples.onlinestore</property>
+        <property name="applicationType">ear</property>
+        <property name="transactionPersistenceType">none</property>
+        <property name="workflow">no</property>
+        <property name="hibernateVersion">3</property>
+        <property name="web">yes</property>
+        <property name="webType">struts</property>
+        <property name="webservice">no</property>
+        <property name="model">jar:file:${project.build.sourceDirectory}/online-store.xml.zip!/online-store.xml</property>
+        <property name="configurationUri">${project.basedir}/conf/andromda.xml</property>
+    </properties>
+</andromdapp>

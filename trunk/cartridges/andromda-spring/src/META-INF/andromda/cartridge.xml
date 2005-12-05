@@ -6,7 +6,9 @@
     </templateEngine>
 
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
-    <templateObject name="springUtils" className="org.andromda.cartridges.spring.SpringUtils"/>
+    <templateObject name="springUtils" className="org.andromda.cartridges.spring.SpringUtils">
+        <property reference="richClient"/>
+    </templateObject>
     <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
     <templateObject name="hibernateUtils" className="org.andromda.cartridges.spring.SpringHibernateUtils">
         <property reference="hibernateVersion"/>
@@ -96,6 +98,15 @@
     <property reference="acegiRolePrefix"/>
     <property reference="acegiAuthenticationManager"/>
     <property reference="acegiRunAsManager"/>
+    <property reference="richClient"/>
+    <property reference="configPropertyPrefix"/>
+    <property reference="client"/>
+    <property reference="client-config"/>
+    <property reference="client-test"/>
+    <property reference="server"/>
+    <property reference="server-impl"/>
+    <property reference="server-test"/>
+    <property reference="server-test-config"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->
@@ -109,7 +120,9 @@
         outputOnEmptyElements="false">
         <modelElements>
             <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                  <property name="richClient">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -125,6 +138,40 @@
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
                     <property name="remotable"/>
+                    <property name="richClient">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/SpringClientServiceLocator.vsl"
+        outputPattern="$generatedFile"
+        outlet="client"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="remotable"/>
+                    <property name="richClient">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/richClient/SpringClientTest.vsl"
+        outputPattern="$generatedFile"
+        outlet="client-test"
+        overwrite="false"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="service">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="remotable"/>
+                    <property name="richClient">true</property>
                 </type>
             </modelElement>
         </modelElements>
@@ -183,6 +230,22 @@
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
                     <property name="configonly">false</property>
+                    <property name="richClient">false</property>                    
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/SpringServiceBase.vsl"
+        outputPattern="$generatedFile"
+        outlet="server"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                    <property name="richClient">true</property>                    
                 </type>
             </modelElement>
         </modelElements>
@@ -193,7 +256,33 @@
         outputPattern="$generatedFile"
         outlet="services"
         overwrite="true"
-        outputToSingleFile="true"/>
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="richClient">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/SpringPrincipalStore.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="server"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="richClient">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
 
     <template
         path="templates/spring/SpringServiceImpl.vsl"
@@ -204,6 +293,22 @@
             <modelElement>
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
                     <property name="configonly">false</property>
+                    <property name="richClient">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/SpringServiceImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="server-impl"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                    <property name="richClient">true</property>
                 </type>
             </modelElement>
         </modelElements>
@@ -366,10 +471,35 @@
         outputOnEmptyElements="false">
         <modelElements>
             <modelElement variable="entities">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                    <property name="richClient">false</property>
+                </type>
             </modelElement>
             <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="richClient">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/applicationContext-localDataSource.xml.vsl"
+        outputPattern="$applicationContextLocalDataSource"
+        outlet="server-test-config"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="entities">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                    <property name="richClient">true</property>
+                </type>
+            </modelElement>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="richClient">true</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -401,6 +531,58 @@
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
                     <property name="remotable"/>
+                    <property name="richClient">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/richClient/applicationContext-client.xml.vsl"
+        outputPattern="$applicationContextClient"
+        outlet="client-config"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="remotable"/>
+                    <property name="richClient">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/richClient/applicationContext-client.properties.vsl"
+        outputPattern="$generatedFile"
+        outlet="client-config"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="remotable"/>
+                    <property name="richClient">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/richClient/web.xml.vsl"
+        outputPattern="web.xml"
+        outlet="spring-configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="remotable"/>
+                    <property name="richClient">true</property>
                 </type>
             </modelElement>
         </modelElements>
@@ -471,13 +653,45 @@
         outputOnEmptyElements="false">
         <modelElements>
             <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="richClient">false</property>
+                </type>
             </modelElement>
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                    <property name="richClient">false</property>
+                </type>
             </modelElement>
             <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity">
+                    <property name="richClient">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/richClient/serverTestBeanRefFactory.xml.vsl"
+        outputPattern="$beanRefFactory"
+        outlet="server-test-config"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="richClient">true</property>
+                </type>
+            </modelElement>
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
+                    <property name="richClient">true</property>
+                </type>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity">
+                    <property name="richClient">true</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>

@@ -17,37 +17,35 @@ import org.apache.maven.plugin.MojoFailureException;
  * @requiresProject false
  */
 public class AndroMDAppMojo
-    extends AbstractMojo
+    extends AbstractAndroMDAppMojo
 {
     /**
      * An AndroMDApp configuration that contains some internal configuration information (like the AndroMDA
      * version, etc).
      */
     private static final String INTERNAL_CONFIGURATION_URI = "META-INF/andromdapp/configuration.xml";
-    
-    /**
-     * The URI to the optional AndroMDApp configuration file.
-     *
-     * @parameter expression="${configuration.uri}"
-     */
-    private String configurationUri;
-    
+
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute()
-        throws MojoExecutionException, MojoFailureException
+        throws MojoExecutionException
     {
         try
         {
             AndroMDApp andromdapp = new AndroMDApp();
-            final URL configuration = ResourceUtils.getResource(INTERNAL_CONFIGURATION_URI);
-            if (configuration == null)
+            final URL internalConfiguration = ResourceUtils.getResource(INTERNAL_CONFIGURATION_URI);
+            if (internalConfiguration == null)
             {
-                throw new MojoExecutionException("No configuration could be loaded from --> '" + INTERNAL_CONFIGURATION_URI + "'");
+                throw new MojoExecutionException("No configuration could be loaded from --> '" +
+                    INTERNAL_CONFIGURATION_URI + "'");
             }
-            andromdapp.addConfigurationUri(configuration.toString());
-            andromdapp.addConfigurationUri(this.configurationUri);
+            andromdapp.addConfigurationUri(internalConfiguration.toString());
+            final String configuration = this.getConfigurationContents();
+            if (configuration != null)
+            {
+                andromdapp.addConfiguration(this.getConfigurationContents());
+            }
             andromdapp.run();
         }
         catch (final Throwable throwable)
@@ -59,5 +57,4 @@ public class AndroMDAppMojo
             throw new MojoExecutionException("An error occurred while attempting to generate an application", throwable);
         }
     }
-
 }

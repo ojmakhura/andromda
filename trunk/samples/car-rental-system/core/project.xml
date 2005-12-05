@@ -150,7 +150,7 @@
         </dependency>
     </dependencies>
     <build>
-        <sourceDirectory>src/java</sourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <resource>
                 <directory>${maven.build.src}</directory>

@@ -1,0 +1,16 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda.andromdapp</groupId>
+        <artifactId>andromda-andromdapp</artifactId>
+        <version>4.0-RC1-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-andromdapp-core</artifactId>
+    <packaging>jar</packaging>
+    <name>AndroMDA Application Generator Core</name>
+    <description>
+        Provides the generic application generation functionality for AndroMDA.
+        Project templates can be "plugged in".
+    </description>
+    <inceptionYear>2005</inceptionYear>
+</project>

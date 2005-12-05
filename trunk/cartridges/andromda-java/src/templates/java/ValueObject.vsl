@@ -18,6 +18,13 @@ public class $class.name
     implements java.io.Serializable
 #end
 {
+#if ($serializable == 'true')
+    /** 
+     * The serial version UID of this class. Needed for serialization. 
+     */
+    private static final long serialVersionUID = ${class.serialVersionUID}L;
+
+#end
 #if (!$class.properties.empty)
 
     public ${class.name}()

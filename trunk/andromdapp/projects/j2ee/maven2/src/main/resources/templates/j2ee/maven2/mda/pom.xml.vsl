@@ -1,0 +1,119 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>$applicationPackage</groupId>
+        <artifactId>$applicationId</artifactId>
+        <version>$applicationVersion</version>
+    </parent>
+    <artifactId>${applicationId}-mda</artifactId>
+    <packaging>jar</packaging>
+    <name>$applicationName MDA</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.andromda.profiles.uml14</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <type>xml.zip</type>
+        </dependency>
+#if ($ejb)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-ejb-cartridge</artifactId>
+        </dependency>
+#elseif ($spring)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-spring-cartridge</artifactId>
+        </dependency>
+#end
+#if ($hibernate || $spring)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-hibernate-cartridge</artifactId>
+        </dependency>
+#end
+#if ($workflow)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-jbpm-cartridge</artifactId>
+        </dependency>
+#end
+#if ($webservice)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-webservice-cartridge</artifactId>
+        </dependency>
+#end
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-java-cartridge</artifactId>
+        </dependency>
+#if ($struts)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-bpm4struts-cartridge</artifactId>
+        </dependency>
+#elseif ($jsf)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-jsf-cartridge</artifactId>
+        </dependency>
+#end
+#if ($spring)
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+        </dependency>
+#end
+#if (!$transactionPersistenceType.equals("none"))
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-query-library</artifactId>
+        </dependency>
+#end
+    </dependencies>
+    <build>
+        <sourceDirectory>src/main/uml</sourceDirectory>
+        <filters>
+            <filter>../project.properties</filter>
+            <filter>mda.properties</filter>
+        </filters>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+#if ($stringUtils.isNotBlank($configurationUri))
+                <configuration>
+                    <configurationUri>$configurationUri</configurationUri>
+                </configuration>
+#end
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>andromdapp-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>eclipse</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>app/pom.xml</exclude>
+                        <exclude>mda/pom.xml</exclude>
+                        <exclude>webservice/pom.xml</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -79,6 +79,48 @@
                     this is useful when using the cartridge's remoting support.
                 </documentation>
             </property>
+            <property name="client" required="false">
+                <documentation>
+                    The location where client side code is generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
+            <property name="client-config" required="false">
+                <documentation>
+                    The location where client side configuration files are generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
+            <property name="client-test" required="false">
+                <documentation>
+                    The location where client side test implementation code will be generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
+            <property name="server" required="false">
+                <documentation>
+                    The location where server side code is generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
+            <property name="server-impl" required="false">
+                <documentation>
+                    The location where server side implementation code will be generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
+            <property name="server-test" required="false">
+                <documentation>
+                    The location where server side test implementation code will be generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
+            <property name="server-test-config" required="false">
+                <documentation>
+                    The location where server side test configuration files will be generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="Other">
             <property name="webServiceOutgoingAttachmentHandlerCallPattern" required="false">
@@ -781,6 +823,23 @@
             <property name="acegiRunAsManager" required="false">
                 <documentation>
                     The bean name of the acegi run as manager (defined in a seperate applicationContext outside of the generated one).
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Rich Client">
+            <documentation>
+                Configures code generation when developing in a Rich Client environment.
+            </documentation>
+            <property name="richClient" required="false">
+                <default>false</default>
+                <documentation>
+                    Set to "true" if the cartridge is generating code for a rich client environment.
+                </documentation>
+            </property>
+            <property name="configPropertyPrefix" required="false">
+                <documentation>
+                    A prefix to use for properties stored in configuration files. A typical setting
+                    for this is the application ID plus the "." character.
                 </documentation>
             </property>
         </propertyGroup>

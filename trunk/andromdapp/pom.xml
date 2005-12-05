@@ -5,12 +5,12 @@
         <artifactId>andromda</artifactId>
         <version>4.0-M1-SNAPSHOT</version>
     </parent>
+    <groupId>org.andromda.andromdapp</groupId>
     <artifactId>andromda-andromdapp</artifactId>
-    <packaging>jar</packaging>
-    <name>AndroMDA Application Generator</name>
+    <packaging>pom</packaging>
+    <name>AndroMDA Application Generator Resources</name>
     <description>
-        Provides the generic application generation functionality for AndroMDA.
-        Project templates can be "plugged in".
+        The grouping of AndroMDApp resources.
     </description>
     <inceptionYear>2005</inceptionYear>
     <dependencies>
@@ -37,4 +37,8 @@
             </resource>
         </resources>
     </build>
+    <modules>
+        <module>core</module>
+        <module>projects</module>
+    </modules>
 </project>

@@ -18,8 +18,13 @@
     <inceptionYear>2005</inceptionYear>
     <dependencies>
         <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-andromdapp</artifactId>
+            <groupId>org.andromda.andromdapp</groupId>
+            <artifactId>andromda-andromdapp-core</artifactId>
+            <version>${version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.andromdapp.projects</groupId>
+            <artifactId>andromda-andromdapp-project-j2ee-maven2</artifactId>
             <version>${version}</version>
         </dependency>
         <dependency>
@@ -48,6 +53,12 @@
             <artifactId>maven-core</artifactId>
             <version>2.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
     <build>
         <resources>
@@ -67,13 +78,6 @@
                 </includes>          
                 <filtering>true</filtering>   
                 <targetPath>META-INF/andromdapp</targetPath> 
-            </resource>
-            <resource>
-                <directory>${basedir}/../../../etc/mda/uml</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-                <targetPath>META-INF/andromdapp/j2ee/resources/mda/src/main/uml</targetPath> 
             </resource>
             <resource>
                 <directory>src/main/java</directory>

@@ -501,4 +501,16 @@ public class SpringEntityLogicImpl
         }
         return buffer.toString();
     }
+    
+    /**
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isRichClient()
+     */
+    protected boolean handleIsRichClient() 
+    {
+        String richClient =
+            StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty("richClient")));
+
+        return richClient.equalsIgnoreCase("true");
+    }
+    
 }

@@ -106,7 +106,7 @@
         <attainGoal name="execute-script"/>
     </goal>
 
-    <j:set var="generatedSourceDir" value="${maven.build.dir}"/>
+    <j:set var="generatedSourceDir" value="${maven.build.src}"/>
     <ant:available
         file="${maven.build.src}"
         type="dir"

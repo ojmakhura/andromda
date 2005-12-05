@@ -1,0 +1,19 @@
+<andromdapp overwrite="true">
+    <properties>
+        <property name="author">AndroMDA Team</property>
+        <property name="applicationParentDirectory">$${project.basedir}</property>
+        <property name="applicationId">animal-quiz</property>
+        <property name="applicationName">AndroMDA Animal Quiz Sample</property>
+        <property name="applicationVersion">1.0</property>
+        <property name="applicationPackage">org.andromda.samples.animalquiz</property>
+        <property name="applicationType">ear</property>
+        <property name="transactionPersistenceType">spring</property>
+        <property name="workflow">no</property>
+        <property name="hibernateVersion">2</property>
+        <property name="web">yes</property>
+        <property name="webType">struts</property>
+        <property name="webservice">yes</property>
+        <property name="model">jar:file:${project.basedir}/src/main/uml/AnimalQuiz.xml.zip!/AnimalQuiz.xml</property>
+        <property name="configurationUri">${project.basedir}/conf/andromda.xml</property>
+    </properties>
+</andromdapp>
