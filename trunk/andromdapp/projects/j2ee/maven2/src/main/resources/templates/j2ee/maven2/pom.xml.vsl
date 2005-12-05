@@ -278,6 +278,34 @@
                 <version>1.2.5</version>
                 <scope>compile</scope>
             </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-support</artifactId>
+                <version>1.2.5</version>
+                <scope>compile</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.resource</groupId>
+                        <artifactId>connector</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>javax.mail</groupId>
+                        <artifactId>mail</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>ehcache</groupId>
+                        <artifactId>ehcache</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>quartz</groupId>
+                        <artifactId>quartz</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.servlets</groupId>
+                        <artifactId>cos</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 #end
 #if ($workflow)
             <dependency>
