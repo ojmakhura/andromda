@@ -293,10 +293,6 @@
                         <artifactId>mail</artifactId>
                     </exclusion>
                     <exclusion>
-                        <groupId>ehcache</groupId>
-                        <artifactId>ehcache</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>quartz</groupId>
                         <artifactId>quartz</artifactId>
                     </exclusion>
@@ -528,7 +524,9 @@
 #if (!$transactionPersistenceType.equals("none"))
         <module>core</module>
 #end
+#if ($web)
         <module>web</module>
+#end
 #if ($webservice && $ear)
         <module>webservice</module>
 #end
