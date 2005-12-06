@@ -4,7 +4,7 @@
   <artifactId>andromda-utils</artifactId>
   <name>AndroMDA Utils</name>
   <version>4.0-M1-SNAPSHOT</version>
-  <description>AndroMDA (pronounced: andromeda) is an open source code generation framework that follows the Model Driven Architecture  
+  <description>AndroMDA (pronounced: andromeda) is an open source code generation framework that follows the Model Driven Architecture
         (MDA) paradigm. It takes model(s) from CASE-tool(s) and generates fully deployable applications and other components.</description>
   <url>http://www.andromda.org/andromda-utils</url>
   <issueManagement>
@@ -56,6 +56,11 @@
   </repositories>
   <pluginRepositories>
     <pluginRepository>
+      <id>andromda</id>
+      <name>AndroMDA Repository</name>
+      <url>http://team.andromda.org/maven2</url>
+    </pluginRepository>
+    <pluginRepository>
       <releases>
         <updatePolicy>never</updatePolicy>
       </releases>
@@ -70,4 +75,11 @@
   <reporting>
     <outputDirectory>target/site</outputDirectory>
   </reporting>
+  <distributionManagement>
+    <repository>
+      <id>andromda-repository</id>
+      <name>AndroMDA Repository</name>
+      <url>scp://galaxy.andromda.org/var/www/andromda/maven2</url>
+    </repository>
+  </distributionManagement>
 </project>

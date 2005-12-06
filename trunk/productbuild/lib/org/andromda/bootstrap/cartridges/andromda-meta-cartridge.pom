@@ -56,6 +56,11 @@
   </repositories>
   <pluginRepositories>
     <pluginRepository>
+      <id>andromda</id>
+      <name>AndroMDA Repository</name>
+      <url>http://team.andromda.org/maven2</url>
+    </pluginRepository>
+    <pluginRepository>
       <releases>
         <updatePolicy>never</updatePolicy>
       </releases>
@@ -70,4 +75,11 @@
   <reporting>
     <outputDirectory>target/site</outputDirectory>
   </reporting>
+  <distributionManagement>
+    <repository>
+      <id>andromda-repository</id>
+      <name>AndroMDA Repository</name>
+      <url>scp://galaxy.andromda.org/var/www/andromda/maven2</url>
+    </repository>
+  </distributionManagement>
 </project>
