@@ -524,7 +524,7 @@
 #if (!$transactionPersistenceType.equals("none"))
         <module>core</module>
 #end
-#if ($web)
+#if ($web || $war)
         <module>web</module>
 #end
 #if ($webservice && $ear)
