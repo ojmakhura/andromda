@@ -4,9 +4,7 @@ import java.net.URL;
 
 import org.andromda.andromdapp.AndroMDApp;
 import org.andromda.core.common.ResourceUtils;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 
 
 /**
