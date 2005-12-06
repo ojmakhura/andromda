@@ -33,13 +33,18 @@ public class GenericAndroidDetailsPage
         implements IDetailsPage
 {
 
+    private Section cartridgeNameCartridgeSection;
     private FormToolkit toolkit;
 
     private Composite propertiesComposite;
 
     private Property[] properties;
 
+    /** The namespace being edited. */
     private Namespace namespace;
+    
+    /** The property group being edited. */
+    private PropertyGroup propertyGroup;
 
     public void createContents(Composite parent)
     {
@@ -49,8 +54,8 @@ public class GenericAndroidDetailsPage
         gridLayout.marginHeight = 0;
         parent.setLayout(gridLayout);
 
-        final Section cartridgeNameCartridgeSection = toolkit.createSection(parent, ExpandableComposite.EXPANDED
-                | ExpandableComposite.TITLE_BAR);
+        cartridgeNameCartridgeSection = toolkit.createSection(parent, Section.DESCRIPTION | Section.EXPANDED | Section.TITLE_BAR);
+        cartridgeNameCartridgeSection.setDescription("Edit the namespace settings to configure the cartridges.");
         final GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
         gridData.heightHint = 541;
         gridData.widthHint = 564;
@@ -76,9 +81,14 @@ public class GenericAndroidDetailsPage
             Control control = children[i];
             control.dispose();
         }
-
+        
         if (properties != null)
         {
+            
+            String namespaceName = namespace.getName();
+            String propertyGroupName = propertyGroup.getName();
+            cartridgeNameCartridgeSection.setText(namespaceName + "/" + propertyGroupName + " properties");
+
             for (int i = 0; i < properties.length; i++)
             {
                 Property property = properties[i];
@@ -170,7 +180,7 @@ public class GenericAndroidDetailsPage
         if (element instanceof NamespacePropertyContainer)
         {
             NamespacePropertyContainer namespacePropertyContainer = (NamespacePropertyContainer)element;
-            PropertyGroup propertyGroup = namespacePropertyContainer.getPropertyGroup();
+            propertyGroup = namespacePropertyContainer.getPropertyGroup();
             properties = propertyGroup.getPropertyArray();
             namespace = namespacePropertyContainer.getNamespace();
         }
