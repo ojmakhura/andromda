@@ -1,11 +1,15 @@
 package org.andromda.android.ui.internal.configuration.editor;
 
 import org.andromda.android.core.AndroidCore;
+import org.andromda.android.core.internal.AndroidModel;
+import org.andromda.android.core.internal.AndroidModelManager;
+import org.andromda.android.core.project.IAndroidProject;
 import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.NamespaceDocument.Namespace;
 import org.andromda.core.configuration.NamespacesDocument.Namespaces;
 import org.andromda.core.namespace.PropertyGroupDocument.PropertyGroup;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -100,7 +104,8 @@ public class CartridgeConfigurationMasterDetailsBlock
             if (parentElement instanceof Namespace)
             {
                 Namespace namespace = (Namespace)parentElement;
-                PropertyGroup[] cartridgePropertyGroups = AndroidCore.getCartridgePropertyGroups(namespace);
+                IAndroidProject androidProject = getAndroidProject();
+                PropertyGroup[] cartridgePropertyGroups = AndroidCore.getCartridgePropertyGroups(namespace, androidProject);
                 if (cartridgePropertyGroups != null)
                 {
                     NamespacePropertyContainer[] namespacePropertyContainers = new NamespacePropertyContainer[cartridgePropertyGroups.length];
@@ -212,6 +217,13 @@ public class CartridgeConfigurationMasterDetailsBlock
     {
         ConfigurationEditor editor = (ConfigurationEditor)this.parentPage.getEditor();
         return editor.getDocument();
+    }
+
+    private IAndroidProject getAndroidProject()
+    {
+        ConfigurationEditor editor = (ConfigurationEditor)this.parentPage.getEditor();
+        IResource adapter = (IResource)editor.getEditorInput().getAdapter(IResource.class);
+        return AndroidModelManager.getInstance().getAndroidModel().getAndroidProject(adapter);
     }
 
     protected void registerPages(DetailsPart detailsPart)
