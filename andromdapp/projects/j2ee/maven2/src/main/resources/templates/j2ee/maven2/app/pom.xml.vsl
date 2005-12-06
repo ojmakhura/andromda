@@ -56,12 +56,14 @@
             <type>ejb</type>          
         </dependency>
 #end
+#if ($web)
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>${applicationId}-web</artifactId>
             <version>${version}</version>            
             <type>war</type>
         </dependency>
+#end
 #if ($webservice)
         <dependency>
             <groupId>${pom.groupId}</groupId>
@@ -100,11 +102,13 @@
                             <artifactId>${applicationId}-core</artifactId>
                         </ejbModule>
 #end
+#if ($web)
                         <webModule>
                             <groupId>${pom.groupId}</groupId>
                             <artifactId>${applicationId}-web</artifactId>
                             <contextRoot>/${applicationId}</contextRoot>
                         </webModule>
+#end
 #if ($webservice)
                         <webModule>
                             <groupId>${pom.groupId}</groupId>
