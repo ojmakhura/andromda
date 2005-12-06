@@ -16,8 +16,9 @@
             <condition id="ear" equal="true"/>         
             <output patterns="**/*">webservice/</output>  
         </conditions>
-        <conditions>
-            <condition id="web" equal="true"/>       
+        <conditions type="or">
+            <condition id="web" equal="true"/> 
+            <condition id="war" equal="true"/>      
             <output patterns="**/*">web/</output>  
         </conditions>
         <conditions>
