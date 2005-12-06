@@ -4,6 +4,10 @@
     </resourceLocations>
     <conditionalOutput>
         <conditions>
+            <condition id="ear" equal="true"/>           
+            <output patterns="**/*">app/</output>  
+        </conditions>
+        <conditions>
             <condition id="workflow" equal="true"/>           
             <output patterns="**/*">workflow/</output>  
         </conditions>

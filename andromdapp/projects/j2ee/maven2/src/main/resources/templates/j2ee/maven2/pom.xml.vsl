@@ -533,7 +533,9 @@
 #if ($workflow)
         <module>workflow</module>
 #end
+#if ($ear)
         <module>app</module>
+#end
     </modules>
     <repositories>
         <repository>
