@@ -129,9 +129,9 @@ public class AndroidCore
         return AndroidSettingsAccess.instance();
     }
 
-    public static PropertyGroup[] getCartridgePropertyGroups(Namespace configurationNamespace)
+    public static PropertyGroup[] getCartridgePropertyGroups(Namespace configurationNamespace, IAndroidProject project) 
     {
-        return AndroidModelManager.getInstance().getAndroidModel().getCartridgePropertyGroups(configurationNamespace);
+        return AndroidModelManager.getInstance().getAndroidModel().getCartridgePropertyGroups(configurationNamespace, project);
     }
 
 }

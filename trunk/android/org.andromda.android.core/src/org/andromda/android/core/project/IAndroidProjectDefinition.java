@@ -18,4 +18,6 @@ public interface IAndroidProjectDefinition
      */
     void setConfigurationLocation(String configurationLocation);
 
+    String getAndroMDACartridgesLocation();
+
 }

@@ -1,9 +1,6 @@
 package org.andromda.android.core.project;
 
-import java.io.IOException;
-
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 
 /**
  * An Android project represents a view of a project in terms of AndroMDA elements such as the AndroMDA configuration,
@@ -22,6 +19,6 @@ public interface IAndroidProject
      */
     IProject getProject();
 
-    IAndroidProjectDefinition getProjectDefinition() throws IOException, CoreException;
+    IAndroidProjectDefinition getProjectDefinition();
 
 }

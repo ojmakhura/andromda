@@ -1,5 +1,6 @@
 package org.andromda.android.core.internal;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,10 @@ import org.andromda.core.namespace.NamespaceDocument;
 import org.andromda.core.namespace.PropertiesDocument.Properties;
 import org.andromda.core.namespace.PropertyGroupDocument.PropertyGroup;
 import org.apache.commons.lang.ArrayUtils;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -63,14 +67,40 @@ public class AndroidModel
     }
 
     /**
+     * Returns the active Java project associated with the specified resource, or <code>null</code> if no Java project
+     * yet exists for the resource.
+     * 
+     * @exception IllegalArgumentException if the given resource is not one of an IProject, IFolder, or IFile.
+     */
+    public IAndroidProject getAndroidProject(IResource resource)
+    {
+        switch (resource.getType())
+        {
+            case IResource.FOLDER:
+                return new AndroidProject(((IFolder)resource).getProject());
+            case IResource.FILE:
+                return new AndroidProject(((IFile)resource).getProject());
+            case IResource.PROJECT:
+                return new AndroidProject((IProject)resource);
+            default:
+                throw new IllegalArgumentException("Illegal argument.");
+        }
+    }
+
+    /**
      * @param configurationNamespace
      * @return
+     * @throws CoreException
+     * @throws IOException
      */
-    public PropertyGroup[] getCartridgePropertyGroups(Namespace configurationNamespace)
+    public PropertyGroup[] getCartridgePropertyGroups(Namespace configurationNamespace,
+        IAndroidProject project)
     {
+        String androMDACartridgesLocation = project.getProjectDefinition().getAndroMDACartridgesLocation();
+
         String name = configurationNamespace.getName();
-        Cartridge cartridge = new Cartridge("file:/D:/Einstellungen/U402101/.maven/repository/andromda/jars/andromda-"
-                + name + "-cartridge-3.2-RC1-SNAPSHOT.jar");
+        Cartridge cartridge = new Cartridge("file:/" + androMDACartridgesLocation + "/andromda-" + name
+                + "-cartridge-3.2-RC1-SNAPSHOT.jar");
         PropertyGroup[] result = null;
         NamespaceDocument cartridgeNamespaceDescriptor;
         try

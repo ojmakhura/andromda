@@ -45,4 +45,12 @@ public class AndroidProjectDefinition
         AndroidSettingsAccess.instance().setConfigurationsLocation(project, configurationLocation);
     }
 
+    /**
+     * @see org.andromda.android.core.project.IAndroidProjectDefinition#getAndroMDACartridgesLocation()
+     */
+    public String getAndroMDACartridgesLocation()
+    {
+        return AndroidSettingsAccess.instance().getAndroMDACartridgesLocation();
+    }
+
 }

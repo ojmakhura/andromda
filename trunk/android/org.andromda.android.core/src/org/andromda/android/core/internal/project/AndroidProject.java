@@ -1,7 +1,5 @@
 package org.andromda.android.core.internal.project;
 
-import java.io.IOException;
-
 import org.andromda.android.core.project.AndroidNature;
 import org.andromda.android.core.project.IAndroidProject;
 import org.andromda.android.core.project.IAndroidProjectDefinition;
@@ -50,20 +48,7 @@ public class AndroidProject
         boolean force)
     {
         this(project);
-        try
-        {
-            getProjectDefinition();
-        }
-        catch (IOException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (CoreException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        getProjectDefinition();
     }
 
     /**
@@ -74,7 +59,7 @@ public class AndroidProject
         return project;
     }
 
-    public IAndroidProjectDefinition getProjectDefinition() throws IOException, CoreException
+    public IAndroidProjectDefinition getProjectDefinition()
     {
         return new AndroidProjectDefinition(getProject());
     }
