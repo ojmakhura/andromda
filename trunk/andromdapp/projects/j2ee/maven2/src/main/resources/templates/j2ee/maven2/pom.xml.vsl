@@ -182,7 +182,9 @@
                 <groupId>jboss</groupId>
                 <artifactId>jboss-j2ee</artifactId>
                 <version>3.2.3</version>
+#if ($ear)
                 <scope>provided</scope>
+#end
             </dependency>
 #if (!$ejb)
             <dependency>
