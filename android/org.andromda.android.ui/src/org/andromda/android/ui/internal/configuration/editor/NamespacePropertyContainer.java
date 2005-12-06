@@ -4,7 +4,7 @@ import org.andromda.core.configuration.NamespaceDocument.Namespace;
 import org.andromda.core.namespace.PropertyGroupDocument.PropertyGroup;
 
 /**
- *
+ * 
  * @author Peter Friese
  * @since 22.11.2005
  */

@@ -6,7 +6,7 @@ import org.eclipse.core.runtime.CoreException;
 
 /**
  * Project nature for Android projects.
- *
+ * 
  * @author Peter Friese
  * @since 09.10.2005
  */

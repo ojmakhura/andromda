@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.andromda.android.ui.internal.preferences;
+package org.andromda.android.ui.internal.settings.preferences;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 /**
- *
+ * 
  * @author Peter Friese
  * @since 30.09.2005
  */
@@ -22,7 +22,9 @@ public class AndroidProjectLayoutComposite
 {
 
     private Button browseButton;
+
     private Label configurationLabel;
+
     private Text configurationText;
 
     public AndroidProjectLayoutComposite(Composite parent,
@@ -51,7 +53,7 @@ public class AndroidProjectLayoutComposite
 
         //
     }
-    
+
     /**
      * @return a reference to the text field containg the configuration path.
      */

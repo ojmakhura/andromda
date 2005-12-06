@@ -1,5 +1,7 @@
-package org.andromda.android.ui.internal.preferences;
+package org.andromda.android.ui.internal.settings.preferences;
 
+import org.andromda.android.core.AndroidCore;
+import org.andromda.android.core.settings.IAndroidSettings;
 import org.andromda.android.ui.AndroidUIPlugin;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
@@ -51,8 +53,9 @@ public class AndroMDALocationsPreferencePage
      */
     private void setupData()
     {
-        String cartridgesLocation = getPreferenceStore().getString(IPreferenceConstants.LOCATION_CARTRIDGES);
-        String profilesLocation = getPreferenceStore().getString(IPreferenceConstants.LOCATION_PROFILES);
+        IAndroidSettings androidSettings = AndroidCore.getAndroidSettings();
+        String cartridgesLocation = androidSettings.getAndroMDACartridgesLocation();
+        String profilesLocation = androidSettings.getAndroMDAProfilesLocation();
 
         androMDALocationsComposite.getProfilesText().setText(profilesLocation);
         androMDALocationsComposite.getCartridgesText().setText(cartridgesLocation);
@@ -63,10 +66,9 @@ public class AndroMDALocationsPreferencePage
      */
     public boolean performOk()
     {
-        getPreferenceStore().setValue(IPreferenceConstants.LOCATION_CARTRIDGES,
-                androMDALocationsComposite.getCartridgesText().getText());
-        getPreferenceStore().setValue(IPreferenceConstants.LOCATION_PROFILES,
-                androMDALocationsComposite.getProfilesText().getText());
+        IAndroidSettings androidSettings = AndroidCore.getAndroidSettings();
+        androidSettings.setAndroMDACartridgesLocation(androMDALocationsComposite.getCartridgesText().getText());
+        androidSettings.setAndroMDAProfilesLocation(androMDALocationsComposite.getProfilesText().getText());
 
         return super.performOk();
     }

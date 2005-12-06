@@ -19,7 +19,7 @@ public class ProjectMetaInformationWizardPage
 
     /**
      * This modifiy listener invokes a page validation after each modification.
-     *
+     * 
      * @author Peter Friese
      * @since 01.06.2005
      */
@@ -31,6 +31,7 @@ public class ProjectMetaInformationWizardPage
             setPageComplete(validatePage());
         }
     }
+
     private ValidatingTextModifyListener validatingTextModifyListener = new ValidatingTextModifyListener();
 
     private Text inceptionYearText;
@@ -183,7 +184,7 @@ public class ProjectMetaInformationWizardPage
     }
 
     /**
-     *
+     * 
      */
     public void updateData()
     {
@@ -194,9 +195,8 @@ public class ProjectMetaInformationWizardPage
 
     /**
      * Checks whether the page is valid or not.
-     *
-     * @return <code>true</code> if all fields have been filled,
-     *         <code>false</code> otherwise.
+     * 
+     * @return <code>true</code> if all fields have been filled, <code>false</code> otherwise.
      */
     public boolean validatePage()
     {

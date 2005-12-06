@@ -18,7 +18,7 @@ import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.part.FileEditorInput;
 
 /**
- *
+ * 
  * @author Peter Friese
  * @since 08.11.2005
  */
@@ -151,7 +151,7 @@ public class ConfigurationEditor
     /**
      * Setup an XmlOptions instance so the parser will assume the default namespace for the config document even if is
      * has no namespace set.
-     *
+     * 
      * @return an XmlOptions instance suitable for parsing AndroMDA configuration documents.
      */
     private XmlOptions setupDefaultNamespace()

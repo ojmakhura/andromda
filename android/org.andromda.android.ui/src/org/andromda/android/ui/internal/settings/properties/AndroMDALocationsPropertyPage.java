@@ -1,16 +1,6 @@
-/**
- *
- */
-package org.andromda.android.ui.internal.properties;
+package org.andromda.android.ui.internal.settings.properties;
 
-import java.io.IOException;
-
-import org.andromda.android.core.AndroidCore;
-import org.andromda.android.core.project.IAndroidProject;
-import org.andromda.android.core.project.IAndroidProjectDefinition;
-import org.andromda.android.ui.internal.preferences.AndroidProjectLayoutComposite;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
+import org.andromda.android.ui.internal.settings.preferences.AndroMDALocationsComposite;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -23,20 +13,20 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.dialogs.PreferencesUtil;
-import org.eclipse.ui.dialogs.PropertyPage;
 
 /**
- *
+ * This property page allows users to configure the locations for the AndroMDA binaries for an Android project.
+ * 
  * @author Peter Friese
- * @since 30.09.2005
+ * @since 28.11.2005
  */
-public class AndroidProjectLayoutPropertyPage
-        extends PropertyPage
+public class AndroMDALocationsPropertyPage
+        extends AbstractAndroidPropertyPage
 {
 
-    private static final String PREFERENCEPAGE_ID = "org.andromda.android.ui.internal.preferences.AndroidProjectLayoutPreferencePage";
+    private AndroMDALocationsComposite androMDALocationsComposite;
 
-    private AndroidProjectLayoutComposite projectPropertiesPage;
+    private static final String PREFERENCEPAGE_ID = "org.andromda.android.ui.internal.settings.preferences.AndroMDALocationsPreferencePage";
 
     public Control createContents(Composite parent)
     {
@@ -54,7 +44,7 @@ public class AndroidProjectLayoutPropertyPage
             public void widgetSelected(SelectionEvent e)
             {
                 boolean projectSpecificEnabled = enableProjectSpecificButton.getSelection();
-                projectPropertiesPage.setEnabled(projectSpecificEnabled);
+                androMDALocationsComposite.setEnabled(projectSpecificEnabled);
             }
         });
         enableProjectSpecificButton.setText("Enable project specific settings");
@@ -74,34 +64,21 @@ public class AndroidProjectLayoutPropertyPage
         final Label label = new Label(composite, SWT.SEPARATOR | SWT.HORIZONTAL);
         label.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false, 2, 1));
 
-        projectPropertiesPage = new AndroidProjectLayoutComposite(composite, SWT.NONE);
-        projectPropertiesPage.setEnabled(false);
-        projectPropertiesPage.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true, 2, 1));
+        androMDALocationsComposite = new AndroMDALocationsComposite(composite, SWT.NONE);
+        androMDALocationsComposite.setEnabled(false);
+        androMDALocationsComposite.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true, 2, 1));
         //
         setupData();
         return container;
     }
 
+    /**
+     * 
+     */
     private void setupData()
     {
-        IProject project = (IProject)getElement().getAdapter(IProject.class);
-        IAndroidProject androidProject = AndroidCore.create(project);
-        try
-        {
-            IAndroidProjectDefinition projectDefinition = androidProject.getProjectDefinition();
-            String configurationLocation = projectDefinition.getConfigurationLocation();
-            projectPropertiesPage.getConfigurationText().setText((configurationLocation));
-        }
-        catch (IOException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (CoreException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        // TODO Auto-generated method stub
+
     }
 
 }

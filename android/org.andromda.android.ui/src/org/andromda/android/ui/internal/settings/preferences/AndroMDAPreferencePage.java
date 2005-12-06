@@ -1,4 +1,4 @@
-package org.andromda.android.ui.internal.preferences;
+package org.andromda.android.ui.internal.settings.preferences;
 
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.widgets.Composite;

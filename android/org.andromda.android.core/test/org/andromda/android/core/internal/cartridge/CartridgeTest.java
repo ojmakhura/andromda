@@ -1,12 +1,12 @@
 package org.andromda.android.core.internal.cartridge;
 
+import junit.framework.TestCase;
+
 import org.andromda.core.namespace.NamespaceDocument;
 import org.andromda.core.namespace.NamespaceDocument.Namespace;
 import org.andromda.core.namespace.PropertiesDocument.Properties;
 import org.andromda.core.namespace.PropertyDocument.Property;
 import org.andromda.core.namespace.PropertyGroupDocument.PropertyGroup;
-
-import junit.framework.TestCase;
 
 /**
  * 

@@ -1,9 +1,10 @@
 /**
  *
  */
-package org.andromda.android.ui.internal.preferences;
+package org.andromda.android.ui.internal.settings.preferences;
 
-import org.andromda.android.ui.AndroidUIPlugin;
+import org.andromda.android.core.AndroidCore;
+import org.andromda.android.core.settings.IAndroidSettings;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -25,7 +26,7 @@ public class AndroidProjectLayoutPreferencePage
 
     /** The composite containing the input fields. */
     private AndroidProjectLayoutComposite projectPropertiesComposite;
-    
+
     public Control createContents(Composite parent)
     {
         Composite container = new Composite(parent, SWT.NULL);
@@ -42,25 +43,25 @@ public class AndroidProjectLayoutPreferencePage
      */
     public void init(IWorkbench workbench)
     {
-        setPreferenceStore(AndroidUIPlugin.getDefault().getPreferenceStore());
     }
-    
+
     /**
      * Initialize the GUI controls with data read from the preference store.
      */
     private void setupData()
     {
-        String andromdaxmlLocation = getPreferenceStore().getString(IPreferenceConstants.RELATIVE_LOCATION_ANDROMDA_XML);
-
-        projectPropertiesComposite.getConfigurationText().setText(andromdaxmlLocation);
+        IAndroidSettings androidSettings = AndroidCore.getAndroidSettings();
+        String configurationLocation = androidSettings.getConfigurationLocation();
+        projectPropertiesComposite.getConfigurationText().setText(configurationLocation);
     }
-    
+
     /**
      * @see org.eclipse.jface.preference.PreferencePage#performOk()
      */
     public boolean performOk()
     {
-        getPreferenceStore().setValue(IPreferenceConstants.RELATIVE_LOCATION_ANDROMDA_XML, projectPropertiesComposite.getConfigurationText().getText());
+        IAndroidSettings androidSettings = AndroidCore.getAndroidSettings();
+        androidSettings.setConfigurationsLocation(projectPropertiesComposite.getConfigurationText().getText());
         return super.performOk();
     }
 

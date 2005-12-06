@@ -40,8 +40,8 @@ public class ExceptionHandler
     public static void log(Throwable t,
         String message)
     {
-        AndroidUIPlugin.log(new Status(IStatus.ERROR, AndroidUIPlugin.getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, message,
-                t));
+        AndroidUIPlugin.log(new Status(IStatus.ERROR, AndroidUIPlugin.getPluginId(),
+                IAndroidStatusConstants.INTERNAL_ERROR, message, t));
     }
 
     /**

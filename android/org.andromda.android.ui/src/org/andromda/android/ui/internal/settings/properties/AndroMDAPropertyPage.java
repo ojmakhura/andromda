@@ -1,4 +1,4 @@
-package org.andromda.android.ui.internal.properties;
+package org.andromda.android.ui.internal.settings.properties;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -6,7 +6,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.dialogs.PropertyPage;
 
 /**
- *
+ * 
  * @author Peter Friese
  * @since 28.11.2005
  */

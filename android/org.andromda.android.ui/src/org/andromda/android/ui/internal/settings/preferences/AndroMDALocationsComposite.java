@@ -1,4 +1,4 @@
-package org.andromda.android.ui.internal.preferences;
+package org.andromda.android.ui.internal.settings.preferences;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -10,8 +10,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * This composite allows users to configure the location of the AndroMDA binary files. 
- * It is intented to be used on preference and property pages. 
+ * This composite allows users to configure the location of the AndroMDA binary files. It is intented to be used on
+ * preference and property pages.
  * 
  * @author Peter Friese
  * @since 27.11.2005
@@ -21,6 +21,7 @@ public class AndroMDALocationsComposite
 {
 
     private Button cartridgesBrowseButton;
+
     private Button profilesBrowseButton;
 
     private Label profilesLabel;
@@ -95,7 +96,7 @@ public class AndroMDALocationsComposite
         profilesText.setEnabled(enabled);
         profilesBrowseButton.setEnabled(enabled);
     }
-    
+
     /**
      * @return Returns the cartridgesText.
      */
@@ -103,7 +104,7 @@ public class AndroMDALocationsComposite
     {
         return cartridgesText;
     }
-    
+
     /**
      * @return Returns the profilesText.
      */

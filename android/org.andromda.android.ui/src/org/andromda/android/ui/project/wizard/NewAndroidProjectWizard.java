@@ -18,7 +18,7 @@ import org.eclipse.ui.IWorkbench;
 
 /**
  * The <code>New AndroMDA Project Wizard</code>.
- *
+ * 
  * @author Peter Friese
  * @since 22.05.2005
  */
@@ -58,7 +58,7 @@ public class NewAndroidProjectWizard
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
      *      org.eclipse.jface.viewers.IStructuredSelection)
      */
@@ -71,7 +71,7 @@ public class NewAndroidProjectWizard
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.eclipse.jface.wizard.IWizard#addPages()
      */
     public void addPages()
@@ -93,7 +93,7 @@ public class NewAndroidProjectWizard
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.eclipse.jdt.internal.ui.wizards.NewElementWizard#performFinish()
      */
     public boolean performFinish()
@@ -109,7 +109,7 @@ public class NewAndroidProjectWizard
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see org.eclipse.jdt.internal.ui.wizards.NewElementWizard#getCreatedElement()
      */
     public IJavaElement getCreatedElement()

@@ -184,7 +184,7 @@ public class BasicProjectInformationWizardPage
     }
 
     /**
-     *
+     * 
      */
     protected void updateProjectLocation()
     {
@@ -233,8 +233,7 @@ public class BasicProjectInformationWizardPage
     }
 
     /**
-     * @return The project ID (it will become the name of the underlying Eclipse
-     *         project).
+     * @return The project ID (it will become the name of the underlying Eclipse project).
      */
     public String getProjectID()
     {
@@ -245,8 +244,7 @@ public class BasicProjectInformationWizardPage
     }
 
     /**
-     * @return The friendly (i.e human readable) name of the project. It will be
-     *         used in the maven POM only.
+     * @return The friendly (i.e human readable) name of the project. It will be used in the maven POM only.
      */
     public String getProjectFriendlyName()
     {
@@ -257,14 +255,12 @@ public class BasicProjectInformationWizardPage
     }
 
     /**
-     * Creates a project resource handle for the current project name field
-     * value.
+     * Creates a project resource handle for the current project name field value.
      * <p>
-     * This method does not create the project resource; this is the
-     * responsibility of <code>IProject::create</code> invoked by the new
-     * project resource wizard.
+     * This method does not create the project resource; this is the responsibility of <code>IProject::create</code>
+     * invoked by the new project resource wizard.
      * </p>
-     *
+     * 
      * @return the new project resource handle
      */
     public IProject getProjectHandle()
@@ -274,9 +270,8 @@ public class BasicProjectInformationWizardPage
 
     /**
      * Checks whether the user entered all neccessary information.
-     *
-     * @return <code>true</code> if all information have been gathered and the
-     *         page may be left.
+     * 
+     * @return <code>true</code> if all information have been gathered and the page may be left.
      */
     private boolean validatePage()
     {

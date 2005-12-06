@@ -15,7 +15,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
  * Creates a new Android project.
- *
+ * 
  * @author Peter Friese
  * @since 09.10.2005
  */
@@ -24,13 +24,14 @@ public class AndroidProjectFactory
 
     /**
      * Creates a new Android project.
-     *
+     * 
      * @param monitor the progress monitor.
      * @param projectName the name of the project.
      * @param projectProperties the settings for the project.
      */
     public static void createAndroidProject(IProgressMonitor monitor,
-        String projectName, Map projectProperties)
+        String projectName,
+        Map projectProperties)
     {
         try
         {
@@ -53,7 +54,7 @@ public class AndroidProjectFactory
 
     /**
      * Adds the given nature to the project.
-     *
+     * 
      * @param project the project to add the nature to.
      * @param natureId the ID of the nature.
      * @param monitor the progress monitor displaying progress.

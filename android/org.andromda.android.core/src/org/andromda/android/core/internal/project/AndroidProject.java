@@ -12,7 +12,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
  * AndroidProject is a thin wrapper around {@link IProject}.
- *
+ * 
  * @author Peter Friese
  * @since 06.10.2005
  */
@@ -25,7 +25,7 @@ public class AndroidProject
 
     /**
      * Creates a new Android project.
-     *
+     * 
      * @param project
      */
     public AndroidProject(IProject project)

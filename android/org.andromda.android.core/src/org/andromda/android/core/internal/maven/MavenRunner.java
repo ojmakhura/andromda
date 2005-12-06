@@ -59,7 +59,8 @@ public class MavenRunner
      * @param projectProperties The project properties as entered by the user.
      * @param project TODO
      */
-    public MavenRunner(Map projectProperties, IProject project)
+    public MavenRunner(Map projectProperties,
+        IProject project)
     {
         this.projectProperties = projectProperties;
         this.project = project;
@@ -163,11 +164,11 @@ public class MavenRunner
     {
         List classpath = new ArrayList();
 
-//        // forehead libraries
-//        Bundle bundle = Platform.getBundle("org.apache.maven");
-//        URL foreheadURL = bundle.getEntry("/lib/forehead-1.0-beta-5.jar");
-//        classpath.add(transformToAbsolutePath(foreheadURL));
-//        
+        // // forehead libraries
+        // Bundle bundle = Platform.getBundle("org.apache.maven");
+        // URL foreheadURL = bundle.getEntry("/lib/forehead-1.0-beta-5.jar");
+        // classpath.add(transformToAbsolutePath(foreheadURL));
+        //        
         classpath.add("C:/Programme/Maven 1.0.2/lib/forehead-1.0-beta-5.jar");
 
         return (String[])classpath.toArray(new String[classpath.size()]);
@@ -221,9 +222,9 @@ public class MavenRunner
     private String getMavenHome()
     {
         return "C:/Programme/Maven 1.0.2";
-//        Bundle bundle = Platform.getBundle("org.apache.maven");
-//        URL rootURL = bundle.getEntry("/");
-//        return transformToAbsolutePath(rootURL);
+        // Bundle bundle = Platform.getBundle("org.apache.maven");
+        // URL rootURL = bundle.getEntry("/");
+        // return transformToAbsolutePath(rootURL);
     }
 
     private String getMavenEndorsedHome()
@@ -265,7 +266,7 @@ public class MavenRunner
                     catch (CoreException e)
                     {
                         e.printStackTrace();
-                    }                    
+                    }
                 }
             }
         }
