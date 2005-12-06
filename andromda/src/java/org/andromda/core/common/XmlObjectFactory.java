@@ -239,8 +239,9 @@ public class XmlObjectFactory
      */
     public Object getObject(final URL objectXml)
     {
-        this.digester.setEntityResolver(new XmlObjectEntityResolver(objectXml));
-        return this.getObject(objectXml != null ? ResourceUtils.getContents(objectXml) : null);
+        return this.getObject(
+            objectXml != null ? ResourceUtils.getContents(objectXml) : null,
+            objectXml);
     }
 
     /**
@@ -262,21 +263,39 @@ public class XmlObjectFactory
      */
     public Object getObject(String objectXml)
     {
+        return this.getObject(
+            objectXml,
+            null);
+    }
+
+    /**
+     * Returns a configured Object based on the objectXml configuration file passed in as a String.
+     *
+     * @param objectXml the path to the Object XML config file.
+     * @param resource the resource from which the objectXml was retrieved (this is needed to resolve
+     *        any relative references; like XML entities).
+     * @return Object the created instance.
+     */
+    public Object getObject(
+        String objectXml,
+        final URL resource)
+    {
         ExceptionUtils.checkNull(
             "objectXml",
             objectXml);
         Object object = null;
         try
         {
+            this.digester.setEntityResolver(new XmlObjectEntityResolver(resource));
             object = this.digester.parse(new StringReader(objectXml));
             objectXml = null;
             if (object == null)
             {
-                final String errMsg =
+                final String message =
                     "Was not able to instantiate an object using objectRulesXml '" + this.objectRulesXml +
                     "' with objectXml '" + objectXml + "', please check either the objectXml " +
                     "or objectRulesXml file for inconsistencies";
-                throw new XmlObjectFactoryException(errMsg);
+                throw new XmlObjectFactoryException(message);
             }
         }
         catch (final SAXException exception)
@@ -379,48 +398,37 @@ public class XmlObjectFactory
             throws SAXException, IOException
         {
             InputSource source = null;
-            String path = systemId;
-            if (path != null && path.startsWith(SYSTEM_ID_FILE))
+            if (this.xmlResource != null)
             {
-                final String xmlResource = this.xmlResource.toString();
-                path = path.replaceFirst(
-                        SYSTEM_ID_FILE,
-                        "");
-                // - remove any extra starting slashes
-                path = ResourceUtils.normalizePath(path);
+                String path = systemId;
+                if (path != null && path.startsWith(SYSTEM_ID_FILE))
+                {
+                    final String xmlResource = this.xmlResource.toString();
+                    path = path.replaceFirst(
+                            SYSTEM_ID_FILE,
+                            "");
 
-                // - if we still have one starting slash, remove it
-                if (path.startsWith("/"))
-                {
-                    path = path.substring(
-                            1,
-                            path.length());
-                }
-                final String xmlResourceName = xmlResource.replaceAll(
-                        ".*(\\+|/)",
-                        "");
-                URL uri = null;
-                InputStream inputStream = null;
-                try
-                {
-                    uri = ResourceUtils.toURL(StringUtils.replace(
-                                xmlResource,
-                                xmlResourceName,
-                                path));
-                    if (uri != null)
+                    // - remove any extra starting slashes
+                    path = ResourceUtils.normalizePath(path);
+
+                    // - if we still have one starting slash, remove it
+                    if (path.startsWith("/"))
                     {
-                        inputStream = uri.openStream();
+                        path = path.substring(
+                                1,
+                                path.length());
                     }
-                }
-                catch (final IOException exception)
-                {
-                    // - ignore
-                }
-                if (inputStream == null)
-                {
+                    final String xmlResourceName = xmlResource.replaceAll(
+                            ".*(\\+|/)",
+                            "");
+                    URL uri = null;
+                    InputStream inputStream = null;
                     try
                     {
-                        uri = ResourceUtils.getResource(path);
+                        uri = ResourceUtils.toURL(StringUtils.replace(
+                                    xmlResource,
+                                    xmlResourceName,
+                                    path));
                         if (uri != null)
                         {
                             inputStream = uri.openStream();
@@ -430,12 +438,27 @@ public class XmlObjectFactory
                     {
                         // - ignore
                     }
-                }
-                if (inputStream != null)
-                {
-                    source = new InputSource(inputStream);
-                    source.setPublicId(publicId);
-                    source.setSystemId(uri.toString());
+                    if (inputStream == null)
+                    {
+                        try
+                        {
+                            uri = ResourceUtils.getResource(path);
+                            if (uri != null)
+                            {
+                                inputStream = uri.openStream();
+                            }
+                        }
+                        catch (final IOException exception)
+                        {
+                            // - ignore
+                        }
+                    }
+                    if (inputStream != null)
+                    {
+                        source = new InputSource(inputStream);
+                        source.setPublicId(publicId);
+                        source.setSystemId(uri.toString());
+                    }
                 }
             }
             return source;

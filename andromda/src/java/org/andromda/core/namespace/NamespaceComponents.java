@@ -107,7 +107,7 @@ public class NamespaceComponents
                         (NamespaceRegistry)registryFactory.getObject(
                             merger.getMergedString(
                                 ResourceUtils.getContents(resource),
-                                namespace));
+                                namespace), resource);
                 }
 
                 // - add the resource root
