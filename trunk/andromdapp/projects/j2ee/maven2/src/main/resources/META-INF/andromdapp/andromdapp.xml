@@ -5,12 +5,16 @@
     <conditionalOutput>
         <conditions>
             <condition id="workflow" equal="true"/>           
-            <output patterns="**/*">workflow</output>  
+            <output patterns="**/*">workflow/</output>  
         </conditions>
         <conditions>
             <condition id="webservice" equal="true"/>   
             <condition id="ear" equal="true"/>         
-            <output patterns="**/*">webservice</output>  
+            <output patterns="**/*">webservice/</output>  
+        </conditions>
+        <conditions>
+            <condition id="web" equal="true"/>       
+            <output patterns="**/*">web/</output>  
         </conditions>
         <conditions>
             <condition id="model" present="false"/>        
