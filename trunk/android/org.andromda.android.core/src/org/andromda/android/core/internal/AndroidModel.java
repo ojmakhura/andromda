@@ -69,8 +69,8 @@ public class AndroidModel
     public PropertyGroup[] getCartridgePropertyGroups(Namespace configurationNamespace)
     {
         String name = configurationNamespace.getName();
-        Cartridge cartridge = new Cartridge(
-                "file:/D:/Einstellungen/U402101/.maven/repository/andromda/jars/andromda-" + name + "-cartridge-3.2-RC1-SNAPSHOT.jar");
+        Cartridge cartridge = new Cartridge("file:/D:/Einstellungen/U402101/.maven/repository/andromda/jars/andromda-"
+                + name + "-cartridge-3.2-RC1-SNAPSHOT.jar");
         PropertyGroup[] result = null;
         NamespaceDocument cartridgeNamespaceDescriptor;
         try

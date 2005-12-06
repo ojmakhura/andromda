@@ -26,24 +26,24 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="org.andromda.android.ui.internal.preferences.AndroMDAPreferencePage"
-            id="org.andromda.android.ui.internal.preferences.AndroMDAPreferencePage"
+            class="org.andromda.android.ui.internal.settings.preferences.AndroMDAPreferencePage"
+            id="org.andromda.android.ui.internal.settings.preferences.AndroMDAPreferencePage"
             name="AndroMDA">
          <keywordReference id="org.andromda.android.ui.keywords.andromda"/>
          <keywordReference id="org.andromda.android.ui.keywords.mda"/>
       </page>
       <page
-            category="org.andromda.android.ui.internal.preferences.AndroMDAPreferencePage"
-            class="org.andromda.android.ui.internal.preferences.AndroidProjectLayoutPreferencePage"
-            id="org.andromda.android.ui.internal.preferences.AndroidProjectLayoutPreferencePage"
+            category="org.andromda.android.ui.internal.settings.preferences.AndroMDAPreferencePage"
+            class="org.andromda.android.ui.internal.settings.preferences.AndroidProjectLayoutPreferencePage"
+            id="org.andromda.android.ui.internal.settings.preferences.AndroidProjectLayoutPreferencePage"
             name="Project Layout">
          <keywordReference id="org.andromda.android.ui.keywords.andromda"/>
          <keywordReference id="org.andromda.android.ui.keywords.mda"/>
       </page>
       <page
-            category="org.andromda.android.ui.internal.preferences.AndroMDAPreferencePage"
-            class="org.andromda.android.ui.internal.preferences.AndroMDALocationsPreferencePage"
-            id="org.andromda.android.ui.internal.preferences.AndroMDALocationsPreferencePage"
+            category="org.andromda.android.ui.internal.settings.preferences.AndroMDAPreferencePage"
+            class="org.andromda.android.ui.internal.settings.preferences.AndroMDALocationsPreferencePage"
+            id="org.andromda.android.ui.internal.settings.preferences.AndroMDALocationsPreferencePage"
             name="Locations">
          <keywordReference id="org.andromda.android.ui.keywords.andromda"/>
          <keywordReference id="org.andromda.android.ui.keywords.mda"/>
@@ -53,8 +53,8 @@
          point="org.eclipse.ui.propertyPages">
       <page
             adaptable="false"
-            class="org.andromda.android.ui.internal.properties.AndroMDAPropertyPage"
-            id="org.andromda.android.ui.internal.properties.AndroMDAPropertyPage"
+            class="org.andromda.android.ui.internal.settings.properties.AndroMDAPropertyPage"
+            id="org.andromda.android.ui.internal.settings.properties.AndroMDAPropertyPage"
             name="AndroMDA"
             objectClass="org.eclipse.core.resources.IProject">
          <filter
@@ -65,9 +65,9 @@
       </page>
       <page
             adaptable="false"
-            category="org.andromda.android.ui.internal.properties.AndroMDAPropertyPage"
-            class="org.andromda.android.ui.internal.properties.AndroidProjectLayoutPropertyPage"
-            id="org.andromda.android.ui.internal.properties.AndroidProjectLayoutPropertyPage"
+            category="org.andromda.android.ui.internal.settings.properties.AndroMDAPropertyPage"
+            class="org.andromda.android.ui.internal.settings.properties.AndroidProjectLayoutPropertyPage"
+            id="org.andromda.android.ui.internal.settings.properties.AndroidProjectLayoutPropertyPage"
             name="Project Layout"
             objectClass="org.eclipse.core.resources.IProject">
          <filter
@@ -78,9 +78,9 @@
       </page>
       <page
             adaptable="false"
-            category="org.andromda.android.ui.internal.properties.AndroMDAPropertyPage"
-            class="org.andromda.android.ui.internal.properties.AndroMDALocationsPropertyPage"
-            id="org.andromda.android.ui.internal.properties.AndroMDALocationsPropertyPage"
+            category="org.andromda.android.ui.internal.settings.properties.AndroMDAPropertyPage"
+            class="org.andromda.android.ui.internal.settings.properties.AndroMDALocationsPropertyPage"
+            id="org.andromda.android.ui.internal.settings.properties.AndroMDALocationsPropertyPage"
             name="Locations"
             objectClass="org.eclipse.core.resources.IProject">
          <filter

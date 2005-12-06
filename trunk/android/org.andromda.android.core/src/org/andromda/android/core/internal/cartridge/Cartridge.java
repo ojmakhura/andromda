@@ -63,5 +63,5 @@ public class Cartridge
         options.setLoadSubstituteNamespaces(namespaceMapping);
         return options;
     }
-    
+
 }

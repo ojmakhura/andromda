@@ -24,7 +24,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 /**
- *
+ * 
  * @author Peter Friese
  * @since 07.11.2005
  */
@@ -132,7 +132,8 @@ public class GenericAndroidDetailsPage
         return "";
     }
 
-    private void setPropertyValue(String propertyName, String value)
+    private void setPropertyValue(String propertyName,
+        String value)
     {
         org.andromda.core.configuration.PropertyDocument.Property found = null;
 
@@ -147,7 +148,8 @@ public class GenericAndroidDetailsPage
                 break;
             }
         }
-        if (found == null) {
+        if (found == null)
+        {
             found = namespace.getProperties().addNewProperty();
             found.setName(propertyName);
         }

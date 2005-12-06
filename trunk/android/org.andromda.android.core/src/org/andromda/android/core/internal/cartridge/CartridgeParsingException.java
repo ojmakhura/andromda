@@ -1,7 +1,7 @@
 package org.andromda.android.core.internal.cartridge;
 
 /**
- *
+ * 
  * @author Peter Friese
  * @since 16.11.2005
  */

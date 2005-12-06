@@ -1,7 +1,7 @@
 package org.andromda.android.core.internal;
 
 /**
- *
+ * 
  * @author Peter Friese
  * @since 07.10.2005
  */

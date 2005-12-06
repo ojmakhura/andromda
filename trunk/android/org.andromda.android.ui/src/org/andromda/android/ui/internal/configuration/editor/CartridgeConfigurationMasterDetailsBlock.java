@@ -30,7 +30,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 /**
- *
+ * 
  * @author Peter Friese
  * @since 08.11.2005
  */

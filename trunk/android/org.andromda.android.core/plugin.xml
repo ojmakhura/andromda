@@ -8,5 +8,9 @@
          <run class="org.andromda.android.core.project.AndroidNature"/>
       </runtime>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.andromda.android.core.internal.settings.PreferenceInitializer"/>
+   </extension>
 
 </plugin>

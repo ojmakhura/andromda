@@ -16,116 +16,135 @@ import org.osgi.framework.BundleContext;
 /**
  * The main plugin class to be used in the desktop.
  */
-public class AndroidUIPlugin extends AbstractUIPlugin {
+public class AndroidUIPlugin
+        extends AbstractUIPlugin
+{
 
-	/** The shared instance of this plug-in. */
+    /** The shared instance of this plug-in. */
     private static AndroidUIPlugin plugin;
-	
-	/**
-	 * The constructor.
-	 */
-	public AndroidUIPlugin() {
-		plugin = this;
-	}
 
-	/**
-	 * This method is called upon plug-in activation
-	 */
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
-	}
+    /**
+     * The constructor.
+     */
+    public AndroidUIPlugin()
+    {
+        plugin = this;
+    }
 
-	/**
-	 * This method is called when the plug-in is stopped
-	 */
-	public void stop(BundleContext context) throws Exception {
-		super.stop(context);
-		plugin = null;
-	}
+    /**
+     * This method is called upon plug-in activation
+     */
+    public void start(BundleContext context) throws Exception
+    {
+        super.start(context);
+    }
 
-	/**
-	 * Returns the shared instance.
-	 */
-	public static AndroidUIPlugin getDefault() {
-		return plugin;
-	}
-    
+    /**
+     * This method is called when the plug-in is stopped
+     */
+    public void stop(BundleContext context) throws Exception
+    {
+        super.stop(context);
+        plugin = null;
+    }
+
+    /**
+     * Returns the shared instance.
+     */
+    public static AndroidUIPlugin getDefault()
+    {
+        return plugin;
+    }
+
     /**
      * @return the plug-ins ID.
      */
-    public static String getPluginId() {
+    public static String getPluginId()
+    {
         return getDefault().getBundle().getSymbolicName();
     }
-    
+
     /**
      * @return the workspace.
      */
-    public static IWorkspace getWorkspace() {
+    public static IWorkspace getWorkspace()
+    {
         return ResourcesPlugin.getWorkspace();
     }
-    
+
     /**
      * @return the active page
      */
-    public static IWorkbenchPage getActivePage() {
+    public static IWorkbenchPage getActivePage()
+    {
         return getDefault().internalGetActivePage();
     }
-    
+
     /**
      * @return the active workbench window.
      */
-    public static IWorkbenchWindow getActiveWorkbenchWindow() {
+    public static IWorkbenchWindow getActiveWorkbenchWindow()
+    {
         return getDefault().getWorkbench().getActiveWorkbenchWindow();
     }
-    
+
     /**
      * @return the active workbench shell.
      */
-    public static Shell getActiveWorkbenchShell() {
-         IWorkbenchWindow window= getActiveWorkbenchWindow();
-         if (window != null) {
+    public static Shell getActiveWorkbenchShell()
+    {
+        IWorkbenchWindow window = getActiveWorkbenchWindow();
+        if (window != null)
+        {
             return window.getShell();
-         }
-         return null;
+        }
+        return null;
     }
 
-    private IWorkbenchPage internalGetActivePage() {
-        IWorkbenchWindow window= getWorkbench().getActiveWorkbenchWindow();
+    private IWorkbenchPage internalGetActivePage()
+    {
+        IWorkbenchWindow window = getWorkbench().getActiveWorkbenchWindow();
         if (window == null)
             return null;
         return getWorkbench().getActiveWorkbenchWindow().getActivePage();
     }
-    
-    public static void log(IStatus status) {
+
+    public static void log(IStatus status)
+    {
         getDefault().getLog().log(status);
     }
-    
-    public static void logErrorMessage(String message) {
+
+    public static void logErrorMessage(String message)
+    {
         log(new Status(IStatus.ERROR, getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, message, null));
     }
 
-    public static void logErrorStatus(String message, IStatus status) {
-        if (status == null) {
+    public static void logErrorStatus(String message,
+        IStatus status)
+    {
+        if (status == null)
+        {
             logErrorMessage(message);
             return;
         }
-        MultiStatus multi= new MultiStatus(getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, message, null);
+        MultiStatus multi = new MultiStatus(getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, message, null);
         multi.add(status);
         log(multi);
     }
-    
-    public static void log(Throwable e) {
-        log(new Status(IStatus.ERROR, getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, "Internal Error", e)); 
+
+    public static void log(Throwable e)
+    {
+        log(new Status(IStatus.ERROR, getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, "Internal Error", e));
     }
-    
-	/**
-	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path.
-	 *
-	 * @param path the path
-	 * @return the image descriptor
-	 */
-	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin("org.andromda.android.ui", path);
-	}
+
+    /**
+     * Returns an image descriptor for the image file at the given plug-in relative path.
+     * 
+     * @param path the path
+     * @return the image descriptor
+     */
+    public static ImageDescriptor getImageDescriptor(String path)
+    {
+        return AbstractUIPlugin.imageDescriptorFromPlugin("org.andromda.android.ui", path);
+    }
 }

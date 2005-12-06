@@ -9,7 +9,7 @@ import org.eclipse.ui.IImportWizard;
 import org.eclipse.ui.IWorkbench;
 
 /**
- *
+ * 
  * @author Peter Friese
  * @since 03.11.2005
  */
@@ -21,7 +21,7 @@ public class ConvertToAndroidProjectWizard
     private ProjectSelectionWizardPage projectSelectionPage;
 
     /**
-     *
+     * 
      */
     public ConvertToAndroidProjectWizard()
     {
