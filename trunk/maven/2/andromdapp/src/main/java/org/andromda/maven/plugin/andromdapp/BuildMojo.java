@@ -5,16 +5,20 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import java.lang.reflect.Method;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.BuildFailureException;
 import org.apache.maven.execution.MavenSession;
@@ -98,6 +102,40 @@ public class BuildMojo
     private MavenProjectBuilder projectBuilder;
 
     /**
+     * Any execution properties.
+     *
+     * @parameter
+     */
+    private Properties executionProperties = new Properties();
+
+    /**
+     * Identifies system properties when running in console mode.
+     */
+    private static final String EXECUTION_PROPERTY_TOKEN = "-D";
+
+    /**
+     * Lists all execution properties when running in console mode.
+     */
+    private static final String LIST_PROPERTIES = "-list";
+
+    /**
+     * Clears all execution properties.
+     */
+    private static final String CLEAR_PROPERTIES = "-clear";
+
+    /**
+     * Explicity calls the garbage collector.
+     */
+    private static final String GARBAGE_COLLECT = "-gc";
+
+    /**
+     * The prefix environment variables must have.
+     *
+     * @parameter expression="env."
+     */
+    private String environmentVariablePrefix;
+
+    /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute()
@@ -105,43 +143,102 @@ public class BuildMojo
     {
         try
         {
-            if (this.startConsole != null)
+            final Map environment = this.getEnvironment();
+            if (this.startConsole != null && !this.startConsole.equals(Boolean.FALSE.toString()))
             {
                 boolean executed = false;
                 this.printLine();
-                String input;
-                do
+                while (true)
                 {
                     this.printConsolePrompt();
-                    input = this.readLine();
-                    try
+                    String input = StringUtils.trimToEmpty(this.readLine());
+                    if (EXIT.equals(input))
                     {
-                        executed = this.executeModules(input);
-
-                        // - if nothing was executed, try a goal in the current project
-                        if (!EXIT.equals(input) && this.project != null && !executed && input != null &&
-                            input.trim().length() > 0)
+                        break;
+                    }
+                    if (input.startsWith(EXECUTION_PROPERTY_TOKEN))
+                    {
+                        input = input.replaceFirst(
+                                EXECUTION_PROPERTY_TOKEN,
+                                "");
+                        int index = input.indexOf("=");
+                        String name;
+                        String value;
+                        if (index <= 0)
                         {
-                            executed = true;
-                            final List goals = Arrays.asList(input.split("\\s+"));
-                            this.executeModules(
-                                StringUtils.join(
-                                    this.project.getModules().iterator(),
-                                    ","),
-                                goals,
-                                true);
+                            name = input.trim();
+                            value = "true";
+                        }
+                        else
+                        {
+                            name = input.substring(
+                                    0,
+                                    index).trim();
+                            value = input.substring(index + 1).trim();
+                        }
+                        if (value.startsWith(this.environmentVariablePrefix))
+                        {
+                            value = StringUtils.replace(
+                                    value,
+                                    this.environmentVariablePrefix,
+                                    "");
+                            if (environment.containsKey(value))
+                            {
+                                value = ObjectUtils.toString(environment.get(value)).trim();
+                            }
+                        }
+                        this.executionProperties.put(
+                            name,
+                            value);
+                        System.setProperty(
+                            name,
+                            value);
+                        this.printExecutionProperties();
+                    }
+                    else if (LIST_PROPERTIES.equals(input))
+                    {
+                        this.printExecutionProperties();
+                    }
+                    else if (CLEAR_PROPERTIES.equals(input))
+                    {
+                        this.executionProperties.clear();
+                        this.printExecutionProperties();
+                    }
+                    else if (GARBAGE_COLLECT.equals(input))
+                    {
+                        System.gc();
+                    }
+                    else
+                    {
+                        try
+                        {
+                            executed = this.executeModules(input);
+
+                            System.out.println("the line: " + input);
+
+                            // - if nothing was executed, try a goal in the current project
+                            if (this.project != null && !executed && input != null && input.trim().length() > 0)
+                            {
+                                executed = true;
+                                final List goals = Arrays.asList(input.split("\\s+"));
+                                this.executeModules(
+                                    StringUtils.join(
+                                        this.project.getModules().iterator(),
+                                        ","),
+                                    goals,
+                                    true);
+                            }
+                        }
+                        catch (final Throwable throwable)
+                        {
+                            throwable.printStackTrace();
+                        }
+                        if (executed)
+                        {
+                            this.printLine();
                         }
                     }
-                    catch (final Throwable throwable)
-                    {
-                        throwable.printStackTrace();
-                    }
-                    if (executed)
-                    {
-                        this.printLine();
-                    }
                 }
-                while (!EXIT.equals(input));
             }
             else
             {
@@ -152,6 +249,49 @@ public class BuildMojo
         {
             throw new MojoExecutionException("Error executing modules", throwable);
         }
+    }
+
+    private static final String GET_ENVIRONMENT_METHOD = "getenv";
+
+    /**
+     * Retrieves the environment variables (will only work when running jdk5 or above).
+     *
+     * @return the environment variables.
+     */
+    private Map getEnvironment()
+    {
+        final Map variables = new HashMap();
+        try
+        {
+            final Method method = System.class.getMethod(
+                    GET_ENVIRONMENT_METHOD,
+                    null);
+            final Object result = method.invoke(
+                    System.class,
+                    null);
+            if (result instanceof Map)
+            {
+                variables.putAll((Map)result);
+            }
+        }
+        catch (Exception exception)
+        {
+            // - ignore (means we can't retrieve the environment with the current JDK).
+        }
+        return variables;
+    }
+
+    private void printExecutionProperties()
+    {
+        this.printLine();
+        this.printTextWithLine("| ------------- execution properties ------------- |");
+        for (final Iterator iterator = this.executionProperties.keySet().iterator(); iterator.hasNext();)
+        {
+            final String name = (String)iterator.next();
+            System.out.println("    " + name + " = " + this.executionProperties.getProperty(name));
+        }
+        this.printTextWithLine("| ------------------------------------------------ |");
+        this.printLine();
     }
 
     /**
@@ -178,11 +318,23 @@ public class BuildMojo
     }
 
     /**
+     * Prints text with a new line to the console.
+     *
+     * @param text the text to print to the console.
+     */
+    private void printTextWithLine(final String text)
+    {
+        System.out.println(text);
+        System.out.flush();
+    }
+
+    /**
      * Prints a line to standard output.
      */
     private void printLine()
     {
         System.out.println();
+        System.out.flush();
     }
 
     /**
@@ -310,6 +462,7 @@ public class BuildMojo
             final MavenProject project = (MavenProject)iterator.next();
             this.getLog().info("  " + project.getName());
         }
+
         final MavenSession projectSession =
             new MavenSession(
                 this.session.getContainer(),
@@ -319,7 +472,7 @@ public class BuildMojo
                 reactorManager,
                 goals,
                 this.baseDirectory.toString(),
-                new Properties(),
+                this.executionProperties,
                 this.session.getStartTime());
 
         projectSession.setUsingPOMsFromFilesystem(true);
