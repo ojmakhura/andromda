@@ -101,7 +101,7 @@ public class HibernateAssociationEndLogicImpl
     private static final String HIBERNATE_COMPOSITION_CASCADE = "hibernateCompositionCascade";
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAssociationEnd#isOne2OnePrimary()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isOne2OnePrimary()
      */
     protected boolean handleIsOne2OnePrimary()
     {
@@ -127,22 +127,7 @@ public class HibernateAssociationEndLogicImpl
      */
     public String getGetterSetterTypeName()
     {
-        String getterSetterTypeName = super.getGetterSetterTypeName();
-
-        if (!this.isMany())
-        {
-            ClassifierFacade type = this.getType();
-
-            if (type instanceof HibernateEntity)
-            {
-                final String typeName = ((HibernateEntity)type).getFullyQualifiedEntityName();
-
-                if (StringUtils.isNotEmpty(typeName))
-                {
-                    getterSetterTypeName = typeName;
-                }
-            }
-        }
+        String getterSetterTypeName = null;
 
         if (this.isMany())
         {
@@ -181,12 +166,39 @@ public class HibernateAssociationEndLogicImpl
                     ObjectUtils.toString(this.getConfiguredProperty(HibernateGlobals.DEFAULT_COLLECTION_INTERFACE));
             }
         }
+        else
+        {
+            final ClassifierFacade type = this.getType();
+
+            if (type instanceof HibernateEntity)
+            {
+                final String typeName = ((HibernateEntity)type).getFullyQualifiedEntityName();
+
+                if (StringUtils.isNotEmpty(typeName))
+                {
+                    getterSetterTypeName = typeName;
+                }
+            }
+        }
+
+        if (getterSetterTypeName == null)
+        {
+            getterSetterTypeName = super.getGetterSetterTypeName();
+        }
+        else if (this.isMany())
+        {
+            // set this association end's type as a template parameter if required
+            if ("true".equals(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
+            {
+                getterSetterTypeName = getterSetterTypeName + "<" + this.getType().getFullyQualifiedName() + ">";
+            }
+        }
 
         return getterSetterTypeName;
     }
 
     /**
-     * @see org.andromda.metafacades.uml.AssociationEndFacade#isLazy()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isLazy()
      */
     protected boolean handleIsLazy()
     {
@@ -215,7 +227,7 @@ public class HibernateAssociationEndLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAssociationEnd#isOne2OneSecondary()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isOne2OneSecondary()
      */
     protected boolean handleIsOne2OneSecondary()
     {
@@ -241,7 +253,7 @@ public class HibernateAssociationEndLogicImpl
      * calculates the hibernate cascade attribute of this association end.
      *
      * @return null if no relevant cascade attribute to deliver
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAssociationEnd#getHibernateCascade()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getHibernateCascade()
      */
     protected String handleGetHibernateCascade()
     {
@@ -307,7 +319,7 @@ public class HibernateAssociationEndLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAssociationEnd#isHibernateInverse()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isHibernateInverse()
      */
     protected boolean handleIsHibernateInverse()
     {
@@ -463,10 +475,7 @@ public class HibernateAssociationEndLogicImpl
      */
     protected String handleGetWhereClause()
     {
-        String whereClause =
-            (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_WHERE_CLAUSE);
-
-        return whereClause;
+        return (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_WHERE_CLAUSE);
     }
 
     /**

@@ -31,7 +31,7 @@
             return false;
         }
 #else
-        if (this.$attribute.name == null || that.${attribute.getterName}() == null || !this.${attribute.name}.equals(${attribute.getterName}()))
+        if (this.$attribute.name == null || that.${attribute.getterName}() == null || !this.${attribute.name}.equals(that.${attribute.getterName}()))
         {
             return false;
         }
