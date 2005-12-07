@@ -312,7 +312,7 @@
             
         %> mvn -N andromdapp:build -Dconsole
             
-            runs the AndroMDApp build goal in 'console' mode, once running this allows you to execute any goal or subproject
+            runs the AndroMDApp build goal in 'console' mode, once running, this allows you to execute any goal or submodule
             goal in the manner described above without having to specify the andromdapp:build goal or 
             restarting maven (i.e. you can run the mda goal by typing 'mda', build the core module by type 'core', etc).
 
