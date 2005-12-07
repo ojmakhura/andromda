@@ -40,7 +40,7 @@ public class DeployMojo
 
         // - if we're deploying within a phase then deploy has to be set, otherwise
         //   its not needed (we know we're not deploying in a phase when the artifactFile is null).
-        if (this.deploy != null || artifactFile == null)
+        if (this.deploy != null && !this.deploy.equals(Boolean.FALSE.toString()) || artifactFile == null)
         {
             final Build build = this.project.getBuild();
             if (EXPLODED.equalsIgnoreCase(this.deploy))
