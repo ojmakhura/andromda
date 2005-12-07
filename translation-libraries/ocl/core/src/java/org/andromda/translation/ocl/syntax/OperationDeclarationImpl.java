@@ -26,8 +26,7 @@ public class OperationDeclarationImpl
      */
     public OperationDeclarationImpl(String name, String returnType, VariableDeclaration[] arguments)
     {
-        final String methodName = "OperationDeclarationImpl";
-        ExceptionUtils.checkEmpty(methodName, "name", name);
+        ExceptionUtils.checkEmpty("name", name);
         this.name = StringUtils.trimToEmpty(name);
         this.returnType = StringUtils.trimToEmpty(returnType);
         this.arguments = arguments;

@@ -25,8 +25,7 @@ public class VariableDeclarationImpl
      */
     public VariableDeclarationImpl(String name, String type, String value)
     {
-        String methodName = "VariableDeclarationImpl";
-        ExceptionUtils.checkNull(methodName, "name", name);
+        ExceptionUtils.checkNull("name", name);
         this.name = StringUtils.trimToEmpty(name);
         this.type = StringUtils.trimToEmpty(type);
         this.value = StringUtils.trimToEmpty(value);
