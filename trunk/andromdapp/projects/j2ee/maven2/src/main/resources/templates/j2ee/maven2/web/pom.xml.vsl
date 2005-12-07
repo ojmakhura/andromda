@@ -122,6 +122,16 @@
         </dependency>
     </dependencies>
     <build>
+        <filters>
+            <filter>../project.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <targetPath>../${pom.artifactId}-${pom.version}</targetPath>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
