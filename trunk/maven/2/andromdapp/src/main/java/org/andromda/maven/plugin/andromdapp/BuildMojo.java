@@ -214,8 +214,6 @@ public class BuildMojo
                         {
                             executed = this.executeModules(input);
 
-                            System.out.println("the line: " + input);
-
                             // - if nothing was executed, try a goal in the current project
                             if (this.project != null && !executed && input != null && input.trim().length() > 0)
                             {
