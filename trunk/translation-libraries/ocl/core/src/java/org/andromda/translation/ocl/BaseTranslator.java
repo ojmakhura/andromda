@@ -153,8 +153,7 @@ public abstract class BaseTranslator
      */
     protected void handleTranslationFragment(Object node)
     {
-        final String methodName = "BaseTranslator.getTranslatedFragment";
-        ExceptionUtils.checkNull(methodName, "node", node);
+        ExceptionUtils.checkNull("node", node);
         if (this.libraryTranslation != null)
         {
             this.libraryTranslation.handleTranslationFragment(TranslationUtils.trimToEmpty(node), this.getExpression()
@@ -188,8 +187,7 @@ public abstract class BaseTranslator
      */
     protected String getTranslationFragment(String fragmentName)
     {
-        final String methodName = "BaseTranslator.getTranslatedFragment";
-        ExceptionUtils.checkEmpty(methodName, "fragmentName", fragmentName);
+        ExceptionUtils.checkEmpty("fragmentName", fragmentName);
         String fragmentString = null;
         if (this.libraryTranslation != null)
         {
@@ -219,9 +217,8 @@ public abstract class BaseTranslator
      */
     public Expression translate(String translationName, String expression, Object contextElement)
     {
-        final String methodName = "BaseTranslator.translate";
-        ExceptionUtils.checkEmpty(methodName, "translationName", translationName);
-        ExceptionUtils.checkEmpty(methodName, "expression", expression);
+        ExceptionUtils.checkEmpty("translationName", translationName);
+        ExceptionUtils.checkEmpty("expression", expression);
         try
         {
             // pre processing
@@ -270,8 +267,7 @@ public abstract class BaseTranslator
      */
     protected void process(String expression) throws IOException
     {
-        final String methodName = "BaseTranslator.process";
-        ExceptionUtils.checkEmpty(methodName, "expression", expression);
+        ExceptionUtils.checkEmpty("expression", expression);
         try
         {
             Lexer lexer = new Lexer(new PushbackReader(new StringReader(expression)));
@@ -309,8 +305,7 @@ public abstract class BaseTranslator
      */
     public void inAInvClassifierExpressionBody(AInvClassifierExpressionBody expressionBody)
     {
-        final String methodName = "BaseTranslator.inAInvClassifierExpressionBody";
-        ExceptionUtils.checkNull(methodName, "expressionBody", expressionBody);
+        ExceptionUtils.checkNull("expressionBody", expressionBody);
         if (this.translatedExpression != null)
         {
             this.translatedExpression.setName(TranslationUtils.trimToEmpty(expressionBody.getName()));
@@ -326,8 +321,7 @@ public abstract class BaseTranslator
      */
     public void inADefClassifierExpressionBody(ADefClassifierExpressionBody expressionBody)
     {
-        final String methodName = "BaseTranslator.inADefClassifierExpressionBody";
-        ExceptionUtils.checkNull(methodName, "expressionBody", expressionBody);
+        ExceptionUtils.checkNull("expressionBody", expressionBody);
         if (this.translatedExpression != null)
         {
             this.translatedExpression.setName(TranslationUtils.trimToEmpty(expressionBody.getName()));
@@ -348,7 +342,7 @@ public abstract class BaseTranslator
         {
             logger.debug("performing " + methodName + " with operationExpressionBody --> " + operationExpressionBody);
         }
-        ExceptionUtils.checkNull(methodName, "operationExpressionBody", operationExpressionBody);
+        ExceptionUtils.checkNull("operationExpressionBody", operationExpressionBody);
 
         if (this.translatedExpression != null)
         {

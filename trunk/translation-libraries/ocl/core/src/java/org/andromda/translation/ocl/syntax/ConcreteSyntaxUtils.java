@@ -72,8 +72,7 @@ public class ConcreteSyntaxUtils
      */
     public static OperationDeclaration getOperationDeclaration(POperation operation)
     {
-        final String methodName = "ConcreteSyntaxUtils.getOperationDeclaration";
-        ExceptionUtils.checkNull(methodName, "operation", operation);
+        ExceptionUtils.checkNull("operation", operation);
 
         OperationDeclaration operationDeclaration = null;
 
@@ -88,12 +87,7 @@ public class ConcreteSyntaxUtils
 
         operationDeclaration = new OperationDeclarationImpl(ObjectUtils.toString(op.getName()), returnType, ConcreteSyntaxUtils.getVariableDeclarations(
                 operation));
-
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("completed " + methodName + " with operationDeclaration --> " + operationDeclaration);
-        }
-
+        
         return operationDeclaration;
     }
 
@@ -105,8 +99,7 @@ public class ConcreteSyntaxUtils
      */
     public static VariableDeclaration[] getVariableDeclarations(POperation operation)
     {
-        final String methodName = "ConcreteSyntaxUtils.getVariableDeclarations";
-        ExceptionUtils.checkNull(methodName, "operation", operation);
+        ExceptionUtils.checkNull("operation", operation);
         return ConcreteSyntaxUtils.getVariableDeclarations(((AOperation)operation).getParameters());
     }
 
@@ -118,8 +111,7 @@ public class ConcreteSyntaxUtils
      */
     public static VariableDeclaration[] getVariableDeclarations(AStandardDeclarator standardDeclarator)
     {
-        final String methodName = "ConcreteSyntaxUtils.getVariableDeclarations";
-        ExceptionUtils.checkNull(methodName, "standardDeclarator", standardDeclarator);
+        ExceptionUtils.checkNull("standardDeclarator", standardDeclarator);
         return ConcreteSyntaxUtils.getVariableDeclarations(standardDeclarator.getVariableDeclarationList());
     }
 
@@ -133,8 +125,7 @@ public class ConcreteSyntaxUtils
     protected static VariableDeclaration newVariableDeclaration(PVariableDeclaration variableDeclaration,
                                                                 PEqualExpression initialValue)
     {
-        final String methodName = "ConcreteSyntaxUtils.newVariableDeclaration";
-        ExceptionUtils.checkNull(methodName, "variableDeclaration", variableDeclaration);
+        ExceptionUtils.checkNull("variableDeclaration", variableDeclaration);
 
         AVariableDeclaration declaration = (AVariableDeclaration)variableDeclaration;
         ATypeDeclaration typeDeclaration = (ATypeDeclaration)declaration.getTypeDeclaration();
