@@ -30,7 +30,7 @@ public class Library
     }
     
     /**
-     * The phyiscal path (a URI) to the library.
+     * The physical path (a URI) to the library.
      */
     private String path;
     
