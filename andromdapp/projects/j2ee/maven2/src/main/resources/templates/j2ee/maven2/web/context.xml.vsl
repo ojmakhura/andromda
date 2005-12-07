@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/$applicationId" docBase="${applicationId}-web-${applicationVersion}"
+         debug="99" reloadable="true" antiJARLocking="true" antiResourceLocking="false">
+
+    <Resource name="${applicationId}DS" auth="Container" type="javax.sql.DataSource"
+              maxActive="100" maxIdle="30" maxWait="10000"
+              driverClassName="${dataSource.driver.class}"
+              username="${dataSource.user}" password="${dataSource.password}"
+              url="${dataSource.url}"
+              defaultAutoCommit="false" removeAbandoned="true"
+              removeAbandonedTimeout="60" logAbandoned="true"/>
+</Context>

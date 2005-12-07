@@ -223,10 +223,13 @@
             collects all artifacts and builds a deployable .$projectType which is then
             deployed
 
+        %> mvn clean
+        
+            cleans all generated files from each target directory
 #if ($ear)
-        %> mvn clean install -Ddeploy -Djboss.home=$JBOSS_HOME
+        %> mvn install -Ddeploy -Djboss.home=$JBOSS_HOME
 #else
-        %> mvn clean install -Ddeploy -Dtomcat.home=$CATALINA_HOME
+        %> mvn install -Ddeploy -Dtomcat.home=$CATALINA_HOME
 #end
 
             deletes all generated files, rebuilds and deploys; files in /src
@@ -306,6 +309,12 @@
 
             runs AndroMDA using only the Java cartridge, rebuilds the core
             module and web module and deploys afterwards
+            
+        %> mvn -N andromdapp:build -Dconsole
+            
+            runs the AndroMDApp build goal in 'console' mode, once running this allows you to execute any goal or subproject
+            goal in the manner described above without having to specify the andromdapp:build goal or 
+            restarting maven (i.e. you can run the mda goal by typing 'mda', build the core module by type 'core', etc).
 
 
     Please note that you may use the '-o' flag at any time to avoid

@@ -22,6 +22,10 @@
             <output patterns="**/*">web/</output>  
         </conditions>
         <conditions>
+            <condition id="war" equal="true"/>      
+            <output patterns="**/*">web/src/main/resources/META-INF/context.xml.vsl</output>  
+        </conditions>
+        <conditions>
             <condition id="model" present="false"/>        
             <output>mda/src/main/uml/${applicationId}.xmi.vsl</output>  
         </conditions>
@@ -46,6 +50,10 @@
         <mapping>
             <from>web/web.xml</from>
             <to>web/target/${applicationId}-web-${applicationVersion}/WEB-INF/web.xml</to>
+        </mapping>
+        <mapping>
+            <from>web/context.xml.vsl</from>
+            <to>web/src/main/resources/META-INF/context.xml.vsl</to>
         </mapping>
         <mapping>
             <from>webservice/web.xml</from>

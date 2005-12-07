@@ -11,7 +11,11 @@ service.port=8080
 
 # The datasource for the application
 dataSource.name=DefaultDS
+#if ($ear)
 dataSource=java:/${dataSource.name}
+#else
+dataSource=java:comp/env/${dataSource.name} 
+#end
 
 # Properties for management of the database schema, 
 # ignore if you setup/drop your schema manually
