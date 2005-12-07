@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.configuration.editor.CartridgeConfigurationPage;
+import org.andromda.android.ui.internal.configuration.editor.ServerConfigurationPage;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.apache.xmlbeans.XmlOptions;
 import org.eclipse.core.runtime.IPath;
@@ -18,6 +19,7 @@ import org.eclipse.ui.forms.editor.IFormPage;
 import org.eclipse.ui.part.FileEditorInput;
 
 /**
+ * Editor for the AndroMDA configuration file (andromda.xml).
  * 
  * @author Peter Friese
  * @since 08.11.2005
@@ -26,6 +28,7 @@ public class ConfigurationEditor
         extends FormEditor
 {
 
+    /** The andromda.xml file as an XMLbeans document. */
     private AndromdaDocument document;
 
     /**
@@ -35,6 +38,10 @@ public class ConfigurationEditor
     {
         try
         {
+            ServerConfigurationPage serverConfigurationPage = new ServerConfigurationPage(this,
+                    ServerConfigurationPage.PAGE_ID, "Server");
+            addPage(serverConfigurationPage);
+
             CartridgeConfigurationPage cartridgeConfigurationPage = new CartridgeConfigurationPage(this,
                     CartridgeConfigurationPage.PAGE_ID, "Cartridges");
             addPage(cartridgeConfigurationPage);
@@ -74,6 +81,9 @@ public class ConfigurationEditor
         editorDirtyStateChanged();
     }
 
+    /**
+     * @param onSave
+     */
     private void commitFormPages(boolean onSave)
     {
         IFormPage[] pages = getPages();
@@ -86,6 +96,9 @@ public class ConfigurationEditor
         }
     }
 
+    /**
+     * @return
+     */
     private IFormPage[] getPages()
     {
         ArrayList formPages = new ArrayList();
@@ -99,12 +112,10 @@ public class ConfigurationEditor
     }
 
     /**
-     * @see org.eclipse.ui.part.EditorPart#doSaveAs()
+     * @see org.eclipse.ui.ISaveablePart#doSaveAs()
      */
     public void doSaveAs()
     {
-        // TODO Auto-generated method stub
-
     }
 
     /**
@@ -124,6 +135,9 @@ public class ConfigurationEditor
         updateModel();
     }
 
+    /**
+     * @return
+     */
     public boolean updateModel()
     {
         IEditorInput input = getEditorInput();
