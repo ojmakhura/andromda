@@ -36,9 +36,9 @@
             <groupId>org.andromda.profiles.uml14</groupId>
             <artifactId>andromda-profile</artifactId>
             <version>${version}</version>
+            <type>xml.zip</type>
             <scope>runtime</scope>
             <optional>true</optional>
-            <type>xml.zip</type>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
