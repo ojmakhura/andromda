@@ -232,12 +232,8 @@ public class AssembleMojo
                         }
                     }
 
-                    final File repositoryPom =
-                        new File(
-                            this.localRepository.getBasedir(),
-                            repositoryDirectoryPath + artifact.getArtifactId() + "-" + artifact.getVersion() + '.' +
-                            POM_TYPE);
-                    final File distributionPom = new File(andromdaDirectory, artifact.getArtifactId() + '.' + POM_TYPE);
+                    final File repositoryPom = this.constructPom(new File(this.localRepository.getBasedir(), repositoryDirectoryPath), artifact);
+                    final File distributionPom =  this.constructPom(andromdaDirectory, artifact);
                     this.bundleFile(
                         artifact,
                         repositoryPom,
@@ -368,20 +364,31 @@ public class AssembleMojo
             new File(
                 destinationDirectory,
                 repositoryDirectoryPath + '/' + artifactFile.getName()));
-        final File repositoryPom =
-            new File(
-                this.localRepository.getBasedir(),
-                repositoryDirectoryPath + artifact.getArtifactId() + "-" + artifact.getVersion() + '.' + POM_TYPE);
+        final File repositoryPom = this.constructPom(new File(this.localRepository.getBasedir(), repositoryDirectoryPath), artifact);
 
         if (repositoryPom.exists())
         {
-            final File distributionPom = new File(dependencyDirectory, artifact.getArtifactId() + '.' + POM_TYPE);
+            final File distributionPom = this.constructPom(dependencyDirectory, artifact);
+            System.out.println("The distribution pom!!!!!" + distributionPom);
             this.bundleFile(
                 artifact,
                 repositoryPom,
                 distributionPom);
         }
     }
+    
+    /**
+     * Constructs the POM file given the <code>directory</code> and the <code>artifact</code>.
+     * 
+     * @param directory the directory.
+     * @param artifact the artifact.
+     * @return the POM file.
+     */
+    private final File constructPom(final File directory, final Artifact artifact)
+    {
+       return new File(directory, artifact.getArtifactId() + '-' + artifact.getVersion() + '.' + POM_TYPE);
+    }
+
 
     /**
      * Copies the given <code>file</code> to the given <code>destination</code>.
