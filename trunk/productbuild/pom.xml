@@ -5,7 +5,7 @@
     <groupId>org.andromda</groupId>
     <artifactId>andromda</artifactId>
     <packaging>pom</packaging>
-    <version>4.0-M1-SNAPSHOT</version>
+    <version>3.2-RC1-SNAPSHOT</version>
     <name>AndroMDA: The Open Source MDA Tool</name>
     <description>
          AndroMDA (pronounced: andromeda) is an open source code generation framework that follows the Model Driven Architecture
@@ -17,18 +17,16 @@
         <system>jira</system>
         <url>http://jira.andromda.org/</url>
     </issueManagement>
-    <!--
     <ciManagement>
-      <system>continuum</system>
-      <notifiers>
-        <notifier>
-          <configuration>
-            <address>committers@andromda.org</address>
-          </configuration>
-        </notifier>
-      </notifiers>
+        <system>continuum</system>
+        <notifiers>
+            <notifier>
+                <configuration>
+                    <address>committers@andromda.org</address>
+                </configuration>
+            </notifier>
+        </notifiers>
     </ciManagement>
-    -->
     <mailingLists>
         <mailingList>
             <name>AndroMDA User List</name>
@@ -137,7 +135,16 @@
             </roles>
             <timezone>6</timezone>
         </developer>
-
+        <developer>
+            <id>joelkoz</id>
+            <name>Joel Kozikowski</name>
+            <email>joel@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
     </developers>
     <!--
     <licenses>
@@ -149,9 +156,9 @@
     </licenses>
     -->
     <scm>
-        <connection></connection>
-        <developerConnection></developerConnection>
-        <url>http://cvs.sourceforge.net/viewcvs.py/andromda/</url>
+      <connection>scm:cvs:pserver:anonymous:@cvs.sourceforge.net:/cvsroot/andromda:andromda</connection>
+      <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/andromda:andromda</developerConnection>
+      <url>http://cvs.sourceforge.net/viewcvs.py/andromda/</url>
     </scm>
     <organization>
       <name>AndroMDA.org</name>
