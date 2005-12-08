@@ -7,17 +7,18 @@ import java.util.Iterator;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
+import org.andromda.metafacades.uml.TemplateParameterFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.metafacades.uml.TemplateParameterFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.translation.ocl.ExpressionKinds;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
@@ -315,7 +316,8 @@ public class ModelElementFacadeLogicImpl
         }
 
         if (this.isTemplateParametersPresent() &&
-            "true".equals(String.valueOf(getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+            BooleanUtils.toBoolean(
+                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
         {
             // we'll be constructing the parameter list in this buffer
             final StringBuffer buffer = new StringBuffer();
@@ -330,7 +332,8 @@ public class ModelElementFacadeLogicImpl
             final Collection templateParameters = this.getTemplateParameters();
             for (Iterator parameterIterator = templateParameters.iterator(); parameterIterator.hasNext();)
             {
-                final ModelElementFacade modelElement = ((TemplateParameterFacade)parameterIterator.next()).getParameter();
+                final ModelElementFacade modelElement =
+                    ((TemplateParameterFacade)parameterIterator.next()).getParameter();
 
                 if (modelElement instanceof ParameterFacade)
                 {
@@ -700,7 +703,6 @@ public class ModelElementFacadeLogicImpl
     protected void handleCopyTaggedValues(ModelElementFacade element)
     {
         // TODO Auto-generated method stub
-        
     }
 
     protected Object handleGetTemplateParameter(String parameterName)

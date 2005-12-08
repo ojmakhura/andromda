@@ -10,7 +10,11 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.2-RC1-SNAPSHOT" date="2005-12-04" description="First release candidate of version 3.2">
+        <release version="3.2-RC1-SNAPSHOT" date="2005-12-07" description="First release candidate of version 3.2">
+            <action dev="draftdog" type="add">
+                Value objects that have 'frozen' attributes or associations will no longer have a setter method
+                generated for these features.
+            </action>
             <action dev="draftdog" type="add" issue="UMLMETA-58">
                 Using the <code>enableTemplating</code> namespace property it is now possible to enable
                 templating (i.e. generics in Java). A class or datatype with template parameters will have them

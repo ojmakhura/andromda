@@ -87,7 +87,6 @@ public class ConcreteSyntaxUtils
 
         operationDeclaration = new OperationDeclarationImpl(ObjectUtils.toString(op.getName()), returnType, ConcreteSyntaxUtils.getVariableDeclarations(
                 operation));
-        
         return operationDeclaration;
     }
 

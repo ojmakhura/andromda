@@ -190,7 +190,7 @@ public class HibernateAssociationEndLogicImpl
             // set this association end's type as a template parameter if required
             if ("true".equals(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
             {
-                getterSetterTypeName = getterSetterTypeName + "<" + this.getType().getFullyQualifiedName() + ">";
+                getterSetterTypeName = getterSetterTypeName + "<? extends " + this.getType().getFullyQualifiedName() + ">";
             }
         }
 

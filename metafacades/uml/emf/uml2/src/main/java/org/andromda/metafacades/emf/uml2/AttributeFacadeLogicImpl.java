@@ -5,9 +5,12 @@ import java.util.Collection;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TypeMappings;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -106,7 +109,7 @@ public class AttributeFacadeLogicImpl
     protected boolean handleIsEnumerationLiteral()
     {
         final ClassifierFacade owner = this.getOwner();
-        return (owner == null) ? false : owner.isEnumeration();
+        return (owner != null) && owner.isEnumeration();
     }
 
     /**
@@ -139,6 +142,13 @@ public class AttributeFacadeLogicImpl
             name =
                 isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(
                     UMLProfile.COLLECTION_TYPE_NAME);
+
+            // set this attribute's type as a template parameter if required
+            if (BooleanUtils.toBoolean(
+                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
+            {
+                name = name + "<? extends " + this.getType().getFullyQualifiedName() + ">";
+            }
         }
         if (name == null && this.getType() != null)
         {
@@ -219,7 +229,6 @@ public class AttributeFacadeLogicImpl
     protected void handleCopyTaggedValues(ModelElementFacade element)
     {
         // TODO Auto-generated method stub
-        
     }
 
     protected Object handleGetTemplateParameter(String parameterName)
