@@ -10,7 +10,7 @@ package $class.packageName;
 /**
 $class.getDocumentation(" * ")
  */
-public class $class.name
+public#if($class.abstract) abstract#end class $class.name
 #if($class.generalization)
     extends ${class.generalization.fullyQualifiedName}
 #end
@@ -80,11 +80,13 @@ $attribute.getDocumentation("     * ")
         return this.${attribute.name};
     }
 
+#if (!$attribute.readOnly)
     $attribute.visibility void ${attribute.setterName}($attribute.getterSetterTypeName $attribute.name)
     {
         this.${attribute.name} = $attribute.name;
     }
 
+#end
 #end
 ## Generate the relation methods.
 #foreach ($associationEnd in $class.associationEnds)
@@ -101,6 +103,7 @@ $target.getDocumentation("     * ")
         return this.${target.name};
     }
 
+#if (!$associationEnd.readOnly)
     /**
      * Set the $target.name
      */
@@ -109,6 +112,7 @@ $target.getDocumentation("     * ")
         this.${target.name} = ${target.name};
     }
 
+#end
 #end
 #end
 }

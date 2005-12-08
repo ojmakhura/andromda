@@ -3,13 +3,14 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.omg.uml.foundation.core.AssociationEnd;
@@ -82,7 +83,9 @@ public class AssociationEndFacadeLogicImpl
         }
         final String nameMask =
             String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_PROPERTY_NAME_MASK));
-        return NameMasker.mask(name, nameMask);
+        return NameMasker.mask(
+            name,
+            nameMask);
     }
 
     /**
@@ -253,14 +256,15 @@ public class AssociationEndFacadeLogicImpl
             if (mappings != null)
             {
                 name =
-                    this.isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME) : mappings.getTo(
-                        UMLProfile.COLLECTION_TYPE_NAME);
+                    this.isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
+                                     : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
             }
 
             // set this association end's type as a template parameter if required
-            if ("true".equals(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
+            if (BooleanUtils.toBoolean(
+                    ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                name = name + "<" + this.getType().getFullyQualifiedName() + ">";
+                name = name + "<? extends " + this.getType().getFullyQualifiedName() + ">";
             }
         }
         if (name == null && this.getType() != null)

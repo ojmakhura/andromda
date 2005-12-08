@@ -265,7 +265,7 @@ public abstract class BaseTranslator
      * @param expression the expression to process.
      * @throws IOException if an IO error occurs during processing.
      */
-    protected void process(String expression) throws IOException
+    protected void process(final String expression) throws IOException
     {
         ExceptionUtils.checkEmpty("expression", expression);
         try
@@ -337,11 +337,6 @@ public abstract class BaseTranslator
      */
     public void inAOperationExpressionBody(AOperationExpressionBody operationExpressionBody)
     {
-        final String methodName = "BaseTranslator.inAOperationExpressionBody";
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("performing " + methodName + " with operationExpressionBody --> " + operationExpressionBody);
-        }
         ExceptionUtils.checkNull("operationExpressionBody", operationExpressionBody);
 
         if (this.translatedExpression != null)
