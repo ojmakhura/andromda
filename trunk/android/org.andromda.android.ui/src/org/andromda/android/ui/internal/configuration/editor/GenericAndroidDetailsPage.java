@@ -1,5 +1,6 @@
 package org.andromda.android.ui.internal.configuration.editor;
 
+import org.andromda.android.core.util.XmlUtils;
 import org.andromda.core.configuration.NamespaceDocument.Namespace;
 import org.andromda.core.namespace.PropertyDocument.Property;
 import org.andromda.core.namespace.PropertyGroupDocument.PropertyGroup;
@@ -19,7 +20,6 @@ import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.forms.AbstractFormPart;
 import org.eclipse.ui.forms.IDetailsPage;
 import org.eclipse.ui.forms.IFormPart;
-import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
@@ -93,6 +93,7 @@ public class GenericAndroidDetailsPage
             {
                 Property property = properties[i];
                 String name = property.getName();
+                String documentation = XmlUtils.getTextValueFromElement(property.getDocumentation());
                 boolean required = property.getRequired();
                 String req = "";
                 if (required)
@@ -102,10 +103,12 @@ public class GenericAndroidDetailsPage
 
                 final Label label = toolkit.createLabel(propertiesComposite, name + req + ":", SWT.NONE);
                 label.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
+                label.setToolTipText(documentation);
 
                 final Text valueText = toolkit.createText(propertiesComposite, null, SWT.NONE);
                 valueText.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
                 valueText.setText(getPropertyValue(name));
+                valueText.setToolTipText(documentation);
                 valueText.setData("PROPERTYNAME", name);
                 valueText.addModifyListener(new ModifyListener()
                 {
