@@ -504,6 +504,7 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-multi-source-plugin</artifactId>
+                    <version>$andromdaVersion</version>
                     <executions>
                         <execution>
                             <goals>
@@ -516,6 +517,21 @@
                             </configuration>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.andromda.maven.plugins</groupId>
+                    <artifactId>andromda-maven-plugin</artifactId>
+                    <version>$andromdaVersion</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.andromda.maven.plugins</groupId>
+                    <artifactId>andromda-maven-plugin</artifactId>
+                    <version>$andromdaVersion</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>andromdapp-maven-plugin</artifactId>
+                    <version>$andromdaVersion</version>
                 </plugin>
             </plugins>
         </pluginManagement>
