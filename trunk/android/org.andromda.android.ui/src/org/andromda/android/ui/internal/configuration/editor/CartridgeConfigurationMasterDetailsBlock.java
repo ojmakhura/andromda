@@ -155,6 +155,15 @@ public class CartridgeConfigurationMasterDetailsBlock
         this.parentPage = parentPage;
         androidDetailsPage = new GenericAndroidDetailsPage();
     }
+    
+    /**
+     * @see org.eclipse.ui.forms.MasterDetailsBlock#createContent(org.eclipse.ui.forms.IManagedForm)
+     */
+    public void createContent(IManagedForm managedForm)
+    {
+        super.createContent(managedForm);
+        sashForm.setWeights(new int[] {33, 67});
+    }
 
     protected void createMasterPart(final IManagedForm managedForm,
         Composite parent)
