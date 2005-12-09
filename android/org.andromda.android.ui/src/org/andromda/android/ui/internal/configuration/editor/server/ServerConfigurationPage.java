@@ -1,9 +1,5 @@
-package org.andromda.android.ui.internal.configuration.editor;
+package org.andromda.android.ui.internal.configuration.editor.server;
 
-import org.andromda.android.ui.internal.configuration.editor.ServerGeneralInformationComposite;
-import org.andromda.android.ui.internal.configuration.editor.ServerLoadingComposite;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.IManagedForm;
@@ -22,7 +18,7 @@ public class ServerConfigurationPage
         extends FormPage
 {
 
-    /** The pae ID. */
+    /** The page ID. */
     public static final String PAGE_ID = "server";
 
     /**
@@ -46,20 +42,24 @@ public class ServerConfigurationPage
     {
         FormToolkit toolkit = managedForm.getToolkit();
         ScrolledForm form = managedForm.getForm();
+        
         form.setText("AndroMDA Server");
-        Composite body = form.getBody();
+        
         final GridLayout gridLayout = new GridLayout();
         gridLayout.makeColumnsEqualWidth = true;
         gridLayout.numColumns = 2;
+        Composite body = form.getBody();
         body.setLayout(gridLayout);
+        
         toolkit.paintBordersFor(body);
 
-        final ServerGeneralInformationComposite serverGeneralInformationComposite = new ServerGeneralInformationComposite(
-                body, SWT.NONE);
-        serverGeneralInformationComposite.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
+        // general information section
+        final ServerGeneralInformationSection serverGeneralInformationSection = new ServerGeneralInformationSection(this);
+        managedForm.addPart(serverGeneralInformationSection);
 
-        final ServerLoadingComposite serverLoadingComposite = new ServerLoadingComposite(body, SWT.NONE);
-        serverLoadingComposite.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
+        // model loading section
+        final ServerLoadingSection serverLoadingSection = new ServerLoadingSection(this);
+        managedForm.addPart(serverLoadingSection);
     }
-
+    
 }

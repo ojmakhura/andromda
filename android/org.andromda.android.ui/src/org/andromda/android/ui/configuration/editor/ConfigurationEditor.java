@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.andromda.android.ui.AndroidUIPlugin;
-import org.andromda.android.ui.internal.configuration.editor.CartridgeConfigurationPage;
-import org.andromda.android.ui.internal.configuration.editor.ServerConfigurationPage;
+import org.andromda.android.ui.internal.configuration.editor.cartridge.CartridgeConfigurationPage;
+import org.andromda.android.ui.internal.configuration.editor.server.ServerConfigurationPage;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.apache.xmlbeans.XmlOptions;
 import org.eclipse.core.runtime.IPath;

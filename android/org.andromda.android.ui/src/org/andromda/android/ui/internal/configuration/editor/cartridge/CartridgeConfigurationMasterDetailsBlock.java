@@ -1,7 +1,6 @@
-package org.andromda.android.ui.internal.configuration.editor;
+package org.andromda.android.ui.internal.configuration.editor.cartridge;
 
 import org.andromda.android.core.AndroidCore;
-import org.andromda.android.core.internal.AndroidModel;
 import org.andromda.android.core.internal.AndroidModelManager;
 import org.andromda.android.core.project.IAndroidProject;
 import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
@@ -146,14 +145,14 @@ public class CartridgeConfigurationMasterDetailsBlock
 
     private Tree tree;
 
-    private GenericAndroidDetailsPage androidDetailsPage;
+    private GenericCartridgeConfigurationDetailsPage androidDetailsPage;
 
     private final CartridgeConfigurationPage parentPage;
 
     public CartridgeConfigurationMasterDetailsBlock(CartridgeConfigurationPage parentPage)
     {
         this.parentPage = parentPage;
-        androidDetailsPage = new GenericAndroidDetailsPage();
+        androidDetailsPage = new GenericCartridgeConfigurationDetailsPage();
     }
     
     /**
