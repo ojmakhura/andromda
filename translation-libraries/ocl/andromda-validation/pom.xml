@@ -29,13 +29,6 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>install</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <installDirectory>${basedir}/../../../lib</installDirectory>
                 </configuration>
@@ -43,16 +36,9 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-plugin</artifactId>  
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>test-translation-library</goal>
-                        </goals>
-                        <configuration>
-                            <configurationUri>file:${basedir}/../conf/test/andromda.xml</configurationUri>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <configurationUri>file:${basedir}/../conf/test/andromda.xml</configurationUri>
+                </configuration>
             </plugin>
         </plugins>
     </build>

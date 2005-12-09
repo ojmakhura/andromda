@@ -58,6 +58,7 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-maven-plugin</artifactId>
+                    <version>${version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -75,6 +76,7 @@
                     <extensions>true</extensions>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-cartridge-plugin</artifactId>  
+                    <version>${version}</version>
                     <executions>
                         <execution>
                             <goals>
