@@ -64,5 +64,28 @@ public class ServerGeneralInformationSection
         }
     }
     
+    /**
+     * @see org.eclipse.ui.forms.AbstractFormPart#commit(boolean)
+     */
+    public void commit(boolean onSave)
+    {
+        FormEditor editor = getEditor();
+        if (editor instanceof ConfigurationEditor)
+        {
+            ConfigurationEditor configurationEditor = (ConfigurationEditor)editor;
+            AndromdaDocument document = configurationEditor.getDocument();
+
+            Server server = document.getAndromda().getServer();
+            
+            String host = servergeneralInformationComposite.getHost();
+            server.setHost(host);
+            
+            BigInteger port = servergeneralInformationComposite.getPort();
+            server.setPort(port);
+        }
+
+        super.commit(onSave);
+    }
+    
 }
 
