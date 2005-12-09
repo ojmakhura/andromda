@@ -80,4 +80,13 @@ public class HibernateTypeLogicImpl
         }
         return mappings;
     }
+
+    // from org.andromda.metafacades.uml.ClassifierFacade
+    public java.lang.String getJavaNullString()
+    {
+        if (this.getFullyQualifiedName().equals("System.Guid"))
+            return "00000000-0000-0000-0000-000000000000";
+        else
+            return super.getJavaNullString();
+    }
 }
