@@ -26,6 +26,13 @@ import org.andromda.core.common.XmlObjectFactory;
  */
 public class AndroMDApp
 {
+    
+    /**
+     * An AndroMDApp configuration that contains some internal configuration information (like the AndroMDA
+     * version, and other common properties).
+     */
+    private static final String INTERNAL_CONFIGURATION_URI = "META-INF/andromdapp/configuration.xml";
+    
     /**
      * Runs the AndroMDApp generation process.
      */
@@ -34,6 +41,13 @@ public class AndroMDApp
         try
         {
             AndroMDALogger.initialize();
+            final URL internalConfiguration = ResourceUtils.getResource(INTERNAL_CONFIGURATION_URI);
+            if (internalConfiguration == null)
+            {
+                throw new AndroMDAppException("No configuration could be loaded from --> '" +
+                    INTERNAL_CONFIGURATION_URI + "'");
+            }
+            this.addConfigurationUri(internalConfiguration.toString());
             this.initialize();
             this.chooseTypeAndRun(true);
         }

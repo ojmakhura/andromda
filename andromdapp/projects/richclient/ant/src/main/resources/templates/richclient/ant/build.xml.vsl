@@ -10,46 +10,46 @@
   <property name="andromda.dependency.dir" value="${andromda.dist.dir}/lib"/>
   <path id="andromda.classpath">
     <fileset dir="${andromda.lib.dir}">
-        <include name="andromda-core/3.2-RC1-SNAPSHOT/andromda-core-3.2-RC1-SNAPSHOT.jar"/> 
-        <include name="andromda-utils/3.2-RC1-SNAPSHOT/andromda-utils-3.2-RC1-SNAPSHOT.jar"/>
-        <include name="ant/andromda-ant-task/3.2-RC1-SNAPSHOT/andromda-ant-task-3.2-RC1-SNAPSHOT.jar"/> 
-        <include name="metafacades/andromda-metafacades-emf-uml2/3.2-RC1-SNAPSHOT/andromda-metafacades-emf-uml2-3.2-RC1-SNAPSHOT.jar"/>
-        <include name="metafacades/andromda-metafacades-uml/3.2-RC1-SNAPSHOT/andromda-metafacades-uml-3.2-RC1-SNAPSHOT.jar"/>
-        <include name="metafacades/andromda-metafacades-uml14/3.2-RC1-SNAPSHOT/andromda-metafacades-uml14-3.2-RC1-SNAPSHOT.jar"/>
-        <include name="repositories/andromda-repository-emf/3.2-RC1-SNAPSHOT/andromda-repository-emf-3.2-RC1-SNAPSHOT.jar"/>
-        <include name="repositories/andromda-repository-mdr/3.2-RC1-SNAPSHOT/andromda-repository-mdr-3.2-RC1-SNAPSHOT.jar"/>
-        <include name="repositories/andromda-repository-emf-uml2/3.2-RC1-SNAPSHOT/andromda-repository-emf-uml2-3.2-RC1-SNAPSHOT.jar"/>
-        <include name="translationlibraries/andromda-ocl-query-library/3.2-RC1-SNAPSHOT/andromda-ocl-query-library-3.2-RC1-SNAPSHOT.jar"/>
-        <include name="translationlibraries/andromda-ocl-translation-core/3.2-RC1-SNAPSHOT/andromda-ocl-translation-core-3.2-RC1-SNAPSHOT.jar"/>
-        <include name="translationlibraries/andromda-ocl-translation-testsuite/3.2-RC1-SNAPSHOT/andromda-ocl-translation-testsuite-3.2-RC1-SNAPSHOT.jar"/>
-        <include name="translationlibraries/andromda-ocl-validation-library/3.2-RC1-SNAPSHOT/andromda-ocl-validation-library-3.2-RC1-SNAPSHOT.jar"/>
-        <include name="templateengines/andromda-templateengine-velocity/3.2-RC1-SNAPSHOT/andromda-templateengine-velocity-3.2-RC1-SNAPSHOT.jar"/> 
-        <include name="cartridges/andromda-spring-cartridge/3.2-RC1-SNAPSHOT/andromda-spring-cartridge-3.2-RC1-SNAPSHOT.jar"/>
-        <include name="cartridges/andromda-java-cartridge/3.2-RC1-SNAPSHOT/andromda-java-cartridge-3.2-RC1-SNAPSHOT.jar"/>
+        <include name="andromda-core/*/andromda-core-*.jar"/> 
+        <include name="andromda-utils/*/andromda-utils-*.jar"/>
+        <include name="ant/andromda-ant-task/*/andromda-ant-task-*.jar"/> 
+        <include name="metafacades/andromda-metafacades-emf-uml2/*/andromda-metafacades-emf-uml2-*.jar"/>
+        <include name="metafacades/andromda-metafacades-uml/*/andromda-metafacades-uml-*.jar"/>
+        <include name="metafacades/andromda-metafacades-uml14/*/andromda-metafacades-uml14-*.jar"/>
+        <include name="repositories/andromda-repository-emf/*/andromda-repository-emf-*.jar"/>
+        <include name="repositories/andromda-repository-mdr/*/andromda-repository-mdr-*.jar"/>
+        <include name="repositories/andromda-repository-emf-uml2/*/andromda-repository-emf-uml2-*.jar"/>
+        <include name="translationlibraries/andromda-ocl-query-library/*/andromda-ocl-query-library-*.jar"/>
+        <include name="translationlibraries/andromda-ocl-translation-core/*/andromda-ocl-translation-core-*.jar"/>
+        <include name="translationlibraries/andromda-ocl-translation-testsuite/*/andromda-ocl-translation-testsuite-*.jar"/>
+        <include name="translationlibraries/andromda-ocl-validation-library/*/andromda-ocl-validation-library-*.jar"/>
+        <include name="templateengines/andromda-templateengine-velocity/*/andromda-templateengine-velocity-*.jar"/> 
+        <include name="cartridges/andromda-spring-cartridge/*/andromda-spring-cartridge-*.jar"/>
+        <include name="cartridges/andromda-java-cartridge/*/andromda-java-cartridge-*.jar"/>
 #if ($persistenceType == 'hibernate')
-        <include name="cartridges/andromda-hibernate-cartridge/3.2-RC1-SNAPSHOT/andromda-hibernate-cartridge-3.2-RC1-SNAPSHOT.jar"/>
+        <include name="cartridges/andromda-hibernate-cartridge/*/andromda-hibernate-cartridge-*.jar"/>
 #end
 #if ($persistenceType == 'ejb')
-        <include name="cartridges/andromda-ejb-cartridge/3.2-RC1-SNAPSHOT/andromda-ejb-cartridge-3.2-RC1-SNAPSHOT.jar"/>
+        <include name="cartridges/andromda-ejb-cartridge/*/andromda-ejb-cartridge-*.jar"/>
 #end
     </fileset>
     <fileset dir="${andromda.dependency.dir}">        
-        <include name="commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar"/>
-        <include name="commons-collections/commons-collections/3.1/commons-collections-3.1.jar"/>
-        <include name="commons-digester/commons-digester/1.7/commons-digester-1.7.jar"/>
-        <include name="commons-lang/commons-lang/2.1/commons-lang-2.1.jar"/>
-        <include name="commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar"/>
-        <include name="log4j/log4j/1.2.12/log4j-1.2.12.jar"/> 
-        <include name="velocity/velocity/1.4/velocity-1.4.jar"/>
-        <include name="xerces/xercesImpl/2.6.0/xercesImpl-2.6.0.jar"/>
-        <include name="xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar"/>
-        <include name="jmi/jmi/20030918/jmi-20030918.jar"/>
-        <include name="jmi/jmiuml/1.4di/jmiuml-1.4di.jar"/>
-        <include name="jmi/mof/20030918/mof-20030918.jar"/>
-        <include name="org/netbeans/mdr/jmiutils/20050711/jmiutils-20050711.jar"/>
-        <include name="org/netbeans/mdr/mdrapi/20050711/mdrapi-20050711.jar"/>
-        <include name="org/netbeans/mdr/nbmdr/20050711/nbmdr-20050711.jar"/>
-        <include name="org/netbeans/mdr/openide-util/20050711/openide-util-20050711.jar"/>
+        <include name="commons-beanutils/commons-beanutils/*/commons-beanutils-*.jar"/>
+        <include name="commons-collections/commons-collections/*/commons-collections-*.jar"/>
+        <include name="commons-digester/commons-digester/*/commons-digester-*.jar"/>
+        <include name="commons-lang/commons-lang/*/commons-lang-*.jar"/>
+        <include name="commons-logging/commons-logging/*/commons-logging-*.jar"/>
+        <include name="log4j/log4j/*/log4j-*.jar"/> 
+        <include name="velocity/velocity/*/velocity-*.jar"/>
+        <include name="xerces/xercesImpl/*/xercesImpl-*.jar"/>
+        <include name="xml-apis/xml-apis/*/xml-apis-*.jar"/>
+        <include name="jmi/jmi/*/jmi-*.jar"/>
+        <include name="jmi/jmiuml/*/jmiuml-*.jar"/>
+        <include name="jmi/mof/*/mof-*.jar"/>
+        <include name="org/netbeans/mdr/jmiutils/*/jmiutils-*.jar"/>
+        <include name="org/netbeans/mdr/mdrapi/*/mdrapi-*.jar"/>
+        <include name="org/netbeans/mdr/nbmdr/*/nbmdr-*.jar"/>
+        <include name="org/netbeans/mdr/openide-util/*/openide-util-*.jar"/>
         <include name="org/eclipse/**/*.jar"/>
     </fileset>
   </path>
@@ -97,10 +97,10 @@
         <!-- Generates the schema files for the database -->
         <path id="hibernate.classpath">
            <fileset dir="${andromda.dependency.dir}">        
-              <include name="org/hibernate/hibernate/3.0.5/hibernate-3.0.5.jar"/>
-              <include name="commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar"/>
-              <include name="dom4j/dom4j/1.6/dom4j-1.6.jar"/>
-              <include name="commons-collections/commons-collections/3.1/commons-collections-3.1.jar"/>
+              <include name="org/hibernate/hibernate/*/hibernate-*.jar"/>
+              <include name="commons-logging/commons-logging/*/commons-logging-*.jar"/>
+              <include name="dom4j/dom4j/*/dom4j-*.jar"/>
+              <include name="commons-collections/commons-collections/*/commons-collections-*.jar"/>
            </fileset>
            <fileset dir="${jboss.installation.path}/server/default/lib">
                <include name="jboss-j2ee.jar"/>
