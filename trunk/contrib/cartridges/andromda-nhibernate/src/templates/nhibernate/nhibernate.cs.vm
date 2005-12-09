@@ -63,6 +63,8 @@
 #set ($propertyName = ${stringUtils.upperCamelCaseName($attribute.name)})
 #if  ($attribute.getterSetterTypeName == "bool")
             hashCode = 29 * hashCode + (${propertyName} ? 1 : 0);
+#elseif ($attribute.getterSetterTypeName == "System.Guid")
+            hashCode = 29 * hashCode + ${propertyName}.GetHashCode();
 #elseif ($attrType.arrayType)
             // arrays are not part of the hashCode calculation
 #elseif ($attrType.primitive || $attrType.enumeration)
