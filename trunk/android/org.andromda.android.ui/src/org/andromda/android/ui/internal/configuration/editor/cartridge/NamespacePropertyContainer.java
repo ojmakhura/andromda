@@ -1,4 +1,4 @@
-package org.andromda.android.ui.internal.configuration.editor;
+package org.andromda.android.ui.internal.configuration.editor.cartridge;
 
 import org.andromda.core.configuration.NamespaceDocument.Namespace;
 import org.andromda.core.namespace.PropertyGroupDocument.PropertyGroup;

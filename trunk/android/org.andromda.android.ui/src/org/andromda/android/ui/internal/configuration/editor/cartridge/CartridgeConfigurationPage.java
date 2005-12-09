@@ -1,4 +1,4 @@
-package org.andromda.android.ui.internal.configuration.editor;
+package org.andromda.android.ui.internal.configuration.editor.cartridge;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;

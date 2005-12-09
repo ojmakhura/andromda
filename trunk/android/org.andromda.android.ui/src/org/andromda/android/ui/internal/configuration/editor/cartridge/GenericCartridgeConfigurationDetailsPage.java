@@ -1,4 +1,4 @@
-package org.andromda.android.ui.internal.configuration.editor;
+package org.andromda.android.ui.internal.configuration.editor.cartridge;
 
 import org.andromda.android.core.util.XmlUtils;
 import org.andromda.core.configuration.NamespaceDocument.Namespace;
@@ -24,28 +24,38 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 /**
+ * This {@link org.eclipse.ui.forms.IDetailsPage} displays the namespace properties for the selected namespace property
+ * group. The user can edit these properties.
  * 
  * @author Peter Friese
  * @since 07.11.2005
  */
-public class GenericAndroidDetailsPage
+public class GenericCartridgeConfigurationDetailsPage
         extends AbstractFormPart
         implements IDetailsPage
 {
 
+    /** The section containing the list of properties being edited. */
     private Section cartridgeNameCartridgeSection;
-    private FormToolkit toolkit;
 
+    /** The composite containing the list of properties. */
     private Composite propertiesComposite;
 
-    private Property[] properties;
+    /** The form toolkit. */
+    private FormToolkit toolkit;
 
     /** The namespace being edited. */
     private Namespace namespace;
-    
+
     /** The property group being edited. */
     private PropertyGroup propertyGroup;
 
+    /** This array contains all properties of the selected propertygroup. */
+    private Property[] properties;
+
+    /**
+     * @see org.eclipse.ui.forms.IDetailsPage#createContents(org.eclipse.swt.widgets.Composite)
+     */
     public void createContents(Composite parent)
     {
         toolkit = getManagedForm().getToolkit();
@@ -54,7 +64,8 @@ public class GenericAndroidDetailsPage
         gridLayout.marginHeight = 0;
         parent.setLayout(gridLayout);
 
-        cartridgeNameCartridgeSection = toolkit.createSection(parent, Section.DESCRIPTION | Section.EXPANDED | Section.TITLE_BAR);
+        cartridgeNameCartridgeSection = toolkit.createSection(parent, Section.DESCRIPTION | Section.EXPANDED
+                | Section.TITLE_BAR);
         cartridgeNameCartridgeSection.setDescription("Edit the namespace settings to configure the cartridges.");
         final GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
         gridData.heightHint = 541;
@@ -72,6 +83,10 @@ public class GenericAndroidDetailsPage
         fillPropertiesComposite();
     }
 
+    /**
+     * Danymically populate the properties composite. For each property in the selected namspace property group, a label /
+     * edit field combination will be created.
+     */
     private void fillPropertiesComposite()
     {
         // dispose of old controls
@@ -81,13 +96,23 @@ public class GenericAndroidDetailsPage
             Control control = children[i];
             control.dispose();
         }
-        
+
         if (properties != null)
         {
-            
+
             String namespaceName = namespace.getName();
             String propertyGroupName = propertyGroup.getName();
             cartridgeNameCartridgeSection.setText(namespaceName + "/" + propertyGroupName + " properties");
+
+            String propertyGroupDocumentation = XmlUtils.getTextValueFromElement(propertyGroup.getDocumentation());
+            if (propertyGroupDocumentation != null)
+            {
+                cartridgeNameCartridgeSection.setDescription(propertyGroupDocumentation);
+            }
+            else
+            {
+                cartridgeNameCartridgeSection.setDescription("Configure the " + namespaceName + " namespace.");
+            }
 
             for (int i = 0; i < properties.length; i++)
             {
@@ -130,6 +155,12 @@ public class GenericAndroidDetailsPage
         }
     }
 
+    /**
+     * Reads the value of the given property from the currently selected namespace.
+     * 
+     * @param propertyName The name of the property to retrieve.
+     * @return The value of the property.
+     */
     private String getPropertyValue(String propertyName)
     {
         org.andromda.core.configuration.PropertyDocument.Property[] propertyArray = namespace.getProperties()
@@ -145,6 +176,12 @@ public class GenericAndroidDetailsPage
         return "";
     }
 
+    /**
+     * Sets the value of the given property in the selected namespace.
+     * 
+     * @param propertyName The name of the property.
+     * @param value The new value.
+     */
     private void setPropertyValue(String propertyName,
         String value)
     {
@@ -170,11 +207,18 @@ public class GenericAndroidDetailsPage
 
     }
 
+    /**
+     * Update the GUI.
+     */
     private void update()
     {
         fillPropertiesComposite();
     }
 
+    /**
+     * @see org.eclipse.ui.forms.IPartSelectionListener#selectionChanged(org.eclipse.ui.forms.IFormPart,
+     *      org.eclipse.jface.viewers.ISelection)
+     */
     public void selectionChanged(IFormPart part,
         ISelection selection)
     {
@@ -190,6 +234,9 @@ public class GenericAndroidDetailsPage
         update();
     }
 
+    /**
+     * @see org.eclipse.ui.forms.IFormPart#refresh()
+     */
     public void refresh()
     {
         super.refresh();
