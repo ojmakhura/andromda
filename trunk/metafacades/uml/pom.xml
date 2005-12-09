@@ -41,6 +41,7 @@
                 <plugin>
                   <groupId>org.andromda.maven.plugins</groupId>
                   <artifactId>andromda-bootstrap-plugin</artifactId>
+                  <version>${version}</version>
                   <executions>
                       <execution>
                           <goals>
@@ -56,6 +57,7 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-maven-plugin</artifactId>    
+                    <version>${version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -70,7 +72,8 @@
                 </plugin>
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
-                    <artifactId>andromda-bootstrap-install-plugin</artifactId>    
+                    <artifactId>andromda-bootstrap-install-plugin</artifactId> 
+                    <version>${version}</version>   
                     <executions>
                         <execution>
                             <goals>
@@ -86,6 +89,7 @@
                     <extensions>true</extensions>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-model-archiver-plugin</artifactId>
+                    <version>${version}</version>
                     <configuration>
                         <modelSourceDirectory>src/uml</modelSourceDirectory>
                         <generateJar>true</generateJar>

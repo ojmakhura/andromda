@@ -181,6 +181,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-initialize-plugin</artifactId>
+                <version>${version}</version>
                 <executions>
                     <execution>
                         <goals>

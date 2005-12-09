@@ -26,6 +26,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>andromdapp-maven-plugin</artifactId>
+                <version>${version}</version>
                 <executions>
                     <execution>
                         <id>animal-quiz</id>
@@ -112,6 +113,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-maven-execute-plugin</artifactId>
+                <version>${version}</version>
                 <executions>
                     <execution>
                         <id>install</id>

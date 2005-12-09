@@ -10,6 +10,16 @@
     <system>jira</system>
     <url>http://jira.andromda.org/</url>
   </issueManagement>
+  <ciManagement>
+    <system>continuum</system>
+    <notifiers>
+      <notifier>
+        <configuration>
+          <address>committers@andromda.org</address>
+        </configuration>
+      </notifier>
+    </notifiers>
+  </ciManagement>
   <inceptionYear>2003</inceptionYear>
   <mailingLists>
     <mailingList>
@@ -32,6 +42,8 @@
     </mailingList>
   </mailingLists>
   <scm>
+    <connection>scm:cvs:pserver:anonymous:@cvs.sourceforge.net:/cvsroot/andromda:andromda-all/andromda-translation-libraries/andromda-ocl-translation-libraries/andromda-ocl-validation-library</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/andromda:andromda-all/andromda-translation-libraries/andromda-ocl-translation-libraries/andromda-ocl-validation-library</developerConnection>
     <url>http://cvs.sourceforge.net/viewcvs.py/andromda/andromda-translation-libraries/andromda-ocl-translation-libraries/andromda-ocl-validation-library</url>
   </scm>
   <organization>
@@ -58,6 +70,11 @@
       <id>andromda</id>
       <name>AndroMDA Repository</name>
       <url>http://team.andromda.org/maven2</url>
+    </pluginRepository>
+    <pluginRepository>
+      <id>dcri</id>
+      <name>DCRI Repository</name>
+      <url>http://itdev.dcri.duke.edu/maven2</url>
     </pluginRepository>
     <pluginRepository>
       <releases>
