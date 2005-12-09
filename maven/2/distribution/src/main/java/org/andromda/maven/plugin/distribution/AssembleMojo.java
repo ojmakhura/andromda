@@ -136,14 +136,14 @@ public class AssembleMojo
      *
      * @parameter
      */
-    private String[] includes = new String[0];
+    private String[] projectIncludes = new String[0];
 
     /**
      * Defines the POMs who's artifacts will be excluded from the distribution.
      *
      * @parameter
      */
-    private String[] excludes = new String[0];
+    private String[] projectExcludes = new String[0];
 
     /**
      * The directory from which the search for POMs starts.
@@ -162,18 +162,30 @@ public class AssembleMojo
      * The directory containing dependant libraries used by AndroMDA.
      */
     private static final String DEPENDENCY_DIRECTORY = "lib/";
-    
+
     /**
      * The artifacts that can be excluded from the distribution.
-     * 
+     *
      * @parameter
      */
     private ArtifactFilter[] artifactExcludes;
-    
+
+    /**
+     * The locations to include when creating the distribution.
+     *
+     * @parameter
+     */
+    private Location[] locations;
+
     /**
      * All artifacts that are collected and bundled.
      */
     private final Set allArtifacts = new LinkedHashSet();
+
+    /**
+     * The forward slash character.
+     */
+    private static final String FORWARD_SLASH = "/";
 
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
@@ -232,8 +244,15 @@ public class AssembleMojo
                         }
                     }
 
-                    final File repositoryPom = this.constructPom(new File(this.localRepository.getBasedir(), repositoryDirectoryPath), artifact);
-                    final File distributionPom =  this.constructPom(andromdaDirectory, artifact);
+                    final File repositoryPom =
+                        this.constructPom(
+                            new File(
+                                this.localRepository.getBasedir(),
+                                repositoryDirectoryPath),
+                            artifact);
+                    final File distributionPom = this.constructPom(
+                            andromdaDirectory,
+                            artifact);
                     this.bundleFile(
                         artifact,
                         repositoryPom,
@@ -307,11 +326,65 @@ public class AssembleMojo
                 this.getLog().info("bundled: " + ((Artifact)iterator.next()).getId());
             }
 
-            this.getLog().info("Bundled " + artifactList.size() + " artifacts");
+            int bundledFilesCount = 0;
+
+            // - now include all paths found in the given locations
+            if (this.locations != null)
+            {
+                final int numberOfLocations = this.locations.length;
+                for (int ctr = 0; ctr < numberOfLocations; ctr++)
+                {
+                    final Location location = this.locations[ctr];
+                    final List paths = location.getPaths();
+                    if (paths != null)
+                    {
+                        for (final Iterator iterator = paths.iterator(); iterator.hasNext();)
+                        {
+                            final String path = (String)iterator.next();
+                            final File file = location.getFile(path);
+                            File destination = null;
+                            final String outputPath = location.getOuputPath();
+                            if (outputPath != null && outputPath.trim().length() > 0)
+                            {
+                                final File outputPathFile = new File(
+                                        this.getBinaryDistributionDirectory(),
+                                        outputPath);
+
+                                // - directories must end with a slash
+                                if (outputPath.endsWith(FORWARD_SLASH))
+                                {
+                                    destination = new File(
+                                            outputPathFile,
+                                            path);
+                                }
+                                else
+                                {
+                                    destination = outputPathFile;
+                                }
+                            }
+                            else
+                            {
+                                destination = new File(
+                                        this.getBinaryDistributionDirectory(),
+                                        path);
+                            }
+                            if (destination != null)
+                            {
+                                FileUtils.copyFile(
+                                    file,
+                                    destination);
+                                this.getLog().info("bundled: " + destination);
+                                bundledFilesCount++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            this.getLog().info("Bundled " + artifactList.size() + " artifacts and " + bundledFilesCount + " files");
             this.getLog().info("Building distribution " + distribution);
 
             final MavenArchiver archiver = new MavenArchiver();
-
             archiver.setArchiver(this.binArchiver);
             archiver.setOutputFile(distribution);
 
@@ -332,9 +405,11 @@ public class AssembleMojo
     }
 
     /**
-     * Bundles the file from the given <code>artifact</code> into the given <code>destinationDirectory</code>.
+     * Bundles the file from the given <code>artifact</code> into the given
+     * <code>destinationDirectory</code>.
      *
-     * @param destinationDirectory the directory to which the artifact is bundled.
+     * @param destinationDirectory the directory to which the artifact is
+     *        bundled.
      * @param artifact the artifact to bundle.
      * @throws IOException
      */
@@ -364,34 +439,45 @@ public class AssembleMojo
             new File(
                 destinationDirectory,
                 repositoryDirectoryPath + '/' + artifactFile.getName()));
-        final File repositoryPom = this.constructPom(new File(this.localRepository.getBasedir(), repositoryDirectoryPath), artifact);
+        final File repositoryPom =
+            this.constructPom(
+                new File(
+                    this.localRepository.getBasedir(),
+                    repositoryDirectoryPath),
+                artifact);
 
         if (repositoryPom.exists())
         {
-            final File distributionPom = this.constructPom(dependencyDirectory, artifact);
-            System.out.println("The distribution pom!!!!!" + distributionPom);
+            final File distributionPom = this.constructPom(
+                    dependencyDirectory,
+                    artifact);
             this.bundleFile(
                 artifact,
                 repositoryPom,
                 distributionPom);
         }
     }
-    
+
     /**
-     * Constructs the POM file given the <code>directory</code> and the <code>artifact</code>.
-     * 
+     * Constructs the POM file given the <code>directory</code> and the
+     * <code>artifact</code>.
+     *
      * @param directory the directory.
      * @param artifact the artifact.
      * @return the POM file.
      */
-    private final File constructPom(final File directory, final Artifact artifact)
+    private final File constructPom(
+        final File directory,
+        final Artifact artifact)
     {
-       return new File(directory, artifact.getArtifactId() + '-' + artifact.getVersion() + '.' + POM_TYPE);
+        return new File(
+            directory,
+            artifact.getArtifactId() + '-' + artifact.getVersion() + '.' + POM_TYPE);
     }
 
-
     /**
-     * Copies the given <code>file</code> to the given <code>destination</code>.
+     * Copies the given <code>file</code> to the given
+     * <code>destination</code>.
      *
      * @param artifact the artifact that is being bundled.
      * @param file the file to bundle.
@@ -439,12 +525,14 @@ public class AssembleMojo
             this.allArtifacts.add(artifact);
             FileUtils.copyFile(
                 file,
-                destination);           
+                destination);
         }
         else
         {
             if (this.getLog().isDebugEnabled())
+            {
                 this.getLog().debug("Excluding: " + artifact.getId());
+            }
         }
     }
 
@@ -458,8 +546,8 @@ public class AssembleMojo
     {
         final DirectoryScanner scanner = new DirectoryScanner();
         scanner.setBasedir(this.baseDirectory);
-        scanner.setIncludes(includes);
-        scanner.setExcludes(excludes);
+        scanner.setIncludes(this.projectIncludes);
+        scanner.setExcludes(this.projectExcludes);
         scanner.scan();
 
         List poms = new ArrayList();
@@ -480,7 +568,6 @@ public class AssembleMojo
      * Collects all projects from all POMs within the current project.
      *
      * @return all collection Maven project instances.
-     *
      * @throws MojoExecutionException
      */
     private MavenProject buildProject(final File pom)
@@ -510,7 +597,6 @@ public class AssembleMojo
      *
      * @return all collection Maven project instances.
      * @throws MojoExecutionException
-     *
      * @throws MojoExecutionException
      */
     private List collectProjects()
@@ -557,7 +643,8 @@ public class AssembleMojo
     }
 
     /**
-     * Gets the directory to which the output is written for the binary distribution.
+     * Gets the directory to which the output is written for the binary
+     * distribution.
      *
      * @return the directory output distribution.
      */
