@@ -82,7 +82,7 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#isPrimitiveType()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isPrimitive()
      */
     protected boolean handleIsPrimitive()
     {
