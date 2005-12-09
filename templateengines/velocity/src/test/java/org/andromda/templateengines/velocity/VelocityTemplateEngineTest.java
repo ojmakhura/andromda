@@ -60,7 +60,6 @@ public class VelocityTemplateEngineTest
         Property mergeMappings = new Property();
         URL mergeMappingsUri = VelocityTemplateEngineTest.class.getResource(
             "/" + packagePath + "/merge-mappings.xml");
-        System.out.println("package path: " + packagePath + "/merge-mappings.xml");
         assertNotNull(mergeMappingsUri);
         mergeMappings.setName(NamespaceProperties.MERGE_MAPPINGS_URI);
         mergeMappings.setValue(mergeMappingsUri.toString());
