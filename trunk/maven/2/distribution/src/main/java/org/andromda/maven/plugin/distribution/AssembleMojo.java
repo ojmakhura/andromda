@@ -154,14 +154,18 @@ public class AssembleMojo
     private String baseDirectory;
 
     /**
-     * The prefix for AndroMDA libraries
+     * The directory for artifacts created the the application being bundled.
+     * 
+     * @parameter expression="andromda/"
      */
-    private static final String ANDROMDA_DIRECTORY = "andromda/";
+    private String artifactDirectory;
 
     /**
-     * The directory containing dependant libraries used by AndroMDA.
+     * The directory which will contain dependant libraries used by the application.
+     * 
+     * @parameter expression="lib/"
      */
-    private static final String DEPENDENCY_DIRECTORY = "lib/";
+    private String dependencyDirectory;
 
     /**
      * The artifacts that can be excluded from the distribution.
@@ -186,6 +190,13 @@ public class AssembleMojo
      * The forward slash character.
      */
     private static final String FORWARD_SLASH = "/";
+    
+    /**
+     * The extension to give the distribution.
+     * 
+     * @parameter expression="zip"
+     */
+    private String extension;
 
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
@@ -222,7 +233,7 @@ public class AssembleMojo
                 final File workDirectory = new File(build.getDirectory());
                 if (workDirectory.exists())
                 {
-                    final File andromdaDirectory = new File(directory, ANDROMDA_DIRECTORY + repositoryDirectoryPath);
+                    final File andromdaDirectory = new File(directory, artifactDirectory + repositoryDirectoryPath);
                     final String finalName = build.getFinalName();
                     final String[] names = workDirectory.list();
                     if (names != null)
@@ -310,12 +321,12 @@ public class AssembleMojo
                 this.bundleArtifact(
                     new File(
                         directory,
-                        DEPENDENCY_DIRECTORY),
+                        dependencyDirectory),
                     artifact);
             }
 
             final File workDirectory = new File(this.workDirectory);
-            final File distribution = new File(workDirectory, this.binaryName + ".zip");
+            final File distribution = new File(workDirectory, this.binaryName + '.' + this.extension);
             final List artifactList = new ArrayList(this.allArtifacts);
 
             Collections.sort(
