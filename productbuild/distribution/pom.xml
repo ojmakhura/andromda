@@ -44,7 +44,7 @@
                                 <exlude>conf/**</exlude>
                                 <exclude>**/target/**</exclude>
                                 <exclude>**/CVS/**</exclude>
-                                <exclude>.cvsignore</exclude>
+                                <exclude>**/.cvsignore</exclude>
                                 <exclude>*</exclude>
                             </excludes>
                             <outputPath>samples/</outputPath>
