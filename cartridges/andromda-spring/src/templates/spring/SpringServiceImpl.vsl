@@ -26,7 +26,7 @@ public#if($service.abstract) abstract#end class $service.implementationName
 #else
         throws java.lang.Exception
     {
-        //@todo implement protected $operation.returnType.fullyQualifiedName $operation.implementationSignature
+        // ${toDoTag} implement protected $operation.returnType.fullyQualifiedName $operation.implementationSignature
 #if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #else

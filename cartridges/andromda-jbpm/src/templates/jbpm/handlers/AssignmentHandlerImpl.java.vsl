@@ -12,6 +12,7 @@ public class ${swimlane.assignmentHandlerClassName}Impl extends $swimlane.assign
     protected void handleAssign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception
     {
+       // ${toDoTag} implement code for handleAssign
     }
 }
 #end

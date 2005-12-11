@@ -31,7 +31,7 @@ public class ${service.name}BeanImpl
     protected $returnType handle${stringUtils.capitalize(${operation.name})} ($parameters)
     {
 #end
-        //@todo implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+        // ${toDoTag} implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #else

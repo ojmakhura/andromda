@@ -30,7 +30,7 @@ public#if ($embeddedValue.abstract) abstract#end class $embeddedValue.implementa
         throws $operation.exceptionList
 #end
     {
-        //@todo implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+        // ${toDoTag} implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #else

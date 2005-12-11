@@ -136,10 +136,6 @@ public class MetafacadeMappings
         ExceptionUtils.checkNull(
             "mappings",
             mappings);
-
-        // pass the namespace on from the passed in mapping instance
-        this.setNamespace(mappings.getNamespace());
-
         for (final Iterator iterator = mappings.mappings.iterator(); iterator.hasNext();)
         {
             final MetafacadeMapping mapping = (MetafacadeMapping)iterator.next();
@@ -253,8 +249,8 @@ public class MetafacadeMappings
         List hierarchy = (List)this.mappingObjectHierachyCache.get(mappingObject);
         if (hierarchy == null)
         {
-            // we construct the mapping object name from the interface
-            // (using the implementation name pattern).
+            // - we construct the mapping object name from the interface
+            //  (using the implementation name pattern).
             final String pattern = this.getMetaclassPattern();
             if (StringUtils.isNotBlank(pattern))
             {
@@ -266,8 +262,7 @@ public class MetafacadeMappings
                     final String name = ClassUtils.getShortClassName(metafacadeInterface);
 
                     // - replace references {0} with the package name and
-                    // references of {1} with
-                    // the name of the class
+                    //   references of {1} with the name of the class
                     final String metafacadeImplementationName =
                         pattern != null
                         ? pattern.replaceAll(
@@ -415,7 +410,7 @@ public class MetafacadeMappings
                                 boolean valid = false;
                                 if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
                                     mapping.hasContext() && mapping.hasMappingProperties() &&
-                                    (inProcessMappings.isEmpty() || !inProcessMappings.contains(mapping)))
+                                    (!inProcessMappings.contains(mapping)))
                                 {
                                     if (getContextHierarchy(context).contains(mapping.getContext()))
                                     {
@@ -493,7 +488,7 @@ public class MetafacadeMappings
                                 boolean valid = false;
                                 if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
                                     !mapping.hasContext() && mapping.hasMappingProperties() &&
-                                    (inProcessMappings.isEmpty() || !inProcessMappings.contains(mapping)))
+                                    (!inProcessMappings.contains(mapping)))
                                 {
                                     inProcessMappings.add(mapping);
                                     final MetafacadeBase metafacade =
@@ -531,9 +526,9 @@ public class MetafacadeMappings
         }
 
         // - if it's still null, try with the parent
-        if (mapping == null && this.parent != null)
+        if (mapping == null && this.getParent() != null)
         {
-            mapping = this.parent.getMapping(
+            mapping = this.getParent().getMapping(
                     metaclassName,
                     mappingObject,
                     context,
@@ -718,6 +713,8 @@ public class MetafacadeMappings
         // first try the namespace mappings
         if (mappings != null)
         {
+            // - set the parent namespace
+            mappings.parentNamespace = this.getNamespace();
             mapping = mappings.getMapping(
                     mappingObject,
                     context,
@@ -786,9 +783,19 @@ public class MetafacadeMappings
     }
 
     /**
-     * Stores the parent metafacade mappings (if any).
+     * Stores the possible parents of this metafacade mappings instance (i.e. mappings for uml-1.4, emf-uml2, etc).
      */
-    private MetafacadeMappings parent;
+    private Map parents = new HashMap();
+
+    /**
+     * Retrieves the appropriate parent based on the current {@link #metafacadeModelNamespace}.
+     *
+     * @return the parent metafacade mappings.
+     */
+    private MetafacadeMappings getParent()
+    {
+        return (MetafacadeMappings)this.parents.get(this.parentNamespace);
+    }
 
     /**
      * Adds a MetafacadeMappings instance to the namespace metafacade mappings
@@ -804,7 +811,10 @@ public class MetafacadeMappings
     {
         if (mappings != null)
         {
-            mappings.parent = this;
+            // - set the parent by its namespace (the parent is different depending on the current metafacade model namespace)
+            mappings.parents.put(
+                this.getNamespace(),
+                this);
             this.namespaceMetafacadeMappings.put(
                 namespace,
                 mappings);
@@ -905,9 +915,9 @@ public class MetafacadeMappings
      */
     private final String getMetaclassPattern()
     {
-        if (this.metaclassPattern == null && this.parent != null)
+        if (this.metaclassPattern == null && this.getParent() != null)
         {
-            this.metaclassPattern = this.parent.metaclassPattern;
+            this.metaclassPattern = this.getParent().metaclassPattern;
         }
         return this.metaclassPattern;
     }
@@ -962,7 +972,6 @@ public class MetafacadeMappings
             for (int ctr = 0; ctr < numberOfModelTypes; ctr++)
             {
                 final String modelNamespace = metafacadeModelNamespaces[ctr];
-
                 if (modelNamespace != null)
                 {
                     // - remove the current model type so that we don't keep out the namespace
@@ -974,6 +983,9 @@ public class MetafacadeMappings
                     if (modelMetafacadeMappings == null)
                     {
                         modelMetafacadeMappings = MetafacadeMappings.newInstance();
+
+                        // - set the namespace
+                        modelMetafacadeMappings.setNamespace(modelNamespace);
                         this.modelMetafacadeMappings.put(
                             modelNamespace,
                             modelMetafacadeMappings);
@@ -994,7 +1006,7 @@ public class MetafacadeMappings
                                 modelMetafacadeMappings.copyMappings(mappings);
 
                                 // - set the metaclass pattern from the 'shared' or single
-                                // instance of metafacades
+                                //   instance of metafacades
                                 final String metaclassPattern = mappings.metaclassPattern;
                                 if (metaclassPattern != null && metaclassPattern.trim().length() > 0)
                                 {
@@ -1079,6 +1091,11 @@ public class MetafacadeMappings
         }
         return instance;
     }
+
+    /**
+     * Stores the namespace of the parent mappings.
+     */
+    private String parentNamespace;
 
     /**
      * Gets the defaultMetafacadeClass, first looks for it in the namespace

@@ -75,10 +75,10 @@ public class MetafacadeMapping
         }
         return this.mappingClassName;
     }
-    
+
     /**
      * Indicates whether or not the mapping class has been present.
-     * 
+     *
      * @return whether or not the mapping class is present in this mapping.
      */
     final boolean isMappingClassNamePresent()
@@ -215,7 +215,9 @@ public class MetafacadeMapping
                 // collection only once
                 this.mappingPropertyGroups.add(this.mappingProperties);
             }
-            this.mappingProperties.addProperty(new Property(name, value));
+            this.mappingProperties.addProperty(new Property(
+                    name,
+                    value));
         }
     }
 
@@ -346,9 +348,10 @@ public class MetafacadeMapping
      */
     final boolean match(final MetafacadeMapping mapping)
     {
-        boolean match = mapping != null && this.getMetafacadeClass().equals(mapping.getMetafacadeClass()) &&
-        this.getStereotypes().equals(mapping.getStereotypes()) &&
-        this.getContext().equals(mapping.getContext());
+        boolean match =
+            mapping != null && this.getMetafacadeClass().equals(mapping.getMetafacadeClass()) &&
+            this.getStereotypes().equals(mapping.getStereotypes()) && this.getContext().equals(mapping.getContext());
+
         // - if they match and the mappingClassNames both non-null, verify they match
         if (match && this.mappingClassName != null && mapping.mappingClassName != null)
         {
@@ -362,9 +365,9 @@ public class MetafacadeMapping
      */
     public String toString()
     {
-        return super.toString() + "[" + this.getMetafacadeClass() + "], properties[" + this.getMappingProperties() +
-            "], stereotypes" + this.stereotypes + ", context[" + this.context + "], propertiesReferences" +
-            this.getPropertyReferences();
+        return super.toString() + "[" + this.getMetafacadeClass() + "], mappingClassName[" + this.mappingClassName +
+        "], properties[" + this.getMappingProperties() + "], stereotypes" + this.stereotypes + ", context[" +
+        this.context + "], propertiesReferences" + this.getPropertyReferences();
     }
 
     /**
@@ -388,7 +391,9 @@ public class MetafacadeMapping
             final String name = property.getName();
             if (!this.properties.containsKey(name))
             {
-                this.properties.put(name, property);
+                this.properties.put(
+                    name,
+                    property);
             }
         }
 

@@ -32,7 +32,7 @@ public class ${service.name}Impl
     $operation.visibility $returnType.fullyQualifiedName $signature
 #end
     {
-        //@todo implement $operation.visibility $returnType.fullyQualifiedName $signature
+        // ${toDoTag} implement $operation.visibility $returnType.fullyQualifiedName $signature
 #set ($returnTypeName = $operation.type.fullyQualifiedName)
 #if ($operation.returnTypePresent)
 #if (!$operation.type.primitive)

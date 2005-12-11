@@ -27,7 +27,7 @@ public class $entity.daoImplementationName
         throws $operation.exceptionList
 #end
     {
-        //@todo implement $operation.visibility $returnType.fullyQualifiedName $signature
+        // ${toDoTag} implement $operation.visibility $returnType.fullyQualifiedName $signature
 #if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #else
@@ -42,7 +42,7 @@ public class $entity.daoImplementationName
      */
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(final $entity.fullyQualifiedName entity)
     {
-        // put your implementation here
+        // ${toDoTag} implement ${valueObjectRef.transformationMethodName}
         return null;
     }
     
@@ -51,7 +51,7 @@ public class $entity.daoImplementationName
      */
     public $entity.fullyQualifiedEntityName ${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.name))
     {
-        // put your implementation here
+        // ${toDoTag} implement ${valueObjectRef.transformationToEntityMethodName}
         return null;    
     }
 

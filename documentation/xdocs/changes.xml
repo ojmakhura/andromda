@@ -7,6 +7,7 @@
         <author email="peter@andromda.org">Peter Friese</author>
         <author email="carlos@andromda.org">Carlos Cuenca</author>
         <author email="matthias@andromda.org">Matthias Bohlen</author>
+        <author email="joel@andromda.org">Joel Kozikowski</author>
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
@@ -265,6 +266,22 @@
                 An issue was fixed in the bpm4struts cartridge regarding the generation of dummy data in the controller
                 implementation classes: the dummy inner class used for table form properties wasn't used at all,
                 this would lead into compilation errors during build time.
+            </action>
+            <action dev="joelkoz" type="add" issue="ANDROMDAPP-3">
+                Added a new "project cartridge" that generates a project for rich client development using
+                Eclipse.  Build script is Ant based. Eclipse is used to build .class files. Build script
+                is for running AndroMDA, creating databases, and deployment to JBoss.
+            </action>
+            <action dev="joelkoz" type="update" issue="ANT-30">
+                Updated AndroMDA Ant tasks to use the new project generation system of 3.2-RC1. To use an
+                Ant based version of the app generator, execute the build.xml build script from the distribution's
+                "ant" directory.
+            </action>
+            <action dev="joelkoz" type="add" issue="MISC-37">
+                Created a new a global namespace property named "toToTag" that can specify what text to prefix 
+                all comments in generated code that mark code that the end user needs to modify. This allows
+                users of various IDEs to quickly see what modifications they need to make in a generated 
+                project (for example, Eclipse users can set the tag to "TODO", the default Eclipse task tag).
             </action>
         </release>
         <release version="3.1-RC1" date="2005-06-19" description="First milestone release of version 3.1">

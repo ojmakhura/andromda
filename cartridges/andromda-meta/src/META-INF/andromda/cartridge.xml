@@ -11,6 +11,7 @@
     <templateObject name="metaUtils" className="org.andromda.cartridges.meta.MetaCartridgeUtils"/>
     
     <property reference="fullyQualifiedMetafacadeRoot"/>
+    <property reference="toDoTag"/>
 
     <!-- the template definitions -->
     <template

@@ -12,6 +12,7 @@ public class ${handler.handlerClassName}Impl extends ${handler.handlerClassName}
     protected final void handleExecute(org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception
     {
+        // ${toDoTag} implement code for handleExecute
     }
 
 #end
@@ -19,6 +20,7 @@ public class ${handler.handlerClassName}Impl extends ${handler.handlerClassName}
     protected final void handleAssign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception
     {
+        // ${toDoTag} implement code for handleAssign
     }
 
 #end

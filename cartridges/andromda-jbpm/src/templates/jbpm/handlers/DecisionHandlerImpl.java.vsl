@@ -11,6 +11,7 @@ public class ${decision.decisionHandlerClassName}Impl extends $decision.decision
     protected final java.lang.String handleDecide(org.jbpm.graph.exe.ExecutionContext executionContext)
         throws java.lang.Exception
     {
+        // ${toDoTag} implement code for handleDecide
         return null;
     }
 }

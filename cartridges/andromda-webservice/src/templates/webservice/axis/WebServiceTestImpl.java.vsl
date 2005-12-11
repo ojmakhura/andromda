@@ -41,7 +41,7 @@ public class $service.testImplementationName
 #end
 #end
         this.getService().${operation.name}(${operation.argumentNames});
-        // @todo implement ${service.fullyQualifiedTestName}.${operation.testImplementationSignature}
+        // ${toDoTag} implement ${service.fullyQualifiedTestName}.${operation.testImplementationSignature}
     }
 
 #end

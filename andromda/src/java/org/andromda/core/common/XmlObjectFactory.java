@@ -308,7 +308,7 @@ public class XmlObjectFactory
                     "' --> message: '" + exception.getMessage() + "'";
                 throw new XmlObjectFactoryException(message);
             }
-            throw new XmlObjectFactoryException(exception);
+            throw new XmlObjectFactoryException(cause);
         }
         catch (final Throwable throwable)
         {
