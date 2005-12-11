@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.configuration.editor.cartridge.CartridgeConfigurationPage;
+import org.andromda.android.ui.internal.configuration.editor.model.ModelConfigurationPage;
 import org.andromda.android.ui.internal.configuration.editor.server.ServerConfigurationPage;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.apache.xmlbeans.XmlOptions;
@@ -41,6 +42,10 @@ public class ConfigurationEditor
             ServerConfigurationPage serverConfigurationPage = new ServerConfigurationPage(this,
                     ServerConfigurationPage.PAGE_ID, "Server");
             addPage(serverConfigurationPage);
+
+            ModelConfigurationPage modelConfigurationPage = new ModelConfigurationPage(this,
+                    ModelConfigurationPage.PAGE_ID, "Models");
+            addPage(modelConfigurationPage);
 
             CartridgeConfigurationPage cartridgeConfigurationPage = new CartridgeConfigurationPage(this,
                     CartridgeConfigurationPage.PAGE_ID, "Cartridges");

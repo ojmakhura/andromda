@@ -1,14 +1,12 @@
 package org.andromda.android.ui.internal.configuration.editor.cartridge;
 
 import org.andromda.android.core.AndroidCore;
-import org.andromda.android.core.internal.AndroidModelManager;
 import org.andromda.android.core.project.IAndroidProject;
-import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
+import org.andromda.android.ui.internal.editor.BaseMasterDetailsBlock;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.NamespaceDocument.Namespace;
 import org.andromda.core.configuration.NamespacesDocument.Namespaces;
 import org.andromda.core.namespace.PropertyGroupDocument.PropertyGroup;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -28,7 +26,7 @@ import org.eclipse.ui.forms.DetailsPart;
 import org.eclipse.ui.forms.IDetailsPage;
 import org.eclipse.ui.forms.IDetailsPageProvider;
 import org.eclipse.ui.forms.IManagedForm;
-import org.eclipse.ui.forms.MasterDetailsBlock;
+import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
@@ -38,7 +36,7 @@ import org.eclipse.ui.forms.widgets.Section;
  * @since 08.11.2005
  */
 public class CartridgeConfigurationMasterDetailsBlock
-        extends MasterDetailsBlock
+        extends BaseMasterDetailsBlock
 {
 
     private Section cartridgesSection;
@@ -147,11 +145,9 @@ public class CartridgeConfigurationMasterDetailsBlock
 
     private GenericCartridgeConfigurationDetailsPage androidDetailsPage;
 
-    private final CartridgeConfigurationPage parentPage;
-
-    public CartridgeConfigurationMasterDetailsBlock(CartridgeConfigurationPage parentPage)
+    public CartridgeConfigurationMasterDetailsBlock(FormPage parentPage)
     {
-        this.parentPage = parentPage;
+        setParentPage(parentPage);
         androidDetailsPage = new GenericCartridgeConfigurationDetailsPage();
     }
     
@@ -216,22 +212,6 @@ public class CartridgeConfigurationMasterDetailsBlock
         tree = treeViewer.getTree();
         tree.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
         treeViewer.setInput(getAndromdaDocument());
-    }
-
-    /**
-     * @return
-     */
-    private AndromdaDocument getAndromdaDocument()
-    {
-        ConfigurationEditor editor = (ConfigurationEditor)this.parentPage.getEditor();
-        return editor.getDocument();
-    }
-
-    private IAndroidProject getAndroidProject()
-    {
-        ConfigurationEditor editor = (ConfigurationEditor)this.parentPage.getEditor();
-        IResource adapter = (IResource)editor.getEditorInput().getAdapter(IResource.class);
-        return AndroidModelManager.getInstance().getAndroidModel().getAndroidProject(adapter);
     }
 
     protected void registerPages(DetailsPart detailsPart)
