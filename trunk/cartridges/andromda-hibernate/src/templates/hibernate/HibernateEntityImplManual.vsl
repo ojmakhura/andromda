@@ -32,7 +32,7 @@ public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
 #if (!$abstract)
 
     {
-        //@todo implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+        // ${toDoTag} implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #else

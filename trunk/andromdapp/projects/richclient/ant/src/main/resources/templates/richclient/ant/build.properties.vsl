@@ -8,22 +8,22 @@
 dataSource.user=your_user_name_here
 dataSource.password=your_password_here
 
-# The jboss installation path for local deployment/testing
-jboss.installation.path=/jboss-4.0.3
-
 # The directory where you store distributions that you download
 # (in particular, the parent directory of the AndroMDA binary distribution)
 distribution.dir=/usr/local/dist
-
-# The name of the datasource server side
-dataSource.name=${applicationId}DS
-dataSource=java:/${dataSource.name}
 
 # Set this to "true" when finished reviewing this file
 properties.reviewed=false
 
 
 # ======== These items you MAY want to change ===========================================================
+
+# The jboss installation path for local deployment/testing
+jboss.installation.path=${env.JBOSS_HOME}
+
+# The path to the deployment directory for local testing
+jboss.default.deploy.dir=${jboss.installation.path}/server/default/deploy
+
 
 # The type of database being used
 # For MySql use: MySQL
@@ -36,6 +36,10 @@ sql.mappings=MySQL
 # For Hypersonic use: org.hibernate.dialect.HSQLDialect
 # For Oracle9i use: org.hibernate.dialect.Oracle9Dialect
 hibernate.db.dialect=org.hibernate.dialect.MySQLDialect
+
+# The name of the datasource server side
+dataSource.name=ds/${applicationId}DS
+dataSource=java:${dataSource.name}
 
 # JDBC settings to the database
 dataSource.driver.jar=${jboss.installation.path}/server/default/lib/mysql-connector-java-3.1.10-bin.jar
@@ -51,11 +55,6 @@ hibernate.db.showSql=false
 remote.type=httpinvoker
 remote.server=127.0.0.1
 remote.port=8080
-
-
-# The path to the deployment directory for local testing
-jboss.default.deploy.dir=${jboss.installation.path}/server/default/deploy
-
 
 # ======== These items are probably set to good defaults, but you may want to review ====================
 

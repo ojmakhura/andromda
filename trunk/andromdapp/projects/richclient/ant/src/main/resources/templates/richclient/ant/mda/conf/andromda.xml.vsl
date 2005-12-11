@@ -46,6 +46,7 @@
                 
                 <property name="richClient">true</property>
                 <property name="configPropertyPrefix">${application.id}.</property>
+                <property name="toDoTag">TODO</property>
             </properties>
         </namespace>
         <namespace name="spring">

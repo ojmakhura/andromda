@@ -55,6 +55,7 @@
     <property reference="hibernateProxy"/>
     <!-- This property is only relevant for Hibernate 3 -->
     <property reference="hibernateQueryFactory"/>
+    <property reference="toDoTag"/>
 
     <!-- cartridge-property merge-point-->
 

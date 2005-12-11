@@ -36,4 +36,8 @@
           <from>bool</from>
           <to>bool?</to>
     </mapping>
+    <mapping>
+        <from>System.Guid</from>
+        <to>System.Guid?</to>
+    </mapping>
 </mappings>

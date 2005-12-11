@@ -27,7 +27,7 @@ public class $clientExceptionHandlingAdviceName
     public void afterThrowing(org.springframework.remoting.RemoteAccessException exception) 
         throws Throwable
     {
-        // Add the logic to handle the exception
+        // ${toDoTag} Add the logic to handle the exception
     }
 
 }
