@@ -273,7 +273,7 @@ public class AssembleMojo
                 {
                     this.artifactResolver.resolve(
                         artifact,
-                        project.getRemoteArtifactRepositories(),
+                        this.project.getRemoteArtifactRepositories(),
                         this.localRepository);
                 }
                 artifacts.addAll(project.createArtifacts(
@@ -286,7 +286,7 @@ public class AssembleMojo
                 this.artifactResolver.resolveTransitively(
                     artifacts,
                     this.project.getArtifact(),
-                    Collections.EMPTY_LIST,
+                    this.project.getRemoteArtifactRepositories(),
                     this.localRepository,
                     this.artifactMetadataSource);
 

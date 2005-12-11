@@ -153,6 +153,7 @@ public class EclipseMojo
                     this.localRepository,
                     this.artifactMetadataSource,
                     this.classpathArtifactTypes,
+                    this.project.getRemoteArtifactRepositories(),
                     this.resolveTransitiveDependencies);
             }
         }
