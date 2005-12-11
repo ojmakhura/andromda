@@ -19,7 +19,7 @@
 #elseif($attribute.formula)
         <property name="$stringUtils.upperCamelCaseName($attribute.name)" type="$fullyQualifiedPropertyType" formula="$attribute.formula" />
 #else
-        <property name="$stringUtils.upperCamelCaseName($attribute.name)" type="$fullyQualifiedPropertyType">
+        <property name="$stringUtils.upperCamelCaseName($attribute.name)" type="$fullyQualifiedPropertyType"#if(!$attribute.insertEnabled) insert="false"#end#if(!$attribute.updateEnabled) update="false"#end>
 ## do not specify sql-type for enumerations. NHibernate prefers to do it based on the underlying enum type.
             <column name="$attribute.concatColumnName($paramSqlPrefix, $attribute.columnName)" not-null="$attribute.required" unique="$attribute.unique"#if(!$attribute.type.enumeration) sql-type="$attribute.sqlType"#end#if($attribute.columnIndex) index="$attribute.columnIndex"#end/>
         </property>

@@ -84,10 +84,37 @@ public class HibernateEntityAttributeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isLazy()
+     */
+    protected boolean handleIsLazy()
+    {
+        final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : false;
+    }
+
+    /**
      * @see org.andromda.cartridges.nhibernate.metafacades.HibernateEntityAttribute#getFormula()
      */
     protected String handleGetFormula()
     {
         return (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_FORMULA);
+    }
+
+    /**
+     * @see org.andromda.cartridges.nhibernate.metafacades.HibernateEntityAttribute#isInsertEnabled()
+     */
+    protected boolean handleIsInsertEnabled()
+    {
+        final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROPERTY_INSERT);
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : true;
+    }
+
+    /**
+     * @see org.andromda.cartridges.nhibernate.metafacades.HibernateEntityAttribute#isUpdateEnabled()
+     */
+    protected boolean handleIsUpdateEnabled()
+    {
+        final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROPERTY_UPDATE);
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : true;
     }
 }
