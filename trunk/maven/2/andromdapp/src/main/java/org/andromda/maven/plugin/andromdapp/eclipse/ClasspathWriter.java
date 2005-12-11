@@ -53,6 +53,7 @@ public class ClasspathWriter
         final ArtifactRepository localRepository,
         final ArtifactMetadataSource artifactMetadataSource,
         final Set classpathArtifactTypes,
+        final List remoteRepositories,
         final boolean resolveTransitiveDependencies)
         throws Exception
     {
@@ -165,7 +166,7 @@ public class ClasspathWriter
                     null,
                     this.project.getPackaging());
 
-            OrArtifactFilter filter = new OrArtifactFilter();
+            final OrArtifactFilter filter = new OrArtifactFilter();
             filter.add(new ScopeArtifactFilter(Artifact.SCOPE_COMPILE));
             filter.add(new ScopeArtifactFilter(Artifact.SCOPE_PROVIDED));
             final ArtifactResolutionResult result =
@@ -173,7 +174,7 @@ public class ClasspathWriter
                     allArtifacts,
                     rootProjectArtifact,
                     localRepository,
-                    Collections.EMPTY_LIST,
+                    remoteRepositories,
                     artifactMetadataSource,
                     filter);
 
