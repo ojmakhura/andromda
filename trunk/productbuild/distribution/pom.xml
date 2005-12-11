@@ -53,9 +53,6 @@
                             <!-- this should be processed by a template engine at some point so we don't need to
                                   hard code things into it -->
                             <path>${pom.basedir}/../ant/andromda/src/ant/build.xml.vsl</path>
-                            <includes>
-                                <include>build.xml.vsl</include>
-                            </includes>
                             <outputPath>andromda/org/andromda/ant/build.xml</outputPath>
                         </location>
                     </locations>
