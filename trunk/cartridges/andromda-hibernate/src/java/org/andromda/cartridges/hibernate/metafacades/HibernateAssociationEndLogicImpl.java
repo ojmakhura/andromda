@@ -10,6 +10,7 @@ import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -188,7 +189,7 @@ public class HibernateAssociationEndLogicImpl
         else if (this.isMany())
         {
             // set this association end's type as a template parameter if required
-            if ("true".equals(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
+            if (BooleanUtils.toBoolean((ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))))
             {
                 getterSetterTypeName =
                     getterSetterTypeName + "<? extends " + this.getType().getFullyQualifiedName() + ">";
