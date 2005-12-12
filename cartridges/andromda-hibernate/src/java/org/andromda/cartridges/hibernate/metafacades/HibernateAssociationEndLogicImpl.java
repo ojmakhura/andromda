@@ -190,7 +190,8 @@ public class HibernateAssociationEndLogicImpl
             // set this association end's type as a template parameter if required
             if ("true".equals(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
             {
-                getterSetterTypeName = getterSetterTypeName + "<? extends " + this.getType().getFullyQualifiedName() + ">";
+                getterSetterTypeName =
+                    getterSetterTypeName + "<? extends " + this.getType().getFullyQualifiedName() + ">";
             }
         }
 
@@ -235,8 +236,7 @@ public class HibernateAssociationEndLogicImpl
         Object type = this.getType();
         Object otherType = this.getOtherEnd().getType();
 
-        if ((type != null) && HibernateEntity.class.isAssignableFrom(type.getClass()) && (otherType != null) &&
-            HibernateEntity.class.isAssignableFrom(otherType.getClass()))
+        if (type instanceof HibernateEntity && otherType instanceof HibernateEntity)
         {
             HibernateEntity entity = (HibernateEntity)type;
             HibernateEntity otherEntity = (HibernateEntity)otherType;

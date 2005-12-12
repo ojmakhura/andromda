@@ -42,10 +42,10 @@ public class HibernateEntityAttributeLogicImpl
         }
         return required;
     }
-    
+
     /**
      * Override to provide java specific handling of the default value.
-     * 
+     *
      * @see org.andromda.metafacades.uml.AttributeFacade#getDefaultValue()
      */
     public String getDefaultValue()
@@ -62,7 +62,7 @@ public class HibernateEntityAttributeLogicImpl
             else if (fullyQualifiedName.startsWith("java.lang"))
             {
                 defaultValue = fullyQualifiedName + ".valueOf(" + defaultValue + ")";
-            }   
+            }
         }
         return defaultValue;
     }
@@ -79,7 +79,7 @@ public class HibernateEntityAttributeLogicImpl
         }
         return returnValue;
     }
-    
+
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#concatColumnName(java.lang.String,
      *      java.lang.String)
@@ -100,7 +100,7 @@ public class HibernateEntityAttributeLogicImpl
         }
         return returnValue;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#isLazy()
      */
@@ -116,5 +116,23 @@ public class HibernateEntityAttributeLogicImpl
     protected String handleGetFormula()
     {
         return (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_FORMULA);
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#isInsertEnabled()
+     */
+    protected boolean handleIsInsertEnabled()
+    {
+        final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROPERTY_INSERT);
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : true;
+    }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#isUpdateEnabled()
+     */
+    protected boolean handleIsUpdateEnabled()
+    {
+        final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROPERTY_UPDATE);
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : true;
     }
 }

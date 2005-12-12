@@ -77,7 +77,7 @@
                 form.reset();
                 enableUpdate(false);
                 setFields(## no newline
-#foreach($member in $manageable.attributes)
+#foreach($member in $manageable.manageableAttributes)
 #if ($member.type.enumeration)
 "",## no newline
 #elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
@@ -99,7 +99,7 @@ form);
             }
 
             function setFields(## no newline
-#foreach($member in $manageable.attributes)
+#foreach($member in $manageable.manageableAttributes)
 #if (!$member.needsFileUpload)## file upload fields apparently cannot have DHTML set their values (probably because the path could be invalid)
 $member.name,## no newline
 #end
@@ -109,7 +109,7 @@ $member.name,## no newline
 #end
 form)
             {
-#foreach($member in $manageable.attributes)
+#foreach($member in $manageable.manageableAttributes)
 #if ($member.type.enumeration)
                 setSelect(false,form,"$member.name",$member.name);
 #elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
@@ -149,7 +149,7 @@ form)
                 <c:if test="${${test}}">
                     <table>
 #set ($displayId = true)
-#foreach ($member in $manageable.attributes)
+#foreach ($member in $manageable.manageableAttributes)
 #if ($member.hidden)
 #renderHiddenAttribute($member "                    ")
 #if ($member.identifier)#set($displayId = false)#end
@@ -177,7 +177,7 @@ form)
 #if ($manageable.read)
 ## if the id is not displayed we need to make sure the hidden field is cleared before searching
 #if (!$displayId && $manageable.identifiersPresent)
-#set ($onclickEvent = "this.form.elements['${manageable.identifiers.iterator().next().name}'].value='';")
+#set ($onclickEvent = "this.form.elements['${manageable.manageableIdentifier.name}'].value='';")
 #else
 #set ($onclickEvent = "")
 #end
@@ -200,7 +200,7 @@ form)
 <div id="entitySwitcher">
     <nobr>
         <bean:message key="select.other.entity"/>
-        <select onchange="document.location=this.options[this.selectedIndex].value+'?$manageableReferenceParameterPrefix$manageable.name='+this.form.elements['$manageable.identifiers.iterator().next().name'].value;">
+        <select onchange="document.location=this.options[this.selectedIndex].value+'?$manageableReferenceParameterPrefix$manageable.name='+this.form.elements['$manageable.manageableIdentifier.name'].value;">
 #foreach ($manageableEntry in $manageable.allManageables)
 #if ($stringUtils.isNotBlank($securityRealm) && !$manageableEntry.users.empty)
         <logic:present role="#commaSeparatedNames($manageableEntry.users)">
@@ -223,9 +223,9 @@ form)
                             requestURIcontext="false"
                             export="$manageable.tableExportable" pagesize="$manageable.tableMaxRows" sort="list">
                         <display:column media="html" sortable="false">
-#set ($identifier = $manageable.identifiers.iterator().next())
+#set ($identifier = $manageable.manageableIdentifier)
 #set ($identifierValue = "row.${identifier.name}")
-#foreach ($member in $manageable.attributes)
+#foreach ($member in $manageable.manageableAttributes)
 #if ($member.type.dateType)
 #set ($rowValue = "row.${member.name}")
 ## here we are properly converting the date into the desired format so that the rendered Javascript

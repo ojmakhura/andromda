@@ -129,6 +129,18 @@
                 Set this property to <code>true</code> if you want to enable this feature.
             </documentation>
         </property>
+<!--
+        <property name="templatingPattern">
+            <default><![CDATA[<{0} extends {1}>]]></default>
+            <documentation>
+                When templating is enabled (see the <code>enableTemplating</code> property), this property will
+                determine the syntax for the templating construct. Use <code>{0}</code> to represent the templating
+                variable name and <code>{1}</code> for the templating variable fully qualified name.
+                Using the default value for this property an example method could look like this:
+                <code><![CDATA[public <T extends A> Collection<T> someMethod()]]></code>
+            </documentation>
+        </property>
+-->
         <property name="arrayNameSuffix">
             <default>[]</default>
             <documentation>
@@ -294,6 +306,14 @@
         <property name="defaultMaximumListSize">
             <default>250</default>
             <documentation>
+            </documentation>
+        </property>
+        <property name="toDoTag">
+            <default>@todo</default>
+            <documentation>
+               The tag to use that prefixes all comments in generated source code that requires
+               manual modifications.  Eclipse users may want to set this to "TODO", which is 
+               the default Eclipse task tag.
             </documentation>
         </property>
     </propertyGroup>

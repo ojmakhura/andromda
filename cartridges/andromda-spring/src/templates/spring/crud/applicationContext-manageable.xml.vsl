@@ -16,7 +16,7 @@
 #if ($manageable.read)
                 ${manageable.fullyQualifiedManageableServiceName}.read=PROPAGATION_REQUIRED
                 ${manageable.fullyQualifiedManageableServiceName}.readAll=PROPAGATION_REQUIRED
-#foreach ($member in $manageable.attributes)
+#foreach ($member in $manageable.manageableAttributes)
 #if ($member.manageableGetterAvailable)
                 ${manageable.fullyQualifiedManageableServiceName}.${member.getterName}=PROPAGATION_REQUIRED
 #end

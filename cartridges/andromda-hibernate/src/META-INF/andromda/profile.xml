@@ -147,7 +147,7 @@
                 </documentation>
                 <value>@andromda.hibernate.lazy</value>
                 <appliedOnElement>Association ends between
-                    <a href="#Entity"><![CDATA[<<Entity>>]]></a>classes, or on attributes of an 
+                    <a href="#Entity"><![CDATA[<<Entity>>]]></a>classes, or on attributes of an
                     <a href="#Entity"><![CDATA[<<Entity>>]]></a>
                 </appliedOnElement>
                 <allowedValues>
@@ -375,6 +375,34 @@
                 <appliedOnElement>the attribute of an <![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>An SQL code fragment</value>
+                </allowedValues>
+            </element>
+            <element name="HIBERNATE_PROPERTY_INSERT">
+                <documentation>
+                    Specifies whether a mapped column should be included in SQL INSERT
+                    statements. Setting to <code>false</code> allows the column to be
+                    initialized using other mechanisms such as a value defaulted by the
+                    database. Defaults to <code>true</code>.
+                </documentation>
+                <value>@andromda.hibernate.property.insert</value>
+                <appliedOnElement>the attribute of an <![CDATA[<<Entity>>]]></appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="HIBERNATE_PROPERTY_UPDATE">
+                <documentation>
+                    Specifies whether a mapped column should be included in SQL UPDATE
+                    statements. Setting to <code>false</code> allows the column to be
+                    updated using other mechanisms such as a value defaulted by the
+                    database. Defaults to <code>true</code>.
+                </documentation>
+                <value>@andromda.hibernate.property.update</value>
+                <appliedOnElement>the attribute of an <![CDATA[<<Entity>>]]></appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
                 </allowedValues>
             </element>
         </elementGroup>
