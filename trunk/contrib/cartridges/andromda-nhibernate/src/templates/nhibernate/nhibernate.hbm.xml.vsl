@@ -32,7 +32,7 @@
 #if ($entity.sequenceHibernateGeneratorClass)
                 <param name="sequence">${entity.tableName}${sequenceIdentifierSuffix}</param>
 #elseif ($entity.foreignHibernateGeneratorClass)
-                <param name="property">$entity.parentEnd.name</param>
+                <param name="property">${stringUtils.upperCamelCaseName($entity.parentEnd.name)}</param>
 #end
             </generator>
         </id>
