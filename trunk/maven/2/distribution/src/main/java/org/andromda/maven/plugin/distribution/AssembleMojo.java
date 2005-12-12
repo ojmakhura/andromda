@@ -208,6 +208,7 @@ public class AssembleMojo
         try
         {
             final File distribution = new File(this.workDirectory, this.name + '.' + this.extension);
+            this.getLog().info("Building distribution " + distribution);
             final File directory = this.getDistributionDirectory();
             directory.mkdirs();
             final List artifactList = new ArrayList();
@@ -391,7 +392,8 @@ public class AssembleMojo
                                 FileUtils.copyFile(
                                     file,
                                     destination);
-                                this.getLog().info("bundled: " + destination);
+                                if (this.getLog().isDebugEnabled())
+                                    this.getLog().debug("bundled: " + destination);
                                 bundledFilesCount++;
                             }
                         }
@@ -400,7 +402,6 @@ public class AssembleMojo
             }
 
             this.getLog().info("Bundled " + bundledFilesCount + " files");
-            this.getLog().info("Building distribution " + distribution);
 
             final MavenArchiver archiver = new MavenArchiver();
             archiver.setArchiver(this.binArchiver);
