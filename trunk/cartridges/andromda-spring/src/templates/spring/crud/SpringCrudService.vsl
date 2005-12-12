@@ -3,7 +3,7 @@
 ##
 #set ($memberList = $manageable.listManageableMembers(true))
 #if (!$manageable.identifiers.empty)
-#set ($identifier = $manageable.identifiers.iterator().next())
+#set ($identifier = $manageable.manageableIdentifier)
 #end
 ##
 package $manageable.manageablePackageName;
@@ -22,7 +22,7 @@ public interface $manageable.manageableServiceName
     public java.util.List readAll()
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
 
-#foreach ($member in $manageable.attributes)
+#foreach ($member in $manageable.manageableAttributes)
 #if ($member.manageableGetterAvailable)
     public $member.type.fullyQualifiedName ${member.getterName}($identifier.type.fullyQualifiedName $identifier.name)
         throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;

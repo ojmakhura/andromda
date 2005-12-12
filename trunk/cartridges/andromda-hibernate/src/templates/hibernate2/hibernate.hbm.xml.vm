@@ -18,7 +18,7 @@
 #elseif($attribute.formula)
         <property name="$attribute.name" type="$fullyQualifiedPropertyType" formula="$attribute.formula" />
 #else
-        <property name="$attribute.name" type="$fullyQualifiedPropertyType">
+        <property name="$attribute.name" type="$fullyQualifiedPropertyType"#if(!$attribute.insertEnabled) insert="false"#end#if(!$attribute.updateEnabled) update="false"#end>
             <column name="$attribute.concatColumnName($paramSqlPrefix, $attribute.columnName)" not-null="$attribute.required" unique="$attribute.unique" sql-type="$attribute.sqlType"#if($attribute.columnIndex) index="$attribute.columnIndex"#end/>
         </property>
 #end

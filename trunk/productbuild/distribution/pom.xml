@@ -19,9 +19,67 @@
                 <version>${version}</version>
                 <executions>
                     <execution>
+                        <id>binary</id>
                         <goals>
                             <goal>assemble</goal>
                         </goals>
+                        <configuration>
+                            <name>andromda-bin-${version}</name>
+                            <artifactDirectory>andromda</artifactDirectory>
+                            <dependencyDirectory>lib</dependencyDirectory>
+                            <projectBaseDirectory>${pom.basedir}/../</projectBaseDirectory>
+                            <projectIncludes>
+                                <include>**/pom.xml</include>
+                            </projectIncludes>
+                            <projectExcludes>
+                                <exclude>distribution/pom.xml</exclude>
+                            </projectExcludes>
+                            <artifactExcludes>
+                                <artifact>
+                                    <groupId>org\.andromda\.samples.*</groupId>
+                                </artifact>
+                            </artifactExcludes>
+                            <locations>
+                                <location>
+                                    <path>${pom.basedir}/../samples</path>
+                                    <excludes>
+                                        <exlude>conf/**</exlude>
+                                        <exclude>**/target/**</exclude>
+                                        <exclude>**/CVS/**</exclude>
+                                        <exclude>**/.cvsignore</exclude>
+                                        <exclude>*</exclude>
+                                        <exclude>**/*.log</exclude>
+                                    </excludes>
+                                    <outputPath>samples/</outputPath>
+                                </location>
+                                <location>
+                                    <!-- this should be processed by a template engine at some point so we don't need to
+                                          hard code things into it -->
+                                    <path>${pom.basedir}/../ant/andromda/src/ant/build.xml.vsl</path>
+                                    <outputPath>andromda/org/andromda/ant/build.xml</outputPath>
+                                </location>
+                            </locations>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>source</id>
+                        <goals>
+                            <goal>assemble</goal>
+                        </goals>
+                        <configuration>
+                            <name>andromda-src-${version}</name>
+                            <locations>
+                                <location>
+                                    <path>${pom.basedir}/../</path>
+                                    <excludes>
+                                        <exclude>**/target/**</exclude>
+                                        <exclude>**/CVS/**</exclude>
+                                        <exclude>**/.cvsignore</exclude>
+                                        <exclude>**/*.log</exclude>
+                                    </excludes>
+                                </location>
+                            </locations>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>

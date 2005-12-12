@@ -35,7 +35,7 @@ public final class $manageable.formBeanClassName
         this.$manageable.listName = $manageable.listName;
     }
 
-#set ($identifier = $manageable.identifiers.iterator().next())
+#set ($identifier = $manageable.manageableIdentifier)
     private ${identifier.type.fullyQualifiedName}[] selectedRows = null;
 
     public ${identifier.type.fullyQualifiedName}[] getSelectedRows()
@@ -48,7 +48,7 @@ public final class $manageable.formBeanClassName
         this.selectedRows = selectedRows;
     }
 
-#foreach ($member in $manageable.attributes)
+#foreach ($member in $manageable.manageableAttributes)
 #if ($member.type.enumeration)
 #set ($memberType = $member.type.literalType.fullyQualifiedName)
 #else
@@ -145,7 +145,7 @@ public final class $manageable.formBeanClassName
      */
     public void reset(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
     {
-#foreach ($member in $manageable.attributes)
+#foreach ($member in $manageable.manageableAttributes)
 #if ($member.type.enumeration)
         #resetField($member.name $member.type.literalType)
 #else

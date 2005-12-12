@@ -4,7 +4,7 @@
 #set ($memberList = $manageable.listManageableMembers(true))
 #set ($memberListArguments = $manageable.listManageableMembers(false))
 #if (!$manageable.identifiers.empty)
-#set ($identifier = $manageable.identifiers.iterator().next())
+#set ($identifier = $manageable.manageableIdentifier)
 #end
 ##
 package $manageable.manageablePackageName;
@@ -64,7 +64,7 @@ public final class $manageable.manageableServiceBaseName
         return toValueObjects(dao.readAll());
     }
 
-#foreach ($member in $manageable.attributes)
+#foreach ($member in $manageable.manageableAttributes)
 #if ($member.manageableGetterAvailable)
     public $member.type.fullyQualifiedName ${member.getterName}($identifier.type.fullyQualifiedName $identifier.name)
         throws Exception
@@ -152,7 +152,7 @@ public final class $manageable.manageableServiceBaseName
     {
         final $manageable.fullyQualifiedManageableValueObjectName valueObject = new ${manageable.fullyQualifiedManageableValueObjectName}();
 
-#foreach ($member in $manageable.attributes)
+#foreach ($member in $manageable.manageableAttributes)
 #if ($member.needsFileUpload)
 // (binary fields are not returned because of reasons of performance) ## no newline
 #end

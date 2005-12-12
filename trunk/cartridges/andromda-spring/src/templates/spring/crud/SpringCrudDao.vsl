@@ -3,7 +3,7 @@
 ##
 #set ($memberList = $manageable.listManageableMembers(true))
 #if (!$manageable.identifiers.empty)
-#set ($identifier = $manageable.identifiers.iterator().next())
+#set ($identifier = $manageable.manageableIdentifier)
 #end
 ##
 package $manageable.manageablePackageName;
@@ -19,7 +19,7 @@ public interface $manageable.manageableDaoName
 
     public java.util.List readAll();
 
-#foreach ($member in $manageable.attributes)
+#foreach ($member in $manageable.manageableAttributes)
 #if ($member.manageableGetterAvailable)
     public $member.type.fullyQualifiedName ${member.getterName}($identifier.type.fullyQualifiedName $identifier.name);
 

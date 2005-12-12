@@ -16,7 +16,7 @@
 #renderPropertiesAndAssociations3($attribute.type $sqlPrefix)
         </component>
 #else
-        <property name="$attribute.name" type="$fullyQualifiedPropertyType"#if($attribute.formula || $attribute.lazy) lazy="true"#end>
+        <property name="$attribute.name" type="$fullyQualifiedPropertyType"#if($attribute.formula || $attribute.lazy) lazy="true"#end#if(!$attribute.insertEnabled) insert="false"#end#if(!$attribute.updateEnabled) update="false"#end>
 #if($attribute.formula)
 			<formula>$attribute.formula</formula>
 #else

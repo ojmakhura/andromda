@@ -37,7 +37,7 @@ import org.codehaus.plexus.util.FileUtils;
 
 
 /**
- * A Mojo for assembling the AndroMDA distribution.
+ * A Mojo for assembling a distribution.
  *
  * @goal assemble
  * @phase validate
@@ -49,10 +49,10 @@ public class AssembleMojo
     /**
      * The name of the distribution
      *
-     * @parameter expression="andromda-bin-${project.version}"
+     * @parameter
      * @required
      */
-    private String binaryName;
+    private String name;
 
     /**
      * Directory that resources are copied to during the build.
@@ -149,21 +149,20 @@ public class AssembleMojo
      * The directory from which the search for POMs starts.
      *
      * @parameter
-     * @required
      */
-    private String baseDirectory;
+    private String projectBaseDirectory;
 
     /**
-     * The directory for artifacts created the the application being bundled.
-     * 
-     * @parameter expression="andromda/"
+     * The directory in which project artifacts are bundled.
+     *
+     * @parameter
      */
     private String artifactDirectory;
 
     /**
-     * The directory which will contain dependant libraries used by the application.
-     * 
-     * @parameter expression="lib/"
+     * The directory in which dependencies of project artifacts are bundled.
+     *
+     * @parameter
      */
     private String dependencyDirectory;
 
@@ -190,11 +189,12 @@ public class AssembleMojo
      * The forward slash character.
      */
     private static final String FORWARD_SLASH = "/";
-    
+
     /**
      * The extension to give the distribution.
-     * 
+     *
      * @parameter expression="zip"
+     * @required
      */
     private String extension;
 
@@ -207,134 +207,141 @@ public class AssembleMojo
         this.allArtifacts.clear();
         try
         {
-            final File directory = this.getBinaryDistributionDirectory();
+            final File distribution = new File(this.workDirectory, this.name + '.' + this.extension);
+            final File directory = this.getDistributionDirectory();
             directory.mkdirs();
+            final List artifactList = new ArrayList();
             final List projects = this.collectProjects();
-            final Set artifacts = new LinkedHashSet();
-            for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
+            if (!projects.isEmpty() && this.projectBaseDirectory != null && this.projectBaseDirectory.trim().length() > 0)
             {
-                final MavenProject project = (MavenProject)iterator.next();
-                final Artifact artifact =
-                    this.artifactFactory.createArtifact(
-                        project.getGroupId(),
-                        project.getArtifactId(),
-                        project.getVersion(),
-                        null,
-                        project.getPackaging());
-                final String artifactPath = this.localRepository.pathOf(artifact);
-                final String artifactFileName = artifactPath.replaceAll(
-                        ".*(\\\\|/+)",
-                        "");
-                final String repositoryDirectoryPath =
-                    artifactPath.substring(
-                        0,
-                        artifactPath.indexOf(artifactFileName));
-                final Build build = project.getBuild();
-                final File workDirectory = new File(build.getDirectory());
-                if (workDirectory.exists())
+                final Set artifacts = new LinkedHashSet();
+                for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
                 {
-                    final File andromdaDirectory = new File(directory, artifactDirectory + repositoryDirectoryPath);
-                    final String finalName = build.getFinalName();
-                    final String[] names = workDirectory.list();
-                    if (names != null)
+                    final MavenProject project = (MavenProject)iterator.next();
+                    final Artifact artifact =
+                        this.artifactFactory.createArtifact(
+                            project.getGroupId(),
+                            project.getArtifactId(),
+                            project.getVersion(),
+                            null,
+                            project.getPackaging());
+                    final String artifactPath = this.localRepository.pathOf(artifact);
+                    final String artifactFileName = artifactPath.replaceAll(
+                            ".*(\\\\|/+)",
+                            "");
+                    final String repositoryDirectoryPath =
+                        artifactPath.substring(
+                            0,
+                            artifactPath.indexOf(artifactFileName));
+                    final Build build = project.getBuild();
+                    final File workDirectory = new File(build.getDirectory());
+                    if (workDirectory.exists())
                     {
-                        final int numberOfArtifacts = names.length;
-                        for (int ctr = 0; ctr < numberOfArtifacts; ctr++)
+                        final File distributionDirectory =
+                            new File(new File(
+                                    directory,
+                                    this.artifactDirectory), repositoryDirectoryPath);
+                        final String finalName = build.getFinalName();
+                        final String[] names = workDirectory.list();
+                        if (names != null)
                         {
-                            final String name = names[ctr];
-                            if (name.indexOf(finalName) != -1 && !name.equals(finalName))
+                            final int numberOfArtifacts = names.length;
+                            for (int ctr = 0; ctr < numberOfArtifacts; ctr++)
                             {
-                                final File distributionFile = new File(andromdaDirectory, name);
-                                this.bundleFile(
-                                    artifact,
-                                    new File(
-                                        workDirectory,
-                                        name),
-                                    distributionFile);
+                                final String name = names[ctr];
+                                if (name.indexOf(finalName) != -1 && !name.equals(finalName))
+                                {
+                                    final File distributionFile = new File(distributionDirectory, name);
+                                    this.bundleFile(
+                                        artifact,
+                                        new File(
+                                            workDirectory,
+                                            name),
+                                        distributionFile);
+                                }
+                            }
+                        }
+
+                        final File repositoryPom =
+                            this.constructPom(
+                                new File(
+                                    this.localRepository.getBasedir(),
+                                    repositoryDirectoryPath),
+                                artifact);
+                        final File distributionPom = this.constructPom(
+                                distributionDirectory,
+                                artifact);
+                        this.bundleFile(
+                            artifact,
+                            repositoryPom,
+                            distributionPom);
+                    }
+                    else
+                    {
+                        this.artifactResolver.resolve(
+                            artifact,
+                            this.project.getRemoteArtifactRepositories(),
+                            this.localRepository);
+                    }
+                    artifacts.addAll(project.createArtifacts(
+                            artifactFactory,
+                            null,
+                            null));
+                }
+
+                final ArtifactResolutionResult result =
+                    this.artifactResolver.resolveTransitively(
+                        artifacts,
+                        this.project.getArtifact(),
+                        this.project.getRemoteArtifactRepositories(),
+                        this.localRepository,
+                        this.artifactMetadataSource);
+
+                artifacts.addAll(result.getArtifacts());
+
+                // - remove the project artifacts
+                for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
+                {
+                    final MavenProject project = (MavenProject)iterator.next();
+                    final Artifact projectArtifact = project.getArtifact();
+                    if (projectArtifact != null)
+                    {
+                        for (final Iterator artifactIterator = artifacts.iterator(); artifactIterator.hasNext();)
+                        {
+                            final Artifact artifact = (Artifact)artifactIterator.next();
+                            final String projectId = projectArtifact.getArtifactId();
+                            final String projectGroupId = projectArtifact.getGroupId();
+                            final String artifactId = artifact.getArtifactId();
+                            final String groupId = artifact.getGroupId();
+                            if (artifactId.equals(projectId) && groupId.equals(projectGroupId))
+                            {
+                                artifactIterator.remove();
                             }
                         }
                     }
-
-                    final File repositoryPom =
-                        this.constructPom(
-                            new File(
-                                this.localRepository.getBasedir(),
-                                repositoryDirectoryPath),
-                            artifact);
-                    final File distributionPom = this.constructPom(
-                            andromdaDirectory,
-                            artifact);
-                    this.bundleFile(
-                        artifact,
-                        repositoryPom,
-                        distributionPom);
                 }
-                else
+
+                // - bundle the dependant artifacts
+                for (final Iterator iterator = artifacts.iterator(); iterator.hasNext();)
                 {
-                    this.artifactResolver.resolve(
-                        artifact,
-                        this.project.getRemoteArtifactRepositories(),
-                        this.localRepository);
+                    final Artifact artifact = (Artifact)iterator.next();
+                    this.bundleArtifact(
+                        new File(
+                            directory,
+                            this.dependencyDirectory),
+                        artifact);
                 }
-                artifacts.addAll(project.createArtifacts(
-                        artifactFactory,
-                        null,
-                        null));
-            }
 
-            final ArtifactResolutionResult result =
-                this.artifactResolver.resolveTransitively(
-                    artifacts,
-                    this.project.getArtifact(),
-                    this.project.getRemoteArtifactRepositories(),
-                    this.localRepository,
-                    this.artifactMetadataSource);
+                artifactList.addAll(this.allArtifacts);
 
-            artifacts.addAll(result.getArtifacts());
-
-            // - remove the project artifacts
-            for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
-            {
-                final MavenProject project = (MavenProject)iterator.next();
-                final Artifact projectArtifact = project.getArtifact();
-                if (projectArtifact != null)
+                Collections.sort(
+                    artifactList,
+                    new ArtifactComparator());
+                for (final Iterator iterator = artifactList.iterator(); iterator.hasNext();)
                 {
-                    for (final Iterator artifactIterator = artifacts.iterator(); artifactIterator.hasNext();)
-                    {
-                        final Artifact artifact = (Artifact)artifactIterator.next();
-                        final String projectId = projectArtifact.getArtifactId();
-                        final String projectGroupId = projectArtifact.getGroupId();
-                        final String artifactId = artifact.getArtifactId();
-                        final String groupId = artifact.getGroupId();
-                        if (artifactId.equals(projectId) && groupId.equals(projectGroupId))
-                        {
-                            artifactIterator.remove();
-                        }
-                    }
+                    this.getLog().info("bundled: " + ((Artifact)iterator.next()).getId());
                 }
-            }
-
-            // - bundle the dependant artifacts
-            for (final Iterator iterator = artifacts.iterator(); iterator.hasNext();)
-            {
-                final Artifact artifact = (Artifact)iterator.next();
-                this.bundleArtifact(
-                    new File(
-                        directory,
-                        dependencyDirectory),
-                    artifact);
-            }
-
-            final File workDirectory = new File(this.workDirectory);
-            final File distribution = new File(workDirectory, this.binaryName + '.' + this.extension);
-            final List artifactList = new ArrayList(this.allArtifacts);
-
-            Collections.sort(
-                artifactList,
-                new ArtifactComparator());
-            for (final Iterator iterator = artifactList.iterator(); iterator.hasNext();)
-            {
-                this.getLog().info("bundled: " + ((Artifact)iterator.next()).getId());
+                this.getLog().info("Bundled " + artifactList.size() + " artifacts");
             }
 
             int bundledFilesCount = 0;
@@ -358,7 +365,7 @@ public class AssembleMojo
                             if (outputPath != null && outputPath.trim().length() > 0)
                             {
                                 final File outputPathFile = new File(
-                                        this.getBinaryDistributionDirectory(),
+                                        this.getDistributionDirectory(),
                                         outputPath);
 
                                 // - directories must end with a slash
@@ -376,7 +383,7 @@ public class AssembleMojo
                             else
                             {
                                 destination = new File(
-                                        this.getBinaryDistributionDirectory(),
+                                        this.getDistributionDirectory(),
                                         path);
                             }
                             if (destination != null)
@@ -392,7 +399,7 @@ public class AssembleMojo
                 }
             }
 
-            this.getLog().info("Bundled " + artifactList.size() + " artifacts and " + bundledFilesCount + " files");
+            this.getLog().info("Bundled " + bundledFilesCount + " files");
             this.getLog().info("Building distribution " + distribution);
 
             final MavenArchiver archiver = new MavenArchiver();
@@ -555,23 +562,23 @@ public class AssembleMojo
      */
     private List getPoms()
     {
-        final DirectoryScanner scanner = new DirectoryScanner();
-        scanner.setBasedir(this.baseDirectory);
-        scanner.setIncludes(this.projectIncludes);
-        scanner.setExcludes(this.projectExcludes);
-        scanner.scan();
-
         List poms = new ArrayList();
-
-        for (int ctr = 0; ctr < scanner.getIncludedFiles().length; ctr++)
+        if (this.projectBaseDirectory != null && this.projectBaseDirectory.trim().length() > 0)
         {
-            final File pom = new File(this.baseDirectory, scanner.getIncludedFiles()[ctr]);
-            if (pom.exists())
+            final DirectoryScanner scanner = new DirectoryScanner();
+            scanner.setBasedir(this.projectBaseDirectory);
+            scanner.setIncludes(this.projectIncludes);
+            scanner.setExcludes(this.projectExcludes);
+            scanner.scan();
+            for (int ctr = 0; ctr < scanner.getIncludedFiles().length; ctr++)
             {
-                poms.add(pom);
+                final File pom = new File(this.projectBaseDirectory, scanner.getIncludedFiles()[ctr]);
+                if (pom.exists())
+                {
+                    poms.add(pom);
+                }
             }
         }
-
         return poms;
     }
 
@@ -659,8 +666,8 @@ public class AssembleMojo
      *
      * @return the directory output distribution.
      */
-    private File getBinaryDistributionDirectory()
+    private File getDistributionDirectory()
     {
-        return new File(this.workDirectory + '/' + this.binaryName);
+        return new File(this.workDirectory + '/' + this.name);
     }
 }

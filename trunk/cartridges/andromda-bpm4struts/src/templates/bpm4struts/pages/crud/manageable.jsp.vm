@@ -125,7 +125,7 @@ ${indent}</logic:notPresent>
 #macro ( renderJavascriptCopyRow $manageable )
 enableUpdate(true);## no newline
 setFields(## no newline
-#foreach($member in $manageable.attributes)
+#foreach($member in $manageable.manageableAttributes)
 #set($property = "row.${member.name}")## by default we take the property straight for the row value object
 #if ($member.type.enumeration)
 '<formatting:escape language="javascript">${${property}}</formatting:escape>',## no newline

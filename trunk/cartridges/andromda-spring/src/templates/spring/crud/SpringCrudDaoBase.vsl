@@ -4,7 +4,7 @@
 #set ($memberList = $manageable.listManageableMembers(true))
 #set ($memberListArguments = $manageable.listManageableMembers(false))
 #if (!$manageable.identifiers.empty)
-#set ($identifier = $manageable.identifiers.iterator().next())
+#set ($identifier = $manageable.manageableIdentifier)
 #end
 ##
 package $manageable.manageablePackageName;
@@ -47,13 +47,13 @@ public final class $manageable.manageableDaoBaseName
     }
 
 #if ($member.many)## in this case we need to be able to load multiple entities at the same time
-    protected java.util.Set find${member.type.name}ByIds(${member.type.identifiers.iterator().next().type.fullyQualifiedName}[] ids)
+    protected java.util.Set find${member.type.name}ByIds(${member.type.manageableIdentifier.type.fullyQualifiedName}[] ids)
     {
         final Session session = getSession(false);
         try
         {
             final Criteria criteria = session.createCriteria(${member.type.fullyQualifiedEntityImplementationName}.class);
-            criteria.add(Expression.in("$member.type.identifiers.iterator().next().name", ids));
+            criteria.add(Expression.in("$member.type.manageableIdentifier.name", ids));
             return new java.util.HashSet(criteria.list());
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
@@ -68,7 +68,7 @@ public final class $manageable.manageableDaoBaseName
     public void create($memberList)
     {
         final ${manageable.fullyQualifiedEntityName} entity = new ${manageable.fullyQualifiedEntityImplementationName}();
-#foreach ($member in $manageable.attributes)
+#foreach ($member in $manageable.manageableAttributes)
         entity.${member.setterName}($member.name);
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
@@ -125,7 +125,7 @@ public final class $manageable.manageableDaoBaseName
         {
             final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
 
-#foreach ($member in $manageable.attributes)
+#foreach ($member in $manageable.manageableAttributes)
 #if ($member.type.primitive)
 #if ($member.type.fullyQualifiedName == 'boolean')
             if ($member.name) criteria.add(Expression.eq("$member.name", java.lang.Boolean.TRUE));
@@ -203,7 +203,7 @@ public final class $manageable.manageableDaoBaseName
         }
     }
 
-#foreach ($member in $manageable.attributes)
+#foreach ($member in $manageable.manageableAttributes)
 #if ($member.manageableGetterAvailable)
     public $member.type.fullyQualifiedName ${member.getterName}($identifier.type.fullyQualifiedName $identifier.name)
     {
@@ -258,10 +258,10 @@ public final class $manageable.manageableDaoBaseName
 #if ($manageable.update)
     public void update($memberList)
     {
-#set ($identifier = $manageable.identifiers.iterator().next())
-        final $manageable.fullyQualifiedEntityName entity = this.getDao().load($identifier.name);
+#set ($identifier = $manageable.manageableIdentifier)
+        final $manageable.fullyQualifiedEntityName entity = (${manageable.fullyQualifiedName})this.getDao().load($identifier.name);
 
-#foreach ($member in $manageable.attributes)
+#foreach ($member in $manageable.manageableAttributes)
 #if (!$member.equals($identifier))## the identifier is already present since we loaded the entity
         entity.${member.setterName}(${member.name});
 #end
@@ -279,7 +279,7 @@ public final class $manageable.manageableDaoBaseName
         $member.type.fullyQualifiedName $memberEntityName = null;
         if ($member.name != null)
         {
-            $memberEntityName = ${member.daoGetterName}().load($member.name);
+            $memberEntityName = (${member.type.fullyQualifiedName})${member.daoGetterName}().load($member.name);
         }
 #end
 #if ($member.required)
@@ -324,7 +324,7 @@ public final class $manageable.manageableDaoBaseName
             queryObject.executeUpdate();
 #else
             final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
-            criteria.add(Expression.in("$manageable.identifiers.iterator().next().name", ids));
+            criteria.add(Expression.in("$manageable.manageableIdentifier.name", ids));
             final java.util.List list = criteria.list();
             getHibernateTemplate().deleteAll(list);
 #end

@@ -178,4 +178,14 @@ public class HibernateProfile
      */
     public static final String TAGGEDVALUE_HIBERNATE_FORMULA = profile.get("HIBERNATE_FORMULA");
 
+    /**
+     * Specifies whether a mapped column should be included in SQL INSERT statements.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_PROPERTY_INSERT = profile.get("HIBERNATE_PROPERTY_INSERT");
+
+    /**
+     * Specifies whether a mapped column should be included in SQL UPDATE statements.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_PROPERTY_UPDATE = profile.get("HIBERNATE_PROPERTY_UPDATE");
+
 }
