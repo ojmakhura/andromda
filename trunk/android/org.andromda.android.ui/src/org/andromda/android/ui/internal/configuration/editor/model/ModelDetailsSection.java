@@ -1,7 +1,6 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
 import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
-import org.andromda.android.ui.internal.configuration.editor.server.ServerGeneralInformationComposite;
 import org.andromda.android.ui.internal.editor.BaseSectionPart;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.ServerDocument.Server;
@@ -11,6 +10,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
+import org.eclipse.ui.forms.widgets.Section;
 
 /**
  *
@@ -21,12 +21,18 @@ public class ModelDetailsSection
         extends BaseSectionPart
 {
 
+    /** The visual style of the section. */
+    private static final int SECTION_STYLE = Section.DESCRIPTION | Section.TITLE_BAR | Section.TWISTIE | Section.EXPANDED;
+
+    /** The composite hosted by this section. This composite contains the real edit components. */
+    private ModelDetailsComposite modelDetailsComposite;
+
     /**
      * @param page
      */
     public ModelDetailsSection(FormPage page)
     {
-        super(page);
+        super(page, SECTION_STYLE);
     }
 
     /**
@@ -36,11 +42,8 @@ public class ModelDetailsSection
     public ModelDetailsSection(Composite parent,
         FormPage page)
     {
-        super(parent, page);
-        // TODO Auto-generated constructor stub
+        super(parent, page, SECTION_STYLE);
     }
-
-    private ModelDetailsComposite modelDetailsComposite;
 
     public void initialize(IManagedForm form)
     {
