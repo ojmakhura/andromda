@@ -105,21 +105,7 @@ public class HibernateAssociationEndLogicImpl
      */
     protected boolean handleIsOne2OnePrimary()
     {
-        boolean primaryOne2One = super.isOne2One();
-        HibernateAssociationEnd otherEnd = (HibernateAssociationEnd)this.getOtherEnd();
-
-        if (primaryOne2One)
-        {
-            primaryOne2One = super.isAggregation() || this.isComposition();
-        }
-
-        // if the flag is false delegate to the super class
-        if (!primaryOne2One)
-        {
-            primaryOne2One = super.isOne2One() && !otherEnd.isAggregation() && !otherEnd.isComposition();
-        }
-
-        return primaryOne2One;
+        return ( this.isOne2One() && (this.isAggregation() || this.isComposition()) );
     }
 
     /**
@@ -212,29 +198,6 @@ public class HibernateAssociationEndLogicImpl
         }
 
         return lazy;
-    }
-
-    /**
-     * @see org.andromda.cartridges.nhibernate.metafacades.HibernateEntityAssociationEnd#isOne2OneSecondary()
-     */
-    protected boolean handleIsOne2OneSecondary()
-    {
-        boolean secondary = false;
-        Object type = this.getType();
-        Object otherType = this.getOtherEnd().getType();
-
-        if ((type != null) && HibernateEntity.class.isAssignableFrom(type.getClass()) && (otherType != null) &&
-            HibernateEntity.class.isAssignableFrom(otherType.getClass()))
-        {
-            HibernateEntity entity = (HibernateEntity)type;
-            HibernateEntity otherEntity = (HibernateEntity)otherType;
-            secondary =
-                (this.isChild() && entity.isForeignHibernateGeneratorClass()) ||
-                otherEntity.isForeignHibernateGeneratorClass() ||
-                (!this.isNavigable() && this.getOtherEnd().isNavigable() && !this.isOne2OnePrimary());
-        }
-
-        return secondary;
     }
 
     /**
