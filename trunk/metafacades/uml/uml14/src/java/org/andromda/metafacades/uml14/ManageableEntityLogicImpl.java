@@ -81,7 +81,12 @@ public class ManageableEntityLogicImpl
     protected java.util.List handleGetManageableAssociationEnds()
     {
         final List manageableAssociationEnds = new ArrayList();
+        collectAssociationEnds(manageableAssociationEnds, this);
+        return manageableAssociationEnds;
+    }
 
+    private void collectAssociationEnds(Collection manageableAssociationEnds, ManageableEntity entity)
+    {
         final Collection associationEnds = getAssociationEnds();
         for (final Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
@@ -101,7 +106,13 @@ public class ManageableEntityLogicImpl
             }
         }
 
-        return manageableAssociationEnds;
+        // retrieve all association ends for all parents (recursively)
+        final Collection parentEntities = entity.getAllGeneralizations();
+        for (Iterator parentEntityIterator = parentEntities.iterator(); parentEntityIterator.hasNext();)
+        {
+            final ManageableEntity parentEntity = (ManageableEntity)parentEntityIterator.next();
+            collectAssociationEnds(manageableAssociationEnds, parentEntity);
+        }
     }
 
     /**
@@ -149,19 +160,29 @@ public class ManageableEntityLogicImpl
 
     protected boolean handleIsUpdate()
     {
-        return !this.getIdentifiers().isEmpty(); // @todo
+        return this.getManageableIdentifier() != null; // @todo
     }
 
     protected boolean handleIsDelete()
     {
-        return !this.getIdentifiers().isEmpty(); // @todo
+        return this.getManageableIdentifier() != null; // @todo
+    }
+
+    protected List handleGetManageableAttributes()
+    {
+        return new ArrayList(getAttributes(true));
+    }
+
+    protected Object handleGetManageableIdentifier()
+    {
+        return getIdentifiers(true).iterator().next();
     }
 
     protected List handleGetManageableMembers()
     {
         final List criteria = new ArrayList();
-        criteria.addAll(getAttributes());
-        criteria.addAll(getManageableAssociationEnds());
+        criteria.addAll(this.getManageableAttributes());
+        criteria.addAll(this.getManageableAssociationEnds());
         return criteria;
     }
 
@@ -169,15 +190,15 @@ public class ManageableEntityLogicImpl
     {
         final StringBuffer buffer = new StringBuffer();
 
-        final Collection attributes = getAttributes();
-        for (final Iterator attributeIterator = attributes.iterator(); attributeIterator.hasNext();)
+        final List attributes = this.getManageableAttributes();
+        for (int i = 0; i < attributes.size(); i++)
         {
             if (buffer.length() > 0)
             {
                 buffer.append(", ");
             }
 
-            final ManageableEntityAttribute attribute = (ManageableEntityAttribute)attributeIterator.next();
+            final ManageableEntityAttribute attribute = (ManageableEntityAttribute)attributes.get(i);
             final ClassifierFacade type = attribute.getType();
             if (type != null)
             {
@@ -190,11 +211,11 @@ public class ManageableEntityLogicImpl
             }
         }
 
-        final Collection associationEnds = getManageableAssociationEnds();
-        for (final Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
+        final List associationEnds = this.getManageableAssociationEnds();
+        for (int i = 0; i < associationEnds.size(); i++)
         {
             final ManageableEntityAssociationEnd associationEnd =
-                (ManageableEntityAssociationEnd)associationEndIterator.next();
+                (ManageableEntityAssociationEnd)associationEnds.get(i);
             final Entity entity = (Entity)associationEnd.getType();
 
             final Iterator identifierIterator = entity.getIdentifiers().iterator();
@@ -267,7 +288,7 @@ public class ManageableEntityLogicImpl
             displayAttribute = findAttribute(StringUtilsHelper.trimToEmpty(taggedValueObject.toString()));
         }
 
-        final Collection attributes = getAttributes();
+        final Collection attributes = getAttributes(true);
         for (final Iterator attributeIterator = attributes.iterator();
             attributeIterator.hasNext() && displayAttribute == null;)
         {
@@ -331,7 +352,7 @@ public class ManageableEntityLogicImpl
 
     protected int handleGetMaximumListSize()
     {
-        int maximumListSize = -1;
+        int maximumListSize;
 
         final Object taggedValueObject = findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_MAXIMUM_LIST_SIZE);
         if (taggedValueObject != null)
@@ -355,7 +376,7 @@ public class ManageableEntityLogicImpl
 
     private int internalDefaultMaximumListSize()
     {
-        int maximumListSize = -1;
+        int maximumListSize;
 
         try
         {
@@ -372,7 +393,7 @@ public class ManageableEntityLogicImpl
 
     protected int handleGetPageSize()
     {
-        int pageSize = 20;
+        int pageSize;
 
         final Object taggedValueObject = findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_PAGE_SIZE);
         if (taggedValueObject != null)
@@ -396,7 +417,7 @@ public class ManageableEntityLogicImpl
 
     private int internalDefaultPageSize()
     {
-        int pageSize = 20;
+        int pageSize;
 
         try
         {
@@ -413,7 +434,7 @@ public class ManageableEntityLogicImpl
 
     protected boolean handleIsResolveable()
     {
-        boolean resolveable = true;
+        boolean resolveable;
 
         final Object taggedValueObject = findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_RESOLVEABLE);
         if (taggedValueObject != null)
@@ -437,7 +458,7 @@ public class ManageableEntityLogicImpl
 
     private boolean internalDefaultResolveable()
     {
-        boolean resolveable = true;
+        boolean resolveable;
 
         try
         {

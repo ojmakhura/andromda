@@ -584,21 +584,26 @@ public class AssembleMojo
     }
 
     /**
-     * Collects all projects from all POMs within the current project.
+     * Retrieves the MavenProject for the given <code>pom</code>.
      *
-     * @return all collection Maven project instances.
+     * @return the maven POM file.
      * @throws MojoExecutionException
      */
-    private MavenProject buildProject(final File pom)
+    private MavenProject getProject(final File pom)
         throws MojoExecutionException
     {
         try
         {
-            final MavenProject project =
-                this.projectBuilder.build(
+            // - first attempt to get the existing project from the session
+            MavenProject project = this.getProjectFromSession(pom);
+            if (project == null)
+            {
+                // - if we didn't find it in the session, create it
+                project = this.projectBuilder.build(
                     pom,
                     this.session.getLocalRepository(),
                     new DefaultProfileManager(this.session.getContainer()));
+            }
             if (this.getLog().isDebugEnabled())
             {
                 this.getLog().debug("Processing project " + project.getId());
@@ -609,6 +614,32 @@ public class AssembleMojo
         {
             throw new MojoExecutionException("Error loading " + pom, exception);
         }
+    }
+    
+    /**
+     * The POM file name.
+     */
+    private static final String POM_FILE = "pom.xml";
+    
+    /**
+     * Attempts to retrieve the Maven project for the given <code>pom</code>.
+     * 
+     * @param pom the POM to find.
+     * @return the maven project with the matching POM.
+     */
+    private MavenProject getProjectFromSession(final File pom)
+    {
+        MavenProject foundProject = null;
+        for (final Iterator projectIterator = this.session.getSortedProjects().iterator(); projectIterator.hasNext();)
+        {
+            final MavenProject project = (MavenProject)projectIterator.next();
+            final File projectPom = new File(project.getBasedir(), POM_FILE);
+            if (projectPom.equals(pom))
+            {
+                foundProject = project;
+            }
+        }
+        return foundProject;
     }
 
     /**
@@ -626,7 +657,7 @@ public class AssembleMojo
         for (ListIterator iterator = poms.listIterator(); iterator.hasNext();)
         {
             final File pom = (File)iterator.next();
-            projects.add(this.buildProject(pom));
+            projects.add(this.getProject(pom));
         }
         return projects;
     }

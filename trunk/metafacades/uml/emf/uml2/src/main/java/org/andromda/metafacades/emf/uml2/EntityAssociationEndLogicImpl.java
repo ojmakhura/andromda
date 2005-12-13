@@ -12,6 +12,7 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.ObjectUtils;
 
 
 /**
@@ -38,9 +39,7 @@ public class EntityAssociationEndLogicImpl
     {
         final String nameMask =
             String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENTITY_PROPERTY_NAME_MASK));
-        return NameMasker.mask(
-            super.handleGetName(),
-            nameMask);
+        return NameMasker.mask(super.handleGetName(), nameMask);
     }
 
     /**
@@ -53,8 +52,12 @@ public class EntityAssociationEndLogicImpl
         // prevent ClassCastException if the association isn't an Entity
         if (this.getType() instanceof Entity)
         {
+            final String columnNamePrefix =
+                this.isConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)
+                ? ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)) : null;
             columnName =
                 EntityMetafacadeUtils.getSqlNameFromTaggedValue(
+                    columnNamePrefix,
                     this,
                     UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
                     ((Entity)this.getType()).getMaxSqlNameLength(),
@@ -78,8 +81,7 @@ public class EntityAssociationEndLogicImpl
     protected boolean handleIsForeignIdentifier()
     {
         final Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_IDENTIFIER);
-        boolean test = value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
-        return test;
+        return value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
     }
 
     /**
@@ -87,7 +89,7 @@ public class EntityAssociationEndLogicImpl
      */
     protected java.lang.String handleGetForeignKeyConstraintName()
     {
-        String constraintName = null;
+        String constraintName;
 
         final Object taggedValueObject =
             findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME);
@@ -188,7 +190,7 @@ public class EntityAssociationEndLogicImpl
         final String propertyName = UMLMetafacadeProperties.SQL_MAPPINGS_URI;
         final Object property = this.getConfiguredProperty(propertyName);
         TypeMappings mappings = null;
-        String uri = null;
+        String uri;
         if (property instanceof String)
         {
             uri = (String)property;

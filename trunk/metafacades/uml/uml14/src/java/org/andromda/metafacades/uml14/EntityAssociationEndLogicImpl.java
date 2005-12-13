@@ -12,6 +12,7 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.ObjectUtils;
 
 /**
  * <p/>
@@ -46,9 +47,16 @@ public class EntityAssociationEndLogicImpl
         // prevent ClassCastException if the association isn't an Entity
         if (this.getType() instanceof Entity)
         {
+            final String columnNamePrefix =
+                this.isConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)
+                ? ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)) : null;
             columnName =
-                EntityMetafacadeUtils.getSqlNameFromTaggedValue(this, UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-                    ((Entity)this.getType()).getMaxSqlNameLength(), this.getForeignKeySuffix(),
+                EntityMetafacadeUtils.getSqlNameFromTaggedValue(
+                    columnNamePrefix,
+                    this,
+                    UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+                    ((Entity)this.getType()).getMaxSqlNameLength(),
+                    this.getForeignKeySuffix(),
                     this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
         }
         return columnName;
@@ -68,16 +76,15 @@ public class EntityAssociationEndLogicImpl
     protected boolean handleIsForeignIdentifier()
     {
         final Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_IDENTIFIER);
-        boolean test = value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
-        return test;
+        return value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
     }
 
     /**
-     * @see AssociationEndFacadeLogic#getForeignKeyConstraintName()
+     * @see org.andromda.metafacades.uml.EntityAssociationEnd#getForeignKeyConstraintName()
      */
     protected String handleGetForeignKeyConstraintName()
     {
-        String constraintName = null;
+        String constraintName;
 
         final Object taggedValueObject = findTaggedValue(
                 UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME);
@@ -138,14 +145,14 @@ public class EntityAssociationEndLogicImpl
             // on the other side (since that should correspond to the foreign key).         
             if (this.getType() instanceof Entity)
             {
-                final Entity type = (Entity)this.getType(); 
+                final Entity type = (Entity)this.getType();
                 final Collection identifiers = type.getIdentifiers();
                 if (identifiers != null && !identifiers.isEmpty())
                 {
                     AttributeFacade attribute = (AttributeFacade)identifiers.iterator().next();
                     if (attribute instanceof EntityAttribute)
                     {
-                        identifier = (EntityAttribute)attribute;                     
+                        identifier = (EntityAttribute)attribute;
                     }
                 }
             }
@@ -157,12 +164,12 @@ public class EntityAssociationEndLogicImpl
                 if (StringUtils.isNotEmpty(columnLength))
                 {
                     value = EntityMetafacadeUtils.constructSqlTypeName(value, columnLength);
-                }     
+                }
             }
         }
         return value;
     }
-    
+
     /**
      * Gets the SQL mappings that have been set for this entity attribute.
      *
@@ -173,7 +180,7 @@ public class EntityAssociationEndLogicImpl
         final String propertyName = UMLMetafacadeProperties.SQL_MAPPINGS_URI;
         final Object property = this.getConfiguredProperty(propertyName);
         TypeMappings mappings = null;
-        String uri = null;
+        String uri;
         if (property instanceof String)
         {
             uri = (String)property;

@@ -3,9 +3,11 @@ package org.andromda.maven.plugin.configuration;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -62,7 +64,7 @@ public abstract class AbstractConfigurationMojo
 
     /**
      * Collects and returns all properties as a Properties instance.
-     * 
+     *
      * @return the properties including those from the project, settings, etc.
      * @throws IOException
      */
@@ -92,12 +94,16 @@ public abstract class AbstractConfigurationMojo
         for (final Iterator iterator = properties.keySet().iterator(); iterator.hasNext();)
         {
             final String property = (String)iterator.next();
-            final String value = this.replaceProperties(properties, ObjectUtils.toString(properties.get(property)));
-            properties.put(property, value);
+            final String value = this.replaceProperties(
+                    properties,
+                    ObjectUtils.toString(properties.get(property)));
+            properties.put(
+                property,
+                value);
         }
-        
+
         properties.putAll(System.getProperties());
-        
+
         return properties;
     }
 
@@ -111,19 +117,21 @@ public abstract class AbstractConfigurationMojo
     protected String replaceProperties(final String string)
         throws IOException
     {
-        return this.replaceProperties(this.getProperties(), string);
+        return this.replaceProperties(
+            this.getProperties(),
+            string);
     }
-    
+
     /**
      * The begin token for interpolation.
      */
     private static final String BEGIN_TOKEN = "${";
-    
+
     /**
      * The end token for interpolation.
      */
     private static final String END_TOKEN = "}";
-    
+
     /**
      * Replaces all properties having the style
      * <code>${some.property}</code> with the value
@@ -132,7 +140,10 @@ public abstract class AbstractConfigurationMojo
      * @param properties the properties used to perform the replacement.
      * @param fileContents the fileContents to perform replacement on.
      */
-    private String replaceProperties(final Properties properties, final String string) throws IOException
+    private String replaceProperties(
+        final Properties properties,
+        final String string)
+        throws IOException
     {
         final StringReader stringReader = new StringReader(string);
         InterpolationFilterReader reader = new InterpolationFilterReader(stringReader, properties, "${", "}");
@@ -174,7 +185,7 @@ public abstract class AbstractConfigurationMojo
             }
 
             final URLClassLoader loader =
-                new URLClassLoader(classpathUrls,
+                new ConfigurationClassLoader(classpathUrls,
                     Thread.currentThread().getContextClassLoader());
             Thread.currentThread().setContextClassLoader(loader);
         }
@@ -187,7 +198,9 @@ public abstract class AbstractConfigurationMojo
      * @param pluginArtifactId the artifactId of the plugin of which to add its dependencies.
      * @param scope the artifact scope in which to add them (runtime, compile, etc).
      */
-    protected void addPluginDependencies(final String pluginArtifactId, final String scope)
+    protected void addPluginDependencies(
+        final String pluginArtifactId,
+        final String scope)
     {
         if (pluginArtifactId != null)
         {
@@ -205,7 +218,9 @@ public abstract class AbstractConfigurationMojo
                             for (final Iterator dependencyIterator = plugin.getDependencies().iterator();
                                 dependencyIterator.hasNext();)
                             {
-                                this.addDependency((Dependency)dependencyIterator.next(), scope);
+                                this.addDependency(
+                                    (Dependency)dependencyIterator.next(),
+                                    scope);
                             }
                         }
                     }
@@ -219,7 +234,9 @@ public abstract class AbstractConfigurationMojo
      *
      * @param dependency
      */
-    private void addDependency(final Dependency dependency, final String scope)
+    private void addDependency(
+        final Dependency dependency,
+        final String scope)
     {
         final ArtifactRepository localRepository = this.getLocalRepository();
         final MavenProject project = this.getProject();

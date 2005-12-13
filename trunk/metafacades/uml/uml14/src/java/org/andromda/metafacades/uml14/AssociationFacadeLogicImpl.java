@@ -24,7 +24,7 @@ public class AssociationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.AssociationFacade#handleGetAssociationEnds()
+     * @see org.andromda.metafacades.uml.AssociationFacade#getAssociationEnds()
      */
     public java.util.List handleGetAssociationEnds()
     {
@@ -55,16 +55,14 @@ public class AssociationFacadeLogicImpl
         final Iterator endIt = ends.iterator();
         final AssociationEndFacade firstEnd = (AssociationEndFacade)endIt.next();
         final AssociationEndFacade secondEnd = (AssociationEndFacade)endIt.next();
-        final String relationName =
-            MetafacadeUtils.toRelationName(
-                firstEnd.getName(),
-                secondEnd.getName(),
-                String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.RELATION_NAME_SEPARATOR)));
-        return relationName;
+        return MetafacadeUtils.toRelationName(
+            firstEnd.getName(),
+            secondEnd.getName(),
+            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.RELATION_NAME_SEPARATOR)));
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.AssociationFacade#isMany2Many()
+     * @see org.andromda.metafacades.uml.AssociationFacade#isMany2Many()
      */
     protected boolean handleIsMany2Many()
     {

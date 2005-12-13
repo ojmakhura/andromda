@@ -8,6 +8,7 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.ObjectUtils;
 
 
 /**
@@ -54,11 +55,12 @@ public class EntityAttributeLogicImpl
     {
         final Short maxSqlNameLength =
             Short.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
+        final String columnNamePrefix =
+            this.isConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)
+            ? ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)) : null;
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-            this,
-            UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-            maxSqlNameLength,
-            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+            columnNamePrefix, this, UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+            maxSqlNameLength,this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
     /**

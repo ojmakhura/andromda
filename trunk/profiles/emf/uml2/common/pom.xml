@@ -6,12 +6,12 @@
         <version>4.0-M1-SNAPSHOT</version>
     </parent>
     <packaging>uml2</packaging>
-    <artifactId>andromda-profile</artifactId>
+    <artifactId>andromda-profile-emf-uml2</artifactId>
     <name>AndroMDA EMF UML2 Common Profile</name>
     <dependencies>
         <dependency>
             <groupId>org.andromda.profiles.emf.uml2</groupId>
-            <artifactId>andromda-profile-datatype</artifactId>
+            <artifactId>andromda-profile-datatype-emf-uml2</artifactId>
             <version>${version}</version>
             <type>uml2</type>
             <scope>runtime</scope>

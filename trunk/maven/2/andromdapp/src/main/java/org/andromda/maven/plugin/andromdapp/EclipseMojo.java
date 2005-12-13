@@ -181,14 +181,20 @@ public class EclipseMojo
             final File pom = (File)iterator.next();
             try
             {
-                final MavenProject project =
-                    projectBuilder.build(
-                        pom,
-                        this.session.getLocalRepository(),
-                        new DefaultProfileManager(this.session.getContainer()));
+                // - first attempt to get the existing project from the session
+                MavenProject project = this.getProjectFromSession(pom);
+                if (project == null)
+                {
+                    // - if we didn't find it in the session, create it
+                    project =
+                        this.projectBuilder.build(
+                            pom,
+                            this.session.getLocalRepository(),
+                            new DefaultProfileManager(this.session.getContainer()));
+                
+                }
                 project.getCompileSourceRoots().addAll(this.getExtraSourceDirectories(project));
                 this.getLog().info("Processing project " + project.getId());
-
                 projects.add(project);
             }
             catch (ProjectBuildingException exception)
@@ -196,8 +202,33 @@ public class EclipseMojo
                 throw new MojoExecutionException("Error loading " + pom, exception);
             }
         }
-
         return projects;
+    }
+    
+    /**
+     * The POM file name.
+     */
+    private static final String POM_FILE = "pom.xml";
+    
+    /**
+     * Attempts to retrieve the Maven project for the given <code>pom</code>.
+     * 
+     * @param pom the POM to find.
+     * @return the maven project with the matching POM.
+     */
+    private MavenProject getProjectFromSession(final File pom)
+    {
+        MavenProject foundProject = null;
+        for (final Iterator projectIterator = this.session.getSortedProjects().iterator(); projectIterator.hasNext();)
+        {
+            final MavenProject project = (MavenProject)projectIterator.next();
+            final File projectPom = new File(project.getBasedir(), POM_FILE);
+            if (projectPom.equals(pom))
+            {
+                foundProject = project;
+            }
+        }
+        return foundProject;
     }
 
     /**
