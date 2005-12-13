@@ -32,7 +32,7 @@
                                 <include>**/pom.xml</include>
                             </projectIncludes>
                             <projectExcludes>
-                                <exclude>distribution/pom.xml</exclude>
+                                <exclude>distribution/**</exclude>
                             </projectExcludes>
                             <artifactExcludes>
                                 <artifact>
