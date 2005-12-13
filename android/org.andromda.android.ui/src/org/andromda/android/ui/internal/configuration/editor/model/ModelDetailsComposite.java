@@ -46,7 +46,7 @@ public class ModelDetailsComposite
     {
         public Object[] getElements(Object inputElement)
         {
-            return new Object[] { "item_0", "item_1", "item_2" };
+            return new Object[] { "UML 1.4", "UML 2.0" };
         }
 
         public void dispose()
@@ -88,7 +88,7 @@ public class ModelDetailsComposite
     {
         public Object[] getElements(Object inputElement)
         {
-            return new Object[] { "item_0", "item_1", "item_2" };
+            return new Object[] { "mda/src/uml/model1.zip", "mda/src/uml/model2.zip", "mda/src/uml/model3.zip", "mda/src/uml/model4.zip" };
         }
 
         public void dispose()
