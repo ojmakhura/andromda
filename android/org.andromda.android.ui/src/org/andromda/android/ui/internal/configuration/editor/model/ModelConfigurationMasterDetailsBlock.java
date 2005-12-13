@@ -14,13 +14,13 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.forms.DetailsPart;
@@ -32,7 +32,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
 /**
- * 
+ *
  * @author Peter Friese
  * @since 11.12.2005
  */
@@ -156,7 +156,9 @@ public class ModelConfigurationMasterDetailsBlock
         modelsSection.marginHeight = 5;
 
         final Composite composite = toolkit.createComposite(modelsSection, SWT.NONE);
-        composite.setLayout(new GridLayout());
+        final GridLayout gridLayout_1 = new GridLayout();
+        gridLayout_1.numColumns = 2;
+        composite.setLayout(gridLayout_1);
         toolkit.paintBordersFor(composite);
         modelsSection.setClient(composite);
 
@@ -180,6 +182,25 @@ public class ModelConfigurationMasterDetailsBlock
         tree = treeViewer.getTree();
         tree.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
         treeViewer.setInput(getAndromdaDocument());
+
+        final Composite composite_1 = toolkit.createComposite(composite, SWT.NONE);
+        composite_1.setLayoutData(new GridData(GridData.CENTER, GridData.BEGINNING, false, false));
+        final GridLayout gridLayout_2 = new GridLayout();
+        gridLayout_2.marginHeight = 0;
+        composite_1.setLayout(gridLayout_2);
+        toolkit.paintBordersFor(composite_1);
+
+        final Button button = toolkit.createButton(composite_1, "Add...", SWT.NONE);
+        button.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
+
+        final Button button_1 = toolkit.createButton(composite_1, "Remove", SWT.NONE);
+        button_1.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
+
+        final Button button_2 = toolkit.createButton(composite_1, "Up", SWT.NONE);
+        button_2.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
+
+        final Button button_3 = toolkit.createButton(composite_1, "Down", SWT.NONE);
+        button_3.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
     }
 
     protected void registerPages(DetailsPart detailsPart)
