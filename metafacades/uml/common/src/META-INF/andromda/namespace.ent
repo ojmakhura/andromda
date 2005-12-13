@@ -173,6 +173,13 @@
                 'My_Car'.
             </documentation>
         </property>
+        <property name="columnNamePrefix" required="false">
+            <documentation>
+                The prefix to give all persistent entity table column names.  For example
+                if you had an column named 'Name' and you defined the columnNamePrefix
+                as 'My_', then the column name would be 'My_Name'.
+            </documentation>
+        </property>
         <property name="foreignKeySuffix">
             <default>_FK</default>
             <documentation>

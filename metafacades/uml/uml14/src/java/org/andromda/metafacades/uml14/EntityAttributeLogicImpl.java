@@ -8,6 +8,7 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.ObjectUtils;
 
 /**
  * Metaclass facade implementation.
@@ -38,10 +39,14 @@ public class EntityAttributeLogicImpl
      */
     protected String handleGetColumnName()
     {
-        final Short maxSqlNameLength = 
+        final Short maxSqlNameLength =
             Short.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH));
-        return EntityMetafacadeUtils.getSqlNameFromTaggedValue(this, UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN, 
-                maxSqlNameLength,this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+        final String columnNamePrefix =
+            this.isConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)
+            ? ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)) : null;
+        return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
+            columnNamePrefix, this, UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+            maxSqlNameLength,this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
     /**
@@ -108,7 +113,7 @@ public class EntityAttributeLogicImpl
         }
         return value;
     }
-    
+
 
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#getJdbcType()
@@ -157,7 +162,7 @@ public class EntityAttributeLogicImpl
     {
         final Object property = this.getConfiguredProperty(propertyName);
         TypeMappings mappings = null;
-        String uri = null;
+        String uri;
         if (property instanceof String)
         {
             uri = (String)property;

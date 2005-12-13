@@ -67,5 +67,7 @@ public class ProfileTest
         assertEquals(
             "TestFromOverride",
             Profile.instance().get("TEST_FROM_OVERRIDE"));
+        // - shutdown the profile instance so that we don't affect other tests.
+        Profile.instance().shutdown();
     }
 }

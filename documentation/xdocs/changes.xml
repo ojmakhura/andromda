@@ -11,7 +11,14 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.2-RC1-SNAPSHOT" date="2005-12-07" description="First release candidate of version 3.2">
+        <release version="3.2-RC1-SNAPSHOT" date="2005-12-12" description="First release candidate of version 3.2">
+            <action dev="draftdog" type="add">
+                A new namespace property has been introduced: <code>columnNamePrefix</code>. It allows you to have
+                all column names prefixed with a certain character sequence.
+            </action>
+            <action dev="draftdog" type="add">
+                Manageable entities now support generalization (inheritance).
+            </action>
             <action dev="draftdog" type="add">
                 Value objects that have 'frozen' attributes or associations will no longer have a setter method
                 generated for these features.

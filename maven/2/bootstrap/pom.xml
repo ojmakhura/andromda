@@ -144,36 +144,43 @@
     		<groupId>org.netbeans.mdr</groupId>
       		<artifactId>jmiutils</artifactId>
      		<version>20050711</version>
+            <scope>runtime</scope>
     	</dependency>  
     	<dependency> 
     		<groupId>org.netbeans.mdr</groupId>
       		<artifactId>mdrapi</artifactId>
      		<version>20050711</version>
+            <scope>runtime</scope>
     	</dependency>  
      	<dependency> 
     		<groupId>org.netbeans.mdr</groupId>
       		<artifactId>nbmdr</artifactId>
      		<version>20050711</version>
+            <scope>runtime</scope>
     	</dependency>     	
      	<dependency> 
     		<groupId>org.netbeans.mdr</groupId>
       		<artifactId>openide-util</artifactId>
      		<version>20050711</version>
+            <scope>runtime</scope>
     	</dependency> 
     	<dependency> 
     		<groupId>jmi</groupId>
       		<artifactId>jmiuml</artifactId>
      		<version>1.4di</version>
+            <scope>runtime</scope>
     	</dependency>   
     	<dependency> 
     		<groupId>jmi</groupId>
       		<artifactId>mof</artifactId>
      		<version>20030918</version>
+            <scope>runtime</scope>
     	</dependency>  
     	<dependency> 
     		<groupId>jmi</groupId>
       		<artifactId>jmi</artifactId>
      		<version>20030918</version>
+            <scope>runtime</scope>
     	</dependency>  
     </dependencies>
     <build>

@@ -2,6 +2,10 @@
 
 <metafacades>
     <metafacade class="org.andromda.cartridges.xmlschema.metafacades.XSDAttributeLogicImpl"/>
-    <metafacade class="org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEndLogicImpl"/>
+    <metafacade class="org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEndLogicImpl">
+        <mapping>
+            <property name="association"/>
+        </mapping>
+    </metafacade>
 </metafacades>
 

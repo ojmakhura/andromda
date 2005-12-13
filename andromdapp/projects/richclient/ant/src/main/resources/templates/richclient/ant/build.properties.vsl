@@ -1,16 +1,14 @@
 # REVIEW EACH SETTING HERE AND VERIFY IT MATCHES YOUR ENVIRONMENT!
 # When you are done, set "properties.reviewed" to "true"
 
-
-# ======== These items you will probably want to change =================================================
+# ======== These items you need to change ===============================================================
 
 # User name and password when connecting to database
 dataSource.user=your_user_name_here
 dataSource.password=your_password_here
 
-# The directory where you store distributions that you download
-# (in particular, the parent directory of the AndroMDA binary distribution)
-distribution.dir=/usr/local/dist
+# The directory where the AndroMDA binary distribution is stored
+andromda.dist.dir=/usr/local/dist/andromda-bin-$andromdaVersion
 
 # Set this to "true" when finished reviewing this file
 properties.reviewed=false
@@ -58,7 +56,7 @@ remote.port=8080
 
 # ======== These items are probably set to good defaults, but you may want to review ====================
 
-andromda.version=3.2-RC1-SNAPSHOT
+andromda.version=$andromdaVersion
 
 application.id=${applicationId}
 application.package=${applicationPackage}.${application.id}
@@ -114,7 +112,4 @@ hibernate.customTypes.package=${application.package}.utils
 
 spring.types.package=${application.package}.utils
 
-
-# Where various support libraries are located
-andromda.dist.dir=${distribution.dir}/andromda-bin-${andromda.version}
 andromda.mappings.dir=${basedir}/mda/src/mappings

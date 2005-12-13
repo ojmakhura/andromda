@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.maven.archiver.MavenArchiveConfiguration;
 import org.apache.maven.archiver.MavenArchiver;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -81,6 +82,16 @@ public class XmiZipArchiverMojo
      * @description "the maven project to use"
      */
     private MavenProject project;
+    
+    /**
+     * Artifact factory, needed to download source jars for inclusion in
+     * classpath.
+     *
+     * @component role="org.apache.maven.artifact.factory.ArtifactFactory"
+     * @required
+     * @readonly
+     */
+    private ArtifactFactory artifactFactory;
 
     /**
      * To look up Archiver/UnArchiver implementations
@@ -229,10 +240,15 @@ public class XmiZipArchiverMojo
 
             final File xmlZipFile = new File(buildDirectory, this.finalName + ".xml.zip");
             final Artifact artifact = this.project.getArtifact();
+            artifact.setFile(xmlZipFile);
             if (this.generateJar)
             {
                 final File workDirectory = new File(this.workDirectory);
                 this.getLog().info("Building model jar " + finalName);
+                
+                final Artifact jarArtifact = artifactFactory.createArtifact( project.getGroupId(),
+                    project.getArtifactId(),
+                    project.getVersion(), null, "jar");
 
                 File modelJar = new File(workDirectory, finalName + ".jar");
 
@@ -251,14 +267,13 @@ public class XmiZipArchiverMojo
                     archive);
 
                 // - set the artifact file as the modelJar so that we can install the model jar
-                artifact.setFile(modelJar);
+                jarArtifact.setFile(modelJar);
                 this.installModelJar(
-                    artifact,
+                    jarArtifact,
                     modelJar);
+                project.addAttachedArtifact(jarArtifact);
             }
 
-            // - set the artifact file back to the correct file (since we've installed modelJar already)
-            artifact.setFile(xmlZipFile);
         }
         catch (final Throwable throwable)
         {
@@ -268,6 +283,7 @@ public class XmiZipArchiverMojo
 
     /**
      * Installs the model jar for this xml.zip artifact into the local repository.
+     * 
      * @param artifact the artifact to install.
      * @param source the source of the artifact.
      * @throws IOException
@@ -347,6 +363,7 @@ public class XmiZipArchiverMojo
     /**
      * Writes the given given <code>model</code> archive file and includes
      * the file given by the <code>path</code>
+     * 
      * @param modelArchive the model archive.
      * @param path the path of the model to write.
      * @throws IOException

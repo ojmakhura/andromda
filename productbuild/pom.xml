@@ -17,6 +17,15 @@
         <system>jira</system>
         <url>http://jira.andromda.org/</url>
     </issueManagement>
+    <scm>
+      <connection>scm:cvs:pserver:anonymous:@cvs.sourceforge.net:/cvsroot/andromda:andromda-all</connection>
+      <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
+      <url>http://cvs.sourceforge.net/viewcvs.py/andromda/</url>
+    </scm>
+    <organization>
+      <name>AndroMDA.org</name>
+      <url>http://www.andromda.org/</url>
+    </organization>
     <ciManagement>
         <system>continuum</system>
         <notifiers>
@@ -156,15 +165,6 @@
         </license>
     </licenses>
     -->
-    <scm>
-      <connection>scm:cvs:pserver:anonymous:@cvs.sourceforge.net:/cvsroot/andromda:andromda-all</connection>
-      <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
-      <url>http://cvs.sourceforge.net/viewcvs.py/andromda/</url>
-    </scm>
-    <organization>
-      <name>AndroMDA.org</name>
-      <url>http://www.andromda.org/</url>
-    </organization>
     <build>
         <defaultGoal>install</defaultGoal>
         <sourceDirectory>src/java</sourceDirectory>
