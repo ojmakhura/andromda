@@ -9,7 +9,8 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 
 /**
- * 
+ * This is the editor page containing the master/details part for editing the model properties.
+ *
  * @author Peter Friese
  * @since 08.11.2005
  */
@@ -17,10 +18,18 @@ public class ModelConfigurationPage
         extends FormPage
 {
 
+    /** The page id. */
     public static final String PAGE_ID = "models";
 
     private ModelConfigurationMasterDetailsBlock modelConfigurationMasterDetailsBlock;
 
+    /**
+     * Creates a new model configuration page.
+     *
+     * @param editor The editor hosting this page.
+     * @param id Te unique page identifier.
+     * @param title The title of the page.
+     */
     public ModelConfigurationPage(FormEditor editor,
         String id,
         String title)
@@ -29,6 +38,9 @@ public class ModelConfigurationPage
         modelConfigurationMasterDetailsBlock = new ModelConfigurationMasterDetailsBlock(this);
     }
 
+    /**
+     * @see org.eclipse.ui.forms.editor.FormPage#createFormContent(org.eclipse.ui.forms.IManagedForm)
+     */
     protected void createFormContent(IManagedForm managedForm)
     {
         FormToolkit toolkit = managedForm.getToolkit();
