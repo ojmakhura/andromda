@@ -86,10 +86,6 @@
             </subsection>
             <subsection name="Pitfalls">
                 <p>
-                    The current implementation of this feature does not take special care in the cases where entities
-                    inherit from other entities.
-                </p>
-                <p>
                     In order to enable entities associated with a certain entity the association ends to those
                     other entities need to be navigable. The entities are required to also be <![CDATA[Manageable]]>.
                 </p>
