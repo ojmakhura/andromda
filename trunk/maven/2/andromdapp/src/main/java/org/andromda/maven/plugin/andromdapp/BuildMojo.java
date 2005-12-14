@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
 import java.lang.reflect.Method;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -368,7 +366,7 @@ public class BuildMojo
      * @throws BuildFailureException
      */
     private boolean executeModules(final String modules)
-        throws MojoExecutionException, CycleDetectedException, LifecycleExecutionException, BuildFailureException
+        throws MojoExecutionException
     {
         return this.executeModules(
             modules,
@@ -393,7 +391,7 @@ public class BuildMojo
         final String modules,
         final List goals,
         boolean sortProjects)
-        throws CycleDetectedException, LifecycleExecutionException, MojoExecutionException, BuildFailureException
+        throws MojoExecutionException
     {
         final Map projects = this.collectProjects(modules);
         boolean executed = !projects.isEmpty();
@@ -439,6 +437,7 @@ public class BuildMojo
      *
      * @param project the project to execute.
      * @param goals the goals to execute on the project.
+     * @throws MojoExecutionException
      * @throws CycleDetectedException
      * @throws LifecycleExecutionException
      * @throws BuildFailureException
@@ -446,40 +445,47 @@ public class BuildMojo
     private void executeProjects(
         final Collection projects,
         final List goals)
-        throws CycleDetectedException, LifecycleExecutionException, BuildFailureException
+        throws MojoExecutionException
     {
-        if (goals.isEmpty())
+        try
         {
-            goals.addAll(this.goals);
-        }
-        if (projects.size() > 1)
-        {
-            this.getLog().info("Reactor build order:");
-        }
-        final ReactorManager reactorManager = new ReactorManager(new ArrayList(projects));
-        for (final Iterator iterator = reactorManager.getSortedProjects().iterator(); iterator.hasNext();)
-        {
-            final MavenProject project = (MavenProject)iterator.next();
-            this.getLog().info("  " + project.getName());
-        }
+            if (goals.isEmpty())
+            {
+                goals.addAll(this.goals);
+            }
+            if (projects.size() > 1)
+            {
+                this.getLog().info("Reactor build order:");
+            }
+            final ReactorManager reactorManager = new ReactorManager(new ArrayList(projects));
+            for (final Iterator iterator = reactorManager.getSortedProjects().iterator(); iterator.hasNext();)
+            {
+                final MavenProject project = (MavenProject)iterator.next();
+                this.getLog().info("  " + project.getName());
+            }
 
-        final MavenSession projectSession =
-            new MavenSession(
-                this.session.getContainer(),
-                this.session.getSettings(),
-                this.session.getLocalRepository(),
-                this.session.getEventDispatcher(),
+            final MavenSession projectSession =
+                new MavenSession(
+                    this.session.getContainer(),
+                    this.session.getSettings(),
+                    this.session.getLocalRepository(),
+                    this.session.getEventDispatcher(),
+                    reactorManager,
+                    goals,
+                    this.baseDirectory.toString(),
+                    this.executionProperties,
+                    this.session.getStartTime());
+
+            projectSession.setUsingPOMsFromFilesystem(true);
+            this.lifecycleExecutor.execute(
+                projectSession,
                 reactorManager,
-                goals,
-                this.baseDirectory.toString(),
-                this.executionProperties,
-                this.session.getStartTime());
-
-        projectSession.setUsingPOMsFromFilesystem(true);
-        this.lifecycleExecutor.execute(
-            projectSession,
-            reactorManager,
-            projectSession.getEventDispatcher());
+                projectSession.getEventDispatcher());
+        }
+        catch (final Throwable throwable)
+        {
+            throw new MojoExecutionException("An error occured while attempting to execute projects", throwable);
+        }
     }
 
     /**
