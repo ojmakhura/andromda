@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="andromda/src/java"/>
-	<classpathentry kind="src" path="andromdapp/src/main/java"/>
+	<classpathentry kind="src" path="andromdapp/core/src/main/java"/>
 	<classpathentry kind="src" path="metafacades/uml/emf/uml2/src/main/java"/>
 	<classpathentry kind="src" path="metafacades/uml/emf/uml2/target/src"/>
 	<classpathentry kind="src" path="translation-libraries/ocl/core/target/src/main/java"/>
 	<classpathentry kind="src" path="repositories/emf/uml2/src/test/java"/>
 	<classpathentry kind="src" path="repositories/emf/uml2/src/main/java"/>
 	<classpathentry kind="src" path="repositories/emf/src/main/java"/>
+	<classpathentry kind="src" path="maven/2/distribution/src/main/java"/>
+	<classpathentry kind="src" path="maven/2/andromdapp/src/main/java"/>
+	<classpathentry kind="src" path="maven/2/multi-source/src/main/java"/>
+	<classpathentry kind="src" path="maven/2/configuration/src/main/java"/>
+	<classpathentry kind="src" path="maven/2/translation-library/src/main/java"/>
+	<classpathentry kind="src" path="maven/2/cartridge/src/main/java"/>
+	<classpathentry kind="src" path="maven/2/bootstrap-install/src/main/java"/>
+	<classpathentry kind="src" path="maven/2/sablecc/src/main/java"/>
+	<classpathentry kind="src" path="maven/2/initialize/src/main/java"/>
+	<classpathentry kind="src" path="maven/2/bootstrap/src/main/java"/>
+	<classpathentry kind="src" path="maven/2/model-archiver/src/main/java"/>
+	<classpathentry kind="src" path="maven/2/andromda/src/main/java"/>
 	<classpathentry kind="src" path="templateengines/freemarker/src/java"/>
 	<classpathentry kind="src" path="metafacades/uml/common/src/test/java"/>
 	<classpathentry kind="src" path="metafacades/uml/common/target/src"/>
@@ -65,11 +77,29 @@
 	<classpathentry kind="var" path="MAVEN_REPO/commons-digester/jars/commons-digester-1.6.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/jboss/jars/javassist-2.6.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/freemarker/jars/freemarker-2.3.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-plugin-api/2.0/maven-plugin-api-2.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-model/2.0/maven-model-2.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-project/2.0/maven-project-2.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/maven/plugins/maven-resources-plugin/2.1/maven-resources-plugin-2.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/codehaus/plexus/plexus-utils/1.0.4/plexus-utils-1.0.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-artifact/2.0/maven-artifact-2.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-settings/2.0/maven-settings-2.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-archiver/2.0/maven-archiver-2.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/codehaus/plexus/plexus-archiver/1.0-alpha-3/plexus-archiver-1.0-alpha-3.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/codehaus/plexus/plexus-container-default/1.0-alpha-8/plexus-container-default-1.0-alpha-8.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-artifact-manager/2.0/maven-artifact-manager-2.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/emf/jars/emf-common-2.1.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/emf/jars/emf-ecore.xmi-2.1.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/emf/jars/emf-ecore-2.1.0.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/eclipse-uml2/jars/eclipse-uml2-1.1.1.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/eclipse-uml2/jars/eclipse-uml2-common-1.1.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/codehaus/plexus/plexus-compiler-api/1.5.1/plexus-compiler-api-1.5.1.jar"/>
+	<classpathentry kind="var" path="M2_REPO/sablecc/sablecc/2.18.2/sablecc-2.18.2.jar"/>
+	<classpathentry kind="var" path="M2_REPO/surefire/surefire/1.4/surefire-1.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/surefire/surefire-booter/1.4/surefire-booter-1.4.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-core/2.0/maven-core-2.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-monitor/2.0/maven-monitor-2.0.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/maven/wagon/wagon-provider-api/1.0-alpha-5/wagon-provider-api-1.0-alpha-5.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/hibernate/jars/hibernate-2.1.8.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/hibernate/jars/hibernate-3.0.5.jar">
 		<attributes>

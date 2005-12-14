@@ -8,6 +8,25 @@
     <version>$applicationVersion</version>
     <name>$applicationName</name>
     <description>The $applicationName Project.</description>
+    <scm>
+        <connection></connection>
+        <url></url>
+    </scm>
+    <organization>
+      <name></name>
+      <url></url>
+    </organization>
+    <ciManagement>
+        <system>continuum</system>
+        <notifiers>
+            <notifier>
+                <type>mail</type>
+                <configuration>
+                    <address></address>
+                </configuration>
+            </notifier>
+        </notifiers>
+    </ciManagement>
     <developers>
         <developer>
             <id></id>
@@ -517,11 +536,6 @@
                             </configuration>
                         </execution>
                     </executions>
-                </plugin>
-                <plugin>
-                    <groupId>org.andromda.maven.plugins</groupId>
-                    <artifactId>andromda-maven-plugin</artifactId>
-                    <version>$andromdaVersion</version>
                 </plugin>
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>

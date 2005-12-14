@@ -157,12 +157,17 @@
                 </executions>
                 <configuration>
                     <propertyFiles>
-                        <path>${basedir}/../project.properties</path>
+                        <path>${project.basedir}/../project.properties</path>
                     </propertyFiles>
                     <properties>
+                        <jdbcDriver>${dataSource.driver.class}</jdbcDriver>
+                        <jdbcDriverJar>${dataSource.driver.jar}</jdbcDriverJar>
+                        <jdbcConnectionUrl>${dataSource.url}</jdbcConnectionUrl>
+                        <jdbcUsername>${dataSource.user}</jdbcUsername>
+                        <jdbcPassword>${dataSource.password}</jdbcPassword>
                         <property>
                             <name>mappingsLocation</name>
-                            <value>${basedir}/target/src</value>
+                            <value>${project.basedir}/target/src</value>
                         </property>
                         <property>
                             <name>mappingFileExtension</name>
@@ -171,25 +176,25 @@
                         <property>
                             <name>createOutputPath</name>
 #if ($ear)
-                            <value>${basedir}/../app/target/schema-create.sql</value>
+                            <value>${project.basedir}/../app/target/schema-create.sql</value>
 #else
-                            <value>${basedir}/../web/target/schema-create.sql</value>
+                            <value>${project.basedir}/../web/target/schema-create.sql</value>
 #end
                         </property>
                         <property>
                             <name>dropOutputPath</name>
 #if ($ear)
-                            <value>${basedir}/../app/target/schema-drop.sql</value>
+                            <value>${project.basedir}/../app/target/schema-drop.sql</value>
 #else
-                            <value>${basedir}/../web/target/schema-drop.sql</value>
+                            <value>${project.basedir}/../web/target/schema-drop.sql</value>
 #end
                         </property>
                     </properties>
                     <!-- You might need to execute additional scripts, just uncomment and add
                          them here:
                     <scripts>
-                        <script>${basedir}/path/to/scripts/script1.sql</script>
-                        <script>${basedir}/path/to/scripts/script2.sql</script>
+                        <script>${project.basedir}/path/to/scripts/script1.sql</script>
+                        <script>${project.basedir}/path/to/scripts/script2.sql</script>
                     </scripts>
                     -->
                 </configuration>

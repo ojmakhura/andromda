@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
@@ -30,7 +31,7 @@ public abstract class AbstractAndroMDAMojo
     /**
      * This is the URI to the AndroMDA configuration file.
      *
-     * @parameter expression="file:${basedir}/conf/andromda.xml"
+     * @parameter expression="file:${project.basedir}/conf/andromda.xml"
      * @required
      */
     protected String configurationUri;
@@ -88,6 +89,7 @@ public abstract class AbstractAndroMDAMojo
     {
         try
         {
+            AndroMDALogger.initialize();
             final URL configurationUri = ResourceUtils.toURL(this.configurationUri);
             if (configurationUri == null)
             {

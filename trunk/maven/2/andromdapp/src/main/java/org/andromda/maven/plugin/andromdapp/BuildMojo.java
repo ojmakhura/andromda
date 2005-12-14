@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import org.andromda.maven.plugin.andromdapp.utils.ProjectUtils;
+import org.andromda.maven.plugin.andromdapp.utils.Projects;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.BuildFailureException;
@@ -27,7 +29,6 @@ import org.apache.maven.lifecycle.LifecycleExecutionException;
 import org.apache.maven.lifecycle.LifecycleExecutor;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.profiles.DefaultProfileManager;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
@@ -235,6 +236,7 @@ public class BuildMojo
                         {
                             this.printLine();
                         }
+                        Projects.instance().clear();
                     }
                 }
             }
@@ -501,8 +503,14 @@ public class BuildMojo
                 final File pom = (File)iterator.next();
                 try
                 {
-                    final MavenProject project = this.buildProject(pom);
-                    getLog().debug("Adding project " + project.getId());
+                    final MavenProject project = ProjectUtils.getProject(
+                            this.projectBuilder,
+                            this.session,
+                            pom);
+                    if (this.getLog().isDebugEnabled())
+                    {
+                        this.getLog().debug("Adding project " + project.getId());
+                    }
                     projects.put(
                         project,
                         poms.get(pom));
@@ -514,21 +522,6 @@ public class BuildMojo
             }
         }
         return projects;
-    }
-
-    /**
-     * Builds a project for the given <code>pom</code>.
-     * @param pom the pom from which to build the project.
-     * @return the built project.
-     * @throws ProjectBuildingException
-     */
-    private MavenProject buildProject(final File pom)
-        throws ProjectBuildingException
-    {
-        return this.projectBuilder.build(
-            pom,
-            this.session.getLocalRepository(),
-            new DefaultProfileManager(this.session.getContainer()));
     }
 
     /**
