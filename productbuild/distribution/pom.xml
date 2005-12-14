@@ -27,7 +27,6 @@
                             <name>andromda-bin-${version}</name>
                             <artifactDirectory>andromda</artifactDirectory>
                             <dependencyDirectory>lib</dependencyDirectory>
-                            <projectBaseDirectory>${pom.basedir}/../</projectBaseDirectory>
                             <projectIncludes>
                                 <include>**/pom.xml</include>
                             </projectIncludes>
@@ -37,6 +36,9 @@
                             <artifactExcludes>
                                 <artifact>
                                     <groupId>org\.andromda\.samples.*</groupId>
+                                </artifact>
+                                <artifact>
+                                    <groupId>org\.andromda\.bootstrap.*</groupId>
                                 </artifact>
                             </artifactExcludes>
                             <locations>

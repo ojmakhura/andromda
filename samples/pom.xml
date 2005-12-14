@@ -69,6 +69,20 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>install</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>maven</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>maven</goal>
+                        </goals>
+                    </execution>
+                    <execution>
                         <id>clean-animal-quiz-structure</id>
                         <phase>clean</phase>
                         <goals>
@@ -107,27 +121,6 @@
                         <configuration>
                             <configurationUri>${project.basedir}/conf/andromdapp/online-store/configuration.xml</configurationUri>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-maven-execute-plugin</artifactId>
-                <version>${version}</version>
-                <executions>
-                    <execution>
-                        <id>install</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>maven</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>maven</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>

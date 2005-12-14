@@ -12,6 +12,7 @@ import java.util.Set;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.maven.plugin.andromdapp.eclipse.ClasspathWriter;
 import org.andromda.maven.plugin.andromdapp.eclipse.ProjectWriter;
+import org.andromda.maven.plugin.andromdapp.utils.ProjectUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.metadata.ArtifactMetadataSource;
@@ -60,7 +61,7 @@ public class EclipseMojo
      *
      * @parameter
      */
-    private String[] includes = new String[] {"**/pom.xml"};
+    private String[] includes = new String[] {"*/**/pom.xml"};
 
     /**
      * Defines the POMs to exclude when generating the eclipse files.
@@ -68,6 +69,13 @@ public class EclipseMojo
      * @parameter
      */
     private String[] excludes = new String[0];
+    
+    /**
+     * Used to contruct Maven project instances from POMs.
+     * 
+     * @component
+     */
+    private MavenProjectBuilder projectBuilder;
 
     /**
      * The name of the variable that will store the maven repository location.
@@ -120,13 +128,7 @@ public class EclipseMojo
      * @parameter expression="${resolveTransitiveDependencies}"
      */
     private boolean resolveTransitiveDependencies = true;
-    
-    /**
-     * Used to contruct Maven project instances from POMs.
-     * 
-     * @component
-     */
-    private MavenProjectBuilder projectBuilder;
+   
 
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
@@ -182,7 +184,7 @@ public class EclipseMojo
             try
             {
                 // - first attempt to get the existing project from the session
-                MavenProject project = this.getProjectFromSession(pom);
+                MavenProject project = ProjectUtils.getProject(this.projectBuilder, this.session, pom);
                 if (project == null)
                 {
                     // - if we didn't find it in the session, create it
@@ -190,10 +192,12 @@ public class EclipseMojo
                         this.projectBuilder.build(
                             pom,
                             this.session.getLocalRepository(),
-                            new DefaultProfileManager(this.session.getContainer()));
-                
+                            new DefaultProfileManager(this.session.getContainer()));                
                 }
-                project.getCompileSourceRoots().addAll(this.getExtraSourceDirectories(project));
+                final Set compileSourceRoots = new LinkedHashSet(project.getCompileSourceRoots());
+                compileSourceRoots.addAll(this.getExtraSourceDirectories(project));
+                project.getCompileSourceRoots().clear();
+                project.getCompileSourceRoots().addAll(compileSourceRoots);
                 this.getLog().info("Processing project " + project.getId());
                 projects.add(project);
             }
@@ -205,31 +209,7 @@ public class EclipseMojo
         return projects;
     }
     
-    /**
-     * The POM file name.
-     */
-    private static final String POM_FILE = "pom.xml";
-    
-    /**
-     * Attempts to retrieve the Maven project for the given <code>pom</code>.
-     * 
-     * @param pom the POM to find.
-     * @return the maven project with the matching POM.
-     */
-    private MavenProject getProjectFromSession(final File pom)
-    {
-        MavenProject foundProject = null;
-        for (final Iterator projectIterator = this.session.getSortedProjects().iterator(); projectIterator.hasNext();)
-        {
-            final MavenProject project = (MavenProject)projectIterator.next();
-            final File projectPom = new File(project.getBasedir(), POM_FILE);
-            if (projectPom.equals(pom))
-            {
-                foundProject = project;
-            }
-        }
-        return foundProject;
-    }
+    //buildFromRepository(Artifact artifact, List remoteArtifactRepositories, ArtifactRepository localRepository, boolean allowStubModel)
 
     /**
      * The artifact id for the multi source plugin.
@@ -372,8 +352,8 @@ public class EclipseMojo
     {
         final DirectoryScanner scanner = new DirectoryScanner();
         scanner.setBasedir(this.getRootProject().getBasedir());
-        scanner.setIncludes(includes);
-        scanner.setExcludes(excludes);
+        scanner.setIncludes(this.includes);
+        scanner.setExcludes(this.excludes);
         scanner.scan();
 
         List poms = new ArrayList();
