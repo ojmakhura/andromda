@@ -328,7 +328,7 @@ public class AttributeFacadeLogicImpl
             if (BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                name = name + "<? extends " + this.getType().getFullyQualifiedName() + ">";
+                name = name + "<" + this.getType().getFullyQualifiedName() + ">";
             }
         }
         if (name == null && this.getType() != null)

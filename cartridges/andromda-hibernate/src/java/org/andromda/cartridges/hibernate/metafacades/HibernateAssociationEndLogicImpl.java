@@ -105,7 +105,7 @@ public class HibernateAssociationEndLogicImpl
      */
     protected boolean handleIsOne2OnePrimary()
     {
-        return ( this.isOne2One() && (this.isAggregation() || this.isComposition()) );
+        return (this.isOne2One() && (this.isAggregation() || this.isComposition()));
     }
 
     /**
@@ -177,7 +177,7 @@ public class HibernateAssociationEndLogicImpl
             if ("true".equals(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
             {
                 getterSetterTypeName =
-                    getterSetterTypeName + "<? extends " + this.getType().getFullyQualifiedName() + ">";
+                    getterSetterTypeName + "<" + this.getType().getFullyQualifiedName() + ">";
             }
         }
 
