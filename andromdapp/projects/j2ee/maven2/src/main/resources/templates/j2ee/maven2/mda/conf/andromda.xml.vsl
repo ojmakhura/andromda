@@ -93,10 +93,10 @@
         <namespace name="spring">
             <properties>
                 <property name="dataSource">${dataSource}</property>
-                <property name="username">${dataSource.user}</property>
-                <property name="password">${dataSource.password}</property>
-                <property name="driver">${dataSource.driver.class}</property>
-                <property name="connectionUrl">${dataSource.url}</property>
+                <property name="username">${jdbc.username}</property>
+                <property name="password">${jdbc.password}</property>
+                <property name="driver">${jdbc.driver}</property>
+                <property name="connectionUrl">${jdbc.url}</property>
                 <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateShowSql">${hibernate.db.showSql}</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
