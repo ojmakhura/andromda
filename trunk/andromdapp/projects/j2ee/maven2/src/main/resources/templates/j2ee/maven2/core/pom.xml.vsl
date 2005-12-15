@@ -156,15 +156,12 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <propertyFiles>
-                        <path>${project.basedir}/../project.properties</path>
-                    </propertyFiles>
+                    <jdbcDriver>${jdbc.driver}</jdbcDriver>
+                    <jdbcDriverJar>${jdbc.driver.jar}</jdbcDriverJar>
+                    <jdbcConnectionUrl>${jdbc.url}</jdbcConnectionUrl>
+                    <jdbcUsername>${jdbc.username}</jdbcUsername>
+                    <jdbcPassword>${jdbc.password}</jdbcPassword>
                     <properties>
-                        <jdbcDriver>${dataSource.driver.class}</jdbcDriver>
-                        <jdbcDriverJar>${dataSource.driver.jar}</jdbcDriverJar>
-                        <jdbcConnectionUrl>${dataSource.url}</jdbcConnectionUrl>
-                        <jdbcUsername>${dataSource.user}</jdbcUsername>
-                        <jdbcPassword>${dataSource.password}</jdbcPassword>
                         <property>
                             <name>mappingsLocation</name>
                             <value>${project.basedir}/target/src</value>

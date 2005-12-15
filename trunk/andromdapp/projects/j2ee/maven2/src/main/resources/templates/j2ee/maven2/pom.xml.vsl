@@ -569,6 +569,135 @@
         <module>app</module>
 #end
     </modules>
+    <properties>
+        <!-- 
+            Change this to generate to the correct MDA database mappings,
+            For MySql use: MySQL
+            For Hypersonic use: HypersonicSql
+            For Oracle9i use: Oracle9i
+          -->
+        <sql.mappings>HypersonicSql</sql.mappings>
+#if ($hibernate || $spring)
+#if ($hibernateVersion == "2")
+        <!-- 
+            Change this for the appropriate database
+            For MySql use: net.sf.hibernate.dialect.MySQLDialect
+            For Hypersonic use: net.sf.hibernate.dialect.HSQLDialect
+            For Oracle9i use: net.sf.hibernate.dialect.Oracle9Dialect
+          -->
+        <hibernate.dialect>net.sf.hibernate.dialect.HSQLDialect</hibernate.dialect>
+#else
+        <!-- 
+            Change this for the appropriate database
+            For MySql use: org.hibernate.dialect.MySQLDialect
+            For Hypersonic use: org.hibernate.dialect.HSQLDialect
+            For Oracle9i use: org.hibernate.dialect.Oracle9Dialect
+          -->
+        <hibernate.dialect>org.hibernate.dialect.HSQLDialect</hibernate.dialect>
+#end
+#end
+#if ($ejb)
+        <!-- Change this to the correct database type mappings (for Jboss) -->
+        <jboss.typeMappings>Hypersonic SQL</jboss.typeMappings>
+#end
+#if ($ear)
+        <jboss.home>${env.JBOSS_HOME}</jboss.home>
+#else
+        <tomcat.home>${env.CATALINA_HOME}</tomcat.home>
+#end
+        <application.id>${project.artifactId}</application.id>
+        <application.package>${project.groupId}</application.package>
+#if ($ear)
+        <dataSource>java:/DefaultDS</dataSource>
+#else
+        <dataSource>java:comp/env/${applicationId}DS</dataSource>
+#end
+    </properties>
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+#if ($ear)
+                <jdbc.driver.jar>${jboss.home}/server/default/lib/hsqldb.jar</jdbc.driver.jar>
+#else
+                <jdbc.driver.jar>/path/to/hsqldb/hsqldb.jar</jdbc.driver.jar>
+#end
+                <jdbc.driver>org.hsqldb.jdbcDriver</jdbc.driver>
+                <jdbc.url>jdbc:hsqldb:hsql://127.0.0.1:1701</jdbc.url>
+                <jdbc.username>sa</jdbc.username>
+                <jdbc.password></jdbc.password>
+#if ($webservice)
+                <!-- Change this to the host on which your webservice will be deployed -->
+                <webservice.host>localhost</webservice.host>
+                <!-- Change this the port on which your webservice will be deploy -->
+                <webservice.port>8080</webservice.port>
+#end
+            </properties>
+        </profile>
+        <profile>
+            <id>development</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>dev</value>
+                </property>
+            </activation>
+            <properties>
+                <jdbc.driver.jar></jdbc.driver.jar>
+                <jdbc.driver></jdbc.driver>
+                <jdbc.url></jdbc.url>
+                <jdbc.username></jdbc.username>
+                <jdbc.password></jdbc.password>
+#if ($webservice)
+                <webservice.host></webservice.host>
+                <webservice.port></webservice.port>
+#end
+            </properties>
+        </profile>
+        <profile>
+            <id>validation</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>val</value>
+                </property>
+            </activation>
+            <properties>
+                <jdbc.driver.jar></jdbc.driver.jar>
+                <jdbc.driver></jdbc.driver>
+                <jdbc.url></jdbc.url>
+                <jdbc.username></jdbc.username>
+                <jdbc.password></jdbc.password>
+#if ($webservice)
+                <webservice.host></webservice.host>
+                <webservice.port></webservice.port>
+#end
+            </properties>
+        </profile>
+        <profile>
+            <id>production</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>prod</value>
+                </property>
+            </activation>
+            <properties>
+                <jdbc.driver.jar></jdbc.driver.jar>
+                <jdbc.driver></jdbc.driver>
+                <jdbc.url></jdbc.url>
+                <jdbc.username></jdbc.username>
+                <jdbc.password></jdbc.password>
+#if ($webservice)
+                <webservice.host></webservice.host>
+                <webservice.port></webservice.port>
+#end
+            </properties>
+        </profile>
+    </profiles>
     <repositories>
         <repository>
             <id>andromda</id>
@@ -583,4 +712,7 @@
             <url>http://team.andromda.org/maven2</url>
         </pluginRepository>
     </pluginRepositories>
+    <prerequisites>
+        <maven>2.0.1</maven>
+    </prerequisites>
 </project>
