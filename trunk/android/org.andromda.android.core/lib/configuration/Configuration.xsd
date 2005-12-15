@@ -3,10 +3,10 @@
      This schema defines the AndroMDA configuration xml file.
      CODING CONVENTION: NO TABS, INDENT 4 SPACES
      ========================================================================= -->
-<xs:schema 
+<xs:schema
     targetNamespace="http://andromda.org/core/configuration"
     xmlns="http://andromda.org/core/configuration"
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
     elementFormDefault="qualified">
     <xs:element name="andromda">
         <xs:complexType>
@@ -62,6 +62,7 @@
                 </xs:element>
             </xs:sequence>
             <xs:attribute name="lastModifiedCheck" type="xs:boolean" use="optional"/>
+            <xs:attribute name="type" type="xs:string" use="optional" default="uml-1.4"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="modelPackage">
