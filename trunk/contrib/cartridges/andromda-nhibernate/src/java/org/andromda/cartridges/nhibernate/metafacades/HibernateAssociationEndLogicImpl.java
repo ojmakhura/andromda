@@ -105,7 +105,7 @@ public class HibernateAssociationEndLogicImpl
      */
     protected boolean handleIsOne2OnePrimary()
     {
-        return ( this.isOne2One() && (this.isAggregation() || this.isComposition()) );
+        return (this.isOne2One() && (this.isAggregation() || this.isComposition()));
     }
 
     /**
