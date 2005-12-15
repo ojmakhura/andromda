@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--
+  This XMI diff file adds JMI mapping related tags to a UML 2.0 metamodel
+-->
+
+<XMI xmi.version='1.0'>  
+<XMI.content>
+    <!-- ==================== UML [Package] ==================== -->
+    <Model:Package xmi.id='umltest' name='UML2' isRoot = 'false' 
+        isLeaf = 'false' isAbstract = 'false' visibility = 'public_vis'
+        annotation='Helper package that renames Java reserved words in the UML 2.0 metamodel so that it will work with Java.'>
+        <Model:Namespace.contents>
+            <!-- ===================== JMI Tags =================== -->
+            <Model:Tag xmi.id='tag1' name='Java Substitute Name=defaultValue' annotation='' tagId='javax.jmi.substituteName'>
+                <Model:Tag.elements>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a2203'/>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a1750'/>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a2091'/>
+                </Model:Tag.elements>
+                <Model:Tag.values>
+                    <XMI.any xmi.type='string'>defaultValue</XMI.any>
+                </Model:Tag.values>              
+            </Model:Tag>
+            <Model:Tag xmi.id='tag2' name='Java Substitute Name=umlInterface' annotation='' tagId='javax.jmi.substituteName'>
+                <Model:Tag.elements>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a1585'/>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a2333'/>
+                </Model:Tag.elements>
+                <Model:Tag.values>
+                    <XMI.any xmi.type='string'>umlInterface</XMI.any>
+                </Model:Tag.values>              
+            </Model:Tag>
+            <Model:Tag xmi.id='tag3' name='Java Substitute Name=umlPackage' annotation='' tagId='javax.jmi.substituteName'>
+                <Model:Tag.elements>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a1962'/>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a2333'/>
+                </Model:Tag.elements>
+                <Model:Tag.values>
+                    <XMI.any xmi.type='string'>umlPackage</XMI.any>
+                </Model:Tag.values>              
+            </Model:Tag>
+            <Model:Tag xmi.id='tag4' name='Java Substitute Name=defaultValueSpecification' annotation='' tagId='javax.jmi.substituteName'>
+                <Model:Tag.elements>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a2093'/>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a2206'/>
+                </Model:Tag.elements>
+                <Model:Tag.values>
+                    <XMI.any xmi.type='string'>defaultValueSpecification</XMI.any>
+                </Model:Tag.values>              
+            </Model:Tag>
+            <Model:Tag xmi.id='tag5' name='Java Substitute Name=UmlClass' annotation='' tagId='javax.jmi.substituteName'>
+                <Model:Tag.elements>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a846'/>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a1531'/>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a760'/>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a109'/>
+                    <Model:ModelElement href='mdstruct_with_tags.xml|a236'/>
+                </Model:Tag.elements>
+                <Model:Tag.values>
+                    <XMI.any xmi.type='string'>UmlClass</XMI.any>
+                </Model:Tag.values>              
+            </Model:Tag>
+            
+        </Model:Namespace.contents>
+    </Model:Package>
+</XMI.content>
+</XMI>
