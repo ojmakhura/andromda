@@ -74,11 +74,7 @@
 #end
     </dependencies>
     <build>
-        <sourceDirectory>src/main/uml</sourceDirectory>
-        <filters>
-            <filter>../project.properties</filter>
-            <filter>mda.properties</filter>
-        </filters>
+        <sourceDirectory>${project.basedir}/src/main/uml</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -116,4 +112,46 @@
             </plugin>
         </plugins>
     </build>
+    <properties>
+#if ($stringUtils.isNotEmpty($model))
+        <model.uri>$model</model.uri>
+#else
+        <model.uri>file:${project.build.sourceDirectory}/${applicationId}.xmi</model.uri>
+#end
+        <filter></filter>
+        <conf.dir>${pom.basedir}/conf</conf.dir>
+        <!-- cartridge output locations -->
+        <core.generated.dir>${project.build.sourceDirectory}/../../../../core/target/src</core.generated.dir>
+        <core.manual.dir>${project.build.sourceDirectory}/../../../../core/src/main/java</core.manual.dir>
+        <web.generated.dir>${project.build.sourceDirectory}/../../../../web/target/src</web.generated.dir>
+        <web.manual.java.dir>${project.build.sourceDirectory}/../../../../web/src/main/java</web.manual.java.dir> 
+#if ($workflow)     
+        <workflow.generated.dir>${project.build.sourceDirectory}/../../../../workflow/target/src</workflow.generated.dir>
+        <workflow.manual.dir>${project.build.sourceDirectory}/../../../../workflow/src/main</workflow.manual.dir>    
+#end
+#if ($webservice)
+#if ($war)
+        <webservice.generated.dir>${web.generated.dir}</webservice.generated.dir>
+#else
+        <webservice.generated.dir>${project.build.sourceDirectory}/../../../../webservice/target/src</webservice.generated.dir>
+#end
+        <webservice.generated.wsdl.dir>${webservice.generated.dir}/WEB-INF/classes</webservice.generated.wsdl.dir>
+#end
+        <common.generated.dir>${project.build.sourceDirectory}/../../../../common/target/src</common.generated.dir>      
+#if ($hibernate || $spring)
+        <!-- hibernate configuration -->
+#if ($hibernate)
+#if ($hibernateVersion == "2")
+        <hibernate.transaction.manager.lookup>net.sf.hibernate.transaction.JBossTransactionManagerLookup</hibernate.transaction.manager.lookup>
+#else
+        <hibernate.transaction.manager.lookup>org.hibernate.transaction.JBossTransactionManagerLookup</hibernate.transaction.manager.lookup>
+#end
+#end
+        <!-- default strategy to use when using inhertiance -->
+        <hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>
+        <hibernate.db.showSql>true</hibernate.db.showSql>
+        <!-- hibernate generator class to use for identifiers -->
+        <hibernate.generatorClass>native</hibernate.generatorClass>
+#end
+    </properties>
 </project>

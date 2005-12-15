@@ -11,7 +11,7 @@
         <repository name="netBeansMDR">
             <models>
                 <model>
-                    <uri>${maven.andromda.model.uri}</uri>
+                    <uri>${model.uri}</uri>
                     <moduleSearchLocations>
                         <location patterns="**/*">${settings.localRepository}/org/andromda/profiles</location>
                     </moduleSearchLocations>
@@ -47,10 +47,10 @@
 #if ($ejb)
         <namespace name="ejb">
             <properties>
-                <property name="entity-beans">${maven.andromda.core.generated.dir}</property>
-                <property name="session-beans">${maven.andromda.core.generated.dir}</property>
-                <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
-                <property name="session-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="entity-beans">${core.generated.dir}</property>
+                <property name="session-beans">${core.generated.dir}</property>
+                <property name="entity-impls">${core.manual.dir}</property>
+                <property name="session-impls">${core.manual.dir}</property>
             </properties>
         </namespace>
 #elseif ($hibernate)
@@ -63,7 +63,7 @@
                 <property name="hibernateDialect">${hibernate.dialect}</property>
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="hibernateTransactionManagerLookup">${hibernate.transaction.manager.lookup}</property>
-                <property name="customTypesPackage">${applicationPackage}</property>
+                <property name="customTypesPackage">${application.package}</property>
                 <property name="hibernateJdbcBatchSize">0</property>
                 <property name="hibernateEnableCache">false</property>
                 <property name="hibernateEnableAssociationsCache">false</property>
@@ -78,12 +78,12 @@
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
                 <property name="hibernateTransactionFactoryClass">org.hibernate.transaction.JTATransactionFactory</property>
 #end
-                <property name="entities">${maven.andromda.core.generated.dir}</property>
-                <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
-                <property name="session-beans">${maven.andromda.core.generated.dir}</property>
-                <property name="session-impls">${maven.andromda.core.manual.dir}</property>
-                <property name="configuration">${maven.andromda.core.generated.dir}</property>
-                <property name="cache">${maven.andromda.core.generated.dir}</property>
+                <property name="entities">${core.generated.dir}</property>
+                <property name="entity-impls">${core.manual.dir}</property>
+                <property name="session-beans">${core.generated.dir}</property>
+                <property name="session-impls">${core.manual.dir}</property>
+                <property name="configuration">${core.generated.dir}</property>
+                <property name="cache">${core.generated.dir}</property>
                 <!-- uncomment to enable EJB security
                 <property name="securityRealm">${application.id}</property>
                 -->
@@ -112,23 +112,23 @@
                 <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
 #end
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
-                <property name="springTypesPackage">${applicationPackage}</property>
-                <property name="daos">${maven.andromda.core.generated.dir}</property>
-                <property name="dao-impls">${maven.andromda.core.manual.dir}</property>
-                <property name="spring-configuration">${maven.andromda.core.generated.dir}</property>
-                <property name="services">${maven.andromda.core.generated.dir}</property>
-                <property name="service-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="springTypesPackage">${application.package}</property>
+                <property name="daos">${core.generated.dir}</property>
+                <property name="dao-impls">${core.manual.dir}</property>
+                <property name="spring-configuration">${core.generated.dir}</property>
+                <property name="services">${core.generated.dir}</property>
+                <property name="service-impls">${core.manual.dir}</property>
 #if ($ear)
                 <property name="enableSpringTransactionsWhenEjbsEnabled">true</property>
                 <!-- to remove any dependency on EJB, comment the following property -->
-                <property name="session-ejbs">${maven.andromda.core.generated.dir}</property>
+                <property name="session-ejbs">${core.generated.dir}</property>
                 <!-- uncomment to enable EJB security
                 <property name="securityRealm">${application.id}</property>
                  -->
 #end
 #if ($webservice)
-                <property name="webServiceOutgoingAttachmentHandlerCallPattern">${applicationPackage}.AxisAttachmentHandler.saveAttachment(content, contentType, dime)</property>
-                <property name="webServiceIncomingAttachmentHandlerCallPattern">${applicationPackage}.AxisAttachmentHandler.getAttachments()</property>
+                <property name="webServiceOutgoingAttachmentHandlerCallPattern">${application.package}.AxisAttachmentHandler.saveAttachment(content, contentType, dime)</property>
+                <property name="webServiceIncomingAttachmentHandlerCallPattern">${application.package}.AxisAttachmentHandler.getAttachments()</property>
 #end
             </properties>
         </namespace>
@@ -140,25 +140,25 @@
                 <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
                 <property name="defaultHibernateGeneratorClass">${hibernate.generatorClass}</property>
                 <property name="hibernateDefaultCascade">none</property>
-                <property name="entities">${maven.andromda.core.generated.dir}</property>
-                <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
-                <property name="customTypesPackage">${applicationPackage}</property>
+                <property name="entities">${core.generated.dir}</property>
+                <property name="entity-impls">${core.manual.dir}</property>
+                <property name="customTypesPackage">${application.package}</property>
                 <property name="compositionDefinesEagerLoading">true</property>
-                <property name="cache">${maven.andromda.core.generated.dir}</property>
+                <property name="cache">${core.generated.dir}</property>
             </properties>
         </namespace>
 #end
 #if ($workflow)
         <namespace name="jbpm">
             <properties>
-                <property name="definitions">${maven.andromda.workflow.generated.dir}</property>
-                <property name="handlers">${maven.andromda.workflow.generated.dir}</property>
-                <property name="handler-impls">${maven.andromda.workflow.manual.dir}/java</property>
-                <property name="helpers">${maven.andromda.workflow.generated.dir}</property>
-                <property name="nodes">${maven.andromda.workflow.generated.dir}</property>
-                <property name="clients">${maven.andromda.workflow.generated.dir}</property>
-                <property name="configuration">${maven.andromda.workflow.manual.dir}/conf</property>
-                <property name="clientPackage">${applicationPackage}.business.process</property>
+                <property name="definitions">${workflow.generated.dir}</property>
+                <property name="handlers">${workflow.generated.dir}</property>
+                <property name="handler-impls">${workflow.manual.dir}/java</property>
+                <property name="helpers">${workflow.generated.dir}</property>
+                <property name="nodes">${workflow.generated.dir}</property>
+                <property name="clients">${workflow.generated.dir}</property>
+                <property name="configuration">${workflow.manual.dir}/conf</property>
+                <property name="clientPackage">${application.package}.business.process</property>
             </properties>
         </namespace>
 #end
@@ -167,10 +167,10 @@
             <properties>
                 <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
                 <property name="languageMappingsUri">AxisJavaMappings</property>
-                <property name="defaultProvider">${default.provider}</property>
+                <property name="defaultProvider">RPC</property>
                 <property name="applicationName">${application.id}</property>
-                <property name="wsdlSoapAddress">${wsdl.soap.address}</property>
-                <property name="webserviceTypesPackage">${applicationPackage}</property>
+                <property name="wsdlSoapAddress">http://${webservice.host}:${webservice.port}/${application.id}-ws/services</property>
+                <property name="webserviceTypesPackage">${application.package}</property>
 #if ($hibernate)
                 <property name="ejbInterfacePattern">{0}.ejb.{1}</property>
                 <property name="ejbHomeInterfacePattern">{0}.ejb.{1}Home</property>
@@ -180,9 +180,9 @@
 #else
                 <property name="rpcClassNamePattern">{0}.{1}WSDelegator</property>
 #end
-                <property name="wsdls">${maven.andromda.webservice.generated.wsdl.dir}</property>
-                <property name="axis-configuration">${maven.andromda.webservice.generated.dir}</property>
-                <property name="webservice-types">${maven.andromda.core.generated.dir}</property>
+                <property name="wsdls">${webservice.generated.wsdl.dir}</property>
+                <property name="axis-configuration">${webservice.generated.dir}</property>
+                <property name="webservice-types">${core.generated.dir}</property>
             </properties>
         </namespace>
 #end
@@ -192,30 +192,30 @@
                 <property name="languageMappingsUri">AxisJavaMappings</property>
                 <property name="useArraysForMultiplicitiesOfTypeMany">true</property>
 #end
-                <property name="enumerations">${maven.andromda.common.generated.dir}</property>
-                <property name="exceptions">${maven.andromda.common.generated.dir}</property>
-                <property name="value-objects">${maven.andromda.common.generated.dir}</property>
+                <property name="enumerations">${common.generated.dir}</property>
+                <property name="exceptions">${common.generated.dir}</property>
+                <property name="value-objects">${common.generated.dir}</property>
             </properties>
         </namespace>
 #if ($struts)
         <namespace name="bpm4struts">
             <properties>
-                <property name="forms">${maven.andromda.web.generated.dir}</property>
-                <property name="pages">${maven.andromda.web.generated.dir}</property>
-                <property name="actions">${maven.andromda.web.generated.dir}</property>
-                <property name="controllers">${maven.andromda.web.generated.dir}</property>
-                <property name="controller-impls">${maven.andromda.web.manual.java.dir}</property>
-                <property name="decorators">${maven.andromda.web.manual.java.dir}</property>
-                <property name="messages">${maven.andromda.web.generated.dir}/WEB-INF/classes</property>
-                <property name="configuration">${maven.andromda.web.generated.dir}/WEB-INF</property>
+                <property name="forms">${web.generated.dir}</property>
+                <property name="pages">${web.generated.dir}</property>
+                <property name="actions">${web.generated.dir}</property>
+                <property name="controllers">${web.generated.dir}</property>
+                <property name="controller-impls">${web.manual.java.dir}</property>
+                <property name="decorators">${web.manual.java.dir}</property>
+                <property name="messages">${web.generated.dir}/WEB-INF/classes</property>
+                <property name="configuration">${web.generated.dir}/WEB-INF</property>
                 <property name="securityRealm"></property>
 #if ($ejb)
                 <property name="serviceAccessorPattern">{0}.{1}Util.getHome().create()</property>
 #else
-                <property name="serviceAccessorPattern">${applicationPackage}.ServiceLocator.instance().get{1}()</property>
+                <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
 #end
                 <property name="mergeMappingsUri">file:${conf.dir}/mappings/WebMergeMappings.xml</property>
-                <property name="manageableServiceAccessorPattern">${applicationPackage}.ManageableServiceLocator.instance().get{1}()</property>
+                <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
             </properties>
         </namespace>
 #elseif ($jsf)
@@ -225,19 +225,19 @@
                 <property name="languageMappingsUri">AxisJavaMappings</property>
 #end
                 <property name="applicationName">${application.name}</property>
-                <property name="forms">${maven.andromda.web.generated.dir}</property>
-                <property name="jsps">${maven.andromda.web.generated.dir}</property>
-                <property name="managed-beans">${maven.andromda.web.generated.dir}</property>
-                <property name="controllers">${maven.andromda.web.generated.dir}</property>
-                <property name="controller-impls">${maven.andromda.web.manual.java.dir}</property>
-                <property name="messages">${maven.andromda.web.generated.dir}</property>
-                <property name="configuration">${maven.andromda.web.generated.dir}</property>
+                <property name="forms">${web.generated.dir}</property>
+                <property name="jsps">${web.generated.dir}</property>
+                <property name="managed-beans">${web.generated.dir}</property>
+                <property name="controllers">${web.generated.dir}</property>
+                <property name="controller-impls">${web.manual.java.dir}</property>
+                <property name="messages">${web.generated.dir}</property>
+                <property name="configuration">${web.generated.dir}</property>
                 <!-- uncomment to enable web tier security  -->
                 <property name="securityRealm">${application.id}</property>
 #if ($ejb)
                 <property name="serviceAccessorPattern">{0}.{1}Util.getHome().create()</property>
 #else
-                <property name="serviceAccessorPattern">${applicationPackage}.ServiceLocator.instance().get{1}()</property>
+                <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
 #end
                 <property name="mergeMappingsUri">file:${conf.dir}/mappings/WebMergeMappings.xml</property>
             </properties>
