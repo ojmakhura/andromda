@@ -1,31 +1,14 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
+import org.andromda.android.ui.internal.editor.AbstractModelDetailsPage;
 import org.andromda.core.configuration.ModelDocument.Model;
-import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ITableLabelProvider;
-import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.forms.IDetailsPage;
 import org.eclipse.ui.forms.IFormPart;
-import org.eclipse.ui.forms.IManagedForm;
-import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.Section;
 
 /**
  *
@@ -33,380 +16,22 @@ import org.eclipse.ui.forms.widgets.Section;
  * @since 11.12.2005
  */
 public class ModelDetailsPage
+        extends AbstractModelDetailsPage
         implements IDetailsPage
 {
 
-    private TableViewer modelPartsTableViewer;
-
-    private Button lastModifiedCheckButton;
-
-    class ContentProvider_2
-            implements IStructuredContentProvider
-    {
-        public Object[] getElements(Object inputElement)
-        {
-            return new Object[] { "item_0", "item_1", "item_2" };
-        }
-
-        public void dispose()
-        {
-        }
-
-        public void inputChanged(Viewer viewer,
-            Object oldInput,
-            Object newInput)
-        {
-        }
-    }
-
-    class TableLabelProvider_2
-            extends LabelProvider
-            implements ITableLabelProvider
-    {
-        public String getColumnText(Object element,
-            int columnIndex)
-        {
-            return element.toString();
-        }
-
-        public Image getColumnImage(Object element,
-            int columnIndex)
-        {
-            return null;
-        }
-    }
-
-    private Text modelTypeText;
-
-    class TableLabelProvider_1
-            extends LabelProvider
-            implements ITableLabelProvider
-    {
-        public String getColumnText(Object element,
-            int columnIndex)
-        {
-            return element.toString();
-        }
-
-        public Image getColumnImage(Object element,
-            int columnIndex)
-        {
-            return null;
-        }
-    }
-
-    class ContentProvider_1
-            implements IStructuredContentProvider
-    {
-        public Object[] getElements(Object inputElement)
-        {
-            return new Object[] { "item_0", "item_1", "item_2" };
-        }
-
-        public void dispose()
-        {
-        }
-
-        public void inputChanged(Viewer viewer,
-            Object oldInput,
-            Object newInput)
-        {
-        }
-    }
-
-    private Table table_1;
-
-    class TreeLabelProvider
-            extends LabelProvider
-    {
-        public String getText(Object element)
-        {
-            return super.getText(element);
-        }
-
-        public Image getImage(Object element)
-        {
-            return null;
-        }
-    }
-
-    class TreeContentProvider
-            implements IStructuredContentProvider, ITreeContentProvider
-    {
-        public void inputChanged(Viewer viewer,
-            Object oldInput,
-            Object newInput)
-        {
-        }
-
-        public void dispose()
-        {
-        }
-
-        public Object[] getElements(Object inputElement)
-        {
-            return getChildren(inputElement);
-        }
-
-        public Object[] getChildren(Object parentElement)
-        {
-            return new Object[] { "item_0", "item_1", "item_2" };
-        }
-
-        public Object getParent(Object element)
-        {
-            return null;
-        }
-
-        public boolean hasChildren(Object element)
-        {
-            return getChildren(element).length > 0;
-        }
-    }
-
-    private Tree tree;
-
-    class ContentProvider
-            implements IStructuredContentProvider
-    {
-        public Object[] getElements(Object inputElement)
-        {
-            return new Object[] { "item_0", "item_1", "item_2" };
-        }
-
-        public void dispose()
-        {
-        }
-
-        public void inputChanged(Viewer viewer,
-            Object oldInput,
-            Object newInput)
-        {
-        }
-    }
-
-    class TableLabelProvider
-            extends LabelProvider
-            implements ITableLabelProvider
-    {
-        public String getColumnText(Object element,
-            int columnIndex)
-        {
-            return element.toString();
-        }
-
-        public Image getColumnImage(Object element,
-            int columnIndex)
-        {
-            return null;
-        }
-    }
-
-    private Table table;
-
-    private IManagedForm managedForm;
-
     private Model model;
-
-    public ModelDetailsPage()
-    {
-    }
-
-    public void initialize(IManagedForm managedForm)
-    {
-        this.managedForm = managedForm;
-    }
 
     public void createContents(Composite parent)
     {
-        FormToolkit toolkit = managedForm.getToolkit();
+        FormToolkit toolkit = getManagedForm().getToolkit();
         final GridLayout gridLayout = new GridLayout();
         gridLayout.numColumns = 1;
         parent.setLayout(gridLayout);
 
         ModelDetailsSection detailsSection = new ModelDetailsSection(parent, getPage());
-        managedForm.addPart(detailsSection);
+        getManagedForm().addPart(detailsSection);
 
-//        final Section modelDetailsSection = toolkit.createSection(parent, Section.TWISTIE | Section.DESCRIPTION
-//                | Section.EXPANDED | Section.TITLE_BAR);
-//        modelDetailsSection.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true, 2, 1));
-//        modelDetailsSection.setText("Model Details");
-//
-//        final Composite composite_5 = toolkit.createComposite(modelDetailsSection, SWT.NONE);
-//        final GridLayout gridLayout_7 = new GridLayout();
-//        gridLayout_7.numColumns = 3;
-//        composite_5.setLayout(gridLayout_7);
-//        toolkit.paintBordersFor(composite_5);
-//        modelDetailsSection.setClient(composite_5);
-//
-//        lastModifiedCheckButton = toolkit.createButton(composite_5, "Last modified check", SWT.CHECK);
-//        lastModifiedCheckButton.setLayoutData(new GridData(GridData.BEGINNING, GridData.CENTER, false, false, 2, 1));
-//        new Label(composite_5, SWT.NONE);
-//
-//        toolkit.createLabel(composite_5, "Model type:", SWT.NONE);
-//
-//        modelTypeText = toolkit.createText(composite_5, null, SWT.NONE);
-//        modelTypeText.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, false, false));
-//        modelTypeText.setText("type");
-//        new Label(composite_5, SWT.NONE);
-//
-//        final Label label = toolkit.createLabel(composite_5, "Model parts:", SWT.NONE);
-//        label.setLayoutData(new GridData());
-//        new Label(composite_5, SWT.NONE);
-//        new Label(composite_5, SWT.NONE);
-//
-//        modelPartsTableViewer = new TableViewer(composite_5, SWT.BORDER);
-//        modelPartsTableViewer.setContentProvider(new ContentProvider_2());
-//        modelPartsTableViewer.setLabelProvider(new TableLabelProvider_2());
-//        final Table modelPartsTable = modelPartsTableViewer.getTable();
-//        modelPartsTable.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true, 2, 1));
-//        modelPartsTableViewer.setInput(new Object());
-//
-//        final Composite composite_6 = toolkit.createComposite(composite_5, SWT.NONE);
-//        composite_6.setLayoutData(new GridData(GridData.CENTER, GridData.BEGINNING, false, false));
-//        final GridLayout gridLayout_8 = new GridLayout();
-//        gridLayout_8.marginHeight = 0;
-//        composite_6.setLayout(gridLayout_8);
-//        toolkit.paintBordersFor(composite_6);
-//
-//        final Button button_13 = toolkit.createButton(composite_6, "Add...", SWT.NONE);
-//        button_13.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Button button_12 = toolkit.createButton(composite_6, "Remove", SWT.NONE);
-//        button_12.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Button button_11 = toolkit.createButton(composite_6, "Up", SWT.NONE);
-//        button_11.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Button button_10 = toolkit.createButton(composite_6, "Down", SWT.NONE);
-//        button_10.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Section searchLocationsSection = toolkit.createSection(parent, Section.TWISTIE | Section.DESCRIPTION
-//                | Section.EXPANDED | Section.TITLE_BAR);
-//        searchLocationsSection.setDescription("Define where AndroMDA should look for model parts.");
-//        searchLocationsSection.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
-//        searchLocationsSection.setText("Search Locations");
-//
-//        final Composite composite = toolkit.createComposite(searchLocationsSection, SWT.NONE);
-//        final GridLayout gridLayout_1 = new GridLayout();
-//        gridLayout_1.numColumns = 2;
-//        composite.setLayout(gridLayout_1);
-//        toolkit.paintBordersFor(composite);
-//        searchLocationsSection.setClient(composite);
-//
-//        final TableViewer tableViewer = new TableViewer(composite, SWT.BORDER);
-//        tableViewer.setContentProvider(new ContentProvider());
-//        tableViewer.setLabelProvider(new TableLabelProvider());
-//        table = tableViewer.getTable();
-//        final GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
-//        gridData.heightHint = 110;
-//        table.setLayoutData(gridData);
-//        tableViewer.setInput(new Object());
-//
-//        final Composite composite_1 = new Composite(composite, SWT.NONE);
-//        toolkit.adapt(composite_1);
-//        composite_1.setLayoutData(new GridData(GridData.CENTER, GridData.BEGINNING, false, false));
-//        final GridLayout gridLayout_4 = new GridLayout();
-//        gridLayout_4.marginHeight = 0;
-//        composite_1.setLayout(gridLayout_4);
-//
-//        final Button addButton = toolkit.createButton(composite_1, "Add...", SWT.NONE);
-//        addButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Button removeButton = toolkit.createButton(composite_1, "Remove", SWT.NONE);
-//        removeButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Button upButton = toolkit.createButton(composite_1, "Up", SWT.NONE);
-//        upButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Button button = toolkit.createButton(composite_1, "Down", SWT.NONE);
-//        button.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Section modelPackagesSection = toolkit.createSection(parent, Section.TWISTIE | Section.DESCRIPTION
-//                | Section.EXPANDED | Section.TITLE_BAR);
-//        modelPackagesSection.setDescription("Defiine the packages to be considered during generation.");
-//        modelPackagesSection.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
-//        modelPackagesSection.setText("Model Packages");
-//
-//        final Composite composite_2 = toolkit.createComposite(modelPackagesSection, SWT.NONE);
-//        final GridLayout gridLayout_2 = new GridLayout();
-//        gridLayout_2.numColumns = 2;
-//        composite_2.setLayout(gridLayout_2);
-//        toolkit.paintBordersFor(composite_2);
-//        modelPackagesSection.setClient(composite_2);
-//
-//        final CheckboxTreeViewer checkboxTreeViewer = new CheckboxTreeViewer(composite_2, SWT.BORDER);
-//        checkboxTreeViewer.setLabelProvider(new TreeLabelProvider());
-//        checkboxTreeViewer.setContentProvider(new TreeContentProvider());
-//        tree = checkboxTreeViewer.getTree();
-//        tree.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
-//        checkboxTreeViewer.setInput(new Object());
-//
-//        final Composite composite_3 = toolkit.createComposite(composite_2, SWT.NONE);
-//        composite_3.setLayoutData(new GridData(GridData.CENTER, GridData.BEGINNING, false, false));
-//        final GridLayout gridLayout_5 = new GridLayout();
-//        gridLayout_5.marginHeight = 0;
-//        composite_3.setLayout(gridLayout_5);
-//        toolkit.paintBordersFor(composite_3);
-//
-//        final Button button_4 = toolkit.createButton(composite_3, "Add..", SWT.NONE);
-//        button_4.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Button button_3 = toolkit.createButton(composite_3, "Remove", SWT.NONE);
-//        button_3.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Button button_2 = toolkit.createButton(composite_3, "Up", SWT.NONE);
-//        button_2.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Button button_1 = toolkit.createButton(composite_3, "Down", SWT.NONE);
-//        button_1.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Section constraintsSection = toolkit.createSection(parent, Section.TWISTIE | Section.DESCRIPTION
-//                | Section.EXPANDED | Section.TITLE_BAR);
-//        constraintsSection.setDescription("Defiine the constraints for this model.");
-//        constraintsSection.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true, 2, 1));
-//        constraintsSection.setText("Constraints");
-//
-//        final Composite composite_4 = toolkit.createComposite(constraintsSection, SWT.NONE);
-//        final GridLayout gridLayout_3 = new GridLayout();
-//        gridLayout_3.numColumns = 2;
-//        composite_4.setLayout(gridLayout_3);
-//        toolkit.paintBordersFor(composite_4);
-//        constraintsSection.setClient(composite_4);
-//
-//        final TableViewer tableViewer_1 = new TableViewer(composite_4, SWT.BORDER);
-//        tableViewer_1.setLabelProvider(new TableLabelProvider_1());
-//        tableViewer_1.setContentProvider(new ContentProvider_1());
-//        table_1 = tableViewer_1.getTable();
-//        table_1.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
-//        tableViewer_1.setInput(new Object());
-//
-//        final Composite composite_7 = toolkit.createComposite(composite_4, SWT.NONE);
-//        composite_7.setLayoutData(new GridData(GridData.CENTER, GridData.BEGINNING, false, false));
-//        final GridLayout gridLayout_6 = new GridLayout();
-//        gridLayout_6.marginHeight = 0;
-//        composite_7.setLayout(gridLayout_6);
-//        toolkit.paintBordersFor(composite_7);
-//
-//        final Button button_5 = toolkit.createButton(composite_7, "Add...", SWT.NONE);
-//        button_5.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Button button_6 = toolkit.createButton(composite_7, "Remove", SWT.NONE);
-//        button_6.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Button button_7 = toolkit.createButton(composite_7, "Up", SWT.NONE);
-//        button_7.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-//
-//        final Button button_8 = toolkit.createButton(composite_7, "Down", SWT.NONE);
-//        button_8.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-    }
-
-    /**
-     * @return
-     */
-    private FormPage getPage()
-    {
-        return (FormPage)managedForm.getContainer();
     }
 
     /**
@@ -414,8 +39,6 @@ public class ModelDetailsPage
      */
     public void dispose()
     {
-        // TODO Auto-generated method stub
-
     }
 
     /**
@@ -423,7 +46,6 @@ public class ModelDetailsPage
      */
     public boolean isDirty()
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -432,8 +54,6 @@ public class ModelDetailsPage
      */
     public void commit(boolean onSave)
     {
-        // TODO Auto-generated method stub
-
     }
 
     /**
@@ -441,7 +61,6 @@ public class ModelDetailsPage
      */
     public boolean setFormInput(Object input)
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -450,8 +69,6 @@ public class ModelDetailsPage
      */
     public void setFocus()
     {
-        // TODO Auto-generated method stub
-
     }
 
     /**
@@ -459,7 +76,6 @@ public class ModelDetailsPage
      */
     public boolean isStale()
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -468,8 +84,6 @@ public class ModelDetailsPage
      */
     public void refresh()
     {
-        // TODO Auto-generated method stub
-
     }
 
     /**

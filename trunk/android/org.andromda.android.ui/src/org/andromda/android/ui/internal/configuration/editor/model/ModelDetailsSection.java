@@ -1,28 +1,37 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
 import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
-import org.andromda.android.ui.internal.editor.BaseSectionPart;
+import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelFormPage;
+import org.andromda.android.ui.internal.configuration.editor.IAndromdaDocumentModel;
+import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
+import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
 import org.andromda.core.configuration.AndromdaDocument;
+import org.andromda.core.configuration.ModelDocument.Model;
 import org.andromda.core.configuration.ServerDocument.Server;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.IManagedForm;
+import org.eclipse.ui.forms.IPartSelectionListener;
 import org.eclipse.ui.forms.editor.FormEditor;
-import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.Section;
 
 /**
- *
+ * 
  * @author Peter Friese
  * @since 08.12.2005
  */
 public class ModelDetailsSection
-        extends BaseSectionPart
+        extends AbstractModelSectionPart
+        implements IPartSelectionListener
 {
 
     /** The visual style of the section. */
-    private static final int SECTION_STYLE = Section.DESCRIPTION | Section.TITLE_BAR | Section.TWISTIE | Section.EXPANDED;
+    private static final int SECTION_STYLE = Section.DESCRIPTION | Section.TITLE_BAR | Section.TWISTIE
+            | Section.EXPANDED;
 
     /** The composite hosted by this section. This composite contains the real edit components. */
     private ModelDetailsComposite modelDetailsComposite;
@@ -30,7 +39,7 @@ public class ModelDetailsSection
     /**
      * @param page
      */
-    public ModelDetailsSection(FormPage page)
+    public ModelDetailsSection(AbstractModelFormPage page)
     {
         super(page, SECTION_STYLE);
     }
@@ -40,7 +49,7 @@ public class ModelDetailsSection
      * @param page
      */
     public ModelDetailsSection(Composite parent,
-        FormPage page)
+        AbstractModelFormPage page)
     {
         super(parent, page, SECTION_STYLE);
     }
@@ -63,17 +72,13 @@ public class ModelDetailsSection
     public void refresh()
     {
         super.refresh();
-        FormEditor editor = getEditor();
-        if (editor instanceof ConfigurationEditor)
-        {
-            ConfigurationEditor configurationEditor = (ConfigurationEditor)editor;
-            AndromdaDocument document = configurationEditor.getDocument();
-            Server server = document.getAndromda().getServer();
+        IAndromdaDocumentModel andromdaDocumentModel = ((AbstractAndromdaModelFormPage)getPage())
+                .getAndromdaDocumentModel();
+        AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
 
-            boolean lastModifiedCheck = true;
-
-            modelDetailsComposite.setLastModifiedCheck(lastModifiedCheck);
-        }
+        Server server = andromdaDocument.getAndromda().getServer();
+        boolean lastModifiedCheck = true;
+        modelDetailsComposite.setLastModifiedCheck(lastModifiedCheck);
     }
 
     /**
@@ -84,8 +89,9 @@ public class ModelDetailsSection
         FormEditor editor = getEditor();
         if (editor instanceof ConfigurationEditor)
         {
-            ConfigurationEditor configurationEditor = (ConfigurationEditor)editor;
-            AndromdaDocument document = configurationEditor.getDocument();
+            IAndromdaDocumentModel andromdaDocumentModel = ((AbstractAndromdaModelFormPage)getPage())
+                    .getAndromdaDocumentModel();
+            AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
 
             boolean lastModifiedCheck = modelDetailsComposite.isLastModifiedCheck();
         }
@@ -93,5 +99,34 @@ public class ModelDetailsSection
         super.commit(onSave);
     }
 
-}
+    /**
+     * @see org.eclipse.ui.forms.IPartSelectionListener#selectionChanged(org.eclipse.ui.forms.IFormPart,
+     *      org.eclipse.jface.viewers.ISelection)
+     */
+    public void selectionChanged(IFormPart part,
+        ISelection selection)
+    {
+        if (selection instanceof IStructuredSelection)
+        {
+            IStructuredSelection structuredSelection = (IStructuredSelection)selection;
+            Object firstElement = structuredSelection.getFirstElement();
+            if (firstElement instanceof Model)
+            {
+                Model model = (Model)firstElement;
 
+                // last modified check
+                boolean lastModifiedCheck = model.getLastModifiedCheck();
+                modelDetailsComposite.setLastModifiedCheck(lastModifiedCheck);
+
+                // model parts (URIs)
+                String[] modelUris = model.getUriArray();
+                modelDetailsComposite.setModelUris(modelUris);
+
+                // model type
+                String type = model.getType();
+                modelDetailsComposite.setModelType(type);
+            }
+        }
+    }
+
+}

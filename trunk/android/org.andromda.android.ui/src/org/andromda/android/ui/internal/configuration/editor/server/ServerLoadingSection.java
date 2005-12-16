@@ -3,14 +3,16 @@ package org.andromda.android.ui.internal.configuration.editor.server;
 import java.math.BigInteger;
 
 import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
-import org.andromda.android.ui.internal.editor.BaseSectionPart;
+import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelFormPage;
+import org.andromda.android.ui.internal.configuration.editor.IAndromdaDocumentModel;
+import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
+import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.ServerDocument.Server;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
-import org.eclipse.ui.forms.editor.FormPage;
 
 /**
  * 
@@ -18,7 +20,7 @@ import org.eclipse.ui.forms.editor.FormPage;
  * @since 09.12.2005
  */
 public class ServerLoadingSection
-        extends BaseSectionPart
+        extends AbstractModelSectionPart
 {
 
     /** This composite contains the edit fields used to edit the server model loading behaviour. */
@@ -27,7 +29,7 @@ public class ServerLoadingSection
     /**
      * @param page
      */
-    public ServerLoadingSection(FormPage page)
+    public ServerLoadingSection(AbstractModelFormPage page)
     {
         super(page);
     }
@@ -53,19 +55,15 @@ public class ServerLoadingSection
     public void refresh()
     {
         super.refresh();
-        FormEditor editor = getEditor();
-        if (editor instanceof ConfigurationEditor)
-        {
-            ConfigurationEditor configurationEditor = (ConfigurationEditor)editor;
-            AndromdaDocument document = configurationEditor.getDocument();
+        IAndromdaDocumentModel andromdaDocumentModel = ((AbstractAndromdaModelFormPage)getPage())
+                .getAndromdaDocumentModel();
+        AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
+        Server server = andromdaDocument.getAndromda().getServer();
+        BigInteger loadInterval = server.getLoadInterval();
+        BigInteger maximumFailedLoadAttempts = server.getMaximumFailedLoadAttempts();
 
-            Server server = document.getAndromda().getServer();
-            BigInteger loadInterval = server.getLoadInterval();
-            BigInteger maximumFailedLoadAttempts = server.getMaximumFailedLoadAttempts();
-
-            serverLoadingComposite.setLoadInterval(loadInterval);
-            serverLoadingComposite.setMaximumFailedLoadAttempts(maximumFailedLoadAttempts);
-        }
+        serverLoadingComposite.setLoadInterval(loadInterval);
+        serverLoadingComposite.setMaximumFailedLoadAttempts(maximumFailedLoadAttempts);
     }
 
     /**
@@ -73,13 +71,12 @@ public class ServerLoadingSection
      */
     public void commit(boolean onSave)
     {
-        FormEditor editor = getEditor();
-        if (editor instanceof ConfigurationEditor)
         {
-            ConfigurationEditor configurationEditor = (ConfigurationEditor)editor;
-            AndromdaDocument document = configurationEditor.getDocument();
+            IAndromdaDocumentModel andromdaDocumentModel = ((AbstractAndromdaModelFormPage)getPage())
+                    .getAndromdaDocumentModel();
+            AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
 
-            Server server = document.getAndromda().getServer();
+            Server server = andromdaDocument.getAndromda().getServer();
 
             BigInteger loadInterval = serverLoadingComposite.getLoadInterval();
             if (loadInterval != null)

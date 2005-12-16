@@ -1,10 +1,10 @@
 package org.andromda.android.ui.internal.configuration.editor.cartridge;
 
+import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelFormPage;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
-import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 
@@ -14,7 +14,7 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
  * @since 08.11.2005
  */
 public class CartridgeConfigurationPage
-        extends FormPage
+        extends AbstractAndromdaModelFormPage
 {
 
     public static final String PAGE_ID = "cartridges";

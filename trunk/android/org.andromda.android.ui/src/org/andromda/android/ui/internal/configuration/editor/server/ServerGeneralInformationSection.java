@@ -3,28 +3,30 @@ package org.andromda.android.ui.internal.configuration.editor.server;
 import java.math.BigInteger;
 
 import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
-import org.andromda.android.ui.internal.editor.BaseSectionPart;
+import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelFormPage;
+import org.andromda.android.ui.internal.configuration.editor.IAndromdaDocumentModel;
+import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
+import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.ServerDocument.Server;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.FormEditor;
-import org.eclipse.ui.forms.editor.FormPage;
 
 /**
- *
+ * 
  * @author Peter Friese
  * @since 08.12.2005
  */
 public class ServerGeneralInformationSection
-        extends BaseSectionPart
+        extends AbstractModelSectionPart
 {
-    
+
     /**
      * @param page
      */
-    public ServerGeneralInformationSection(FormPage page)
+    public ServerGeneralInformationSection(AbstractModelFormPage page)
     {
         super(page);
     }
@@ -49,21 +51,19 @@ public class ServerGeneralInformationSection
     public void refresh()
     {
         super.refresh();
-        FormEditor editor = getEditor();
-        if (editor instanceof ConfigurationEditor)
-        {
-            ConfigurationEditor configurationEditor = (ConfigurationEditor)editor;
-            AndromdaDocument document = configurationEditor.getDocument();
-            Server server = document.getAndromda().getServer();
-            
-            String host = server.getHost();
-            BigInteger port = server.getPort();
-            
-            servergeneralInformationComposite.setHost(host);
-            servergeneralInformationComposite.setPort(port);
-        }
+        IAndromdaDocumentModel andromdaDocumentModel = ((AbstractAndromdaModelFormPage)getPage())
+                .getAndromdaDocumentModel();
+        AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
+
+        Server server = andromdaDocument.getAndromda().getServer();
+
+        String host = server.getHost();
+        BigInteger port = server.getPort();
+
+        servergeneralInformationComposite.setHost(host);
+        servergeneralInformationComposite.setPort(port);
     }
-    
+
     /**
      * @see org.eclipse.ui.forms.AbstractFormPart#commit(boolean)
      */
@@ -72,20 +72,20 @@ public class ServerGeneralInformationSection
         FormEditor editor = getEditor();
         if (editor instanceof ConfigurationEditor)
         {
-            ConfigurationEditor configurationEditor = (ConfigurationEditor)editor;
-            AndromdaDocument document = configurationEditor.getDocument();
-
-            Server server = document.getAndromda().getServer();
+            IAndromdaDocumentModel andromdaDocumentModel = ((AbstractAndromdaModelFormPage)getPage())
+                    .getAndromdaDocumentModel();
+            AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
             
+            Server server = andromdaDocument.getAndromda().getServer();
+
             String host = servergeneralInformationComposite.getHost();
             server.setHost(host);
-            
+
             BigInteger port = servergeneralInformationComposite.getPort();
             server.setPort(port);
         }
 
         super.commit(onSave);
     }
-    
-}
 
+}

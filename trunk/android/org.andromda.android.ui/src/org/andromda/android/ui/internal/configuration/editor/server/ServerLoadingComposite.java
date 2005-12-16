@@ -18,7 +18,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
  * This composite contains control that let the user configure the model loading behaviour of the server.
- * 
+ *
  * @author Peter Friese
  * @since 07.12.2005
  */
@@ -56,7 +56,7 @@ public class ServerLoadingComposite
 
     /**
      * Creates the composite.
-     * 
+     *
      * @param parent The parent container.
      * @param style The style.
      */
@@ -72,19 +72,19 @@ public class ServerLoadingComposite
         toolkit.adapt(this);
         toolkit.paintBordersFor(this);
 
-        final Label maximumFailedLoadAttemptsLabel = toolkit.createLabel(this, "Maximum failed load attempts:",
-                SWT.NONE);
-        maximumFailedLoadAttemptsLabel.setLayoutData(new GridData());
-        maximumFailedLoadAttemptsLabel.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
+        final Label loadIntervalLabel = toolkit.createLabel(this, "Load interval:", SWT.NONE);
+        loadIntervalLabel.setLayoutData(new GridData());
+        loadIntervalLabel.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
 
         loadIntervalText = toolkit.createText(this, null, SWT.NONE);
         loadIntervalText.addModifyListener(new DirtyListener(parent));
         final GridData gridData = new GridData(GridData.FILL, GridData.CENTER, true, false);
         loadIntervalText.setLayoutData(gridData);
-        
-        final Label loadIntervalLabel = toolkit.createLabel(this, "Load interval:", SWT.NONE);
-        loadIntervalLabel.setLayoutData(new GridData());
-        loadIntervalLabel.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
+
+        final Label maximumFailedLoadAttemptsLabel = toolkit.createLabel(this, "Maximum failed load attempts:",
+                SWT.NONE);
+        maximumFailedLoadAttemptsLabel.setLayoutData(new GridData());
+        maximumFailedLoadAttemptsLabel.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
 
         maximumFailedLoadAttemptsText = toolkit.createText(this, null, SWT.NONE);
         maximumFailedLoadAttemptsText.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
@@ -109,7 +109,7 @@ public class ServerLoadingComposite
         }
         updating = false;
     }
-    
+
     /**
      * @return
      */
@@ -142,7 +142,7 @@ public class ServerLoadingComposite
         }
         updating = false;
     }
-    
+
     /**
      * @return
      */
@@ -157,6 +157,6 @@ public class ServerLoadingComposite
         {
             return new BigInteger(maximumFailedLoadAttempts);
         }
-    }    
+    }
 
 }
