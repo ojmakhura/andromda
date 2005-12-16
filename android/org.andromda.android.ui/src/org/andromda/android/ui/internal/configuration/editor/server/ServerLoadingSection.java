@@ -2,7 +2,6 @@ package org.andromda.android.ui.internal.configuration.editor.server;
 
 import java.math.BigInteger;
 
-import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
 import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelFormPage;
 import org.andromda.android.ui.internal.configuration.editor.IAndromdaDocumentModel;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
@@ -12,7 +11,6 @@ import org.andromda.core.configuration.ServerDocument.Server;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.ui.forms.IManagedForm;
-import org.eclipse.ui.forms.editor.FormEditor;
 
 /**
  * 
