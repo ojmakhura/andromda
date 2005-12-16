@@ -3,10 +3,8 @@ package org.andromda.android.ui.internal.editor;
 import org.andromda.android.core.internal.AndroidModelManager;
 import org.andromda.android.core.project.IAndroidProject;
 import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
-import org.andromda.core.configuration.AndromdaDocument;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.ui.forms.MasterDetailsBlock;
-import org.eclipse.ui.forms.editor.FormPage;
 
 /**
  *
