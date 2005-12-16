@@ -18,7 +18,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
  * This composite contains controls that let the user configure the AndroMDA server.
- * 
+ *
  * @author Peter Friese
  * @since 07.12.2005
  */
@@ -55,7 +55,7 @@ public class ServerGeneralInformationComposite
 
     /**
      * Creates the composite.
-     * 
+     *
      * @param section The parent of the composite.
      * @param style The style.
      */
@@ -69,18 +69,18 @@ public class ServerGeneralInformationComposite
         FormToolkit toolkit = new FormToolkit(Display.getCurrent());
         toolkit.adapt(this);
         toolkit.paintBordersFor(this);
-        
-        final Label portLabel = toolkit.createLabel(this, "Port:", SWT.NONE);
-        portLabel.setLayoutData(new GridData());
-        portLabel.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
+
+        final Label hostLabel = toolkit.createLabel(this, "Host:", SWT.NONE);
+        hostLabel.setLayoutData(new GridData());
+        hostLabel.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
 
         hostText = toolkit.createText(this, null, SWT.NONE);
         hostText.addModifyListener(new DirtyListener(parent));
         hostText.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-        
-        final Label hostLabel = toolkit.createLabel(this, "Host:", SWT.NONE);
-        hostLabel.setLayoutData(new GridData());
-        hostLabel.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
+
+        final Label portLabel = toolkit.createLabel(this, "Port:", SWT.NONE);
+        portLabel.setLayoutData(new GridData());
+        portLabel.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
 
         portText = toolkit.createText(this, null, SWT.NONE);
         portText.addModifyListener(new DirtyListener(parent));

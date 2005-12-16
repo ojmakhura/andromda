@@ -13,35 +13,35 @@ import org.eclipse.ui.forms.editor.FormPage;
  * @author Peter Friese
  * @since 11.12.2005
  */
-public abstract class BaseMasterDetailsBlock
+public abstract class AbstractMasterDetailsBlock
         extends MasterDetailsBlock
 {
 
-    private FormPage parentPage = null;
+    private AbstractModelFormPage parentPage = null;
     
     /**
-     * @param parentPage The parentPage to set.
+     * 
      */
-    public void setParentPage(FormPage parentPage)
+    public AbstractMasterDetailsBlock(AbstractModelFormPage parentPage)
     {
+        super();
         this.parentPage = parentPage;
     }
     
     /**
      * @return Returns the parentPage.
      */
-    public FormPage getParentPage()
+    public AbstractModelFormPage getParentPage()
     {
         return parentPage;
     }
-
+    
     /**
      * @return
      */
-    protected AndromdaDocument getAndromdaDocument()
+    public IModel getModel()
     {
-        ConfigurationEditor editor = (ConfigurationEditor)getParentPage().getEditor();
-        return editor.getDocument();
+        return getParentPage().getModel();
     }
 
     /**

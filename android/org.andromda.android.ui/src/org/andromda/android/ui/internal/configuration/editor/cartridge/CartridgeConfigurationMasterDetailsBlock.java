@@ -2,7 +2,9 @@ package org.andromda.android.ui.internal.configuration.editor.cartridge;
 
 import org.andromda.android.core.AndroidCore;
 import org.andromda.android.core.project.IAndroidProject;
-import org.andromda.android.ui.internal.editor.BaseMasterDetailsBlock;
+import org.andromda.android.ui.internal.configuration.editor.AndromdaDocumentModel;
+import org.andromda.android.ui.internal.editor.AbstractMasterDetailsBlock;
+import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.NamespaceDocument.Namespace;
 import org.andromda.core.configuration.NamespacesDocument.Namespaces;
@@ -26,7 +28,6 @@ import org.eclipse.ui.forms.DetailsPart;
 import org.eclipse.ui.forms.IDetailsPage;
 import org.eclipse.ui.forms.IDetailsPageProvider;
 import org.eclipse.ui.forms.IManagedForm;
-import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
@@ -36,7 +37,7 @@ import org.eclipse.ui.forms.widgets.Section;
  * @since 08.11.2005
  */
 public class CartridgeConfigurationMasterDetailsBlock
-        extends BaseMasterDetailsBlock
+        extends AbstractMasterDetailsBlock
 {
 
     private Section cartridgesSection;
@@ -87,9 +88,10 @@ public class CartridgeConfigurationMasterDetailsBlock
 
         public Object[] getElements(Object inputElement)
         {
-            if (inputElement instanceof AndromdaDocument)
+            if (inputElement instanceof AndromdaDocumentModel)
             {
-                AndromdaDocument andromdaDocument = (AndromdaDocument)inputElement;
+                AndromdaDocumentModel andromdaDocumentModel = (AndromdaDocumentModel)inputElement;
+                AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
                 Namespaces namespaces = andromdaDocument.getAndromda().getNamespaces();
                 return namespaces.getNamespaceArray();
             }
@@ -145,9 +147,9 @@ public class CartridgeConfigurationMasterDetailsBlock
 
     private GenericCartridgeConfigurationDetailsPage androidDetailsPage;
 
-    public CartridgeConfigurationMasterDetailsBlock(FormPage parentPage)
+    public CartridgeConfigurationMasterDetailsBlock(AbstractModelFormPage parentPage)
     {
-        setParentPage(parentPage);
+        super(parentPage);
         androidDetailsPage = new GenericCartridgeConfigurationDetailsPage();
     }
     
@@ -211,7 +213,7 @@ public class CartridgeConfigurationMasterDetailsBlock
         treeViewer.setContentProvider(new TreeContentProvider());
         tree = treeViewer.getTree();
         tree.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
-        treeViewer.setInput(getAndromdaDocument());
+        treeViewer.setInput(getModel());
     }
 
     protected void registerPages(DetailsPart detailsPart)

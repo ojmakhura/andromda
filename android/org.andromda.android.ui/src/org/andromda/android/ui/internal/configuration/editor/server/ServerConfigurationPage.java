@@ -1,10 +1,10 @@
 package org.andromda.android.ui.internal.configuration.editor.server;
 
+import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelFormPage;
+import org.andromda.android.ui.internal.editor.AbstractModelFormEditor;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.IManagedForm;
-import org.eclipse.ui.forms.editor.FormEditor;
-import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
 
@@ -15,7 +15,7 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
  * @since 07.12.2005
  */
 public class ServerConfigurationPage
-        extends FormPage
+        extends AbstractAndromdaModelFormPage
 {
 
     /** The page ID. */
@@ -28,7 +28,7 @@ public class ServerConfigurationPage
      * @param id The ID of this page.
      * @param title The title of this page.
      */
-    public ServerConfigurationPage(FormEditor editor,
+    public ServerConfigurationPage(AbstractModelFormEditor editor,
         String id,
         String title)
     {
