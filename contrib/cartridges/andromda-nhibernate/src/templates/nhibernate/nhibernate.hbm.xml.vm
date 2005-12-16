@@ -32,17 +32,17 @@
 #set ($otherEnd = $sourceEnd.otherEnd)
 #if ($otherEnd.navigable)
 #if ($sourceEnd.one2One)
-#if ($sourceEnd.one2OnePrimary)
+#if ($sourceEnd.one2OnePrimary || (!$sourceEnd.navigable && !$entity.foreignHibernateGeneratorClass))
 #if ($otherEnd.type.foreignHibernateGeneratorClass)
         <one-to-one name="$stringUtils.upperCamelCaseName($otherEnd.name)" class="$otherEnd.type.fullyQualifiedEntityImplementationName, ${coreAssemblyName}" outer-join="$otherEnd.outerJoin"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end/>
 #else
-        <many-to-one name="$stringUtils.upperCamelCaseName($otherEnd.name)" class="$otherEnd.type.fullyQualifiedEntityImplementationName, ${coreAssemblyName}" outer-join="$otherEnd.outerJoin"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end foreign-key="$otherEnd.foreignKeyConstraintName"#if($otherEnd.columnIndex) index="$otherEnd.columnIndex"#end>
+        <many-to-one name="$stringUtils.upperCamelCaseName($otherEnd.name)" class="$otherEnd.type.fullyQualifiedEntityImplementationName, ${coreAssemblyName}" foreign-key="$otherEnd.foreignKeyConstraintName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if($otherEnd.columnIndex) index="$otherEnd.columnIndex"#end>
             <column name="$otherEnd.columnName" not-null="$otherEnd.required" sql-type="$otherEnd.sqlType" unique="true"/>
         </many-to-one>
 #end
 #else
 #if ($entity.foreignHibernateGeneratorClass)
-        <one-to-one name="$stringUtils.upperCamelCaseName($otherEnd.name)" class="$otherEnd.type.fullyQualifiedEntityImplementationName, ${coreAssemblyName}" outer-join="$otherEnd.outerJoin"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end constrained="true" foreign-key="$otherEnd.foreignKeyConstraintName"/>
+        <one-to-one name="$stringUtils.upperCamelCaseName($otherEnd.name)" class="$otherEnd.type.fullyQualifiedEntityImplementationName, ${coreAssemblyName}" foreign-key="$otherEnd.foreignKeyConstraintName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end constrained="true"/>
 #else
         <one-to-one name="$stringUtils.upperCamelCaseName($otherEnd.name)" class="$otherEnd.type.fullyQualifiedEntityImplementationName, ${coreAssemblyName}" outer-join="$otherEnd.outerJoin" property-ref="$stringUtils.upperCamelCaseName($sourceEnd.name)"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end/>
 #end
