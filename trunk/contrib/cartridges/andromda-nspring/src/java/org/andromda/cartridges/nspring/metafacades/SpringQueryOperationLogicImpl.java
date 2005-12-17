@@ -5,9 +5,9 @@ import java.util.Iterator;
 
 import org.andromda.cartridges.nspring.SpringProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -111,17 +111,17 @@ public class SpringQueryOperationLogicImpl
         // if there wasn't any stored query, create one by default.
         if (StringUtils.isEmpty(queryString))
         {
-            ModelElementFacade owner;
+            SpringEntity owner;
             if (entity == null)
             {
-                owner = this.getOwner();
+                owner = (SpringEntity)this.getOwner();
             }
             else
             {
                 owner = entity;
             }
             String variableName = StringUtils.uncapitalize(owner.getName());
-            queryString = "from " + owner.getFullyQualifiedName() + " as " + variableName;
+            queryString = "from " + owner.getFullyQualifiedEntityImplementationName() + " as " + variableName;
             if (this.getArguments().size() > 0)
             {
                 queryString = queryString + " where";
@@ -137,7 +137,7 @@ public class SpringQueryOperationLogicImpl
                         {
                             parameter = ":" + argument.getName();
                         }
-                        queryString = queryString + " " + variableName + "." + argument.getName() + " = " + parameter;
+                        queryString = queryString + " " + variableName + "." + StringUtilsHelper.upperCamelCaseName(argument.getName()) + " = " + parameter;
                         if (argumentIt.hasNext())
                         {
                             queryString = queryString + " and";
