@@ -52,6 +52,13 @@
      		<version>20030910</version>
     	</dependency> 
     </dependencies>
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
@@ -77,6 +84,19 @@
                 <artifactId>andromda-multi-source-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>default</id>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectories>
+                                <directory>target/src/java</directory>
+                            </sourceDirectories>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>site</id>
+                        <phase>pre-site</phase>
                         <goals>
                             <goal>add-source</goal>
                         </goals>
