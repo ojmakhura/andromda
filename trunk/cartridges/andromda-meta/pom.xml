@@ -33,7 +33,7 @@
                     <dependency>
                         <groupId>org.andromda.bootstrap.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>${version}</version>
+                        <version>${pom.version}</version>
                         <scope>provided</scope>
                     </dependency>
                 </dependencies>

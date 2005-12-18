@@ -16,12 +16,12 @@
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
         </dependency> 
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
         </dependency>
     	<dependency> 
     		<groupId>jmi</groupId>

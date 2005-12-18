@@ -13,7 +13,7 @@
 		<dependency> 
     		<groupId>${pom.groupId}</groupId>
       		<artifactId>andromda-repository-emf</artifactId>
-     		<version>${version}</version>
+     		<version>${pom.version}</version>
     	</dependency> 
 		<dependency>
 			<groupId>org.eclipse.uml2</groupId>

@@ -16,6 +16,14 @@ properties.reviewed=false
 
 # ======== These items you MAY want to change ===========================================================
 
+application.id=${applicationId}
+application.version=${applicationVersion}
+
+
+# The prefix used to formulate JNDI entries for declared resources
+jndi.prefix=${application.id}-${application.version}
+
+
 # The jboss installation path for local deployment/testing
 jboss.installation.path=${env.JBOSS_HOME}
 
@@ -36,7 +44,7 @@ sql.mappings=MySQL
 hibernate.db.dialect=org.hibernate.dialect.MySQLDialect
 
 # The name of the datasource server side
-dataSource.name=ds/${applicationId}DS
+dataSource.name=${jndi.prefix}/ds/${applicationId}DS
 dataSource=java:${dataSource.name}
 
 # JDBC settings to the database
@@ -58,9 +66,7 @@ remote.port=8080
 
 andromda.version=$andromdaVersion
 
-application.id=${applicationId}
 application.package=${applicationPackage}.${application.id}
-application.version=${applicationVersion}
 
 andromda.model.uri=file:${basedir}/mda/src/uml/${applicationId}-model.xmi
 
@@ -72,6 +78,7 @@ source.client.codeGen.dir.java=${source.client.codeGen.dir}/java
 source.client.codeGen.dir.config=${source.client.codeGen.dir}/conf
 source.client.testCode.dir=${source.client.base.dir}/test
 source.client.testCode.dir.java=${source.client.testCode.dir}/java
+source.client.testCode.dir.config=${source.client.testCode.dir}/conf
 
 source.common.base.dir=common/src
 source.common.impl.dir=${source.common.base.dir}/impl
@@ -85,7 +92,7 @@ source.server.impl.dir=${source.server.base.dir}/impl
 source.server.impl.dir.java=${source.server.impl.dir}/java
 source.server.codeGen.dir=${source.server.base.dir}/generated
 source.server.codeGen.dir.java=${source.server.codeGen.dir}/java
-source.server.codeGen.dir.config=${source.server.codeGen.dir}/conf/WEB-INF
+source.server.codeGen.dir.config=${source.server.codeGen.dir}/conf
 source.server.codeGen.dir.sql=${source.server.codeGen.dir}/sql
 source.server.testCode.dir=${source.server.base.dir}/test
 source.server.testCode.dir.java=${source.server.testCode.dir}/java

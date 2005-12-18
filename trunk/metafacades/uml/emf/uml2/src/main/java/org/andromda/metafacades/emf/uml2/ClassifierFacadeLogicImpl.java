@@ -100,6 +100,68 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getAllProperties()
+     */
+    public Collection handleGetAllProperties()
+    {
+        return this.getProperties(true);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getAllRequiredConstructorParameters()
+     */
+    public Collection handleGetAllRequiredConstructorParameters()
+    {
+        final Collection allRequiredConstructorParameters = new ArrayList();
+
+        final Collection generalizations = this.getGeneralizations();
+        for (Iterator parents = generalizations.iterator(); parents.hasNext();)
+        {
+            final Object parent = parents.next();
+            if (parent instanceof ClassifierFacade)
+            {
+                allRequiredConstructorParameters.addAll(((ClassifierFacade)parent).getAllRequiredConstructorParameters());
+            }
+        }
+
+        allRequiredConstructorParameters.addAll(this.getRequiredConstructorParameters());
+
+        return allRequiredConstructorParameters;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getRequiredConstructorParameters()
+     */
+    public Collection handleGetRequiredConstructorParameters()
+    {
+        final Collection requiredConstructorParameters = new ArrayList();
+
+        final Collection properties = this.getProperties();
+        for (Iterator propertyIterator = properties.iterator(); propertyIterator.hasNext();)
+        {
+            final Object property = propertyIterator.next();
+            if (property instanceof AttributeFacade)
+            {
+                final AttributeFacade attribute = (AttributeFacade)property;
+                if (attribute.isRequired() || attribute.isReadOnly())
+                {
+                    requiredConstructorParameters.add(attribute);
+                }
+            }
+            else if (property instanceof AssociationEndFacade)
+            {
+                final AssociationEndFacade associationEnd = (AssociationEndFacade)property;
+                if (associationEnd.isRequired() || associationEnd.isReadOnly())
+                {
+                    requiredConstructorParameters.add(associationEnd);
+                }
+            }
+        }
+
+        return requiredConstructorParameters;
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDataType()
      */
     protected boolean handleIsDataType()

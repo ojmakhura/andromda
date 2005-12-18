@@ -46,13 +46,13 @@
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>${applicationId}-common</artifactId>
-            <version>${version}</version>            
+            <version>${pom.version}</version>            
         </dependency>
 #if (!$transactionPersistenceType.equals("none"))
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>${applicationId}-core</artifactId>
-            <version>${version}</version>  
+            <version>${pom.version}</version>  
             <type>ejb</type>          
         </dependency>
 #end
@@ -60,7 +60,7 @@
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>${applicationId}-web</artifactId>
-            <version>${version}</version>            
+            <version>${pom.version}</version>            
             <type>war</type>
         </dependency>
 #end
@@ -68,7 +68,7 @@
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>${applicationId}-webservice</artifactId>
-            <version>${version}</version>      
+            <version>${pom.version}</version>      
             <type>war</type>      
         </dependency>
 #end
@@ -76,7 +76,7 @@
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>${applicationId}-workflow</artifactId>
-            <version>${version}</version>            
+            <version>${pom.version}</version>            
         </dependency>
 #end
         <dependency>

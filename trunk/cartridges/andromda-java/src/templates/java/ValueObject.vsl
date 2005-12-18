@@ -25,52 +25,79 @@ public#if($class.abstract) abstract#end class $class.name
     private static final long serialVersionUID = ${class.serialVersionUID}L;
 
 #end
-#if (!$class.properties.empty)
-
+#if ($class.requiredConstructorParameters.size() > 0)
     public ${class.name}()
     {
+#foreach ($property in $class.requiredConstructorParameters)
+        this.${property.name} = ${property.type.javaNullString};
+#end
     }
-#end
-
-#if ($enablePropertyConstructors.equalsIgnoreCase('true'))
-#set ($propertiesNumber = $class.properties.size())
-#if ($propertiesNumber == 0 || $propertiesNumber != 1 || !$class.properties.iterator().next().getterSetterTypeName.equals($class.fullyQualifiedName))
-    /**
-     * Constructor taking all properties.
-     */
-#set ($parenthesis = "(")
-#if ($class.properties.empty)
-#set ($parenthesis = "()")
-#end
-    public ${class.name}${parenthesis}
-#foreach ($property in $class.properties)
-        $property.getterSetterTypeName ${property.name}#if($velocityCount != $class.properties.size()),#else)
-#end
 
 #end
+##
+##  constructor taking only required properties
+##
+#if ($class.properties.size() > $class.requiredConstructorParameters.size())
+    public ${class.name}(## no newline
+#set ($comma = "")
+#foreach ($property in $class.allRequiredConstructorParameters)
+${comma}${property.type.fullyQualifiedName} ${property.name}## no newline
+#set ($comma = ", ")
+#end
+)
     {
-#foreach ($property in $class.properties)
+        super(## no newline
+#set ($comma = "")
+#foreach ($property in $class.generalization.allRequiredConstructorParameters)
+${comma}${property.name}## no newline
+#set ($comma = ", ")
+#end
+);
+#foreach ($property in $class.requiredConstructorParameters)
         this.${property.name} = ${property.name};
 #end
     }
 
 #end
+    public ${class.name}(## no newline
+#set ($comma = "")
+#foreach ($property in $class.allProperties)
+${comma}${property.type.fullyQualifiedName} ${property.name}## no newline
+#set ($comma = ", ")
 #end
+)
+    {
+        super(## no newline
+#set ($comma = "")
+#foreach ($property in $class.generalization.allProperties)
+${comma}${property.name}## no newline
+#set ($comma = ", ")
+#end
+);
+#foreach ($property in $class.properties)
+        this.${property.name} = ${property.name};
+#end
+    }
+
     /**
      * Copies constructor from other ${class.name}
+     *
+     * @param otherBean, cannot be <code>null</code>
+     * @throws java.lang.NullPointerException if the argument is <code>null</code>
      */
     public ${class.name}(${class.name} otherBean)
     {
-        if (otherBean != null)
-        {
-#foreach ( $property in $class.properties)
-            this.${property.name} = otherBean.${property.getterName}();
+        this(## no newline
+#set ($comma = "")
+#foreach ($property in $class.allProperties)
+${comma}otherBean.${property.getterName}()## no newline
+#set ($comma = ", ")
 #end
-        }
+);
     }
 
 #foreach ($attribute in $class.attributes)
-    private $attribute.getterSetterTypeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
+    private#if($attribute.readOnly) final#end $attribute.getterSetterTypeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
 
     /**
 $attribute.getDocumentation("     * ")
@@ -92,7 +119,7 @@ $attribute.getDocumentation("     * ")
 #foreach ($associationEnd in $class.associationEnds)
 #set ($target = $associationEnd.otherEnd)
 #if ($target.navigable)
-    private $target.getterSetterTypeName $target.name;
+    private#if($attribute.readOnly) final#end $target.getterSetterTypeName $target.name;
 
     /**
      * Get the $target.name

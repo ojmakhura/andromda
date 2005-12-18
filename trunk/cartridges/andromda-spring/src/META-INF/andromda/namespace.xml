@@ -109,6 +109,12 @@
                     (i.e. the richClient namespace entry is "true").
                 </documentation>
             </property>
+            <property name="server-config" required="false">
+                <documentation>
+                    The location where server side configuration code is generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
             <property name="server-test" required="false">
                 <documentation>
                     The location where server side test implementation code will be generated if using a Rich Client environment
@@ -840,6 +846,20 @@
                 <documentation>
                     A prefix to use for properties stored in configuration files. A typical setting
                     for this is the application ID plus the "." character.
+                </documentation>
+            </property>
+            <property name="serverTestBeanRefFactory">
+                <default>applicationContext-test.xml</default>
+                <documentation>
+                    The name/path of the bean ref factory resource file used for unit testing
+                    the server code (i.e. some/path/application-test.xml)
+                </documentation>
+            </property>
+            <property name="serverTestContextDataSource">
+                <default>applicationContext-test-dataSource.xml</default>
+                <documentation>
+                    The name/path of the configuration file for the data source of
+                    the server test code (i.e. some/path/application-test-dataSource.xml)
                 </documentation>
             </property>
         </propertyGroup>

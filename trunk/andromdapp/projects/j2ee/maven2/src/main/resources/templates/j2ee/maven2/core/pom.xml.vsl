@@ -18,14 +18,14 @@
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>${applicationId}-common</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
             <scope>compile</scope>
         </dependency>
 #if ($workflow)
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>${applicationId}-workflow</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
         </dependency>
 #end
 #if ($spring || $hibernate)

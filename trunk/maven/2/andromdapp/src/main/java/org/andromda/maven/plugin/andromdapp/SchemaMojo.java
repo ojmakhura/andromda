@@ -21,9 +21,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ClassUtils;
@@ -100,6 +102,12 @@ public class SchemaMojo
     private ArtifactFactory factory;
 
     /**
+     * @parameter expression="${plugin.artifacts}"
+     * @required
+     */
+    private List pluginArtifacts;
+
+    /**
      * Artifact resolver, needed to download source jars for inclusion in
      * classpath.
      *
@@ -144,9 +152,8 @@ public class SchemaMojo
      * The JDBC password for the database.
      *
      * @parameter
-     * @required
      */
-    private String jdbcPassword;
+    private String jdbcPassword = "";
 
     /**
      * The jar containing the JDBC driver.
@@ -173,9 +180,8 @@ public class SchemaMojo
         try
         {
             AndroMDALogger.initialize();
-            
             this.initializeClassLoaderWithJdbcDriver();
-            
+
             connection = this.getConnection();
             final List tasks = this.getTasks();
             if (tasks != null && !tasks.isEmpty())
@@ -187,6 +193,7 @@ public class SchemaMojo
                         "' is not a valid task type, valid task types are: " + tasksMap.keySet());
                 }
 
+                this.properties.putAll(this.project.getProperties());
                 for (final Iterator iterator = this.getTasks().iterator(); iterator.hasNext();)
                 {
                     final String task = ObjectUtils.toString(iterator.next()).trim();
@@ -223,7 +230,7 @@ public class SchemaMojo
                         }
                     }
 
-                    final List classpathElements = new ArrayList(this.project.getRuntimeClasspathElements());
+                    final Set classpathElements = new LinkedHashSet(this.project.getRuntimeClasspathElements());
                     classpathElements.addAll(this.getProvidedClasspathElements());
                     this.initializeClasspathFromClassPathElements(classpathElements);
                     final Class type = (Class)tasksMap.get(task);
@@ -232,6 +239,7 @@ public class SchemaMojo
                         throw new MojoExecutionException("'" + task + "' is not a valid task, valid types are: " +
                             tasksMap.keySet());
                     }
+
                     final SchemaManagement schemaManagement = (SchemaManagement)ClassUtils.newInstance(type);
                     this.executeSql(
                         connection,
@@ -316,16 +324,32 @@ public class SchemaMojo
      * @throws DependencyResolutionRequiredException
      * @throws MalformedURLException
      */
-    protected void initializeClasspathFromClassPathElements(final List classpathFiles)
+    protected void initializeClasspathFromClassPathElements(final Set classpathFiles)
         throws MalformedURLException
     {
-        if (classpathFiles != null && classpathFiles.size() > 0)
+        // - for some reason some of the plugind dependencies are being excluded from the classloader,
+        //   so we explicity load them
+        if (this.pluginArtifacts != null)
+        {
+            for (final Iterator iterator = this.pluginArtifacts.iterator(); iterator.hasNext();)
+            {
+                final Artifact artifact = (Artifact)iterator.next();
+                final File artifactFile = artifact.getFile();
+                if (artifactFile != null)
+                {
+                    classpathFiles.add(artifactFile.toString());
+                }
+            }
+        }
+
+        final List files = new ArrayList(classpathFiles);
+        if (files != null && files.size() > 0)
         {
             final URL[] classpathUrls = new URL[classpathFiles.size()];
 
             for (int ctr = 0; ctr < classpathFiles.size(); ++ctr)
             {
-                final File file = new File((String)classpathFiles.get(ctr));
+                final File file = new File((String)files.get(ctr));
                 if (this.getLog().isDebugEnabled())
                 {
                     getLog().debug("adding to classpath '" + file + "'");

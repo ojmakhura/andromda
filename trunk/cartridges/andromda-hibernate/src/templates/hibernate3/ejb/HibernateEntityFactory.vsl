@@ -10,16 +10,15 @@ package $entity.packageName;
  * <p>
  * Factory class.
  * Is able to find and create objects of type ${entity.name}.
- * The Hibernate <em>$entity.hibernateInheritanceStrategy</em> inheritance
+ * The Hibernate <em>${entity.hibernateInheritanceStrategy}</em> inheritance
  * strategy is followed.
  * Those can be described as follows:
  * </p>
  * @see $entity.fullyQualifiedName
  */
-public abstract class ${entity.name}Factory {
+public abstract class ${entity.name}Factory
+{
 #if (!$entity.abstract && !$entity.hibernateInheritanceInterface)
-   // ---------------- create method --------------------
-
    /**
     * Creates a(n) ${entity.name} object.
     *
@@ -45,8 +44,6 @@ public abstract class ${entity.name}Factory {
     }
 
 #end
-    // ---------------- finder methods  ----------------------
-
 #if (!$entity.getIdentifiers(true).empty)
 #set ($primaryKey = $entity.getIdentifiers(true).iterator().next())
 #set ($primaryKeyTypeName = $primaryKey.type.fullyQualifiedName)

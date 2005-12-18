@@ -22,7 +22,7 @@
                     <extensions>true</extensions>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-model-archiver-plugin</artifactId>
-                    <version>${version}</version>
+                    <version>${pom.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>        

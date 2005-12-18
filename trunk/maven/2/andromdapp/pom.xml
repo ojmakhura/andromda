@@ -20,22 +20,22 @@
         <dependency>
             <groupId>org.andromda.andromdapp</groupId>
             <artifactId>andromda-andromdapp-core</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.andromdapp.projects</groupId>
             <artifactId>andromda-andromdapp-project-j2ee-maven2</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.templateengines</groupId>
             <artifactId>andromda-templateengine-velocity</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>

@@ -170,6 +170,54 @@ $operation.getDocumentation("     * ")
         {
             return new ${entity.fullyQualifiedEntityImplementationName}();
         }
+
+#if ($entity.allRequiredConstructorParameters.size() > $entity.identifiers.size() && $entity.allRequiredConstructorParameters.size() < $entity.allProperties.size())
+        /**
+         * Constructs a new instance of {@link ${entity.fullyQualifiedName}}, taking all required and/or
+         * read-only properties as arguments.
+         */
+        public static $entity.fullyQualifiedName newInstance(## no newline
+#set ($comma = "")
+#foreach ($property in $entity.allRequiredConstructorParameters)
+#if (!$property.identifier)
+${comma}${property.getterSetterTypeName} ${property.name}## no newline
+#set ($comma = ", ")
+#end
+#end
+)
+        {
+            final ${entity.fullyQualifiedName} entity = new ${entity.fullyQualifiedEntityImplementationName}();
+#foreach ($property in $entity.allRequiredConstructorParameters)
+#if (!$property.identifier)
+            entity.${property.setterName}(${property.name});
+#end
+#end
+            return entity;
+        }
+
+#end
+        /**
+         * Constructs a new instance of {@link ${entity.fullyQualifiedName}}, taking all possible properties
+         * (except the identifier(s))as arguments.
+         */
+        public static $entity.fullyQualifiedName newInstance(## no newline
+#set ($comma = "")
+#foreach ($property in $entity.allProperties)
+#if (!$property.identifier)
+${comma}${property.getterSetterTypeName} ${property.name}## no newline
+#set ($comma = ", ")
+#end
+#end
+)
+        {
+            final ${entity.fullyQualifiedName} entity = new ${entity.fullyQualifiedEntityImplementationName}();
+#foreach ($property in $entity.allProperties)
+#if (!$property.identifier)
+            entity.${property.setterName}(${property.name});
+#end
+#end
+            return entity;
+        }
     }
 
 #end

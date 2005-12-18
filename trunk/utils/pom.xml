@@ -12,7 +12,7 @@
     	<dependency>
 	      	<groupId>${pom.groupId}</groupId>
 	      	<artifactId>andromda-core</artifactId>
-	      	<version>${version}</version>
+	      	<version>${pom.version}</version>
 	    </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
@@ -41,7 +41,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                <version>${version}</version>
+                <version>${pom.version}</version>
                 <executions>
                     <execution>
                         <goals>

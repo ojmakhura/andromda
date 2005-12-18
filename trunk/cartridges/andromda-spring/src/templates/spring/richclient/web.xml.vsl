@@ -1,0 +1,23 @@
+#parse("templates/spring/SpringGlobals.vm")
+<?xml version="1.0" encoding="$xmlEncoding"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+    <servlet>
+        <servlet-name>${serviceRemoteContext}</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>
+                /WEB-INF/${applicationContextDataSource}
+                /WEB-INF/${applicationContext}
+                /WEB-INF/${applicationContextServer}
+                <!-- web-contextConfigLocations merge-point -->
+            </param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>${serviceRemoteContext}</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+</web-app>
