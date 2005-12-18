@@ -1,0 +1,20 @@
+#parse("templates/spring/SpringGlobals.vm")
+<?xml version="1.0" encoding="$xmlEncoding"?>
+
+<!DOCTYPE beans
+    PUBLIC "-//SPRING//DTD BEAN//EN"
+           "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <bean id="$beanRefFactoryId"
+         class="org.springframework.context.support.ClassPathXmlApplicationContext">
+        <constructor-arg>
+           <list>
+                <value>$stringUtils.replace($applicationContext, '/', '.')</value>
+                <value>$stringUtils.replace($serverTestContextDataSource, '/', '.')</value>
+                <!-- serverTestBeanRefFactory merge-point -->
+           </list>
+        </constructor-arg>
+    </bean>
+</beans>

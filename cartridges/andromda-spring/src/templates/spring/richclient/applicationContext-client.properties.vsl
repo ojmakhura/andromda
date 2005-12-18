@@ -1,0 +1,4 @@
+#set ($generatedFile = "${stringUtils.substringBeforeLast($applicationContextClient, '.')}.properties")
+${configPropertyPrefix}remoteServer=$serviceRemoteServer
+${configPropertyPrefix}remotePort=$serviceRemotePort
+${configPropertyPrefix}remoteContext=$serviceRemoteContext

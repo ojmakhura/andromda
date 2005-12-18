@@ -14,7 +14,7 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-translation-library-plugin</artifactId>  
-                    <version>${version}</version>
+                    <version>${pom.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -29,7 +29,7 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                    <version>${version}</version>
+                    <version>${pom.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -41,7 +41,7 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-bootstrap-plugin</artifactId>
-                    <version>${version}</version>
+                    <version>${pom.version}</version>
                     <executions>
                         <execution>
                             <goals>

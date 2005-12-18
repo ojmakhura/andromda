@@ -11,7 +11,16 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.2-RC1-SNAPSHOT" date="2005-12-12" description="First release candidate of version 3.2">
+        <release version="3.2-RC1-SNAPSHOT" date="2005-12-15" description="First release candidate of version 3.2">
+            <action dev="draftdog" type="add">
+                The hibernate entity factories now have additional constructors making it easier to construct
+                them using a single call.
+            </action>
+            <action dev="draftdog" type="add">
+                Value objects will now have extra constructors making it easier to properly populate them, there will
+                a constructor taking all properties (including the inherited ones), and a constructor taking only
+                those properties that are required and/or read-only.
+            </action>
             <action dev="draftdog" type="add">
                 A new namespace property has been introduced: <code>columnNamePrefix</code>. It allows you to have
                 all column names prefixed with a certain character sequence.

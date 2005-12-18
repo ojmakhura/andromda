@@ -16,7 +16,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-distribution-plugin</artifactId>
-                <version>${version}</version>
+                <version>${pom.version}</version>
                 <executions>
                     <execution>
                         <id>binary</id>
@@ -24,7 +24,7 @@
                             <goal>assemble</goal>
                         </goals>
                         <configuration>
-                            <name>andromda-bin-${version}</name>
+                            <name>andromda-bin-${pom.version}</name>
                             <artifactDirectory>andromda</artifactDirectory>
                             <dependencyDirectory>lib</dependencyDirectory>
                             <projectIncludes>
@@ -69,7 +69,7 @@
                             <goal>assemble</goal>
                         </goals>
                         <configuration>
-                            <name>andromda-src-${version}</name>
+                            <name>andromda-src-${pom.version}</name>
                             <locations>
                                 <location>
                                     <path>${pom.basedir}/../</path>

@@ -17,18 +17,18 @@
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-cartridge-testsuite</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.maven.plugins</groupId>
             <artifactId>andromda-maven-plugin</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
         </dependency> 
         <dependency>
             <groupId>org.apache.maven</groupId>

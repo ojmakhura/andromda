@@ -27,12 +27,7 @@
         <include name="templateengines/andromda-templateengine-velocity/*/andromda-templateengine-velocity-*.jar"/> 
         <include name="cartridges/andromda-spring-cartridge/*/andromda-spring-cartridge-*.jar"/>
         <include name="cartridges/andromda-java-cartridge/*/andromda-java-cartridge-*.jar"/>
-#if ($persistenceType == 'hibernate')
         <include name="cartridges/andromda-hibernate-cartridge/*/andromda-hibernate-cartridge-*.jar"/>
-#end
-#if ($persistenceType == 'ejb')
-        <include name="cartridges/andromda-ejb-cartridge/*/andromda-ejb-cartridge-*.jar"/>
-#end
     </fileset>
     <fileset dir="${andromda.dependency.dir}">        
         <include name="commons-beanutils/commons-beanutils/*/commons-beanutils-*.jar"/>
@@ -192,11 +187,31 @@
      </condition>
      <fail if="do.abort">Nuke aborted by user.</fail>
   	 <delete dir="${source.client.impl.dir}" includeemptydirs="true"/>
-     <delete dir="${source.client.test.dir}" includeemptydirs="true"/>
+     <delete dir="${source.client.testCode.dir}" includeemptydirs="true"/>
      <delete dir="${source.common.impl.dir}" includeemptydirs="true"/>
      <delete dir="${source.server.impl.dir}" includeemptydirs="true"/>
-     <delete dir="${source.server.test.dir}" includeemptydirs="true"/>
+     <delete dir="${source.server.testCode.dir}" includeemptydirs="true"/>
+     <!-- Put back directories that are in Eclipse source path in case AndroMDA does NOT make them -->
+  	 <mkdir dir="${source.client.impl.dir.java}"/>
+  	 <mkdir dir="${source.client.testCode.dir.config}"/>
+     <mkdir dir="${source.common.impl.dir.java}"/>
+     <mkdir dir="${source.server.impl.dir.java}"/>
+     <mkdir dir="${source.server.testCode.dir.java}"/>
   </target>
+
+  <fileset id="deployment-libraries" dir="${andromda.dependency.dir}">
+   <!-- These files are the library .JARs that will be added to the server .WAR or .EAR files.
+        You can add or remove any files you wish here (for example, if your JBoss
+        environment already has Spring or Hibernate .JAR files available globally,
+        they can be removed from here). Any libraries your services need should
+        also be added here. -->
+      <include name="**/spring*.jar"/>
+      <include name="**/hibernate*.jar"/>
+      <include name="**/antlr*.jar"/>
+      <include name="**/ehcache*.jar"/>
+      <include name="**/commons-beanutils*.jar"/>
+      <include name="**/commons-logging*.jar"/>
+  </fileset>
 	
   <target name="make-server-war" unless="server-war-built">
      <!-- Creates the server .war -->
@@ -204,21 +219,7 @@
      <property name="jars-temp" location="server/target/jars-temp"/>
      <delete dir="${jars-temp}" failonerror="true"/>
      <copy todir="${jars-temp}" failonerror="true" flatten="true">
-
-     	<!-- These files are the library .JARs that will be added to the server .WAR file.
-             You can add or remove any files you wish here (for example, if your JBoss
-             environment already has Spring or Hibernate .JAR files available globally,
-             they can be removed from here). Any libraries your services need should
-             also be added here. -->
-        <fileset dir="${andromda.dependency.dir}">
-            <include name="**/spring*.jar"/>
-            <include name="**/hibernate*.jar"/>
-            <include name="**/antlr*.jar"/>
-            <include name="**/ehcache*.jar"/>
-            <include name="**/commons-beanutils*.jar"/>
-            <include name="**/commons-logging*.jar"/>
-        </fileset>
-
+        <fileset refid="deployment-libraries"/>
      </copy>
      <war destfile="server/target/${application.id}.war" duplicate="fail" webxml="server/target/conf/dist/WEB-INF/web.xml">
         <lib dir="${jars-temp}"/>

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 
 import org.andromda.maven.plugin.andromdapp.utils.ProjectUtils;
 import org.andromda.maven.plugin.andromdapp.utils.Projects;
@@ -80,11 +81,21 @@ public class MavenExecuteMojo
     private String[] excludes = new String[] {"pom.xml"};
 
     /**
+     * This is used to remove the 'version' property from the system
+     * properties as it ends up being used in the POM interpolation (in other
+     * words is a hack until they fix this Maven2 bug).
+     */
+    private static final String VERSION_PROPERTY = "version";
+
+    /**
      * @see org.apache.maven.plugin.AbstractMojo#execute()
      */
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
+        // - remove any "version" property as it seems to be picked up and used
+        //   in maven2's POM interpolation (remove this when this issue is fixed).
+        System.getProperties().remove(VERSION_PROPERTY);
         if (!Projects.instance().isPresent(this.project.getId()))
         {
             try
@@ -126,7 +137,7 @@ public class MavenExecuteMojo
                                 this.session.getLocalRepository(),
                                 this.session.getEventDispatcher(),
                                 reactorManager,
-                                this.session.getGoals(),
+                                goals,
                                 this.baseDirectory.toString(),
                                 this.session.getExecutionProperties(),
                                 this.session.getStartTime());
@@ -153,6 +164,7 @@ public class MavenExecuteMojo
                                 final MavenProject project = (MavenProject)projectIterator.next();
                                 this.getLog().info("  " + project.getName());
                             }
+
                             final MavenSession projectSession =
                                 new MavenSession(
                                     this.session.getContainer(),

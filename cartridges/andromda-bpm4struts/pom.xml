@@ -16,22 +16,22 @@
         <dependency>
             <groupId>org.andromda.taglibs</groupId>
             <artifactId>andromda-breadcrumbs-taglib</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.taglibs</groupId>
             <artifactId>andromda-formatting-taglib</artifactId>
-             <version>${version}</version>
+             <version>${pom.version}</version>
         </dependency>
         <dependency>
              <groupId>org.andromda.taglibs</groupId>
             <artifactId>andromda-collections-taglib</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-meta-cartridge</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -47,7 +47,7 @@
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>${version}</version>
+                        <version>${pom.version}</version>
                     </dependency>
                 </dependencies>    
             </plugin>

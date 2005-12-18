@@ -13,7 +13,7 @@
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
         </dependency>
     </dependencies>
     <build>

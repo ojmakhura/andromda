@@ -14,7 +14,7 @@
         <dependency>
             <groupId>${pom.groupId}</groupId>
             <artifactId>${applicationId}-mda</artifactId>
-            <version>${version}</version>
+            <version>${pom.version}</version>
             <type>pom</type>
             <scope>runtime</scope>
             <optional>true</optional>

@@ -105,9 +105,12 @@
     <property reference="client-test"/>
     <property reference="server"/>
     <property reference="server-impl"/>
+    <property reference="server-config"/>
     <property reference="server-test"/>
     <property reference="server-test-config"/>
     <property reference="toDoTag"/>
+    <property reference="serverTestBeanRefFactory"/>
+    <property reference="serverTestContextDataSource"/>
     <!-- cartridge-property merge-point -->
 
     <!-- cartridge-resource merge-point -->
@@ -122,7 +125,38 @@
         <modelElements>
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.spring.metafacades.SpringService">
-                  <property name="richClient">false</property>
+                    <property name="richClient">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+     <template
+        path="templates/spring/SpringServiceLocator.vsl"
+        outputPattern="$generatedFile"
+        outlet="server"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="richClient">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/richclient/SpringServerTest.vsl"
+        outputPattern="$generatedFile"
+        outlet="server-test"
+        overwrite="false"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="service">
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="richClient">true</property>
                 </type>
             </modelElement>
         </modelElements>
@@ -163,7 +197,7 @@
     </template>
 
     <template
-        path="templates/spring/richClient/SpringClientTest.vsl"
+        path="templates/spring/richclient/SpringClientTest.vsl"
         outputPattern="$generatedFile"
         outlet="client-test"
         overwrite="false"
@@ -485,10 +519,10 @@
     </template>
 
     <template
-        path="templates/spring/applicationContext-localDataSource.xml.vsl"
-        outputPattern="$applicationContextLocalDataSource"
+        path="templates/spring/richclient/applicationContext-server-test-dataSource.xml.vsl"
+        outputPattern="$serverTestContextDataSource"
         outlet="server-test-config"
-        overwrite="true"
+        overwrite="false"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
         <modelElements>
@@ -539,7 +573,7 @@
     </template>
 
     <template
-        path="templates/spring/richClient/applicationContext-client.xml.vsl"
+        path="templates/spring/richclient/applicationContext-client.xml.vsl"
         outputPattern="$applicationContextClient"
         outlet="client-config"
         overwrite="true"
@@ -556,7 +590,7 @@
     </template>
 
     <template
-        path="templates/spring/richClient/applicationContext-client.properties.vsl"
+        path="templates/spring/richclient/applicationContext-client.properties.vsl"
         outputPattern="$generatedFile"
         outlet="client-config"
         overwrite="true"
@@ -573,9 +607,9 @@
     </template>
 
     <template
-        path="templates/spring/richClient/web.xml.vsl"
-        outputPattern="web.xml"
-        outlet="spring-configuration"
+        path="templates/spring/richclient/web.xml.vsl"
+        outputPattern="WEB-INF/web.xml"
+        outlet="server-config"
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
@@ -612,7 +646,7 @@
         outputOnEmptyElements="false">
         <modelElements>
             <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService" />
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement>
         </modelElements>
     </template>
@@ -626,7 +660,25 @@
         outputOnEmptyElements="false">
         <modelElements variable="services">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="richClient">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/ejb/ejb-jar.xml.vsl"
+        outputPattern="META-INF/ejb-jar.xml"
+        outlet="server-config"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="richClient">true</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -640,7 +692,25 @@
         outputOnEmptyElements="false">
         <modelElements variable="services">
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="richClient">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/spring/ejb/jboss.xml.vsl"
+        outputPattern="META-INF/jboss.xml"
+        outlet="server-config"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
+                    <property name="richClient">true</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -654,26 +724,20 @@
         outputOnEmptyElements="false">
         <modelElements>
             <modelElement variable="services">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringService">
-                    <property name="richClient">false</property>
-                </type>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringService"/>
             </modelElement>
             <modelElement>
-                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity">
-                    <property name="richClient">false</property>
-                </type>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringEntity"/>
             </modelElement>
             <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity">
-                    <property name="richClient">false</property>
-                </type>
+                <type name="org.andromda.cartridges.spring.metafacades.SpringManageableEntity"/>
             </modelElement>
         </modelElements>
     </template>
 
     <template
-        path="templates/spring/richClient/serverTestBeanRefFactory.xml.vsl"
-        outputPattern="$beanRefFactory"
+        path="templates/spring/richclient/serverTestBeanRefFactory.xml.vsl"
+        outputPattern="$serverTestBeanRefFactory"
         outlet="server-test-config"
         overwrite="true"
         outputToSingleFile="true"

@@ -52,11 +52,11 @@
             <documentation>
                 Provides the choice of components with the application.
             </documentation>        
-            <prompt id="persistenceType">
-                <text>Please enter the type of persistence cartridge to use</text>
+            <prompt id="enableAcegi">
+                <text>Do you want to enable Acegi Security [yes/no]?</text>
                 <responses>
-                    <response>hibernate</response>
-                    <response>ejb</response>
+                    <response>yes</response>
+                    <response>no</response>
                 </responses>
             </prompt>
         </promptGroup>
