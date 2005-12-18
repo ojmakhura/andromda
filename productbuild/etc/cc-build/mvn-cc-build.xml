@@ -1,0 +1,12 @@
+<project name="maven2-build" default="default">
+	
+	<echo message="basedir:${basedir}"/>
+	<property name="andromda.all.dir" value="${basedir}/../.."/>
+	
+	<target name="default">
+		<exec dir="${andromda.all.dir}" executable="mvn" output="ant-mvn.log">
+        </exec> 
+	</target>
+	
+	
+</project>
