@@ -291,6 +291,20 @@ public class HibernateEntityLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isLazy()
+     */
+    protected boolean handleIsLazy()
+    {
+        String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
+        if (StringUtils.isBlank(value))
+        {
+            String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
+            value = version.equals(HibernateGlobals.HIBERNATE_VERSION_2) ? "false" : "true";
+        }
+        return Boolean.valueOf(value).booleanValue();
+    }
+
+    /**
      * @see org.andromda.cartridges.nhibernate.metafacades.HibernateEntity#getHibernateCacheType()
      */
     protected String handleGetHibernateCacheType()
@@ -642,7 +656,7 @@ public class HibernateEntityLogicImpl
             (this.isHibernateInheritanceConcrete() || this.isHibernateInheritanceInterface()) && this.isAbstract();
 
         return (this.getSuperEntity() == null ||
-            (superEntity.isHibernateInheritanceInterface() || superEntity.isHibernateInheritanceConcrete())) 
+            (superEntity.isHibernateInheritanceInterface() || superEntity.isHibernateInheritanceConcrete()))
             && !abstractConcreteEntity;
     }
 
@@ -651,7 +665,7 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsRequiresSpecializationMapping()
     {
-        return this.isRoot() && (this.isHibernateInheritanceSubclass() 
+        return this.isRoot() && (this.isHibernateInheritanceSubclass()
             || this.isHibernateInheritanceClass()
             || this.isHibernateInheritanceUnionSubClass());
     }

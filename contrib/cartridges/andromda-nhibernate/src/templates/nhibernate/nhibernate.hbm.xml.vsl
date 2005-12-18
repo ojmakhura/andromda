@@ -17,7 +17,7 @@
         table="$entity.tableName"
         dynamic-insert="$entity.dynamicInsert"
         dynamic-update="$entity.dynamicUpdate"
-        #if ($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end>
+        #if($entity.lazy)lazy="true"#end#if ($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end>
 
 #if($hibernateEnableCache.equalsIgnoreCase("true"))
         <cache usage="$entity.hibernateCacheType" />

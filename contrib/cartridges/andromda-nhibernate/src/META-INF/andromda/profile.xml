@@ -120,7 +120,7 @@
             </element>
             <element name="HIBERNATE_LAZY">
                 <documentation>
-                    Used to denote how a relationship must be loaded:
+                    Used to denote how entities, relationships or attributes must be loaded:
                     <code>true</code>for
                     <code>lazy</code>,
                     <code>false</code>for
@@ -131,10 +131,14 @@
                     set to
                     <code>false</code>) and defaults to
                     <code>true</code>for the other kinds.
+                    For entities, defaults to <code>false</code> for Hibernate 2 and
+                    <code>true</code> for Hibernate 3.
                 </documentation>
                 <value>@andromda.hibernate.lazy</value>
-                <appliedOnElement>Association ends between
-                    <a href="#Entity"><![CDATA[<<Entity>>]]></a>classes
+                <appliedOnElement>
+                    <a href="#Entity"><![CDATA[<<Entity>>]]></a>classes, association ends between
+                    <a href="#Entity"><![CDATA[<<Entity>>]]></a>classes, or attributes of an
+                    <a href="#Entity"><![CDATA[<<Entity>>]]></a>
                 </appliedOnElement>
                 <allowedValues>
                     <value>true</value>
