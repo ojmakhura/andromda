@@ -295,13 +295,8 @@ public class HibernateEntityLogicImpl
      */
     protected boolean handleIsLazy()
     {
-        String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
-        if (StringUtils.isBlank(value))
-        {
-            String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
-            value = version.equals(HibernateGlobals.HIBERNATE_VERSION_2) ? "false" : "true";
-        }
-        return Boolean.valueOf(value).booleanValue();
+        final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
+        return (StringUtils.isNotBlank(value)) ? Boolean.valueOf(value).booleanValue() : true;
     }
 
     /**
