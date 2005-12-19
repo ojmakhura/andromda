@@ -107,11 +107,17 @@ public class ModelDetailsComposite
         toolkit.adapt(this);
         toolkit.paintBordersFor(this);
 
-        lastModifiedCheckButton = toolkit.createButton(this, "Last modified check", SWT.CHECK);
-        lastModifiedCheckButton.setLayoutData(new GridData(GridData.BEGINNING, GridData.CENTER, false, false, 2, 1));
+        final Label label_2 = toolkit.createLabel(this, "Last modified check:", SWT.NONE);
+        label_2.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
+        label_2.setLayoutData(new GridData());
+
+        lastModifiedCheckButton = toolkit.createButton(this, "", SWT.CHECK);
+        lastModifiedCheckButton.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
+        lastModifiedCheckButton.setLayoutData(new GridData());
         new Label(this, SWT.NONE);
 
-        toolkit.createLabel(this, "Model type:", SWT.NONE);
+        final Label label = toolkit.createLabel(this, "Model type:", SWT.NONE);
+        label.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
 
         modelTypeComboViewer = new ComboViewer(this, SWT.NONE);
         modelTypeComboViewer.setLabelProvider(new ListLabelProvider());
@@ -119,7 +125,8 @@ public class ModelDetailsComposite
         modelTypeComboViewer.setInput(new Object());
         new Label(this, SWT.NONE);
 
-        toolkit.createLabel(this, "Model files:", SWT.NONE);
+        final Label label_1 = toolkit.createLabel(this, "Model files:", SWT.NONE);
+        label_1.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
         new Label(this, SWT.NONE);
         new Label(this, SWT.NONE);
 
@@ -132,7 +139,9 @@ public class ModelDetailsComposite
 
         final Composite tableButtons = toolkit.createComposite(this, SWT.NONE);
         tableButtons.setLayoutData(new GridData(GridData.CENTER, GridData.BEGINNING, false, false));
-        tableButtons.setLayout(new GridLayout());
+        final GridLayout gridLayout_1 = new GridLayout();
+        gridLayout_1.marginHeight = 0;
+        tableButtons.setLayout(gridLayout_1);
         toolkit.paintBordersFor(tableButtons);
 
         final Button addButton = toolkit.createButton(tableButtons, "Add...", SWT.NONE);
@@ -209,7 +218,7 @@ public class ModelDetailsComposite
     {
         // store for later reference
         this.model = model;
-        
+
         refresh();
     }
 
