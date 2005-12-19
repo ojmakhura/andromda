@@ -1,11 +1,11 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
-import org.andromda.android.ui.AndroidUIPlugin;
+import org.andromda.android.ui.internal.editor.AbstractModelComposite;
 import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
+import org.andromda.android.ui.internal.util.DialogUtils;
+import org.andromda.core.configuration.ModelDocument.Model;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -13,7 +13,6 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -25,12 +24,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
-import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.model.WorkbenchContentProvider;
-import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 /**
  * 
@@ -38,7 +33,7 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
  * @since 12.12.2005
  */
 public class ModelDetailsComposite
-        extends Composite
+        extends AbstractModelComposite
 {
 
     class ListLabelProvider
@@ -99,10 +94,12 @@ public class ModelDetailsComposite
 
     private Table table;
 
-    public ModelDetailsComposite(final SectionPart parent,
+    private Model model;
+
+    public ModelDetailsComposite(final SectionPart parentSection,
         int style)
     {
-        super(parent.getSection(), style);
+        super(parentSection, style);
         final GridLayout gridLayout = new GridLayout();
         gridLayout.numColumns = 3;
         setLayout(gridLayout);
@@ -143,55 +140,18 @@ public class ModelDetailsComposite
         {
             public void widgetSelected(SelectionEvent e)
             {
-                if (parent instanceof AbstractModelSectionPart)
+                if (parentSection instanceof AbstractModelSectionPart)
                 {
-                    AbstractModelSectionPart baseSectionPart = (AbstractModelSectionPart)parent;
+                    AbstractModelSectionPart baseSectionPart = (AbstractModelSectionPart)parentSection;
                     final IProject project = baseSectionPart.getProject();
 
-                    ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(getShell(),
-                            new WorkbenchLabelProvider(), new WorkbenchContentProvider());
-                    dialog.setInput(project.getWorkspace());
-                    // IFile file = getFile();
-                    // if (file != null)
-                    // dialog.setInitialSelection(file);
-                    dialog.addFilter(new ViewerFilter()
-                    {
-                        public boolean select(Viewer viewer,
-                            Object parentElement,
-                            Object element)
-                        {
-                            if (element instanceof IProject)
-                            {
-                                return ((IProject)element).equals(project);
-                            }
-                            else if (element instanceof IFile)
-                            {
-                                String fileExtension = ((IFile)element).getFileExtension();
-                                return fileExtension.endsWith("xmi");
-                            }
-                            return true;
-                        }
-                    });
-                    dialog.setAllowMultiple(true);
-                    dialog.setTitle("Select model files..");
-                    dialog.setMessage("Select one or more model files.");
-                    dialog.setValidator(new ISelectionStatusValidator()
-                    {
-                        public IStatus validate(Object[] selection)
-                        {
-                            if (selection != null && selection.length > 0 && selection[0] instanceof IFile)
-                                return new Status(IStatus.OK, AndroidUIPlugin.getPluginId(), IStatus.OK, "", null); //$NON-NLS-1$
+                    IFile file = DialogUtils.selectResource(getShell(), project, "Select model files...",
+                            "Select one or more model files to be included in the generation process.");
+                    String uri = file.getProjectRelativePath().toString();
 
-                            return new Status(IStatus.ERROR, AndroidUIPlugin.getPluginId(), IStatus.ERROR, "", null); //$NON-NLS-1$
-                        }
-                    });
-                    if (dialog.open() == ElementTreeSelectionDialog.OK)
-                    {
-                        IFile file = (IFile)dialog.getFirstResult();
-                        String value = file.getProjectRelativePath().toString();
-                        System.out.println(value);
-                    }
-
+                    model.addUri(uri);
+                    getParentSection().markDirty();
+                    refresh();
                 }
             }
         });
@@ -217,12 +177,12 @@ public class ModelDetailsComposite
     {
     }
 
-    public boolean isLastModifiedCheck()
+    private boolean isLastModifiedCheck()
     {
         return lastModifiedCheckButton.getSelection();
     }
 
-    public void setLastModifiedCheck(boolean checked)
+    private void setLastModifiedCheck(boolean checked)
     {
         lastModifiedCheckButton.setSelection(checked);
     }
@@ -230,7 +190,7 @@ public class ModelDetailsComposite
     /**
      * @param modelUris
      */
-    public void setModelUris(String[] modelUris)
+    private void setModelUris(String[] modelUris)
     {
         modelFilesTableViewer.setInput(modelUris);
     }
@@ -238,8 +198,37 @@ public class ModelDetailsComposite
     /**
      * @param type
      */
-    public void setModelType(String type)
+    private void setModelType(String type)
     {
+    }
+
+    /**
+     * @param model
+     */
+    public void setModel(Model model)
+    {
+        // store for later reference
+        this.model = model;
+        
+        refresh();
+    }
+
+    /**
+     * TODO this method should refactored into a base class and invoked by a model change listener 
+     */
+    private void refresh()
+    {
+        // last modified check
+        boolean lastModifiedCheck = model.getLastModifiedCheck();
+        setLastModifiedCheck(lastModifiedCheck);
+
+        // model parts (URIs)
+        String[] modelUris = model.getUriArray();
+        setModelUris(modelUris);
+
+        // model type
+        String type = model.getType();
+        setModelType(type);
     }
 
 }
