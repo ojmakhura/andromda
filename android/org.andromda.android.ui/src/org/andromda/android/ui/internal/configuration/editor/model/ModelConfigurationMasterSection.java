@@ -49,6 +49,8 @@ public class ModelConfigurationMasterSection
     public void initialize(IManagedForm form)
     {
         super.initialize(form);
+        
+        // set up section
         getSection().setText("Models");
         getSection().setDescription("Configure the model(s) to be processed by AndroMDA.");
         getSection().marginHeight = 5;
