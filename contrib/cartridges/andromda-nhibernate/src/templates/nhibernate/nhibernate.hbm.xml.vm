@@ -90,7 +90,7 @@
 ##
 #macro (renderSubClass $entity)
 ## Should only get get invoked for inheritance class or subclass.
-        <$entity.mappingClassName name="$entity.fullyQualifiedEntityImplementationName, ${coreAssemblyName}"#if($entity.tableRequired) table="$entity.tableName"#else discriminator-value="$entity.entityImplementationName"#end#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end dynamic-insert="$entity.dynamicInsert" dynamic-update="$entity.dynamicUpdate">
+        <$entity.mappingClassName name="$entity.fullyQualifiedEntityImplementationName, ${coreAssemblyName}"#if($entity.tableRequired) table="$entity.tableName"#else discriminator-value="$entity.entityImplementationName"#end lazy="$entity.lazy"#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end dynamic-insert="$entity.dynamicInsert" dynamic-update="$entity.dynamicUpdate">
 #if($entity.subclassKeyColumn)
             <key foreign-key="${entity.tableName}_INHERITANCE_FKC">
                 <column name="$entity.subclassKeyColumn" sql-type="$identifier.sqlType"/>

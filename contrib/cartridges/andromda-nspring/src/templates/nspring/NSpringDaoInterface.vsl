@@ -15,10 +15,8 @@ namespace $entity.packageName
 #if ($superclass)
 ## TODO: Need to get the root of the hierarchy, not the immediate superclass
 #set ($daoNoTransformationEnumName = "Transform${superclass.Name}.$superclass.daoNoTransformationConstantName")
-#set ($newKeyword = "new ")
 #else
 #set ($daoNoTransformationEnumName = "Transform${entity.Name}.$entity.daoNoTransformationConstantName")
-#set ($newKeyword = "")
 #end
     /// <summary>
     /// This enumeration is used to define transformation flags. Using these flag
@@ -74,10 +72,11 @@ namespace $entity.packageName
 #end
 #set ($identifier = $entity.identifiers.iterator().next())
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
+#if (!$superclass)
         /// <summary>
         /// Loads an instance of $entity.fullyQualifiedEntityName from the persistent store.
         /// </summary>
-        ${newKeyword}$entity.root.fullyQualifiedEntityName Load($identifier.type.fullyQualifiedName $identifier.name);
+        $entity.root.fullyQualifiedEntityName Load($identifier.type.fullyQualifiedName $identifier.name);
 
         /// <summary>
         /// <p>
@@ -92,14 +91,14 @@ namespace $entity.packageName
         /// @param $identifier.name the identifier of the entity to load.
         /// @return either the entity or the object transformed from the entity.
         /// </summary>
-        ${newKeyword}Object Load(int transform, $identifier.type.fullyQualifiedName $identifier.name);
+        Object Load(int transform, $identifier.type.fullyQualifiedName $identifier.name);
 
         /// <summary>
         /// Loads all entities of type {@link ${entity.fullyQualifiedEntityName}}.
         ///
         /// @return the loaded entities.
         /// </summary>
-        ${newKeyword}System.Collections.IList LoadAll();
+        System.Collections.IList LoadAll();
 
         /// <summary>
         /// <p>
@@ -114,8 +113,9 @@ namespace $entity.packageName
         /// @param transform the flag indicating what transformation to use.
         /// @return the loaded entities.
         /// </summary>
-        ${newKeyword}System.Collections.IList LoadAll(int transform);
+        System.Collections.IList LoadAll(int transform);
 
+#end
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
         /// <summary>
@@ -135,6 +135,7 @@ namespace $entity.packageName
         /// </summary>
         Object Create(int transform, $entity.fullyQualifiedEntityName $argumentName);
 
+#if (!$superclass)
         /// <summary>
         /// Creates a new instance of $entity.fullyQualifiedEntityName and adds
         /// from the passed in <code>entities</code> collection
@@ -144,7 +145,7 @@ namespace $entity.packageName
         ///
         /// @return the created instances.
         /// </summary>
-        ${newKeyword}System.Collections.ICollection Create(System.Collections.ICollection entities);
+        System.Collections.ICollection Create(System.Collections.ICollection entities);
 
         /// <summary>
         /// <p>
@@ -156,8 +157,9 @@ namespace $entity.packageName
         ///   not occur.
         /// </p>
         /// </summary>
-        ${newKeyword}System.Collections.ICollection Create(int transform, System.Collections.ICollection entities);
+        System.Collections.ICollection Create(int transform, System.Collections.ICollection entities);
 
+#end
 #if ($enableDaoPropertiesCreateMethod.equalsIgnoreCase('true'))
 #set ($attributes = $entity.getAttributes(true,false))
 #if (!$attributes.empty)
@@ -232,27 +234,31 @@ namespace $entity.packageName
         /// </summary>
         void Update($entity.fullyQualifiedEntityName $argumentName);
 
+#if (!$superclass)
         /// <summary>
         /// Updates all instances in the <code>entities</code> collection in the persistent store.
         /// </summary>
-        ${newKeyword}void Update(System.Collections.ICollection entities);
+        void Update(System.Collections.ICollection entities);
 
+#end
         /// <summary>
         /// Removes the instance of $entity.fullyQualifiedEntityName from the persistent store.
         /// </summary>
         void Remove($entity.fullyQualifiedEntityName $argumentName);
 
+#if (!$superclass)
         /// <summary>
         /// Removes the instance of $entity.fullyQualifiedEntityName having the given
         /// <code>identifier</code> from the persistent store.
         /// </summary>
-        ${newKeyword}void Remove($identifier.type.fullyQualifiedName $identifier.name);
+        void Remove($identifier.type.fullyQualifiedName $identifier.name);
 
         /// <summary>
         /// Removes all entities in the given <code>entities<code> collection.
         /// </summary>
-        ${newKeyword}void Remove(System.Collections.ICollection entities);
+        void Remove(System.Collections.ICollection entities);
 
+#end
 #foreach ($operation in $entity.queryOperations)
 #set ($returnType = $operation.returnType.fullyQualifiedName)
         /// <summary>
@@ -274,10 +280,10 @@ namespace $entity.packageName
         /// </p>
         /// </summary>
 #if ($operation.exceptionsPresent)
-        ${newKeyword}$returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+        $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
             throws $operation.exceptionList;
 #else
-        ${newKeyword}$returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+        $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 
 #if ($operation.query && !$operation.returnType.collectionType)
@@ -295,10 +301,10 @@ namespace $entity.packageName
         /// </p>
         /// </summary>
 #if ($operation.exceptionsPresent)
-        ${newKeyword}$returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+        $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
             throws $operation.exceptionList;
 #else
-        ${newKeyword}$returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+        $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 
         /// <summary>
@@ -309,10 +315,10 @@ namespace $entity.packageName
         /// </p>
         /// </summary>
 #if ($operation.exceptionsPresent)
-        ${newKeyword}$returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+        $returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
             throws $operation.exceptionList;
 #else
-        ${newKeyword}$returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
+        $returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end);
 #end
 #else
         /// <summary>
@@ -327,10 +333,10 @@ namespace $entity.packageName
         /// </p>
         /// </summary>
 #if ($operation.exceptionsPresent)
-        ${newKeyword}$returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
+        $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end)
             throws $operation.exceptionList;
 #else
-        ${newKeyword}$returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
+        $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.getTypedArgumentList('final')}#end);
 #end
 #end
 
@@ -341,10 +347,10 @@ namespace $entity.packageName
     $operation.getDocumentation("    /// ")
         /// </summary>
 #if ($operation.exceptionsPresent)
-        ${newKeyword}$returnType $operation.signature
+        $returnType $operation.signature
             throws $operation.exceptionList;
 #else
-        ${newKeyword}$returnType $operation.signature;
+        $returnType $operation.signature;
 #end
 
 #end
