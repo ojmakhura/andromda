@@ -6,7 +6,7 @@
         <repository name="netBeansMDR">
             <models>
                 <model>
-                    <uri>${maven.andromda.model.uri}</uri>
+                    <uri>${model.uri}</uri>
                     <moduleSearchLocations>
                         <location>${maven.repo.local}/andromda/xml.zips</location>
                         <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles</location>
@@ -24,8 +24,8 @@
             <properties>
                 <property name="languageMappingsUri">Java</property>
                 <property name="wrapperMappingsUri">JavaWrapper</property>
-                <property name="facades">${maven.build.src}</property>
-                <property name="facade-logics">${maven.build.src}</property>
+                <property name="facades">${build.src}</property>
+                <property name="facade-logics">${build.src}</property>
                 <property name="facade-logic-impls">${java.src.dir}</property>
             </properties>
         </namespace>

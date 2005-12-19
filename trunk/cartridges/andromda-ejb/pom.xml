@@ -24,9 +24,6 @@
         </dependency>
     </dependencies>
     <build>
-        <filters>
-            <filter>${basedir}/mda.properties</filter>
-        </filters>  
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -52,4 +49,8 @@
             </plugin>
         </plugins> 
     </build> 
+    <properties>
+        <model.uri>jar:file:${src.dir}/uml/EJBMetafacadeModel.xml.zip!/EJBMetafacadeModel.xml</model.uri>
+        <test.model.uri>jar:file:${test.src.dir}/uml/EJBCartridgeTestModel.xml.zip!/EJBCartridgeTestModel.xml</test.model.uri>
+    </properties>
 </project>

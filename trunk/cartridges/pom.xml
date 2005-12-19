@@ -128,4 +128,11 @@
         <module>andromda-xmlschema</module>
         <module>testsuite</module>
     </modules>
+    <properties>
+        <build.src>${pom.basedir}/target/src</build.src>
+        <java.src.dir>${pom.basedir}/src/java</java.src.dir>
+        <test.src.dir>${pom.basedir}/src/test</test.src.dir>
+        <src.dir>${pom.basedir}/src</src.dir>
+        <test.output.dir>${pom.basedir}/target/cartridge-test/actual</test.output.dir>
+    </properties>
 </project>

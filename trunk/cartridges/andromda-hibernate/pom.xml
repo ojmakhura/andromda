@@ -24,9 +24,6 @@
         </dependency>
     </dependencies>
     <build>
-        <filters>
-            <filter>${basedir}/mda.properties</filter>
-        </filters>  
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -51,5 +48,9 @@
                 </dependencies>    
             </plugin>
         </plugins> 
-    </build> 
+    </build>
+    <properties>
+        <model.uri>jar:file:${src.dir}/uml/HibernateMetafacadeModel.xml.zip!/HibernateMetafacadeModel.xml</model.uri>
+        <test.model.uri>jar:file:${test.src.dir}/uml/HibernateCartridgeTestModel.xml.zip!/HibernateCartridgeTestModel.xml</test.model.uri>
+    </properties>
 </project>

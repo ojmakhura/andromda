@@ -49,7 +49,7 @@ protected PersonDetails handleGet(Long id) throws Exception
     <properties>
         ...
         <!--
-            <property name="session-ejbs">${maven.andromda.core.generated.dir}</property>
+            <property name="session-ejbs">${core.generated.dir}</property>
         -->
         ...
     </properties>
