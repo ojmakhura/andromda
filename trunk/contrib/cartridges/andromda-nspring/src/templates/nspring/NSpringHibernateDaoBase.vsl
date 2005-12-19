@@ -16,12 +16,12 @@ namespace $entity.packageName
 #end
 #set ($superclass = $entity.generalization)
 #if ($superclass)
+#set ($inheritanceModifier = "override")
 ## TODO: Need to get the root of the hierarchy, not the immediate superclass
 #set ($daoNoTransformationEnumName = "Transform${superclass.Name}.$superclass.daoNoTransformationConstantName")
-#set ($newKeyword = "new ")
 #else
+#set ($inheritanceModifier = "virtual")
 #set ($daoNoTransformationEnumName = "Transform${entity.Name}.$entity.daoNoTransformationConstantName")
-#set ($newKeyword = "")
 #end
     /// <summary>
     /// <p>
@@ -32,8 +32,8 @@ namespace $entity.packageName
     /// @see $entity.fullyQualifiedEntityName
     /// </summary>
     public abstract class $entity.daoBaseName
-#if($entity.generalization)
-        : $entity.generalization.fullyQualifiedDaoImplementationName, $entity.fullyQualifiedDaoName
+#if($superclass)
+        : $superclass.fullyQualifiedDaoImplementationName, $entity.fullyQualifiedDaoName
 #else
         : NHibernateDaoSupport, $entity.fullyQualifiedDaoName
 #end
@@ -68,7 +68,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Load(int, $identifier.type.fullyQualifiedName)
         /// </summary>
-        public ${newKeyword}Object Load(int transform, $identifier.type.fullyQualifiedName $identifier.name)
+        public ${inheritanceModifier} Object Load(int transform, $identifier.type.fullyQualifiedName $identifier.name)
         {
 #set ($argument = $identifier.name)
 #if($identifier.type.primitive)
@@ -87,7 +87,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Load($identifier.type.fullyQualifiedName)
         /// </summary>
-        public ${newKeyword}$entity.root.fullyQualifiedEntityName Load($identifier.type.fullyQualifiedName $identifier.name)
+        public ${inheritanceModifier} $entity.root.fullyQualifiedEntityName Load($identifier.type.fullyQualifiedName $identifier.name)
         {
             return ($entity.fullyQualifiedEntityName)this.Load((int)$daoNoTransformationEnumName, $identifier.name);
         }
@@ -95,7 +95,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#LoadAll()
         /// </summary>
-        public ${newKeyword}System.Collections.IList LoadAll()
+        public ${inheritanceModifier} System.Collections.IList LoadAll()
         {
             return this.LoadAll((int)$daoNoTransformationEnumName);
         }
@@ -103,7 +103,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#LoadAll(int)
         /// </summary>
-        public ${newKeyword}System.Collections.IList LoadAll(int transform)
+        public ${inheritanceModifier} System.Collections.IList LoadAll(int transform)
         {
             System.Collections.IList entities = Session.Find("from ${entity.fullyQualifiedEntityImplementationName}");
             System.Collections.IList results = this.TransformEntities(transform, entities);
@@ -116,7 +116,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Create($entity.fullyQualifiedEntityName)
         /// </summary>
-        public $entity.root.fullyQualifiedEntityName Create($entity.fullyQualifiedEntityName $argumentName)
+        public virtual $entity.root.fullyQualifiedEntityName Create($entity.fullyQualifiedEntityName $argumentName)
         {
             return ($entity.fullyQualifiedEntityName)this.Create((int)$daoNoTransformationEnumName, $argumentName);
         }
@@ -124,7 +124,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Create(int transform, $entity.fullyQualifiedEntityName)
         /// </summary>
-        public Object Create(int transform, $entity.fullyQualifiedName $argumentName)
+        public virtual Object Create(int transform, $entity.fullyQualifiedName $argumentName)
         {
             if ($argumentName == null)
             {
@@ -138,7 +138,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Create(System.Collections.ICollection)
         /// </summary>
-        public ${newKeyword}System.Collections.ICollection Create(System.Collections.ICollection entities)
+        public ${inheritanceModifier} System.Collections.ICollection Create(System.Collections.ICollection entities)
         {
             return Create((int)$daoNoTransformationEnumName, entities);
         }
@@ -146,7 +146,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Create(int, System.Collections.ICollection)
         /// </summary>
-        public ${newKeyword}System.Collections.ICollection Create(int transform, System.Collections.ICollection entities)
+        public ${inheritanceModifier} System.Collections.ICollection Create(int transform, System.Collections.ICollection entities)
         {
             if (entities == null)
             {
@@ -169,7 +169,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.root.fullyQualifiedDaoName}#Create(${entity.getAttributeTypeList(true, false)})
         /// </summary>
-        public $entity.root.fullyQualifiedEntityName Create(
+        public virtual $entity.root.fullyQualifiedEntityName Create(
 #foreach($attribute in $attributes)
             $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else)#end
 
@@ -181,7 +181,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.root.fullyQualifiedDaoName}#Create(int, ${entity.getAttributeTypeList(true, false)})
         /// </summary>
-        public Object Create(
+        public virtual Object Create(
             int transform,
 #foreach($attribute in $attributes)
             $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else)#end
@@ -201,7 +201,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Create(${entity.getRequiredPropertyTypeList(true, false)})
         /// </summary>
-        public $entity.root.fullyQualifiedEntityName Create(
+        public virtual $entity.root.fullyQualifiedEntityName Create(
 #foreach($property in $requiredProperties)
             $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else)#end
 
@@ -213,7 +213,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Create(int, ${entity.getRequiredPropertyTypeList(true, false)})
         /// </summary>
-        public Object Create(
+        public virtual Object Create(
             int transform,
 #foreach($property in $requiredProperties)
             $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else)#end
@@ -233,7 +233,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Update($entity.fullyQualifiedEntityName)
         /// </summary>
-        public void Update($entity.fullyQualifiedEntityName $argumentName)
+        public virtual void Update($entity.fullyQualifiedEntityName $argumentName)
         {
             if ($argumentName == null)
             {
@@ -246,7 +246,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Update(System.Collections.ICollection)
         /// </summary>
-        public ${newKeyword}void Update(System.Collections.ICollection entities)
+        public ${inheritanceModifier} void Update(System.Collections.ICollection entities)
         {
             if (entities == null)
             {
@@ -263,7 +263,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Remove($entity.fullyQualifiedEntityName)
         /// </summary>
-        public void Remove($entity.fullyQualifiedEntityName $argumentName)
+        public virtual void Remove($entity.fullyQualifiedEntityName $argumentName)
         {
             if ($argumentName == null)
             {
@@ -276,7 +276,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Remove($identifier.type.fullyQualifiedName)
         /// </summary>
-        public ${newKeyword}void Remove($identifier.type.fullyQualifiedName $identifier.name)
+        public ${inheritanceModifier} void Remove($identifier.type.fullyQualifiedName $identifier.name)
         {
 #set ($argument = $identifier.name)
 #if($identifier.type.primitive)
@@ -289,7 +289,7 @@ namespace $entity.packageName
             }
 #end
 #set ($loadCall = "this.Load($identifier.name)")
-#if ($entity.generalization)
+#if ($superclass)
 #set ($loadCall = "($entity.fullyQualifiedEntityName)${loadCall}")
 #end
             $entity.fullyQualifiedEntityName entity = $loadCall;
@@ -302,7 +302,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Remove(System.Collections.ICollection)
         /// </summary>
-        public ${newKeyword}void Remove(System.Collections.ICollection entities)
+        public ${inheritanceModifier} void Remove(System.Collections.ICollection entities)
         {
             if (entities == null)
             {
@@ -581,7 +581,7 @@ namespace $entity.packageName
         /// @return a new list containing the transformed entities
         /// @see #TransformEntity(int,$entity.fullyQualifiedName)
         /// </summary>
-        protected ${newKeyword}System.Collections.IList TransformEntities(int transform, System.Collections.ICollection entities)
+        protected ${inheritanceModifier} System.Collections.IList TransformEntities(int transform, System.Collections.ICollection entities)
         {
             System.Collections.IList entityList = null;
             switch (transform)

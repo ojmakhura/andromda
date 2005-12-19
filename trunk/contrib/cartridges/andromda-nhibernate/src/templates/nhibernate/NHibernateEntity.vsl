@@ -70,7 +70,7 @@ $entity.getDocumentation("    /// ")
         /// <summary>
 $attribute.getDocumentation("        /// ")
         /// </summary>
-        $attribute.visibility $typeName ${stringUtils.upperCamelCaseName($attribute.name)}
+        $attribute.visibility virtual $typeName ${stringUtils.upperCamelCaseName($attribute.name)}
         {
             get { return $attribute.name; }
             set { this.$attribute.name = value; }
@@ -84,7 +84,7 @@ $attribute.getDocumentation("        /// ")
         /// <summary>
 $target.getDocumentation("        /// ")
         /// </summary>
-        public $target.getterSetterTypeName ${stringUtils.upperCamelCaseName($target.name)}
+        public virtual $target.getterSetterTypeName ${stringUtils.upperCamelCaseName($target.name)}
         {
             get { return $target.name; }
             set { this.$target.name = value; }
@@ -161,6 +161,22 @@ $operation.getDocumentation("        /// ")
 #end
         /// </summary>
 #renderHashCodeMethod($entity $identifiers)
+
+#end
+#if (!$entity.abstract)
+        /// <summary>
+        /// Returns a String representation of this Entity
+        /// </summary>
+        public override String ToString()
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append("$entity.name: ");
+#set ($attributes = $entity.getAttributes(true,true))
+#foreach($attribute in $attributes)
+            sb.Append("$attribute.name").Append('=').Append(${stringUtils.upperCamelCaseName($attribute.name)})#if($velocityCount != $attributes.size()).Append(", ")#end;
+#end
+            return sb.ToString();
+        }
 
 #end
 #if (!$entity.abstract && ($visualStudioVersion != "2003"))
