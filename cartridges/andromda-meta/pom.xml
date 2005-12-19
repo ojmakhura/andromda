@@ -10,9 +10,6 @@
     <name>AndroMDA Meta Cartridge</name>
     <description>Produces AndroMDA Metafacades.</description>
     <build>
-        <filters>
-            <filter>${basedir}/mda.properties</filter>
-        </filters>  
         <plugins>  
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -58,4 +55,8 @@
             </plugin>
         </plugins> 
     </build> 
+    <properties>
+        <model.uri>jar:file:${src.dir}/uml/MetaMetafacadeModel.xml.zip!/MetaMetafacadeModel.xml</model.uri>
+        <test.model.uri>jar:file:${test.src.dir}/uml/MetaCartridgeTestModel.xml.zip!/MetaCartridgeTestModel.xml</test.model.uri>
+    </properties>
 </project>

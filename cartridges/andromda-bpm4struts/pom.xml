@@ -36,9 +36,6 @@
         </dependency>
     </dependencies>
     <build>
-        <filters>
-            <filter>${basedir}/mda.properties</filter>
-        </filters>  
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -76,4 +73,8 @@
             </plugin>
         </plugins> 
     </build> 
+    <properties>
+        <model.uri>jar:file:${src.dir}/uml/BPM4StrutsMetafacadeModel.xml.zip!/BPM4StrutsMetafacadeModel.xml</model.uri>
+        <test.model.uri>jar:file:${test.src.dir}/uml/BPM4StrutsCartridgeTestModel.xml.zip!/BPM4StrutsCartridgeTestModel.xml</test.model.uri>
+    </properties>
 </project>

@@ -23,10 +23,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <build>
-        <filters>
-            <filter>${basedir}/mda.properties</filter>
-        </filters>  
+    <build> 
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -52,5 +49,9 @@
                 </dependencies>    
             </plugin>
         </plugins> 
-    </build> 
+    </build>
+    <properties>
+        <model.uri>jar:file:${src.dir}/uml/SpringMetafacadeModel.xml.zip!/SpringMetafacadeModel.xml</model.uri>
+        <test.model.uri>jar:file:${test.src.dir}/uml/SpringCartridgeTestModel.xml.zip!/SpringCartridgeTestModel.xml</test.model.uri>
+    </properties> 
 </project>

@@ -6,7 +6,7 @@
         <repository name="netBeansMDR">
             <models>
                 <model>
-                    <uri>${andromda.cartridge.test.model.uri}</uri>
+                    <uri>${test.model.uri}</uri>
                     <moduleSearchLocations>
                         <location patterns="**/*.xml.zip">${basedir}/../../profiles/uml-1.4</location>
                         <location patterns="**/*.xml.zip">${basedir}/../../metafacades/uml/common</location>
