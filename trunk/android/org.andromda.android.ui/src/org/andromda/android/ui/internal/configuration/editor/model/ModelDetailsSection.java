@@ -1,13 +1,8 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
-import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
-import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelFormPage;
-import org.andromda.android.ui.internal.configuration.editor.IAndromdaDocumentModel;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
 import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
-import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.ModelDocument.Model;
-import org.andromda.core.configuration.ServerDocument.Server;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
@@ -16,7 +11,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.IPartSelectionListener;
-import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.widgets.Section;
 
 /**
@@ -54,9 +48,14 @@ public class ModelDetailsSection
         super(parent, page, SECTION_STYLE);
     }
 
+    /**
+     * @see org.eclipse.ui.forms.IFormPart#initialize(org.eclipse.ui.forms.IManagedForm)
+     */
     public void initialize(IManagedForm form)
     {
         super.initialize(form);
+        
+        // set up the section
         getSection().setText("Model details");
         getSection().setDescription("Specify the details of this model.");
 
@@ -72,13 +71,6 @@ public class ModelDetailsSection
     public void refresh()
     {
         super.refresh();
-        IAndromdaDocumentModel andromdaDocumentModel = ((AbstractAndromdaModelFormPage)getPage())
-                .getAndromdaDocumentModel();
-        AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
-
-        Server server = andromdaDocument.getAndromda().getServer();
-        boolean lastModifiedCheck = true;
-        modelDetailsComposite.setLastModifiedCheck(lastModifiedCheck);
     }
 
     /**
@@ -86,16 +78,6 @@ public class ModelDetailsSection
      */
     public void commit(boolean onSave)
     {
-        FormEditor editor = getEditor();
-        if (editor instanceof ConfigurationEditor)
-        {
-            IAndromdaDocumentModel andromdaDocumentModel = ((AbstractAndromdaModelFormPage)getPage())
-                    .getAndromdaDocumentModel();
-            AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
-
-            boolean lastModifiedCheck = modelDetailsComposite.isLastModifiedCheck();
-        }
-
         super.commit(onSave);
     }
 
@@ -113,18 +95,7 @@ public class ModelDetailsSection
             if (firstElement instanceof Model)
             {
                 Model model = (Model)firstElement;
-
-                // last modified check
-                boolean lastModifiedCheck = model.getLastModifiedCheck();
-                modelDetailsComposite.setLastModifiedCheck(lastModifiedCheck);
-
-                // model parts (URIs)
-                String[] modelUris = model.getUriArray();
-                modelDetailsComposite.setModelUris(modelUris);
-
-                // model type
-                String type = model.getType();
-                modelDetailsComposite.setModelType(type);
+                modelDetailsComposite.setModel(model);
             }
         }
     }
