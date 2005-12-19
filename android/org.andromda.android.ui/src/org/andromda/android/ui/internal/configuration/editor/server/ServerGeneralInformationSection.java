@@ -5,8 +5,10 @@ import java.math.BigInteger;
 import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
 import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelFormPage;
 import org.andromda.android.ui.internal.configuration.editor.IAndromdaDocumentModel;
+import org.andromda.android.ui.internal.editor.AbstractModelFormEditor;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
 import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
+import org.andromda.android.ui.internal.editor.IModel;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.ServerDocument.Server;
 import org.eclipse.swt.SWT;
@@ -69,20 +71,22 @@ public class ServerGeneralInformationSection
      */
     public void commit(boolean onSave)
     {
-        FormEditor editor = getEditor();
+        AbstractModelFormEditor editor = getModelFormEditor();
         if (editor instanceof ConfigurationEditor)
         {
-            IAndromdaDocumentModel andromdaDocumentModel = ((AbstractAndromdaModelFormPage)getPage())
-                    .getAndromdaDocumentModel();
-            AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
-            
-            Server server = andromdaDocument.getAndromda().getServer();
+            IModel model = editor.getModel();
+            if (model instanceof IAndromdaDocumentModel)
+            {
+                IAndromdaDocumentModel andromdaDocumentModel = (IAndromdaDocumentModel)model;
+                AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
+                Server server = andromdaDocument.getAndromda().getServer();
 
-            String host = servergeneralInformationComposite.getHost();
-            server.setHost(host);
+                String host = servergeneralInformationComposite.getHost();
+                server.setHost(host);
 
-            BigInteger port = servergeneralInformationComposite.getPort();
-            server.setPort(port);
+                BigInteger port = servergeneralInformationComposite.getPort();
+                server.setPort(port);
+            }
         }
 
         super.commit(onSave);

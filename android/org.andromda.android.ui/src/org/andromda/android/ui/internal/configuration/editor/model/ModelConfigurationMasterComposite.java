@@ -1,5 +1,6 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
+import org.andromda.android.ui.internal.editor.AbstractModelComposite;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.ModelDocument.Model;
 import org.andromda.core.configuration.ModelsDocument.Models;
@@ -32,7 +33,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
  * @since 14.12.2005
  */
 public class ModelConfigurationMasterComposite
-        extends Composite
+        extends AbstractModelComposite
 {
 
     private TreeViewer modelConfigurationTreeViewer;
@@ -136,10 +137,10 @@ public class ModelConfigurationMasterComposite
 
     private AndromdaDocument andromdaDocument;
 
-    public ModelConfigurationMasterComposite(final SectionPart parent,
+    public ModelConfigurationMasterComposite(final SectionPart parentSection,
         int style)
     {
-        super(parent.getSection(), style);
+        super(parentSection, style);
         FormToolkit toolkit = new FormToolkit(Display.getCurrent());
         toolkit.adapt(this);
         toolkit.paintBordersFor(this);
@@ -159,7 +160,7 @@ public class ModelConfigurationMasterComposite
             private void doSelectionChanged(SelectionChangedEvent e)
             {
                 IStructuredSelection selection = (IStructuredSelection)e.getSelection();
-                parent.getManagedForm().fireSelectionChanged(parent, selection);
+                getParentSection().getManagedForm().fireSelectionChanged(parentSection, selection);
             }
         });
         modelConfigurationTreeViewer.setLabelProvider(new TreeLabelProvider());

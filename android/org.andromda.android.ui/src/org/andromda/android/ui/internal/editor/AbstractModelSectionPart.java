@@ -15,7 +15,7 @@ import org.eclipse.ui.forms.widgets.Section;
 
 /**
  * A basic section part hat features easy access to the editor and the hosting editor page.
- *
+ * 
  * @author Peter Friese
  * @since 09.12.2005
  */
@@ -28,13 +28,14 @@ public class AbstractModelSectionPart
 
     /**
      * Creates a new section part.
-     *
+     * 
      * @param parent The parent composite.
      * @param page The page that hosts this section.
      * @param style The SWT style for the section.
      */
     public AbstractModelSectionPart(Composite parent,
-        AbstractModelFormPage page, int style)
+        AbstractModelFormPage page,
+        int style)
     {
         super(parent, page.getManagedForm().getToolkit(), style);
         this.page = page;
@@ -43,7 +44,7 @@ public class AbstractModelSectionPart
 
     /**
      * Creates a new section part.
-     *
+     * 
      * @param parent The parent composite.
      * @param page The page that hosts this section.
      */
@@ -55,18 +56,19 @@ public class AbstractModelSectionPart
 
     /**
      * Creates a new section part.
-     *
+     * 
      * @param page The page that hosts this section.
      * @param style The SWT style of the section.
      */
-    public AbstractModelSectionPart(AbstractModelFormPage page, int style)
+    public AbstractModelSectionPart(AbstractModelFormPage page,
+        int style)
     {
         this(page.getManagedForm().getForm().getBody(), page, style);
     }
 
     /**
      * Creates a new section part.
-     *
+     * 
      * @param page The page that hosts this section.
      */
     public AbstractModelSectionPart(AbstractModelFormPage page)
@@ -85,14 +87,29 @@ public class AbstractModelSectionPart
     /**
      * @return The editor.
      */
-    protected FormEditor getEditor()
+    public FormEditor getEditor()
     {
         return getPage().getEditor();
     }
-    
-    public IProject getProject() {
+
+    /**
+     * @return The model form editor.
+     */
+    public AbstractModelFormEditor getModelFormEditor()
+    {
+        return (AbstractModelFormEditor)getEditor();
+    }
+
+    /**
+     * This method returns the project in which the currently edited element is located in.
+     * 
+     * @return The project that "owns" the edited resource.
+     */
+    public IProject getProject()
+    {
         Object container = getManagedForm().getContainer();
-        if (container instanceof FormPage) {
+        if (container instanceof FormPage)
+        {
             FormPage formPage = (FormPage)container;
             FormEditor editor = formPage.getEditor();
             IEditorInput editorInput = editor.getEditorInput();
@@ -112,6 +129,7 @@ public class AbstractModelSectionPart
                 IStructuredSelection structuredSelection = (IStructuredSelection)selection;
                 Object element = structuredSelection.getFirstElement();
             }
+            // TODO finish this branch!
         }
         return null;
     }
