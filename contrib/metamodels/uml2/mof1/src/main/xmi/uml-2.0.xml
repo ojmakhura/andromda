@@ -5,64 +5,118 @@
 -->
 
 <XMI xmi.version='1.0'>  
-    <XMI.content>
-        <!-- ===================== JMI Tags =================== -->
-        <Model:Tag xmi.id='tag1' name='Java Substitute Name=defaultValue' annotation='' tagId='javax.jmi.substituteName'>
-            <Model:Tag.elements>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a2203'/>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a1750'/>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a2091'/>
-            </Model:Tag.elements>
-            <Model:Tag.values>
-                <XMI.any xmi.type='string'>defaultValue</XMI.any>
-            </Model:Tag.values>              
-        </Model:Tag>
-        <Model:Tag xmi.id='tag2' name='Java Substitute Name=umlInterface' annotation='' tagId='javax.jmi.substituteName'>
-            <Model:Tag.elements>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a1585'/>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a2333'/>
-            </Model:Tag.elements>
-            <Model:Tag.values>
-                <XMI.any xmi.type='string'>umlInterface</XMI.any>
-            </Model:Tag.values>              
-        </Model:Tag>
-        <Model:Tag xmi.id='tag3' name='Java Substitute Name=umlPackage' annotation='' tagId='javax.jmi.substituteName'>
-            <Model:Tag.elements>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a1962'/>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a2333'/>
-            </Model:Tag.elements>
-            <Model:Tag.values>
-                <XMI.any xmi.type='string'>umlPackage</XMI.any>
-            </Model:Tag.values>              
-        </Model:Tag>
-        <Model:Tag xmi.id='tag4' name='Java Substitute Name=defaultValueSpecification' annotation='' tagId='javax.jmi.substituteName'>
-            <Model:Tag.elements>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a2093'/>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a2206'/>
-            </Model:Tag.elements>
-            <Model:Tag.values>
-                <XMI.any xmi.type='string'>defaultValueSpecification</XMI.any>
-            </Model:Tag.values>              
-        </Model:Tag>
-        <Model:Tag xmi.id='tag5' name='Java Substitute Name=UmlClass' annotation='' tagId='javax.jmi.substituteName'>
-            <Model:Tag.elements>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a846'/>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a1531'/>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a760'/>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a109'/>
-                <Model:ModelElement href='mdstruct_with_tags.xml|a236'/>
-            </Model:Tag.elements>
-            <Model:Tag.values>
-                <XMI.any xmi.type='string'>UmlClass</XMI.any>
-            </Model:Tag.values>              
-        </Model:Tag>
-        <Model:Tag xmi.id = 'tag6' name = 'javax.jmi.packagePrefix=org.omg' annotation = '' tagId = 'javax.jmi.packagePrefix'>        
-            <Model:Tag.elements>
-              <Model:ModelElement href="mdstruct_with_tags.xml|a78"/>
-            </Model:Tag.elements>
-            <Model:Tag.values>
-                <XMI.any xmi.type="string" xmi.name="">org.omg</XMI.any>
-            </Model:Tag.values> 
-        </Model:Tag>            
-    </XMI.content>
+    <XMI.difference href="mdstruct_with_tags.xml">
+        <XMI.add href="mdstruct_with_tags.xml|a2203">
+            <Model:Namespace.contents>
+                <Model:Tag xmi.id='tag1' name='Java Substitute Name=defaultValue' annotation='' tagId='javax.jmi.substituteName' elements='a2203'>
+                    <Model:Tag.values>
+                        <XMI.any xmi.type='string'>defaultValue</XMI.any>
+                    </Model:Tag.values>              
+                </Model:Tag>
+           </Model:Namespace.contents>
+        </XMI.add>
+        <XMI.add href="mdstruct_with_tags.xml|a1750">
+            <Model:Namespace.contents>
+                <Model:Tag xmi.id='tag2' name='Java Substitute Name=defaultValue' annotation='' tagId='javax.jmi.substituteName' elements='a1750'>
+                    <Model:Tag.values>
+                        <XMI.any xmi.type='string'>defaultValue</XMI.any>
+                    </Model:Tag.values>              
+                </Model:Tag>
+           </Model:Namespace.contents>
+        </XMI.add>
+        <XMI.add href="mdstruct_with_tags.xml|a2091">
+            <Model:Namespace.contents>
+                <Model:Tag xmi.id='tag3' name='Java Substitute Name=defaultValue' annotation='' tagId='javax.jmi.substituteName' elements='a2091'>
+                    <Model:Tag.values>
+                        <XMI.any xmi.type='string'>defaultValue</XMI.any>
+                    </Model:Tag.values>              
+                </Model:Tag>
+           </Model:Namespace.contents>
+        </XMI.add>
+        <XMI.add href="mdstruct_with_tags.xml|a1585">
+            <Model:Namespace.contents>
+                <Model:Tag xmi.id='tag4' name='Java Substitute Name=umlInterface' annotation='' tagId='javax.jmi.substituteName' elements='a1585'>
+                    <Model:Tag.values>
+                        <XMI.any xmi.type='string'>umlInterface</XMI.any>
+                    </Model:Tag.values>              
+                </Model:Tag>
+           </Model:Namespace.contents>
+        </XMI.add>      
+        <XMI.add href="mdstruct_with_tags.xml|a2333">
+            <Model:Namespace.contents>
+                <Model:Tag xmi.id='tag5' name='Java Substitute Name=umlInterface' annotation='' tagId='javax.jmi.substituteName' elements='a2333'>
+                    <Model:Tag.values>
+                        <XMI.any xmi.type='string'>umlInterface</XMI.any>
+                    </Model:Tag.values>              
+                </Model:Tag>
+           </Model:Namespace.contents>
+        </XMI.add>  
+        <XMI.add href="mdstruct_with_tags.xml|a1962">
+            <Model:Namespace.contents>
+                <Model:Tag xmi.id='tag6' name='Java Substitute Name=umlPackage' annotation='' tagId='javax.jmi.substituteName' elements='a1962'>
+                    <Model:Tag.values>
+                        <XMI.any xmi.type='string'>umlPackage</XMI.any>
+                    </Model:Tag.values>              
+                </Model:Tag>
+           </Model:Namespace.contents>
+        </XMI.add>
+        <XMI.add href="mdstruct_with_tags.xml|a2093">
+            <Model:Namespace.contents>
+                <Model:Tag xmi.id='tag7' name='Java Substitute Name=defaultValueSpecification' annotation='' tagId='javax.jmi.substituteName' elements='a2093'>
+                    <Model:Tag.values>
+                        <XMI.any xmi.type='string'>defaultValueSpecification</XMI.any>
+                    </Model:Tag.values>              
+                </Model:Tag>
+            </Model:Namespace.contents>
+        </XMI.add>
+        <XMI.add href="mdstruct_with_tags.xml|a2206">
+            <Model:Namespace.contents>
+                <Model:Tag xmi.id='tag8' name='Java Substitute Name=defaultValueSpecification' annotation='' tagId='javax.jmi.substituteName' elements='a2206'>
+                    <Model:Tag.values>
+                        <XMI.any xmi.type='string'>defaultValueSpecification</XMI.any>
+                    </Model:Tag.values>              
+                </Model:Tag>
+            </Model:Namespace.contents>
+        </XMI.add>
+       <!--
+       <XMI.add href="mdstruct_with_tags.xml">
+            <Model:Namespace.contents>
+                <Model:Tag xmi.id='tag4' name='Java Substitute Name=defaultValueSpecification' annotation='' tagId='javax.jmi.substituteName'>
+                    <Model:Tag.elements>
+                        <Model:ModelElement href='mdstruct_with_tags.xml|a2093'/>
+                        <Model:ModelElement href='mdstruct_with_tags.xml|a2206'/>
+                    </Model:Tag.elements>
+                    <Model:Tag.values>
+                        <XMI.any xmi.type='string'>defaultValueSpecification</XMI.any>
+                    </Model:Tag.values>              
+                </Model:Tag>
+           </Model:Namespace.contents>
+       </XMI.add>
+       <XMI.add href="mdstruct_with_tags.xml">
+            <Model:Namespace.contents>
+                <Model:Tag xmi.id='tag5' name='Java Substitute Name=UmlClass' annotation='' tagId='javax.jmi.substituteName'>
+                    <Model:Tag.elements>
+                        <Model:ModelElement href='mdstruct_with_tags.xml|a846'/>
+                        <Model:ModelElement href='mdstruct_with_tags.xml|a1531'/>
+                        <Model:ModelElement href='mdstruct_with_tags.xml|a760'/>
+                        <Model:ModelElement href='mdstruct_with_tags.xml|a109'/>
+                        <Model:ModelElement href='mdstruct_with_tags.xml|a236'/>
+                    </Model:Tag.elements>
+                    <Model:Tag.values>
+                        <XMI.any xmi.type='string'>UmlClass</XMI.any>
+                    </Model:Tag.values>              
+                </Model:Tag>
+           </Model:Namespace.contents>
+       </XMI.add>
+       -->
+       <XMI.add href="mdstruct_with_tags.xml|a78">
+            <Model:Namespace.contents>
+                <Model:Tag xmi.id = 'tag9' name = 'javax.jmi.packagePrefix=org.omg' annotation = '' tagId = 'javax.jmi.packagePrefix' elements='a78'>        
+                    <Model:Tag.values>
+                        <XMI.any xmi.type="string" xmi.name="">org.omg</XMI.any>
+                    </Model:Tag.values> 
+                </Model:Tag> 
+           </Model:Namespace.contents>
+       </XMI.add>
+    </XMI.difference>
 </XMI>
