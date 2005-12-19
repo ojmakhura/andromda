@@ -63,10 +63,35 @@
         <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
+                <artifactId>maven-clean-plugin</artifactId>
                 <executions>
                     <execution>
                         <phase>generate-sources</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <property name="depClasspath" refid="maven.dependency.classpath"/>
+                                <ant antfile="build.xml" dir="." target="generate" inheritRefs="true"/>
+                            </tasks> 
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>site</id>
+                        <phase>pre-site</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
