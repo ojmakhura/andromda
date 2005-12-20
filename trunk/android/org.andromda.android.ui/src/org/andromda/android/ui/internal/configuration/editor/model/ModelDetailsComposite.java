@@ -39,6 +39,12 @@ public class ModelDetailsComposite
         extends AbstractModelComposite
 {
 
+    /** Move the URI up. */
+    private static final int MOVE_DIRECTION_UP = -1;
+    
+    /** Move the URI down. */
+    private static final int MOVE_DIRECTION_DOWN = 1;
+
     class ListLabelProvider
             extends LabelProvider
     {
@@ -177,12 +183,8 @@ public class ModelDetailsComposite
         {
             public void widgetSelected(SelectionEvent e)
             {
-                ISelection selection = modelFilesTableViewer.getSelection();
-                if (selection instanceof IStructuredSelection)
-                {
-                    IStructuredSelection structuredSelection = (IStructuredSelection)selection;
-                    Object firstElement = structuredSelection.getFirstElement();
-                    String uri = firstElement.toString();
+                String uri = getSelectedUri();
+                if (uri != null) {
                     int i = ArrayUtils.indexOf(model.getUriArray(), uri);
                     model.removeUri(i);
                 }
@@ -193,24 +195,28 @@ public class ModelDetailsComposite
         final Button upButton = toolkit.createButton(tableButtons, "Up", SWT.NONE);
         upButton.addSelectionListener(new SelectionAdapter()
         {
+            
             public void widgetSelected(SelectionEvent e)
             {
-                ISelection selection = modelFilesTableViewer.getSelection();
-                if (selection instanceof IStructuredSelection)
-                {
-                    IStructuredSelection structuredSelection = (IStructuredSelection)selection;
-                    Object firstElement = structuredSelection.getFirstElement();
-                    String uri = firstElement.toString();
-                    int i = ArrayUtils.indexOf(model.getUriArray(), uri);
-                    String selectedUri = model.getUriArray(i);
-                    model.removeUri(i);
-                    model.insertUri(i - 1, selectedUri);
+                String uri = getSelectedUri();
+                if (uri != null) {
+                    moveUri(uri, MOVE_DIRECTION_UP);
                 }
             }
         });
         upButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
 
         final Button downButton = toolkit.createButton(tableButtons, "Down", SWT.NONE);
+        downButton.addSelectionListener(new SelectionAdapter()
+        {
+            public void widgetSelected(SelectionEvent e)
+            {
+                String uri = getSelectedUri();
+                if (uri != null) {
+                    moveUri(uri, MOVE_DIRECTION_DOWN);
+                }
+            }
+        });
         downButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
         //
     }
@@ -276,6 +282,36 @@ public class ModelDetailsComposite
         // model type
         String type = model.getType();
         setModelType(type);
+    }
+    
+    /**
+     * Determine the selected URI.
+     * 
+     * @return The selected URI represented as a String.
+     */
+    private String getSelectedUri() {
+        ISelection selection = modelFilesTableViewer.getSelection();
+        if (selection instanceof IStructuredSelection)
+        {
+            IStructuredSelection structuredSelection = (IStructuredSelection)selection;
+            Object firstElement = structuredSelection.getFirstElement();
+            return firstElement.toString();
+        }          
+        return null;
+    }    
+
+    /**
+     * Moves the given URI around in the model.
+     * 
+     * @param uri The URI to move.
+     * @param direction The direction of the move.
+     */
+    private void moveUri(String uri, int direction)
+    {
+        int i = ArrayUtils.indexOf(model.getUriArray(), uri);
+        String selectedUri = model.getUriArray(i);
+        model.removeUri(i);
+        model.insertUri(i + direction, selectedUri);
     }
 
 }
