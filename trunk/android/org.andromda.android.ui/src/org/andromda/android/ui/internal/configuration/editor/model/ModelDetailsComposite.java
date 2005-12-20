@@ -10,10 +10,12 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
@@ -39,9 +41,12 @@ public class ModelDetailsComposite
         extends AbstractModelComposite
 {
 
+    private Button removeButton;
+    private Button downButton;
+    private Button upButton;
     /** Move the URI up. */
     private static final int MOVE_DIRECTION_UP = -1;
-    
+
     /** Move the URI down. */
     private static final int MOVE_DIRECTION_DOWN = 1;
 
@@ -140,6 +145,29 @@ public class ModelDetailsComposite
         new Label(this, SWT.NONE);
 
         modelFilesTableViewer = new TableViewer(this, SWT.BORDER);
+        modelFilesTableViewer.addSelectionChangedListener(new ISelectionChangedListener()
+        {
+            public void selectionChanged(SelectionChangedEvent e)
+            {
+                String uri = getSelectedUri();
+                int i = ArrayUtils.indexOf(model.getUriArray(), uri);
+                boolean remove = true;
+                boolean up = true;
+                boolean down = true;
+                if (i == 0) {
+                    up = false;
+                }
+                if (i == model.getUriArray().length - 1) {
+                    down = false;
+                }
+                if (i == -1) {
+                    remove = false;
+                }
+                removeButton.setEnabled(remove);
+                upButton.setEnabled(up);
+                downButton.setEnabled(down);
+            }
+        });
         modelFilesTableViewer.setLabelProvider(new TableLabelProvider());
         modelFilesTableViewer.setContentProvider(new ArrayContentProvider());
         table = modelFilesTableViewer.getTable();
@@ -178,13 +206,14 @@ public class ModelDetailsComposite
         });
         addButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
 
-        final Button removeButton = toolkit.createButton(tableButtons, "Remove", SWT.NONE);
+        removeButton = toolkit.createButton(tableButtons, "Remove", SWT.NONE);
         removeButton.addSelectionListener(new SelectionAdapter()
         {
             public void widgetSelected(SelectionEvent e)
             {
                 String uri = getSelectedUri();
-                if (uri != null) {
+                if (uri != null)
+                {
                     int i = ArrayUtils.indexOf(model.getUriArray(), uri);
                     model.removeUri(i);
                 }
@@ -192,27 +221,29 @@ public class ModelDetailsComposite
         });
         removeButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
 
-        final Button upButton = toolkit.createButton(tableButtons, "Up", SWT.NONE);
+        upButton = toolkit.createButton(tableButtons, "Up", SWT.NONE);
         upButton.addSelectionListener(new SelectionAdapter()
         {
-            
+
             public void widgetSelected(SelectionEvent e)
             {
                 String uri = getSelectedUri();
-                if (uri != null) {
+                if (uri != null)
+                {
                     moveUri(uri, MOVE_DIRECTION_UP);
                 }
             }
         });
         upButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
 
-        final Button downButton = toolkit.createButton(tableButtons, "Down", SWT.NONE);
+        downButton = toolkit.createButton(tableButtons, "Down", SWT.NONE);
         downButton.addSelectionListener(new SelectionAdapter()
         {
             public void widgetSelected(SelectionEvent e)
             {
                 String uri = getSelectedUri();
-                if (uri != null) {
+                if (uri != null)
+                {
                     moveUri(uri, MOVE_DIRECTION_DOWN);
                 }
             }
@@ -283,22 +314,25 @@ public class ModelDetailsComposite
         String type = model.getType();
         setModelType(type);
     }
-    
+
     /**
      * Determine the selected URI.
      * 
      * @return The selected URI represented as a String.
      */
-    private String getSelectedUri() {
+    private String getSelectedUri()
+    {
         ISelection selection = modelFilesTableViewer.getSelection();
         if (selection instanceof IStructuredSelection)
         {
             IStructuredSelection structuredSelection = (IStructuredSelection)selection;
             Object firstElement = structuredSelection.getFirstElement();
-            return firstElement.toString();
-        }          
+            if (firstElement != null) {
+                return firstElement.toString();
+            }
+        }
         return null;
-    }    
+    }
 
     /**
      * Moves the given URI around in the model.
@@ -306,12 +340,14 @@ public class ModelDetailsComposite
      * @param uri The URI to move.
      * @param direction The direction of the move.
      */
-    private void moveUri(String uri, int direction)
+    private void moveUri(String uri,
+        int direction)
     {
         int i = ArrayUtils.indexOf(model.getUriArray(), uri);
         String selectedUri = model.getUriArray(i);
         model.removeUri(i);
         model.insertUri(i + direction, selectedUri);
+        getParentSection().markDirty();
     }
 
 }
