@@ -1,8 +1,8 @@
 package org.andromda.android.ui.internal.editor;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.SectionPart;
-import org.eclipse.ui.forms.editor.FormEditor;
 
 /**
  * A composite that is hosted in a {@link org.eclipse.ui.forms.SectionPart}.
@@ -49,6 +49,16 @@ public abstract class AbstractModelComposite
             return modelSection.getModelFormEditor();
         }
         return null;
+    }
+
+    /**
+     * @return The project that the edited resource belongs to.
+     */
+    protected IProject getProject()
+    {
+        AbstractModelSectionPart baseSectionPart = (AbstractModelSectionPart)getParentSection();
+        final IProject project = baseSectionPart.getProject();
+        return project;
     }
 
 }
