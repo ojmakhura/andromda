@@ -11,10 +11,10 @@ using System;
 namespace $entity.packageName
 {
 #end
-#set ($superclass = $entity.generalization)
-#if ($superclass)
-## TODO: Need to get the root of the hierarchy, not the immediate superclass
-#set ($daoNoTransformationEnumName = "Transform${superclass.Name}.$superclass.daoNoTransformationConstantName")
+#set ($superEntity = $entity.generalization)
+#if ($superEntity)
+## TODO: Need to get the root of the hierarchy, not the immediate superEntity
+#set ($daoNoTransformationEnumName = "Transform${superEntity.Name}.$superEntity.daoNoTransformationConstantName")
 #else
 #set ($daoNoTransformationEnumName = "Transform${entity.Name}.$entity.daoNoTransformationConstantName")
 #end
@@ -26,7 +26,7 @@ namespace $entity.packageName
     /// </summary>
     public enum Transform$entity.Name
     {
-#if (!$superclass)
+#if (!$superEntity)
         // Denotes no transformation will occur.
         $entity.daoNoTransformationConstantName = 0,
 
@@ -42,8 +42,8 @@ namespace $entity.packageName
     /// @see $entity.fullyQualifiedEntityName
     /// </summary>
     public interface $entity.daoName
-#if($superclass)
-        : $superclass.fullyQualifiedDaoName
+#if($superEntity)
+        : $superEntity.fullyQualifiedDaoName
 #else
         : AndroMDA.NHibernateSupport.INHibernateDaoSupport
 #end
@@ -72,7 +72,7 @@ namespace $entity.packageName
 #end
 #set ($identifier = $entity.identifiers.iterator().next())
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
-#if (!$superclass)
+#if (!$superEntity)
         /// <summary>
         /// Loads an instance of $entity.fullyQualifiedEntityName from the persistent store.
         /// </summary>
@@ -135,7 +135,7 @@ namespace $entity.packageName
         /// </summary>
         Object Create(int transform, $entity.fullyQualifiedEntityName $argumentName);
 
-#if (!$superclass)
+#if (!$superEntity)
         /// <summary>
         /// Creates a new instance of $entity.fullyQualifiedEntityName and adds
         /// from the passed in <code>entities</code> collection
@@ -234,7 +234,7 @@ namespace $entity.packageName
         /// </summary>
         void Update($entity.fullyQualifiedEntityName $argumentName);
 
-#if (!$superclass)
+#if (!$superEntity)
         /// <summary>
         /// Updates all instances in the <code>entities</code> collection in the persistent store.
         /// </summary>
@@ -246,7 +246,7 @@ namespace $entity.packageName
         /// </summary>
         void Remove($entity.fullyQualifiedEntityName $argumentName);
 
-#if (!$superclass)
+#if (!$superEntity)
         /// <summary>
         /// Removes the instance of $entity.fullyQualifiedEntityName having the given
         /// <code>identifier</code> from the persistent store.
