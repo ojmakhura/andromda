@@ -11,7 +11,7 @@
         <!-- 3 hours -->
         <!--schedule interval="10"-->
         <schedule interval="3600">
-            <maven goal="scm:update-project|clean|-e dist|-e docs|deploy-distribution" projectfile="/var/andromda/builds/v4/andromda-all/project.xml" mavenscript="/usr/local/maven-1.0.2/bin/maven"/>
+            <ant buildfile="/var/andromda/builds/v4/andromda-all/etc/cc-build/mvn-cc-build.xml"/>
         </schedule>
         <listeners>
            <currentbuildstatuslistener file="/var/andromda/logs/andromda-all/currentbuildstatus.txt"/>
