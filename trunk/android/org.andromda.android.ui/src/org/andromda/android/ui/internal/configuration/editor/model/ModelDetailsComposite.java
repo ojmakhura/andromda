@@ -4,11 +4,14 @@ import org.andromda.android.ui.internal.editor.AbstractModelComposite;
 import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
 import org.andromda.android.ui.internal.util.DialogUtils;
 import org.andromda.core.configuration.ModelDocument.Model;
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
@@ -156,20 +159,55 @@ public class ModelDetailsComposite
 
                     IFile file = DialogUtils.selectResource(getShell(), project, "Select model files...",
                             "Select one or more model files to be included in the generation process.");
-                    String uri = file.getProjectRelativePath().toString();
+                    if (file != null)
+                    {
+                        String uri = file.getProjectRelativePath().toString();
 
-                    model.addUri(uri);
-                    getParentSection().markDirty();
-                    refresh();
+                        model.addUri(uri);
+                        getParentSection().markDirty();
+                        refresh();
+                    }
                 }
             }
         });
         addButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
 
         final Button removeButton = toolkit.createButton(tableButtons, "Remove", SWT.NONE);
+        removeButton.addSelectionListener(new SelectionAdapter()
+        {
+            public void widgetSelected(SelectionEvent e)
+            {
+                ISelection selection = modelFilesTableViewer.getSelection();
+                if (selection instanceof IStructuredSelection)
+                {
+                    IStructuredSelection structuredSelection = (IStructuredSelection)selection;
+                    Object firstElement = structuredSelection.getFirstElement();
+                    String uri = firstElement.toString();
+                    int i = ArrayUtils.indexOf(model.getUriArray(), uri);
+                    model.removeUri(i);
+                }
+            }
+        });
         removeButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
 
         final Button upButton = toolkit.createButton(tableButtons, "Up", SWT.NONE);
+        upButton.addSelectionListener(new SelectionAdapter()
+        {
+            public void widgetSelected(SelectionEvent e)
+            {
+                ISelection selection = modelFilesTableViewer.getSelection();
+                if (selection instanceof IStructuredSelection)
+                {
+                    IStructuredSelection structuredSelection = (IStructuredSelection)selection;
+                    Object firstElement = structuredSelection.getFirstElement();
+                    String uri = firstElement.toString();
+                    int i = ArrayUtils.indexOf(model.getUriArray(), uri);
+                    String selectedUri = model.getUriArray(i);
+                    model.removeUri(i);
+                    model.insertUri(i - 1, selectedUri);
+                }
+            }
+        });
         upButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
 
         final Button downButton = toolkit.createButton(tableButtons, "Down", SWT.NONE);
@@ -223,7 +261,7 @@ public class ModelDetailsComposite
     }
 
     /**
-     * TODO this method should refactored into a base class and invoked by a model change listener 
+     * TODO this method should refactored into a base class and invoked by a model change listener
      */
     private void refresh()
     {
