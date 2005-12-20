@@ -51,8 +51,15 @@ public class ModelConfigurationMasterComposite
             else if (element instanceof Model)
             {
                 Model model = (Model)element;
-                String firstUri = model.getUriArray(0);
-                return "[m] " + firstUri;
+                String[] uris = model.getUriArray();
+                String uri;
+                if (uris.length > 0) {
+                    uri = model.getUriArray(0);
+                }
+                else {
+                    uri = "(no model file specified)";
+                }
+                return "[m] " + uri;
             }
             else if (element instanceof Transformation)
             {
