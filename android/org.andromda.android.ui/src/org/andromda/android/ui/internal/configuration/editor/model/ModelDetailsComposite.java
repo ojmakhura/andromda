@@ -6,7 +6,6 @@ import org.andromda.android.ui.internal.util.DialogUtils;
 import org.andromda.core.configuration.ModelDocument.Model;
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.ISelection;
@@ -42,8 +41,11 @@ public class ModelDetailsComposite
 {
 
     private Button removeButton;
+
     private Button downButton;
+
     private Button upButton;
+
     /** Move the URI up. */
     private static final int MOVE_DIRECTION_UP = -1;
 
@@ -149,23 +151,7 @@ public class ModelDetailsComposite
         {
             public void selectionChanged(SelectionChangedEvent e)
             {
-                String uri = getSelectedUri();
-                int i = ArrayUtils.indexOf(model.getUriArray(), uri);
-                boolean remove = true;
-                boolean up = true;
-                boolean down = true;
-                if (i == 0) {
-                    up = false;
-                }
-                if (i == model.getUriArray().length - 1) {
-                    down = false;
-                }
-                if (i == -1) {
-                    remove = false;
-                }
-                removeButton.setEnabled(remove);
-                upButton.setEnabled(up);
-                downButton.setEnabled(down);
+                updateButtonStates();
             }
         });
         modelFilesTableViewer.setLabelProvider(new TableLabelProvider());
@@ -188,10 +174,7 @@ public class ModelDetailsComposite
             {
                 if (parentSection instanceof AbstractModelSectionPart)
                 {
-                    AbstractModelSectionPart baseSectionPart = (AbstractModelSectionPart)parentSection;
-                    final IProject project = baseSectionPart.getProject();
-
-                    IFile file = DialogUtils.selectResource(getShell(), project, "Select model files...",
+                    IFile file = DialogUtils.selectResource(getShell(), getProject(), "Select model files...",
                             "Select one or more model files to be included in the generation process.");
                     if (file != null)
                     {
@@ -216,6 +199,7 @@ public class ModelDetailsComposite
                 {
                     int i = ArrayUtils.indexOf(model.getUriArray(), uri);
                     model.removeUri(i);
+                    refresh();
                 }
             }
         });
@@ -313,6 +297,9 @@ public class ModelDetailsComposite
         // model type
         String type = model.getType();
         setModelType(type);
+        
+        // enable / disabled buttons
+        updateButtonStates();
     }
 
     /**
@@ -327,7 +314,8 @@ public class ModelDetailsComposite
         {
             IStructuredSelection structuredSelection = (IStructuredSelection)selection;
             Object firstElement = structuredSelection.getFirstElement();
-            if (firstElement != null) {
+            if (firstElement != null)
+            {
                 return firstElement.toString();
             }
         }
@@ -348,6 +336,34 @@ public class ModelDetailsComposite
         model.removeUri(i);
         model.insertUri(i + direction, selectedUri);
         getParentSection().markDirty();
+        refresh();
+    }
+
+    /**
+     * 
+     */
+    private void updateButtonStates()
+    {
+        String uri = getSelectedUri();
+        int i = ArrayUtils.indexOf(model.getUriArray(), uri);
+        boolean remove = true;
+        boolean up = true;
+        boolean down = true;
+        if (i == 0)
+        {
+            up = false;
+        }
+        if (i == model.getUriArray().length - 1)
+        {
+            down = false;
+        }
+        if (i == -1)
+        {
+            remove = false;
+        }
+        removeButton.setEnabled(remove);
+        upButton.setEnabled(up);
+        downButton.setEnabled(down);
     }
 
 }
