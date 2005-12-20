@@ -14,13 +14,26 @@ using AndroMDA.NHibernateSupport;
 namespace $entity.packageName
 {
 #end
-#set ($superclass = $entity.generalization)
-#if ($superclass)
-#set ($inheritanceModifier = "override")
-## TODO: Need to get the root of the hierarchy, not the immediate superclass
-#set ($daoNoTransformationEnumName = "Transform${superclass.Name}.$superclass.daoNoTransformationConstantName")
+## Determine inheritanceModifier for methods required in all entities vs. methods required in concrete entities only
+## ------------------------------------------------------------------------------------------------------
+##                                            NoSuperEntity    AbstractSuperEntity    ConcreteSuperEntity
+## ------------------------------------------------------------------------------------------------------
+## inheritanceModifierAllEntityMethod            virtual            override               override
+## inheritanceModifierConcreteEntityMethod       virtual            virtual                override
+## ------------------------------------------------------------------------------------------------------
+#set ($superEntity = $entity.generalization)
+#if ($superEntity)
+#set ($inheritanceModifierAllEntityMethod = "override")
+#if ($superEntity.abstract)
+#set ($inheritanceModifierConcreteEntityMethod = "virtual")
 #else
-#set ($inheritanceModifier = "virtual")
+#set ($inheritanceModifierConcreteEntityMethod = "override")
+#end
+## TODO: Need to get the root of the hierarchy, not the immediate superEntity
+#set ($daoNoTransformationEnumName = "Transform${superEntity.Name}.$superEntity.daoNoTransformationConstantName")
+#else
+#set ($inheritanceModifierAllEntityMethod = "virtual")
+#set ($inheritanceModifierConcreteEntityMethod = "virtual")
 #set ($daoNoTransformationEnumName = "Transform${entity.Name}.$entity.daoNoTransformationConstantName")
 #end
     /// <summary>
@@ -32,8 +45,8 @@ namespace $entity.packageName
     /// @see $entity.fullyQualifiedEntityName
     /// </summary>
     public abstract class $entity.daoBaseName
-#if($superclass)
-        : $superclass.fullyQualifiedDaoImplementationName, $entity.fullyQualifiedDaoName
+#if($superEntity)
+        : $superEntity.fullyQualifiedDaoImplementationName, $entity.fullyQualifiedDaoName
 #else
         : NHibernateDaoSupport, $entity.fullyQualifiedDaoName
 #end
@@ -68,7 +81,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Load(int, $identifier.type.fullyQualifiedName)
         /// </summary>
-        public ${inheritanceModifier} Object Load(int transform, $identifier.type.fullyQualifiedName $identifier.name)
+        public $inheritanceModifierAllEntityMethod Object Load(int transform, $identifier.type.fullyQualifiedName $identifier.name)
         {
 #set ($argument = $identifier.name)
 #if($identifier.type.primitive)
@@ -87,7 +100,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Load($identifier.type.fullyQualifiedName)
         /// </summary>
-        public ${inheritanceModifier} $entity.root.fullyQualifiedEntityName Load($identifier.type.fullyQualifiedName $identifier.name)
+        public $inheritanceModifierAllEntityMethod $entity.root.fullyQualifiedEntityName Load($identifier.type.fullyQualifiedName $identifier.name)
         {
             return ($entity.fullyQualifiedEntityName)this.Load((int)$daoNoTransformationEnumName, $identifier.name);
         }
@@ -95,7 +108,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#LoadAll()
         /// </summary>
-        public ${inheritanceModifier} System.Collections.IList LoadAll()
+        public $inheritanceModifierAllEntityMethod System.Collections.IList LoadAll()
         {
             return this.LoadAll((int)$daoNoTransformationEnumName);
         }
@@ -103,7 +116,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#LoadAll(int)
         /// </summary>
-        public ${inheritanceModifier} System.Collections.IList LoadAll(int transform)
+        public $inheritanceModifierAllEntityMethod System.Collections.IList LoadAll(int transform)
         {
             System.Collections.IList entities = Session.Find("from ${entity.fullyQualifiedEntityImplementationName}");
             System.Collections.IList results = this.TransformEntities(transform, entities);
@@ -112,7 +125,6 @@ namespace $entity.packageName
 
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
-
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Create($entity.fullyQualifiedEntityName)
         /// </summary>
@@ -138,7 +150,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Create(System.Collections.ICollection)
         /// </summary>
-        public ${inheritanceModifier} System.Collections.ICollection Create(System.Collections.ICollection entities)
+        public $inheritanceModifierConcreteEntityMethod System.Collections.ICollection Create(System.Collections.ICollection entities)
         {
             return Create((int)$daoNoTransformationEnumName, entities);
         }
@@ -146,7 +158,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Create(int, System.Collections.ICollection)
         /// </summary>
-        public ${inheritanceModifier} System.Collections.ICollection Create(int transform, System.Collections.ICollection entities)
+        public $inheritanceModifierConcreteEntityMethod System.Collections.ICollection Create(int transform, System.Collections.ICollection entities)
         {
             if (entities == null)
             {
@@ -246,7 +258,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Update(System.Collections.ICollection)
         /// </summary>
-        public ${inheritanceModifier} void Update(System.Collections.ICollection entities)
+        public $inheritanceModifierAllEntityMethod void Update(System.Collections.ICollection entities)
         {
             if (entities == null)
             {
@@ -276,7 +288,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Remove($identifier.type.fullyQualifiedName)
         /// </summary>
-        public ${inheritanceModifier} void Remove($identifier.type.fullyQualifiedName $identifier.name)
+        public $inheritanceModifierAllEntityMethod void Remove($identifier.type.fullyQualifiedName $identifier.name)
         {
 #set ($argument = $identifier.name)
 #if($identifier.type.primitive)
@@ -289,7 +301,7 @@ namespace $entity.packageName
             }
 #end
 #set ($loadCall = "this.Load($identifier.name)")
-#if ($superclass)
+#if ($superEntity)
 #set ($loadCall = "($entity.fullyQualifiedEntityName)${loadCall}")
 #end
             $entity.fullyQualifiedEntityName entity = $loadCall;
@@ -302,7 +314,7 @@ namespace $entity.packageName
         /// <summary>
         /// @see ${entity.fullyQualifiedDaoName}#Remove(System.Collections.ICollection)
         /// </summary>
-        public ${inheritanceModifier} void Remove(System.Collections.ICollection entities)
+        public $inheritanceModifierAllEntityMethod void Remove(System.Collections.ICollection entities)
         {
             if (entities == null)
             {
@@ -581,7 +593,7 @@ namespace $entity.packageName
         /// @return a new list containing the transformed entities
         /// @see #TransformEntity(int,$entity.fullyQualifiedName)
         /// </summary>
-        protected ${inheritanceModifier} System.Collections.IList TransformEntities(int transform, System.Collections.ICollection entities)
+        protected $inheritanceModifierAllEntityMethod System.Collections.IList TransformEntities(int transform, System.Collections.ICollection entities)
         {
             System.Collections.IList entityList = null;
             switch (transform)
