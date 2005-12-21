@@ -8,7 +8,7 @@
     		<format property="ant.mvn.log.date" pattern="yyyyMMdd-HHmmss"/>
   		</tstamp>
 		<property name="ant.mvn.log" value="ant-mvn-${ant.mvn.log.date}.log"/>
-		<exec dir="${andromda.all.dir}" executable="mvn" output="${ant.mvn.log}">
+		<exec dir="${andromda.all.dir}" executable="mvn" output="${ant.mvn.log}" append="true">
 			<arg line="clean"/>
         </exec> 
 		<exec dir="${andromda.all.dir}" executable="mvn" output="${ant.mvn.log}" append="true">
