@@ -1,0 +1,71 @@
+module UML2EnterpriseApp;
+
+create OUT: EnterpriseApp from IN: UML;
+
+uses UMLHelpers;
+
+rule UMLDependencyToEnterpriseAppReference {
+	from dep : UML!Dependency (dep.supplier->asSequence()->first().hasStereotype('Entity'))
+	to out : EnterpriseApp!Reference (
+		target <- dep.supplier->asSequence()->first()
+	)
+}
+
+-- Transform UML classes that have the stereotype "Service"
+-- to EnterpriseApp services.
+rule UMLServiceToEnterpriseAppService {
+	from class : UML!Class (class.hasStereotype('Service'))
+	to out : EnterpriseApp!Service (
+		name <- class.name,
+		methods <- class.feature->select (f|f.oclIsTypeOf(UML!Operation)),
+		sourceReferences <- class.clientDependency
+	)
+}
+
+-- Transform UML classes that have the stereotype "Entity"
+-- to EnterpriseApp entities.
+rule UMLEntityToEnterpriseAppEntity {
+	from class : UML!Class (class.hasStereotype('Entity'))
+	to out : EnterpriseApp!Entity (
+		name <- class.name,
+		methods <- class.feature->select (f|f.oclIsTypeOf(UML!Operation)),
+		properties <- class.feature->select (f|f.oclIsTypeOf(UML!Attribute))
+	)
+}
+
+-- Transform UML operations to 3GL methods.
+rule UMLOpTo3GLMethod {
+	from method : UML!Operation
+	to out : EnterpriseApp!Method (
+		name <- method.name ,
+		returnType <- method.parameter->select(x|x.kind=#pdk_return)->asSequence()->first().type,
+		parameters <- method.parameter->select(x|x.kind<>#pdk_return)->asSequence()
+	)
+}
+
+
+-- Transform UML parameters to 3GL parameters.
+rule UMLParameterTo3GLParameter {
+ 	from param : UML!Parameter (param.kind <> #pdk_return)
+ 	to out : EnterpriseApp!Parameter (
+ 		name <- param.name ,
+ 		type <- param.type
+ 	)
+}
+
+-- Transform UML datatype to 3GL datatype.
+rule UMLDatatypeTo3GLDatatype {
+	from type : UML!DataType
+	to out : EnterpriseApp!Type (
+		name <- type.name
+	)
+}
+
+-- Transform UML attribute to 3GL property
+rule UMLAttributeTo3GLProperty {
+	from attr : UML!Attribute
+	to out : EnterpriseApp!Property (
+		name <- attr.name,
+		type <- attr.type
+	)
+}
