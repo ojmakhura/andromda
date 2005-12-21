@@ -9,10 +9,10 @@
   		</tstamp>
 		<property name="ant.mvn.log" value="ant-mvn-${ant.mvn.log.date}.log"/>
 		<exec dir="${andromda.all.dir}" executable="mvn" output="${ant.mvn.log}" append="true">
-			<arg line="clean"/>
+			<arg value="clean"/>
         </exec> 
 		<exec dir="${andromda.all.dir}" executable="mvn" output="${ant.mvn.log}" append="true">
-			<arg line="install"/>
+			<arg value="install"/>
         </exec> 
 	</target>
 	
