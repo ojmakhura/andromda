@@ -11,6 +11,7 @@ import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
+ * This details page contains sections for configuring the model selected iin the master part.
  *
  * @author Peter Friese
  * @since 11.12.2005
@@ -20,8 +21,12 @@ public class ModelDetailsPage
         implements IDetailsPage
 {
 
+    /** The selected model. */
     private Model model;
 
+    /**
+     * @see org.eclipse.ui.forms.IDetailsPage#createContents(org.eclipse.swt.widgets.Composite)
+     */
     public void createContents(Composite parent)
     {
         FormToolkit toolkit = getManagedForm().getToolkit();
@@ -29,8 +34,11 @@ public class ModelDetailsPage
         gridLayout.numColumns = 1;
         parent.setLayout(gridLayout);
 
-        ModelDetailsSection detailsSection = new ModelDetailsSection(parent, getPage());
-        getManagedForm().addPart(detailsSection);
+        ModelDetailsSection modelDetailsSection = new ModelDetailsSection(parent, getPage());
+        getManagedForm().addPart(modelDetailsSection);
+
+        ModelPackagesDetailsSection modelPackagesDetailsSection = new ModelPackagesDetailsSection(parent, getPage());
+        getManagedForm().addPart(modelPackagesDetailsSection);
 
     }
 
@@ -99,15 +107,6 @@ public class ModelDetailsPage
         {
             model = (Model)element;
         }
-        update();
     }
 
-    /**
-     *
-     */
-    private void update()
-    {
-        boolean lastModifiedCheck = model.getLastModifiedCheck();
-//        lastModifiedCheckButton.setSelection(lastModifiedCheck);
-    }
 }
