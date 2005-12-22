@@ -1,5 +1,7 @@
-package org.andromda.android.ui.internal.configuration.editor;
+package org.andromda.android.core.internal.model.configuration;
 
+import org.andromda.android.core.internal.model.AbstractModel;
+import org.andromda.android.core.model.configuration.IAndromdaDocumentModel;
 import org.andromda.core.configuration.AndromdaDocument;
 
 /**
@@ -9,6 +11,7 @@ import org.andromda.core.configuration.AndromdaDocument;
  * @since 15.12.2005
  */
 public class AndromdaDocumentModel
+        extends AbstractModel
         implements IAndromdaDocumentModel
 {
 
@@ -24,7 +27,7 @@ public class AndromdaDocumentModel
     }
 
     /**
-     * @see org.andromda.android.ui.internal.configuration.editor.IAndromdaDocumentModel#getAndromdaDocument()
+     * @see org.andromda.android.core.model.configuration.IAndromdaDocumentModel#getAndromdaDocument()
      */
     public AndromdaDocument getAndromdaDocument()
     {

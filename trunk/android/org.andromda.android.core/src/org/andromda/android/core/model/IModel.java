@@ -1,4 +1,4 @@
-package org.andromda.android.ui.internal.editor;
+package org.andromda.android.core.model;
 
 /**
  *

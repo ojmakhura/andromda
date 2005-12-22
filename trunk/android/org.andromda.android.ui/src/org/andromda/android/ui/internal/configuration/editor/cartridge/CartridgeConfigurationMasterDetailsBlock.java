@@ -1,8 +1,8 @@
 package org.andromda.android.ui.internal.configuration.editor.cartridge;
 
 import org.andromda.android.core.AndroidCore;
+import org.andromda.android.core.model.configuration.IAndromdaDocumentModel;
 import org.andromda.android.core.project.IAndroidProject;
-import org.andromda.android.ui.internal.configuration.editor.AndromdaDocumentModel;
 import org.andromda.android.ui.internal.editor.AbstractMasterDetailsBlock;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
 import org.andromda.core.configuration.AndromdaDocument;
@@ -88,9 +88,9 @@ public class CartridgeConfigurationMasterDetailsBlock
 
         public Object[] getElements(Object inputElement)
         {
-            if (inputElement instanceof AndromdaDocumentModel)
+            if (inputElement instanceof IAndromdaDocumentModel)
             {
-                AndromdaDocumentModel andromdaDocumentModel = (AndromdaDocumentModel)inputElement;
+                IAndromdaDocumentModel andromdaDocumentModel = (IAndromdaDocumentModel)inputElement;
                 AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
                 Namespaces namespaces = andromdaDocument.getAndromda().getNamespaces();
                 return namespaces.getNamespaceArray();

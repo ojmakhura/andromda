@@ -1,5 +1,6 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
+import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.ui.internal.editor.AbstractModelComposite;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.ModelDocument.Model;
@@ -28,7 +29,7 @@ import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
- * 
+ *
  * @author Peter Friese
  * @since 14.12.2005
  */
@@ -213,6 +214,15 @@ public class ModelConfigurationMasterComposite
     {
         this.andromdaDocument = document;
         modelConfigurationTreeViewer.setInput(document);
+    }
+
+    /**
+     * @see org.andromda.android.ui.internal.editor.AbstractModelComposite#modelChanged(org.andromda.android.core.model.IModelChangedEvent)
+     */
+    public void modelChanged(IModelChangedEvent event)
+    {
+        // TODO Auto-generated method stub
+
     }
 
 }

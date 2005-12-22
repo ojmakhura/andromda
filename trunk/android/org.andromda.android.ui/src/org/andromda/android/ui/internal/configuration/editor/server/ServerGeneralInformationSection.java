@@ -2,13 +2,13 @@ package org.andromda.android.ui.internal.configuration.editor.server;
 
 import java.math.BigInteger;
 
+import org.andromda.android.core.model.IModel;
+import org.andromda.android.core.model.configuration.IAndromdaDocumentModel;
 import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
 import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelFormPage;
-import org.andromda.android.ui.internal.configuration.editor.IAndromdaDocumentModel;
 import org.andromda.android.ui.internal.editor.AbstractModelFormEditor;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
 import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
-import org.andromda.android.ui.internal.editor.IModel;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.ServerDocument.Server;
 import org.eclipse.swt.SWT;

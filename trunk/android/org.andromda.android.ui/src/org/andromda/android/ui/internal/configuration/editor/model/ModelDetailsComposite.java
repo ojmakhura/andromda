@@ -1,5 +1,7 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
+import org.andromda.android.core.model.IModelChangeProvider;
+import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.ui.internal.editor.AbstractModelComposite;
 import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
 import org.andromda.android.ui.internal.util.DialogUtils;
@@ -32,7 +34,7 @@ import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
- * 
+ *
  * @author Peter Friese
  * @since 12.12.2005
  */
@@ -182,7 +184,7 @@ public class ModelDetailsComposite
 
                         model.addUri(uri);
                         getParentSection().markDirty();
-                        refresh();
+                        publishChangeEvent();
                     }
                 }
             }
@@ -199,7 +201,7 @@ public class ModelDetailsComposite
                 {
                     int i = ArrayUtils.indexOf(model.getUriArray(), uri);
                     model.removeUri(i);
-                    refresh();
+                    publishChangeEvent();
                 }
             }
         });
@@ -234,6 +236,19 @@ public class ModelDetailsComposite
         });
         downButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
         //
+        subscribeToModelChanges();
+    }
+
+    /**
+     * Subscribe to model change events.
+     */
+    private void subscribeToModelChanges()
+    {
+        if (getModel() instanceof IModelChangeProvider)
+        {
+            IModelChangeProvider provider = (IModelChangeProvider) getModel();
+            provider.addModelChangedListener(this);
+        }
     }
 
     public void dispose()
@@ -297,14 +312,14 @@ public class ModelDetailsComposite
         // model type
         String type = model.getType();
         setModelType(type);
-        
+
         // enable / disabled buttons
         updateButtonStates();
     }
 
     /**
      * Determine the selected URI.
-     * 
+     *
      * @return The selected URI represented as a String.
      */
     private String getSelectedUri()
@@ -324,7 +339,7 @@ public class ModelDetailsComposite
 
     /**
      * Moves the given URI around in the model.
-     * 
+     *
      * @param uri The URI to move.
      * @param direction The direction of the move.
      */
@@ -336,11 +351,11 @@ public class ModelDetailsComposite
         model.removeUri(i);
         model.insertUri(i + direction, selectedUri);
         getParentSection().markDirty();
-        refresh();
+        publishChangeEvent();
     }
 
     /**
-     * 
+     *
      */
     private void updateButtonStates()
     {
@@ -364,6 +379,14 @@ public class ModelDetailsComposite
         removeButton.setEnabled(remove);
         upButton.setEnabled(up);
         downButton.setEnabled(down);
+    }
+
+    /**
+     * @see org.andromda.android.ui.internal.editor.AbstractModelComposite#modelChanged(org.andromda.android.core.model.IModelChangedEvent)
+     */
+    public void modelChanged(IModelChangedEvent event)
+    {
+        refresh();
     }
 
 }

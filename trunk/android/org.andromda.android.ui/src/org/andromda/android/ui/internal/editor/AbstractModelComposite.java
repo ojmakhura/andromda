@@ -1,17 +1,22 @@
 package org.andromda.android.ui.internal.editor;
 
+import org.andromda.android.core.model.IModel;
+import org.andromda.android.core.model.IModelChangeProvider;
+import org.andromda.android.core.model.IModelChangedEvent;
+import org.andromda.android.core.model.IModelChangedListener;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.SectionPart;
 
 /**
  * A composite that is hosted in a {@link org.eclipse.ui.forms.SectionPart}.
- * 
+ *
  * @author Peter Friese
  * @since 19.12.2005
  */
 public abstract class AbstractModelComposite
         extends Composite
+        implements IModelChangedListener
 {
 
     /** The section we're hosted in. */
@@ -19,7 +24,7 @@ public abstract class AbstractModelComposite
 
     /**
      * Creates a new composite that is hosted in the given {@link SectionPart}.
-     * 
+     *
      * @param parentSection The host of this composite.
      * @param style The SWT style for this composite.
      */
@@ -28,6 +33,19 @@ public abstract class AbstractModelComposite
     {
         super(parentSection.getSection(), style);
         this.parentSection = parentSection;
+    }
+
+    /**
+     * @see org.eclipse.swt.widgets.Widget#dispose()
+     */
+    public void dispose()
+    {
+        if (getModel() != null)
+        {
+            IModelChangeProvider provider = (IModelChangeProvider)getModel();
+            provider.removeModelChangedListener(this);
+        }
+        super.dispose();
     }
 
     /**
@@ -59,6 +77,36 @@ public abstract class AbstractModelComposite
         AbstractModelSectionPart baseSectionPart = (AbstractModelSectionPart)getParentSection();
         final IProject project = baseSectionPart.getProject();
         return project;
+    }
+
+    /**
+     * @return The model being edited.
+     */
+    public IModel getModel()
+    {
+        AbstractModelFormEditor modelFormEditor = getModelFormEditor();
+        if (modelFormEditor != null)
+        {
+            return modelFormEditor.getModel();
+        }
+        return null;
+    }
+
+    /**
+     * @see org.andromda.android.core.model.IModelChangedListener#modelChanged(org.andromda.android.core.model.IModelChangedEvent)
+     */
+    public abstract void modelChanged(IModelChangedEvent event);
+
+    /**
+     *
+     */
+    protected void publishChangeEvent()
+    {
+        if (getModel() instanceof IModelChangeProvider)
+        {
+            IModelChangeProvider provider = (IModelChangeProvider)getModel();
+            provider.fireModelChanged(null);
+        }
     }
 
 }

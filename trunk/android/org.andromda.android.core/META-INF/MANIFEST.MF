@@ -21,6 +21,8 @@ Require-Bundle: org.eclipse.core.runtime,
 Eclipse-AutoStart: true
 Provide-Package: org.andromda.android.core,
  org.andromda.android.core.internal,
+ org.andromda.android.core.model,
+ org.andromda.android.core.model.configuration,
  org.andromda.android.core.project,
  org.andromda.android.core.settings,
  org.andromda.android.core.util,
