@@ -8,10 +8,10 @@
     		<format property="ant.mvn.log.date" pattern="yyyyMMdd-HHmmss"/>
   		</tstamp>
 		<property name="ant.mvn.log" value="ant-mvn-${ant.mvn.log.date}.log"/>
-		<exec dir="${andromda.all.dir}" executable="mvn" output="${ant.mvn.log}" append="true">
+		<exec dir="${andromda.all.dir}" executable="mvn" >
 			<arg value="clean"/>
         </exec> 
-		<exec dir="${andromda.all.dir}" executable="mvn" output="${ant.mvn.log}" append="true">
+		<exec dir="${andromda.all.dir}" executable="mvn" >
 			<arg value="install"/>
         </exec> 
 	</target>
