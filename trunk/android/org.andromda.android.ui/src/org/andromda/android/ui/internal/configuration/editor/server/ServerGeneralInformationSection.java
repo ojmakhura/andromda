@@ -14,10 +14,10 @@ import org.andromda.core.configuration.ServerDocument.Server;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.ui.forms.IManagedForm;
-import org.eclipse.ui.forms.editor.FormEditor;
 
 /**
- * 
+ * This section contains general information about the AndroMDA server.
+ *
  * @author Peter Friese
  * @since 08.12.2005
  */
@@ -25,16 +25,22 @@ public class ServerGeneralInformationSection
         extends AbstractModelSectionPart
 {
 
+    /** The composite with the edit controls. */
+    private ServerGeneralInformationComposite servergeneralInformationComposite;
+
     /**
-     * @param page
+     * Creates a new section hosted on the specified <code>page</code>.
+     *
+     * @param page The page this section is to be hosted on.
      */
     public ServerGeneralInformationSection(AbstractModelFormPage page)
     {
         super(page);
     }
 
-    private ServerGeneralInformationComposite servergeneralInformationComposite;
-
+    /**
+     * @see org.eclipse.ui.forms.IFormPart#initialize(org.eclipse.ui.forms.IManagedForm)
+     */
     public void initialize(IManagedForm form)
     {
         super.initialize(form);
@@ -88,7 +94,6 @@ public class ServerGeneralInformationSection
                 server.setPort(port);
             }
         }
-
         super.commit(onSave);
     }
 
