@@ -1,9 +1,9 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
-import org.andromda.android.ui.internal.configuration.editor.IAndromdaDocumentModel;
+import org.andromda.android.core.model.IModel;
+import org.andromda.android.core.model.configuration.IAndromdaDocumentModel;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
 import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
-import org.andromda.android.ui.internal.editor.IModel;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;

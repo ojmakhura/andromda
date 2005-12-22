@@ -5,14 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.andromda.android.core.model.IModel;
+import org.andromda.android.core.model.configuration.IAndromdaDocumentModel;
 import org.andromda.android.ui.AndroidUIPlugin;
-import org.andromda.android.ui.internal.configuration.editor.AndromdaDocumentModel;
-import org.andromda.android.ui.internal.configuration.editor.IAndromdaDocumentModel;
 import org.andromda.android.ui.internal.configuration.editor.cartridge.CartridgeConfigurationPage;
 import org.andromda.android.ui.internal.configuration.editor.model.ModelConfigurationPage;
 import org.andromda.android.ui.internal.configuration.editor.server.ServerConfigurationPage;
 import org.andromda.android.ui.internal.editor.AbstractModelFormEditor;
-import org.andromda.android.ui.internal.editor.IModel;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.apache.xmlbeans.XmlOptions;
 import org.eclipse.core.runtime.IPath;
@@ -161,7 +160,7 @@ public class ConfigurationEditor
             {
                 XmlOptions options = setupDefaultNamespace();
                 AndromdaDocument document = AndromdaDocument.Factory.parse(file, options);
-                andromdaDocumentModel = new AndromdaDocumentModel(document);
+                andromdaDocumentModel = IAndromdaDocumentModel.Factory.newInstance(document);
                 clean = true;
             }
             catch (Exception e)

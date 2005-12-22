@@ -1,5 +1,6 @@
 package org.andromda.android.ui.internal.editor;
 
+import org.andromda.android.core.model.IModel;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
 

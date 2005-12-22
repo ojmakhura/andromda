@@ -1,5 +1,6 @@
 package org.andromda.android.ui.internal.configuration.editor;
 
+import org.andromda.android.core.model.configuration.IAndromdaDocumentModel;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
 import org.eclipse.ui.forms.editor.FormEditor;
 
