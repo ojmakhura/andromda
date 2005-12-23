@@ -4,26 +4,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.andromda.android.core.project.AndroidProjectFactory;
+import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.project.wizard.BasicProjectInformationWizardPage;
 import org.andromda.android.ui.internal.project.wizard.ProjectFeaturesWizardPage;
 import org.andromda.android.ui.internal.project.wizard.ProjectMetaInformationWizardPage;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.internal.ui.wizards.NewElementWizard;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 
 /**
  * The <code>New AndroMDA Project Wizard</code>.
- * 
+ *
  * @author Peter Friese
  * @since 22.05.2005
  */
 public class NewAndroidProjectWizard
-        extends NewElementWizard
+        extends Wizard
         implements INewWizard
 {
 
@@ -58,7 +60,7 @@ public class NewAndroidProjectWizard
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.ui.IWorkbenchWizard#init(org.eclipse.ui.IWorkbench,
      *      org.eclipse.jface.viewers.IStructuredSelection)
      */
@@ -71,7 +73,7 @@ public class NewAndroidProjectWizard
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.jface.wizard.IWizard#addPages()
      */
     public void addPages()
@@ -93,7 +95,7 @@ public class NewAndroidProjectWizard
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.jdt.internal.ui.wizards.NewElementWizard#performFinish()
      */
     public boolean performFinish()
@@ -104,12 +106,22 @@ public class NewAndroidProjectWizard
         projectMetaInformationWizardPage.updateData();
         projectFeaturesWizardPage.updateData();
 
-        return super.performFinish();
+        try
+        {
+            finishPage(new NullProgressMonitor());
+        }
+        catch (Exception e)
+        {
+            AndroidUIPlugin.log(e);
+            return false;
+        }
+
+        return true;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.jdt.internal.ui.wizards.NewElementWizard#getCreatedElement()
      */
     public IJavaElement getCreatedElement()
