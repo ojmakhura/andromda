@@ -41,6 +41,14 @@ logger "runcc.sh - starting cruisecontrol"
 logger "PATH: $PATH"
 logger "JAVA_HOME:$JAVA_HOME"
 
+system_name=`uname -a | awk '{ print $2 }'`
+case $system_name in
+    "andromda.it.su.se" )
+       # Remove multiple line env var, bug in maven/continuum
+       unset which
+       ;;
+esac
+
 nohup nice cruisecontrol.sh -port 8989 -user ${CC_JMX_USER} -password ${CC_JMX_PASS} -configfile $dirname/${CC_CONFIG_FILE} &
 pid=$!
 echo $pid >$dirname/pid
