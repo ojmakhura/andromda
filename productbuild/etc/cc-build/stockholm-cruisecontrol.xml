@@ -165,7 +165,7 @@
         <listeners>
            <currentbuildstatuslistener file="/var/andromda/builds/logs/andromda-plugins/currentbuildstatus.txt"/>
         </listeners>
-        <schedule interval="3600">
+        <schedule interval="72000">
             <maven goal="scm:update-project|cc-build|deploy-distribution" projectfile="/var/andromda/builds/andromda-plugins/project.xml" mavenscript="/usr/local/maven-1.0.2/bin/maven"/>
         </schedule>
         <log dir="/var/andromda/builds/logs/andromda-contrib">
