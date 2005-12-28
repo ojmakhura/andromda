@@ -1,7 +1,7 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
+import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelSectionPart;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
-import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
 import org.andromda.core.configuration.ModelDocument.Model;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -14,12 +14,12 @@ import org.eclipse.ui.forms.IPartSelectionListener;
 import org.eclipse.ui.forms.widgets.Section;
 
 /**
- * 
+ *
  * @author Peter Friese
  * @since 08.12.2005
  */
 public class ModelDetailsSection
-        extends AbstractModelSectionPart
+        extends AbstractAndromdaModelSectionPart
         implements IPartSelectionListener
 {
 
@@ -54,7 +54,7 @@ public class ModelDetailsSection
     public void initialize(IManagedForm form)
     {
         super.initialize(form);
-        
+
         // set up the section
         getSection().setText("Model details");
         getSection().setDescription("Specify the details of this model.");

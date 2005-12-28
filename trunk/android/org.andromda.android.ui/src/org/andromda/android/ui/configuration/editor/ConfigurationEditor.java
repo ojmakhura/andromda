@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.andromda.android.core.model.IModel;
-import org.andromda.android.core.model.configuration.IAndromdaDocumentModel;
+import org.andromda.android.core.model.IEditorModel;
+import org.andromda.android.core.model.configuration.IAndromdaDocumentEditorModel;
 import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.configuration.editor.cartridge.CartridgeConfigurationPage;
 import org.andromda.android.ui.internal.configuration.editor.model.ModelConfigurationPage;
@@ -32,7 +32,7 @@ public class ConfigurationEditor
 {
 
     /** The wrapped AndroMDA configuration being edited. */
-    private IAndromdaDocumentModel andromdaDocumentModel;
+    private IAndromdaDocumentEditorModel andromdaDocumentEditorModel;
 
     /**
      * @see org.eclipse.ui.forms.editor.FormEditor#addPages()
@@ -76,7 +76,7 @@ public class ConfigurationEditor
             try
             {
                 XmlOptions options = setupDefaultNamespace();
-                AndromdaDocument andromdaDocument = getAndromdaDocumentModel().getAndromdaDocument();
+                AndromdaDocument andromdaDocument = getAndromdaDocumentEditorModel().getAndromdaDocument();
                 andromdaDocument.save(file, options);
                 editorDirtyStateChanged();
             }
@@ -140,13 +140,13 @@ public class ConfigurationEditor
     protected void setInput(IEditorInput input)
     {
         super.setInput(input);
-        updateModel();
+        updateEditorModel();
     }
 
     /**
      * @return
      */
-    public boolean updateModel()
+    public boolean updateEditorModel()
     {
         IEditorInput input = getEditorInput();
         boolean clean = false;
@@ -160,7 +160,7 @@ public class ConfigurationEditor
             {
                 XmlOptions options = setupDefaultNamespace();
                 AndromdaDocument document = AndromdaDocument.Factory.parse(file, options);
-                andromdaDocumentModel = IAndromdaDocumentModel.Factory.newInstance(document);
+                andromdaDocumentEditorModel = IAndromdaDocumentEditorModel.Factory.newInstance(document);
                 clean = true;
             }
             catch (Exception e)
@@ -190,19 +190,19 @@ public class ConfigurationEditor
     }
 
     /**
-     * @see org.andromda.android.ui.internal.editor.AbstractModelFormEditor#getModel()
+     * @see org.andromda.android.ui.internal.editor.AbstractModelFormEditor#getEditorModel()
      */
-    public IModel getModel()
+    public IEditorModel getEditorModel()
     {
-        return getAndromdaDocumentModel();
+        return getAndromdaDocumentEditorModel();
     }
     
     /**
      * @return
      */
-    public IAndromdaDocumentModel getAndromdaDocumentModel()
+    public IAndromdaDocumentEditorModel getAndromdaDocumentEditorModel()
     {
-        return andromdaDocumentModel;
+        return andromdaDocumentEditorModel;
     }
 
 }

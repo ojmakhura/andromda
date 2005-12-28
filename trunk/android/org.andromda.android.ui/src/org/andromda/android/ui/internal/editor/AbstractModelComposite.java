@@ -1,6 +1,6 @@
 package org.andromda.android.ui.internal.editor;
 
-import org.andromda.android.core.model.IModel;
+import org.andromda.android.core.model.IEditorModel;
 import org.andromda.android.core.model.IModelChangeProvider;
 import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.core.model.IModelChangedListener;
@@ -82,12 +82,12 @@ public abstract class AbstractModelComposite
     /**
      * @return The model being edited.
      */
-    public IModel getModel()
+    public IEditorModel getModel()
     {
         AbstractModelFormEditor modelFormEditor = getModelFormEditor();
         if (modelFormEditor != null)
         {
-            return modelFormEditor.getModel();
+            return modelFormEditor.getEditorModel();
         }
         return null;
     }

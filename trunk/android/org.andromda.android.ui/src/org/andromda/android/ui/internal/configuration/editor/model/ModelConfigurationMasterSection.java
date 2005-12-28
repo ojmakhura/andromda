@@ -1,9 +1,7 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
-import org.andromda.android.core.model.IModel;
-import org.andromda.android.core.model.configuration.IAndromdaDocumentModel;
+import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelSectionPart;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
-import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -17,7 +15,7 @@ import org.eclipse.ui.forms.widgets.Section;
  * @since 14.12.2005
  */
 public class ModelConfigurationMasterSection
-        extends AbstractModelSectionPart
+        extends AbstractAndromdaModelSectionPart
 {
 
     /** The visual style of the section. */
@@ -49,7 +47,7 @@ public class ModelConfigurationMasterSection
     public void initialize(IManagedForm form)
     {
         super.initialize(form);
-        
+
         // set up section
         getSection().setText("Models");
         getSection().setDescription("Configure the model(s) to be processed by AndroMDA.");
@@ -68,13 +66,8 @@ public class ModelConfigurationMasterSection
     public void refresh()
     {
         super.refresh();
-        IModel model = getPage().getModel();
-        if (model instanceof IAndromdaDocumentModel)
-        {
-            IAndromdaDocumentModel andromdaDocumentModel = (IAndromdaDocumentModel)model;
-            AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
-            modelConfigurationMasterComposite.setAndroMDADocument(andromdaDocument);
-        }
+        AndromdaDocument andromdaDocument = getAndromdaDocument();
+        modelConfigurationMasterComposite.setAndroMDADocument(andromdaDocument);
     }
 
 }

@@ -1,8 +1,9 @@
 package org.andromda.android.ui.internal.configuration.editor.cartridge;
 
 import org.andromda.android.core.AndroidCore;
-import org.andromda.android.core.model.configuration.IAndromdaDocumentModel;
+import org.andromda.android.core.model.configuration.IAndromdaDocumentEditorModel;
 import org.andromda.android.core.project.IAndroidProject;
+import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.editor.AbstractMasterDetailsBlock;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
 import org.andromda.core.configuration.AndromdaDocument;
@@ -31,8 +32,10 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
+import com.swtdesigner.SWTResourceManager;
+
 /**
- * 
+ *
  * @author Peter Friese
  * @since 08.11.2005
  */
@@ -63,6 +66,14 @@ public class CartridgeConfigurationMasterDetailsBlock
 
         public Image getImage(Object element)
         {
+            if (element instanceof Namespace)
+            {
+                return SWTResourceManager.getPluginImage(AndroidUIPlugin.getDefault(), "icons/cartridge.gif");
+            }
+            else if (element instanceof NamespacePropertyContainer)
+            {
+                return SWTResourceManager.getPluginImage(AndroidUIPlugin.getDefault(), "icons/section.gif");
+            }
             return null;
         }
     }
@@ -88,9 +99,9 @@ public class CartridgeConfigurationMasterDetailsBlock
 
         public Object[] getElements(Object inputElement)
         {
-            if (inputElement instanceof IAndromdaDocumentModel)
+            if (inputElement instanceof IAndromdaDocumentEditorModel)
             {
-                IAndromdaDocumentModel andromdaDocumentModel = (IAndromdaDocumentModel)inputElement;
+                IAndromdaDocumentEditorModel andromdaDocumentModel = (IAndromdaDocumentEditorModel)inputElement;
                 AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
                 Namespaces namespaces = andromdaDocument.getAndromda().getNamespaces();
                 return namespaces.getNamespaceArray();
@@ -147,18 +158,23 @@ public class CartridgeConfigurationMasterDetailsBlock
 
     private GenericCartridgeConfigurationDetailsPage androidDetailsPage;
 
+    /**
+     * @param parentPage
+     */
     public CartridgeConfigurationMasterDetailsBlock(AbstractModelFormPage parentPage)
     {
         super(parentPage);
         androidDetailsPage = new GenericCartridgeConfigurationDetailsPage();
     }
-    
+
     /**
      * @see org.eclipse.ui.forms.MasterDetailsBlock#createContent(org.eclipse.ui.forms.IManagedForm)
      */
     public void createContent(IManagedForm managedForm)
     {
         super.createContent(managedForm);
+
+        // the following line makes sure the master part only occupies 1/3 of the page:
         sashForm.setWeights(new int[] {33, 67});
     }
 
@@ -225,7 +241,6 @@ public class CartridgeConfigurationMasterDetailsBlock
              */
             public Object getPageKey(Object object)
             {
-                System.out.println("getPageKey(): " + object.getClass());
                 return object;
             }
 
@@ -234,7 +249,6 @@ public class CartridgeConfigurationMasterDetailsBlock
              */
             public IDetailsPage getPage(Object key)
             {
-                System.out.println("getPage(): " + key.getClass());
                 if (key instanceof Namespace)
                 {
                     return null;

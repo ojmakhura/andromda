@@ -1,6 +1,6 @@
 package org.andromda.android.ui.internal.editor;
 
-import org.andromda.android.core.model.IModel;
+import org.andromda.android.core.model.IEditorModel;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
 
@@ -41,9 +41,9 @@ public abstract class AbstractModelFormPage
         return (AbstractModelFormEditor)getEditor();
     }
 
-    public IModel getModel()
+    public IEditorModel getModel()
     {
-        return getModelEditor().getModel();
+        return getModelEditor().getEditorModel();
     }
 
 }
