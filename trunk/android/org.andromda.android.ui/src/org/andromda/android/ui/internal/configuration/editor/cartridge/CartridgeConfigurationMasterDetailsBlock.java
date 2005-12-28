@@ -6,6 +6,7 @@ import org.andromda.android.core.project.IAndroidProject;
 import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.editor.AbstractMasterDetailsBlock;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
+import org.andromda.android.ui.internal.util.SWTResourceManager;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.NamespaceDocument.Namespace;
 import org.andromda.core.configuration.NamespacesDocument.Namespaces;
@@ -32,7 +33,6 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
-import com.swtdesigner.SWTResourceManager;
 
 /**
  *

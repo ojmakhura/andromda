@@ -2,7 +2,8 @@ package org.andromda.android.ui.internal.configuration.editor.model;
 
 import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.ui.AndroidUIPlugin;
-import org.andromda.android.ui.internal.editor.AbstractModelComposite;
+import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelComposite;
+import org.andromda.android.ui.internal.util.SWTResourceManager;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.ModelDocument.Model;
 import org.andromda.core.configuration.ModelsDocument.Models;
@@ -29,7 +30,6 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.swtdesigner.SWTResourceManager;
 
 /**
  *
@@ -37,7 +37,7 @@ import com.swtdesigner.SWTResourceManager;
  * @since 14.12.2005
  */
 public class ModelConfigurationMasterComposite
-        extends AbstractModelComposite
+        extends AbstractAndromdaModelComposite
 {
 
     private TreeViewer modelConfigurationTreeViewer;
@@ -236,8 +236,6 @@ public class ModelConfigurationMasterComposite
      */
     public void modelChanged(IModelChangedEvent event)
     {
-        // TODO Auto-generated method stub
-
     }
 
 }

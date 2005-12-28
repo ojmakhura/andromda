@@ -33,6 +33,7 @@ public abstract class AbstractModelComposite
     {
         super(parentSection.getSection(), style);
         this.parentSection = parentSection;
+        subscribeToModelChanges();
     }
 
     /**
@@ -40,9 +41,9 @@ public abstract class AbstractModelComposite
      */
     public void dispose()
     {
-        if (getModel() != null)
+        if (getEditorModel() != null)
         {
-            IModelChangeProvider provider = (IModelChangeProvider)getModel();
+            IModelChangeProvider provider = (IModelChangeProvider)getEditorModel();
             provider.removeModelChangedListener(this);
         }
         super.dispose();
@@ -82,7 +83,7 @@ public abstract class AbstractModelComposite
     /**
      * @return The model being edited.
      */
-    public IEditorModel getModel()
+    public IEditorModel getEditorModel()
     {
         AbstractModelFormEditor modelFormEditor = getModelFormEditor();
         if (modelFormEditor != null)
@@ -90,6 +91,18 @@ public abstract class AbstractModelComposite
             return modelFormEditor.getEditorModel();
         }
         return null;
+    }
+
+    /**
+     * Subscribe to model change events.
+     */
+    protected void subscribeToModelChanges()
+    {
+        if (getEditorModel() instanceof IModelChangeProvider)
+        {
+            IModelChangeProvider provider = (IModelChangeProvider)getEditorModel();
+            provider.addModelChangedListener(this);
+        }
     }
 
     /**
@@ -102,9 +115,9 @@ public abstract class AbstractModelComposite
      */
     protected void publishChangeEvent()
     {
-        if (getModel() instanceof IModelChangeProvider)
+        if (getEditorModel() instanceof IModelChangeProvider)
         {
-            IModelChangeProvider provider = (IModelChangeProvider)getModel();
+            IModelChangeProvider provider = (IModelChangeProvider)getEditorModel();
             provider.fireModelChanged(null);
         }
     }
