@@ -88,7 +88,7 @@
                value="org.andromda.android.core.androidnature"/>
          <keywordReference id="org.andromda.android.ui.keywords.andromda"/>
          <keywordReference id="org.andromda.android.ui.keywords.mda"/>
-      </page>	            
+      </page>
    </extension>
    <extension
          point="org.eclipse.ui.keywords">
@@ -112,9 +112,11 @@
       <editor
             class="org.andromda.android.ui.configuration.editor.ConfigurationEditor"
             default="true"
-            filenames="andromda.xml"
             icon="icons/ModelFile.gif"
             id="org.andromda.android.ui.editors.configuration.ConfigurationEditor"
-            name="AndroMDA Configuration Editor"/>
+            name="AndroMDA Configuration Editor">
+         <contentTypeBinding contentTypeId="org.andromda.android.core.andromdaconfiguration"/>
+      </editor>
    </extension>
+
 </plugin>
