@@ -131,6 +131,16 @@ public class ModelDetailsComposite
         label_2.setLayoutData(new GridData());
 
         lastModifiedCheckButton = toolkit.createButton(this, "", SWT.CHECK);
+        lastModifiedCheckButton.addSelectionListener(new SelectionAdapter()
+        {
+            public void widgetSelected(SelectionEvent e)
+            {
+                boolean selected = lastModifiedCheckButton.getSelection();
+                model.setLastModifiedCheck(selected);
+                getParentSection().markDirty();
+                publishChangeEvent();
+            }
+        });
         lastModifiedCheckButton.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
         lastModifiedCheckButton.setLayoutData(new GridData());
         new Label(this, SWT.NONE);
