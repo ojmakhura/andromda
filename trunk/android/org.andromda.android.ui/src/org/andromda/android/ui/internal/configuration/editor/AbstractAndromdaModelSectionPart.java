@@ -27,6 +27,8 @@ public abstract class AbstractAndromdaModelSectionPart
     }
 
     /**
+     * Creates a new model section part.
+     *
      * @param page
      * @param style
      */
@@ -34,10 +36,11 @@ public abstract class AbstractAndromdaModelSectionPart
         int style)
     {
         super(page, style);
-        // TODO Auto-generated constructor stub
     }
 
     /**
+     * Creates a new model section part.
+     *
      * @param parent
      * @param page
      * @param style
@@ -47,10 +50,11 @@ public abstract class AbstractAndromdaModelSectionPart
         int style)
     {
         super(parent, page, style);
-        // TODO Auto-generated constructor stub
     }
 
     /**
+     * Creates a new model section part.
+     *
      * @param parent
      * @param page
      */
@@ -58,7 +62,6 @@ public abstract class AbstractAndromdaModelSectionPart
         AbstractModelFormPage page)
     {
         super(parent, page);
-        // TODO Auto-generated constructor stub
     }
 
     /**
