@@ -8,7 +8,7 @@
  * of Lufthansa Systems Business Solutions GmbH.
  * Use is subject to license terms.
  */
-package com.swtdesigner;
+package org.andromda.android.ui.internal.util;
 
 import java.io.BufferedInputStream;
 import java.io.File;
