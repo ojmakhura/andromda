@@ -2,6 +2,7 @@ package org.andromda.android.ui.internal.configuration.editor.model;
 
 import org.andromda.android.core.model.IModelChangeProvider;
 import org.andromda.android.core.model.IModelChangedEvent;
+import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.editor.AbstractModelComposite;
 import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
 import org.andromda.android.ui.internal.util.DialogUtils;
@@ -32,6 +33,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
+
+import com.swtdesigner.SWTResourceManager;
 
 /**
  *
@@ -106,7 +109,7 @@ public class ModelDetailsComposite
         public Image getColumnImage(Object element,
             int columnIndex)
         {
-            return null;
+            return SWTResourceManager.getPluginImage(AndroidUIPlugin.getDefault(), "/icons/modelfile.gif");
         }
     }
 
@@ -246,7 +249,7 @@ public class ModelDetailsComposite
     {
         if (getModel() instanceof IModelChangeProvider)
         {
-            IModelChangeProvider provider = (IModelChangeProvider) getModel();
+            IModelChangeProvider provider = (IModelChangeProvider)getModel();
             provider.addModelChangedListener(this);
         }
     }

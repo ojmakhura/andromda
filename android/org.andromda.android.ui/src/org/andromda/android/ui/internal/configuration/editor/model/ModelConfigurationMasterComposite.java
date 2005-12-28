@@ -1,6 +1,7 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
 import org.andromda.android.core.model.IModelChangedEvent;
+import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.editor.AbstractModelComposite;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.ModelDocument.Model;
@@ -28,6 +29,8 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import com.swtdesigner.SWTResourceManager;
+
 /**
  *
  * @author Peter Friese
@@ -47,7 +50,7 @@ public class ModelConfigurationMasterComposite
             if (element instanceof Repository)
             {
                 Repository repository = (Repository)element;
-                return "[r] " + repository.getName();
+                return repository.getName();
             }
             else if (element instanceof Model)
             {
@@ -60,18 +63,30 @@ public class ModelConfigurationMasterComposite
                 else {
                     uri = "(no model file specified)";
                 }
-                return "[m] " + uri;
+                return uri;
             }
             else if (element instanceof Transformation)
             {
                 Transformation transformation = (Transformation)element;
-                return "[t] " + transformation.getUri();
+                return transformation.getUri();
             }
             return super.getText(element);
         }
 
         public Image getImage(Object element)
         {
+            if (element instanceof Repository)
+            {
+                return SWTResourceManager.getPluginImage(AndroidUIPlugin.getDefault(), "icons/repository.gif");
+            }
+            else if (element instanceof Model)
+            {
+                return SWTResourceManager.getPluginImage(AndroidUIPlugin.getDefault(), "icons/model.gif");
+            }
+            else if (element instanceof Transformation)
+            {
+                return SWTResourceManager.getPluginImage(AndroidUIPlugin.getDefault(), "icons/transformation.gif");
+            }
             return null;
         }
     }
