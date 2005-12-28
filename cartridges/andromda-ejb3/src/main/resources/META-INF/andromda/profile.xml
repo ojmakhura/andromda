@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<profile>
+	<documentation>
+		Entity query operations (i.e. finders) can be denoted by setting
+		the query flag on the modeled operation to true (they do not
+		require any stereotypes).
+	</documentation>
+	<elements>
+		<elementGroup name="Stereotypes">
+			<element name="ENTITY">
+				<documentation>
+					Produces a POJO EJB entity.
+				</documentation>
+				<value>Entity</value>
+				<appliedOnElement>class</appliedOnElement>
+			</element>
+			<element name="SERVICE">
+				<documentation>
+					Produces a Session EJB facade for the POJO EJB
+					entities.
+				</documentation>
+				<value>Service</value>
+				<appliedOnElement>class</appliedOnElement>
+			</element>
+			<element name="VERSION">
+				<documentation>
+					Identifies an attribute as an version property
+					(optimistic lock value) of an entity.  Used to 
+					ensure integrity when reattaching and for overall
+					optimistic concurrency control.  Only one attribute
+					per entity class is allowed to have the Version
+					stereotype.
+					The following <code>types</code> are supported:
+					<ul>
+					    <li>int</li>
+					    <li>Integer</li>
+					    <li>short</li>
+					    <li>Short</li>
+					    <li>long</li>
+					    <li>Long</li>
+					    <li>Timestamp</li>
+					</ul>
+				</documentation>
+				<value>Version</value>
+				<appliedOnElement>Entity attribute</appliedOnElement>
+			</element>
+			<element name="TRANSIENT">
+				<documentation>
+					Identifies an entity attribute as a transient
+					attribute which is non persistent.
+				</documentation>
+				<value>Transient</value>
+				<appliedOnElement>Entity attribute</appliedOnElement>
+			</element>
+			<element name="IDENTIFIER">
+				<documentation>
+					Identifies an attribute as an identifier (primary
+					key).
+				</documentation>
+				<value>Identifier</value>
+				<appliedOnElement>Entity attribute</appliedOnElement>
+			</element>
+			<element name="CREATE_METHOD">
+				<documentation>
+					Used to tag an EJB create method NOTE: However POJO
+					constructors are used in EJB3
+				</documentation>
+				<value>CreateMethod</value>
+				<appliedOnElement>Entity operation</appliedOnElement>
+			</element>
+			<element name="ENTITY_REF">
+				<documentation>
+					Used to reference an entity from another entity or
+					service.
+				</documentation>
+				<value>EntityRef</value>
+				<appliedOnElement>
+					A dependency going into an Entity
+				</appliedOnElement>
+			</element>
+			<element name="SERVICE_REF">
+				<documentation>
+					Used to reference a service from an entity or
+					another service.
+				</documentation>
+				<value>ServiceRef</value>
+				<appliedOnElement>
+					A dependency going into a Service
+				</appliedOnElement>
+			</element>
+			<element name="VALUE_REF">
+				<documentation>
+					Used to generate an association between an entity
+					and a value object class. Found attributes inside
+					the entity as well as the value object are used to
+					get automatically filled out. The entity will
+					provide the helper method, also for saving a value
+					object to an existing entity. NOTE: This should not
+					be used any longer with EJB3 as there are no value
+					object.
+				</documentation>
+				<value>ValueRef</value>
+				<appliedOnElement>
+					A dependency going into a ValueObject and out of an
+					Entity
+				</appliedOnElement>
+			</element>
+		</elementGroup>
+		<elementGroup name="Tagged Values">
+			<element name="ATTRIBUTE_PERSISTENCE_OPTIONAL">
+				<documentation>
+					Defines the attribute non-null relationship annotations.
+					If set to false, then a non-null relationship must always
+					exist.
+				</documentation>
+				<value>@andromda.persistence.optional</value>
+				<appliedOnElement>Entity attribute</appliedOnElement>
+				<allowedValues>
+					<value default="true">true</value>
+					<value>false</value>
+				</allowedValues>
+			</element>
+			<element name="ENTITY_ACCESS_TYPE">
+				<documentation>
+					Used to override the default entity access type
+					specified by
+					<a href="namespace.html#entityAccessType">
+						entityAccessType
+					</a>
+					namespace property.
+					<ul>
+						Permitted values are:
+						<li>PROPERTY</li>
+						<li>FIELD</li>
+					</ul>
+					<p>
+						The tagged value of
+						@andromda.persistence.access.type is set once on
+						the entity class to indicate whether the
+						persistence runtime uses properties or fields to
+						access the entity state. The persistence runtime
+						will default to
+						<code>PROPERTY</code>
+						if not specified. Currenly, AndroMDA support the
+						<code>PROPERTY</code>
+						value only. The default access type is defined
+						by the
+						<a href="namespaces.html#entityAccessType">
+							entityAccessType
+						</a>
+						namespace property.
+					</p>
+				</documentation>
+				<value>@andromda.persistence.access.type</value>
+				<appliedOnElement>
+					<![CDATA[<<Entity>>]]>
+				</appliedOnElement>
+				<allowedValues>
+					<value>PROPERTY</value>
+					<value>FIELD</value>
+				</allowedValues>
+			</element>
+			<element name="ENTITY_INHERITANCE">
+				<documentation>
+					Used to override the default entity inheritance
+					strategy defined by the
+					<a
+						href="namespace.html#entityInheritanceStrategy">
+						entityInheritanceStrategy
+					</a>
+					namespace property.
+					<ul>
+						Permitted values are:
+						<li>SINGLE_TABLE - table per hierarchy.</li>
+						<li>
+							TABLE_PER_CLASS - table per class in
+							hierarchy.
+						</li>
+						<li>JOINED - Table per class.</li>
+					</ul>
+					<p>
+						The tagged value of
+						@andromda.persistence.inheritance is set on the
+						base/root class. All subclasses must then follow
+						the same strategy. The default strategy is
+						defined by the
+						<a
+							href="namespaces.html#entityInheritanceStrategy">
+							entityInheritanceStrategy
+						</a>
+						namespace property.
+					</p>
+				</documentation>
+				<value>@andromda.persistence.inheritance</value>
+				<appliedOnElement>
+					<![CDATA[<<Entity>>]]>
+				</appliedOnElement>
+				<allowedValues>
+					<value>SINGLE_TABLE</value>
+					<value>TABLE_PER_CLASS</value>
+					<value>JOINED</value>
+				</allowedValues>
+			</element>
+			<element name="ENTITY_DISCRIMINATOR_TYPE">
+				<documentation>
+					Used to override the default entity inheritance
+					discriminator type defined by the
+					<a href="namespace.html#entityDiscriminatorType">
+						entityDiscriminatorType
+					</a>
+					namespace property.
+					<ul>
+						Permitted values are:
+						<li>STRING</li>
+						<li>CHAR</li>
+						<li>INTEGER</li>
+					</ul>
+					<p>
+						The tagged value of
+						@andromda.persistence.discriminator.type is set
+						once on the base/root class to indicate the type
+						of the column used for the discriminator. The
+						default discriminator type is defined by the
+						<a
+							href="namespaces.html#entityDiscriminatorType">
+							entityDiscriminatorType
+						</a>
+						namespace property.
+					</p>
+				</documentation>
+				<value>@andromda.persistence.discriminator.type</value>
+				<appliedOnElement>
+					<![CDATA[<<Entity>>]]>
+				</appliedOnElement>
+				<allowedValues>
+					<value>STRING</value>
+					<value>CHAR</value>
+					<value>INTEGER</value>
+				</allowedValues>
+			</element>
+			<element name="ENTITY_DISCRIMINATOR_VALUE">
+				<documentation>
+					Used at the class level of an entity and is
+					optional. This is the value that indicates that the
+					row is an entity of the annotated entity type. It
+					should be specified for each class in the hierarchy.
+				</documentation>
+				<value>@andromda.persistence.discriminator.value</value>
+				<appliedOnElement>
+					<![CDATA[<<Entity>>]]>
+				</appliedOnElement>
+			</element>
+			<element name="ENTITY_DISCRIMINATOR_COLUMN">
+				<documentation>
+					Used at the class level of an entity and is
+					optional. This value indicates the name of the
+					column to be used for the discriminator. If not
+					specified for the SINGLE_TABLE or JOINED inheritance
+					mapping strategies, then default to
+					<b>TYPE</b>
+					.
+				</documentation>
+				<value>
+					@andromda.persistence.discriminator.column
+				</value>
+				<appliedOnElement>
+					<![CDATA[<<Entity>>]]>
+				</appliedOnElement>
+			</element>
+			<element name="ENTITY_DISCRIMINATOR_COLUMN_DEFINITION">
+				<documentation>
+					Used at the class level of an entity and is
+					optional. This value indicates the SQL fragment used
+					when generating the DDL for the discriminator
+					column.
+				</documentation>
+				<value>
+					@andromda.persistence.discriminator.column.definition
+				</value>
+				<appliedOnElement>
+					<![CDATA[<<Entity>>]]>
+				</appliedOnElement>
+			</element>
+			<element name="ENTITY_DISCRIMINATOR_COLUMN_LENGTH">
+				<documentation>
+					Used at the class level of an entity and is
+					optional. This value indicates the column length for
+					the String-based discriminator types. It is ignored
+					for the other discriminator types.
+				</documentation>
+				<value>
+					@andromda.persistence.discriminator.column.length
+				</value>
+				<appliedOnElement>
+					<![CDATA[<<Entity>>]]>
+				</appliedOnElement>
+			</element>
+			<element name="ENTITY_EMBEDDABLE_SUPERCLASS">
+				<documentation>
+					Used at the class level of an entity to determine if
+					this class is defined as an embeddable super class.
+				</documentation>
+				<value>
+					@andromda.persistence.embeddable.superclass
+				</value>
+				<appliedOnElement>
+					<![CDATA[<<Entity>>]]>
+				</appliedOnElement>
+			</element>
+			<element name="AUTOMATIC_KEY">
+				<documentation>
+					Can be used in class level of an entity. If you set
+					this to true, the class will use an automatic key
+					generation for the defined primary key. Please note:
+					This is currently only available in BEA Weblogic and
+					can not be used with combined primary keys.
+				</documentation>
+				<value>@andromda.ejb.automaticKey</value>
+				<appliedOnElement>Entity attribute</appliedOnElement>
+			</element>
+			<element name="QUERY">
+				<documentation>
+					Defines a hibernate query expression. Note that it's
+					encouraged to model your query body as an OCL
+					constraint (instead of using this tagged value).
+				</documentation>
+				<value>@andromda.ejb.query</value>
+				<appliedOnElement>
+					An Entity operation marked as a
+					<code>query</code>
+					.
+				</appliedOnElement>
+			</element>
+			<element name="VIEW_TYPE">
+				<documentation>
+					Defines the view type for a Session EJB at the class
+					level or at the operation level for each Session
+					method.
+				</documentation>
+				<value>@andromda.ejb.viewType</value>
+				<appliedOnElement>Service or Service operation</appliedOnElement>
+				<allowedValues>
+					<value default="true">remote</value>
+					<value>local</value>
+					<value>both</value>
+				</allowedValues>
+			</element>
+			<element name="TRANSACTION_TYPE">
+				<documentation>
+					Defines a transaction type for a method in the Session
+					EJB or for entity EJB POJO accessor method.
+				</documentation>
+				<value>@andromda.ejb.transaction.type</value>
+				<appliedOnElement>Service operation or Entity attribute</appliedOnElement>
+				<allowedValues>
+					<value>NotSupported</value>
+					<value>Supports</value>
+					<value>Required</value>
+					<value>RequiresNew</value>
+					<value>Mandatory</value>
+					<value>Never</value>
+				</allowedValues>
+			</element>
+			<element name="TABLE">
+				<documentation>
+					Defines the relational table name for entity
+					persistence.
+				</documentation>
+				<value>@andromda.persistence.table</value>
+				<appliedOnElement>
+					Entity or a many-to-many association.
+				</appliedOnElement>
+			</element>
+			<element name="COLUMN">
+				<documentation>
+					Represents the column name for entity persistence.
+				</documentation>
+				<value>@andromda.persistence.column</value>
+				<appliedOnElement>Entity attribute</appliedOnElement>
+			</element>
+			<element name="COLUMN_LENGTH">
+				<documentation>
+					Represents the column length for entity persistence.
+				</documentation>
+				<value>@andromda.persistence.column.length</value>
+				<appliedOnElement>Entity attribute</appliedOnElement>
+			</element>
+		</elementGroup>
+	</elements>
+</profile>
