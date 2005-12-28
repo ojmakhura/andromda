@@ -10,14 +10,18 @@ import org.andromda.android.ui.internal.util.SWTResourceManager;
 import org.andromda.core.configuration.ModelDocument.Model;
 import org.andromda.core.configuration.ModelPackageDocument.ModelPackage;
 import org.andromda.core.configuration.ModelPackagesDocument.ModelPackages;
+import org.apache.commons.collections.CollectionUtils;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
+import org.eclipse.jface.viewers.ICheckStateListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -116,12 +120,22 @@ public class ModelPackagesDetailsComposite
         new Label(this, SWT.NONE);
         new Label(this, SWT.NONE);
 
-        modelPackagesTableViewer = CheckboxTableViewer.newCheckList(this, SWT.BORDER);
+        modelPackagesTableViewer = CheckboxTableViewer.newCheckList(this, SWT.BORDER | SWT.CHECK);
         modelPackagesTableViewer.addSelectionChangedListener(new ISelectionChangedListener()
         {
             public void selectionChanged(SelectionChangedEvent e)
             {
                 updateButtonStates();
+            }
+        });
+        modelPackagesTableViewer.addCheckStateListener(new ICheckStateListener()
+        {
+            public void checkStateChanged(CheckStateChangedEvent event)
+            {
+                ModelPackage modelPackage = (ModelPackage)event.getElement();
+                modelPackage.setProcess(event.getChecked());
+                getParentSection().markDirty();
+                publishChangeEvent();
             }
         });
         modelPackagesTableViewer.setLabelProvider(new TableLabelProvider());
@@ -216,12 +230,23 @@ public class ModelPackagesDetailsComposite
     }
 
     /**
-     * @param modelPackages
+     * Connect the modelpackages to the model packages table viewer.
+     *
+     * @param modelPackages The model packages.
      */
     private void setModelPackages(ModelPackages modelPackages)
     {
         ModelPackage[] modelPackageArray = modelPackages.getModelPackageArray();
+
+        // set the viewer input
         modelPackagesTableViewer.setInput(modelPackageArray);
+
+        // set the check states
+        for (int i = 0; i < modelPackageArray.length; i++)
+        {
+            ModelPackage pkg = modelPackageArray[i];
+            modelPackagesTableViewer.setChecked(pkg, pkg.getProcess());
+        }
     }
 
     /**
