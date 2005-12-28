@@ -3,10 +3,10 @@ package org.andromda.android.ui.internal.configuration.editor.model;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.andromda.android.core.model.IModelChangeProvider;
 import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.ui.AndroidUIPlugin;
-import org.andromda.android.ui.internal.editor.AbstractModelComposite;
+import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelComposite;
+import org.andromda.android.ui.internal.util.SWTResourceManager;
 import org.andromda.core.configuration.ModelDocument.Model;
 import org.andromda.core.configuration.ModelPackageDocument.ModelPackage;
 import org.andromda.core.configuration.ModelPackagesDocument.ModelPackages;
@@ -33,8 +33,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.swtdesigner.SWTResourceManager;
-
 /**
  * This composite contains control that allow the user to configure which model packages will be generated.
  *
@@ -42,7 +40,7 @@ import com.swtdesigner.SWTResourceManager;
  * @since 22.12.2005
  */
 public class ModelPackagesDetailsComposite
-        extends AbstractModelComposite
+        extends AbstractAndromdaModelComposite
 {
 
     /** Regular expressions for legal package names. */
@@ -100,6 +98,16 @@ public class ModelPackagesDetailsComposite
         processAllLabel.setLayoutData(new GridData());
 
         processAllPackagesCheckButton = toolkit.createButton(this, "", SWT.CHECK);
+        processAllPackagesCheckButton.addSelectionListener(new SelectionAdapter()
+        {
+            public void widgetSelected(SelectionEvent e)
+            {
+                boolean selected = processAllPackagesCheckButton.getSelection();
+                getModelPackages().setProcessAll(selected);
+                getParentSection().markDirty();
+                publishChangeEvent();
+            }
+        });
         processAllPackagesCheckButton.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
         processAllPackagesCheckButton.setLayoutData(new GridData());
         new Label(this, SWT.NONE);
@@ -140,10 +148,12 @@ public class ModelPackagesDetailsComposite
                             public String isValid(String newText)
                             {
                                 Matcher matcher = PATTERN_PACKAGE.matcher(newText);
-                                if (matcher.matches()) {
+                                if (matcher.matches())
+                                {
                                     return null;
                                 }
-                                else {
+                                else
+                                {
                                     return "Illegal package name. Use :: to separate packages: org::andromda::test";
                                 }
                             }
@@ -153,7 +163,8 @@ public class ModelPackagesDetailsComposite
                     String packageName = dialog.getValue();
                     ModelPackage modelPackage = getModelPackages().addNewModelPackage();
                     modelPackage.setStringValue(packageName);
-                    refresh();
+                    getParentSection().markDirty();
+                    publishChangeEvent();
                 }
             }
         });
@@ -168,19 +179,6 @@ public class ModelPackagesDetailsComposite
         downButton = toolkit.createButton(tableButtons, "Down", SWT.NONE);
         downButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
         //
-        subscribeToModelChanges();
-    }
-
-    /**
-     * Subscribe to model change events.
-     */
-    private void subscribeToModelChanges()
-    {
-        if (getModel() instanceof IModelChangeProvider)
-        {
-            IModelChangeProvider provider = (IModelChangeProvider)getModel();
-            provider.addModelChangedListener(this);
-        }
     }
 
     public void dispose()

@@ -1,11 +1,11 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
-import org.andromda.android.core.model.IModelChangeProvider;
 import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.ui.AndroidUIPlugin;
-import org.andromda.android.ui.internal.editor.AbstractModelComposite;
+import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelComposite;
 import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
 import org.andromda.android.ui.internal.util.DialogUtils;
+import org.andromda.android.ui.internal.util.SWTResourceManager;
 import org.andromda.core.configuration.ModelDocument.Model;
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.resources.IFile;
@@ -34,15 +34,13 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-import com.swtdesigner.SWTResourceManager;
-
 /**
  *
  * @author Peter Friese
  * @since 12.12.2005
  */
 public class ModelDetailsComposite
-        extends AbstractModelComposite
+        extends AbstractAndromdaModelComposite
 {
 
     private Button removeButton;
@@ -240,18 +238,6 @@ public class ModelDetailsComposite
         downButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
         //
         subscribeToModelChanges();
-    }
-
-    /**
-     * Subscribe to model change events.
-     */
-    private void subscribeToModelChanges()
-    {
-        if (getModel() instanceof IModelChangeProvider)
-        {
-            IModelChangeProvider provider = (IModelChangeProvider)getModel();
-            provider.addModelChangedListener(this);
-        }
     }
 
     public void dispose()
