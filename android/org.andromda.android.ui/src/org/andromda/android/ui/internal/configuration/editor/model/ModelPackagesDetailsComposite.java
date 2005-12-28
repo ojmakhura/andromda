@@ -1,16 +1,27 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.andromda.android.core.model.IModelChangeProvider;
 import org.andromda.android.core.model.IModelChangedEvent;
+import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.editor.AbstractModelComposite;
+import org.andromda.core.configuration.ModelDocument.Model;
+import org.andromda.core.configuration.ModelPackageDocument.ModelPackage;
 import org.andromda.core.configuration.ModelPackagesDocument.ModelPackages;
+import org.eclipse.jface.dialogs.IInputValidator;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CheckboxTableViewer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -22,6 +33,8 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
+import com.swtdesigner.SWTResourceManager;
+
 /**
  * This composite contains control that allow the user to configure which model packages will be generated.
  *
@@ -32,19 +45,16 @@ public class ModelPackagesDetailsComposite
         extends AbstractModelComposite
 {
 
+    /** Regular expressions for legal package names. */
+    private static final Pattern PATTERN_PACKAGE = Pattern.compile("((\\w*)(::\\w+)*)*");
+
     private Button removeButton;
 
     private Button downButton;
 
     private Button upButton;
 
-    /** Move the URI up. */
-    private static final int MOVE_DIRECTION_UP = -1;
-
-    /** Move the URI down. */
-    private static final int MOVE_DIRECTION_DOWN = 1;
-
-    private CheckboxTableViewer modelFilesTableViewer;
+    private CheckboxTableViewer modelPackagesTableViewer;
 
     private Button processAllPackagesCheckButton;
 
@@ -55,19 +65,24 @@ public class ModelPackagesDetailsComposite
         public String getColumnText(Object element,
             int columnIndex)
         {
+            if (element instanceof ModelPackage)
+            {
+                ModelPackage modelPackage = (ModelPackage)element;
+                return modelPackage.getStringValue();
+            }
             return element.toString();
         }
 
         public Image getColumnImage(Object element,
             int columnIndex)
         {
-            return null;
+            return SWTResourceManager.getPluginImage(AndroidUIPlugin.getDefault(), "icons/package.gif");
         }
     }
 
     private Table table;
 
-    private ModelPackages modelPackages;
+    private Model model;
 
     public ModelPackagesDetailsComposite(final SectionPart parentSection,
         int style)
@@ -93,19 +108,19 @@ public class ModelPackagesDetailsComposite
         new Label(this, SWT.NONE);
         new Label(this, SWT.NONE);
 
-        modelFilesTableViewer = CheckboxTableViewer.newCheckList(this, SWT.BORDER);
-        modelFilesTableViewer.addSelectionChangedListener(new ISelectionChangedListener()
+        modelPackagesTableViewer = CheckboxTableViewer.newCheckList(this, SWT.BORDER);
+        modelPackagesTableViewer.addSelectionChangedListener(new ISelectionChangedListener()
         {
             public void selectionChanged(SelectionChangedEvent e)
             {
                 updateButtonStates();
             }
         });
-        modelFilesTableViewer.setLabelProvider(new TableLabelProvider());
-        modelFilesTableViewer.setContentProvider(new ArrayContentProvider());
-        table = modelFilesTableViewer.getTable();
+        modelPackagesTableViewer.setLabelProvider(new TableLabelProvider());
+        modelPackagesTableViewer.setContentProvider(new ArrayContentProvider());
+        table = modelPackagesTableViewer.getTable();
         table.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true, 2, 1));
-        modelFilesTableViewer.setInput(new Object());
+        modelPackagesTableViewer.setInput(new Object());
 
         final Composite tableButtons = toolkit.createComposite(this, SWT.NONE);
         tableButtons.setLayoutData(new GridData(GridData.CENTER, GridData.BEGINNING, false, false));
@@ -115,6 +130,33 @@ public class ModelPackagesDetailsComposite
         toolkit.paintBordersFor(tableButtons);
 
         final Button addButton = toolkit.createButton(tableButtons, "Add...", SWT.NONE);
+        addButton.addSelectionListener(new SelectionAdapter()
+        {
+            public void widgetSelected(SelectionEvent e)
+            {
+                InputDialog dialog = new InputDialog(getShell(), "Enter package name",
+                        "Enter the name of a package to be included:", null, new IInputValidator()
+                        {
+                            public String isValid(String newText)
+                            {
+                                Matcher matcher = PATTERN_PACKAGE.matcher(newText);
+                                if (matcher.matches()) {
+                                    return null;
+                                }
+                                else {
+                                    return "Illegal package name. Use :: to separate packages: org::andromda::test";
+                                }
+                            }
+                        });
+                if (dialog.open() == Window.OK)
+                {
+                    String packageName = dialog.getValue();
+                    ModelPackage modelPackage = getModelPackages().addNewModelPackage();
+                    modelPackage.setStringValue(packageName);
+                    refresh();
+                }
+            }
+        });
         addButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
 
         removeButton = toolkit.createButton(tableButtons, "Remove", SWT.NONE);
@@ -136,7 +178,7 @@ public class ModelPackagesDetailsComposite
     {
         if (getModel() instanceof IModelChangeProvider)
         {
-            IModelChangeProvider provider = (IModelChangeProvider) getModel();
+            IModelChangeProvider provider = (IModelChangeProvider)getModel();
             provider.addModelChangedListener(this);
         }
     }
@@ -151,26 +193,37 @@ public class ModelPackagesDetailsComposite
     }
 
     /**
-     * @param model
-     */
-    public void setModelPackages(ModelPackages modelPackages)
-    {
-        // store for later reference
-        this.modelPackages = modelPackages;
-
-        refresh();
-    }
-
-    /**
      * TODO this method should refactored into a base class and invoked by a model change listener
      */
     private void refresh()
     {
-        boolean processAll = modelPackages.getProcessAll();
-//        setProcessAll(processAll);
+        boolean processAll = getModelPackages().getProcessAll();
+        setProcessAll(processAll);
+
+        ModelPackages modelPackages = getModelPackages();
+        setModelPackages(modelPackages);
 
         // enable / disabled buttons
         updateButtonStates();
+    }
+
+    /**
+     * Sets the state of the "process all" checkbox.
+     *
+     * @param processAll Whether to process all model packages.
+     */
+    private void setProcessAll(boolean processAll)
+    {
+        processAllPackagesCheckButton.setSelection(processAll);
+    }
+
+    /**
+     * @param modelPackages
+     */
+    private void setModelPackages(ModelPackages modelPackages)
+    {
+        ModelPackage[] modelPackageArray = modelPackages.getModelPackageArray();
+        modelPackagesTableViewer.setInput(modelPackageArray);
     }
 
     /**
@@ -195,6 +248,28 @@ public class ModelPackagesDetailsComposite
     public void modelChanged(IModelChangedEvent event)
     {
         refresh();
+    }
+
+    /**
+     * @param model
+     */
+    public void setModel(Model model)
+    {
+        this.model = model;
+        refresh();
+    }
+
+    /**
+     * @return
+     */
+    private ModelPackages getModelPackages()
+    {
+        ModelPackages modelPackages = model.getModelPackages();
+        if (modelPackages == null)
+        {
+            modelPackages = model.addNewModelPackages();
+        }
+        return modelPackages;
     }
 
 }

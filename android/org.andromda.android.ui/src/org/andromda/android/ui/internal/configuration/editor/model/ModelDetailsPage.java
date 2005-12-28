@@ -11,7 +11,7 @@ import org.eclipse.ui.forms.IFormPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
- * This details page contains sections for configuring the model selected iin the master part.
+ * This details page contains sections for configuring the model selected in the master part.
  *
  * @author Peter Friese
  * @since 11.12.2005

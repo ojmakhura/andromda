@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.andromda.android.core.model.IModel;
+import org.andromda.android.core.model.IEditorModel;
 import org.andromda.android.core.model.IModelChangeProvider;
 import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.core.model.IModelChangedListener;
@@ -15,8 +15,8 @@ import org.andromda.android.core.model.IModelChangedListener;
  * @author Peter Friese
  * @since 21.12.2005
  */
-public class AbstractModel
-        implements IModel, IModelChangeProvider
+public class AbstractEditorModel
+        implements IEditorModel, IModelChangeProvider
 {
 
     /** Parties that are interested in changes that happen to this model. */
@@ -25,7 +25,7 @@ public class AbstractModel
     /**
      * Creates a new model.
      */
-    public AbstractModel()
+    public AbstractEditorModel()
     {
         super();
         listeners = Collections.synchronizedList(new ArrayList());

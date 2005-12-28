@@ -1,9 +1,8 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
+import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelSectionPart;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
-import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
 import org.andromda.core.configuration.ModelDocument.Model;
-import org.andromda.core.configuration.ModelPackagesDocument.ModelPackages;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
@@ -15,13 +14,13 @@ import org.eclipse.ui.forms.IPartSelectionListener;
 import org.eclipse.ui.forms.widgets.Section;
 
 /**
- * This section contains GUI elements to configure which model packaes wil be considered during code generation.
+ * This section contains GUI elements to configure which model packages wil be considered during code generation.
  *
  * @author Peter Friese
  * @since 22.12.2005
  */
 public class ModelPackagesDetailsSection
-        extends AbstractModelSectionPart
+        extends AbstractAndromdaModelSectionPart
         implements IPartSelectionListener
 {
 
@@ -97,8 +96,7 @@ public class ModelPackagesDetailsSection
             if (firstElement instanceof Model)
             {
                 Model model = (Model)firstElement;
-                ModelPackages modelPackages = model.getModelPackages();
-                modelPackagesDetailsComposite.setModelPackages(modelPackages);
+                modelPackagesDetailsComposite.setModel(model);
             }
         }
     }

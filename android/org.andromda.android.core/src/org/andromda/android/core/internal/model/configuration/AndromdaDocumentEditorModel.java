@@ -1,7 +1,7 @@
 package org.andromda.android.core.internal.model.configuration;
 
-import org.andromda.android.core.internal.model.AbstractModel;
-import org.andromda.android.core.model.configuration.IAndromdaDocumentModel;
+import org.andromda.android.core.internal.model.AbstractEditorModel;
+import org.andromda.android.core.model.configuration.IAndromdaDocumentEditorModel;
 import org.andromda.core.configuration.AndromdaDocument;
 
 /**
@@ -10,9 +10,9 @@ import org.andromda.core.configuration.AndromdaDocument;
  * @author Peter Friese
  * @since 15.12.2005
  */
-public class AndromdaDocumentModel
-        extends AbstractModel
-        implements IAndromdaDocumentModel
+public class AndromdaDocumentEditorModel
+        extends AbstractEditorModel
+        implements IAndromdaDocumentEditorModel
 {
 
     /** The AndroMDA configuration document wrapper by this model wrapper. */
@@ -21,13 +21,13 @@ public class AndromdaDocumentModel
     /**
      * Creates a new model wrapper for the given AndroMDA configuration document.
      */
-    public AndromdaDocumentModel(final AndromdaDocument andromdaDocument)
+    public AndromdaDocumentEditorModel(final AndromdaDocument andromdaDocument)
     {
         this.andromdaDocument = andromdaDocument;
     }
 
     /**
-     * @see org.andromda.android.core.model.configuration.IAndromdaDocumentModel#getAndromdaDocument()
+     * @see org.andromda.android.core.model.configuration.IAndromdaDocumentEditorModel#getAndromdaDocument()
      */
     public AndromdaDocument getAndromdaDocument()
     {

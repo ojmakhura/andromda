@@ -2,13 +2,8 @@ package org.andromda.android.ui.internal.configuration.editor.server;
 
 import java.math.BigInteger;
 
-import org.andromda.android.core.model.IModel;
-import org.andromda.android.core.model.configuration.IAndromdaDocumentModel;
-import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
-import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelFormPage;
-import org.andromda.android.ui.internal.editor.AbstractModelFormEditor;
+import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelSectionPart;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
-import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.ServerDocument.Server;
 import org.eclipse.swt.SWT;
@@ -22,7 +17,7 @@ import org.eclipse.ui.forms.IManagedForm;
  * @since 08.12.2005
  */
 public class ServerGeneralInformationSection
-        extends AbstractModelSectionPart
+        extends AbstractAndromdaModelSectionPart
 {
 
     /** The composite with the edit controls. */
@@ -59,9 +54,7 @@ public class ServerGeneralInformationSection
     public void refresh()
     {
         super.refresh();
-        IAndromdaDocumentModel andromdaDocumentModel = ((AbstractAndromdaModelFormPage)getPage())
-                .getAndromdaDocumentModel();
-        AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
+        AndromdaDocument andromdaDocument = getAndromdaDocument();
 
         Server server = andromdaDocument.getAndromda().getServer();
 
@@ -77,23 +70,14 @@ public class ServerGeneralInformationSection
      */
     public void commit(boolean onSave)
     {
-        AbstractModelFormEditor editor = getModelFormEditor();
-        if (editor instanceof ConfigurationEditor)
-        {
-            IModel model = editor.getModel();
-            if (model instanceof IAndromdaDocumentModel)
-            {
-                IAndromdaDocumentModel andromdaDocumentModel = (IAndromdaDocumentModel)model;
-                AndromdaDocument andromdaDocument = andromdaDocumentModel.getAndromdaDocument();
-                Server server = andromdaDocument.getAndromda().getServer();
+        AndromdaDocument andromdaDocument = getAndromdaDocument();
+        Server server = andromdaDocument.getAndromda().getServer();
 
-                String host = servergeneralInformationComposite.getHost();
-                server.setHost(host);
+        String host = servergeneralInformationComposite.getHost();
+        server.setHost(host);
 
-                BigInteger port = servergeneralInformationComposite.getPort();
-                server.setPort(port);
-            }
-        }
+        BigInteger port = servergeneralInformationComposite.getPort();
+        server.setPort(port);
         super.commit(onSave);
     }
 

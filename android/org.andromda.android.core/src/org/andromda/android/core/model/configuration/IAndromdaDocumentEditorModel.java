@@ -1,7 +1,7 @@
 package org.andromda.android.core.model.configuration;
 
-import org.andromda.android.core.internal.model.configuration.AndromdaDocumentModel;
-import org.andromda.android.core.model.IModel;
+import org.andromda.android.core.internal.model.configuration.AndromdaDocumentEditorModel;
+import org.andromda.android.core.model.IEditorModel;
 import org.andromda.core.configuration.AndromdaDocument;
 
 /**
@@ -10,8 +10,8 @@ import org.andromda.core.configuration.AndromdaDocument;
  * @author Peter Friese
  * @since 15.12.2005
  */
-public interface IAndromdaDocumentModel
-        extends IModel
+public interface IAndromdaDocumentEditorModel
+        extends IEditorModel
 {
 
     /**
@@ -20,19 +20,19 @@ public interface IAndromdaDocumentModel
     AndromdaDocument getAndromdaDocument();
 
     /**
-     * Factory for {@link IAndromdaDocumentModel} instances.
+     * Factory for {@link IAndromdaDocumentEditorModel} instances.
      */
     public static final class Factory
     {
         /**
-         * Creates a new {@link IAndromdaDocumentModel} instance.
+         * Creates a new {@link IAndromdaDocumentEditorModel} instance.
          * 
          * @param andromdaDocument The document wrapped in the model.
          * @return A new model instance.
          */
-        public static IAndromdaDocumentModel newInstance(AndromdaDocument andromdaDocument)
+        public static IAndromdaDocumentEditorModel newInstance(AndromdaDocument andromdaDocument)
         {
-            return new AndromdaDocumentModel(andromdaDocument);
+            return new AndromdaDocumentEditorModel(andromdaDocument);
         }
     }
 
