@@ -1,0 +1,61 @@
+// license-header java merge-point
+#if ($stringUtils.isNotBlank($entity.packageName))
+package $entity.packageName;
+#end
+
+
+/**
+ * Callback Listener for Entity POJO EJB ${entity.fullyQualifiedName}
+ *
+ * @see ${entity.fullyQualifiedName}
+ */
+public class ${entity.entityListenerName} 
+{
+    /**
+     * Default public no-args constructor
+     */
+    public ${entity.entityListenerName}() 
+    { 
+    }
+    
+    @javax.persistence.PrePersist
+    public void prePersist(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) 
+    {
+		// pre persist implementation
+	}
+	
+	@javax.persistence.PostPersist
+	public void postPersist(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) 
+	{
+		// post persist implementation
+	}
+	
+	@javax.persistence.PreRemove
+	public void preRemove(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) 
+	{
+		// pre remove implementation
+	}
+	
+	@javax.persistence.PostRemove
+	public void postRemove(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) 
+	{
+		// post remove implementation
+	}
+	
+	@javax.persistence.PreUpdate
+	public void preUpdate(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) {
+		// pre update implementation
+	}
+	
+	@javax.persistence.PostUpdate
+	public void postUpdate(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) 
+	{
+		// post update implementation
+	}
+	
+	@javax.persistence.PostLoad
+	public void postLoad(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) 
+	{
+		// post load implementation
+	}
+}

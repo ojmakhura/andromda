@@ -1,0 +1,37 @@
+<andromda>
+    <properties>
+        <property name="failOnValidationErrors">false</property>
+    </properties>
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>${test.model.uri}</uri>
+                    <moduleSearchLocations>
+                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles</location>
+                    </moduleSearchLocations>
+                    <modelPackages>
+                        <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+                    </modelPackages>
+                </model>
+            </models>            
+        </repository>
+    </repositories>
+    <namespaces>
+        <namespace name="ejb3">
+            <properties>
+                <property name="overwrite">true</property>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="jdbcMappingsUri">JDBC</property>
+                <property name="sqlMappingsUri">Oracle9i</property>
+                <property name="entity-beans">${test.output.dir}</property>
+                <property name="entity-impls">${test.output.dir}</property>
+                <property name="session-beans">${test.output.dir}</property>
+                <property name="session-impls">${test.output.dir}</property>
+                <property name="value-objects">${test.output.dir}</property>
+                <property name="mergeMappingsUri">file:${pom.basedir}/src/test/mappings/MergeMappings.xml</property>
+            </properties>
+        </namespace>
+    </namespaces>
+</andromda>

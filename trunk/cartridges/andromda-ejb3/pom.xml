@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda.cartridges</groupId>
+        <artifactId>andromda-cartridge-plugins</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-ejb3-cartridge</artifactId>
+    <packaging>andromda-cartridge</packaging>
+    <name>AndroMDA EJB3 Cartridge</name>
+    <description>Produces Entity and Session EJB 3.0 POJO from a model.</description>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-maven-plugin</artifactId>  
+                <dependencies>
+                    <dependency>
+                        <groupId>org.andromda.cartridges</groupId>
+                        <artifactId>andromda-meta-cartridge</artifactId>
+                        <version>3.2-RC1-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>    
+            </plugin>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-cartridge-plugin</artifactId>     
+                <dependencies>
+                    <dependency>
+                        <groupId>org.andromda.translationlibraries</groupId>
+                        <artifactId>andromda-ocl-query-library</artifactId>
+                        <version>3.2-RC1-SNAPSHOT</version>
+                    </dependency>
+                </dependencies>    
+            </plugin>
+        </plugins> 
+    </build>
+    <properties>
+        <maven.test.skip>true</maven.test.skip>
+        <model.uri>jar:file:${pom.basedir}/src/main/uml/EJB3MetafacadeModel.xml.zip!/EJB3MetafacadeModel.xml</model.uri>
+        <test.model.uri>jar:file:${pom.basedir}/src/test/uml/EJB3CartridgeTestModel.xml.zip!/EJB3CartridgeTestModel.xml</test.model.uri>
+    </properties>
+</project>

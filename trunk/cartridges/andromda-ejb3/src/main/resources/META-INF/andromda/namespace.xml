@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<namespace name="ejb3">
+	<components>
+		<component name="cartridge">
+			<path>META-INF/andromda/cartridge.xml</path>
+		</component>
+		<component name="metafacades">
+			<path>META-INF/andromda/metafacades.xml</path>
+		</component>
+		<component name="profile">
+			<path>META-INF/andromda/profile.xml</path>
+		</component>
+	</components>
+	<properties>
+		<!-- namespace-propertyGroup merge-point -->
+		<propertyGroup name="Outlet Properties">
+			<documentation>
+				Defines the locations to which output is generated.
+			</documentation>
+			<property name="entity-beans">
+				<documentation>
+					The directory to which Entity EJBs are generated.
+				</documentation>
+			</property>
+			<property name="entity-impls">
+				<documentation>
+					The location to which Entity EJB implementation
+					files are generated.
+				</documentation>
+			</property>
+			<property name="session-beans">
+				<documentation>
+					The directory to which Session Bean files are
+					generated.
+				</documentation>
+			</property>
+			<property name="session-impls">
+				<documentation>
+					The directory to which Session Bean implementation
+					files are generated.
+				</documentation>
+			</property>
+		</propertyGroup>
+		<propertyGroup name="Name Patterns">
+			<property name="entityNamePattern">
+				<default>{0}</default>
+				<documentation>
+					The pattern to use when constructing an entity name.
+					<em>{0}</em>
+					is used to represent the entity name in the model,
+					so if you specified a value of
+					<code>{0}Entity</code>
+					all the entities generated would have a suffix of
+					"Entity".
+				</documentation>
+			</property>
+			<property name="entityImplementationNamePattern">
+				<default>{0}Impl</default>
+				<documentation>
+					The pattern to use when constructing the entity
+					implementation name.
+				</documentation>
+			</property>
+			<property name="entityListenerNamePattern">
+				<default>{0}Listener</default>
+				<documentation>
+					The pattern to use when constructing an entity
+					listener class name.
+				</documentation>
+			</property>
+			<property name="entityEmbeddableNamePattern">
+				<default>{0}Embeddable</default>
+				<documentation>
+					The pattern to use when constructing an entity
+					embeddable super class name.
+				</documentation>
+			</property>
+			<property name="serviceNamePattern">
+				<default>{0}Bean</default>
+				<documentation>
+					The pattern to use when constructing a service bean name.
+					<em>{0}</em>
+					is used to represent the service bean name in the model,
+					so if you specified a value of
+					<code>{0}Bean</code>
+					all the entities generated would have a suffix of
+					"Bean".
+				</documentation>
+			</property>
+			<property name="serviceLocalInterfaceNamePattern">
+				<default>{0}Local</default>
+				<documentation>
+					The pattern to use when constructing a service
+					bean local interface name.
+				</documentation>
+			</property>
+			<property name="serviceRemoteInterfaceName">
+				<default>{0}Remote</default>
+				<documentation>
+					The pattern to use when constructing a service
+					bean remote interface name.
+				</documentation>
+			</property>
+			<property name="serviceImplementationNamePattern">
+				<default>{0}BeanImpl</default>
+				<documentation>
+					The pattern to use when constructing the service
+					bean implementation name.
+				</documentation>
+			</property>
+			<property name="serviceListenerNamePattern">
+				<default>{0}Listener</default>
+				<documentation>
+					The pattern to use when constructing an service
+					bean listener class name.
+				</documentation>
+			</property>
+			<property name="jndiNamePrefix" required="false">
+				<documentation>
+					The prefix to give to the EJB JNDI names (this
+					allows the same EJBs to be deployed multiple times
+					in the same container)
+				</documentation>
+			</property>
+		</propertyGroup>
+		<propertyGroup name="Other Properties">
+			<property name="entityAccessType">
+				<default>PROPERTY</default>
+				<documentation>
+					The value of the
+					<code>AccessType</code>
+					element of an annotation of the entity that
+					determines whether to use properties or fields to
+					access the entity state. Currenly, AndroMDA support
+					the PROPERTY value ONLY. Possible values are:
+					<ul>
+						<li>PROPERTY</li>
+						<li>FIELD</li>
+					</ul>
+				</documentation>
+			</property>
+			<property name="entityDefaultCascade">
+				<default>NONE</default>
+				<documentation>
+					The value of the
+					<code>CascadeType</code>
+					annotation of the entity association. Possible
+					values are:
+					<ul>
+						<li>ALL</li>
+						<li>PERSIST</li>
+						<li>MERGE</li>
+						<li>REMOVE</li>
+						<li>REFRESH</li>
+						<li>NONE if one does not exist</li>
+					</ul>
+				</documentation>
+			</property>
+			<property name="entityCompositeCascade" required="false">
+				<documentation>
+					Indicates how a UML composition should be
+					interpreted to determine cascadable operations that
+					are propogated to the associated entity.
+					<ul>
+						<li>
+							If undefined, the cascade attribute is
+							computed by AndroMDA. If default cascade is
+							<em>all</em>
+							, then cascade is
+							<em>all</em>
+							otherwise cascade is
+							<em>REMOVE</em>
+							.
+						</li>
+						<li>
+							If ths property is defined, its value is
+							generated at each occurence of a UML
+							composition as the inverse side is not
+							marked with a cascade annotation element
+							which indicates no cascade propgation.
+						</li>
+					</ul>
+				</documentation>
+			</property>
+			<property name="entityAggergationCascade"
+				required="false">
+				<documentation>
+					Indicates how a UML aggreation should be interpreted
+					to determine cascadable operations that are
+					propogated to the associated entity.
+					<ul>
+						<li>
+							If underfined, aggregation is not
+							interpreted as a cascade value.
+						</li>
+						<li>
+							If the property is defined, its valie is
+							generated at each occurence of a UML
+							aggregation ad the inverse side is not
+							marked with a cascade annotation element
+							which indicates no cascade propogation.
+						</li>
+					</ul>
+				</documentation>
+			</property>
+			<property name="entityDefaultGeneratorType">
+				<default>AUTO</default>
+				<documentation>
+					Default entity identifier primary key generator type
+					set to AUTO unless specified using
+					@andromda.persistence.column.generatorType tagged
+					value.
+				</documentation>
+			</property>
+			<property name="entityDefaultGeneratorInitialValue">
+				<default>1</default>
+				<documentation>
+					Default generator initial value used when allocating
+					id numbers from the generator.
+				</documentation>
+			</property>
+			<property name="entityDefaultGeneratorAllocationSize">
+				<default>1</default>
+				<documentation>
+					Default generator amount to increment by when
+					allocating id number from the generator.
+				</documentation>
+			</property>
+			<property name="entityInheritanceStrategy">
+				<default>SINGLE_TABLE</default>
+				<documentation>
+					Defines the entity inheritance strategy used for the
+					entity class hierarchy (unless overridden on an
+					entity level by the
+					<a
+						href="profile.html#@andromda._persistence_inheritance">
+						@andromda.persistence.inheritance
+					</a>
+					tagged value, can be the following possible values:
+					<ul>
+						<li>SINGLE_TABLE - table per hierarchy.</li>
+						<li>
+							TABLE_PER_CLASS - table per class in
+							hierarchy.
+						</li>
+						<li>JOINED - Table per class.</li>
+					</ul>
+				</documentation>
+			</property>
+			<property name="entityDiscriminatorType">
+				<default>STRING</default>
+				<documentation>
+					The value of the
+					<code>discriminatorType</code>
+					element for the Inheritance annotation of the
+					entity. Possible values are:
+					<ul>
+						<li>STRING</li>
+						<li>CHAR</li>
+						<li>INTEGER</li>
+					</ul>
+				</documentation>
+			</property>
+			<property name="entityDiscriminatorColumnName">
+				<default>TYPE</default>
+				<documentation>
+					The DiscriminatorColumn annotation defines the
+					discriminator column for the SINGLE_TABLE and JOINED
+					mapping inheritance strategies. The name element
+					defines the name of the column to be used for the
+					discriminator. It will default to
+					<code>TYPE</code>
+					if it is required and not specified..
+				</documentation>
+			</property>
+			<property name="entityDefaultAssociationOptional">
+				<default>true</default>
+				<documentation>
+					Default entity association optional attribute for
+					Many-to-One and One-to-One relationships. Set using
+					the @andromda.persistence.optional tagged value. If
+					set to false, then non-null relationships must
+					always exist.
+				</documentation>
+			</property>
+			<property name="queryUseNamedParameters">
+				<default>true</default>
+				<documentation>
+					Whether or not named parameters (i.e.
+					':someParameter') or unnamed (i.e. '?') parameters
+					should be used in the SQL queries embedded within
+					the model.
+					<strong>NOTE:</strong>
+					Does not apply to queries written in OCL.
+				</documentation>
+			</property>
+			<property name="valueObjectPackage">
+				<default>{0}</default>
+			</property>
+			<property name="valueObjectName">
+				<default>{0}</default>
+			</property>
+			<property name="transactionType">
+				<default>Required</default>
+				<documentation>
+					The default value to use for transaction types.
+					<ul>
+						Permitted values are:
+						<li>NotSupported</li>
+						<li>Supports</li>
+						<li>Required</li>
+						<li>RequiresNew</li>
+						<li>Mandatory</li>
+						<li>Never</li>
+					</ul>
+					<strong>NOTE:</strong>
+					Can be overridden on a per entity basis with the
+					<a
+						href="profile.html#@andromda_ejb_transaction_type">
+						@andromda.ejb.transaction.type
+					</a>
+					tagged value.
+				</documentation>
+			</property>
+		</propertyGroup>
+	</properties>
+</namespace>
