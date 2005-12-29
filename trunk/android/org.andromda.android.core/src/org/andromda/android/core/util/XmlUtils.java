@@ -12,8 +12,15 @@ import org.apache.xmlbeans.XmlObject;
  * @author Chad Brandon
  * @author Peter Friese
  */
-public class XmlUtils
+public final class XmlUtils
 {
+
+    /**
+     * Private c'tor - this is a utility class.
+     */
+    private XmlUtils()
+    {
+    }
 
     /**
      * Adds the <code>value</code> to the body of the <code>xmlObject</code> 's first element.
@@ -21,8 +28,8 @@ public class XmlUtils
      * @param object the XmlObject instance for which we'll add the value.
      * @param value the new value to add.
      */
-    static void addTextValueToElement(XmlObject object,
-        Object value)
+    static void addTextValueToElement(final XmlObject object,
+        final Object value)
     {
         final String methodName = "XmlUtils.addTextValueToFirstElement";
         if (object == null)
@@ -49,7 +56,7 @@ public class XmlUtils
      * @param object the XmlObject instance for which we'll add the value.
      * @return the text value as a String
      */
-    public static String getTextValueFromElement(XmlObject object)
+    public static String getTextValueFromElement(final XmlObject object)
     {
         String value = null;
         if (object != null)
@@ -78,8 +85,8 @@ public class XmlUtils
      * @param name the element name to retrieve.
      * @return the element (or <code>null</code> if the element doesn't exist
      */
-    static XmlObject getNestedElement(XmlObject object,
-        String name)
+    static XmlObject getNestedElement(final XmlObject object,
+        final String name)
     {
         final String methodName = "XmlUtils.getTextValueFromElement";
         if (object == null)
@@ -102,7 +109,7 @@ public class XmlUtils
      * @param path the path to use, should <strong>NOT </strong> start with any slashes.
      * @return the found XmlObject instances
      */
-    static XmlObject[] selectElements(XmlObject object,
+    static XmlObject[] selectElements(final XmlObject object,
         String path)
     {
         final String methodName = "XmlUtils.selectPath";
@@ -130,8 +137,8 @@ public class XmlUtils
      * @param name the name of the attribute.
      * @return the text value as a String
      */
-    static String getAttributeValueFromElement(XmlObject object,
-        String name)
+    static String getAttributeValueFromElement(final XmlObject object,
+        final String name)
     {
         String value = null;
         if (object != null)
@@ -154,11 +161,12 @@ public class XmlUtils
      * in the <code>name</code>.
      *
      * @param anyType the XmlObject instance to which the attribute will be added.
+     * @param name the name of the new attribute.
      * @param value the new value to add.
      */
-    static void addAttributeNoNamespace(XmlObject anyType,
-        String name,
-        Object value)
+    static void addAttributeNoNamespace(final XmlObject anyType,
+        final String name,
+        final Object value)
     {
         addAttribute(anyType, ":" + name, value);
     }
@@ -168,11 +176,12 @@ public class XmlUtils
      * <code>anyType</code> element.
      *
      * @param anyType the XmlObject instance to which the attribute will be added.
+     * @param name the name of the new attribute.
      * @param value the new value to add.
      */
-    static void addAttribute(XmlObject anyType,
-        String name,
-        Object value)
+    static void addAttribute(final XmlObject anyType,
+        final String name,
+        final Object value)
     {
         final String methodName = "XmlUtils.addAttribute";
         if (anyType == null)
@@ -182,7 +191,7 @@ public class XmlUtils
         XmlCursor cursor = anyType.newCursor();
         cursor.toFirstContentToken();
 
-        QName qName = qName = getQName(name);
+        QName qName = getQName(name);
         if (value != null)
         {
             cursor.insertAttributeWithValue(qName, String.valueOf(value));
@@ -199,11 +208,12 @@ public class XmlUtils
      * element.
      *
      * @param anyType the XmlObject instance to which the element will be added.
+     * @param name the name of the new element.
      * @param value the new value to add.
      */
-    static void addElement(XmlObject anyType,
-        String name,
-        Object value)
+    static void addElement(final XmlObject anyType,
+        final String name,
+        final Object value)
     {
         final String methodName = "XmlUtils.addElement";
         if (anyType == null)
@@ -229,10 +239,10 @@ public class XmlUtils
      * Adds an element with the given <code>name</code> to the <code>anyType</code> element.
      *
      * @param anyType the XmlObject instance to which the element will be added.
-     * @param value the new value to add.
+     * @param name the name of the new element.
      */
-    static void addElement(XmlObject anyType,
-        String name)
+    static void addElement(final XmlObject anyType,
+        final String name)
     {
         final String methodName = "XmlUtils.addElement";
         if (anyType == null)
@@ -289,12 +299,11 @@ public class XmlUtils
     /**
      * Adds the given <code>text</code> to the element found having the specified <code>elementName</code>.
      *
-     * @param anyType the any type element.
-     * @param elementName the element name.
+     * @param object the XmlObject instance for which we'll add the characters.
      * @param text the text to add
      */
-    static void addCharactersToElement(XmlObject object,
-        String text)
+    static void addCharactersToElement(final XmlObject object,
+        final String text)
     {
         final String methodName = "XmlUtils.addTextToElement";
         if (object == null)
@@ -316,10 +325,10 @@ public class XmlUtils
      * @param name the name of the attribute to add
      * @param value the value to set on the attribute
      */
-    static void addAttributeToElement(XmlObject anyType,
-        String elementName,
-        String name,
-        Object value)
+    static void addAttributeToElement(final XmlObject anyType,
+        final String elementName,
+        final String name,
+        final Object value)
     {
         final String methodName = "XmlUtils.addAttributeToElement";
         if (anyType == null)
