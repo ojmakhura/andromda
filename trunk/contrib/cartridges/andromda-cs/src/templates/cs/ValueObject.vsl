@@ -14,7 +14,7 @@ namespace $class.packageName
 $class.getDocumentation("    /// ")
     /// </summary>
     [Serializable]
-    public class $class.name
+    public#if($class.abstract) abstract#end class $class.name
 #if($class.generalization)
         : ${class.generalization.fullyQualifiedName}
 #end
