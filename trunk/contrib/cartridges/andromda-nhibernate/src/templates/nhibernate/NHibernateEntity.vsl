@@ -136,7 +136,7 @@ $operation.getDocumentation("        /// ")
 #end
 #end
         /// </summary>
-#renderEqualsMethod($entity $entity.entityName $identifiers)
+#renderEqualsMethodForEntity($entity $entity.entityName $identifiers)
 
         /// <summary>
 #if ($identifiers.empty)

@@ -43,6 +43,54 @@
         }
 #end
 ##
+##  This macro will render the Equals() method for an entity.
+##  The attributeSet consists of the identifiers,
+##
+#macro (renderEqualsMethodForEntity $class $className $attributeSet)
+        public override bool Equals(Object obj)
+        {
+#if ($attributeSet.empty)
+            return base.Equals(obj);
+#else
+            if (this == obj)
+            {
+                return true;
+            }
+            if (GetType() != obj.GetType())
+            {
+                return false;
+            }
+            $className that = ($className)obj;
+#foreach ($attribute in $attributeSet)
+#set ($idType = $attribute.type)
+#set ($propertyName = ${stringUtils.upperCamelCaseName($attribute.name)})
+#if ($idType.primitive)
+            if (this.$propertyName == 0 || that.$propertyName == 0 || this.$propertyName != that.$propertyName)
+            {
+                return false;
+            }
+#elseif ($idType.enumeration)
+            if (this.$propertyName != that.$propertyName)
+            {
+                return false;
+            }
+#elseif ($idType.arrayType)
+            if (!cs.util.Arrays.equals(this.$propertyName, that.$propertyName))
+            {
+                return false;
+            }
+#else
+            if (this.$propertyName == null || that.$propertyName == null || !this.${propertyName}.Equals(that.$propertyName))
+            {
+                return false;
+            }
+#end
+#end
+            return true;
+#end
+        }
+#end
+##
 ##  This macro will render the GetHashCode() method
 ##  If an entity is rendered, the attributeSet consists of the identifiers,
 ##  if an value type is renderer, the attributeSet consists of all attributes
