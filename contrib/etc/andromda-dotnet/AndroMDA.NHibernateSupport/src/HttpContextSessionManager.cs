@@ -11,9 +11,14 @@ namespace AndroMDA.NHibernateSupport
     /// The HttpContextSessionManager stores the NHibernate session in HttpContext. Use
     /// this SessionManager in ASP.NET applications instead of ThreadLocalSessionManager
     /// because one HttpRequest is not guaranteed to be serviced by the same thread. Note
-    /// that this SessionManager cannot be used in Console or Windows Forms applications
-    /// because no HttpContext exists.
-    /// 
+    /// that HttpContextSessionManager will fall back on ThreadLocal variables if it does
+    /// not find an HttpContext. This is a useful feature if your ASP.NET application
+    /// spawns new threads that do not have an HttpContext. This SessionManager will
+    /// switch to ThreadLocal variables for such threads. Note that this feature also
+    /// allows HttpContextSessionManager to be used in Console or Windows Forms
+    /// applications. You just pay a minor penalty to check for HttpContext every time
+    /// you need to access the Session or the Transaction.
+    ///
     /// To use the HttpContextSessionManager you must store the NHibernate configuration
     /// in an XML file. Then add the name of this file to your Web.config as follows. The
     /// key must be "nhibernate.config" and the value must be the name of your NHibernate
@@ -21,20 +26,20 @@ namespace AndroMDA.NHibernateSupport
     ///   <appSettings>
     ///       <add key="nhibernate.config" value="nhibernate.config" />
     ///   </appSettings>
-    /// 
+    ///
     /// Note that the HttpContextSessionManager creates the NHibernate session lazily
     /// when the very first request for a session is received.
     /// </summary>
     public class HttpContextSessionManager : AbstractSessionManager
     {
-        /// <summary> 
-        /// Key used to store the NHibernate session in HttpContext. 
-        /// </summary> 
+        /// <summary>
+        /// Key used to store the NHibernate session in HttpContext.
+        /// </summary>
         private const string NHibernateSessionKey = "NHibernate.Session";
 
-        /// <summary> 
-        /// Key used to store the NHibernate transaction in HttpContext. 
-        /// </summary> 
+        /// <summary>
+        /// Key used to store the NHibernate transaction in HttpContext.
+        /// </summary>
         private const string NHibernateTransactionKey = "NHibernate.Transaction";
 
         [ThreadStatic]
