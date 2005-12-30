@@ -32,29 +32,43 @@ namespace AndroMDA.NHibernateSupport
         /// </summary> 
         private const string NHibernateSessionKey = "NHibernate.Session";
 
-        private ISession GetSession()
-        {
-            return (ISession)HttpContext.Current.Items[NHibernateSessionKey];
-        }
-
-        private void SetSession(ISession session)
-        {
-            HttpContext.Current.Items[NHibernateSessionKey] = session;
-        }
-
         /// <summary> 
         /// Key used to store the NHibernate transaction in HttpContext. 
         /// </summary> 
         private const string NHibernateTransactionKey = "NHibernate.Transaction";
 
+        [ThreadStatic]
+        private ISession m_session = null;
+
+        [ThreadStatic]
+        private ITransaction m_transaction = null;
+
+        private ISession GetSession()
+        {
+            return (HttpContext.Current != null) ?
+                (ISession)HttpContext.Current.Items[NHibernateSessionKey] : m_session;
+        }
+
+        private void SetSession(ISession session)
+        {
+            if (HttpContext.Current != null)
+                HttpContext.Current.Items[NHibernateSessionKey] = session;
+            else
+                m_session = session;
+        }
+
         private ITransaction GetTransaction()
         {
-            return (ITransaction)HttpContext.Current.Items[NHibernateTransactionKey];
+            return (HttpContext.Current != null) ?
+                (ITransaction)HttpContext.Current.Items[NHibernateTransactionKey] : m_transaction;
         }
 
         private void SetTransaction(ITransaction transaction)
         {
-            HttpContext.Current.Items[NHibernateTransactionKey] = transaction;
+            if (HttpContext.Current != null)
+                HttpContext.Current.Items[NHibernateTransactionKey] = transaction;
+            else
+                m_transaction = transaction;
         }
 
         public override void HandleSessionStart()
