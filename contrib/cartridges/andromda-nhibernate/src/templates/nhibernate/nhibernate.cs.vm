@@ -44,7 +44,7 @@
 #end
 ##
 ##  This macro will render the Equals() method for an entity.
-##  The attributeSet consists of the identifiers,
+##  The attributeSet consists of the identifiers.
 ##
 #macro (renderEqualsMethodForEntity $class $className $attributeSet)
         public override bool Equals(Object obj)
