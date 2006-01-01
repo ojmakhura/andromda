@@ -1,17 +1,13 @@
 <project name="maven2-build" default="default">
 	
 	<echo message="basedir:${basedir}"/>
-	<property name="andromda.all.dir" value="${basedir}/../.."/>
+	<property name="project.dir" value="${basedir}/../.."/>
 	
 	<target name="default">
-		<tstamp>
-    		<format property="ant.mvn.log.date" pattern="yyyyMMdd-HHmmss"/>
-  		</tstamp>
-		<property name="ant.mvn.log" value="ant-mvn-${ant.mvn.log.date}.log"/>
-		<exec dir="${andromda.all.dir}" executable="mvn" >
+		<exec dir="${project.dir}" executable="mvn" >
 			<arg value="clean"/>
         </exec> 
-		<exec dir="${andromda.all.dir}" executable="mvn" >
+		<exec dir="${project.dir}" executable="mvn" >
 			<arg value="install"/>
         </exec> 
 	</target>
