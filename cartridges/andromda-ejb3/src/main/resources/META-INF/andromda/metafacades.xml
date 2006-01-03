@@ -2,6 +2,7 @@
 <metafacades>
 	<property reference="transactionType" />
 	<property reference="entityAccessType" />
+	<property reference="entityViewType" />
 	<property reference="entityListenerNamePattern" />
 	<property reference="entityEmbeddableNamePattern" />
 	<property reference="entityNamePattern" />
@@ -10,18 +11,18 @@
 	<property reference="entityInheritanceStrategy" />
 	<property reference="entityDiscriminatorType" />
 	<property reference="entityDiscriminatorColumnName" />
-	<metafacade
-		class="org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogicImpl">
+	<property reference="serviceViewType" />
+	<property reference="persistenceContainerName" />
+	<property reference="securityDomain" />
+	<!-- Entity POJO EJB Metafacades -->
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogicImpl">
 		<mapping>
 			<context>
 				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
 			</context>
 		</mapping>
 	</metafacade>
-	<!-- Entity POJO EJB Metafacades -->
-	<metafacade
-		class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogicImpl"
-		contextRoot="true">
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogicImpl" contextRoot="true">
 		<mapping>
 			<stereotype>FINDER_METHOD</stereotype>
 			<context>
@@ -30,9 +31,7 @@
 		</mapping>
 		<property reference="queryUseNamedParameters" />
 	</metafacade>
-	<metafacade
-		class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogicImpl"
-		contextRoot="true">
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogicImpl" contextRoot="true">
 		<mapping>
 			<context>
 				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
@@ -40,25 +39,21 @@
 			<property name="query" />
 		</mapping>
 	</metafacade>
-	<metafacade
-		class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogicImpl">
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogicImpl">
 		<mapping>
 			<context>
 				org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacade
 			</context>
 		</mapping>
 	</metafacade>
-	<metafacade
-		class="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogicImpl"
-		contextRoot="true">
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogicImpl" contextRoot="true">
 		<mapping>
 			<stereotype>ENTITY</stereotype>
 		</mapping>
 		<property reference="sqlMappingsUri" />
 		<property reference="jndiNamePrefix" />
 	</metafacade>
-	<metafacade
-		class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogicImpl">
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogicImpl">
 		<mapping>
 			<context>
 				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
@@ -68,16 +63,14 @@
 		<property reference="entityCompositeCascade" />
 		<property reference="entityAggergationCascade" />
 	</metafacade>
-	<metafacade
-		class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationFacadeLogicImpl">
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationFacadeLogicImpl">
 		<mapping>
 			<context>
 				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
 			</context>
 		</mapping>
 	</metafacade>
-	<metafacade
-		class="org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogicImpl">
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogicImpl">
 		<mapping>
 			<context>
 				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
@@ -88,24 +81,25 @@
 		<property reference="entityDefaultGeneratorAllocationSize" />
 	</metafacade>
 	<!-- Session EJB Metafacades -->
-	<metafacade
-		class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogicImpl">
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogicImpl">
 		<mapping>
 			<context>
 				org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade
 			</context>
 		</mapping>
 	</metafacade>
-	<metafacade
-		class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogicImpl"
-		contextRoot="true">
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogicImpl" contextRoot="true">
 		<mapping>
 			<stereotype>SERVICE</stereotype>
 		</mapping>
 		<property reference="jndiNamePrefix" />
+		<property reference="serviceNamePattern" />
+		<property reference="serviceLocalInterfaceNamePattern" />
+		<property reference="serviceRemoteInterfaceName" />
+		<property reference="serviceImplementationNamePattern" />
+		<property reference="serviceListenerNamePattern" />
 	</metafacade>
-	<metafacade
-		class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogicImpl">
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogicImpl">
 		<mapping>
 			<context>
 				org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade
