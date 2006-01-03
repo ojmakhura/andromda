@@ -1,10 +1,8 @@
 <cartridge>
 
 	<!-- define the template objects that are made availble to the template -->
-	<templateObject name="stringUtils"
-		className="org.apache.commons.lang.StringUtils" />
-	<templateObject name="transform"
-		className="org.andromda.cartridges.ejb3.EJB3ScriptHelper" />
+	<templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils" />
+	<templateObject name="transform" className="org.andromda.cartridges.ejb3.EJB3ScriptHelper" />
 	<!-- cartridge-templateObject merge-point-->
 
 	<!-- cartridge-property merge-point-->
@@ -12,33 +10,34 @@
 	<!-- cartridge-resource merge-point -->
 
 	<template path="templates/ejb3/Entity.vsl"
-		outputPattern="{0}/{1}.java" outlet="entity-beans" overwrite="true">
+		outputPattern="{0}/{1}.java" 
+		outlet="entity-beans" 
+		overwrite="true">
 		<modelElements variable="entity">
 			<modelElement>
-				<type
-					name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade" />
+				<type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade" />
 			</modelElement>
 		</modelElements>
 	</template>
 
 	<template path="templates/ejb3/EntityImpl.vsl"
-		outputPattern="{0}/{1}Impl.java" outlet="entity-impls"
+		outputPattern="{0}/{1}Impl.java" 
+		outlet="entity-impls"
 		overwrite="false">
 		<modelElements variable="entity">
 			<modelElement>
-				<type
-					name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade" />
+				<type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade" />
 			</modelElement>
 		</modelElements>
 	</template>
 
 	<template path="templates/ejb3/EntityListener.vsl"
-		outputPattern="{0}/{1}Listener.java" outlet="entity-impls"
+		outputPattern="{0}/{1}Listener.java" 
+		outlet="entity-impls"
 		overwrite="false">
 		<modelElements variable="entity">
 			<modelElement>
-				<type
-					name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade" />
+				<type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade" />
 			</modelElement>
 		</modelElements>
 	</template>
@@ -52,53 +51,62 @@
 	-->
 
 	<template path="templates/ejb3/SessionBean.vsl"
-		outputPattern="{0}/{1}Bean.java" outlet="session-beans"
-		overwrite="false">
+		outputPattern="{0}/{1}Bean.java" 
+		outlet="session-beans"
+		overwrite="true">
 		<modelElements variable="service">
 			<modelElement>
-				<type
-					name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade" />
+				<type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade" />
 			</modelElement>
 		</modelElements>
 	</template>
 
 	<template path="templates/ejb3/SessionLocal.vsl"
-		outputPattern="{0}/{1}Local.java" outlet="session-beans"
-		overwrite="true" generateEmptyFiles="false">
+		outputPattern="{0}/{1}Local.java" 
+		outlet="session-beans"
+		overwrite="true" 
+		generateEmptyFiles="true">
 		<modelElements variable="service">
 			<modelElement>
-				<type
-					name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
-					<property name="viewType">local</property>
-				</type>
+				<type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade" />
 			</modelElement>
 		</modelElements>
 	</template>
 
 	<template path="templates/ejb3/SessionRemote.vsl"
-		outputPattern="{0}/{1}.java" outlet="session-beans" overwrite="true"
-		generateEmptyFiles="false">
+		outputPattern="{0}/{1}Remote.java" 
+		outlet="session-beans" 
+		overwrite="true"
+		generateEmptyFiles="true">
 		<modelElements variable="service">
 			<modelElement>
-				<type
-					name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
-					<property name="viewType">remote</property>
-				</type>
+				<type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade" />
 			</modelElement>
 		</modelElements>
 	</template>
 
 	<template path="templates/ejb3/SessionBeanImpl.vsl"
-		outputPattern="{0}/{1}BeanImpl.java" outlet="session-impls"
+		outputPattern="{0}/{1}BeanImpl.java" 
+		outlet="session-impls"
 		overwrite="false">
 		<modelElements variable="service">
 			<modelElement>
-				<type
-					name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade" />
+				<type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade" />
 			</modelElement>
 		</modelElements>
 	</template>
 
+	<template path="templates/ejb3/SessionListener.vsl"
+		outputPattern="{0}/{1}Listener.java" 
+		outlet="session-impls"
+		overwrite="false">
+		<modelElements variable="service">
+			<modelElement>
+				<type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade" />
+			</modelElement>
+		</modelElements>
+	</template>
+	
 	<!-- cartridge-template merge-point -->
 
 </cartridge>
