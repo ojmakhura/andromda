@@ -1,5 +1,6 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
+import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -20,6 +21,7 @@ import java.util.List;
  * Contains utilities for use with EJB metafacades.
  *
  * @author Chad Brandon
+ * @author Vance Karimi
  */
 class EJB3MetafacadeUtils
 {
@@ -82,38 +84,49 @@ class EJB3MetafacadeUtils
     }
 
     /**
-     * Gets the view type for the passed in <code>classifier</code>. Returns 'local' if the model element has the entity
-     * stereotype, others checks there ejb tagged value and if there is no value defined, returns 'remote'.
+     * Gets the view type for the passed in <code>classifier</code>. If no 
+     * view type can be retrieved from the <code>classifier</code>, then the 
+     * <code>defaultViewType</code> is returned.
+     * 
+     * If the model element has the entity stereotype, returns 'local'.
+     * Otherwise (session ejb) checks the ejb tagged value and if there is 
+     * no value defined, returns 'remote'.
      *
+     * @param classifier The classifier to lookup the view type tagged value
+     * @param defaultViewType The default view type if one is not found
      * @return String the view type name.
      */
-    static String getViewType(ClassifierFacade classifier)
+    static String getViewType(
+            ClassifierFacade classifier,
+            String defaultViewType)
     {
         final String methodName = "EJBMetafacadeUtils.getViewType";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
-        String viewType = "local";
-        if (classifier.hasStereotype(EJB3Profile.STEREOTYPE_SERVICE))
+        String viewType = (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE);
+        if (classifier.hasStereotype(EJB3Profile.STEREOTYPE_ENTITY))
         {
-            String viewTypeValue = (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE);
+            if (StringUtils.isEmpty(viewType))
+            {
+                viewType = (StringUtils.isNotBlank(defaultViewType) ? defaultViewType : EJB3Globals.VIEW_TYPE_LOCAL);
+            }
+        }
+        else if (classifier.hasStereotype(EJB3Profile.STEREOTYPE_SERVICE))
+        {
             // if the view type wasn't found, search all super classes
-            if (StringUtils.isEmpty(viewTypeValue))
+            if (StringUtils.isEmpty(viewType))
             {
                 viewType = (String)CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
                 {
                     public boolean evaluate(Object object)
                     {
-                        return ((ModelElementFacade)object).findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE) !=
-                                null;
+                        return ((ModelElementFacade)object).findTaggedValue(
+                                EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE) != null;
                     }
                 });
             }
-            if (StringUtils.isNotEmpty(viewTypeValue))
+            if (StringUtils.isEmpty(viewType))
             {
-                viewType = viewTypeValue;
-            }
-            else
-            {
-                viewType = "remote";
+                viewType = (StringUtils.isNotBlank(defaultViewType) ? defaultViewType : EJB3Globals.VIEW_TYPE_REMOTE);
             }
         }
         return viewType.toLowerCase();
@@ -273,5 +286,43 @@ class EJB3MetafacadeUtils
         fullyQualifiedName.append(StringUtils.trimToEmpty(name));
         fullyQualifiedName.append(StringUtils.trimToEmpty(suffix));
         return fullyQualifiedName.toString();
+    }
+    
+    /**
+     * Convert the transaction type from lower casing to upper casing.
+     * This maintains reusable tagged value enumeration from EJB
+     * implementation.
+     * 
+     * @param transType
+     * @return
+     */
+    static String convertTransactionType(String transType)
+    {
+        String type = null;
+        if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_MANDATORY))
+        {
+            type = "MANDATORY";
+        }
+        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_NEVER))
+        {
+            type = "NEVER";
+        }
+        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_NOT_SUPPORTED))
+        {
+            transType = "NOT_SUPPORTED";
+        }
+        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_REQUIRED))
+        {
+            type = "REQUIRED";
+        }
+        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_REQUIRES_NEW))
+        {
+            type = "REQUIRES_NEW";
+        }
+        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_SUPPORTS))
+        {
+            type = "SUPPORTS";
+        }
+        return type;
     }
 }
