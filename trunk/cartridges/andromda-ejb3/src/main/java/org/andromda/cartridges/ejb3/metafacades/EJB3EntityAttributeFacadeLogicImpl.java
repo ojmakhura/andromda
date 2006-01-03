@@ -1,5 +1,8 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.apache.commons.lang.StringUtils;
@@ -57,7 +60,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
         boolean isEager = false;
         if (StringUtils.isNotBlank(this.getFetchType()))
         {
-            if (this.getFetchType().equalsIgnoreCase(EJB3Profile.FETCHTYPE_EAGER))
+            if (this.getFetchType().equalsIgnoreCase(EJB3Globals.FETCH_TYPE_EAGER))
             {
                 isEager = true;
             }
@@ -73,7 +76,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
         boolean isLazy = false;
         if (StringUtils.isNotBlank(this.getFetchType()))
         {
-            if (this.getFetchType().equalsIgnoreCase(EJB3Profile.FETCHTYPE_LAZY)) {
+            if (this.getFetchType().equalsIgnoreCase(EJB3Globals.FETCH_TYPE_LAZY)) {
                 isLazy = true;
             }
         }
@@ -113,7 +116,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
             genType = String.valueOf(this.getConfiguredProperty(EJB3Globals.ENTITY_DEFAULT_GENERATOR_TYPE));
             if (StringUtils.isBlank(genType))
             {
-                genType = EJB3Profile.GENERATORTYPE_AUTO;
+                genType = EJB3Globals.GENERATOR_TYPE_AUTO;
             }
         }
         return genType;
@@ -158,7 +161,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
         boolean isSequence = false;
         if (StringUtils.isNotBlank(this.getGeneratorType())) 
         {
-            if (this.getGeneratorType().equalsIgnoreCase(EJB3Profile.GENERATORTYPE_SEQUENCE))
+            if (this.getGeneratorType().equalsIgnoreCase(EJB3Globals.GENERATOR_TYPE_SEQUENCE))
             {
                 isSequence = true;
             }
@@ -174,7 +177,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
         boolean isTable = false;
         if (StringUtils.isNotBlank(this.getGeneratorType())) 
         {
-            if (this.getGeneratorType().equalsIgnoreCase(EJB3Profile.GENERATORTYPE_TABLE))
+            if (this.getGeneratorType().equalsIgnoreCase(EJB3Globals.GENERATOR_TYPE_TABLE))
             {
                 isTable = true;
             }
@@ -320,5 +323,4 @@ public class EJB3EntityAttributeFacadeLogicImpl
         }
         return isTransient;
     }
-
 }
