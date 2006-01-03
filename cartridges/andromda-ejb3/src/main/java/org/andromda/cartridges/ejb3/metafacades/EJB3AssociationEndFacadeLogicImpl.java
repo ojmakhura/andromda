@@ -117,11 +117,11 @@ public class EJB3AssociationEndFacadeLogicImpl
 		{
 			if (this.getOtherEnd().isOne2Many() || this.getOtherEnd().isMany2Many())
 			{
-				fetchType = EJB3Profile.FETCHTYPE_LAZY;
+				fetchType = EJB3Globals.FETCH_TYPE_LAZY;
 			}
 			else
 			{
-				fetchType = EJB3Profile.FETCHTYPE_EAGER;
+				fetchType = EJB3Globals.FETCH_TYPE_EAGER;
 			}
 		}
 		
@@ -136,7 +136,7 @@ public class EJB3AssociationEndFacadeLogicImpl
         boolean isEager = false;
         if (StringUtils.isNotBlank(this.getFetchType()))
         {
-            if (this.getFetchType().equalsIgnoreCase(EJB3Profile.FETCHTYPE_EAGER))
+            if (this.getFetchType().equalsIgnoreCase(EJB3Globals.FETCH_TYPE_EAGER))
             {
                 isEager = true;
             }
@@ -152,7 +152,7 @@ public class EJB3AssociationEndFacadeLogicImpl
         boolean isLazy = false;
         if (StringUtils.isNotBlank(this.getFetchType()))
         {
-            if (this.getFetchType().equalsIgnoreCase(EJB3Profile.FETCHTYPE_LAZY))
+            if (this.getFetchType().equalsIgnoreCase(EJB3Globals.FETCH_TYPE_LAZY))
             {
                 isLazy = true;
             }
