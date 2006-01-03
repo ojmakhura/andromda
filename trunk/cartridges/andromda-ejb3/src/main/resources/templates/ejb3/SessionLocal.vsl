@@ -5,81 +5,77 @@ package $service.packageName;
 #end
 
 /**
- * Local component interface for the $service.name session bean.
+ * Local component interface for the ${service.serviceName} session bean.
 $service.getDocumentation(" * ")
  */
+@javax.ejb.Local
 public interface ${service.serviceLocalInterfaceName}
 #if($service.generalization)
     extends ${service.generalization.fullyQualifiedName}Local
-#else
-    extends javax.ejb.EJBLocalObject
 #end
 {
-    // -- accessors for environment entries --
-#foreach($envEntry in $service.getEnvironmentEntries(true))
-#if($envEntry.visibility == "public")
-    /**
-     * Get the ${envEntry.name} environment entry
-$envEntry.getDocumentation("     * ")
-     */
-    public $envEntry.type.fullyQualifiedName get$AttName();
+#set ($constants = $service.constants)
+#if (!$constants.empty)
 
-#end
-#end
-    // -- accessors for constants --
-#foreach($attribute in $service.staticAttributes)
-#if(!$attribute.hasStereotype("EnvEntry"))
-#set ($visibility = $attribute.visibility)
-## Only expose the method to the home interface if it is public.
-#if($visibility == "public")
-#set($attType = $attribute.type.fullyQualifiedName)
-#set($AttName = $stringUtils.capitalize($attribute.name))
+    // ----------- accessors for constants ------------
+    
+#**##foreach($constant in $constants)
+## Only expose the method if it is public.
+#*  *##if($constant.visibility == "public")
     /**
      * Get the $attribute.name constant
-$attribute.getDocumentation("     * ")
+$constant.getDocumentation("     * ")
      */
-    public $attType get$AttName();
+    public $constant.type.fullyQualifiedName ${constant.getterName}();
 
+#*  *##end
+#**##end
 #end
-#end
-#end
+#set ($attributes = $service.instanceAttributes)
+#if (!$attributes.empty)
+
     // --------------- attributes ---------------------
-#foreach ( $attribute in $service.instanceAttributes)
-#set ($visibility = $attribute.visibility)
+    
+#**##foreach ($attribute in $attributes)
 ## Only expose the method to the component interface if it is public.
-#if($visibility == "public")
+#*  *##if ($attribute.visibility == "public")
     /**
-     * Get the ${attribute.name} property
+     * Get the $attribute.name property
 $attribute.getDocumentation("     * ")
      */
     public $attribute.type.fullyQualifiedName ${attribute.getterName}();
-
-#if(!$attribute.readOnly)
+    
+#*    *##if(!$attribute.readOnly)
     /**
-     * Set the ${attribute.name} property
+     * Set the $attribute.name property
      * @param value the new value
      */
     public void ${attribute.setterName}($attribute.type.fullyQualifiedName value);
+    
+#*    *##end
+#*  *##end
+#**##end
 #end
-#end
-#end
+#set ($operations = $service.businessOperations)
+#if (!$operations.empty)
 
-    // ---------------- business methods  ----------------------
-#foreach ( $operation in $service.businessOperations)
-#set ($visibility = $operation.visibility)
-## Only expose public methods
-#if ($visibility == "public")
-
-   /**
-$operation.getDocumentation("    * ")
-    */
-#set ($returnType = $operation.returnType.fullyQualifiedName)
-#if ($operation.exceptionsPresent)
+    // ------------ business methods  -----------------
+    
+#**##foreach ($operation in $operations)
+## Only expose public methods with local view type accessability
+#*  *##if ($operation.visibility == "public" && ($operation.viewTypeLocal || $operation.viewTypeBoth))
+    /**
+$operation.getDocumentation("     * ")
+     */
+#*    *##set ($returnType = $operation.returnType.fullyQualifiedName)
+#*    *##if ($operation.exceptionsPresent)
     public $returnType $operation.signature
-    throws $operation.exceptionList;
-#else
-    $visibility $returnType $operation.signature;
-#end
-#end
+        throws $operation.exceptionList;
+#*    *##else
+    public $returnType $operation.signature;
+#*    *##end
+
+#*  *##end
+#**##end
 #end
 }
