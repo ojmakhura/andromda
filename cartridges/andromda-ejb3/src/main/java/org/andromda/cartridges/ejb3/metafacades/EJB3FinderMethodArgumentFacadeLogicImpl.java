@@ -1,5 +1,6 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
+import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
@@ -34,15 +35,15 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
                 if (!classifier.isPrimitive()) {
                     if (classifier.isDateType())
                     {
-                        temporalType = EJB3Profile.TEMPORALTYPE_DATE;
+                        temporalType = EJB3Globals.TEMPORAL_TYPE_DATE;
                     }
                     else if (classifier.isTimeType())
                     {
-                        temporalType = EJB3Profile.TEMPORALTYPE_TIME;
+                        temporalType = EJB3Globals.TEMPORAL_TYPE_TIME;
                     }
                     else if (classifier.getName().equals("Timestamp"))
                     {
-                        temporalType = EJB3Profile.TEMPORALTYPE_TIMESTAMP;
+                        temporalType = EJB3Globals.TEMPORAL_TYPE_TIMESTAMP;
                     }
                 }
             }
@@ -60,7 +61,7 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
             (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_FINDER_PARAMETER_RESULT_TYPE);
         if (StringUtils.isNotBlank(resultType))
         {
-            if (resultType.equalsIgnoreCase(EJB3Profile.FINDER_RESULTTYPE_FIRST))
+            if (resultType.equalsIgnoreCase(EJB3Globals.FINDER_RESULT_TYPE_FIRST))
             {
                 firstResult = true;
             }
@@ -78,7 +79,7 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
             (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_FINDER_PARAMETER_RESULT_TYPE);
         if (StringUtils.isNotBlank(resultType))
         {
-            if (resultType.equalsIgnoreCase(EJB3Profile.FINDER_RESULTTYPE_MAX))
+            if (resultType.equalsIgnoreCase(EJB3Globals.FINDER_RESULT_TYPE_MAX))
             {
                 maxResults = true;
             }
