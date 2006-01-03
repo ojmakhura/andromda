@@ -125,6 +125,19 @@
 			</property>
 		</propertyGroup>
 		<propertyGroup name="Other Properties">
+			<property name="persistenceContainerName">
+				<default>jboss</default>
+				<documentation>
+					The default persistence container engine name.
+					Used when specifying specific annotations
+					for different persistence containers.
+					Possible values are:
+					<ul>
+						<li>jboss</li>
+						<li>weblogic</li>
+					</ul>
+				</documentation>
+			</property>
 			<property name="entityAccessType">
 				<default>PROPERTY</default>
 				<documentation>
@@ -284,6 +297,14 @@
 					always exist.
 				</documentation>
 			</property>
+			<property name="securityDomain">
+				<default>Default</default>
+				<documentation>
+					Specifies the default security domain to use
+					for role based authorization.  JBoss uses the
+					security model to match allowed roles.
+				</documentation>
+			</property>
 			<property name="queryUseNamedParameters">
 				<default>true</default>
 				<documentation>
@@ -301,18 +322,42 @@
 			<property name="valueObjectName">
 				<default>{0}</default>
 			</property>
+			<property name="entityViewType">
+				<default>local</default>
+				<documentation>
+					The default view type accessability for an entity POJO bean.
+					<ul>
+						Permitted values are:
+						<li>local</li>
+						<li>remote</li>
+						<li>both</li>
+					</ul>
+				</documentation>
+			</property>
+			<property name="serviceViewType">
+				<default>remote</default>
+				<documentation>
+					The default view type accessability for a session bean.
+					<ul>
+						Permitted values are:
+						<li>local</li>
+						<li>remote</li>
+						<li>both</li>
+					</ul>
+				</documentation>
+			</property>
 			<property name="transactionType">
-				<default>Required</default>
+				<default>REQUIRED</default>
 				<documentation>
 					The default value to use for transaction types.
 					<ul>
 						Permitted values are:
-						<li>NotSupported</li>
-						<li>Supports</li>
-						<li>Required</li>
-						<li>RequiresNew</li>
-						<li>Mandatory</li>
-						<li>Never</li>
+						<li>NOT_SUPPORTED</li>
+						<li>SUPPORTS</li>
+						<li>REQUIRED</li>
+						<li>REQUIRES_NEW</li>
+						<li>MANDATORY</li>
+						<li>NEVER</li>
 					</ul>
 					<strong>NOTE:</strong>
 					Can be overridden on a per entity basis with the
