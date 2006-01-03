@@ -239,7 +239,8 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected java.lang.String handleGetViewType()
     {
-    	return EJB3MetafacadeUtils.getViewType(this);
+    	return EJB3MetafacadeUtils.getViewType(this,
+                String.valueOf(this.getConfiguredProperty(EJB3Globals.ENTITY_DEFAULT_VIEW_TYPE)));
     }
 
     /**
@@ -834,5 +835,42 @@ public class EJB3EntityFacadeLogicImpl
         
         // Must the root class - Cannot have embeddable superclass in the middle of the hierarchy
         return isEmbeddableSuperclass && isRoot();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#
+     *      handleGetAttributesAsList(java.util.Collection, boolean, boolean)
+     */
+    protected String handleGetAttributesAsList(Collection attributes, boolean includeTypes, boolean includeNames)
+    {
+        if (!includeNames && !includeTypes || attributes == null)
+        {
+            return "";
+        }
+
+        StringBuffer sb = new StringBuffer();
+        String separator = "";
+
+        for (final Iterator it = attributes.iterator(); it.hasNext();)
+        {
+            //AttributeFacade attr = (AttributeFacade)it.next();
+            EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade)it.next();
+            if (!attr.isVersion())
+            {
+                sb.append(separator);
+                separator = ", ";
+                if (includeTypes)
+                {
+                    sb.append(attr.getType().getFullyQualifiedName());
+                    sb.append(" ");
+                }
+                if (includeNames)
+                {
+                    sb.append(attr.getName());
+                }
+            }
+                
+        }
+        return sb.toString();
     }
 }
