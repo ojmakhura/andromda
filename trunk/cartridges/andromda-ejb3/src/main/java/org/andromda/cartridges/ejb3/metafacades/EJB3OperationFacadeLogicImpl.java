@@ -32,30 +32,7 @@ public class EJB3OperationFacadeLogicImpl
     	String transType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
         if (StringUtils.isNotBlank(transType))
         {
-            if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_MANDATORY))
-            {
-                transType = "MANDATORY";
-            }
-            else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_NEVER))
-            {
-                transType = "NEVER";
-            }
-            else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_NOT_SUPPORTED))
-            {
-                transType = "NOT_SUPPORTED";
-            }
-            else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_REQUIRED))
-            {
-                transType = "REQUIRED";
-            }
-            else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_REQUIRES_NEW))
-            {
-                transType = "REQUIRES_NEW";
-            }
-            else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_SUPPORTS))
-            {
-                transType = "SUPPORTS";
-            }
+            transType = EJB3MetafacadeUtils.convertTransactionType(transType);
         }
         else
         {
