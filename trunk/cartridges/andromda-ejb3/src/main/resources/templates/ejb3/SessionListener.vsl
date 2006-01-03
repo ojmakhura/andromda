@@ -1,0 +1,49 @@
+// license-header java merge-point
+#if ($stringUtils.isNotBlank($service.packageName))
+package $service.packageName;
+#end
+
+
+/**
+ * Callback Listener for Session bean ${service.fullyQualifiedName}
+ *
+ * @see ${service.fullyQualifiedName}
+ */
+public class ${service.serviceListenerName} 
+{
+    /**
+     * Default public no-args constructor
+     */
+    public ${service.serviceListenerName}() 
+    { 
+    }
+    
+    @javax.ejb.PostConstruct
+    public void postConstruct(${service.fullyQualifiedServiceName} ${stringUtils.uncapitalize(${service.name})}) 
+    {
+		// post construct implementation
+	}
+	
+	@javax.ejb.PostActivate
+	public void postActivate(${service.fullyQualifiedServiceName} ${stringUtils.uncapitalize(${service.name})}) 
+	{
+		// post construct implementation
+	}
+	
+	@javax.ejb.PrePassivate
+	public void prePassivate(${service.fullyQualifiedServiceName} ${stringUtils.uncapitalize(${service.name})}) 
+	{
+		// pre passivate implementation
+	}
+	
+	@javax.ejb.PreDestroy
+	public void preDestroy(${service.fullyQualifiedServiceName} ${stringUtils.uncapitalize(${service.name})}) 
+	{
+		// pre destroy implementation
+	}
+	
+	@javax.ejb.Remove
+	public void remove(${service.fullyQualifiedServiceName} ${stringUtils.uncapitalize(${service.name})}) {
+		// remove implementation
+	}
+}
