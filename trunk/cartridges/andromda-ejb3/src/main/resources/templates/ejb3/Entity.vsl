@@ -86,10 +86,10 @@ public abstract class ${entity.entityName}
      * @param $attribute.name Value for the ${attribute.name} property
 #end
      */
-    public ${entity.entityName}($transform.getAttributesAsList($allAttributes, true, true)) 
+    public ${entity.entityName}($entity.getAttributesAsList($allAttributes, true, true)) 
     {
 #if(!$inheritedAttributes.empty)
-        super($transform.getAttributesAsList($inheritedAttributes, false, true));
+        super($entity.getAttributesAsList($inheritedAttributes, false, true));
 #end
 #foreach ($attribute in $transform.filterUpdatableAttributes($instanceAttributes))
         ${attribute.setterName}(${attribute.name});
@@ -108,10 +108,10 @@ public abstract class ${entity.entityName}
      * @param $relation.otherEnd.name Value for the ${relation.otherEnd.name} relation role
 #*  *##end
      */
-    public ${entity.entityName}($transform.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)#if ($relation.one2Many || $relation.many2Many)${relation.relationType}<${relation.otherEnd.type.name}> $relation.otherEnd.name#else${relation.relationType} $relation.otherEnd.name#end#if($velocityCount != $relations.size()), #end#end)
+    public ${entity.entityName}($entity.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)#if ($relation.one2Many || $relation.many2Many)${relation.relationType}<${relation.otherEnd.type.name}> $relation.otherEnd.name#else${relation.relationType} $relation.otherEnd.name#end#if($velocityCount != $relations.size()), #end#end)
     {
         // Call suitable class constructor
-        this($transform.getAttributesAsList($allAttributes, false, true));
+        this($entity.getAttributesAsList($allAttributes, false, true));
         
         // Set the CMR relations
 #*  *##foreach ($relation in $relations)
