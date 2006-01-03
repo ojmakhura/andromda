@@ -8,71 +8,74 @@ package $service.packageName;
  * Remote component interface for the ${service.serviceName} session bean.
 $service.getDocumentation(" * ")
  */
+@javax.ejb.Remote
 public interface ${service.serviceRemoteInterfaceName}
 #if ($service.generalization)
-    extends $service.fullyQualifiedName
-#else
-    extends javax.ejb.EJBObject
+    extends ${service.generalization.fullyQualifiedName}Remote
 #end
 {
-    // -- accessors for environment entries --
-#foreach($envEntry in $service.getEnvironmentEntries(true))
-#if($visibility == "public")
-    /**
-     * Get the ${envEntry.name} environment entry
-$envEntry.getDocumentation("     * ")
-     */
-    public $envEntry.type.fullyQualifiedName ${envEntry.getterName}();
+#set ($constants = $service.constants)
+#if (!$constants.empty)
 
-#end
-#end
-    // -- accessors for constants --
-#foreach($constant in $service.constants)
-## Only expose the method to the home interface if it is public.
-#if($constant.visibility == "public")
+    // ---------- accessors for constants -----------
+    
+#**##foreach($constant in $constants)
+## Only expose the method if it is public.
+#*  *##if($constant.visibility == "public")
     /**
      * Get the $attribute.name constant
 $constant.getDocumentation("     * ")
      */
     public $constant.type.fullyQualifiedName ${constant.getterName}();
 
+#*  *##end
+#**##end
 #end
-#end
+#set ($attributes = $service.instanceAttributes)
+#if (!$attributes.empty)
+
     // --------------- attributes ---------------------
-#foreach ( $attribute in $service.instanceAttributes)
+    
+#**##foreach ($attribute in $attributes)
+## Only expose the method to the component interface if it is public.
+#*  *##if ($attribute.visibility == "public")
     /**
-     * Get the ${attribute.name} property
+     * Get the $attribute.name property
 $attribute.getDocumentation("     * ")
      */
-    public $attribute.type.fullyQualifiedName ${attribute.getterName}()
-        throws java.rmi.RemoteException;
-
-#if(!$attribute.readOnly)
+    public $attribute.type.fullyQualifiedName ${attribute.getterName}();
+    
+#*    *##if(!$attribute.readOnly)
     /**
      * Set the $attribute.name property
      * @param value the new value
      */
-    public void ${attribute.setterName}($attribute.type.fullyQualifiedName value)
-        throws java.rmi.RemoteException;
+    public void ${attribute.setterName}($attribute.type.fullyQualifiedName value);
+    
+#*    *##end
+#*  *##end
+#**##end
 #end
-#end
+#set ($operations = $service.businessOperations)
+#if (!$operations.empty)
 
-    // ---------------- business methods  ----------------------
-#foreach ( $operation in $service.businessOperations)
-## Only expose public methods
-#if ($operation.visibility == "public")
+    // ------------ business methods  -----------------
+    
+#**##foreach ($operation in $operations)
+## Only expose public methods with remote view type accessability
+#*  *##if ($operation.visibility == "public" && ($operation.viewTypeRemote || $operation.viewTypeBoth))
+    /**
+$operation.getDocumentation("     * ")
+     */
+#*    *##set ($returnType = $operation.returnType.fullyQualifiedName)
+#*    *##if ($operation.exceptionsPresent)
+    public $returnType $operation.signature
+        throws $operation.exceptionList;
+#*    *##else
+    public $returnType $operation.signature;
+#*    *##end
 
-   /**
-$operation.getDocumentation("    * ")
-    */
-#set ($returnType = $operation.returnType.fullyQualifiedName)
-#if ($operation.exceptionsPresent)
-    public $returnType $operation.signature
-        throws $operation.getExceptionList('java.rmi.RemoteException');
-#else
-    public $returnType $operation.signature
-        throws java.rmi.RemoteException;
-#end
-#end
+#*  *##end
+#**##end
 #end
 }
