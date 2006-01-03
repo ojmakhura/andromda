@@ -53,6 +53,14 @@
 				<value>Transient</value>
 				<appliedOnElement>Entity attribute</appliedOnElement>
 			</element>
+			<element name="PERSISTENCE_CONTEXT">
+				<documentation>
+					Identifies a persistence context used to express a dependency
+					on an EntityManager persistence context.
+				</documentation>
+				<value>PersistenceContext</value>
+				<appliedOnElement>class</appliedOnElement>
+			</element>
 			<element name="IDENTIFIER">
 				<documentation>
 					Identifies an attribute as an identifier (primary
@@ -306,6 +314,110 @@
 				</value>
 				<appliedOnElement>
 					<![CDATA[<<Entity>>]]>
+				</appliedOnElement>
+			</element>
+			<element name="SERVICE_TYPE">
+				<documentation>
+					Used at the class level of a service bean to 
+					override the default session bean type which
+					is determined by the existence of instance
+					variables.
+				</documentation>
+				<value>
+					@andromda.ejb.service.type
+				</value>
+				<appliedOnElement>
+					<![CDATA[<<Service>>]]>
+				</appliedOnElement>
+				<allowedValues>
+					<value>Stateless</value>
+					<value>Stateful</value>
+				</allowedValues>
+			</element>
+			<element name="SERVICE_PERSISTENCE_CONTEXT_UNIT_NAME">
+				<documentation>
+					Used at the class level of a service bean or 
+					a class with stereotype PersistenceContext to 
+					determine the persistence context unit
+					name.
+				</documentation>
+				<value>
+					@andromda.ejb.persistence.context.unit.name
+				</value>
+				<appliedOnElement>
+					<![CDATA[<<Service>>]]>
+				</appliedOnElement>
+			</element>
+			<element name="SERVICE_PERSISTENCE_CONTEXT_TYPE">
+				<documentation>
+					Used at the class level of a service bean or 
+					a class with stereotype PersistenceContext to 
+					determine the persistence context type.
+					This can be set to extend the transaction
+					on a Stateful session bean for it's 
+					EntityManager.
+				</documentation>
+				<value>
+					@andromda.ejb.persistence.context.unit.type
+				</value>
+				<appliedOnElement>
+					<![CDATA[<<Service>>]]>
+				</appliedOnElement>
+				<allowedValues>
+					<value>EXTENDED</value>
+					<value>TRANSACTION</value>
+				</allowedValues>
+			</element>
+			<element name="SECURITY_ROLES_ALLOWED">
+				<documentation>
+					Specifies the comma separated list of security
+					roles that are permitted to execute opertions.
+					This can be set on the session bean or on
+					individual operations.
+					If set on the session bean, all operations will
+					inherit this behaviour.
+				</documentation>
+				<value>
+					@andromda.ejb.security.rolesAllowed
+				</value>
+				<appliedOnElement>
+					Service and service operation
+				</appliedOnElement>
+			</element>
+			<element name="SECURITY_PERMIT_ALL">
+				<documentation>
+					Specifies whether to permit all roles to
+					execute the opertions in a session bean.
+					This can be set on the session bean or on
+					individual operations.
+					If set on the session bean, all operations will
+					inherit this behaviour.
+					The permit all tagged value will override
+					the roles allowed.  If both are set, only the
+					permit all tagged value is rendered.
+				</documentation>
+				<value>
+					@andromda.ejb.security.permitAll
+				</value>
+				<appliedOnElement>
+					Service and service operation
+				</appliedOnElement>
+				<allowedValues>
+					<value>true</value>
+					<value>false</value>
+				</allowedValues>
+			</element>
+			<element name="SECURITY_DOMAIN">
+				<documentation>
+					Specifies the security domain for
+					role based authorization.  JBoss uses
+					the security model to match allowed roles. 
+				</documentation>
+				<value>
+					@andromda.ejb.security.domain
+				</value>
+				<appliedOnElement>
+					Session bean
 				</appliedOnElement>
 			</element>
 			<element name="AUTOMATIC_KEY">
