@@ -18,8 +18,21 @@ public class EJB3Profile
     private static final Profile profile = Profile.instance();
     
     /* ----------------- Stereotypes -------------------- */
+    
+    /**
+     * Specifies the create method stereotype - used in entity POJO
+     * and session bean.
+     */
     public static final String STEREOTYPE_CREATE_METHOD = "CreateMethod";
+    
+    /**
+     * Specifies the select method stereotype - used in EJB2.x
+     */
     public static final String STEREOTYPE_SELECT_METHOD = "SelectMethod";
+    
+    /**
+     * Specifies the environment entry stereotype - used in EJB2.x
+     */
     public static final String STEREOTYPE_ENV_ENTRY = "EnvEntry";
     
     /**
@@ -36,30 +49,130 @@ public class EJB3Profile
      * Represents a reference to a value object.
      */
     public static final String STEREOTYPE_VALUE_REF = "ValueRef";
+    
+    /**
+     * Represents a persistence context instance referenced from a session bean.
+     */
+    public static final String STEREOTYPE_PERSISTENCE_CONTEXT = profile.get("PERSISTENCE_CONTEXT");
 
     /* ----------------- Tagged Values -------------------- */
+    
+    /**
+     * 
+     */
     public static final String TAGGEDVALUE_GENERATE_CMR = "@andromda.ejb.generateCMR";
+    
+    /**
+     * The tagged value indicating the EJB query.
+     */
     public static final String TAGGEDVALUE_EJB_QUERY = "@andromda.ejb.query";
+    
+    /**
+     * The tagged value indicating the view type for the class or operation.
+     */
     public static final String TAGGEDVALUE_EJB_VIEWTYPE = "@andromda.ejb.viewType";
+    
+    /**
+     * The tagged value indicating the transaction property.
+     */
     public static final String TAGGEDVALUE_EJB_TRANSACTION_TYPE = "@andromda.ejb.transaction.type";
+    
+    /**
+     * 
+     */
     public static final String TAGGEDVALUE_EJB_NO_SYNTHETIC_CREATE_METHOD = "@andromda.ejb.noSyntheticCreateMethod";
     
-    public static final String TAGGEDVALUE_PERSISTENCE_FINDER_PARAMETER_TEMPORAL_TYPE = "@andromda.persistence.finder.temporal.type";
-    public static final String TAGGEDVALUE_PERSISTENCE_FINDER_PARAMETER_RESULT_TYPE = "@andromda.persistence.finder.result.type";
+    /**
+     * The tagged value indicating the finder temporal type.
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_FINDER_PARAMETER_TEMPORAL_TYPE = 
+        "@andromda.persistence.finder.temporal.type";
+    
+    /**
+     * The tagged value indicating the finder result type (First or Max).
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_FINDER_PARAMETER_RESULT_TYPE = 
+        "@andromda.persistence.finder.result.type";
+    
+    /**
+     * The tagged value indicating the entity table name.
+     */
     public static final String TAGGEDVALUE_PERSISTENCE_ENTITY_TABLE_NAME = "@andromda.persistence.entity.table.name";
+    
+    /**
+     * The tagged value indicating the fetch type.
+     */
     public static final String TAGGEDVALUE_PERSISTENCE_FETCH_TYPE = "@andromda.persistence.fetch.type";
+    
+    /**
+     * The tagged value indicating the LOB type.
+     */
 	public static final String TAGGEDVALUE_PERSISTENCE_LOB_TYPE = "@andromda.persistence.lob.type";
+    
+    /**
+     * The tagged value indicating the cascade type.
+     */
     public static final String TAGGEDVALUE_PERSISTENCE_CASCADE_TYPE = "@andromda.persistence.cascade.type";
+    
+    /**
+     * The tagged value indicating the generator type.
+     */
 	public static final String TAGGEDVALUE_PERSISTENCE_GENERATOR_TYPE = "@andromda.persistence.generator.type";
+    
+    /**
+     * The tagged value indicating the generator name.
+     */
     public static final String TAGGEDVALUE_PERSISTENCE_GENERATOR_NAME = "@andromda.persistence.generator.name";
-    public static final String TAGGEDVALUE_PERSISTENCE_GENERATOR_SOURCE_NAME = "@andromda.persistence.generator.source.name";
-    public static final String TAGGEDVALUE_PERSISTENCE_GENERATOR_PKCOLUMN_VALUE = "@andromda.persistence.generator.pkcolumn.value";
-    public static final String TAGGEDVALUE_PERSISTENCE_GENERATOR_INITIAL_VALUE = "@andromda.persistence.generator.initial.value";
-    public static final String TAGGEDVALUE_PERSISTENCE_GENERATOR_ALLOCATION_SIZE = "@andromda.persistence.generator.allocation.size";
-    public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_DEFINITION = "@andromda.persistence.column.definition";
+    
+    /**
+     * The tagged value indicating the generator source name
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_GENERATOR_SOURCE_NAME = 
+        "@andromda.persistence.generator.source.name";
+    
+    /**
+     * The tagged value indicating the primary key column value for the generator.
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_GENERATOR_PKCOLUMN_VALUE = 
+        "@andromda.persistence.generator.pkcolumn.value";
+    
+    /**
+     * The tagged value indicating the initial value for the generator.
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_GENERATOR_INITIAL_VALUE = 
+        "@andromda.persistence.generator.initial.value";
+    
+    /**
+     * The tagged value indicating the step size for the generator.
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_GENERATOR_ALLOCATION_SIZE = 
+        "@andromda.persistence.generator.allocation.size";
+    
+    /**
+     * The tagged value indicating the SQL definition for a column.
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_DEFINITION = 
+        "@andromda.persistence.column.definition";
+    
+    /**
+     * The tagged value for the precision in a float/double column.
+     */
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_PRECISION = "@andromda.persistence.column.precision";
+    
+    /**
+     * The tagged value for the scale in a float/double column.
+     */
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_SCALE = "@andromda.persistence.column.scale";
+    
+    /**
+     * The tagged value to represent a column that is nullable.
+     */
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_NULLABLE = "@andromda.persistence.column.nullable";
+    
+    /**
+     * The tagged value that indicates the order by logic on the Many side of the 
+     * One-to-Many and Many-to-Many relationships.
+     */
     public static final String TAGGEDVALUE_PERSISTENCE_ORDERBY = "@andromda.persistence.orderBy";
     
     /**
@@ -89,22 +202,26 @@ public class EJB3Profile
     /**
      * The tagged value indicating that the row is an entity of the annotated entity type.
      */
-    public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_VALUE = profile.get("ENTITY_DISCRIMINATOR_VALUE");
+    public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_VALUE = 
+        profile.get("ENTITY_DISCRIMINATOR_VALUE");
     
     /**
      * The tagged value indicating the name of the column used for the discriminator
      */
-    public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_COLUMN = profile.get("ENTITY_DISCRIMINATOR_COLUMN");
+    public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_COLUMN = 
+        profile.get("ENTITY_DISCRIMINATOR_COLUMN");
     
     /**
      * The tagged value representing the SQL used in generation of DDL for the discriminator column
      */
-    public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_COLUMN_DEFINITION = profile.get("ENTITY_DISCRIMINATOR_COLUMN_DEFINITION");
+    public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_COLUMN_DEFINITION = 
+        profile.get("ENTITY_DISCRIMINATOR_COLUMN_DEFINITION");
     
     /**
      * The tagged value representing the column length for the String discriminator column type.
      */
-    public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_COLUMN_LENGTH = profile.get("ENTITY_DISCRIMINATOR_COLUMN_LENGTH");
+    public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_COLUMN_LENGTH = 
+        profile.get("ENTITY_DISCRIMINATOR_COLUMN_LENGTH");
     
     /**
      * The tagged value representing the access type for the entity class
@@ -114,30 +231,41 @@ public class EJB3Profile
     /**
      * The tagged value representing whether this entity is an embeddable superclass
      */
-    public static final String TAGGEDVALUE_PERSISTENCE_EMBEDDABLE_SUPERCLASS = profile.get("ENTITY_EMBEDDABLE_SUPERCLASS");
-    
-    /* ------------------- Fetch Types ------------------------*/
-    public static final String FETCHTYPE_EAGER = "EAGER";
-    public static final String FETCHTYPE_LAZY = "LAZY";
+    public static final String TAGGEDVALUE_PERSISTENCE_EMBEDDABLE_SUPERCLASS = 
+        profile.get("ENTITY_EMBEDDABLE_SUPERCLASS");
 
-    /* --------------------- Lob Types ------------------------*/
-    public static final String LOBTYPE_CLOB = "CLOB";
-    public static final String LOBTYPE_BLOB = "BLOB";
+    /**
+     * The tagged value representing the persistence context unit name (EntityManager)
+     */
+    public static final String TAGGEDVALUE_EJB_PERSISTENCE_CONTEXT_UNIT_NAME = 
+        profile.get("SERVICE_PERSISTENCE_CONTEXT_UNIT_NAME");
 
-    /* ---------------- Generator Types -----------------------*/
-    public static final String GENERATORTYPE_TABLE = "TABLE";
-    public static final String GENERATORTYPE_SEQUENCE = "SEQUENCE";
-    public static final String GENERATORTYPE_IDENTITY = "IDENTITY";
-    public static final String GENERATORTYPE_AUTO = "AUTO";
-    public static final String GENERATORTYPE_NONE = "NONE";
+    /**
+     * The tagged value representing the persistence context transaction/extended type
+     */
+    public static final String TAGGEDVALUE_EJB_PERSISTENCE_CONTEXT_TYPE = 
+        profile.get("SERVICE_PERSISTENCE_CONTEXT_TYPE");
 
-    /* ---------------- Temporal Types ------------------------*/
-    public static final String TEMPORALTYPE_DATE = "DATE";
-    public static final String TEMPORALTYPE_TIME = "TIME";
-    public static final String TEMPORALTYPE_TIMESTAMP = "TIMESTAMP";
-    public static final String TEMPORALTYPE_NONE = "NONE";
+    /**
+     * The tagged value representing the session EJB type (Stateless or Stateful)
+     */
+    public static final String TAGGEDVALUE_EJB_SESSION_TYPE = profile.get("SERVICE_TYPE");
 
-    /* ------------ Finder Method Result Types ----------------*/
-    public static final String FINDER_RESULTTYPE_FIRST = "First";
-    public static final String FINDER_RESULTTYPE_MAX = "Max";
+    /**
+     * The tagged value representing the comma separated list of security roles
+     * permitted to execute operations in a session bean.
+     */
+    public static final String TAGGEDVALUE_EJB_SECURITY_ROLES_ALLOWED = profile.get("SECURITY_ROLES_ALLOWED");
+
+    /**
+     * The tagged value representing whether to permit all roles to execute
+     * operations in a session bean.
+     */
+    public static final String TAGGEDVALUE_EJB_SECURITY_PERMIT_ALL = profile.get("SECURITY_PERMIT_ALL");
+
+    /**
+     * The tagged value representing the security domain to sepecify at
+     * the session bean class level.
+     */
+    public static final String TAGGEDVALUE_EJB_SECURITY_DOMAIN = profile.get("SECURITY_DOMAIN");
 }
