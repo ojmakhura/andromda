@@ -125,18 +125,18 @@ $operation.getDocumentation("        /// ")
 #end
 #else
 #if ($entity.generalization)
-        /// Returns <code>true</code> if the argument is an $entity.entityName instance and all identifiers for this entity
+        /// Returns <code>true</code> if the argument is a $entity.entityName instance and all identifiers for this entity
         /// equal the identifiers of the argument entity. The <code>equals</code> method of the parent entity
         /// will also need to return <code>true</code>. Returns <code>false</code> otherwise.
         ///
         /// @see $entity.generalization.fullyQualifiedEntityName#Equals(Object)
 #else
-        /// Returns <code>true</code> if the argument is an $entity.entityName instance and all identifiers for this entity
+        /// Returns <code>true</code> if the argument is a $entity.entityName instance and all identifiers for this entity
         /// equal the identifiers of the argument entity. Returns <code>false</code> otherwise.
 #end
 #end
         /// </summary>
-#renderEqualsMethodForEntity($entity $entity.entityName $identifiers)
+#renderEqualsMethod($entity)
 
         /// <summary>
 #if ($identifiers.empty)

@@ -1,9 +1,16 @@
 ##
-##  This macro will render the Equals() method
-##  If an entity is rendered, the attributeSet consists of the identifiers,
-##  if an value type is renderer, the attributeSet consists of all attributes
+##  This macro will render the Equals() method.
+##  If an entity is rendered, only the identifiers are compared.
+##  If an embedded value is renderer, then all attributes are compared.
 ##
-#macro (renderEqualsMethod $class $className $attributeSet)
+#macro (renderEqualsMethod $class)
+#if ($class.class.name == "org.andromda.cartridges.nhibernate.metafacades.HibernateEntityLogicImpl")
+#set ($isEntity = true)
+#set ($attributeSet = $class.getIdentifiers(false))
+#else
+#set ($isEntity = false)
+#set ($attributeSet = $class.attributes)
+#end
         public override bool Equals(Object obj)
         {
 #if ($attributeSet.empty)
@@ -17,70 +24,34 @@
             {
                 return false;
             }
-            $className that = ($className)obj;
+            $class.name that = ($class.name)obj;
 #foreach ($attribute in $attributeSet)
-#set ($idType = $attribute.type)
-#set ($propertyName = ${stringUtils.upperCamelCaseName($attribute.name)})
-#if ($idType.primitive || $idType.enumeration)
-            if (this.$propertyName != that.$propertyName)
-            {
-                return false;
-            }
-#elseif ($idType.arrayType)
-            if (!cs.util.Arrays.equals(this.$propertyName, that.$propertyName))
+#set ($attrType = $attribute.type)
+#set ($attrName = ${stringUtils.upperCamelCaseName($attribute.name)})
+#if ($attrType.primitive)
+#if ($isEntity)
+            if (this.$attrName == 0 || that.$attrName == 0 || this.$attrName != that.$attrName)
             {
                 return false;
             }
 #else
-            if (this.$propertyName == null || that.$propertyName == null || !this.${propertyName}.Equals(that.$propertyName))
+            if (this.$attrName != that.$attrName)
             {
                 return false;
             }
 #end
-#end
-            return true;
-#end
-        }
-#end
-##
-##  This macro will render the Equals() method for an entity.
-##  The attributeSet consists of the identifiers.
-##
-#macro (renderEqualsMethodForEntity $class $className $attributeSet)
-        public override bool Equals(Object obj)
-        {
-#if ($attributeSet.empty)
-            return base.Equals(obj);
-#else
-            if (this == obj)
-            {
-                return true;
-            }
-            if (GetType() != obj.GetType())
+#elseif ($attrType.enumeration)
+            if (this.$attrName != that.$attrName)
             {
                 return false;
             }
-            $className that = ($className)obj;
-#foreach ($attribute in $attributeSet)
-#set ($idType = $attribute.type)
-#set ($propertyName = ${stringUtils.upperCamelCaseName($attribute.name)})
-#if ($idType.primitive)
-            if (this.$propertyName == 0 || that.$propertyName == 0 || this.$propertyName != that.$propertyName)
-            {
-                return false;
-            }
-#elseif ($idType.enumeration)
-            if (this.$propertyName != that.$propertyName)
-            {
-                return false;
-            }
-#elseif ($idType.arrayType)
-            if (!cs.util.Arrays.equals(this.$propertyName, that.$propertyName))
+#elseif ($attrType.arrayType)
+            if (!cs.util.Arrays.equals(this.$attrName, that.$attrName))
             {
                 return false;
             }
 #else
-            if (this.$propertyName == null || that.$propertyName == null || !this.${propertyName}.Equals(that.$propertyName))
+            if (this.$attrName == null || that.$attrName == null || !this.${attrName}.Equals(that.$attrName))
             {
                 return false;
             }
@@ -108,17 +79,17 @@
 #end
 #foreach ($attribute in $attributeSet)
 #set ($attrType = $attribute.type)
-#set ($propertyName = ${stringUtils.upperCamelCaseName($attribute.name)})
+#set ($attrName = ${stringUtils.upperCamelCaseName($attribute.name)})
 #if  ($attribute.getterSetterTypeName == "bool")
-            hashCode = 29 * hashCode + (${propertyName} ? 1 : 0);
+            hashCode = 29 * hashCode + (${attrName} ? 1 : 0);
 #elseif ($attribute.getterSetterTypeName == "System.Guid")
-            hashCode = 29 * hashCode + ${propertyName}.GetHashCode();
+            hashCode = 29 * hashCode + ${attrName}.GetHashCode();
 #elseif ($attrType.arrayType)
             // arrays are not part of the hashCode calculation
 #elseif ($attrType.primitive || $attrType.enumeration)
-            hashCode = 29 * hashCode + (int)${propertyName};
+            hashCode = 29 * hashCode + (int)${attrName};
 #else
-            hashCode = 29 * hashCode + (${propertyName} == null ? 0 : ${propertyName}.GetHashCode());
+            hashCode = 29 * hashCode + (${attrName} == null ? 0 : ${attrName}.GetHashCode());
 #end## if
 #end## foreach
             return hashCode;
