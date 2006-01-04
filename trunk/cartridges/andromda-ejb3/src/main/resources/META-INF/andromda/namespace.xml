@@ -20,14 +20,20 @@
 			</documentation>
 			<property name="entity-beans">
 				<documentation>
-					The directory to which Entity EJBs are generated.
+					The directory to which Entity POJOs are generated.
 				</documentation>
 			</property>
 			<property name="entity-impls">
 				<documentation>
-					The location to which Entity EJB implementation
+					The location to which Entity POJO implementation
 					files are generated.
 				</documentation>
+			</property>
+			<property name="entity-config">
+			    <documentation>
+			       The location where the persistence XML descriptor
+			       is generated.
+			    </documentation>
 			</property>
 			<property name="session-beans">
 				<documentation>
@@ -41,6 +47,71 @@
 					files are generated.
 				</documentation>
 			</property>
+		</propertyGroup>
+		<propertyGroup name="JDBC">
+		    <property name="entityManagerName" required="false">
+		        <documentation>
+		            The name assigned to the entity manager.  If no name
+		            is specified, the name of the containing persistence
+		            archive without the .par extension is used.
+		        </documentation>
+		    </property>
+		    <property name="entityManagerJTADataSource">
+		    	<default>java:/DefaultDS</default>
+		    	<documentation>
+		    	    Specifies the global JNDI name of the JTA data source.
+		    	</documentation>
+		    </property>
+            <property name="hibernateHbm2DDLAuto" required="false">
+            	<default>create</default>
+                <documentation>
+                    Automatically export schema DDL to the database when deployed. 
+                    With create-drop, the database schema will be dropped when
+                    the entity is undeployed. Permitted values are:
+                    <ul>
+                        <li>update</li>
+                        <li>create</li>
+                        <li>create-drop</li>
+                        <li>none</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="hibernateDialect" required="false">
+            	<default>org.hibernate.dialect.MySQLDialect</default>
+            	<documentation>
+            	    The SQL dialect of the database.
+            	    <ul>
+            	        <li>org.hibernate.dialect.MySQLDialect</li>
+            	        <li>org.hibernate.dialect.HSQLDialect</li>
+            	    </ul>
+            	</documentation>
+            </property>
+            <property name="hibernateShowSql" required="false">
+                <documentation>
+                    Whether or not to log SQL statements.
+                </documentation>
+            </property>
+		</propertyGroup>
+		<propertyGroup name="Cache">
+            <property name="hibernateCacheProvider" required="false">
+                <documentation>
+                    Defines Hibernate Cache Provider implementation class.
+                    Possible values for JBoss4/Hibernate are:
+                    <ul>
+                       <li>org.hibernate.cache.HashtableCacheProvider</li>
+                       <li>org.jboss.ejb3.entity.TreeCacheProviderHook</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="hibernateTreecacheMbeanObject" required="false">
+                <documentation>
+                    Defines the Hibernate cache MBean object name
+                    used in JBoss4.
+                    <ul>
+                        <li>jboss.cache:service=EJB3EntityTreeCache</li>
+                    </ul>
+                </documentation>
+            </property>
 		</propertyGroup>
 		<propertyGroup name="Name Patterns">
 			<property name="entityNamePattern">
@@ -301,8 +372,8 @@
 				<default>Default</default>
 				<documentation>
 					Specifies the default security domain to use
-					for role based authorization.  JBoss uses the
-					security model to match allowed roles.
+					for role based authorization.  Use the
+					security realm to match allowed roles.
 				</documentation>
 			</property>
 			<property name="queryUseNamedParameters">
