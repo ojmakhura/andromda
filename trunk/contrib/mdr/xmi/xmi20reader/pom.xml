@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.andromda.mdr</groupId>
+    <artifactId>xmi20reader</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    <name>UML 2.0 Reader for MDR</name>
+    <description>
+        The UML 2.0 reader for MDR.
+    </description>
+    <dependencies>
+    	<dependency> 
+    		<groupId>org.netbeans.mdr</groupId>
+      		<artifactId>jmiutils</artifactId>
+     		<version>20050711</version>
+    	</dependency>  
+    	<dependency> 
+    		<groupId>org.netbeans.mdr</groupId>
+      		<artifactId>mdrapi</artifactId>
+     		<version>20050711</version>
+    	</dependency>  
+     	<dependency> 
+    		<groupId>org.netbeans.mdr</groupId>
+      		<artifactId>nbmdr</artifactId>
+     		<version>20050711</version>
+    	</dependency>     	
+     	<dependency> 
+    		<groupId>org.netbeans.mdr</groupId>
+      		<artifactId>openide-util</artifactId>
+     		<version>20050711</version>
+    	</dependency> 
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>mof</artifactId>
+     		<version>20030918</version>
+    	</dependency>  
+    	<dependency> 
+    		<groupId>jmi</groupId>
+      		<artifactId>jmi</artifactId>
+     		<version>20030918</version>
+    	</dependency>     
+    	<dependency> 
+    		<groupId>log4j</groupId>
+      		<artifactId>log4j</artifactId>
+            <version>1.2.12</version>
+    	</dependency> 
+    </dependencies>
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
+</project>
