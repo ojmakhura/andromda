@@ -118,12 +118,14 @@ $operation.getDocumentation("        /// ")
 
 #end
         /// <summary>
-        /// Indicates if the argument is of the same type and all values are equal.
+        /// Indicates if the argument is of the same type and all attributes are equal.
         /// </summary>
-#renderEqualsMethod($class $embeddedValue.name $embeddedValue.attributes)
+#renderEqualsMethod($embeddedValue)
 
-#set ($attributeCollection = $embeddedValue.attributes)
-#renderHashCodeMethod($class $attributeCollection)
+        /// <summary>
+        /// Returns a hash code based on class attributes.
+        /// </summary>
+#renderHashCodeMethod($embeddedValue $embeddedValue.attributes)
     }
 #if ($stringUtils.isNotBlank($embeddedValue.packageName))
 }
