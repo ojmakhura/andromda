@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="build-products" basedir="." default="all">
+<project name="generate-uml2-metamodel" basedir="." default="generate">
         
     <target name="generate">
         
@@ -41,7 +41,7 @@
             <instantiate 
                 name="uml"
                 extent="mof4models"
-                package="uml2"/>    
+                package="UML2"/>    
             <printExtentNames/>
         </mdr>
     </target>
