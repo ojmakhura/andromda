@@ -24,7 +24,6 @@ public class XmiReader
 
     public XmiReader()
     {
-        System.out.println("trying to read!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         mReader = new Xmi2Reader();
     }
 
