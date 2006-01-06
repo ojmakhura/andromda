@@ -323,20 +323,6 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getTransactionType()
-     */
-    protected java.lang.String handleGetTransactionType()
-    {
-        String transactionType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
-        if (StringUtils.isBlank(transactionType))
-        {
-            transactionType = transactionType =
-                    String.valueOf(this.getConfiguredProperty(EJB3Globals.TRANSACTION_TYPE));
-        }
-        return transactionType;
-    }
-
-    /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getCreateMethods(boolean)
      */
     protected java.util.Collection handleGetCreateMethods(boolean follow)
