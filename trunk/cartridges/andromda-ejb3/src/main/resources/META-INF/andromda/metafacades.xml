@@ -14,7 +14,7 @@
 	<property reference="serviceViewType" />
 	<property reference="persistenceContainerName" />
 	<property reference="securityDomain" />
-	<!-- Entity POJO EJB Metafacades -->
+	<!-- Entity EJB Metafacades -->
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogicImpl">
 		<mapping>
 			<context>
@@ -105,5 +105,15 @@
 				org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade
 			</context>
 		</mapping>
+	</metafacade>
+	<!--  Message Driven EJB Metafacades -->
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogicImpl" contextRoot="true">
+		<mapping>
+			<stereotype>MESSAGE_DRIVEN</stereotype>
+		</mapping>
+		<property reference="messageDrivenNamePattern" />
+		<property reference="messageDrivenImplementationNamePattern" />
+		<property reference="messageDrivenListenerNamePattern" />
+		<property reference="messageDrivenDestinationType" />
 	</metafacade>
 </metafacades>
