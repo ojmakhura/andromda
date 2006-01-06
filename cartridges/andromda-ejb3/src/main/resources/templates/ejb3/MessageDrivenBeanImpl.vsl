@@ -1,0 +1,57 @@
+// license-header java merge-point
+#if ($stringUtils.isNotBlank($mdb.packageName))
+package $mdb.packageName;
+#end
+
+/**
+ * @see ${mdb.fullyQualifiedMessageDrivenName}
+ */
+public class ${mdb.messageDrivenImplementationName}
+    extends ${mdb.fullyQualifiedMessageDrivenName}
+    implements javax.jms.MessageListener
+{
+
+
+    // --------- Default Constructor ----------
+    
+    public ${mdb.messageDrivenImplementationName}()
+    {
+        super();
+    }
+    
+    /**
+     * MessageListener callback on arrival of a JMS message
+     *
+     * @param message The inbound JMS message to process
+     */
+    public void onMessage(javax.jms.Message message)
+    {
+        // Implementation
+    }
+#set ($operations = $mdb.operations)
+#if (!$operations.empty)
+
+    // -------- User Defined Methods  --------------
+    
+#**##foreach ($operation in $operations)
+#*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
+#*  *##set ($signature = $operation.signature)
+#*  *##set ($visibility = $operation.visibility)
+    /**
+     * @see ${mdb.fullyQualifiedMessageDrivenName}#${operation.getSignature(false)}
+     */
+    $visibility $returnType $signature
+#*  *##if ($operation.exceptionsPresent)
+        throws $operation.exceptionList
+#*  *##end
+    {
+        //TODO: put your implementation here.
+#*  *##if ($operation.returnTypePresent)
+        // Dummy return value, just that the file compiles
+        return $operation.returnType.javaNullString;
+#*  *##end
+    }
+
+#**##end
+#end
+}

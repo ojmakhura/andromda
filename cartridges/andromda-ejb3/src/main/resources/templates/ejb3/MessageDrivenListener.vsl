@@ -1,0 +1,31 @@
+// license-header java merge-point
+#if ($stringUtils.isNotBlank($mdb.packageName))
+package $mdb.packageName;
+#end
+
+/**
+ * Callback Listener for Message Driven bean ${mdb.fullyQualifiedMessageDrivenName}
+ *
+ * @see ${mdb.fullyQualifiedMessageDrivenName}
+ */
+public class ${mdb.messageDrivenListenerName} 
+{
+    /**
+     * Default public no-args constructor
+     */
+    public ${mdb.messageDrivenListenerName}() 
+    { 
+    }
+    
+    @javax.ejb.PostConstruct
+    public void postConstruct(${mdb.fullyQualifiedMessageDrivenName} ${stringUtils.uncapitalize(${mdb.name})}) 
+    {
+		// post construct implementation
+	}
+	
+	@javax.ejb.PreDestroy
+	public void preDestroy(${mdb.fullyQualifiedMessageDrivenName} ${stringUtils.uncapitalize(${mdb.name})}) 
+	{
+		// pre destroy implementation
+	}
+}
