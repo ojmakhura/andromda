@@ -20,6 +20,21 @@ public class EJB3Profile
     /* ----------------- Stereotypes -------------------- */
     
     /**
+     * Specifies the entity bean stereotype.
+     */
+    public static final String STEREOTYPE_ENTITY = profile.get("ENTITY");
+    
+    /**
+     * Specifies the service bean stereotype.
+     */
+    public static final String STEREOTYPE_SERVICE = profile.get("SERVICE");
+    
+    /**
+     * Specifies the JMS message driven bean stereotype.
+     */
+    public static final String STEREOTYPE_MESSAGE_DRIVEN = profile.get("MESSAGE_DRIVEN");
+    
+    /**
      * Specifies the create method stereotype - used in entity POJO
      * and session bean.
      */
@@ -54,7 +69,27 @@ public class EJB3Profile
      * Represents a persistence context instance referenced from a session bean.
      */
     public static final String STEREOTYPE_PERSISTENCE_CONTEXT = profile.get("PERSISTENCE_CONTEXT");
+    
+    /**
+     * Represents a reference to a resource ie UserTransaction or DataSource.
+     */
+    public static final String STEREOTYPE_RESOURCE_REF = profile.get("RESOURCE_REF");
 
+    /**
+     * Represents a reference to a JMS message driven bean.
+     */
+    public static final String STEREOTYPE_MESSAGE_DRIVEN_REF = profile.get("MESSAGE_DRIVEN_REF");
+    
+    /**
+     * Represents a class used to inject a javax.transaction.UserTransaction as a resource.
+     */
+    public static final String STEREOTYPE_USER_TRANSACTION = profile.get("USER_TRANSACTION");
+
+    /**
+     * Represents a class used to inject a javax.sql.DataSource as a resource.
+     */
+    public static final String STEREOTYPE_DATA_SOURCE = profile.get("DATA_SOURCE");
+    
     /* ----------------- Tagged Values -------------------- */
     
     /**
@@ -68,7 +103,8 @@ public class EJB3Profile
     public static final String TAGGEDVALUE_EJB_QUERY = "@andromda.ejb.query";
     
     /**
-     * The tagged value indicating the view type for the class or operation.
+     * The tagged value indicating the view type for the 
+     * class or operation.
      */
     public static final String TAGGEDVALUE_EJB_VIEWTYPE = "@andromda.ejb.viewType";
     
@@ -76,6 +112,13 @@ public class EJB3Profile
      * The tagged value indicating the transaction property.
      */
     public static final String TAGGEDVALUE_EJB_TRANSACTION_TYPE = "@andromda.ejb.transaction.type";
+    
+    /**
+     * The tagged value indicating the transaction demarcation
+     * strategy.  This only applies at the class level of a 
+     * session bean.
+     */
+    public static final String TAGGEDVALUE_EJB_TRANSACTION_MANAGEMENT = "@andromda.ejb.transaction.management";
     
     /**
      * 
@@ -89,7 +132,8 @@ public class EJB3Profile
         "@andromda.persistence.finder.temporal.type";
     
     /**
-     * The tagged value indicating the finder result type (First or Max).
+     * The tagged value indicating the finder result type 
+     * (First or Max).
      */
     public static final String TAGGEDVALUE_PERSISTENCE_FINDER_PARAMETER_RESULT_TYPE = 
         "@andromda.persistence.finder.result.type";
@@ -170,14 +214,15 @@ public class EJB3Profile
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_NULLABLE = "@andromda.persistence.column.nullable";
     
     /**
-     * The tagged value that indicates the order by logic on the Many side of the 
-     * One-to-Many and Many-to-Many relationships.
+     * The tagged value that indicates the order by logic on the 
+     * Many side of the One-to-Many and Many-to-Many relationships.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_ORDERBY = "@andromda.persistence.orderBy";
     
     /**
-     * The tagged value indicating the underlying relationship may be NULL.  If set to false,
-     * non-null relationship must always exist.
+     * The tagged value indicating the underlying relationship may 
+     * be NULL.  If set to false, non-null relationship must always 
+     * exist.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_OPTIONAL = profile.get("ATTRIBUTE_PERSISTENCE_OPTIONAL");
     
@@ -200,52 +245,65 @@ public class EJB3Profile
     public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_TYPE = profile.get("ENTITY_DISCRIMINATOR_TYPE");
     
     /**
-     * The tagged value indicating that the row is an entity of the annotated entity type.
+     * The tagged value indicating that the row is an entity of 
+     * the annotated entity type.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_VALUE = 
         profile.get("ENTITY_DISCRIMINATOR_VALUE");
     
     /**
-     * The tagged value indicating the name of the column used for the discriminator
+     * The tagged value indicating the name of the column used 
+     * for the discriminator
      */
     public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_COLUMN = 
         profile.get("ENTITY_DISCRIMINATOR_COLUMN");
     
     /**
-     * The tagged value representing the SQL used in generation of DDL for the discriminator column
+     * The tagged value representing the SQL used in generation 
+     * of DDL for the discriminator column
      */
     public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_COLUMN_DEFINITION = 
         profile.get("ENTITY_DISCRIMINATOR_COLUMN_DEFINITION");
     
     /**
-     * The tagged value representing the column length for the String discriminator column type.
+     * The tagged value representing the column length for the 
+     * String discriminator column type.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_COLUMN_LENGTH = 
         profile.get("ENTITY_DISCRIMINATOR_COLUMN_LENGTH");
     
     /**
-     * The tagged value representing the access type for the entity class
+     * The tagged value representing the access type for the 
+     * entity class
      */
     public static final String TAGGEDVALUE_PERSISTENCE_ACCESS_TYPE = profile.get("ENTITY_ACCESS_TYPE");
     
     /**
-     * The tagged value representing whether this entity is an embeddable superclass
+     * The tagged value representing whether this entity is an 
+     * embeddable superclass
      */
     public static final String TAGGEDVALUE_PERSISTENCE_EMBEDDABLE_SUPERCLASS = 
         profile.get("ENTITY_EMBEDDABLE_SUPERCLASS");
 
     /**
-     * The tagged value representing the persistence context unit name (EntityManager)
+     * The tagged value representing the persistence context 
+     * unit name (EntityManager)
      */
     public static final String TAGGEDVALUE_EJB_PERSISTENCE_CONTEXT_UNIT_NAME = 
         profile.get("SERVICE_PERSISTENCE_CONTEXT_UNIT_NAME");
 
     /**
-     * The tagged value representing the persistence context transaction/extended type
+     * The tagged value representing the persistence context 
+     * transaction/extended type
      */
     public static final String TAGGEDVALUE_EJB_PERSISTENCE_CONTEXT_TYPE = 
         profile.get("SERVICE_PERSISTENCE_CONTEXT_TYPE");
 
+    /**
+     * The tagged value representing the flush mode on bean operation.
+     */
+    public static final String TAGGEDVALUE_EJB_PERSISTENCE_FLUSH_MODE = profile.get("SERVICE_PERSISTENCE_FLUSH_MODE");
+    
     /**
      * The tagged value representing the session EJB type (Stateless or Stateful)
      */
@@ -253,19 +311,61 @@ public class EJB3Profile
 
     /**
      * The tagged value representing the comma separated list of security roles
-     * permitted to execute operations in a session bean.
+     * permitted to execute operations in the bean.
      */
     public static final String TAGGEDVALUE_EJB_SECURITY_ROLES_ALLOWED = profile.get("SECURITY_ROLES_ALLOWED");
 
     /**
      * The tagged value representing whether to permit all roles to execute
-     * operations in a session bean.
+     * operations in the bean.
      */
     public static final String TAGGEDVALUE_EJB_SECURITY_PERMIT_ALL = profile.get("SECURITY_PERMIT_ALL");
 
+    /**
+     * The tagged value representing whether to deny all roles access rights
+     * to execute operations in the bean.
+     */
+    public static final String TAGGEDVALUE_EJB_SECURITY_DENY_ALL = profile.get("SECURITY_DENY_ALL");
+    
     /**
      * The tagged value representing the security domain to sepecify at
      * the session bean class level.
      */
     public static final String TAGGEDVALUE_EJB_SECURITY_DOMAIN = profile.get("SECURITY_DOMAIN");
+
+    /**
+     * The tagged value representing the run-as identity the bean will
+     * use when making calls.
+     */
+    public static final String TAGGEDVALUE_EJB_SECURITY_RUN_AS = profile.get("SECURITY_RUN_AS");
+
+    /**
+     * The tagged value representing the JMS message driven bean
+     * acknowledge mode.
+     */
+    public static final String TAGGEDVALUE_EJB_MDB_ACKNOWLEDGE_MODE = profile.get("MDB_ACKNOWLEDGE_MODE");
+
+    /**
+     * The tagged value representing the JMS message driven bean
+     * destination JNDI name.
+     */
+    public static final String TAGGEDVALUE_EJB_MDB_DESTINATION = profile.get("MDB_DESTINATION");
+
+    /**
+     * The tagged value representing the JMS message driven bean
+     * destination type.
+     */
+    public static final String TAGGEDVALUE_EJB_MDB_DESTINATION_TYPE = profile.get("MDB_DESTINATION_TYPE");
+
+    /**
+     * The tagged value representing the JMS message driven bean
+     * selector logic.
+     */
+    public static final String TAGGEDVALUE_EJB_MDB_SELECTOR = profile.get("MDB_SELECTOR");
+
+    /**
+     * The tagged value representing the JMS message driven bean
+     * topic subscription durability mode.
+     */
+    public static final String TAGGEDVALUE_EJB_MDB_DURABILITY = profile.get("MDB_SUBSCRIPTION_DURABILITY");
 }
