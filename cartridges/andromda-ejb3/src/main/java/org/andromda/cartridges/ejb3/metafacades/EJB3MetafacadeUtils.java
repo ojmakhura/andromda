@@ -213,8 +213,75 @@ class EJB3MetafacadeUtils
     }
 
     /**
-     * Gets all constants for the specified <code>classifier</code>. If <code>follow</code> is true, then a search up
-     * the inheritance hierachy will be performed and all super type constants will also be retrieved.
+     * Returns the transaction type for the specified <code>classifier</code>.
+     * 
+     * @param classifier the classifier from which to retrieve the transaction type.
+     * @param defaultTransactionType the default transaction type if no tagged value is specified.
+     * @return the transaction type as a String.
+     */
+    static String getTransactionType(ClassifierFacade classifier, String defaultTransactionType)
+    {
+        final String methodName = "EJBMetafacadeUtils.getTransactionType";
+        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        
+        String transactionType = (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
+        if (StringUtils.isNotBlank(transactionType))
+        {
+            transactionType = convertTransactionType(transactionType);
+        }
+        else
+        {
+            transactionType = defaultTransactionType;
+        }
+        return transactionType;
+    }
+    
+    /**
+     * Convert the transaction type from lower casing to upper casing.
+     * This maintains reusable tagged value enumeration from EJB
+     * implementation.
+     * 
+     * @param transType
+     * @return
+     */
+    static String convertTransactionType(String transType)
+    {
+        final String methodName = "EJBMetafacadeUtils.convertTransactionType";
+        ExceptionUtils.checkNull(methodName, "transType", transType);
+        
+        String type = null;
+        if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_MANDATORY))
+        {
+            type = "MANDATORY";
+        }
+        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_NEVER))
+        {
+            type = "NEVER";
+        }
+        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_NOT_SUPPORTED))
+        {
+            transType = "NOT_SUPPORTED";
+        }
+        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_REQUIRED))
+        {
+            type = "REQUIRED";
+        }
+        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_REQUIRES_NEW))
+        {
+            type = "REQUIRES_NEW";
+        }
+        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_SUPPORTS))
+        {
+            type = "SUPPORTS";
+        }
+        return type;
+    }
+    
+    /**
+     * Gets all constants for the specified <code>classifier</code>. 
+     * If <code>follow</code> is true, then a search up
+     * the inheritance hierachy will be performed and all super 
+     * type constants will also be retrieved.
      *
      * @param classifier the classifier from which to retrieve the constants
      * @param follow     true/false on whether or not to 'follow' the inheritance hierarchy when retrieving the
@@ -225,7 +292,7 @@ class EJB3MetafacadeUtils
             ClassifierFacade classifier, 
             boolean follow)
     {
-        final String methodName = "EJBMetafacadeUtils.getEnvironmentEntries";
+        final String methodName = "EJBMetafacadeUtils.getConstants";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
 
         Collection attributes = classifier.getStaticAttributes();
@@ -286,43 +353,5 @@ class EJB3MetafacadeUtils
         fullyQualifiedName.append(StringUtils.trimToEmpty(name));
         fullyQualifiedName.append(StringUtils.trimToEmpty(suffix));
         return fullyQualifiedName.toString();
-    }
-    
-    /**
-     * Convert the transaction type from lower casing to upper casing.
-     * This maintains reusable tagged value enumeration from EJB
-     * implementation.
-     * 
-     * @param transType
-     * @return
-     */
-    static String convertTransactionType(String transType)
-    {
-        String type = null;
-        if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_MANDATORY))
-        {
-            type = "MANDATORY";
-        }
-        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_NEVER))
-        {
-            type = "NEVER";
-        }
-        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_NOT_SUPPORTED))
-        {
-            transType = "NOT_SUPPORTED";
-        }
-        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_REQUIRED))
-        {
-            type = "REQUIRED";
-        }
-        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_REQUIRES_NEW))
-        {
-            type = "REQUIRES_NEW";
-        }
-        else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_SUPPORTS))
-        {
-            type = "SUPPORTS";
-        }
-        return type;
     }
 }
