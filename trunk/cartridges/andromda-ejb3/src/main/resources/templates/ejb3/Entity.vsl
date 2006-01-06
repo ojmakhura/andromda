@@ -44,28 +44,40 @@ public abstract class ${entity.entityName}
 {
 
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
+#set ($constants = $entity.getConstants(true))
+#if (!$constants.empty)
 
-    // ----------- constant definitions -------------
-#foreach($constant in $entity.getConstants(true))
+    // ----------- Constant Definitions -------------
+    
+#**##foreach($constant in $constants)
     @javax.persistence.Transient
     private static final $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
+#**##end
 #end
+#set ($attributes = $entity.attributes)
+#if (!$attributes.empty)
 
-    // ----------- attribute definitions ------------
-#foreach ( $attribute in $entity.attributes)
+    // ----------- Attribute Definitions ------------
+    
+#**##foreach ($attribute in $attributes)
     private $attribute.type.fullyQualifiedName $attribute.name;
+#**##end
 #end
+#set ($entityRelations = $entity.allEntityRelations)
+#if (!$entityRelations.empty)
 
-    // --------- relationship definitions -----------
-#foreach ($associationEnd in $entity.allEntityRelations)
-#**##if ($associationEnd.one2Many || $associationEnd.many2Many)
+    // --------- Relationship Definitions -----------
+    
+#**##foreach ($associationEnd in  $entityRelations)
+#**##**##if ($associationEnd.one2Many || $associationEnd.many2Many)
     private $associationEnd.relationType<${associationEnd.otherEnd.type.name}> ${associationEnd.otherEnd.name};
-#**##else
+#**##**##else
     private $associationEnd.relationType ${associationEnd.otherEnd.name};
+#**##**##end
 #**##end
 #end
 
-    // --------------- constructors -----------------
+    // --------------- Constructors -----------------
     
     public ${entity.entityName}()
     { 
@@ -138,7 +150,7 @@ $operation.getDocumentation("    * ")
     }
 #end
 
-    // --------- accessors for constants ----------
+    // --------- Constant Accessors ----------
 #foreach($constant in $entity.getConstants(true))
     /**
      * Get the <code>$constant.name</code> constant
@@ -149,46 +161,45 @@ $constant.getDocumentation("     * ")
         return $constant.name;
     }
 #end
+#if (!$attributes.empty)
 
-    // -------- attribute getters/setters ----------
-#foreach ($attribute in $entity.attributes)
-#**##set ($visibility = $attribute.visibility)
+    // -------- Attribute Accessors ----------
+    
+#**##foreach ($attribute in $entity.attributes)
+#*  *##set ($visibility = $attribute.visibility)
     /**
      * Get the $attribute.name property.
 $attribute.getDocumentation("     * ")
      * @return $attribute.type.fullyQualifiedName The value of ${attribute.name}
      */
-#**##if ($attribute.identifier)
-#*  *##if ($attribute.sequenceGeneratorType || $attribute.tableGeneratorType)
+#*  *##if ($attribute.identifier)
+#*    *##if ($attribute.sequenceGeneratorType || $attribute.tableGeneratorType)
     @javax.persistence.TableGenerator(name = "${attribute.generatorName}"#if ($attribute.sequenceGeneratorType), sequenceName = "${attribute.generatorSourceName}"#elseif ($attribute.tableGeneratorType), tableName = "${attribute.generatorSourceName}"#end,#if ($attribute.tableGeneratorType) pkColumnValue = "${attribute.generatorPkColumnValue}",#end#if ($attribute.sequenceGeneratorType) initialValue = ${attribute.generatorInitialValue},#end allocationSize = ${attribute.generatorAllocationSize})
-#*  *##end
+#*    *##end
     @javax.persistence.Id(generate = javax.persistence.GeneratorType.${attribute.generatorType}#if ($attribute.sequenceGeneratorType || $attribute.tableGeneratorType), generator = "${attribute.generatorName}"#end)
-#**##end
-#**##if ($attribute.version)
+#*  *##end
+#*  *##if ($attribute.version)
     @javax.persistence.Version
-#**##end
-#**##if ($attribute.transient)
+#*  *##end
+#*  *##if ($attribute.transient)
     @javax.persistence.Transient
-#**##end
-#**##if ($attribute.lobType)
+#*  *##end
+#*  *##if ($attribute.lobType)
 ## LOB type is specified - also sepcify FetchType if set to EAGER since default fetch type for LOB annotation is LAZY
     @javax.persistence.Lob(type = javax.persistence.LobType.${attribute.lobType}#if ($attribute.eager), fetch = javax.persistence.FetchType.EAGER#end)
-#**##end
-#**##if ($attribute.transactionType)
-    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${attribute.transactionType})
-#**##end
+#*  *##end
     @javax.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.columnNullable}#end#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
 ## Only add the fetch type property for LAZY hints - default is EAGER
-#**##if ($attribute.lazy)
+#*  *##if ($attribute.lazy)
     @javax.persistence.Basic(fetch = javax.persistence.FetchType.LAZY)
-#**##end
+#*  *##end
     public $attribute.type.fullyQualifiedName ${attribute.getterName}()
     {
         return $attribute.name;
     }
 
 ## Allow only if not a version attribute since they are set by the container - No setter method is made available
-#**##if (!$attribute.version)
+#*  *##if (!$attribute.version)
     /**
      * Set the $attribute.name property.
      * @param value the new value
@@ -197,11 +208,12 @@ $attribute.getDocumentation("     * ")
     {
         this.${attribute.name} = value;
     }
-#**##end
+#*  *##end
     
+#**##end
 #end
 
-    // ------------- relations ------------------
+    // ------------- Relations ------------------
 
 #foreach ($associationEnd in $entity.allEntityRelations)
 #**##set ($target = $associationEnd.otherEnd)
@@ -219,9 +231,6 @@ $attribute.getDocumentation("     * ")
 #*    *##set ($argExists = false)
     @javax.persistence.ManyToOne(#if (!$target.optional)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.LAZY#end)
     @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
-#*    *##if ($associationEnd.association.transactionType)
-    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${$associationEnd.association.transactionType})
-#*    *##end
     public $associationEnd.relationType ${target.getterName}()
     {
         return this.${target.name};
@@ -251,9 +260,6 @@ $attribute.getDocumentation("     * ")
      */
 #*    *##set ($argExists = false)
     @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end#**#mappedBy="${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
-#*    *##if ($associationEnd.association.transactionType)
-    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${$associationEnd.association.transactionType})
-#*    *##end
 #*    *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
 #*      *##if ($stringUtils.isNotEmpty(${target.orderByClause}))
     @javax.persistence.OrderBy("${target.orderByClause}")
@@ -289,9 +295,6 @@ $attribute.getDocumentation("     * ")
 #*    *##if($associationEnd.owning)
     @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
 #*    *##end
-#*    *##if ($associationEnd.association.transactionType)
-    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${$associationEnd.association.transactionType})
-#*    *##end
     public $associationEnd.relationType ${target.getterName}()
     {
         return this.${target.name};
@@ -323,9 +326,6 @@ $attribute.getDocumentation("     * ")
 #*    *##if(($associationEnd.owning) && ${associationEnd.association.tableName})
     @javax.persistence.JoinTable(table = @javax.persistence.Table(name = "${associationEnd.association.tableName}"))
 #*    *##end
-#*    *##if ($associationEnd.association.transactionType)
-    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${$associationEnd.association.transactionType})
-#*    *##end
 #*    *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
 #*      *##if ($stringUtils.isNotEmpty(${target.orderByClause}))
     @javax.persistence.OrderBy("${target.orderByClause}")
@@ -350,7 +350,7 @@ $attribute.getDocumentation("     * ")
 #**##end
 #end
 
-    // ----------------- finder method ------------------
+    // ----------------- Finder Method ------------------
     
 #foreach ($finder in $entity.getQueryOperations(true))
 #**##set ($returnType = $finder.returnType.fullyQualifiedName)
@@ -397,23 +397,24 @@ $finder.getDocumentation("     * ")
     }
     
 #end## finder operations
-    // --------------- business methods -----------------
+#set ($businessOperations = $entity.businessOperations)
+#if (!$businessOperations.empty)
+
+    // --------------- Business Methods -----------------
     
-#foreach ($operation in $entity.businessOperations)
-#**##set ($signature = $operation.signature)
-#**##set ($visibility = $operation.visibility.toString())
+#**##foreach ($operation in )
+#*  *##set ($signature = $operation.signature)
+#*  *##set ($visibility = $operation.visibility.toString())
     /**
 $operation.getDocumentation("     * ")
      */
-#**##if ($operation.transactionType)
-    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${operation.transactionType})
-#**##end
-#**##set ($returnType = $operation.returnType.fullyQualifiedName)
-#**##if ($operation.exceptionsPresent)
+#*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
+#*  *##if ($operation.exceptionsPresent)
     $visibility abstract $returnType $signature
         throws $operation.exceptionList;
-#**##else
+#*  *##else
     $visibility abstract $returnType $signature;
+#*  *##end
 #**##end
 #end
 }
