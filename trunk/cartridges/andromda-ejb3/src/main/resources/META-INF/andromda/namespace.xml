@@ -47,6 +47,18 @@
 					files are generated.
 				</documentation>
 			</property>
+			<property name="message-driven-beans">
+				<documentation>
+					The directory to which Message Driven Bean files 
+					are generated.
+				</documentation>
+			</property>
+			<property name="message-driven-impls">
+				<documentation>
+					The directory to which Message Driven Bean 
+					implementation files are generated.
+				</documentation>
+			</property>
 		</propertyGroup>
 		<propertyGroup name="JDBC">
 		    <property name="entityManagerName" required="false">
@@ -162,14 +174,14 @@
 			<property name="serviceLocalInterfaceNamePattern">
 				<default>{0}Local</default>
 				<documentation>
-					The pattern to use when constructing a service
+					The pattern to use when constructing the service
 					bean local interface name.
 				</documentation>
 			</property>
 			<property name="serviceRemoteInterfaceName">
 				<default>{0}Remote</default>
 				<documentation>
-					The pattern to use when constructing a service
+					The pattern to use when constructing the service
 					bean remote interface name.
 				</documentation>
 			</property>
@@ -183,8 +195,29 @@
 			<property name="serviceListenerNamePattern">
 				<default>{0}Listener</default>
 				<documentation>
-					The pattern to use when constructing an service
+					The pattern to use when constructing the service
 					bean listener class name.
+				</documentation>
+			</property>
+			<property name="messageDrivenNamePattern">
+				<default>{0}MDBBean</default>
+				<documentation>
+					The pattern to use when construction the JMS message driven
+					bean class name.
+				</documentation>
+			</property>
+			<property name="messageDrivenListenerNamePattern">
+				<default>{0}Listener</default>
+				<documentation>
+					The pattern to use when constucting the JMS message driven
+					bean listener class name.
+				</documentation>
+			</property>
+			<property name="messageDrivenImplementationNamePattern">
+				<default>{0}MDBBeanImpl</default>
+				<documentation>
+					The pattern to use when constructing the JMS message driven
+					bean implementation class name.
 				</documentation>
 			</property>
 			<property name="jndiNamePrefix" required="false">
@@ -192,6 +225,19 @@
 					The prefix to give to the EJB JNDI names (this
 					allows the same EJBs to be deployed multiple times
 					in the same container)
+				</documentation>
+			</property>
+		</propertyGroup>
+		<propertyGroup name="MDB Properties">
+			<property name="messageDrivenDestinationType">
+				<default>javax.jms.Queue</default>
+				<documentation>
+					The default destination type for a JMS message
+					driven bean.  Possible values are:
+					<ul>
+						<li>javax.jms.Queue</li>
+						<li>javax.jms.Topic</li>
+					</ul>
 				</documentation>
 			</property>
 		</propertyGroup>
