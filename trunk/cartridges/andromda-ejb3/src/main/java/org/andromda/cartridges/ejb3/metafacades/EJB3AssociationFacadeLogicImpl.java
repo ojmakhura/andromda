@@ -20,14 +20,6 @@ public class EJB3AssociationFacadeLogicImpl
     }
 
     // --------------- methods ---------------------
-    
-    /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationFacade#getTransactionType()
-     */
-    protected java.lang.String handleGetTransactionType()
-    {
-        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
-    }
 
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationFacadeLogic#handleGetTableName()
