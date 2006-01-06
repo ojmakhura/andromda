@@ -26,14 +26,6 @@ public class EJB3EntityAttributeFacadeLogicImpl
     }
 
     // --------------- methods ---------------------
-	
-    /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacade#getTransactionType()
-     */
-    protected java.lang.String handleGetTransactionType()
-    {
-        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
-    }
 
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#getGetterName()
