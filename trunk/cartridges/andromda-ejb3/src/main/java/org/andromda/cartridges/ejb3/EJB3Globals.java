@@ -211,4 +211,26 @@ public class EJB3Globals
      * Represents the default security domain
      */
     public static final String SECURITY_DOMAIN = "securityDomain";
+
+    /**
+     * Represents the bean managed transaction demarcation
+     */
+    public static final String TRANSACTION_MANAGEMENT_BEAN = "bean";
+    
+    /**
+     * Represents the container managed transaction demarcation
+     */
+    public static final String TRANSACTION_MANAGEMENT_CONTAINER = "container";
+
+    /**
+     * Represents the fully qualified topic destination type for the
+     * JMS message driven bean
+     */
+    public static final String MDB_DESTINATION_TYPE_TOPIC = "javax.jms.Topic";
+    
+    /**
+     * Represents the fully qualified queue destination type for the
+     * JMS message driven bean
+     */
+    public static final String MDB_DESTINATION_TYPE_QUEUE = "javax.jms.Queue";
 }
