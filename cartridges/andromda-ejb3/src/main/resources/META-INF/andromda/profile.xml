@@ -23,6 +23,14 @@
 				<value>Service</value>
 				<appliedOnElement>class</appliedOnElement>
 			</element>
+			<element name="MESSAGE_DRIVEN">
+				<documentation>
+					Produces a JMS Message Driven EJB facade that
+					received messages.
+				</documentation>
+				<value>MessageDriven</value>
+				<appliedOnElement>class</appliedOnElement>
+			</element>
 			<element name="VERSION">
 				<documentation>
 					Identifies an attribute as an version property
@@ -95,6 +103,53 @@
 				<value>ServiceRef</value>
 				<appliedOnElement>
 					A dependency going into a Service
+				</appliedOnElement>
+			</element>
+			<element name="RESOURCE_REF">
+				<documentation>
+					Used to reference a resource, like a 
+					DataSource from a service bean.  
+				</documentation>
+				<value>ResourceRef</value>
+				<appliedOnElement>
+					A dependency going into a class having 
+					a stereotype of UserTransaction or DataSource,
+					out of a Service.
+				</appliedOnElement>
+			</element>
+			<element name="MESSAGE_DRIVEN_REF">
+				<documentation>
+					Used to reference a JMS message driven
+					bean with stereotype MessageDriven.
+					This is used to inject the Queue,
+					QueueConnectionFactory or TopicConnectionFactory
+					resources.
+				</documentation>
+				<value>MessageDrivenRef</value>
+				<appliedOnElement>
+					A dependency going into a class
+					having a stereotype of MessageDriven,
+					out of a Service.
+				</appliedOnElement>
+			</element>
+			<element name="USER_TRANSACTION">
+				<documentation>
+					Used to inject a javax.transaction.UserTransaction
+					resource.
+				</documentation>
+				<value>UserTransaction</value>
+				<appliedOnElement>
+					class
+				</appliedOnElement>
+			</element>
+			<element name="DATA_SOURCE">
+				<documentation>
+					Used to inject a javax.sql.DataSource
+					resource.
+				</documentation>
+				<value>DataSource</value>
+				<appliedOnElement>
+					class
 				</appliedOnElement>
 			</element>
 			<element name="VALUE_REF">
@@ -368,6 +423,25 @@
 					<value>TRANSACTION</value>
 				</allowedValues>
 			</element>
+			<element name="SERVICE_PERSISTENCE_FLUSH_MODE">
+				<documentation>
+					Used on session bean operations to set
+					the flush mode that determines when the
+					changes to the changes to the database
+					are applied in a transation.
+				</documentation>
+				<value>
+					@andromda.ejb.persistence.flush.mode
+				</value>
+				<appliedOnElement>
+					Service operation
+				</appliedOnElement>
+				<allowedValues>
+					<value>AUTO</value>
+					<value>COMMIT</value>
+					<value>NEVER</value>
+				</allowedValues>
+			</element>
 			<element name="SECURITY_ROLES_ALLOWED">
 				<documentation>
 					Specifies the comma separated list of security
@@ -387,7 +461,7 @@
 			<element name="SECURITY_PERMIT_ALL">
 				<documentation>
 					Specifies whether to permit all roles to
-					execute the opertions in a session bean.
+					execute the opertions in the bean.
 					This can be set on the session bean or on
 					individual operations.
 					If set on the session bean, all operations will
@@ -406,6 +480,42 @@
 					<value>true</value>
 					<value>false</value>
 				</allowedValues>
+			</element>
+			<element name="SECURITY_DENY_ALL">
+				<documentation>
+					Specifies whether to deny all roles to
+					execute the opertions in the bean.
+					This can be set on the session bean or on
+					individual operations.
+					If set on the session bean, all operations will
+					inherit this behaviour.
+					The deny all tagged value will override
+					the roles allowed.  If both are set, only the
+					deny all tagged value is rendered.
+				</documentation>
+				<value>
+					@andromda.ejb.security.denyAll
+				</value>
+				<appliedOnElement>
+					Service and service operation
+				</appliedOnElement>
+				<allowedValues>
+					<value>true</value>
+					<value>false</value>
+				</allowedValues>
+			</element>
+			<element name="SECURITY_RUN_AS">
+				<documentation>
+					Specifies the run-as identity that the
+					bean will use when making calls.  It does
+					not affect the identity of the method callers. 
+				</documentation>
+				<value>
+					@andromda.ejb.security.runAs
+				</value>
+				<appliedOnElement>
+					Session bean
+				</appliedOnElement>
 			</element>
 			<element name="SECURITY_DOMAIN">
 				<documentation>
@@ -497,6 +607,59 @@
 				</documentation>
 				<value>@andromda.persistence.column.length</value>
 				<appliedOnElement>Entity attribute</appliedOnElement>
+			</element>
+			<element name="MDB_ACKNOWLEDGE_MODE">
+				<documentation>
+					Represents the acknowledge mode for the JMS message
+					driven bean.  Only needs to be specified if
+					DUPS_OK_ACKNOWLEDGE mode is required.  The default
+					mode is AUTO_ACKNOWLEDGE.
+				</documentation>
+				<value>@andromda.ejb.mdb.acknowledge.mode</value>
+				<appliedOnElement>Message Driven Bean</appliedOnElement>
+				<allowedValues>
+					<value default="true">AUTO_ACKNOWLEDGE</value>
+					<value>DUPS_OK_ACKNOWLEDGE</value>
+				</allowedValues>
+			</element>
+			<element name="MDB_DESTINATION">
+				<documentation>
+					Represents the destination queue or topic name
+					this JMS message driven bean is associated with.
+				</documentation>
+				<value>@andromda.ejb.mdb.destination</value>
+				<appliedOnElement>Message Driven Bean</appliedOnElement>
+			</element>
+			<element name="MDB_DESTINATION_TYPE">
+				<documentation>
+					Represents the destination type of the JMS message 
+					driven bean. If not specified, it is assumed to 
+					be a Queue.
+				</documentation>
+				<value>@andromda.ejb.mdb.destination.type</value>
+				<appliedOnElement>Message Driven Bean</appliedOnElement>
+				<allowedValues>
+					<value default="true">javax.jms.Queue</value>
+					<value>javax.jms.Topic</value>
+				</allowedValues>
+			</element>
+			<element name="MDB_SELECTOR">
+				<documentation>
+					Represents the JMS message selector logic used
+					when determining the messages that a JMS message
+					driven bean is to receive.
+				</documentation>
+				<value>@andromda.ejb.mdb.selector</value>
+				<appliedOnElement>Message Driven Bean</appliedOnElement>
+			</element>
+			<element name="MDB_SUBSCRIPTION_DURABILITY">
+				<documentation>
+					Represents the JMS message driven bean subscription
+					durability mode.  Queues are always durable.  The
+					durability only needs to be specified on topics.
+					By default, topics are non-durable.
+				</documentation>
+				<value>@andromda.ejb.mdb.subscription.durability</value>
 			</element>
 		</elementGroup>
 	</elements>
