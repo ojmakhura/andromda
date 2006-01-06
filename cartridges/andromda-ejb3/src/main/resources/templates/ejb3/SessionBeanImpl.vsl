@@ -3,13 +3,11 @@
 package $service.packageName;
 #end
 
-import javax.ejb.SessionContext;
-
 /**
  * @see ${service.fullyQualifiedServiceName}
  */
 public class ${service.serviceImplementationName} 
-    extends ${service.serviceName} 
+    extends ${service.fullyQualifiedServiceName} 
 {
     // --------------- Constructors ---------------
     
@@ -46,7 +44,7 @@ $operation.getDocumentation("     * ")
 #**##end
     }
 #end
-#set ($operations = $service.operations)
+#set ($operations = $service.businessOperations)
 #if (!$operations.empty)
 
     // -------- Business Methods  --------------
