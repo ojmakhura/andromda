@@ -23,24 +23,6 @@ public class EJB3OperationFacadeLogicImpl
     }
 
     // ---------------- methods -------------------------------
-    
-    /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacade#getTransactionType()
-     */
-    protected java.lang.String handleGetTransactionType()
-    {
-    	String transType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE, true);
-        if (StringUtils.isNotBlank(transType))
-        {
-            transType = EJB3MetafacadeUtils.convertTransactionType(transType);
-        }
-        else
-        {
-            transType = StringUtils.trimToEmpty(
-                    ObjectUtils.toString(this.getConfiguredProperty(EJB3Globals.TRANSACTION_TYPE)));
-        }
-        return transType;
-    }
 
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacade#isBusinessOperation()
