@@ -212,17 +212,8 @@ public class EJB3SessionFacadeLogicImpl
      */
     protected java.lang.String handleGetTransactionType()
     {
-        String transactionType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
-        if (StringUtils.isNotBlank(transactionType))
-        {
-            transactionType = EJB3MetafacadeUtils.convertTransactionType(transactionType);
-        }
-        else
-        {
-            transactionType = transactionType =
-                    String.valueOf(this.getConfiguredProperty(EJB3Globals.TRANSACTION_TYPE));
-        }
-        return transactionType;
+        return EJB3MetafacadeUtils.getTransactionType(this, 
+                String.valueOf(this.getConfiguredProperty(EJB3Globals.TRANSACTION_TYPE)));
     }
 
     /**
@@ -429,7 +420,10 @@ public class EJB3SessionFacadeLogicImpl
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#
      *      handleGetAttributesAsList(java.util.Collection, boolean, boolean)
      */
-    protected String handleGetAttributesAsList(Collection attributes, boolean includeTypes, boolean includeNames)
+    protected String handleGetAttributesAsList(
+            Collection attributes, 
+            boolean includeTypes, 
+            boolean includeNames)
     {
         if (!includeNames && !includeTypes || attributes == null)
         {
@@ -523,6 +517,20 @@ public class EJB3SessionFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsDenyAll()
+     */
+    protected boolean handleIsDenyAll()
+    {
+        boolean denyAll = false;
+        String denyAllStr = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SECURITY_DENY_ALL);
+        if (StringUtils.isNotBlank(denyAllStr))
+        {
+            denyAll = BooleanUtils.toBoolean(denyAllStr);
+        }
+        return denyAll;
+    }
+    
+    /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetSecurityDomain()
      */
     protected String handleGetSecurityDomain()
@@ -534,6 +542,92 @@ public class EJB3SessionFacadeLogicImpl
                     ObjectUtils.toString(this.getConfiguredProperty(EJB3Globals.SECURITY_DOMAIN)));
         }
         return securityDomain;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetRunAs()
+     */
+    protected String handleGetRunAs()
+    {
+        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SECURITY_RUN_AS);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetTransactionManagement()
+     */
+    protected String handleGetTransactionManagement()
+    {
+        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_MANAGEMENT);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsTransactionManagementBean()
+     */
+    protected boolean handleIsTransactionManagementBean()
+    {
+        return StringUtils.equalsIgnoreCase(getTransactionManagement(), EJB3Globals.TRANSACTION_MANAGEMENT_BEAN);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetResourceUserTransactionReferences()
+     */
+    protected Collection handleGetResourceUserTransactionReferences()
+    {
+        Collection references = this.getSourceDependencies();
+        CollectionUtils.filter(references, new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                DependencyFacade dependency = (DependencyFacade)object;
+                ModelElementFacade targetElement = dependency.getTargetElement();
+                return (targetElement != null 
+                        && EJB3SessionFacade.class.isAssignableFrom(targetElement.getClass())
+                                && dependency.hasStereotype(EJB3Profile.STEREOTYPE_RESOURCE_REF)
+                                && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_USER_TRANSACTION));
+            }
+        });
+        return references;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetResourceDataSourceReferences()
+     */
+    protected Collection handleGetResourceDataSourceReferences()
+    {
+        Collection references = this.getSourceDependencies();
+        CollectionUtils.filter(references, new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                DependencyFacade dependency = (DependencyFacade)object;
+                ModelElementFacade targetElement = dependency.getTargetElement();
+                return (targetElement != null 
+                        && EJB3SessionFacade.class.isAssignableFrom(targetElement.getClass())
+                                && dependency.hasStereotype(EJB3Profile.STEREOTYPE_RESOURCE_REF)
+                                && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_DATA_SOURCE));
+            }
+        });
+        return references;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetMessageDrivenReferences()
+     */
+    protected Collection handleGetMessageDrivenReferences()
+    {
+        Collection references = this.getSourceDependencies();
+        CollectionUtils.filter(references, new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                DependencyFacade dependency = (DependencyFacade)object;
+                ModelElementFacade targetElement = dependency.getTargetElement();
+                return (targetElement != null 
+                        && dependency.hasStereotype(EJB3Profile.STEREOTYPE_MESSAGE_DRIVEN_REF)
+                        && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_MESSAGE_DRIVEN));
+            }
+        });
+        return references;
     }
 
 }
