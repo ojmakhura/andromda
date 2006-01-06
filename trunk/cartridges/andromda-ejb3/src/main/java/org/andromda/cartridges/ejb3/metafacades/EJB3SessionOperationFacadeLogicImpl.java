@@ -147,4 +147,26 @@ public class EJB3SessionOperationFacadeLogicImpl
         return permitAll;
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsDenyAll()
+     */
+    protected boolean handleIsDenyAll()
+    {
+        boolean denyAll = false;
+        String denyAllStr = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SECURITY_DENY_ALL);
+        if (StringUtils.isNotBlank(denyAllStr))
+        {
+            denyAll = BooleanUtils.toBoolean(denyAllStr);
+        }
+        return denyAll;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleGetFlushMode()
+     */
+    protected String handleGetFlushMode()
+    {
+        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_PERSISTENCE_FLUSH_MODE);
+    }
+
 }
