@@ -15,7 +15,7 @@ import org.osgi.framework.BundleContext;
 
 /**
  * The Android Core contains provides access to the UI-free part of Android.
- * 
+ *
  * @author Peter Friese
  * @since 29.09.2005
  */
@@ -23,8 +23,10 @@ public class AndroidCore
         extends Plugin
 {
 
+    /** The plug-in ID. */
     public static final String PLUGIN_ID = "org.andromda.android.core";
 
+    /** The nature ID. */
     public static final String NATURE_ID = PLUGIN_ID + ".androidnature";
 
     /** The shared instance of this plug-in. */
@@ -101,7 +103,7 @@ public class AndroidCore
 
     /**
      * Returns the single instance of the Android Core. Equivalent to <code>getDefault()</code>.
-     * 
+     *
      * @return the Android Core.
      */
     public static AndroidCore getAndroidCore()
@@ -129,7 +131,7 @@ public class AndroidCore
         return AndroidSettingsAccess.instance();
     }
 
-    public static PropertyGroup[] getCartridgePropertyGroups(Namespace configurationNamespace, IAndroidProject project) 
+    public static PropertyGroup[] getCartridgePropertyGroups(Namespace configurationNamespace, IAndroidProject project)
     {
         return AndroidModelManager.getInstance().getAndroidModel().getCartridgePropertyGroups(configurationNamespace, project);
     }
