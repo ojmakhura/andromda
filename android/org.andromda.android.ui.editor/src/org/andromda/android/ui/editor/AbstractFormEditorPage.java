@@ -3,9 +3,6 @@ package org.andromda.android.ui.editor;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
-import org.eclipse.swt.events.FocusAdapter;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -34,11 +31,14 @@ public abstract class AbstractFormEditorPage
         extends FormPage
 {
 
+    /** Signals that the model is currently being updated. */
     private boolean modelUpdating;
 
+    /**
+     * This modification listener should be attached to input elements in order to automatically signal that the model
+     * needs to be updated.
+     */
     private KeyAdapter modificationListener;
-
-    private FocusAdapter focusListener;
 
     /**
      * Create the form page
@@ -125,8 +125,8 @@ public abstract class AbstractFormEditorPage
     }
 
     /**
-     * This method will be called whenever the document has changed. The method will then call <code>doUpdateWidgets()</code>,
-     * giving subclasses the chance to perform the update of the widgets themselves.
+     * This method will be called whenever the document has changed. The method will then call
+     * <code>doUpdateWidgets()</code>, giving subclasses the chance to perform the update of the widgets themselves.
      */
     private void updateWidgets()
     {
@@ -142,7 +142,8 @@ public abstract class AbstractFormEditorPage
 
     /**
      * This method will be called whenever the user has changed the content of the widgets on this form. It will then
-     * call <code>doUpdateModel()</code> giving subclasses the chance to perform the update of the document themselves.
+     * call <code>doUpdateModel()</code> giving subclasses the chance to perform the update of the document
+     * themselves.
      */
     private void updateModel()
     {
@@ -171,7 +172,7 @@ public abstract class AbstractFormEditorPage
     /**
      * Retrieve the currenty edited document.
      *
-     * @return te document currently being edited.
+     * @return the document currently being edited.
      */
     protected IDocument getDocument()
     {
@@ -197,20 +198,6 @@ public abstract class AbstractFormEditorPage
             };
         }
         return modificationListener;
-    }
-
-    protected FocusListener getFocusListener()
-    {
-        if (focusListener == null)
-        {
-            focusListener = new FocusAdapter()
-            {
-                public void focusLost(FocusEvent e)
-                {
-                }
-            };
-        }
-        return focusListener;
     }
 
 }
