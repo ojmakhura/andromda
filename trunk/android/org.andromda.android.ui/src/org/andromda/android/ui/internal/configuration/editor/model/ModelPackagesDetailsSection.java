@@ -1,5 +1,6 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
+import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelSectionPart;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
 import org.andromda.core.configuration.ModelDocument.Model;
@@ -30,6 +31,8 @@ public class ModelPackagesDetailsSection
 
     /** The composite hosted by this section. This composite contains the real edit components. */
     private ModelPackagesDetailsComposite modelPackagesDetailsComposite;
+
+    private Model model;
 
     /**
      * @param page
@@ -72,6 +75,7 @@ public class ModelPackagesDetailsSection
     public void refresh()
     {
         super.refresh();
+        modelPackagesDetailsComposite.setModel(model);
     }
 
     /**
@@ -95,10 +99,18 @@ public class ModelPackagesDetailsSection
             Object firstElement = structuredSelection.getFirstElement();
             if (firstElement instanceof Model)
             {
-                Model model = (Model)firstElement;
-                modelPackagesDetailsComposite.setModel(model);
+                model = (Model)firstElement;
+                refresh();
             }
         }
+    }
+
+    /**
+     * @see org.andromda.android.ui.internal.editor.AbstractModelSectionPart#modelChanged(org.andromda.android.core.model.IModelChangedEvent)
+     */
+    public void modelChanged(IModelChangedEvent event)
+    {
+        refresh();
     }
 
 }

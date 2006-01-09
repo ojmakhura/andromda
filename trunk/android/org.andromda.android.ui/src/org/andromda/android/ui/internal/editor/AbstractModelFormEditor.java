@@ -1,19 +1,19 @@
 package org.andromda.android.ui.internal.editor;
 
 import org.andromda.android.core.model.IEditorModel;
-import org.eclipse.ui.forms.editor.FormEditor;
+import org.andromda.android.ui.editor.AbstractMultipageSourceEditor;
 
 /**
- * 
+ *
  * @author Peter Friese
  * @since 15.12.2005
  */
 public abstract class AbstractModelFormEditor
-        extends FormEditor
+        extends AbstractMultipageSourceEditor
 {
 
     /**
-     * 
+     *
      */
     public AbstractModelFormEditor()
     {

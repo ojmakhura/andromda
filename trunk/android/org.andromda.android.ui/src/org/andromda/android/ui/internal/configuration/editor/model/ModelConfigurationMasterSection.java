@@ -1,5 +1,6 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
+import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelSectionPart;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
 import org.andromda.core.configuration.AndromdaDocument;
@@ -68,6 +69,14 @@ public class ModelConfigurationMasterSection
         super.refresh();
         AndromdaDocument andromdaDocument = getAndromdaDocument();
         modelConfigurationMasterComposite.setAndroMDADocument(andromdaDocument);
+    }
+
+    /**
+     * @see org.andromda.android.ui.internal.editor.AbstractModelSectionPart#modelChanged(org.andromda.android.core.model.IModelChangedEvent)
+     */
+    public void modelChanged(IModelChangedEvent event)
+    {
+        refresh();
     }
 
 }

@@ -2,8 +2,6 @@ package org.andromda.android.ui.internal.editor;
 
 import org.andromda.android.core.model.IEditorModel;
 import org.andromda.android.core.model.IModelChangeProvider;
-import org.andromda.android.core.model.IModelChangedEvent;
-import org.andromda.android.core.model.IModelChangedListener;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.SectionPart;
@@ -16,7 +14,6 @@ import org.eclipse.ui.forms.SectionPart;
  */
 public abstract class AbstractModelComposite
         extends Composite
-        implements IModelChangedListener
 {
 
     /** The section we're hosted in. */
@@ -33,20 +30,6 @@ public abstract class AbstractModelComposite
     {
         super(parentSection.getSection(), style);
         this.parentSection = parentSection;
-        subscribeToModelChanges();
-    }
-
-    /**
-     * @see org.eclipse.swt.widgets.Widget#dispose()
-     */
-    public void dispose()
-    {
-        if (getEditorModel() != null)
-        {
-            IModelChangeProvider provider = (IModelChangeProvider)getEditorModel();
-            provider.removeModelChangedListener(this);
-        }
-        super.dispose();
     }
 
     /**
@@ -92,23 +75,6 @@ public abstract class AbstractModelComposite
         }
         return null;
     }
-
-    /**
-     * Subscribe to model change events.
-     */
-    protected void subscribeToModelChanges()
-    {
-        if (getEditorModel() instanceof IModelChangeProvider)
-        {
-            IModelChangeProvider provider = (IModelChangeProvider)getEditorModel();
-            provider.addModelChangedListener(this);
-        }
-    }
-
-    /**
-     * @see org.andromda.android.core.model.IModelChangedListener#modelChanged(org.andromda.android.core.model.IModelChangedEvent)
-     */
-    public abstract void modelChanged(IModelChangedEvent event);
 
     /**
      *

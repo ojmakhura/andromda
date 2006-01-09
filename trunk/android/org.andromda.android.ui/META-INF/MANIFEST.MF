@@ -16,5 +16,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.jdt,
  org.eclipse.jdt.core,
  org.eclipse.jdt.ui,
- org.andromda.android.core
+ org.andromda.android.core,
+ org.andromda.android.ui.editor,
+ org.eclipse.wst.xml.ui;optional=true,
+ org.eclipse.wst.sse.ui;optional=true,
+ org.eclipse.ui.workbench.texteditor,
+ org.eclipse.text,
+ org.eclipse.ui.editors,
+ org.eclipse.jface.text
 Eclipse-AutoStart: true

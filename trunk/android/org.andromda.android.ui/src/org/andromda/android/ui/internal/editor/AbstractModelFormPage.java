@@ -1,17 +1,18 @@
 package org.andromda.android.ui.internal.editor;
 
 import org.andromda.android.core.model.IEditorModel;
+import org.andromda.android.ui.editor.AbstractFormEditorPage;
 import org.eclipse.ui.forms.editor.FormEditor;
 import org.eclipse.ui.forms.editor.FormPage;
 
 /**
  * Provides convenience methods for accessing the model edited by the editor.
- * 
+ *
  * @author Peter Friese
  * @since 15.12.2005
  */
 public abstract class AbstractModelFormPage
-        extends FormPage
+        extends AbstractFormEditorPage
 {
 
     /**

@@ -2,6 +2,7 @@ package org.andromda.android.ui.internal.configuration.editor.server;
 
 import java.math.BigInteger;
 
+import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelSectionPart;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
 import org.andromda.core.configuration.AndromdaDocument;
@@ -100,6 +101,14 @@ public class ServerLoadingSection
             }
         }
         super.commit(onSave);
+    }
+
+    /**
+     * @see org.andromda.android.ui.internal.editor.AbstractModelSectionPart#modelChanged(org.andromda.android.core.model.IModelChangedEvent)
+     */
+    public void modelChanged(IModelChangedEvent event)
+    {
+        refresh();
     }
 
 }
