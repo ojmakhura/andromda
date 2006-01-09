@@ -41,53 +41,29 @@ public abstract class AbstractFormEditorPage
     private KeyAdapter modificationListener;
 
     /**
-     * Create the form page
+     * Create the form page.
      *
-     * @param id
-     * @param title
+     * @param id the id of the page.
+     * @param title the title of the page.
      */
-    public AbstractFormEditorPage(String id,
-        String title)
+    public AbstractFormEditorPage(final String id,
+        final String title)
     {
         super(id, title);
     }
 
     /**
-     * Create the form page
+     * Create the form page.
      *
-     * @param editor
-     * @param id
-     * @param title
+     * @param editor the owning editor.
+     * @param id the id of the page.
+     * @param title the title of the page.
      */
-    public AbstractFormEditorPage(FormEditor editor,
-        String id,
-        String title)
+    public AbstractFormEditorPage(final FormEditor editor,
+        final String id,
+        final String title)
     {
         super(editor, id, title);
-    }
-
-    /**
-     * Create contents of the form
-     *
-     * @param managedForm
-     */
-    protected void createFormContent(IManagedForm managedForm)
-    {
-        FormToolkit toolkit = managedForm.getToolkit();
-        ScrolledForm form = managedForm.getForm();
-        form.setText("Empty FormPage");
-        Composite body = form.getBody();
-        body.setLayout(new GridLayout());
-        toolkit.paintBordersFor(body);
-    }
-
-    /**
-     * @see org.eclipse.ui.forms.editor.FormPage#init(org.eclipse.ui.IEditorSite, org.eclipse.ui.IEditorInput)
-     */
-    public void init(IEditorSite site,
-        IEditorInput input)
-    {
-        super.init(site, input);
     }
 
     /**
@@ -105,19 +81,19 @@ public abstract class AbstractFormEditorPage
      *
      * @param document the document we want to listen to.
      */
-    private void setupDocument(IDocument document)
+    private void setupDocument(final IDocument document)
     {
         document.addDocumentListener(new IDocumentListener()
         {
-            public void documentAboutToBeChanged(DocumentEvent event)
+            public void documentAboutToBeChanged(final DocumentEvent event)
             {
             }
 
-            public void documentChanged(DocumentEvent event)
+            public void documentChanged(final DocumentEvent event)
             {
                 if (!modelUpdating)
                 {
-                    updateWidgets();
+                    updatePage();
                 }
             }
 
@@ -126,11 +102,11 @@ public abstract class AbstractFormEditorPage
 
     /**
      * This method will be called whenever the document has changed. The method will then call
-     * <code>doUpdateWidgets()</code>, giving subclasses the chance to perform the update of the widgets themselves.
+     * <code>doUpdatePage()</code>, giving subclasses the chance to perform the update of the page and its widgets themselves.
      */
-    private void updateWidgets()
+    private void updatePage()
     {
-        doUpdateWidgets(getDocument());
+        doUpdatePage(getDocument());
     }
 
     /**
@@ -138,7 +114,7 @@ public abstract class AbstractFormEditorPage
      *
      * @param document the document with the changes already applied.
      */
-    protected abstract void doUpdateWidgets(IDocument document);
+    protected abstract void doUpdatePage(IDocument document);
 
     /**
      * This method will be called whenever the user has changed the content of the widgets on this form. It will then
@@ -191,7 +167,7 @@ public abstract class AbstractFormEditorPage
         {
             modificationListener = new KeyAdapter()
             {
-                public void keyReleased(KeyEvent e)
+                public void keyReleased(final KeyEvent e)
                 {
                     AbstractFormEditorPage.this.updateModel();
                 }
