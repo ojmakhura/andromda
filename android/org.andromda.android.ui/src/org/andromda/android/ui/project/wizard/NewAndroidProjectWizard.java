@@ -13,6 +13,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IJavaElement;
+import org.eclipse.jdt.ui.wizards.JavaCapabilityConfigurationPage;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
@@ -48,6 +49,8 @@ public class NewAndroidProjectWizard
 
     private IProject projectHandle;
 
+    private JavaCapabilityConfigurationPage javaCapabilityConfigurationPage;
+
     /**
      * Constructor for NewAndroMDAProjectWizard.
      */
@@ -79,8 +82,14 @@ public class NewAndroidProjectWizard
     public void addPages()
     {
         super.addPages();
+//        WizardNewProjectCreationPage wizardNewProjectCreationPage = new WizardNewProjectCreationPage("newProject");
+//        addPage(wizardNewProjectCreationPage);
         basicProjectInformationPage = new BasicProjectInformationWizardPage(projectProperties);
         addPage(basicProjectInformationPage);
+
+//        javaCapabilityConfigurationPage = new JavaCapabilityConfigurationPage();
+//        addPage(javaCapabilityConfigurationPage);
+
         projectMetaInformationWizardPage = new ProjectMetaInformationWizardPage(projectProperties);
         addPage(projectMetaInformationWizardPage);
         projectFeaturesWizardPage = new ProjectFeaturesWizardPage(projectProperties);

@@ -1,6 +1,5 @@
 package org.andromda.android.ui.internal.configuration.editor.model;
 
-import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelComposite;
 import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
@@ -247,7 +246,6 @@ public class ModelDetailsComposite
         });
         downButton.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
         //
-        subscribeToModelChanges();
     }
 
     public void dispose()
@@ -378,14 +376,6 @@ public class ModelDetailsComposite
         removeButton.setEnabled(remove);
         upButton.setEnabled(up);
         downButton.setEnabled(down);
-    }
-
-    /**
-     * @see org.andromda.android.ui.internal.editor.AbstractModelComposite#modelChanged(org.andromda.android.core.model.IModelChangedEvent)
-     */
-    public void modelChanged(IModelChangedEvent event)
-    {
-        refresh();
     }
 
 }

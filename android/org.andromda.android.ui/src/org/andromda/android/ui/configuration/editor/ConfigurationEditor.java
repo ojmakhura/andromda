@@ -1,6 +1,5 @@
 package org.andromda.android.ui.configuration.editor;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,17 +12,19 @@ import org.andromda.android.ui.internal.configuration.editor.model.ModelConfigur
 import org.andromda.android.ui.internal.configuration.editor.server.ServerConfigurationPage;
 import org.andromda.android.ui.internal.editor.AbstractModelFormEditor;
 import org.andromda.core.configuration.AndromdaDocument;
+import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.editor.IFormPage;
-import org.eclipse.ui.part.FileEditorInput;
 
 /**
  * Editor for the AndroMDA configuration file (andromda.xml).
- * 
+ *
  * @author Peter Friese
  * @since 08.11.2005
  */
@@ -31,68 +32,60 @@ public class ConfigurationEditor
         extends AbstractModelFormEditor
 {
 
+    /** The number of spaces rendered in the XML file for one indentation. */
+    private static final int NUMBER_OF_SPACES = 4;
+
     /** The wrapped AndroMDA configuration being edited. */
     private IAndromdaDocumentEditorModel andromdaDocumentEditorModel;
 
     /**
      * @see org.eclipse.ui.forms.editor.FormEditor#addPages()
      */
-    protected void addPages()
+    protected void addFormPages() throws PartInitException
     {
-        try
-        {
-            ServerConfigurationPage serverConfigurationPage = new ServerConfigurationPage(this,
-                    ServerConfigurationPage.PAGE_ID, "Server");
-            addPage(serverConfigurationPage);
+        ServerConfigurationPage serverConfigurationPage = new ServerConfigurationPage(this,
+                ServerConfigurationPage.PAGE_ID, "Server");
+        addPage(serverConfigurationPage);
 
-            ModelConfigurationPage modelConfigurationPage = new ModelConfigurationPage(this,
-                    ModelConfigurationPage.PAGE_ID, "Models");
-            addPage(modelConfigurationPage);
+        ModelConfigurationPage modelConfigurationPage = new ModelConfigurationPage(this,
+                ModelConfigurationPage.PAGE_ID, "Models");
+        addPage(modelConfigurationPage);
 
-            CartridgeConfigurationPage cartridgeConfigurationPage = new CartridgeConfigurationPage(this,
-                    CartridgeConfigurationPage.PAGE_ID, "Cartridges");
-            addPage(cartridgeConfigurationPage);
-        }
-        catch (Exception e)
-        {
-            AndroidUIPlugin.log(e);
-        }
+        CartridgeConfigurationPage cartridgeConfigurationPage = new CartridgeConfigurationPage(this,
+                CartridgeConfigurationPage.PAGE_ID, "Cartridges");
+        addPage(cartridgeConfigurationPage);
+    }
+
+    /**
+     * @see org.eclipse.ui.forms.editor.FormEditor#init(org.eclipse.ui.IEditorSite, org.eclipse.ui.IEditorInput)
+     */
+    public void init(final IEditorSite site,
+        final IEditorInput input) throws PartInitException
+    {
+        super.init(site, input);
+        setPartName(input.getName());
+        firePropertyChange(PROP_TITLE);
     }
 
     /**
      * @see org.eclipse.ui.part.EditorPart#doSave(org.eclipse.core.runtime.IProgressMonitor)
      */
-    public void doSave(IProgressMonitor monitor)
+    public void doSave(final IProgressMonitor monitor)
     {
         commitFormPages(true);
 
-        IEditorInput input = getEditorInput();
-        if (input instanceof FileEditorInput)
-        {
-            FileEditorInput fileEditorInput = (FileEditorInput)input;
-            IPath path = fileEditorInput.getPath();
-            String absoluteFileName = path.toOSString();
-            File file = path.toFile();
-            try
-            {
-                XmlOptions options = setupDefaultNamespace();
-                AndromdaDocument andromdaDocument = getAndromdaDocumentEditorModel().getAndromdaDocument();
-                andromdaDocument.save(file, options);
-                editorDirtyStateChanged();
-            }
-            catch (Exception e)
-            {
-                AndroidUIPlugin.log(e);
-            }
-        }
+        // TODO temporary HACK!
+        XmlOptions options = setupDefaultNamespace();
+        AndromdaDocument andromdaDocument = getAndromdaDocumentEditorModel().getAndromdaDocument();
+        getDocument().set(andromdaDocument.toString());
 
-        editorDirtyStateChanged();
+        super.doSave(monitor);
     }
 
     /**
      * @param onSave
      */
-    private void commitFormPages(boolean onSave)
+    private void commitFormPages(final boolean onSave)
     {
         IFormPage[] pages = getPages();
         for (int i = 0; i < pages.length; i++)
@@ -100,12 +93,16 @@ public class ConfigurationEditor
             IFormPage page = pages[i];
             IManagedForm mform = page.getManagedForm();
             if (mform != null && mform.isDirty())
+            {
                 mform.commit(true);
+            }
         }
     }
 
     /**
-     * @return
+     * Returns an array of all pages of this editor.
+     *
+     * @return an array of all pages.
      */
     private IFormPage[] getPages()
     {
@@ -114,33 +111,11 @@ public class ConfigurationEditor
         {
             Object page = pages.get(i);
             if (page instanceof IFormPage)
+            {
                 formPages.add(page);
+            }
         }
         return (IFormPage[])formPages.toArray(new IFormPage[formPages.size()]);
-    }
-
-    /**
-     * @see org.eclipse.ui.ISaveablePart#doSaveAs()
-     */
-    public void doSaveAs()
-    {
-    }
-
-    /**
-     * @see org.eclipse.ui.part.EditorPart#isSaveAsAllowed()
-     */
-    public boolean isSaveAsAllowed()
-    {
-        return false;
-    }
-
-    /**
-     * @see org.eclipse.ui.part.EditorPart#setInput(org.eclipse.ui.IEditorInput)
-     */
-    protected void setInput(IEditorInput input)
-    {
-        super.setInput(input);
-        updateEditorModel();
     }
 
     /**
@@ -148,25 +123,18 @@ public class ConfigurationEditor
      */
     public boolean updateEditorModel()
     {
-        IEditorInput input = getEditorInput();
+        IDocument editorDocument = getDocument();
         boolean clean = false;
-        if (input instanceof FileEditorInput)
+        try
         {
-            FileEditorInput fileEditorInput = (FileEditorInput)input;
-            IPath path = fileEditorInput.getPath();
-            String absoluteFileName = path.toOSString();
-            File file = path.toFile();
-            try
-            {
-                XmlOptions options = setupDefaultNamespace();
-                AndromdaDocument document = AndromdaDocument.Factory.parse(file, options);
-                andromdaDocumentEditorModel = IAndromdaDocumentEditorModel.Factory.newInstance(document);
-                clean = true;
-            }
-            catch (Exception e)
-            {
-                AndroidUIPlugin.log(e);
-            }
+            XmlOptions options = setupDefaultNamespace();
+            AndromdaDocument document = AndromdaDocument.Factory.parse(editorDocument.get(), options);
+            andromdaDocumentEditorModel = IAndromdaDocumentEditorModel.Factory.newInstance(document);
+            clean = true;
+        }
+        catch (XmlException e)
+        {
+            AndroidUIPlugin.log(e);
         }
         return clean;
     }
@@ -174,7 +142,7 @@ public class ConfigurationEditor
     /**
      * Setup an XmlOptions instance so the parser will assume the default namespace for the config document even if is
      * has no namespace set.
-     * 
+     *
      * @return an XmlOptions instance suitable for parsing AndroMDA configuration documents.
      */
     private XmlOptions setupDefaultNamespace()
@@ -185,7 +153,7 @@ public class ConfigurationEditor
         options.setLoadSubstituteNamespaces(namespaceMapping);
 
         options.setUseDefaultNamespace();
-        options.setSavePrettyPrint().setSavePrettyPrintIndent(4);
+        options.setSavePrettyPrint().setSavePrettyPrintIndent(NUMBER_OF_SPACES);
         return options;
     }
 
@@ -194,9 +162,10 @@ public class ConfigurationEditor
      */
     public IEditorModel getEditorModel()
     {
+        updateEditorModel();
         return getAndromdaDocumentEditorModel();
     }
-    
+
     /**
      * @return
      */

@@ -1,6 +1,7 @@
 package org.andromda.android.ui.internal.configuration.editor.cartridge;
 
 import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelFormPage;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.IManagedForm;
@@ -53,6 +54,24 @@ public class CartridgeConfigurationPage
         toolkit.paintBordersFor(body);
 
         cartridgeConfigurationMasterDetailsBlock.createContent(managedForm);
+    }
+
+    /**
+     * @see org.andromda.android.ui.editor.AbstractFormEditorPage#doUpdatePage(org.eclipse.jface.text.IDocument)
+     */
+    protected void doUpdatePage(IDocument document)
+    {
+        // TODO Auto-generated method stub
+
+    }
+
+    /**
+     * @see org.andromda.android.ui.editor.AbstractFormEditorPage#doUpdateDocument(org.eclipse.jface.text.IDocument)
+     */
+    protected void doUpdateDocument(IDocument document)
+    {
+        // TODO Auto-generated method stub
+
     }
 
 }

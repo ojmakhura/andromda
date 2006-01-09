@@ -10,7 +10,7 @@ import org.eclipse.ui.forms.editor.FormEditor;
  * @author Peter Friese
  * @since 16.12.2005
  */
-public class AbstractAndromdaModelFormPage
+public abstract class AbstractAndromdaModelFormPage
         extends AbstractModelFormPage
 {
 
