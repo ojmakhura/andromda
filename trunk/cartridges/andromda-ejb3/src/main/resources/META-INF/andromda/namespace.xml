@@ -18,6 +18,12 @@
 			<documentation>
 				Defines the locations to which output is generated.
 			</documentation>
+            <property name="services">
+                <documentation>
+                    The location to which all service classes (including the service locator(s))
+                    will be generated.
+                </documentation>
+            </property>
 			<property name="entity-beans">
 				<documentation>
 					The directory to which Entity POJOs are generated.
@@ -198,6 +204,13 @@
 					The pattern to use when constructing the service
 					bean listener class name.
 				</documentation>
+			</property>
+			<property name="serviceDelegateNamePattern">
+			    <default>{0}Delegate</default>
+			    <documentation>
+			        The pattern to use when constructing the service
+			        bean delegate class name.
+			    </documentation>
 			</property>
 			<property name="messageDrivenNamePattern">
 				<default>{0}MDBBean</default>
@@ -485,6 +498,18 @@
 					tagged value.
 				</documentation>
 			</property>
+            <property name="serviceLocatorName">
+                <default>ServiceLocator</default>
+                <documentation>
+                    The name to give the service locator class.
+                </documentation>
+            </property>
+            <property name="ejb3TypesPackage">
+                <default>org.andromda.ejb3</default>
+                <documentation>
+                    The package to which extra types are generated (i.e. ServiceLocator).
+                </documentation>
+            </property>
 		</propertyGroup>
 	</properties>
 </namespace>

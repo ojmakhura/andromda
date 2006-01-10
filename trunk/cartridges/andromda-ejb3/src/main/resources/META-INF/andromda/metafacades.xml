@@ -98,6 +98,7 @@
 		<property reference="serviceRemoteInterfaceName" />
 		<property reference="serviceImplementationNamePattern" />
 		<property reference="serviceListenerNamePattern" />
+		<property reference="serviceDelegateNamePattern" />
 	</metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogicImpl">
 		<mapping>
