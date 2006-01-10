@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cruisecontrol>
+    <project name="andromda-all">
+        <bootstrappers>
+            <currentbuildstatusbootstrapper file="/var/andromda-build/logs/andromda-all/currentbuildstatus.txt"/>
+        </bootstrappers>
+        <modificationset>
+            <cvs tag="3_x_HEAD"  cvsroot=":ext:andromda-build@cvs.sourceforge.net:/cvsroot/andromda"/>
+        </modificationset>
+        <schedule interval="900">
+            <maven goal="scm:update-project|clean|dist|get-cron-docs|deploy-distribution" projectfile="/var/andromda-build/andromda-all/project.xml" mavenscript="/opt/maven/bin/maven"/>
+            <pause starttime="0505" endtime="0605"/>
+        </schedule>
+        <log dir="/var/andromda-build/logs/andromda-all">
+            <merge dir="/var/andromda-build/andromda-all/andromda/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-ejb/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-bpm4struts/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-hibernate/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-java/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-meta/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-spring/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-webservice/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-xmlschema/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/metafacades/uml/uml14/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/repositories/mdr/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/templateengines/velocity/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/translation-libraries/ocl/core/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/translation-libraries/ocl/testsuite/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/translation-libraries/ocl/andromda-query/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/translation-libraries/ocl/andromda-validation/target/test-reports"/>
+        </log>
+        <publishers>
+            <currentbuildstatuspublisher file="/var/andromda-build/logs/andromda-all/currentbuildstatus.txt"/>
+            <htmlemail logdir="/var/andromda-build/logs/andromda-all"
+                mailhost="localhost"
+                buildresultsurl="http://thecla.homeftp.net:8080/cruisecontrol/buildresults/andromda-all"
+                spamwhilebroken="true"
+                subjectprefix="[BUILD]"
+                returnaddress="committers@andromda.org"
+                defaultsuffix="@users.sourceforge.net"
+                xslfile="/var/andromda-build/andromda-all/etc/cc-build/xsl/andromda.xsl">
+                <map address="matthias@andromda.org" alias="mattes3"/>
+                <map address="chad@andromda.org" alias="cwbrandon"/>
+                <map address="wouter@andromda.org" alias="draftdog"/>
+                <map address="martin@andromda.org" alias="amartinwest"/>
+                <map address="carlos@andromda.org" alias="carloslcuenca"/>
+                <failure address="committers@andromda.org"/>
+                <always address="chad@andromda.org"/>
+                <always address="martin@andromda.org"/>
+                <always address="wouter@andromda.org"/>
+            </htmlemail>
+        </publishers>
+    </project>
+    <project name="andromda-contrib">
+        <bootstrappers>
+            <currentbuildstatusbootstrapper file="/var/andromda-build/logs/andromda-contrib/currentbuildstatus.txt"/>
+        </bootstrappers>
+        <modificationset>
+            <cvs localWorkingCopy="/var/andromda-build/andromda-contrib/contrib" cvsroot=":ext:andromda-build@cvs.sourceforge.net:/cvsroot/andromda"/>
+        </modificationset>
+        <schedule interval="900">
+            <maven goal="scm:update-project|cc-build|deploy-distribution" projectfile="/var/andromda-build/andromda-contrib/contrib/project.xml" mavenscript="/opt/maven/bin/maven"/>
+        </schedule>
+        <log dir="/var/andromda-build/logs/andromda-contrib">
+			<merge dir="/var/andromda-build/andromda-contrib/contrib/cartridges/andromda-costcalculator/target/test-reports"/>
+			<merge dir="/var/andromda-build/andromda-contrib/contrib/cartridges/andromda-database/target/test-reports"/>
+			<merge dir="/var/andromda-build/andromda-contrib/contrib/maven/site/target/test-reports"/>
+			<merge dir="/var/andromda-build/andromda-contrib/contrib/transformations/configuration/target/test-reports"/>
+			<merge dir="/var/andromda-build/andromda-contrib/contrib/transformations/spring/target/test-reports"/>
+			<merge dir="/var/andromda-build/andromda-contrib/contrib/transformers/atl/target/test-reports"/>
+        </log>
+        <publishers>
+            <currentbuildstatuspublisher file="/var/andromda-build/logs/andromda-contrib/currentbuildstatus.txt"/>
+            <htmlemail logdir="/var/andromda-build/logs/andromda-contrib"
+                mailhost="localhost"
+                buildresultsurl="http://thecla.homeftp.net:8080/cruisecontrol/buildresults/andromda-contrib"
+                spamwhilebroken="true"
+                subjectprefix="[BUILD]"
+                returnaddress="committers@andromda.org"
+                defaultsuffix="@users.sourceforge.net"
+                xslfile="/var/andromda-build/andromda-all/etc/cc-build/xsl/andromda.xsl">
+                <map address="matthias@andromda.org" alias="mattes3"/>
+                <map address="chad@andromda.org" alias="cwbrandon"/>
+                <map address="wouter@andromda.org" alias="draftdog"/>
+                <map address="martin@andromda.org" alias="amartinwest"/>
+                <map address="carlos@andromda.org" alias="carloslcuenca"/>
+                <failure address="committers@andromda.org"/>
+                <always address="chad@andromda.org"/>
+                <always address="martin@andromda.org"/>
+                <always address="wouter@andromda.org"/>
+            </htmlemail>
+        </publishers>
+    </project>
+</cruisecontrol>

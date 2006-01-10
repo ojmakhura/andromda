@@ -1,0 +1,24 @@
+<project name="maven2-build" default="default">
+	
+	<echo message="basedir:${basedir}"/>
+	<property name="project.dir" value="${basedir}/../.."/>
+	
+	<target name="default">
+		<exec dir="${project.dir}" executable="mvn" >
+			<arg value="clean"/>
+        </exec> 
+		<exec dir="${project.dir}" executable="mvn" >
+			<arg value="install"/>
+        </exec> 
+		<antcall target="deploy-install-web"/>
+	</target>
+
+	<target name="deploy-install-web">
+		<copy todir="/var/www/andromda/maven2">
+			<fileset dir="/var/maven2/repository/andromda">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+	</target>	
+	
+</project>
