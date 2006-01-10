@@ -4,22 +4,31 @@
     </head>
 	<body>
 		<h1>Andromda Cruisecontrol build</h1>
-		<p>The etc/cc-build directory contains the artifacts
+		<p>The scripts directory contains the artifacts
 			to run cruisecontrol for andromda.</p>
 		<dl>
+			<dt>backup-ser-files.sh</dt>
+			<dd>Save the CC serialized data files</dd>
+			<dt>cc-ctl</dt>
+			<dd>init.d type script for running CC</dd>
+			<dt>cc-timed.xml</dt>
+			<dd>Attempt to write a time based schedule for CC</dd>
 			<dt>check-mods.sh</dt>
 			<dd>Checks for cvs updates</dd>
 			<dt>cruisecontrol.xml</dt>
-			<dd>Cruisecontrol definition file.</dd>
-			<dt>run-cc-maven.sh</dt>
-			<dd>Runs cruisecontrol via the maven plugin. Not the 
-				preferred method, use runcc.sh.</dd>
+			<dd>Cruisecontrol definition file for galaxy</dd>
+			<dt>cruisecontrol-3_x.xml</dt>
+			<dd>Cruisecontrol definition file for galaxy version 3</dd>
+			<dt>mvn-cc-build.xml</dt>
+			<dd>Ant build script to invoke maven 2.</dd>
 			<dt>runcc.sh</dt>
 			<dd>Runs cruisecontrol directly. Stores the cc pid in pid.</dd>
 			<dt>set-env.sh</dt>
 			<dd>Set environment variables for the cvs enviroment.</dd>
+			<dt>stockholm-cruisecontrol.xml</dt>
+			<dd>Cruisecontrol definition file for stockholm</dd>
 			<dt>stpcc.sh</dt>
-			<dd>Stop cruisecontrols.</dd>
+			<dd>Stop cruisecontrols, deprecated for stockholm use cc-ctl or the web jmx interface</dd>
 			<dt>test-xsl.sh</dt>
 			<dd>Runs xalan with the andromda tailored xsl
 				file in directory xsl, against the log
