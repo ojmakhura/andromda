@@ -1,0 +1,89 @@
+// license-header java merge-point
+#if ($stringUtils.isNotBlank($service.packageName))
+package $service.packageName;
+#end
+#set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedServiceDelegateName,'.','/')}.java")
+
+/**
+ * Web service delegator for {@link $service.fullyQualifiedServiceName}.
+ *
+ * @see $service.fullyQualifiedServiceName
+ */
+public class $service.serviceDelegateName
+{
+    /**
+     * Environment properties
+     */
+    private java.util.Properties env = null;
+    
+    /**
+     * Default constructor
+     */
+    public ${service.serviceDelegateName}()
+    {
+        // Null implementation
+    }
+    
+    /**
+     * Constructor setting the envirinment properties.
+     *
+     * @param env
+     */
+    public ${service.serviceDelegateName}(java.util.Properties env)
+    {
+        this.env = env;
+    }
+    
+    /**
+     * Gets an instance of {@link $service.fullyQualifiedServiceRemoteInterfaceName}
+     */
+    private final ${service.fullyQualifiedServiceRemoteInterfaceName} get${service.name}()
+        throws javax.naming.NamingException
+    {
+        return ${ejb3TypesPackage}.ServiceLocator.getInstance().get${service.name}(env);
+    }
+
+#foreach ($operation in $service.businessOperations)
+    /**
+     * @see ${service.fullyQualifiedServiceName}#${operation.getSignature(false)}
+     */
+    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+#**##if ($operation.exceptionsPresent)
+        $operation.throwsClause
+#**##end
+    {
+        try
+        {
+#**##if (!$operation.returnTypePresent)
+            get${service.name}().${operation.name}(${operation.argumentNames});
+#**##else
+            return get${service.name}().${operation.name}(${operation.argumentNames});
+#**##end
+        }
+#**##if (!$operation.exceptionsPresent)
+        catch (Exception ex)
+#**##else
+        catch (javax.naming.NamingException ex)
+#**##end
+        {
+#**##if ($operation.exceptionsPresent)
+#*  *##foreach ($exception in $operation.exceptions)
+#*    *##if ($velocityCount == 1)
+            throw new ${exception.fullyQualifiedName}(ex);
+#*    *##end
+#*  *##end
+#**##else
+            ex.printStackTrace();
+#**##end
+        }
+    }
+
+#end
+    /**
+     * Close down service delegate resources
+     */
+    public void close()
+    {
+        ${ejb3TypesPackage}.ServiceLocator.getInstance().shutdown();
+    }
+}
