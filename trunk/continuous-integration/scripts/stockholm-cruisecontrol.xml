@@ -17,22 +17,6 @@
            <currentbuildstatuslistener file="/var/andromda/builds/logs/andromda-head/currentbuildstatus.txt"/>
         </listeners>
 		<log dir="/var/andromda/builds/logs/andromda-head">
-            <merge dir="/var/andromda/builds/head/andromda-all/andromda/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/cartridges/andromda-ejb/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/cartridges/andromda-bpm4struts/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/cartridges/andromda-hibernate/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/cartridges/andromda-java/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/cartridges/andromda-meta/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/cartridges/andromda-spring/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/cartridges/andromda-webservice/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/cartridges/andromda-xmlschema/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/metafacades/uml/uml14/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/repositories/mdr/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/templateengines/velocity/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/translation-libraries/ocl/core/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/translation-libraries/ocl/testsuite/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/translation-libraries/ocl/andromda-query/target/test-reports"/>
-            <merge dir="/var/andromda/builds/head/andromda-all/translation-libraries/ocl/andromda-validation/target/test-reports"/>
         </log>
         <publishers>
             <currentbuildstatuspublisher file="/var/andromda/builds/logs/andromda-head/currentbuildstatus.txt"/>
