@@ -49,6 +49,11 @@ public class EJB3SessionFacadeLogicImpl
      * The property which stores the pattern defining the service bean implementation name.
      */
     private static final String SERVICE_IMPLEMENTATION_NAME_PATTERN = "serviceImplementationNamePattern";
+
+    /**
+     * The property which stores the pattern defining the service bean delegate class name.
+     */
+    private static final String SERVICE_DELEGATE_NAME_PATTERN = "serviceDelegateNamePattern";
     
     
     // ---------------- constructor -------------------------------
@@ -304,6 +309,20 @@ public class EJB3SessionFacadeLogicImpl
                 new Object[] {StringUtils.trimToEmpty(this.getName())});
     }
 
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetServiceDelegateName()
+     */
+    protected String handleGetServiceDelegateName()
+    {
+        String serviceDelegateNamePattern = 
+            (String)this.getConfiguredProperty(SERVICE_DELEGATE_NAME_PATTERN);
+
+        return MessageFormat.format(
+                serviceDelegateNamePattern,
+                new Object[] {StringUtils.trimToEmpty(this.getName())});
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetFullyQualifiedServiceName()
      */
@@ -362,6 +381,18 @@ public class EJB3SessionFacadeLogicImpl
                 null);
     }
 
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetFullyQualifiedServiceDelegateName()
+     */
+    protected String handleGetFullyQualifiedServiceDelegateName()
+    {
+        return EJB3MetafacadeUtils.getFullyQualifiedName(
+                this.getPackageName(),
+                this.getServiceDelegateName(),
+                null);
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetPersistenceContextUnitName()
      */
