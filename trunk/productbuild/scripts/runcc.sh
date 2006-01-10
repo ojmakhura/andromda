@@ -9,7 +9,8 @@ fi
 # Get absolute directory
 dirname=`pwd`
 
-source set-env.sh
+# Not required, env set from .profile
+#source set-env.sh
 
 if [ -z $CC_CONFIG_FILE ];then
    CC_CONFIG_FILE=stockholm-cruisecontrol.xml
@@ -24,7 +25,7 @@ if [[ $me != $CC_USER ]]; then
 fi
 
 # cd to builds dir
-cd ..
+cd /var/andromda/builds
 
 # save previous output
 if [ -f nohup.out ]; then
