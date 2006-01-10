@@ -17,6 +17,7 @@
 	<target name="cvs-update">
 		<!-- run as exec so able to spec dir -->
 		<exec dir="${project.dir}" executable="cvs" >
+			<arg value="update"/>
 			<arg value="-P"/>
 			<arg value="-d"/>
         </exec> 
