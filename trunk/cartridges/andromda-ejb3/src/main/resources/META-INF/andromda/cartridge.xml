@@ -16,6 +16,8 @@
     <property reference="hibernateShowSql"/>
     <property reference="hibernateCacheProvider"/>
     <property reference="hibernateTreecacheMbeanObject"/>
+    <property reference="serviceLocatorName"/>
+    <property reference="ejb3TypesPackage"/>
 
     <!-- Entity Bean Templates -->
 
@@ -134,6 +136,32 @@
         </modelElements>
     </template>
 	
+    <template
+        path="templates/ejb3/ServiceDelegate.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/ServiceLocator.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
 	<!-- Message Driven Bean Templates -->
 	
     <template 
