@@ -58,7 +58,7 @@ $operation.getDocumentation("     * ")
      */
     $visibility $returnType $signature
 #*  *##if ($operation.exceptionsPresent)
-        throws $operation.exceptionList
+        $operation.throwsClause
 #*  *##end
     {
         //TODO: put your implementation here.
