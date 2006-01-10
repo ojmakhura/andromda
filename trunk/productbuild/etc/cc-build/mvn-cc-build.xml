@@ -15,7 +15,11 @@
 	</target>
 	
 	<target name="cvs-update">
-		<cvs command="update -P -d"/>
+		<!-- run as exec so able to spec dir -->
+		<exec dir="${project.dir}" executable="cvs" >
+			<arg value="-P"/>
+			<arg value="-d"/>
+        </exec> 
 	</target>
 
 	<target name="deploy-artifacts">
