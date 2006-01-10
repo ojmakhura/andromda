@@ -169,4 +169,39 @@ public class EJB3SessionOperationFacadeLogicImpl
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_PERSISTENCE_FLUSH_MODE);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleGetThrowsClause()
+     */
+    protected String handleGetThrowsClause()
+    {
+        StringBuffer throwsClause = null;
+        if (this.isExceptionsPresent())
+        {
+            throwsClause = new StringBuffer(this.getExceptionList());
+        }
+        if (throwsClause != null)
+        {
+            throwsClause.insert(0, "throws ");
+        }
+        return throwsClause != null ? throwsClause.toString() : null;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleGetThrowsClause(java.lang.String)
+     */
+    protected String handleGetThrowsClause(String initialExceptions)
+    {
+        final StringBuffer throwsClause = new StringBuffer(initialExceptions);
+        if (this.getThrowsClause() != null)
+        {
+            throwsClause.insert(0, ", ");
+            throwsClause.insert(0, this.getThrowsClause());
+        }
+        else
+        {
+            throwsClause.insert(0, "throws ");
+        }
+        return throwsClause.toString();
+    }
+
 }
