@@ -27,6 +27,7 @@ $mdb.getDocumentation(" * ")
 #end
 }
 )
+@javax.ejb.CallbackListener(${mdb.fullyQualifiedMessageDrivenListenerName}.class)
 #if ($mdb.transactionManagement)
 @javax.ejb.TransactionManagement(javax.ejb.TransactionManagementType.${mdb.transactionManagement})
 #end
