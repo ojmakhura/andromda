@@ -4,6 +4,7 @@
 	<property name="project.dir" value="${basedir}/../.."/>
 	
 	<target name="default">
+		<antcall target="cvs-update"/>
 		<exec dir="${project.dir}" executable="mvn" >
 			<arg value="clean"/>
         </exec> 
@@ -13,6 +14,10 @@
 		<antcall target="deploy-artifacts"/>
 	</target>
 	
+	<target name="cvs-update">
+		<cvs command="update -P -d"/>
+	</target>
+
 	<target name="deploy-artifacts">
 		<copy todir="/var/andromda/maven2">
 			<fileset dir="/var/maven2/repository">
