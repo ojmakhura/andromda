@@ -253,7 +253,7 @@ $operation.getDocumentation("     * ")
 #*    *##end
 #*    *##set ($returnType = $operation.returnType.fullyQualifiedName)
 #*    *##if ($operation.exceptionsPresent)
-    $visibility abstract $returnType $operation.signature throws $operation.exceptionList;
+    $visibility abstract $returnType $operation.signature $operation.throwsClause;
 #*    *##else
     $visibility abstract $returnType $operation.signature;
 #*    *##end
