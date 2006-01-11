@@ -9,8 +9,12 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -53,10 +57,46 @@ public class GenericCartridgeConfigurationDetailsPage
     /** This array contains all properties of the selected propertygroup. */
     private Property[] properties;
 
+    /** This listener listens to modifications of the textfields. */
+    private ModifyListener modifyListener = new ModifyListener()
+    {
+        public void modifyText(final ModifyEvent e)
+        {
+            Widget w = e.widget;
+            if (w instanceof Text)
+            {
+                Text textField = (Text)w;
+                String value = textField.getText();
+                String name = (String)textField.getData("PROPERTYNAME");
+                setPropertyValue(name, value);
+                System.out.println("Modify");
+                markDirty();
+            }
+        }
+    };
+
+    /** This listener listens to selection events on the "ignore" checkbuttons. */
+    private SelectionListener selectionListener = new SelectionAdapter()
+    {
+        public void widgetSelected(final SelectionEvent e)
+        {
+            Widget w = e.widget;
+            if (w instanceof Button)
+            {
+                Button checkbox = (Button)w;
+                boolean selected = checkbox.getSelection();
+                String name = (String)checkbox.getData("PROPERTYNAME");
+                setIgnoreProperty(name, selected);
+                System.out.println("Modify");
+                markDirty();
+            }
+        }
+    };
+
     /**
-     * @see org.eclipse.ui.forms.IDetailsPage#createContents(org.eclipse.swt.widgets.Composite)
+     * {@inheritDoc}
      */
-    public void createContents(Composite parent)
+    public void createContents(final Composite parent)
     {
         toolkit = getManagedForm().getToolkit();
         final GridLayout gridLayout = new GridLayout();
@@ -68,26 +108,58 @@ public class GenericCartridgeConfigurationDetailsPage
                 | Section.TITLE_BAR);
         cartridgeNameCartridgeSection.setDescription("Edit the namespace settings to configure the cartridges.");
         final GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
-        gridData.heightHint = 541;
-        gridData.widthHint = 564;
         cartridgeNameCartridgeSection.setLayoutData(gridData);
         cartridgeNameCartridgeSection.setText("<Namespace> - <Group> namespace properties");
 
         propertiesComposite = toolkit.createComposite(cartridgeNameCartridgeSection, SWT.NONE);
         final GridLayout gridLayout_1 = new GridLayout();
-        gridLayout_1.numColumns = 2;
+        gridLayout_1.numColumns = 3;
         propertiesComposite.setLayout(gridLayout_1);
         toolkit.paintBordersFor(propertiesComposite);
         cartridgeNameCartridgeSection.setClient(propertiesComposite);
 
-        fillPropertiesComposite();
+        createPropertiesFields();
     }
 
     /**
-     * Danymically populate the properties composite. For each property in the selected namspace property group, a label /
-     * edit field combination will be created.
+     * Updates the contents of all fields.
      */
-    private void fillPropertiesComposite()
+    private void updatePropertiesFields()
+    {
+        Control[] children = propertiesComposite.getChildren();
+        for (int i = 0; i < children.length; i++)
+        {
+            Control control = children[i];
+            if (control instanceof Text)
+            {
+                Text textField = (Text)control;
+                String propertyName = (String)textField.getData("PROPERTYNAME");
+                org.andromda.core.configuration.PropertyDocument.Property property = findProperty(propertyName);
+                String value = property.getStringValue();
+                
+                textField.removeModifyListener(modifyListener);
+                textField.setText(value);
+                textField.addModifyListener(modifyListener);
+            }
+            else if (control instanceof Button)
+            {
+                Button checkbox = (Button)control;
+                String propertyName = (String)checkbox.getData("PROPERTYNAME");
+                org.andromda.core.configuration.PropertyDocument.Property property = findProperty(propertyName);
+                boolean ignore = property.getIgnore();
+                
+                checkbox.removeSelectionListener(selectionListener);
+                checkbox.setSelection(ignore);
+                checkbox.addSelectionListener(selectionListener);
+            }
+        }
+    }
+
+    /**
+     * Danymically populate the properties composite. For each property in the selected namspace property group, 
+     * a label / edit field combination will be created.
+     */
+    private void createPropertiesFields()
     {
         // dispose of old controls
         Control[] children = propertiesComposite.getChildren();
@@ -132,25 +204,16 @@ public class GenericCartridgeConfigurationDetailsPage
 
                 final Text valueText = toolkit.createText(propertiesComposite, null, SWT.NONE);
                 valueText.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-                valueText.setText(getPropertyValue(name));
+                // valueText.setText(getPropertyValue(name));
                 valueText.setToolTipText(documentation);
                 valueText.setData("PROPERTYNAME", name);
-                valueText.addModifyListener(new ModifyListener()
-                {
-                    public void modifyText(ModifyEvent e)
-                    {
-                        Widget w = e.widget;
-                        if (w instanceof Text)
-                        {
-                            Text textField = (Text)w;
-                            String value = textField.getText();
-                            String name = (String)textField.getData("PROPERTYNAME");
-                            setPropertyValue(name, value);
-                        }
-                        System.out.println("Modify");
-                        markDirty();
-                    }
-                });
+                valueText.addModifyListener(modifyListener);
+
+                final Button ignoreCheckBox = toolkit.createButton(propertiesComposite, null, SWT.CHECK);
+                ignoreCheckBox.setLayoutData(new GridData(GridData.BEGINNING, GridData.CENTER, false, false));
+                ignoreCheckBox.setData("PROPERTYNAME", name);
+                ignoreCheckBox.setToolTipText("Ignore this property.");
+                ignoreCheckBox.addSelectionListener(selectionListener);
             }
         }
     }
@@ -161,7 +224,7 @@ public class GenericCartridgeConfigurationDetailsPage
      * @param propertyName The name of the property to retrieve.
      * @return The value of the property.
      */
-    private String getPropertyValue(String propertyName)
+    private String getPropertyValue(final String propertyName)
     {
         org.andromda.core.configuration.PropertyDocument.Property[] propertyArray = namespace.getProperties()
                 .getPropertyArray();
@@ -182,8 +245,47 @@ public class GenericCartridgeConfigurationDetailsPage
      * @param propertyName The name of the property.
      * @param value The new value.
      */
-    private void setPropertyValue(String propertyName,
-        String value)
+    private void setPropertyValue(final String propertyName,
+        final String value)
+    {
+        org.andromda.core.configuration.PropertyDocument.Property property = findProperty(propertyName);
+        if (property != null)
+        {
+            property.setStringValue(value);
+        }
+    }
+
+    /**
+     * Sets the "ignore" value of the selected property.
+     * 
+     * @param propertyName The name of the property.
+     * @param ignore Whether to ignore the property.
+     */
+    private void setIgnoreProperty(final String propertyName,
+        final boolean ignore)
+    {
+        org.andromda.core.configuration.PropertyDocument.Property property = findProperty(propertyName);
+        if (property != null)
+        {
+            if (ignore)
+            {
+                property.setIgnore(ignore);
+            }
+            else
+            {
+                property.unsetIgnore();
+            }
+        }
+
+    }
+
+    /**
+     * Finds a property by its name.
+     * 
+     * @param propertyName  The name of the property to look up.
+     * @return The property, if it exists. Null otherwise.
+     */
+    private org.andromda.core.configuration.PropertyDocument.Property findProperty(final String propertyName)
     {
         org.andromda.core.configuration.PropertyDocument.Property found = null;
 
@@ -203,8 +305,7 @@ public class GenericCartridgeConfigurationDetailsPage
             found = namespace.getProperties().addNewProperty();
             found.setName(propertyName);
         }
-        found.setStringValue(value);
-
+        return found;
     }
 
     /**
@@ -212,15 +313,15 @@ public class GenericCartridgeConfigurationDetailsPage
      */
     private void update()
     {
-        fillPropertiesComposite();
+        createPropertiesFields();
+        updatePropertiesFields();
     }
 
     /**
-     * @see org.eclipse.ui.forms.IPartSelectionListener#selectionChanged(org.eclipse.ui.forms.IFormPart,
-     *      org.eclipse.jface.viewers.ISelection)
+     * {@inheritDoc}
      */
-    public void selectionChanged(IFormPart part,
-        ISelection selection)
+    public void selectionChanged(final IFormPart part,
+        final ISelection selection)
     {
         IStructuredSelection structuredSelection = (IStructuredSelection)selection;
         Object element = structuredSelection.getFirstElement();
@@ -235,7 +336,7 @@ public class GenericCartridgeConfigurationDetailsPage
     }
 
     /**
-     * @see org.eclipse.ui.forms.IFormPart#refresh()
+     * {@inheritDoc}
      */
     public void refresh()
     {
@@ -244,9 +345,9 @@ public class GenericCartridgeConfigurationDetailsPage
     }
 
     /**
-     * @see org.eclipse.ui.forms.AbstractFormPart#commit(boolean)
+     * {@inheritDoc}
      */
-    public void commit(boolean onSave)
+    public void commit(final boolean onSave)
     {
         super.commit(onSave);
         System.out.println("Commit");
