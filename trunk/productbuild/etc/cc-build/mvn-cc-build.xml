@@ -1,9 +1,10 @@
 <project name="maven2-build" default="default">
 	
-	<echo message="basedir:${basedir}"/>
 	<property name="project.dir" value="${basedir}/../.."/>
 	
 	<target name="default">
+    	<echo message="basedir    :${basedir}"/>
+    	<echo message="project.dir:${project.dir}"/>
 		<antcall target="cvs-update"/>
 		<exec dir="${project.dir}" executable="mvn" >
 			<arg value="clean"/>
@@ -25,8 +26,9 @@
 	</target>
 
 	<target name="deploy-artifacts">
-		<copy todir="/var/www/andromda/maven2">
-			<fileset dir="/var/maven2/repository">
+		<mkdir dir="/var/www/andromda/maven2/org"/>
+		<copy todir="/var/www/andromda/maven2/org">
+			<fileset dir="/var/maven2/repository/org">
 				<include name="andromda/**/*"/>
 			</fileset>
 		</copy>
