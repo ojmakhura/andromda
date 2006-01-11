@@ -15,6 +15,7 @@
 	</target>
 	
 	<target name="cvs-update">
+		<echo message="project.dir:${project.dir}"/>
 		<!-- run as exec so able to spec dir -->
 		<exec dir="${project.dir}" executable="cvs" >
 			<arg value="update"/>
@@ -24,7 +25,7 @@
 	</target>
 
 	<target name="deploy-artifacts">
-		<copy todir="/var/andromda/maven2">
+		<copy todir="/var/www/andromda/maven2">
 			<fileset dir="/var/maven2/repository">
 				<include name="andromda/**/*"/>
 			</fileset>
