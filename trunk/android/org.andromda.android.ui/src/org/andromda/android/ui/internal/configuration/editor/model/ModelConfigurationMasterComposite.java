@@ -30,9 +30,8 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 
-
 /**
- *
+ * 
  * @author Peter Friese
  * @since 14.12.2005
  */
@@ -57,10 +56,12 @@ public class ModelConfigurationMasterComposite
                 Model model = (Model)element;
                 String[] uris = model.getUriArray();
                 String uri;
-                if (uris.length > 0) {
+                if (uris.length > 0)
+                {
                     uri = model.getUriArray(0);
                 }
-                else {
+                else
+                {
                     uri = "(no model file specified)";
                 }
                 return uri;
