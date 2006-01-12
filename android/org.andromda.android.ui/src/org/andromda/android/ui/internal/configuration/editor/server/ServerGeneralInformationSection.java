@@ -13,7 +13,7 @@ import org.eclipse.ui.forms.IManagedForm;
 
 /**
  * This section contains general information about the AndroMDA server.
- *
+ * 
  * @author Peter Friese
  * @since 08.12.2005
  */
@@ -26,7 +26,7 @@ public class ServerGeneralInformationSection
 
     /**
      * Creates a new section hosted on the specified <code>page</code>.
-     *
+     * 
      * @param page The page this section is to be hosted on.
      */
     public ServerGeneralInformationSection(AbstractModelFormPage page)
@@ -58,12 +58,15 @@ public class ServerGeneralInformationSection
         AndromdaDocument andromdaDocument = getAndromdaDocument();
 
         Server server = andromdaDocument.getAndromda().getServer();
+        if (server != null)
+        {
 
-        String host = server.getHost();
-        BigInteger port = server.getPort();
+            String host = server.getHost();
+            BigInteger port = server.getPort();
 
-        servergeneralInformationComposite.setHost(host);
-        servergeneralInformationComposite.setPort(port);
+            servergeneralInformationComposite.setHost(host);
+            servergeneralInformationComposite.setPort(port);
+        }
     }
 
     /**
@@ -73,12 +76,14 @@ public class ServerGeneralInformationSection
     {
         AndromdaDocument andromdaDocument = getAndromdaDocument();
         Server server = andromdaDocument.getAndromda().getServer();
+        if (server != null)
+        {
+            String host = servergeneralInformationComposite.getHost();
+            server.setHost(host);
 
-        String host = servergeneralInformationComposite.getHost();
-        server.setHost(host);
-
-        BigInteger port = servergeneralInformationComposite.getPort();
-        server.setPort(port);
+            BigInteger port = servergeneralInformationComposite.getPort();
+            server.setPort(port);
+        }
         super.commit(onSave);
     }
 

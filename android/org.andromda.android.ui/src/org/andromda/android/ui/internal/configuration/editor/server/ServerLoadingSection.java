@@ -27,7 +27,7 @@ public class ServerLoadingSection
     /**
      * Creates a new section.
      *
-     * @param page  The hosting page.
+     * @param page The hosting page.
      */
     public ServerLoadingSection(AbstractModelFormPage page)
     {
@@ -57,11 +57,14 @@ public class ServerLoadingSection
         super.refresh();
         AndromdaDocument andromdaDocument = getAndromdaDocument();
         Server server = andromdaDocument.getAndromda().getServer();
-        BigInteger loadInterval = server.getLoadInterval();
-        BigInteger maximumFailedLoadAttempts = server.getMaximumFailedLoadAttempts();
+        if (server != null)
+        {
+            BigInteger loadInterval = server.getLoadInterval();
+            BigInteger maximumFailedLoadAttempts = server.getMaximumFailedLoadAttempts();
 
-        serverLoadingComposite.setLoadInterval(loadInterval);
-        serverLoadingComposite.setMaximumFailedLoadAttempts(maximumFailedLoadAttempts);
+            serverLoadingComposite.setLoadInterval(loadInterval);
+            serverLoadingComposite.setMaximumFailedLoadAttempts(maximumFailedLoadAttempts);
+        }
     }
 
     /**
@@ -73,30 +76,32 @@ public class ServerLoadingSection
             AndromdaDocument andromdaDocument = getAndromdaDocument();
 
             Server server = andromdaDocument.getAndromda().getServer();
-
-            BigInteger loadInterval = serverLoadingComposite.getLoadInterval();
-            if (loadInterval != null)
+            if (server != null)
             {
-                server.setLoadInterval(loadInterval);
-            }
-            else
-            {
-                if (server.isSetLoadInterval())
+                BigInteger loadInterval = serverLoadingComposite.getLoadInterval();
+                if (loadInterval != null)
                 {
-                    server.unsetLoadInterval();
+                    server.setLoadInterval(loadInterval);
                 }
-            }
-
-            BigInteger maximumFailedLoadAttempts = serverLoadingComposite.getMaximumFailedLoadAttempts();
-            if (maximumFailedLoadAttempts != null)
-            {
-                server.setMaximumFailedLoadAttempts(maximumFailedLoadAttempts);
-            }
-            else
-            {
-                if (server.isSetMaximumFailedLoadAttempts())
+                else
                 {
-                    server.unsetMaximumFailedLoadAttempts();
+                    if (server.isSetLoadInterval())
+                    {
+                        server.unsetLoadInterval();
+                    }
+                }
+
+                BigInteger maximumFailedLoadAttempts = serverLoadingComposite.getMaximumFailedLoadAttempts();
+                if (maximumFailedLoadAttempts != null)
+                {
+                    server.setMaximumFailedLoadAttempts(maximumFailedLoadAttempts);
+                }
+                else
+                {
+                    if (server.isSetMaximumFailedLoadAttempts())
+                    {
+                        server.unsetMaximumFailedLoadAttempts();
+                    }
                 }
             }
         }
