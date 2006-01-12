@@ -3,6 +3,7 @@ package org.andromda.android.core.model.configuration;
 import org.andromda.android.core.internal.model.configuration.AndromdaDocumentEditorModel;
 import org.andromda.android.core.model.IEditorModel;
 import org.andromda.core.configuration.AndromdaDocument;
+import org.eclipse.jface.text.IDocument;
 
 /**
  * Model wrapper interface for the AndroMDA configuration model.
@@ -27,12 +28,12 @@ public interface IAndromdaDocumentEditorModel
         /**
          * Creates a new {@link IAndromdaDocumentEditorModel} instance.
          * 
-         * @param andromdaDocument The document wrapped in the model.
+         * @param document The document wrapped in the model.
          * @return A new model instance.
          */
-        public static IAndromdaDocumentEditorModel newInstance(AndromdaDocument andromdaDocument)
+        public static IAndromdaDocumentEditorModel newInstance(final IDocument document)
         {
-            return new AndromdaDocumentEditorModel(andromdaDocument);
+            return new AndromdaDocumentEditorModel(document);
         }
     }
 

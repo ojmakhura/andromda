@@ -134,7 +134,7 @@ public class GenericCartridgeConfigurationDetailsPage
                 String propertyName = (String)textField.getData("PROPERTYNAME");
                 org.andromda.core.configuration.PropertyDocument.Property property = findProperty(propertyName);
                 String value = property.getStringValue();
-                
+
                 textField.removeModifyListener(modifyListener);
                 textField.setText(value);
                 textField.addModifyListener(modifyListener);
@@ -145,7 +145,7 @@ public class GenericCartridgeConfigurationDetailsPage
                 String propertyName = (String)checkbox.getData("PROPERTYNAME");
                 org.andromda.core.configuration.PropertyDocument.Property property = findProperty(propertyName);
                 boolean ignore = property.getIgnore();
-                
+
                 checkbox.removeSelectionListener(selectionListener);
                 checkbox.setSelection(ignore);
                 checkbox.addSelectionListener(selectionListener);
@@ -154,8 +154,8 @@ public class GenericCartridgeConfigurationDetailsPage
     }
 
     /**
-     * Danymically populate the properties composite. For each property in the selected namspace property group, 
-     * a label / edit field combination will be created.
+     * Dynamically populates the properties composite. For each property in the selected namspace property group, a label /
+     * edit field combination will be created.
      */
     private void createPropertiesFields()
     {
@@ -280,7 +280,7 @@ public class GenericCartridgeConfigurationDetailsPage
     /**
      * Finds a property by its name.
      * 
-     * @param propertyName  The name of the property to look up.
+     * @param propertyName The name of the property to look up.
      * @return The property, if it exists. Null otherwise.
      */
     private org.andromda.core.configuration.PropertyDocument.Property findProperty(final String propertyName)

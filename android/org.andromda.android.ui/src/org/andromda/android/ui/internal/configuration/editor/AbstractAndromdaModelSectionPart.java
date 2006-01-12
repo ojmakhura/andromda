@@ -8,7 +8,7 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * A section part that provides easy access to the edited AndroMDA configuration document.
- *
+ * 
  * @author Peter Friese
  * @since 27.12.2005
  */
@@ -18,7 +18,7 @@ public abstract class AbstractAndromdaModelSectionPart
 
     /**
      * Creates a new model section part.
-     *
+     * 
      * @param page The hosting page.
      */
     public AbstractAndromdaModelSectionPart(AbstractModelFormPage page)
@@ -28,7 +28,7 @@ public abstract class AbstractAndromdaModelSectionPart
 
     /**
      * Creates a new model section part.
-     *
+     * 
      * @param page
      * @param style
      */
@@ -40,7 +40,7 @@ public abstract class AbstractAndromdaModelSectionPart
 
     /**
      * Creates a new model section part.
-     *
+     * 
      * @param parent
      * @param page
      * @param style
@@ -54,7 +54,7 @@ public abstract class AbstractAndromdaModelSectionPart
 
     /**
      * Creates a new model section part.
-     *
+     * 
      * @param parent
      * @param page
      */
@@ -66,7 +66,7 @@ public abstract class AbstractAndromdaModelSectionPart
 
     /**
      * Provides access to the AndroMDA configuration document.
-     *
+     * 
      * @return The instance of the AndroMDA configuration that is being edited.
      */
     public IAndromdaDocumentEditorModel getAndromdaDocumentEditorModel()
@@ -81,10 +81,11 @@ public abstract class AbstractAndromdaModelSectionPart
 
     /**
      * Provides easy access to the AndroMDA configuration document.
-     *
+     * 
      * @return The AndroMDA configuration document being edited.
      */
-    public AndromdaDocument getAndromdaDocument() {
+    public AndromdaDocument getAndromdaDocument()
+    {
         return getAndromdaDocumentEditorModel().getAndromdaDocument();
     }
 

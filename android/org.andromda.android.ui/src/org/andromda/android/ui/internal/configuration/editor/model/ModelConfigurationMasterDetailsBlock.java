@@ -10,7 +10,7 @@ import org.eclipse.ui.forms.IDetailsPageProvider;
 import org.eclipse.ui.forms.IManagedForm;
 
 /**
- *
+ * 
  * @author Peter Friese
  * @since 11.12.2005
  */
@@ -29,7 +29,8 @@ public class ModelConfigurationMasterDetailsBlock
     protected void createMasterPart(final IManagedForm managedForm,
         Composite parent)
     {
-        ModelConfigurationMasterSection modelConfigurationMasterSection = new ModelConfigurationMasterSection(parent, getParentPage());
+        ModelConfigurationMasterSection modelConfigurationMasterSection = new ModelConfigurationMasterSection(parent,
+                getParentPage());
         managedForm.addPart(modelConfigurationMasterSection);
     }
 

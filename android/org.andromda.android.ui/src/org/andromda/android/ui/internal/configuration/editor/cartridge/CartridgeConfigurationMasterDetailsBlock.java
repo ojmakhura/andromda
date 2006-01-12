@@ -33,9 +33,8 @@ import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 
-
 /**
- *
+ * 
  * @author Peter Friese
  * @since 08.11.2005
  */
@@ -115,7 +114,8 @@ public class CartridgeConfigurationMasterDetailsBlock
             {
                 Namespace namespace = (Namespace)parentElement;
                 IAndroidProject androidProject = getAndroidProject();
-                PropertyGroup[] cartridgePropertyGroups = AndroidCore.getCartridgePropertyGroups(namespace, androidProject);
+                PropertyGroup[] cartridgePropertyGroups = AndroidCore.getCartridgePropertyGroups(namespace,
+                        androidProject);
                 if (cartridgePropertyGroups != null)
                 {
                     NamespacePropertyContainer[] namespacePropertyContainers = new NamespacePropertyContainer[cartridgePropertyGroups.length];
@@ -175,7 +175,7 @@ public class CartridgeConfigurationMasterDetailsBlock
         super.createContent(managedForm);
 
         // the following line makes sure the master part only occupies 1/3 of the page:
-        sashForm.setWeights(new int[] {33, 67});
+        sashForm.setWeights(new int[] { 33, 67 });
     }
 
     protected void createMasterPart(final IManagedForm managedForm,
