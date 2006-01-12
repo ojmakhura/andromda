@@ -6,13 +6,11 @@ import java.util.Map;
 
 import org.andromda.android.core.model.IEditorModel;
 import org.andromda.android.core.model.configuration.IAndromdaDocumentEditorModel;
-import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.configuration.editor.cartridge.CartridgeConfigurationPage;
 import org.andromda.android.ui.internal.configuration.editor.model.ModelConfigurationPage;
 import org.andromda.android.ui.internal.configuration.editor.server.ServerConfigurationPage;
 import org.andromda.android.ui.internal.editor.AbstractModelFormEditor;
 import org.andromda.core.configuration.AndromdaDocument;
-import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.text.IDocument;
@@ -24,7 +22,7 @@ import org.eclipse.ui.forms.editor.IFormPage;
 
 /**
  * Editor for the AndroMDA configuration file (andromda.xml).
- *
+ * 
  * @author Peter Friese
  * @since 08.11.2005
  */
@@ -39,7 +37,7 @@ public class ConfigurationEditor
     private IAndromdaDocumentEditorModel andromdaDocumentEditorModel;
 
     /**
-     * @see org.eclipse.ui.forms.editor.FormEditor#addPages()
+     * {@inheritDoc}
      */
     protected void addFormPages() throws PartInitException
     {
@@ -57,7 +55,7 @@ public class ConfigurationEditor
     }
 
     /**
-     * @see org.eclipse.ui.forms.editor.FormEditor#init(org.eclipse.ui.IEditorSite, org.eclipse.ui.IEditorInput)
+     * {@inheritDoc}
      */
     public void init(final IEditorSite site,
         final IEditorInput input) throws PartInitException
@@ -68,7 +66,7 @@ public class ConfigurationEditor
     }
 
     /**
-     * @see org.eclipse.ui.part.EditorPart#doSave(org.eclipse.core.runtime.IProgressMonitor)
+     * {@inheritDoc}
      */
     public void doSave(final IProgressMonitor monitor)
     {
@@ -101,7 +99,7 @@ public class ConfigurationEditor
 
     /**
      * Returns an array of all pages of this editor.
-     *
+     * 
      * @return an array of all pages.
      */
     private IFormPage[] getPages()
@@ -119,30 +117,9 @@ public class ConfigurationEditor
     }
 
     /**
-     * @return
-     */
-    public boolean updateEditorModel()
-    {
-        IDocument editorDocument = getDocument();
-        boolean clean = false;
-        try
-        {
-            XmlOptions options = setupDefaultNamespace();
-            AndromdaDocument document = AndromdaDocument.Factory.parse(editorDocument.get(), options);
-            andromdaDocumentEditorModel = IAndromdaDocumentEditorModel.Factory.newInstance(document);
-            clean = true;
-        }
-        catch (XmlException e)
-        {
-            AndroidUIPlugin.log(e);
-        }
-        return clean;
-    }
-
-    /**
      * Setup an XmlOptions instance so the parser will assume the default namespace for the config document even if is
      * has no namespace set.
-     *
+     * 
      * @return an XmlOptions instance suitable for parsing AndroMDA configuration documents.
      */
     private XmlOptions setupDefaultNamespace()
@@ -158,11 +135,10 @@ public class ConfigurationEditor
     }
 
     /**
-     * @see org.andromda.android.ui.internal.editor.AbstractModelFormEditor#getEditorModel()
+     * {@inheritDoc}
      */
     public IEditorModel getEditorModel()
     {
-        updateEditorModel();
         return getAndromdaDocumentEditorModel();
     }
 
@@ -171,6 +147,10 @@ public class ConfigurationEditor
      */
     public IAndromdaDocumentEditorModel getAndromdaDocumentEditorModel()
     {
+        if (andromdaDocumentEditorModel == null) {
+            IDocument editorDocument = getDocument();
+            andromdaDocumentEditorModel = IAndromdaDocumentEditorModel.Factory.newInstance(editorDocument);
+        }        
         return andromdaDocumentEditorModel;
     }
 

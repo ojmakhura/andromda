@@ -19,7 +19,7 @@ import org.eclipse.ui.forms.widgets.Section;
 
 /**
  * A basic section part hat features easy access to the editor and the hosting editor page.
- *
+ * 
  * @author Peter Friese
  * @since 09.12.2005
  */
@@ -36,7 +36,7 @@ public abstract class AbstractModelSectionPart
 
     /**
      * Creates a new section part.
-     *
+     * 
      * @param parent The parent composite.
      * @param page The page that hosts this section.
      * @param style The SWT style for the section.
@@ -53,7 +53,7 @@ public abstract class AbstractModelSectionPart
 
     /**
      * Creates a new section part.
-     *
+     * 
      * @param parent The parent composite.
      * @param page The page that hosts this section.
      */
@@ -65,7 +65,7 @@ public abstract class AbstractModelSectionPart
 
     /**
      * Creates a new section part.
-     *
+     * 
      * @param page The page that hosts this section.
      * @param style The SWT style of the section.
      */
@@ -77,7 +77,7 @@ public abstract class AbstractModelSectionPart
 
     /**
      * Creates a new section part.
-     *
+     * 
      * @param page The page that hosts this section.
      */
     public AbstractModelSectionPart(AbstractModelFormPage page)
@@ -123,7 +123,7 @@ public abstract class AbstractModelSectionPart
 
     /**
      * This method returns the project in which the currently edited element is located in.
-     *
+     * 
      * @return The project that "owns" the edited resource.
      */
     public IProject getProject()
@@ -186,15 +186,24 @@ public abstract class AbstractModelSectionPart
     public abstract void modelChanged(IModelChangedEvent event);
 
     /**
-    *
-    */
-   protected void publishChangeEvent()
-   {
-       if (getEditorModel() instanceof IModelChangeProvider)
-       {
-           IModelChangeProvider provider = (IModelChangeProvider)getEditorModel();
-           provider.fireModelChanged(null);
-       }
-   }
+     * {@inheritDoc}
+     */
+    public void commit(boolean onSave)
+    {
+        publishChangeEvent();
+        super.commit(onSave);
+    }
+    
+    /**
+     * 
+     */
+    protected void publishChangeEvent()
+    {
+        if (getEditorModel() instanceof IModelChangeProvider)
+        {
+            IModelChangeProvider provider = (IModelChangeProvider)getEditorModel();
+            provider.fireModelChanged(null);
+        }
+    }
 
 }
