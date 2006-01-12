@@ -11,7 +11,7 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 
 /**
  * This page contains controls that let the user configure the AndroMDA server.
- *
+ * 
  * @author Peter Friese
  * @since 07.12.2005
  */
@@ -24,7 +24,7 @@ public class ServerConfigurationPage
 
     /**
      * Creates the page.
-     *
+     * 
      * @param editor The editor hosting this page.
      * @param id The ID of this page.
      * @param title The title of this page.
@@ -55,7 +55,8 @@ public class ServerConfigurationPage
         toolkit.paintBordersFor(body);
 
         // general information section
-        final ServerGeneralInformationSection serverGeneralInformationSection = new ServerGeneralInformationSection(this);
+        final ServerGeneralInformationSection serverGeneralInformationSection = new ServerGeneralInformationSection(
+                this);
         managedForm.addPart(serverGeneralInformationSection);
 
         // model loading section
@@ -77,8 +78,6 @@ public class ServerConfigurationPage
      */
     protected void doUpdateDocument(IDocument document)
     {
-        // TODO Auto-generated method stub
-
     }
 
 }
