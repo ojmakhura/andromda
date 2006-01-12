@@ -112,9 +112,7 @@ public class GenericCartridgeConfigurationDetailsPage
         cartridgeNameCartridgeSection.setText("<Namespace> - <Group> namespace properties");
 
         propertiesComposite = toolkit.createComposite(cartridgeNameCartridgeSection, SWT.NONE);
-        final GridLayout gridLayout_1 = new GridLayout();
-        gridLayout_1.numColumns = 3;
-        propertiesComposite.setLayout(gridLayout_1);
+        propertiesComposite.setLayout(new GridLayout(3, false));
         toolkit.paintBordersFor(propertiesComposite);
         cartridgeNameCartridgeSection.setClient(propertiesComposite);
 
