@@ -18,7 +18,7 @@ import org.eclipse.ui.forms.widgets.FormToolkit;
 
 /**
  * This composite contains controls that let the user configure the AndroMDA server.
- *
+ * 
  * @author Peter Friese
  * @since 07.12.2005
  */
@@ -39,7 +39,8 @@ public class ServerGeneralInformationComposite
 
         public void modifyText(ModifyEvent e)
         {
-            if (!updating) {
+            if (!updating)
+            {
                 parent.markDirty();
             }
         }
@@ -55,7 +56,7 @@ public class ServerGeneralInformationComposite
 
     /**
      * Creates the composite.
-     *
+     * 
      * @param section The parent of the composite.
      * @param style The style.
      */

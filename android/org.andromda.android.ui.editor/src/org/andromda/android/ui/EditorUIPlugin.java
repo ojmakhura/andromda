@@ -43,6 +43,7 @@ public class EditorUIPlugin
 
     /**
      * Returns the shared instance.
+     * 
      * @return the shared instance
      */
     public static EditorUIPlugin getDefault()
@@ -60,7 +61,7 @@ public class EditorUIPlugin
 
     /**
      * Logs to the error log.
-     *
+     * 
      * @param status the status to log
      */
     public static void log(IStatus status)
@@ -70,7 +71,7 @@ public class EditorUIPlugin
 
     /**
      * Logs to the error log.
-     *
+     * 
      * @param message the message to log
      */
     public static void logErrorMessage(String message)
@@ -80,7 +81,7 @@ public class EditorUIPlugin
 
     /**
      * Logs to the error log.
-     *
+     * 
      * @param message the message to log
      * @param status the status to log
      */
@@ -99,7 +100,7 @@ public class EditorUIPlugin
 
     /**
      * Logs to the error log.
-     *
+     * 
      * @param e the exception to log
      */
     public static void log(final Throwable e)

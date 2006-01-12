@@ -20,10 +20,10 @@ import org.eclipse.ui.texteditor.IDocumentProvider;
 /**
  * A base class that all pages that should be added to the
  * {@link org.andromda.android.ui.editor.AbstractMultipageSourceEditor} must subclass.
- *
+ * 
  * This class provides access to the document currently being edited in the hosting multi page source editor. It also
  * ensures a two-way synchronization between the model and the form's components.
- *
+ * 
  * @author Peter Friese
  * @since 06.01.2006
  */
@@ -42,7 +42,7 @@ public abstract class AbstractFormEditorPage
 
     /**
      * Create the form page.
-     *
+     * 
      * @param id the id of the page.
      * @param title the title of the page.
      */
@@ -54,7 +54,7 @@ public abstract class AbstractFormEditorPage
 
     /**
      * Create the form page.
-     *
+     * 
      * @param editor the owning editor.
      * @param id the id of the page.
      * @param title the title of the page.
@@ -78,7 +78,7 @@ public abstract class AbstractFormEditorPage
 
     /**
      * Adds a document listener to the document so that we will be informed about changes to the document.
-     *
+     * 
      * @param document the document we want to listen to.
      */
     private void setupDocument(final IDocument document)
@@ -102,7 +102,8 @@ public abstract class AbstractFormEditorPage
 
     /**
      * This method will be called whenever the document has changed. The method will then call
-     * <code>doUpdatePage()</code>, giving subclasses the chance to perform the update of the page and its widgets themselves.
+     * <code>doUpdatePage()</code>, giving subclasses the chance to perform the update of the page and its widgets
+     * themselves.
      */
     private void updatePage()
     {
@@ -111,7 +112,7 @@ public abstract class AbstractFormEditorPage
 
     /**
      * Subclasses must implement this method in order to update the widgets with the contents of the document.
-     *
+     * 
      * @param document the document with the changes already applied.
      */
     protected abstract void doUpdatePage(IDocument document);
@@ -130,14 +131,14 @@ public abstract class AbstractFormEditorPage
 
     /**
      * Subclasses must implement this method in order to update the model with the contents of the widgets.
-     *
+     * 
      * @param document the document that has to be updated.
      */
     protected abstract void doUpdateDocument(IDocument document);
 
     /**
      * Retrieve the document provider of the attached editor.
-     *
+     * 
      * @return the document provider of the source editor of the multi page editor this page is hosted on.
      */
     protected IDocumentProvider getDocumentProvider()
@@ -147,7 +148,7 @@ public abstract class AbstractFormEditorPage
 
     /**
      * Retrieve the currenty edited document.
-     *
+     * 
      * @return the document currently being edited.
      */
     protected IDocument getDocument()
@@ -158,7 +159,7 @@ public abstract class AbstractFormEditorPage
     /**
      * Lazily instantiates a key listener that can be added to the input elements of the editor. This key listener will
      * fire the model updating mechanism on the form editor page.
-     *
+     * 
      * @return a key listener.
      */
     protected KeyListener getKeyListener()

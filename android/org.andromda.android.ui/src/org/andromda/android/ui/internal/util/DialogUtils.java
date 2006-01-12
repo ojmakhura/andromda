@@ -21,7 +21,10 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 public class DialogUtils
 {
 
-    public static IFile selectResource(final Shell shell, final IProject project, String title, String message)
+    public static IFile selectResource(final Shell shell,
+        final IProject project,
+        String title,
+        String message)
     {
         ElementTreeSelectionDialog dialog = new ElementTreeSelectionDialog(shell, new WorkbenchLabelProvider(),
                 new WorkbenchContentProvider());
@@ -60,7 +63,7 @@ public class DialogUtils
                 return new Status(IStatus.ERROR, AndroidUIPlugin.getPluginId(), IStatus.ERROR, "", null); //$NON-NLS-1$
             }
         });
-        
+
         if (dialog.open() == ElementTreeSelectionDialog.OK)
         {
             IFile file = (IFile)dialog.getFirstResult();
