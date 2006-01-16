@@ -19,7 +19,7 @@ import org.eclipse.ui.forms.widgets.Section;
 
 /**
  * A basic section part hat features easy access to the editor and the hosting editor page.
- * 
+ *
  * @author Peter Friese
  * @since 09.12.2005
  */
@@ -36,14 +36,14 @@ public abstract class AbstractModelSectionPart
 
     /**
      * Creates a new section part.
-     * 
+     *
      * @param parent The parent composite.
      * @param page The page that hosts this section.
      * @param style The SWT style for the section.
      */
-    public AbstractModelSectionPart(Composite parent,
-        AbstractModelFormPage page,
-        int style)
+    public AbstractModelSectionPart(final Composite parent,
+        final AbstractModelFormPage page,
+        final int style)
     {
         super(parent, page.getManagedForm().getToolkit(), style);
         this.page = page;
@@ -53,34 +53,34 @@ public abstract class AbstractModelSectionPart
 
     /**
      * Creates a new section part.
-     * 
+     *
      * @param parent The parent composite.
      * @param page The page that hosts this section.
      */
-    public AbstractModelSectionPart(Composite parent,
-        AbstractModelFormPage page)
+    public AbstractModelSectionPart(final Composite parent,
+        final AbstractModelFormPage page)
     {
         this(parent, page, Section.DESCRIPTION | Section.TITLE_BAR);
     }
 
     /**
      * Creates a new section part.
-     * 
+     *
      * @param page The page that hosts this section.
      * @param style The SWT style of the section.
      */
-    public AbstractModelSectionPart(AbstractModelFormPage page,
-        int style)
+    public AbstractModelSectionPart(final AbstractModelFormPage page,
+        final int style)
     {
         this(page.getManagedForm().getForm().getBody(), page, style);
     }
 
     /**
      * Creates a new section part.
-     * 
+     *
      * @param page The page that hosts this section.
      */
-    public AbstractModelSectionPart(AbstractModelFormPage page)
+    public AbstractModelSectionPart(final AbstractModelFormPage page)
     {
         this(page.getManagedForm().getForm().getBody(), page);
     }
@@ -123,7 +123,7 @@ public abstract class AbstractModelSectionPart
 
     /**
      * This method returns the project in which the currently edited element is located in.
-     * 
+     *
      * @return The project that "owns" the edited resource.
      */
     public IProject getProject()
@@ -181,21 +181,21 @@ public abstract class AbstractModelSectionPart
     }
 
     /**
-     * @see org.andromda.android.core.model.IModelChangedListener#modelChanged(org.andromda.android.core.model.IModelChangedEvent)
+     * {@inheritDoc}
      */
-    public abstract void modelChanged(IModelChangedEvent event);
+    public abstract void modelChanged(final IModelChangedEvent event);
 
     /**
      * {@inheritDoc}
      */
-    public void commit(boolean onSave)
+    public void commit(final boolean onSave)
     {
         publishChangeEvent();
         super.commit(onSave);
     }
-    
+
     /**
-     * 
+     *
      */
     protected void publishChangeEvent()
     {
