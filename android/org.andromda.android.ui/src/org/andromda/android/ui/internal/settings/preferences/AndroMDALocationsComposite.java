@@ -1,6 +1,9 @@
 package org.andromda.android.ui.internal.settings.preferences;
 
+import org.andromda.android.ui.internal.util.DialogUtils;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -12,34 +15,39 @@ import org.eclipse.swt.widgets.Text;
 /**
  * This composite allows users to configure the location of the AndroMDA binary files. It is intented to be used on
  * preference and property pages.
- * 
+ *
  * @author Peter Friese
  * @since 27.11.2005
  */
 public class AndroMDALocationsComposite
         extends Composite
 {
-
-    private Button cartridgesBrowseButton;
-
-    private Button profilesBrowseButton;
-
+    /** Label for cartridges location. */
     private Label profilesLabel;
 
-    private Label cartridgesLabel;
-
+    /** Text field for profiles location. */
     private Text profilesText;
 
+    /** Browse button for profiles location. */
+    private Button profilesBrowseButton;
+
+    /** Label for cartridges location. */
+    private Label cartridgesLabel;
+
+    /** Text field for cartridges location. */
     private Text cartridgesText;
 
+    /** Browse button for cartidges location. */
+    private Button cartridgesBrowseButton;
+
     /**
-     * Create the composite
-     * 
-     * @param parent
-     * @param style
+     * Create the composite.
+     *
+     * @param parent The parent for this composite.
+     * @param style The SWT style for this composite.
      */
-    public AndroMDALocationsComposite(Composite parent,
-        int style)
+public AndroMDALocationsComposite(final Composite parent,
+        final int style)
     {
         super(parent, style);
         setLayout(new GridLayout());
@@ -58,6 +66,19 @@ public class AndroMDALocationsComposite
         cartridgesText.setText("cartridges");
 
         cartridgesBrowseButton = new Button(locationsGroup, SWT.NONE);
+        cartridgesBrowseButton.addSelectionListener(new SelectionAdapter()
+        {
+            public void widgetSelected(SelectionEvent e)
+            {
+                String directoryName = DialogUtils.selectDirectory(getShell(),
+                        "Select location for AndroMDA libraries.",
+                        "Please choose the folder that contains the AndroMDA libraries.", cartridgesText.getText());
+                if (directoryName != null)
+                {
+                    cartridgesText.setText(directoryName);
+                }
+            }
+        });
         cartridgesBrowseButton.setText("Browse...");
 
         profilesLabel = new Label(locationsGroup, SWT.NONE);
@@ -68,25 +89,25 @@ public class AndroMDALocationsComposite
         profilesText.setText("profiles");
 
         profilesBrowseButton = new Button(locationsGroup, SWT.NONE);
+        profilesBrowseButton.addSelectionListener(new SelectionAdapter() {
+            public void widgetSelected(SelectionEvent e)
+            {
+                String directoryName = DialogUtils.selectDirectory(getShell(),
+                        "Select location for AndroMDA profile.",
+                        "Please choose the folder that contains the AndroMDA profiles.", profilesText.getText());
+                if (directoryName != null)
+                {
+                    profilesText.setText(directoryName);
+                }
+            }
+        });
         profilesBrowseButton.setText("Browse...");
-
-        //
-    }
-
-    public void dispose()
-    {
-        super.dispose();
-    }
-
-    protected void checkSubclass()
-    {
-        // Disable the check that prevents subclassing of SWT components
     }
 
     /**
-     * @see org.eclipse.swt.widgets.Control#setEnabled(boolean)
+     * {@inheritDoc}
      */
-    public void setEnabled(boolean enabled)
+    public void setEnabled(final boolean enabled)
     {
         super.setEnabled(enabled);
         cartridgesLabel.setEnabled(enabled);
