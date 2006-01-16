@@ -11,7 +11,7 @@ import org.eclipse.ui.forms.widgets.ScrolledForm;
 
 /**
  * This page contains controls that let the user configure the AndroMDA server.
- * 
+ *
  * @author Peter Friese
  * @since 07.12.2005
  */
@@ -24,22 +24,22 @@ public class ServerConfigurationPage
 
     /**
      * Creates the page.
-     * 
+     *
      * @param editor The editor hosting this page.
      * @param id The ID of this page.
      * @param title The title of this page.
      */
-    public ServerConfigurationPage(AbstractModelFormEditor editor,
-        String id,
-        String title)
+    public ServerConfigurationPage(final AbstractModelFormEditor editor,
+        final String id,
+        final String title)
     {
         super(editor, id, title);
     }
 
     /**
-     * @see org.eclipse.ui.forms.editor.FormPage#createFormContent(org.eclipse.ui.forms.IManagedForm)
+     * {@inheritDoc}
      */
-    protected void createFormContent(IManagedForm managedForm)
+    protected void createFormContent(final IManagedForm managedForm)
     {
         FormToolkit toolkit = managedForm.getToolkit();
         ScrolledForm form = managedForm.getForm();
@@ -67,7 +67,7 @@ public class ServerConfigurationPage
     /**
      * @see org.andromda.android.ui.editor.AbstractFormEditorPage#doUpdatePage(org.eclipse.jface.text.IDocument)
      */
-    protected void doUpdatePage(IDocument document)
+    protected void doUpdatePage(final IDocument document)
     {
         // TODO Auto-generated method stub
 
@@ -76,7 +76,7 @@ public class ServerConfigurationPage
     /**
      * @see org.andromda.android.ui.editor.AbstractFormEditorPage#doUpdateDocument(org.eclipse.jface.text.IDocument)
      */
-    protected void doUpdateDocument(IDocument document)
+    protected void doUpdateDocument(final IDocument document)
     {
     }
 
