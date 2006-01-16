@@ -29,15 +29,15 @@ public class ServerLoadingSection
      *
      * @param page The hosting page.
      */
-    public ServerLoadingSection(AbstractModelFormPage page)
+    public ServerLoadingSection(final AbstractModelFormPage page)
     {
         super(page);
     }
 
     /**
-     * @see org.eclipse.ui.forms.IFormPart#initialize(org.eclipse.ui.forms.IManagedForm)
+     * {@inheritDoc}
      */
-    public void initialize(IManagedForm form)
+    public void initialize(final IManagedForm form)
     {
         super.initialize(form);
         getSection().setText("Loading behaviour");
@@ -50,7 +50,7 @@ public class ServerLoadingSection
     }
 
     /**
-     * @see org.eclipse.ui.forms.AbstractFormPart#refresh()
+     * {@inheritDoc}
      */
     public void refresh()
     {
@@ -68,40 +68,38 @@ public class ServerLoadingSection
     }
 
     /**
-     * @see org.eclipse.ui.forms.AbstractFormPart#commit(boolean)
+     * {@inheritDoc}
      */
-    public void commit(boolean onSave)
+    public void commit(final boolean onSave)
     {
+        AndromdaDocument andromdaDocument = getAndromdaDocument();
+
+        Server server = andromdaDocument.getAndromda().getServer();
+        if (server != null)
         {
-            AndromdaDocument andromdaDocument = getAndromdaDocument();
-
-            Server server = andromdaDocument.getAndromda().getServer();
-            if (server != null)
+            BigInteger loadInterval = serverLoadingComposite.getLoadInterval();
+            if (loadInterval != null)
             {
-                BigInteger loadInterval = serverLoadingComposite.getLoadInterval();
-                if (loadInterval != null)
+                server.setLoadInterval(loadInterval);
+            }
+            else
+            {
+                if (server.isSetLoadInterval())
                 {
-                    server.setLoadInterval(loadInterval);
+                    server.unsetLoadInterval();
                 }
-                else
-                {
-                    if (server.isSetLoadInterval())
-                    {
-                        server.unsetLoadInterval();
-                    }
-                }
+            }
 
-                BigInteger maximumFailedLoadAttempts = serverLoadingComposite.getMaximumFailedLoadAttempts();
-                if (maximumFailedLoadAttempts != null)
+            BigInteger maximumFailedLoadAttempts = serverLoadingComposite.getMaximumFailedLoadAttempts();
+            if (maximumFailedLoadAttempts != null)
+            {
+                server.setMaximumFailedLoadAttempts(maximumFailedLoadAttempts);
+            }
+            else
+            {
+                if (server.isSetMaximumFailedLoadAttempts())
                 {
-                    server.setMaximumFailedLoadAttempts(maximumFailedLoadAttempts);
-                }
-                else
-                {
-                    if (server.isSetMaximumFailedLoadAttempts())
-                    {
-                        server.unsetMaximumFailedLoadAttempts();
-                    }
+                    server.unsetMaximumFailedLoadAttempts();
                 }
             }
         }
@@ -109,9 +107,9 @@ public class ServerLoadingSection
     }
 
     /**
-     * @see org.andromda.android.ui.internal.editor.AbstractModelSectionPart#modelChanged(org.andromda.android.core.model.IModelChangedEvent)
+     * {@inheritDoc}
      */
-    public void modelChanged(IModelChangedEvent event)
+    public void modelChanged(final IModelChangedEvent event)
     {
         refresh();
     }
