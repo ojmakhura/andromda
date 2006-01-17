@@ -1,0 +1,33 @@
+// license-header java merge-point
+#if ($stringUtils.isNotBlank($interceptor.packageName))
+package $interceptor.packageName;
+#end
+#set ($generatedFile = "${stringUtils.replace($interceptor.fullyQualifiedInterceptorName,'.','/')}.java")
+
+/**
+ * Interceptor class
+ */
+public class ${interceptor.interceptorName} 
+{
+    /**
+     * Default interceptor execution method
+     *
+     * @param ctx the invocation context
+     * @return 
+     */
+    @javax.ejb.AroundInvoke
+    public Object execute(javax.ejb.InvocationContext ctx)
+        throws Exception 
+    {
+        // Add implementation
+        
+        try
+        {
+            return ctx.proceed();
+        }
+        catch (Exception e)
+        {
+            throw e;
+        }
+    }
+}
