@@ -2,6 +2,7 @@
 
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="collectionUtils" className="org.apache.commons.collections.CollectionUtils"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb3.EJB3ScriptHelper"/>
     <!-- cartridge-templateObject merge-point-->
 
@@ -22,8 +23,8 @@
     <!-- Entity Bean Templates -->
 
     <template 
-	    path="templates/ejb3/Entity.vsl"
-        outputPattern="{0}/{1}.java" 
+	    path="templates/ejb3/EntityEmbeddable.vsl"
+        outputPattern="$generatedFile" 
         outlet="entity-beans" 
         overwrite="true">
         <modelElements variable="entity">
@@ -33,21 +34,27 @@
         </modelElements>
     </template>
 
+    <!-- 
+        Do not generated the entity implementation class if marked
+         to be an embeddable super class 
+    -->
     <template 
-	    path="templates/ejb3/EntityImpl.vsl"
-        outputPattern="{0}/{1}Impl.java" 
+	    path="templates/ejb3/Entity.vsl"
+        outputPattern="$generatedFile" 
         outlet="entity-impls"
         overwrite="false">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
+                    <property name="embeddableSuperclass">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
 
     <template 
         path="templates/ejb3/EntityListener.vsl"
-        outputPattern="{0}/{1}Listener.java" 
+        outputPattern="$generatedFile" 
         outlet="entity-impls"
         overwrite="false">
         <modelElements variable="entity">
@@ -66,8 +73,7 @@
         outputOnEmptyElements="false">
         <modelElements variable="entities">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
-                </type>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
             </modelElement>
         </modelElements>
     </template>
@@ -76,7 +82,7 @@
 
     <template 
         path="templates/ejb3/SessionBean.vsl"
-        outputPattern="{0}/{1}Bean.java" 
+        outputPattern="$generatedFile" 
         outlet="session-beans"
         overwrite="true">
         <modelElements variable="service">
@@ -88,33 +94,37 @@
 
     <template 
         path="templates/ejb3/SessionLocal.vsl"
-        outputPattern="{0}/{1}Local.java" 
+        outputPattern="$generatedFile" 
         outlet="session-beans"
         overwrite="true" 
         generateEmptyFiles="true">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
+                    <property name="viewTypeLocal">true</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
 
     <template 
         path="templates/ejb3/SessionRemote.vsl"
-        outputPattern="{0}/{1}Remote.java" 
+        outputPattern="$generatedFile" 
         outlet="session-beans" 
         overwrite="true"
         generateEmptyFiles="true">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
+                    <property name="viewTypeRemote">true</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
 
     <template 
         path="templates/ejb3/SessionBeanImpl.vsl"
-        outputPattern="{0}/{1}BeanImpl.java" 
+        outputPattern="$generatedFile" 
         outlet="session-impls"
         overwrite="false">
         <modelElements variable="service">
@@ -126,7 +136,7 @@
 
     <template 
         path="templates/ejb3/SessionListener.vsl"
-        outputPattern="{0}/{1}Listener.java" 
+        outputPattern="$generatedFile" 
         outlet="session-impls"
         overwrite="false">
         <modelElements variable="service">
@@ -162,11 +172,41 @@
         </modelElements>
     </template>
     
+    <!--  
+    <template
+        path="templates/ejb3/ejb-jar.xml.vsl"
+        outputPattern="META-INF/ejb-jar.xml"
+        outlet="session-config"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/jboss.xml.vsl"
+        outputPattern="META-INF/jboss.xml"
+        outlet="session-config"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    -->
+    
 	<!-- Message Driven Bean Templates -->
 	
     <template 
         path="templates/ejb3/MessageDrivenBean.vsl"
-        outputPattern="{0}/{1}MDBBean.java" 
+        outputPattern="$generatedFile" 
         outlet="message-driven-beans"
         overwrite="true">
         <modelElements variable="mdb">
@@ -178,7 +218,7 @@
     
     <template 
         path="templates/ejb3/MessageDrivenBeanImpl.vsl"
-        outputPattern="{0}/{1}MDBBeanImpl.java" 
+        outputPattern="$generatedFile" 
         outlet="message-driven-impls"
         overwrite="false">
         <modelElements variable="mdb">
@@ -190,12 +230,26 @@
     
     <template 
         path="templates/ejb3/MessageDrivenListener.vsl"
-        outputPattern="{0}/{1}Listener.java" 
+        outputPattern="$generatedFile" 
         outlet="message-driven-impls"
         overwrite="false">
         <modelElements variable="mdb">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+	
+	<!-- Common Templates -->
+	
+    <template 
+        path="templates/ejb3/Interceptor.vsl"
+        outputPattern="$generatedFile" 
+        outlet="interceptor"
+        overwrite="false">
+        <modelElements variable="interceptor">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacade"/>
             </modelElement>
         </modelElements>
     </template>
