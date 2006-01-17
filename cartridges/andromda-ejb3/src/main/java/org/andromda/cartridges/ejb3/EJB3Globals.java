@@ -210,7 +210,7 @@ public class EJB3Globals
     /**
      * Represents the default security domain
      */
-    public static final String SECURITY_DOMAIN = "securityDomain";
+    public static final String SECURITY_REALM = "securityRealm";
 
     /**
      * Represents the bean managed transaction demarcation
