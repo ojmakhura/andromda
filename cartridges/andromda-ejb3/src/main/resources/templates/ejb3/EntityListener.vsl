@@ -2,7 +2,7 @@
 #if ($stringUtils.isNotBlank($entity.packageName))
 package $entity.packageName;
 #end
-
+#set ($generatedFile = "${stringUtils.replace($entity.fullyQualifiedEntityListenerName,'.','/')}.java")
 
 /**
  * Callback Listener for Entity POJO EJB ${entity.fullyQualifiedName}
@@ -19,42 +19,42 @@ public class ${entity.entityListenerName}
     }
     
     @javax.persistence.PrePersist
-    public void prePersist(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) 
+    public void prePersist(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) 
     {
 		// pre persist implementation
 	}
 	
 	@javax.persistence.PostPersist
-	public void postPersist(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) 
+	public void postPersist(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) 
 	{
 		// post persist implementation
 	}
 	
 	@javax.persistence.PreRemove
-	public void preRemove(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) 
+	public void preRemove(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) 
 	{
 		// pre remove implementation
 	}
 	
 	@javax.persistence.PostRemove
-	public void postRemove(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) 
+	public void postRemove(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) 
 	{
 		// post remove implementation
 	}
 	
 	@javax.persistence.PreUpdate
-	public void preUpdate(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) {
+	public void preUpdate(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) {
 		// pre update implementation
 	}
 	
 	@javax.persistence.PostUpdate
-	public void postUpdate(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) 
+	public void postUpdate(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) 
 	{
 		// post update implementation
 	}
 	
 	@javax.persistence.PostLoad
-	public void postLoad(${entity.name} ${stringUtils.uncapitalize(${entity.name})}) 
+	public void postLoad(${entity.fullyQualifiedEntityName} ${stringUtils.uncapitalize(${entity.name})}) 
 	{
 		// post load implementation
 	}
