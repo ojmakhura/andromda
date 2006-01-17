@@ -50,12 +50,14 @@ public class EJB3EntityFacadeLogicImpl
     private static final String ENTITY_INHERITANCE_STRATEGY = "entityInheritanceStrategy";
     
     /**
-     * Stores the default entity discriminator type used in the inheritance annotation
+     * Stores the default entity discriminator type used in the 
+     * inheritance annotation
      */
     private static final String ENTITY_DISCRIMINATOR_TYPE = "entityDiscriminatorType";
     
     /**
-     * Stores the default entity discriminator column name used in the DiscriminatorColumn annotation
+     * Stores the default entity discriminator column name used in 
+     * the DiscriminatorColumn annotation
      */
     private static final String ENTITY_DISCRIMINATOR_COLUMN_NAME = "entityDiscriminatorColumnName";
     
@@ -119,19 +121,27 @@ public class EJB3EntityFacadeLogicImpl
     public static final String ENTITY_NAME_PATTERN = "entityNamePattern";
     
     /**
-     * The property which stores the pattern defining the entity implementation name.
+     * The property which stores the pattern defining the entity 
+     * implementation name.
      */
     public static final String ENTITY_IMPLEMENTATION_NAME_PATTERN = "entityImplementationNamePattern";
     
     /**
-     * The property that stores the pattern defining the entity listener class name.
+     * The property that stores the pattern defining the entity 
+     * listener class name.
      */
     public static final String ENTITY_LISTENER_NAME_PATTERN = "entityListenerNamePattern";
     
     /**
-     * The property that stores the pattern defining the entity embeddable super class name.
+     * The property that stores the pattern defining the entity 
+     * embeddable super class name.
      */
     public static final String ENTITY_EMBEDDABLE_NAME_PATTERN = "entityEmbeddableNamePattern";
+
+    /**
+     * The p0roperty that stores the generic finders option
+     */
+    private static final String ENTITY_GENERIC_FINDERS = "entityGenericFinders";
     
     // ---------------- constructor -------------------------------
 
@@ -858,5 +868,13 @@ public class EJB3EntityFacadeLogicImpl
                 
         }
         return sb.toString();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsGenericFinders()
+     */
+    protected boolean handleIsGenericFinders()
+    {
+        return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(ENTITY_GENERIC_FINDERS)));
     }
 }
