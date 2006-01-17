@@ -3,12 +3,12 @@
 #if ($stringUtils.isNotBlank($service.packageName))
 package $service.packageName;
 #end
+#set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedServiceLocalInterfaceName,'.','/')}.java")
 
 /**
  * Local component interface for the ${service.serviceName} session bean.
 $service.getDocumentation(" * ")
  */
-@javax.ejb.Local
 public interface ${service.serviceLocalInterfaceName}
 #if($service.generalization)
     extends ${service.generalization.fullyQualifiedName}Local
