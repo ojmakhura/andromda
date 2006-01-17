@@ -1,7 +1,18 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
+import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.Role;
+import org.andromda.metafacades.uml.Service;
+import org.apache.commons.collections.Closure;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -112,25 +123,23 @@ public class EJB3SessionOperationFacadeLogicImpl
      */
     protected String handleGetRolesAllowed()
     {
-        String rolesAllowedStr = null;
-        final String tmpRoles = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SECURITY_ROLES_ALLOWED);
-        if (StringUtils.isNotBlank(tmpRoles))
+        StringBuffer rolesAllowed = null;
+        String separator = "";
+        
+        for (final Iterator iter = this.getNonRunAsRoles().iterator(); iter.hasNext(); )
         {
-            StringBuffer rolesAllowed = new StringBuffer();
-            final String[] roles = StringUtils.split(tmpRoles, ',');
-            for (int i = 0; i < roles.length; i++)
+            if (rolesAllowed == null)
             {
-                if (i > 0)
-                {
-                    rolesAllowed.append(", ");
-                }
-                rolesAllowed.append('"');
-                rolesAllowed.append(roles[i]);
-                rolesAllowed.append('"');
+                rolesAllowed = new StringBuffer();
             }
-            rolesAllowedStr = rolesAllowed.toString();
+            rolesAllowed.append(separator);
+            Role role = (Role)iter.next();
+            rolesAllowed.append('"');
+            rolesAllowed.append(role.getName());
+            rolesAllowed.append('"');
+            separator = ", ";
         }
-        return rolesAllowedStr;
+        return rolesAllowed != null ? rolesAllowed.toString() : null;
     }
 
     /**
@@ -202,6 +211,58 @@ public class EJB3SessionOperationFacadeLogicImpl
             throwsClause.insert(0, "throws ");
         }
         return throwsClause.toString();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleGetNonRunAsRoles()
+     */
+    protected Collection handleGetNonRunAsRoles()
+    {
+        final Collection roles = new LinkedHashSet();
+        if (this.getOwner() instanceof EJB3SessionFacade)
+        {
+            roles.addAll(((EJB3SessionFacade)this.getOwner()).getNonRunAsRoles());
+        }
+        Collection operationRoles = this.getTargetDependencies();
+        CollectionUtils.filter(
+            operationRoles,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    DependencyFacade dependency = (DependencyFacade)object;
+                    return dependency != null 
+                        && dependency.getSourceElement() != null 
+                        && Role.class.isAssignableFrom(dependency.getSourceElement().getClass())
+                        && !dependency.hasStereotype(EJB3Profile.STEREOTYPE_SECURITY_RUNAS);
+                }
+            });
+        CollectionUtils.transform(
+            operationRoles,
+            new Transformer()
+            {
+                public Object transform(Object object)
+                {
+                    return ((DependencyFacade)object).getSourceElement();
+                }
+            });
+        roles.addAll(operationRoles);
+        final Collection allRoles = new LinkedHashSet(roles);
+
+        // add all roles which are specializations of this one
+        CollectionUtils.forAllDo(
+            roles,
+            new Closure()
+            {
+                public void execute(Object object)
+                {
+                    if (object instanceof Role)
+                    {
+                        allRoles.addAll(((Role)object).getAllSpecializations());
+                    }
+                }
+            });
+        return allRoles;
     }
 
 }
