@@ -8,6 +8,7 @@ rule EnterpriseAppServiceToSpringBean {
 	to out : Spring!SpringBean (
 		name <- service.name
 		,methods <- service.methods
+		,sourceReferences <- service.sourceReferences
 	)
 }
 
@@ -17,6 +18,15 @@ rule EnterpriseAppEntityToDao {
 	to out : Spring!SpringBean (
 		name <- entity.name + 'Dao'
 		,methods <- entity.methods->select (m | not m.instanceScope)
+		,sourceReferences <- entity.sourceReferences
+	)
+}
+
+-- Transform EnterpriseApp references to Spring bean references.
+rule EnterpriseAppReferenceToSpringBeanReference {
+	from eref : EnterpriseApp!Reference
+	to out : Spring!BeanReference (
+		target <- eref.target
 	)
 }
 
