@@ -37,9 +37,10 @@ rule UMLEntityToEnterpriseAppEntity {
 rule UMLOpTo3GLMethod {
 	from method : UML!Operation
 	to out : EnterpriseApp!Method (
-		name <- method.name ,
-		returnType <- method.parameter->select(x|x.kind=#pdk_return)->asSequence()->first().type,
-		parameters <- method.parameter->select(x|x.kind<>#pdk_return)->asSequence()
+		name <- method.name
+		,returnType <- method.parameter->select(x|x.kind=#pdk_return)->asSequence()->first().type
+		,parameters <- method.parameter->select(x|x.kind<>#pdk_return)->asSequence()
+		,instanceScope <- method.ownerScope <> #sk_classifier
 	)
 }
 

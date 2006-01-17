@@ -2,10 +2,10 @@
 
 <project>
     <extend>../project.xml</extend>
-    <artifactId>andromda-transformations-spring</artifactId>
+    <artifactId>andromda-transformations-uml2enterpriseapp</artifactId>
     <currentVersion>1.0-SNAPSHOT</currentVersion>
-    <name>AndroMDA Spring Transformation</name>
-    <description> The AndroMDA Spring transformation.
+    <name>AndroMDA UML2EnterpriseApp Transformation</name>
+    <description> The AndroMDA UML2EnterpriseApp transformation.
     </description>
 	<dependencies>
 		<dependency>
@@ -17,22 +17,6 @@
 			<groupId>${pom.groupId}</groupId>
 			<artifactId>${pom.groupId}-metamodels-configuration</artifactId>
 			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>${pom.groupId}</groupId>
-			<artifactId>${pom.groupId}-transformations-configuration</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>${pom.groupId}</groupId>
-			<artifactId>${pom.groupId}-metafacades-uml</artifactId>
-			<version>${andromda.version}</version>
-            <type>test</type>
-		</dependency>
-		<dependency>
-			<groupId>commons-digester</groupId>
-			<artifactId>commons-digester</artifactId>
-			<version>1.7</version>
 		</dependency>
 	</dependencies>
 </project>
