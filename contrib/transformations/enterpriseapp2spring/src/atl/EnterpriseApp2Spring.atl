@@ -1,0 +1,49 @@
+module EnterpriseApp2Spring;
+
+create OUT: Spring from IN: EnterpriseApp;
+
+-- Transform EnterpriseApp services to Spring beans.
+rule EnterpriseAppServiceToSpringBean {
+	from service : EnterpriseApp!Service
+	to out : Spring!SpringBean (
+		name <- service.name
+		,methods <- service.methods
+	)
+}
+
+-- Transform EnterpriseApp entities to Spring beans (to get DAOs).
+rule EnterpriseAppEntityToDao {
+	from entity : EnterpriseApp!Entity
+	to out : Spring!SpringBean (
+		name <- entity.name + 'Dao'
+		,methods <- entity.methods->select (m | not m.instanceScope)
+	)
+}
+
+-- Transform EnterpriseApp methods to Spring methods.
+rule EnterpriseAppMethodToSpringMethod {
+	from method : EnterpriseApp!Method
+	to out : Spring!Method (
+		name <- method.name
+		,returnType <- method.returnType
+		,parameters <- method.parameters
+	)
+}
+
+
+-- Transform EnterpriseApp parameters to Spring parameters.
+rule EnterpriseAppParameterToSpringParameter {
+ 	from param : EnterpriseApp!Parameter
+ 	to out : Spring!Parameter (
+ 		name <- param.name
+ 		,type <- param.type
+ 	)
+}
+
+-- Transform EnterpriseApp type to EnterpriseApp type.
+rule EnterpriseAppTypeToSpringType {
+	from type : EnterpriseApp!Type
+	to out : Spring!Type (
+		name <- type.name
+	)
+}
