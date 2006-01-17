@@ -3,14 +3,18 @@ package org.andromda.cartridges.ejb3.metafacades;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.Role;
+import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -111,35 +115,19 @@ public class EJB3SessionFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade#getJndiName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetJndiNameRemote()
      */
-    protected java.lang.String handleGetJndiName()
+    protected String handleGetJndiNameRemote()
     {
-        StringBuffer jndiName = new StringBuffer();
-        String jndiNamePrefix = StringUtils.trimToEmpty(this.getJndiNamePrefix());
-        if (StringUtils.isNotEmpty(jndiNamePrefix))
-        {
-            jndiName.append(jndiNamePrefix);
-            jndiName.append("/");
-        }
-        jndiName.append("ejb/");
-        jndiName.append(this.getFullyQualifiedName());
-        return jndiName.toString();
+        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SESSION_JNDI_NAME_REMOTE);
     }
 
     /**
-     * Gets the <code>jndiNamePrefix</code> for this EJB.
-     *
-     * @return the EJB Jndi name prefix.
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetJndiNameLocal()
      */
-    protected String getJndiNamePrefix()
+    protected String handleGetJndiNameLocal()
     {
-        String prefix = null;
-        if (this.isConfiguredProperty(EJB3Globals.JNDI_NAME_PREFIX))
-        {
-            prefix = (String)this.getConfiguredProperty(EJB3Globals.JNDI_NAME_PREFIX);
-        }
-        return prefix;
+        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SESSION_JNDI_NAME_Local);
     }
     
     /**
@@ -204,6 +192,34 @@ public class EJB3SessionFacadeLogicImpl
                 String.valueOf(this.getConfiguredProperty(EJB3Globals.SESSION_DEFAULT_VIEW_TYPE)));
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsViewTypeLocal()
+     */
+    protected boolean handleIsViewTypeLocal()
+    {
+        boolean isLocal = false;
+        if (this.getViewType().equalsIgnoreCase(EJB3Globals.VIEW_TYPE_LOCAL) ||
+                this.getViewType().equalsIgnoreCase(EJB3Globals.VIEW_TYPE_BOTH))
+        {
+            isLocal = true;
+        }
+        return isLocal;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsViewTypeRemote()
+     */
+    protected boolean handleIsViewTypeRemote()
+    {
+        boolean isRemote = false;
+        if (this.getViewType().equalsIgnoreCase(EJB3Globals.VIEW_TYPE_REMOTE) || 
+                this.getViewType().equalsIgnoreCase(EJB3Globals.VIEW_TYPE_BOTH))
+        {
+            isRemote = true;
+        }
+        return isRemote;
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade#getHomeInterfaceName()
      */
@@ -512,25 +528,23 @@ public class EJB3SessionFacadeLogicImpl
      */
     protected String handleGetRolesAllowed()
     {
-        String rolesAllowedStr = null;
-        final String tmpRoles = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SECURITY_ROLES_ALLOWED);
-        if (StringUtils.isNotBlank(tmpRoles))
+        StringBuffer rolesAllowed = null;
+        String separator = "";
+        
+        for (final Iterator iter = this.getNonRunAsRoles().iterator(); iter.hasNext(); )
         {
-            StringBuffer rolesAllowed = new StringBuffer();
-            final String[] roles = StringUtils.split(tmpRoles, ',');
-            for (int i = 0; i < roles.length; i++)
+            if (rolesAllowed == null)
             {
-                if (i > 0)
-                {
-                    rolesAllowed.append(", ");
-                }
-                rolesAllowed.append('"');
-                rolesAllowed.append(roles[i]);
-                rolesAllowed.append('"');
+                rolesAllowed = new StringBuffer();
             }
-            rolesAllowedStr = rolesAllowed.toString();
+            rolesAllowed.append(separator);
+            Role role = (Role)iter.next();
+            rolesAllowed.append('"');
+            rolesAllowed.append(role.getName());
+            rolesAllowed.append('"');
+            separator = ", ";
         }
-        return rolesAllowedStr;
+        return rolesAllowed != null ? rolesAllowed.toString() : null;
     }
 
     /**
@@ -562,17 +576,17 @@ public class EJB3SessionFacadeLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetSecurityDomain()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetSecurityRealm()
      */
-    protected String handleGetSecurityDomain()
+    protected String handleGetSecurityRealm()
     {
-        String securityDomain = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SECURITY_DOMAIN);
-        if (StringUtils.isBlank(securityDomain))
+        String securityRealm = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SECURITY_REALM);
+        if (StringUtils.isBlank(securityRealm))
         {
-            securityDomain = StringUtils.trimToEmpty(
-                    ObjectUtils.toString(this.getConfiguredProperty(EJB3Globals.SECURITY_DOMAIN)));
+            securityRealm = StringUtils.trimToEmpty(
+                    ObjectUtils.toString(this.getConfiguredProperty(EJB3Globals.SECURITY_REALM)));
         }
-        return securityDomain;
+        return securityRealm;
     }
 
     /**
@@ -580,7 +594,26 @@ public class EJB3SessionFacadeLogicImpl
      */
     protected String handleGetRunAs()
     {
-        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SECURITY_RUN_AS);
+        String runAsRole = null;
+        DependencyFacade dependency = (DependencyFacade)CollectionUtils.find(
+            this.getTargetDependencies(), 
+            new Predicate()
+            {
+                public boolean evaluate(final Object object)
+                {
+                    DependencyFacade dependency = (DependencyFacade)object;
+                    return dependency != null 
+                            && dependency.getSourceElement() != null 
+                            && dependency.getSourceElement() instanceof Role 
+                            && dependency.hasStereotype(EJB3Profile.STEREOTYPE_SECURITY_RUNAS);
+                }
+            });
+        if (dependency != null)
+        {
+            Role role = (Role)dependency.getSourceElement();
+            runAsRole = role.getName();
+        }
+        return runAsRole;
     }
 
     /**
@@ -659,6 +692,79 @@ public class EJB3SessionFacadeLogicImpl
             }
         });
         return references;
+    }
+
+    /*(
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetInterceptorReferences()
+     */
+    protected Collection handleGetInterceptorReferences()
+    {
+        Collection references = super.getSourceDependencies();
+        CollectionUtils.filter(references, new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                DependencyFacade dependency = (DependencyFacade)object;
+                ModelElementFacade targetElement = dependency.getTargetElement();
+                return (targetElement != null && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_INTERCEPTOR));
+            }
+        });
+        return references;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#
+     *      handleGetInterceptorsAsList(java.util.Collection)
+     */
+    protected String handleGetInterceptorsAsList(Collection interceptors)
+    {
+        StringBuffer sb = new StringBuffer();
+        String separator = "";
+
+        for (final Iterator it = interceptors.iterator(); it.hasNext();)
+        {
+            DependencyFacade dependency = (DependencyFacade)it.next();
+            sb.append(separator);
+            separator = ", ";
+            sb.append(dependency.getTargetElement().getFullyQualifiedName() + ".class");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetNonRunAsRoles()
+     */
+    protected Collection handleGetNonRunAsRoles()
+    {
+        Collection roles = this.getTargetDependencies();
+        CollectionUtils.filter(roles, new Predicate()
+        {
+            public boolean evaluate(final Object object)
+            {
+                DependencyFacade dependency = (DependencyFacade)object;
+                return dependency != null 
+                        && dependency.getSourceElement() != null 
+                        && dependency.getSourceElement() instanceof Role 
+                        && !dependency.hasStereotype(EJB3Profile.STEREOTYPE_SECURITY_RUNAS);
+            }
+        });
+        CollectionUtils.transform(roles, new Transformer()
+        {
+            public Object transform(final Object object)
+            {
+                return ((DependencyFacade)object).getSourceElement();
+            }
+        });
+        final Collection allRoles = new LinkedHashSet(roles);
+        // add all roles which are generalizations of this one
+        CollectionUtils.forAllDo(roles, new Closure()
+        {
+            public void execute(final Object object)
+            {
+                allRoles.addAll(((Role)object).getAllSpecializations());
+            }
+        });
+        return allRoles;
     }
 
 }
