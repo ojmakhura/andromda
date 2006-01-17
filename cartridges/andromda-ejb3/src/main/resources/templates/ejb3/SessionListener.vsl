@@ -2,7 +2,7 @@
 #if ($stringUtils.isNotBlank($service.packageName))
 package $service.packageName;
 #end
-
+#set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedServiceListenerName,'.','/')}.java")
 
 /**
  * Callback Listener for Session bean ${service.fullyQualifiedName}
