@@ -12,8 +12,9 @@
 	<property reference="entityDiscriminatorType" />
 	<property reference="entityDiscriminatorColumnName" />
 	<property reference="serviceViewType" />
+	<property reference="entityGenericFinders" />
 	<property reference="persistenceContainerName" />
-	<property reference="securityDomain" />
+	<property reference="securityRealm" />
 	<!-- Entity EJB Metafacades -->
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogicImpl">
 		<mapping>
@@ -116,5 +117,12 @@
 		<property reference="messageDrivenImplementationNamePattern" />
 		<property reference="messageDrivenListenerNamePattern" />
 		<property reference="messageDrivenDestinationType" />
+	</metafacade>
+	<!--  Interceptor Metafacades -->
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacadeLogicImpl" contextRoot="true">
+		<mapping>
+			<stereotype>INTERCEPTOR</stereotype>
+		</mapping>
+		<property reference="interceptorNamePattern" />
 	</metafacade>
 </metafacades>
