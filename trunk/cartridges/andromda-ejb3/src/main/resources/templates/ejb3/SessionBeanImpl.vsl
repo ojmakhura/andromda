@@ -2,6 +2,7 @@
 #if ($stringUtils.isNotBlank($service.packageName))
 package $service.packageName;
 #end
+#set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedServiceImplementationName,'.','/')}.java")
 
 /**
  * @see ${service.fullyQualifiedServiceName}
