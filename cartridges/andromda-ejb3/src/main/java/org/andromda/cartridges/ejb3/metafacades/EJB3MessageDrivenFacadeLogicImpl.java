@@ -9,6 +9,7 @@ import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.Role;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -171,7 +172,26 @@ public class EJB3MessageDrivenFacadeLogicImpl
      */
     protected java.lang.String handleGetRunAs()
     {
-        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SECURITY_RUN_AS);
+        String runAsRole = null;
+        DependencyFacade dependency = (DependencyFacade)CollectionUtils.find(
+            this.getTargetDependencies(), 
+            new Predicate()
+            {
+                public boolean evaluate(final Object object)
+                {
+                    DependencyFacade dependency = (DependencyFacade)object;
+                    return dependency != null 
+                            && dependency.getSourceElement() != null 
+                            && dependency.getSourceElement() instanceof Role 
+                            && dependency.hasStereotype(EJB3Profile.STEREOTYPE_SECURITY_RUNAS);
+                }
+            });
+        if (dependency != null)
+        {
+            Role role = (Role)dependency.getSourceElement();
+            runAsRole = role.getName();
+        }
+        return runAsRole;
     }
 
     /**
