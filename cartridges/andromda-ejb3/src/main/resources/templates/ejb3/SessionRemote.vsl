@@ -3,12 +3,12 @@
 #if ($stringUtils.isNotBlank($service.packageName))
 package $service.packageName;
 #end
+#set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedServiceRemoteInterfaceName,'.','/')}.java")
 
 /**
  * Remote component interface for the ${service.serviceName} session bean.
 $service.getDocumentation(" * ")
  */
-@javax.ejb.Remote
 public interface ${service.serviceRemoteInterfaceName}
 #if ($service.generalization)
     extends ${service.generalization.fullyQualifiedName}Remote
