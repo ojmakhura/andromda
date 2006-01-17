@@ -152,6 +152,30 @@
 					class
 				</appliedOnElement>
 			</element>
+			<element name="INTERCEPTOR">
+			    <documentation>
+			        Defines a customer made interceptor for the business
+			        methods of the session bean and message driven
+			        bean.
+			    </documentation>
+			    <value>Interceptor</value>
+			    <appliedOnElement>
+			        class
+			    </appliedOnElement>
+			</element>
+			<element name="SECURITY_RUN_AS">
+				<documentation>
+                    Represents a dependency from an actor that is 
+                    identified to apply a run-as identity to the bean 
+                    when making calls.
+                    It does not affect the identity of the 
+                    method callers.
+				</documentation>
+				<value>RunAs</value>
+				<appliedOnElement>
+					Dependency
+				</appliedOnElement>
+			</element>
 			<element name="VALUE_REF">
 				<documentation>
 					Used to generate an association between an entity
@@ -320,12 +344,10 @@
 					optional. This value indicates the name of the
 					column to be used for the discriminator. If not
 					specified for the SINGLE_TABLE or JOINED inheritance
-					mapping strategies, then default to
-					<b>TYPE</b>
-					.
+					mapping strategies, then default to <b>TYPE</b>.
 				</documentation>
 				<value>
-					@andromda.persistence.discriminator.column
+					@andromda.persistence.discriminator.column.name
 				</value>
 				<appliedOnElement>
 					<![CDATA[<<Entity>>]]>
@@ -442,21 +464,31 @@
 					<value>NEVER</value>
 				</allowedValues>
 			</element>
-			<element name="SECURITY_ROLES_ALLOWED">
-				<documentation>
-					Specifies the comma separated list of security
-					roles that are permitted to execute opertions.
-					This can be set on the session bean or on
-					individual operations.
-					If set on the session bean, all operations will
-					inherit this behaviour.
-				</documentation>
-				<value>
-					@andromda.ejb.security.rolesAllowed
-				</value>
-				<appliedOnElement>
-					Service and service operation
-				</appliedOnElement>
+			<element name="SERVICE_JNDI_NAME_REMOTE">
+			    <documentation>
+			        Used on a session bean to manually specify
+			        the JNDI name the remote interface is bound
+			        to.
+			    </documentation>
+			    <value>
+			        @andromda.ejb.service.jndi.remote
+			    </value>
+			    <appliedOnElement>
+			        <![CDATA[<<Service>>]]>
+			    </appliedOnElement>
+			</element>
+			<element name="SERVICE_JNDI_NAME_LOCAL">
+			    <documentation>
+			        Used on a session bean to manually specify
+			        the JNDI name the local interface is bound
+			        to.
+			    </documentation>
+			    <value>
+			        @andromda.ejb.service.jndi.local
+			    </value>
+			    <appliedOnElement>
+			        <![CDATA[<<Service>>]]>
+			    </appliedOnElement>
 			</element>
 			<element name="SECURITY_PERMIT_ALL">
 				<documentation>
@@ -504,27 +536,14 @@
 					<value>false</value>
 				</allowedValues>
 			</element>
-			<element name="SECURITY_RUN_AS">
-				<documentation>
-					Specifies the run-as identity that the
-					bean will use when making calls.  It does
-					not affect the identity of the method callers. 
-				</documentation>
-				<value>
-					@andromda.ejb.security.runAs
-				</value>
-				<appliedOnElement>
-					Session bean
-				</appliedOnElement>
-			</element>
-			<element name="SECURITY_DOMAIN">
+			<element name="SECURITY_REALM">
 				<documentation>
 					Specifies the security domain for
 					role based authorization.  JBoss uses
-					the security model to match allowed roles. 
+					the security realm to match allowed roles. 
 				</documentation>
 				<value>
-					@andromda.ejb.security.domain
+					@andromda.ejb.security.realm
 				</value>
 				<appliedOnElement>
 					Session bean
