@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="transformers/atl/src/java"/>
+	<classpathentry kind="src" path="transformations/enterpriseapp2spring/src/atl"/>
+	<classpathentry kind="src" path="transformations/enterpriseapp2spring/src/test/java"/>
 	<classpathentry kind="src" path="transformations/configuration/src/java"/>
 	<classpathentry kind="src" path="transformations/configuration/src/test/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-costcalculator/src/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-costcalculator/target/src/java"/>
-	<classpathentry kind="src" path="transformations/spring/src/test/java"/>
 	<classpathentry kind="src" path="metamodels/uml2mof/src/java"/>
 	<classpathentry excluding="java/|test/java/" kind="src" path="transformers/atl/src"/>
 	<classpathentry kind="src" path="transformers/atl/conf/test"/>
