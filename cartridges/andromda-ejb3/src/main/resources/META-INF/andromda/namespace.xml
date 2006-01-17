@@ -53,6 +53,12 @@
 					files are generated.
 				</documentation>
 			</property>
+			<property name="session-config">
+			    <documentation>
+			        The location where the ejb-jar.xml XML descriptor
+			        is generated.
+			    </documentation>
+			</property>
 			<property name="message-driven-beans">
 				<documentation>
 					The directory to which Message Driven Bean files 
@@ -64,6 +70,13 @@
 					The directory to which Message Driven Bean 
 					implementation files are generated.
 				</documentation>
+			</property>
+			<property name="interceptor">
+			    <documentation>
+			        The directory to which interceptor classes
+			        for session beans or message driven beans
+			        are generated.
+			    </documentation>
 			</property>
 		</propertyGroup>
 		<propertyGroup name="JDBC">
@@ -100,13 +113,57 @@
             	    The SQL dialect of the database.
             	    <ul>
             	        <li>org.hibernate.dialect.MySQLDialect</li>
+            	        <li>org.hibernate.dialect.MySQLInnoDBDialect</li>
+            	        <li>org.hibernate.dialect.MySQLMyISAMDialect</li>
             	        <li>org.hibernate.dialect.HSQLDialect</li>
+            	        <li>org.hibernate.dialect.PostgreSQLDialect</li>
+            	        <li>org.hibernate.dialect.DB2Dialect</li>
+            	        <li>org.hibernate.dialect.OracleDialect</li>
+            	        <li>org.hibernate.dialect.Oracle9Dialect</li>
+            	        <li>org.hibernate.dialect.SybaseDialect</li>
+            	        <li>org.hibernate.dialect.SQLServerDialect</li>
+            	        <li>org.hibernate.dialect.SAPDBDialect</li>
+            	        <li>org.hibernate.dialect.InformixDialect</li>
+            	        <li>org.hibernate.dialect.IngresDialect</li>
+            	        <li>org.hibernate.dialect.ProgressDialect</li>
+            	        <li>org.hibernate.dialect.InterbaseDialect</li>
+            	        <li>org.hibernate.dialect.PointbaseDialect</li>
+            	        <li>org.hibernate.dialect.FrontbaseDialect</li>
+            	        <li>org.hibernate.dialect.FirebirdDialect</li>
             	    </ul>
             	</documentation>
             </property>
             <property name="hibernateShowSql" required="false">
                 <documentation>
                     Whether or not to log SQL statements.
+                </documentation>
+            </property>
+            <property name="hibernateMaxFetchDepth" required="false">
+                <documentation>
+                    Sets a maximum "depth" for the outer join fetch tree. Recommended values between 0 and 3
+                </documentation>
+            </property>
+            <property name="hibernateJdbcFetchSize" required="false">
+                <documentation>
+                    A non-zero value determines the JDBC fetch size
+                </documentation>
+            </property>
+            <property name="hibernateJdbcBatchSize" required="false">
+                <documentation>
+                    A nonzero value enables use of JDBC2 batch updates by Hibernate.
+                    Recommended values between 5 and 30
+                </documentation>
+            </property>
+            <property name="hibernateJdbcUseScrollableResultSet" required="false">
+                <documentation>
+                    Whether or not to enable use of JDBC2 scrollable resultsets by Hibernate.
+                    This property is only necessary when using user supplied connections.
+                    Hibernate uses connection metadata otherwise.
+                </documentation>
+            </property>
+            <property name="hibernateJdbcUseStreamsForBinary" required="false">
+                <documentation>
+                    Whether or not to use streams when writing / reading binary or serializable types to/from JDBC.
                 </documentation>
             </property>
 		</propertyGroup>
@@ -131,6 +188,32 @@
                 </documentation>
             </property>
 		</propertyGroup>
+        <propertyGroup name="Transactions">
+            <property name="hibernateTransactionFlushBeforeCompletion" required="false">
+                <documentation>
+                    Define if the session will automatically be flushed
+                    during the before completion phase of the
+                    transaction.  Handy options for CMT demarcation.
+                    Possible values are:
+                    <ul>
+                        <li>true</li>
+                        <li>false</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="hibernateTransactionAutoCloseSession" required="false">
+                <documentation>
+                    Define if the session will be automatically closed
+                    during the after completion phase of the transaction.
+                    Handy option when using CMT demarcation.
+                    Possible values are:
+                    <ul>
+                        <li>true</li>
+                        <li>false</li>
+                    </ul>
+                </documentation>
+            </property>
+        </propertyGroup>
 		<propertyGroup name="Name Patterns">
 			<property name="entityNamePattern">
 				<default>{0}</default>
@@ -233,6 +316,13 @@
 					bean implementation class name.
 				</documentation>
 			</property>
+			<property name="interceptorNamePattern">
+			    <default>{0}</default>
+			    <documentation>
+			        The pattern to use when constructing the interceptor
+			        class name.
+			    </documentation>
+			</property>
 			<property name="jndiNamePrefix" required="false">
 				<documentation>
 					The prefix to give to the EJB JNDI names (this
@@ -326,8 +416,7 @@
 					</ul>
 				</documentation>
 			</property>
-			<property name="entityAggergationCascade"
-				required="false">
+			<property name="entityAggergationCascade" required="false">
 				<documentation>
 					Indicates how a UML aggreation should be interpreted
 					to determine cascadable operations that are
@@ -427,12 +516,12 @@
 					always exist.
 				</documentation>
 			</property>
-			<property name="securityDomain">
-				<default>Default</default>
+			<property name="securityRealm" required="false">
 				<documentation>
-					Specifies the default security domain to use
+					Specifies the security domain to use
 					for role based authorization.  Use the
 					security realm to match allowed roles.
+					This is only applicable for session beans.
 				</documentation>
 			</property>
 			<property name="queryUseNamedParameters">
@@ -445,6 +534,19 @@
 					<strong>NOTE:</strong>
 					Does not apply to queries written in OCL.
 				</documentation>
+			</property>
+			<property name="entityGenericFinders">
+			    <default>true</default>
+			    <documentation>
+			        Specifies whether to include the generic finder 
+			        property.  Generic finders in the entity bean include 
+			        findByPrimaryKey and findAll.
+			        Permitted values are:
+			        <ul>
+			            <li>true</li>
+			            <li>false</li>
+			        </ul>
+			    </documentation>
 			</property>
 			<property name="valueObjectPackage">
 				<default>{0}</default>
