@@ -2,6 +2,7 @@
 #if ($stringUtils.isNotBlank($mdb.packageName))
 package $mdb.packageName;
 #end
+#set ($generatedFile = "${stringUtils.replace($mdb.fullyQualifiedMessageDrivenListenerName,'.','/')}.java")
 
 /**
  * Callback Listener for Message Driven bean ${mdb.fullyQualifiedMessageDrivenName}
