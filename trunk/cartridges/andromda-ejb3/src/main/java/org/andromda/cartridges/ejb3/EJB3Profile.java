@@ -90,6 +90,17 @@ public class EJB3Profile
      */
     public static final String STEREOTYPE_DATA_SOURCE = profile.get("DATA_SOURCE");
     
+    /**
+     * Represents an interceptor class for a session bean.
+     */
+    public static final String STEREOTYPE_INTERCEPTOR = profile.get("INTERCEPTOR");
+
+    /**
+     * Represents a dependency from an actor that is identified to
+     * apply a run-as identity to the bean when making calls.
+     */
+    public static final String STEREOTYPE_SECURITY_RUNAS = profile.get("SECURITY_RUN_AS");
+    
     /* ----------------- Tagged Values -------------------- */
     
     /**
@@ -310,12 +321,6 @@ public class EJB3Profile
     public static final String TAGGEDVALUE_EJB_SESSION_TYPE = profile.get("SERVICE_TYPE");
 
     /**
-     * The tagged value representing the comma separated list of security roles
-     * permitted to execute operations in the bean.
-     */
-    public static final String TAGGEDVALUE_EJB_SECURITY_ROLES_ALLOWED = profile.get("SECURITY_ROLES_ALLOWED");
-
-    /**
      * The tagged value representing whether to permit all roles to execute
      * operations in the bean.
      */
@@ -331,13 +336,7 @@ public class EJB3Profile
      * The tagged value representing the security domain to sepecify at
      * the session bean class level.
      */
-    public static final String TAGGEDVALUE_EJB_SECURITY_DOMAIN = profile.get("SECURITY_DOMAIN");
-
-    /**
-     * The tagged value representing the run-as identity the bean will
-     * use when making calls.
-     */
-    public static final String TAGGEDVALUE_EJB_SECURITY_RUN_AS = profile.get("SECURITY_RUN_AS");
+    public static final String TAGGEDVALUE_EJB_SECURITY_REALM = profile.get("SECURITY_REALM");
 
     /**
      * The tagged value representing the JMS message driven bean
@@ -368,4 +367,16 @@ public class EJB3Profile
      * topic subscription durability mode.
      */
     public static final String TAGGEDVALUE_EJB_MDB_DURABILITY = profile.get("MDB_SUBSCRIPTION_DURABILITY");
+
+    /**
+     * The tagged value representing the session bean remote interface
+     * JNDI name.
+     */
+    public static final String TAGGEDVALUE_EJB_SESSION_JNDI_NAME_REMOTE = profile.get("SERVICE_JNDI_NAME_REMOTE");
+
+    /**
+     * The tagged value representing the session bean local interface
+     * JNDI name.
+     */
+    public static final String TAGGEDVALUE_EJB_SESSION_JNDI_NAME_Local = profile.get("SERVICE_JNDI_NAME_LOCAL");
 }
