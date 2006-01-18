@@ -1,6 +1,7 @@
 package org.andromda.cartridges.ejb3;
 
 import org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacade;
+import org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade;
 import org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -58,18 +59,20 @@ public class EJB3ScriptHelper
 
     /**
      * Filter a list of EntityAttributes by removing all non-updatable attributes.
-     * This filter currently removes all attributes that are of stereotype Version.
+     * This filter currently removes all attributes that are of stereotype Version
+     * and identifier attributes for an entity with a composite primary key class.
      * 
      * @param list The original list
+     * @param isCompositePK True if entity has a composite primary key 
      * @return Collection A list of EntityAttributes from the original list that are updatable
      */
-    public Collection filterUpdatableAttributes(Collection list)
+    public Collection filterUpdatableAttributes(Collection list, boolean isCompositePK)
     {
     	Collection retval = new ArrayList(list.size());
     	for (final Iterator iter = list.iterator(); iter.hasNext(); ) 
     	{
     		EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade)iter.next();
-    		if (!attr.isVersion())
+    		if (!attr.isVersion() && ((isCompositePK && !attr.isIdentifier()) || !isCompositePK))
     		{
     			retval.add(attr);
     		}
