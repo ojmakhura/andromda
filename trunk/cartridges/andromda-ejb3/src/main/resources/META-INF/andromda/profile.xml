@@ -83,7 +83,7 @@
 					constructors are used in EJB3
 				</documentation>
 				<value>CreateMethod</value>
-				<appliedOnElement>Entity operation</appliedOnElement>
+				<appliedOnElement>Entity operation and Session operation</appliedOnElement>
 			</element>
 			<element name="ENTITY_REF">
 				<documentation>
@@ -393,6 +393,253 @@
 					<![CDATA[<<Entity>>]]>
 				</appliedOnElement>
 			</element>
+			<element name="ENTITY_FINDER_TEMPORAL_TYPE">
+			    <documentation>
+			        The temporal type tagged value specified on
+			        the finder method parameter specifying
+			        whether to expect one of the following
+			        types Date, Time or Timestamp.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.finder.temporal.type
+			    </value>
+			    <appliedOnElement>
+			        Entity Finder Method Parameter
+			    </appliedOnElement>
+			    <allowedValues>
+			        <value default="true">DATE</value>
+			        <value>TIME</value>
+			        <value>TIMESTAMP</value>
+			        <value>NONE</value>
+			    </allowedValues>
+			</element>
+			<element name="ENTITY_FINDER_RESULT_TYPE">
+			    <documentation>
+			        Specifies the finder method parameter
+			        result type to specify the limit and/or
+			        starting index.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.finder.result.type
+			    </value>
+			    <appliedOnElement>
+			        Entity Finder Method Parameter
+			    </appliedOnElement>
+			    <allowedValues>
+			        <value default="true">First</value>
+			        <value>Max</value>
+			    </allowedValues>
+			</element>
+			<element name="FETCH_TYPE">
+			    <documentation>
+			        Denotes whether or not to hint to the EJB3 container 
+			        that the EJB relationship/property should be lazily 
+			        or eagerly loaded.
+                    By default, the loading persistence is EAGER for 
+                    attributes and relationships of type OneToOne and
+                    ManyToOne.
+                    Relationships with OneToMany and ManyToMany syntax are 
+                    LAZY loaded.  You don't need to set anything to 
+                    accept these default settings.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.fetch.type
+			    </value>
+			    <appliedOnElement>
+			        Association End or Entity Attribute
+			    </appliedOnElement>
+			    <allowedValues>
+			        <value>LAZY</value>
+			        <value>EAGER</value>
+			    </allowedValues>
+			</element>
+			<element name="LOB_TYPE">
+			    <documentation>
+			        Specifies either binary or character types
+			        for an entity attribute.
+			        BLOB fields represent Byte[] or Serializable types.
+			        CLOB fiels represent char[], Character[] or String
+			        types.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.lob.type
+			    </value>
+			    <appliedOnElement>
+			        Entity Attribute
+			    </appliedOnElement>
+			    <allowedValues>
+			        <value default="true">CLOB</value>
+			        <value>BLOB</value>
+			    </allowedValues>
+			</element>
+			<element name="CASCADE_TYPE">
+			    <documentation>
+			        Specifies the override value for the default
+			        cascade setting for this relationship.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.cascade.type
+			    </value>
+			    <appliedOnElement>
+			        Association End
+			    </appliedOnElement>
+			    <allowedValues>
+			        <value>ALL</value>
+			        <value>PERSIST</value>
+			        <value>MERGE</value>
+			        <value>REMOVE</value>
+			        <value>REFRESH</value>
+			    </allowedValues>
+			</element>
+			<element name="GENERATOR_TYPE">
+			    <documentation>
+			        Specifies the primary key generation strategy
+			        associated with an entity bean attribute identifier.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.generator.type
+			    </value>
+			    <appliedOnElement>
+			        Entity Attribute
+			    </appliedOnElement>
+			    <allowedValues>
+			        <value default="true">AUTO</value>
+			        <value>SEQUENCE</value>
+			        <value>IDENTITY</value>
+			        <value>TABLE</value>
+			        <value>NONE</value>
+			    </allowedValues>
+			</element>
+			<element name="GENERATOR_NAME">
+			    <documentation>
+			        Defines a unique name which is referenced by one
+			        or more classes to be the generator for an
+			        entity bean.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.generator.name
+			    </value>
+			    <appliedOnElement>
+			        Entity Attribute
+			    </appliedOnElement>
+			</element>
+			<element name="GENERATOR_SOURCE_NAME">
+			    <documentation>
+			        Specifies either the table name that stores the
+			        generated ids or the sequence name which is the
+			        name of the database sequence object used to
+			        get the ids.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.generator.source.name
+			    </value>
+			    <appliedOnElement>
+			        Entity Attribute
+			    </appliedOnElement>
+			</element>
+			<element name="GENERATOR_PK_COLUMN_VALUE">
+			    <documentation>
+			        The primary key value in the generator table
+			        that identifies the generated value from
+			        other values in the table.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.generator.pkcolumn.value
+			    </value>
+			    <appliedOnElement>
+			        Entity Attribute
+			    </appliedOnElement>
+			</element>
+			<element name="GENERATOR_INITIAL_VALUE">
+			    <documentation>
+			        Specifies the initial starting sequence for id
+			        generation for an entity PK generator.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.generator.initial.value
+			    </value>
+			    <appliedOnElement>
+			        Entity Attribute
+			    </appliedOnElement>
+			</element>
+			<element name="GENERATOR_ALLOCATION_SIZE">
+			    <documentation>
+			        Specifies the amount to increment by when
+			        allocating an id number from the generator.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.generator.allocation.size
+			    </value>
+			    <appliedOnElement>
+			        Entity Attribute
+			    </appliedOnElement>
+			</element>
+			<element name="COLUMN_DEFINITION">
+			    <documentation>
+			        Specifies the SQL to create the DDL for the 
+			        column or entity property.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.column.definition
+			    </value>
+			    <appliedOnElement>
+			        Entity Attribute
+			    </appliedOnElement>
+			</element>
+			<element name="COLUMN_PRECISION">
+			    <documentation>
+			        Specifies the precision value for a decimal
+			        column.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.column.precision
+			    </value>
+			    <appliedOnElement>
+			        Entity Attribute
+			    </appliedOnElement>
+			</element>
+			<element name="COLUMN_SCALE">
+			    <documentation>
+			        Specifies the scale to use for a decimal
+			        column.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.column.scale
+			    </value>
+			    <appliedOnElement>
+			        Entity Attribute
+			    </appliedOnElement>
+			</element>
+			<element name="COLUMN_NULLABLE">
+			    <documentation>
+			        Specifies whether the underlying column
+			        for the entity attribute may be NULL.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.column.nullable
+			    </value>
+			    <appliedOnElement>
+			        Entity Attribute
+			    </appliedOnElement>
+			    <allowedValues>
+			        <value>true</value>
+			        <value>false</value>
+			    </allowedValues>
+			</element>
+			<element name="ORDER_BY">
+			    <documentation>
+			        Specifies the column name(s) that will be
+			        used for sorting the returned collection, 
+			        with  ASC or DESC optional.  Without a 
+			        value, the primary key is assumed.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.orderBy
+			    </value>
+			    <appliedOnElement>
+			        Association End
+			    </appliedOnElement>
+			</element>
 			<element name="SERVICE_TYPE">
 				<documentation>
 					Used at the class level of a service bean to 
@@ -401,7 +648,7 @@
 					variables.
 				</documentation>
 				<value>
-					@andromda.ejb.service.type
+					@andromda.service.type
 				</value>
 				<appliedOnElement>
 					<![CDATA[<<Service>>]]>
@@ -419,7 +666,7 @@
 					name.
 				</documentation>
 				<value>
-					@andromda.ejb.persistence.context.unit.name
+					@andromda.service.persistence.context.unit.name
 				</value>
 				<appliedOnElement>
 					<![CDATA[<<Service>>]]>
@@ -435,7 +682,7 @@
 					EntityManager.
 				</documentation>
 				<value>
-					@andromda.ejb.persistence.context.unit.type
+					@andromda.service.persistence.context.unit.type
 				</value>
 				<appliedOnElement>
 					<![CDATA[<<Service>>]]>
@@ -453,13 +700,13 @@
 					are applied in a transation.
 				</documentation>
 				<value>
-					@andromda.ejb.persistence.flush.mode
+					@andromda.service.persistence.flush.mode
 				</value>
 				<appliedOnElement>
 					Service operation
 				</appliedOnElement>
 				<allowedValues>
-					<value>AUTO</value>
+					<value default="true">AUTO</value>
 					<value>COMMIT</value>
 					<value>NEVER</value>
 				</allowedValues>
@@ -471,7 +718,7 @@
 			        to.
 			    </documentation>
 			    <value>
-			        @andromda.ejb.service.jndi.remote
+			        @andromda.service.jndi.remote
 			    </value>
 			    <appliedOnElement>
 			        <![CDATA[<<Service>>]]>
@@ -484,11 +731,45 @@
 			        to.
 			    </documentation>
 			    <value>
-			        @andromda.ejb.service.jndi.local
+			        @andromda.service.jndi.local
 			    </value>
 			    <appliedOnElement>
 			        <![CDATA[<<Service>>]]>
 			    </appliedOnElement>
+			</element>
+			<element name="SERVICE_TIMER_TIMEOUT">
+			    <documentation>
+			        Specifies whether the session bean operation 
+			        as a Timer Service timeout callback method.
+			    </documentation>
+			    <value>
+			        @andromda.service.timer.timeout
+			    </value>
+			    <appliedOnElement>
+			        Service Operation
+			    </appliedOnElement>
+			    <allowedValues>
+			        <value>true</value>
+			        <value>false</value>
+			    </allowedValues>
+			</element>
+			<element name="SERVICE_TRANSACTION_MANAGEMENT">
+			    <documentation>
+			        Specifies the transaction demarcation strategy
+			        for the session bean.  By default, this does not
+			        need to be set for CONTAINER managed transaction
+			        demarcation.
+			    </documentation>
+			    <value>
+			        @andromda.service.transaction.management
+			    </value>
+			    <appliedOnElement>
+			        Service
+			    </appliedOnElement>
+			    <allowedValues>
+			        <value default="true">BEAN</value>
+			        <value>CONTAINER</value>
+			    </allowedValues>
 			</element>
 			<element name="SECURITY_PERMIT_ALL">
 				<documentation>
@@ -503,7 +784,7 @@
 					permit all tagged value is rendered.
 				</documentation>
 				<value>
-					@andromda.ejb.security.permitAll
+					@andromda.service.security.permitAll
 				</value>
 				<appliedOnElement>
 					Service and service operation
@@ -526,7 +807,7 @@
 					deny all tagged value is rendered.
 				</documentation>
 				<value>
-					@andromda.ejb.security.denyAll
+					@andromda.service.security.denyAll
 				</value>
 				<appliedOnElement>
 					Service and service operation
@@ -543,10 +824,10 @@
 					the security realm to match allowed roles. 
 				</documentation>
 				<value>
-					@andromda.ejb.security.realm
+					@andromda.service.security.realm
 				</value>
 				<appliedOnElement>
-					Session bean
+					Service
 				</appliedOnElement>
 			</element>
 			<element name="AUTOMATIC_KEY">
