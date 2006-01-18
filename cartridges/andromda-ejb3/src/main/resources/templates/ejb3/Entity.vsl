@@ -51,9 +51,9 @@ public#if ($entity.abstract) abstract#end class ${entity.entityName}
      * @param $attribute.name Value for the ${attribute.name} property
 #end
      */
-    public ${entity.entityName}($entity.getAttributesAsList($allAttributes, true, true)) 
+    public ${entity.entityName}($entity.getAttributesAsList($allAttributes, true, true, false)) 
     {
-        super($entity.getAttributesAsList($allAttributes, false, true));
+        super($entity.getAttributesAsList($allAttributes, false, true, false));
     }
 
 #foreach ($operation in $entity.getCreateMethods(true))
