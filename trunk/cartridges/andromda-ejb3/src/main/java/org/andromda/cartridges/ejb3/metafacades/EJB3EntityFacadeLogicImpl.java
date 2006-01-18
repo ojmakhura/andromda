@@ -139,7 +139,13 @@ public class EJB3EntityFacadeLogicImpl
     public static final String ENTITY_EMBEDDABLE_NAME_PATTERN = "entityEmbeddableNamePattern";
 
     /**
-     * The p0roperty that stores the generic finders option
+     * The property that stores the pattern defining the entity
+     * composite primary key class name.
+     */
+    private static final String ENTITY_COMPOSITE_PRIMARY_KEY_NAME_PATTERN = "entityCompositePrimaryKeyNamePattern";
+    
+    /**
+     * The poroperty that stores the generic finders option
      */
     private static final String ENTITY_GENERIC_FINDERS = "entityGenericFinders";
     
@@ -152,6 +158,9 @@ public class EJB3EntityFacadeLogicImpl
 
     // --------------- methods ---------------------
     
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getIdentifiers()
+     */
     public Collection handleGetIdentifiers()
     {
         Collection identifiers = new ArrayList();
@@ -507,7 +516,20 @@ public class EJB3EntityFacadeLogicImpl
         });
         return operations;
     }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetEntityCompositePrimaryKeyName()
+     */
+    protected String handleGetEntityCompositePrimaryKeyName()
+    {
+        String compPKPattern =
+            String.valueOf(this.getConfiguredProperty(ENTITY_COMPOSITE_PRIMARY_KEY_NAME_PATTERN));
 
+        return MessageFormat.format(
+            compPKPattern,
+            new Object[] {StringUtils.trimToEmpty(this.getName())});
+    }
+    
     /**
      * @see org.andromda.metafacades.uml.EntityFacade#getEntityListenerName()
      */
@@ -545,6 +567,17 @@ public class EJB3EntityFacadeLogicImpl
             new Object[] {StringUtils.trimToEmpty(this.getName())});
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetFullyQualifiedEntityCompositePrimaryKeyName()
+     */
+    protected String handleGetFullyQualifiedEntityCompositePrimaryKeyName()
+    {
+        return EJB3MetafacadeUtils.getFullyQualifiedName(
+                this.getPackageName(),
+                this.getEntityCompositePrimaryKeyName(),
+                null);
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetEntityImplementationName()
      */
@@ -837,7 +870,11 @@ public class EJB3EntityFacadeLogicImpl
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#
      *      handleGetAttributesAsList(java.util.Collection, boolean, boolean)
      */
-    protected String handleGetAttributesAsList(Collection attributes, boolean includeTypes, boolean includeNames)
+    protected String handleGetAttributesAsList(
+            Collection attributes, 
+            boolean includeTypes, 
+            boolean includeNames,
+            boolean includeCompPKAttr)
     {
         if (!includeNames && !includeTypes || attributes == null)
         {
@@ -849,9 +886,14 @@ public class EJB3EntityFacadeLogicImpl
 
         for (final Iterator it = attributes.iterator(); it.hasNext();)
         {
-            //AttributeFacade attr = (AttributeFacade)it.next();
             EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade)it.next();
-            if (!attr.isVersion())
+            /**
+             * Do not include attributes that are assigned for optimistic lock value for version or
+             * identifier attributes for entities with a composite primary key .
+             */
+            boolean isCompositePK = this.isCompositePrimaryKeyPresent();
+            if (!attr.isVersion() && 
+                    ((isCompositePK && (!attr.isIdentifier() || includeCompPKAttr)) || !isCompositePK))
             {
                 sb.append(separator);
                 separator = ", ";
@@ -876,5 +918,18 @@ public class EJB3EntityFacadeLogicImpl
     protected boolean handleIsGenericFinders()
     {
         return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(ENTITY_GENERIC_FINDERS)));
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsCompositePrimaryKeyPresent()
+     */
+    protected boolean handleIsCompositePrimaryKeyPresent()
+    {
+        boolean isCompositePK = false;
+        if (this.getIdentifiers().size() > 1)
+        {
+            isCompositePK = true;
+        }
+        return isCompositePK;
     }
 }
