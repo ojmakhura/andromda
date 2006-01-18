@@ -64,6 +64,20 @@
         </modelElements>
     </template>
 
+    <template 
+        path="templates/ejb3/EntityCompositePK.vsl"
+        outputPattern="$generatedFile" 
+        outlet="entity-beans"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
+                    <property name="compositePrimaryKeyPresent">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
     <template
         path="templates/ejb3/persistence.xml.vsl"
         outputPattern="META-INF/persistence.xml"
@@ -172,7 +186,6 @@
         </modelElements>
     </template>
     
-    <!--  
     <template
         path="templates/ejb3/ejb-jar.xml.vsl"
         outputPattern="META-INF/ejb-jar.xml"
@@ -200,7 +213,6 @@
             </modelElement>
         </modelElements>
     </template>
-    -->
     
 	<!-- Message Driven Bean Templates -->
 	
