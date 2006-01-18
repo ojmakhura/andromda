@@ -10,7 +10,11 @@ package $service.packageName;
  *
 $service.getDocumentation(" * ")
  */
-@javax.ejb.${service.type}
+/**
+ * Do not specify the javax.ejb.${service.type} annotation
+ * Instead, define the session bean in the ejb-jar.xml descriptor
+ * javax.ejb.${service.type}
+ */
 #if ($service.transactionManagement)
 @javax.ejb.TransactionManagement(javax.ejb.TransactionManagementType.${service.transactionManagement})
 #end
@@ -277,6 +281,9 @@ $operation.getDocumentation("     * ")
 #*    *##end
 #*    *##if ($operation.flushMode)
     @javax.persistence.FlushMode(javax.persistence.FlushModeType.${operation.flushMode})
+#*    *##end
+#*    *##if ($operation.timeoutCallback)
+    @javax.ejb.Timeout
 #*    *##end
 #*    *##set ($returnType = $operation.returnType.fullyQualifiedName)
 #*    *##if ($operation.exceptionsPresent)
