@@ -265,4 +265,15 @@ public class EJB3SessionOperationFacadeLogicImpl
         return allRoles;
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsTimeoutCallback()
+     */
+    protected boolean handleIsTimeoutCallback()
+    {
+        boolean isTimeout = false;
+        isTimeout = BooleanUtils.toBoolean(
+                (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SERVICE_TIMER_TIMEOUT));
+        return isTimeout;
+    }
+
 }
