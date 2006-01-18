@@ -105,14 +105,53 @@ public class EJB3EntityAttributeFacadeLogicImpl
 		String genType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_GENERATOR_TYPE);
         if (StringUtils.isBlank(genType))
         {
-            genType = String.valueOf(this.getConfiguredProperty(EJB3Globals.ENTITY_DEFAULT_GENERATOR_TYPE));
-            if (StringUtils.isBlank(genType))
+            if (this.getType().isStringType() || this.getType().isDateType() || this.getType().isTimeType())
             {
-                genType = EJB3Globals.GENERATOR_TYPE_AUTO;
+                genType = EJB3Globals.GENERATOR_TYPE_NONE;
+            }
+            else
+            {
+                genType = String.valueOf(this.getConfiguredProperty(EJB3Globals.ENTITY_DEFAULT_GENERATOR_TYPE));
+                if (StringUtils.isBlank(genType))
+                {
+                    genType = EJB3Globals.GENERATOR_TYPE_AUTO;
+                }
             }
         }
         return genType;
 	}
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsSequenceGeneratorType()
+     */
+    protected boolean handleIsGeneratorTypeSequence()
+    {
+        boolean isSequence = false;
+        if (StringUtils.isNotBlank(this.getGeneratorType())) 
+        {
+            if (this.getGeneratorType().equalsIgnoreCase(EJB3Globals.GENERATOR_TYPE_SEQUENCE))
+            {
+                isSequence = true;
+            }
+        }
+        return isSequence;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsTableGeneratorType()
+     */
+    protected boolean handleIsGeneratorTypeTable()
+    {
+        boolean isTable = false;
+        if (StringUtils.isNotBlank(this.getGeneratorType())) 
+        {
+            if (this.getGeneratorType().equalsIgnoreCase(EJB3Globals.GENERATOR_TYPE_TABLE))
+            {
+                isTable = true;
+            }
+        }
+        return isTable;
+    }
     
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleGetGeneratorName()
@@ -143,38 +182,6 @@ public class EJB3EntityAttributeFacadeLogicImpl
             pkColumnValue = this.getOwner().getName() + "_" + this.getColumnName();
         }
         return pkColumnValue;
-    }
-
-    /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsSequenceGeneratorType()
-     */
-    protected boolean handleIsSequenceGeneratorType()
-    {
-        boolean isSequence = false;
-        if (StringUtils.isNotBlank(this.getGeneratorType())) 
-        {
-            if (this.getGeneratorType().equalsIgnoreCase(EJB3Globals.GENERATOR_TYPE_SEQUENCE))
-            {
-                isSequence = true;
-            }
-        }
-        return isSequence;
-    }
-
-    /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsTableGeneratorType()
-     */
-    protected boolean handleIsTableGeneratorType()
-    {
-        boolean isTable = false;
-        if (StringUtils.isNotBlank(this.getGeneratorType())) 
-        {
-            if (this.getGeneratorType().equalsIgnoreCase(EJB3Globals.GENERATOR_TYPE_TABLE))
-            {
-                isTable = true;
-            }
-        }
-        return isTable;
     }
     
     /**
