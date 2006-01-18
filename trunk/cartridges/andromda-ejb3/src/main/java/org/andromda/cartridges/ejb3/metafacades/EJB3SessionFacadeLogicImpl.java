@@ -58,6 +58,12 @@ public class EJB3SessionFacadeLogicImpl
      * The property which stores the pattern defining the service bean delegate class name.
      */
     private static final String SERVICE_DELEGATE_NAME_PATTERN = "serviceDelegateNamePattern";
+
+    /**
+     * The property which stores the persistence context unit name associated with the default
+     * Entity Manager.
+     */
+    private static final String PERSISTENCE_CONTEXT_UNIT_NAME = "persistenceContextUnitName";
     
     
     // ---------------- constructor -------------------------------
@@ -414,7 +420,13 @@ public class EJB3SessionFacadeLogicImpl
      */
     protected String handleGetPersistenceContextUnitName()
     {
-        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_PERSISTENCE_CONTEXT_UNIT_NAME);
+        String unitName = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_PERSISTENCE_CONTEXT_UNIT_NAME);
+        if (StringUtils.isBlank(unitName))
+        {
+            unitName = StringUtils.trimToEmpty(
+                ObjectUtils.toString(this.getConfiguredProperty(PERSISTENCE_CONTEXT_UNIT_NAME)));
+        }
+        return unitName;
     }
 
     /**
