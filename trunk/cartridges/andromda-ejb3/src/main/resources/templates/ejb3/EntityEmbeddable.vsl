@@ -54,9 +54,20 @@ public abstract class ${entity.entityEmbeddableName}
 #if (!$attributes.empty)
 
     // ----------- Attribute Definitions ------------
-    
+
+#if ($entity.compositePrimaryKeyPresent)
+    private ${entity.fullyQualifiedEntityCompositePrimaryKeyName} pk;
+#end
+## Only include identifier attributes if a composite primary key is NOT present
 #**##foreach ($attribute in $attributes)
+#*  *##if ($entity.compositePrimaryKeyPresent && $attribute.identifier)
+#*    *##set ($doAttribute = false)
+#*  *##else
+#*    *##set ($doAttribute = true)
+#*  *##end
+#*  *##if ($doAttribute)
     private $attribute.type.fullyQualifiedName $attribute.name;
+#*  *##end
 #**##end
 #end
 #set ($entityRelations = $entity.allEntityRelations)
@@ -87,22 +98,21 @@ public abstract class ${entity.entityEmbeddableName}
 #set ($allAttributes = $transform.filterByVisibility($entity.allInstanceAttributes, "public"))
 #set ($inheritedAttributes = $transform.filterByVisibility($entity.inheritedInstanceAttributes, "public"))
 #set ($instanceAttributes = $transform.filterByVisibility($entity.instanceAttributes, "public"))
-
     /**
      * Implementation for the main constructor with all POJO attributes.
      * This method sets all POJO fields defined in this class to the
      * values provided by the parameters.
      *
-#foreach($attribute in $transform.filterUpdatableAttributes($allAttributes))
+#foreach($attribute in $transform.filterUpdatableAttributes($allAttributes, $entity.compositePrimaryKeyPresent))
      * @param $attribute.name Value for the ${attribute.name} property
 #end
      */
-    public ${entity.entityEmbeddableName}($entity.getAttributesAsList($allAttributes, true, true)) 
+    public ${entity.entityEmbeddableName}($entity.getAttributesAsList($allAttributes, true, true, false)) 
     {
 #if(!$inheritedAttributes.empty)
-        super($entity.getAttributesAsList($inheritedAttributes, false, true));
+        super($entity.getAttributesAsList($inheritedAttributes, false, true, false));
 #end
-#foreach ($attribute in $transform.filterUpdatableAttributes($instanceAttributes))
+#foreach ($attribute in $transform.filterUpdatableAttributes($instanceAttributes, $entity.compositePrimaryKeyPresent))
         ${attribute.setterName}(${attribute.name});
 #end
     }
@@ -119,10 +129,10 @@ public abstract class ${entity.entityEmbeddableName}
      * @param $relation.otherEnd.name Value for the ${relation.otherEnd.name} relation role
 #*  *##end
      */
-    public ${entity.entityEmbeddableName}($entity.getAttributesAsList($allAttributes, true, true)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)#if ($relation.one2Many || $relation.many2Many)${relation.relationType}<${relation.otherEnd.type.name}> $relation.otherEnd.name#else${relation.relationType} $relation.otherEnd.name#end#if($velocityCount != $relations.size()), #end#end)
+    public ${entity.entityEmbeddableName}($entity.getAttributesAsList($allAttributes, true, true, false)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)#if ($relation.one2Many || $relation.many2Many)${relation.relationType}<${relation.otherEnd.type.name}> $relation.otherEnd.name#else${relation.relationType} $relation.otherEnd.name#end#if($velocityCount != $relations.size()), #end#end)
     {
         // Call suitable class constructor
-        this($entity.getAttributesAsList($allAttributes, false, true));
+        this($entity.getAttributesAsList($allAttributes, false, true, false));
         
         // Set the CMR relations
 #*  *##foreach ($relation in $relations)
@@ -147,6 +157,19 @@ $operation.getDocumentation("    * ")
         this.${attribute} = $attribute;
 #**##end
     }
+    
+#end
+#if ($entity.compositePrimaryKeyPresent)
+    /**
+     * Constructor with composite primary key arg only
+     *
+     * @param pk Composite primary key
+     */
+    public ${entity.entityEmbeddableName}(${entity.fullyQualifiedEntityCompositePrimaryKeyName} pk)
+    {
+        this.pk = pk;
+    }
+    
 #end
 #if (!$constants.empty)
 
@@ -161,40 +184,74 @@ $constant.getDocumentation("     * ")
     {
         return $constant.name;
     }
+    
 #**##end
+#end
+#if ($entity.compositePrimaryKeyPresent)
+
+    // ----- Composite PK Accessors ------
+
+    /**
+     * Return the composite primary key for ${entity.entityName}
+     *
+     * @return The composite primary key
+     */
+    @javax.persistence.EmbeddedId
+    public ${entity.fullyQualifiedEntityCompositePrimaryKeyName} getPk()
+    {
+        return this.pk;
+    }
+    
+    /**
+     * Set the composite primary key for ${entity.entityName}
+     *
+     * @param pk The composite primary key
+     */
+    public void setPk(${entity.fullyQualifiedEntityCompositePrimaryKeyName} pk)
+    {
+        this.pk = pk;
+    }
+    
 #end
 #if (!$attributes.empty)
 
     // -------- Attribute Accessors ----------
-    
+
 #**##foreach ($attribute in $entity.attributes)
-#*  *##set ($visibility = $attribute.visibility)
+## Only include accessors for identifier attributes if entity does not have a composite primary key
+#*  *##if ($entity.compositePrimaryKeyPresent && $attribute.identifier)
+#*    *##set ($doAttributeAccessors = false)
+#*  *##else
+#*    *##set ($doAttributeAccessors = true)
+#*  *##end
+#*  *##if ($doAttributeAccessors)
+#*    *##set ($visibility = $attribute.visibility)
     /**
      * Get the $attribute.name property.
 $attribute.getDocumentation("     * ")
      * @return $attribute.type.fullyQualifiedName The value of ${attribute.name}
      */
-#*  *##if ($attribute.identifier)
-#*    *##if ($attribute.sequenceGeneratorType || $attribute.tableGeneratorType)
+#*    *##if ($attribute.identifier)
+#*      *##if ($attribute.sequenceGeneratorType || $attribute.tableGeneratorType)
     @javax.persistence.TableGenerator(name = "${attribute.generatorName}"#if ($attribute.sequenceGeneratorType), sequenceName = "${attribute.generatorSourceName}"#elseif ($attribute.tableGeneratorType), tableName = "${attribute.generatorSourceName}"#end,#if ($attribute.tableGeneratorType) pkColumnValue = "${attribute.generatorPkColumnValue}",#end#if ($attribute.sequenceGeneratorType) initialValue = ${attribute.generatorInitialValue},#end allocationSize = ${attribute.generatorAllocationSize})
-#*    *##end
+#*      *##end
     @javax.persistence.Id(generate = javax.persistence.GeneratorType.${attribute.generatorType}#if ($attribute.sequenceGeneratorType || $attribute.tableGeneratorType), generator = "${attribute.generatorName}"#end)
-#*  *##end
-#*  *##if ($attribute.version)
+#*    *##end
+#*    *##if ($attribute.version)
     @javax.persistence.Version
-#*  *##end
-#*  *##if ($attribute.transient)
+#*    *##end
+#*    *##if ($attribute.transient)
     @javax.persistence.Transient
-#*  *##end
-#*  *##if ($attribute.lobType)
+#*    *##end
+#*    *##if ($attribute.lobType)
 ## LOB type is specified - also sepcify FetchType if set to EAGER since default fetch type for LOB annotation is LAZY
     @javax.persistence.Lob(type = javax.persistence.LobType.${attribute.lobType}#if ($attribute.eager), fetch = javax.persistence.FetchType.EAGER#end)
-#*  *##end
+#*    *##end
     @javax.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.columnNullable}#end#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
 ## Only add the fetch type property for LAZY hints - default is EAGER
-#*  *##if ($attribute.lazy)
+#*    *##if ($attribute.lazy)
     @javax.persistence.Basic(fetch = javax.persistence.FetchType.LAZY)
-#*  *##end
+#*    *##end
     public $attribute.type.fullyQualifiedName ${attribute.getterName}()
     {
         return $attribute.name;
@@ -210,6 +267,7 @@ $attribute.getDocumentation("     * ")
         this.${attribute.name} = value;
     }
     
+#*  *##end
 #**##end
 #end
 
@@ -363,11 +421,12 @@ $attribute.getDocumentation("     * ")
     {
         return em.createQuery("FROM ${entity.tableName} AS $stringUtils.uncapitalize(${entity.name})").getResultList();
     }
-    
-#**##foreach ($attribute in $entity.attributes)
-#*  *##if ($attribute.identifier)
-#*    *##set ($identifierName = $attribute.name)
-#*    *##set ($identifierType = $attribute.type.fullyQualifiedName)
+#**##if (!$entity.compositePrimaryKeyPresent)
+#**##foreach ($attribute in $entity.getIdentifiers(false))
+#*  *##set ($identifierName = $attribute.name)
+#*  *##set ($identifierType = $attribute.type.fullyQualifiedName)
+#*  *##set ($identifierTypePrimitive = $attribute.type.primitive)
+#*  *##if ($attribute.type.primitive)
 #*    *##set ($identifierTypeWrapperName = $attribute.type.wrapperName)
 #*  *##end
 #**##end
@@ -380,9 +439,10 @@ $attribute.getDocumentation("     * ")
      */
     public static ${entity.fullyQualifiedEntityName} findByPrimaryKey(javax.persistence.EntityManager em, ${identifierType} ${identifierName})
     {
-## Identifier will always be a primitive type
-        return em.find(${entity.fullyQualifiedEntityName}.class, new ${identifierTypeWrapperName}(${identifierName}));
+## If the identifier is a primitive type, use the wrapper class
+        return em.find(${entity.fullyQualifiedEntityName}.class,#if ($identifierTypePrimitive) new ${identifierTypeWrapperName}(${identifierName})#else ${identifierName}#end);
     }
+#**##end
 #end
 #set ($finders = $entity.getQueryOperations(true))
 #if (!$finders.empty)
