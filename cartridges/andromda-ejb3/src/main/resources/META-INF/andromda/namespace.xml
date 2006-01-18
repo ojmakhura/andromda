@@ -323,6 +323,13 @@
 			        class name.
 			    </documentation>
 			</property>
+			<property name="entityCompositePrimaryKeyNamePattern">
+			    <default>{0}PK</default>
+			    <documentation>
+			        The pattern to use when constructing the composite
+			        primary key class name.
+			    </documentation>
+			</property>
 			<property name="jndiNamePrefix" required="false">
 				<documentation>
 					The prefix to give to the EJB JNDI names (this
@@ -357,6 +364,13 @@
 						<li>weblogic</li>
 					</ul>
 				</documentation>
+			</property>
+			<property name="persistenceContextUnitName" required="false">
+			    <documentation>
+			        Specifies the default persistence context
+			        unit name associated with the default Entity
+			        Manager.
+			    </documentation>
 			</property>
 			<property name="entityAccessType">
 				<default>PROPERTY</default>
