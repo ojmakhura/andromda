@@ -35,8 +35,9 @@
     </template>
 
     <!-- 
-        Do not generated the entity implementation class if marked
-         to be an embeddable super class 
+        Do not generate the entity implementation class if marked
+        to be an embeddable super class OR is a subclass of an 
+        entity inheritance hierarchy.
     -->
     <template 
 	    path="templates/ejb3/Entity.vsl"
@@ -47,6 +48,7 @@
             <modelElement>
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
                     <property name="embeddableSuperclass">false</property>
+                    <property name="requiresGeneralizationMapping">false</property>
                 </type>
             </modelElement>
         </modelElements>
