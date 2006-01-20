@@ -832,7 +832,10 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected boolean handleIsRequiresGeneralizationMapping()
     {
-        return (this.getSuperEntity() != null && !this.getSuperEntity().isEmbeddableSuperclass());
+        return (this.getSuperEntity() != null && 
+                (this.getSuperEntity().isInheritanceSingleTable() || 
+                        this.getSuperEntity().isInheritanceTablePerClass() ||
+                        this.getSuperEntity().isInheritanceJoined()));
     }
 
     /**
@@ -866,6 +869,14 @@ public class EJB3EntityFacadeLogicImpl
         return isEmbeddableSuperclass && isRoot();
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsEmbeddableSuperclassGeneralizationExists()
+     */
+    protected boolean handleIsEmbeddableSuperclassGeneralizationExists()
+    {
+        return (this.getSuperEntity() != null && this.getSuperEntity().isEmbeddableSuperclass());
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#
      *      handleGetAttributesAsList(java.util.Collection, boolean, boolean)
