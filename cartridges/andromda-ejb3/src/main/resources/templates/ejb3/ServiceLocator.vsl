@@ -98,7 +98,7 @@ public class $serviceLocatorName
 
 #foreach ($service in $services)
     /**
-     * Gets an instance of {@link $service.fullyQualifiedServiceRemoteName}.
+     * Gets an instance of {@link ${service.fullyQualifiedServiceRemoteInterfaceName}}.
      *
      * @param env the Context environment properties.  Null represents no properties.
      * @throws javax.naming.NamingException failure to lookup remote service interface.
