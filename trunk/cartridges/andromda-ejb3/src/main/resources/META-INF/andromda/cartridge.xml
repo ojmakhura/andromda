@@ -195,9 +195,12 @@
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
-        <modelElements variable="services">
-            <modelElement>
+        <modelElements>
+            <modelElement variable="services">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+            <modelElement variable="mdbs">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade"/>
             </modelElement>
         </modelElements>
     </template>
@@ -209,9 +212,12 @@
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
-        <modelElements variable="services">
-            <modelElement>
+        <modelElements>
+            <modelElement variable="services">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+            <modelElement variable="mdbs">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade"/>
             </modelElement>
         </modelElements>
     </template>
