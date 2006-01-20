@@ -124,16 +124,14 @@ public abstract class ${service.serviceName}
 #*  *##set ($reference = $dependency.targetElement)
 #*  *##if ($reference.destinationTypeQueue)
 #*    *##if (!$queueConnectionFactoryDefined)
-## NOTE: CHANGE TO USE mappedName
-    @javax.annotation.Resource(name = "ConnectionFactory", type = javax.jms.QueueConnectionFactory.class)
+    @javax.annotation.Resource(mappedName = "ConnectionFactory")
     protected javax.jms.QueueConnectionFactory queueFactory;
 #*      *##set ($queueConnectionFactoryDefined = true)
     
 #*    *##end
 #*  *##elseif ($reference.destinationTypeTopic)
 #*    *##if (!$topicConnectionFactoryDefined)
-## NOTE: CHANGE TO USE mappedName
-    @javax.annotation.Resource(name = "ConnectionFactory", type = javax.jms.TopicConnectionFactory.class)
+    @javax.annotation.Resource(mappedName = "ConnectionFactory")
     protected javax.jms.TopicConnectionFactory topicFactory;
 #*      *##set ($topicConnectionFactoryDefined = true)
 
@@ -142,9 +140,9 @@ public abstract class ${service.serviceName}
     /**
      * Inject ${reference.destinationType}
      */
-    @javax.annotation.Resource(name = "${reference.destination}", type = #if ($reference.destinationTypeQueue)javax.jms.Queue.class#elseif ($reference.destinationTypeTopic)javax.jms.Topic.class#end)
-    ## NOTE: CHANGE TO USE mappedName
-    protected #if ($reference.destinationTypeQueue)javax.jms.Queue#elseif ($reference.destinationTypeTopic)javax.jms.Topic#end $stringUtils.uncapitalize(${reference.name});
+    @javax.annotation.Resource(mappedName = "${reference.destination}")
+## NOTE: CHANGE TO USE mappedName
+    protected javax.jms.Destination $stringUtils.uncapitalize(${reference.name});
 #**##end
 #end
 #set ($constants = $service.getConstants(true))
