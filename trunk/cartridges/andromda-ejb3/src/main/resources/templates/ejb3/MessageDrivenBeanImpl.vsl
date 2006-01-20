@@ -9,7 +9,6 @@ package $mdb.packageName;
  */
 public class ${mdb.messageDrivenImplementationName}
     extends ${mdb.fullyQualifiedMessageDrivenName}
-    implements javax.jms.MessageListener
 {
 
 
@@ -29,6 +28,7 @@ public class ${mdb.messageDrivenImplementationName}
     {
         // Implementation
     }
+
 #set ($operations = $mdb.operations)
 #if (!$operations.empty)
 
