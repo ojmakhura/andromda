@@ -49,7 +49,6 @@ $mdb.getDocumentation(" * ")
 @javax.annotation.security.RunAs("${mdb.runAs}")
 #end
 public abstract class ${mdb.messageDrivenName}
-    implements javax.jms.MessageListener
 {
     // ------ Message Driven Context Injection ------
     
@@ -82,7 +81,7 @@ public abstract class ${mdb.messageDrivenName}
      * Inject session EJB ${reference.name};
      */
     @javax.annotation.EJB
-    protected ${reference.fullyQualifiedServiceName} $stringUtils.uncapitalize(${reference.name});
+    protected ${reference.fullyQualifiedServiceRemoteInterfaceName} $stringUtils.uncapitalize(${reference.name});
 #**##end
 #end
 
