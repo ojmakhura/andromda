@@ -112,7 +112,7 @@ public abstract class ${service.serviceName}
      * Inject session EJB ${reference.name}
      */
     @javax.annotation.EJB
-    protected ${reference.fullyQualifiedServiceName} $stringUtils.uncapitalize(${reference.name});
+    protected ${reference.fullyQualifiedServiceRemoteInterfaceName} $stringUtils.uncapitalize(${reference.name});
 #**##end
 #end
 #set ($mdbReferences = $service.messageDrivenReferences)
