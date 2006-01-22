@@ -318,4 +318,12 @@ public class EJB3MessageDrivenFacadeLogicImpl
         return typeTopic;
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetEnvironmentEntries(boolean)
+     */
+    protected Collection handleGetEnvironmentEntries(boolean follow)
+    {
+        return EJB3MetafacadeUtils.getEnvironmentEntries(this, follow);
+    }
+
 }
