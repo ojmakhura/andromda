@@ -193,6 +193,17 @@
 					Entity
 				</appliedOnElement>
 			</element>
+			<element name="ENV_ENTRY">
+			    <documentation>
+			        Used to specify an environment entry which is defined
+			        in the ejb-jar.xml descriptor and can be injected
+			        in a bean.
+			    </documentation>
+			    <value>EnvEntry</value>
+			    <appliedOnElement>
+			        Attribute
+			    </appliedOnElement>
+			</element>
 		</elementGroup>
 		<elementGroup name="Tagged Values">
 			<element name="ATTRIBUTE_PERSISTENCE_OPTIONAL">
