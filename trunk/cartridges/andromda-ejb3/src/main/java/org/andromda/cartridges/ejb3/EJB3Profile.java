@@ -47,10 +47,10 @@ public class EJB3Profile
     public static final String STEREOTYPE_SELECT_METHOD = "SelectMethod";
     
     /**
-     * Specifies the environment entry stereotype - used in EJB2.x
-     * This may be deprecated in future releases.
+     * Specifies the environment entry stereotype used on static variables
+     * to permit Resource injection.
      */
-    public static final String STEREOTYPE_ENV_ENTRY = "EnvEntry";
+    public static final String STEREOTYPE_ENV_ENTRY = profile.get("ENV_ENTRY");
     
     /**
      * Specifies the version stereotype - optimistic lock value of an attribute of an entity.
