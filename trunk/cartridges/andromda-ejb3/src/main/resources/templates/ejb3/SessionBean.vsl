@@ -160,8 +160,27 @@ public abstract class ${service.serviceName}
     // ------------ Attributes ------------------
     
 #**##foreach ($attribute in $instanceAttributes)
-    /** The $attribute.name property */
-    private $attribute.type.fullyQualifiedName $attribute.name;
+    /**
+     * The $attribute.name property
+     */
+    protected $attribute.type.fullyQualifiedName $attribute.name;
+    
+#**##end
+#end
+#set ($envEntries = $service.getEnvironmentEntries(true))
+#if (!$envEntries.empty)
+
+    // ---------- Env Entry Injection -----------
+    // NOTE: environment entry resource injection is not
+    // available spec compliant until RC4
+    
+#**##foreach ($envEntry in $envEntries)
+    /**
+     * The $envEntry.name resource injection
+     */
+    @javax.annotation.Resource
+    protected $envEntry.type.fullyQualifiedName $envEntry.name;
+    
 #**##end
 #end
     

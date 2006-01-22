@@ -82,6 +82,21 @@ public abstract class ${mdb.messageDrivenName}
      */
     @javax.annotation.EJB
     protected ${reference.fullyQualifiedServiceRemoteInterfaceName} $stringUtils.uncapitalize(${reference.name});
+    
+#**##end
+#end
+#set ($envEntries = $mdb.getEnvironmentEntries(true))
+#if (!$envEntries.empty)
+
+    // ---------- Env Entry Injection -----------
+    
+#**##foreach ($envEntry in $envEntries)
+    /**
+     * The $envEntry.name resource injection
+     */
+    @javax.annotation.Resource
+    protected $envEntry.type.fullyQualifiedName $envEntry.name;
+    
 #**##end
 #end
 
