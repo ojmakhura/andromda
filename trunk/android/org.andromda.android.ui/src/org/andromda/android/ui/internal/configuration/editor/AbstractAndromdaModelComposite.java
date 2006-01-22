@@ -7,7 +7,7 @@ import org.eclipse.ui.forms.SectionPart;
 
 /**
  * This composite provides easy access to the edited model.
- *
+ * 
  * @author Peter Friese
  * @since 28.12.2005
  */
@@ -17,26 +17,27 @@ public abstract class AbstractAndromdaModelComposite
 
     /**
      * Creates a new composite.
-     *
-     * @param parentSection
-     * @param style
+     * 
+     * @param parentSection The parent section.
+     * @param style The style for this composite.
      */
-    public AbstractAndromdaModelComposite(SectionPart parentSection,
-        int style)
+    public AbstractAndromdaModelComposite(final SectionPart parentSection,
+        final int style)
     {
         super(parentSection, style);
     }
 
     /**
      * Provides access to the AndroMDA configuration document.
-     *
+     * 
      * @return The instance of the AndroMDA configuration that is being edited.
      */
     public IAndromdaDocumentEditorModel getAndromdaDocumentEditorModel()
     {
         if (getParentSection() instanceof AbstractAndromdaModelSectionPart)
         {
-            AbstractAndromdaModelSectionPart andromdaModelSection = (AbstractAndromdaModelSectionPart)getParentSection();
+            AbstractAndromdaModelSectionPart andromdaModelSection = 
+                (AbstractAndromdaModelSectionPart)getParentSection();
             return andromdaModelSection.getAndromdaDocumentEditorModel();
         }
         return null;
@@ -44,7 +45,7 @@ public abstract class AbstractAndromdaModelComposite
 
     /**
      * Provides easy access to the AndroMDA configuration document.
-     *
+     * 
      * @return The AndroMDA configuration document being edited.
      */
     public AndromdaDocument getAndromdaDocument()
