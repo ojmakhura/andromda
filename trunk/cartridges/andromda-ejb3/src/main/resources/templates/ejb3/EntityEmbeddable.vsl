@@ -125,32 +125,35 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
 #set ($allAttributes = $transform.filterByVisibility($entity.allInstanceAttributes, "public"))
 #set ($inheritedAttributes = $transform.filterByVisibility($entity.inheritedInstanceAttributes, "public"))
 #set ($instanceAttributes = $transform.filterByVisibility($entity.instanceAttributes, "public"))
+#if ($entity.syntheticCreateMethodAllowed)
     /**
      * Implementation for the main constructor with all POJO attributes.
      * This method sets all POJO fields defined in this class to the
      * values provided by the parameters.
      *
-#foreach($attribute in $transform.filterUpdatableAttributes($allAttributes, $entity.compositePrimaryKeyPresent))
+#**##foreach($attribute in $transform.filterUpdatableAttributes($allAttributes, $entity.compositePrimaryKeyPresent))
      * @param $attribute.name Value for the ${attribute.name} property
-#end
+#**##end
      */
     public #if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSuperclass)${entity.entityEmbeddableName}#else${entity.entityName}#end($entity.getAttributesAsList($allAttributes, true, true, false)) 
     {
-#if(!$inheritedAttributes.empty)
+#**##if(!$inheritedAttributes.empty)
         super($entity.getAttributesAsList($inheritedAttributes, false, true, false));
-#end
-#foreach ($attribute in $transform.filterUpdatableAttributes($instanceAttributes, $entity.compositePrimaryKeyPresent))
+#**##end
+#**##foreach ($attribute in $transform.filterUpdatableAttributes($instanceAttributes, $entity.compositePrimaryKeyPresent))
         ${attribute.setterName}(${attribute.name});
-#end
+#**##end
     }
+#end
 
 #set ($relations = $entity.allEntityRelations)
 #if (!$relations.empty)
 #**##if ($entity.syntheticCreateMethodAllowed)
     /**
      * Constructor with all POJO attribute values and CMR relations.
-#*  *##foreach($attribute in $allAttributes)
-     * @param $attribute.name Value for the $attribute.name property
+     *
+#*  *##foreach($attribute in $transform.filterUpdatableAttributes($allAttributes, $entity.compositePrimaryKeyPresent))
+     * @param $attribute.name Value for the ${attribute.name} property
 #*  *##end
 #*  *##foreach ($relation in $relations)
      * @param $relation.otherEnd.name Value for the ${relation.otherEnd.name} relation role
@@ -158,8 +161,9 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
      */
     public #if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSuperclass)${entity.entityEmbeddableName}#else${entity.entityName}#end($entity.getAttributesAsList($allAttributes, true, true, false)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)#if ($relation.one2Many || $relation.many2Many)${relation.relationType}<${relation.otherEnd.type.name}> $relation.otherEnd.name#else${relation.relationType} $relation.otherEnd.name#end#if($velocityCount != $relations.size()), #end#end)
     {
-        // Call suitable class constructor
-        this($entity.getAttributesAsList($allAttributes, false, true, false));
+#*  *##foreach ($attribute in $transform.filterUpdatableAttributes($instanceAttributes, $entity.compositePrimaryKeyPresent))
+        ${attribute.setterName}(${attribute.name});
+#*  *##end
         
         // Set the CMR relations
 #*  *##foreach ($relation in $relations)
@@ -224,6 +228,16 @@ $constant.getDocumentation("     * ")
      * @return The composite primary key
      */
     @javax.persistence.EmbeddedId
+#**##set ($identifiers = $entity.getIdentifiers())
+#**##if (!$identifiers.empty)
+    @javax.persistence.AttributeOverrides
+    ({
+#*  *##foreach ($attribute in $identifiers)
+        @javax.persistence.AttributeOverride(name = "${attribute.name}", column = @javax.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.columnNullable}#end#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end))#if($velocityCount != $identifiers.size()),#end
+        
+#*  *##end
+    })
+#**##end
     public ${entity.fullyQualifiedEntityCompositePrimaryKeyName} getPk()
     {
         return this.pk;
