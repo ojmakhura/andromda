@@ -326,4 +326,12 @@ public class EJB3MessageDrivenFacadeLogicImpl
         return EJB3MetafacadeUtils.getEnvironmentEntries(this, follow);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetContainerConfiguration()
+     */
+    protected String handleGetContainerConfiguration()
+    {
+        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_CONTAINER_CONFIGURATION);
+    }
+
 }
