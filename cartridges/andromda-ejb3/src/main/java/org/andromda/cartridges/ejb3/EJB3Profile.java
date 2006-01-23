@@ -135,10 +135,10 @@ public class EJB3Profile
     public static final String TAGGEDVALUE_EJB_TRANSACTION_MANAGEMENT = profile.get("SERVICE_TRANSACTION_MANAGEMENT");
     
     /**
-     * Used in EJB2.x
-     * May be deprecated in future releases.
+     * The tagged value indicating whether to not allow synthetic
+     * (auto generated) create/constructors.
      */
-    public static final String TAGGEDVALUE_EJB_NO_SYNTHETIC_CREATE_METHOD = "@andromda.ejb.noSyntheticCreateMethod";
+    public static final String TAGGEDVALUE_EJB_NO_SYNTHETIC_CREATE_METHOD = profile.get("NO_SYNTHETIC_CREATE_METHOD");
     
     /**
      * The tagged value indicating the finder temporal type.
@@ -386,4 +386,10 @@ public class EJB3Profile
      * Timer Service timeout callback method.
      */
     public static final String TAGGEDVALUE_SERVICE_TIMER_TIMEOUT = profile.get("SERVICE_TIMER_TIMEOUT");
+
+    /**
+     * The tagged value indicating the MDB or session bean
+     * container configuration name specific to JBoss.
+     */
+    public static final String TAGGEDVALUE_EJB_CONTAINER_CONFIGURATION = profile.get("CONTAINER_CONFIGURATION");
 }
