@@ -568,7 +568,8 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetFullyQualifiedEntityCompositePrimaryKeyName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#
+     *      handleGetFullyQualifiedEntityCompositePrimaryKeyName()
      */
     protected String handleGetFullyQualifiedEntityCompositePrimaryKeyName()
     {
@@ -870,7 +871,8 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsEmbeddableSuperclassGeneralizationExists()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#
+     *      handleIsEmbeddableSuperclassGeneralizationExists()
      */
     protected boolean handleIsEmbeddableSuperclassGeneralizationExists()
     {
@@ -879,13 +881,13 @@ public class EJB3EntityFacadeLogicImpl
     
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#
-     *      handleGetAttributesAsList(java.util.Collection, boolean, boolean)
+     *      handleGetAttributesAsList(java.util.Collection, boolean, boolean, boolean)
      */
     protected String handleGetAttributesAsList(
             Collection attributes, 
             boolean includeTypes, 
             boolean includeNames,
-            boolean includeCompPKAttr)
+            boolean includeAutoIdentifiers)
     {
         if (!includeNames && !includeTypes || attributes == null)
         {
@@ -899,23 +901,32 @@ public class EJB3EntityFacadeLogicImpl
         {
             EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade)it.next();
             /**
-             * Do not include attributes that are assigned for optimistic lock value for version or
-             * identifier attributes for entities with a composite primary key .
+             * Do not include attributes that are assigned for optimistic lock value as a version
              */
-            boolean isCompositePK = this.isCompositePrimaryKeyPresent();
-            if (!attr.isVersion() && 
-                    ((isCompositePK && (!attr.isIdentifier() || includeCompPKAttr)) || !isCompositePK))
+            boolean isCompositePKPresent = this.isCompositePrimaryKeyPresent();
+            if (!attr.isVersion())
             {
-                sb.append(separator);
-                separator = ", ";
-                if (includeTypes)
+                /**
+                 * Do not include identifier attributes for entities with a composite primary key
+                 * or if includeAutoIdentifiers is false, do not include identifiers with auto generated values.
+                 */
+                if ((isCompositePKPresent && (includeAutoIdentifiers || !attr.isIdentifier())) || 
+                    (!isCompositePKPresent && 
+                            ((!includeAutoIdentifiers && attr.isIdentifier() && attr.isGeneratorTypeNone()) || 
+                            (includeAutoIdentifiers && attr.isIdentifier()) ||
+                            !attr.isIdentifier())))
                 {
-                    sb.append(attr.getType().getFullyQualifiedName());
-                    sb.append(" ");
-                }
-                if (includeNames)
-                {
-                    sb.append(attr.getName());
+                    sb.append(separator);
+                    separator = ", ";
+                    if (includeTypes)
+                    {
+                        sb.append(attr.getType().getFullyQualifiedName());
+                        sb.append(" ");
+                    }
+                    if (includeNames)
+                    {
+                        sb.append(attr.getName());
+                    }
                 }
             }
                 
