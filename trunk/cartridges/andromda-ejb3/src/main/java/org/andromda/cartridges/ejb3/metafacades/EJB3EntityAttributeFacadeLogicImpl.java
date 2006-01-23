@@ -152,6 +152,54 @@ public class EJB3EntityAttributeFacadeLogicImpl
         }
         return isTable;
     }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsGeneratorTypeAuto()
+     */
+    protected boolean handleIsGeneratorTypeAuto()
+    {
+        boolean isAuto = false;
+        if (StringUtils.isNotBlank(this.getGeneratorType())) 
+        {
+            if (this.getGeneratorType().equalsIgnoreCase(EJB3Globals.GENERATOR_TYPE_AUTO))
+            {
+                isAuto = true;
+            }
+        }
+        return isAuto;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsGeneratorTypeNone()
+     */
+    protected boolean handleIsGeneratorTypeNone()
+    {
+        boolean isNone = false;
+        if (StringUtils.isNotBlank(this.getGeneratorType())) 
+        {
+            if (this.getGeneratorType().equalsIgnoreCase(EJB3Globals.GENERATOR_TYPE_NONE))
+            {
+                isNone = true;
+            }
+        }
+        return isNone;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsGeneratorTypeIdentity()
+     */
+    protected boolean handleIsGeneratorTypeIdentity()
+    {
+        boolean isIdentity = false;
+        if (StringUtils.isNotBlank(this.getGeneratorType())) 
+        {
+            if (this.getGeneratorType().equalsIgnoreCase(EJB3Globals.GENERATOR_TYPE_IDENTITY))
+            {
+                isIdentity = true;
+            }
+        }
+        return isIdentity;
+    }
     
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleGetGeneratorName()
