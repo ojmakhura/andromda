@@ -60,19 +60,23 @@ public class EJB3ScriptHelper
     /**
      * Filter a list of EntityAttributes by removing all non-updatable attributes.
      * This filter currently removes all attributes that are of stereotype Version
-     * and identifier attributes for an entity with a composite primary key class.
+     * It also removes identifier attributes for an entity with a composite primary key class
+     * or if the identifier attribute have a specified generator.
      * 
      * @param list The original list
-     * @param isCompositePK True if entity has a composite primary key 
+     * @param isCompositePKPresent True if entity has a composite primary key 
      * @return Collection A list of EntityAttributes from the original list that are updatable
      */
-    public Collection filterUpdatableAttributes(Collection list, boolean isCompositePK)
+    public Collection filterUpdatableAttributes(Collection list, boolean isCompositePKPresent)
     {
     	Collection retval = new ArrayList(list.size());
     	for (final Iterator iter = list.iterator(); iter.hasNext(); ) 
     	{
     		EJB3EntityAttributeFacade attr = (EJB3EntityAttributeFacade)iter.next();
-    		if (!attr.isVersion() && ((isCompositePK && !attr.isIdentifier()) || !isCompositePK))
+    		if (!attr.isVersion() && 
+                ((isCompositePKPresent && !attr.isIdentifier()) || 
+                 (!isCompositePKPresent && (attr.isIdentifier() && attr.isGeneratorTypeNone()) ||
+                                !attr.isIdentifier())))
     		{
     			retval.add(attr);
     		}
