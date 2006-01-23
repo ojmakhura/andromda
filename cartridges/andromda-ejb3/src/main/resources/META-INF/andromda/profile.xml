@@ -850,7 +850,19 @@
 					can not be used with combined primary keys.
 				</documentation>
 				<value>@andromda.ejb.automaticKey</value>
-				<appliedOnElement>Entity attribute</appliedOnElement>
+				<appliedOnElement>
+				    Entity attribute
+				</appliedOnElement>
+			</element>
+			<element name="NO_SYNTHETIC_CREATE_METHOD">
+			    <documentation>
+			        Used on an Entity bean to decide whether to allow
+			        synthetic (auto generated) create/constructors.
+			    </documentation>
+			    <value>@andromda.ejb.noSyntheticCreateMethod</value>
+			    <appliedOnElement>
+			        Entity
+			    </appliedOnElement>
 			</element>
 			<element name="QUERY">
 				<documentation>
@@ -971,6 +983,14 @@
 					By default, topics are non-durable.
 				</documentation>
 				<value>@andromda.ejb.mdb.subscription.durability</value>
+			</element>
+			<element name="CONTAINER_CONFIGURATION">
+			    <documentation>
+			        Defines the container configuration name set in
+			        jboss.xml to configure the container for a
+			        session bean or MDB.
+			    </documentation>
+			    <value>@andromda.ejb.container.configuration</value>
 			</element>
 		</elementGroup>
 	</elements>
