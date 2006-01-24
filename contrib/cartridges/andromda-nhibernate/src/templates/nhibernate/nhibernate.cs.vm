@@ -20,11 +20,11 @@
             {
                 return true;
             }
-            if (GetType() != obj.GetType())
+            $class.name that = obj as $class.name;
+            if (that == null)
             {
                 return false;
             }
-            $class.name that = ($class.name)obj;
 #foreach ($attribute in $attributeSet)
 #set ($attrType = $attribute.type)
 #set ($attrName = ${stringUtils.upperCamelCaseName($attribute.name)})
