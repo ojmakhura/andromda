@@ -72,7 +72,7 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
 
     // ----------- Constant Definitions -------------
     
-#**##foreach($constant in $constants)
+#**##foreach ($constant in $constants)
     @javax.persistence.Transient
     private static final $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
 #**##end
@@ -93,7 +93,7 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
 #*    *##set ($doAttribute = true)
 #*  *##end
 #*  *##if ($doAttribute)
-    private $attribute.type.fullyQualifiedName $attribute.name;
+    private ${attribute.type.fullyQualifiedName} $attribute.name;
 #*  *##end
 #**##end
 #end
@@ -127,7 +127,7 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
 #set ($instanceAttributes = $transform.filterByVisibility($entity.instanceAttributes, "public"))
 #if ($entity.syntheticCreateMethodAllowed)
     /**
-     * Implementation for the main constructor with all POJO attributes.
+     * Implementation for the constructor with all POJO attributes.
      * This method sets all POJO fields defined in this class to the
      * values provided by the parameters.
      *
@@ -293,17 +293,20 @@ $attribute.getDocumentation("     * ")
 #*    *##if ($attribute.lazy)
     @javax.persistence.Basic(fetch = javax.persistence.FetchType.LAZY)
 #*    *##end
-    public $attribute.type.fullyQualifiedName ${attribute.getterName}()
+    public ${attribute.type.fullyQualifiedName} ${attribute.getterName}()
     {
         return $attribute.name;
     }
 
-## Allow only if not a version attribute since they are set by the container - No setter method is made available
+##
+## Allow only if attribute is not a version attribute since they are 
+## set by the container - No setter method is made available.
+##
     /**
      * Set the $attribute.name property.
      * @param value the new value
      */
-   #if (!$attribute.version) public#else protected#end void ${attribute.setterName}($attribute.type.fullyQualifiedName value)
+   #if (!$attribute.version) public#else protected#end void ${attribute.setterName}(${attribute.type.fullyQualifiedName} value)
     {
         this.${attribute.name} = value;
     }
@@ -358,7 +361,7 @@ $attribute.getDocumentation("     * ")
      * @return $associationEnd.relationType
      */
 #*    *##set ($argExists = false)
-    @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end#**#mappedBy="${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
+    @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
 #*    *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
 #*      *##if ($stringUtils.isNotEmpty(${target.orderByClause}))
     @javax.persistence.OrderBy("${target.orderByClause}")
@@ -390,7 +393,7 @@ $attribute.getDocumentation("     * ")
      * @return $associationEnd.relationType
      */
 #*    *##set ($argExists = false)
-    @javax.persistence.OneToOne(#if (!$target.optional)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end#**#mappedBy="${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.LAZY#end)
+    @javax.persistence.OneToOne(#if (!$target.optional)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.LAZY#end)
 #*    *##if($associationEnd.owning)
     @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
 #*    *##end
@@ -467,6 +470,7 @@ $attribute.getDocumentation("     * ")
     {
         return em.createQuery("FROM ${entity.tableName} AS $stringUtils.uncapitalize(${entity.name})").getResultList();
     }
+    
 #**##end
 ## Only include the findByPrimaryKey method if not an inheriting class.
 ## Classes that inherit from a base class use the primary key identifier
@@ -511,9 +515,9 @@ $attribute.getDocumentation("     * ")
 #*    *##set ($parameters = "javax.persistence.EntityManager em, ${parameterList}")
 #*  *##end
     /**
+     * Finder method for ${entity.name} entity using a query.
 $finder.getDocumentation("     * ")
      *
-     * Finder method for ${entity.name} entity using a query.
      * @param em javax.persistence.EntityManager
 #*  *##foreach ($parameter in $finder.arguments)
      * @param $parameter.type.fullyQualifiedName ${parameter.name}
@@ -530,10 +534,15 @@ $finder.getDocumentation("     * ")
 #*    *##elseif ($parameter.maxResults)
         query.setMaxResults(${parameter.name});
 #*    *##else
+##
+## Find the attribute matching the parameter name
+## If the parameter type is an enum:
+##    If 
+##
 #*      *##if ($finder.useNamedParameters)
-        query.setParameter("${parameter.name}",#if ($parameter.type.primitive) new ${parameter.type.wrapperName}(${parameter.name})#else ${parameter.name}#end#if ($parameter.temporalType), javax.persistence.TemporalType.${parameter.temporalType}#end);
+        query.setParameter("${parameter.name}",#if ($parameter.type.primitive) new ${parameter.type.wrapperName}(${parameter.name})#else ${parameter.name}#if ($parameter.enumerationTypeOrdinal).ordinal()#elseif ($parameter.enumerationTypeString).name()#end#end#if ($parameter.temporalType), javax.persistence.TemporalType.${parameter.temporalType}#end);
 #*      *##else
-        query.setParameter(${index},#if ($parameter.type.primitive) new ${parameter.type.wrapperName}(${parameter.name})#else ${parameter.name}#end#if ($parameter.temporalType), javax.persistence.TemporalType.${parameter.temporalType}#end);
+        query.setParameter(${index},#if ($parameter.type.primitive) new ${parameter.type.wrapperName}(${parameter.name})#else ${parameter.name}#if ($parameter.enumerationTypeOrdinal).ordinal()#elseif ($parameter.enumerationTypeString).name()#end#end#if ($parameter.temporalType), javax.persistence.TemporalType.${parameter.temporalType}#end);
 #*      *##end
 #*    *##end
 #*  *##end
