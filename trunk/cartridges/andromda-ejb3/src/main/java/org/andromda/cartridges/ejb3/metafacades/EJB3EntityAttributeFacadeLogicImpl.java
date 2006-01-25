@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 
@@ -17,7 +18,27 @@ import org.apache.commons.lang.math.NumberUtils;
 public class EJB3EntityAttributeFacadeLogicImpl
     extends EJB3EntityAttributeFacadeLogic
 {
+    
+    /**
+     * The property that stores the default entity ID generator type
+     */
+    public static final String ENTITY_DEFAULT_GENERATOR_TYPE = "entityDefaultGeneratorType";
+    
+    /**
+     * The property that stores the default generator initial value
+     */
+    public static final String ENTITY_DEFAULT_GENERATOR_INITIAL_VALUE = "entityDefaultGeneratorInitialValue";
 
+    /**
+     * The property that stores the default generator allocation size for incrementing ids
+     */
+    public static final String ENTITY_DEFAULT_GENERATOR_ALLOCATION_SIZE = "entityDefaultGeneratorAllocationSize";
+    
+    /**
+     * The property that stores the default enumeration string literal column length.
+     */
+    public static final String DEFAULT_ENUM_LITERAL_COLUMN_LENGTH = "entityDefaultEnumLiteralColumnLength";
+    
     // ---------------- constructor -------------------------------
 
     public EJB3EntityAttributeFacadeLogicImpl (Object metaObject, String context)
@@ -111,7 +132,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
             }
             else
             {
-                genType = String.valueOf(this.getConfiguredProperty(EJB3Globals.ENTITY_DEFAULT_GENERATOR_TYPE));
+                genType = String.valueOf(this.getConfiguredProperty(ENTITY_DEFAULT_GENERATOR_TYPE));
                 if (StringUtils.isBlank(genType))
                 {
                     genType = EJB3Globals.GENERATOR_TYPE_AUTO;
@@ -242,15 +263,15 @@ public class EJB3EntityAttributeFacadeLogicImpl
             (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_GENERATOR_INITIAL_VALUE);
         if (StringUtils.isNotBlank(initialValueStr))
         {
-            initialValue = NumberUtils.stringToInt(initialValueStr);
+            initialValue = NumberUtils.toInt(initialValueStr);
         }
         else
         {
             initialValueStr = 
-                String.valueOf(this.getConfiguredProperty(EJB3Globals.ENTITY_DEFAULT_GENERATOR_INITIAL_VALUE));
+                String.valueOf(this.getConfiguredProperty(ENTITY_DEFAULT_GENERATOR_INITIAL_VALUE));
             if (StringUtils.isNotBlank(initialValueStr))
             {
-                initialValue = NumberUtils.stringToInt(initialValueStr);
+                initialValue = NumberUtils.toInt(initialValueStr);
             }
         }
         
@@ -267,15 +288,15 @@ public class EJB3EntityAttributeFacadeLogicImpl
             (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_GENERATOR_ALLOCATION_SIZE);
         if (StringUtils.isNotBlank(allocationSizeStr))
         {
-            allocationSize = NumberUtils.stringToInt(allocationSizeStr);
+            allocationSize = NumberUtils.toInt(allocationSizeStr);
         }
         else
         {
             allocationSizeStr = 
-                String.valueOf(this.getConfiguredProperty(EJB3Globals.ENTITY_DEFAULT_GENERATOR_ALLOCATION_SIZE));
+                String.valueOf(this.getConfiguredProperty(ENTITY_DEFAULT_GENERATOR_ALLOCATION_SIZE));
             if (StringUtils.isNotBlank(allocationSizeStr))
             {
-                allocationSize = NumberUtils.stringToInt(allocationSizeStr);
+                allocationSize = NumberUtils.toInt(allocationSizeStr);
             }
         }
         
@@ -316,10 +337,39 @@ public class EJB3EntityAttributeFacadeLogicImpl
 
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleGetColumnDefinition()
+     * 
+     * If the column definition has not manually been set and the attribute
+     * type is an enumeration, work out the schema from the length and type
+     * of the enumeration literals.  The definition is only set for if the
+     * literal types are String.
      */
     protected String handleGetColumnDefinition()
     {
-        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_COLUMN_DEFINITION);
+        String definition = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_COLUMN_DEFINITION);
+        if (StringUtils.isBlank(definition) && this.getType().isEnumeration())
+        {
+            boolean isOrdinal = false;
+            int length = NumberUtils.toInt(
+                    String.valueOf(this.getConfiguredProperty(DEFAULT_ENUM_LITERAL_COLUMN_LENGTH)));
+            for (final Iterator iter = this.getType().getAttributes().iterator(); iter.hasNext(); )
+            {
+                AttributeFacade attribute = (AttributeFacade)iter.next();
+                if (!attribute.getType().isStringType())
+                {
+                    isOrdinal = true;
+                    break;
+                }
+                if (attribute.getName().length() > length)
+                {
+                    length = attribute.getName().length();
+                }
+            }
+            if (!isOrdinal)
+            {
+                definition = "VARCHAR(" + length + ") NOT NULL";
+            }
+        }
+        return definition;
     }
 
     /**
