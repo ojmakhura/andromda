@@ -2,6 +2,7 @@ package org.andromda.cartridges.ejb3.metafacades;
 
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
 
@@ -85,6 +86,43 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
             }
         }
         return maxResults;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogic#
+     *      handleIsEnumerationTypeOrdinal()
+     */
+    protected boolean handleIsEnumerationTypeOrdinal()
+    {
+        //AttributeFacade attribute = this.getType().findAttribute(this.getName());
+        boolean ordinalType = false;
+        if (this.getType().isEnumeration())
+        {
+            AttributeFacade literal = (AttributeFacade)this.getType().getAttributes().iterator().next();
+            if (!literal.getType().isStringType())
+            {
+                ordinalType = true;
+            }
+        }
+        return ordinalType;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogic#
+     *      handleGetEnumerationTypeString()
+     */
+    protected boolean handleIsEnumerationTypeString()
+    {
+        boolean stringType = false;
+        if (this.getType().isEnumeration())
+        {
+            AttributeFacade literal = (AttributeFacade)this.getType().getAttributes().iterator().next();
+            if (literal.getType().isStringType())
+            {
+                stringType = true;
+            }
+        }
+        return stringType;
     }
 
 }
