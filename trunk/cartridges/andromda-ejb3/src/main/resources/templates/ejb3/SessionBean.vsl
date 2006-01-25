@@ -157,7 +157,7 @@ public abstract class ${service.serviceName}
 #set ($instanceAttributes = $service.instanceAttributes)
 #if(!$instanceAttributes.empty)
 
-    // ------------ Attributes ------------------
+    // --------- Attribute Definitions ------------
     
 #**##foreach ($attribute in $instanceAttributes)
     /**
