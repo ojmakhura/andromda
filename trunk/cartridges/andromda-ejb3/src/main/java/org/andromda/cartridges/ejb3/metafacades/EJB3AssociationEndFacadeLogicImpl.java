@@ -22,7 +22,22 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3AssociationEndFacadeLogicImpl
     extends EJB3AssociationEndFacadeLogic
 {
-
+    
+    /**
+     * The property that stores the default entity association optional attribute for Many-to-One and One-to-One
+     */
+    public static final String ENTITY_DEFAULT_ASSOCIATION_OPTIONAL = "entityDefaultAssociationOptional";
+    
+    /**
+     * The default composite association cascade property
+     */
+    public static final String ENTITY_DEFAULT_COMPOSITE_CASCADE = "entityCompositeCascade";
+    
+    /**
+     * The default aggregation association cascade property
+     */
+    public static final String ENTITY_DEFAULT_AGGREGATION_CASCADE = "entityAggergationCascade";
+    
     /**
      * Represents the EJB3 <code>ALL</code> cascade option and fully qualified representation.
      */
@@ -184,7 +199,7 @@ public class EJB3AssociationEndFacadeLogicImpl
         if (StringUtils.isBlank(optionalString))
         {
             optionalString = 
-                String.valueOf(this.getConfiguredProperty(EJB3Globals.ENTITY_DEFAULT_ASSOCIATION_OPTIONAL));
+                String.valueOf(this.getConfiguredProperty(ENTITY_DEFAULT_ASSOCIATION_OPTIONAL));
         } 
         optional = Boolean.valueOf(optionalString).booleanValue();
         return optional;
@@ -336,7 +351,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     protected String handleGetCompositionCascadeType()
     {
         return StringUtils.trimToEmpty(
-                ObjectUtils.toString(this.getConfiguredProperty(EJB3Globals.ENTITY_DEFAULT_COMPOSITE_CASCADE)));
+                ObjectUtils.toString(this.getConfiguredProperty(ENTITY_DEFAULT_COMPOSITE_CASCADE)));
     }
 
     /**
@@ -345,7 +360,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     protected String handleGetAggregationCascadeType()
     {
         return StringUtils.trimToEmpty(
-                ObjectUtils.toString(this.getConfiguredProperty(EJB3Globals.ENTITY_DEFAULT_AGGREGATION_CASCADE)));
+                ObjectUtils.toString(this.getConfiguredProperty(ENTITY_DEFAULT_AGGREGATION_CASCADE)));
     }
 
 }
