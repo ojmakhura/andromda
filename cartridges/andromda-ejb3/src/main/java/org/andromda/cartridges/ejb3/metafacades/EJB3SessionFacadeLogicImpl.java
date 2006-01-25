@@ -58,13 +58,22 @@ public class EJB3SessionFacadeLogicImpl
      * The property which stores the pattern defining the service bean delegate class name.
      */
     private static final String SERVICE_DELEGATE_NAME_PATTERN = "serviceDelegateNamePattern";
-
+    
+    /**
+     * The property that stores the persistence container name.
+     */
+    public static final String PERSISTENCE_CONTAINER = "persistenceContainerName";
+    
     /**
      * The property which stores the persistence context unit name associated with the default
      * Entity Manager.
      */
     private static final String PERSISTENCE_CONTEXT_UNIT_NAME = "persistenceContextUnitName";
     
+    /**
+     * The default view type accessability for the session bean
+     */
+    public static final String SESSION_DEFAULT_VIEW_TYPE = "serviceViewType";
     
     // ---------------- constructor -------------------------------
 	
@@ -195,7 +204,7 @@ public class EJB3SessionFacadeLogicImpl
     protected java.lang.String handleGetViewType()
     {
     	return EJB3MetafacadeUtils.getViewType(this, 
-                String.valueOf(this.getConfiguredProperty(EJB3Globals.SESSION_DEFAULT_VIEW_TYPE)));
+                String.valueOf(this.getConfiguredProperty(SESSION_DEFAULT_VIEW_TYPE)));
     }
 
     /**
@@ -516,7 +525,7 @@ public class EJB3SessionFacadeLogicImpl
     protected String handleGetPersistenceContainer()
     {
         return StringUtils.trimToEmpty(
-                    ObjectUtils.toString(this.getConfiguredProperty(EJB3Globals.PERSISTENCE_CONTAINER)));
+                    ObjectUtils.toString(this.getConfiguredProperty(PERSISTENCE_CONTAINER)));
     }
 
     /**
