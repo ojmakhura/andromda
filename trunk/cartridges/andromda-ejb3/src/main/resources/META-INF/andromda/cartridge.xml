@@ -265,7 +265,7 @@
     <template 
         path="templates/ejb3/Interceptor.vsl"
         outputPattern="$generatedFile" 
-        outlet="interceptor"
+        outlet="interceptors"
         overwrite="false">
         <modelElements variable="interceptor">
             <modelElement>
@@ -274,6 +274,18 @@
         </modelElements>
     </template>
 	
+    <template
+        path="templates/ejb3/Enumeration.vsl"
+        outputPattern="$generatedFile"
+        outlet="enumerations"
+        overwrite="true">
+        <modelElements variable="enum">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EnumerationFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
     <!-- cartridge-template merge-point -->
 
 </cartridge>
