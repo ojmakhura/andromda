@@ -12,6 +12,7 @@
 	<property reference="entityInheritanceStrategy" />
 	<property reference="entityDiscriminatorType" />
 	<property reference="entityDiscriminatorColumnName" />
+	<property reference="entityDefaultEnumLiteralColumnLength" />
 	<property reference="serviceViewType" />
 	<property reference="entityGenericFinders" />
 	<property reference="persistenceContainerName" />
@@ -120,11 +121,16 @@
 		<property reference="messageDrivenListenerNamePattern" />
 		<property reference="messageDrivenDestinationType" />
 	</metafacade>
-	<!--  Interceptor Metafacades -->
+	<!--  Common Metafacades -->
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacadeLogicImpl" contextRoot="true">
 		<mapping>
 			<stereotype>INTERCEPTOR</stereotype>
 		</mapping>
 		<property reference="interceptorNamePattern" />
+	</metafacade>
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EnumerationFacadeLogicImpl">
+		<mapping>
+			<stereotype>ENUMERATION</stereotype>
+		</mapping>
 	</metafacade>
 </metafacades>
