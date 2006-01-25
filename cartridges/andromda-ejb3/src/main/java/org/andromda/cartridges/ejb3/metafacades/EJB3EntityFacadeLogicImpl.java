@@ -62,6 +62,11 @@ public class EJB3EntityFacadeLogicImpl
     private static final String ENTITY_DISCRIMINATOR_COLUMN_NAME = "entityDiscriminatorColumnName";
     
     /**
+     * The default view type accessability for an entity POJO bean
+     */
+    public static final String ENTITY_DEFAULT_VIEW_TYPE = "entityViewType";
+    
+    /**
      * Value for one table per root class
      */
     private static final String INHERITANCE_STRATEGY_TABLE_PER_CLASS = "TABLE_PER_CLASS";
@@ -259,7 +264,7 @@ public class EJB3EntityFacadeLogicImpl
     protected java.lang.String handleGetViewType()
     {
     	return EJB3MetafacadeUtils.getViewType(this,
-                String.valueOf(this.getConfiguredProperty(EJB3Globals.ENTITY_DEFAULT_VIEW_TYPE)));
+                String.valueOf(this.getConfiguredProperty(ENTITY_DEFAULT_VIEW_TYPE)));
     }
 
     /**
