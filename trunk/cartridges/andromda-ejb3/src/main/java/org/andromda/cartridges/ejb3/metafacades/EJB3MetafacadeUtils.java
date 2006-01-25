@@ -5,11 +5,13 @@ import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -320,7 +322,7 @@ class EJB3MetafacadeUtils
     /**
      * Returns true/false based on whether or not synthetic or auto generated create methods should be allowed.
      *
-     * @param classifier the entity or session EJB.
+     * @param classifier The entity or session bean.
      * @return true/false
      */
     static boolean allowSyntheticCreateMethod(ClassifierFacade classifier)
