@@ -20,7 +20,12 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3FinderMethodFacadeLogicImpl
     extends EJB3FinderMethodFacadeLogic
 {
-
+    
+    /**
+     * Stores whether or not named parameters should be used in EJB queries.
+     */
+    public static final String QUERY_USE_NAMED_PARAMETERS = "queryUseNamedParameters";
+    
     // ---------------- constructor -------------------------------
 	
     public EJB3FinderMethodFacadeLogicImpl (Object metaObject, String context)
@@ -104,7 +109,7 @@ public class EJB3FinderMethodFacadeLogicImpl
     protected boolean handleIsUseNamedParameters()
     {
         return Boolean.valueOf(String.valueOf(
-                this.getConfiguredProperty(EJB3Globals.QUERY_USE_NAMED_PARAMETERS))).booleanValue();
+                this.getConfiguredProperty(QUERY_USE_NAMED_PARAMETERS))).booleanValue();
     }
 
 }
