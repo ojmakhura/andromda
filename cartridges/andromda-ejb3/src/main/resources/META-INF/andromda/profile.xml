@@ -31,6 +31,16 @@
 				<value>MessageDriven</value>
 				<appliedOnElement>class</appliedOnElement>
 			</element>
+            <element name="ENUMERATION">
+                <documentation>
+                    This stereotype will instruct to define an
+                    enumeration class variable of type enum introduced
+                    in JDK 1.5. That way it is possible for Entities to
+                    use this enumeration type for their attributes.
+                </documentation>
+                <value>Enumeration</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
 			<element name="VERSION">
 				<documentation>
 					Identifies an attribute as an version property
