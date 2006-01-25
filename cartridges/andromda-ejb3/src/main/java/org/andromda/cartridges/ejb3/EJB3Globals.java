@@ -7,10 +7,6 @@ package org.andromda.cartridges.ejb3;
  */
 public class EJB3Globals
 {
-    /**
-     * The property that stores the persistence container name.
-     */
-    public static final String PERSISTENCE_CONTAINER = "persistenceContainerName";
     
     /**
      * The property that stores the default EJB transaction type.
@@ -21,51 +17,6 @@ public class EJB3Globals
      * The pattern to use for determining the package name for EJBs.
      */
     public static final String JNDI_NAME_PREFIX = "jndiNamePrefix";
-    
-    /**
-     * The property that stores the default entity ID generator type
-     */
-    public static final String ENTITY_DEFAULT_GENERATOR_TYPE = "entityDefaultGeneratorType";
-
-    /**
-     * The property that stores the default generator initial value
-     */
-    public static final String ENTITY_DEFAULT_GENERATOR_INITIAL_VALUE = "entityDefaultGeneratorInitialValue";
-
-    /**
-     * The property that stores the default generator allocation size for incrementing ids
-     */
-    public static final String ENTITY_DEFAULT_GENERATOR_ALLOCATION_SIZE = "entityDefaultGeneratorAllocationSize";
-    
-    /**
-     * The property that stores the default entity association optional attribute for Many-to-One and One-to-One
-     */
-    public static final String ENTITY_DEFAULT_ASSOCIATION_OPTIONAL = "entityDefaultAssociationOptional";
-    
-    /**
-     * Stores whether or not named parameters should be used in EJB queries.
-     */
-    public static final String QUERY_USE_NAMED_PARAMETERS = "queryUseNamedParameters";
-    
-    /**
-     * The default composite association cascade property
-     */
-    public static final String ENTITY_DEFAULT_COMPOSITE_CASCADE = "entityCompositeCascade";
-    
-    /**
-     * The default aggregation association cascade property
-     */
-    public static final String ENTITY_DEFAULT_AGGREGATION_CASCADE = "entityAggergationCascade";
-    
-    /**
-     * The default view type accessability for an entity POJO bean
-     */
-    public static final String ENTITY_DEFAULT_VIEW_TYPE = "entityViewType";
-    
-    /**
-     * The default view type accessability for the session bean
-     */
-    public static final String SESSION_DEFAULT_VIEW_TYPE = "serviceViewType";
     
     /**
      * Represents the eager fetch type
