@@ -71,11 +71,17 @@
 					implementation files are generated.
 				</documentation>
 			</property>
-			<property name="interceptor">
+			<property name="interceptors">
 			    <documentation>
 			        The directory to which interceptor classes
 			        for session beans or message driven beans
 			        are generated.
+			    </documentation>
+			</property>
+			<property name="enumerations">
+			    <documentation>
+			        The directory to which entity JDK 1.5
+			        enumerations are generated.
 			    </documentation>
 			</property>
 		</propertyGroup>
@@ -530,6 +536,26 @@
 					always exist.
 				</documentation>
 			</property>
+			<property name="entityGenericFinders">
+			    <default>true</default>
+			    <documentation>
+			        Specifies whether to include the generic finder 
+			        property.  Generic finders in the entity bean include 
+			        findByPrimaryKey and findAll.
+			        Permitted values are:
+			        <ul>
+			            <li>true</li>
+			            <li>false</li>
+			        </ul>
+			    </documentation>
+			</property>
+			<property name="entityDefaultEnumLiteralColumnLength">
+			    <default>20</default>
+			    <documentation>
+			        The default column length specified for the
+			        storage of a string based enumeration literal.
+			    </documentation>
+			</property>
 			<property name="securityRealm" required="false">
 				<documentation>
 					Specifies the security domain to use
@@ -548,19 +574,6 @@
 					<strong>NOTE:</strong>
 					Does not apply to queries written in OCL.
 				</documentation>
-			</property>
-			<property name="entityGenericFinders">
-			    <default>true</default>
-			    <documentation>
-			        Specifies whether to include the generic finder 
-			        property.  Generic finders in the entity bean include 
-			        findByPrimaryKey and findAll.
-			        Permitted values are:
-			        <ul>
-			            <li>true</li>
-			            <li>false</li>
-			        </ul>
-			    </documentation>
 			</property>
 			<property name="valueObjectPackage">
 				<default>{0}</default>
