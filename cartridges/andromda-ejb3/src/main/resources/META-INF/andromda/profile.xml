@@ -661,6 +661,20 @@
 			        Association End
 			    </appliedOnElement>
 			</element>
+            <element name="ASSOCIATION_COLLECTION_TYPE">
+                <documentation>
+                    Used to define the mapping for EJB3 collections.
+                    This value overrides the
+                    <a href="namespace.html#associationCollectionType">namespace property</a>.
+                </documentation>
+                <value>@andromda.persistence.collection.type</value>
+                <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
+                <allowedValues>
+                    <value>set</value>
+                    <value>map</value>
+                    <value>list</value>
+                </allowedValues>
+            </element>
 			<element name="SERVICE_TYPE">
 				<documentation>
 					Used at the class level of a service bean to 
