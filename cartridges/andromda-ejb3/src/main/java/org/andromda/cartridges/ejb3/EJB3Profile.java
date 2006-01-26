@@ -392,4 +392,10 @@ public class EJB3Profile
      * container configuration name specific to JBoss.
      */
     public static final String TAGGEDVALUE_EJB_CONTAINER_CONFIGURATION = profile.get("CONTAINER_CONFIGURATION");
+
+    /**
+     * Defines the association collection type
+     */
+    public static final String TAGGEDVALUE_ASSOCIATION_COLLECTION_TYPE = profile.get("ASSOCIATION_COLLECTION_TYPE");
+
 }
