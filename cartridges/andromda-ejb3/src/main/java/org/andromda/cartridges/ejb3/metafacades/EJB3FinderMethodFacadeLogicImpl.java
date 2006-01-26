@@ -62,17 +62,19 @@ public class EJB3FinderMethodFacadeLogicImpl
             queryString = "FROM " + this.getOwner().getName() + " AS " + variableName;
             if (this.getArguments().size() > 0)
             {
-                queryString = queryString + " WHERE";
-                Collection parameters = this.getArguments();
+                final Collection parameters = this.getArguments();
                 if (parameters != null && !parameters.isEmpty())
                 {
                     Iterator parameterIt = parameters.iterator();
                     for (int ctr = 0; parameterIt.hasNext(); ctr++)
                     {
                         EJB3FinderMethodArgumentFacade param = (EJB3FinderMethodArgumentFacade)parameterIt.next();
-                        
                         if (!param.isFirstResult() && !param.isMaxResults()) 
                         {
+                            if (ctr == 0)
+                            {
+                                queryString = queryString + " WHERE";
+                            }
                             String parameter = "?";
                             if (this.isUseNamedParameters()) 
                             {
