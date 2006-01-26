@@ -37,13 +37,18 @@ $entity.getDocumentation(" * ")
 @javax.persistence.Entity#if ($entity.accessType)(access = javax.persistence.AccessType.${entity.accessType})#end
 
 #end
-@javax.persistence.EntityListener(${entity.fullyQualifiedEntityListenerName}.class)
-## Include the Table annotation for a base class in inheritence hierarchy
-## but not in the subclasses.
+##
+## Include the Table annotation for a base class in single table inheritence hierarchy
+## but not in the subclasses.  Include in all classes for joined and table per class
+## inheritance hierarchies.
 ## If a class is manually specified as an embeddable superclass, add
-## the Table annotation to the subclass.
-#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSuperclass)
+## the Table annotation to the subclass, not to the base superclass.
+##
+#if ($entity.requiresGeneralizationMapping && ($entity.embeddableSuperclassGeneralizationExists || $entity.inheritanceTablePerClass || $entity.inheritanceJoined))
 @javax.persistence.Table(name = "${entity.tableName}")
+#end
+#if ($entity.requiresGeneralizationMapping)
+@javax.persistence.EntityListener(${entity.fullyQualifiedEntityListenerName}.class)
 #end
 ## Only include the inheritance related annotations for inheritance mapping
 ## that doesn't involve embeddable superclass hierarchy.
@@ -468,7 +473,7 @@ $attribute.getDocumentation("     * ")
 ## For inheriting classes, replace findAll with findAll${entity.name}s
     public static java.util.Collection<${entity.name}> findAll#if ($entity.requiresGeneralizationMapping)$stringUtils.capitalize(${entity.name})s#end(javax.persistence.EntityManager em)
     {
-        return em.createQuery("FROM ${entity.tableName} AS $stringUtils.uncapitalize(${entity.name})").getResultList();
+        return em.createQuery("FROM ${entity.name} AS $stringUtils.uncapitalize(${entity.name})").getResultList();
     }
     
 #**##end
