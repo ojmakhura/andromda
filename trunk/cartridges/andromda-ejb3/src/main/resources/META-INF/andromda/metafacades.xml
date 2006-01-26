@@ -63,9 +63,12 @@
 				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
 			</context>
 		</mapping>
-		<property reference="entityDefaultAssociationOptional" />
-		<property reference="entityCompositeCascade" />
-		<property reference="entityAggergationCascade" />
+		<property reference="entityDefaultAssociationOptional"/>
+		<property reference="entityCompositeCascade"/>
+		<property reference="entityAggergationCascade"/>
+        <property reference="associationCollectionType"/>
+        <property reference="specificCollectionInterfaces"/>
+        <property reference="defaultCollectionInterface"/>
 	</metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationFacadeLogicImpl">
 		<mapping>
