@@ -108,11 +108,10 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
     // --------- Relationship Definitions -----------
     
 #**##foreach ($associationEnd in  $entityRelations)
-#**##**##if ($associationEnd.one2Many || $associationEnd.many2Many)
-    private $associationEnd.relationType<${associationEnd.otherEnd.type.name}> ${associationEnd.otherEnd.name};
-#**##**##else
-    private $associationEnd.relationType ${associationEnd.otherEnd.name};
-#**##**##end
+#*  *##set ($target = $associationEnd.otherEnd)
+#*  *##if ($target.navigable)
+    private $target.getterSetterTypeName ${target.name};
+#*  *##end
 #**##end
 #end
 
@@ -164,7 +163,7 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
      * @param $relation.otherEnd.name Value for the ${relation.otherEnd.name} relation role
 #*  *##end
      */
-    public #if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSuperclass)${entity.entityEmbeddableName}#else${entity.entityName}#end($entity.getAttributesAsList($allAttributes, true, true, false)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)#if ($relation.one2Many || $relation.many2Many)${relation.relationType}<${relation.otherEnd.type.name}> $relation.otherEnd.name#else${relation.relationType} $relation.otherEnd.name#end#if($velocityCount != $relations.size()), #end#end)
+    public #if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSuperclass)${entity.entityEmbeddableName}#else${entity.entityName}#end($entity.getAttributesAsList($allAttributes, true, true, false)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)${relation.otherEnd.getterSetterTypeName} $relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
     {
 #*  *##foreach ($attribute in $transform.filterUpdatableAttributes($instanceAttributes, $entity.compositePrimaryKeyPresent))
         ${attribute.setterName}(${attribute.name});
@@ -333,12 +332,13 @@ $attribute.getDocumentation("     * ")
 ##
     /**
      * Get the ${target.name}
-     * @return $associationEnd.relationType
+     *
+     * @return $target.getterSetterTypeName
      */
 #*    *##set ($argExists = false)
     @javax.persistence.ManyToOne(#if (!$target.optional)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.LAZY#end)
     @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
-    public $associationEnd.relationType ${target.getterName}()
+    public $target.getterSetterTypeName ${target.getterName}()
     {
         return this.${target.name};
     }
@@ -346,12 +346,14 @@ $attribute.getDocumentation("     * ")
 #*    *##if(!$target.readOnly)
    /**
     * Set the ${target.name}
+    *
     * @param ${target.name}
     */
-    public void ${target.setterName}($associationEnd.relationType ${target.name})
+    public void ${target.setterName}($target.getterSetterTypeName ${target.name})
     {
         this.${target.name} = ${target.name};
     }
+    
 #*    *##end
 #*  *##elseif ($associationEnd.one2Many)
 ##
@@ -363,7 +365,8 @@ $attribute.getDocumentation("     * ")
 ##
     /**
      * Get the ${target.name} Collection
-     * @return $associationEnd.relationType
+     *
+     * @return $target.getterSetterTypeName
      */
 #*    *##set ($argExists = false)
     @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
@@ -374,19 +377,21 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.OrderBy
 #*      *##end
 #*    *##end
-    public $associationEnd.relationType<${target.type.name}> ${target.getterName}()
+    public $target.getterSetterTypeName ${target.getterName}()
     {
         return this.${target.name};
     }
     
     /**
      * Set the ${target.name}
+     *
      * @param ${target.name}
      */
-    public void ${target.setterName} (${associationEnd.relationType}<${target.type.name}> ${target.name})
+    public void ${target.setterName} (${target.getterSetterTypeName} ${target.name})
     {
         this.${target.name} = ${target.name};
     }
+    
 #*  *##elseif ($associationEnd.one2One)
 ##
 ## ONE TO ONE RELATIONSHIP
@@ -395,14 +400,15 @@ $attribute.getDocumentation("     * ")
 ##
     /**
      * Get the ${target.name}
-     * @return $associationEnd.relationType
+     *
+     * @return $target.getterSetterTypeName
      */
 #*    *##set ($argExists = false)
     @javax.persistence.OneToOne(#if (!$target.optional)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.LAZY#end)
 #*    *##if($associationEnd.owning)
     @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
 #*    *##end
-    public $associationEnd.relationType ${target.getterName}()
+    public $target.getterSetterTypeName ${target.getterName}()
     {
         return this.${target.name};
     }
@@ -410,12 +416,14 @@ $attribute.getDocumentation("     * ")
 #*    *##if(!$target.readOnly)
    /**
     * Set the ${target.name}
+    *
     * @param ${target.name}
     */
-    public void ${target.setterName}($associationEnd.relationType ${target.name})
+    public void ${target.setterName}($target.getterSetterTypeName ${target.name})
     {
         this.${target.name} = ${target.name};
     }
+    
 #*    *##end
 #*  *##elseif ($associationEnd.many2Many)
 ##
@@ -425,7 +433,8 @@ $attribute.getDocumentation("     * ")
 ##
     /**
      * Get the ${target.name} Collection
-     * @return $associationEnd.relationType
+     *
+     * @return $target.getterSetterTypeName
      */
 #*    *##set ($argExists = false)
     @javax.persistence.ManyToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
@@ -440,19 +449,21 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.OrderBy
 #*      *##end
 #*    *##end
-    public $associationEnd.relationType<${target.type.name}> ${target.getterName}()
+    public $target.getterSetterTypeName ${target.getterName}()
     {
         return this.${target.name};
     }
     
     /**
      * Set the ${target.name}
+     *
      * @param ${target.name}
      */
-    public void ${target.setterName} (${associationEnd.relationType}<${target.type.name}> ${target.name})
+    public void ${target.setterName} (${target.getterSetterTypeName} ${target.name})
     {
         this.${target.name} = ${target.name};
     }
+    
 #*  *##end
 #**##end
 #end
