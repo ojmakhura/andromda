@@ -19,6 +19,8 @@ $entity.getDocumentation(" * ")
 
 @javax.persistence.Entity#if ($entity.accessType)(access = javax.persistence.AccessType.${entity.accessType})#end
 
+@javax.persistence.Table(name = "${entity.tableName}")
+@javax.persistence.EntityListener(${entity.fullyQualifiedEntityListenerName}.class)
 public#if ($entity.abstract) abstract#end class ${entity.entityName}
     extends ${entity.fullyQualifiedEntityEmbeddableName}
     implements java.io.Serializable
