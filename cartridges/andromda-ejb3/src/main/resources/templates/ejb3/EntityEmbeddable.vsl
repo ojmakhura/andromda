@@ -329,6 +329,7 @@ $attribute.getDocumentation("     * ")
 ## MANY TO ONE RELATIONSHIP
 ##
 ## Default fetch type: EAGER
+## Has optional feature
 ##
     /**
      * Get the ${target.name}
@@ -397,6 +398,7 @@ $attribute.getDocumentation("     * ")
 ## ONE TO ONE RELATIONSHIP
 ##
 ## Default fetch type: EAGER
+## Add the optional feature on the owning side of a One-to-One relationship
 ##
     /**
      * Get the ${target.name}
@@ -404,7 +406,7 @@ $attribute.getDocumentation("     * ")
      * @return $target.getterSetterTypeName
      */
 #*    *##set ($argExists = false)
-    @javax.persistence.OneToOne(#if (!$target.optional)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.LAZY#end)
+    @javax.persistence.OneToOne(#if($associationEnd.owning)#if (!$target.optional)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.LAZY#end)
 #*    *##if($associationEnd.owning)
     @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
 #*    *##end
