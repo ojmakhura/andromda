@@ -1,0 +1,19 @@
+##
+##  This macro will render the appropriate java preconditions
+##
+##      o   $operation: the operation from which we are going to translate preconditions
+##
+#macro (renderPreconditions $operation)
+#foreach ($precondition in $operation.preconditions)
+#set ($preconditionTranslation = $precondition.getTranslation("validation.Java"))
+#set ($preconditionDocumentation = $precondition.getDocumentation("",-1,false))
+        {
+            $preconditionTranslation
+            if (!constraintValid)
+                throw new ${service.fullyQualifiedDefaultExceptionName}(
+                    "$escapeUtils.escapeJava($preconditionDocumentation)");
+        }
+#set ($preconditionDocumentation = false)## reset to make sure we do not reuse the documentation of previous preconditions
+#end
+#set ($precondition = false)## reset to make sure we do not reuse the last precondition
+#end
