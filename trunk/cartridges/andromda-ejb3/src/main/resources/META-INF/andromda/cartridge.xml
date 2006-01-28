@@ -19,6 +19,8 @@
     <property reference="hibernateTreecacheMbeanObject"/>
     <property reference="serviceLocatorName"/>
     <property reference="ejb3TypesPackage"/>
+    <property reference="parameterRequiredCheck"/>
+    <property reference="xmlEncoding"/>
 
     <!-- Entity Bean Templates -->
 
@@ -189,6 +191,20 @@
     </template>
     
     <template
+        path="templates/ejb3/DefaultServiceException.vsl"
+        outputPattern="$generatedFile"
+        outlet="commons"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
+                    <property name="allowDefaultServiceException"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
         path="templates/ejb3/ejb-jar.xml.vsl"
         outputPattern="META-INF/ejb-jar.xml"
         outlet="session-config"
@@ -265,7 +281,7 @@
     <template 
         path="templates/ejb3/Interceptor.vsl"
         outputPattern="$generatedFile" 
-        outlet="interceptors"
+        outlet="session-impls"
         overwrite="false">
         <modelElements variable="interceptor">
             <modelElement>
@@ -277,7 +293,7 @@
     <template
         path="templates/ejb3/Enumeration.vsl"
         outputPattern="$generatedFile"
-        outlet="enumerations"
+        outlet="commons"
         overwrite="true">
         <modelElements variable="enum">
             <modelElement>
