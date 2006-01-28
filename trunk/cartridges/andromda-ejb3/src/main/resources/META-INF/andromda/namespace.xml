@@ -71,17 +71,11 @@
 					implementation files are generated.
 				</documentation>
 			</property>
-			<property name="interceptors">
+			<property name="commons">
 			    <documentation>
-			        The directory to which interceptor classes
-			        for session beans or message driven beans
-			        are generated.
-			    </documentation>
-			</property>
-			<property name="enumerations">
-			    <documentation>
-			        The directory to which entity JDK 1.5
-			        enumerations are generated.
+			        The directory to which common classes
+			        for session beans, entity POJOs or MDB
+			        are generated
 			    </documentation>
 			</property>
 		</propertyGroup>
@@ -301,6 +295,22 @@
 			        bean delegate class name.
 			    </documentation>
 			</property>
+            <property name="serviceImplementationOperationNamePattern">
+                <default>handle{0}</default>
+                <documentation>
+                    The pattern used to the create the implementation operation name
+                    (i.e. the operations that actually perform the handling of the logic),
+                    where <em>{0}</em> represents the operation name.
+                </documentation>
+            </property>
+            <property name="defaultServiceExceptionNamePattern">
+                <default>{0}Exception</default>
+                <documentation>
+                    The pattern to use when constructing the default service exception name.
+                    <strong>NOTE:</strong> This propety is only applicable when 
+                    allowDefaultServiceExceptions is <code>true</code>.
+                </documentation>
+            </property>
 			<property name="messageDrivenNamePattern">
 				<default>{0}MDBBean</default>
 				<documentation>
@@ -357,26 +367,18 @@
 				</documentation>
 			</property>
 		</propertyGroup>
-		<propertyGroup name="Other Properties">
-			<property name="persistenceContainerName">
-				<default>jboss</default>
+		<propertyGroup name="Entity Properties">
+			<property name="entityViewType">
+				<default>local</default>
 				<documentation>
-					The default persistence container engine name.
-					Used when specifying specific annotations
-					for different persistence containers.
-					Possible values are:
+					The default view type accessability for an entity POJO bean.
 					<ul>
-						<li>jboss</li>
-						<li>weblogic</li>
+						Permitted values are:
+						<li>local</li>
+						<li>remote</li>
+						<li>both</li>
 					</ul>
 				</documentation>
-			</property>
-			<property name="persistenceContextUnitName" required="false">
-			    <documentation>
-			        Specifies the default persistence context
-			        unit name associated with the default Entity
-			        Manager.
-			    </documentation>
 			</property>
 			<property name="entityAccessType">
 				<default>PROPERTY</default>
@@ -526,16 +528,6 @@
 					if it is required and not specified..
 				</documentation>
 			</property>
-			<property name="entityDefaultAssociationOptional">
-				<default>true</default>
-				<documentation>
-					Default entity association optional attribute for
-					Many-to-One and One-to-One relationships. Set using
-					the @andromda.persistence.optional tagged value. If
-					set to false, then non-null relationships must
-					always exist.
-				</documentation>
-			</property>
 			<property name="entityGenericFinders">
 			    <default>true</default>
 			    <documentation>
@@ -554,6 +546,48 @@
 			    <documentation>
 			        The default column length specified for the
 			        storage of a string based enumeration literal.
+			    </documentation>
+			</property>
+		</propertyGroup>
+		<propertyGroup name="Service Properties">
+			<property name="serviceViewType">
+				<default>remote</default>
+				<documentation>
+					The default view type accessability for a session bean.
+					<ul>
+						Permitted values are:
+						<li>local</li>
+						<li>remote</li>
+						<li>both</li>
+					</ul>
+				</documentation>
+			</property>
+            <property name="serviceLocatorName">
+                <default>ServiceLocator</default>
+                <documentation>
+                    The name to give the service locator class.
+                </documentation>
+            </property>
+		</propertyGroup>
+		<propertyGroup name="Other Properties">
+			<property name="persistenceContainerName">
+				<default>jboss</default>
+				<documentation>
+					The default persistence container engine name.
+					Used when specifying specific annotations
+					for different persistence containers.
+					Possible values are:
+					<ul>
+						<li>jboss</li>
+						<li>weblogic</li>
+					</ul>
+				</documentation>
+			</property>
+			<property name="persistenceContextUnitName" required="false">
+			    <documentation>
+			        Specifies the default persistence context
+			        unit name associated with the default Entity
+			        Manager.
 			    </documentation>
 			</property>
             <property name="specificCollectionInterfaces">
@@ -586,7 +620,8 @@
 					Specifies the security domain to use
 					for role based authorization.  Use the
 					security realm to match allowed roles.
-					This is only applicable for session beans.
+					This is only applicable for session beans
+					and MDBs.
 				</documentation>
 			</property>
 			<property name="queryUseNamedParameters">
@@ -605,30 +640,6 @@
 			</property>
 			<property name="valueObjectName">
 				<default>{0}</default>
-			</property>
-			<property name="entityViewType">
-				<default>local</default>
-				<documentation>
-					The default view type accessability for an entity POJO bean.
-					<ul>
-						Permitted values are:
-						<li>local</li>
-						<li>remote</li>
-						<li>both</li>
-					</ul>
-				</documentation>
-			</property>
-			<property name="serviceViewType">
-				<default>remote</default>
-				<documentation>
-					The default view type accessability for a session bean.
-					<ul>
-						Permitted values are:
-						<li>local</li>
-						<li>remote</li>
-						<li>both</li>
-					</ul>
-				</documentation>
 			</property>
 			<property name="transactionType">
 				<default>REQUIRED</default>
@@ -652,16 +663,30 @@
 					tagged value.
 				</documentation>
 			</property>
-            <property name="serviceLocatorName">
-                <default>ServiceLocator</default>
-                <documentation>
-                    The name to give the service locator class.
-                </documentation>
-            </property>
             <property name="ejb3TypesPackage">
                 <default>org.andromda.ejb3</default>
                 <documentation>
                     The package to which extra types are generated (i.e. ServiceLocator).
+                </documentation>
+            </property>
+            <property name="parameterRequiredCheck">
+                <default>true</default>
+                <documentation>
+                    Whether or not parameters should be checked if they're 
+                    required on services bean operation.
+                </documentation>
+            </property>
+            <property name="xmlEncoding">
+                <default>UTF-8</default>
+                <documentation>
+                    The encoding for xml documents
+                </documentation>
+            </property>
+            <property name="allowDefaultServiceException">
+                <default>true</default>
+                <documentation>
+                    Whether or not to generate a default exception for each service.  This exception
+                    will handle unexpected exceptions occuring within the implemented operations.
                 </documentation>
             </property>
 		</propertyGroup>
