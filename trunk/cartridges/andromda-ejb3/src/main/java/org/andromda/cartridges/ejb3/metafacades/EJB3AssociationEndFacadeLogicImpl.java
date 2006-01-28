@@ -28,11 +28,6 @@ public class EJB3AssociationEndFacadeLogicImpl
 {
     
     /**
-     * The property that stores the default entity association optional attribute for Many-to-One and One-to-One
-     */
-    public static final String ENTITY_DEFAULT_ASSOCIATION_OPTIONAL = "entityDefaultAssociationOptional";
-    
-    /**
      * The default composite association cascade property
      */
     public static final String ENTITY_DEFAULT_COMPOSITE_CASCADE = "entityCompositeCascade";
@@ -227,6 +222,29 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
+     * Overridden to provide handling of inheritance.
+     *
+     * @see org.andromda.metafacades.uml.AssociationEndFacade#isRequired()
+     */
+    public boolean isRequired()
+    {
+        boolean required = super.isRequired();
+        Object type = this.getOtherEnd().getType();
+
+        if ((type != null) && EJB3EntityFacade.class.isAssignableFrom(type.getClass()))
+        {
+            EJB3EntityFacade entity = (EJB3EntityFacade)type;
+
+            if (entity.isInheritanceSingleTable() && (entity.getGeneralization() != null))
+            {
+                required = false;
+            }
+        }
+
+        return required;
+    }
+    
+    /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacade#getFetchType()
      * 
      * This method is always called on the target association end.
@@ -311,10 +329,12 @@ public class EJB3AssociationEndFacadeLogicImpl
 
         if (StringUtils.isBlank(optionalString))
         {
-            optionalString = 
-                String.valueOf(this.getConfiguredProperty(ENTITY_DEFAULT_ASSOCIATION_OPTIONAL));
-        } 
-        optional = Boolean.valueOf(optionalString).booleanValue();
+            optional = !this.isRequired();
+        }
+        else
+        {
+            optional = Boolean.valueOf(optionalString).booleanValue();
+        }
         return optional;
     }
 
