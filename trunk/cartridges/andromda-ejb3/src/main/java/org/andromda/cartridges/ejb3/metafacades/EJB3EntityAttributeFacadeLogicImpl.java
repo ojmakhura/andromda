@@ -64,6 +64,24 @@ public class EJB3EntityAttributeFacadeLogicImpl
 		return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_FETCH_TYPE);
 	}
 
+    /**
+     * Overridden to provide handling of inheritance.
+     *
+     * @see org.andromda.metafacades.uml.AttributeFacade#isRequired()
+     */
+    public boolean isRequired()
+    {
+        boolean required = super.isRequired();
+        if (this.getOwner() instanceof EJB3EntityFacade)
+        {
+            EJB3EntityFacade entity = (EJB3EntityFacade)this.getOwner();
+            if (entity.isInheritanceSingleTable() && entity.getGeneralization() != null)
+            {
+                required = false;
+            }
+        }
+        return required;
+    }
 
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsEager()
@@ -398,7 +416,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
 
         if (StringUtils.isBlank(nullableString))
         {
-            nullable = (this.isIdentifier() || this.isUnique() ? false : true);
+            nullable = (this.isIdentifier() || this.isUnique() ? false : !this.isRequired());
         } 
         else
         {
