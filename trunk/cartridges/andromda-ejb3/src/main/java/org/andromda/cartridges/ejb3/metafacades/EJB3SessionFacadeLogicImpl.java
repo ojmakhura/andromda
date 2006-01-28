@@ -60,6 +60,12 @@ public class EJB3SessionFacadeLogicImpl
     private static final String SERVICE_DELEGATE_NAME_PATTERN = "serviceDelegateNamePattern";
     
     /**
+     * The property which stores the pattern defining the default service bean
+     * exception class name.
+     */
+    private static final String SERVICE_DEFAULT_EXCEPTION_NAME_PATTERN = "defaultServiceExceptionNamePattern";
+    
+    /**
      * The property that stores the persistence container name.
      */
     public static final String PERSISTENCE_CONTAINER = "persistenceContainerName";
@@ -71,9 +77,14 @@ public class EJB3SessionFacadeLogicImpl
     private static final String PERSISTENCE_CONTEXT_UNIT_NAME = "persistenceContextUnitName";
     
     /**
-     * The default view type accessability for the session bean
+     * The default view type accessability for the session bean.
      */
     public static final String SESSION_DEFAULT_VIEW_TYPE = "serviceViewType";
+    
+    /**
+     * The property that stores whether default service exceptions are permitted.
+     */
+    public static final String ALLOW_DEFAULT_SERVICE_EXCEPTION = "allowDefaultServiceException";
     
     // ---------------- constructor -------------------------------
 	
@@ -786,6 +797,48 @@ public class EJB3SessionFacadeLogicImpl
             }
         });
         return allRoles;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetDefaultExceptionName()
+     */
+    protected String handleGetDefaultExceptionName()
+    {
+        String defaultExceptionNamePattern = 
+            (String)this.getConfiguredProperty(SERVICE_DEFAULT_EXCEPTION_NAME_PATTERN);
+
+        return MessageFormat.format(
+                defaultExceptionNamePattern,
+                new Object[] {StringUtils.trimToEmpty(this.getName())});
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#
+     *      handleGetFullyQualifiedDefaultExceptionName()
+     */
+    protected String handleGetFullyQualifiedDefaultExceptionName()
+    {
+        StringBuffer fullyQualifiedName = new StringBuffer("java.lang.RuntimeException");
+        if (this.isAllowDefaultServiceException())
+        {
+            fullyQualifiedName = new StringBuffer();
+            if (StringUtils.isNotBlank(this.getPackageName()))
+            {
+                fullyQualifiedName.append(this.getPackageName());
+                fullyQualifiedName.append('.');
+            }
+            fullyQualifiedName.append(this.getDefaultExceptionName());
+        }
+        return fullyQualifiedName.toString();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsAllowDefaultServiceException()
+     */
+    protected boolean handleIsAllowDefaultServiceException()
+    {
+        return Boolean.valueOf(
+                String.valueOf(this.getConfiguredProperty(ALLOW_DEFAULT_SERVICE_EXCEPTION))).booleanValue();
     }
 
 }
