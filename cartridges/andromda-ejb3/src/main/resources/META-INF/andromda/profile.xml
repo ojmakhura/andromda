@@ -164,11 +164,23 @@
 			</element>
 			<element name="INTERCEPTOR">
 			    <documentation>
-			        Defines a customer made interceptor for the business
+			        Defines a custome made interceptor for the business
 			        methods of the session bean and message driven
 			        bean.
 			    </documentation>
 			    <value>Interceptor</value>
+			    <appliedOnElement>
+			        class
+			    </appliedOnElement>
+			</element>
+			<element name="LISTENER">
+			    <documentation>
+			        Defines a callback listener class for the entity,
+			        session and message driven beans.  The corresponding 
+			        entity, session or message driven beans are annotated 
+			        to indicate the listener class.
+			    </documentation>
+			    <value>Listener</value>
 			    <appliedOnElement>
 			        class
 			    </appliedOnElement>
