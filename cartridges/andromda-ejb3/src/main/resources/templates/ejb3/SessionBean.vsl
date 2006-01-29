@@ -24,7 +24,9 @@ $service.getDocumentation(" * ")
 @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${service.transactionType})
 #**##end
 #end
+#if ($service.listenerEnabled)
 @javax.ejb.CallbackListener(${service.fullyQualifiedServiceListenerName}.class)
+#end
 #if ($stringUtils.isNotBlank($service.securityRealm))
 #**##if ($service.persistenceContainerJboss)
 @org.jboss.annotation.security.SecurityDomain("${service.securityRealm}")
@@ -354,9 +356,9 @@ $operation.getDocumentation("     * ")
     }
 
 #*  *##end
-     /**
-      * Performs the core logic for {@link #${operation.getSignature(false)}}
-      */
+    /**
+     * Performs the core logic for {@link #${operation.getSignature(false)}}
+     */
     protected abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
         throws java.lang.Exception;
 
