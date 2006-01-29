@@ -959,4 +959,12 @@ public class EJB3EntityFacadeLogicImpl
         }
         return isCompositePK;
     }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsListenerEnabled()
+     */
+    protected boolean handleIsListenerEnabled()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_LISTENER);
+    }
 }
