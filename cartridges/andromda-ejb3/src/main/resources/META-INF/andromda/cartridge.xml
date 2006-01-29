@@ -63,7 +63,9 @@
         overwrite="false">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
+                    <property name="listenerEnabled"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -76,7 +78,7 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
-                    <property name="compositePrimaryKeyPresent">true</property>
+                    <property name="compositePrimaryKeyPresent"/>
                 </type>
             </modelElement>
         </modelElements>
@@ -119,7 +121,7 @@
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
-                    <property name="viewTypeLocal">true</property>
+                    <property name="viewTypeLocal"/>
                 </type>
             </modelElement>
         </modelElements>
@@ -134,7 +136,7 @@
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
-                    <property name="viewTypeRemote">true</property>
+                    <property name="viewTypeRemote"/>
                 </type>
             </modelElement>
         </modelElements>
@@ -159,7 +161,9 @@
         overwrite="false">
         <modelElements variable="service">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
+                    <property name="listenerEnabled"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -271,7 +275,9 @@
         overwrite="false">
         <modelElements variable="mdb">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade"/>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade">
+                    <property name="listenerEnabled"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
