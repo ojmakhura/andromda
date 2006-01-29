@@ -104,6 +104,12 @@ public class EJB3Profile
      */
     public static final String STEREOTYPE_SECURITY_RUNAS = profile.get("SECURITY_RUN_AS");
     
+    /**
+     * Represents a callback listener class for entity, session and 
+     * message driven bean classes.
+     */
+    public static final String STEREOTYPE_LISTENER = profile.get("LISTENER");
+    
     /* ----------------- Tagged Values -------------------- */
     
     /**
