@@ -129,11 +129,11 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
 #set ($allAttributes = $transform.filterByVisibility($entity.allInstanceAttributes, "public"))
 #set ($inheritedAttributes = $transform.filterByVisibility($entity.inheritedInstanceAttributes, "public"))
 #set ($instanceAttributes = $transform.filterByVisibility($entity.instanceAttributes, "public"))
-#if ($entity.syntheticCreateMethodAllowed)
+#if ($entity.syntheticCreateMethodAllowed && !$transform.filterUpdatableAttributes($allAttributes, $entity.compositePrimaryKeyPresent).empty)
     /**
-     * Implementation for the constructor with all POJO attributes.
-     * This method sets all POJO fields defined in this class to the
-     * values provided by the parameters.
+     * Implementation for the constructor with all POJO attributes except auto incremented identifiers.
+     * This method sets all POJO fields defined in this class to the values provided by 
+     * the parameters.
      *
 #**##foreach($attribute in $transform.filterUpdatableAttributes($allAttributes, $entity.compositePrimaryKeyPresent))
      * @param $attribute.name Value for the ${attribute.name} property
