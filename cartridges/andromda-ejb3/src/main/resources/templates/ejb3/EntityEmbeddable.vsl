@@ -47,7 +47,7 @@ $entity.getDocumentation(" * ")
 #if ($entity.requiresGeneralizationMapping && ($entity.embeddableSuperclassGeneralizationExists || $entity.inheritanceTablePerClass || $entity.inheritanceJoined))
 @javax.persistence.Table(name = "${entity.tableName}")
 #end
-#if ($entity.requiresGeneralizationMapping)
+#if ($entity.requiresGeneralizationMapping && $entity.listenerEnabled)
 @javax.persistence.EntityListener(${entity.fullyQualifiedEntityListenerName}.class)
 #end
 ## Only include the inheritance related annotations for inheritance mapping
