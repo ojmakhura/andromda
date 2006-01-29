@@ -51,23 +51,25 @@ $operation.getDocumentation("     * ")
     // -------- Business Methods  --------------
     
 #**##foreach ($operation in $operations)
-#*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
-#*  *##set ($signature = $operation.signature)
-#*  *##set ($visibility = $operation.visibility)
     /**
-     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     * @see ${service.fullyQualifiedServiceName}#${operation.getSignature(false)}
      */
-    $visibility $returnType $signature
-#*  *##if ($operation.exceptionsPresent)
-        $operation.throwsClause
-#*  *##end
+#*  *##set ($abstract = $service.abstract && $operation.abstract)
+    protected#if ($abstract) abstract#end $operation.returnType.fullyQualifiedName $operation.implementationSignature
+#*  *##if ($abstract)
+        throws java.lang.Exception;
+#*  *##else
+        throws java.lang.Exception
     {
         //TODO: put your implementation here.
-#*  *##if ($operation.returnTypePresent)
+#*    *##if ($operation.returnTypePresent)
         // Dummy return value, just that the file compiles
         return $operation.returnType.javaNullString;
-#*  *##end
+#*    *##else
+        throw new java.lang.UnsupportedOperationException("${service.fullyQualifiedServiceName}.${operation.implementationSignature} Not implemented!");
+#*    *##end
     }
+#*  *##end
 
 #**##end
 #end
