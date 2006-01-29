@@ -45,9 +45,9 @@ public#if ($entity.abstract) abstract#end class ${entity.entityName}
     
 ## Autogenerate a constructor implementation with all attributes.
 #set ($allAttributes = $transform.filterByVisibility($entity.allInstanceAttributes, "public"))
-#if ($entity.syntheticCreateMethodAllowed)
+#if ($entity.syntheticCreateMethodAllowed && !$transform.filterUpdatableAttributes($allAttributes, $entity.compositePrimaryKeyPresent).empty)
     /**
-     * Implementation for the constructor with all POJO attributes.
+     * Implementation for the constructor with all POJO attributes except auto incremented identifiers.
      * This method sets all POJO fields defined in this/super class to the
      * values provided by the parameters.
      *
