@@ -841,4 +841,12 @@ public class EJB3SessionFacadeLogicImpl
                 String.valueOf(this.getConfiguredProperty(ALLOW_DEFAULT_SERVICE_EXCEPTION))).booleanValue();
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsListenerEnabled()
+     */
+    protected boolean handleIsListenerEnabled()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_LISTENER);
+    }
+
 }
