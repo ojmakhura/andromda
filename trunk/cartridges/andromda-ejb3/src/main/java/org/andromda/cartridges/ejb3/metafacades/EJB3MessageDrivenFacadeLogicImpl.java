@@ -334,4 +334,12 @@ public class EJB3MessageDrivenFacadeLogicImpl
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_CONTAINER_CONFIGURATION);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleIsListenerEnabled()
+     */
+    protected boolean handleIsListenerEnabled()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_LISTENER);
+    }
+
 }
