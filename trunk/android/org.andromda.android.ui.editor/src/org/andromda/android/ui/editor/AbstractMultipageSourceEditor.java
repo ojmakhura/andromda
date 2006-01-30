@@ -13,7 +13,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * Abstract forms editor with a source page.
- *
+ * 
  * @author Peter Friese
  * @since 05.01.2006
  */
@@ -49,18 +49,21 @@ public abstract class AbstractMultipageSourceEditor
     protected abstract void addFormPages() throws PartInitException;
 
     /**
-     * @see org.eclipse.ui.forms.editor.FormEditor#addPage(org.eclipse.ui.forms.editor.IFormPage)
+     * {@inheritDoc}
      */
     public int addPage(final IFormPage page) throws PartInitException
     {
         int index = getPageCount() - 1;
         addPage(index, page);
+
+        // the source page moves to the right, so we need to adjust its index:
+        sourcePageIndex++;
         return index;
     }
 
     /**
      * Creates the source page.
-     *
+     * 
      * @throws PartInitException in case the source page could not be initialized correctly
      */
     private void addSourcePage() throws PartInitException
@@ -85,7 +88,7 @@ public abstract class AbstractMultipageSourceEditor
 
     /**
      * Finds out whether the XML source editor plug-in is available.
-     *
+     * 
      * @return <code>true</code> if the XML editor plug-in is abailable, <code>false</code> if not.
      */
     private boolean isXMLEditorAvailable()
@@ -97,7 +100,7 @@ public abstract class AbstractMultipageSourceEditor
     /**
      * Instantiates the source editor. If the XML source editor is available, it will be instantiated. If no XML source
      * editor is available, the default TextEditor will be instantiated.
-     *
+     * 
      * @return either the XML source editor or the TextEditor.
      */
     protected TextEditor instantiateSourceEditor()
@@ -119,7 +122,7 @@ public abstract class AbstractMultipageSourceEditor
     /**
      * Instantiates the XML source editor. This is done using reflection in order to avoid importing the needed type. If
      * the type cannot be found, <code>null</code> will bed returned.
-     *
+     * 
      * @return an instance of {@link org.eclipse.wst.sse.ui.StructuredTextEditor}
      */
     protected TextEditor instantiateXMLEditor()
@@ -197,12 +200,23 @@ public abstract class AbstractMultipageSourceEditor
                 return documentProvider.getDocument(getEditorInput());
             }
         }
-        return super.getAdapter(adapter);
+
+        // if the source editor is active, delegate adpater calls to it
+        if (getCurrentPage() == sourcePageIndex)
+        {
+            return getSourceEditor().getAdapter(adapter);
+        }
+
+        // othwise we'll just aks our parents
+        else
+        {
+            return super.getAdapter(adapter);
+        }
     }
 
     /**
      * Retrieves the document.
-     *
+     * 
      * @return the document being edited.
      */
     public IDocument getDocument()
