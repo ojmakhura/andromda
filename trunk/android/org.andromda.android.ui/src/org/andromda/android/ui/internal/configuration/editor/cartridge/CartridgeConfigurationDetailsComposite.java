@@ -1,12 +1,10 @@
 package org.andromda.android.ui.internal.configuration.editor.cartridge;
 
-import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.core.util.XmlUtils;
+import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelComposite;
 import org.andromda.core.configuration.NamespaceDocument.Namespace;
 import org.andromda.core.namespace.PropertyDocument.Property;
 import org.andromda.core.namespace.PropertyGroupDocument.PropertyGroup;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -16,38 +14,23 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Widget;
-import org.eclipse.ui.forms.AbstractFormPart;
-import org.eclipse.ui.forms.IDetailsPage;
-import org.eclipse.ui.forms.IFormPart;
+import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.Section;
 
 /**
- * This {@link org.eclipse.ui.forms.IDetailsPage} displays the namespace properties for the selected namespace property
- * group. The user can edit these properties.
  *
  * @author Peter Friese
- * @since 07.11.2005
+ * @since 12.12.2005
  */
-public class GenericCartridgeConfigurationDetailsPage
-        extends AbstractFormPart
-        // TODO: MAKE THIS A SECTION! RENAME IT TO "GenericCartridgeConfigurationDetailSection"!? SEE MODELPACKAGES DETAIL PAGE!
-        implements IDetailsPage
+public class CartridgeConfigurationDetailsComposite
+        extends AbstractAndromdaModelComposite
 {
 
-    /** The section containing the list of properties being edited. */
-    private Section cartridgeNameCartridgeSection;
-
-    /** The composite containing the list of properties. */
-    private Composite propertiesComposite;
-
-    /** The form toolkit. */
     private FormToolkit toolkit;
 
     /** The namespace being edited. */
@@ -72,7 +55,7 @@ public class GenericCartridgeConfigurationDetailsPage
                 String name = (String)textField.getData("PROPERTYNAME");
                 setPropertyValue(name, value);
                 System.out.println("Modify");
-                markDirty();
+                // markDirty();
             }
         }
     };
@@ -90,34 +73,24 @@ public class GenericCartridgeConfigurationDetailsPage
                 String name = (String)checkbox.getData("PROPERTYNAME");
                 setIgnoreProperty(name, selected);
                 System.out.println("Modify");
-                markDirty();
+                // markDirty();
             }
         }
     };
 
-    /**
-     * {@inheritDoc}
-     */
-    public void createContents(final Composite parent)
+    public CartridgeConfigurationDetailsComposite(final SectionPart parentSection,
+        int style)
     {
-        toolkit = getManagedForm().getToolkit();
+        super(parentSection, style);
         final GridLayout gridLayout = new GridLayout();
+        gridLayout.numColumns = 3;
         gridLayout.marginTop = 5;
         gridLayout.marginHeight = 0;
-        parent.setLayout(gridLayout);
-
-        cartridgeNameCartridgeSection = toolkit.createSection(parent, Section.DESCRIPTION | Section.EXPANDED
-                | Section.TITLE_BAR);
-        cartridgeNameCartridgeSection.setDescription("Edit the namespace settings to configure the cartridges.");
-        final GridData gridData = new GridData(GridData.FILL, GridData.FILL, true, true);
-        cartridgeNameCartridgeSection.setLayoutData(gridData);
-        cartridgeNameCartridgeSection.setText("<Namespace> - <Group> namespace properties");
-
-        propertiesComposite = toolkit.createComposite(cartridgeNameCartridgeSection, SWT.NONE);
-        propertiesComposite.setLayout(new GridLayout(3, false));
-        toolkit.paintBordersFor(propertiesComposite);
-        cartridgeNameCartridgeSection.setClient(propertiesComposite);
-
+        setLayout(gridLayout);
+        toolkit = new FormToolkit(Display.getCurrent());
+        toolkit.adapt(this);
+        toolkit.paintBordersFor(this);
+        //
         createPropertiesFields();
     }
 
@@ -126,7 +99,7 @@ public class GenericCartridgeConfigurationDetailsPage
      */
     private void updatePropertiesFields()
     {
-        Control[] children = propertiesComposite.getChildren();
+        Control[] children = this.getChildren();
         for (int i = 0; i < children.length; i++)
         {
             Control control = children[i];
@@ -156,13 +129,13 @@ public class GenericCartridgeConfigurationDetailsPage
     }
 
     /**
-     * Dynamically populates the properties composite. For each property in the selected namspace property group, a label /
-     * edit field combination will be created.
+     * Dynamically populates the properties composite. For each property in the selected namspace property group, a
+     * label / edit field combination will be created.
      */
     private void createPropertiesFields()
     {
         // dispose of old controls
-        Control[] children = propertiesComposite.getChildren();
+        Control[] children = this.getChildren();
         for (int i = 0; i < children.length; i++)
         {
             Control control = children[i];
@@ -174,16 +147,17 @@ public class GenericCartridgeConfigurationDetailsPage
 
             String namespaceName = namespace.getName();
             String propertyGroupName = propertyGroup.getName();
-            cartridgeNameCartridgeSection.setText(namespaceName + "/" + propertyGroupName + " properties");
+
+            getParentSection().getSection().setText(namespaceName + "/" + propertyGroupName + " properties");
 
             String propertyGroupDocumentation = XmlUtils.getTextValueFromElement(propertyGroup.getDocumentation());
             if (propertyGroupDocumentation != null)
             {
-                cartridgeNameCartridgeSection.setDescription(propertyGroupDocumentation);
+                getParentSection().getSection().setDescription(propertyGroupDocumentation);
             }
             else
             {
-                cartridgeNameCartridgeSection.setDescription("Configure the " + namespaceName + " namespace.");
+                getParentSection().getSection().setDescription("Configure the " + namespaceName + " namespace.");
             }
 
             for (int i = 0; i < properties.length; i++)
@@ -198,24 +172,25 @@ public class GenericCartridgeConfigurationDetailsPage
                     req = "*";
                 }
 
-                final Label label = toolkit.createLabel(propertiesComposite, name + req + ":", SWT.NONE);
+                final Label label = toolkit.createLabel(this, name + req + ":", SWT.NONE);
                 label.setForeground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_BACKGROUND));
                 label.setToolTipText(documentation);
 
-                final Text valueText = toolkit.createText(propertiesComposite, null, SWT.NONE);
+                final Text valueText = toolkit.createText(this, null, SWT.NONE);
                 valueText.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
                 // valueText.setText(getPropertyValue(name));
                 valueText.setToolTipText(documentation);
                 valueText.setData("PROPERTYNAME", name);
                 valueText.addModifyListener(modifyListener);
 
-                final Button ignoreCheckBox = toolkit.createButton(propertiesComposite, null, SWT.CHECK);
+                final Button ignoreCheckBox = toolkit.createButton(this, null, SWT.CHECK);
                 ignoreCheckBox.setLayoutData(new GridData(GridData.BEGINNING, GridData.CENTER, false, false));
                 ignoreCheckBox.setData("PROPERTYNAME", name);
                 ignoreCheckBox.setToolTipText("Ignore this property.");
                 ignoreCheckBox.addSelectionListener(selectionListener);
             }
         }
+        layout();
     }
 
     /**
@@ -309,55 +284,23 @@ public class GenericCartridgeConfigurationDetailsPage
     }
 
     /**
-     * Update the GUI.
+     * TODO this method should refactored into a base class and invoked by a model change listener
      */
-    private void update()
+    private void refresh()
     {
         createPropertiesFields();
         updatePropertiesFields();
     }
 
     /**
-     * {@inheritDoc}
+     * @param namespacePropertyContainer
      */
-    public void selectionChanged(final IFormPart part,
-        final ISelection selection)
+    public void setNamespacePropertyContainer(NamespacePropertyContainer namespacePropertyContainer)
     {
-        IStructuredSelection structuredSelection = (IStructuredSelection)selection;
-        Object element = structuredSelection.getFirstElement();
-        if (element instanceof NamespacePropertyContainer)
-        {
-            NamespacePropertyContainer namespacePropertyContainer = (NamespacePropertyContainer)element;
-            propertyGroup = namespacePropertyContainer.getPropertyGroup();
-            properties = propertyGroup.getPropertyArray();
-            namespace = namespacePropertyContainer.getNamespace();
-        }
-        update();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void refresh()
-    {
-        super.refresh();
-        update();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void commit(final boolean onSave)
-    {
-        super.commit(onSave);
-        System.out.println("Commit");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public void modelChanged(IModelChangedEvent event)
-    {
+        namespace = namespacePropertyContainer.getNamespace();
+        propertyGroup = namespacePropertyContainer.getPropertyGroup();
+        properties = propertyGroup.getPropertyArray();
+        refresh();
     }
 
 }
