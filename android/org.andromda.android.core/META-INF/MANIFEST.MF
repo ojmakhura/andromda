@@ -5,10 +5,12 @@ Bundle-Version: 0.0.1
 Bundle-ClassPath: org.andromda.android.core.jar,
  lib/xbean.jar,
  lib/jsr173_api.jar,
+ lib/commons-lang-2.1.jar,
+ lib/commons-collections-3.1.jar,
  lib/configuration/andromda-configuration.jar,
  lib/namespace/andromda-namespace.jar,
- lib/commons-lang-2.1.jar,
- lib/commons-collections-3.1.jar
+ lib/cartridge/andromda-cartridge.jar,
+ lib/metafacade/andromda-metafacades.jar
 Bundle-Activator: org.andromda.android.core.AndroidCore
 Bundle-Vendor: AndroMDA.org
 Bundle-Localization: plugin
@@ -27,6 +29,8 @@ Provide-Package: org.andromda.android.core,
  org.andromda.android.core.project,
  org.andromda.android.core.settings,
  org.andromda.android.core.util,
+ org.andromda.core.cartridge,
  org.andromda.core.configuration,
+ org.andromda.core.metafacade,
  org.andromda.core.namespace,
  org.apache.xmlbeans

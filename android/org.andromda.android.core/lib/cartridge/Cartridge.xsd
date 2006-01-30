@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================
+     This schema defines the cartridges.xml configuration file.
+     CODING CONVENTION: NO TABS, INDENT 4 SPACES
+     ========================================================================= -->
+<xs:schema 
+    targetNamespace="http://andromda.org/core/cartridge"
+    xmlns="http://andromda.org/core/cartridge"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified">
+    <xs:element name="cartridge">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="templateEngine" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="templateObject" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="property" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            These are references to properties that are expected to
+                            be supplied by the calling client through a <namespace/> element.
+                            When the property name and its value are supplied in the build
+                            file for example, that property is then supplied to the template.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="resource" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            A resource defines any non template resource included in the cartridge,
+                            these can include things such as files, images, etc, that are copied
+                            to a given outlet, resources are NOT processed by a template engine
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="template" minOccurs="1" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            These define the templates a cartridge contains, these are processed
+                            by an AndroMDA template engine
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="optional"/>
+        </xs:complexType>
+        <xs:unique name="uniquePropertyReference">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@reference"/>
+        </xs:unique>
+    </xs:element>
+    <xs:element name="property">
+        <xs:complexType>
+            <xs:attribute name="reference" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines a reference to a <property/> element defined within
+                        a namespace element in AndroMDA configuration.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="modelElements">
+        <xs:annotation>
+            <xs:documentation>
+                This is the grouping of all modelElements supported within a template
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="modelElement" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="variable" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        The default variable name to use for any modelElements define in your <template/>
+                        element, this will be used if no variable attribute is defined at the
+                        <modelElement/> element
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="modelElement">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="type" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Types allow you to group model elements by type of metafacade
+                            and by a metafacade's properties
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="property" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType mixed="true">
+                                    <xs:attribute name="name" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                This defines the name of the type's property.  This is expected
+                                                to be a valid java bean property on the given metafacade.                                                
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="variable" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                This defines the variable name of an element contained within the collection.      
+                                                Only makes sense when the property is a collection type.
+                                                When this attribute is defined each element contained within 
+                                                the collection is added to the template context and a new template/file is written.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="name" use="required">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Specifies the type's name (this is the fully qualified name of the
+                                    metafacade interface).
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="stereotype" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        A stereotype name from the model that will be processed (i.e. entity, enumeration, etc.)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="variable" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines the variable name that should be placed into the template engine context,
+                        for all model elements having the modelElement with the stereotype attribute,
+                        if this is not defined, then the variable from the
+                        enclosing <modelElements/> element will be used.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+        <xs:unique name="uniquePropertyName">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+    </xs:element>
+    <xs:complexType name="resourceType">
+        <xs:attribute name="path" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The path to the resource to process.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="outputPattern" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    The pattern to use for defining output.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="outlet" type="xs:string" use="required"/>
+        <xs:attribute name="overwrite" type="xs:boolean" use="required">
+            <xs:annotation>
+                <xs:documentation>
+                    A boolean flag indicating whether or not we should overwrite results of previous run
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:element name="resource" type="resourceType"/>
+    <xs:element name="template">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="resourceType">
+                    <xs:sequence>
+                        <xs:element ref="modelElements" minOccurs="0" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    You can have as many modelElements as you want for a template or
+                                    you don't even need to add model elements to your template
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="generateEmptyFiles" type="xs:boolean">
+                        <xs:annotation>
+                            <xs:documentation>
+                                True/false on whether we should allow generation of empty files
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="outputToSingleFile" type="xs:boolean" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>
+                                If this flag is set to true, then all model elments
+                                processed by the template will be output to one template as
+                                collection of model elements (instead of on a per model
+                                element per file basis)
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="outputOnEmptyElements" type="xs:boolean" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>
+                                This only makes sense when outputToSingleFile is true.
+                                If this flag is set to true, then the file will be output regardless
+                                of whether or not there are no elements found in the collected
+                                model elements, if false then the file will not be output
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="templateObject">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the templateObject (this is the scripting variable name
+                        made available to the template being processed)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="className" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The class of the templateObject (must have a default constructor).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+        <xs:unique name="uniqueTemplateObjectPropertyReference">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@reference"/>
+        </xs:unique>
+    </xs:element>
+    <xs:element name="macrolibrary">
+        <xs:annotation>
+            <xs:documentation>
+                Defines a macro library that can be used with commonly used scripting engine macros
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="templateEngine">
+        <xs:annotation>
+            <xs:documentation>
+                Used to configure the template engine instance; this is the engine
+                that actually processes your templates (such as Velocity, Freemarker, etc).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="macrolibrary" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="className" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        The class of the TemplateEngine implementation (must have a default constructor)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
