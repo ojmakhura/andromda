@@ -22,7 +22,7 @@ public class CartridgeConfigurationPage
     /** The ID of the page. */
     public static final String PAGE_ID = "cartridges";
 
-    /** The master block of the master/details GUI- */
+    /** The master block of the master/details GUI. */
     private CartridgeConfigurationMasterDetailsBlock cartridgeConfigurationMasterDetailsBlock;
 
     /**
@@ -32,18 +32,18 @@ public class CartridgeConfigurationPage
      * @param id The page ID.
      * @param title The title of this page.
      */
-    public CartridgeConfigurationPage(FormEditor editor,
-        String id,
-        String title)
+    public CartridgeConfigurationPage(final FormEditor editor,
+        final String id,
+        final String title)
     {
         super(editor, id, title);
         cartridgeConfigurationMasterDetailsBlock = new CartridgeConfigurationMasterDetailsBlock(this);
     }
 
     /**
-     * @see org.eclipse.ui.forms.editor.FormPage#createFormContent(org.eclipse.ui.forms.IManagedForm)
+     * {@inheritDoc}
      */
-    protected void createFormContent(IManagedForm managedForm)
+    protected void createFormContent(final IManagedForm managedForm)
     {
         FormToolkit toolkit = managedForm.getToolkit();
         ScrolledForm form = managedForm.getForm();
@@ -57,18 +57,18 @@ public class CartridgeConfigurationPage
     }
 
     /**
-     * @see org.andromda.android.ui.editor.AbstractFormEditorPage#doUpdatePage(org.eclipse.jface.text.IDocument)
+     * {@inheritDoc}
      */
-    protected void doUpdatePage(IDocument document)
+    protected void doUpdatePage(final IDocument document)
     {
         // TODO Auto-generated method stub
 
     }
 
     /**
-     * @see org.andromda.android.ui.editor.AbstractFormEditorPage#doUpdateDocument(org.eclipse.jface.text.IDocument)
+     * {@inheritDoc}
      */
-    protected void doUpdateDocument(IDocument document)
+    protected void doUpdateDocument(final IDocument document)
     {
         // TODO Auto-generated method stub
 
