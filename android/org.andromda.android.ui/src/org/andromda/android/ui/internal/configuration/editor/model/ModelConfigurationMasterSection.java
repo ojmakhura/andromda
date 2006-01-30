@@ -28,8 +28,8 @@ public class ModelConfigurationMasterSection
      * @param parent
      * @param page
      */
-    public ModelConfigurationMasterSection(Composite parent,
-        AbstractModelFormPage page)
+    public ModelConfigurationMasterSection(final Composite parent,
+        final AbstractModelFormPage page)
     {
         super(parent, page, SECTION_STYLE);
     }
@@ -37,15 +37,15 @@ public class ModelConfigurationMasterSection
     /**
      * @param page
      */
-    public ModelConfigurationMasterSection(AbstractModelFormPage page)
+    public ModelConfigurationMasterSection(final AbstractModelFormPage page)
     {
         super(page, SECTION_STYLE);
     }
 
     /**
-     * @see org.eclipse.ui.forms.AbstractFormPart#initialize(org.eclipse.ui.forms.IManagedForm)
+     * {@inheritDoc}
      */
-    public void initialize(IManagedForm form)
+    public void initialize(final IManagedForm form)
     {
         super.initialize(form);
 
@@ -62,7 +62,7 @@ public class ModelConfigurationMasterSection
     }
 
     /**
-     * @see org.eclipse.ui.forms.AbstractFormPart#refresh()
+     * {@inheritDoc}
      */
     public void refresh()
     {
@@ -72,9 +72,9 @@ public class ModelConfigurationMasterSection
     }
 
     /**
-     * @see org.andromda.android.ui.internal.editor.AbstractModelSectionPart#modelChanged(org.andromda.android.core.model.IModelChangedEvent)
+     * {@inheritDoc}
      */
-    public void modelChanged(IModelChangedEvent event)
+    public void modelChanged(final IModelChangedEvent event)
     {
         refresh();
     }
