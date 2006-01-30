@@ -2,7 +2,6 @@ package org.andromda.android.core.internal.cartridge;
 
 import junit.framework.TestCase;
 
-import org.andromda.core.namespace.NamespaceDocument;
 import org.andromda.core.namespace.NamespaceDocument.Namespace;
 import org.andromda.core.namespace.PropertiesDocument.Properties;
 import org.andromda.core.namespace.PropertyDocument.Property;
@@ -19,12 +18,9 @@ public class CartridgeTest
 
     public void testParsing()
     {
-        Cartridge cartridge = new Cartridge(
-                "file:/D:/Einstellungen/U402101/.maven/repository/andromda/jars/andromda-spring-cartridge-3.2-RC1-SNAPSHOT.jar");
-        NamespaceDocument cartridgeDescriptor;
+        CartridgeDescriptor cartridgeDescriptor = new CartridgeDescriptor("file:/D:/Einstellungen/U402101/.maven/repository/andromda/jars/andromda-spring-cartridge-3.2-RC1-SNAPSHOT.jar");
         try
         {
-            cartridgeDescriptor = cartridge.getNamespaceDescriptor();
             Namespace namespace = cartridgeDescriptor.getNamespace();
             System.out.println("Namespace: " + namespace.getName());
             Properties[] propertiesArray = namespace.getPropertiesArray();

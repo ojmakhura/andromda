@@ -1,10 +1,12 @@
 package org.andromda.android.core.internal;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.andromda.android.core.AndroidCore;
-import org.andromda.android.core.internal.cartridge.Cartridge;
+import org.andromda.android.core.cartridge.ICartridgeDescriptor;
+import org.andromda.android.core.internal.cartridge.CartridgeDescriptor;
 import org.andromda.android.core.internal.cartridge.CartridgeParsingException;
 import org.andromda.android.core.internal.project.AndroidProject;
 import org.andromda.android.core.project.IAndroidProject;
@@ -92,20 +94,21 @@ public class AndroidModel
      * @throws CoreException
      * @throws IOException
      */
-    public PropertyGroup[] getCartridgePropertyGroups(Namespace configurationNamespace,
-        IAndroidProject project)
+    public PropertyGroup[] getCartridgePropertyGroups(final Namespace configurationNamespace,
+        final IAndroidProject project)
     {
         String androMDACartridgesLocation = project.getProjectDefinition().getAndroMDACartridgesLocation();
 
         String name = configurationNamespace.getName();
-        Cartridge cartridge = new Cartridge("file:/" + androMDACartridgesLocation + "/andromda-" + name
-                + "-cartridge-3.2-RC1-SNAPSHOT.jar");
+        ICartridgeDescriptor cartridgeDescriptor = new CartridgeDescriptor("file:/" + androMDACartridgesLocation
+                + "/andromda-" + name + "-cartridge-3.2-RC1-SNAPSHOT.jar");
+
         PropertyGroup[] result = null;
         NamespaceDocument cartridgeNamespaceDescriptor;
         try
         {
-            cartridgeNamespaceDescriptor = cartridge.getNamespaceDescriptor();
-            Properties[] propertiesArray = cartridgeNamespaceDescriptor.getNamespace().getPropertiesArray();
+            org.andromda.core.namespace.NamespaceDocument.Namespace namespace = cartridgeDescriptor.getNamespace();
+            Properties[] propertiesArray = namespace.getPropertiesArray();
             for (int i = 0; i < propertiesArray.length; i++)
             {
                 Properties properties = propertiesArray[i];
