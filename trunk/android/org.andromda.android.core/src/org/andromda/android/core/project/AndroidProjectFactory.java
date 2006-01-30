@@ -19,8 +19,15 @@ import org.eclipse.core.runtime.IProgressMonitor;
  * @author Peter Friese
  * @since 09.10.2005
  */
-public class AndroidProjectFactory
+public final class AndroidProjectFactory
 {
+
+    /**
+     * Hidden c'tor (it is a utility class).
+     */
+    private AndroidProjectFactory()
+    {
+    }
 
     /**
      * Creates a new Android project.
@@ -29,9 +36,9 @@ public class AndroidProjectFactory
      * @param projectName the name of the project.
      * @param projectProperties the settings for the project.
      */
-    public static void createAndroidProject(IProgressMonitor monitor,
-        String projectName,
-        Map projectProperties)
+    public static void createAndroidProject(final IProgressMonitor monitor,
+        final String projectName,
+        final Map projectProperties)
     {
         try
         {
@@ -49,6 +56,7 @@ public class AndroidProjectFactory
         }
         catch (Exception e)
         {
+            AndroidCore.log(e);
         }
     }
 
@@ -60,9 +68,9 @@ public class AndroidProjectFactory
      * @param monitor the progress monitor displaying progress.
      * @throws CoreException if something goes wrong
      */
-    public static void addNatureToProject(IProject project,
-        String natureId,
-        IProgressMonitor monitor) throws CoreException
+    public static void addNatureToProject(final IProject project,
+        final String natureId,
+        final IProgressMonitor monitor) throws CoreException
     {
         IProjectDescription description = project.getDescription();
         String[] prevNatures = description.getNatureIds();

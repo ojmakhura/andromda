@@ -11,7 +11,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
-import org.osgi.framework.BundleContext;
 
 /**
  * The Android Core contains provides access to the UI-free part of Android.
@@ -41,24 +40,7 @@ public class AndroidCore
     }
 
     /**
-     * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
-     */
-    public void start(BundleContext context) throws Exception
-    {
-        super.start(context);
-    }
-
-    /**
-     * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
-     */
-    public void stop(BundleContext context) throws Exception
-    {
-        super.stop(context);
-        plugin = null;
-    }
-
-    /**
-     * Returns the shared instance.
+     * @return The default instance of the plug-in.
      */
     public static AndroidCore getDefault()
     {
@@ -73,18 +55,34 @@ public class AndroidCore
         return getDefault().getBundle().getSymbolicName();
     }
 
-    public static void log(IStatus status)
+    /**
+     * Logs a status.
+     * 
+     * @param status The status.
+     */
+    public static void log(final IStatus status)
     {
         getDefault().getLog().log(status);
     }
 
-    public static void logErrorMessage(String message)
+    /**
+     * Logs a message.
+     * 
+     * @param message The message.
+     */
+    public static void logErrorMessage(final String message)
     {
         log(new Status(IStatus.ERROR, getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, message, null));
     }
 
-    public static void logErrorStatus(String message,
-        IStatus status)
+    /**
+     * Logs a message and a status.
+     * 
+     * @param message The message.
+     * @param status The status.
+     */
+    public static void logErrorStatus(final String message,
+        final IStatus status)
     {
         if (status == null)
         {
@@ -96,7 +94,12 @@ public class AndroidCore
         log(multi);
     }
 
-    public static void log(Throwable e)
+    /**
+     * Logs a throwable.
+     * 
+     * @param e The Throwable.
+     */
+    public static final void log(final Throwable e)
     {
         log(new Status(IStatus.ERROR, getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, "Internal Error", e));
     }
@@ -111,13 +114,27 @@ public class AndroidCore
         return getDefault();
     }
 
-    public static IAndroidProject create(IProject project)
+    /**
+     * Creates a handle for an existing project.
+     * 
+     * @param project The existing project.
+     * @return An {@link IAndroidProject} handle to the existing project.
+     */
+    public static IAndroidProject create(final IProject project)
     {
         return create(project, false);
     }
 
-    public static IAndroidProject create(IProject project,
-        boolean force)
+    /**
+     * Creates a handle for the given project. If the project does not yet existist, it will be created.
+     * 
+     * @param project The project.
+     * @param force If <code>true</code>, the project will be created.
+     * @return An {@link IAndroidProject} handle to the project. If the project is <code>null</code>,
+     *         <code>null</code> will be returned.
+     */
+    public static IAndroidProject create(final IProject project,
+        final boolean force)
     {
         if (project == null)
         {
@@ -126,13 +143,23 @@ public class AndroidCore
         return AndroidModelManager.getInstance().getAndroidModel().getAndroidProject(project, force);
     }
 
+    /**
+     * @return The plug-in settings.
+     */
     public static IAndroidSettings getAndroidSettings()
     {
         return AndroidSettingsAccess.instance();
     }
 
-    public static PropertyGroup[] getCartridgePropertyGroups(Namespace configurationNamespace,
-        IAndroidProject project)
+    /**
+     * Retrieves the cartridge name space properties for the given project.
+     * 
+     * @param configurationNamespace The configuration namespace.
+     * @param project The current project.
+     * @return The name space properties.
+     */
+    public static PropertyGroup[] getCartridgePropertyGroups(final Namespace configurationNamespace,
+        final IAndroidProject project)
     {
         return AndroidModelManager.getInstance().getAndroidModel().getCartridgePropertyGroups(configurationNamespace,
                 project);
