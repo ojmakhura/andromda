@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 
@@ -57,14 +58,6 @@ public class EJB3EntityAttributeFacadeLogicImpl
 	}
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacade#getFetchType()
-     */
-	protected String handleGetFetchType() 
-	{
-		return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_FETCH_TYPE);
-	}
-
-    /**
      * Overridden to provide handling of inheritance.
      *
      * @see org.andromda.metafacades.uml.AttributeFacade#isRequired()
@@ -82,6 +75,38 @@ public class EJB3EntityAttributeFacadeLogicImpl
         }
         return required;
     }
+    
+    /**
+     * Override to provide java specific handling of the default value.
+     *
+     * @see org.andromda.metafacades.uml.AttributeFacade#getDefaultValue()
+     */
+    public String getDefaultValue()
+    {
+        String defaultValue = super.getDefaultValue();
+        final ClassifierFacade type = this.getType();
+        if (type != null)
+        {
+            final String fullyQualifiedName = StringUtils.trimToEmpty(type.getFullyQualifiedName());
+            if (type.isStringType())
+            {
+                defaultValue = "\"" + defaultValue + "\"";
+            }
+            else if (fullyQualifiedName.startsWith("java.lang"))
+            {
+                defaultValue = fullyQualifiedName + ".valueOf(" + defaultValue + ")";
+            }
+        }
+        return defaultValue;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacade#getFetchType()
+     */
+	protected String handleGetFetchType() 
+	{
+		return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_FETCH_TYPE);
+	}
 
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsEager()
