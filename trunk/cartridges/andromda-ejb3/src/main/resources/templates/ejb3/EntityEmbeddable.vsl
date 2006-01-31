@@ -79,7 +79,7 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
     
 #**##foreach ($constant in $constants)
     @javax.persistence.Transient
-    private static final $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
+    public static final $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
 #**##end
 #end
 #set ($attributes = $entity.attributes)
@@ -475,8 +475,8 @@ $attribute.getDocumentation("     * ")
 
 ## Do not include the findAll finder for inheriting classes when the
 ## inheritance strategy is single table.  This is defined in the base
-## class.
-#**##if (($entity.inheritanceSingleTable && !$entity.requiresGeneralizationMapping) || !$entity.inheritanceSingleTable)
+## class.  Only render if the findAll finder hasn't been modelled.
+#**##if ((($entity.inheritanceSingleTable && !$entity.requiresGeneralizationMapping) || !$entity.inheritanceSingleTable) && !$entity.finderFindAllExists)
     /**
      * Returns the collection of all ${entity.name}s.
      *
@@ -496,7 +496,8 @@ $attribute.getDocumentation("     * ")
 ## queries, so queries based on the base/root class are polymorphic.
 ## Do not include the findByPrimaryKey if this bean has a composite
 ## primary key class.
-#**##if (!$entity.compositePrimaryKeyPresent && !$entity.requiresGeneralizationMapping)
+## Only render if the findAll finder hasn't been modelled.
+#**##if (!$entity.compositePrimaryKeyPresent && !$entity.requiresGeneralizationMapping && !$entity.finderFindByPrimaryKeyExists)
 #*  *##foreach ($attribute in $entity.getIdentifiers(false))
 #*    *##set ($identifierName = $attribute.name)
 #*    *##set ($identifierType = $attribute.type.fullyQualifiedName)
@@ -580,13 +581,13 @@ $finder.getDocumentation("     * ")
 
     // --------------- Business Methods -----------------
     
-#**##foreach ($operation in )
+#**##foreach ($operation in $businessOperations)
 #*  *##set ($signature = $operation.signature)
 #*  *##set ($visibility = $operation.visibility.toString())
+#*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
     /**
 $operation.getDocumentation("     * ")
      */
-#*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
 #*  *##if ($operation.exceptionsPresent)
     $visibility abstract $returnType $signature
         throws $operation.exceptionList;
