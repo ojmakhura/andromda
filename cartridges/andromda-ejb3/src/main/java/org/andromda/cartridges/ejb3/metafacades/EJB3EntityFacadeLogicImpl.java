@@ -17,6 +17,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.collections.CollectionUtils;
@@ -966,5 +967,46 @@ public class EJB3EntityFacadeLogicImpl
     protected boolean handleIsListenerEnabled()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_LISTENER);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsFinderFindAllExists()
+     */
+    protected boolean handleIsFinderFindAllExists()
+    {
+        boolean finderExists = false;
+        for (final Iterator iter = this.getQueryOperations().iterator(); iter.hasNext();)
+        {
+            final OperationFacade operation = (OperationFacade)iter.next();
+            if (operation.getName().equalsIgnoreCase("findAll"))
+            {
+                // Check for no finder arguments
+                final Collection parameters = operation.getParameters();
+                if (parameters.size() == 0)
+                {
+                    finderExists = true;
+                    break;
+                }
+            }
+        }
+        return finderExists;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsFinderFindByPrimaryKeyExists()
+     */
+    protected boolean handleIsFinderFindByPrimaryKeyExists()
+    {
+        boolean finderExists = false;
+        for (final Iterator iter = this.getQueryOperations().iterator(); iter.hasNext();)
+        {
+            final OperationFacade operation = (OperationFacade)iter.next();
+            if (operation.getName().equalsIgnoreCase("findByPrimaryKey"))
+            {
+                finderExists = true;
+                break;
+            }
+        }
+        return finderExists;
     }
 }
