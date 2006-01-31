@@ -103,7 +103,7 @@ public class $serviceLocatorName
      * @param env the Context environment properties.  Null represents no properties.
      * @throws javax.naming.NamingException failure to lookup remote service interface.
      */
-    public final $service.fullyQualifiedServiceRemoteInterfaceName get${service.name}(java.util.Properties env)
+    public final $service.fullyQualifiedServiceRemoteInterfaceName get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}(java.util.Properties env)
         throws javax.naming.NamingException
     {
         return (${service.fullyQualifiedServiceRemoteInterfaceName})
