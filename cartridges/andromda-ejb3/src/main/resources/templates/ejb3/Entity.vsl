@@ -99,16 +99,15 @@ $operation.getDocumentation("    * ")
 #set ($operations = $entity.businessOperations)
 #if (!$operations.empty)
 
-    // --------------- Business Methods -----------------
+    // ------------------ Methods --------------------
     
 #**##foreach ($operation in $operations)
 #*  *##set ($signature = $operation.signature)
-#*  *##set ($interfaceType = "interface")
 #*  *##set ($visibility = $operation.visibility.toString())
+#*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
    /**
 $operation.getDocumentation("    * ")
     */
-#*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
 #*  *##if ($operation.exceptionsPresent)
     $visibility $returnType $signature
         throws $operation.exceptionList
@@ -124,6 +123,8 @@ $operation.getDocumentation("    * ")
         // TODO put your implementation here.
 #*    *##if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
+#*    *##else
+        throw new java.lang.UnsupportedOperationException("${entity.fullyQualifiedName}.${operation.signature} Not implemented!");
 #*    *##end
     }
 #*  *##end
