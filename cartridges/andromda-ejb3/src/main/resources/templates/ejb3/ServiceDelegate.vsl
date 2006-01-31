@@ -40,7 +40,7 @@ public class $service.serviceDelegateName
     private final ${service.fullyQualifiedServiceRemoteInterfaceName} get${service.name}()
         throws javax.naming.NamingException
     {
-        return ${ejb3TypesPackage}.ServiceLocator.getInstance().get${service.name}(env);
+        return ${ejb3TypesPackage}.ServiceLocator.getInstance().get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}(env);
     }
 
 #foreach ($operation in $service.businessOperations)
@@ -60,20 +60,21 @@ public class $service.serviceDelegateName
             return get${service.name}().${operation.name}(${operation.argumentNames});
 #**##end
         }
-#**##if (!$operation.exceptionsPresent)
-        catch (Exception ex)
-#**##else
-        catch (javax.naming.NamingException ex)
-#**##end
-        {
 #**##if ($operation.exceptionsPresent)
-#*  *##foreach ($exception in $operation.exceptions)
-#*    *##if ($velocityCount == 1)
-            throw new ${exception.fullyQualifiedName}(ex);
-#*    *##end
+#*  *##foreach($exception in $operation.exceptions)
+        catch ($exception.fullyQualifiedName ex)
+        {
+            throw ex;
+        }
 #*  *##end
+#**##end
+        catch (javax.naming.NamingException ex)
+        {
+#**##if ($service.allowDefaultServiceException)
+            throw new ${service.fullyQualifiedDefaultExceptionName}(
+                "Error performing '${service.fullyQualifiedName}.${operation.signature}' --> " + ex, ex);
 #**##else
-            ex.printStackTrace();
+            throw ex;
 #**##end
         }
     }
