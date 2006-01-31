@@ -5,6 +5,7 @@ import org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade;
 import org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -82,5 +83,23 @@ public class EJB3ScriptHelper
     		}
     	}
     	return retval;
+    }
+    
+    /**
+     * Replaces all instances of the dot (.) in the name argument with an understore (_)
+     * and returns the string response.
+     *  
+     * @param name The name, typically a fully qualified name with dot notation
+     * @return The string with all dots replaced with underscore.
+     */
+    public String toUnderscoreName(String name)
+    {
+        String result = null;
+        if (name != null)
+        {
+            result = StringUtils.replaceChars(name, '.', '_');
+        }
+        return result;
+        
     }
 }
