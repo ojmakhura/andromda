@@ -615,6 +615,13 @@
                     Used to define the default mapping for EJB3 collections.
                 </documentation>
             </property>
+            <property name="compositionDefinesEagerLoading">
+                <default>true</default>
+                <documentation>
+                    Allows you to turn on/off whether or not composite associations will define eager loading
+                    and aggregate associations define lazy loading.
+                </documentation>
+            </property>
 			<property name="securityRealm" required="false">
 				<documentation>
 					Specifies the security domain to use
