@@ -978,11 +978,10 @@ public class EJB3EntityFacadeLogicImpl
         for (final Iterator iter = this.getQueryOperations().iterator(); iter.hasNext();)
         {
             final OperationFacade operation = (OperationFacade)iter.next();
-            if (operation.getName().equalsIgnoreCase("findAll"))
+            if (StringUtils.trimToEmpty(operation.getName()).equalsIgnoreCase("findAll"))
             {
                 // Check for no finder arguments
-                final Collection parameters = operation.getParameters();
-                if (parameters.size() == 0)
+                if (operation.getArguments().size() == 0)
                 {
                     finderExists = true;
                     break;
