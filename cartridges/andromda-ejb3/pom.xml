@@ -35,6 +35,12 @@
                     </dependency>
                 </dependencies>    
             </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <locales>en</locales>
+                </configuration>
+            </plugin>
         </plugins> 
     </build>
     <properties>
