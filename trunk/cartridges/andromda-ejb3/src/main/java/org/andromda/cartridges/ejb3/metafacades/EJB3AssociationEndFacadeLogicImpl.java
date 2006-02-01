@@ -139,6 +139,12 @@ public class EJB3AssociationEndFacadeLogicImpl
         collectionTypes.add(COLLECTION_TYPE_COLLECTION);
     }
     
+    /**
+     * Stores the property indicating whether or not composition should define
+     * the eager loading strategy and aggregation define lazy loading strategy.
+     */
+    private static final String COMPOSITION_DEFINES_EAGER_LOADING = "compositionDefinesEagerLoading";
+    
     // ---------------- constructor -------------------------------
 	
     public EJB3AssociationEndFacadeLogicImpl (Object metaObject, String context)
@@ -246,14 +252,6 @@ public class EJB3AssociationEndFacadeLogicImpl
     
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacade#getFetchType()
-     * 
-     * This method is always called on the target association end.
-     * If a fetch type tagged value is not found on the target end, then compare the association
-     * relationship from the source end to indicate the default fetch types.
-     * <ul>
-     *     <li>One-2-Many and Many-2-Many defaults to LAZY loading</li>
-     *     <li>Many-2-One and One-2-One default to EAGER loading</li>
-     * </ul>
      */
 	protected String handleGetFetchType() 
 	{
@@ -261,16 +259,38 @@ public class EJB3AssociationEndFacadeLogicImpl
 
 		if (StringUtils.isBlank(fetchType))
 		{
-			if (this.getOtherEnd().isOne2Many() || this.getOtherEnd().isMany2Many())
-			{
-				fetchType = EJB3Globals.FETCH_TYPE_LAZY;
-			}
-			else
-			{
-				fetchType = EJB3Globals.FETCH_TYPE_EAGER;
-			}
+            // check whether or not composition defines eager loading is turned on
+            boolean compositionDefinesEagerLoading =
+                Boolean.valueOf(String.valueOf(this.getConfiguredProperty(COMPOSITION_DEFINES_EAGER_LOADING)))
+                       .booleanValue();
+
+            if (compositionDefinesEagerLoading)
+            {
+                if (this.getOtherEnd().isComposition())
+                {
+                    fetchType = EJB3Globals.FETCH_TYPE_EAGER;
+                }
+                else if (this.getOtherEnd().isAggregation())
+                {
+                    fetchType = EJB3Globals.FETCH_TYPE_LAZY;
+                }
+            }
 		}
 		
+        /**
+         * Go for defaults if blank
+         */
+        if (StringUtils.isBlank(fetchType))
+        {
+            if (this.getOtherEnd().isOne2Many() || this.getOtherEnd().isMany2Many())
+            {
+                fetchType = EJB3Globals.FETCH_TYPE_LAZY;
+            }
+            else
+            {
+                fetchType = EJB3Globals.FETCH_TYPE_EAGER;
+            }
+        }
 		return fetchType;
 	}
 
