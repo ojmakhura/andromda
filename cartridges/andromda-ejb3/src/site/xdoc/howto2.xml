@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - HowTo Relationships</title>
+    </properties>
+    <body>
+        <section name="Relationships">
+            <p>
+                Most of the entities that appear in real applications have relationships with other
+                entities; consider the simple case of a person owning a car. Here we say
+                <code>Person</code> has an <code>owning</code> relationship with the <code>Car</code>, and from
+                the perspective of the person there can be any number of cars that are owned, denoted in UML
+                by <code>[0..*]</code> at the car's end.
+            </p>
+            <p class="highlight">
+                Make sure the association ends are <code>public</code>; some tools allow to specify the 
+                visibility of an association end.
+            </p>
+            <p>
+                In UML, relationships are modeled using associations, and associations themselves have different
+                properties, which will be discussed here.
+            </p>
+            <p>
+                Let's model another entity, call it <code>Person</code> and give it a few attributes,
+                just make sure you give them one of the platform independent datatypes that can be mapped
+                onto a platform specific datatype (you can find them in the <code>datatype</code> package).
+            </p>
+            <p>
+                Draw an association between both entities you have just modeled. Set the multiplicity at the end
+                of the car to <code>[0..*]</code> and name the other end <code>'owner'</code>.
+                Run AndroMDA again on your model, this is what you should see:
+            </p>
+            <p>
+                <img src="images/org/andromda/test/2/a/uml.gif"/>
+            </p>
+            <p>
+                In this example we have added two attributes: 
+                <ul>
+                    <li>name of type <code>datatype::String</code></li>
+                    <li>birthDate of type <code>datatype::Date</code></li>
+                </ul>
+                Please note that also for this entity an identifier will be added by default. 
+                If you explicitely want to add an identifier you should add the <![CDATA[<<Identifier>>]]> 
+                stereotype to an attribute. Refer to <a href="howto1.html">Entities</a> for more information.
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto2/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/a/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto2/a/Person.java"><code>Person.java</code></a></li>
+                </ul>
+            </p>
+            <p>
+                As you can see the relationships have been generated in the embeddable superclasses.  Since both
+                ends of the association are navigable, we have a bi-directional relationship.
+                <ul>
+                    <li>
+                        <p>Person.getCars() : Collection</p>
+                        <p>
+                            A One-To-Many relationship has been defined from the
+                            Person entity to the Car entity.  This adds the <code>@javax.persistence.OneToMany</code> 
+                            annotation to the getter method and sets the <code>mappedBy</code> property to 
+                            <code>'owner'</code>. The <code>mappedBy</code> property indicates the other end of 
+                            the association is the owning side of the relationship.
+                        </p>
+                    </li>
+                    <li>
+                        <p>Car.getOwner() : Person</p>
+                        <p>
+                            A Many-To-One relationship has been defined from the
+                            Car entity to the Person entity.  This adds the <code>@javax.persistence.ManyToOne</code>
+                            annotation to the getter method of the Car entity.  Since the multiplicity on the
+                            Person end of the association is set to 1, the annotation has defined the
+                            <code>optional</code> property to <code>false</code> which indicates non-null entries
+                            cannot exists in this foreign key column in the relational database table.
+                        </p>
+                        <p>
+                            Since the Car entity end is the owning end, the <code>@javax.persistence.JoinColumn</code>
+                            annotation has been defined with a <code>name</code> property.  
+                            This annotation is used to indicate a mapped column for joining an entity association. 
+                            The <code>name</code> property defines the foreign key column name.
+                        </p>
+                    </li>
+                </ul>
+                By default AndroMDA will look at the multiplicity to generate a good name for the relationship,
+                a few examples where the multiplicity is greater than one:
+                <ul>
+                    <li>car: cars</li>
+                    <li>property: properties</li>
+                    <li>toy: toys</li>
+                    <li>animal: animals</li>
+                    <li>bus: busses</li>
+                </ul>
+                You can override these names by adding your own names to the association ends, in our example
+                you might set the name of the association end at the side of the person to <code>person</code>,
+                this will emit the following output during generation:
+                <ul>
+                    <li>Person.getCars() : Collection</li>
+                    <li>Car.getPerson() : Person</li>
+                </ul>
+            </p>
+            <subsection name="Cascading">
+                <p>
+                    You can set the cascade option on all association ends by modelling the
+                    <code>@andromda.persistence.cascade.type</code> tagged value on the target association end.
+                    The cascadable options are:
+                    <ul>
+                        <li>ALL</li>
+                        <li>PERSIST</li>
+                        <li>MERGE</li>
+                        <li>REMOVE</li>
+                        <li>REFRESH</li>
+                    </ul>
+                    You can set multiple cascade options on the target association end which will define
+                    the <code>cascade</code> property of the annotation as array.
+                </p>
+	            <p>
+	                <img src="images/org/andromda/test/2/b/uml.gif"/>
+	            </p>
+	            <p>
+	                <ul>
+	                    <li class="gen">Auto-generated source that does not need manual editing</li>
+	                    <li class="impl">Auto-generated source that should be edited manually</li>
+	                    <li class="changed">File that is affected by the modifications applied in this section</li>
+	                </ul>
+	            </p>
+	            <p>
+	                <ul>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto2/b/Car.java"><code>Car.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/b/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto2/b/Person.java"><code>Person.java</code></a></li>
+	                </ul>
+	            </p>
+            </subsection>
+            <subsection name="Fetch Type">
+                <p>
+                    The fetch type tagged value <code>@andromda.persistence.fetch.type</code> can be modelled on
+                    all association ends.  To set the fetch type on an end, you model this tagged value on
+                    the target association end.  The following default are the default fetch types for the
+                    available relationships:
+                    <ul>
+                        <li>Many-To-One : EAGER</li>
+                        <li>One-To-Many : LAZY</li>
+                        <li>One-To-One : EAGER</li>
+                        <li>Many-To-Many : LAZY</li>
+                    </ul>
+                    Therefore, you only need to specify the latter tagged value if you wish to change
+                    the fetch type property from the default.
+                </p>
+	            <p>
+	                <img src="images/org/andromda/test/2/c/uml.gif"/>
+	            </p>
+	            <p>
+	                <ul>
+	                    <li class="gen">Auto-generated source that does not need manual editing</li>
+	                    <li class="impl">Auto-generated source that should be edited manually</li>
+	                    <li class="changed">File that is affected by the modifications applied in this section</li>
+	                </ul>
+	            </p>
+	            <p>
+	                <ul>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/c/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto2/c/Car.java"><code>Car.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/c/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto2/c/Person.java"><code>Person.java</code></a></li>
+	                </ul>
+	            </p>
+            </subsection>
+            <subsection name="Ordering Collection Valued Association">
+                <p>
+                    You can order the elements of a collection valued association by modelling the
+                    <code>@andromda.persistence.orderBy</code> tagged value on the target association end.
+                    A few notes to consider:
+                    <ul>
+                        <li>
+                            If <code>ASC</code> or <code>DESC</code> is not specified, <code>ASC</code> order is
+                            assumed.
+                        </li>
+                        <li>
+                            If the ordering tagged value is modelled but no ordering element is supplied, this
+                            renders an empty <code>@javax.persistence.OrderBy</code> annotation which indicates
+                            to the container to assume ordering by primary key as per the spec.
+                        </li>
+                        <li>
+                            The property used in the order by clause must correspond to a persistent field of
+                            the associated class and that corresponding column must support comparison operators.
+                        </li>
+                    </ul>
+                </p>
+	            <p>
+	                <img src="images/org/andromda/test/2/d/uml.gif"/>
+	            </p>
+	            <p>
+	                <ul>
+	                    <li class="gen">Auto-generated source that does not need manual editing</li>
+	                    <li class="impl">Auto-generated source that should be edited manually</li>
+	                    <li class="changed">File that is affected by the modifications applied in this section</li>
+	                </ul>
+	            </p>
+	            <p>
+	                <ul>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/d/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto2/d/Car.java"><code>Car.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/d/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto2/d/Person.java"><code>Person.java</code></a></li>
+	                </ul>
+	            </p>
+            </subsection>
+            <subsection name="Join Table for Many-To-Many Relationship">
+                <p>
+                    For a Many-To-Many association, the <code>@javax.persistence.JoinTable</code> annotation
+                    is specified on the OWNING side of the association.  This is determined by modelling the
+                    <code>owning</code> side as an aggregation or composition.
+                </p>
+                <p>
+                    The join table name is defined by default to be the table name of the primary table of owning 
+                    side concatenated with the table name of the primary table of the inverse side.  
+                    You can override the <code>name</code> property by modelling the 
+                    <code>@andromda.persistence.table</code> tagged value on the assocation.
+                </p>
+            </subsection>
+            <subsection name="Aggregation and Composition">
+	            <p>
+	                To model the owning side of a One-To-One or Many-To-Many bidirectional relationship, you
+	                indicate that end (the owning end) of the relationship as an <code>aggregate</code> or
+	                <code>composite</code> end. You should use aggregation when an entity is part of 
+	                another one but the latter one does not need the former to exist.
+	            </p>
+	            <p>
+	                By default, the EJB3 cartridge enables the following via the 
+	                <code>compositionDefinesEagerLoading</code> namespace property.  These are employed if no
+	                <code>@andromda.persistence.fetch.type</code> tagged value exists.
+	                <ul>
+	                    <li>aggregation: lazy-loaded, no cascade</li>
+	                    <li>composition: eager-loaded, cascade update (cascade option not yet implemented)</li>
+	                </ul>
+	            </p>
+	            <p>
+	                The following example illustrates the Many-To-Many bidirection relationship between
+	                <code>Car</code> and <code>Person</code> entities.  The aggregate end on the
+	                <code>Person</code> entity indicates that <code>Person</code> is the owning entity.
+	            </p>
+	            <p>
+	                <img src="images/org/andromda/test/2/e/uml.gif"/>
+	            </p>
+	            <p>
+	                <ul>
+	                    <li class="gen">Auto-generated source that does not need manual editing</li>
+	                    <li class="impl">Auto-generated source that should be edited manually</li>
+	                    <li class="changed">File that is affected by the modifications applied in this section</li>
+	                </ul>
+	            </p>
+	            <p>
+	                <ul>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/e/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto2/e/Car.java"><code>Car.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/e/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto2/e/Person.java"><code>Person.java</code></a></li>
+	                </ul>
+	            </p>
+	        </subsection>
+            <p class="highlight">
+                Don't forget to properly set the multiplicity on the association ends and whether and end
+                is navigable.  This will ensure the proper code is generated.
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                In the next section we'll learn about services, click
+                <a href="howto3.html">here</a> to continue.
+            </p>
+        </section>
+    </body>
+</document>
