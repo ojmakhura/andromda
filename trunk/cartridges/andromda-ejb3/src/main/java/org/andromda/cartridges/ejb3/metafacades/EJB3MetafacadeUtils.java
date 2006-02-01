@@ -160,8 +160,8 @@ class EJB3MetafacadeUtils
     }
 
     /**
-     * Gets all instance attributes including those instance attributes belonging to the <code>classifier</code> and any
-     * inherited ones.
+     * Gets all instance attributes including those instance attributes belonging to the 
+     * <code>classifier</code> and any inherited ones.
      *
      * @param classifier the ClassifierFacade from which to retrieve the instance attributes.
      * @return the list of all instance attributes.
