@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <metafacades>
-	<property reference="transactionType" />
-	<property reference="entityAccessType" />
-	<property reference="entityViewType" />
-	<property reference="entityListenerNamePattern" />
-	<property reference="entityEmbeddableNamePattern" />
-	<property reference="entityNamePattern" />
-	<property reference="entityImplementationNamePattern" />
-	<property reference="entityCompositePrimaryKeyNamePattern" />
-	<property reference="entityDefaultCascade" />
-	<property reference="entityInheritanceStrategy" />
-	<property reference="entityDiscriminatorType" />
-	<property reference="entityDiscriminatorColumnName" />
-	<property reference="entityDefaultEnumLiteralColumnLength" />
-	<property reference="serviceViewType" />
-	<property reference="entityGenericFinders" />
-	<property reference="persistenceContainerName" />
-	<property reference="persistenceContextUnitName" />
-	<property reference="securityRealm" />
+	<property reference="transactionType"/>
+	<property reference="entityAccessType"/>
+	<property reference="entityViewType"/>
+	<property reference="entityListenerNamePattern"/>
+	<property reference="entityEmbeddableNamePattern"/>
+	<property reference="entityNamePattern"/>
+	<property reference="entityImplementationNamePattern"/>
+	<property reference="entityCompositePrimaryKeyNamePattern"/>
+	<property reference="entityDefaultCascade"/>
+	<property reference="entityInheritanceStrategy"/>
+	<property reference="entityDiscriminatorType"/>
+	<property reference="entityDiscriminatorColumnName"/>
+	<property reference="entityDefaultEnumLiteralColumnLength"/>
+	<property reference="serviceViewType"/>
+	<property reference="entityGenericFinders"/>
+	<property reference="persistenceContainerName"/>
+	<property reference="persistenceContextUnitName"/>
+	<property reference="securityRealm"/>
 	<property reference="allowDefaultServiceException"/>
+	<property reference="compositionDefinesEagerLoading"/>
 	<!-- Entity EJB Metafacades -->
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogicImpl">
 		<mapping>
@@ -34,14 +35,14 @@
 				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
 			</context>
 		</mapping>
-		<property reference="queryUseNamedParameters" />
+		<property reference="queryUseNamedParameters"/>
 	</metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogicImpl" contextRoot="true">
 		<mapping>
 			<context>
 				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
 			</context>
-			<property name="query" />
+			<property name="query"/>
 		</mapping>
 	</metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogicImpl">
@@ -55,8 +56,8 @@
 		<mapping>
 			<stereotype>ENTITY</stereotype>
 		</mapping>
-		<property reference="sqlMappingsUri" />
-		<property reference="jndiNamePrefix" />
+		<property reference="sqlMappingsUri"/>
+		<property reference="jndiNamePrefix"/>
 	</metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogicImpl">
 		<mapping>
@@ -83,9 +84,9 @@
 				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
 			</context>
 		</mapping>
-		<property reference="entityDefaultGeneratorType" />
-		<property reference="entityDefaultGeneratorInitialValue" />
-		<property reference="entityDefaultGeneratorAllocationSize" />
+		<property reference="entityDefaultGeneratorType"/>
+		<property reference="entityDefaultGeneratorInitialValue"/>
+		<property reference="entityDefaultGeneratorAllocationSize"/>
 	</metafacade>
 	<!-- Session EJB Metafacades -->
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogicImpl">
@@ -100,13 +101,13 @@
 		<mapping>
 			<stereotype>SERVICE</stereotype>
 		</mapping>
-		<property reference="jndiNamePrefix" />
-		<property reference="serviceNamePattern" />
-		<property reference="serviceLocalInterfaceNamePattern" />
-		<property reference="serviceRemoteInterfaceName" />
-		<property reference="serviceImplementationNamePattern" />
-		<property reference="serviceListenerNamePattern" />
-		<property reference="serviceDelegateNamePattern" />
+		<property reference="jndiNamePrefix"/>
+		<property reference="serviceNamePattern"/>
+		<property reference="serviceLocalInterfaceNamePattern"/>
+		<property reference="serviceRemoteInterfaceName"/>
+		<property reference="serviceImplementationNamePattern"/>
+		<property reference="serviceListenerNamePattern"/>
+		<property reference="serviceDelegateNamePattern"/>
 		<property reference="defaultServiceExceptionNamePattern"/>
 	</metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogicImpl">
@@ -121,17 +122,17 @@
 		<mapping>
 			<stereotype>MESSAGE_DRIVEN</stereotype>
 		</mapping>
-		<property reference="messageDrivenNamePattern" />
-		<property reference="messageDrivenImplementationNamePattern" />
-		<property reference="messageDrivenListenerNamePattern" />
-		<property reference="messageDrivenDestinationType" />
+		<property reference="messageDrivenNamePattern"/>
+		<property reference="messageDrivenImplementationNamePattern"/>
+		<property reference="messageDrivenListenerNamePattern"/>
+		<property reference="messageDrivenDestinationType"/>
 	</metafacade>
 	<!--  Common Metafacades -->
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacadeLogicImpl" contextRoot="true">
 		<mapping>
 			<stereotype>INTERCEPTOR</stereotype>
 		</mapping>
-		<property reference="interceptorNamePattern" />
+		<property reference="interceptorNamePattern"/>
 	</metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EnumerationFacadeLogicImpl">
 		<mapping>
