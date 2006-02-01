@@ -82,7 +82,7 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
     public static final $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
 #**##end
 #end
-#set ($attributes = $entity.attributes)
+#set ($attributes = $entity.allInstanceAttributes)
 #if (!$attributes.empty)
 
     // ----------- Attribute Definitions ------------
@@ -214,7 +214,7 @@ $operation.getDocumentation("    * ")
     /**
      * Get the <code>$constant.name</code> constant
 $constant.getDocumentation("     * ")
-     *
+     */
     $constant.visibility $constant.type.fullyQualifiedName ${constant.getterName}()
     {
         return $constant.name;
@@ -262,7 +262,7 @@ $constant.getDocumentation("     * ")
 
     // -------- Attribute Accessors ----------
 
-#**##foreach ($attribute in $entity.attributes)
+#**##foreach ($attribute in $attributes)
 ## Only include accessors for identifier attributes if entity does not have a composite primary key
 #*  *##if ($entity.compositePrimaryKeyPresent && $attribute.identifier)
 #*    *##set ($doAttributeAccessors = false)
@@ -439,7 +439,7 @@ $attribute.getDocumentation("     * ")
      * @return $target.getterSetterTypeName
      */
 #*    *##set ($argExists = false)
-    @javax.persistence.ManyToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
+    @javax.persistence.ManyToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
 ## Use Aggregation and Composition to determine owning side
 #*    *##if(($associationEnd.owning) && ${associationEnd.association.tableName})
     @javax.persistence.JoinTable(table = @javax.persistence.Table(name = "${associationEnd.association.tableName}"))
@@ -579,20 +579,26 @@ $finder.getDocumentation("     * ")
 #set ($businessOperations = $entity.businessOperations)
 #if (!$businessOperations.empty)
 
-    // --------------- Business Methods -----------------
-    
+    // --------------- Entity Methods -----------------
+
+##
+## Method with a static modifier will be defined in the inheriting subclass
+##
 #**##foreach ($operation in $businessOperations)
-#*  *##set ($signature = $operation.signature)
-#*  *##set ($visibility = $operation.visibility.toString())
-#*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
+#*  *##if (!$operation.static)
+#*    *##set ($signature = $operation.signature)
+#*    *##set ($visibility = $operation.visibility.toString())
+#*    *##set ($returnType = $operation.returnType.fullyQualifiedName)
     /**
 $operation.getDocumentation("     * ")
      */
-#*  *##if ($operation.exceptionsPresent)
+#*    *##if ($operation.exceptionsPresent)
     $visibility abstract $returnType $signature
         throws $operation.exceptionList;
-#*  *##else
+#*    *##else
     $visibility abstract $returnType $signature;
+#*    *##end
+
 #*  *##end
 #**##end
 #end
