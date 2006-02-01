@@ -99,35 +99,28 @@ $operation.getDocumentation("    * ")
 #set ($operations = $entity.businessOperations)
 #if (!$operations.empty)
 
-    // ------------------ Methods --------------------
+    // -------------- Entity Methods -----------------
     
 #**##foreach ($operation in $operations)
 #*  *##set ($signature = $operation.signature)
 #*  *##set ($visibility = $operation.visibility.toString())
 #*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
-   /**
-$operation.getDocumentation("    * ")
-    */
+    /**
+$operation.getDocumentation("     * ")
+     */
+    $visibility #if ($operation.static)static#end $returnType $signature
 #*  *##if ($operation.exceptionsPresent)
-    $visibility $returnType $signature
         throws $operation.exceptionList
-    {
-        // TODO put your implementation here.
-#*    *##if ($operation.returnTypePresent)
-        return $operation.returnType.javaNullString;
-#*    *##end
-    }
-#*  *##else
-    $visibility $returnType $signature
-    {
-        // TODO put your implementation here.
-#*    *##if ($operation.returnTypePresent)
-        return $operation.returnType.javaNullString;
-#*    *##else
-        throw new java.lang.UnsupportedOperationException("${entity.fullyQualifiedName}.${operation.signature} Not implemented!");
-#*    *##end
-    }
 #*  *##end
+    {
+        // TODO put your implementation here.
+#*  *##if ($operation.returnTypePresent)
+        return $operation.returnType.javaNullString;
+#*  *##else
+        throw new java.lang.UnsupportedOperationException("${entity.fullyQualifiedName}.${operation.signature} Not implemented!");
+#*  *##end
+    }
+    
 #**##end
 #end
 }
