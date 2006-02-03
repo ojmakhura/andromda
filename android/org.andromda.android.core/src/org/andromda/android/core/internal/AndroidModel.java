@@ -1,13 +1,12 @@
 package org.andromda.android.core.internal;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.andromda.android.core.AndroidCore;
+import org.andromda.android.core.cartridge.CartridgeParsingException;
+import org.andromda.android.core.cartridge.CartridgeRegistry;
 import org.andromda.android.core.cartridge.ICartridgeDescriptor;
-import org.andromda.android.core.internal.cartridge.CartridgeDescriptor;
-import org.andromda.android.core.internal.cartridge.CartridgeParsingException;
 import org.andromda.android.core.internal.project.AndroidProject;
 import org.andromda.android.core.project.IAndroidProject;
 import org.andromda.core.configuration.NamespaceDocument.Namespace;
@@ -22,6 +21,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 
 /**
  * 
@@ -31,6 +31,12 @@ import org.eclipse.core.runtime.CoreException;
 public class AndroidModel
 {
 
+    /**
+     * Retrieves a list of all Android projects in the workspace.
+     * 
+     * @return An array of {@link IAndroidProject}s.
+     * @throws CoreException If this method fails.
+     */
     public IAndroidProject[] getAllAndroidProjects() throws CoreException
     {
         IWorkspaceRoot wRoot = ResourcesPlugin.getWorkspace().getRoot();
@@ -97,11 +103,10 @@ public class AndroidModel
     public PropertyGroup[] getCartridgePropertyGroups(final Namespace configurationNamespace,
         final IAndroidProject project)
     {
-        String androMDACartridgesLocation = project.getProjectDefinition().getAndroMDACartridgesLocation();
-
         String name = configurationNamespace.getName();
-        ICartridgeDescriptor cartridgeDescriptor = new CartridgeDescriptor("file:/" + androMDACartridgesLocation
-                + "/andromda-" + name + "-cartridge-3.2-RC1-SNAPSHOT.jar");
+
+        ICartridgeDescriptor cartridgeDescriptor = CartridgeRegistry.getInstance()
+                .getCartridgeDescriptor(project, name);
 
         PropertyGroup[] result = null;
         NamespaceDocument cartridgeNamespaceDescriptor;
