@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension-point id="completionprocessors" name="Completion Processors" schema="schema/completionprocessors.exsd"/>
+ <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="Android Template Editor"
+            extensions="vsl, vm"
+            icon="icons/full/obj16/vsl_file.gif"
+            class="de.byteaction.velocity.editor.VelocityEditor"
+            contributorClass="de.byteaction.velocity.editor.VelocityEditorActionContributor"
+            id="org.andromda.android.ui.templateeditor.AndroidTemplateEditor">
+      </editor>
+   </extension>
+ <extension
+       point="de.byteaction.velocity.ui.completionproviders">
+    <provider
+          class="org.andromda.android.ui.templateeditor.internal.CompletionProvider"
+          id="org.andromda.android.ui.templateeditor.internal.CompletionProvider"/>
+ </extension>
+</plugin>

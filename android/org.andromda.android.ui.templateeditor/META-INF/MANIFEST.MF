@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Android Templateeditor Plug-in
+Bundle-SymbolicName: org.andromda.android.ui.templateeditor; singleton:=true
+Bundle-Version: 0.0.1
+Bundle-Activator: org.andromda.android.ui.templateeditor.TemplateEditorPlugin
+Bundle-Vendor: AndroMDA.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.eclipse.jface.text,
+ de.byteaction.velocity.ui,
+ org.andromda.android.core
+Eclipse-AutoStart: true
