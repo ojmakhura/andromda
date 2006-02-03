@@ -21,9 +21,9 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
 
 /**
+ * Provides central access to the Android data model.
  * 
  * @author Peter Friese
  * @since 07.10.2005
@@ -54,21 +54,25 @@ public class AndroidModel
     }
 
     /**
-     * @param project
-     * @return
+     * Retrieves the Android project for the given Eclipse project.
+     * 
+     * @param project The project to retrieve the Android project for.
+     * @return An Android project.
      */
-    public IAndroidProject getAndroidProject(IProject project)
+    public IAndroidProject getAndroidProject(final IProject project)
     {
         return getAndroidProject(project, false);
     }
 
     /**
-     * @param project
-     * @param force
-     * @return
+     * Retrieves the Android project for the given Eclipse project.
+     * 
+     * @param project The project to retrieve the Android project for.
+     * @param force If set to <code>true</code>, the project will be created in any case. 
+     * @return An Android project.
      */
-    public IAndroidProject getAndroidProject(IProject project,
-        boolean force)
+    public IAndroidProject getAndroidProject(final IProject project,
+        final boolean force)
     {
         return new AndroidProject(project, force);
     }
@@ -77,9 +81,10 @@ public class AndroidModel
      * Returns the active Java project associated with the specified resource, or <code>null</code> if no Java project
      * yet exists for the resource.
      * 
-     * @exception IllegalArgumentException if the given resource is not one of an IProject, IFolder, or IFile.
+     * @param resource The resource to get the Android project for.
+     * @return The Android project the given resource belongs to.
      */
-    public IAndroidProject getAndroidProject(IResource resource)
+    public IAndroidProject getAndroidProject(final IResource resource)
     {
         switch (resource.getType())
         {
@@ -95,10 +100,11 @@ public class AndroidModel
     }
 
     /**
-     * @param configurationNamespace
-     * @return
-     * @throws CoreException
-     * @throws IOException
+     * Retrieves the property groups belonging to the given namespace.
+     * 
+     * @param configurationNamespace The configuration namespace for which we want to retrieve the property groups.
+     * @param project The project we're in.
+     * @return All property groups belonging to the given namespace.
      */
     public PropertyGroup[] getCartridgePropertyGroups(final Namespace configurationNamespace,
         final IAndroidProject project)
