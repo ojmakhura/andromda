@@ -1,4 +1,4 @@
-package org.andromda.android.core.internal.cartridge;
+package org.andromda.android.core.cartridge;
 
 /**
  * 

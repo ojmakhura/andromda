@@ -20,9 +20,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.launching,
  org.eclipse.debug.ui,
  org.junit,
- org.eclipse.jface.text
+ org.eclipse.jface.text,
+ org.eclipse.jdt.core
 Eclipse-AutoStart: true
 Provide-Package: org.andromda.android.core,
+ org.andromda.android.core.cartridge,
  org.andromda.android.core.internal,
  org.andromda.android.core.model,
  org.andromda.android.core.model.configuration,
