@@ -2,14 +2,13 @@ package org.andromda.android.core.cartridge;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 
 /**
- * Utilities that make working with acrtridges easier.
+ * Utilities that make working with cartridges easier.
  * 
  * @author Peter Friese
  * @since 01.02.2006
@@ -23,7 +22,7 @@ public final class CartridgeUtils
     private CartridgeUtils()
     {
     }
-    
+
     /**
      * Finds the cartridge root folder for the given file.
      * 
@@ -44,14 +43,14 @@ public final class CartridgeUtils
             found = string.equalsIgnoreCase("src");
             segment--;
         }
-        
+
         IPath cartridgeRootPath = projectRelativePath.uptoSegment(segment);
         IWorkspaceRoot wRoot = ResourcesPlugin.getWorkspace().getRoot();
-        if (cartridgeRootPath.segmentCount() == 0) {
-            cartridgeRootPath = project.getLocation(); 
+        if (cartridgeRootPath.segmentCount() == 0)
+        {
+            cartridgeRootPath = project.getLocation();
         }
         return wRoot.getContainerForLocation(cartridgeRootPath);
     }
-    
 
 }
