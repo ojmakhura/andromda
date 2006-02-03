@@ -1,6 +1,7 @@
 package org.andromda.android.core.cartridge;
 
 /**
+ * Thrown if the cartridge descriptor(s) could be parsed correctly.
  * 
  * @author Peter Friese
  * @since 16.11.2005
@@ -9,42 +10,47 @@ public class CartridgeParsingException
         extends Exception
 {
 
+    /** <code>serialVersionUID</code> for this exception. */
+    private static final long serialVersionUID = 1L;
+
     /**
      * 
      */
     public CartridgeParsingException()
     {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
-     * @param message
+     * Creates a new CartridgeParsingException.
+     * 
+     * @param message The exception message.
      */
-    public CartridgeParsingException(String message)
+    public CartridgeParsingException(final String message)
     {
         super(message);
-        // TODO Auto-generated constructor stub
     }
 
     /**
-     * @param cause
+     * Creates a new CartridgeParsingException.
+     * 
+     * @param cause The original reason for the exception.
      */
-    public CartridgeParsingException(Throwable cause)
+    public CartridgeParsingException(final Throwable cause)
     {
         super(cause);
-        // TODO Auto-generated constructor stub
     }
 
     /**
-     * @param message
-     * @param cause
+     * Creates a new CartridgeParsingException.
+     * 
+     * @param message The exception message.
+     * @param cause The original reason for this exception.
      */
-    public CartridgeParsingException(String message,
-        Throwable cause)
+    public CartridgeParsingException(final String message,
+        final Throwable cause)
     {
         super(message, cause);
-        // TODO Auto-generated constructor stub
     }
 
 }

@@ -17,19 +17,19 @@ public interface ICartridgeDescriptor
     
     /**
      * @return The cartridge document of the cartridge. 
-     * @throws CartridgeParsingException 
+     * @throws CartridgeParsingException If the cartridge could not be parsed.
      */
     Cartridge getCartridge() throws CartridgeParsingException;
     
     /**
      * @return The namespace document of the cartridge.
-     * @throws CartridgeParsingException 
+     * @throws CartridgeParsingException If the cartridge could not be parsed.
      */
     Namespace getNamespace() throws CartridgeParsingException;
     
     /**
      * @return The metafacade document of the cartridge.
-     * @throws CartridgeParsingException 
+     * @throws CartridgeParsingException If the cartridge could not be parsed.
      */
     Metafacade getMetafacade() throws CartridgeParsingException;
     
@@ -37,7 +37,7 @@ public interface ICartridgeDescriptor
      * @return A collection of all variables that are defined in this cartridge.
      * @throws CartridgeParsingException If the cartridge could not be parsed.
      */
-    public Collection getVariableDescriptors() throws CartridgeParsingException;
+    Collection getVariableDescriptors() throws CartridgeParsingException;
 
 
     // TODO import profile.xsd
