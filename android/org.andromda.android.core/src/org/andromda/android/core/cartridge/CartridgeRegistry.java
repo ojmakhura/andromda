@@ -76,11 +76,11 @@ public final class CartridgeRegistry
     {
         String location = cartridgeRootFolder.getLocation().toOSString();
         String key = location;
-
+        
         ICartridgeDescriptor cartridgeDescriptor = (ICartridgeDescriptor)cartridgeDescriptors.get(key);
         if (cartridgeDescriptor == null)
         {
-            cartridgeDescriptor = new CartridgeDescriptor(location, false);
+            cartridgeDescriptor = new CartridgeDescriptor(cartridgeRootFolder, false);
             cartridgeDescriptors.put(key, cartridgeDescriptor);
         }
         return cartridgeDescriptor;
