@@ -4,13 +4,14 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.andromda.android.core.cartridge.CartridgeParsingException;
 import org.andromda.android.core.cartridge.ICartridgeDescriptor;
 import org.andromda.android.core.cartridge.ICartridgeVariableDescriptor;
+import org.andromda.android.core.project.IAndroidProject;
 import org.andromda.core.cartridge.CartridgeDocument;
 import org.andromda.core.cartridge.CartridgeDocument.Cartridge;
+import org.andromda.core.cartridge.TemplateObjectDocument.TemplateObject;
 import org.andromda.core.metafacade.MetafacadeDocument;
 import org.andromda.core.metafacade.MetafacadeDocument.Metafacade;
 import org.andromda.core.namespace.NamespaceDocument;
@@ -20,6 +21,12 @@ import org.andromda.core.namespace.PropertyDocument.Property;
 import org.andromda.core.namespace.PropertyGroupDocument.PropertyGroup;
 import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 
 /**
  * Provides access to the cartridge descriptor documents.
@@ -58,6 +65,8 @@ public class CartridgeDescriptor
     /** Cache for the cartridge variables. */
     private Map variables;
 
+    private IJavaProject javaProject;
+
     /**
      * Creates a new CartridgeDescriptor.
      * 
@@ -68,6 +77,23 @@ public class CartridgeDescriptor
         final boolean insideJar)
     {
         cartridgeLocation = location;
+        jar = insideJar;
+        setupDefaultNamespaces();
+    }
+
+    /**
+     * Creates a new CartridgeDescriptor.
+     * 
+     * @param location The location of the cartridge.
+     * @param insideJar Indicates whether the location is a jar file.
+     */
+    public CartridgeDescriptor(final IContainer cartridgeRootFolder,
+        final boolean insideJar)
+    {
+        cartridgeLocation = cartridgeRootFolder.getLocation().toOSString();
+        
+        IProject project = cartridgeRootFolder.getProject();
+        javaProject = JavaCore.create(project);
         jar = insideJar;
         setupDefaultNamespaces();
     }
@@ -214,38 +240,80 @@ public class CartridgeDescriptor
         if (variables == null)
         {
             variables = new HashMap();
-
-            Namespace namespace = getNamespace();
-            Properties[] propertiesArray = namespace.getPropertiesArray();
-            for (int i = 0; i < propertiesArray.length; i++)
-            {
-                Properties properties = propertiesArray[i];
-                PropertyGroup[] propertyGroupArray = properties.getPropertyGroupArray();
-
-                for (int j = 0; j < propertyGroupArray.length; j++)
-                {
-                    PropertyGroup group = propertyGroupArray[j];
-                    XmlObject groupDocumentation = group.getDocumentation();
-                    String groupName = group.getName();
-                    org.andromda.core.namespace.PropertyDocument.Property[] propertyArray = group.getPropertyArray();
-                    for (int k = 0; k < propertyArray.length; k++)
-                    {
-                        Property property = propertyArray[k];
-                        String propertyDocumentation = property.getDocumentation().toString();
-                        String propertyName = property.getName();
-
-                        ICartridgeVariableDescriptor descriptor = new CartridgeVariableDescriptor(propertyName,
-                                propertyDocumentation);
-                        
-                        variables.put(propertyName, descriptor);
-                    }
-                }
-            }
+            retrieveCartridgeProperties(variables);
+            retrieveCartridgeTemplateObjects(variables);
         }
 
         // return a collection view of the variable cache
         Collection collection = variables.values();
         return collection;
+    }
+
+    /**
+     * @param variables
+     * @throws CartridgeParsingException
+     */
+    private void retrieveCartridgeTemplateObjects(Map variables) throws CartridgeParsingException
+    {
+        Cartridge cartridge = getCartridge();
+        TemplateObject[] templateObjectArray = cartridge.getTemplateObjectArray();
+        for (int i = 0; i < templateObjectArray.length; i++)
+        {
+            TemplateObject templateObject = templateObjectArray[i];
+            String objectName = templateObject.getName();
+            String objectClassName = templateObject.getClassName();
+            String documentation = ""; // TODO we should retrieve the javadoc of the type!
+
+            IType type;
+            try
+            {
+                if (javaProject != null)
+                {
+                    type = javaProject.findType(objectClassName);
+                    ICartridgeVariableDescriptor descriptor = new CartridgeJavaVariableDescriptor(objectName,
+                            documentation, type);
+                    variables.put(objectName, descriptor);
+                }
+            }
+            catch (JavaModelException e)
+            {
+                throw new CartridgeParsingException(e);
+            }
+
+        }
+    }
+
+    /**
+     * @throws CartridgeParsingException
+     */
+    private void retrieveCartridgeProperties(Map variables) throws CartridgeParsingException
+    {
+        Namespace namespace = getNamespace();
+        Properties[] propertiesArray = namespace.getPropertiesArray();
+        for (int i = 0; i < propertiesArray.length; i++)
+        {
+            Properties properties = propertiesArray[i];
+            PropertyGroup[] propertyGroupArray = properties.getPropertyGroupArray();
+
+            for (int j = 0; j < propertyGroupArray.length; j++)
+            {
+                PropertyGroup group = propertyGroupArray[j];
+                XmlObject groupDocumentation = group.getDocumentation();
+                String groupName = group.getName();
+                org.andromda.core.namespace.PropertyDocument.Property[] propertyArray = group.getPropertyArray();
+                for (int k = 0; k < propertyArray.length; k++)
+                {
+                    Property property = propertyArray[k];
+                    String propertyDocumentation = property.getDocumentation().toString();
+                    String propertyName = property.getName();
+
+                    ICartridgeVariableDescriptor descriptor = new CartridgeVariableDescriptor(propertyName,
+                            propertyDocumentation);
+
+                    variables.put(propertyName, descriptor);
+                }
+            }
+        }
     }
 
 }

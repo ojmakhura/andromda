@@ -8,9 +8,13 @@ import org.andromda.android.core.cartridge.CartridgeParsingException;
 import org.andromda.android.core.cartridge.CartridgeRegistry;
 import org.andromda.android.core.cartridge.CartridgeUtils;
 import org.andromda.android.core.cartridge.ICartridgeDescriptor;
+import org.andromda.android.core.cartridge.ICartridgeJavaVariableDescriptor;
 import org.andromda.android.core.cartridge.ICartridgeVariableDescriptor;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.jdt.core.IMethod;
+import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
 
@@ -68,8 +72,7 @@ public class CompletionProvider
                     break;
 
                 case VelocityTextGuesser.TYPE_MEMBER_QUALIFIER:
-                    text = "type_member_qualifier: " + prefix.getVariable() + "/" + prefix.getText();
-                    result.add(createSimpleCompletionProposal(prefix.getText(), offset, text));
+                    result.addAll(getMemberProposals(cartridgeDescriptor, prefix, offset));
                     break;
 
                 case VelocityTextGuesser.TAG_DIRECTIVE:
@@ -92,6 +95,55 @@ public class CompletionProvider
         {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * @param cartridgeDescriptor
+     * @param prefix
+     * @param offset
+     * @return
+     * @throws CartridgeParsingException
+     */
+    private Collection getMemberProposals(ICartridgeDescriptor cartridgeDescriptor,
+        VelocityTextGuesser prefix,
+        int offset) throws CartridgeParsingException
+    {
+        ArrayList result = new ArrayList();
+
+        Collection variableDescriptors = cartridgeDescriptor.getVariableDescriptors();
+        for (Iterator iter = variableDescriptors.iterator(); iter.hasNext();)
+        {
+            ICartridgeVariableDescriptor descriptor = (ICartridgeVariableDescriptor)iter.next();
+            if (descriptor instanceof ICartridgeJavaVariableDescriptor)
+            {
+                ICartridgeJavaVariableDescriptor cartridgeJavaVariableDescriptor = (ICartridgeJavaVariableDescriptor)descriptor;
+                String name = cartridgeJavaVariableDescriptor.getName();
+                if (name.startsWith(prefix.getVariable()))
+                {
+                    IType type = cartridgeJavaVariableDescriptor.getType();
+                    IMethod[] methods;
+                    try
+                    {
+                        methods = type.getMethods();
+                        for (int i = 0; i < methods.length; i++)
+                        {
+                            IMethod method = methods[i];
+                            String elementName = method.getElementName();
+                            if (elementName.startsWith(prefix.getText()))
+                            {
+                                result.add(createSimpleCompletionProposal(prefix.getText(), offset, elementName));
+                            }
+                        }
+                    }
+                    catch (JavaModelException e)
+                    {
+                        throw new CartridgeParsingException(e);
+                    }
+                }
+
+            }
         }
         return result;
     }
