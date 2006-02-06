@@ -16,12 +16,10 @@ $entity.getDocumentation(" * ")
  *
  */
 
-
-@javax.persistence.Entity#if ($entity.accessType)(access = javax.persistence.AccessType.${entity.accessType})#end
-
+@javax.persistence.Entity
 @javax.persistence.Table(name = "${entity.tableName}")
 #if ($entity.listenerEnabled)
-@javax.persistence.EntityListener(${entity.fullyQualifiedEntityListenerName}.class)
+@javax.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})
 #end
 public#if ($entity.abstract) abstract#end class ${entity.entityName}
     extends ${entity.fullyQualifiedEntityEmbeddableName}
@@ -108,7 +106,8 @@ $operation.getDocumentation("    * ")
     /**
 $operation.getDocumentation("     * ")
      */
-    $visibility #if ($operation.static)static#end $returnType $signature
+    @javax.persistence.Transient
+    $visibility#if ($operation.static) static#end $returnType $signature
 #*  *##if ($operation.exceptionsPresent)
         throws $operation.exceptionList
 #*  *##end
