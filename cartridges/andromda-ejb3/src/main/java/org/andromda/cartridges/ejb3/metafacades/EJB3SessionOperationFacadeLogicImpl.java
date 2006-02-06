@@ -8,6 +8,7 @@ import java.util.LinkedHashSet;
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.Service;
 import org.apache.commons.collections.Closure;
@@ -277,10 +278,7 @@ public class EJB3SessionOperationFacadeLogicImpl
      */
     protected boolean handleIsTimeoutCallback()
     {
-        boolean isTimeout = false;
-        isTimeout = BooleanUtils.toBoolean(
-                (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SERVICE_TIMER_TIMEOUT));
-        return isTimeout;
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_SERVICE_TIMER_TIMEOUT);
     }
 
     /**
@@ -322,5 +320,61 @@ public class EJB3SessionOperationFacadeLogicImpl
         return MessageFormat.format(
                 implementationNamePattern,
                 new Object[] {StringUtils.trimToEmpty(replacement)});
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleGetInterceptorReferences()
+     */
+    protected Collection handleGetInterceptorReferences()
+    {
+        Collection references = this.getSourceDependencies();
+        CollectionUtils.filter(references, new Predicate()
+        {
+            public boolean evaluate(Object object)
+            {
+                DependencyFacade dependency = (DependencyFacade)object;
+                ModelElementFacade targetElement = dependency.getTargetElement();
+                return (targetElement != null && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_INTERCEPTOR));
+            }
+        });
+        CollectionUtils.transform(references, new Transformer()
+        {
+            public Object transform(final Object object)
+            {
+                return ((DependencyFacade)object).getTargetElement();
+            }
+        });
+        return references;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#
+     *      handleIsExcludeDefaultInterceptors()
+     */
+    protected boolean handleIsExcludeDefaultInterceptors()
+    {
+        boolean excludeDefault = false;
+        String excludeDefaultStr = 
+            (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SERVICE_INTERCEPTOR_EXCLUDE_DEFAULT);
+        if (excludeDefaultStr != null)
+        {
+            excludeDefault = BooleanUtils.toBoolean(excludeDefaultStr);
+        }
+        return excludeDefault;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsExcludeClassInterceptors()
+     */
+    protected boolean handleIsExcludeClassInterceptors()
+    {
+        boolean excludeClass = false;
+        String excludeClassStr = 
+            (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SERVICE_INTERCEPTOR_EXCLUDE_CLASS);
+        if (excludeClassStr != null)
+        {
+            excludeClass = BooleanUtils.toBoolean(excludeClassStr);
+        }
+        return excludeClass;
     }
 }
