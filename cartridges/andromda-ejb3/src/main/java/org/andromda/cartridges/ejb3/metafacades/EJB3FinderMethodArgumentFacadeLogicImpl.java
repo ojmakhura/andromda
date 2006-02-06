@@ -27,7 +27,7 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
     protected java.lang.String handleGetTemporalType()
     {
         String temporalType = 
-            (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_FINDER_PARAMETER_TEMPORAL_TYPE);
+            (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_TEMPORAL_TYPE);
         if (StringUtils.isBlank(temporalType))
         {
             ClassifierFacade classifier = this.getType();
