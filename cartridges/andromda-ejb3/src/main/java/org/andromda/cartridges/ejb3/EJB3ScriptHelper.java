@@ -102,4 +102,32 @@ public class EJB3ScriptHelper
         return result;
         
     }
+    
+    /**
+     * Returns the comma separated list of interceptor classes.
+     * 
+     * @param interceptors The collection ModelElementFacade elements representing the interceptors
+     * @param prepend Prefix any interceptors to the comma separated list
+     * @return String containing the comma separated fully qualified class names
+     */
+    public String getInterceptorsAsList(Collection interceptors, String prepend)
+    {
+        StringBuffer sb = new StringBuffer();
+        String separator = "";
+        
+        if (StringUtils.isNotBlank(prepend))
+        {
+            sb.append(prepend);
+            separator = ", ";
+        }
+
+        for (final Iterator it = interceptors.iterator(); it.hasNext();)
+        {
+            ModelElementFacade interceptor = (ModelElementFacade)it.next();
+            sb.append(separator);
+            separator = ", ";
+            sb.append(interceptor.getFullyQualifiedName() + ".class");
+        }
+        return sb.toString();
+    }
 }
