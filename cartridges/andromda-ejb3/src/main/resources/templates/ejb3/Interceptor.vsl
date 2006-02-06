@@ -5,7 +5,7 @@ package $interceptor.packageName;
 #set ($generatedFile = "${stringUtils.replace($interceptor.fullyQualifiedInterceptorName,'.','/')}.java")
 
 /**
- * Interceptor class
+ * Interceptor class ${interceptor.interceptorName}
  */
 public class ${interceptor.interceptorName} 
 {
