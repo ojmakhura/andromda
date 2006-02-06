@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - HowTo Service</title>
+    </properties>
+    <body>
+        <section name="Services">
+            <p>
+                A common strategy to shield the presentation tier from the persistence tier is to model
+                the services in between, they will be used to implement the business logic in the application tier.
+                The technology behind is of little interest to the developer (that's one of the good points of MDA right!), 
+                but it's good to know POJOs are being used.
+            </p>
+            <p>
+                In order to model such services you would just create another class, but this time you will give
+                this class the <![CDATA[<<Service>>]]> stereotype. 
+            </p>
+            <p>
+                Generally speaking it is sufficient to only model operations in these services, they represent
+                the operations that can be called remotely, consider these operations the API of your application's
+                back-end.
+            </p>
+            <p>
+                Notice how we have modelled dependencies from the service to the entities.  For previous persistence
+                engines, this would render accessors to the DAOs of both entities in the service or add the
+                necessary xdoclet tags or corresponding <code>env-entry</code> elements to the deployment
+                descriptors.  For the EJB3 cartridge, this is NOT the case!
+            </p>
+            <p>
+                You should still draw such dependencies to indicate the need to access the persistent storage 
+                of entities, however EJB 3.0 relies on the persistence entity manager to handle this task and
+                eliminates much of the complexity.
+            </p>
+            <p>
+                The following example illustrates the use of a service bean that operates on the entity POJOs.
+            </p>
+            <p>
+                <img src="images/org/andromda/test/3/a/uml.gif"/>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a href="src/org/andromda/test/howto3/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto3/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto3/a/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto3/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/ServiceLocator.java"><code>ServiceLocator.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto3/a/RentalServiceBeanImpl.java"><code>RentalServiceBeanImpl.java</code></a></li>
+                </ul>
+            </p>
+            <p>
+                There are a few other things you can do with these services, these features will be presented
+                in the sections ahead.
+            </p>
+            <p>
+                The <code>RentalServiceBean.java</code> injects the <code>javax.ejb.SessionContext</code> by
+                default and makes this available for use in the subclass via the <code>context</code> protected
+                attribute.
+            </p>
+            <p>
+                The default persistence context is injected into the Entity Manager.  This is defined via the
+                <code>@javax.persistence.PersistenceContext</code> annotation in <code>RentalServiceBean.java</code>.
+                The <code>unitName</code> property matches the entity manager name in <code>persistence.xml</code>
+                and is determined from the project name for the default persistence context.
+            </p>
+            <a name="Session_Type"/>
+            <subsection name="Session Type">
+                <p>
+                    By default, if a session bean does not have any instance attributes, then it is by definition
+                    a <code>Stateless</code> session bean since there are no attributes to maintain state between
+                    bean method invocations.
+                </p>
+                <p>
+                    If you model an <code>instance</code> scoped attribute on the bean, the EJB3 cartridge will
+                    declare this session bean as a <code>Stateful</code> session bean in the ejb-jar.xml
+                    deployment descriptor.
+                </p>
+                <p>
+                    If you wish, you can override this feature by modelling the <code>@andromda.service.type</code>
+                    tagged value on the session bean class.
+                </p>
+            </subsection>
+            <a name="View_Interface"/>
+            <subsection name="View Interfaces">
+                <p>
+                    By default, the EJB3 cartridge creates and registers a remote view interface which implies 
+                    that the client view of the session bean is location-independent.  In this case, the session bean
+                    and the client can exist in different JVMs on the same or different machines.
+                </p>
+                <p>
+                    To create a local view interface and register this with the container, you model the
+                    <code>@andromda.ejb.viewType</code> on the session bean operation or at the class level
+                    of the session bean.  Your options are:
+                    <ul>
+                        <li>remote - This is the default and doesn't need to be specified</li>
+                        <li>local - Assigns to class/operation to the local view interface</li>
+                        <li>both - This class/operations are available via the local and remote interfaces</li>
+                    </ul>
+                </p>
+            </subsection>
+            <a name="Transactions"/>
+            <subsection name="Transactions">
+                <p>
+                    To declare the transactional nature of session bean business methods, you can model
+                    the <code>@andromda.ejb.transaction.type</code> tagged value on the session bean business 
+                    methods individually, or on session bean class.  To find out more information, click on
+                    <a href="howto15.html">Transaction</a>.
+                </p>
+            </subsection>
+            <a name="Security"/>
+            <subsection name="Security">
+                <p>
+                    The EJB3 cartridge provides the ability to set security constraints to allow
+                    role based security when accessing and invoking session bean business operations.
+                    To find out more information, click on <a href="howto8.html">Security</a>.
+                </p>
+            </subsection>
+            <a name="Resource_Injection"/>
+            <subsection name="Resource Injections">
+                <p>
+                    To inject an environment entry resource value, model a service attribute with classifer scope
+                    and set the attribute stereotype to <![CDATA[<<EnvEntry>>]]>.  The environment
+                    entries will be defined in the session bean class and configured in the ejb-jar.xml 
+                    deployment descriptor.
+                    You must define a default value for these attributes in the model.  Refer to 
+                    <a href="howto11.html">Environment Entry Injections</a> for further information. 
+                </p>
+            </subsection>
+            <a name="Nullable_Parameter"/>
+            <subsection name="Nullable Parameters">
+                <p>
+                    If you want an operation to have a parameter which is allowed to be <code>null</code> then simply
+                    assign the <![CDATA[<<Nullable>>]]> stereotype to that parameter.
+                </p>
+            </subsection>
+            <a name="Session_Delegate"/>
+            <subsection name="Session Delegate">
+                <p>
+                    As you saw in the example in this howto, a session bean delegate class is generated for
+                    every session bean.  A client invokes the session bean's business methods via the delegate
+                    class, acting like a proxy via the service locator class.  Both the service delegate and
+                    service locator classes are regenerated every time AndroMDA is run.
+                </p>
+            </subsection>
+            <a name="Listener_Callback"/>
+            <subsection name="Listener Callback">
+                <p>
+                    In some cases, setting up lifecycle event callbacks for the session bean can be quite
+                    useful.  The EJB3 cartridge provides the facility to define these callback methods
+                    in the listener class.  This class if NOT generate by default.  To find out more information,
+                    click on <a href="howto14.html">Listener Callback</a>.
+                </p>
+            </subsection>
+            <a name="Interceptors"/>
+            <subsection name="Interceptors">
+                <p>
+                    You can intercept calls to session bean business method invocations via an interceptor class.  
+                    By default,  this class is NOT generated.  To find out more information, click on
+                    <a href="howto13.html">Interceptors</a>.
+                </p>
+            </subsection>
+            <a name="JNDI_Bindings"/>
+            <subsection name="JNDI Bindings">
+                <p>
+                    The container will supply default JNDI bindings for the remote and local interface of 
+                    the session bean.  By default, JBoss will use <code>ejbName/local</code> and 
+                    <code>ejbName/remote</code> for the local and remote interfaces, respectively.  Other providers
+                    will do something similar.
+                </p>
+                <p>
+                    You can override the default JNDI bindings.  To specify the JNDI name of the local interface
+                    bound to the session bean, model the <code>@andromda.service.jndi.local</code> tagged value on
+                    the session bean class.  To specify the JNDI name of the remote interface bound to
+                    the session bean, model the <code>@andromda.service.jndi.remote</code> tagged value
+                    on the session bean class.
+                </p>
+            </subsection>
+            <a name="Persistence_Context_Entity_Manager"/>
+            <subsection name="Persistence Context Entity Manager">
+                <p>
+                    The EJB3 cartridge derives a default persistence context associated with the default
+                    entity manager for every session bean.  The persistence context <code>unitName</code>
+                    property is determined via the <code>persistenceContextUnitName</code> namespace property
+                    which is provided via <code>andromda.xml</code> descriptor. 
+                </p>
+                <p>
+                    Every session bean provides the facility to override the default persistence context
+                    annotation declaration by modelling the following tagged values on the session bean class:
+                    <ul>
+                        <li>
+                            <code>@andromda.service.persistence.context.unit.name</code>
+                            Override the unit name for the default persistence context.
+                        </li>
+                        <li>
+                            <code>@andromda.service.persistence.context.unit.type</code>
+                            Specifiy whether a trasaction scoped or extended scoped persistence context
+                            is required for the persistence context associated with the default entity manager.
+                        </li>
+                    </ul>
+                </p>
+                <p>
+                    To inject another persistence context, associated with a different entity manager, you need
+                    to model a new class with the <![CDATA[<<PersistenceContext>>]]> stereotype and draw
+                    a dependency from the session bean to the this new class.  The entity manager attribute
+                    declaration will use the class name as the attribute name.  To define the properties of
+                    the persistence context annotation, you need to model the above tagged values on
+                    this new class.
+                </p>
+            </subsection>
+            <a name="EJB_Injections"/>
+            <subsection name="EJB Injections">
+                <p>
+                    To inject another session bean into the current session bean, simply model a dependency
+                    from the source session bean (which will contain the <code>@javax.annotation.EJB</code>
+                    annotation) to the target session bean.
+                </p>
+            </subsection>
+            <a name="JMS_Injections"/>
+            <subsection name="JMS Injections">
+                <p>
+                    The EJB3 cartridge provides the facility to develop message driven beans.  To find out
+                    more information, click on <a href="howto10.html">message driven beans</a>.
+                </p>
+                <p>
+                    Once you have modelled the MDB with <![CDATA[<<MessageDriven>>]]> stereotype,
+                    you can model a dependency from the source session bean to the MDB.  This will render
+                    the appropriate <code>@javax.annotation.Resource</code> injections associated with JMS specific 
+                    objects such as <code>QueueConnectionFactory</code>, <code>TopicConnectionFactory</code> and
+                    the <code>Destination</code> object.
+                </p>
+            </subsection>
+            <a name="EJB_Timer_Service"/>
+            <subsection name="EJB Timer Service">
+                <p>
+                    To setup a timeout callback and use the EJB Timer Service, just model the
+                    <![CDATA[<<Timeout>>]]> stereotype on a session bean operation.  This will
+                    render the <code>@javax.ejb.Timeout</code> annotation on the operation.  Every session
+                    bean injects <code>SessionContext</code> with the <code>@javax.annotation.Resource</code>
+                    annotation which allows registration of the timer with the EJB Timer Service.
+                </p>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                In the next section we'll learn about composite primary keys, click
+                <a href="howto4.html">here</a> to continue.
+            </p>
+        </section>
+    </body>
+</document>

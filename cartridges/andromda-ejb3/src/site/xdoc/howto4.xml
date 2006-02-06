@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - HowTo Composite Primary Key</title>
+    </properties>
+    <body>
+        <section name="Composite Primary Key">
+            <p>
+                In some cases, you may want to define a composite primary key, rather than a simple primary key.
+                A composite primary key must correspond to two or more persistent fields or properties.  The
+                EJB3 cartridge allow the creation of a composite primary key class to satisfy this requirement.
+            </p>
+            <p>
+                To map two or more attributes of an entity POJO as a property of a composite primary key, simply
+                model the <![CDATA[<<Identifier>>]]> stereotype on the corresdponding attributes in the entity.
+                The order of the primary keys is defined by the order of the attribute identifiers in the entity.
+            </p>
+            <p>
+                The following example introduces a composite primary key for the Car entity.
+            </p>
+            <p>
+                <img src="images/org/andromda/test/4/a/uml.gif"/>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto4/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/a/CarPK.java"><code>CarPK.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/a/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto4/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java"><code>ServiceLocator.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto4/a/RentalServiceBeanImpl.java"><code>RentalServiceBeanImpl.java</code></a></li>
+                </ul>
+            </p>
+            <p>
+                The EJB3 cartridge represents a composite primary key as an embeddable class, implements 
+                <code>Serializable</code> and defines the <code>equals</code> and <code>hashCode</code> methods.
+                The <code>CarPK</code> embeddable composite primary key class has the
+                <code>@javax.persistence.Embeddable</code> annotation.  The <code>CarEmbeddable</code> class
+                contains the corresponding <code>@javax.persistence.EmbeddedId</code> annotation on the
+                composite primary key getter.  Notice how the <code>@javax.persistence.AttributeOverrides</code>
+                annotation is used to map the primary key attributes to the relational database columns.
+            </p>
+            <p>
+                The following example illustrates the effect of having a composite primary key on the inverse
+                side of a relationship.  What's important here is the <code>@javax.persistence.JoinColumns</code>
+                annotation on <code>getOwner()</code> in <code>CarEmbeddable.java</code>.  Because
+                <code>Person</code> has a composite primary key, the foreign key on Many-To-One owning side
+                has to know about this.
+            </p>
+            <p>
+                <img src="images/org/andromda/test/4/b/uml.gif"/>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto4/b/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/b/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto4/b/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/b/PersonPK.java"><code>PersonPK.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java"><code>ServiceLocator.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/b/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/b/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/b/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto4/b/RentalServiceBeanImpl.java"><code>RentalServiceBeanImpl.java</code></a></li>
+                </ul>
+            </p>
+            <p>
+                Currently, the EJB3 cartridge will disable the findByPrimaryKey generic finder for an entity
+                with a composite primary key.
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                As promised we'll learn how to model enumerations, click <a href="howto5.html">here</a>.
+            </p>
+        </section>
+    </body>
+</document>
