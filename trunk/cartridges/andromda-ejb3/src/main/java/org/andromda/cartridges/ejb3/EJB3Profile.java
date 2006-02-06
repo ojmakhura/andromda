@@ -94,10 +94,10 @@ public class EJB3Profile
     public static final String STEREOTYPE_DATA_SOURCE = profile.get("DATA_SOURCE");
     
     /**
-     * Represents an interceptor class for a session bean.
+     * Represents an  class for a session bean.
      */
     public static final String STEREOTYPE_INTERCEPTOR = profile.get("INTERCEPTOR");
-
+    
     /**
      * Represents a dependency from an actor that is identified to
      * apply a run-as identity to the bean when making calls.
@@ -109,6 +109,17 @@ public class EJB3Profile
      * message driven bean classes.
      */
     public static final String STEREOTYPE_LISTENER = profile.get("LISTENER");
+
+    /**
+     * Specifies the session bean operation as a
+     * Timer Service timeout callback method.
+     */
+    public static final String STEREOTYPE_SERVICE_TIMER_TIMEOUT = profile.get("SERVICE_TIMER_TIMEOUT");
+    
+    /**
+     * Represents a LOB type attribute.
+     */
+    public static final String STEREOTYPE_LOB = profile.get("LOB");
     
     /* ----------------- Tagged Values -------------------- */
     
@@ -147,10 +158,10 @@ public class EJB3Profile
     public static final String TAGGEDVALUE_EJB_NO_SYNTHETIC_CREATE_METHOD = profile.get("NO_SYNTHETIC_CREATE_METHOD");
     
     /**
-     * The tagged value indicating the finder temporal type.
+     * The tagged value indicating the temporal type specified on attributes or
+     * finder method arguments of temporal nature.
      */
-    public static final String TAGGEDVALUE_PERSISTENCE_FINDER_PARAMETER_TEMPORAL_TYPE = 
-        profile.get("ENTITY_FINDER_TEMPORAL_TYPE");
+    public static final String TAGGEDVALUE_PERSISTENCE_TEMPORAL_TYPE = profile.get("TEMPORAL_TYPE");
     
     /**
      * The tagged value indicating the finder method parameter result type 
@@ -170,14 +181,14 @@ public class EJB3Profile
     public static final String TAGGEDVALUE_PERSISTENCE_FETCH_TYPE = profile.get("FETCH_TYPE");
     
     /**
-     * The tagged value indicating the LOB type.
-     */
-	public static final String TAGGEDVALUE_PERSISTENCE_LOB_TYPE = profile.get("LOB_TYPE");
-    
-    /**
      * The tagged value indicating the cascade type.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_CASCADE_TYPE = profile.get("CASCADE_TYPE");
+
+    /**
+     * The tagged value indicating the enumeration type (ORDINAL, STRING).
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_ENUMERATION_TYPE = profile.get("ENUMERATION_TYPE");
     
     /**
      * The tagged value indicating the generator type.
@@ -291,12 +302,6 @@ public class EJB3Profile
         profile.get("ENTITY_DISCRIMINATOR_COLUMN_LENGTH");
     
     /**
-     * The tagged value representing the access type for the 
-     * entity class
-     */
-    public static final String TAGGEDVALUE_PERSISTENCE_ACCESS_TYPE = profile.get("ENTITY_ACCESS_TYPE");
-    
-    /**
      * The tagged value representing whether this entity is an 
      * embeddable superclass
      */
@@ -388,12 +393,6 @@ public class EJB3Profile
     public static final String TAGGEDVALUE_EJB_SESSION_JNDI_NAME_Local = profile.get("SERVICE_JNDI_NAME_LOCAL");
 
     /**
-     * The tagged value indicating the session bean operation as a
-     * Timer Service timeout callback method.
-     */
-    public static final String TAGGEDVALUE_SERVICE_TIMER_TIMEOUT = profile.get("SERVICE_TIMER_TIMEOUT");
-
-    /**
      * The tagged value indicating the MDB or session bean
      * container configuration name specific to JBoss.
      */
@@ -404,4 +403,15 @@ public class EJB3Profile
      */
     public static final String TAGGEDVALUE_ASSOCIATION_COLLECTION_TYPE = profile.get("ASSOCIATION_COLLECTION_TYPE");
 
+    /**
+     * Defines whether to exclude the default interceptors for the session operation. 
+     */
+    public static final String TAGGEDVALUE_SERVICE_INTERCEPTOR_EXCLUDE_DEFAULT = 
+        profile.get("EXCLUDE_DEFAULT_INTERCEPTORS");
+    
+    /**
+     * Defines whether to exclude the class interceptors for the session operation. 
+     */
+    public static final String TAGGEDVALUE_SERVICE_INTERCEPTOR_EXCLUDE_CLASS = 
+        profile.get("EXCLUDE_CLASS_INTERCEPTORS");
 }
