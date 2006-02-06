@@ -380,21 +380,6 @@
 					</ul>
 				</documentation>
 			</property>
-			<property name="entityAccessType">
-				<default>PROPERTY</default>
-				<documentation>
-					The value of the
-					<code>AccessType</code>
-					element of an annotation of the entity that
-					determines whether to use properties or fields to
-					access the entity state. Currenly, AndroMDA support
-					the PROPERTY value ONLY. Possible values are:
-					<ul>
-						<li>PROPERTY</li>
-						<li>FIELD</li>
-					</ul>
-				</documentation>
-			</property>
 			<property name="entityDefaultCascade">
 				<default>NONE</default>
 				<documentation>
