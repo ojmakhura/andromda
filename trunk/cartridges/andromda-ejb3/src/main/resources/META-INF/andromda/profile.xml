@@ -226,6 +226,30 @@
 			        Attribute
 			    </appliedOnElement>
 			</element>
+			<element name="SERVICE_TIMER_TIMEOUT">
+			    <documentation>
+			        Specifies whether the session bean operation 
+			        as a Timer Service timeout callback method.
+			    </documentation>
+			    <value>Timeout</value>
+			    <appliedOnElement>
+			        Service Operation
+			    </appliedOnElement>
+			</element>
+			<element name="LOB">
+			    <documentation>
+			        Specifies whether the entity attribute is
+			        defined as either a large binary or character 
+			        type.
+			        BLOB fields represent Byte[] or Serializable types.
+			        CLOB fiels represent char[], Character[] or String
+			        types.
+			    </documentation>
+			    <value>LOB</value>
+			    <appliedOnElement>
+			        Entity Attribute
+			    </appliedOnElement>
+			</element>
 		</elementGroup>
 		<elementGroup name="Tagged Values">
 			<element name="ATTRIBUTE_PERSISTENCE_OPTIONAL">
@@ -239,46 +263,6 @@
 				<allowedValues>
 					<value default="true">true</value>
 					<value>false</value>
-				</allowedValues>
-			</element>
-			<element name="ENTITY_ACCESS_TYPE">
-				<documentation>
-					Used to override the default entity access type
-					specified by
-					<a href="namespace.html#entityAccessType">
-						entityAccessType
-					</a>
-					namespace property.
-					<ul>
-						Permitted values are:
-						<li>PROPERTY</li>
-						<li>FIELD</li>
-					</ul>
-					<p>
-						The tagged value of
-						@andromda.persistence.access.type is set once on
-						the entity class to indicate whether the
-						persistence runtime uses properties or fields to
-						access the entity state. The persistence runtime
-						will default to
-						<code>PROPERTY</code>
-						if not specified. Currenly, AndroMDA support the
-						<code>PROPERTY</code>
-						value only. The default access type is defined
-						by the
-						<a href="namespaces.html#entityAccessType">
-							entityAccessType
-						</a>
-						namespace property.
-					</p>
-				</documentation>
-				<value>@andromda.persistence.access.type</value>
-				<appliedOnElement>
-					<![CDATA[<<Entity>>]]>
-				</appliedOnElement>
-				<allowedValues>
-					<value>PROPERTY</value>
-					<value>FIELD</value>
 				</allowedValues>
 			</element>
 			<element name="ENTITY_INHERITANCE">
@@ -426,26 +410,6 @@
 					<![CDATA[<<Entity>>]]>
 				</appliedOnElement>
 			</element>
-			<element name="ENTITY_FINDER_TEMPORAL_TYPE">
-			    <documentation>
-			        The temporal type tagged value specified on
-			        the finder method parameter specifying
-			        whether to expect one of the following
-			        types Date, Time or Timestamp.
-			    </documentation>
-			    <value>
-			        @andromda.persistence.finder.temporal.type
-			    </value>
-			    <appliedOnElement>
-			        Entity Finder Method Parameter
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value default="true">DATE</value>
-			        <value>TIME</value>
-			        <value>TIMESTAMP</value>
-			        <value>NONE</value>
-			    </allowedValues>
-			</element>
 			<element name="ENTITY_FINDER_RESULT_TYPE">
 			    <documentation>
 			        Specifies the finder method parameter
@@ -461,6 +425,27 @@
 			    <allowedValues>
 			        <value default="true">First</value>
 			        <value>Max</value>
+			    </allowedValues>
+			</element>
+			<element name="TEMPORAL_TYPE">
+			    <documentation>
+			        The temporal type tagged value specified on
+			        the attributes of type java.util.Date or
+			        java.util.Calendar or on finder method parameter 
+			        specifying, whether to expect one of the following
+			        types Date, Time or Timestamp.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.temporal.type
+			    </value>
+			    <appliedOnElement>
+			        Entity Attribute or Entity Finder Method Parameter
+			    </appliedOnElement>
+			    <allowedValues>
+			        <value default="true">DATE</value>
+			        <value>TIME</value>
+			        <value>TIMESTAMP</value>
+			        <value>NONE</value>
 			    </allowedValues>
 			</element>
 			<element name="FETCH_TYPE">
@@ -486,25 +471,6 @@
 			        <value>EAGER</value>
 			    </allowedValues>
 			</element>
-			<element name="LOB_TYPE">
-			    <documentation>
-			        Specifies either binary or character types
-			        for an entity attribute.
-			        BLOB fields represent Byte[] or Serializable types.
-			        CLOB fiels represent char[], Character[] or String
-			        types.
-			    </documentation>
-			    <value>
-			        @andromda.persistence.lob.type
-			    </value>
-			    <appliedOnElement>
-			        Entity Attribute
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value default="true">CLOB</value>
-			        <value>BLOB</value>
-			    </allowedValues>
-			</element>
 			<element name="CASCADE_TYPE">
 			    <documentation>
 			        Specifies the override value for the default
@@ -522,6 +488,22 @@
 			        <value>MERGE</value>
 			        <value>REMOVE</value>
 			        <value>REFRESH</value>
+			    </allowedValues>
+			</element>
+			<element name="ENUMERATION_TYPE">
+			    <documentation>
+			        Specifies the enumeration type for the
+			        persistent property or field.
+			    </documentation>
+			    <value>
+			        @andromda.persistence.enumeration.type
+			    </value>
+			    <appliedOnElement>
+			        Entity Attribute
+			    </appliedOnElement>
+			    <allowedValues>
+			        <value default="true">ORDINAL</value>
+			        <value>STRING</value>
 			    </allowedValues>
 			</element>
 			<element name="GENERATOR_TYPE">
@@ -784,22 +766,6 @@
 			        <![CDATA[<<Service>>]]>
 			    </appliedOnElement>
 			</element>
-			<element name="SERVICE_TIMER_TIMEOUT">
-			    <documentation>
-			        Specifies whether the session bean operation 
-			        as a Timer Service timeout callback method.
-			    </documentation>
-			    <value>
-			        @andromda.service.timer.timeout
-			    </value>
-			    <appliedOnElement>
-			        Service Operation
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value>true</value>
-			        <value>false</value>
-			    </allowedValues>
-			</element>
 			<element name="SERVICE_TRANSACTION_MANAGEMENT">
 			    <documentation>
 			        Specifies the transaction demarcation strategy
@@ -876,6 +842,28 @@
 				<appliedOnElement>
 					Service
 				</appliedOnElement>
+			</element>
+			<element name="EXCLUDE_DEFAULT_INTERCEPTORS">
+			    <documentation>
+			        Determines whether to exclude the invocation 
+			        of the default interceptors for the applied 
+			        business method.
+			    </documentation>
+			    <value>@andromda.service.interceptor.excludeDefault</value>
+			    <appliedOnElement>
+			        Service Operation
+			    </appliedOnElement>
+			</element>
+			<element name="EXCLUDE_CLASS_INTERCEPTORS">
+			    <documentation>
+			        Determines whether to exclude the invocation 
+			        of the class interceptors for the applied 
+			        business method.
+			    </documentation>
+			    <value>@andromda.service.interceptor.excludeClass</value>
+			    <appliedOnElement>
+			        Service Operation
+			    </appliedOnElement>
 			</element>
 			<element name="AUTOMATIC_KEY">
 				<documentation>
