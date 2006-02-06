@@ -56,7 +56,7 @@
                     <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
                     <li class="impl"><a href="src/org/andromda/test/howto2/a/Car.java"><code>Car.java</code></a></li>
                     <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/a/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto2/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto2/a/Person.java"><code>Person.java</code></a></li>
                 </ul>
             </p>
             <p>
@@ -108,6 +108,7 @@
                     <li>Car.getPerson() : Person</li>
                 </ul>
             </p>
+            <a name="Cascading"/>
             <subsection name="Cascading">
                 <p>
                     You can set the cascade option on all association ends by modelling the
@@ -138,10 +139,11 @@
 	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
 	                    <li class="impl"><a href="src/org/andromda/test/howto2/b/Car.java"><code>Car.java</code></a></li>
 	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/b/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto2/b/Person.java"><code>Person.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto2/b/Person.java"><code>Person.java</code></a></li>
 	                </ul>
 	            </p>
             </subsection>
+            <a name="Fetch_Type"/>
             <subsection name="Fetch Type">
                 <p>
                     The fetch type tagged value <code>@andromda.persistence.fetch.type</code> can be modelled on
@@ -172,10 +174,11 @@
 	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/c/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
 	                    <li class="impl"><a href="src/org/andromda/test/howto2/c/Car.java"><code>Car.java</code></a></li>
 	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/c/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto2/c/Person.java"><code>Person.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto2/c/Person.java"><code>Person.java</code></a></li>
 	                </ul>
 	            </p>
             </subsection>
+            <a name="Ordering_Collection_Valued_Association"/>
             <subsection name="Ordering Collection Valued Association">
                 <p>
                     You can order the elements of a collection valued association by modelling the
@@ -212,10 +215,11 @@
 	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/d/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
 	                    <li class="impl"><a href="src/org/andromda/test/howto2/d/Car.java"><code>Car.java</code></a></li>
 	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/d/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto2/d/Person.java"><code>Person.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto2/d/Person.java"><code>Person.java</code></a></li>
 	                </ul>
 	            </p>
             </subsection>
+            <a name="Join_Table_Many_To_Many"/>
             <subsection name="Join Table for Many-To-Many Relationship">
                 <p>
                     For a Many-To-Many association, the <code>@javax.persistence.JoinTable</code> annotation
@@ -229,6 +233,7 @@
                     <code>@andromda.persistence.table</code> tagged value on the assocation.
                 </p>
             </subsection>
+            <a name="Aggregation_Composition"/>
             <subsection name="Aggregation and Composition">
 	            <p>
 	                To model the owning side of a One-To-One or Many-To-Many bidirectional relationship, you
@@ -265,7 +270,7 @@
 	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/e/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
 	                    <li class="impl"><a href="src/org/andromda/test/howto2/e/Car.java"><code>Car.java</code></a></li>
 	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/e/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto2/e/Person.java"><code>Person.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto2/e/Person.java"><code>Person.java</code></a></li>
 	                </ul>
 	            </p>
 	        </subsection>
