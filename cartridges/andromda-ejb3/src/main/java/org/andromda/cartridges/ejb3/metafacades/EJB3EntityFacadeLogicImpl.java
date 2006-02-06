@@ -36,11 +36,6 @@ public class EJB3EntityFacadeLogicImpl
     extends EJB3EntityFacadeLogic
 {
     /**
-     * The default entity access type
-     */
-    public static final String ENTITY_ACCESS_TYPE = "entityAccessType";
-    
-    /**
      * The default entity association cascade property
      */
     public static final String ENTITY_DEFAULT_CASCADE = "entityDefaultCascade";
@@ -843,19 +838,6 @@ public class EJB3EntityFacadeLogicImpl
                 (this.getSuperEntity().isInheritanceSingleTable() || 
                         this.getSuperEntity().isInheritanceTablePerClass() ||
                         this.getSuperEntity().isInheritanceJoined()));
-    }
-
-    /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetAccessType()
-     */
-    protected String handleGetAccessType()
-    {
-        String accessType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_ACCESS_TYPE);
-        if (StringUtils.isBlank(accessType))
-        {
-            accessType = String.valueOf(this.getConfiguredProperty(ENTITY_ACCESS_TYPE));
-        }
-        return accessType;
     }
 
     /**
