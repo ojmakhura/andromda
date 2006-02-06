@@ -73,4 +73,13 @@ $operation.getDocumentation("     * ")
 
 #**##end
 #end
+    // ----------- Generic Methods -----------
+    
+    /**
+     * @see ${service.fullyQualifiedServiceName}#remove()}
+     */
+	protected void handleRemove()
+	{
+	    //TODO: put your implementation here
+	}
 }
