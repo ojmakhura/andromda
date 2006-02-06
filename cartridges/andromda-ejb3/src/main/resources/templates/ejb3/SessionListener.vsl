@@ -19,31 +19,26 @@ public class ${service.serviceListenerName}
     }
     
     @javax.ejb.PostConstruct
-    public void postConstruct(${service.fullyQualifiedServiceName} ${stringUtils.uncapitalize(${service.name})}) 
+    public void postConstruct(javax.ejb.InvocationContext ctx) 
     {
 		// post construct implementation
 	}
 	
 	@javax.ejb.PostActivate
-	public void postActivate(${service.fullyQualifiedServiceName} ${stringUtils.uncapitalize(${service.name})}) 
+	public void postActivate(javax.ejb.InvocationContext ctx) 
 	{
 		// post construct implementation
 	}
 	
 	@javax.ejb.PrePassivate
-	public void prePassivate(${service.fullyQualifiedServiceName} ${stringUtils.uncapitalize(${service.name})}) 
+	public void prePassivate(javax.ejb.InvocationContext ctx) 
 	{
 		// pre passivate implementation
 	}
 	
 	@javax.ejb.PreDestroy
-	public void preDestroy(${service.fullyQualifiedServiceName} ${stringUtils.uncapitalize(${service.name})}) 
+	public void preDestroy(javax.ejb.InvocationContext ctx) 
 	{
 		// pre destroy implementation
-	}
-	
-	@javax.ejb.Remove
-	public void remove(${service.fullyQualifiedServiceName} ${stringUtils.uncapitalize(${service.name})}) {
-		// remove implementation
 	}
 }
