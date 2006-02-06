@@ -77,11 +77,6 @@ public class EJB3Profile
      * Represents a reference to a resource ie UserTransaction or DataSource.
      */
     public static final String STEREOTYPE_RESOURCE_REF = profile.get("RESOURCE_REF");
-
-    /**
-     * Represents a reference to a JMS message driven bean.
-     */
-    public static final String STEREOTYPE_MESSAGE_DRIVEN_REF = profile.get("MESSAGE_DRIVEN_REF");
     
     /**
      * Represents a class used to inject a javax.transaction.UserTransaction as a resource.
