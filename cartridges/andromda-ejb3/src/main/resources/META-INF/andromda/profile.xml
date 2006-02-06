@@ -127,21 +127,6 @@
 					out of a Service.
 				</appliedOnElement>
 			</element>
-			<element name="MESSAGE_DRIVEN_REF">
-				<documentation>
-					Used to reference a JMS message driven
-					bean with stereotype MessageDriven.
-					This is used to inject the Queue,
-					QueueConnectionFactory or TopicConnectionFactory
-					resources.
-				</documentation>
-				<value>MessageDrivenRef</value>
-				<appliedOnElement>
-					A dependency going into a class
-					having a stereotype of MessageDriven,
-					out of a Service.
-				</appliedOnElement>
-			</element>
 			<element name="USER_TRANSACTION">
 				<documentation>
 					Used to inject a javax.transaction.UserTransaction
