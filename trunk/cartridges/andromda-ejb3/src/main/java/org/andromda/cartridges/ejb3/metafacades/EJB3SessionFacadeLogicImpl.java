@@ -719,7 +719,6 @@ public class EJB3SessionFacadeLogicImpl
                 DependencyFacade dependency = (DependencyFacade)object;
                 ModelElementFacade targetElement = dependency.getTargetElement();
                 return (targetElement != null 
-                        && dependency.hasStereotype(EJB3Profile.STEREOTYPE_MESSAGE_DRIVEN_REF)
                         && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_MESSAGE_DRIVEN));
             }
         });
@@ -731,7 +730,7 @@ public class EJB3SessionFacadeLogicImpl
      */
     protected Collection handleGetInterceptorReferences()
     {
-        Collection references = super.getSourceDependencies();
+        Collection references = this.getSourceDependencies();
         CollectionUtils.filter(references, new Predicate()
         {
             public boolean evaluate(Object object)
@@ -741,26 +740,14 @@ public class EJB3SessionFacadeLogicImpl
                 return (targetElement != null && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_INTERCEPTOR));
             }
         });
-        return references;
-    }
-
-    /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#
-     *      handleGetInterceptorsAsList(java.util.Collection)
-     */
-    protected String handleGetInterceptorsAsList(Collection interceptors)
-    {
-        StringBuffer sb = new StringBuffer();
-        String separator = "";
-
-        for (final Iterator it = interceptors.iterator(); it.hasNext();)
+        CollectionUtils.transform(references, new Transformer()
         {
-            DependencyFacade dependency = (DependencyFacade)it.next();
-            sb.append(separator);
-            separator = ", ";
-            sb.append(dependency.getTargetElement().getFullyQualifiedName() + ".class");
-        }
-        return sb.toString();
+            public Object transform(final Object object)
+            {
+                return ((DependencyFacade)object).getTargetElement();
+            }
+        });
+        return references;
     }
 
     /**
