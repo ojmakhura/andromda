@@ -60,8 +60,8 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><a href="src/org/andromda/test/howto1/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto1/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto1/a/Car.java"><code>Car.java</code></a></li>
                 </ul>
             </p>
             <p>
@@ -75,14 +75,24 @@
                 <a href="../andromda-metafacades-uml/namespace.html">here</a>
                 if you want to know more about the default namespace properties you can set.
             </p>
+            <a name="Entity_Operations"/>
             <subsection name="Entity Operations">
                 <p>
                     You may also model operations on an entity, this will generate them as methods in the resulting
-                    Java class. Operations can be classifier scoped (<code>static</code> in Java) where they will
-                    be underlined in UML diagrams as shown below.  Static operations will not be defined in the
-                    embeddable superclass unlike other abstract methods.  They will be defined in the inheriting
-                    subclass.  This has consequences when dealing with a multi-tier inheritance hierarchy.  Refer
-                    to the <a href="howto9.html">inheritance</a> howto for further information.
+                    Java subclass. Operations can be classifier scoped (<code>static</code> in Java) where they will
+                    be underlined in UML diagrams as shown below.
+                </p>
+                <p class="highlight">
+                    Operations will not be defined in the embeddable superclass.  They will be defined in the 
+                    inheriting subclass.  This has consequences when dealing with a multi-tier inheritance 
+                    hierarchy.  Refer to the <a href="howto9.html">inheritance</a> howto for further information.
+                    This also implis that operations are only added to the implementation class on the first
+                    run of AndroMDA.  Operations defined in the UML model must be manually added to the
+                    implementation class afterwards.  This shouldn't cause any issues as the developer would have
+                    to define the operation implementation anyway to correspond to the abstract definition in
+                    the embeddable superclass.  The primary purpose for this strategy is to avoid having to
+                    annotate the entity operation with <code>@javax.persistence.Transient</code> annotation
+                    in both the embeddable superclass and the inheriting implementation class.
                 </p>
                 <p>
                     <img src="images/org/andromda/test/1/b/uml.gif"/>
@@ -107,6 +117,7 @@
 	                uses the session facade pattern to contain business logic in session bean operations.
 	            </p>
             </subsection>
+            <a name="Entity_Relation_Table"/>
             <subsection name="Entity Relation Table">
                 <p>
                     Your relational table's name which persists an entity is determined by default from the 
@@ -128,11 +139,12 @@
 	            <p>
 	                <ul>
 	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/c/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto1/c/Car.java"><code>Car.java</code></a></li>
+	                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto1/c/Car.java"><code>Car.java</code></a></li>
 	                </ul>
 	            </p>
             </subsection>
-            <subsection name="Primary Key - Identifiers">
+            <a name="Primary_Key_Identifiers"/>
+            <subsection name="Primary Key - Identifier">
                 <p>
                     To assign an entity's attribute as a primary key, you must assign the <![CDATA[<<Identifier>>]]>
                     stereotype to it.  If this identifier is not part of a composite primary key, then
@@ -181,6 +193,7 @@
                     size sets the amount to increment by when allocating id numbers from the sequence generator.
                 </p>
             </subsection>
+            <a name="Unique_Attributes"/>
             <subsection name="Unique Attributes">
                 <p>
                     In case you want an entity's attribute to be unique for all instances of that entity's type you
@@ -188,6 +201,7 @@
                     unique element in the <code>@javax.persistence.Column</code> annotation.
                 </p>
             </subsection>
+            <a name="Attribute_Fetch_Type"/>
             <subsection name="Attribute Fetch Type">
                 <p>
                     By default, the EJB3 cartridge and EJB 3.0 spec defines an attribute fetch type as eagerly
@@ -196,6 +210,7 @@
                     normal circumstances, you do not need to specify this tag.
                 </p>
             </subsection>
+            <a name="Transient_Attribute"/>
             <subsection name="Transient Attribute">
                 <p>
                     To indicate an attribute as transient (not persisted by the persistence container), you
@@ -203,6 +218,7 @@
                     <code>@javax.persistence.Transient</code> annotation to the attribute.
                 </p>
             </subsection>
+            <a name="Version_Attribute"/>
             <subsection name="Version Attribute">
                 <p>
                     To specify an attribute as a version attribute, where it becomes the optimistic lock value
@@ -220,6 +236,7 @@
                     </ul>
                 </p>
             </subsection>
+            <a name="Attribute_Multiplicity"/>
             <subsection name="Attribute Multiplicity">
                 <p>
                     It's possible to configure the multiplicity of an entity's attribute, by setting it to
@@ -251,6 +268,7 @@
                     specified by the user, these default values may differ from tool to tool.
                 </p>
             </subsection>
+            <a name="Constant_Attribute"/>
             <subsection name="Constant Attributes">
                 <p>
                     To define static constants within an entity POJO (constants that are not resource injections),
@@ -275,6 +293,7 @@
 	                </ul>
 	            </p>
             </subsection>
+            <a name="Nullable_Parameters"/>
             <subsection name="Nullable Parameters">
                 <p>
                     If you want an operation to have a parameter which is allowed to be <code>null</code> then simply
@@ -287,6 +306,7 @@
                     <code>parameterRequiredCheck</code> namespace property to have the <code>false</code> value.
                 </p>
             </subsection>
+            <a name="LOB_CLOB_Attribute"/>
             <subsection name="LOB/CLOB Attributes">
                 <p>
                     An attribute can be specified as either a BLOB or CLOB field.  This is modelled by assigning
@@ -334,6 +354,7 @@
                     sets the fetch type for the attribute to eagerly fetch.
                 </p>
             </subsection>
+            <a name="Column_Specifics"/>
             <subsection name="Column Specifics">
                 <p>
                     Here is an example of some of the tagged values available to model on
@@ -372,6 +393,15 @@
                 <p>
                     In order to change the creation DDL for the column in the relational table, you can model
                     <code>@andromda.persistence.column.definition</code> tag on the attribute.
+                </p>
+            </subsection>
+            <a name="Listener_Callback"/>
+            <subsection name="Listener Callback">
+                <p>
+                    In some cases, setting up lifecycle event callbacks for the entity beans can be quite
+                    useful.  The EJB3 cartridge provides the facility to define these callback methods
+                    in the listener class.  This class if NOT generate by default.  To find out more information,
+                    click on <a href="howto14.html">Listener Callback</a>.
                 </p>
             </subsection>
         </section>
