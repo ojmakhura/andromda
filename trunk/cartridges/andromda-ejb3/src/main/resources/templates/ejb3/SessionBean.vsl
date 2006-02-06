@@ -24,9 +24,6 @@ $service.getDocumentation(" * ")
 @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${service.transactionType})
 #**##end
 #end
-#if ($service.listenerEnabled)
-@javax.ejb.CallbackListener(${service.fullyQualifiedServiceListenerName}.class)
-#end
 #if ($stringUtils.isNotBlank($service.securityRealm))
 #**##if ($service.persistenceContainerJboss)
 @org.jboss.annotation.security.SecurityDomain("${service.securityRealm}")
@@ -58,11 +55,17 @@ $service.getDocumentation(" * ")
 #if ($service.viewTypeRemote)
 @javax.ejb.Remote({${service.fullyQualifiedServiceRemoteInterfaceName}.class})
 #end
+##
+## Service listener - lifecycle callbacks is defined as an interceptor
+##
 #set ($interceptors = $service.interceptorReferences)
-#if ($collectionUtils.size($interceptors) == 1)
-@javax.ejb.Interceptor($service.getInterceptorsAsList($interceptors))
-#elseif ($collectionUtils.size($interceptors) > 1)
-@javax.ejb.Interceptors({$service.getInterceptorsAsList($interceptors)})
+#if ($collectionUtils.size($interceptors) >= 1 || $service.listenerEnabled)
+#**##if ($service.listenerEnabled) 
+#*  *##set ($lifecycleCallback = "${service.fullyQualifiedServiceListenerName}.class")
+#**##else 
+#*  *##set ($lifecycleCallback = "null")
+#**##end
+@javax.ejb.Interceptors({$transform.getInterceptorsAsList(${interceptors}, ${lifecycleCallback})})
 #end
 public abstract class ${service.serviceName}
 #if($service.generalization)
@@ -102,7 +105,7 @@ public abstract class ${service.serviceName}
      
      */
     @javax.persistence.PersistenceContext#if ($persistenceContext.persistenceContextUnitName || $persistenceContext.persistenceContextType)(#end#if ($persistenceContext.persistenceContextUnitName)unitName = "${persistenceContext.persistenceContextUnitName}"#set ($argExists = true)#end#if ($persistenceContext.persistenceContextType)#if ($argExists),#end type = javax.persistence.PersistenceContextType.${persistenceContext.persistenceContextType}#end#if ($persistenceContext.persistenceContextUnitName || $persistenceContext.persistenceContextType))#end 
-    protected javax.persistence.EntityManager ${persistenceContext.name};
+    protected javax.persistence.EntityManager $stringUtils.uncapitalize(${persistenceContext.name});
 #end
 #set ($references = $service.serviceReferences)
 #if (!$references.empty)
@@ -302,6 +305,16 @@ $operation.getDocumentation("     * ")
 #*  *##if ($operation.timeoutCallback)
     @javax.ejb.Timeout
 #*  *##end
+#*  *##set ($interceptors = $operation.interceptorReferences)
+#*  *##if ($collectionUtils.size($interceptors) >= 1)
+    @javax.ejb.Interceptors({$transform.getInterceptorsAsList(${interceptors}, null)})
+#*  *##end
+#*  *##if ($operation.excludeDefaultInterceptors)
+    @javax.ejb.ExcludeDefaultInterceptors
+#*  *##end
+#*  *##if ($operation.excludeClassInterceptors)
+    @javax.ejb.ExcludeClassInterceptors
+#*  *##end
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #*  *##if ($operation.exceptionsPresent)
         $operation.throwsClause
@@ -364,4 +377,18 @@ $operation.getDocumentation("     * ")
 
 #**##end
 #end
+    // ------------ Generic Methods ------------
+    
+    /**
+     * Generic remove method
+     */
+	@javax.ejb.Remove
+	public void remove() {
+		handleRemove();
+	}
+	
+	/**
+	 * Performs the core logic for {@link #remove())
+	 */
+	protected abstract void handleRemove();
 }
