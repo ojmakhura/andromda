@@ -154,11 +154,11 @@ public class EJB3EntityAttributeFacadeLogicImpl
 	}
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacade#getLobType()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacade#isLob()
      */
-	protected String handleGetLobType() 
+	protected boolean handleIsLob() 
 	{
-		return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_LOB_TYPE);
+		return this.hasStereotype(EJB3Profile.STEREOTYPE_LOB);
 	}
 
     /**
@@ -462,5 +462,21 @@ public class EJB3EntityAttributeFacadeLogicImpl
             isTransient = true;
         }
         return isTransient;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleGetTemporalType()
+     */
+    protected String handleGetTemporalType()
+    {
+        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_TEMPORAL_TYPE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleGetEnumerationType()
+     */
+    protected String handleGetEnumerationType()
+    {
+        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_ENUMERATION_TYPE);
     }
 }
