@@ -30,7 +30,7 @@ import org.eclipse.jdt.core.JavaModelException;
 
 /**
  * Provides access to the cartridge descriptor documents.
- * 
+ *
  * @author Peter Friese
  * @since 30.01.2006
  */
@@ -69,7 +69,7 @@ public class CartridgeDescriptor
 
     /**
      * Creates a new CartridgeDescriptor.
-     * 
+     *
      * @param location The location of the cartridge.
      * @param insideJar Indicates whether the location is a jar file.
      */
@@ -83,15 +83,15 @@ public class CartridgeDescriptor
 
     /**
      * Creates a new CartridgeDescriptor.
-     * 
-     * @param location The location of the cartridge.
+     *
+     * @param cartridgeRootFolder The root folder of the cartridge.
      * @param insideJar Indicates whether the location is a jar file.
      */
     public CartridgeDescriptor(final IContainer cartridgeRootFolder,
         final boolean insideJar)
     {
         cartridgeLocation = cartridgeRootFolder.getLocation().toOSString();
-        
+
         IProject project = cartridgeRootFolder.getProject();
         javaProject = JavaCore.create(project);
         jar = insideJar;
@@ -100,7 +100,7 @@ public class CartridgeDescriptor
 
     /**
      * Creates a new CartridgeDescriptor.
-     * 
+     *
      * @param location The location of the cartridge.
      * @param cartridgeName The cartridge name, such as "spring" or "hibernate".
      * @param cartridgeVersion The cartridge version, e.g. "3.2-RC1-SNAPSHOT".
@@ -117,7 +117,7 @@ public class CartridgeDescriptor
 
     /**
      * Creates a new CartridgeDescriptor.
-     * 
+     *
      * @param location The location of the cartridge.
      * @param cartridgeName The cartridge name, such as "spring" or "hibernate".
      */
@@ -169,7 +169,7 @@ public class CartridgeDescriptor
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @throws CartridgeParsingException
      */
     public Metafacade getMetafacade() throws CartridgeParsingException
@@ -214,7 +214,7 @@ public class CartridgeDescriptor
     /**
      * Constructs the location of the requested file depending on whether it is located inside a cartridge jar or rather
      * in the AndroMDA development workspace.
-     * 
+     *
      * @param fileName The filename we're interested in.
      * @return A string with the correct path to the requested file.
      */
