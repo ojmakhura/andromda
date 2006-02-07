@@ -6,7 +6,7 @@ import org.andromda.android.core.model.configuration.IAndromdaDocumentEditorMode
 import org.andromda.android.core.project.IAndroidProject;
 import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelComposite;
-import org.andromda.android.ui.internal.util.SWTResourceManager;
+import org.andromda.android.ui.util.SWTResourceManager;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.NamespaceDocument.Namespace;
 import org.andromda.core.configuration.NamespacesDocument.Namespaces;

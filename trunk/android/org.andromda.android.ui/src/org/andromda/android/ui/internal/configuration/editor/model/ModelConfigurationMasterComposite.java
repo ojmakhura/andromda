@@ -3,7 +3,7 @@ package org.andromda.android.ui.internal.configuration.editor.model;
 import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelComposite;
-import org.andromda.android.ui.internal.util.SWTResourceManager;
+import org.andromda.android.ui.util.SWTResourceManager;
 import org.andromda.core.configuration.AndromdaDocument;
 import org.andromda.core.configuration.ModelDocument.Model;
 import org.andromda.core.configuration.ModelsDocument.Models;
