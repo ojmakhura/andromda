@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelComposite;
-import org.andromda.android.ui.internal.util.SWTResourceManager;
+import org.andromda.android.ui.util.SWTResourceManager;
 import org.andromda.core.configuration.ModelDocument.Model;
 import org.andromda.core.configuration.ModelPackageDocument.ModelPackage;
 import org.andromda.core.configuration.ModelPackagesDocument.ModelPackages;

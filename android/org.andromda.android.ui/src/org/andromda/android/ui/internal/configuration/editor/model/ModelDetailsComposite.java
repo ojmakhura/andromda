@@ -4,7 +4,7 @@ import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelComposite;
 import org.andromda.android.ui.internal.editor.AbstractModelSectionPart;
 import org.andromda.android.ui.internal.util.DialogUtils;
-import org.andromda.android.ui.internal.util.SWTResourceManager;
+import org.andromda.android.ui.util.SWTResourceManager;
 import org.andromda.core.configuration.ModelDocument.Model;
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.resources.IFile;
