@@ -10,6 +10,8 @@ import org.andromda.android.core.cartridge.CartridgeUtils;
 import org.andromda.android.core.cartridge.ICartridgeDescriptor;
 import org.andromda.android.core.cartridge.ICartridgeJavaVariableDescriptor;
 import org.andromda.android.core.cartridge.ICartridgeVariableDescriptor;
+import org.andromda.android.ui.templateeditor.TemplateEditorPlugin;
+import org.andromda.android.ui.util.SWTResourceManager;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.IMethod;
@@ -17,6 +19,7 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
+import org.eclipse.swt.graphics.Image;
 
 import de.byteaction.velocity.editor.completion.ICompletionProvider;
 import de.byteaction.velocity.vaulttec.ui.editor.text.VelocityTextGuesser;
@@ -30,6 +33,16 @@ import de.byteaction.velocity.vaulttec.ui.editor.text.VelocityTextGuesser;
 public class CompletionProvider
         implements ICompletionProvider
 {
+    
+    /** Icon for public methods. */
+    private static final String ICON_METHOD_PUBLIC = "icons/methpub_obj.gif";
+
+    /** Icon for private fields. */
+    private static final String ICON_FIELD_PRIVATE = "icons/field_private_obj.gif";
+
+    private static final String ICON_FIELD_PUBLIC = "icons/field_public_obj.gif";
+    
+    private String test;
 
     /**
      * {@inheritDoc}
@@ -133,7 +146,7 @@ public class CompletionProvider
                             String elementName = method.getElementName();
                             if (elementName.startsWith(prefix.getText()))
                             {
-                                result.add(createSimpleCompletionProposal(prefix.getText(), offset, elementName));
+                                result.add(createSimpleCompletionProposal(prefix.getText(), offset, elementName, ICON_METHOD_PUBLIC));
                             }
                         }
                     }
@@ -167,7 +180,16 @@ public class CompletionProvider
             String proposalText = descriptor.getName();
             if (proposalText.startsWith(prefix))
             {
-                result.add(createSimpleCompletionProposal(prefix, offset, descriptor.getName()));
+                String icon;
+                if (descriptor instanceof ICartridgeJavaVariableDescriptor)
+                {
+                    ICartridgeJavaVariableDescriptor javaVariableDescriptor = (ICartridgeJavaVariableDescriptor)descriptor;
+                    icon = ICON_FIELD_PUBLIC;
+                }
+                else {
+                    icon = ICON_FIELD_PRIVATE;
+                }
+                result.add(createSimpleCompletionProposal(prefix, offset, descriptor.getName(), icon));
             }
         }
         return result;
@@ -184,6 +206,21 @@ public class CompletionProvider
         String text)
     {
         return new CompletionProposal(text, offset, prefix.length(), text.length(), null, text, null, null);
+    }
+
+    /**
+     * @param prefix
+     * @param offset
+     * @param text
+     * @return
+     */
+    private CompletionProposal createSimpleCompletionProposal(String prefix,
+        int offset,
+        String text,
+        String icon)
+    {
+        Image image = SWTResourceManager.getPluginImage(TemplateEditorPlugin.getDefault(), icon);
+        return new CompletionProposal(text, offset, prefix.length(), text.length(), image, text, null, null);
     }
 
 }
