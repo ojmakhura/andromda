@@ -845,16 +845,11 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected boolean handleIsEmbeddableSuperclass()
     {
-        boolean isEmbeddableSuperclass = false;
-        String isEmbeddableSuperclassStr = 
-            (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_EMBEDDABLE_SUPERCLASS);
-        
-        if (StringUtils.isNotBlank(isEmbeddableSuperclassStr))
-        {
-            isEmbeddableSuperclass = BooleanUtils.toBoolean(isEmbeddableSuperclassStr);
-        }
-        
-        // Must the root class - Cannot have embeddable superclass in the middle of the hierarchy
+        boolean isEmbeddableSuperclass = this.hasStereotype(EJB3Profile.STEREOTYPE_MAPPED_SUPERCLASS);
+
+        /**
+         * Must the root class - Cannot have embeddable superclass in the middle of the hierarchy
+         */
         return isEmbeddableSuperclass && isRoot();
     }
 
