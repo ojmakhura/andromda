@@ -25,6 +25,11 @@ public class EJB3Profile
     public static final String STEREOTYPE_ENTITY = profile.get("ENTITY");
     
     /**
+     * Specifies this class as a mapped/embeddable super class.
+     */
+    public static final String STEREOTYPE_MAPPED_SUPERCLASS = profile.get("MAPPED_SUPERCLASS");
+    
+    /**
      * Specifies the service bean stereotype.
      */
     public static final String STEREOTYPE_SERVICE = profile.get("SERVICE");
@@ -115,6 +120,18 @@ public class EJB3Profile
      * Represents a LOB type attribute.
      */
     public static final String STEREOTYPE_LOB = profile.get("LOB");
+
+    /**
+     * The tagged value indicating the finder method parameter result type
+     * is assigned to be the first/index.
+     */
+    public static final String STEREOTYPE_FINDER_RESULT_TYPE_FIRST = profile.get("RESULT_TYPE_FIRST");
+    
+    /**
+     * The tagged value indicating the finder method parameter result type 
+     * is assigned to be the max results to return.
+     */
+    public static final String STEREOTYPE_FINDER_RESULT_TYPE_MAX = profile.get("RESULT_TYPE_MAX");
     
     /* ----------------- Tagged Values -------------------- */
     
@@ -157,13 +174,6 @@ public class EJB3Profile
      * finder method arguments of temporal nature.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_TEMPORAL_TYPE = profile.get("TEMPORAL_TYPE");
-    
-    /**
-     * The tagged value indicating the finder method parameter result type 
-     * (First or Max).
-     */
-    public static final String TAGGEDVALUE_PERSISTENCE_FINDER_PARAMETER_RESULT_TYPE = 
-        profile.get("ENTITY_FINDER_RESULT_TYPE");
     
     /**
      * The tagged value indicating the entity table name.
@@ -295,13 +305,6 @@ public class EJB3Profile
      */
     public static final String TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_COLUMN_LENGTH = 
         profile.get("ENTITY_DISCRIMINATOR_COLUMN_LENGTH");
-    
-    /**
-     * The tagged value representing whether this entity is an 
-     * embeddable superclass
-     */
-    public static final String TAGGEDVALUE_PERSISTENCE_EMBEDDABLE_SUPERCLASS = 
-        profile.get("ENTITY_EMBEDDABLE_SUPERCLASS");
 
     /**
      * The tagged value representing the persistence context 
@@ -409,4 +412,5 @@ public class EJB3Profile
      */
     public static final String TAGGEDVALUE_SERVICE_INTERCEPTOR_EXCLUDE_CLASS = 
         profile.get("EXCLUDE_CLASS_INTERCEPTORS");
+
 }
