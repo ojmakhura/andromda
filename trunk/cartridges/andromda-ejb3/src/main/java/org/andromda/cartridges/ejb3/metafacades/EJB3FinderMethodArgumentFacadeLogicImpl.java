@@ -57,17 +57,7 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
      */
     protected boolean handleIsFirstResult()
     {
-        boolean firstResult = false;
-        String resultType = 
-            (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_FINDER_PARAMETER_RESULT_TYPE);
-        if (StringUtils.isNotBlank(resultType))
-        {
-            if (resultType.equalsIgnoreCase(EJB3Globals.FINDER_RESULT_TYPE_FIRST))
-            {
-                firstResult = true;
-            }
-        }
-        return firstResult;
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_FINDER_RESULT_TYPE_FIRST);
     }
 
     /**
@@ -75,17 +65,7 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
      */
     protected boolean handleIsMaxResults()
     {
-        boolean maxResults = false;
-        String resultType = 
-            (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_FINDER_PARAMETER_RESULT_TYPE);
-        if (StringUtils.isNotBlank(resultType))
-        {
-            if (resultType.equalsIgnoreCase(EJB3Globals.FINDER_RESULT_TYPE_MAX))
-            {
-                maxResults = true;
-            }
-        }
-        return maxResults;
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_FINDER_RESULT_TYPE_MAX);
     }
 
     /**
