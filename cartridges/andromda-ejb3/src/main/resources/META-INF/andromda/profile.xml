@@ -414,18 +414,6 @@
 					<![CDATA[<<Entity>>]]>
 				</appliedOnElement>
 			</element>
-			<element name="ENTITY_EMBEDDABLE_SUPERCLASS">
-				<documentation>
-					Used at the class level of an entity to determine if
-					this class is defined as an embeddable super class.
-				</documentation>
-				<value>
-					@andromda.persistence.embeddable.superclass
-				</value>
-				<appliedOnElement>
-					<![CDATA[<<Entity>>]]>
-				</appliedOnElement>
-			</element>
 			<element name="TEMPORAL_TYPE">
 			    <documentation>
 			        The temporal type tagged value specified on
