@@ -15,6 +15,16 @@
 				<value>Entity</value>
 				<appliedOnElement>class</appliedOnElement>
 			</element>
+			<element name="MAPPED_SUPERCLASS">
+			    <documentation>
+			        Produces a POJO class annotated as a
+			        mapped/embeddable super class.  This
+			        can only be assigned to the root class
+			        in a hierarchy.
+			    </documentation>
+			    <value>MappedSuperclass</value>
+			    <appliedOnElement>class</appliedOnElement>
+			</element>
 			<element name="SERVICE">
 				<documentation>
 					Produces a Session EJB facade for the POJO EJB
@@ -235,6 +245,27 @@
 			        Entity Attribute
 			    </appliedOnElement>
 			</element>
+			<element name="RESULT_TYPE_FIRST">
+			    <documentation>
+			        Specifies the finder method parameter
+			        result type to specify the starting index.
+			    </documentation>
+			    <value>FirstResult</value>
+			    <appliedOnElement>
+			        Entity Finder Method Parameter
+			    </appliedOnElement>
+			</element>
+			<element name="RESULT_TYPE_MAX">
+			    <documentation>
+			        Specifies the finder method parameter
+			        result type to specify the max or
+			        limit.
+			    </documentation>
+			    <value>MaxResult</value>
+			    <appliedOnElement>
+			        Entity Finder Method Parameter
+			    </appliedOnElement>
+			</element>
 		</elementGroup>
 		<elementGroup name="Tagged Values">
 			<element name="ATTRIBUTE_PERSISTENCE_OPTIONAL">
@@ -394,23 +425,6 @@
 				<appliedOnElement>
 					<![CDATA[<<Entity>>]]>
 				</appliedOnElement>
-			</element>
-			<element name="ENTITY_FINDER_RESULT_TYPE">
-			    <documentation>
-			        Specifies the finder method parameter
-			        result type to specify the limit and/or
-			        starting index.
-			    </documentation>
-			    <value>
-			        @andromda.persistence.finder.result.type
-			    </value>
-			    <appliedOnElement>
-			        Entity Finder Method Parameter
-			    </appliedOnElement>
-			    <allowedValues>
-			        <value default="true">First</value>
-			        <value>Max</value>
-			    </allowedValues>
 			</element>
 			<element name="TEMPORAL_TYPE">
 			    <documentation>
