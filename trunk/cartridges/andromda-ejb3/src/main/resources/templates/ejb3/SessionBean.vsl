@@ -130,14 +130,14 @@ public abstract class ${service.serviceName}
 #*  *##set ($reference = $dependency.targetElement)
 #*  *##if ($reference.destinationTypeQueue)
 #*    *##if (!$queueConnectionFactoryDefined)
-    @javax.annotation.Resource(mappedName = "ConnectionFactory")
+    @javax.annotation.Resource(mappedName = "java:/JmsXA")
     protected javax.jms.QueueConnectionFactory queueFactory;
 #*      *##set ($queueConnectionFactoryDefined = true)
-    
+
 #*    *##end
 #*  *##elseif ($reference.destinationTypeTopic)
 #*    *##if (!$topicConnectionFactoryDefined)
-    @javax.annotation.Resource(mappedName = "ConnectionFactory")
+    @javax.annotation.Resource(mappedName = "java:/JmsXA")
     protected javax.jms.TopicConnectionFactory topicFactory;
 #*      *##set ($topicConnectionFactoryDefined = true)
 
