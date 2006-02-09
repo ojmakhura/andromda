@@ -479,4 +479,22 @@ public class EJB3EntityAttributeFacadeLogicImpl
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_ENUMERATION_TYPE);
     }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsInsertEnabled()
+     */
+    protected boolean handleIsInsertEnabled()
+    {
+        final String value = (String)findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_COLUMN_INSERT);
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : true;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsUpdateEnabled()
+     */
+    protected boolean handleIsUpdateEnabled()
+    {
+        final String value = (String)findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_COLUMN_UPDATE);
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : true;
+    }
 }
