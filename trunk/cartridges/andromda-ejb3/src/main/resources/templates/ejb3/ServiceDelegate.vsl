@@ -34,18 +34,33 @@ public class $service.serviceDelegateName
         this.env = env;
     }
     
+#if ($service.viewTypeRemote)
     /**
      * Gets an instance of {@link $service.fullyQualifiedServiceRemoteInterfaceName}
      */
-    private final ${service.fullyQualifiedServiceRemoteInterfaceName} get${service.name}()
+    private final ${service.fullyQualifiedServiceRemoteInterfaceName} get${service.name}Remote()
         throws javax.naming.NamingException
     {
-        return ${ejb3TypesPackage}.ServiceLocator.getInstance().get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}(env);
+        return ${ejb3TypesPackage}.ServiceLocator.getInstance().get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}_Remote(env);
     }
-
+    
+#end
+#if ($service.viewTypeLocal)
+    /**
+     * Gets an instance of {@link $service.fullyQualifiedServiceLocalInterfaceName}
+     */
+    private final ${service.fullyQualifiedServiceLocalInterfaceName} get${service.name}Local()
+        throws javax.naming.NamingException
+    {
+        return ${ejb3TypesPackage}.ServiceLocator.getInstance().get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}_Local(env);
+    }
+    
+#end
 #foreach ($operation in $service.businessOperations)
     /**
      * @see ${service.fullyQualifiedServiceName}#${operation.getSignature(false)}
+     *
+     * Use the remote interface for calling session bean operations.
      */
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #**##if ($operation.exceptionsPresent)
@@ -55,9 +70,9 @@ public class $service.serviceDelegateName
         try
         {
 #**##if (!$operation.returnTypePresent)
-            get${service.name}().${operation.name}(${operation.argumentNames});
+            get${service.name}Remote().${operation.name}(${operation.argumentNames});
 #**##else
-            return get${service.name}().${operation.name}(${operation.argumentNames});
+            return get${service.name}Remote().${operation.name}(${operation.argumentNames});
 #**##end
         }
 #**##if ($operation.exceptionsPresent)
