@@ -310,7 +310,7 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.Basic(fetch = javax.persistence.FetchType.EAGER)
 #*      *##end
 #*    *##end
-    @javax.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.columnNullable}#end#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
+    @javax.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.columnNullable}#end#**#, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
 #*    *##if (!$attribute.lob && $attribute.lazy)
 ##
 ## Only add the fetch type property for LAZY hints - default is EAGER
@@ -321,7 +321,7 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.Temporal(javax.persistence.TemporalType.${attribute.temporalType})
 #*    *##end
 #*    *##if ($stringUtils.isNotBlank($attribute.enumerationType))
-    @javax.persistence.Enumerated(${attribute.enumerationType})
+    @javax.persistence.Enumerated(javax.persistence.EnumType.${attribute.enumerationType})
 #*    *##end
     public ${attribute.type.fullyQualifiedName} ${attribute.getterName}()
     {
