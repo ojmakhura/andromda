@@ -248,6 +248,18 @@ public class EJB3Profile
     public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_NULLABLE = profile.get("COLUMN_NULLABLE");
     
     /**
+     * The tagged value that specifies whether a mapped column should be 
+     * included in SQL INSERT statements.
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_INSERT = profile.get("COLUMN_INSERT");
+
+    /**
+     * The tagged value that specifies whether a mapped column should be included 
+     * in SQL UPDATE statements.
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_COLUMN_UPDATE = profile.get("COLUMN_UPDATE");
+    
+    /**
      * The tagged value that indicates the order by logic on the 
      * Many side of the One-to-Many and Many-to-Many relationships.
      */
