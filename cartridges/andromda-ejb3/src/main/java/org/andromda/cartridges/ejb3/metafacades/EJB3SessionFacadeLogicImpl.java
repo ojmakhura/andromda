@@ -79,12 +79,17 @@ public class EJB3SessionFacadeLogicImpl
     /**
      * The default view type accessability for the session bean.
      */
-    public static final String SESSION_DEFAULT_VIEW_TYPE = "serviceViewType";
+    public static final String SERVICE_DEFAULT_VIEW_TYPE = "serviceViewType";
     
     /**
      * The property that stores whether default service exceptions are permitted.
      */
     public static final String ALLOW_DEFAULT_SERVICE_EXCEPTION = "allowDefaultServiceException";
+    
+    /**
+     * The property that stores the JNDI name prefix.
+     */
+    public static final String SERVICE_JNDI_NAME_PREFIX = "jndiNamePrefix";
     
     // ---------------- constructor -------------------------------
 	
@@ -145,7 +150,12 @@ public class EJB3SessionFacadeLogicImpl
      */
     protected String handleGetJndiNameRemote()
     {
-        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SESSION_JNDI_NAME_REMOTE);
+        String jndiName = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SESSION_JNDI_NAME_REMOTE);
+        if (StringUtils.isNotBlank(jndiName))
+        {
+            jndiName = this.getJndiNamePrefix() + "/" + jndiName;
+        }
+        return jndiName;
     }
 
     /**
@@ -153,7 +163,21 @@ public class EJB3SessionFacadeLogicImpl
      */
     protected String handleGetJndiNameLocal()
     {
-        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SESSION_JNDI_NAME_Local);
+        String jndiName = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SESSION_JNDI_NAME_Local);
+        if (StringUtils.isNotBlank(jndiName))
+        {
+            jndiName = this.getJndiNamePrefix() + "/" + jndiName;
+        }
+        return jndiName;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetJndiNamePrefix()
+     */
+    protected String handleGetJndiNamePrefix()
+    {
+        return this.isConfiguredProperty(SERVICE_JNDI_NAME_PREFIX) ? 
+                ObjectUtils.toString(this.getConfiguredProperty(SERVICE_JNDI_NAME_PREFIX)) : null;
     }
     
     /**
@@ -215,7 +239,7 @@ public class EJB3SessionFacadeLogicImpl
     protected java.lang.String handleGetViewType()
     {
     	return EJB3MetafacadeUtils.getViewType(this, 
-                String.valueOf(this.getConfiguredProperty(SESSION_DEFAULT_VIEW_TYPE)));
+                String.valueOf(this.getConfiguredProperty(SERVICE_DEFAULT_VIEW_TYPE)));
     }
 
     /**
