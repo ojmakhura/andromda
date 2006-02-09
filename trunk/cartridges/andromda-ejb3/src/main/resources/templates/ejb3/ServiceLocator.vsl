@@ -97,18 +97,54 @@ public class $serviceLocatorName
     }
 
 #foreach ($service in $services)
+#**##if ($service.viewTypeRemote)
     /**
      * Gets an instance of {@link ${service.fullyQualifiedServiceRemoteInterfaceName}}.
      *
      * @param env the Context environment properties.  Null represents no properties.
      * @throws javax.naming.NamingException failure to lookup remote service interface.
      */
-    public final $service.fullyQualifiedServiceRemoteInterfaceName get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}(java.util.Properties env)
+    public final $service.fullyQualifiedServiceRemoteInterfaceName get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}_Remote(java.util.Properties env)
         throws javax.naming.NamingException
     {
+#*  *##if ($stringUtils.isNotBlank($service.jndiNameRemote))
+#*    *##set ($jndiName = "${service.jndiNameRemote}")
+#*  *##else
+#*    *##if ($stringUtils.isNotBlank($service.jndiNamePrefix))
+#*        *##set ($jndiName = "${service.jndiNamePrefix}/${service.serviceName}/remote")
+#*    *##else
+#*        *##set ($jndiName = "${service.serviceName}/remote")
+#*    *##end
+#*  *##end
         return (${service.fullyQualifiedServiceRemoteInterfaceName})
-            getContext(env).lookup(${service.fullyQualifiedServiceRemoteInterfaceName}.class.getName());
+            getContext(env).lookup("${jndiName}");
     }
+
+#**##end
+#**##if ($service.viewTypeLocal)
+    /**
+     * Gets an instance of {@link ${service.fullyQualifiedServiceLocalInterfaceName}}.
+     *
+     * @param env the Context environment properties.  Null represents no properties.
+     * @throws javax.naming.NamingException failure to lookup local service interface.
+     */
+    public final $service.fullyQualifiedServiceLocalInterfaceName get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}_Local(java.util.Properties env)
+        throws javax.naming.NamingException
+    {
+#*  *##if ($stringUtils.isNotBlank($service.jndiNameLocal))
+#*    *##set ($jndiName = "${service.jndiNameLocal}")
+#*  *##else
+#*    *##if ($stringUtils.isNotBlank($service.jndiNamePrefix))
+#*      *##set ($jndiName = "${service.jndiNamePrefix}/${service.serviceName}/local")
+#*    *##else
+#*      *##set ($jndiName = "${service.serviceName}/local")
+#*    *##end
+#*  *##end
+        return (${service.fullyQualifiedServiceLocalInterfaceName})
+            getContext(env).lookup("${jndiName}");
+    }
+
+#**##end
 
 #end
     /**
