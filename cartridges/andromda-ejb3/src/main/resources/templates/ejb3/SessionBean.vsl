@@ -177,14 +177,12 @@ public abstract class ${service.serviceName}
 #if (!$envEntries.empty)
 
     // ---------- Env Entry Injection -----------
-    // NOTE: environment entry resource injection is not
-    // available spec compliant until RC4
     
 #**##foreach ($envEntry in $envEntries)
     /**
      * The $envEntry.name resource injection
      */
-    @javax.annotation.Resource
+    @javax.annotation.Resource(name = "${envEntry.name}")
     protected $envEntry.type.fullyQualifiedName $envEntry.name;
     
 #**##end

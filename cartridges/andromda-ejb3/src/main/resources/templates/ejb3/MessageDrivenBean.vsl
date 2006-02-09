@@ -96,7 +96,7 @@ public abstract class ${mdb.messageDrivenName}
     /**
      * The $envEntry.name resource injection
      */
-    @javax.annotation.Resource
+    @javax.annotation.Resource(name = "${envEntry.name}")
     protected $envEntry.type.fullyQualifiedName $envEntry.name;
     
 #**##end
