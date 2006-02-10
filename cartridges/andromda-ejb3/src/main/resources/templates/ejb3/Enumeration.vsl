@@ -13,7 +13,16 @@ $enum.getDocumentation(" * ")
 public enum ${enum.name} implements java.io.Serializable
 {
 #foreach ($literal in $enum.literals) 
-    ${literal.name}#if ($velocityCount != $enum.literals.size()),#end
-    
+    ${literal.name}#if ($velocityCount != $enum.literals.size()),#else#**#;#end
+
 #end
+
+    public static ${enum.name} ${enum.fromOperationSignature}
+    {
+#if ($enum.literalType.stringType)
+        return valueOf(value);
+#else
+        return values()[value];
+#end
+    }
 }
