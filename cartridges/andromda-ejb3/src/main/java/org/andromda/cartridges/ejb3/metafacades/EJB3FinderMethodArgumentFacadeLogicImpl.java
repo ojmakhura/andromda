@@ -74,7 +74,6 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
      */
     protected boolean handleIsEnumerationTypeOrdinal()
     {
-        //AttributeFacade attribute = this.getType().findAttribute(this.getName());
         boolean ordinalType = false;
         if (this.getType().isEnumeration())
         {
