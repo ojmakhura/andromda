@@ -19,6 +19,31 @@
 	<property reference="securityRealm"/>
 	<property reference="allowDefaultServiceException"/>
 	<property reference="compositionDefinesEagerLoading"/>
+	<property reference="jndiNamePrefix"/>
+	<!--  Manageable Entity Metafacades -->
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogicImpl" contextRoot="true">
+        <mapping>
+            <stereotype>ENTITY</stereotype>
+            <stereotype>MANAGEABLE</stereotype>
+        </mapping>
+        <property reference="manageableServiceBaseNamePattern"/>
+        <property reference="manageableCreateExceptionNamePattern"/>
+	    <property reference="manageableReadExceptionNamePattern"/>
+	    <property reference="manageableUpdateExceptionNamePattern"/>
+	    <property reference="manageableDeleteExceptionNamePattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityAttributeFacadeLogicImpl">
+        <mapping>
+            <property name="owner.manageable"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityAssociationEndFacadeLogicImpl">
+        <mapping>
+            <context>
+                org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade
+            </context>
+        </mapping>
+    </metafacade>
 	<!-- Entity EJB Metafacades -->
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogicImpl">
 		<mapping>
@@ -56,7 +81,6 @@
 			<stereotype>ENTITY</stereotype>
 		</mapping>
 		<property reference="sqlMappingsUri"/>
-		<property reference="jndiNamePrefix"/>
 	</metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogicImpl">
 		<mapping>
@@ -100,7 +124,6 @@
 		<mapping>
 			<stereotype>SERVICE</stereotype>
 		</mapping>
-		<property reference="jndiNamePrefix"/>
 		<property reference="serviceNamePattern"/>
 		<property reference="serviceLocalInterfaceNamePattern"/>
 		<property reference="serviceRemoteInterfaceName"/>
