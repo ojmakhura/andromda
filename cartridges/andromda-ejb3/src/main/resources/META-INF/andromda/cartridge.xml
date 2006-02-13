@@ -18,9 +18,14 @@
     <property reference="hibernateCacheProvider"/>
     <property reference="hibernateTreecacheMbeanObject"/>
     <property reference="serviceLocatorName"/>
+    <property reference="manageableServiceLocatorName"/>
     <property reference="ejb3TypesPackage"/>
+    <property reference="persistenceContextUnitName"/>
+    <property reference="persistenceContainerName"/>
     <property reference="parameterRequiredCheck"/>
     <property reference="xmlEncoding"/>
+    <property reference="enableTemplating"/>
+    <property reference="jndiNamePrefix"/>
 
     <!-- Entity Bean Templates -->
 
@@ -222,6 +227,9 @@
             <modelElement variable="mdbs">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade"/>
             </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade"/>
+            </modelElement>
         </modelElements>
     </template>
     
@@ -238,6 +246,9 @@
             </modelElement>
             <modelElement variable="mdbs">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade"/>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade"/>
             </modelElement>
         </modelElements>
     </template>
@@ -304,6 +315,94 @@
         <modelElements variable="enum">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EnumerationFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <!-- CRUD Manageable Templates -->
+    
+    <template
+        path="templates/ejb3/crud/ManageableServiceLocator.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="manageables">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb3/crud/ManageableServiceRemote.vsl"
+        outputPattern="$generatedFile"
+        outlet="session-beans"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb3/crud/ManageableServiceBase.vsl"
+        outputPattern="$generatedFile"
+        outlet="session-beans"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/crud/ManageableServiceCreateException.vsl"
+        outputPattern="$generatedFile"
+        outlet="commons"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/crud/ManageableServiceReadException.vsl"
+        outputPattern="$generatedFile"
+        outlet="commons"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/crud/ManageableServiceUpdateException.vsl"
+        outputPattern="$generatedFile"
+        outlet="commons"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/crud/ManageableServiceDeleteException.vsl"
+        outputPattern="$generatedFile"
+        outlet="commons"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade"/>
             </modelElement>
         </modelElements>
     </template>
