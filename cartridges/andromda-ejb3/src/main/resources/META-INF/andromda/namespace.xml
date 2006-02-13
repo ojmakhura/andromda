@@ -353,6 +353,41 @@
 					in the same container)
 				</documentation>
 			</property>
+			<property name="manageableServiceBaseNamePattern">
+			    <default>{0}Base</default>
+			    <documentation>
+			        The pattern to use when constructing the
+			        manageable service base name.
+			    </documentation>
+			</property>
+            <property name="manageableCreateExceptionNamePattern">
+                <default>{0}CreateManageableException</default>
+                <documentation>
+                    The pattern to use when constructing the create 
+                    manageable application exception name.
+                </documentation>
+            </property>
+            <property name="manageableReadExceptionNamePattern">
+                <default>{0}ReadManageableException</default>
+                <documentation>
+                    The pattern to use when constructing the read 
+                    manageable application exception name.
+                </documentation>
+            </property>
+            <property name="manageableUpdateExceptionNamePattern">
+                <default>{0}UpdateManageableException</default>
+                <documentation>
+                    The pattern to use when constructing the update 
+                    manageable application exception name.
+                </documentation>
+            </property>
+            <property name="manageableDeleteExceptionNamePattern">
+                <default>{0}DeleteManageableException</default>
+                <documentation>
+                    The pattern to use when constructing the update 
+                    manageable application exception name.
+                </documentation>
+            </property>
 		</propertyGroup>
 		<propertyGroup name="MDB Properties">
 			<property name="messageDrivenDestinationType">
@@ -679,6 +714,13 @@
                 <documentation>
                     Whether or not to generate a default exception for each service.  This exception
                     will handle unexpected exceptions occuring within the implemented operations.
+                </documentation>
+            </property>
+            <property name="manageableServiceLocatorName">
+                <default>ManageableServiceLocator</default>
+                <documentation>
+                    The name to give the CRUD manageable service
+                    locator class.
                 </documentation>
             </property>
 		</propertyGroup>
