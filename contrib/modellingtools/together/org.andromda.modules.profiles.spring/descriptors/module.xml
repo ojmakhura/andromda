@@ -164,6 +164,15 @@
                         reference-to-element="true" propertyName="stereotype"
                         propertyValue="Entity"/>
                 </field>
+                <field displayName="Use named parameters" name="@andromda.hibernate.query.useNamedParameters"
+                    editor="DefaultEditableComboBoxEditor">
+                    <condition propertyName="isQuery" propertyValue="true"/>
+                    <condition name="XmlParentCondition"
+                        reference-to-element="true" propertyName="stereotype"
+                        propertyValue="Entity"/>
+                    <model name="XmlComboBoxModel" values="true, false"
+                        names="true, false"/>
+                </field>
                 <field displayName="HQL query use cache" name="@andromda.hibernate.query.useCache"
                     editor="DefaultEditableComboBoxEditor">
                     <condition propertyName="isQuery" propertyValue="true"/>
