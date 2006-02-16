@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "AndroMDA XMI Exporter"
-!define PRODUCT_VERSION "1.5"
+!define PRODUCT_VERSION "1.6"
 !define PRODUCT_PUBLISHER "The AndroMDA Team"
 !define PRODUCT_WEB_SITE "http://www.andromda.org"
 
