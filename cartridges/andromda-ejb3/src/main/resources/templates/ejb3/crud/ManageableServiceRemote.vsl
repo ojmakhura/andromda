@@ -3,14 +3,21 @@
 #set ($generatedFile = "${manageable.manageableServiceFullPath}.java")
 #set ($memberList = $manageable.listManageableMembers(true))
 #if (!$manageable.identifiers.empty)
-#**##set ($identifier = $manageable.manageableIdentifier)
+#**##set ($identifier = $manageable.manageableIdentifierWorkaround)
 #end
 package $manageable.manageablePackageName;
 
+/**
+ * Manageable service bean remote interface
+ *
+ * NOTE: This is currently using the workaround to get the manageable entity identifer
+ *       Once the metafacade engine is fixed, search for all calls with suffix "Workaround"
+ *       and remove this suffix.
+ */
 public interface $manageable.manageableServiceName
 {
 #if ($manageable.create)
-    public $manageable.fullyQualifiedEntityName create($memberList)
+    public $manageable.fullyQualifiedName create($memberList)
         throws ${manageable.fullyQualifiedManageableServiceCreateExceptionName};
 
 #end
@@ -34,12 +41,12 @@ public interface $manageable.manageableServiceName
 
 #**##end
 #end
-#if ($manageable.update)
-    public $manageable.fullyQualifiedEntityImplementationName update($memberList)
+#if ($manageable.updateWorkaround)
+    public $manageable.fullyQualifiedName update($memberList)
         throws ${manageable.fullyQualifiedManageableServiceUpdateExceptionName};
 
 #end
-#if ($manageable.delete)
+#if ($manageable.deleteWorkaround)
     public void delete(${identifier.type.fullyQualifiedName}[] ids)
         throws ${manageable.fullyQualifiedManageableServiceDeleteExceptionName};
 
