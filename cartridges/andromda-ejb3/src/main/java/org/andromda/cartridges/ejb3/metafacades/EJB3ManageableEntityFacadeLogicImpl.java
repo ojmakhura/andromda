@@ -1,8 +1,14 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
+import java.util.Collection;
+import java.util.Iterator;
 
 import org.andromda.cartridges.ejb3.EJB3Profile;
+import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.EntityAttribute;
+import org.andromda.metafacades.uml.ManageableEntityAttribute;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -51,6 +57,12 @@ public class EJB3ManageableEntityFacadeLogicImpl
      */
     public static final String MANAGEABLE_SERVICE_BASE_NAME_PATTERN = "manageableServiceBaseNamePattern";
     
+    /**
+     * Constructor
+     * 
+     * @param metaObject
+     * @param context
+     */
     public EJB3ManageableEntityFacadeLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
@@ -209,19 +221,67 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#isDelete()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#isDeleteWorkaround()
      */
-    public boolean isDelete()
+    protected boolean handleIsDeleteWorkaround()
     {
         return (this.getIdentifiers(true).iterator().next() != null ? true : false);
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#isUpdate()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#isUpdateWorkaround()
      */
-    public boolean isUpdate()
+    protected boolean handleIsUpdateWorkaround()
     {
         return (this.getIdentifiers(true).iterator().next() != null ? true : false);
     }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#getManageableIdentifierWorkaround()
+     */
+    protected EntityAttribute handleGetManageableIdentifierWorkaround()
+    {
+        return (EntityAttribute)this.getIdentifiers(true).iterator().next();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetDisplayAttributeWorkaround()
+     */
+    protected AttributeFacade handleGetDisplayAttributeWorkaround()
+    {
+        AttributeFacade displayAttribute = null;
+
+        final Object taggedValueObject = findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_DISPLAY_NAME);
+        if (taggedValueObject != null)
+        {
+            displayAttribute = findAttribute(StringUtils.trimToEmpty(taggedValueObject.toString()));
+        }
+
+        final Collection attributes = getAttributes(true);
+        for (final Iterator attributeIterator = attributes.iterator();
+            attributeIterator.hasNext() && displayAttribute == null;)
+        {
+            final EntityAttribute attribute = (EntityAttribute)attributeIterator.next();
+            if (attribute.isUnique())
+            {
+                displayAttribute = attribute;
+            }
+        }
+
+        if (displayAttribute == null)
+        {
+            if (!getIdentifiers().isEmpty())
+            {
+                displayAttribute = (EntityAttribute)getIdentifiers().iterator().next();
+            }
+            else if (!attributes.isEmpty())
+            {
+                displayAttribute = (EntityAttribute)attributes.iterator().next();
+            }
+        }
+
+        return displayAttribute;
+    }
+    
     
 }
