@@ -568,6 +568,22 @@
 			        storage of a string based enumeration literal.
 			    </documentation>
 			</property>
+			<property name="entityDefaultTemporalType">
+				<default>TIMESTAMP</default>
+				<documentation>
+					Specifies that the persistence property should
+					be persisted as a temporal type.
+					This is only specified on fields of type
+					<code>java.util.Date</code> or
+					<code>java.util.Calendar</code>.
+					Possible values are:
+					<ul>
+						<li>DATE</li>
+						<li>TIME</li>
+						<li>TIMESTAMP</li>
+					</ul>
+				</documentation>
+			</property>
 		</propertyGroup>
 		<propertyGroup name="Service Properties">
 			<property name="serviceViewType">
