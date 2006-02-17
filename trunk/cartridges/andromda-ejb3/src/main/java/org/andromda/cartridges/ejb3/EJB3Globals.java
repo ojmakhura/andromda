@@ -18,6 +18,8 @@ public class EJB3Globals
      */
     public static final String JNDI_NAME_PREFIX = "jndiNamePrefix";
     
+    // --------------- Constants ---------------------
+    
     /**
      * Represents the eager fetch type
      */
