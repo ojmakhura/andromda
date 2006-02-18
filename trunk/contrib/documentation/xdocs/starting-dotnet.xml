@@ -28,14 +28,6 @@
                 for AndroMDA. We assume that you are working on a Windows platform.
             </p>
 
-            <subsection name="Install SQL Server">
-                <p>
-                    Install SQL Server 2000 or SQL Server 2005. You should be able to use
-                    other databases by configuring NHibernate appropriately. However for the
-                    purpose of this tutorial we will assume SQL Server.
-                </p>
-            </subsection>
-
             <subsection name="Install Visual Studio">
                 <p>
                     Install Visual Studio 2003 or Visual Studio 2005. Our preference, without
@@ -47,10 +39,19 @@
                 </p>
 
                 <p>
-                    During Visual Studio 2005 installation, do not use the default option of
-                    installing SQL Server Express Edition. You have already installed SQL Server
-                    in the previous step. Also note that AndroMDA.NET currently supports
-                    generation of C# only, other .NET languages are not supported.
+                    When installing Visual Studio 2005, use custom installation options
+                    to prevent the installation of SQL Server Express Edition. We will be
+                    installing SQL Server 2000 or 2005 in the next step. Also note that
+                    AndroMDA.NET currently supports generation of C# only, other .NET
+                    languages are not supported.
+                </p>
+            </subsection>
+
+            <subsection name="Install SQL Server">
+                <p>
+                    Install SQL Server 2000 or SQL Server 2005. You should be able to use
+                    other databases by configuring NHibernate appropriately. However for the
+                    purpose of this tutorial we will assume SQL Server.
                 </p>
             </subsection>
 
