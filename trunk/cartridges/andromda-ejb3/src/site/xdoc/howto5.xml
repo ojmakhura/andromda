@@ -54,11 +54,13 @@
                     <li class="gen"><a href="src/org/andromda/test/howto5/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
                 </ul>
             </p>
+            <a name="Literals"/>
             <subsection name="Literals">
                 <p>
                     Note that in this example the enumeration attributes have been specified using regular variables
-                    in Java notation, the <em>initial value</em> has been specified using capitals
-                    (actually you would do this only when you want to have the value different from the attribute name):
+                    in Java notation, the <em>initial value</em> has been specified using capitals.
+                    Using the EJB3 cartridge, enum types ignore the attribute name.  Therefore, in the EJB3 cartridge
+                    you CANNOT have a value that differs from the attribute name.  This option is not available.
 <source><![CDATA[
 sedan : String = SEDAN
 liftback : String = LIFTBACK
@@ -77,6 +79,22 @@ STATION_WAGON : String
                     the persisted values: the enumeration literals will be constants
                     and therefore a capitalized name is desired, and since the name is exactly what will be persisted
                     it is very easy in use too.
+                </p>
+            </subsection>
+            <a name="Enumeration_Types"/>
+            <subsection name="Enumeration Types">
+                <p>
+                    In the above diagram, the tagged value <code>@andromda.persistence.enumeration.type</code>
+                    specifies the enumeration type for the <code>type</code> attribute of the <code>Car</code>
+                    entity as <code>STRING</code> type.  If your type-safe enumeration has attributes of
+                    type String and you wish to use these literal names, then you must specify the
+                    <code>@andromda.persistence.enumeration.type</code> tagged value on the entity attribute.
+                </p>
+                <p>
+                    To use the ordinal values relating to the literals of the type-safe enumeration class,
+                    you do not need to do model the <code>@andromda.persistence.enumeration.type</code>
+                    tagged value.  By default, if an entity attribute has an enumeration type, the ordinal
+                    values of the enumeration literals are used.
                 </p>
             </subsection>
         </section>
