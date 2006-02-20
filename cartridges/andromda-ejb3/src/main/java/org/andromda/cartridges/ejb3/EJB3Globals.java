@@ -18,6 +18,18 @@ public class EJB3Globals
      */
     public static final String JNDI_NAME_PREFIX = "jndiNamePrefix";
     
+    /**
+     * The property which stores the pattern defining the display attribute
+     * label name when it's of type Collection.
+     */
+    public static final String LABEL_COLLECTION_NAME_PATTERN = "labelCollectionNamePattern";
+    
+    /**
+     * The property which stores the pattern defining the display attribute
+     * label name when it's not of type Collection.
+     */
+    public static final String LABEL_SINGLE_NAME_PATTERN = "labelSingleNamePattern";
+    
     // --------------- Constants ---------------------
     
     /**
