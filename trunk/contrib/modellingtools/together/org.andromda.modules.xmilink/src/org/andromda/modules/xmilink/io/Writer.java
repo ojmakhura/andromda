@@ -2,7 +2,7 @@ package org.andromda.modules.xmilink.io;
 
 /**
  * TODO Specify purpose, please.
- * 
+ *
  * @author Peter Friese
  * @version 1.0
  * @since 17.09.2004
@@ -23,5 +23,7 @@ public abstract class Writer
     public abstract String getContents();
 
     public abstract void writeText(String string);
+
+    public abstract void setLinebreaking(boolean linebreaking);
 
 }
