@@ -120,7 +120,30 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
 #*  *##end
 #**##end
 #end
+#if (!$entityRelations.empty)
 
+    // ---- Manageable Display Attributes (Transient) -----
+    
+##
+## For manageable entities where the display attribute differs from identifier
+## we need to specify a labels attribute which is transient (specified by annotation)
+## on getter.  A display attribute differs from the identifier if modelled by
+## the Unique stereotype.
+##
+#**##foreach ($associationEnd in  $entityRelations)
+#*  *##set ($target = $associationEnd.otherEnd)
+#*  *##if ($target.navigable)
+#*    *##if ($target.type.manageable && $target.type.manageableDisplayAttribute.name != $target.type.identifer.name)
+#*      *##if ($target.many)
+    private java.util.Collection<${target.type.manageableDisplayAttribute.type.fullyQualifiedName}> ${target.labelName};        		// Manageable display attribute
+#*      *##else
+    private $target.type.manageableDisplayAttribute.type.fullyQualifiedName ${target.labelName};       // Manageable display attribute
+#*      *##end
+#*    *##end
+#*  *##end
+#**##end
+
+#end
     // --------------- Constructors -----------------
     
     /**
@@ -530,6 +553,45 @@ $attribute.getDocumentation("     * ")
     public void ${target.setterName} (${target.getterSetterTypeName} ${target.name})
     {
         this.${target.name} = ${target.name};
+    }
+    
+#*  *##end
+#**##end
+#end
+#foreach ($associationEnd in $entity.allEntityRelations)
+#**##set ($target = $associationEnd.otherEnd)
+#**##if($target.navigable)
+##
+## For manageable entities where the display attribute differs from identifier
+## we need to specify a labels attribute which is transient (specified by annotation)
+## on getter.  A display attribute differs from the identifier if modelled by
+## the Unique stereotype.
+##
+#*  *##if ($target.type.manageable && $target.type.manageableDisplayAttribute.name != $target.type.identifer.name)
+#*    *##if ($velocityCount == 1)
+    // -------- Manageable Attribute Display -----------
+    
+#*    *##end
+    /**
+     * Get the ${target.labelName}
+     *
+     * @return #if ($target.many)java.util.Collection<${target.type.manageableDisplayAttribute.type.fullyQualifiedName}>#else${target.type.manageableDisplayAttribute.type.fullyQualifiedName}#end
+     
+     */
+    @javax.persistence.Transient
+    public #if ($target.many)java.util.Collection<${target.type.manageableDisplayAttribute.type.fullyQualifiedName}>#else${target.type.manageableDisplayAttribute.type.fullyQualifiedName}#end ${target.getterLabelName}()
+    {
+        return this.${target.labelName};
+    }
+    
+    /**
+     * Set the ${target.labelName}
+     *
+     * @param ${target.labelName}
+     */
+    public void ${target.setterLabelName} (#if ($target.many)java.util.Collection<${target.type.manageableDisplayAttribute.type.fullyQualifiedName}>#else${target.type.manageableDisplayAttribute.type.fullyQualifiedName}#end ${target.labelName})
+    {
+        this.${target.labelName} = ${target.labelName};
     }
     
 #*  *##end
