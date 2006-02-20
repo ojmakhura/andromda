@@ -1,5 +1,6 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
@@ -11,6 +12,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.TaggedValueFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -585,5 +587,35 @@ public class EJB3AssociationEndFacadeLogicImpl
             isSet = !this.isOrdered();
         }
         return isSet;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetLabelName()
+     */
+    protected String handleGetLabelName()
+    {
+        String labelNamePattern = (this.isMany() ? 
+                (String)this.getConfiguredProperty(EJB3Globals.LABEL_COLLECTION_NAME_PATTERN) :
+                    (String)this.getConfiguredProperty(EJB3Globals.LABEL_SINGLE_NAME_PATTERN));
+
+        return MessageFormat.format(
+                labelNamePattern,
+            new Object[] {StringUtils.trimToEmpty(this.getName())});
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetGetterLabelName()
+     */
+    protected String handleGetGetterLabelName()
+    {
+        return UMLMetafacadeUtils.getGetterPrefix(this.getType()) + StringUtils.capitalize(this.getLabelName());
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetSetterLabelName()
+     */
+    protected String handleGetSetterLabelName()
+    {
+        return "set" + StringUtils.capitalize(this.getLabelName());
     }
 }
