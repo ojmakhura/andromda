@@ -266,14 +266,6 @@
 			        Entity Finder Method Parameter
 			    </appliedOnElement>
 			</element>
-			<element name="MANAGEABLE">
-				<documentation>
-					Produces a Manageable Session EJB facade for the 
-					POJO EJB entity.
-				</documentation>
-				<value>Manageable</value>
-				<appliedOnElement>class</appliedOnElement>
-			</element>
 		</elementGroup>
 		<elementGroup name="Tagged Values">
 			<element name="ATTRIBUTE_PERSISTENCE_OPTIONAL">
