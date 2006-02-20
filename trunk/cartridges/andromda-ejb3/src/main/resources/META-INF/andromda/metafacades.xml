@@ -7,6 +7,8 @@
 	<property reference="entityNamePattern"/>
 	<property reference="entityImplementationNamePattern"/>
 	<property reference="entityCompositePrimaryKeyNamePattern"/>
+    <property reference="labelCollectionNamePattern"/>
+    <property reference="labelSingleNamePattern"/>
 	<property reference="entityDefaultCascade"/>
 	<property reference="entityInheritanceStrategy"/>
 	<property reference="entityDiscriminatorType"/>
