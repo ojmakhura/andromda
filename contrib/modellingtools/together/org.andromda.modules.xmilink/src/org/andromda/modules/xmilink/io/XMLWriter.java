@@ -2,10 +2,9 @@ package org.andromda.modules.xmilink.io;
 
 /**
  * 
- * TODO To change the template for this generated type comment go to Window -
- * Preferences - Java - Code Style - Code Templates
+ * A simple writer for XML files.
  * 
- * @author U402101
+ * @author Peter Friese
  */
 public class XMLWriter
         extends Writer
@@ -16,6 +15,8 @@ public class XMLWriter
     private char[] indentArray = new char[255];
 
     private StringBuffer buffer = new StringBuffer();
+
+    private boolean linebreaking = true;
 
     public XMLWriter()
     {
@@ -37,15 +38,16 @@ public class XMLWriter
         return result;
     }
 
+    /**
+     * Descrease the indentation level.
+     */
     private void outdent()
     {
         indentationLevel--;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.andromda.modules.xmilink.io.Writer#writeOpeningElement(java.lang.String)
+    /**
+     * {@inheritDoc}
      */
     public void writeOpeningElement(String string)
     {
@@ -76,10 +78,10 @@ public class XMLWriter
     /*
      * (non-Javadoc)
      * 
-     * @see org.andromda.modules.xmilink.io.Writer#writeProperty(java.lang.String,
-     *      java.lang.String)
+     * @see org.andromda.modules.xmilink.io.Writer#writeProperty(java.lang.String, java.lang.String)
      */
-    public void writeProperty(String name, String value)
+    public void writeProperty(String name,
+        String value)
     {
         buffer.append(" " + name + " = '" + escape(value) + "'");
 
@@ -117,7 +119,10 @@ public class XMLWriter
         {
             buffer.append(">");
         }
-        writeLineBreak();
+        if (linebreaking)
+        {
+            writeLineBreak();
+        }
     }
 
     /*
@@ -127,10 +132,17 @@ public class XMLWriter
      */
     public void writeText(String string)
     {
-        indent();
-        buffer.append(getIndent() + string);
-        writeLineBreak();
-        outdent();
+        if (linebreaking)
+        {
+            indent();
+            buffer.append(getIndent());
+        }
+        buffer.append(string);
+        if (linebreaking)
+        {
+            writeLineBreak();
+            outdent();
+        }
     }
 
     /*
@@ -140,7 +152,11 @@ public class XMLWriter
      */
     public void writeClosingElement(String name)
     {
-        buffer.append(getIndent() + "</" + name + ">");
+        if (linebreaking)
+        {
+            buffer.append(getIndent());
+        }
+        buffer.append("</" + name + ">");
         writeLineBreak();
         outdent();
     }
@@ -153,6 +169,14 @@ public class XMLWriter
     public String getContents()
     {
         return buffer.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setLinebreaking(boolean linebreaking)
+    {
+        this.linebreaking = linebreaking;
     }
 
 }

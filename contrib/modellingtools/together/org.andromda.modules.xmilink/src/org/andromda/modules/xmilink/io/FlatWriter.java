@@ -2,7 +2,7 @@ package org.andromda.modules.xmilink.io;
 
 /**
  * TODO Specify purpose, please.
- * 
+ *
  * @author Peter Friese
  * @version 1.0
  * @since 17.09.2004
@@ -15,7 +15,7 @@ public class FlatWriter
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.io.Writer#writeOpeningElement(java.lang.String)
      */
     public void writeOpeningElement(String string)
@@ -25,7 +25,7 @@ public class FlatWriter
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.io.Writer#writeOpeningElementStart(java.lang.String)
      */
     public void writeOpeningElementStart(String name)
@@ -35,7 +35,7 @@ public class FlatWriter
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.io.Writer#writeProperty(java.lang.String,
      *      java.lang.String)
      */
@@ -46,7 +46,7 @@ public class FlatWriter
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.io.Writer#writeOpeningElementEnd()
      */
     public void writeOpeningElementEnd(boolean close)
@@ -56,7 +56,7 @@ public class FlatWriter
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.io.Writer#writeText(java.lang.String)
      */
     public void writeText(String string)
@@ -66,7 +66,7 @@ public class FlatWriter
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.io.Writer#writeClosingElement()
      */
     public void writeClosingElement(String name)
@@ -76,12 +76,20 @@ public class FlatWriter
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.andromda.modules.xmilink.io.Writer#getContents()
      */
     public String getContents()
     {
         return buffer.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setLinebreaking(boolean linebreaking)
+    {
+        // do nothing
     }
 
 }
