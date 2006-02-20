@@ -15,11 +15,12 @@ import org.andromda.core.common.ExceptionRecorder;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.BooleanUtils;
@@ -984,5 +985,60 @@ public class EJB3EntityFacadeLogicImpl
             }
         }
         return finderExists;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsManageable()
+     */
+    protected boolean handleIsManageable()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_MANAGEABLE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetManageableDisplayAttribute()
+     */
+    protected Object handleGetManageableDisplayAttribute()
+    {
+        AttributeFacade displayAttribute = null;
+
+        final Object taggedValueObject = this.findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_DISPLAY_NAME);
+        if (taggedValueObject != null)
+        {
+            displayAttribute = this.findAttribute(StringUtils.trimToEmpty(taggedValueObject.toString()));
+        }
+
+        final Collection attributes = this.getAttributes(true);
+        for (final Iterator attributeIterator = attributes.iterator();
+            attributeIterator.hasNext() && displayAttribute == null;)
+        {
+            final EntityAttribute attribute = (EntityAttribute)attributeIterator.next();
+            if (attribute.isUnique())
+            {
+                displayAttribute = attribute;
+            }
+        }
+
+        if (displayAttribute == null)
+        {
+            if (!getIdentifiers().isEmpty())
+            {
+                displayAttribute = (EntityAttribute)this.getIdentifiers().iterator().next();
+            }
+            else if (!attributes.isEmpty())
+            {
+                displayAttribute = (EntityAttribute)attributes.iterator().next();
+            }
+        }
+
+        return displayAttribute;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetIdentifer()
+     */
+    protected Object handleGetIdentifer()
+    {
+        return (EJB3EntityAttributeFacade)this.getIdentifiers().iterator().next();
     }
 }
