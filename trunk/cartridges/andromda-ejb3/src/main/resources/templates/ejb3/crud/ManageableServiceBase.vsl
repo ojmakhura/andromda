@@ -316,7 +316,34 @@ public final class $manageable.manageableServiceBaseName
 #if ($manageable.maximumListSize > 0)
             query.setMaxResults($manageable.maximumListSize);
 #end
-            return query.getResultList();
+            java.util.List<${manageable.fullyQualifiedEntityName}> entities = query.getResultList();
+#foreach ($member in $manageable.manageableAssociationEnds)
+#**##if ($member.type.displayAttributeWorkaround.name != $member.type.manageableIdentifierWorkaround.name)
+            org.apache.commons.collections.CollectionUtils.transform(entities, new org.apache.commons.collections.Transformer()
+            {
+                public Object transform(final Object object)
+                {
+                    ${manageable.fullyQualifiedEntityName} result = (${manageable.fullyQualifiedEntityName})object;
+#*  *##if ($member.many)
+                    java.util.Collection<${member.type.displayAttributeWorkaround.type.fullyQualifiedName}> $member.labelName = java.util.Collections.synchronizedCollection(new java.util.ArrayList<${member.type.displayAttributeWorkaround.type.fullyQualifiedName}>());
+                    for (final java.util.Iterator<${member.type.fullyQualifiedEntityName}> iterator = result.${member.getterName}().iterator(); iterator.hasNext();)
+                    {
+                        ${member.type.fullyQualifiedEntityName} entity = iterator.next();
+                        synchronized (${member.labelName})
+                        {
+                            ${member.labelName}.add(entity.${member.type.displayAttributeWorkaround.getterName}());
+                        }
+                    }
+                    result.${member.setterLabelName}(${member.labelName});
+#*  *##else
+                    result.${member.setterName}#if ($member.many)Labels#else#**#Label#end(result.${member.getterName}().${member.type.displayAttributeWorkaround.getterName}());
+#*  *##end
+                    return result;
+                }
+            });
+#**##end
+#end
+            return entities;
         }
         catch (Exception ex)
         {
