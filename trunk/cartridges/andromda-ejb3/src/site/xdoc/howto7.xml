@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - HowTo Exceptions</title>
+    </properties>
+    <body>
+        <section name="Exceptions">
+            <p>
+                The EJB3 cartridge provides an almost identical exception handling process for application 
+                as with the other persistence cartridges.
+            </p>
+            <p>
+                Simply model a class and assign it the <![CDATA[<<ApplicationException>>]]> stereotype or
+                the <![CDATA[<<UnexpectedException>>]]> stereotype (you will need to enable the Java cartridge
+                for this to work).
+            </p>
+            <p>
+                By default NO exceptions will be generated for any service, unless an entity has the
+                <![CDATA[<<Manageable>>]]> stereotype.  Please refer to 
+                <a href="howto16.html">Manageable Entities</a> for more information on manageable
+                service exceptions.
+            </p>
+            <p class="highlight">
+                EJB3 entities no longer throw exceptions.  Following the session facade pattern, all business
+                logic should reside in the session bean, therefore, only the session bean should throw
+                application specific exceptions.
+            </p>
+            <p>
+                The next thing to do is draw a dependency from a <![CDATA[<<Service>>]]> to this exception, 
+                this will make all operations throw this exception.
+                You may choose to have a single operation throw a specific exception by drawing the dependency
+                from that operation to the exception.
+            </p>
+            <p>
+                The following example builds on top of our tutorial example and adds the <code>RentalException</code>
+                application exception which is thrown from all operations of the <code>RentalService</code>
+                related classes.  Notice how the bean class, bean implementation class, interface classes and
+                delegate class throw this exception from all operations.
+            </p>
+            <p>
+                <img src="images/org/andromda/test/7/a/uml.gif"/>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto7/a/Car.java.txt"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/CarType.java.txt"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto7/a/Person.java.txt"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
+                </ul>
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                The next section covers the declarative security handling with JBossSX, click
+                <a href="howto8.html">here</a> to go to that section.
+            </p>
+        </section>
+    </body>
+</document>
