@@ -388,6 +388,21 @@
                     manageable application exception name.
                 </documentation>
             </property>
+            <property name="labelCollectionNamePattern">
+                <default>{0}Labels</default>
+                <documentation>
+                    The pattern to use when defining the display 
+                    attribute label name when it's of type Collection.
+                </documentation>
+            </property>
+            <property name="labelSingleNamePattern">
+                <default>{0}Label</default>
+                <documentation>
+                    The pattern to use when defining the display 
+                    attribute label name when it's NOT of type 
+                    Collection.
+                </documentation>
+            </property>
 		</propertyGroup>
 		<propertyGroup name="MDB Properties">
 			<property name="messageDrivenDestinationType">
