@@ -253,6 +253,40 @@
         </modelElements>
     </template>
     
+    <template
+        path="templates/ejb3/login-config.xml.vsl"
+        outputPattern="$generatedFile"
+        outlet="application-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
+                    <property name="securityEnabled"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <!--
+    <template
+        path="templates/ejb3/login-service.xml.vsl"
+        outputPattern="$generatedFile"
+        outlet="application-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
+                    <property name="securityEnabled"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    -->
+    
 	<!-- Message Driven Bean Templates -->
 	
     <template 
