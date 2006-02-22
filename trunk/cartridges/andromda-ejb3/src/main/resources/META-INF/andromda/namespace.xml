@@ -59,6 +59,13 @@
 			        is generated.
 			    </documentation>
 			</property>
+			<property name="application-config">
+			    <documentation>
+			        The location where the application specific XML 
+			        descriptors are generated.  i.e the application
+			        login-config.xml descriptor.
+			    </documentation>
+			</property>
 			<property name="message-driven-beans">
 				<documentation>
 					The directory to which Message Driven Bean files 
