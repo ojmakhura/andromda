@@ -72,6 +72,9 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
     extends ${entity.generalization.fullyQualifiedName}
 #end
     implements java.io.Serializable
+#if (!$entity.interfaceAbstractions.empty)
+        , $entity.implementedInterfaceList
+#end
 {
 
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
