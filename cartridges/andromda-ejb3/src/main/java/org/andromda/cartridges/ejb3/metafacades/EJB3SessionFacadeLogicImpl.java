@@ -646,6 +646,14 @@ public class EJB3SessionFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsSecurityEnabled()
+     */
+    protected boolean handleIsSecurityEnabled()
+    {
+        return StringUtils.isNotBlank(this.getSecurityRealm());
+    }
+    
+    /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetRunAs()
      */
     protected String handleGetRunAs()
@@ -859,5 +867,4 @@ public class EJB3SessionFacadeLogicImpl
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_LISTENER);
     }
-
 }
