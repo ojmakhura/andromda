@@ -25,7 +25,7 @@
 				</p>
 				<p>
 					Once you have done that, the cartridge will create the login-config deploy descriptor
-					for JBoss.  It's contents between the <code>policy</code> elemtns should be copied to the 
+					for JBoss.  It's contents between the <code>policy</code> elements should be copied to the 
 					JBoss server container 'conf' folder login-config.xml.  The file will look like:
 <source language="xml"><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
@@ -69,7 +69,7 @@
 					You will need this file if you are outside of the server JVM to be able to authenticate
 					your credentials.  This file needs to be in your classpath when you run your external
 					client.
-<source language="xml"><![CDATA[
+<source><![CDATA[
 howtomodel {
    // jBoss LoginModule
    org.jboss.security.ClientLoginModule  required
@@ -80,6 +80,27 @@ howtomodel {
 <source><![CDATA[
 System.setProperty("java.security.auth.login.config", "./auth.conf");
 ]]></source>
+				</p>
+				<p>
+				    Remember that you will need to create your table schema corresponding to the authentication
+				    policy defined in login-config.xml.  The DDL would look something like the following if you
+				    were using MySQL:
+<source><![CDATA[
+create table principal 
+(
+PRINCIPAL_ID varchar(64) not null default '', 
+PASSWORD varchar(64) default NULL, 
+PRIMARY KEY(PRINCIPAL_ID)
+);
+
+create table role
+(
+PRINCIPAL_ID varchar(64) not null default '', 
+ROLE varchar(64) default NULL, ROLE_GROUP varchar(64) default NULL, 
+PRIMARY KEY(PRINCIPAL_ID)
+);
+]]></source>
+				    
 				</p>
 			</subsection>
             <a name="Modelling"/>
