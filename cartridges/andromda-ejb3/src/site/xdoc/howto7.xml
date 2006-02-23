@@ -16,10 +16,11 @@
                 for this to work).
             </p>
             <p>
-                By default NO exceptions will be generated for any service, unless an entity has the
-                <![CDATA[<<Manageable>>]]> stereotype.  Please refer to 
-                <a href="howto16.html">Manageable Entities</a> for more information on manageable
-                service exceptions.
+                A default exception will be generated for all services since the
+                <code>allowDefaultServiceException</code> namespace property is set to <code>true</code> by
+                default.  A set of default crud exceptions will also be generated and used in manageable service
+                beans for manageable entities.  Please refer to <a href="howto16.html">Manageable Entities</a>
+                for more information on manageable service exceptions.
             </p>
             <p class="highlight">
                 EJB3 entities no longer throw exceptions.  Following the session facade pattern, all business
