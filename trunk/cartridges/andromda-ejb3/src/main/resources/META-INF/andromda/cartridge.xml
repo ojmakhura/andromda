@@ -286,6 +286,22 @@
         </modelElements>
     </template>
     -->
+      
+    <template
+        path="templates/ejb3/auth.conf.vsl"
+        outputPattern="auth.conf"
+        outlet="application-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
+                    <property name="securityEnabled"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
     
 	<!-- Message Driven Bean Templates -->
 	
