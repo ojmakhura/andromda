@@ -290,12 +290,16 @@ $operation.getDocumentation("     * ")
     @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${operation.transactionType})
 #*    *##end
 #*  *##end
-#*  *##if ($operation.permitAll)
-    @javax.annotation.security.PermitAll
-#*  *##elseif ($operation.denyAll)
+#*  *##if ($service.securityEnabled)
+#*    *##if ($stringUtils.isBlank(${operation.rolesAllowed}))
+#*      *##if ($operation.denyAll)
     @javax.annotation.security.DenyAll
-#*  *##elseif ($operation.rolesAllowed)
+#*      *##else
+    @javax.annotation.security.PermitAll
+#*      *##end
+#*    *##else
     @javax.annotation.security.RolesAllowed({${operation.rolesAllowed}})
+#*    *##end
 #*  *##end
 #*  *##if ($operation.flushMode)
     @javax.persistence.FlushMode(javax.persistence.FlushModeType.${operation.flushMode})
