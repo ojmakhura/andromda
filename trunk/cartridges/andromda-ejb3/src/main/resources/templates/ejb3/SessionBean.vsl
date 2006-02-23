@@ -29,13 +29,6 @@ $service.getDocumentation(" * ")
 @org.jboss.annotation.security.SecurityDomain("${service.securityRealm}")
 #**##end
 #end
-#if ($service.permitAll)
-@javax.annotation.security.PermitAll
-#elseif ($service.denyAll)
-@javax.annotation.security.DenyAll
-#elseif ($service.rolesAllowed)
-@javax.annotation.security.RolesAllowed({${service.rolesAllowed}})
-#end
 #if ($service.runAs)
 @javax.annotation.security.RunAs("${service.runAs}")
 #end
