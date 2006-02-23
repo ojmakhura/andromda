@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - HowTo Security</title>
+    </properties>
+    <body>
+        <section name="Declarative Security">
+            <p>
+				The JAAS security framework, in JBoss (JBossSX) or other EJB containers provides authentication 
+				and authorization for components in EJB 3.0 applications.
+				The EJB3 cartridge supports declarative role based security for this security framework.
+            </p>
+            <p>
+                Currently, the EJB3 cartridge uses metadata annotations to declare security related information.
+                It would just as easy to swap this information to the deployment descriptor to setup the
+                security policies.
+            </p>
+            <a name="Configuration"/>
+			<subsection name="Configuration">
+				<p>
+					Enabling security for the EJB3 cartridge is similar to the EJB cartridge.  Just set the
+				    <a href="namespace.html#securityRealm">securityRealm</a> property from your AndroMDA build 
+				    configuration.
+				</p>
+				<p>
+					Once you have done that, the cartridge will create the login-config deploy descriptor
+					for JBoss.  It's contents between the <code>policy</code> elemtns should be copied to the 
+					JBoss server container 'conf' folder login-config.xml.  The file will look like:
+<source language="xml"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policy PUBLIC
+          "-//JBoss//DTD JBOSS Security Config 3.0//EN"
+          "http://www.jboss.org/j2ee/dtd/security_config.dtd">
+<policy>
+    <application-policy name="howtomodel">
+        <authentication>
+            <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule"
+                          flag="required">
+                <module-option name="debug">true</module-option>
+                <module-option name="unauthenticatedIdentity">guest</module-option>
+                <module-option name="dsJndiName">java:/jdbc/howtomodelDS</module-option>
+                <module-option name="principalsQuery">
+                    SELECT PASSWORD 'Password' FROM principal WHERE BINARY PRINCIPAL_ID =?
+                </module-option>
+                <module-option name="rolesQuery">
+                    SELECT ROLE 'Roles', ROLE_GROUP 'RoleGroups' FROM role WHERE BINARY PRINCIPAL_ID =?
+                </module-option>
+                <module-option name="hashAlgorithm">MD5</module-option>
+                <module-option name="hashEncoding">BASE64</module-option>
+            </login-module>
+        </authentication>
+    </application-policy>
+</policy>	
+]]></source>
+				</p>
+				<p>
+				    This file will typically be created in <i>your project/app/src/main/config</i> folder.  Once
+				    you have copied it's contents over to your JBoss conf login-config.xml, you must restart 
+				    JBoss for the new security policy to take effect.
+				</p>
+				<p>
+					This file is generated the first time the security realm is enabled.  It will not be
+					overridden.  You can modify this file for example to not have the queries check for
+					case sensitivity by removing the <b>BINARY</b> in the <i>where</i> clauses.
+				</p>
+				<p>
+					The cartridge will also create an <code>auth.conf</code> file in <i>./app/src/main/config</i>.
+					You will need this file if you are outside of the server JVM to be able to authenticate
+					your credentials.  This file needs to be in your classpath when you run your external
+					client.
+<source language="xml"><![CDATA[
+howtomodel {
+   // jBoss LoginModule
+   org.jboss.security.ClientLoginModule  required
+   ;
+};
+]]></source>
+                    You can use something like so to locate your auth.conf file from the your standalone client.
+<source><![CDATA[
+System.setProperty("java.security.auth.login.config", "./auth.conf");
+]]></source>
+				</p>
+			</subsection>
+            <a name="Modelling"/>
+            <subsection name="Modelling">
+				<p>
+					Now you have to define some roles for your application. This is simply done by adding actors 
+					to your model named with the role's name.
+				</p>
+				<p>
+					<img src="images/org/andromda/test/8/a/uml.gif"/>
+				</p>
+				<p>
+					The next thing to do is to draw a dependency from a logical role actor to a 
+					<![CDATA[<<Service>>]]> and/or to one or more methods of the service. 
+					Making the whole service dependent on an actor grants the 
+					role access to all service operations. To grant access to single operation(s) draw the dependency 
+					from the actor to the operations(s).
+				</p>
+				<p>
+				    Defining security roles is purely optional.  If no roles have been specified, then the bean
+				    operations do not pass any security instructions.
+				</p>
+				<p>
+					<img src="images/org/andromda/test/8/b/uml.gif"/>
+				</p>
+				<p>
+					<ul>
+						<li class="gen">Auto-generated source that does not need manual editing</li>
+						<li class="impl">Auto-generated source that should be edited manually</li>
+						<li class="changed">File that is affected by the modifications applied in this section</li>
+					</ul>
+				</p>
+                <p>
+                    <ul>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto8/a/Car.java.txt"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/a/CarType.java.txt"><code>CarType.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto8/a/Person.java.txt"><code>Person.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto8/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
+                    </ul>
+                </p>
+                <p>
+                    Take a look at the <code>RentalServiceBean</code> class.  You will notice a 
+                    <code>RolesAllowed</code> annotation at the top level of the class as well as on each
+                    operation of the service bean.  The <code>RolesAllowed</code> annotation is a list of security
+                    role names mapped to security roles allowed to execute the annotated method or all methods if
+                    specifies at the class level.
+                </p>
+                <p>
+                    The EJB3 cartridge provides a couple of extra security related tagged values.  The
+                    <code>@andromda.service.security.denyAll</code> tagged value which can be assigned on
+                    a session bean operation specifies that no roles are permitted to execute that operation.
+                    If modelled on the session bean class and set to true, then no roles are permitted to 
+                    execute all of the operations in that session bean.  This tag overrides any roles specified
+                    using actor dependencies.
+                </p>
+                <p>
+                    Inversely, the <code>@andromda.service.security.permitAll</code> tagged value, if set to true
+                    on a session bean operation, implies that all roles are permitted to execute that operation.
+                    If modelled on the session bean class and set to true, then all roles are permitted to execute
+                    all opeations in that session bean.  This tag overrides any roles specified usin actor
+                    dependencies.
+                </p>
+                <p>
+                    In any of the cases above, method permissions that have been specified on a method of
+                    a bean will override the method permission value specified on the class itself.
+                </p>
+                <p>
+                    To specify the <code>RunAs</code> metadata annotation and explicity specify the caller's
+                    security identity used for the execution of the bean method, you simply need to model 
+                    the <![CDATA[<<RunAs>>]]> stereotype on the actor role.  This will imply the identity of
+                    the actor applies a run-as identity to the bean when making calls.  The actor's name or
+                    corresponding <code>@andromda.role.name</code> tagged value contains the logical role name.
+                    The run-as identity is only applicable to actor-bean dependency.  It cannot be applied
+                    to bean operations.  The run-as idendity is particularly useful for message driven beans where
+                    the security identity for the execution of the <code>onMessage</code> callback needs to be set.
+                </p>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                We cover entity inheritance in the following section so click <a href="howto9.html">here</a> to go to 
+                that section.
+            </p>
+        </section>
+    </body>
+</document>
