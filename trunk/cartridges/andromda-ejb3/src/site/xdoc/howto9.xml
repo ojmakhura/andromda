@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - HowTo Inheritance</title>
+    </properties>
+    <body>
+        <section name="Inheritance">
+            <p>
+                The EJB 3.0 specification introduces inheritance:
+            </p>
+            <i>
+                <p>
+              An entity may inherit from another entity class. Entities support inheritance, polymorphic
+              associations, and polymorphic queries.
+                </p>
+                <p>
+              Both abstract and concrete classes can be entities.  Both abstract and concrete classes can be
+              annotated with the <code>Entity</code> annotation, mapped as entities, and queried for as entities.
+                </p>
+                <p>
+            		Entities can extend non-entity classes and non-entity classes can extend entity classes.
+                </p>
+            </i>
+            <p>
+                The following howto should give you a basic understanding on how to model your inheritance
+                hierarchies using the EJB3 cartridge.
+            </p>
+            <p>
+                The biggest drawback of implementing any of the inheritance hierarchies using
+                the EJB3 cartridge is the limitation where a manual source class is NOT available in the child
+                nodes of an inheritance hierarchy.  Because the EJB3 cartridge employs mapped superclass inheritance
+                for every entity to be able to provide implementation specific source in the subclass, it is
+                limited by the fact that mapped superclasses can only exist in the root node of the inheritance
+                hierarchy.
+            </p>
+            <a name="Mapped_Superclasses"/>
+			<subsection name="Mapped Superclasses">
+                <p>
+                    In a mapped superclass scenario, an entity inherits from a superclass that has persistent state 
+                    and mapping information, but the super class isn't an entity.  This is the strategy employed
+                    by the EJB3 cartridge when generating non-inheriting entities.  
+                    A mapped superclass is generated containing
+                    almost all of the mapping information.  The subclass contains only the <code>@Entity</code>
+                    , <code>@Table</code> and <code>@EntityListeners</code> annotations.  All attribute
+                    and relationship mapping information exists in the mapped superclass.  The mapped superclass
+                    is regenerated on every run, however the subclass is not.  As soon as you model
+                    inheriting entities, this strategy doesn't apply since mapped superclasses only exist at 
+                    the root node of the hierarchy.
+                </p>
+                <p>
+                    To explicity defined an entity as a mapped superclass, model the 
+                    <![CDATA[<<MappedSuperclass>>]]> stereotype on the root entity.  Define the subclass entities
+                    <b>without</b> primary keys and generalizing the root entity.  The following is an example of this
+                    type of inheritance.
+                </p>
+				<p>
+					<img src="images/org/andromda/test/9/a/uml.gif"/>
+				</p>
+				<p>
+					<ul>
+						<li class="gen">Auto-generated source that does not need manual editing</li>
+						<li class="impl">Auto-generated source that should be edited manually</li>
+						<li class="changed">File that is affected by the modifications applied in this section</li>
+					</ul>
+				</p>
+                <p>
+                    <ul>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto9/a/Vehicle.java.txt"><code>Vehicle.java</code></a></li>
+                        <li class="impl"><a class="changed" href="src/org/andromda/test/howto9/a/Car.java.txt"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/CarType.java.txt"><code>CarType.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto9/a/Person.java.txt"><code>Person.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto9/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
+                    </ul>
+                </p>
+                <p>
+                    It's worthwhile to note that only a Vehicle class is generated which contains all the mapping
+                    information.  This class is regenerated every time AndroMDA runs; any manual changes to this
+                    class is overwritten.  Likewise, only the Car entity class, with all mapping information 
+                    is generated.
+                    On the other hand, the Person entity operates under the normal EJB3 cartridge
+                    guidelines since there is no inheritance hierarchy for this entity.  Therefore, a <code>Person</code>
+                    and <code>PersonEmbeddable</code> class is generated and you are allowed to manually edit 
+                    the <code>Person</code> class source file.
+                </p>
+			</subsection>
+            <a name="Single_Table_Strategy"/>
+            <subsection name="Single Table Strategy">
+                <p>
+                    In this strategy, the complete class hierarchy is persisted to a single table.  To differentiate
+                    between class types, a discriminator column is used.  The discriminator column type is
+                    specified in the root class along with the inheritance strategy employed.  All classes need to
+                    specify the discriminator value associated to each class in the hierarchy.
+                </p>
+                <p>
+                    If the query is based on the root class in the hierarchy, the query is polymorphic which implies
+                    that entity subclass instances will be returned.  
+                </p>
+                <p>
+                    <b>Pros:</b> Good support for polymorphic relationships between entities and queries over the class
+                    hierarchy.
+                </p>
+                <p>
+                    <b>Cons:</b> Columns corresponding to state of subclasses must be nullable.
+                </p>
+                <p>
+                    The EJB3 cartridge will assume a single table mapping strategy when you model an inheritance
+                    hierarchy between entities, unless specified otherwise.
+                </p>
+				<p>
+					<img src="images/org/andromda/test/9/b/uml.gif"/>
+				</p>
+				<p>
+					<ul>
+						<li class="gen">Auto-generated source that does not need manual editing</li>
+						<li class="impl">Auto-generated source that should be edited manually</li>
+						<li class="changed">File that is affected by the modifications applied in this section</li>
+					</ul>
+				</p>
+                <p>
+                    <ul>
+                        <li class="impl"><a href="src/org/andromda/test/howto9/b/Vehicle.java.txt"><code>Vehicle.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto9/b/VehicleEmbeddable.java.txt"><code>VehicleEmbeddable.java</code></a></li>
+                        <li class="impl"><a class="changed" href="src/org/andromda/test/howto9/b/Car.java.txt"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/CarType.java.txt"><code>CarType.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto9/b/Person.java.txt"><code>Person.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto9/b/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalException.java.txt"><code>RentalException.java</code></a></li>
+                    </ul>
+                </p>
+                <p>
+                    The discriminator components are discussed in immediately below.
+                </p>
+            </subsection>
+            <a name="Discriminator_Components"/>
+            <subsection name="Discriminator Components">
+                <p>
+                    The EJB3 cartridge provides a few tagged values to customise the default values for the
+                    discriminator components for a single table inheritance mapping strategy.
+                </p>
+                <p>
+                    The discriminator column name defaults to <code>TYPE</code> of type <code>STRING</code>.  To
+                    set the discriminator column name, you model the 
+                    <code>@andromda.persistence.discriminator.colum.name</code> tagged value on the root class.
+                </p>
+                <p>
+                    To specify the discriminator colum type, you model the 
+                    <code>@andromda.persistence.discriminator.type</code> tagged value on the root class.  Your column
+                    type options are:
+                    <ul>
+                        <li>STRING</li>
+                        <li>INTEGER</li>
+                        <li>CHAR</li>
+                    </ul>
+                </p>
+                <p>
+                    You can set the discriminator column length if the colum type is specified as
+                    <code>STRING</code> by modelling the <code>@andromda.persistence.discriminator.column.length</code>
+                    tagged value on the root class.  The default is 10.
+                </p>
+                <p>
+                    In some cases, you may want to explicity define the SQL fragment when generating the DDL
+                    for the discriminator column.  To do this, simply model the
+                    <code>@andromda.persistence.discriminator.colum.definition</code> tagged value on the
+                    root class.
+                </p>
+                <p>
+                    Most importantly, you need to model the <code>@andromda.persistence.discriminator.value</code>
+                    tagged value <b>on all classes</b> in the hierarchy.  This value indicates the row in the table
+                    is an entity of the annotated entity type.  This is shown in the above diagram on entities
+                    Vehicle and Car.
+                </p>
+            </subsection>
+            <a name="Table_Per_Class_Strategy"/>
+			<subsection name="Table Per Class Strategy">
+                <p>
+                    With this strategy, a table exists per class in the hierarchy and each table is comprised of
+                    all the properties persistent by that class.  There is no need to define discriminator column
+                    types or values here.
+                </p>
+                <p>
+                    If the query is based on the root class in the hierarchy, the query is polymorphic which implies
+                    that entity subclass instances will be returned.
+                </p>
+                <p>
+                    <b>Cons:</b> Poor support for polymorphic relationships. A separate SQL query per subclass is 
+                    required before queries are executed.
+                </p>
+                <p>
+                    Since the default inheritance mapping strategy is single table per hierarchy, you can model
+                    the <code>@andromda.persistence.inheritance</code> tagged value and set it to 
+                    <code>TABLE_PER_CLASS</code> on the root class of the hierarchy.
+                    All subclasses follow this same strategy.
+                </p>
+			</subsection>
+            <a name="Table_Join_Strategy"/>
+            <subsection name="Table Join Strategy">
+                <p>
+                    This strategy has a table per class in the hierarchy, however the subclass tables are comprised
+                    of ONLY the extra attributes defined in the subclass and not the inheriting fields.
+                    There is no need to define discriminator column types or values here.  The primary key column(s)
+                    of the subclass table serves as a foreign key to the primary key of the superclass table.
+                </p>
+                <p>
+                    If the query is based on the root class in the hierarchy, the query is polymorphic which implies
+                    that entity subclass instances will be returned.
+                </p>
+                <p>
+                    <b>Cons:</b> Perhaps more than 1 join operation is needed to instantiate instances of a subclass.
+                </p>
+                <p>
+                    Since the default inheritance mapping strategy is single table per hierarchy, you can model
+                    the <code>@andromda.persistence.inheritance</code> tagged value and set it to 
+                    <code>JOINED</code> on the root class of the hierarchy.
+                    All subclasses follow this same strategy.
+                </p>
+            </subsection>
+            <a name="Generic_Finder_Methods"/>
+            <subsection name="Generic Finder Methods">
+                <p>
+                    You will notice that the generic finder method <code>findByPrimaryKey</code> is not generated 
+                    for any of the inheritance mapping strategies within the inheriting subclasses.
+                    Classes that inherit from a base class use the primary key identifier of the base class.
+                    Therefore, because the <code>findByPrimaryKey</code> already exists in the base/root class and 
+                    since we have polymorphic queries, subclass entities are also returned from the queries 
+                    of the root class.
+                </p>
+                <p>
+                    The case is different for the <code>findAll</code> finder method.  The <code>findAll</code>
+                    finder will not be generated for inheriting subclasses when the inheritance strategy is
+                    single table.  Polymorphic queries in the root entity returns the result from all classes in
+                    the hierarchy.  For table per class and joined table mapping strategies, the cartridge will
+                    generate the <code>findAll<![CDATA[<Entity Name>]]></code> finder method in each subclass
+                    as well as the <code>findAll</code> in the root class.
+                </p>
+            </subsection>
+            <a name="Helpful_Hints"/>
+            <subsection name="Helpful Hints">
+                <p>
+                    The PFD EJB 3.0 spec says:
+                </p>
+                <i>
+                    <p>
+                		Support for the table per class inheritance mapping strategy is optional in this release.
+                    </p>
+                    <p>
+		                Support for the combination of inheritance strategies within a single entity inheritance 
+		                hierarchy is not required by this specification.
+		            </p>
+                </i>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                To learn how to develop Message Driven Beans, click <a href="howto9.html">here</a>.
+            </p>
+        </section>
+    </body>
+</document>
