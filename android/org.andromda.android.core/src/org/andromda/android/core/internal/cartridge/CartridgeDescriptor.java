@@ -1,13 +1,13 @@
 package org.andromda.android.core.internal.cartridge;
 
 import java.net.URL;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.andromda.android.core.cartridge.CartridgeParsingException;
 import org.andromda.android.core.cartridge.ICartridgeDescriptor;
 import org.andromda.android.core.cartridge.ICartridgeMetafacadeVariableDescriptor;
+import org.andromda.android.core.cartridge.ICartridgeVariableContainer;
 import org.andromda.android.core.cartridge.ICartridgeVariableDescriptor;
 import org.andromda.core.cartridge.CartridgeDocument;
 import org.andromda.core.cartridge.CartridgeDocument.Cartridge;
@@ -67,11 +67,11 @@ public class CartridgeDescriptor
     /** Indicates whether this cartridge descriptor is located inside a jar file. */
     private boolean jar;
 
-    /** Cache for the cartridge variables. */
-    private Map cartridgeVariables;
-
     /** The Java project this cartridge is located in. */
     private IJavaProject javaProject;
+
+    /** Cache for the cartridge variables. */
+    private CartridgeVariableContainer cartridgeVariables;
 
     /**
      * Creates a new CartridgeDescriptor.
@@ -241,28 +241,24 @@ public class CartridgeDescriptor
     /**
      * {@inheritDoc}
      */
-    public Collection getVariableDescriptors() throws CartridgeParsingException
+    public ICartridgeVariableContainer getVariableDescriptors() throws CartridgeParsingException
     {
         if (cartridgeVariables == null)
         {
-            cartridgeVariables = new HashMap();
-            retrieveCartridgeProperties(cartridgeVariables);
-            retrieveCartridgeTemplateObjects(cartridgeVariables);
-            retrieveMetafacadeVariables(cartridgeVariables);
+            cartridgeVariables = new CartridgeVariableContainer();
+            retrieveCartridgeProperties();
+            retrieveCartridgeTemplateObjects();
+            retrieveMetafacadeVariables();
         }
-
-        // return a collection view of the variable cache
-        Collection collection = cartridgeVariables.values();
-        return collection;
+        return cartridgeVariables;
     }
 
     /**
      * Collects the metafaceade variables.
      * 
-     * @param variables The collection of variables.
      * @throws CartridgeParsingException If the cartridge could not be parsed.
      */
-    private void retrieveMetafacadeVariables(final Map variables) throws CartridgeParsingException
+    private void retrieveMetafacadeVariables() throws CartridgeParsingException
     {
         Cartridge cartridge = getCartridge();
         Template[] templateArray = cartridge.getTemplateArray();
@@ -304,7 +300,7 @@ public class CartridgeDescriptor
                                     
                                     ICartridgeMetafacadeVariableDescriptor descriptor = new CartridgeMetafacadeVariableDescriptor(
                                             variableName, "", type, isCollection, templatePath);
-                                    variables.put(variableName, descriptor);
+                                    cartridgeVariables.put(descriptor);
                                 }
                                 catch (JavaModelException e)
                                 {
@@ -324,7 +320,7 @@ public class CartridgeDescriptor
      * @param variables
      * @throws CartridgeParsingException
      */
-    private void retrieveCartridgeTemplateObjects(Map variables) throws CartridgeParsingException
+    private void retrieveCartridgeTemplateObjects() throws CartridgeParsingException
     {
         Cartridge cartridge = getCartridge();
         TemplateObject[] templateObjectArray = cartridge.getTemplateObjectArray();
@@ -343,7 +339,7 @@ public class CartridgeDescriptor
                     type = javaProject.findType(objectClassName);
                     ICartridgeVariableDescriptor descriptor = new CartridgeJavaVariableDescriptor(objectName,
                             documentation, type);
-                    variables.put(objectName, descriptor);
+                    cartridgeVariables.put(descriptor);
                 }
             }
             catch (JavaModelException e)
@@ -357,7 +353,7 @@ public class CartridgeDescriptor
     /**
      * @throws CartridgeParsingException
      */
-    private void retrieveCartridgeProperties(final Map variables) throws CartridgeParsingException
+    private void retrieveCartridgeProperties() throws CartridgeParsingException
     {
         Namespace namespace = getNamespace();
         Properties[] propertiesArray = namespace.getPropertiesArray();
@@ -384,7 +380,7 @@ public class CartridgeDescriptor
                         ICartridgeVariableDescriptor descriptor = new CartridgeVariableDescriptor(propertyName,
                                 propertyDocumentation);
 
-                        variables.put(propertyName, descriptor);
+                        cartridgeVariables.put(descriptor);
                     }
                 }
             }
