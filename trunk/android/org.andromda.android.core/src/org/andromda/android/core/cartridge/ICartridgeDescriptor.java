@@ -2,6 +2,7 @@ package org.andromda.android.core.cartridge;
 
 import java.util.Collection;
 
+import org.andromda.android.core.internal.cartridge.CartridgeVariableContainer;
 import org.andromda.core.cartridge.CartridgeDocument.Cartridge;
 import org.andromda.core.metafacade.MetafacadeDocument.Metafacade;
 import org.andromda.core.namespace.NamespaceDocument.Namespace;
@@ -34,10 +35,10 @@ public interface ICartridgeDescriptor
     Metafacade getMetafacade() throws CartridgeParsingException;
     
     /**
-     * @return A collection of all variables that are defined in this cartridge.
+     * @return A container containing all variables that are defined in this cartridge.
      * @throws CartridgeParsingException If the cartridge could not be parsed.
      */
-    Collection getVariableDescriptors() throws CartridgeParsingException;
+    ICartridgeVariableContainer getVariableDescriptors() throws CartridgeParsingException;
 
 
     // TODO import profile.xsd
