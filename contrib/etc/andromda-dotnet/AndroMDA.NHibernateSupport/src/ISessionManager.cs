@@ -22,15 +22,18 @@ namespace AndroMDA.NHibernateSupport
     ///    processed the user's request, it must call ISessionManager.HandleSessionEnd().
     /// 
     /// If the application follows the above protocol, then ISessionManager guarantees the following:
-    /// 1. The NHibernate congiguration can be accessed anytime between the HandleApplicationStart()
+    /// 1. The NHibernate configuration can be accessed anytime between the HandleApplicationStart()
     ///    and HandleApplicationEnd() calls. Use the Config property to access the configuration.
     /// 2. The NHibernate session can be accessed anytime between the HandleSessionStart()
     ///    and HandleSessionEnd() calls. Use the Session property to access the session.
     /// </summary>
     public interface ISessionManager
     {
+        // Application start and end
         void HandleApplicationStart();
         void HandleApplicationEnd();
+
+        // Session management
         void HandleSessionStart();
         void HandleSessionEnd();
 
@@ -39,7 +42,10 @@ namespace AndroMDA.NHibernateSupport
         void CommitTransaction();
         void RollbackTransaction();
 
+        // Exposed properties
         Configuration Config { get; }
+        ISessionFactory SessionFactory { get; }
         ISession Session { get; }
-    }
+		bool IsSessionInitializedLazily { get; set; }
+	}
 }
