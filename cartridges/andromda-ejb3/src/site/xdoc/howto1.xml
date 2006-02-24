@@ -218,6 +218,26 @@
                     <code>@javax.persistence.Transient</code> annotation to the attribute.
                 </p>
             </subsection>
+            <a name="Insertable_Attribute"/>
+            <subsection name="Insertable Attribute">
+                <p>
+                    To include the mapped column in the SQL insert statement, you set the <code>insertable</code>
+                    property on the <code>@Column</code> annotation which is done by modelling the
+                    <code>@andromda.persistence.column.insert</code> on the attribute.  By default, this is set to
+                    true, so it only needs to be specified if you want the column to be initialised using the
+                    database default value.
+                </p>
+            </subsection>
+            <a name="Updatable_Attribute"/>
+            <subsection name="Updatable Attribute">
+                <p>
+                    To include the mapped column in the SQL update statement, you set the <code>updatable</code>
+                    property on the <code>@Column</code> annotation which is done by modelling the
+                    <code>@andromda.persistence.column.update</code> on the attribute.  By default, this is set to
+                    true, so it only needs to be specified if you want the column to be updated using by the
+                    database automatically.
+                </p>
+            </subsection>
             <a name="Version_Attribute"/>
             <subsection name="Version Attribute">
                 <p>
