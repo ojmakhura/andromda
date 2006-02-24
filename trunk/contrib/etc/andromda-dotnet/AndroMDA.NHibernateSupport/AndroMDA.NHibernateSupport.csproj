@@ -76,7 +76,7 @@
                 />
                 <Reference
                     Name = "System.XML"
-                    AssemblyName = "System.XML"
+                    AssemblyName = "System.Xml"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
@@ -89,6 +89,11 @@
                     AssemblyName = "System.Web"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
                 />
+                <Reference
+                    Name = "log4net"
+                    AssemblyName = "log4net"
+                    HintPath = "..\Lib\NHibernate-1.0.0.0\log4net.dll"
+                />
             </References>
         </Build>
         <Files>
@@ -99,17 +104,12 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "src\AbstractSessionManager.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
                     RelPath = "src\DbSupport.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "src\HttpContextSessionManager.cs"
+                    RelPath = "src\DefaultSessionManager.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
@@ -135,11 +135,6 @@
                 />
                 <File
                     RelPath = "src\SessionManagerFactory.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "src\ThreadLocalSessionManager.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
