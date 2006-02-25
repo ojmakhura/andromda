@@ -17,7 +17,7 @@ $mdb.getDocumentation(" * ")
  * The annotation is commented to avoid multiple registration with the
  * container.
  *
- * javax.ejb.MessageDriven(activateConfig =
+ * javax.ejb.MessageDriven(activationConfig =
  *{
  *   @javax.ejb.ActivationConfigProperty(propertyName="destinationType", propertyValue="${mdb.destinationType}"),
  *   @javax.ejb.ActivationConfigProperty(propertyName="destination", propertyValue="${mdb.destination}")#if ($mdb.acknowledgeMode || $mdb.messageSelector || $mdb.subscriptionDurability),#end
