@@ -159,9 +159,9 @@ public class EJB3Profile
     /**
      * The tagged value indicating the transaction demarcation
      * strategy.  This only applies at the class level of a 
-     * session bean.
+     * session and message-driven bean.
      */
-    public static final String TAGGEDVALUE_EJB_TRANSACTION_MANAGEMENT = profile.get("SERVICE_TRANSACTION_MANAGEMENT");
+    public static final String TAGGEDVALUE_EJB_TRANSACTION_MANAGEMENT = profile.get("TRANSACTION_MANAGEMENT");
     
     /**
      * The tagged value indicating whether to not allow synthetic
