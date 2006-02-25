@@ -783,22 +783,23 @@
 			        <![CDATA[<<Service>>]]>
 			    </appliedOnElement>
 			</element>
-			<element name="SERVICE_TRANSACTION_MANAGEMENT">
+			<element name="TRANSACTION_MANAGEMENT">
 			    <documentation>
 			        Specifies the transaction demarcation strategy
-			        for the session bean.  By default, this does not
+			        for session  and message-driven beans.
+			        By default, this does not
 			        need to be set for CONTAINER managed transaction
 			        demarcation.
 			    </documentation>
 			    <value>
-			        @andromda.service.transaction.management
+			        @andromda.ejb.transaction.management
 			    </value>
 			    <appliedOnElement>
-			        Service
+			        Service and Message-Driven Beans
 			    </appliedOnElement>
 			    <allowedValues>
-			        <value default="true">BEAN</value>
-			        <value>CONTAINER</value>
+			        <value default="true">CONTAINER</value>
+			        <value>BEAN</value>
 			    </allowedValues>
 			</element>
 			<element name="SECURITY_PERMIT_ALL">
