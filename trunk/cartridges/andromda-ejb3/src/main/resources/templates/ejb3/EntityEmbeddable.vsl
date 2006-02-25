@@ -54,7 +54,10 @@ $entity.getDocumentation(" * ")
 ##
 #if ($entity.requiresSpecializationMapping && !$entity.embeddableSuperclass)
 @javax.persistence.Inheritance(strategy = javax.persistence.InheritanceType.${entity.inheritanceStrategy})
-#**##if ($entity.inheritanceSingleTable || $entity.inheritanceJoined)
+##
+## Discriminator components only apply to single table mapping strategy
+##
+#**##if ($entity.inheritanceSingleTable)
 #*  *##set ($argExists = false)
 @javax.persistence.DiscriminatorColumn(#if ($entity.discriminatorColumn)name = "${entity.discriminatorColumn}"#set ($argExists = true)#end#if ($entity.discriminatorType)#if ($argExists), #end#**#discriminatorType = javax.persistence.DiscriminatorType.${entity.discriminatorType}#set ($argExists = true)#end#if ($entity.discriminatorColumnDefinition)#if ($argExists), #end#**#columnDefinition = "${entity.discriminatorColumnDefinition}"#set ($argExists = true)#end#if ($entity.discriminatorLength > 0)#if ($argExists), #end#**#length = ${entity.discriminatorLength}#end)
 @javax.persistence.DiscriminatorValue("${entity.discriminatorValue}")
@@ -604,9 +607,13 @@ $attribute.getDocumentation("     * ")
 
     // ----------- Generic Finder Methods --------------
 
+##
 ## Do not include the findAll finder for inheriting classes when the
 ## inheritance strategy is single table.  This is defined in the base
-## class.  Only render if the findAll finder hasn't been modelled.
+## class.
+##
+## Only render if the findAll finder hasn't been modelled.
+##
 #**##if ((($entity.inheritanceSingleTable && !$entity.requiresGeneralizationMapping) || !$entity.inheritanceSingleTable) && !$entity.finderFindAllExists)
     /**
      * Returns the collection of all ${entity.name}s.
@@ -614,20 +621,26 @@ $attribute.getDocumentation("     * ")
      * @param em javax.persistence.EntityManager
      * @return all available ${entity.name} objects
      */
+##
 ## For inheriting classes, replace findAll with findAll${entity.name}s
+##
     public static java.util.Collection<${entity.name}> findAll#if ($entity.requiresGeneralizationMapping)$stringUtils.capitalize(${entity.name})s#end(javax.persistence.EntityManager em)
     {
         return em.createQuery("FROM ${entity.name} AS $stringUtils.uncapitalize(${entity.name})").getResultList();
     }
     
 #**##end
+##
 ## Only include the findByPrimaryKey method if not an inheriting class.
 ## Classes that inherit from a base class use the primary key identifier
 ## of the base class.  The inheritence relationship is reflected in the
 ## queries, so queries based on the base/root class are polymorphic.
+##
 ## Do not include the findByPrimaryKey if this bean has a composite
 ## primary key class.
+##
 ## Only render if the findAll finder hasn't been modelled.
+##
 #**##if (!$entity.compositePrimaryKeyPresent && !$entity.requiresGeneralizationMapping && !$entity.finderFindByPrimaryKeyExists)
 #*  *##foreach ($attribute in $entity.getIdentifiers(false))
 #*    *##set ($identifierName = $attribute.name)
