@@ -19,7 +19,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
-import org.eclipse.jdt.core.ITypeParameter;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
@@ -141,13 +140,16 @@ public class CompletionProvider
             {
                 if (descriptor instanceof ICartridgeMetafacadeVariableDescriptor)
                 {
-                    // TODO maybe better first collect all unique types and THEN go and collect the member proposals!
                     ICartridgeMetafacadeVariableDescriptor cartridgeMetafacadeVariableDescriptor = (ICartridgeMetafacadeVariableDescriptor)descriptor;
                     String variableTemplatePath = cartridgeMetafacadeVariableDescriptor.getTemplatePath();
+                    // Make sure the template matches:
                     if (templatePath.toString().indexOf(variableTemplatePath) > 0)
                     {
                         System.out.println(variableTemplatePath + " is part of " + templatePath);
-                        createMemberProposals(prefix, offset, result, cartridgeMetafacadeVariableDescriptor);
+                        // Make sure the variable names match. TODO at this time, this is a very simple matching algorithm. 
+                        if (descriptor.getName().indexOf(prefix.getVariable()) > -1) {
+                            createMemberProposals(prefix, offset, result, cartridgeMetafacadeVariableDescriptor);
+                        }
                     }
                     else
                     {
@@ -205,10 +207,11 @@ public class CompletionProvider
                     }
                 }
                 System.out.println("Method: " + elementName + " (" + pNames + "); [" + method.hashCode() + "]");
+                String displayText = elementName + " (" + pNames + ") - " + type.getElementName();
                 if (elementName.startsWith(prefix.getText()))
                 {
                     result
-                            .add(createSimpleCompletionProposal(prefix.getText(), offset, elementName,
+                            .add(createSimpleCompletionProposal(prefix.getText(), offset, elementName, displayText,
                                     ICON_METHOD_PUBLIC));
                 }
             }
@@ -301,4 +304,5 @@ public class CompletionProvider
         Image image = SWTResourceManager.getPluginImage(TemplateEditorPlugin.getDefault(), icon);
         return new CompletionProposal(text, offset, prefix.length(), text.length(), image, displayString, null, null);
     }
+
 }
