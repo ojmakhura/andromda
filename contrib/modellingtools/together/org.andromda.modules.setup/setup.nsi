@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "AndroMDA XMI Exporter"
-!define PRODUCT_VERSION "1.6"
+!define PRODUCT_VERSION "1.8"
 !define PRODUCT_PUBLISHER "The AndroMDA Team"
 !define PRODUCT_WEB_SITE "http://www.andromda.org"
 
@@ -47,24 +47,24 @@ ShowUnInstDetails show
 Section "XMI Exporter" SEC01
   SetOutPath "$INSTDIR\modules\org.andromda.modules.xmilink"
   SetOverwrite try
-  File "D:\develop\workspaces\workspace-eclipse_3_1-andromda\org.andromda.modules.xmilink\dist\commons-lang-2.0.jar"
-  File "D:\develop\workspaces\workspace-eclipse_3_1-andromda\org.andromda.modules.xmilink\dist\module.xml"
-  File "D:\develop\workspaces\workspace-eclipse_3_1-andromda\org.andromda.modules.xmilink\dist\xmilink.jar"
+  File "D:\develop\workspaces\workspace-eclipse_3_1_1-andromda\org.andromda.modules.xmilink\dist\commons-lang-2.0.jar"
+  File "D:\develop\workspaces\workspace-eclipse_3_1_1-andromda\org.andromda.modules.xmilink\dist\module.xml"
+  File "D:\develop\workspaces\workspace-eclipse_3_1_1-andromda\org.andromda.modules.xmilink\dist\xmilink.jar"
   SetOutPath "$INSTDIR\bin"
   CopyFiles $INSTDIR\bin\Together.exe $INSTDIR\bin\XMIExport.exe
-  File "D:\develop\workspaces\workspace-eclipse_3_1-andromda\org.andromda.modules.xmilink\launcher\XMIExport.config"
+  File "D:\develop\workspaces\workspace-eclipse_3_1_1-andromda\org.andromda.modules.xmilink\launcher\XMIExport.config"
 SectionEnd
 
 Section "Spring Profile" SEC02
   SetOverwrite try
   SetOutPath "$INSTDIR\modules\org.andromda.modules.profiles.spring"
-  File "D:\develop\workspaces\workspace-eclipse_3_1-andromda\org.andromda.modules.profiles.spring\dist\module.xml"
+  File "D:\develop\workspaces\workspace-eclipse_3_1_1-andromda\org.andromda.modules.profiles.spring\dist\module.xml"
   SetOutPath "$INSTDIR\modules\org.andromda.modules.profiles.spring\profile\spring"
-  File "D:\develop\workspaces\workspace-eclipse_3_1-andromda\org.andromda.modules.profiles.spring\dist\profile\spring\diagram.config"
-  File "D:\develop\workspaces\workspace-eclipse_3_1-andromda\org.andromda.modules.profiles.spring\dist\profile\spring\profile.config"
-  File "D:\develop\workspaces\workspace-eclipse_3_1-andromda\org.andromda.modules.profiles.spring\dist\profile\spring\viewmap.config"
+  File "D:\develop\workspaces\workspace-eclipse_3_1_1-andromda\org.andromda.modules.profiles.spring\dist\profile\spring\diagram.config"
+  File "D:\develop\workspaces\workspace-eclipse_3_1_1-andromda\org.andromda.modules.profiles.spring\dist\profile\spring\profile.config"
+  File "D:\develop\workspaces\workspace-eclipse_3_1_1-andromda\org.andromda.modules.profiles.spring\dist\profile\spring\viewmap.config"
   SetOutPath "$INSTDIR\modules\org.andromda.modules.profiles.spring"
-  File "D:\develop\workspaces\workspace-eclipse_3_1-andromda\org.andromda.modules.profiles.spring\dist\profile-spring.jar"
+  File "D:\develop\workspaces\workspace-eclipse_3_1_1-andromda\org.andromda.modules.profiles.spring\dist\profile-spring.jar"
 SectionEnd
 
 Section -Post
