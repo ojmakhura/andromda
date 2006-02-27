@@ -27,6 +27,27 @@
             </component>
 
             <component name="AndroMDA Client">
+                <field displayName="collection type"
+                    name="@client.@andromda.hibernate.collection.index"
+                    editor="DefaultEditableComboBoxEditor">
+                    <model name="XmlComboBoxModel" values="set, map, bag, list"
+                        names="set, map, bag, list"/>
+                </field>
+                <field displayName="collection index column"
+                    name="@client.@andromda.hibernate.collection.index">
+                </field>
+                <field displayName="collection index column type"
+                    name="@client.@andromda.hibernate.collection.index.type">
+                </field>
+                <field displayName="collection sorting type"
+                    name="@client.@andromda.hibernate.sort.type"
+                    editor="DefaultEditableComboBoxEditor">
+                    <model name="XmlComboBoxModel" values="unsorted, natural, comparatorClass"
+                        names="unsorted, natural, comparatorClass"/>
+                </field>
+                <field displayName="collection sorting columns"
+                    name="@client.@andromda.hibernate.orderByColumns">
+                </field>
                 <field displayName="hibernate lazy loading"
                     name="@client.@andromda.hibernate.lazy"
                     editor="DefaultEditableComboBoxEditor">
@@ -48,6 +69,27 @@
             </component>
 
             <component name="AndroMDA Supplier">
+                <field displayName="collection type"
+                    name="@supplier.@andromda.hibernate.collection.index"
+                    editor="DefaultEditableComboBoxEditor">
+                    <model name="XmlComboBoxModel" values="set, map, bag, list"
+                        names="set, map, bag, list"/>
+                </field>
+                <field displayName="collection index column"
+                    name="@supplier.@andromda.hibernate.collection.index">
+                </field>
+                <field displayName="collection index column type"
+                    name="@supplier.@andromda.hibernate.collection.index.type">
+                </field>
+                <field displayName="collection sorting type"
+                    name="@supplier.@andromda.hibernate.sort.type"
+                    editor="DefaultEditableComboBoxEditor">
+                    <model name="XmlComboBoxModel" values="unsorted, natural, comparatorClass"
+                        names="unsorted, natural, comparatorClass"/>
+                </field>
+                <field displayName="collection sorting columns"
+                    name="@supplier.@andromda.hibernate.orderByColumns">
+                </field>
                 <field displayName="hibernate lazy loading"
                     name="@supplier.@andromda.hibernate.lazy"
                     editor="DefaultEditableComboBoxEditor">
@@ -75,9 +117,29 @@
                     editor="DefaultIntegerEditor">
                     <condition propertyName="stereotype" propertyValue="Entity"/>
                 </field>
+                <field displayName="version column"
+                    name="@andromda.hibernate.version">
+                    <condition propertyName="stereotype" propertyValue="Entity"/>
+                </field>
                 <field displayName="persistence table"
                     name="@andromda.persistence.table">
                     <condition propertyName="stereotype" propertyValue="Entity"/>
+                </field>
+                <field displayName="dynamic updates"
+                    name="@andromda.hibernate.entity.dynamicUpdate"
+                    editor="DefaultEditableComboBoxEditor">
+                    <condition propertyName="stereotype" propertyValue="Entity"/>
+                    <model name="XmlComboBoxModel"
+                        values="true,false"
+                        names="true, false"/>
+                </field>
+                <field displayName="dynamic inserts"
+                    name="@andromda.hibernate.entity.dynamicInsert"
+                    editor="DefaultEditableComboBoxEditor">
+                    <condition propertyName="stereotype" propertyValue="Entity"/>
+                    <model name="XmlComboBoxModel"
+                        values="true, false"
+                        names="true, false"/>
                 </field>
                 <field displayName="generator class"
                     name="@andromda.hibernate.generator.class"
@@ -157,6 +219,14 @@
 
         <service metaclass="Operation" type="inspector-builder">
             <component name="AndroMDA" displayName="AndroMDA">
+                <field displayName="Transaction type" name="@andromda.spring.transaction.type"
+                    editor="DefaultEditableComboBoxEditor">
+                    <condition name="XmlParentCondition"
+                        reference-to-element="true" propertyName="stereotype"
+                        propertyValue="Service"/>
+                    <model name="XmlComboBoxModel" values="PROPAGATION_NEVER, PROPAGATION_NESTED, PROPAGATION_MANDATORY, PROPAGATION_REQUIRED, PROPAGATION_REQUIRES_NEW, PROPAGATION_SUPPORTS, PROPAGATION_NOT_SUPPORTED"
+                        names="PROPAGATION_NEVER, PROPAGATION_NESTED, PROPAGATION_MANDATORY, PROPAGATION_REQUIRED, PROPAGATION_REQUIRES_NEW, PROPAGATION_SUPPORTS, PROPAGATION_NOT_SUPPORTED"/>
+                </field>
                 <field displayName="HQL query" name="@andromda.hibernate.query"
                     editor="DefaultMultilineStringEditor">
                     <condition propertyName="isQuery" propertyValue="true"/>
@@ -187,6 +257,12 @@
 
         <service metaclass="Attribute" type="inspector-builder">
             <component name="AndroMDA" displayName="AndroMDA">
+                <field displayName="formula" name="@andromda.hibernate.formula"
+                    editor="DefaultMultilineStringEditor">
+                    <condition name="XmlParentCondition"
+                        reference-to-element="true" propertyName="stereotype"
+                        propertyValue="Entity"/>
+                </field>
                 <field displayName="persistence column"
                     name="@andromda.persistence.column">
                     <condition name="XmlParentCondition"
