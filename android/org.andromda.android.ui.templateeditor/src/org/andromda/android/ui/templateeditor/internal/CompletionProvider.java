@@ -2,7 +2,9 @@ package org.andromda.android.ui.templateeditor.internal;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.andromda.android.core.cartridge.CartridgeParsingException;
 import org.andromda.android.core.cartridge.CartridgeRegistry;
@@ -12,13 +14,17 @@ import org.andromda.android.core.cartridge.ICartridgeJavaVariableDescriptor;
 import org.andromda.android.core.cartridge.ICartridgeMetafacadeVariableDescriptor;
 import org.andromda.android.core.cartridge.ICartridgeVariableContainer;
 import org.andromda.android.core.cartridge.ICartridgeVariableDescriptor;
+import org.andromda.android.core.internal.AndroidModelManager;
+import org.andromda.android.core.project.IAndroidProject;
 import org.andromda.android.ui.templateeditor.TemplateEditorPlugin;
 import org.andromda.android.ui.util.SWTResourceManager;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IType;
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
@@ -45,6 +51,8 @@ public class CompletionProvider
 
     private static final String ICON_FIELD_PUBLIC = "icons/field_public_obj.gif";
 
+    private IAndroidProject androidProject;
+
     /**
      * {@inheritDoc}
      */
@@ -57,6 +65,8 @@ public class CompletionProvider
 
         IContainer cartridgeRoot = CartridgeUtils.findCartridgeRoot(file);
         IPath templatePath = file.getProjectRelativePath();
+
+        androidProject = AndroidModelManager.getInstance().getAndroidModel().getAndroidProject(file);
 
         ICartridgeDescriptor cartridgeDescriptor = CartridgeRegistry.getInstance()
                 .getCartridgeDescriptor(cartridgeRoot);
@@ -146,8 +156,10 @@ public class CompletionProvider
                     if (templatePath.toString().indexOf(variableTemplatePath) > 0)
                     {
                         System.out.println(variableTemplatePath + " is part of " + templatePath);
-                        // Make sure the variable names match. TODO at this time, this is a very simple matching algorithm. 
-                        if (descriptor.getName().indexOf(prefix.getVariable()) > -1) {
+                        // Make sure the variable names match. TODO at this time, this is a very simple matching
+                        // algorithm.
+                        if (descriptor.getName().indexOf(prefix.getVariable()) > -1)
+                        {
                             createMemberProposals(prefix, offset, result, cartridgeMetafacadeVariableDescriptor);
                         }
                     }
@@ -183,7 +195,45 @@ public class CompletionProvider
         ArrayList result,
         ICartridgeJavaVariableDescriptor cartridgeJavaVariableDescriptor) throws CartridgeParsingException
     {
-        IType type = cartridgeJavaVariableDescriptor.getType();
+
+        if (cartridgeJavaVariableDescriptor instanceof ICartridgeMetafacadeVariableDescriptor)
+        {
+            ICartridgeMetafacadeVariableDescriptor cartridgeMetafacadeVariableDescriptor = (ICartridgeMetafacadeVariableDescriptor)cartridgeJavaVariableDescriptor;
+            if (cartridgeMetafacadeVariableDescriptor.isCollection())
+            {
+                IJavaProject javaProject = JavaCore.create(androidProject.getProject());
+                try
+                {
+                    IType type = javaProject.findType("java.util.Collection");
+                    createMemberProposals(prefix, offset, result, cartridgeJavaVariableDescriptor, type);
+                }
+                catch (JavaModelException e)
+                {
+                    throw new CartridgeParsingException(e);
+                }
+            }
+            else
+            {
+                IType type = cartridgeJavaVariableDescriptor.getType();
+                createMemberProposals(prefix, offset, result, cartridgeJavaVariableDescriptor, type);
+            }
+        }
+    }
+
+    /**
+     * @param prefix
+     * @param offset
+     * @param result
+     * @param cartridgeJavaVariableDescriptor
+     * @param type
+     * @throws CartridgeParsingException
+     */
+    private void createMemberProposals(VelocityTextGuesser prefix,
+        int offset,
+        ArrayList result,
+        ICartridgeJavaVariableDescriptor cartridgeJavaVariableDescriptor,
+        IType type) throws CartridgeParsingException
+    {
         IMethod[] methods;
         try
         {
@@ -192,27 +242,12 @@ public class CompletionProvider
             {
                 IMethod method = methods[i];
                 String elementName = method.getElementName();
-                String pNames = "";
-                String[] parameterNames = method.getParameterNames();
-                if (method.getNumberOfParameters() > 0)
-                {
-                    for (int j = 0; j < parameterNames.length; j++)
-                    {
-                        pNames += parameterNames[j];
-                        if (j < parameterNames.length - 1)
-                        {
-                            pNames += ", ";
-                        }
-
-                    }
-                }
-                System.out.println("Method: " + elementName + " (" + pNames + "); [" + method.hashCode() + "]");
-                String displayText = elementName + " (" + pNames + ") - " + type.getElementName();
+                String signature = getParameterSignature(method);
+                String displayText = elementName + " (" + signature + ") - " + type.getElementName();
                 if (elementName.startsWith(prefix.getText()))
                 {
-                    result
-                            .add(createSimpleCompletionProposal(prefix.getText(), offset, elementName, displayText,
-                                    ICON_METHOD_PUBLIC));
+                    result.add(createSimpleCompletionProposal(prefix.getText(), offset, elementName, displayText,
+                            ICON_METHOD_PUBLIC));
                 }
             }
         }
@@ -220,6 +255,33 @@ public class CompletionProvider
         {
             throw new CartridgeParsingException(e);
         }
+    }
+
+    /**
+     * Creates a String representing the parameters of the given method.
+     *
+     * @param method The method to be described.
+     * @return A String representing the parameter signature.
+     *
+     * @throws JavaModelException If a problem arises.
+     */
+    private String getParameterSignature(IMethod method) throws JavaModelException
+    {
+        String result = "";
+        String[] parameterNames = method.getParameterNames();
+        if (method.getNumberOfParameters() > 0)
+        {
+            for (int j = 0; j < parameterNames.length; j++)
+            {
+                result += parameterNames[j];
+                if (j < parameterNames.length - 1)
+                {
+                    result += ", ";
+                }
+
+            }
+        }
+        return result;
     }
 
     /**
@@ -234,7 +296,7 @@ public class CompletionProvider
         int offset,
         IPath templatePath) throws CartridgeParsingException
     {
-        ArrayList result = new ArrayList();
+        Map proposals = new HashMap();
 
         ICartridgeVariableContainer variableContainer = cartridgeDescriptor.getVariableDescriptors();
         Collection variableDescriptors = variableContainer.getAll();
@@ -245,9 +307,14 @@ public class CompletionProvider
             if (prefix.length() == 0 || proposalText.startsWith(prefix))
             {
                 String icon;
+                String displayText = proposalText;
                 if (descriptor instanceof ICartridgeJavaVariableDescriptor)
                 {
                     ICartridgeJavaVariableDescriptor javaVariableDescriptor = (ICartridgeJavaVariableDescriptor)descriptor;
+                    if (javaVariableDescriptor.getType() != null)
+                    {
+                        proposalText += " - " + javaVariableDescriptor.getType().getElementName();
+                    }
                     icon = ICON_FIELD_PUBLIC;
                 }
                 else
@@ -255,10 +322,16 @@ public class CompletionProvider
                     icon = ICON_FIELD_PRIVATE;
                 }
                 String displayString = "$" + proposalText;
-                result.add(createSimpleCompletionProposal(prefix, offset, proposalText, displayString, icon));
+                CompletionProposal proposal = createSimpleCompletionProposal(prefix, offset, proposalText,
+                        displayString, icon);
+                if (!proposals.containsKey(proposalText))
+                {
+                    proposals.put(proposalText, proposal);
+                }
             }
         }
-        return result;
+
+        return proposals.values();
     }
 
     /**
