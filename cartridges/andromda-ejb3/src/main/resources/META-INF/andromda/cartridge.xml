@@ -15,8 +15,16 @@
     <property reference="hibernateHbm2DDLAuto"/>
     <property reference="hibernateDialect"/>
     <property reference="hibernateShowSql"/>
+    <property reference="hibernateMaxFetchDepth"/>
+    <property reference="hibernateJdbcFetchSize"/>
+    <property reference="hibernateJdbcBatchSize"/>
+    <property reference="hibernateJdbcUseScrollableResultSet"/>
+    <property reference="hibernateJdbcUseStreamsForBinary"/>
     <property reference="hibernateCacheProvider"/>
     <property reference="hibernateTreecacheMbeanObject"/>
+    <property reference="hibernateTransactionManagerLookupClass"/>
+    <property reference="hibernateTransactionFlushBeforeCompletion"/>
+    <property reference="hibernateTransactionAutoCloseSession"/>
     <property reference="serviceLocatorName"/>
     <property reference="manageableServiceLocatorName"/>
     <property reference="ejb3TypesPackage"/>
