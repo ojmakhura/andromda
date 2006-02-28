@@ -101,7 +101,7 @@
 		    	</documentation>
 		    </property>
             <property name="hibernateHbm2DDLAuto" required="false">
-            	<default>create</default>
+            	<default>update</default>
                 <documentation>
                     Automatically export schema DDL to the database when deployed. 
                     With create-drop, the database schema will be dropped when
@@ -147,7 +147,8 @@
             </property>
             <property name="hibernateMaxFetchDepth" required="false">
                 <documentation>
-                    Sets a maximum "depth" for the outer join fetch tree. Recommended values between 0 and 3
+                    Sets a maximum "depth" for the outer join fetch tree. 
+                    Recommended values between 0 and 3
                 </documentation>
             </property>
             <property name="hibernateJdbcFetchSize" required="false">
@@ -170,7 +171,8 @@
             </property>
             <property name="hibernateJdbcUseStreamsForBinary" required="false">
                 <documentation>
-                    Whether or not to use streams when writing / reading binary or serializable types to/from JDBC.
+                    Whether or not to use streams when writing / reading binary 
+                    or serializable types to/from JDBC.
                 </documentation>
             </property>
 		</propertyGroup>
@@ -196,6 +198,17 @@
             </property>
 		</propertyGroup>
         <propertyGroup name="Transactions">
+            <property name="hibernateTransactionManagerLookupClass" required="false">
+                <documentation>
+                     Defines the classname of a TransactionManagerLookup
+                     which is required when JVM-level caching is enabled 
+                     or when using hilo generator in a JTA environment.
+                     Typicallyl, this value is:
+                     <ul>
+                         <li>org.hibernate.transaction.JBossTransactionManagerLookup</li>
+                     </ul>
+                </documentation>
+            </property>
             <property name="hibernateTransactionFlushBeforeCompletion" required="false">
                 <documentation>
                     Define if the session will automatically be flushed
