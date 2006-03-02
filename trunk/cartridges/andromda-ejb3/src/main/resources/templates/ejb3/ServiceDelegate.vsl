@@ -57,43 +57,48 @@ public class $service.serviceDelegateName
     
 #end
 #foreach ($operation in $service.businessOperations)
+##
+## Do not include lifecycle callback methods
+##
+#**##if (!$operation.lifecycleCallback)
     /**
      * @see ${service.fullyQualifiedServiceName}#${operation.getSignature(false)}
      *
      * Use the remote interface for calling session bean operations.
      */
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
-#**##if ($operation.exceptionsPresent)
+#*  *##if ($operation.exceptionsPresent)
         $operation.throwsClause
-#**##end
+#*  *##end
     {
         try
         {
-#**##if (!$operation.returnTypePresent)
+#*  *##if (!$operation.returnTypePresent)
             get${service.name}Remote().${operation.name}(${operation.argumentNames});
-#**##else
+#*  *##else
             return get${service.name}Remote().${operation.name}(${operation.argumentNames});
-#**##end
+#*  *##end
         }
-#**##if ($operation.exceptionsPresent)
-#*  *##foreach($exception in $operation.exceptions)
+#*  *##if ($operation.exceptionsPresent)
+#*    *##foreach($exception in $operation.exceptions)
         catch ($exception.fullyQualifiedName ex)
         {
             throw ex;
         }
+#*    *##end
 #*  *##end
-#**##end
         catch (javax.naming.NamingException ex)
         {
-#**##if ($service.allowDefaultServiceException)
+#*  *##if ($service.allowDefaultServiceException)
             throw new ${service.fullyQualifiedDefaultExceptionName}(
                 "Error performing '${service.fullyQualifiedName}.${operation.signature}' --> " + ex, ex);
-#**##else
+#*  *##else
             throw ex;
-#**##end
+#*  *##end
         }
     }
 
+#**##end
 #end
     /**
      * Close down service delegate resources
