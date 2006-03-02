@@ -15,18 +15,35 @@ public class ${mdb.messageDrivenListenerName}
      * Default public no-args constructor
      */
     public ${mdb.messageDrivenListenerName}() 
-    { 
+    {
+        // empty constructor
     }
     
     @javax.ejb.PostConstruct
-    public void postConstruct(${mdb.fullyQualifiedMessageDrivenName} ${stringUtils.uncapitalize(${mdb.name})}) 
+    public void postConstruct(javax.ejb.InvocationContext ctx) 
     {
-		// post construct implementation
+        try
+        {
+		    // post construct implementation
+		    ctx.proceed();
+		}
+		catch (Exception ex)
+		{
+		    throw new RuntimeException(e);
+		}
 	}
 	
 	@javax.ejb.PreDestroy
-	public void preDestroy(${mdb.fullyQualifiedMessageDrivenName} ${stringUtils.uncapitalize(${mdb.name})}) 
+	public void preDestroy(javax.ejb.InvocationContext ctx) 
 	{
-		// pre destroy implementation
+        try
+        {
+		    // pre destroy implementation
+		    ctx.proceed();
+		}
+		catch (Exception ex)
+		{
+		    throw new RuntimeException(e);
+		}
 	}
 }
