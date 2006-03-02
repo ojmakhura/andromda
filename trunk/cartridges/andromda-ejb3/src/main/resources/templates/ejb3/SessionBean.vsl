@@ -278,37 +278,56 @@ $attribute.getDocumentation("     * ")
     /**
 $operation.getDocumentation("     * ")
      */
-#*  *##if (!$service.transactionManagementBean)
-#*    *##if ($operation.transactionType)
-    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${operation.transactionType})
+##
+## If this operation is a lifecycle callback, then exclude all other
+## annotations except the callback annotations
+##
+#*  *##if ($operation.lifecycleCallback)
+#*    *##if ($operation.postConstruct)
+    @javax.ejb.PostConstruct
+#*    *##elseif ($operation.preDestroy)
+    @javax.ejb.PreDestroy
 #*    *##end
-#*  *##end
-#*  *##if ($service.securityEnabled)
-#*    *##if ($stringUtils.isBlank(${operation.rolesAllowed}))
-#*      *##if ($operation.denyAll)
-    @javax.annotation.security.DenyAll
-#*      *##else
-    @javax.annotation.security.PermitAll
+#*    *##if ($service.stateful)
+#*      *##if ($operation.postActivate)
+    @javax.ejb.PostActivate
+#*      *##elseif ($operation.prePassivate)
+    @javax.ejb.PrePassivate
 #*      *##end
-#*    *##else
-    @javax.annotation.security.RolesAllowed({${operation.rolesAllowed}})
 #*    *##end
-#*  *##end
-#*  *##if ($operation.flushMode)
+#*  *##else
+#*    *##if (!$service.transactionManagementBean)
+#*      *##if ($operation.transactionType)
+    @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${operation.transactionType})
+#*      *##end
+#*    *##end
+#*    *##if ($service.securityEnabled)
+#*      *##if ($stringUtils.isBlank(${operation.rolesAllowed}))
+#*        *##if ($operation.denyAll)
+    @javax.annotation.security.DenyAll
+#*        *##else
+    @javax.annotation.security.PermitAll
+#*        *##end
+#*      *##else
+    @javax.annotation.security.RolesAllowed({${operation.rolesAllowed}})
+#*      *##end
+#*    *##end
+#*    *##if ($operation.flushMode)
     @javax.persistence.FlushMode(javax.persistence.FlushModeType.${operation.flushMode})
-#*  *##end
-#*  *##if ($operation.timeoutCallback)
+#*    *##end
+#*    *##if ($operation.timeoutCallback)
     @javax.ejb.Timeout
-#*  *##end
-#*  *##set ($interceptors = $operation.interceptorReferences)
-#*  *##if ($collectionUtils.size($interceptors) >= 1)
+#*    *##end
+#*    *##set ($interceptors = $operation.interceptorReferences)
+#*    *##if ($collectionUtils.size($interceptors) >= 1)
     @javax.ejb.Interceptors({$transform.getInterceptorsAsList(${interceptors}, null)})
-#*  *##end
-#*  *##if ($operation.excludeDefaultInterceptors)
+#*    *##end
+#*    *##if ($operation.excludeDefaultInterceptors)
     @javax.ejb.ExcludeDefaultInterceptors
-#*  *##end
-#*  *##if ($operation.excludeClassInterceptors)
+#*    *##end
+#*    *##if ($operation.excludeClassInterceptors)
     @javax.ejb.ExcludeClassInterceptors
+#*    *##end
 #*  *##end
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #*  *##if ($operation.exceptionsPresent)
