@@ -117,18 +117,21 @@ public abstract class ${mdb.messageDrivenName}
     
 #**##foreach ($operation in $operations)
 #*  *##set ($visibility = $operation.visibility)
-#*  *##if ($visibility == "public")
     /**
 $operation.getDocumentation("     * ")
      */
-#*    *##set ($returnType = $operation.returnType.fullyQualifiedName)
-#*    *##if ($operation.exceptionsPresent)
-    $visibility abstract $returnType $operation.signature throws $operation.exceptionList;
-#*    *##else
-    $visibility abstract $returnType $operation.signature;
-#*    *##end
-
+#*  *##if ($operation.postConstruct)
+    @javax.ejb.PostConstruct
+#*  *##elseif ($operation.preDestroy)
+    @javax.ejb.PreDestroy
 #*  *##end
+#*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
+#*  *##if ($operation.exceptionsPresent)
+    $visibility abstract $returnType $operation.signature throws $operation.exceptionList;
+#*  *##else
+    $visibility abstract $returnType $operation.signature;
+#*  *##end
+
 #**##end
 #end
 }
