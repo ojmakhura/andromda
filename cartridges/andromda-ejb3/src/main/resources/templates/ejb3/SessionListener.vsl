@@ -15,30 +15,65 @@ public class ${service.serviceListenerName}
      * Default public no-args constructor
      */
     public ${service.serviceListenerName}() 
-    { 
+    {
+        // empty constructor
     }
-    
+
     @javax.ejb.PostConstruct
     public void postConstruct(javax.ejb.InvocationContext ctx) 
     {
-		// post construct implementation
-	}
-	
-	@javax.ejb.PostActivate
-	public void postActivate(javax.ejb.InvocationContext ctx) 
-	{
-		// post construct implementation
-	}
-	
-	@javax.ejb.PrePassivate
-	public void prePassivate(javax.ejb.InvocationContext ctx) 
-	{
-		// pre passivate implementation
-	}
-	
-	@javax.ejb.PreDestroy
-	public void preDestroy(javax.ejb.InvocationContext ctx) 
-	{
-		// pre destroy implementation
-	}
+        try
+        {
+            // post construct implementation
+            ctx.proceed();
+        }
+        catch (Exception ex)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @javax.ejb.PreDestroy
+    public void preDestroy(javax.ejb.InvocationContext ctx) 
+    {
+        try
+        {
+            // pre destroy implementation
+            ctx.proceed();
+        }
+        catch (Exception ex)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+#if ($service.stateful)
+
+    @javax.ejb.PostActivate
+    public void postActivate(javax.ejb.InvocationContext ctx) 
+    {
+        try
+        {
+            // post construct implementation
+            ctx.proceed();
+        }
+        catch (Exception ex)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @javax.ejb.PrePassivate
+    public void prePassivate(javax.ejb.InvocationContext ctx) 
+    {
+        try
+        {
+            // pre passivate implementation
+            ctx.proceed();
+        }
+        catch (Exception ex)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+#end
 }
