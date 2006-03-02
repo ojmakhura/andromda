@@ -377,4 +377,44 @@ public class EJB3SessionOperationFacadeLogicImpl
         }
         return excludeClass;
     }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsPostConstruct()
+     */
+    protected boolean handleIsPostConstruct()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_POST_CONSTRUCT);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsPreDestroy()
+     */
+    protected boolean handleIsPreDestroy()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_PRE_DESTROY);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsPostActivate()
+     */
+    protected boolean handleIsPostActivate()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_POST_ACTIVATE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsPrePassivate()
+     */
+    protected boolean handleIsPrePassivate()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_PRE_PASSIVATE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsLifecycleCallback()
+     */
+    protected boolean handleIsLifecycleCallback()
+    {
+        return this.isPostConstruct() || this.isPreDestroy() || this.isPostActivate() || this.isPrePassivate();
+    }
 }
