@@ -266,6 +266,54 @@
 			        Entity Finder Method Parameter
 			    </appliedOnElement>
 			</element>
+			<element name="POST_CONSTRUCT">
+			    <documentation>
+			        Specifies that the associated operation is a lifecycle
+			        callback handler and will be invoked when the bean is
+			        first created, after any dependency injection is required.
+			    </documentation>
+			    <value>PostConstruct</value>
+			    <appliedOnElement>
+			        Session and Message-Driven Bean Operation
+			    </appliedOnElement>
+			</element>
+			<element name="PRE_DESTROY">
+			    <documentation>
+			        Specifies that the associated operation is a lifecycle
+			        callback handler and will be invoked when the bean is
+			        removed from the pool or destroyed.  For stateful session
+			        beans, this occurs before the @Remove annotated method
+			        is invoked.
+			    </documentation>
+			    <value>PreDestroy</value>
+			    <appliedOnElement>
+			        Session and Message-Driven Bean Operation
+			    </appliedOnElement>
+			</element>
+			<element name="POST_ACTIVATE">
+			    <documentation>
+			        Specifies that the associated operation is a lifecycle
+			        callback handler for a stateful session bean and will 
+			        be invoked when the bean instance has just been
+			        reactivated.
+			    </documentation>
+			    <value>PostActivate</value>
+			    <appliedOnElement>
+			        Stateful Session Bean Operation
+			    </appliedOnElement>
+			</element>
+			<element name="PRE_PASSIVATE">
+			    <documentation>
+			        Specifies that the associated operation is a lifecycle
+			        callback handler for a stateful session bean and will 
+			        be invoked when container is ready to passivate
+			        the instance.
+			    </documentation>
+			    <value>PrePassivate</value>
+			    <appliedOnElement>
+			        Stateful Session Bean Operation
+			    </appliedOnElement>
+			</element>
 		</elementGroup>
 		<elementGroup name="Tagged Values">
 			<element name="ATTRIBUTE_PERSISTENCE_OPTIONAL">
