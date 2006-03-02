@@ -152,6 +152,13 @@
 		<property reference="messageDrivenListenerNamePattern"/>
 		<property reference="messageDrivenDestinationType"/>
 	</metafacade>
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenOperationFacadeLogicImpl">
+		<mapping>
+			<context>
+				org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade
+			</context>
+		</mapping>
+	</metafacade>
 	<!--  Common Metafacades -->
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacadeLogicImpl" contextRoot="true">
 		<mapping>
