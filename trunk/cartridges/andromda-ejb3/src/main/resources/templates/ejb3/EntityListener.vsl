@@ -15,7 +15,8 @@ public class ${entity.entityListenerName}
      * Default public no-args constructor
      */
     public ${entity.entityListenerName}() 
-    { 
+    {
+        // empty constructor
     }
     
     @javax.persistence.PrePersist
