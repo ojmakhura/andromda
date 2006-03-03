@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - Lifecycle Callbacks</title>
+    </properties>
+    <body>
+        <section name="Lifecycle Callbacks">
+            <p>
+                There are a couple of different ways to define the lifecycle callbacks using the
+                EJB3 cartridge.  This howto will provide the necessary details on how you can implement
+                the callback handlers for entity, session and message-driven beans.
+            </p>
+            <p>
+                You have two basic choices on how you want to implement the lifecycle callbacks.  You can
+                annotate methods in the bean class to indicate the individual callback or you can separate
+                out the callback implemention to a listener class for entity beans or interceptor for 
+                session and message-driven beans.  These options are discussed below.
+            </p>
+            <a name="Entity_Bean_Callbacks"/>
+            <subsection name="Entity Bean Callbacks">
+                <p>
+                    You can define any number of the following callbacks in an entity bean by modelling the appropriate
+                    stereotype on an entity operation.  You can only define 1 lifecycle callback stereotype
+                    per entity operation.
+                    <ul>
+                        <li>
+                            PrePersist  -  <![CDATA[<<PrePersist>>]]>  -  Invoked before the entity is created in
+                            the database and will cascade to all entities by way of the cascaded operation.
+                        </li>
+                        <li>
+                            PostPersist  -  <![CDATA[<<PostPersist>>]]>  -  Invoked after the entity is created in
+                            the database and will cascade to all entities by way of the cascaded operation.
+                        </li>
+                        <li>
+                            PreRemove  -  <![CDATA[[<<PreRemove>>]]>  -  Invoked before the entity is deleted in
+                            the database and will cascade to all entities by way of the cascaded operation.
+                        </li>
+                        <li>
+                            PostRemove  -  <![CDATA[<<PostRemove>>]]>  -  Invoked after the entity is deleted in
+                            the database and will cascade to all entities by way of the cascaded operation.
+                        </li>
+                        <li>
+                            PreUpdate  -  <![CDATA[<<PreUpdate>>]]>  -  Occurs right before the database is updated.
+                        </li>
+                        <li>
+                            PostUpdate  -  <![CDATA[<<PostUpdate>>]]>  -  Occurs immediately after the database
+                            has been updated.
+                        </li>
+                        <li>
+                            PostLoad  -  <![CDATA[<<PostLoad>>]]>  -  Occurs right after the data has been loaded
+                            from the database and associated with the entity.
+                        </li>
+                    </ul>
+                </p>
+                <p>
+                    Due to the limitations of the EJB3 cartridge when it comes to 
+                    <a href="howto9.html">inheritance</a>, you may need to assign a callback listener class to
+                    the entity.  In an entity inheritance hierarchy, there are times where you do not have an
+                    implementation class for the entity and therefore do not have the ability to implement the
+                    lifecycle callback if you model the callback stereotype on the entity operation. 
+                </p>
+                <p>
+                    To seperate out the callback for the entity into an entity listener class, simply model the
+                    <![CDATA[<<Listener>>]]> stereotype on the entity class.  This will add the
+                    <code>@EntityListener</code> annotation to the class.  The associated listener class includes
+                    all the lifecycle callbacks for the entity.  The listener is generated on the first
+                    run and will never be overwritten, so you are free to add your implementation to the lifecycle
+                    callback operations.
+                </p>
+            </subsection>
+            <a name="Session_Bean_Callbacks"/>
+            <subsection name="Session Bean Callbacks">
+                <p>
+                    You can define any number of the following callbacks in an session bean by modelling the
+                    appropriate stereotype on an operation.  You can only define 1 lifecycle 
+                    callback stereotype per session operation.  The lifecycle callbacks for a stateless session
+                    bean is a subset of the lifecycle callbacks for a stateful session bean.
+                </p>
+                <p>
+                    The following lifecycle callback for <b>stateless</b> session beans and the corresponding stereotype 
+                    you need to model are:
+                    <ul>
+                        <li>
+                            PostConstruct  -  <![CDATA[<<PostConstruct>>]]>  -  Invoked when the bean is first
+                            created and after the dependency injection is completed.
+                        </li>
+                        <li>
+                            PreDestroy  -  <![CDATA[<<PreDestroy>>]]>  -  Invoked when the bean is removed from the
+                            pool or destroyed.
+                        </li>
+                    </ul>
+                </p>
+                <p>
+                    The following lifecycle callback for <b>stateful</b> session beans and the corresponding stereotype 
+                    you need to model are:
+                    <ul>
+                        <li>
+                            PostConstruct  -  <![CDATA[<<PostConstruct>>]]>  -  Invoked when the bean is first
+                            created and after the dependency injection is completed.
+                        </li>
+                        <li>
+                            PreDestroy  -  <![CDATA[<<PreDestroy>>]]>  -  Invoked when the bean is removed from the
+                            pool or destroyed.
+                        </li>
+                        <li>
+                            PostActivate  -  <![CDATA[[<<PostActivate>>]]>  -  Invoked when the bean has just
+                            been reactivated.
+                        </li>
+                        <li>
+                            PrePassivate  -  <![CDATA[<<PrePassivate>>]]>  -  Invoked just before the container
+                            passivates the bean instance.
+                        </li>
+                    </ul>
+                </p>
+                <p>
+                    To seperate out the callback for the session bean into an <b>interceptor</b> class, simply model the
+                    <![CDATA[<<Listener>>]]> stereotype on the session bean.  This will add the
+                    <code>@Interceptors</code> annotation to the bean base class.  The associated listener/interceptor
+                    class includes all the appropriate lifecycle callbacks for the session bean.  
+                    The listener is generated on the first run and will never be overwritten, so you are free to add 
+                    your implementation to the lifecycle callback operations.  These lifecycle methods of the
+                    interceptors must call <code>proceed</code> on the <code>InvocationContext</code> as the last
+                    execution step to invoke the next interceptor in the chain.
+                </p>
+            </subsection>
+            <a name="Message_Driven_Bean_Callbacks"/>
+            <subsection name="Message-Driven Bean Callbacks">
+                <p>
+                    You can define any number of the following callbacks in a message-driven bean by modelling the
+                    appropriate stereotype on a MDB operation.  You can only define 1 lifecycle 
+                    callback stereotype per MDB operation.
+                </p>
+                <p>
+                    The following lifecycle callback for <b>stateless</b> session beans and the corresponding stereotype 
+                    you need to model are:
+                    <ul>
+                        <li>
+                            PostConstruct  -  <![CDATA[<<PostConstruct>>]]>  -  Invoked when the bean is first
+                            created and after the dependency injection is completed.
+                        </li>
+                        <li>
+                            PreDestroy  -  <![CDATA[<<PreDestroy>>]]>  -  Invoked when the bean is removed from the
+                            pool or destroyed.
+                        </li>
+                    </ul>
+                </p>
+                <p>
+                    You can follow the same process as in <a href="howto14.html#Session_Bean_Callbacks">session bean</a>
+                    callbacks above to separate out the callback interceptor class for the message-driven bean.
+                </p>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                For a guide on how to utilise transactions in this cartridge, click <a href="howto14.html">here</a>.
+            </p>
+        </section>
+    </body>
+</document>
