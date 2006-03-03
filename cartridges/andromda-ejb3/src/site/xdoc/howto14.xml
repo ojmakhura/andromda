@@ -23,35 +23,63 @@
                     You can define any number of the following callbacks in an entity bean by modelling the appropriate
                     stereotype on an entity operation.  You can only define 1 lifecycle callback stereotype
                     per entity operation.
-                    <ul>
-                        <li>
-                            PrePersist  -  <![CDATA[<<PrePersist>>]]>  -  Invoked before the entity is created in
-                            the database and will cascade to all entities by way of the cascaded operation.
-                        </li>
-                        <li>
-                            PostPersist  -  <![CDATA[<<PostPersist>>]]>  -  Invoked after the entity is created in
-                            the database and will cascade to all entities by way of the cascaded operation.
-                        </li>
-                        <li>
-                            PreRemove  -  <![CDATA[[<<PreRemove>>]]>  -  Invoked before the entity is deleted in
-                            the database and will cascade to all entities by way of the cascaded operation.
-                        </li>
-                        <li>
-                            PostRemove  -  <![CDATA[<<PostRemove>>]]>  -  Invoked after the entity is deleted in
-                            the database and will cascade to all entities by way of the cascaded operation.
-                        </li>
-                        <li>
-                            PreUpdate  -  <![CDATA[<<PreUpdate>>]]>  -  Occurs right before the database is updated.
-                        </li>
-                        <li>
-                            PostUpdate  -  <![CDATA[<<PostUpdate>>]]>  -  Occurs immediately after the database
-                            has been updated.
-                        </li>
-                        <li>
-                            PostLoad  -  <![CDATA[<<PostLoad>>]]>  -  Occurs right after the data has been loaded
-                            from the database and associated with the entity.
-                        </li>
-                    </ul>
+                    <table>
+                        <tr>
+                            <td>PrePersist</td>
+                            <td><![CDATA[<<PrePersist>>]]></td>
+                            <td>
+                                Invoked before the entity is created in
+                                the database and will cascade to all entities by way of the cascaded operation.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PostPersist</td>
+                            <td><![CDATA[<<PostPersist>>]]></td>
+                            <td>
+                                Invoked after the entity is created in
+                                the database and will cascade to all entities by way of the cascaded operation.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PreRemove</td>
+                            <td><![CDATA[<<PreRemove>>]]></td>
+                            <td>
+                                Invoked before the entity is deleted in
+                                the database and will cascade to all entities by way of the cascaded operation.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PostRemove</td>
+                            <td><![CDATA[<<PostRemove>>]]></td>
+                            <td>
+                                Invoked after the entity is deleted in
+                                the database and will cascade to all entities by way of the cascaded operation.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PreUpdate</td>
+                            <td><![CDATA[<<PreUpdate>>]]></td>
+                            <td>
+                                Occurs right before the database is updated.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PostUpdate</td>
+                            <td><![CDATA[<<PostUpdate>>]]></td>
+                            <td>
+                                Occurs immediately after the database
+                                has been updated.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PostLoad</td>
+                            <td><![CDATA[<<PostLoad>>]]></td>
+                            <td>
+                                Occurs right after the data has been loaded
+                                from the database and associated with the entity.
+                            </td>
+                        </tr>
+                    </table>
                 </p>
                 <p>
                     Due to the limitations of the EJB3 cartridge when it comes to 
@@ -80,38 +108,62 @@
                 <p>
                     The following lifecycle callback for <b>stateless</b> session beans and the corresponding stereotype 
                     you need to model are:
-                    <ul>
-                        <li>
-                            PostConstruct  -  <![CDATA[<<PostConstruct>>]]>  -  Invoked when the bean is first
-                            created and after the dependency injection is completed.
-                        </li>
-                        <li>
-                            PreDestroy  -  <![CDATA[<<PreDestroy>>]]>  -  Invoked when the bean is removed from the
-                            pool or destroyed.
-                        </li>
-                    </ul>
+                    <table>
+                        <tr>
+                            <td>PostConstruct</td>
+                            <td><![CDATA[<<PostConstruct>>]]></td>
+                            <td>
+                                Invoked when the bean is first
+                                created and after the dependency injection is completed.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PreDestroy</td>
+                            <td><![CDATA[<<PreDestroy>>]]></td>
+                            <td>
+                                Invoked when the bean is removed from the
+                                pool or destroyed.
+                            </td>
+                        </tr>
+                    </table>
                 </p>
                 <p>
                     The following lifecycle callback for <b>stateful</b> session beans and the corresponding stereotype 
                     you need to model are:
-                    <ul>
-                        <li>
-                            PostConstruct  -  <![CDATA[<<PostConstruct>>]]>  -  Invoked when the bean is first
-                            created and after the dependency injection is completed.
-                        </li>
-                        <li>
-                            PreDestroy  -  <![CDATA[<<PreDestroy>>]]>  -  Invoked when the bean is removed from the
-                            pool or destroyed.
-                        </li>
-                        <li>
-                            PostActivate  -  <![CDATA[[<<PostActivate>>]]>  -  Invoked when the bean has just
-                            been reactivated.
-                        </li>
-                        <li>
-                            PrePassivate  -  <![CDATA[<<PrePassivate>>]]>  -  Invoked just before the container
-                            passivates the bean instance.
-                        </li>
-                    </ul>
+                    <table>
+                        <tr>
+                            <td>PostConstruct</td>
+                            <td><![CDATA[<<PostConstruct>>]]></td>
+                            <td>
+                                Invoked when the bean is first
+                                created and after the dependency injection is completed.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PreDestroy</td>
+                            <td><![CDATA[<<PreDestroy>>]]></td>
+                            <td>
+                                Invoked when the bean is removed from the
+                                pool or destroyed.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PostActivate</td>
+                            <td><![CDATA[<<PostActivate>>]]></td>
+                            <td>
+                                Invoked when the bean has just
+                                been reactivated.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PrePassivate</td>
+                            <td><![CDATA[<<PrePassivate>>]]></td>
+                            <td>
+                                Invoked just before the container
+                                passivates the bean instance.
+                            </td>
+                        </tr>
+                    </table>
                 </p>
                 <p>
                     To seperate out the callback for the session bean into an <b>interceptor</b> class, simply model the
@@ -134,16 +186,24 @@
                 <p>
                     The following lifecycle callback for <b>stateless</b> session beans and the corresponding stereotype 
                     you need to model are:
-                    <ul>
-                        <li>
-                            PostConstruct  -  <![CDATA[<<PostConstruct>>]]>  -  Invoked when the bean is first
-                            created and after the dependency injection is completed.
-                        </li>
-                        <li>
-                            PreDestroy  -  <![CDATA[<<PreDestroy>>]]>  -  Invoked when the bean is removed from the
-                            pool or destroyed.
-                        </li>
-                    </ul>
+                    <table>
+                        <tr>
+                            <td>PostConstruct</td>
+                            <td><![CDATA[<<PostConstruct>>]]></td>
+                            <td>
+                                Invoked when the bean is first
+                                created and after the dependency injection is completed.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>PreDestroy</td>
+                            <td><![CDATA[<<PreDestroy>>]]></td>
+                            <td>
+                                Invoked when the bean is removed from the
+                                pool or destroyed.
+                            </td>
+                        </tr>
+                    </table>
                 </p>
                 <p>
                     You can follow the same process as in <a href="howto14.html#Session_Bean_Callbacks">session bean</a>
