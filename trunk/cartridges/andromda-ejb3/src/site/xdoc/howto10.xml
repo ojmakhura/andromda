@@ -164,9 +164,11 @@
             <a name="Listener_Interceptor"/>
             <subsection name="Listener Interceptor">
                 <p>
-                    Message driven beans have lifecycle callback interceptor methods which can be defined in a separate
-                    interceptor class using the EJB3 cartridge.  To find out more information on this, click on
-                    <a href="howto13.html">interceptors</a>.
+                    Message driven beans have lifecycle callback interceptor methods or regular interceptors which 
+                    can be defined in a separate interceptor class using the EJB3 cartridge.  To find out more 
+                    information on interceptors, click on <a href="howto13.html">interceptors</a>.  
+                    To find out more information on lifecycle callbacks, click on
+                    <a href="howto14.html">lifecycle callbacks</a>.
                 </p>
             </subsection>
             <a name="Transaction_Context"/>
