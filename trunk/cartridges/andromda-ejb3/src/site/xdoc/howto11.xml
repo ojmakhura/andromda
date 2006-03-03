@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - Environment Entry Injection</title>
+    </properties>
+    <body>
+        <section name="Injection">
+            <p>
+                The EJB 3.0 spec allows different types of injections such as <i>dependency injection
+                and simple environment entry injections.</i>  We will discuss how the EJB3 cartridge
+                handles these injections differently.
+            </p>
+            <a name="Dependency_Injection"/>
+            <subsection name="Dependency Injection">
+                <p>
+                    To inject dependencies using the EJB3 cartridge, simply model a dependency from the
+                    source class to the injected target class where each class has a suitable stereotype
+                    associated with it.
+                </p>
+                <p>
+                    You can inject a session bean instance into a session or a message-driven bean by drawing
+                    a dependency from the source session bean to the target session or message-driven bean.
+                    The source bean will include the <code>@EJB</code> annotation on the declared field.  Upon
+                    creation of the source bean instance, the EJB container will set the instance of the injected
+                    destination bean using the JNDI name of the referenced EJB.
+                </p>
+                <p>
+                    The injected session bean instance name is simply the name of the target session bean with
+                    lower case first character.
+                </p>
+                <p>
+                    The EJB 3.0 spec allows resource injections using the <code>@Resource</code> annotation and
+                    the EJB3 cartridge uses this feature in a few ways.
+                </p>
+                <p>
+                    Firstly, all session beans automatically inject the <code>SessionContext</code> using
+                    the <code>@Resource</code> annotation into the instance <code>context</code> using a
+                    <code>protected</code> visibility.  You can then use this <code>SessionContext</code>
+                    in the session bean implementation.
+                </p>
+                <p>
+                    If a session bean is marked for bean managed transaction demarcation by modelling the
+                    <code>@andromda.ejb.transaction.management</code> tagged value set to <code>BEAN</code>,
+                    then the EJB3 cartridge will automatically inject an instance of <code>UserTransaction</code> 
+                    into the variable <code>userTrans</code> using a <code>protected</code> visibility.  You can
+                    then use this <code>UserTransaction</code> instance in the session bean implementation.
+                </p>
+                <p>
+                    The EJB3 cartridge will also use the <code>@Resource</code> annotation to setup an instance of
+                    the appropriate <code>ConnectionFactory</code> and <code>Destination</code> objects for
+                    seding message to JMS queues where you have servicing message-driven beans.  By modelling
+                    a dependency from the source session bean to the target message-driven bean, be it a MDB
+                    servicing a <code>Topic</code> or <code>Queue</code>, all the necessary injections are
+                    generated.  You can find an example in the <a href="howto10.html">message-driven</a>
+                    howto.
+                </p>
+            </subsection>
+            <a name="Simple_Environment_Entry_Injection"/>
+            <subsection name="Simple Environment Entry Injection">
+                <p>
+                    Setting up an environment entry configuration parameter is very simple using the EJB3
+                    cartridge.  The environment entry value may have one of the following Java types:
+                    <ul>
+                        <li>String</li>
+                        <li>Character</li>
+                        <li>Integer</li>
+                        <li>Boolean</li>
+                        <li>Double</li>
+                        <li>Byte</li>
+                        <li>Short</li>
+                        <li>Long</li>
+                        <li>Float</li>
+                    </ul>
+                </p>
+                <p>
+                    To inject an environment entry resource value, model a service or message-driven bean attribute 
+                    with <i>classifer</i> scope and set the attribute stereotype to <![CDATA[<<EnvEntry>>]]>.  
+                    The environment entries will be defined in the session or message-driven bean class and 
+                    configured in the ejb-jar.xml deployment descriptor.
+                    You must define a default value for these attributes in the model.
+                </p>
+                <p>
+                    The following example illustrates how you can inject environment entries into session beans.
+                </p>
+	            <p>
+	                <img src="images/org/andromda/test/11/a/uml.gif"/>
+	            </p>
+	            <p>
+	                <ul>
+	                    <li class="gen">Auto-generated source that does not need manual editing</li>
+	                    <li class="impl">Auto-generated source that should be edited manually</li>
+	                    <li class="changed">File that is affected by the modifications applied in this section</li>
+	                </ul>
+	            </p>
+	            <p>
+	                <ul>
+	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto11/a/Car.java.txt"><code>Car.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/CarType.java.txt"><code>CarType.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto11/a/Person.java.txt"><code>Person.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto11/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto11/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto11/a/ejb-jar.xml.txt"><code>ejb-jar.xml</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/jboss.xml.txt"><code>jboss.xml</code></a></li>
+	                </ul>
+	            </p>
+	            <p>
+	                The two important files to look at are <code>RentalServiceBean.java</code> and
+	                <code>ejb-jar.xml</code>.  The <code>RentalServiceBean.java</code> injects the resource using
+	                the <code>@Resource</code> annotation and specifies the name property corresponding to the
+	                <code>env-entry-name</code> in <code>ejb-jar.xml</code> for the environment entry.
+	            </p>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                To find out how service delegates work, click <a href="howto12.html">here</a>.
+            </p>
+        </section>
+    </body>
+</document>
