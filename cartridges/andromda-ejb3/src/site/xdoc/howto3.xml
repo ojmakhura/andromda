@@ -126,15 +126,16 @@
                     To find out more information, click on <a href="howto8.html">Security</a>.
                 </p>
             </subsection>
-            <a name="Resource_Injection"/>
-            <subsection name="Resource Injections">
+            <a name="Environment_Entry_Injection"/>
+            <subsection name="Environment Entry Injections">
                 <p>
                     To inject an environment entry resource value, model a service attribute with classifer scope
                     and set the attribute stereotype to <![CDATA[<<EnvEntry>>]]>.  The environment
                     entries will be defined in the session bean class and configured in the ejb-jar.xml 
                     deployment descriptor.
                     You must define a default value for these attributes in the model.  Refer to 
-                    <a href="howto11.html">Environment Entry Injections</a> for further information. 
+                    <a href="howto11.html#Simple_Environment_Entry_Injection">Environment Entry Injections</a> 
+                    for further information. 
                 </p>
             </subsection>
             <a name="Nullable_Parameter"/>
@@ -150,7 +151,8 @@
                     As you saw in the example in this howto, a session bean delegate class is generated for
                     every session bean.  A client invokes the session bean's business methods via the delegate
                     class, acting like a proxy via the service locator class.  Both the service delegate and
-                    service locator classes are regenerated every time AndroMDA is run.
+                    service locator classes are regenerated every time AndroMDA is run.  You can find out
+                    more information about session delegates from <a href="howto12.html">here</a>.
                 </p>
             </subsection>
             <a name="Listener_Callback"/>
@@ -223,7 +225,8 @@
                 <p>
                     To inject another session bean into the current session bean, simply model a dependency
                     from the source session bean (which will contain the <code>@javax.annotation.EJB</code>
-                    annotation) to the target session bean.
+                    annotation) to the target session bean.  For more information on dependency injections, 
+                    click <a href="howto11.html#Dependency_Injection">here</a>.
                 </p>
             </subsection>
             <a name="JMS_Injections"/>
