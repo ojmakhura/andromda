@@ -48,35 +48,55 @@ $operation.getDocumentation("     * ")
 #set ($operations = $service.businessOperations)
 #if (!$operations.empty)
 
-    // -------- Business Methods  --------------
+    // -------- Business Methods Impl --------------
     
 #**##foreach ($operation in $operations)
+#*  *##if (!$operation.lifecycleCallback)
     /**
      * @see ${service.fullyQualifiedServiceName}#${operation.getSignature(false)}
      */
-#*  *##set ($abstract = $service.abstract && $operation.abstract)
+#*    *##set ($abstract = $service.abstract && $operation.abstract)
     protected#if ($abstract) abstract#end $operation.returnType.fullyQualifiedName $operation.implementationSignature
-#*  *##if ($abstract)
+#*    *##if ($abstract)
         throws java.lang.Exception;
-#*  *##else
+#*    *##else
         throws java.lang.Exception
     {
         //TODO: put your implementation here.
-#*    *##if ($operation.returnTypePresent)
+#*      *##if ($operation.returnTypePresent)
         // Dummy return value, just that the file compiles
         return $operation.returnType.javaNullString;
-#*    *##else
+#*      *##else
         throw new java.lang.UnsupportedOperationException("${service.fullyQualifiedServiceName}.${operation.implementationSignature} Not implemented!");
-#*    *##end
+#*      *##end
     }
-#*  *##end
+#*    *##end
 
+#*  *##end
 #**##end
 #end
+#if (!$operations.empty)
+
+    // -------- Lifecycle Callback Impl --------------
+    
+#**##foreach ($operation in $operations)
+#*  *##if ($operation.lifecycleCallback)
+    /**
+     * @see ${service.fullyQualifiedServiceName}#${operation.name}()
+     */
+    protected void handle${stringUtils.capitalize(${operation.name})}()
+    {
+        // TODO put your lifecycle callback implementation here.
+    }
+    
+#*  *##end
+#**##end
+#end
+
     // ----------- Generic Methods -----------
     
     /**
-     * @see ${service.fullyQualifiedServiceName}#remove()}
+     * @see ${service.fullyQualifiedServiceName}#remove()
      */
     protected void handleRemove()
     {

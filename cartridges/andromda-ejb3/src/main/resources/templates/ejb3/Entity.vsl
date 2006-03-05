@@ -100,26 +100,60 @@ $operation.getDocumentation("    * ")
     // -------------- Entity Methods -----------------
     
 #**##foreach ($operation in $operations)
-#*  *##set ($signature = $operation.signature)
-#*  *##set ($visibility = $operation.visibility.toString())
-#*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
+#*  *##if (!$operation.lifecycleCallback)
+#*    *##set ($signature = $operation.signature)
+#*    *##set ($visibility = $operation.visibility.toString())
+#*    *##set ($returnType = $operation.returnType.fullyQualifiedName)
     /**
 $operation.getDocumentation("     * ")
      */
     @javax.persistence.Transient
     $visibility#if ($operation.static) static#end $returnType $signature
-#*  *##if ($operation.exceptionsPresent)
+#*    *##if ($operation.exceptionsPresent)
         throws $operation.exceptionList
-#*  *##end
+#*    *##end
     {
         // TODO put your implementation here.
-#*  *##if ($operation.returnTypePresent)
+#*    *##if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
-#*  *##else
+#*    *##else
         throw new java.lang.UnsupportedOperationException("${entity.fullyQualifiedName}.${operation.signature} Not implemented!");
-#*  *##end
+#*    *##end
     }
-    
+
+#*  *##end
+#**##end
+#end
+#if (!$operations.empty)
+
+    // --------------- Lifecycle callbacks -----------------
+
+#**##foreach ($operation in $operations)
+#*  *##if ($operation.lifecycleCallback)
+    /**
+$operation.getDocumentation("    * ")
+     */
+#*    *##if ($operation.prePersist)
+    @javax.persistence.PrePersist
+#*    *##elseif ($operation.postPersist)
+    @javax.persistence.PostPersist
+#*    *##elseif ($operation.preRemove)
+    @javax.persistence.PreRemove
+#*    *##elseif ($operation.postRemove)
+    @javax.persistence.PostRemove
+#*    *##elseif ($operation.preUpdate)
+    @javax.persistence.PreUpdate
+#*    *##elseif ($operation.postUpdate)
+    @javax.persistence.PostUpdate
+#*    *##elseif ($operation.postLoad)
+    @javax.persistence.PostLoad
+#*    *##end
+    public void ${operation.name}()
+    {
+        // TODO put your lifecycle callback implementation here.
+    }
+
+#*  *##end
 #**##end
 #end
 }
