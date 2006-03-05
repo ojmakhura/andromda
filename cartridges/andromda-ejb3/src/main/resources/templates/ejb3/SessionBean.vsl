@@ -275,27 +275,13 @@ $attribute.getDocumentation("     * ")
     // -------- Business Methods  --------------
     
 #**##foreach ($operation in $operations)
+##
+## Check that operation is NOT a lifecycle callback
+##
+#*  *##if (!$operation.lifecycleCallback)
     /**
 $operation.getDocumentation("     * ")
      */
-##
-## If this operation is a lifecycle callback, then exclude all other
-## annotations except the callback annotations
-##
-#*  *##if ($operation.lifecycleCallback)
-#*    *##if ($operation.postConstruct)
-    @javax.ejb.PostConstruct
-#*    *##elseif ($operation.preDestroy)
-    @javax.ejb.PreDestroy
-#*    *##end
-#*    *##if ($service.stateful)
-#*      *##if ($operation.postActivate)
-    @javax.ejb.PostActivate
-#*      *##elseif ($operation.prePassivate)
-    @javax.ejb.PrePassivate
-#*      *##end
-#*    *##end
-#*  *##else
 #*    *##if (!$service.transactionManagementBean)
 #*      *##if ($operation.transactionType)
     @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${operation.transactionType})
@@ -328,52 +314,51 @@ $operation.getDocumentation("     * ")
 #*    *##if ($operation.excludeClassInterceptors)
     @javax.ejb.ExcludeClassInterceptors
 #*    *##end
-#*  *##end
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
-#*  *##if ($operation.exceptionsPresent)
+#*    *##if ($operation.exceptionsPresent)
         $operation.throwsClause
-#*  *##end
+#*    *##end
     {
-#*  *##if ($requiredCheckEnabled)
-#*    *##foreach ($argument in $operation.arguments)
-#*      *##if ($argument.required && !$argument.type.primitive)
+#*    *##if ($requiredCheckEnabled)
+#*      *##foreach ($argument in $operation.arguments)
+#*        *##if ($argument.required && !$argument.type.primitive)
         if ($argument.name == null)
         {
             throw new IllegalArgumentException(
                 "${service.fullyQualifiedServiceName}.${operation.signature} - '${argument.name}' can not be null");
         }
+#*        *##end
 #*      *##end
 #*    *##end
-#*  *##end
-#if ($operation.constraintsPresent)
+#*    *##if ($operation.constraintsPresent)
         this.$operation.preconditionCall;
-#end
+#*    *##end
         try
         {
-#*  *##set ($call = "this.${operation.implementationCall};")
-#*  *##if ($operation.returnTypePresent)
+#*    *##set ($call = "this.${operation.implementationCall};")
+#*    *##if ($operation.returnTypePresent)
             return $call
-#*  *##else
+#*    *##else
             $call
-#*  *##end
+#*    *##end
         }
-#*  *##foreach($exception in $operation.exceptions)
+#*    *##foreach($exception in $operation.exceptions)
         catch ($exception.fullyQualifiedName ex)
         {
             throw ex;
         }
-#*  *##end
-#*  *##if ($service.allowDefaultServiceException)
+#*    *##end
+#*    *##if ($service.allowDefaultServiceException)
         catch (Throwable th)
         {
             throw new ${service.fullyQualifiedDefaultExceptionName}(
                 "Error performing '${service.fullyQualifiedName}.${operation.signature}' --> " + th,
                 th);
         }
-#*  *##end
+#*    *##end
     }
     
-#*  *##if ($operation.constraintsPresent)
+#*    *##if ($operation.constraintsPresent)
     /**
      * Performs any precondition checks for {@link #${operation.call}}.
      */
@@ -382,15 +367,51 @@ $operation.getDocumentation("     * ")
 #renderPreconditions($operation)
     }
 
-#*  *##end
+#*    *##end
     /**
      * Performs the core logic for {@link #${operation.getSignature(false)}}
      */
     protected abstract $operation.returnType.fullyQualifiedName $operation.implementationSignature
         throws java.lang.Exception;
 
+#*  *##end
 #**##end
 #end
+#if (!$operations.empty)
+
+    // -------- Lifecycle Callbacks --------------
+    
+#**##foreach ($operation in $operations)
+#*  *##if ($operation.lifecycleCallback)
+    /**
+$operation.getDocumentation("     * ")
+     */
+#*    *##if ($operation.postConstruct)
+    @javax.ejb.PostConstruct
+#*    *##elseif ($operation.preDestroy)
+    @javax.ejb.PreDestroy
+#*    *##end
+#*    *##if ($service.stateful)
+#*      *##if ($operation.postActivate)
+    @javax.ejb.PostActivate
+#*      *##elseif ($operation.prePassivate)
+    @javax.ejb.PrePassivate
+#*      *##end
+#*    *##end
+    $operation.visibility void ${operation.name}()
+    {
+        this.handle${stringUtils.capitalize(${operation.name})}();
+    }
+    
+    /**
+     * Performs the core logic for {@link #${operation.name}()}
+     */
+    protected abstract $operation.returnType.fullyQualifiedName handle${stringUtils.capitalize(${operation.name})}();
+        
+#*  *##end
+#**##end
+#end
+
     // ------------ Generic Methods ------------
     
     /**
