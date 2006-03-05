@@ -42,4 +42,74 @@ public class EJB3OperationFacadeLogicImpl
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SELECT_METHOD);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleIsPrePersist()
+     */
+    protected boolean handleIsPrePersist()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_PRE_PERSIST);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleIsPostPersist()
+     */
+    protected boolean handleIsPostPersist()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_POST_PERSIST);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleIsPreRemove()
+     */
+    protected boolean handleIsPreRemove()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_PRE_REMOVE);
+    }
+
+    /*
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleIsPostRemove()
+     */
+    protected boolean handleIsPostRemove()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_POST_REMOVE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleIsPreUpdate()
+     */
+    protected boolean handleIsPreUpdate()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_PRE_UPDATE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleIsPostUpdate()
+     */
+    protected boolean handleIsPostUpdate()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_POST_UPDATE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleIsPostLoad()
+     */
+    protected boolean handleIsPostLoad()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_POST_LOAD);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleIsLifecycleCallback()
+     */
+    protected boolean handleIsLifecycleCallback()
+    {
+        return this.isPostLoad() || 
+                this.isPostPersist() ||
+                this.isPostRemove() || 
+                this.isPostUpdate() ||
+                this.isPrePersist() ||
+                this.isPreRemove() ||
+                this.isPreUpdate();
+    }
+
 }
