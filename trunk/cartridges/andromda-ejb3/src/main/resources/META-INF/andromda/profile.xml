@@ -314,6 +314,94 @@
 			        Stateful Session Bean Operation
 			    </appliedOnElement>
 			</element>
+			
+			<element name="PRE_PERSIST">
+			    <documentation>
+			        Specifies that the associated operation is a lifecycle
+			        callback handler for an entity bean and will 
+			        be invoked before the entity is created in the
+			        database and will cascade to all associated 
+			        cascadable entities.
+			    </documentation>
+			    <value>PrePersist</value>
+			    <appliedOnElement>
+			        Entity Bean Operation
+			    </appliedOnElement>
+			</element>
+			<element name="POST_PERSIST">
+			    <documentation>
+			        Specifies that the associated operation is a lifecycle
+			        callback handler for an entity bean and will 
+			        be invoked after the entity is created in the
+			        database and will cascade to all associated
+			        cascadable entities.
+			    </documentation>
+			    <value>PostPersist</value>
+			    <appliedOnElement>
+			        Entity Bean Operation
+			    </appliedOnElement>
+			</element>
+			<element name="PRE_REMOVE">
+			    <documentation>
+			        Specifies that the associated operation is a lifecycle
+			        callback handler for an entity bean and will 
+			        be invoked before the entity is deleted from the
+			        database and will cascade to all associated 
+			        cascadable entities.
+			    </documentation>
+			    <value>PreRemove</value>
+			    <appliedOnElement>
+			        Entity Bean Operation
+			    </appliedOnElement>
+			</element>
+			<element name="POST_REMOVE">
+			    <documentation>
+			        Specifies that the associated operation is a lifecycle
+			        callback handler for an entity bean and will 
+			        be invoked after the entity is deleted from the
+			        database and will cascade to all associated 
+			        cascadable entities.
+			    </documentation>
+			    <value>PostRemove</value>
+			    <appliedOnElement>
+			        Entity Bean Operation
+			    </appliedOnElement>
+			</element>
+			<element name="PRE_UPDATE">
+			    <documentation>
+			        Specifies that the associated operation is a lifecycle
+			        callback handler for an entity bean and will 
+			        be invoked right before the database is updated.
+			    </documentation>
+			    <value>PreUpdate</value>
+			    <appliedOnElement>
+			        Entity Bean Operation
+			    </appliedOnElement>
+			</element>
+			<element name="POST_UPDATE">
+			    <documentation>
+			        Specifies that the associated operation is a lifecycle
+			        callback handler for an entity bean and will 
+			        be invoked immediately after the database has been
+			        updated.
+			    </documentation>
+			    <value>PostUpdate</value>
+			    <appliedOnElement>
+			        Entity Bean Operation
+			    </appliedOnElement>
+			</element>
+			<element name="POST_LOAD">
+			    <documentation>
+			        Specifies that the associated operation is a lifecycle
+			        callback handler for an entity bean and will 
+			        be invoked right after the data has been loaded
+			        from the database and associated with the entity.
+			    </documentation>
+			    <value>PostLoad</value>
+			    <appliedOnElement>
+			        Entity Bean Operation
+			    </appliedOnElement>
+			</element>
 		</elementGroup>
 		<elementGroup name="Tagged Values">
 			<element name="ATTRIBUTE_PERSISTENCE_OPTIONAL">
