@@ -134,24 +134,59 @@ public class EJB3Profile
     public static final String STEREOTYPE_FINDER_RESULT_TYPE_MAX = profile.get("RESULT_TYPE_MAX");
     
     /**
-     * Specifies the operation as a post-construct callback
+     * Specifies the session/message-driven bean operation as a post-construct callback
      */
     public static final String STEREOTYPE_POST_CONSTRUCT = profile.get("POST_CONSTRUCT");
 
     /**
-     * Specifies the operation as a pre-destroy callback
+     * Specifies the session/message-driven bean operation as a pre-destroy callback
      */
     public static final String STEREOTYPE_PRE_DESTROY = profile.get("PRE_DESTROY");
 
     /**
-     * Specifies the operation as a post-activate callback
+     * Specifies the session bean operation as a post-activate callback
      */
     public static final String STEREOTYPE_POST_ACTIVATE = profile.get("POST_ACTIVATE");
 
     /**
-     * Specifies the operation as a pre-passivate callback
+     * Specifies the session bean operation as a pre-passivate callback
      */
     public static final String STEREOTYPE_PRE_PASSIVATE = profile.get("PRE_PASSIVATE");
+    
+    /**
+     * Specifies the entity bean operation as a pre-persist callback
+     */
+    public static final String STEREOTYPE_PRE_PERSIST = profile.get("PRE_PERSIST");
+    
+    /**
+     * Specifies the entity operation as a post-persist callback
+     */
+    public static final String STEREOTYPE_POST_PERSIST = profile.get("POST_PERSIST");
+    
+    /**
+     * Specifies the entity bean operation as a pre-remove callback
+     */
+    public static final String STEREOTYPE_PRE_REMOVE = profile.get("PRE_REMOVE");
+    
+    /**
+     * Specifies the entity bean operation as a post-remove callback
+     */
+    public static final String STEREOTYPE_POST_REMOVE = profile.get("POST_REMOVE");
+    
+    /**
+     * Specifies the entity bean operation as a pre-update callback
+     */
+    public static final String STEREOTYPE_PRE_UPDATE = profile.get("PRE_UPDATE");
+    
+    /**
+     * Specifies the entity bean operation as a post-update callback
+     */
+    public static final String STEREOTYPE_POST_UPDATE = profile.get("POST_UPDATE");
+    
+    /**
+     * Specifies the entity bean operation as a post-load callback
+     */
+    public static final String STEREOTYPE_POST_LOAD = profile.get("POST_LOAD");
     
     /* ----------------- Tagged Values -------------------- */
     
