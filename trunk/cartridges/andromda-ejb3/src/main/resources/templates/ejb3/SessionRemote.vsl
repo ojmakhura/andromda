@@ -17,7 +17,7 @@ public interface ${service.serviceRemoteInterfaceName}
 #set ($constants = $service.constants)
 #if (!$constants.empty)
 
-    // ---------- accessors for constants -----------
+    // ---------- Accessors For Constants -----------
     
 #**##foreach($constant in $constants)
 ## Only expose the method if it is public.
@@ -34,7 +34,7 @@ $constant.getDocumentation("     * ")
 #set ($attributes = $service.instanceAttributes)
 #if (!$attributes.empty)
 
-    // --------------- attributes ---------------------
+    // --------------- Attributes ---------------------
     
 #**##foreach ($attribute in $attributes)
 ## Only expose the method to the component interface if it is public.
@@ -59,11 +59,14 @@ $attribute.getDocumentation("     * ")
 #set ($operations = $service.businessOperations)
 #if (!$operations.empty)
 
-    // ------------ business methods  -----------------
+    // ------------ Business Methods  -----------------
     
 #**##foreach ($operation in $operations)
+##
+## Only expose methods that are not lifecycle callbacks
 ## Only expose public methods with remote view type accessability
-#*  *##if ($operation.visibility == "public" && ($operation.viewTypeRemote || $operation.viewTypeBoth))
+##
+#*  *##if (!$operation.lifecycleCallback && $operation.visibility == "public" && ($operation.viewTypeRemote || $operation.viewTypeBoth))
     /**
 $operation.getDocumentation("     * ")
      */
