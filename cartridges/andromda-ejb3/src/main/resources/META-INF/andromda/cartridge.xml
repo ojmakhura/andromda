@@ -104,9 +104,9 @@
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
-        <modelElements variable="entities">
+        <modelElements variable="persistenceContexts">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacade"/>
             </modelElement>
         </modelElements>
     </template>
