@@ -687,7 +687,7 @@ $finder.getDocumentation("     * ")
 #*  *##end
      * @return $returnType
      */
-    $finder.visibility static $returnType#if ($returnType == "java.util.Collection" || $returnType == "java.util.List")<${entity.name}>#end ${finder.name}($parameters)
+    $finder.visibility static $returnType#if ($finder.returnType.collectionType || $finder.returnType.listType || $finder.returnType.setType || $finder.returnType.mapType)<${entity.name}>#end ${finder.name}($parameters)
     {
         javax.persistence.Query query = em.createQuery("$finder.query");
 #*  *##foreach ($parameter in $finder.arguments)
@@ -709,7 +709,9 @@ $finder.getDocumentation("     * ")
 #*      *##end
 #*    *##end
 #*  *##end
-#*  *##if ($finder.returnType.primitive)
+#*  *##if ($stringUtils.equalsIgnoreCase($returnType, "void"))
+        query.executeUpdate();
+#*  *##elseif ($finder.returnType.primitive)
         return (($finder.returnType.wrapperName)query.getSingleResult()).${returnType}Value();
 #*  *##elseif (!$finder.returnType.collectionType)
         return ($returnType)query.getSingleResult();
