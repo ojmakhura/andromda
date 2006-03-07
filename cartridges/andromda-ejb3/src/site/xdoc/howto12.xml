@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - Service Patterns</title>
+    </properties>
+    <body>
+        <section name="Service Patterns">
+            <p>
+                Patterns are the problem/solution pairs to enable reuse of software designs and techniques.
+                There are probably many differing software design patterns we all use regularly, some without
+                even knowing.  Here we focus on the <i>Service Locator</i> and <i>Service Delegate</i> design
+                patterns.
+            </p>
+            <a name="Service_Locator"/>
+            <subsection name="Service Locator">
+                <p>
+                    The J2EE pattern
+                </p>
+                <p>
+                    <i>
+                        Use a Service Locator object to abstract all JNDI usage and to hide the complexities of
+                        initial context creation, EJB home object lookup, and EJB object re-creation.  Multiple
+                        clients can reuse the Service Locator object to reduce code complexity, provide a single
+                        point of control, and improve performance by providing caching facility.
+                    </i>
+                </p>
+                <p>
+                    The Service Locator provides and caches the <code>InitialContext</code> and simplifies
+                    access to the session bean remote interface using the remote JNDI name lookup.  It does also
+                    provides the facility to get the local interface.
+                </p>
+            </subsection>
+            <a name="Service_Delegate"/>
+            <subsection name="Service Delegate">
+                <p>
+                    When a client or a presentation tier requires access to the business tier, it makes use of
+                    the <i>Business Delegate</i> pattern.  Business Delegates, or Service Delegates here, use
+                    the Service Locator object to locate business components.  This provides loose coupling and
+                    increased manageability from the client/web tier to the business tier.
+                </p>
+                <p>
+                    The EJB3 cartridges cuts down the Service Delegates which references the Service Locator
+                    and provides the ability to invoke all methods available on the remote interface of
+                    the session bean.
+                </p>
+                <p>
+                    The following example is taken directly from the <a href="howto7.html">exception howto</a>.
+                    Only the relevant files are referenced here.
+                </p>
+	            <p>
+	                <img src="images/org/andromda/test/7/a/uml.gif"/>
+	            </p>
+	            <p>
+	                <ul>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto7/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
+	                </ul>
+	            </p>
+	            <p>
+	                The following is an example of how you can use the Service Delegate 
+	                <code>RentalServiceDelegate</code> above in a client or in the web tier.
+	            </p>
+	            <p>
+<source><![CDATA[
+        Properties prop = new Properties();
+        prop.put("java.naming.factory.initial", "org.jnp.interfaces.NamingContextFactory");
+        prop.put("java.naming.factory.url.pkgs", "org.jboss.naming:org.jnp.interfaces");
+        prop.put("java.naming.provider.url", "localhost:1099");
+
+        RentalServiceDelegate manager = new RentalServiceDelegate(prop);
+        try
+        {
+            manager.getCustomersByName("john");
+        }
+        catch (RentalException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        finally
+        {
+            if (manager != null)
+            {
+                manager.close();
+            }
+        }
+]]></source>
+                </p>
+                <p>
+                    In circumstance where you have manageable entities, a <code>ManageableServiceLocator</code>
+                    class will also be generated with similar logic as the <code>ServiceLocator</code>
+                    class, except it provides the facility to get the manageable service beans remote interfaces.
+                </p>
+            </subsection>
+            <a name="Further_Reading"/>
+            <subsection name="Further Reading">
+                <p>
+                    http://java.sun.com/blueprints/corej2eepatterns/Patterns/ServiceLocator.html
+                </p>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                To find out how you can use interceptors in entity, session and message-driven beans,
+                click <a href="howto13.html">here</a>.
+            </p>
+        </section>
+    </body>
+</document>
