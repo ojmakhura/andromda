@@ -388,6 +388,13 @@ public class EJB3Profile
         profile.get("SERVICE_PERSISTENCE_CONTEXT_TYPE");
 
     /**
+     * The tagged value representing the persistence context
+     * datasource JNDI name
+     */
+    public static final String TAGGEDVALUE_EJB_PERSISTENCE_CONTEXT_DATASOURCE =
+        profile.get("SERVICE_PERSISTENCE_CONTEXT_DATASOURCE");
+    
+    /**
      * The tagged value representing the flush mode on bean operation.
      */
     public static final String TAGGEDVALUE_EJB_PERSISTENCE_FLUSH_MODE = profile.get("SERVICE_PERSISTENCE_FLUSH_MODE");
