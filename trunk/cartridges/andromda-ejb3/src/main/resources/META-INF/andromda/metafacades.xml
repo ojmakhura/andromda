@@ -171,4 +171,9 @@
 			<stereotype>ENUMERATION</stereotype>
 		</mapping>
 	</metafacade>
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacadeLogicImpl">
+	    <mapping>
+	        <stereotype>PERSISTENCE_CONTEXT</stereotype>
+	    </mapping>
+	</metafacade>
 </metafacades>
