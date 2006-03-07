@@ -219,6 +219,40 @@
                     the persistence context annotation, you need to model the above tagged values on
                     this new class.
                 </p>
+                <p>
+                    The following example shows a new persistence context <code>securityEntityManager</code>.
+                </p>
+	            <p>
+	                <img src="images/org/andromda/test/3/b/uml.gif"/>
+	            </p>
+	            <p>
+	                <ul>
+	                    <li class="gen">Auto-generated source that does not need manual editing</li>
+	                    <li class="impl">Auto-generated source that should be edited manually</li>
+	                    <li class="changed">File that is affected by the modifications applied in this section</li>
+	                </ul>
+	            </p>
+	            <p>
+	                <ul>
+	                    <li class="gen"><a href="src/org/andromda/test/howto3/b/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto3/b/Car.java.txt"><code>Car.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto3/b/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto3/b/Person.java.txt"><code>Person.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/b/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto3/b/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto3/b/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto3/b/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto3/b/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/b/persistence.xml.txt"><code>persistence.xml</code></a></li>
+	                </ul>
+	            </p>
+	            <p>
+	                Notice that <code>SecondaryEntityManager</code> has defined the 
+	                <code>@andromda.service.persistence.context.datasource</code> tagged value specifiying the
+	                JNDI name of the JDBC datasource used in this persistence context.  You can specify this tag 
+	                on a class where the <![CDATA[<<PersistenceContext>>]]> stereotype has been modelled.
+	            </p>
             </subsection>
             <a name="EJB_Injections"/>
             <subsection name="EJB Injections">
