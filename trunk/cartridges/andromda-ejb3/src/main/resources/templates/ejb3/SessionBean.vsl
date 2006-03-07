@@ -89,15 +89,15 @@ public abstract class ${service.serviceName}
     @javax.persistence.PersistenceContext#if ($service.persistenceContextUnitName || $service.persistenceContextType)(#end#if ($service.persistenceContextUnitName)unitName = "${service.persistenceContextUnitName}"#set ($argExists = true)#end#if ($service.persistenceContextType)#if ($argExists),#end type = javax.persistence.PersistenceContextType.${service.persistenceContextType}#end#if ($service.persistenceContextUnitName || $service.persistenceContextType))#end
     
     protected javax.persistence.EntityManager emanager;
-#foreach ($reference in $service.persistenceContextReferences)
-#**##set ($persistenceContext = $reference.targetElement)
+#foreach ($persistenceContext in $service.persistenceContextReferences)
 #**##set ($argExists = false)
 
     /**
-     * Inject persistence context #if ($persistenceContext.persistenceContextUnitName)${persistenceContext.persistenceContextUnitName}#end
+     * Inject persistence context #if ($persistenceContext.unitName)${persistenceContext.unitName}#end
      
      */
-    @javax.persistence.PersistenceContext#if ($persistenceContext.persistenceContextUnitName || $persistenceContext.persistenceContextType)(#end#if ($persistenceContext.persistenceContextUnitName)unitName = "${persistenceContext.persistenceContextUnitName}"#set ($argExists = true)#end#if ($persistenceContext.persistenceContextType)#if ($argExists),#end type = javax.persistence.PersistenceContextType.${persistenceContext.persistenceContextType}#end#if ($persistenceContext.persistenceContextUnitName || $persistenceContext.persistenceContextType))#end 
+    @javax.persistence.PersistenceContext#if ($persistenceContext.unitName || $persistenceContext.contextType)(#end#if ($persistenceContext.unitName)unitName = "${persistenceContext.unitName}"#set ($argExists = true)#end#if ($persistenceContext.contextType)#if ($argExists),#end type = javax.persistence.PersistenceContextType.${persistenceContext.contextType}#end#if ($persistenceContext.unitName || $persistenceContext.contextType))#end
+     
     protected javax.persistence.EntityManager $stringUtils.uncapitalize(${persistenceContext.name});
 #end
 #set ($references = $service.serviceReferences)
