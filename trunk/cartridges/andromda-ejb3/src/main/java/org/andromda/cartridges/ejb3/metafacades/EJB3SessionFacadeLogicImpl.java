@@ -493,8 +493,14 @@ public class EJB3SessionFacadeLogicImpl
             {
                 ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
                 return (targetElement != null 
-                        && EJB3SessionFacade.class.isAssignableFrom(targetElement.getClass())
-                                && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_PERSISTENCE_CONTEXT));
+                        && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_PERSISTENCE_CONTEXT));
+            }
+        });
+        CollectionUtils.transform(references, new Transformer()
+        {
+            public Object transform(final Object object)
+            {
+                return ((DependencyFacade)object).getTargetElement();
             }
         });
         return references;
