@@ -874,6 +874,24 @@
 					<value>TRANSACTION</value>
 				</allowedValues>
 			</element>
+			<element name="SERVICE_PERSISTENCE_CONTEXT_DATASOURCE">
+				<documentation>
+					Used at the class level of a service bean or 
+					a class with stereotype PersistenceContext to 
+					determine the persistence context datasource
+					JNDI name.
+					If you don't have a scoped classloader for
+					your application, all persistence contexts
+					defined in your system's global context
+					are made available to all applications.
+				</documentation>
+				<value>
+					@andromda.service.persistence.context.datasource
+				</value>
+				<appliedOnElement>
+					Class with <![CDATA[<<Service>>]]>
+				</appliedOnElement>
+			</element>
 			<element name="SERVICE_PERSISTENCE_FLUSH_MODE">
 				<documentation>
 					Used on session bean operations to set
