@@ -11,11 +11,11 @@ package $service.packageName;
  *
 $service.getDocumentation(" * ")
  */
-/**
- * Do not specify the javax.ejb.${service.type} annotation
- * Instead, define the session bean in the ejb-jar.xml descriptor
- * javax.ejb.${service.type}
- */
+ 
+// Do not specify the javax.ejb.${service.type} annotation
+// Instead, define the session bean in the ejb-jar.xml descriptor
+// @javax.ejb.${service.type}
+
 #if ($service.transactionManagement)
 @javax.ejb.TransactionManagement(javax.ejb.TransactionManagementType.${service.transactionManagement})
 #end
@@ -48,18 +48,21 @@ $service.getDocumentation(" * ")
 #if ($service.viewTypeRemote)
 @javax.ejb.Remote({${service.fullyQualifiedServiceRemoteInterfaceName}.class})
 #end
-##
-## Service listener - lifecycle callbacks is defined as an interceptor
-##
+
 #set ($interceptors = $service.interceptorReferences)
 #if ($collectionUtils.size($interceptors) >= 1 || $service.listenerEnabled)
 #**##if ($service.listenerEnabled) 
 #*  *##set ($lifecycleCallback = "${service.fullyQualifiedServiceListenerName}.class")
 #**##else 
-#*  *##set ($lifecycleCallback = "null")
+#*  *##set ($lifecycleCallback = "")
 #**##end
-@javax.ejb.Interceptors({$transform.getInterceptorsAsList(${interceptors}, ${lifecycleCallback})})
+// Lifecycle callback listeners and interceptors are defined in ejb-jar.xml
+// @javax.ejb.Interceptors({$transform.getInterceptorsAsList(${interceptors}, ${lifecycleCallback})})
 #end
+#if ($service.excludeDefaultInterceptors)
+// @javax.ejb.ExcludeDefaultInterceptors
+#end
+
 public abstract class ${service.serviceName}
 #if($service.generalization)
     extends ${service.generalization.fullyQualifiedName}BeanImpl
@@ -306,13 +309,16 @@ $operation.getDocumentation("     * ")
 #*    *##end
 #*    *##set ($interceptors = $operation.interceptorReferences)
 #*    *##if ($collectionUtils.size($interceptors) >= 1)
-    @javax.ejb.Interceptors({$transform.getInterceptorsAsList(${interceptors}, null)})
+    // Interceptors are defined in ejb-jar.xml
+    // @javax.ejb.Interceptors({$transform.getInterceptorsAsList(${interceptors}, "")})
 #*    *##end
 #*    *##if ($operation.excludeDefaultInterceptors)
-    @javax.ejb.ExcludeDefaultInterceptors
+    // Interceptor default exclusions are defined in ejb-jar.xml
+    // @javax.ejb.ExcludeDefaultInterceptors
 #*    *##end
 #*    *##if ($operation.excludeClassInterceptors)
-    @javax.ejb.ExcludeClassInterceptors
+    // Interceptor class exclusions are defined in ejb-jar.xm
+    // @javax.ejb.ExcludeClassInterceptors
 #*    *##end
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #*    *##if ($operation.exceptionsPresent)
