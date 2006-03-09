@@ -164,60 +164,6 @@
             <p>
                 In order to start the tutorial click <a href="howto1.html">here</a>.
             </p>
-            <subsection name="Summary">
-                <p>
-                    Here's already a brief summary of the information found in this how-to.
-                </p>
-                <p>
-                    <table>
-                        <tr>
-                            <th>Feature</th>
-                            <th>Element</th>
-                            <th>How</th>
-                        </tr>
-                        <tr>
-                            <td>Hibernate POJO</td>
-                            <td>class</td>
-                            <td>add the <![CDATA[<<Entity>>]]> stereotype</td>
-                        </tr>
-                        <tr>
-                            <td>Stand-alone Spring POJO Service <strong>OR</strong> Spring POJO Service wrapped with an EJB Session Bean</td>
-                            <td>class</td>
-                            <td>add the <![CDATA[<<Service>>]]> stereotype</td>
-                        </tr>
-                        <tr>
-                            <td>Value object</td>
-                            <td>class</td>
-                            <td>add the <![CDATA[<<ValueObject>>]]> stereotype, draw a dependency from an
-                                <![CDATA[<<Entity>>]]> to this class in order to have a transformation method
-                                generated in the entity's DAO</td>
-                        </tr>
-                        <tr>
-                            <td>Enumeration</td>
-                            <td>class</td>
-                            <td>assign a class with the <![CDATA[<<Enumeration>>]]> stereotype as the type
-                                of an entity's attribute</td>
-                        </tr>
-                        <tr>
-                            <td>Hibernate QL</td>
-                            <td>operation</td>
-                            <td>add an OCL body on an operation with the UML query flag set to true</td>
-                        </tr>
-                        <tr>
-                            <td>Unique attribute</td>
-                            <td>class</td>
-                            <td>add the <![CDATA[<<Unique>>]]> stereotype to an attribute, the attribute's
-                                class must carry the <![CDATA[<<Entity>>]]> stereotype</td>
-                        </tr>
-                        <tr>
-                            <td>Nullable parameter</td>
-                            <td>operation parameter</td>
-                            <td>only useful on operations modeled for <![CDATA[<<Entity>>]]> and <![CDATA[<<Service>>]]>
-                                classes</td>
-                        </tr>
-                    </table>
-                </p>
-            </subsection>
         </section>
     </body>
 </document>
