@@ -94,9 +94,14 @@ public class EJB3Profile
     public static final String STEREOTYPE_DATA_SOURCE = profile.get("DATA_SOURCE");
     
     /**
-     * Represents an  class for a session bean.
+     * Represents an interceptor class for a session or message-driven bean.
      */
     public static final String STEREOTYPE_INTERCEPTOR = profile.get("INTERCEPTOR");
+    
+    /**
+     * Represents a default interceptor for a session or message-driven bean.
+     */
+    public static final String STEREOTYPE_DEFAULT_INTERCEPTOR = profile.get("DEFAULT_INTERCEPTOR");
     
     /**
      * Represents a dependency from an actor that is identified to
