@@ -1,6 +1,7 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -114,18 +115,20 @@ public class EJB3SessionFacadeLogicImpl
     protected java.util.Collection handleGetBusinessOperations()
     {
         Collection operations = super.getOperations();
-        CollectionUtils.filter(operations, new Predicate()
-        {
-            public boolean evaluate(Object object)
+        CollectionUtils.filter(
+            operations, 
+            new Predicate()
             {
-                boolean businessOperation = false;
-                if (EJB3SessionOperationFacade.class.isAssignableFrom(object.getClass()))
+                public boolean evaluate(Object object)
                 {
-                    businessOperation = ((EJB3SessionOperationFacade)object).isBusinessOperation();
+                    boolean businessOperation = false;
+                    if (EJB3SessionOperationFacade.class.isAssignableFrom(object.getClass()))
+                    {
+                        businessOperation = ((EJB3SessionOperationFacade)object).isBusinessOperation();
+                    }
+                    return businessOperation;
                 }
-                return businessOperation;
-            }
-        });
+            });
         return operations;
     }
 
@@ -487,22 +490,26 @@ public class EJB3SessionFacadeLogicImpl
     protected Collection handleGetPersistenceContextReferences()
     {
         Collection references = this.getSourceDependencies();
-        CollectionUtils.filter(references, new Predicate()
-        {
-            public boolean evaluate(Object object)
+        CollectionUtils.filter(
+            references, 
+            new Predicate()
             {
-                ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
-                return (targetElement != null 
-                        && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_PERSISTENCE_CONTEXT));
-            }
-        });
-        CollectionUtils.transform(references, new Transformer()
-        {
-            public Object transform(final Object object)
+                public boolean evaluate(Object object)
+                {
+                    ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
+                    return (targetElement != null 
+                            && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_PERSISTENCE_CONTEXT));
+                }
+            });
+        CollectionUtils.transform(
+            references, 
+            new Transformer()
             {
-                return ((DependencyFacade)object).getTargetElement();
-            }
-        });
+                public Object transform(final Object object)
+                {
+                    return ((DependencyFacade)object).getTargetElement();
+                }
+            });
         return references;
     }
 
@@ -514,14 +521,16 @@ public class EJB3SessionFacadeLogicImpl
     public Collection getServiceReferences()
     {
         Collection references = super.getServiceReferences();
-        CollectionUtils.filter(references, new Predicate()
-        {
-            public boolean evaluate(Object object)
+        CollectionUtils.filter(
+            references,
+            new Predicate()
             {
-                ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
-                return targetElement.hasStereotype(EJB3Profile.STEREOTYPE_SERVICE);
-            }
-        });
+                public boolean evaluate(Object object)
+                {
+                    ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
+                    return targetElement.hasStereotype(EJB3Profile.STEREOTYPE_SERVICE);
+                }
+            });
         return references;
     }
 
@@ -708,18 +717,20 @@ public class EJB3SessionFacadeLogicImpl
     protected Collection handleGetResourceUserTransactionReferences()
     {
         Collection references = this.getSourceDependencies();
-        CollectionUtils.filter(references, new Predicate()
-        {
-            public boolean evaluate(Object object)
+        CollectionUtils.filter(
+            references, 
+            new Predicate()
             {
-                DependencyFacade dependency = (DependencyFacade)object;
-                ModelElementFacade targetElement = dependency.getTargetElement();
-                return (targetElement != null 
-                        && EJB3SessionFacade.class.isAssignableFrom(targetElement.getClass())
-                                && dependency.hasStereotype(EJB3Profile.STEREOTYPE_RESOURCE_REF)
-                                && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_USER_TRANSACTION));
-            }
-        });
+                public boolean evaluate(Object object)
+                {
+                    DependencyFacade dependency = (DependencyFacade)object;
+                    ModelElementFacade targetElement = dependency.getTargetElement();
+                    return (targetElement != null 
+                            && EJB3SessionFacade.class.isAssignableFrom(targetElement.getClass())
+                                    && dependency.hasStereotype(EJB3Profile.STEREOTYPE_RESOURCE_REF)
+                                    && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_USER_TRANSACTION));
+                }
+            });
         return references;
     }
 
@@ -729,18 +740,20 @@ public class EJB3SessionFacadeLogicImpl
     protected Collection handleGetResourceDataSourceReferences()
     {
         Collection references = this.getSourceDependencies();
-        CollectionUtils.filter(references, new Predicate()
-        {
-            public boolean evaluate(Object object)
+        CollectionUtils.filter(
+            references, 
+            new Predicate()
             {
-                DependencyFacade dependency = (DependencyFacade)object;
-                ModelElementFacade targetElement = dependency.getTargetElement();
-                return (targetElement != null 
-                        && EJB3SessionFacade.class.isAssignableFrom(targetElement.getClass())
-                                && dependency.hasStereotype(EJB3Profile.STEREOTYPE_RESOURCE_REF)
-                                && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_DATA_SOURCE));
-            }
-        });
+                public boolean evaluate(Object object)
+                {
+                    DependencyFacade dependency = (DependencyFacade)object;
+                    ModelElementFacade targetElement = dependency.getTargetElement();
+                    return (targetElement != null 
+                            && EJB3SessionFacade.class.isAssignableFrom(targetElement.getClass())
+                                    && dependency.hasStereotype(EJB3Profile.STEREOTYPE_RESOURCE_REF)
+                                    && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_DATA_SOURCE));
+                }
+            });
         return references;
     }
 
@@ -769,23 +782,40 @@ public class EJB3SessionFacadeLogicImpl
     protected Collection handleGetInterceptorReferences()
     {
         Collection references = this.getSourceDependencies();
-        CollectionUtils.filter(references, new Predicate()
-        {
-            public boolean evaluate(Object object)
+        CollectionUtils.filter(
+            references, 
+            new Predicate()
             {
-                DependencyFacade dependency = (DependencyFacade)object;
-                ModelElementFacade targetElement = dependency.getTargetElement();
-                return (targetElement != null && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_INTERCEPTOR));
-            }
-        });
-        CollectionUtils.transform(references, new Transformer()
-        {
-            public Object transform(final Object object)
+                public boolean evaluate(Object object)
+                {
+                    DependencyFacade dependency = (DependencyFacade)object;
+                    ModelElementFacade targetElement = dependency.getTargetElement();
+                    return (targetElement != null && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_INTERCEPTOR));
+                }
+            });
+        CollectionUtils.transform(
+            references, 
+            new Transformer()
             {
-                return ((DependencyFacade)object).getTargetElement();
-            }
-        });
-        return references;
+                public Object transform(final Object object)
+                {
+                    return ((DependencyFacade)object).getTargetElement();
+                }
+            });
+        final Collection interceptors = new LinkedHashSet(references);
+        CollectionUtils.forAllDo(
+            references,
+            new Closure()
+            {
+                public void execute(Object object)
+                {
+                    if (object instanceof EJB3InterceptorFacade)
+                    {
+                        interceptors.addAll(((EJB3InterceptorFacade)object).getInterceptorReferences());
+                    }
+                }
+            });
+        return interceptors;
     }
 
     /**
@@ -794,33 +824,39 @@ public class EJB3SessionFacadeLogicImpl
     protected Collection handleGetNonRunAsRoles()
     {
         Collection roles = this.getTargetDependencies();
-        CollectionUtils.filter(roles, new Predicate()
-        {
-            public boolean evaluate(final Object object)
+        CollectionUtils.filter(
+            roles, 
+            new Predicate()
             {
-                DependencyFacade dependency = (DependencyFacade)object;
-                return dependency != null 
-                        && dependency.getSourceElement() != null 
-                        && dependency.getSourceElement() instanceof Role 
-                        && !dependency.hasStereotype(EJB3Profile.STEREOTYPE_SECURITY_RUNAS);
-            }
-        });
-        CollectionUtils.transform(roles, new Transformer()
-        {
-            public Object transform(final Object object)
+                public boolean evaluate(final Object object)
+                {
+                    DependencyFacade dependency = (DependencyFacade)object;
+                    return dependency != null 
+                            && dependency.getSourceElement() != null 
+                            && dependency.getSourceElement() instanceof Role 
+                            && !dependency.hasStereotype(EJB3Profile.STEREOTYPE_SECURITY_RUNAS);
+                }
+            });
+        CollectionUtils.transform(
+            roles, 
+            new Transformer()
             {
-                return ((DependencyFacade)object).getSourceElement();
-            }
-        });
+                public Object transform(final Object object)
+                {
+                    return ((DependencyFacade)object).getSourceElement();
+                }
+            });
         final Collection allRoles = new LinkedHashSet(roles);
         // add all roles which are generalizations of this one
-        CollectionUtils.forAllDo(roles, new Closure()
-        {
-            public void execute(final Object object)
+        CollectionUtils.forAllDo(
+            roles, 
+            new Closure()
             {
-                allRoles.addAll(((Role)object).getAllSpecializations());
-            }
-        });
+                public void execute(final Object object)
+                {
+                    allRoles.addAll(((Role)object).getAllSpecializations());
+                }
+            });
         return allRoles;
     }
 
@@ -872,5 +908,20 @@ public class EJB3SessionFacadeLogicImpl
     protected boolean handleIsListenerEnabled()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_LISTENER);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsExcludeDefaultInterceptors()
+     */
+    protected boolean handleIsExcludeDefaultInterceptors()
+    {
+        boolean excludeDefault = false;
+        String excludeDefaultStr = 
+            (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SERVICE_INTERCEPTOR_EXCLUDE_DEFAULT);
+        if (excludeDefaultStr != null)
+        {
+            excludeDefault = BooleanUtils.toBoolean(excludeDefaultStr);
+        }
+        return excludeDefault;
     }
 }
