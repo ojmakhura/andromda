@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - Interceptors</title>
+    </properties>
+    <body>
+        <section name="Interceptor">
+            <p>
+                Adding custom written interceptors is very easy using the EJB3 cartridge.  The following sections
+                will provide you with enough detail to add your custom made interceptors to session and
+                message-driven beans.  It discusses default, class and method interceptors.
+            </p>
+            <p>
+                All interceptors are configured through the ejb-jar deployment descriptor.  The EJB3 cartridges
+                does NOT use annotations to define interceptors and it's exclusions.
+            </p>
+            <a name="Default_Interceptors"/>
+            <subsection name="Default Interceptor">
+                <p>
+                    A default interceptor is invoked any time a business method of any bean within that
+                    deployment is invoked, unless default interceptors have been excluded on beans or
+                    business methods of beans.
+                </p>
+                <p>
+                    To define a default interceptor for your deployment, model the
+                    <![CDATA[<<DefaultInterceptor>>]]> stereotype on a class.  Since this interceptor is invoked
+                    for all business methods of all beans, you do not need to model any dependencies on it.
+                    The cartridge will generate the class with the necessary interceptor operation and
+                    corresponding annotations within the interceptor class.  It will also add the
+                    <code>interceptor-binding</code> attribute to the <code>assembly-descriptor</code> element
+                    of the ejb-jar deployment descriptor.
+                </p>
+                <p>
+                    You can model as many default interceptor as you require, but at this stage, the ordering
+                    of default interceptors is not guaranteed.
+                </p>
+            </subsection>
+            <a name="Class_Level_Interceptor"/>
+            <subsection name="Class Level Interceptor">
+                <p>
+                    Class level interceptors are invoked when business methods of the modelled class are invoked,
+                    unless class level interceptors have been excluded on business methods.
+                </p>
+                <p>
+                    To define a class level interceptor, model the <![CDATA[<<Interceptor>>]]> stereotype on
+                    a class.  You must model a dependency from a source bean to this target class level interceptor
+                    so that the cartridge knows to configure this interceptor at the class level in the ejb-jar
+                    deployment descriptor.
+                </p>
+                <p>
+                    If you would like to define multiple class level interceptors, then to guarantee the ordering
+                    in which these interceptors are invoked, you must draw a dependency from the first interceptor
+                    to the second interceptor and so forth.  This will chain the interceptors and allow the 
+                    cartridge to configure them correctly in the ejb-jar deployment descriptor.
+                </p>
+            </subsection>
+            <a name="Method_Level_Interceptor"/>
+            <subsection name="Method Level Interceptor">
+                <p>
+                    Method level interceptors are very much similar to class level interceptors, but they are
+                    bound to a specific business method within a bean.  This means that they are only invoked
+                    when the modelled business method of a bean are invoked.
+                </p>
+                <p>
+                    To define a method level interceptor, model the <![CDATA[<<Interceptor>>]]> stereotype on
+                    a class.  You must model a dependency from a bean method to this target method level interceptor
+                    so that the cartridge knows to configure this interceptor at the method level in the ejb-jar
+                    deployment descriptor.
+                </p>
+                <p>
+                    Chaining method level interceptors is exactly the same process as for class level interceptors.
+                </p>
+            </subsection>
+            <a name="Interceptor_Ordering"/>
+            <subsection name="Interceptor Ordering">
+                <p>
+                    The following shows the ordering of default, class and method level interceptors.
+                </p>
+                <p>
+                    <ul>
+                        <li>Default Interceptors - Invoked before all other interceptors</li>
+                        <li>
+                            Class Level Interceptors - Invoked in the chain after default interceptors and before
+                            method level interceptors.
+                        </li>
+                        <li>
+                            Method Level Interceptors - Invoked in the chain after all class level interceptors.
+                        </li>
+                    </ul>
+                </p>
+                <p>
+                    The above are the ordering for externally defined interceptors.  If you define
+                    class interceptor methods within your bean, then these are the last interceptors
+                    to be invoked.
+                </p>
+            </subsection>
+            <a name="Interceptor_Exclusion"/>
+            <subsection name="Interceptor Exclusions">
+                <p>
+                    The EJB3 cartridge allows you to exclude default interceptors for beans and bean methods.
+                    It also allows you to exclude class level interceptors for bean methods.
+                </p>
+                <p>
+                    To exclude the default interceptors, model the 
+                    <code>@andromda.service.interceptor.excludeDefault</code> tagged value.  If this is applied to
+                    a bean class, then the interceptor will be ignored for all methods of the bean class.  If
+                    it is modelled on a business method of a bean, then invocation of that business method
+                    will NOT trigger invocation of the defined default interceptors.
+                </p>
+                <p>
+                    To exclude class level interceptors, model the
+                    <code>@andromda.service.interceptor.excludeClass</code> tagged value on business method
+                    of beans.  This will prevent the container from invoking the defined class level interceptor
+                    when the associated bean method is invoked.
+                </p>
+            </subsection>
+            <a name="Interceptor_Tips"/>
+            <subsection name="Interceptor Tips">
+                <p>
+                    In situations where you have an inheritance hierarchy, interceptor methods from the super
+                    class are always invoked first.  The exception to this rule is the case where the interceptor
+                    has been overridden, regardless of whether the overriding method is defined as an 
+                    interceptor.
+                </p>
+                <p>
+                    Once the interceptors have been generated, they will never be overwritten.  This way, you
+                    can add your implementation for the interceptor and call <code>InvocationContext.proceed()</code>
+                    to continue to call the next interceptors.
+                </p>
+                <p>
+                    Similar to bean classes, bean classes enjoy the benefits of dependency injection in much the same
+                    way.  You can inject resources using the <code>@Resource</code> annotation or an
+                    entity manager using the <code>@PersistenceContext</code> annotation.
+                </p>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                For usage of lifecycle callbacks in entity, session and message-driven beans
+                click <a href="howto14.html">here</a>.
+            </p>
+        </section>
+    </body>
+</document>
