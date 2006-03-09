@@ -10,35 +10,44 @@ package $mdb.packageName;
  *
 $mdb.getDocumentation(" * ")
  */
-
-/**
- * The MessageDriven annotation is now fully configured in ejb-jar.xml
- * This allows to set the class name to the MDB implementation class
- * The annotation is commented to avoid multiple registration with the
- * container.
- *
- * javax.ejb.MessageDriven(activationConfig =
- *{
- *   @javax.ejb.ActivationConfigProperty(propertyName="destinationType", propertyValue="${mdb.destinationType}"),
- *   @javax.ejb.ActivationConfigProperty(propertyName="destination", propertyValue="${mdb.destination}")#if ($mdb.acknowledgeMode || $mdb.messageSelector || $mdb.subscriptionDurability),#end
- *   
+ 
+// The MessageDriven annotation is now fully configured in ejb-jar.xml
+// This allows to set the class name to the MDB implementation class
+// The annotation is commented to avoid multiple registration with the
+// container.
+// @javax.ejb.MessageDriven(activationConfig =
+// {
+//   @javax.ejb.ActivationConfigProperty(propertyName="destinationType", propertyValue="${mdb.destinationType}"),
+//   @javax.ejb.ActivationConfigProperty(propertyName="destination", propertyValue="${mdb.destination}")#if ($mdb.acknowledgeMode || $mdb.messageSelector || $mdb.subscriptionDurability),#end
+//
 #if ($mdb.acknowledgeMode)
- *   @javax.ejb.ActivationConfigProperty(propertyName="acknowledgeMode", propertyValue="${mdb.acknowledgeMode}")#if ($mdb.messageSelector || $mdb.subscriptionDurability),#end
- *   
+//  @javax.ejb.ActivationConfigProperty(propertyName="acknowledgeMode", propertyValue="${mdb.acknowledgeMode}")#if ($mdb.messageSelector || $mdb.subscriptionDurability),#end
+// 
 #end
 #if ($mdb.messageSelector)
- *   @javax.ejb.ActivationConfigProperty(propertyName="messageSelector", propertyValue="${mdb.messageSelector}")#if ($mdb.subscriptionDurability),#end
- *   
+//  @javax.ejb.ActivationConfigProperty(propertyName="messageSelector", propertyValue="${mdb.messageSelector}")#if ($mdb.subscriptionDurability),#end
+//  
 #end
 #if ($mdb.subscriptionDurability)
- *   @javax.ejb.ActivationConfigProperty(propertyName="subscriptionDurability", propertyValue="${mdb.subscriptionDurability}")
+//  @javax.ejb.ActivationConfigProperty(propertyName="subscriptionDurability", propertyValue="${mdb.subscriptionDurability}")
 #end
- *}
- *)
- */
-#if ($mdb.listenerEnabled)
-@javax.ejb.CallbackListener(${mdb.fullyQualifiedMessageDrivenListenerName}.class)
+//}
+//)
+
+#set ($interceptors = $mdb.interceptorReferences)
+#if ($collectionUtils.size($interceptors) >= 1 || $mdb.listenerEnabled)
+#**##if ($mdb.listenerEnabled) 
+#*  *##set ($lifecycleCallback = "${mdb.fullyQualifiedMessageDrivenListenerName}.class")
+#**##else 
+#*  *##set ($lifecycleCallback = "")
+#**##end
+// Lifecycle callback listeners and interceptors are defined in ejb-jar.xml
+// javax.ejb.Interceptors({$transform.getInterceptorsAsList(${interceptors}, ${lifecycleCallback})})
 #end
+#if ($service.excludeDefaultInterceptors)
+// @javax.ejb.ExcludeDefaultInterceptors
+#end
+
 #if ($mdb.transactionManagement)
 @javax.ejb.TransactionManagement(javax.ejb.TransactionManagementType.${mdb.transactionManagement})
 #end
