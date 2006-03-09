@@ -1,8 +1,10 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
@@ -10,8 +12,11 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.Role;
+import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -281,14 +286,16 @@ public class EJB3MessageDrivenFacadeLogicImpl
     public Collection getServiceReferences()
     {
         Collection references = super.getServiceReferences();
-        CollectionUtils.filter(references, new Predicate()
-        {
-            public boolean evaluate(Object object)
+        CollectionUtils.filter(
+            references, 
+            new Predicate()
             {
-                ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
-                return targetElement.hasStereotype(EJB3Profile.STEREOTYPE_SERVICE);
-            }
-        });
+                public boolean evaluate(Object object)
+                {
+                    ModelElementFacade targetElement = ((DependencyFacade)object).getTargetElement();
+                    return targetElement.hasStereotype(EJB3Profile.STEREOTYPE_SERVICE);
+                }
+            });
         return references;
     }
 
@@ -340,6 +347,63 @@ public class EJB3MessageDrivenFacadeLogicImpl
     protected boolean handleIsListenerEnabled()
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_LISTENER);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetInterceptorReferences()
+     */
+    protected Collection handleGetInterceptorReferences()
+    {
+        Collection references = this.getSourceDependencies();
+        CollectionUtils.filter(
+            references, 
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    DependencyFacade dependency = (DependencyFacade)object;
+                    ModelElementFacade targetElement = dependency.getTargetElement();
+                    return (targetElement != null && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_INTERCEPTOR));
+                }
+            });
+        CollectionUtils.transform(
+            references, 
+            new Transformer()
+            {
+                public Object transform(final Object object)
+                {
+                    return ((DependencyFacade)object).getTargetElement();
+                }
+            });
+        final Collection interceptors = new LinkedHashSet(references);
+        CollectionUtils.forAllDo(
+                references,
+                new Closure()
+                {
+                    public void execute(Object object)
+                    {
+                        if (object instanceof EJB3InterceptorFacade)
+                        {
+                            interceptors.addAll(((EJB3InterceptorFacade)object).getInterceptorReferences());
+                        }
+                    }
+                });
+        return interceptors;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleIsExcludeDefaultInterceptors()
+     */
+    protected boolean handleIsExcludeDefaultInterceptors()
+    {
+        boolean excludeDefault = false;
+        String excludeDefaultStr = 
+            (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SERVICE_INTERCEPTOR_EXCLUDE_DEFAULT);
+        if (excludeDefaultStr != null)
+        {
+            excludeDefault = BooleanUtils.toBoolean(excludeDefaultStr);
+        }
+        return excludeDefault;
     }
 
 }
