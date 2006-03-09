@@ -1,6 +1,7 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -328,23 +329,40 @@ public class EJB3SessionOperationFacadeLogicImpl
     protected Collection handleGetInterceptorReferences()
     {
         Collection references = this.getSourceDependencies();
-        CollectionUtils.filter(references, new Predicate()
-        {
-            public boolean evaluate(Object object)
+        CollectionUtils.filter(
+            references, 
+            new Predicate()
             {
-                DependencyFacade dependency = (DependencyFacade)object;
-                ModelElementFacade targetElement = dependency.getTargetElement();
-                return (targetElement != null && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_INTERCEPTOR));
-            }
-        });
-        CollectionUtils.transform(references, new Transformer()
-        {
-            public Object transform(final Object object)
+                public boolean evaluate(Object object)
+                {
+                    DependencyFacade dependency = (DependencyFacade)object;
+                    ModelElementFacade targetElement = dependency.getTargetElement();
+                    return (targetElement != null && targetElement.hasStereotype(EJB3Profile.STEREOTYPE_INTERCEPTOR));
+                }
+            });
+        CollectionUtils.transform(
+            references, 
+            new Transformer()
             {
-                return ((DependencyFacade)object).getTargetElement();
-            }
-        });
-        return references;
+                public Object transform(final Object object)
+                {
+                    return ((DependencyFacade)object).getTargetElement();
+                }
+            });
+        final Collection interceptors = new LinkedHashSet(references);
+        CollectionUtils.forAllDo(
+                references,
+                new Closure()
+                {
+                    public void execute(Object object)
+                    {
+                        if (object instanceof EJB3InterceptorFacade)
+                        {
+                            interceptors.addAll(((EJB3InterceptorFacade)object).getInterceptorReferences());
+                        }
+                    }
+                });
+        return interceptors;
     }
 
     /**
