@@ -17,6 +17,10 @@ public enum ${enum.name} implements java.io.Serializable
 
 #end
 
+    /**
+     * Return the ${enum.name} from a string value
+     * @return ${enum.name} enum object
+     */
     public static ${enum.name} ${enum.fromOperationSignature}
     {
 #if ($enum.literalType.stringType)
@@ -24,5 +28,19 @@ public enum ${enum.name} implements java.io.Serializable
 #else
         return values()[value];
 #end
+    }
+    
+    /**
+     * Return a Collection of all literal values for this enumeration
+     * @return java.util.Collection literal values
+     */
+    public static java.util.Collection literals()
+    {
+        final java.util.Collection<String> literals = new java.util.ArrayList<String>(values().length);
+        for (int i = 0; i < values().length; i++)
+        {
+            literals.add(values()[i].name());
+        }
+        return literals;
     }
 }
