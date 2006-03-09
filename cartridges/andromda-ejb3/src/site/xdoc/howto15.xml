@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - Transactions</title>
+    </properties>
+    <body>
+        <section name="Transactions">
+            <p>
+                Defining transactions within your beans is done via annotations.  This takes the complexity
+                out of the deployment descriptor and makes following transactions very easy.
+            </p>
+            <a name="Transaction_Type"/>
+            <subsection name="Transaction Type">
+	            <p>
+	                By default, session and message-driven beans will be generated with a
+	                <code>@TransactionAttribute</code> annotation with a value of <code>REQUIRED</code>.  To overwrite
+	                this value, simply model the <code>@andromda.ejb.transaction.type</code> tagged value on
+	                the class level or bean method level.
+	            </p>
+	            <p>
+	                The EJB 3.0 spec defines that the transaction management type cannot be specified for EJB 3.0 
+	                entity POJOs.  These entities execute within the transactional context of the caller, which is
+	                the session bean.
+	            </p>
+	            <p>
+	                Your <code>TransactionAttributeType</code> options are:
+	            </p>
+	            <p>
+	                <ul>
+	                    <li>Mandatory</li>
+	                    <li>Never</li>
+	                    <li>NotSupported</li>
+	                    <li>Required</li>
+	                    <li>RequiresNew</li>
+	                    <li>Supports</li>
+	                </ul>
+	            </p>
+	        </subsection>
+            <a name="Transaction_Demarcation"/>
+            <subsection name="Transaction Demarcation">
+                <p>
+	                The transaction demarcation strategy would normally not be set as the default is <code>CONTAINER</code>
+	                managed transaction demarcation.  If you want to specify <code>BEAN</code> managed transaction
+	                demarcation, model the <code>@andromda.ejb.transaction.management</code> tagged value to
+	                <code>BEAN</code>.
+	            </p>
+	            <p>
+	                If you specify <code>BEAN</code> managed transaction demarcation, the cartridge will inject
+	                an instance of <code>UserTransaction</code> into variable name <code>userTrans</code> to
+	                manually define your transaction.
+	            </p>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                To learn about manageable entities, click <a href="howto16.html">here</a>.
+            </p>
+        </section>
+    </body>
+</document>
