@@ -104,8 +104,11 @@
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
-        <modelElements variable="persistenceContexts">
-            <modelElement>
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+            <modelElement variable="persistenceContexts">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacade"/>
             </modelElement>
         </modelElements>
@@ -234,6 +237,9 @@
             </modelElement>
             <modelElement variable="mdbs">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade"/>
+            </modelElement>
+            <modelElement variable="interceptors">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacade"/>
             </modelElement>
             <modelElement variable="manageables">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade"/>
