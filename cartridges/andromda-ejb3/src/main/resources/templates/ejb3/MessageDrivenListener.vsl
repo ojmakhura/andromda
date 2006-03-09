@@ -29,7 +29,7 @@ public class ${mdb.messageDrivenListenerName}
 		}
 		catch (Exception ex)
 		{
-		    throw new RuntimeException(e);
+		    throw new RuntimeException(ex);
 		}
 	}
 	
@@ -43,7 +43,7 @@ public class ${mdb.messageDrivenListenerName}
 		}
 		catch (Exception ex)
 		{
-		    throw new RuntimeException(e);
+		    throw new RuntimeException(ex);
 		}
 	}
 }
