@@ -168,6 +168,17 @@
 			        class
 			    </appliedOnElement>
 			</element>
+			<element name="DEFAULT_INTERCEPTOR">
+			    <documentation>
+			        Defines a custome made default interceptor for 
+			        all the business methods of all session and message 
+			        driven beans within this deployment.
+			    </documentation>
+			    <value>DefaultInterceptor</value>
+			    <appliedOnElement>
+			        class
+			    </appliedOnElement>
+			</element>
 			<element name="LISTENER">
 			    <documentation>
 			        Defines a callback listener class for the entity,
