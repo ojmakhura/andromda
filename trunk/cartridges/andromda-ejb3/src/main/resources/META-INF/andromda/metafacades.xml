@@ -166,6 +166,12 @@
 		</mapping>
 		<property reference="interceptorNamePattern"/>
 	</metafacade>
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3InterceptorFacadeLogicImpl" contextRoot="true">
+		<mapping>
+			<stereotype>DEFAULT_INTERCEPTOR</stereotype>
+		</mapping>
+		<property reference="interceptorNamePattern"/>
+	</metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EnumerationFacadeLogicImpl">
 		<mapping>
 			<stereotype>ENUMERATION</stereotype>
