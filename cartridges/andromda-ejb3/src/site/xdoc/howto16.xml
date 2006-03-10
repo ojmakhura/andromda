@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - Manageable Entities</title>
+    </properties>
+    <body>
+        <section name="Manageable Entities">
+            <p>
+                Manageable entities, otherwise known as CRUD facilities, provide a front-end view to managing
+                entities.  The EJB3 cartridge follows the same rules as in
+                <a href="http://galaxy.andromda.org/docs/andromda-cartridges/manageable-entities/index.html">
+                manageable entities</a>.
+            </p>
+            <p>
+                The most noticable difference to the current manageable entities feature for the Spring
+                cartridge is the replacement of data access objects (DAO) with stateless session beans 
+                for each entity which is marked as <![CDATA[<<Manageable>>]]>.  This and removal of value objects
+                are design changes not visible for a user when using the front-end.
+            </p>
+            <p>
+                There is very little you actually need to do.  Just make sure you have the above
+                stereotype modelled on all entities that require CRUD features and their associated
+                entities and the cartridge will take care of everything else.  The following illustrates
+                how we introduce manageable entities into our long-running example.  Since manageable
+                entities are driven via a web/console front-end, the example lists files from both the
+                EJB layer and the Struts web layer.
+            </p>
+            <p>
+                <img src="images/org/andromda/test/16/a/uml.gif"/>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                The EJB related files are listed below.  The <code>ManageableServiceLocator</code> is used by the
+                Struts <b>Action</b> classes in much the same way as the <code>ServiceLocator</code> is used
+                by the Service Delegates.  Notice how the <code>CarManageableService</code> and
+                <code>PersonManageableService</code> beans are defined int the ejb-jar and jboss deployment
+                descriptors.
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto16/a/Car.java.txt"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/CarType.java.txt"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto16/a/Person.java.txt"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/ManageableServiceLocator.java.txt"><code>ManageableServiceLocator.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto16/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/ejb-jar.xml.txt"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/jboss.xml.txt"><code>jboss.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/persistence.xml.txt"><code>persistence.xml</code></a></li>
+                </ul>
+            </p>
+            <p>
+                The CRUD related files are listed below.  The EJB3 cartridge introduces the 4 CRUD related application
+                exceptions for every entity.  The web tier doesn't explicity catch these exception, but perhaps
+                will be available down the track.  Take a look at the <code>CarManageableServiceBase</code> and
+                <code>PersonManageableServiceBase</code> bean implementations to understand the business logic
+                for implementing EJB 3.0 CRUD operations.
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarCreateManageableException.java.txt"><code>CarCreateManageableException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarDeleteManageableException.java.txt"><code>CarDeleteManageableException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarReadManageableException.java.txt"><code>CarReadManageableException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarUpdateManageableException.java.txt"><code>CarUpdateManageableException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarManageableService.java.txt"><code>CarManageableService.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarManageableServiceBase.java.txt"><code>CarManageableServiceBase.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarForm.java.txt"><code>CarForm.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/ManageCar.java.txt"><code>ManageCar.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/car_help.jsp.txt"><code>car_help.jsp</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/car_crud.jsp.txt"><code>car_crud.jsp</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonCreateManageableException.java.txt"><code>PersonCreateManageableException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonDeleteManageableException.java.txt"><code>PersonDeleteManageableException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonReadManageableException.java.txt"><code>PersonReadManageableException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonUpdateManageableException.java.txt"><code>PersonUpdateManageableException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonManageableService.java.txt"><code>PersonManageableService.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonManageableServiceBase.java.txt"><code>PersonManageableServiceBase.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonForm.java.txt"><code>PersonForm.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/ManagePerson.java.txt"><code>ManagePerson.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/person_help.jsp.txt"><code>person_help.jsp</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/crud/person_crud.jsp.txt"><code>person_crud.jsp</code></a></li>
+                </ul>
+            </p>
+            <p>
+                For further information on manageable entities, visit
+                <a href="http://galaxy.andromda.org/docs/andromda-cartridges/manageable-entities/index.html">
+                manageable entities</a> for AndroMDA.
+            </p>
+        </section>
+    </body>
+</document>
