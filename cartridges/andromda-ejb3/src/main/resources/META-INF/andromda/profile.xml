@@ -1190,6 +1190,7 @@
 					By default, topics are non-durable.
 				</documentation>
 				<value>@andromda.ejb.mdb.subscription.durability</value>
+				<appliedOnElement>Message Driven Bean</appliedOnElement>
 			</element>
 			<element name="CONTAINER_CONFIGURATION">
 			    <documentation>
@@ -1198,6 +1199,48 @@
 			        session bean or MDB.
 			    </documentation>
 			    <value>@andromda.ejb.container.configuration</value>
+			    <appliedOnElement>Message Driven or Session Bean</appliedOnElement>
+			</element>
+			<element name="ENTITY_CACHE">
+			    <documentation>
+			        Defines the cache strategy the entity.
+			    </documentation>
+			    <value>@andromda.persistence.entity.cache</value>
+			    <appliedOnElement>Entities</appliedOnElement>
+			    <allowedValues>
+			        <value>NONE</value>
+			        <value>NONSTRICT_READ_WRITE</value>
+			        <value>READ_ONLY</value>
+			        <value>READ_WRITE</value>
+			        <value>TRANSACTIONAL</value>
+			    </allowedValues>
+			</element>
+			<element name="ASSOCIATION_CACHE">
+			    <documentation>
+			        Defines the cache strategy for relationship
+			        association collection.
+			    </documentation>
+			    <value>@andromda.persistence.association.cache</value>
+			    <appliedOnElement>Association End Between Entities</appliedOnElement>
+			    <allowedValues>
+			        <value>NONE</value>
+			        <value>NONSTRICT_READ_WRITE</value>
+			        <value>READ_ONLY</value>
+			        <value>READ_WRITE</value>
+			        <value>TRANSACTIONAL</value>
+			    </allowedValues>
+			</element>
+			<element name="USE_QUERY_CACHE">
+			    <documentation>
+			        Used to override the default option that
+			        enables/disable query cache.
+			    </documentation>
+			    <value>@andromda.ejb.query.useCache</value>
+			    <appliedOnElement>Query Operations</appliedOnElement>
+			    <allowedValues>
+			        <value>true</value>
+			        <value>false</value>
+			    </allowedValues>
 			</element>
 		</elementGroup>
 	</elements>
