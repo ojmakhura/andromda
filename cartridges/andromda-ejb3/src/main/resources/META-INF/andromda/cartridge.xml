@@ -22,6 +22,9 @@
     <property reference="hibernateJdbcUseStreamsForBinary"/>
     <property reference="hibernateCacheProvider"/>
     <property reference="hibernateTreecacheMbeanObject"/>
+    <property reference="hibernateEnableCache"/>
+    <property reference="hibernateEnableAssociationsCache"/>
+    <property reference="hibernateEnableQueryCache"/>
     <property reference="hibernateTransactionManagerLookupClass"/>
     <property reference="hibernateTransactionFlushBeforeCompletion"/>
     <property reference="hibernateTransactionAutoCloseSession"/>
@@ -34,6 +37,8 @@
     <property reference="xmlEncoding"/>
     <property reference="enableTemplating"/>
     <property reference="jndiNamePrefix"/>
+    <property reference="securityRealm"/>
+    <property reference="enableClustering"/>
 
     <!-- Entity Bean Templates -->
 
@@ -98,19 +103,23 @@
     </template>
     
     <template
-        path="templates/ejb3/persistence.xml.vsl"
+        path="templates/ejb3/config/persistence.xml.vsl"
         outputPattern="META-INF/persistence.xml"
         outlet="entity-config"
         overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
         <modelElements>
+            <modelElement variable="entities">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
+            </modelElement>
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
             </modelElement>
             <modelElement variable="persistenceContexts">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3PersistenceContextFacade"/>
             </modelElement>
+
         </modelElements>
     </template>
     
@@ -225,7 +234,7 @@
     </template>
     
     <template
-        path="templates/ejb3/ejb-jar.xml.vsl"
+        path="templates/ejb3/config/ejb-jar.xml.vsl"
         outputPattern="META-INF/ejb-jar.xml"
         outlet="session-config"
         overwrite="true"
@@ -248,7 +257,7 @@
     </template>
     
     <template
-        path="templates/ejb3/jboss.xml.vsl"
+        path="templates/ejb3/config/jboss/jboss.xml.vsl"
         outputPattern="META-INF/jboss.xml"
         outlet="session-config"
         overwrite="true"
@@ -268,8 +277,56 @@
     </template>
     
     <template
-        path="templates/ejb3/login-config.xml.vsl"
+        path="templates/ejb3/config/jboss/login-config.xml.vsl"
         outputPattern="$generatedFile"
+        outlet="application-metainf"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
+                    <property name="securityEnabled"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/config/jboss/login-service.xml.vsl"
+        outputPattern="$generatedFile"
+        outlet="application-metainf"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
+                    <property name="securityEnabled"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb3/config/jboss/jboss-app.xml.vsl"
+        outputPattern="jboss-app.xml"
+        outlet="application-metainf"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
+                    <property name="securityEnabled"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/config/jboss/auth.conf.vsl"
+        outputPattern="auth.conf"
         outlet="application-config"
         overwrite="false"
         outputToSingleFile="true"
@@ -283,35 +340,17 @@
         </modelElements>
     </template>
     
-    <!--
     <template
-        path="templates/ejb3/login-service.xml.vsl"
-        outputPattern="$generatedFile"
+        path="templates/ejb3/config/jboss/ejb3-entity-cache-service.xml.vsl"
+        outputPattern="ejb3-entity-cache-service.xml"
         outlet="application-config"
-        overwrite="false"
+        overwrite="true"
         outputToSingleFile="true"
         outputOnEmptyElements="false">
         <modelElements>
-            <modelElement variable="services">
-                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
-                    <property name="securityEnabled"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-    -->
-      
-    <template
-        path="templates/ejb3/auth.conf.vsl"
-        outputPattern="auth.conf"
-        outlet="application-config"
-        overwrite="false"
-        outputToSingleFile="true"
-        outputOnEmptyElements="false">
-        <modelElements>
-            <modelElement variable="services">
-                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade">
-                    <property name="securityEnabled"/>
+            <modelElement variable="entities">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
+                    <property name="cacheEnabled"/>
                 </type>
             </modelElement>
         </modelElements>
