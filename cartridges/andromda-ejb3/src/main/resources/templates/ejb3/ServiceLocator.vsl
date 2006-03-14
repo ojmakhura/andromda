@@ -112,9 +112,9 @@ public class $serviceLocatorName
 #*    *##set ($jndiName = "${service.jndiNameRemote}")
 #*  *##else
 #*    *##if ($stringUtils.isNotBlank($service.jndiNamePrefix))
-#*        *##set ($jndiName = "${service.jndiNamePrefix}/${service.serviceName}/remote")
+#*        *##set ($jndiName = "${service.jndiNamePrefix}/${service.fullyQualifiedServiceName}/remote")
 #*    *##else
-#*        *##set ($jndiName = "${service.serviceName}/remote")
+#*        *##set ($jndiName = "${service.fullyQualifiedServiceName}/remote")
 #*    *##end
 #*  *##end
         return (${service.fullyQualifiedServiceRemoteInterfaceName})
@@ -136,9 +136,9 @@ public class $serviceLocatorName
 #*    *##set ($jndiName = "${service.jndiNameLocal}")
 #*  *##else
 #*    *##if ($stringUtils.isNotBlank($service.jndiNamePrefix))
-#*      *##set ($jndiName = "${service.jndiNamePrefix}/${service.serviceName}/local")
+#*      *##set ($jndiName = "${service.jndiNamePrefix}/${service.fullyQualifiedServiceName}/local")
 #*    *##else
-#*      *##set ($jndiName = "${service.serviceName}/local")
+#*      *##set ($jndiName = "${service.fullyQualifidServiceName}/local")
 #*    *##end
 #*  *##end
         return (${service.fullyQualifiedServiceLocalInterfaceName})

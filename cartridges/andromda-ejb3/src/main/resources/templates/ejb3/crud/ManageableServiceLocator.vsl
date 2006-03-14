@@ -120,7 +120,7 @@ public class $manageableServiceLocatorName
         throws javax.naming.NamingException
     {
 #**##if ($stringUtils.isNotBlank($manageable.jndiNamePrefix))
-#*  *##set ($jndiName = "${manageable.jndiNamePrefix}/${manageable.manageableServiceName}/remote")
+#*  *##set ($jndiName = "${manageable.jndiNamePrefix}/${manageable.fullyQualifiedManageableServiceName}/remote")
 #**##else
 #*  *##set ($jndiName = "${manageable.manageableServiceName}/remote")
 #**##end
