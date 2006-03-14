@@ -69,6 +69,9 @@ $entity.getDocumentation(" * ")
 ##
 @javax.persistence.DiscriminatorValue("${entity.discriminatorValue}")
 #end
+#if ($entity.cacheEnabled)
+@org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${entity.cacheType})
+#end
 public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSuperclass) abstract class ${entity.entityEmbeddableName}#else class ${entity.entityName}#end
 
 #if($entity.generalization)
@@ -448,6 +451,9 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.OrderBy
 #*      *##end
 #*    *##end
+#*    *##if ($target.associationCacheEnabled)
+    @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
+#*    *##end
     public $target.getterSetterTypeName ${target.getterName}()
     {
         return this.${target.name};
@@ -545,6 +551,9 @@ $attribute.getDocumentation("     * ")
 #*      *##else
     @javax.persistence.OrderBy
 #*      *##end
+#*    *##end
+#*    *##if ($target.associationCacheEnabled)
+    @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
 #*    *##end
     public $target.getterSetterTypeName ${target.getterName}()
     {
@@ -708,6 +717,9 @@ $finder.getDocumentation("     * ")
         query.setParameter(${index},#if ($parameter.type.primitive) new ${parameter.type.wrapperName}(${parameter.name})#else ${parameter.name}#if ($parameter.enumerationTypeOrdinal).ordinal()#elseif ($parameter.enumerationTypeString).name()#end#end#if ($parameter.temporalType), javax.persistence.TemporalType.${parameter.temporalType}#end);
 #*      *##end
 #*    *##end
+#*  *##end
+#*  *##if ($finder.useQueryCache)
+        query.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}/${finder.name}");
 #*  *##end
 #*  *##if ($stringUtils.equalsIgnoreCase($returnType, "void"))
         query.executeUpdate();
