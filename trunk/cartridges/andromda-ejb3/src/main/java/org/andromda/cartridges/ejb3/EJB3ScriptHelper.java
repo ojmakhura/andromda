@@ -100,7 +100,6 @@ public class EJB3ScriptHelper
             result = StringUtils.replaceChars(name, '.', '_');
         }
         return result;
-        
     }
     
     /**
