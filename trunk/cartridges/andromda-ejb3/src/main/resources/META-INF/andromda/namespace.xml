@@ -66,6 +66,13 @@
 			        login-config.xml descriptor.
 			    </documentation>
 			</property>
+			<property name="application-metainf">
+			    <documentation>
+			        The location where the application specific XML 
+			        descriptors that are packaged in the ear file are
+			        generated.
+			    </documentation>
+			</property>
 			<property name="message-driven-beans">
 				<documentation>
 					The directory to which Message Driven Bean files 
@@ -196,6 +203,84 @@
                     </ul>
                 </documentation>
             </property>
+            <property name="hibernateEnableCache">
+                <default>false</default>
+                <documentation>
+                    Enable/disable hibernate's second level cache 
+                    features for the cartridge.  This implies the
+                    JBoss Cache framework for the EJB3 cartridge.
+                    By enabling this, you are enabling entity
+                    caching.
+                </documentation>
+            </property>
+            <property name="hibernateEnableAssociationsCache">
+                <default>false</default>
+                <documentation>
+                    Enable/disable Hibernate's second level cache 
+                    feature for entity associations.
+                    Please <strong>NOTE</strong> that hibernateEnableCache 
+                    should also be enabled when specifying this property.
+                </documentation>
+            </property>
+            <property name="hibernateEnableQueryCache">
+                <default>false</default>
+                <documentation>
+                    Enable/disable Hibernate's query cache
+                    feature for queries.
+                    Please <strong>NOTE</strong> that hibernateEnableCache 
+                    should also be enabled when specifying this property.
+                </documentation>
+            </property>
+            <property name="hibernateEntityCache">
+                <default>READ_WRITE</default>
+                <documentation>
+                    Defines the default strategy for Entities caching. 
+                    Can be overwritten using the corresponding
+                    tagged value <code>@andromda.persistence.entity.cache</code>.
+                    Possible values are:
+                    <ul>
+                       <li>READ_WRITE</li>
+                       <li>NONSTRICT_READ_WRITE</li>
+                       <li>READ_ONLY</li>
+                       <li>TRANSACTIONAL</li>
+                       <li>NONE</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="hibernateAssociationCache">
+                <default>READ_WRITE</default>
+                <documentation>
+                    Defines the default strategy for associations between 
+                    Entities caching. Can be overwrited with the corresponding 
+                    tagged value <code>@andromda.persistence.association.cache</code>.
+                    Possible values are:
+                    <ul>
+                       <li>READ_WRITE</li>
+                       <li>NONSTRICT_READ_WRITE</li>
+                       <li>READ_ONLY</li>
+                       <li>TRANSACTIONAL</li>
+                       <li>NONE</li>
+                    </ul>
+                </documentation>
+            </property>
+		</propertyGroup>
+		<propertyGroup name="Clustering">
+		    <property name="enableClustering">
+		        <default>false</default>
+		        <documentation>
+		            Enable/disable EJB 3.0 clustering by
+		            the application server.  Applies to
+		            stateless and stateful session bean
+		            clustering.  You can override the
+		            default setting via the
+		            <code>@andromda.service.clustered</code>
+		            tagged value.  Possible values are:
+		            <ul>
+		                <li>true</li>
+		                <li>false</li>
+		            </ul>
+		        </documentation>
+		    </property>
 		</propertyGroup>
         <propertyGroup name="Transactions">
             <property name="hibernateTransactionManagerLookupClass" required="false">
