@@ -92,6 +92,11 @@ public class EJB3SessionFacadeLogicImpl
      */
     public static final String SERVICE_JNDI_NAME_PREFIX = "jndiNamePrefix";
     
+    /**
+     * The property that determines application wide clustering
+     */
+    public static final String SERVICE_ENABLE_CLUSTERING = "enableClustering";
+    
     // ---------------- constructor -------------------------------
 	
     public EJB3SessionFacadeLogicImpl (Object metaObject, String context)
@@ -923,5 +928,13 @@ public class EJB3SessionFacadeLogicImpl
             excludeDefault = BooleanUtils.toBoolean(excludeDefaultStr);
         }
         return excludeDefault;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsClusteringEnabled()
+     */
+    protected boolean handleIsClusteringEnabled()
+    {
+        return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(SERVICE_ENABLE_CLUSTERING)));
     }
 }
