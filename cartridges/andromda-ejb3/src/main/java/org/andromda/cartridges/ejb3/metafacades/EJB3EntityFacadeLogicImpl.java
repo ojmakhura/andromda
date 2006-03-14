@@ -147,9 +147,19 @@ public class EJB3EntityFacadeLogicImpl
     private static final String ENTITY_COMPOSITE_PRIMARY_KEY_NAME_PATTERN = "entityCompositePrimaryKeyNamePattern";
     
     /**
-     * The poroperty that stores the generic finders option
+     * The property that stores the generic finders option
      */
     private static final String ENTITY_GENERIC_FINDERS = "entityGenericFinders";
+
+    /**
+     * The property that stores whether caching is enabled.
+     */
+    private static final String HIBERNATE_ENABLE_CACHE = "hibernateEnableCache";
+    
+    /**
+     * The property that stores the hibernate entity cache value.
+     */
+    private static final String HIBERNATE_ENTITY_CACHE = "hibernateEntityCache";
     
     // ---------------- constructor -------------------------------
 
@@ -1040,5 +1050,26 @@ public class EJB3EntityFacadeLogicImpl
     protected Object handleGetIdentifer()
     {
         return (EJB3EntityAttributeFacade)this.getIdentifiers().iterator().next();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetCacheType()
+     */
+    protected String handleGetCacheType()
+    {
+        String cacheType = (String)findTaggedValue(EJB3Profile.TAGGEDVALUE_HIBERNATE_ENTITY_CACHE);
+        if (StringUtils.isBlank(cacheType))
+        {
+            cacheType = String.valueOf(this.getConfiguredProperty(HIBERNATE_ENTITY_CACHE));
+        }
+        return StringUtils.trimToEmpty(cacheType);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsCacheEnabled()
+     */
+    protected boolean handleIsCacheEnabled()
+    {
+        return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(HIBERNATE_ENABLE_CACHE)));
     }
 }
