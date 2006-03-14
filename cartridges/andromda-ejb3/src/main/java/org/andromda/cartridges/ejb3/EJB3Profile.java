@@ -492,4 +492,19 @@ public class EJB3Profile
     public static final String TAGGEDVALUE_SERVICE_INTERCEPTOR_EXCLUDE_CLASS = 
         profile.get("EXCLUDE_CLASS_INTERCEPTORS");
     
+    /**
+     * Defines the cache type for the Entity.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_ENTITY_CACHE = profile.get("ENTITY_CACHE");
+
+    /**
+     * Defines the cache type for a relationship collection.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE = profile.get("ASSOCIATION_CACHE");
+
+    /**
+     * Defines whether query cache is enable for query.
+     */
+    public static final String TAGGEDVALUE_EJB_USE_QUERY_CACHE = profile.get("USE_QUERY_CACHE");
+    
 }
