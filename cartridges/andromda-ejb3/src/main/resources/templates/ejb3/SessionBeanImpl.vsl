@@ -92,8 +92,9 @@ $operation.getDocumentation("     * ")
 #*  *##end
 #**##end
 #end
+#if ($service.stateful)
 
-    // ----------- Generic Methods -----------
+    // ----------- Remove Method Impl -----------
     
     /**
      * @see ${service.fullyQualifiedServiceName}#remove()
@@ -102,4 +103,5 @@ $operation.getDocumentation("     * ")
     {
         //TODO: put your implementation here
     }
+#end
 }
