@@ -1,0 +1,5 @@
+$securityRealm {
+   // jBoss LoginModule
+   org.jboss.security.ClientLoginModule  required
+   ;
+};

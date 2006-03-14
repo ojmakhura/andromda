@@ -1,0 +1,27 @@
+#set ($generatedFile = "${securityRealm}-login-config.xml")
+<?xml version="1.0" encoding="${xmlEncoding}"?>
+<!DOCTYPE policy PUBLIC
+          "-//JBoss//DTD JBOSS Security Config 3.0//EN"
+          "http://www.jboss.org/j2ee/dtd/security_config.dtd">
+<policy>
+    <application-policy name="${securityRealm}">
+        <authentication>
+            <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule"
+                          flag="required">
+                <module-option name="debug">true</module-option>
+                <module-option name="unauthenticatedIdentity">guest</module-option>
+                <module-option name="dsJndiName">${entityManagerJTADataSource}</module-option>
+                <module-option name="principalsQuery">
+                    SELECT PASSWORD 'Password' FROM principal WHERE BINARY PRINCIPAL_ID =?
+                </module-option>
+                <module-option name="rolesQuery">
+                    SELECT ROLE 'Roles', ROLE_GROUP 'RoleGroups' FROM role WHERE BINARY PRINCIPAL_ID =?
+                </module-option>
+                <!-- uncomment to enable MD5 and BASE64 hash encoding
+                <module-option name="hashAlgorithm">MD5</module-option>
+                <module-option name="hashEncoding">BASE64</module-option>
+                -->
+            </login-module>
+        </authentication>
+    </application-policy>
+</policy>
