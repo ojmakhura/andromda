@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="${xmlEncoding}"?>
+<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 4.0//EN"
+                       "http://www.jboss.org/j2ee/dtd/jboss_4_0.dtd">
+
+<jboss>
+
+#foreach ($service in $services)
+#**##if ($service.securityEnabled && !$generatedFile)
+#*  *##set ($securityRealm = "${service.securityRealm}")
+#**##end
+#end
+#if ($stringUtils.isNotBlank(${securityRealm}))
+    <security-domain>${securityRealm}</security-domain>
+    
+#end
+    <enterprise-beans>
+
+#foreach ($service in $services)
+        <session>
+            <ejb-name>${service.fullyQualifiedServiceName}</ejb-name>
+#**##if ($service.viewTypeRemote && $stringUtils.isNotBlank($service.jndiNameRemote))
+            <jndi-name>${service.jndiNameRemote}</jndi-name>
+#**##end
+#**##if ($service.viewTypeLocal && $stringUtils.isNotBlank($service.jndiNameLocal))
+            <local-jndi-name>${service.jndiNameLocal}</local-jndi-name>
+#**##end
+        </session>
+
+#end
+#foreach ($manageable in $manageables)
+        <session>
+            <ejb-name>${manageable.fullyQualifiedManageableServiceName}</ejb-name>
+        </session>
+
+#end
+#foreach ($mdb in $mdbs)
+        <message-driven>
+            <ejb-name>${mdb.fullyQualifiedMessageDrivenName}</ejb-name>
+            <destination-jndi-name>${mdb.destination}</destination-jndi-name>
+#**##if ($stringUtils.isNotBlank($mdb.containerConfiguration))
+            <configuration-name>${mdb.containerConfiguration}</configuration-name>
+#**##end
+        </message-driven>
+        
+#end
+    </enterprise-beans>
+
+<!-- jboss container merge-point -->
+    
+</jboss>
