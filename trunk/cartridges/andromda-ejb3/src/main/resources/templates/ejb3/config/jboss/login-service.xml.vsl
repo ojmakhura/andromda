@@ -1,0 +1,14 @@
+#set ($generatedFile = "${securityRealm}-login-service.xml")
+<?xml version="1.0" encoding="${xmlEncoding}"?>
+<server>
+    <mbean code="org.jboss.security.auth.login.DynamicLoginConfig"
+           name="${securityRealm}:service=DynamicLoginConfig">
+        <attribute name="AuthConfig">META-INF/${securityRealm}-login-config.xml</attribute>
+        <depends optional-attribute-name="LoginConfigService">
+            jboss.security:service=XMLLoginConfig
+        </depends>
+        <depends optional-attribute-name="SecurityManagerService">
+            jboss.security:service=JaasSecurityManager
+        </depends>
+    </mbean>
+</server>
