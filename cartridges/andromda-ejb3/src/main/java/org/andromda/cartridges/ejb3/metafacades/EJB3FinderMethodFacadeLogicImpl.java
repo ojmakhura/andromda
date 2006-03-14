@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.ParameterFacade;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -24,7 +25,12 @@ public class EJB3FinderMethodFacadeLogicImpl
     /**
      * Stores whether or not named parameters should be used in EJB queries.
      */
-    public static final String QUERY_USE_NAMED_PARAMETERS = "queryUseNamedParameters";
+    private static final String QUERY_USE_NAMED_PARAMETERS = "queryUseNamedParameters";
+    
+    /**
+     * Stores whether query cache is enabled application wide
+     */
+    private static final String USE_QUERY_CACHE = "hibernateEnableQueryCache";
     
     // ---------------- constructor -------------------------------
 	
@@ -110,8 +116,27 @@ public class EJB3FinderMethodFacadeLogicImpl
      */
     protected boolean handleIsUseNamedParameters()
     {
-        return Boolean.valueOf(String.valueOf(
-                this.getConfiguredProperty(QUERY_USE_NAMED_PARAMETERS))).booleanValue();
+        return BooleanUtils.toBoolean(String.valueOf(
+                this.getConfiguredProperty(QUERY_USE_NAMED_PARAMETERS)));
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogic#handleIsUseQueryCache()
+     */
+    protected boolean handleIsUseQueryCache()
+    {
+        boolean queryCacheEnabled = false;
+        String queryCacheEnabledStr = (String)findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_USE_QUERY_CACHE);
+        if (StringUtils.isBlank(queryCacheEnabledStr))
+        {
+            queryCacheEnabled = BooleanUtils.toBoolean(
+                    String.valueOf(this.getConfiguredProperty(USE_QUERY_CACHE)));
+        }
+        else
+        {
+            queryCacheEnabled = BooleanUtils.toBoolean(queryCacheEnabledStr);
+        }
+        return queryCacheEnabled;
     }
 
 }
