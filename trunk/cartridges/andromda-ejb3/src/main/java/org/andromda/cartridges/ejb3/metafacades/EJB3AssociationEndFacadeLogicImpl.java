@@ -14,6 +14,7 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -146,6 +147,16 @@ public class EJB3AssociationEndFacadeLogicImpl
      * the eager loading strategy and aggregation define lazy loading strategy.
      */
     private static final String COMPOSITION_DEFINES_EAGER_LOADING = "compositionDefinesEagerLoading";
+
+    /**
+     * The property that stores whether relationship collection caching is enabled.
+     */
+    private static final String HIBERNATE_ASSOCIATION_ENABLE_CACHE = "hibernateEnableAssociationsCache";
+    
+    /**
+     * Stores the default cache strategy for relationship Collections.
+     */
+    private static final String HIBERNATE_ASSOCIATION_CACHE = "hibernateAssociationCache";
     
     // ---------------- constructor -------------------------------
 	
@@ -617,5 +628,26 @@ public class EJB3AssociationEndFacadeLogicImpl
     protected String handleGetSetterLabelName()
     {
         return "set" + StringUtils.capitalize(this.getLabelName());
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCacheType()
+     */
+    protected String handleGetCacheType()
+    {
+        String cacheType = (String)findTaggedValue(EJB3Profile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE);
+        if (StringUtils.isBlank(cacheType))
+        {
+            cacheType = String.valueOf(this.getConfiguredProperty(HIBERNATE_ASSOCIATION_CACHE));
+        }
+        return StringUtils.trimToEmpty(cacheType);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsAssociationCacheEnabled()
+     */
+    protected boolean handleIsAssociationCacheEnabled()
+    {
+        return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(HIBERNATE_ASSOCIATION_ENABLE_CACHE)));
     }
 }
