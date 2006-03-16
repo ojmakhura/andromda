@@ -110,11 +110,6 @@ public class EJB3Profile
      * Timer Service timeout callback method.
      */
     public static final String STEREOTYPE_SERVICE_TIMER_TIMEOUT = profile.get("SERVICE_TIMER_TIMEOUT");
-    
-    /**
-     * Represents a LOB type attribute.
-     */
-    public static final String STEREOTYPE_LOB = profile.get("LOB");
 
     /**
      * The stereotype indicating the finder method parameter result type
@@ -393,6 +388,11 @@ public class EJB3Profile
      * The tagged value representing the flush mode on bean operation.
      */
     public static final String TAGGEDVALUE_EJB_PERSISTENCE_FLUSH_MODE = profile.get("SERVICE_PERSISTENCE_FLUSH_MODE");
+    
+    /**
+     * The tagged value overriding the default LOB type for attribute.
+     */
+    public static final String TAGGEDVALUE_EJB_PERSISTENCE_LOB_TYPE = profile.get("LOB_TYPE");
     
     /**
      * The tagged value representing the session EJB type (Stateless or Stateful)
