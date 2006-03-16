@@ -145,7 +145,6 @@ public class EJB3EntityAttributeFacadeLogicImpl
 	protected boolean handleIsVersion() 
 	{
 		boolean isVersion = false;
-		
 		if (this.hasStereotype(EJB3Profile.STEREOTYPE_VERSION))
 		{
 			isVersion = true;
@@ -158,9 +157,17 @@ public class EJB3EntityAttributeFacadeLogicImpl
      */
 	protected boolean handleIsLob() 
 	{
-		return this.hasStereotype(EJB3Profile.STEREOTYPE_LOB);
+		return this.getType().isBlobType() || this.getType().isClobType();
 	}
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleGetLobType()
+     */
+    protected String handleGetLobType()
+    {
+        return StringUtils.trimToEmpty((String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_PERSISTENCE_LOB_TYPE));
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacade#getGeneratorType()
      */
