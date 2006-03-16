@@ -394,6 +394,9 @@ $attribute.getDocumentation("     * ")
      *
      * @return $target.getterSetterTypeName
      */
+#*    *##if ($target.transient)
+    @javax.persistence.Transient
+#*    *##end
 #*    *##set ($argExists = false)
     @javax.persistence.ManyToOne(#if (!$target.optional)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.LAZY#end)
 ##
@@ -442,6 +445,9 @@ $attribute.getDocumentation("     * ")
      *
      * @return $target.getterSetterTypeName
      */
+#*    *##if ($target.transient)
+    @javax.persistence.Transient
+#*    *##end
 #*    *##set ($argExists = false)
     @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
 #*    *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
@@ -481,6 +487,9 @@ $attribute.getDocumentation("     * ")
      *
      * @return $target.getterSetterTypeName
      */
+#*    *##if ($target.transient)
+    @javax.persistence.Transient
+#*    *##end
 #*    *##set ($argExists = false)
     @javax.persistence.OneToOne(#if($associationEnd.owning)#if (!$target.optional)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.LAZY#end)
 #*    *##if($associationEnd.owning)
@@ -529,6 +538,9 @@ $attribute.getDocumentation("     * ")
      *
      * @return $target.getterSetterTypeName
      */
+#*    *##if ($target.transient)
+    @javax.persistence.Transient
+#*    *##end
 #*    *##set ($argExists = false)
     @javax.persistence.ManyToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
 ## Use Aggregation and Composition to determine owning side
