@@ -61,11 +61,6 @@ public class EJB3Profile
      * Specifies the version stereotype - optimistic lock value of an attribute of an entity.
      */
     public static final String STEREOTYPE_VERSION = profile.get("VERSION");
-
-    /**
-     * Represents a transient entity attribute - non persistent.
-     */
-    public static final String STEREOTYPE_TRANSIENT = profile.get("TRANSIENT");
     
     /**
      * Represents a reference to a value object - used in EJB2.x
@@ -97,11 +92,6 @@ public class EJB3Profile
      * Represents an interceptor class for a session or message-driven bean.
      */
     public static final String STEREOTYPE_INTERCEPTOR = profile.get("INTERCEPTOR");
-    
-    /**
-     * Represents a default interceptor for a session or message-driven bean.
-     */
-    public static final String STEREOTYPE_DEFAULT_INTERCEPTOR = profile.get("DEFAULT_INTERCEPTOR");
     
     /**
      * Represents a dependency from an actor that is identified to
@@ -491,6 +481,11 @@ public class EJB3Profile
      */
     public static final String TAGGEDVALUE_SERVICE_INTERCEPTOR_EXCLUDE_CLASS = 
         profile.get("EXCLUDE_CLASS_INTERCEPTORS");
+    
+    /**
+     * Defines a default interceptor for a session or message-driven bean.
+     */
+    public static final String TAGGEDVALUE_DEFAULT_INTERCEPTOR = profile.get("DEFAULT_INTERCEPTOR");
     
     /**
      * Defines the cache type for the Entity.
