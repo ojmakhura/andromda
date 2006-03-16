@@ -914,7 +914,18 @@ public class EJB3EntityFacadeLogicImpl
                     separator = ", ";
                     if (includeTypes)
                     {
-                        sb.append(attr.getType().getFullyQualifiedName());
+                        /**
+                         * If attribute is a LOB and lob type is overriden, then use 
+                         * overriding lob type.
+                         */
+                        if (attr.isLob() && StringUtils.isNotBlank(attr.getLobType()))
+                        {
+                            sb.append(attr.getLobType());
+                        }
+                        else
+                        {
+                            sb.append(attr.getType().getFullyQualifiedName());
+                        }
                         sb.append(" ");
                     }
                     if (includeNames)
