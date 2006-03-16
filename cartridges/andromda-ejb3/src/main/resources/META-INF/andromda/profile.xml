@@ -223,20 +223,6 @@
 			        Service Operation
 			    </appliedOnElement>
 			</element>
-			<element name="LOB">
-			    <documentation>
-			        Specifies whether the entity attribute is
-			        defined as either a large binary or character 
-			        type.
-			        BLOB fields represent Byte[] or Serializable types.
-			        CLOB fiels represent char[], Character[] or String
-			        types.
-			    </documentation>
-			    <value>LOB</value>
-			    <appliedOnElement>
-			        Entity Attribute
-			    </appliedOnElement>
-			</element>
 			<element name="RESULT_TYPE_FIRST">
 			    <documentation>
 			        Specifies the finder method parameter
@@ -814,6 +800,24 @@
                     <value>list</value>
                 </allowedValues>
             </element>
+			<element name="LOB_TYPE">
+			    <documentation>
+			        Override the entity attribute type where
+			        the property is defined as either a large 
+			        binary or character type via datatype::Clob or
+			        datatype::Blob respectively.
+			        BLOB fields represent Byte[] or Serializable types.
+			        CLOB fiels represent char[], Character[] or String
+			        types.
+			        Make sure to define the fully qualified type
+			        name for the tagged value.
+			    </documentation>
+			    <value>@andromda.persistence.lob.type</value>
+			    <appliedOnElement>
+			        Entity Attribute of Type datatype::Clob or
+			        datatype::Blob
+			    </appliedOnElement>
+			</element>
 			<element name="SERVICE_TYPE">
 				<documentation>
 					Used at the class level of a service bean to 
