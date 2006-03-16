@@ -73,14 +73,6 @@
 				<value>Version</value>
 				<appliedOnElement>Entity attribute</appliedOnElement>
 			</element>
-			<element name="TRANSIENT">
-				<documentation>
-					Identifies an entity attribute as a transient
-					attribute which is non persistent.
-				</documentation>
-				<value>Transient</value>
-				<appliedOnElement>Entity attribute</appliedOnElement>
-			</element>
 			<element name="PERSISTENCE_CONTEXT">
 				<documentation>
 					Identifies a persistence context used to express a dependency
@@ -164,17 +156,6 @@
 			        bean.
 			    </documentation>
 			    <value>Interceptor</value>
-			    <appliedOnElement>
-			        class
-			    </appliedOnElement>
-			</element>
-			<element name="DEFAULT_INTERCEPTOR">
-			    <documentation>
-			        Defines a custome made default interceptor for 
-			        all the business methods of all session and message 
-			        driven beans within this deployment.
-			    </documentation>
-			    <value>DefaultInterceptor</value>
 			    <appliedOnElement>
 			        class
 			    </appliedOnElement>
@@ -1036,6 +1017,10 @@
 			    <appliedOnElement>
 			        Service Operation
 			    </appliedOnElement>
+			    <allowedValues>
+			        <value>true</value>
+			        <value>false</value>
+			    </allowedValues>
 			</element>
 			<element name="EXCLUDE_CLASS_INTERCEPTORS">
 			    <documentation>
@@ -1047,6 +1032,26 @@
 			    <appliedOnElement>
 			        Service Operation
 			    </appliedOnElement>
+			    <allowedValues>
+			        <value>true</value>
+			        <value>false</value>
+			    </allowedValues>
+			</element>
+			<element name="DEFAULT_INTERCEPTOR">
+			    <documentation>
+			        Defines the modelled interceptor as a default 
+			        interceptor for all business methods of all 
+			        session and message driven beans within this 
+			        deployment.
+			    </documentation>
+			    <value>@andromda.service.interceptor.default</value>
+			    <appliedOnElement>
+			        Interceptor Class
+			    </appliedOnElement>
+			    <allowedValues>
+			        <value>true</value>
+			        <value>false</value>
+			    </allowedValues>
 			</element>
 			<element name="AUTOMATIC_KEY">
 				<documentation>
