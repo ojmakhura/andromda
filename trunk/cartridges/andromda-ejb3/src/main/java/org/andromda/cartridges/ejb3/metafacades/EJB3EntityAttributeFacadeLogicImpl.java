@@ -451,20 +451,6 @@ public class EJB3EntityAttributeFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsTransient()
-     */
-    protected boolean handleIsTransient()
-    {
-        boolean isTransient = false;
-        
-        if (this.hasStereotype(EJB3Profile.STEREOTYPE_TRANSIENT))
-        {
-            isTransient = true;
-        }
-        return isTransient;
-    }
-
-    /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleGetTemporalType()
      */
     protected String handleGetTemporalType()
