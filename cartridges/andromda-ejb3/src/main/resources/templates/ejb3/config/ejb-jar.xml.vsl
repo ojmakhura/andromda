@@ -103,13 +103,13 @@
 #*  *##if (!$defaultInterceptorExists)
         <interceptor-binding>
             <ejb-name>*</ejb-name>
+#*    *##set ($defaultInterceptorExists = true)
 #*  *##end
             <interceptor-class>${interceptor.fullyQualifiedName}</interceptor-class>
-#*  *##if (!$defaultInterceptorExists)
-        </interceptor-binding>
-#*  *##end
-#*  *##set ($defaultInterceptorExists = true)
 #**##end
+#end
+#if ($defaultInterceptorExists)
+        </interceptor-binding>
 #end
 #foreach ($service in $services)
 ##
