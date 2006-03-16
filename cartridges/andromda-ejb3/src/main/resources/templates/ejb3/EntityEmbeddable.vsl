@@ -102,10 +102,15 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
 
     // ----------- Attribute Definitions ------------
 
-#if ($entity.compositePrimaryKeyPresent)
+##
+## If composite PK attribute declaration
+##
+#**##if ($entity.compositePrimaryKeyPresent)
     private ${entity.fullyQualifiedEntityCompositePrimaryKeyName} pk;
-#end
+#**##end
+##
 ## Only include identifier attributes if a composite primary key is NOT present
+##
 #**##foreach ($attribute in $attributes)
 #*  *##if ($entity.compositePrimaryKeyPresent && $attribute.identifier)
 #*    *##set ($doAttribute = false)
@@ -113,9 +118,13 @@ public#if (!$entity.requiresGeneralizationMapping && !$entity.embeddableSupercla
 #*    *##set ($doAttribute = true)
 #*  *##end
 #*  *##if ($doAttribute)
-    private ${attribute.type.fullyQualifiedName} $attribute.name;
+##
+## Check for overriding LOB type
+##
+    private #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name;
 #*  *##end
 #**##end
+
 #end
 #set ($entityRelations = $entity.allEntityRelations)
 #if (!$entityRelations.empty)
@@ -301,7 +310,10 @@ $constant.getDocumentation("     * ")
     // -------- Attribute Accessors ----------
 
 #**##foreach ($attribute in $attributes)
-## Only include accessors for identifier attributes if entity does not have a composite primary key
+##
+## Only include accessors for identifier attributes if entity does not 
+## have a composite primary key
+##
 #*  *##if ($entity.compositePrimaryKeyPresent && $attribute.identifier)
 #*    *##set ($doAttributeAccessors = false)
 #*  *##else
@@ -314,48 +326,55 @@ $constant.getDocumentation("     * ")
 $attribute.getDocumentation("     * ")
      * @return $attribute.type.fullyQualifiedName The value of ${attribute.name}
      */
-#*    *##if ($attribute.identifier)
-    @javax.persistence.Id
-#*      *##if ($attribute.sequenceGeneratorType)
-    @javax.persistence.SequenceGenerator(name = "${attribute.generatorName}"#if ($attribute.sequenceGeneratorType), sequenceName = "${attribute.generatorSourceName}"#end#if ($attribute.sequenceGeneratorType), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
-#*      *##elseif ($attribute.tableGeneratorType)
-    @javax.persistence.TableGenerator(name = "${attribute.generatorName}"#if ($attribute.tableGeneratorType), table = "${attribute.generatorSourceName}"#end#if ($attribute.generatorPkColumnValue), pkColumnValue = "${attribute.generatorPkColumnValue}"#end#if ($attribute.generatorInitialValue), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
-#*      *##end
-#*      *##if (!$attribute.generatorTypeNone)
-    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.${attribute.generatorType}#if ($attribute.sequenceGeneratorType || $attribute.tableGeneratorType), generator = "${attribute.generatorName}"#end)
-#*      *##end
-#*    *##end
-#*    *##if ($attribute.version)
-    @javax.persistence.Version
-#*    *##end
+##
+## If attribute is transient ONLY add Transient annotation
+##
 #*    *##if ($attribute.transient)
     @javax.persistence.Transient
-#*    *##end
-#*    *##if ($attribute.lob)
+#*    *##else
+#*      *##if ($attribute.identifier)
+    @javax.persistence.Id
+#*        *##if ($attribute.sequenceGeneratorType)
+    @javax.persistence.SequenceGenerator(name = "${attribute.generatorName}"#if ($attribute.sequenceGeneratorType), sequenceName = "${attribute.generatorSourceName}"#end#if ($attribute.sequenceGeneratorType), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
+#*        *##elseif ($attribute.tableGeneratorType)
+    @javax.persistence.TableGenerator(name = "${attribute.generatorName}"#if ($attribute.tableGeneratorType), table = "${attribute.generatorSourceName}"#end#if ($attribute.generatorPkColumnValue), pkColumnValue = "${attribute.generatorPkColumnValue}"#end#if ($attribute.generatorInitialValue), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
+#*        *##end
+#*        *##if (!$attribute.generatorTypeNone)
+    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.${attribute.generatorType}#if ($attribute.sequenceGeneratorType || $attribute.tableGeneratorType), generator = "${attribute.generatorName}"#end)
+#*        *##end
+#*      *##end
+#*      *##if ($attribute.version)
+    @javax.persistence.Version
+#*      *##end
+#*      *##if ($attribute.lob)
 ##
 ## Add if LOB type is specified - do not set LOB type as of PFD Spec - inferred from type.
 ## Also sepcify Fetch type in Basic annotation if set to EAGER since 
 ## default fetch type for LOB annotation is LAZY.
 ##
     @javax.persistence.Lob
-#*      *##if ($attribute.eager)
+#*        *##if ($attribute.eager)
     @javax.persistence.Basic(fetch = javax.persistence.FetchType.EAGER)
+#*        *##end
 #*      *##end
-#*    *##end
     @javax.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.columnNullable}#end#**#, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
-#*    *##if (!$attribute.lob && $attribute.lazy)
+#*      *##if (!$attribute.lob && $attribute.lazy)
 ##
 ## Only add the fetch type property for LAZY hints - default is EAGER
 ##
     @javax.persistence.Basic(fetch = javax.persistence.FetchType.LAZY)
-#*    *##end
-#*    *##if ($stringUtils.isNotBlank($attribute.temporalType))
+#*      *##end
+#*      *##if ($stringUtils.isNotBlank($attribute.temporalType))
     @javax.persistence.Temporal(javax.persistence.TemporalType.${attribute.temporalType})
-#*    *##end
-#*    *##if ($stringUtils.isNotBlank($attribute.enumerationType))
+#*      *##end
+#*      *##if ($stringUtils.isNotBlank($attribute.enumerationType))
     @javax.persistence.Enumerated(javax.persistence.EnumType.${attribute.enumerationType})
+#*      *##end
 #*    *##end
-    public ${attribute.type.fullyQualifiedName} ${attribute.getterName}()
+##
+## Override attribute type if attribute is a LOB and lob type is specified
+##
+    public #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end ${attribute.getterName}()
     {
         return $attribute.name;
     }
@@ -368,7 +387,7 @@ $attribute.getDocumentation("     * ")
      * Set the $attribute.name property.
      * @param value the new value
      */
-   #if (!$attribute.version) public#else protected#end void ${attribute.setterName}(${attribute.type.fullyQualifiedName} value)
+   #if (!$attribute.version) public#else protected#end void ${attribute.setterName}(#if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end value)
     {
         this.${attribute.name} = value;
     }
@@ -394,105 +413,14 @@ $attribute.getDocumentation("     * ")
      *
      * @return $target.getterSetterTypeName
      */
+##
+## If target association is transient ONLY add Transient annotation
+##
 #*    *##if ($target.transient)
     @javax.persistence.Transient
-#*    *##end
-#*    *##set ($argExists = false)
-    @javax.persistence.ManyToOne(#if (!$target.optional)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.LAZY#end)
-##
-## Add the JoinColumns annotation if the target entity has a composite primary key
-## Otherwise add the JoinColumn annotation.
-##
-#*    *##if (!$target.type.compositePrimaryKeyPresent)
-    @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
 #*    *##else
-#*      *##set ($identifiers = $target.type.getIdentifiers())
-    @javax.persistence.JoinColumns
-    ({
-#*      *##foreach ($attribute in $identifiers)
-        @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})_${attribute.columnName}", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
-        
-#*      *##end
-    })
-#*    *##end
-    public $target.getterSetterTypeName ${target.getterName}()
-    {
-        return this.${target.name};
-    }
-
-#*    *##if(!$target.readOnly)
-   /**
-    * Set the ${target.name}
-    *
-    * @param ${target.name}
-    */
-    public void ${target.setterName}($target.getterSetterTypeName ${target.name})
-    {
-        this.${target.name} = ${target.name};
-    }
-    
-#*    *##end
-#*  *##elseif ($associationEnd.one2Many)
-##
-## ONE TO MANY RELATIONSHIP
-##
-## Include the mappedBy element for bidirection relationships ONLY
-## Default fetch type: LAZY
-## If orderBy element is not specified, container assumes PK ordering
-##
-    /**
-     * Get the ${target.name} Collection
-     *
-     * @return $target.getterSetterTypeName
-     */
-#*    *##if ($target.transient)
-    @javax.persistence.Transient
-#*    *##end
-#*    *##set ($argExists = false)
-    @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
-#*    *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
-#*      *##if ($stringUtils.isNotEmpty(${target.orderByClause}))
-    @javax.persistence.OrderBy("${target.orderByClause}")
-#*      *##else
-    @javax.persistence.OrderBy
-#*      *##end
-#*    *##end
-#*    *##if ($target.associationCacheEnabled)
-    @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
-#*    *##end
-    public $target.getterSetterTypeName ${target.getterName}()
-    {
-        return this.${target.name};
-    }
-    
-    /**
-     * Set the ${target.name}
-     *
-     * @param ${target.name}
-     */
-    public void ${target.setterName} (${target.getterSetterTypeName} ${target.name})
-    {
-        this.${target.name} = ${target.name};
-    }
-    
-#*  *##elseif ($associationEnd.one2One)
-##
-## ONE TO ONE RELATIONSHIP
-##
-## Default fetch type: EAGER
-## Add the optional feature on the owning side of a One-to-One relationship
-##
-    /**
-     * Get the ${target.name}
-     *
-     * @return $target.getterSetterTypeName
-     */
-#*    *##if ($target.transient)
-    @javax.persistence.Transient
-#*    *##end
-#*    *##set ($argExists = false)
-    @javax.persistence.OneToOne(#if($associationEnd.owning)#if (!$target.optional)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.LAZY#end)
-#*    *##if($associationEnd.owning)
+#*      *##set ($argExists = false)
+    @javax.persistence.ManyToOne(#if (!$target.optional)optional = false#set ($argExists = true)#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.LAZY#end)
 ##
 ## Add the JoinColumns annotation if the target entity has a composite primary key
 ## Otherwise add the JoinColumn annotation.
@@ -527,6 +455,109 @@ $attribute.getDocumentation("     * ")
     }
     
 #*    *##end
+#*  *##elseif ($associationEnd.one2Many)
+##
+## ONE TO MANY RELATIONSHIP
+##
+## Include the mappedBy element for bidirection relationships ONLY
+## Default fetch type: LAZY
+## If orderBy element is not specified, container assumes PK ordering
+##
+    /**
+     * Get the ${target.name} Collection
+     *
+     * @return $target.getterSetterTypeName
+     */
+##
+## If target association is transient ONLY add Transient annotation
+##
+#*    *##if ($target.transient)
+    @javax.persistence.Transient
+#*    *##else
+#*      *##set ($argExists = false)
+    @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
+#*      *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
+#*        *##if ($stringUtils.isNotEmpty(${target.orderByClause}))
+    @javax.persistence.OrderBy("${target.orderByClause}")
+#*        *##else
+    @javax.persistence.OrderBy
+#*        *##end
+#*      *##end
+#*      *##if ($target.associationCacheEnabled)
+    @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
+#*      *##end
+#*    *##end
+    public $target.getterSetterTypeName ${target.getterName}()
+    {
+        return this.${target.name};
+    }
+    
+    /**
+     * Set the ${target.name}
+     *
+     * @param ${target.name}
+     */
+    public void ${target.setterName} (${target.getterSetterTypeName} ${target.name})
+    {
+        this.${target.name} = ${target.name};
+    }
+    
+#*  *##elseif ($associationEnd.one2One)
+##
+## ONE TO ONE RELATIONSHIP
+##
+## Default fetch type: EAGER
+## Add the optional feature on the owning side of a One-to-One relationship
+##
+    /**
+     * Get the ${target.name}
+     *
+     * @return $target.getterSetterTypeName
+     */
+##
+## If target association is transient ONLY add Transient annotation
+##
+#*    *##if ($target.transient)
+    @javax.persistence.Transient
+#*    *##else
+#*      *##set ($argExists = false)
+    @javax.persistence.OneToOne(#if($associationEnd.owning)#if (!$target.optional)optional = false#set ($argExists = true)#end#end#if ($target.cascadeType)#if ($argExists), #end#**#cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.lazy)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.LAZY#end)
+#*      *##if($associationEnd.owning)
+##
+## Add the JoinColumns annotation if the target entity has a composite primary key
+## Otherwise add the JoinColumn annotation.
+##
+#*        *##if (!$target.type.compositePrimaryKeyPresent)
+    @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
+#*        *##else
+#*          *##set ($identifiers = $target.type.getIdentifiers())
+    @javax.persistence.JoinColumns
+    ({
+#*          *##foreach ($attribute in $identifiers)
+        @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})_${attribute.columnName}", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
+        
+#*          *##end
+    })
+#*        *##end
+#*      *##end
+#*    *##end
+    public $target.getterSetterTypeName ${target.getterName}()
+    {
+        return this.${target.name};
+    }
+
+#*    *##if(!$target.readOnly)
+   /**
+    * Set the ${target.name}
+    *
+    * @param ${target.name}
+    */
+    public void ${target.setterName}($target.getterSetterTypeName ${target.name})
+    {
+        this.${target.name} = ${target.name};
+    }
+    
+#*    *##end
 #*  *##elseif ($associationEnd.many2Many)
 ##
 ## MANY TO MANY RELATIONSHIP
@@ -538,14 +569,17 @@ $attribute.getDocumentation("     * ")
      *
      * @return $target.getterSetterTypeName
      */
+##
+## If target association is transient ONLY add Transient annotation
+##
 #*    *##if ($target.transient)
     @javax.persistence.Transient
-#*    *##end
-#*    *##set ($argExists = false)
+#*    *##else
+#*      *##set ($argExists = false)
     @javax.persistence.ManyToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
 ## Use Aggregation and Composition to determine owning side
-#*    *##if (${associationEnd.association.tableName})
-#*      *##if($associationEnd.owning)
+#*      *##if (${associationEnd.association.tableName})
+#*        *##if($associationEnd.owning)
 ##
 ## Add the JoinTable annotation on the owning side
 ##
@@ -555,17 +589,18 @@ $attribute.getDocumentation("     * ")
         joinColumns = {#set ($identifiers = $entity.getIdentifiers())#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end#**#},
         inverseJoinColumns = {#set ($identifiers = $target.type.getIdentifiers())#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end#**#}
     )
+#*        *##end
 #*      *##end
-#*    *##end
-#*    *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
-#*      *##if ($stringUtils.isNotEmpty(${target.orderByClause}))
+#*      *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
+#*        *##if ($stringUtils.isNotEmpty(${target.orderByClause}))
     @javax.persistence.OrderBy("${target.orderByClause}")
-#*      *##else
+#*        *##else
     @javax.persistence.OrderBy
+#*        *##end
 #*      *##end
-#*    *##end
-#*    *##if ($target.associationCacheEnabled)
+#*      *##if ($target.associationCacheEnabled)
     @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
+#*      *##end
 #*    *##end
     public $target.getterSetterTypeName ${target.getterName}()
     {
