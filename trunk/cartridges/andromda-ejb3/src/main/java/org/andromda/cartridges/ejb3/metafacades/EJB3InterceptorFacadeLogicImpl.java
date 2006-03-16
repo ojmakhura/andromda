@@ -13,6 +13,7 @@ import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -104,7 +105,14 @@ public class EJB3InterceptorFacadeLogicImpl
      */
     protected boolean handleIsDefaultInterceptor()
     {
-        return this.hasStereotype(EJB3Profile.STEREOTYPE_DEFAULT_INTERCEPTOR);
+        boolean isDefaultInterceptor = false;
+        String isDefaultInterceptorStr = 
+            String.valueOf(this.findTaggedValue(EJB3Profile.TAGGEDVALUE_DEFAULT_INTERCEPTOR));
+        if (StringUtils.isNotBlank(isDefaultInterceptorStr))
+        {
+            isDefaultInterceptor = BooleanUtils.toBoolean(isDefaultInterceptorStr);
+        }
+        return isDefaultInterceptor;
     }
 
 }
