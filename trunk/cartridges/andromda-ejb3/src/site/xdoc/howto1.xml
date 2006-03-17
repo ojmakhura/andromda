@@ -326,18 +326,23 @@
                     <code>parameterRequiredCheck</code> namespace property to have the <code>false</code> value.
                 </p>
             </subsection>
-            <a name="LOB_CLOB_Attribute"/>
-            <subsection name="LOB/CLOB Attributes">
+            <a name="LOB_Attribute"/>
+            <subsection name="LOB BLOB/CLOB Attributes">
                 <p>
-                    An attribute can be specified as either a BLOB or CLOB field.  This is modelled by assigning
-                    the <code>@andromda.persistence.lob.type</code> tag to the required type.  This will add
-                    the <code>@javax.persistence.Lob</code> annotation to the entity attribute.
+                    An attribute can be specified as either a BLOB or CLOB field.  This is modelled by setting
+                    the attribute type to <code>datatype::Clob</code> or <code>datatype::Blob</code>.  This will add
+                    the <code>@javax.persistence.Lob</code> annotation to the entity attribute.  The EJB3
+                    cartridge will assign a default Java type based on the Java mappings specified in AndroMDA.
+                    For a Blob, the default is <code>byte[]</code>.  For a Clob, the default is <code>String</code>.
+                    To override the default types, you can model the <code>@andromda.persistence.lob.type</code> 
+                    tagged value to the fully qualified name of the required type.
                 </p>
                 <p>
                     For BLOB fields, the attribute type must be modelled as one of:
                     <ul>
                         <li>Byte[]</li>
                         <li>Serializable type</li>
+                        <li>java.sql.Blob</li>
                     </ul>
                 </p>
                 <p>
@@ -346,6 +351,7 @@
                         <li>char[]</li>
                         <li>Character[]</li>
                         <li>String</li>
+                        <li>java.sql.Clob</li>
                     </ul>
                 </p>
                 <p>
@@ -370,8 +376,10 @@
 	                </ul>
 	            </p>
                 <p>
-                    This example models the type attribute as a CLOB, since it's of type String and
-                    sets the fetch type for the attribute to eagerly fetch.
+                    This example models the attribute named <code>type</code> as a CLOB where the corresponding 
+                    column in the table will be of type String and the cartridge will set the fetch type for the 
+                    attribute to <b>eagerly</b> fetch.  The attribute <code>information</code> is defined as a LOB,
+                    but it's of type <code>char[]</code>.
                 </p>
             </subsection>
             <a name="Column_Specifics"/>
