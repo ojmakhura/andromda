@@ -274,10 +274,21 @@
 	                </ul>
 	            </p>
 	        </subsection>
-            <p class="highlight">
-                Don't forget to properly set the multiplicity on the association ends and whether and end
-                is navigable.  This will ensure the proper code is generated.
-            </p>
+            <a name="Transient_Relationships"/>
+            <subsection name="Transient Relationships">
+                <p>
+                    To indicate an association relationship target as transient (not persisted by the persistence 
+                    container), you model the <![CDATA[<<Transient>>]]> stereotype on the target end.  This adds the
+                    <code>@javax.persistence.Transient</code> annotation to the relationship getter.
+                </p>
+            </subsection>
+            <a name="Tips"/>
+            <subsection name="Tips">
+                <p>
+                    Don't forget to properly set the multiplicity on the association ends and whether an end
+                    is navigable.  This will ensure the proper code is generated.
+                </p>
+            </subsection>
         </section>
         <section name="Next">
             <p>
