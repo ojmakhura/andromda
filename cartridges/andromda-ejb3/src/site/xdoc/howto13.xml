@@ -13,7 +13,44 @@
             </p>
             <p>
                 All interceptors are configured through the ejb-jar deployment descriptor.  The EJB3 cartridges
-                does NOT use annotations to define interceptors and it's exclusions.
+                does NOT use annotations to define interceptors and their exclusions.
+            </p>
+            <p>
+                The following example shows how to model a default interceptor as well as 2 class level
+                interceptors for the <code>RentalService</code> bean.  Method level interceptor are
+                modelled in the same fashion, but a dependency is drawn from the session bean method.
+            </p>
+            <p>
+                <img src="images/org/andromda/test/13/a/uml.gif"/>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto13/a/Car.java.txt"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/CarType.java.txt"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto13/a/Person.java.txt"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto13/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto13/a/ejb-jar.xml.txt"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/jboss.xml.txt"><code>jboss.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/persistence.xml.txt"><code>persistence.xml</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto13/a/DefaultInterceptor.java.txt"><code>DefaultInterceptor.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto13/a/LogInterceptor.java.txt"><code>LogInterceptor.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto13/a/AdminCheckerInterceptor.java.txt"><code>AdminCheckerInterceptor.java</code></a></li>
+                </ul>
             </p>
             <a name="Default_Interceptors"/>
             <subsection name="Default Interceptor">
@@ -23,8 +60,10 @@
                     business methods of beans.
                 </p>
                 <p>
-                    To define a default interceptor for your deployment, model the
-                    <![CDATA[<<DefaultInterceptor>>]]> stereotype on a class.  Since this interceptor is invoked
+                    To define a default interceptor for your deployment, model the standard
+                    <![CDATA[<<Interceptor>>]]> stereotype on a class and specify the
+                    <code>@andromda.service.interceptor.default</code> tagged value as true.
+                    Since this interceptor is invoked
                     for all business methods of all beans, you do not need to model any dependencies on it.
                     The cartridge will generate the class with the necessary interceptor operation and
                     corresponding annotations within the interceptor class.  It will also add the
@@ -126,11 +165,12 @@
                 <p>
                     Once the interceptors have been generated, they will never be overwritten.  This way, you
                     can add your implementation for the interceptor and call <code>InvocationContext.proceed()</code>
-                    to continue to call the next interceptors.
+                    to continue to call the next interceptor.
                 </p>
                 <p>
-                    Similar to bean classes, bean classes enjoy the benefits of dependency injection in much the same
-                    way.  You can inject resources using the <code>@Resource</code> annotation or an
+                    Similar to bean classes, interceptor classes enjoy the benefits of dependency injection 
+                    in much the same way.
+                    You can inject resources using the <code>@Resource</code> annotation or an
                     entity manager using the <code>@PersistenceContext</code> annotation.
                 </p>
             </subsection>
