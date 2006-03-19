@@ -19,14 +19,26 @@
             <a name="Configuration"/>
 			<subsection name="Configuration">
 				<p>
-					Enabling security for the EJB3 cartridge is similar to the EJB cartridge.  Just set the
-				    <a href="namespace.html#securityRealm">securityRealm</a> property from your AndroMDA build 
-				    configuration.
+					Enabling security for the EJB3 cartridge is similar to the EJB/hibernate cartridges.  All that
+					is required is to uncomment the <a href="namespace.html#securityRealm">securityRealm</a> 
+					property in your AndroMDA build configuration (andromda.xml).  The <code>ejb3</code>
+					namespace section will look something like the following.
+<source language="xml"><![CDATA[
+        <namespace name="ejb3">
+            <properties>
+                ...
+                <!-- uncomment to enable EJB security -->
+                <property name="securityRealm">${application.id}</property>
+                ...
+            </properties>
+        </namespace>
+]]></source>
 				</p>
 				<p>
-					Once you have done that, the cartridge will create the login-config deploy descriptor
-					for JBoss.  It's contents between the <code>policy</code> elements should be copied to the 
-					JBoss server container 'conf' folder login-config.xml.  The file will look like:
+					Once you have done that, the cartridge will create the <code>login-config</code> and
+					and <code>login-service</code> deployment descriptors for JBoss.  
+					Both files are generated to the ear <code>META-INF</code> directory.  The
+					<code>login-config.xml</code> will look like:
 <source language="xml"><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE policy PUBLIC
@@ -39,30 +51,43 @@
                           flag="required">
                 <module-option name="debug">true</module-option>
                 <module-option name="unauthenticatedIdentity">guest</module-option>
-                <module-option name="dsJndiName">java:/jdbc/howtomodelDS</module-option>
+                <module-option name="dsJndiName">java:/jdbc/howtomodel</module-option>
                 <module-option name="principalsQuery">
                     SELECT PASSWORD 'Password' FROM principal WHERE BINARY PRINCIPAL_ID =?
                 </module-option>
                 <module-option name="rolesQuery">
                     SELECT ROLE 'Roles', ROLE_GROUP 'RoleGroups' FROM role WHERE BINARY PRINCIPAL_ID =?
                 </module-option>
+                <!-- uncomment to enable MD5 and BASE64 hash encoding
                 <module-option name="hashAlgorithm">MD5</module-option>
                 <module-option name="hashEncoding">BASE64</module-option>
+                -->
             </login-module>
         </authentication>
     </application-policy>
-</policy>	
+</policy>
 ]]></source>
+                    The <code>login-service.xml</code> loads the login module from <code>login-config.xml</code>,
+                    making sure the <code>LoginConfigService</code> and <code>SecurityManagerService</code>
+                    services are running before the new login module is activated.
 				</p>
 				<p>
-				    This file will typically be created in <i>your project/app/src/main/config</i> folder.  Once
-				    you have copied it's contents over to your JBoss conf login-config.xml, you must restart 
-				    JBoss for the new security policy to take effect.
-				</p>
-				<p>
-					This file is generated the first time the security realm is enabled.  It will not be
-					overridden.  You can modify this file for example to not have the queries check for
+					These 2 files are generated the first time the security realm is enabled.  They will not be
+					overridden.  For example, you can modify these file to prevent the queries checking for
 					case sensitivity by removing the <b>BINARY</b> in the <i>where</i> clauses.
+				</p>
+				<p>
+				    JBoss will load the MBean service configured in <code>login-service.xml</code> by
+				    specifying this service in the <code>jboss-app.xml</code> deployment descriptor.  The EJB3
+				    cartridge will do this for you, so you don't have to worry about it.  It will add the 
+				    following:
+<source language="xml"><![CDATA[
+    ...
+    <module>
+        <service>META-INF/howtomodel-login-service.xml</service>
+    </module>
+    ...
+]]></source>
 				</p>
 				<p>
 					The cartridge will also create an <code>auth.conf</code> file in <i>./app/src/main/config</i>.
@@ -80,6 +105,7 @@ howtomodel {
 <source><![CDATA[
 System.setProperty("java.security.auth.login.config", "./auth.conf");
 ]]></source>
+                    Alternatively, when running from the command line, specify the -D arg option.
 				</p>
 				<p>
 				    Remember that you will need to create your table schema corresponding to the authentication
@@ -135,18 +161,25 @@ PRIMARY KEY(PRINCIPAL_ID)
 				</p>
                 <p>
                     <ul>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto8/a/Car.java.txt"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/a/CarType.java.txt"><code>CarType.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto8/a/Person.java.txt"><code>Person.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto8/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto8/b/Car.java.txt"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/CarType.java.txt"><code>CarType.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto8/b/Person.java.txt"><code>Person.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto8/b/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/RentalException.java.txt"><code>RentalException.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/ejb-jar.xml.txt"><code>ejb-jar.xml</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/jboss.xml.txt"><code>jboss.xml</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/persistence.xml.txt"><code>persistence.xml</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/auth.conf.txt"><code>auth.conf</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/jboss-app.xml.txt"><code>jboss-app.xml</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/howtomodel-login-config.xml.txt"><code>howtomodel-login-config.xml</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/howtomodel-login-service.xml.txt"><code>howtomodel-login-service.xml</code></a></li>
                     </ul>
                 </p>
                 <p>
