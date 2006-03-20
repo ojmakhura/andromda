@@ -12,7 +12,8 @@
 	<property reference="entityDefaultCascade"/>
     <property reference="hibernateEnableCache"/>
     <property reference="hibernateEntityCache"/>
-    <property reference="hibernateEnableQueryCache"/>
+    <property reference="hibernateUseQueryCache"/>
+    <property reference="useDefaultCacheRegion"/>
     <property reference="enableClustering"/>
 	<property reference="entityInheritanceStrategy"/>
 	<property reference="entityDiscriminatorType"/>
