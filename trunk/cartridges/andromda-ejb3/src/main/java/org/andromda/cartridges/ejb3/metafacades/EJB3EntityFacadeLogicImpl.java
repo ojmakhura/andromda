@@ -161,6 +161,12 @@ public class EJB3EntityFacadeLogicImpl
      */
     private static final String HIBERNATE_ENTITY_CACHE = "hibernateEntityCache";
     
+    /**
+     * The property that determines whether to use the default cache region for
+     * entities and queries.
+     */
+    private static final String USE_DEFAULT_CACHE_REGION = "useDefaultCacheRegion";
+    
     // ---------------- constructor -------------------------------
 
     public EJB3EntityFacadeLogicImpl (Object metaObject, String context)
@@ -1082,5 +1088,13 @@ public class EJB3EntityFacadeLogicImpl
     protected boolean handleIsCacheEnabled()
     {
         return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(HIBERNATE_ENABLE_CACHE)));
+    }
+
+    /*(
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsUseDefaultCacheRegion()
+     */
+    protected boolean handleIsUseDefaultCacheRegion()
+    {
+        return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(USE_DEFAULT_CACHE_REGION)));
     }
 }
