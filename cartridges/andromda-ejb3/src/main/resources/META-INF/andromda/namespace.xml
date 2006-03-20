@@ -222,7 +222,7 @@
                     should also be enabled when specifying this property.
                 </documentation>
             </property>
-            <property name="hibernateEnableQueryCache">
+            <property name="hibernateUseQueryCache">
                 <default>false</default>
                 <documentation>
                     Enable/disable Hibernate's query cache
@@ -231,8 +231,20 @@
                     should also be enabled when specifying this property.
                 </documentation>
             </property>
+            <property name="useDefaultCacheRegion">
+                <default>false</default>
+                <documentation>
+                    Set to true if you do NOT wish to separate the
+                    entity and query cache regions.  That way, all
+                    entities and queries use the default cache
+                    region.
+                    Set to false and the cartridge will create a
+                    new cache region for all entities and all
+                    queries marked as cacheable.
+                </documentation>
+            </property>
             <property name="hibernateEntityCache">
-                <default>READ_WRITE</default>
+                <default>TRANSACTIONAL</default>
                 <documentation>
                     Defines the default strategy for Entities caching. 
                     Can be overwritten using the corresponding
@@ -248,7 +260,7 @@
                 </documentation>
             </property>
             <property name="hibernateAssociationCache">
-                <default>READ_WRITE</default>
+                <default>TRANSACTIONAL</default>
                 <documentation>
                     Defines the default strategy for associations between 
                     Entities caching. Can be overwrited with the corresponding 
