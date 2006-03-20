@@ -24,7 +24,8 @@
     <property reference="hibernateTreecacheMbeanObject"/>
     <property reference="hibernateEnableCache"/>
     <property reference="hibernateEnableAssociationsCache"/>
-    <property reference="hibernateEnableQueryCache"/>
+    <property reference="hibernateUseQueryCache"/>
+    <property reference="useDefaultCacheRegion"/>
     <property reference="hibernateTransactionManagerLookupClass"/>
     <property reference="hibernateTransactionFlushBeforeCompletion"/>
     <property reference="hibernateTransactionAutoCloseSession"/>
