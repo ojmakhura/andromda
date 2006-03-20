@@ -27,11 +27,6 @@ public class EJB3FinderMethodFacadeLogicImpl
      */
     private static final String QUERY_USE_NAMED_PARAMETERS = "queryUseNamedParameters";
     
-    /**
-     * Stores whether query cache is enabled application wide
-     */
-    private static final String USE_QUERY_CACHE = "hibernateEnableQueryCache";
-    
     // ---------------- constructor -------------------------------
 	
     public EJB3FinderMethodFacadeLogicImpl (Object metaObject, String context)
@@ -127,12 +122,7 @@ public class EJB3FinderMethodFacadeLogicImpl
     {
         boolean queryCacheEnabled = false;
         String queryCacheEnabledStr = (String)findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_USE_QUERY_CACHE);
-        if (StringUtils.isBlank(queryCacheEnabledStr))
-        {
-            queryCacheEnabled = BooleanUtils.toBoolean(
-                    String.valueOf(this.getConfiguredProperty(USE_QUERY_CACHE)));
-        }
-        else
+        if (StringUtils.isNotBlank(queryCacheEnabledStr))
         {
             queryCacheEnabled = BooleanUtils.toBoolean(queryCacheEnabledStr);
         }
