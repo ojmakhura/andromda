@@ -765,8 +765,8 @@ $finder.getDocumentation("     * ")
 #*      *##end
 #*    *##end
 #*  *##end
-#*  *##if ($finder.useQueryCache)
-        query.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}/${finder.name}");
+#*  *##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
+        query.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}_${finder.name}");
 #*  *##end
 #*  *##if ($stringUtils.equalsIgnoreCase($returnType, "void"))
         query.executeUpdate();
