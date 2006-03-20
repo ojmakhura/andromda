@@ -39,7 +39,7 @@
                             <li><a href="howto1.html#Attribute_Multiplicity">Attribute Multiplicity</a></li>
                             <li><a href="howto1.html#Constant_Attribute">Constant Attribute</a></li>
                             <li><a href="howto1.html#Nullable_Parameters">Nullable Parameters</a></li>
-                            <li><a href="howto1.html#LOB_CLOB_Attribute">LOB/CLOB Attributes</a></li>
+                            <li><a href="howto1.html#LOB_Attribute">LOB BLOB/CLOB Attributes</a></li>
                             <li><a href="howto1.html#Column_Specifics">Column Specifics</a></li>
                             <li><a href="howto1.html#Listener_Callback">Listener Callback</a></li>
                         </ul>
@@ -52,6 +52,8 @@
                             <li><a href="howto2.html#Ordering_Collection_Valued_Association">Ordering Collection Valued Association</a></li>
                             <li><a href="howto2.html#Join_Table_Many_To_Many">Join Table for Many-To-Many Relationship</a></li>
                             <li><a href="howto2.html#Aggregation_Composition">Aggregation and Composition</a></li>
+                            <li><a href="howto2.html#Transient_Relationships">Transient Relationships</a></li>
+                            <li><a href="howto2.html#Tips">Tips</a></li>
                         </ul>
                     </li>
                     <li>
@@ -157,6 +159,15 @@
                     </li>
                     <li>
                         <a href="howto16.html">Manageable Entities</a>
+                    </li>
+                    <li>
+                        <a href="howto17.html">Caching and Clustering</a>
+                        <ul>
+                            <li><a href="howto17.html#Cache_Config">Cache Configuration</a></li>
+                            <li><a href="howto17.html#Entity_Cache">Entity Caching</a></li>
+                            <li><a href="howto17.html#Association_Cache">Association Caching</a></li>
+                            <li><a href="howto17.html#Query_Cache">Query Caching</a></li>
+                        </ul>
                     </li>
                 </ul>
             </p>
