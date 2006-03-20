@@ -86,7 +86,7 @@
           <attribute name="timeToLiveSeconds">1000</attribute>
         </region>
 #foreach ($entity in $entities)
-#**##if ($stringUtils.isNotBlank(${entity.cacheType}))
+#**##if ($stringUtils.isNotBlank(${entity.cacheType}) && !$entity.useDefaultCacheRegion)
 
         <!-- The $entity.entityName entity cache -->
         <region name="/${entity.fullyQualifiedNamePath}">
@@ -97,10 +97,10 @@
 #end
 #foreach ($entity in $entities)
 #**##foreach ($finder in $entity.getQueryOperations(true))
-#*  *##if ($finder.useQueryCache)
+#*  *##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
 
         <!-- The ${entity.name} ${finder.name} query cache -->
-        <region name="/${entity.fullyQualifiedNamePath}/${finder.name}">
+        <region name="/${entity.fullyQualifiedNamePath}_${finder.name}">
           <attribute name="maxNodes">1000</attribute>
           <attribute name="timeToLiveSeconds">5000</attribute>
         </region>
