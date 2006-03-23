@@ -40,6 +40,15 @@ public class AndroMDALocationsComposite
     /** Browse button for cartidges location. */
     private Button cartridgesBrowseButton;
 
+    /** Label for maven home. */
+    private Label mavenHomeLabel;
+
+    /** Text field for maven home location. */
+    private Text mavenHomeText;
+
+    /** Browse button dor maven home location. */
+    private Button mavenHomeBrowseButton;
+
     /**
      * Create the composite.
      *
@@ -102,6 +111,30 @@ public AndroMDALocationsComposite(final Composite parent,
             }
         });
         profilesBrowseButton.setText("Browse...");
+
+        mavenHomeLabel = new Label(locationsGroup, SWT.NONE);
+        mavenHomeLabel.setText("Maven Home:");
+
+        mavenHomeText = new Text(locationsGroup, SWT.BORDER);
+        mavenHomeText.setText("maven");
+        mavenHomeText.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
+
+        mavenHomeBrowseButton = new Button(locationsGroup, SWT.NONE);
+        mavenHomeBrowseButton.addSelectionListener(new SelectionAdapter() {
+            public void widgetSelected(final SelectionEvent e)
+            {
+                String directoryName = DialogUtils.selectDirectory(getShell(),
+                        "Select location for Maven home.",
+                        "Please choose the folder that contains Maven.", mavenHomeText.getText());
+                if (directoryName != null)
+                {
+                    mavenHomeText.setText(directoryName);
+                }
+
+            }
+        });
+        mavenHomeBrowseButton.setText("Browse...");
+        new Label(locationsGroup, SWT.NONE);
     }
 
     /**
@@ -116,6 +149,9 @@ public AndroMDALocationsComposite(final Composite parent,
         profilesLabel.setEnabled(enabled);
         profilesText.setEnabled(enabled);
         profilesBrowseButton.setEnabled(enabled);
+        mavenHomeLabel.setEnabled(enabled);
+        mavenHomeText.setEnabled(enabled);
+        mavenHomeBrowseButton.setEnabled(enabled);
     }
 
     /**
@@ -132,6 +168,14 @@ public AndroMDALocationsComposite(final Composite parent,
     public Text getProfilesText()
     {
         return profilesText;
+    }
+
+    /**
+     * @return Returns the mavenHomeText.
+     */
+    public Text getMavenHomeText()
+    {
+        return mavenHomeText;
     }
 
 }

@@ -13,7 +13,7 @@ import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
 /**
- * 
+ *
  * @author Peter Friese
  * @since 05.12.2005
  */
@@ -27,16 +27,24 @@ public class AndroidSettingsAccess
 
     private static final String PROFILES_LOCATION = "profiles.location";
 
+    private static final String MAVEN_LOCATION = "maven.location";
+
     private IPreferencesService preferencesService;
 
     private static final AndroidSettingsAccess instance = new AndroidSettingsAccess();
 
+    /**
+     * Creates a new AndroidSettingsAccess.
+     */
     private AndroidSettingsAccess()
     {
         super();
         preferencesService = Platform.getPreferencesService();
     }
 
+    /**
+     * @return
+     */
     public static final AndroidSettingsAccess instance()
     {
         return instance;
@@ -59,6 +67,9 @@ public class AndroidSettingsAccess
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String getConfigurationLocation(IProject project)
     {
         IScopeContext[] contexts = null;
@@ -69,17 +80,19 @@ public class AndroidSettingsAccess
         return preferencesService.getString(AndroidCore.PLUGIN_ID, CONFIGURATION_LOCATION, "", contexts);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public String getConfigurationLocation()
     {
         return getConfigurationLocation(null);
     }
 
     /**
-     * @see org.andromda.android.core.settings.IAndroidSettings#setConfigurationsLocation(org.eclipse.core.resources.IProject,
-     *      java.lang.String)
+     * {@inheritDoc}
      */
-    public void setConfigurationsLocation(IProject project,
-        String location)
+    public void setConfigurationsLocation(final IProject project,
+        final String location)
     {
         IScopeContext scope = new ProjectScope(project);
         IEclipsePreferences androidPreferences = scope.getNode(AndroidCore.PLUGIN_ID);
@@ -95,7 +108,7 @@ public class AndroidSettingsAccess
     }
 
     /**
-     * @see org.andromda.android.core.settings.IAndroidSettings#setConfigurationsLocation(java.lang.String)
+     * {@inheritDoc}
      */
     public void setConfigurationsLocation(String location)
     {
@@ -106,7 +119,7 @@ public class AndroidSettingsAccess
     }
 
     /**
-     * @see org.andromda.android.core.settings.IAndroidSettings#getAndroMDACartridgesLocation()
+     * {@inheritDoc}
      */
     public String getAndroMDACartridgesLocation()
     {
@@ -114,7 +127,7 @@ public class AndroidSettingsAccess
     }
 
     /**
-     * @param object
+     * @param project
      * @return
      */
     private String getAndroMDACartridgesLocation(IProject project)
@@ -128,7 +141,7 @@ public class AndroidSettingsAccess
     }
 
     /**
-     * @see org.andromda.android.core.settings.IAndroidSettings#getAndroMDAProfilesLocation()
+     * {@inheritDoc}
      */
     public String getAndroMDAProfilesLocation()
     {
@@ -136,10 +149,10 @@ public class AndroidSettingsAccess
     }
 
     /**
-     * @param object
+     * @param project
      * @return
      */
-    private String getAndroMDAProfilesLocation(IProject project)
+    private String getAndroMDAProfilesLocation(final IProject project)
     {
         IScopeContext[] contexts = null;
         if (project != null)
@@ -150,9 +163,9 @@ public class AndroidSettingsAccess
     }
 
     /**
-     * @see org.andromda.android.core.settings.IAndroidSettings#setAndroMDACartridgesLocation(java.lang.String)
+     * {@inheritDoc}
      */
-    public void setAndroMDACartridgesLocation(String location)
+    public void setAndroMDACartridgesLocation(final String location)
     {
         IScopeContext scope = new InstanceScope();
         IEclipsePreferences androidPreferences = scope.getNode(AndroidCore.PLUGIN_ID);
@@ -161,13 +174,32 @@ public class AndroidSettingsAccess
     }
 
     /**
-     * @see org.andromda.android.core.settings.IAndroidSettings#setAndroMDAProfilesLocation(java.lang.String)
+     * {@inheritDoc}
      */
-    public void setAndroMDAProfilesLocation(String location)
+    public void setAndroMDAProfilesLocation(final String location)
     {
         IScopeContext scope = new InstanceScope();
         IEclipsePreferences androidPreferences = scope.getNode(AndroidCore.PLUGIN_ID);
         androidPreferences.put(PROFILES_LOCATION, location);
+        saveNode(androidPreferences);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getMavenLocation()
+    {
+        return preferencesService.getString(AndroidCore.PLUGIN_ID, MAVEN_LOCATION, "", null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setMavenLocation(final String location)
+    {
+        IScopeContext scope = new InstanceScope();
+        IEclipsePreferences androidPreferences = scope.getNode(AndroidCore.PLUGIN_ID);
+        androidPreferences.put(MAVEN_LOCATION, location);
         saveNode(androidPreferences);
     }
 

@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.andromda.android.core.AndroidCore;
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -37,7 +38,7 @@ import org.osgi.framework.Bundle;
 
 /**
  * TODO: Hava a look at AntLaunchDelegate.runInSeparateVM()
- * 
+ *
  * @author Peter Friese
  * @since 17.06.2005
  */
@@ -55,7 +56,7 @@ public class MavenRunner
     /**
      * A <code>MavenRunner</code> can execute maven in order to attain maven goals. Project specific properties can be
      * set using the <code>projectProperties</code> parameter.
-     * 
+     *
      * @param projectProperties The project properties as entered by the user.
      * @param project TODO
      */
@@ -68,7 +69,7 @@ public class MavenRunner
 
     /**
      * Runs maven.
-     * 
+     *
      * @param monitor The progress monitor to be used.
      */
     public void execute(IProgressMonitor monitor)
@@ -168,8 +169,8 @@ public class MavenRunner
         // Bundle bundle = Platform.getBundle("org.apache.maven");
         // URL foreheadURL = bundle.getEntry("/lib/forehead-1.0-beta-5.jar");
         // classpath.add(transformToAbsolutePath(foreheadURL));
-        //        
-        classpath.add("C:/Programme/Maven 1.0.2/lib/forehead-1.0-beta-5.jar");
+        //
+        classpath.add(getForeHeadJarPath());
 
         return (String[])classpath.toArray(new String[classpath.size()]);
     }
@@ -221,7 +222,8 @@ public class MavenRunner
 
     private String getMavenHome()
     {
-        return "C:/Programme/Maven 1.0.2";
+        return AndroidCore.getAndroidSettings().getMavenLocation();
+        // return "C:/Programme/Maven 1.0.2";
         // Bundle bundle = Platform.getBundle("org.apache.maven");
         // URL rootURL = bundle.getEntry("/");
         // return transformToAbsolutePath(rootURL);
@@ -243,9 +245,14 @@ public class MavenRunner
         return getJDKHome() + "/lib/tools.jar";
     }
 
+    private String getForeHeadJarPath()
+    {
+        return getMavenHome() + "/lib/forehead-1.0-beta-5.jar";
+    }
+
     /**
      * This method is here to refresh the fresh project in the workspace as soon as maven has finished creating it.
-     * 
+     *
      * @param events An array of debug events. We are looking for a <code>DebugEvent#TERMINATE</code> event.
      */
     public void handleDebugEvents(DebugEvent[] events)

@@ -14,7 +14,7 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 /**
  * This preference page lets users configure the lcoations for the AndroMDA binary files such as cartridges and
  * profiles.
- * 
+ *
  * @author Peter Friese
  * @since 28.11.2005
  */
@@ -56,9 +56,11 @@ public class AndroMDALocationsPreferencePage
         IAndroidSettings androidSettings = AndroidCore.getAndroidSettings();
         String cartridgesLocation = androidSettings.getAndroMDACartridgesLocation();
         String profilesLocation = androidSettings.getAndroMDAProfilesLocation();
+        String mavenLocation = androidSettings.getMavenLocation();
 
         androMDALocationsComposite.getProfilesText().setText(profilesLocation);
         androMDALocationsComposite.getCartridgesText().setText(cartridgesLocation);
+        androMDALocationsComposite.getMavenHomeText().setText(mavenLocation);
     }
 
     /**
@@ -69,6 +71,7 @@ public class AndroMDALocationsPreferencePage
         IAndroidSettings androidSettings = AndroidCore.getAndroidSettings();
         androidSettings.setAndroMDACartridgesLocation(androMDALocationsComposite.getCartridgesText().getText());
         androidSettings.setAndroMDAProfilesLocation(androMDALocationsComposite.getProfilesText().getText());
+        androidSettings.setMavenLocation(androMDALocationsComposite.getMavenHomeText().getText());
 
         return super.performOk();
     }
