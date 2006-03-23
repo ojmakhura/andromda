@@ -2,20 +2,24 @@
 <feature
       id="org.andromda.android"
       label="Android - The AndroMDA Eclipse Plug-in"
-      version="0.0.1"
+      version="0.0.2"
       provider-name="AndroMDA.org">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description url="http://www.andromda.org">
+      Android, the AndroMDA IDE.
    </description>
 
-   <copyright url="http://www.example.com/copyright">
-      [Enter Copyright Description here.]
+   <copyright>
+      (c) 2005, 2006 The AndroMDA Team
    </copyright>
 
-   <license url="http://www.example.com/license">
-      [Enter License Description here.]
+   <license>
+      BSD License
    </license>
+
+   <url>
+      <update label="Android Update Site" url="http://www.andromda.org/updatesite"/>
+   </url>
 
    <requires>
       <import plugin="org.eclipse.core.runtime"/>
@@ -25,15 +29,18 @@
       <import plugin="org.eclipse.debug.ui"/>
       <import plugin="org.junit"/>
       <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.ui.forms"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.jdt"/>
-      <import plugin="org.eclipse.jdt.core"/>
       <import plugin="org.eclipse.jdt.ui"/>
       <import plugin="org.eclipse.ui.workbench.texteditor"/>
       <import plugin="org.eclipse.text"/>
       <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.swt"/>
+      <import plugin="org.eclipse.compare"/>
    </requires>
 
    <plugin
@@ -60,5 +67,18 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="org.andromda.android.ui.templateeditor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="de.byteaction.velocity.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>
