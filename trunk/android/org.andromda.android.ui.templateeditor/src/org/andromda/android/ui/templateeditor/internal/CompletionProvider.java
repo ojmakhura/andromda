@@ -30,6 +30,7 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.contentassist.CompletionProposal;
 import org.eclipse.swt.graphics.Image;
 
+import de.byteaction.velocity.editor.VelocityEditor;
 import de.byteaction.velocity.editor.completion.ICompletionProvider;
 import de.byteaction.velocity.vaulttec.ui.editor.text.VelocityTextGuesser;
 
@@ -56,7 +57,7 @@ public class CompletionProvider
     /**
      * {@inheritDoc}
      */
-    public Collection getExtraProposals(IFile file,
+    public Collection getExtraProposals(VelocityEditor editor, IFile file,
         IDocument doc,
         VelocityTextGuesser prefix,
         int offset)
@@ -108,7 +109,7 @@ public class CompletionProvider
                     break;
 
                 case VelocityTextGuesser.TYPE_MEMBER_QUALIFIER:
-                    result.addAll(getMemberProposals(cartridgeDescriptor, prefix, offset, templatePath));
+                    result.addAll(getMemberProposals(editor, cartridgeDescriptor, prefix, offset, templatePath));
                     break;
 
                 case VelocityTextGuesser.TYPE_VARIABLE:
@@ -133,7 +134,7 @@ public class CompletionProvider
      * @return
      * @throws CartridgeParsingException
      */
-    private Collection getMemberProposals(ICartridgeDescriptor cartridgeDescriptor,
+    private Collection getMemberProposals(VelocityEditor editor, ICartridgeDescriptor cartridgeDescriptor,
         VelocityTextGuesser prefix,
         int offset,
         IPath templatePath) throws CartridgeParsingException
@@ -307,13 +308,13 @@ public class CompletionProvider
             if (prefix.length() == 0 || proposalText.startsWith(prefix))
             {
                 String icon;
-                String displayText = proposalText;
+                String displayString = "$" + proposalText;
                 if (descriptor instanceof ICartridgeJavaVariableDescriptor)
                 {
                     ICartridgeJavaVariableDescriptor javaVariableDescriptor = (ICartridgeJavaVariableDescriptor)descriptor;
                     if (javaVariableDescriptor.getType() != null)
                     {
-                        proposalText += " - " + javaVariableDescriptor.getType().getElementName();
+                        displayString += " - " + javaVariableDescriptor.getType().getElementName();
                     }
                     icon = ICON_FIELD_PUBLIC;
                 }
@@ -321,7 +322,6 @@ public class CompletionProvider
                 {
                     icon = ICON_FIELD_PRIVATE;
                 }
-                String displayString = "$" + proposalText;
                 CompletionProposal proposal = createSimpleCompletionProposal(prefix, offset, proposalText,
                         displayString, icon);
                 if (!proposals.containsKey(proposalText))
