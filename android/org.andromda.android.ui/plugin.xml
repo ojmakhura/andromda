@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
+    <extension
+          point="org.eclipse.ui.perspectives">
+       <perspective
+             class="org.andromda.android.ui.internal.perspective.AndroidPerspective"
+             icon="icons/uml_icon_project.gif"
+             id="org.andromda.android.ui.internal.perspective.AndroidPerspective"
+             name="AndroMDA"/>
+    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
       <category
             id="org.andromda.android"
             name="AndroMDA"/>
       <wizard
+            canFinishEarly="false"
             category="org.andromda.android"
             class="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"
+            finalPerspective="org.andromda.android.ui.internal.perspective.AndroidPerspective"
+            hasPages="true"
             icon="icons/ModelFile.gif"
             id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"
             name="AndroMDA Project"
+            preferredPerspectives="org.andromda.android.ui.internal.perspective.AndroidPerspective"
             project="true"/>
       <primaryWizard id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"/>
    </extension>
    <extension
          point="org.eclipse.ui.importWizards">
       <wizard
+            category="org.andromda.android"
             class="org.andromda.android.ui.project.wizard.ConvertToAndroidProjectWizard"
             icon="icons/ModelFile.gif"
             id="org.andromda.android.ui.project.wizard.ConvertToAndroidProjectWizard"
             name="Convert Java Project to Android Project"/>
+      <category
+            id="org.andromda.android"
+            name="AndroMDA"/>
    </extension>
    <extension
          point="org.eclipse.ui.preferencePages">
@@ -52,7 +68,7 @@
    <extension
          point="org.eclipse.ui.propertyPages">
       <page
-            adaptable="false"
+            adaptable="true"
             class="org.andromda.android.ui.internal.settings.properties.AndroMDAPropertyPage"
             id="org.andromda.android.ui.internal.settings.properties.AndroMDAPropertyPage"
             name="AndroMDA"
@@ -64,7 +80,7 @@
          <keywordReference id="org.andromda.android.ui.keywords.mda"/>
       </page>
       <page
-            adaptable="false"
+            adaptable="true"
             category="org.andromda.android.ui.internal.settings.properties.AndroMDAPropertyPage"
             class="org.andromda.android.ui.internal.settings.properties.AndroidProjectLayoutPropertyPage"
             id="org.andromda.android.ui.internal.settings.properties.AndroidProjectLayoutPropertyPage"
@@ -77,7 +93,7 @@
          <keywordReference id="org.andromda.android.ui.keywords.mda"/>
       </page>
       <page
-            adaptable="false"
+            adaptable="true"
             category="org.andromda.android.ui.internal.settings.properties.AndroMDAPropertyPage"
             class="org.andromda.android.ui.internal.settings.properties.AndroMDALocationsPropertyPage"
             id="org.andromda.android.ui.internal.settings.properties.AndroMDALocationsPropertyPage"
@@ -118,5 +134,54 @@
          <contentTypeBinding contentTypeId="org.andromda.android.core.andromdaconfiguration"/>
       </editor>
    </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="org.andromda.android.ui.views"
+            name="AndroMDA"/>
+      <view
+            allowMultiple="false"
+            category="org.andromda.android.ui.views"
+            class="org.eclipse.ui.navigator.CommonNavigator"
+            icon="icons/uml_icon_project.gif"
+            id="org.andromda.android.ui.MDAExplorer"
+            name="MDA Explorer"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension pattern="org.andromda.android.ui.androMDAContent"/>
+         </includes>
+      </viewerContentBinding>
+   </extension>
+
+    <extension
+            point="org.eclipse.ui.navigator.navigatorContent">
+        <navigatorContent
+              activeByDefault="true"
+              contentProvider="org.andromda.android.ui.internal.navigator.AndroMDANavigatorContentProvider"
+              icon="icons/uml_icon_project.gif"
+              id="org.andromda.android.ui.androMDAContent"
+              labelProvider="org.andromda.android.ui.internal.navigator.AndroMDANavigatorLabelProvider"
+              name="AndroMDA Content"
+              priority="low">
+            <triggerPoints>
+                <and>
+                    <adapt
+                            type="org.eclipse.core.resources.IProject" >
+                        <test
+                            property="org.eclipse.core.resources.projectNature"
+                            value="org.andromda.android.core.androidnature" />
+                    </adapt>
+                    <instanceof value="org.eclipse.jdt.core.IJavaProject"/>
+                </and>
+            </triggerPoints>
+            <!--possibleChildren>
+               <instanceof value="org.andromda.android.core.configuration.IConfigurationFile"/>
+            </possibleChildren-->
+
+        </navigatorContent>
+    </extension>
 
 </plugin>
