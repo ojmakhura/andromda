@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!--
-  This is used to map the C# language primitive types names
-  to C# wrapper type names.
+  This file is used to map the C# language primitive types
+  to C# wrapper type. Actually putting an entry here tells
+  AndroMDA that the "from" type is a primitive type.
 -->
 <mappings name="CsWrapper">
     <mapping>
@@ -35,5 +36,9 @@
     <mapping>
           <from>bool</from>
           <to>bool</to>
+    </mapping>
+    <mapping>
+          <from>DateTime</from>
+          <to>DateTime</to>
     </mapping>
 </mappings>
