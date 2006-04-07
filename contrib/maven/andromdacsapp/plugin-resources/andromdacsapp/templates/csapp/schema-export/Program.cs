@@ -22,7 +22,7 @@ namespace SchemaExport
             log4net.Config.XmlConfigurator.Configure();
 
             // Start NHibernate
-            SessionManagerFactory.SessionManager = new ThreadLocalSessionManager();
+            SessionManagerFactory.SessionManager = new DefaultSessionManager();
             SessionManagerFactory.SessionManager.HandleApplicationStart();
 
             // Initialize parameters for SchemaExport
