@@ -299,7 +299,7 @@ namespace TimeTracker
             log4net.Config.XmlConfigurator.Configure();
 
             // Initialize NHibernate
-            SessionManagerFactory.SessionManager = new ThreadLocalSessionManager();
+            SessionManagerFactory.SessionManager = new DefaultSessionManager();
             SessionManagerFactory.SessionManager.HandleApplicationStart();
         }
 
