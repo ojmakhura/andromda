@@ -19,7 +19,7 @@ public class ${service.serviceListenerName}
         // empty constructor
     }
 
-    @javax.ejb.PostConstruct
+    @javax.annotation.PostConstruct
     public void postConstruct(javax.ejb.InvocationContext ctx) 
     {
         try
@@ -33,7 +33,7 @@ public class ${service.serviceListenerName}
         }
     }
 
-    @javax.ejb.PreDestroy
+    @javax.annotation.PreDestroy
     public void preDestroy(javax.ejb.InvocationContext ctx) 
     {
         try
