@@ -40,6 +40,8 @@
     <property reference="jndiNamePrefix"/>
     <property reference="securityRealm"/>
     <property reference="enableClustering"/>
+    <property reference="webServiceContextRoot"/>
+    <property reference="webServiceUrlPattern"/>
 
     <!-- Entity Bean Templates -->
 
@@ -127,7 +129,7 @@
     <!-- Session Bean Templates -->
 
     <template 
-        path="templates/ejb3/SessionBean.vsl"
+        path="templates/ejb3/SessionBeanBase.vsl"
         outputPattern="$generatedFile" 
         outlet="session-beans"
         overwrite="true">
@@ -216,6 +218,20 @@
         <modelElements>
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/WebServiceInterface.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacade">
+                    <property name="webServiceEnabled"/>
+                </type>
             </modelElement>
         </modelElements>
     </template>
