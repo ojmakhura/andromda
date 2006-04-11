@@ -502,4 +502,13 @@ public class EJB3Profile
      */
     public static final String TAGGEDVALUE_EJB_USE_QUERY_CACHE = profile.get("USE_QUERY_CACHE");
     
+    /**
+     * Defines the webservice parameter style
+     */
+    public static final String TAGGEDVALUE_WEBSERVICE_PARAMETER_STYLE = profile.get("WEBSERVICE_PARAMETER_STYLE");
+
+    /**
+     * Defines the webservice method as oneway
+     */
+    public static final String TAGGEDVALUE_WEBSERVICE_OPERATION_ONEWAY = profile.get("WEBSERVICE_OPERATION_ONEWAY");
 }
