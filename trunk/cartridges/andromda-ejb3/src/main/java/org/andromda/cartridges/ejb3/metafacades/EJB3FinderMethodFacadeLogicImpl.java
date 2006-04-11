@@ -42,7 +42,7 @@ public class EJB3FinderMethodFacadeLogicImpl
     protected java.lang.String handleGetQuery()
     {
         // first see if there is a query stored as a constraint
-        String queryString = super.getQuery("query.EJB-QL");
+        String queryString = super.getQuery("query.Hibernate-QL");
 
         // otherwise see if there is a query stored as a tagged value
         if (StringUtils.isEmpty(queryString))
