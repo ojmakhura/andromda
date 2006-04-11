@@ -198,4 +198,9 @@ public class EJB3Globals
      * JMS message driven bean
      */
     public static final String MDB_DESTINATION_TYPE_QUEUE = "javax.jms.Queue";
+    
+    /**
+     * The namespace delimiter (seperates namespaces).
+     */
+    public static final char NAMESPACE_DELIMITER = '.';
 }
