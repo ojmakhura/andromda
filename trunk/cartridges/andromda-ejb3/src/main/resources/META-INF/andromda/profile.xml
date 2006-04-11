@@ -73,6 +73,14 @@
 				<value>Version</value>
 				<appliedOnElement>Entity attribute</appliedOnElement>
 			</element>
+			<element name="TRANSIENT">
+				<documentation>
+					Identifies an entity attribute as a transient
+					attribute which is non persistent.
+				</documentation>
+				<value>Transient</value>
+				<appliedOnElement>Entity attribute</appliedOnElement>
+			</element>
 			<element name="PERSISTENCE_CONTEXT">
 				<documentation>
 					Identifies a persistence context used to express a dependency
@@ -292,7 +300,6 @@
 			        Stateful Session Bean Operation
 			    </appliedOnElement>
 			</element>
-			
 			<element name="PRE_PERSIST">
 			    <documentation>
 			        Specifies that the associated operation is a lifecycle
@@ -380,6 +387,25 @@
 			        Entity Bean Operation
 			    </appliedOnElement>
 			</element>
+            <element name="WEB_SERVICE">
+                <documentation>
+                    Exposes ALL methods of the session bean
+                    as a web service.
+                </documentation>
+                <value>WebService</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="WEB_SERVICE_OPERATION">
+                <documentation>
+                    This is used in conjunction with the <![CDATA[<<Service>>]]> stereotype.
+                    Adds the method to the list of allowed methods
+                    which will be exposed as a web service.  You <strong>MUST</strong>
+                    place this stereotype on an operation if you want it exposed
+                    as a web service (unless you add the <![CDATA[<<WebService>>]]> stereotype to your class).
+                </documentation>
+                <value>WebServiceOperation</value>
+                <appliedOnElement>Service operation</appliedOnElement>
+            </element>
 		</elementGroup>
 		<elementGroup name="Tagged Values">
 			<element name="ATTRIBUTE_PERSISTENCE_OPTIONAL">
@@ -1246,6 +1272,37 @@
 			    </documentation>
 			    <value>@andromda.ejb.query.useCache</value>
 			    <appliedOnElement>Query Operations</appliedOnElement>
+			    <allowedValues>
+			        <value>true</value>
+			        <value>false</value>
+			    </allowedValues>
+			</element>
+			<element name="WEBSERVICE_PARAMETER_STYLE">
+			    <documentation>
+			        Specifies the method parameters represent
+			        the entire message body or are elements
+			        wrapped inside a top-level element named
+			        after the webservice operation.
+			    </documentation>
+			    <value>@andromda.webservice.parameter.style</value>
+			    <appliedOnElement>Service and WebService</appliedOnElement>
+			    <allowedValues>
+			        <value>wrapped</value>
+			        <value>bare</value>
+			    </allowedValues>
+			</element>
+			<element name="WEBSERVICE_OPERATION_ONEWAY">
+			    <documentation>
+			        Specifies the method has only an input message
+			        and no output.  A oneway method returns the thread
+			        of control to the calling application prior to
+			        executing the actual business method.  Do not
+			        model on operations that have a return value
+			        or holder parameters or declare any
+			        checked exceptions.
+			    </documentation>
+			    <value>@andromda.webservice.operation.oneway</value>
+			    <appliedOnElement>WebService Operation</appliedOnElement>
 			    <allowedValues>
 			        <value>true</value>
 			        <value>false</value>
