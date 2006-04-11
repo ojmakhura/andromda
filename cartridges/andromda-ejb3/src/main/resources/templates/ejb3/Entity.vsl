@@ -131,7 +131,7 @@ $operation.getDocumentation("     * ")
 #**##foreach ($operation in $operations)
 #*  *##if ($operation.lifecycleCallback)
     /**
-$operation.getDocumentation("    * ")
+$operation.getDocumentation("     * ")
      */
 #*    *##if ($operation.prePersist)
     @javax.persistence.PrePersist
