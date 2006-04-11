@@ -129,4 +129,15 @@ public class EJB3ScriptHelper
         }
         return sb.toString();
     }
+    
+    /**
+     * Reverses the <code>packageName</code>.
+     *
+     * @param packageName the package name to reverse.
+     * @return the reversed package name.
+     */
+    public static String reversePackage(String packageName)
+    {
+        return StringUtils.reverseDelimited(packageName, EJB3Globals.NAMESPACE_DELIMITER);
+    }
 }
