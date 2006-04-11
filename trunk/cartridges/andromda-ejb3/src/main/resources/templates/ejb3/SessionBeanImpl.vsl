@@ -2,18 +2,31 @@
 #if ($stringUtils.isNotBlank($service.packageName))
 package $service.packageName;
 #end
-#set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedServiceImplementationName,'.','/')}.java")
+#set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedServiceName,'.','/')}.java")
 
 /**
  * @see ${service.fullyQualifiedServiceName}
  */
-public class ${service.serviceImplementationName} 
-    extends ${service.fullyQualifiedServiceName} 
+/**
+ * Do not specify the javax.ejb.${service.type} annotation
+ * Instead, define the session bean in the ejb-jar.xml descriptor
+ * @javax.ejb.${service.type}
+ */
+#if ($service.webServiceEnabled)
+@javax.jws.WebService(endpointInterface = "${service.fullyQualifiedWebServiceInterfaceName}")
+#else
+/**
+ * Uncomment to enable webservices for ${service.serviceName}
+ *@javax.jws.WebService(endpointInterface = "${service.fullyQualifiedWebServiceInterfaceName}")
+ */
+#end
+public class ${service.serviceName} 
+    extends ${service.fullyQualifiedServiceBaseName} 
 {
     // --------------- Constructors ---------------
     
 ## Default create method with no arguments.
-    public ${service.serviceImplementationName}()
+    public ${service.serviceName}()
     {
         super();
     }
@@ -23,7 +36,7 @@ public class ${service.serviceImplementationName}
 $operation.getDocumentation("     * ")
      *
      */
-    public ${service.serviceImplementationName}($operation.typedArgumentList)
+    public ${service.serviceName}($operation.typedArgumentList)
     {
         // implementation
     }
@@ -38,7 +51,7 @@ $operation.getDocumentation("     * ")
      * @param $attribute.name Value for the ${attribute.name} property
 #**##end
      */
-    public ${service.serviceImplementationName}(${service.getAttributesAsList($allAttributes, true, true)})
+    public ${service.serviceName}(${service.getAttributesAsList($allAttributes, true, true)})
     {
 #**##if(!$allAttributes.empty)
         super($service.getAttributesAsList($allAttributes, false, true));
