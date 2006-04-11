@@ -107,20 +107,20 @@ public class $manageableServiceLocatorName
     public final $manageable.fullyQualifiedManageableServiceName get${manageable.manageableServiceName}()
         throws javax.naming.NamingException
     {
-        return this.get${manageable.manageableServiceName}(null);
+        return this.get${manageable.manageableServiceName}Remote(null);
     }
 
     /**
-     * Gets an instance of {@link $manageable.fullyQualifiedManageableServiceName}.
+     * Get the remote interface for {@link $manageable.fullyQualifiedManageableServiceName}.
      *
      * @param env the Context environment properties.  Null represents no properties.
      * @throws javax.naming.NamingException failure to lookup remote manageable service interface.
      */
-    public final $manageable.fullyQualifiedManageableServiceName get${manageable.manageableServiceName}(java.util.Properties env)
+    public final $manageable.fullyQualifiedManageableServiceName get${manageable.manageableServiceName}Remote(java.util.Properties env)
         throws javax.naming.NamingException
     {
 #**##if ($stringUtils.isNotBlank($manageable.jndiNamePrefix))
-#*  *##set ($jndiName = "${manageable.jndiNamePrefix}/${manageable.fullyQualifiedManageableServiceName}/remote")
+#*  *##set ($jndiName = "${manageable.jndiNamePrefix}/${manageable.manageableServiceName}/remote")
 #**##else
 #*  *##set ($jndiName = "${manageable.manageableServiceName}/remote")
 #**##end
@@ -128,7 +128,25 @@ public class $manageableServiceLocatorName
             getContext(env).lookup("${jndiName}");
     }
     
+    /**
+     * Get the local interface for {@link $manageable.fullyQualifiedManageableServiceName}.
+     *
+     * @param env the Context environment properties.  Null represents no properties.
+     * @throws javax.naming.NamingException failure to lookup remote manageable service interface.
+     */
+    public final $manageable.fullyQualifiedManageableServiceName get${manageable.manageableServiceName}Local(java.util.Properties env)
+        throws javax.naming.NamingException
+    {
+#**##if ($stringUtils.isNotBlank($manageable.jndiNamePrefix))
+#*  *##set ($jndiName = "${manageable.jndiNamePrefix}/${manageable.manageableServiceName}/local")
+#**##else
+#*  *##set ($jndiName = "${manageable.manageableServiceName}/local")
+#**##end
+        return ($manageable.fullyQualifiedManageableServiceName)
+            getContext(env).lookup("${jndiName}");
+    }
 #end
+
     /**
      * Gets an instance of the given service.
      *
