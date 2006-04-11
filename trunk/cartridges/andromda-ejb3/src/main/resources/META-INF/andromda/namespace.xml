@@ -412,6 +412,13 @@
 			        bean delegate class name.
 			    </documentation>
 			</property>
+			<property name="serviceBaseNamePattern">
+			    <default>{0}Base</default>
+			    <documentation>
+			        The pattern to use when constructing the service
+			        bean base class name.
+			    </documentation>
+			</property>
             <property name="serviceImplementationOperationNamePattern">
                 <default>handle{0}</default>
                 <documentation>
@@ -518,6 +525,14 @@
                     The pattern to use when defining the display 
                     attribute label name when it's NOT of type 
                     Collection.
+                </documentation>
+            </property>
+            <property name="webServiceInterfaceNamePattern">
+                <default>{0}WSInterface</default>
+                <documentation>
+                    The pattern to use when defining the web
+                    service interface name when exposing
+                    session bean operations as web services.
                 </documentation>
             </property>
 		</propertyGroup>
@@ -734,6 +749,97 @@
                 <default>ServiceLocator</default>
                 <documentation>
                     The name to give the service locator class.
+                </documentation>
+            </property>
+		</propertyGroup>
+		<propertyGroup name="WebService Properties">
+            <property name="webServiceDefaultStyle">
+                <default>rpc</default>
+                <documentation>
+                    The default style given all web services (if not defined seperately
+                    on each web service). Possible choices are:
+                    <ul>
+                        <li>rpc</li>
+                        <li>document</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="webServiceDefaultUse">
+                <default>literal</default>
+                <documentation>
+                    The default use given all web services (if not defined seperately
+                    on each web service). Possible choices are:
+                    <ul>
+                        <li>literal</li>
+                        <li>encoded</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="webServiceDefaultParameterStyle">
+                <default>wrapped</default>
+                <documentation>
+                    The default parameter encoding style for a
+                    webservice operation.  Possible choices are:
+                    <ul>
+                        <li>wrapped</li>
+                        <li>bare</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="webServiceQualifiedNameLocalPartPattern">
+                <default>{0}</default>
+                <documentation>
+                    The pattern to use when a qualified name local part
+                    is created.  {0} represents the name of the classifier
+                    (Service).
+                </documentation>
+            </property>
+            <property name="webServiceEnabled">
+                <documentation>
+                    Specifies whether to use the JSR 181 web services
+                    standards to expose web service operations in the
+                    EJB3 cartridge.
+                    If set to false, use the webservice cartridge
+                    provided by AndroMDA/Axis.  Possible choices are:
+                    <ul>
+                        <li>true</li>
+                        <li>false</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="webServiceNamespacePattern">
+                <default>http://{0}/{1}</default>
+                <documentation>
+                    The pattern to use when a namespace is created.
+                    <em>{0}</em> represents the package name of the classifier (i.e.
+                    <em>ws.{0}</em> would prefix all your type and service
+                    namespaces with <em>ws.</em>).
+                </documentation>
+            </property>
+            <property name="webServiceReverseNamespace">
+                <default>false</default>
+                <documentation>
+                    Whether or not to reverse the ordering of the namespace.
+                    The namespace is typically determined by the package
+                    name of the service or type, this allows you to reverse the package
+                    name. (i.e. org.andromda.samples would become
+                    <em>samples.andromda.org</em> if this was set to <code>true</code>).
+                    Possible value are:
+                    <ul>
+                        <li>true</li>
+                        <li>false</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="webServiceContextRoot">
+                <documentation>
+                    The context root for the web service.
+                </documentation>
+            </property>
+            <property name="webServiceUrlPattern">
+                <documentation>
+                    The URL pattern appended to the context
+                    root for the web service.
                 </documentation>
             </property>
 		</propertyGroup>
