@@ -11,7 +11,9 @@ import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.Role;
+import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -59,6 +61,11 @@ public class EJB3SessionFacadeLogicImpl
      * The property which stores the pattern defining the service bean delegate class name.
      */
     private static final String SERVICE_DELEGATE_NAME_PATTERN = "serviceDelegateNamePattern";
+
+    /**
+     * The property which stores the pattern defining the service bean base class name.
+     */
+    private static final String SERVICE_BASE_NAME_PATTERN = "serviceBaseNamePattern";
     
     /**
      * The property which stores the pattern defining the default service bean
@@ -96,6 +103,11 @@ public class EJB3SessionFacadeLogicImpl
      * The property that determines application wide clustering
      */
     public static final String SERVICE_ENABLE_CLUSTERING = "enableClustering";
+    
+    /**
+     * The property that sets whether EJB 3.0 JSR 181 webservices is enabled
+     */
+    private static final String PROPERTY_WEBSERVICE_ENABLED = "webServiceEnabled";
     
     // ---------------- constructor -------------------------------
 	
@@ -396,6 +408,19 @@ public class EJB3SessionFacadeLogicImpl
                 serviceDelegateNamePattern,
                 new Object[] {StringUtils.trimToEmpty(this.getName())});
     }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetServiceBaseName()
+     */
+    protected String handleGetServiceBaseName()
+    {
+        String serviceBaseNamePattern = 
+            (String)this.getConfiguredProperty(SERVICE_BASE_NAME_PATTERN);
+
+        return MessageFormat.format(
+                serviceBaseNamePattern,
+                new Object[] {StringUtils.trimToEmpty(this.getName())});
+    }
     
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetFullyQualifiedServiceName()
@@ -464,6 +489,17 @@ public class EJB3SessionFacadeLogicImpl
         return EJB3MetafacadeUtils.getFullyQualifiedName(
                 this.getPackageName(),
                 this.getServiceDelegateName(),
+                null);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetFullyQualifiedServiceBaseName()
+     */
+    protected String handleGetFullyQualifiedServiceBaseName()
+    {
+        return EJB3MetafacadeUtils.getFullyQualifiedName(
+                this.getPackageName(),
+                this.getServiceBaseName(),
                 null);
     }
     
@@ -936,5 +972,36 @@ public class EJB3SessionFacadeLogicImpl
     protected boolean handleIsClusteringEnabled()
     {
         return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(SERVICE_ENABLE_CLUSTERING)));
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsWebServiceEnabled()
+     */
+    protected boolean handleIsWebServiceEnabled()
+    {
+        return (this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) || this.isWebServiceOperationExists()) &&
+            BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(PROPERTY_WEBSERVICE_ENABLED)));
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsWebServiceOperationExists()
+     */
+    protected boolean handleIsWebServiceOperationExists()
+    {
+        return CollectionUtils.find(
+            this.getOperations(),
+            new Predicate()
+            {
+                public boolean evaluate(final Object object)
+                {
+                    boolean isWebService = false;
+                    final OperationFacade operation = (OperationFacade)object;
+                    if (operation.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION))
+                    {
+                        isWebService = true;
+                    }
+                    return isWebService;
+                }
+            }) != null;
     }
 }
