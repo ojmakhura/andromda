@@ -100,7 +100,7 @@ public class $serviceLocatorName
 #foreach ($service in $services)
 #**##if ($service.viewTypeRemote)
     /**
-     * Gets an instance of {@link ${service.fullyQualifiedServiceRemoteInterfaceName}}.
+     * Gets the remote interface {@link ${service.fullyQualifiedServiceRemoteInterfaceName}}.
      *
      * @param env the Context environment properties.  Null represents no properties.
      * @throws javax.naming.NamingException failure to lookup remote service interface.
@@ -112,9 +112,9 @@ public class $serviceLocatorName
 #*    *##set ($jndiName = "${service.jndiNameRemote}")
 #*  *##else
 #*    *##if ($stringUtils.isNotBlank($service.jndiNamePrefix))
-#*        *##set ($jndiName = "${service.jndiNamePrefix}/${service.fullyQualifiedServiceName}/remote")
+#*        *##set ($jndiName = "${service.jndiNamePrefix}/${service.serviceName}/remote")
 #*    *##else
-#*        *##set ($jndiName = "${service.fullyQualifiedServiceName}/remote")
+#*        *##set ($jndiName = "${service.serviceName}/remote")
 #*    *##end
 #*  *##end
         return (${service.fullyQualifiedServiceRemoteInterfaceName})
@@ -124,7 +124,7 @@ public class $serviceLocatorName
 #**##end
 #**##if ($service.viewTypeLocal)
     /**
-     * Gets an instance of {@link ${service.fullyQualifiedServiceLocalInterfaceName}}.
+     * Gets the local interface {@link ${service.fullyQualifiedServiceLocalInterfaceName}}.
      *
      * @param env the Context environment properties.  Null represents no properties.
      * @throws javax.naming.NamingException failure to lookup local service interface.
@@ -136,9 +136,9 @@ public class $serviceLocatorName
 #*    *##set ($jndiName = "${service.jndiNameLocal}")
 #*  *##else
 #*    *##if ($stringUtils.isNotBlank($service.jndiNamePrefix))
-#*      *##set ($jndiName = "${service.jndiNamePrefix}/${service.fullyQualifiedServiceName}/local")
+#*      *##set ($jndiName = "${service.jndiNamePrefix}/${service.serviceName}/local")
 #*    *##else
-#*      *##set ($jndiName = "${service.fullyQualifidServiceName}/local")
+#*      *##set ($jndiName = "${service.serviceName}/local")
 #*    *##end
 #*  *##end
         return (${service.fullyQualifiedServiceLocalInterfaceName})
