@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="${xmlEncoding}"?>
-<!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 4.0//EN"
-                       "http://www.jboss.org/j2ee/dtd/jboss_4_0.dtd">
-
-<jboss>
+<jboss
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                        http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+    version="3.0">
 
 #foreach ($service in $services)
 #**##if ($service.securityEnabled && !$generatedFile)
@@ -17,7 +19,7 @@
 
 #foreach ($service in $services)
         <session>
-            <ejb-name>${service.fullyQualifiedServiceName}</ejb-name>
+            <ejb-name>${service.serviceName}</ejb-name>
 #**##if ($service.viewTypeRemote && $stringUtils.isNotBlank($service.jndiNameRemote))
             <jndi-name>${service.jndiNameRemote}</jndi-name>
 #**##end
@@ -29,17 +31,17 @@
 #end
 #foreach ($manageable in $manageables)
         <session>
-            <ejb-name>${manageable.fullyQualifiedManageableServiceName}</ejb-name>
+            <ejb-name>${manageable.manageableServiceName}</ejb-name>
         </session>
 
 #end
 #foreach ($mdb in $mdbs)
         <message-driven>
-            <ejb-name>${mdb.fullyQualifiedMessageDrivenName}</ejb-name>
-            <destination-jndi-name>${mdb.destination}</destination-jndi-name>
+            <ejb-name>${mdb.messageDrivenName}</ejb-name>
 #**##if ($stringUtils.isNotBlank($mdb.containerConfiguration))
             <configuration-name>${mdb.containerConfiguration}</configuration-name>
 #**##end
+            <destination-jndi-name>${mdb.destination}</destination-jndi-name>
         </message-driven>
         
 #end
