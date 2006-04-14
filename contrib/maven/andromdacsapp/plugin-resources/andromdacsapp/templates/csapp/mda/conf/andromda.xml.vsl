@@ -104,6 +104,9 @@
                 <property name="springTypesPackage">${application.package}.Domain</property>
                 <property name="daos">${maven.andromda.core.generated.dir}</property>
                 <property name="dao-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="services">${maven.andromda.core.generated.dir}</property>
+                <property name="service-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="service-interfaces">${maven.andromda.common.generated.dir}</property>
             </properties>
         </namespace>
     </namespaces>
