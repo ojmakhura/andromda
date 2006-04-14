@@ -153,7 +153,7 @@
     </template>
 
     <template
-        path="templates/nspring/NSpringHibernateDaoImplManual.vsl"
+        path="templates/nspring/NSpringHibernateDaoImpl.vsl"
         outputPattern="$generatedFile"
         outlet="dao-impls"
         overwrite="false">
@@ -161,6 +161,48 @@
             <modelElement>
                 <type name="org.andromda.cartridges.nspring.metafacades.SpringEntity">
                     <property name="daoImplementationRequired"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/nspring/NSpringServiceInterface.vsl"
+        outputPattern="$generatedFile"
+        outlet="service-interfaces"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.nspring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/nspring/NSpringServiceBase.vsl"
+        outputPattern="$generatedFile"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.nspring.metafacades.SpringService">
+                    <property name="configonly">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/nspring/NSpringServiceImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="service-impls"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.nspring.metafacades.SpringService">
+                    <property name="configonly">false</property>
                 </type>
             </modelElement>
         </modelElements>

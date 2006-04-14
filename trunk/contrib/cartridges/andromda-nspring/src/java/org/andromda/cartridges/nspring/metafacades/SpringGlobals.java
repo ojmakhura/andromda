@@ -18,6 +18,11 @@ class SpringGlobals
     final static String EJB_IMPLEMENTATION_SUFFIX = "Bean";
 
     /**
+     * The pattern used to construct the service interface name.
+     */
+    static final String SERVICE_INTERFACE_PATTERN = "serviceInterfaceNamePattern";
+
+    /**
      * The service base class suffix.
      */
     final static String SERVICE_BASE_SUFFIX = "Base";
