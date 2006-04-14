@@ -101,6 +101,16 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.nspring.metafacades.SpringService#getFullyQualifiedInterfaceName()
+     */
+    protected java.lang.String handleGetFullyQualifiedInterfaceName()
+    {
+        return SpringMetafacadeUtils.getFullyQualifiedName(
+            this.getPackageName(),
+            this.getInterfaceName());
+    }
+
+    /**
      * @see org.andromda.cartridges.nspring.metafacades.SpringService#getBaseName()
      */
     protected java.lang.String handleGetBaseName()
@@ -232,6 +242,26 @@ public class SpringServiceLogicImpl
             interceptors = serviceInterceptorString.split(",");
         }
         return SpringMetafacadeUtils.getServiceInterceptors(this, interceptors);
+    }
+
+    /**
+     * @see org.andromda.cartridges.nspring.metafacades.SpringServiceLogic#handleGetInterfaceName()
+     */
+    protected String handleGetInterfaceName()
+    {
+        return this.getInterfaceNamePattern().replaceAll(
+            "\\{0\\}",
+            this.getName());
+    }
+
+    /**
+     * Gets the value of the {@link SpringGlobals#SERVICE_INTERFACE_PATTERN}
+     *
+     * @return the service interface name pattern.
+     */
+    private String getInterfaceNamePattern()
+    {
+        return String.valueOf(this.getConfiguredProperty(SpringGlobals.SERVICE_INTERFACE_PATTERN));
     }
 
     /**
@@ -576,12 +606,12 @@ public class SpringServiceLogicImpl
     {
         return this.getWebServiceAttachmentHandlerCall(SpringGlobals.WEBSERVICE_INCOMING_ATTACHMENT_HANDLER_CALL_PATTERN);
     }
-    
+
     /**
      * Constructs the webservice attachment handler call or returns null if
      * one isn't found or is not appropriate it for the service (i.e. it isn't
      * a webservice).
-     * 
+     *
      * @param patternProperty the property defining the pattern type.
      * @return the call value.
      */
@@ -597,6 +627,6 @@ public class SpringServiceLogicImpl
                 call = value;
             }
         }
-        return call;        
+        return call;
     }
 }

@@ -17,6 +17,7 @@
     <property reference="entityNamePattern"/>
     <property reference="hibernateQueryUseNamedParameters"/>
     <property reference="hibernateInheritanceStrategy"/>
+    <property reference="serviceInterfaceNamePattern"/>
     <property reference="serviceOperationTransactionType"/>
     <property reference="ejbServiceOperationTransactionType"/>
     <property reference="serviceHibernateInterceptorEnabled"/>

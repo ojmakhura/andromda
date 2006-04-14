@@ -1,0 +1,49 @@
+#set ($generatedFile = "${service.packagePath}/${service.implementationName}.cs")
+// Name: ${service.implementationName}.cs
+// license-header cs merge-point
+//
+// This is only generated once! It will never be overwritten.
+// You can (and have to!) safely modify it by hand.
+
+using System;
+using AndroMDA.NHibernateSupport;
+
+#if ($stringUtils.isNotBlank($service.packageName))
+namespace $service.packageName
+{
+#end
+    /// <summary>
+    /// @see $service.fullyQualifiedName
+    /// </summary>
+    public#if($service.abstract) abstract#end class $service.implementationName
+        : $service.fullyQualifiedBaseName
+    {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(typeof($service.implementationName));
+
+#foreach ($operation in $service.operations)
+        /// <summary>
+        /// @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+        /// </summary>
+#set ($abstract = $service.abstract && $operation.abstract)
+#if ($abstract)
+#set ($termination = ";")
+#else
+#set ($termination = "")
+#end
+        protected#if ($abstract) abstract#else override#end $operation.returnType.fullyQualifiedName $operation.implementationSignature$termination
+#if (!$abstract)
+        {
+            // put your implementation here
+#if ($operation.returnTypePresent)
+            return $operation.returnType.javaNullString;
+#else
+            throw new InvalidOperationException("${service.fullyQualifiedName}.${operation.implementationSignature} Not implemented!");
+#end
+        }
+
+#end
+#end
+    }
+#if ($stringUtils.isNotBlank($service.packageName))
+}
+#end

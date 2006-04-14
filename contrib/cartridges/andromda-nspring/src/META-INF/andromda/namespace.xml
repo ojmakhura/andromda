@@ -30,6 +30,12 @@
                     will be generated.
                 </documentation>
             </property>
+            <property name="service-interfaces">
+                <documentation>
+                    The location to which all service interfaces and common API classes such
+                    as default service exceptions will be generated.
+                </documentation>
+            </property>
             <property name="daos">
                 <documentation>
                     The location to which Spring DAOs, and any support classes.
@@ -209,6 +215,14 @@
                     represents the service package name.  This could be something like
                     <em>{0}.ejb</em> which would create the Spring Session EJBs in the
                     package ending in the <em>ejb</em> package.
+                </documentation>
+            </property>
+            <property name="serviceInterfaceNamePattern">
+                <default>I{0}</default>
+                <documentation>
+                    The pattern to use when constructing the service interface name. <em>{0}</em> is used to represent
+                    the entity name in the model, so if you specified a value of <code>I{0}</code> all
+                    the entities generated would have a prefix of "I".
                 </documentation>
             </property>
             <property name="defaultServiceExceptionNamePattern">
