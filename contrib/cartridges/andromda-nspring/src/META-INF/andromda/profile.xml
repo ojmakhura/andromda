@@ -87,8 +87,11 @@
             </element>
             <element name="TRANSACTION_TYPE">
                 <documentation>
-                    Defines a Spring transaction type for the service operation
-                    (when <strong>NOT</strong> wrapped by EJBs).
+                    Defines whether the service operation will start a new NHibernate session
+                    and a transaction. PROPAGATION_REQUIRED, which is the default value,
+                    will start a new session and transaction and PROPAGATION_SUPPORTS will
+                    not. Other values are not supported by the NSpring cartridge and should
+                    not be used.
                 </documentation>
                 <value>@andromda.spring.transaction.type</value>
                 <appliedOnElement>Service Operation</appliedOnElement>
