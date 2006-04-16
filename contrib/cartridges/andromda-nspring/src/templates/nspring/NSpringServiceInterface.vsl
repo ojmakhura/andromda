@@ -28,7 +28,7 @@ $service.getDocumentation("    /// ")
     {
 #foreach ($operation in $service.operations)
         /// <summary>
-    $operation.getDocumentation("    /// ")
+$operation.getDocumentation("        /// ")
         /// </summary>
 #if ($operation.exceptionsPresent)
         $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
