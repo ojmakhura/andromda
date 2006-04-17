@@ -66,7 +66,7 @@ $operation.getDocumentation("     * ")
 #**##foreach ($operation in $operations)
 #*  *##if (!$operation.lifecycleCallback)
     /**
-     * @see ${service.fullyQualifiedServiceName}#${operation.getSignature(false)}
+     * @see ${service.fullyQualifiedServiceBaseName}#${operation.getSignature(false)}
      */
 #*    *##set ($abstract = $service.abstract && $operation.abstract)
     protected#if ($abstract) abstract#end $operation.returnType.fullyQualifiedName $operation.implementationSignature
