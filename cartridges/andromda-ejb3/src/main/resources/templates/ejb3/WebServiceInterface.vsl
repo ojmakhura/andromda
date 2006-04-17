@@ -27,7 +27,10 @@ public interface ${service.webServiceInterfaceName}
 ## All operations throw java.rmi.RemoteException
 ##
 #*  *##if (!$operation.lifecycleCallback && ($operation.visibility == "public") && ($operation.viewTypeRemote || $operation.viewTypeBoth) && ($operation.exposed))
-    @javax.jws.WebMethod(operationName = "${stringUtils.capitalize($operation.name)}")
+    @javax.jws.WebMethod(operationName = "$operation.methodName")
+#*    *##if ($stringUtils.isNotBlank($operation.resultName))
+    @javax.jws.WebResult(name = "${operation.resultName}")
+#*    *##end
 #*    *##if ($operation.oneway)
     @javax.jws.Oneway
 #*    *##end
