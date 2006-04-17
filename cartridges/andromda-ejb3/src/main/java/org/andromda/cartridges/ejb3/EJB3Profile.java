@@ -511,4 +511,15 @@ public class EJB3Profile
      * Defines the webservice method as oneway
      */
     public static final String TAGGEDVALUE_WEBSERVICE_OPERATION_ONEWAY = profile.get("WEBSERVICE_OPERATION_ONEWAY");
+
+    /**
+     * Defines the webservice method name
+     */
+    public static final String TAGGEDVALUE_WEBSERVICE_OPERATION_NAME = profile.get("WEBSERVICE_OPERATION_NAME");
+
+    /**
+     * Defines the webservice method result name
+     */
+    public static final String TAGGEDVALUE_WEBSERVICE_OPERATION_RESULT_NAME = 
+        profile.get("WEBSERVICE_OPERATION_RESULT_NAME");
 }
