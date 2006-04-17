@@ -1308,6 +1308,20 @@
 			        <value>false</value>
 			    </allowedValues>
 			</element>
+			<element name="WEBSERVICE_OPERATION_NAME">
+			    <documentation>
+			        Specifies the web service method name.
+			    </documentation>
+			    <value>@andromda.webservice.operation.name</value>
+			    <appliedOnElement>Service and WebService</appliedOnElement>
+			</element>
+			<element name="WEBSERVICE_OPERATION_RESULT_NAME">
+			    <documentation>
+			        Specifies the web service method result name.
+			    </documentation>
+			    <value>@andromda.webservice.operation.result.name</value>
+			    <appliedOnElement>Service and WebService</appliedOnElement>
+			</element>
 		</elementGroup>
 	</elements>
 </profile>
