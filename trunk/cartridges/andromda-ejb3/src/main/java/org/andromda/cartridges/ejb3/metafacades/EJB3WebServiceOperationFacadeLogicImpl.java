@@ -85,10 +85,7 @@ public class EJB3WebServiceOperationFacadeLogicImpl
             {
                 buffer.append(",");
             }
-            else
-            {
-                buffer.append('\n');
-            }
+            buffer.append('\n');
             
             // Add WebParam annotation
             if (withArgumentNames)
@@ -108,13 +105,34 @@ public class EJB3WebServiceOperationFacadeLogicImpl
                 buffer.append(paramter.getName());
             }
             commaNeeded = true;
-            buffer.append('\n');
         }
+        buffer.append('\n');
         if (commaNeeded)
         {
             buffer.append("    ");
         }
         return buffer.toString();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceOperationFacadeLogic#handleGetMethodName()
+     */
+    protected String handleGetMethodName()
+    {
+        String methodName = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_WEBSERVICE_OPERATION_NAME);
+        if (StringUtils.isBlank(methodName))
+        {
+            methodName = StringUtils.capitalize(this.getName());
+        }
+        return methodName;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceOperationFacadeLogic#handleGetResultName()
+     */
+    protected String handleGetResultName()
+    {
+        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_WEBSERVICE_OPERATION_RESULT_NAME);
     }
 
 }
