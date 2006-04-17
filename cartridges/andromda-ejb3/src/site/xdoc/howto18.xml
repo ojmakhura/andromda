@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - HowTo WebService</title>
+    </properties>
+    <body>
+        <section name="WebService">
+            <p>
+                This howto will guide you to simplifying web service endpoint development using the JSR181 web service
+                metadata programming model.  You can find out more information at
+                <a href="http://www.jcp.org/en/jsr/detail?id=181">JSR 181 Web Service Metadata</a>.
+            </p>
+            <p>
+                You still have the choice of using the WebService cartridge if you wish to expose session beans or
+                POJOs.  Just follow the instructions 
+                <a href="http://team.andromda.org/docs/andromda-webservice-cartridge/index.html">here</a>.
+            </p>
+            <p>
+                Using the Andromda Project Generator, you must enable WebServices and if you selected 'ejb3' for
+                the persistence type, then you will get an optional question to enable JSR 181 annotated metadata
+                for the project.
+            </p>
+            <p>
+                The project generator will add the following properties to your andromda.xml ejb3 namespace.
+<source language="xml"><![CDATA[
+        <namespace name="ejb3">
+            <properties>
+                ...
+                <property name="webServiceEnabled">true</property>
+                <property name="webServiceContextRoot">/${application.id}-ws</property>
+                <property name="webServiceUrlPattern">/services</property>
+                ...
+            </properties>
+        </namespace>
+]]></source>
+                The <code>webServiceEnabled</code> property allows you to switch between the
+                WebService cartridge and the EJB3 JSR181 metadata model.  The
+                <code>webServiceContextRoot</code> and <code>webServiceUrlPattern</code>
+                allows you to modify the construction of the URL for the webservice endpoints.
+            </p>
+            <p>
+                The following is a very simple example exposing all session bean operations.  This is achieved
+                by modelling the <![CDATA[<<WebService>>]]> stereotype on the <code>TicketService</code>
+                session bean.  Modelling this is very similar to the WebService cartridge process.  The
+                EJB3 cartridge introduces a few extra tagged values.  The example below models the
+                <code>@andromda.webservice.operation.result.name</code> tagged value on the 
+                <code>processMinimal</code> operation.
+            </p>
+            <p>
+                <img src="images/org/andromda/test/18/a/uml.gif"/>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/TicketEmbeddable.java"><code>TicketEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto18/a/Ticket.java"><code>Ticket.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/ServiceLocator.java"><code>ServiceLocator.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/TicketServiceBase.java"><code>TicketServiceBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/TicketServiceRemote.java"><code>TicketServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/TicketServiceDelegate.java"><code>TicketServiceDelegate.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto18/a/TicketServiceBean.java"><code>TicketServiceBean.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto18/a/TicketServiceWSInterface.java"><code>TicketServiceWSInterface.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/TicketServiceException.java"><code>TicketServiceException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/TicketException.java"><code>TicketException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/jboss.xml"><code>jboss.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/persistence.xml"><code>persistence.xml</code></a></li>
+                </ul>
+            </p>
+            <p>
+                The <code>TicketServiceBean</code> implementation contains the <code>@WebService</code>
+                annotation defining the <code>endpointInterface</code> property that references the
+                web service interface <code>TicketServiceWSInterface</code> containing all other annotations.  
+                Default values are provided via namespace properties, but you can override them using tagged 
+                values.
+            </p>
+            <a name="WebService_Client"/>
+            <subsection name="WebService Client">
+                <p>
+                    Here is a very brief example on calling a web service endpoint with the help of JBoss
+                    client libraries.
+                </p>
+                <p>
+                    Create a configuration file for generating the client side artifact
+                    <code>jaxrpc-mapping.xml</code>.  The config below assumes JBoss is running
+                    on the localhost and you have deployed your project exposing web service endpoints on
+                    the location specified below.
+<source language="xml"><![CDATA[
+<configuration xmlns="http://www.jboss.org/jbossws-tools">
+    <wsdlToJava wsdlLocation="http://localhost:8080/ejb3demo-ws/services/TicketService?wsdl">
+        <mapping fileName="jaxrpc-mapping.xml"/>
+    </wsdlToJava>
+</configuration>  
+]]></source>
+                </p>
+                <p>
+                    Now run the <code>wstools</code> binary (available in JBoss 5.x or from JBoss 4.0.4-CR3 onwards)
+                    on this configuration file.
+                </p>
+                <p>
+                    <code>
+                        jboss-inst/bin/wstools.sh -cp {path to TicketService.class} -config jbosswsConfig.xml
+                    </code>
+                </p>
+                <p>
+                    This will create the <code>jaxrpc-mapping.xml</code> artifact.
+                </p>
+                <p>
+                    The client can invoke exposed operations like so.
+<source><![CDATA[
+URL wsdlURL = new URL("http://localhost:8080/ejb3demo3-ws/services/TicketService?wsdl");
+
+ServiceFactoryImpl factory = new ServiceFactoryImpl();
+
+File mappingFile = new File("jaxrpc-mapping.xml");
+Service service = factory.createService(wsdlURL, null, mappingFile.toURL());
+
+TicketServiceWSInterface port = (TicketServiceWSInterface)service.getPort(TicketServiceWSInterface.class);
+port.process(1, "000", "Test");
+]]></source>
+                </p>
+            </subsection>
+            <a name="Helpful_Hints"/>
+            <subsection name="Helpful Hints">
+                <p>
+                    Do not over-load operations as this will cause conflicts when exposing similarly named session 
+                    bean operations as web service endpoints.
+                </p>
+                <p>
+                    In the example above, <code>TicketServiceBean</code> is generated once only since it contains
+                    the session bean implementation.  Therefore, the <code>@WebService</code> annotation is enabled
+                    on generation of the class.  To stop exposing this bean, you must manually comment out the
+                    following:
+<source><![CDATA[
+@javax.jws.WebService(endpointInterface = "org.andromda.demo3.ejb3.test.TicketServiceWSInterface")
+]]></source>
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>
