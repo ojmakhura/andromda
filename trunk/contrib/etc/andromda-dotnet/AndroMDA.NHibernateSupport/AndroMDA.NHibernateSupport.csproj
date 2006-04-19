@@ -80,11 +80,6 @@
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "NHibernate"
-                    AssemblyName = "NHibernate"
-                    HintPath = "..\Lib\NHibernate-1.0.0.0\NHibernate.dll"
-                />
-                <Reference
                     Name = "System.Web"
                     AssemblyName = "System.Web"
                     HintPath = "C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Web.dll"
@@ -92,7 +87,12 @@
                 <Reference
                     Name = "log4net"
                     AssemblyName = "log4net"
-                    HintPath = "..\Lib\NHibernate-1.0.0.0\log4net.dll"
+                    HintPath = "..\Lib\NHibernate\log4net.dll"
+                />
+                <Reference
+                    Name = "NHibernate"
+                    AssemblyName = "NHibernate"
+                    HintPath = "..\Lib\NHibernate\NHibernate.dll"
                 />
             </References>
         </Build>
