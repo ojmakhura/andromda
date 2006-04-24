@@ -44,6 +44,10 @@
     <property reference="allowDefaultServiceException"/>
     <property reference="compositionDefinesEagerLoading"/>
     <property reference="jndiNamePrefix"/>
+    <property reference="daoNamePattern"/>
+    <property reference="daoBaseNamePattern"/>
+    <property reference="daoImplementationNamePattern"/>
+    <property reference="daoDefaultExceptionNamePattern"/>
 
 	<!--  Manageable Entity Metafacades -->
     <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogicImpl" contextRoot="true">
@@ -218,4 +222,16 @@
 	        <stereotype>PERSISTENCE_CONTEXT</stereotype>
 	    </mapping>
 	</metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3DependencyFacadeLogicImpl"/>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacadeLogicImpl" contextRoot="true">
+        <mapping>
+            <stereotype>EMBEDDED_VALUE</stereotype>
+        </mapping>
+        <property reference="embeddedValueImplementationNamePattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogicImpl">
+        <mapping>
+            <context>org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacade</context>
+        </mapping>
+    </metafacade>
 </metafacades>
