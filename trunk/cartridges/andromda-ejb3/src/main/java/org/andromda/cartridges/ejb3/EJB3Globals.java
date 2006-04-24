@@ -203,4 +203,35 @@ public class EJB3Globals
      * The namespace delimiter (seperates namespaces).
      */
     public static final char NAMESPACE_DELIMITER = '.';
+    
+    /**
+     * Defines the prefix given to the transformation constants.
+     */
+    public final static String TRANSFORMATION_CONSTANT_PREFIX = "TRANSFORM_";
+    
+    /**
+     * The suffix given to the no transformation constant.
+     */
+    public static final String NO_TRANSFORMATION_CONSTANT_SUFFIX = "NONE";
+    
+    /**
+     * The prefix given to transformation method names.
+     */
+    public static final String TRANSFORMATION_METHOD_PREFIX = "to";
+
+    /**
+     * The suffix given to transformation method names.
+     */
+    public static final String TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX = "Collection";
+
+    /**
+     * The pattern used to construct the DAO name.
+     */
+    public static final String DAO_PATTERN = "daoNamePattern";
+
+    /**
+     * The property which stores the persistence context unit name associated with the default
+     * Entity Manager.
+     */
+    public static final String PERSISTENCE_CONTEXT_UNIT_NAME = "persistenceContextUnitName";
 }
