@@ -59,6 +59,29 @@
 			        is generated.
 			    </documentation>
 			</property>
+            <property name="daos">
+                <documentation>
+                    The location to which EJB3 DAOs, and any support classes
+                    are generated.
+                    <p>
+                        Please <strong>NOTE</strong>
+                        that the dao implementation classes will also be generated to this location when
+                        <strong>no operations</strong> are present on the entity with <em>classifier scope</em>.
+                    </p>
+                </documentation>
+            </property>
+            <property name="dao-impls">
+                <documentation>
+                    The location to which EJB3 DAO implementation
+                    classes will be generated (if there are any classifier scoped business
+                    operations modeled on any entity).
+                    <p>
+                        Please <strong>NOTE</strong>
+                        that the dao implementation classes will be generated to the <em>daos</em> outlet when
+                        <strong>no operations</strong> are present on the entity with <em>classifier scope</em>.
+                    </p>
+                </documentation>
+            </property>
 			<property name="application-config">
 			    <documentation>
 			        The location where the application specific XML 
@@ -535,6 +558,13 @@
                     session bean operations as web services.
                 </documentation>
             </property>
+            <property name="embeddedValueImplementationNamePattern">
+                <default>{0}Impl</default>
+                <documentation>
+                    The pattern to use when constructing an embedded 
+                    value implementation name.
+                </documentation>
+            </property>
 		</propertyGroup>
 		<propertyGroup name="MDB Properties">
 			<property name="messageDrivenDestinationType">
@@ -749,6 +779,62 @@
                 <default>ServiceLocator</default>
                 <documentation>
                     The name to give the service locator class.
+                </documentation>
+            </property>
+		</propertyGroup>
+		<propertyGroup name="DAO Properties">
+            <property name="daoInheritanceEnabled">
+                <default>false</default>
+                <documentation>
+                    Whether or not the DAOs should make up an inheritance tree in 
+                    the same way as their respective entities. This is disabled 
+                    by default but you might want to enable it if you prefer to have
+                    top-level DAO operations visible in child DAO classes. The EJB3 
+                    cartridge uses JDK5 generics, further enahanced by enabling the 
+                    <code>enableTemplating</code> namespace property.
+                </documentation>
+            </property>
+            <property name="enableDaoPropertiesCreateMethod">
+                <default>true</default>
+                <documentation>
+                    Whether or not the create methods on the DAOs taking properties
+                    from the entity shall be generated.
+                </documentation>
+            </property>
+            <property name="daoNamePattern">
+                <default>{0}Dao</default>
+                <documentation>
+                    The pattern to use when constructing the DAO name. <em>{0}</em> 
+                    is used to represent the entity name in the model, so if you 
+                    specified a value of <code>{0}Dao</code> all
+                    the entities generated would have a suffix of "Dao".
+                </documentation>
+            </property>
+            <property name="daoBaseNamePattern">
+                <default>{0}DaoBase</default>
+                <documentation>
+                    The pattern to use when constructing the base DAO's name.
+                    <em>{0}</em> is used to represent the entity name
+                    in the model, so if you specified a value of
+                    <code>{0}DaoBase</code> all the entities generated
+                    would have a suffix of "DaoBase".
+                </documentation>
+            </property>
+            <property name="daoImplementationNamePattern">
+                <default>{0}DaoImpl</default>
+                <documentation>
+                    The pattern to use when constructing the DAO's
+                    implementation name. <em>{0}</em> is used to represent
+                    the entity name in the model, so if you specified a value of
+                    <code>{0}DaoImpl</code> all the entities generated
+                    would have a suffix of "DaoImpl".
+                </documentation>
+            </property>
+            <property name="daoDefaultExceptionNamePattern">
+                <default>{0}DaoException</default>
+                <documentation>
+                    The pattern to use when constructing the DAO 
+                    default exception name.
                 </documentation>
             </property>
 		</propertyGroup>
