@@ -357,7 +357,18 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.Basic(fetch = javax.persistence.FetchType.EAGER)
 #*        *##end
 #*      *##end
+#*      *##if ($attribute.containsEmbeddedObject)
+    @javax.persistence.Embedded
+    @javax.persistence.AttributeOverrides
+    ({
+#*        *##foreach ($embeddedAttribute in $attribute.type.attributes)
+        @javax.persistence.AttributeOverride(name = "${embeddedAttribute.name}", column = @javax.persistence.Column(name = "${embeddedAttribute.columnName}"#if ($embeddedAttribute.unique), unique = ${embeddedAttribute.unique}#end#if (!$embeddedAttribute.columnNullable), nullable = ${embeddedAttribute.columnNullable}#end#**#, insertable = ${embeddedAttribute.insertEnabled}, updatable = ${embeddedAttribute.updateEnabled}#if ($embeddedAttribute.columnLength), length = ${embeddedAttribute.columnLength}#end#if ($embeddedAttribute.columnDefinition), columnDefinition = "${embeddedAttribute.columnDefinition}"#end#if ($embeddedAttribute.columnPrecision), precision = ${embeddedAttribute.columnPrecision}#end#if ($embeddedAttribute.columnScale), scale = ${embeddedAttribute.columnScale}#end))#if($velocityCount != $attribute.type.attributes.size()),#end
+
+#*        *##end
+    })
+#*      *##else
     @javax.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.columnNullable}#end#**#, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
+#*      *##end
 #*      *##if (!$attribute.lob && $attribute.lazy)
 ##
 ## Only add the fetch type property for LAZY hints - default is EAGER
