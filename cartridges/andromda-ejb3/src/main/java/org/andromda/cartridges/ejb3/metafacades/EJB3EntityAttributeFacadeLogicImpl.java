@@ -490,4 +490,17 @@ public class EJB3EntityAttributeFacadeLogicImpl
         final String value = (String)findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_COLUMN_UPDATE);
         return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : true;
     }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsContainsEmbeddedObject()
+     */
+    protected boolean handleIsContainsEmbeddedObject()
+    {
+        boolean returnValue = false;
+        if (this.getType() instanceof EJB3EmbeddedValueFacade)
+        {
+            returnValue = true;
+        }
+        return returnValue;
+    }
 }
