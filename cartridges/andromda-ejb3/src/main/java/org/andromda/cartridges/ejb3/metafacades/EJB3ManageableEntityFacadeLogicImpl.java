@@ -4,6 +4,7 @@ import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.EntityAttribute;
@@ -40,12 +41,6 @@ public class EJB3ManageableEntityFacadeLogicImpl
      * The property which stores the pattern defining the manageable delete exception name.
      */
     public static final String DELETE_EXCEPTION_NAME_PATTERN = "manageableDeleteExceptionNamePattern";
-    
-    /**
-     * The property which stores the persistence context unit name associated with the default
-     * Entity Manager.
-     */
-    private static final String PERSISTENCE_CONTEXT_UNIT_NAME = "persistenceContextUnitName";
     
     /**
      * The property that stores the JNDI name prefix.
@@ -174,7 +169,8 @@ public class EJB3ManageableEntityFacadeLogicImpl
      */
     protected String handleGetDefaultPersistenceContextUnitName()
     {
-        return StringUtils.trimToEmpty(ObjectUtils.toString(this.getConfiguredProperty(PERSISTENCE_CONTEXT_UNIT_NAME)));
+        return StringUtils.trimToEmpty(
+                ObjectUtils.toString(this.getConfiguredProperty(EJB3Globals.PERSISTENCE_CONTEXT_UNIT_NAME)));
     }
 
     /**
@@ -282,6 +278,5 @@ public class EJB3ManageableEntityFacadeLogicImpl
 
         return displayAttribute;
     }
-    
-    
+
 }
