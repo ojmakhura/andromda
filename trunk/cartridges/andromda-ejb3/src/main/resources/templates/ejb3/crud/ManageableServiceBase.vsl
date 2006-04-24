@@ -16,9 +16,9 @@ package $manageable.manageablePackageName;
  *       and remove this suffix.
  */
 /**
- * Do not specify the javax.ejb.${service.type} annotation
+ * Do not specify the javax.ejb.${manageable.type} annotation
  * Instead, define the session bean in the ejb-jar.xml descriptor
- * javax.ejb.${service.type}
+ * javax.ejb.${manageable.type}
  */
 @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.REQUIRED)
 @javax.ejb.Remote({${manageable.fullyQualifiedManageableServiceName}.class})
@@ -36,7 +36,7 @@ public final class $manageable.manageableServiceBaseName
      * Inject persistence context #if ($manageable.defaultPersistenceContextUnitName)${manageable.defaultPersistenceContextUnitName}#end
      
      */
-    @javax.persistence.PersistenceContext#if ($service.persistenceContextUnitName)(unitName = "${manageable.defaultPersistenceContextUnitName}")#end
+    @javax.persistence.PersistenceContext#if ($manageable.defaultPersistenceContextUnitName)(unitName = "${manageable.defaultPersistenceContextUnitName}")#end
     
     protected javax.persistence.EntityManager emanager;
 #set ($associatedClasses = $manageable.allAssociatedClasses)
