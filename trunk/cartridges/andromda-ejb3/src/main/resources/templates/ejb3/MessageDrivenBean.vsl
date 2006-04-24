@@ -29,7 +29,7 @@ $mdb.getDocumentation(" * ")
 //  
 #end
 #if ($mdb.subscriptionDurability)
-//  @javax.ejb.ActivationConfigProperty(propertyName="subscriptionDurability", propertyValue="${mdb.subscriptionDurability}")
+//  @javax.ejb.ActivationConfigProperty(propertyName="durability", propertyValue="${mdb.subscriptionDurability}")
 #end
 //}
 //)
