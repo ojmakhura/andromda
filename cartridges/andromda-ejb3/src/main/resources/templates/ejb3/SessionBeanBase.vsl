@@ -118,6 +118,20 @@ public abstract class ${service.serviceBaseName}
     protected ${reference.fullyQualifiedServiceRemoteInterfaceName} $stringUtils.uncapitalize(${reference.name});
 #**##end
 #end
+#set ($entityReferences = $service.entityReferences)
+#if (!$entityReferences.empty)
+
+    // ------ DAO Injection Definitions --------
+#**##foreach ($daoDependency in $entityReferences)
+#*  *##set ($daoReference = $daoDependency.targetElement)
+
+    /**
+     * Inject DAO ${daoReference.daoName}
+     */
+    @javax.annotation.EJB
+    protected ${daoReference.fullyQualifiedDaoName} $stringUtils.uncapitalize(${daoReference.daoName});
+#**##end
+#end
 #set ($mdbReferences = $service.messageDrivenReferences)
 #if (!$mdbReferences.empty)
 
