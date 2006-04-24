@@ -16,14 +16,19 @@ import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.EntityAttribute;
+import org.andromda.metafacades.uml.EnumerationFacade;
+import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.metafacades.uml.ValueObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 
@@ -166,6 +171,21 @@ public class EJB3EntityFacadeLogicImpl
      * entities and queries.
      */
     private static final String USE_DEFAULT_CACHE_REGION = "useDefaultCacheRegion";
+
+    /**
+     * The pattern used to construct the DAO implementation name.
+     */
+    private static final String DAO_IMPLEMENTATION_PATTERN = "daoImplementationNamePattern";
+
+    /**
+     * The pattern used to construct the DAO base name.
+     */
+    private static final String DAO_BASE_PATTERN = "daoBaseNamePattern";
+    
+    /**
+     * The property which stores the pattern defining the DAO default exception name.
+     */
+    private static final String DAO_DEFAULT_EXCEPTION_NAME_PATTERN = "daoDefaultExceptionNamePattern";
     
     // ---------------- constructor -------------------------------
 
@@ -1096,5 +1116,248 @@ public class EJB3EntityFacadeLogicImpl
     protected boolean handleIsUseDefaultCacheRegion()
     {
         return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(USE_DEFAULT_CACHE_REGION)));
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDaoName()
+     */
+    protected String handleGetDaoName()
+    {
+        return MessageFormat.format(
+            getDaoNamePattern(),
+            new Object[] {StringUtils.trimToEmpty(this.getName())});
+    }
+
+    /**
+     * Gets the value of the {@link #DAO_PATTERN}
+     *
+     * @return the DAO name pattern.
+     */
+    private String getDaoNamePattern()
+    {
+        return String.valueOf(this.getConfiguredProperty(EJB3Globals.DAO_PATTERN));
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetFullyQualifiedDaoName()
+     */
+    protected String handleGetFullyQualifiedDaoName()
+    {
+        return EJB3MetafacadeUtils.getFullyQualifiedName(
+                this.getPackageName(),
+                this.getDaoName(),
+                null);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDaoImplementationName()
+     */
+    protected String handleGetDaoImplementationName()
+    {
+        return MessageFormat.format(
+                getDaoImplementationNamePattern(),
+                new Object[] {StringUtils.trimToEmpty(this.getName())});
+    }
+
+    /**
+     * Gets the value of the {@link #DAO_IMPLEMENTATION_PATTERN}
+     *
+     * @return the DAO implementation name pattern.
+     */
+    private String getDaoImplementationNamePattern()
+    {
+        return String.valueOf(this.getConfiguredProperty(DAO_IMPLEMENTATION_PATTERN));
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic
+     *      #handleGetFullyQualifiedDaoImplementationName()
+     */
+    protected String handleGetFullyQualifiedDaoImplementationName()
+    {
+        return EJB3MetafacadeUtils.getFullyQualifiedName(
+                this.getPackageName(),
+                this.getDaoImplementationName(),
+                null);
+    }
+
+    /*
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDaoBaseName()
+     */
+    protected String handleGetDaoBaseName()
+    {
+        return MessageFormat.format(
+                getDaoBaseNamePattern(),
+                new Object[] {StringUtils.trimToEmpty(this.getName())});
+    }
+
+    /**
+     * Gets the value of the {@link #DAO_BASE_PATTERN}
+     *
+     * @return the DAO base name pattern.
+     */
+    private String getDaoBaseNamePattern()
+    {
+        return String.valueOf(this.getConfiguredProperty(DAO_BASE_PATTERN));
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetFullyQualifiedDaoBaseName()
+     */
+    protected String handleGetFullyQualifiedDaoBaseName()
+    {
+        return EJB3MetafacadeUtils.getFullyQualifiedName(
+                this.getPackageName(),
+                this.getDaoBaseName(),
+                null);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsDaoBusinessOperationsPresent()
+     */
+    protected boolean handleIsDaoBusinessOperationsPresent()
+    {
+        return this.getDaoBusinessOperations() != null && !this.getDaoBusinessOperations().isEmpty();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDaoBusinessOperations()
+     */
+    protected Collection handleGetDaoBusinessOperations()
+    {
+        // operations that are not finders and static
+        Collection finders = this.getQueryOperations();
+        Collection operations = this.getOperations();
+
+        Collection nonFinders = CollectionUtils.subtract(operations, finders);
+        CollectionUtils.filter(
+            nonFinders,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    return ((OperationFacade)object).isStatic();
+                }
+            }
+        );
+        return nonFinders;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetValueObjectReferences()
+     */
+    protected Collection handleGetValueObjectReferences()
+    {
+        return this.getValueObjectReferences(false);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetAllValueObjectReferences()
+     */
+    protected Collection handleGetAllValueObjectReferences()
+    {
+        return this.getValueObjectReferences(true);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsDaoImplementationRequired()
+     */
+    protected boolean handleIsDaoImplementationRequired()
+    {
+        return !this.getValueObjectReferences().isEmpty() || !this.getDaoBusinessOperations().isEmpty() ||
+            !this.getQueryOperations(true).isEmpty();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDaoNoTransformationConstantName()
+     */
+    protected String handleGetDaoNoTransformationConstantName()
+    {
+        return EJB3Globals.TRANSFORMATION_CONSTANT_PREFIX + EJB3Globals.NO_TRANSFORMATION_CONSTANT_SUFFIX;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetValueObjectReferences(boolean)
+     */
+    protected Collection handleGetValueObjectReferences(boolean follow)
+    {
+        final Collection sourceDependencies = new ArrayList(this.getSourceDependencies());
+        if (follow)
+        {
+            for (
+                GeneralizableElementFacade entity = this.getGeneralization(); entity != null;
+                entity = entity.getGeneralization())
+            {
+                sourceDependencies.addAll(entity.getSourceDependencies());
+            }
+        }
+        return new FilteredCollection(sourceDependencies)
+            {
+                public boolean evaluate(Object object)
+                {
+                    boolean valid = false;
+                    Object targetElement = ((DependencyFacade)object).getTargetElement();
+                    if (targetElement instanceof ClassifierFacade)
+                    {
+                        ClassifierFacade element = (ClassifierFacade)targetElement;
+                        valid = element.isDataType() || element instanceof ValueObject || element instanceof EnumerationFacade;
+                    }
+                    return valid;
+                }
+            };
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetRoot()
+     */
+    protected Object handleGetRoot()
+    {
+        GeneralizableElementFacade generalization = this;
+        for (
+            ; generalization.getGeneralization() != null && generalization instanceof EJB3EntityFacade;
+            generalization = generalization.getGeneralization())
+            ;
+        return generalization;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDefaultPersistenceContextUnitName()
+     */
+    protected String handleGetDefaultPersistenceContextUnitName()
+    {
+        return StringUtils.trimToEmpty(
+                ObjectUtils.toString(this.getConfiguredProperty(EJB3Globals.PERSISTENCE_CONTEXT_UNIT_NAME)));
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDaoDefaultExceptionName()
+     */
+    protected String handleGetDaoDefaultExceptionName()
+    {
+        return MessageFormat.format(
+                getDaoDefaultExceptionNamePattern(),
+                new Object[] {StringUtils.trimToEmpty(this.getName())});
+    }
+
+    /**
+     * Gets the value of the {@link #DAO_DEFAULT_EXCEPTION_NAME_PATTERN}
+     *
+     * @return the DAO default exception name pattern.
+     */
+    private String getDaoDefaultExceptionNamePattern()
+    {
+        return String.valueOf(this.getConfiguredProperty(DAO_DEFAULT_EXCEPTION_NAME_PATTERN));
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#
+     *      handleGetFullyQualifiedDaoDefaultExceptionName()
+     */
+    protected String handleGetFullyQualifiedDaoDefaultExceptionName()
+    {
+        return EJB3MetafacadeUtils.getFullyQualifiedName(
+                this.getPackageName(),
+                this.getDaoDefaultExceptionName(),
+                null);
     }
 }
