@@ -1,14 +1,16 @@
 <cartridge>
 
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
+        <macrolibrary name="templates/ejb3/GlobalMacros.vm"/>
+        <!-- cartridge-macrolibrary merge-point-->
+    </templateEngine>
+    
     <!-- define the template objects that are made availble to the template -->
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="collectionUtils" className="org.apache.commons.collections.CollectionUtils"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb3.EJB3ScriptHelper"/>
+    
     <!-- cartridge-templateObject merge-point-->
-
-    <!-- cartridge-property merge-point-->
-
-    <!-- cartridge-resource merge-point -->
 
     <property reference="entityManagerName"/>
     <property reference="entityManagerJTADataSource"/>
@@ -42,7 +44,20 @@
     <property reference="enableClustering"/>
     <property reference="webServiceContextRoot"/>
     <property reference="webServiceUrlPattern"/>
-
+    <property reference="dao-impls"/>
+    <property reference="daos"/>
+    <property reference="daoInheritanceEnabled"/>
+    <property reference="enableDaoPropertiesCreateMethod"/>
+    
+    <!-- cartridge-property merge-point -->
+    
+    <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
+    <condition name="daoInheritanceEnabled">$daoInheritanceEnabled.equalsIgnoreCase("true")</condition>
+    
+    <!-- condition merge-point-->
+    
+    <!-- cartridge-resource merge-point -->
+    
     <!-- Entity Bean Templates -->
 
     <template 
@@ -250,6 +265,74 @@
         </modelElements>
     </template>
     
+    <!-- DAO Templates -->
+    
+    <template
+        path="templates/ejb3/DaoLocal.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/DaoBase.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/DaoImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="daos"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
+                    <property name="daoImplementationRequired">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb3/DaoImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="dao-impls"
+        overwrite="false">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
+                    <property name="daoImplementationRequired"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/DaoDefaultException.vsl"
+        outputPattern="$generatedFile"
+        outlet="commons"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <!-- Configuration Templates -->
+        
     <template
         path="templates/ejb3/config/ejb-jar.xml.vsl"
         outputPattern="META-INF/ejb-jar.xml"
@@ -270,6 +353,9 @@
             <modelElement variable="manageables">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade"/>
             </modelElement>
+            <modelElement variable="entities">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
+            </modelElement>
         </modelElements>
     </template>
     
@@ -289,6 +375,9 @@
             </modelElement>
             <modelElement variable="manageables">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade"/>
+            </modelElement>
+            <modelElement variable="entities">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
             </modelElement>
         </modelElements>
     </template>
@@ -435,6 +524,30 @@
         <modelElements variable="enum">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EnumerationFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/EmbeddedValue.vsl"
+        outputPattern="$generatedFile"
+        outlet="entity-beans"
+        overwrite="true">
+        <modelElements variable="embeddedValue">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb3/EmbeddedValueImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="entity-impls"
+        overwrite="false">
+        <modelElements variable="embeddedValue">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacade"/>
             </modelElement>
         </modelElements>
     </template>
