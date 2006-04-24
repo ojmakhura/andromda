@@ -35,6 +35,15 @@
         </session>
 
 #end
+##
+## Add DAO definition
+##
+#foreach ($entity in $entities)
+        <session>
+            <ejb-name>${entity.daoName}</ejb-name>
+        </session>
+
+#end
 #foreach ($mdb in $mdbs)
         <message-driven>
             <ejb-name>${mdb.messageDrivenName}</ejb-name>
