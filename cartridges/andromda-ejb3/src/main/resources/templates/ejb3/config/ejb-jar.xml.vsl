@@ -15,7 +15,7 @@
         <session>
             <description>
                 <![CDATA[
-                $service.getDocumentation("                ", 64, false)
+                $service.getDocumentation("", 64, false)
                 ]]>
             </description>
             <ejb-name>${service.serviceName}</ejb-name>
@@ -42,7 +42,7 @@
         <session>
             <description>
                 <![CDATA[
-                $manageable.getDocumentation("                ", 64, false)
+                $manageable.getDocumentation("", 64, false)
                 ]]>
             </description>
             <ejb-name>${manageable.manageableServiceName}</ejb-name>
@@ -53,11 +53,26 @@
         </session>
 
 #end
+#foreach ($entity in $entities)
+        <session>
+            <description>
+                <![CDATA[
+                $entity.getDocumentation("", 64, false)
+                ]]>
+            </description>
+            <ejb-name>${entity.daoName}</ejb-name>
+            <local>${entity.fullyQualifiedDaoName}</local>
+            <ejb-class>${entity.fullyQualifiedDaoImplementationName}</ejb-class>
+            <session-type>Stateless</session-type>
+            <transaction-type>Container</transaction-type>
+        </session>
+
+#end
 #foreach ($mdb in $mdbs)
         <message-driven>
             <description>
                 <![CDATA[
-                $mdb.getDocumentation("                ", 64, false)
+                $mdb.getDocumentation("", 64, false)
                 ]]>
             </description>
             <ejb-name>${mdb.messageDrivenName}</ejb-name>
@@ -80,7 +95,7 @@
 #*  *##end
 #*  *##if ($mdb.destinationTypeTopic)
                 <activation-config-property>
-                    <activation-config-property-name>subscriptionDurability</activation-config-property-name>
+                    <activation-config-property-name>durability</activation-config-property-name>
                     <activation-config-property-value>${mdb.subscriptionDurability}</activation-config-property-value>
                 </activation-config-property>
 #*  *##end
