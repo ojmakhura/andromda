@@ -155,4 +155,18 @@ public class EJB3FinderMethodFacadeLogicImpl
         return queryString;
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogic#handleIsNamedQuery()
+     */
+    protected boolean handleIsNamedQuery()
+    {
+        boolean isNamedQuery = true;
+        final String query = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_QUERY);
+        if (StringUtils.isNotEmpty(query))
+        {
+            isNamedQuery = false;
+        }
+        return isNamedQuery;
+    }
+
 }
