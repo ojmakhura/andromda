@@ -85,8 +85,7 @@
         <modelElements variable="entity">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
-                    <property name="embeddableSuperclass">false</property>
-                    <property name="requiresGeneralizationMapping">false</property>
+                    <property name="entityImplementationRequired"/>
                 </type>
             </modelElement>
         </modelElements>
