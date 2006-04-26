@@ -2,6 +2,7 @@ package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
 
+import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.cartridges.ejb3.EJB3ScriptHelper;
 import org.andromda.metafacades.uml.OperationFacade;
@@ -252,7 +253,12 @@ public class EJB3WebServiceFacadeLogicImpl
         String namespacePattern = String.valueOf(this.getConfiguredProperty(NAMESPACE_PATTERN));
         return MessageFormat.format(
             namespacePattern,
-            new Object[] {StringUtils.trimToEmpty(packageName), StringUtils.trimToEmpty(this.getQName())});
+            new Object[] {
+                    StringUtils.trimToEmpty(
+                        StringUtils.substringBeforeLast(packageName, String.valueOf(EJB3Globals.NAMESPACE_DELIMITER))), 
+                    StringUtils.trimToEmpty(
+                        StringUtils.substringAfterLast(packageName, String.valueOf(EJB3Globals.NAMESPACE_DELIMITER)))}
+            );
     }
     
     /**
