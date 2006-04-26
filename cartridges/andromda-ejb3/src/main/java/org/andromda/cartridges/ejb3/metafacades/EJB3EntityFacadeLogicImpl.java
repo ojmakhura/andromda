@@ -751,7 +751,13 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected String handleGetDiscriminatorValue()
     {
-        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_VALUE);
+        String discriminatorValue = 
+            (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_VALUE);
+        if (StringUtils.isBlank(discriminatorValue))
+        {
+            discriminatorValue = StringUtils.substring(this.getEntityName(), 0, 1);
+        }
+        return discriminatorValue;
     }
     
     /**
@@ -1359,5 +1365,13 @@ public class EJB3EntityFacadeLogicImpl
                 this.getPackageName(),
                 this.getDaoDefaultExceptionName(),
                 null);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsEntityImplementationRequired()
+     */
+    protected boolean handleIsEntityImplementationRequired()
+    {
+        return !this.getBusinessOperations().isEmpty() || this.isEmbeddableSuperclass();
     }
 }
