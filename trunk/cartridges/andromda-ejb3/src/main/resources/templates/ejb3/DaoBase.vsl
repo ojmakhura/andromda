@@ -27,7 +27,7 @@ package $entity.packageName;
  * objects of type <code>$entity.fullyQualifiedEntityName</code>.
  * </p>
  *
- * @see $entity.fullyQualifiedEntityName
+ * @see $entity.fullyQualifiedDaoName
  */
 @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.REQUIRED)
 @javax.ejb.Local({${entity.fullyQualifiedDaoName}.class})
@@ -130,7 +130,11 @@ public abstract class $entity.daoBaseName
     {
         try
         {
+#if ($entity.genericFinders)
+            javax.persistence.Query query = emanager.createNamedQuery("${entity.name}.findAll");
+#else
             javax.persistence.Query query = emanager.createQuery("from ${entity.entityName} as entity");
+#end
             java.util.List<${entity.fullyQualifiedEntityName}> results = query.getResultList();
             this.transformEntities(transform, results);
             return results;
@@ -463,7 +467,66 @@ public abstract class $entity.daoBaseName
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
 #**##end
     {
+#**##if ($finder.namedQuery)
+        try
+        {
+            javax.persistence.Query queryObject = emanager.createNamedQuery("${entity.name}.${finder.name}");
+#*  *##foreach($argument in $finder.arguments)
+#*    *##set ($count = $velocityCount - 1)
+#*    *##set ($argumentValue = $argument.name)
+#*    *##if ($argument.firstResult)
+            queryObject.setFirstResult(${argument.name});
+#*    *##elseif ($argument.maxResults)
+            queryObject.setMaxResults(${argument.name});
+#*    *##else
+#*      *##if($argument.type.primitive)
+#*        *##set ($argumentValue = "new ${argument.type.wrapperName}($argument.name)")
+#*      *##else
+#*        *##set ($argumentValue = "${argument.name}")
+#*        *##if ($argument.enumerationTypeOrdinal)
+#*          *##set ($argumentValue = "${argumentValue}.ordinal()")
+#*        *##elseif ($argument.enumerationTypeString)
+#*          *##set ($argumentValue = "${argumentValue}.name()")
+#*        *##end
+#*      *##end
+#*      *##if ($argument.temporalType)
+#*        *##set ($argumentValue = "${argumentValue}, javax.persistence.TemporalType.${argument.temporalType}")
+#*      *##end
+#*      *##set ($setParameterOperation = "setParameter")
+#*      *##if ($argument.type.collectionType || $argument.type.arrayType)
+#*        *##set ($setParameterOperation = "${setParameterOperation}List")
+#*      *##end
+#*      *##if ($finder.useNamedParameters)
+            queryObject.${setParameterOperation}("$argument.name", $argumentValue);
+#*      *##else
+            queryObject.${setParameterOperation}($count, $argumentValue);
+#*      *##end
+#*    *##end
+#*  *##end
+#*  *##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
+            queryObject.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}_${finder.name}");
+#*  *##end
+#*  *##if ($finder.returnType.setType)
+            java.util.Set results = new java.util.LinkedHashSet(queryObject.getResultList());
+            transformEntities(transform, results);
+            return results;
+#*  *##elseif ($finder.returnType.collectionType)
+            java.util.List results = queryObject.getResultList();
+            transformEntities(transform, results);
+            return results;
+#*  *##else
+            $finder.returnType.fullyQualifiedName result = ($finder.returnType.fullyQualifiedName)queryObject.getSingleResult();
+            result = transformEntity(transform, ($entity.fullyQualifiedName)result);
+            return result;
+#*  *##end
+        }
+        catch (Exception ex)
+        {
+            throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
+        }
+#**##else
         return this.${finder.name}(transform, "$finder.getQuery($entity)"#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
+#**##end
     }
 
     /**
@@ -482,46 +545,50 @@ public abstract class $entity.daoBaseName
 #**##foreach($argument in $finder.arguments)
 #*  *##set ($count = $velocityCount - 1)
 #*  *##set ($argumentValue = $argument.name)
-#*  *##if($argument.type.primitive)
-#*    *##set ($argumentValue = "new ${argument.type.wrapperName}($argument.name)")
-#*  *##elseif ($argument.type.enumeration)
-#*    *##set ($argumentValue = "${argument.name}.getValue()")
-#*  *##end
-#*  *##set ($setParameterOperation = "setParameter")
-#*  *##if ($argument.type.collectionType || $argument.type.arrayType)
-#*    *##set ($setParameterOperation = "${setParameterOperation}List")
-#*  *##end
-#*  *##if ($finder.useNamedParameters)
-            queryObject.${setParameterOperation}("$argument.name", $argumentValue);
+#*  *##if ($argument.firstResult)
+            queryObject.setFirstResult(${argument.name});
+#*  *##elseif ($argument.maxResults)
+            queryObject.setMaxResults(${argument.name});
 #*  *##else
+#*    *##if($argument.type.primitive)
+#*      *##set ($argumentValue = "new ${argument.type.wrapperName}($argument.name)")
+#*    *##else
+#*      *##set ($argumentValue = "${argument.name}")
+#*      *##if ($argument.enumerationTypeOrdinal)
+#*        *##set ($argumentValue = "${argumentValue}.ordinal()")
+#*      *##elseif ($argument.enumerationTypeString)
+#*        *##set ($argumentValue = "${argumentValue}.name()")
+#*      *##end
+#*    *##end
+#*    *##if ($argument.temporalType)
+#*      *##set ($argumentValue = "${argumentValue}, javax.persistence.TemporalType.${argument.temporalType}")
+#*    *##end
+#*    *##set ($setParameterOperation = "setParameter")
+#*    *##if ($argument.type.collectionType || $argument.type.arrayType)
+#*      *##set ($setParameterOperation = "${setParameterOperation}List")
+#*    *##end
+#*    *##if ($finder.useNamedParameters)
+            queryObject.${setParameterOperation}("$argument.name", $argumentValue);
+#*    *##else
             queryObject.${setParameterOperation}($count, $argumentValue);
+#*    *##end
 #*  *##end
 #**##end
-#**##if ($finder.returnType.setType || !$finder.returnType.collectionType)
-            java.util.Set results = new java.util.LinkedHashSet(queryObject.getResultList());
-#**##else
-            java.util.List results = queryObject.getResultList();
+#**##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
+            queryObject.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}_${finder.name}");
 #**##end
-#**##if (!$finder.returnType.collectionType)
-            Object result = null;
-            if (results != null)
-            {
-                if (results.size() > 1)
-                {
-                    throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(
-                        "More than one instance of '${finder.returnType.fullyQualifiedName}"
-                            + "' was found when executing query --> '" + queryString + "'");
-                }
-                else if (results.size() == 1)
-                {
-                    result = ($entity.fullyQualifiedName)results.iterator().next();
-                }
-            }
-            result = transformEntity(transform, ($entity.fullyQualifiedName)result);
-            return result;
-#**##else
+#**##if ($finder.returnType.setType)
+            java.util.Set results = new java.util.LinkedHashSet(queryObject.getResultList());
             transformEntities(transform, results);
             return results;
+#**##elseif ($finder.returnType.collectionType)
+            java.util.List results = queryObject.getResultList();
+            transformEntities(transform, results);
+            return results;
+#**##else
+            $finder.returnType.fullyQualifiedName result = ($finder.returnType.fullyQualifiedName)queryObject.getSingleResult();
+            result = transformEntity(transform, ($entity.fullyQualifiedName)result);
+            return result;
 #**##end
         }
         catch (Exception ex)
