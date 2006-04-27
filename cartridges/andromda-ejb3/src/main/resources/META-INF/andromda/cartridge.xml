@@ -273,7 +273,9 @@
         overwrite="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
+                    <property name="embeddableSuperclass">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -285,7 +287,9 @@
         overwrite="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
+                    <property name="embeddableSuperclass">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
@@ -299,6 +303,7 @@
             <modelElement>
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
                     <property name="daoImplementationRequired">false</property>
+                    <property name="embeddableSuperclass">false</property>
                 </type>
             </modelElement>
         </modelElements>
@@ -313,6 +318,7 @@
             <modelElement>
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
                     <property name="daoImplementationRequired"/>
+                    <property name="embeddableSuperclass">false</property>
                 </type>
             </modelElement>
         </modelElements>
@@ -325,7 +331,9 @@
         overwrite="true">
         <modelElements variable="entity">
             <modelElement>
-                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade">
+                    <property name="embeddableSuperclass">false</property>
+                </type>
             </modelElement>
         </modelElements>
     </template>
