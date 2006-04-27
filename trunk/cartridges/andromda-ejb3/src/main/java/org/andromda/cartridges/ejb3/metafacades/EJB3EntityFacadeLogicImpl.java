@@ -332,20 +332,22 @@ public class EJB3EntityFacadeLogicImpl
     protected java.util.Collection handleGetValueDependencies()
     {
         Collection dependencies = super.getSourceDependencies();
-        CollectionUtils.filter(dependencies, new Predicate()
-        {
-            public boolean evaluate(Object object)
-            {
-                boolean isValueRef = false;
-                if (object instanceof DependencyFacade)
+        CollectionUtils.filter(
+                dependencies, 
+                new Predicate()
                 {
-                    DependencyFacade dep = (DependencyFacade)object;
-                    isValueRef = dep.getStereotypeNames().contains(EJB3Profile.STEREOTYPE_VALUE_REF) 
-                        && dep.getTargetElement().hasExactStereotype(EJB3Profile.STEREOTYPE_VALUE_OBJECT);
-                }
-                return isValueRef;
-            }
-        });
+                    public boolean evaluate(Object object)
+                    {
+                        boolean isValueRef = false;
+                        if (object instanceof DependencyFacade)
+                        {
+                            DependencyFacade dep = (DependencyFacade)object;
+                            isValueRef = dep.getStereotypeNames().contains(EJB3Profile.STEREOTYPE_VALUE_REF) 
+                                && dep.getTargetElement().hasExactStereotype(EJB3Profile.STEREOTYPE_VALUE_OBJECT);
+                        }
+                        return isValueRef;
+                    }
+                });
         return dependencies;
     }
 
@@ -866,10 +868,8 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected boolean handleIsRequiresSpecializationMapping()
     {
-        return this.isRoot()
-                && (this.isInheritanceSingleTable()
-                        || this.isInheritanceTablePerClass() || this.isInheritanceJoined())
-                && (!this.getSpecializations().isEmpty());
+        return (this.isInheritanceSingleTable() || this.isInheritanceTablePerClass() || this.isInheritanceJoined())
+                && !this.getSpecializations().isEmpty();
     }
 
     /**
@@ -1372,6 +1372,22 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected boolean handleIsEntityImplementationRequired()
     {
-        return !this.getBusinessOperations().isEmpty() || this.isEmbeddableSuperclass();
+        return !this.getBusinessOperations().isEmpty();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetInstanceAttributes(boolean, boolean)
+     */
+    protected Collection handleGetInstanceAttributes(
+            boolean follow, 
+            boolean withIdentifiers)
+    {
+        return new FilteredCollection(this.getAttributes(follow, withIdentifiers))
+        {
+            public boolean evaluate(Object object)
+            {
+                return !((AttributeFacade)object).isStatic();
+            }
+        };
     }
 }
