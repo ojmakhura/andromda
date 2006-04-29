@@ -97,9 +97,9 @@ namespace $service.packageName
 #else
 ## If transactionType is not PROPAGATION_REQUIRED then make a simple call
 #if ($operation.returnTypePresent)
-            return $call;
+            return $call
 #else
-            $call;
+            $call
 #end
 #end
         }
