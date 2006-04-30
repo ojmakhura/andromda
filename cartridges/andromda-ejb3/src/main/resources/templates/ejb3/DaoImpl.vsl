@@ -25,7 +25,7 @@ public class $entity.daoImplementationName
 #foreach ($operation in $entity.daoBusinessOperations)
 #**##set ($returnType = $operation.returnType)
 #**##set ($returnObject = "returnValue")
-#**##set ($signature = $operation.implementationSignature)
+#**##set ($signature = "$operation.implementationSignature")
     /**
      * @see ${entity.fullyQualifiedDaoName}#${operation.getSignature(false)}
      */
@@ -34,7 +34,7 @@ public class $entity.daoImplementationName
         throws $operation.exceptionList
 #**##end
     {
-        // ${toDoTag} implement $operation.visibility $returnType.fullyQualifiedName $signature
+        // TODO implement $operation.visibility $returnType.fullyQualifiedName $signature
 #**##if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #**##else
