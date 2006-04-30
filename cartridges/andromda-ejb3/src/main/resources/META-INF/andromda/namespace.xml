@@ -442,10 +442,11 @@
 			        bean base class name.
 			    </documentation>
 			</property>
-            <property name="serviceImplementationOperationNamePattern">
+            <property name="implementationOperationNamePattern">
                 <default>handle{0}</default>
                 <documentation>
                     The pattern used to the create the implementation operation name
+                    for both session and entity bean operations.
                     (i.e. the operations that actually perform the handling of the logic),
                     where <em>{0}</em> represents the operation name.
                 </documentation>
