@@ -12,9 +12,11 @@ import org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacade;
 import org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade;
 import org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacade;
 import org.andromda.core.common.ExceptionRecorder;
+import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
@@ -25,6 +27,7 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.ValueObject;
+import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.BooleanUtils;
@@ -1306,7 +1309,8 @@ public class EJB3EntityFacadeLogicImpl
                     if (targetElement instanceof ClassifierFacade)
                     {
                         ClassifierFacade element = (ClassifierFacade)targetElement;
-                        valid = element.isDataType() || element instanceof ValueObject || element instanceof EnumerationFacade;
+                        valid = element.isDataType() || element instanceof ValueObject || 
+                                    element instanceof EnumerationFacade;
                     }
                     return valid;
                 }
@@ -1389,5 +1393,102 @@ public class EJB3EntityFacadeLogicImpl
                 return !((AttributeFacade)object).isStatic();
             }
         };
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#
+     *      handleGetInstanceAttributeNameList(boolean, boolean)
+     */
+    protected String handleGetInstanceAttributeNameList(boolean follow, boolean withIdentifiers)
+    {
+        return this.getNameList(this.getInstanceAttributes(follow, withIdentifiers));
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#
+     *      handleGetInstanceAttributeTypeList(boolean, boolean)
+     */
+    protected String handleGetInstanceAttributeTypeList(boolean follow, boolean withIdentifiers)
+    {
+        return this.getTypeList(this.getInstanceAttributes(follow, withIdentifiers));
+    }
+    
+    /**
+     * Constructs a comma seperated list of attribute type names from the passed in collection of
+     * <code>attributes</code>.
+     *
+     * @param attributes the attributes to construct the list from.
+     * @return the comma seperated list of attribute types.
+     */
+    private String getTypeList(final Collection attributes)
+    {
+        final StringBuffer list = new StringBuffer();
+        final String comma = ", ";
+        CollectionUtils.forAllDo(
+            attributes,
+            new Closure()
+            {
+                public void execute(final Object object)
+                {
+                    if (object instanceof AttributeFacade)
+                    {
+                        final AttributeFacade attribute = (AttributeFacade)object;
+                        if (attribute.getType() != null)
+                        {
+                            list.append(attribute.getType().getFullyQualifiedName());
+                            list.append(comma);
+                        }
+                    }
+                    if (object instanceof AssociationEndFacade)
+                    {
+                        final AssociationEndFacade associationEnd = (AssociationEndFacade)object;
+                        if (associationEnd.getType() != null)
+                        {
+                            list.append(associationEnd.getType().getFullyQualifiedName());
+                            list.append(comma);
+                        }
+                    }
+                }
+            });
+        if (list.toString().endsWith(comma))
+        {
+            list.delete(list.lastIndexOf(comma), list.length());
+        }
+        return list.toString();
+    }
+
+    /**
+     * Constructs a comma seperated list of attribute names from the passed in collection of <code>attributes</code>.
+     *
+     * @param properties the properties to construct the list from.
+     * @return the comma seperated list of attribute names.
+     */
+    private String getNameList(final Collection properties)
+    {
+        final StringBuffer list = new StringBuffer();
+        final String comma = ", ";
+        CollectionUtils.forAllDo(
+            properties,
+            new Closure()
+            {
+                public void execute(Object object)
+                {
+                    if (object instanceof EntityAttribute)
+                    {
+                        list.append(((AttributeFacade)object).getName());
+                        list.append(comma);
+                    }
+                    if (object instanceof EntityAssociationEnd)
+                    {
+                        list.append(((AssociationEndFacade)object).getName());
+                        list.append(comma);
+                    }
+                }
+            });
+        if (list.toString().endsWith(comma))
+        {
+            list.delete(list.lastIndexOf(comma), list.length());
+        }
+        return list.toString();
     }
 }
