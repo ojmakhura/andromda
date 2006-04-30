@@ -29,12 +29,6 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3SessionOperationFacadeLogicImpl
     extends EJB3SessionOperationFacadeLogic
 {
-    /**
-     * The property used to specify the implementation operation name pattern 
-     * on service beans.
-     */
-    public static final String SERVICE_IMPLEMENTATION_OPERATION_NAME_PATTERN = 
-        "serviceImplementationOperationNamePattern";
     
     public EJB3SessionOperationFacadeLogicImpl (Object metaObject, String context)
     {
@@ -308,7 +302,7 @@ public class EJB3SessionOperationFacadeLogicImpl
 
     /**
      * Retrieves the implementationOperatName by replacing the <code>replacement</code> in the {@link
-     * SERVICE_IMPLEMENTATION_OPERATION_NAME_PATTERN}
+     * EJB3Globals#IMPLEMENTATION_OPERATION_NAME_PATTERN}
      *
      * @param replacement the replacement string for the pattern.
      * @return the operation name
@@ -316,7 +310,7 @@ public class EJB3SessionOperationFacadeLogicImpl
     private String getImplementationOperationName(String replacement)
     {
         String implementationNamePattern = 
-            (String)this.getConfiguredProperty(SERVICE_IMPLEMENTATION_OPERATION_NAME_PATTERN);
+            (String)this.getConfiguredProperty(EJB3Globals.IMPLEMENTATION_OPERATION_NAME_PATTERN);
 
         return MessageFormat.format(
                 implementationNamePattern,
