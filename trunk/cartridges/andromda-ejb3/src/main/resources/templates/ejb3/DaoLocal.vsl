@@ -196,7 +196,7 @@ public interface $entity.daoName
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
 #**##if ($enableDaoPropertiesCreateMethod.equalsIgnoreCase('true'))
-#*  *##set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
+#*  *##set ($attributes = $entity.getInstanceAttributes(true, $entity.usingAssignedIdentifier))
 #*  *##if (!$attributes.empty)
     /**
      * <p>
@@ -207,14 +207,14 @@ public interface $entity.daoName
      */
     public $rootEntityType create(
 #*    *##foreach($attribute in $attributes)
-        $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else)
+        #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name#if($velocityCount != $attributes.size()),#else)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};#end
 
 #*    *##end
 
     /**
      * <p>
-     *   Does the same thing as {@link #create($entity.getAttributeTypeList(true,false))} with an
+     *   Does the same thing as {@link #create($entity.getInstanceAttributeTypeList(true,false))} with an
      *   additional flag called <code>transform</code>.  If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      *   the returned entity will <strong>NOT</strong> be transformed.  If this flag is any of the other constants
      *   defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -227,7 +227,7 @@ public interface $entity.daoName
     public Object create(
         int transform,
 #*    *##foreach($attribute in $attributes)
-        $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else)
+        #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name#if($velocityCount != $attributes.size()),#else)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};#end
 
 #*    *##end
