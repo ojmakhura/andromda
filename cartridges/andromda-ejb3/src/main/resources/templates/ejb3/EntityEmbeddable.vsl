@@ -130,6 +130,7 @@ public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
 #**##foreach ($constant in $constants)
     @javax.persistence.Transient
     public static final $constant.type.fullyQualifiedName $constant.name = $constant.defaultValue;
+    
 #**##end
 #end
 ##
