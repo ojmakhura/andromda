@@ -1,5 +1,7 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
+import java.text.MessageFormat;
+
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.apache.commons.lang.ObjectUtils;
@@ -112,4 +114,44 @@ public class EJB3OperationFacadeLogicImpl
                 this.isPreUpdate();
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleGetImplementationName()
+     */
+    protected String handleGetImplementationName()
+    {
+        return this.getImplementationOperationName(StringUtils.capitalize(this.getName()));
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleGetImplementationCall()
+     */
+    protected String handleGetImplementationCall()
+    {
+        return this.getImplementationOperationName(StringUtils.capitalize(this.getCall()));
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleGetImplementationSignature()
+     */
+    protected String handleGetImplementationSignature()
+    {
+        return this.getImplementationOperationName(StringUtils.capitalize(this.getSignature()));
+    }
+
+    /**
+     * Retrieves the implementationOperatName by replacing the <code>replacement</code> in the {@link
+     * EJB3Globals#IMPLEMENTATION_OPERATION_NAME_PATTERN}
+     *
+     * @param replacement the replacement string for the pattern.
+     * @return the operation name
+     */
+    private String getImplementationOperationName(String replacement)
+    {
+        String implementationNamePattern = 
+            (String)this.getConfiguredProperty(EJB3Globals.IMPLEMENTATION_OPERATION_NAME_PATTERN);
+
+        return MessageFormat.format(
+                implementationNamePattern,
+                new Object[] {StringUtils.trimToEmpty(replacement)});
+    }
 }
