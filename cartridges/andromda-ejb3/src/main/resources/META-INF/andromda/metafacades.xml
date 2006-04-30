@@ -90,13 +90,13 @@
         <mapping>
             <stereotype>WEBSERVICE_OPERATION</stereotype>
         </mapping>
-		<property reference="serviceImplementationOperationNamePattern"/>
+		<property reference="implementationOperationNamePattern"/>
     </metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceOperationFacadeLogicImpl">
         <mapping>
             <property name="owner.eJB3WebServiceFacadeMetaType"/>
         </mapping>
-		<property reference="serviceImplementationOperationNamePattern"/>
+		<property reference="implementationOperationNamePattern"/>
 	</metafacade>
     
 	<!-- Entity Metafacades -->
@@ -106,6 +106,7 @@
 				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
 			</context>
 		</mapping>
+		<property reference="implementationOperationNamePattern"/>
 	</metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogicImpl" contextRoot="true">
 		<mapping>
@@ -179,7 +180,7 @@
 		<mapping>
 			<property name="owner.eJB3SessionFacadeMetaType"/>
 		</mapping>
-		<property reference="serviceImplementationOperationNamePattern"/>
+		<property reference="implementationOperationNamePattern"/>
 	</metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3SessionAttributeFacadeLogicImpl">
 		<mapping>
