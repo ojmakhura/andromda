@@ -222,28 +222,28 @@ public abstract class $entity.daoBaseName
     }
 
 #**##if ($enableDaoPropertiesCreateMethod.equalsIgnoreCase('true'))
-#*  *##set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
+#*  *##set ($attributes = $entity.getInstanceAttributes(true, $entity.usingAssignedIdentifier))
 #*  *##if (!$attributes.empty)
     /**
-     * @see ${rootDaoType}#create(${entity.getAttributeTypeList(true, false)})
+     * @see ${rootDaoType}#create(${entity.getInstanceAttributeTypeList(true, false)})
      */
     public $rootEntityType create(
 #*    *##foreach($attribute in $attributes)
-        $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else)
+        #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name#if($velocityCount != $attributes.size()),#else)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}#end
 
 #*    *##end
     {
-        return ($rootEntityType)this.create($entity.daoNoTransformationConstantName, ${entity.getAttributeNameList(true, $entity.usingAssignedIdentifier)});
+        return ($rootEntityType)this.create($entity.daoNoTransformationConstantName, ${entity.getInstanceAttributeNameList(true, $entity.usingAssignedIdentifier)});
     }
 
     /**
-     * @see ${rootDaoType}#create(int, ${entity.getAttributeTypeList(true, false)})
+     * @see ${rootDaoType}#create(int, ${entity.getInstanceAttributeTypeList(true, false)})
      */
     public Object create(
         final int transform,
 #*    *##foreach($attribute in $attributes)
-        $attribute.type.fullyQualifiedName $attribute.name#if($velocityCount != $attributes.size()),#else)
+        #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name#if($velocityCount != $attributes.size()),#else)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}#end
 
 #*    *##end
