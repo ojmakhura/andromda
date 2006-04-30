@@ -234,4 +234,11 @@ public class EJB3Globals
      * Entity Manager.
      */
     public static final String PERSISTENCE_CONTEXT_UNIT_NAME = "persistenceContextUnitName";
+
+    /**
+     * The property used to specify the implementation operation name pattern 
+     * on service and entity beans.
+     */
+    public static final String IMPLEMENTATION_OPERATION_NAME_PATTERN = 
+        "implementationOperationNamePattern";
 }
