@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - HowTo DAO</title>
+    </properties>
+    <body>
+        <section name="Data Access Objects (DAO)">
+            <p>
+                The Data Access Layer provides an API for accessing and manipulating data in the persistence tier 
+                and abstracts or hides much of this complexity from the session bean business logic tier.
+                To find out more about the different tiers on an enterprise application and where DAO object
+                typically fit in the stack, you can read the 
+                <a href="http://galaxy.andromda.org/docs/getting-started/java/index.html">getting started
+                guide</a>.
+            </p>
+            <p>
+                For every entity class, modelled with the <![CDATA[<<Entity>>]]> stereotype, 3 DAO related
+                objects are created.  This provdes the typical CRUD API and finder method accessability for a 
+                specific entity.
+            </p>
+            <p>
+                DAO's are just stateless session beans with a local interface.  The presentation layer wouldn't
+                use the DAO local interface directly.  Instead, your session beans in the business layer
+                would utilise the DAO interface for all persistence related tasks.
+            </p>
+            <p>
+                By modelling dependencies from the service to the entities the cartridge will inject the local interface
+                of the DAO of the target entities in to the session bean.  You are then free to use this DAO
+                instance variable when CRUD features available in the API are required.
+            </p>
+            <p>
+                The following example, illustrates a typical entity POJO and its generated DAO components.
+            </p>
+            <p>
+                <img src="images/org/andromda/test/19/a/uml.gif"/>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto19/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto19/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto19/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto19/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto19/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                </ul>
+            </p>
+            <p>
+                Since the <code>Person</code> entity contains finder methods, the <code>PersonDaoImpl</code>
+                is generated once only to <code>core/src/main/java</code>. You can override or add any method 
+                implementation to this file.
+            </p>
+            <p>
+                The <code>PersonDaoBase.java</code> injects the <code>javax.ejb.SessionContext</code> by
+                default and makes this available for use in the subclass via the <code>context</code> protected
+                property.  This base DAO class contains the bulk of the CRUD API implementation.  It injects
+                the default <code>PersistenceContext</code> and provides the finder method implementations
+                modelled on the entity.
+            </p>
+            <a name="Queries"/>
+            <subsection name="Queries">
+                <p>
+                    The <code>Person</code> entity contains the <code>@NamedQueries</code> annotation with
+                    the array of <code>@NamedQuery</code> annotations defining the query logic.  The corresponding
+                    <code>findBy</code> methods in the <code>PersonDaoBase</code> provide the ability to either
+                    specify a query string or use the named query defined in the application at deploy-time.
+                </p>
+            </subsection>
+            <a name="View_Interface"/>
+            <subsection name="View Interface">
+                <p>
+                    The DAO stateless session bean is accessed via the local interface. This means that you
+                    cannot access DAO from a remote container, but this isn't a concern since your session 
+                    facade exposes the remote interface and contains your business logic.
+                </p>
+            </subsection>
+            <a name="Transactions"/>
+            <subsection name="Transactions">
+                <p>
+                    All DAO base abstract classes define the <code>@TransactionAttribute</code> annotation,
+                    setting the transaction type to <code>REQUIRED</code>.  Typically, you would start your
+                    transactions in your business logic within your session facades.
+                </p>
+            </subsection>
+            <a name="Security"/>
+            <subsection name="Security">
+                <p>
+                    The EJB3 cartridge provides the ability to set basic security constraints to allow
+                    role based security when accessing and invoking CRUD operations in the DAO session beans.
+                    To find out how to enable JAAS security, click on <a href="howto8.html">Security</a>.
+                </p>
+                <p>
+                    If you enable security and do not model actor dependencies on the entities to limit 
+                    roles permitted to access to your DAO, the EJB3 cartridge will add the
+                    <code>@javax.annotation.security.PermitAll</code> annotation at the class level of your
+                    base DAO class.  This implies that all methods of the DAO are not checked for
+                    security constraints.
+                </p>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                In the next section we'll learn about entity relationships, click
+                <a href="howto2.html">here</a> to continue.
+            </p>
+        </section>
+    </body>
+</document>
