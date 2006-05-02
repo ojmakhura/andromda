@@ -31,6 +31,13 @@ package $entity.packageName;
  */
 @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.REQUIRED)
 @javax.ejb.Local({${entity.fullyQualifiedDaoName}.class})
+#if ($entity.securityEnabled)
+#**##if ($stringUtils.isBlank(${entity.rolesAllowed}))
+@javax.annotation.security.PermitAll
+#**##else
+@javax.annotation.security.RolesAllowed({${entity.rolesAllowed}})
+#**##end
+#end
 public abstract class $entity.daoBaseName
 #if ($daoInheritance)
     extends $entity.generalization.fullyQualifiedDaoImplementationName
