@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
@@ -23,6 +24,7 @@ import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.OperationFacade;
+import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -30,6 +32,7 @@ import org.andromda.metafacades.uml.ValueObject;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -1491,4 +1494,94 @@ public class EJB3EntityFacadeLogicImpl
         }
         return list.toString();
     }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsSecurityEnabled()
+     */
+    protected boolean handleIsSecurityEnabled()
+    {
+        return StringUtils.isNotBlank(this.getSecurityRealm());
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetRolesAllowed()
+     */
+    protected String handleGetRolesAllowed()
+    {
+        StringBuffer rolesAllowed = null;
+        String separator = "";
+        
+        for (final Iterator iter = this.getNonRunAsRoles().iterator(); iter.hasNext(); )
+        {
+            if (rolesAllowed == null)
+            {
+                rolesAllowed = new StringBuffer();
+            }
+            rolesAllowed.append(separator);
+            Role role = (Role)iter.next();
+            rolesAllowed.append('"');
+            rolesAllowed.append(role.getName());
+            rolesAllowed.append('"');
+            separator = ", ";
+        }
+        return rolesAllowed != null ? rolesAllowed.toString() : null;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetSecurityRealm()
+     */
+    protected String handleGetSecurityRealm()
+    {
+        String securityRealm = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SECURITY_REALM);
+        if (StringUtils.isBlank(securityRealm))
+        {
+            securityRealm = StringUtils.trimToEmpty(
+                    ObjectUtils.toString(this.getConfiguredProperty(EJB3Globals.SECURITY_REALM)));
+        }
+        return securityRealm;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetNonRunAsRoles()
+     */
+    protected Collection handleGetNonRunAsRoles()
+    {
+        Collection roles = this.getTargetDependencies();
+        CollectionUtils.filter(
+            roles, 
+            new Predicate()
+            {
+                public boolean evaluate(final Object object)
+                {
+                    DependencyFacade dependency = (DependencyFacade)object;
+                    return dependency != null 
+                            && dependency.getSourceElement() != null 
+                            && dependency.getSourceElement() instanceof Role 
+                            && !dependency.hasStereotype(EJB3Profile.STEREOTYPE_SECURITY_RUNAS);
+                }
+            });
+        CollectionUtils.transform(
+            roles, 
+            new Transformer()
+            {
+                public Object transform(final Object object)
+                {
+                    return ((DependencyFacade)object).getSourceElement();
+                }
+            });
+        final Collection allRoles = new LinkedHashSet(roles);
+        // add all roles which are generalizations of this one
+        CollectionUtils.forAllDo(
+            roles, 
+            new Closure()
+            {
+                public void execute(final Object object)
+                {
+                    allRoles.addAll(((Role)object).getAllSpecializations());
+                }
+            });
+        return allRoles;
+    }
+    
+    
 }
