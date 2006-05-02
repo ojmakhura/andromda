@@ -36,20 +36,33 @@
                 <a href="../starting.html#My_first_AndroMDA_project">how to setup your first AndroMDA project</a>).
             </p>
             <p class="highlight">
-                Please note that until the EJB3 cartridge is included in the AndroMDAPP project, you 
-                will not be able to generate your project structure using that generator.
+                Please note that the EJB3 cartridge is now included in the AndroMDAPP project which meanss you 
+                can generate your project structure using that generator.
             </p>
             <p>
                 If everything went well, all code related to this class will have been generated into
-                the <code>/core/entity/target/src</code> project subdirectory, no manual implementation will need
+                the <code>core/target/src</code> project subdirectory, no manual implementation will need
                 to be added at this point.
             </p>
             <p>
                 The EJB3 cartridge changes the conventional entity creation hierarchy.  Instead of generating
-                an entity base class with an entity implementation class, you now have an entity embeddable super
-                class with an entity class that inherits from this embeddable super class.  This is the case
-                for simple non-inheriting hierarchies, however once you introduce inheritance, this changes.
-                To find out more about inheritance, go to the <a href="howto9.html">inheritance</a> section.
+                an entity base class with an entity implementation class, there are 2 ways the EJB3 cartridge
+                can generate your entity POJOs.
+                <ul>
+                    <li>
+                        In most cases, your entities will only model classifier scoped finder methods.  If there
+                        are no classifier scoped operations, then the cartridge auto generates (and will regenerate)
+                        your entity components for you.  The entity components include the entity POJO and
+                        the DAO components associated with the entity.
+                    </li>
+                    <li>
+                        The alternative is to have an embeddable/mapped superclass with an entity class that inherits 
+                        from this mapped superclass.  This is the case where the entity models instance
+                        scoped operations and are involved in non-inheriting hierarchies.
+                        However once you introduce inheritance, this changes. To find out more about inheritance, 
+                        go to the <a href="howto9.html">inheritance</a> section.
+                    </li>
+                </ul>
             </p>
             <p>
                 <ul>
@@ -60,8 +73,11 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto1/a/Car.java.txt"><code>Car.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/a/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
                 </ul>
             </p>
             <p>
@@ -79,20 +95,27 @@
             <subsection name="Entity Operations">
                 <p>
                     You may also model operations on an entity, this will generate them as methods in the resulting
-                    Java subclass. Operations can be classifier scoped (<code>static</code> in Java) where they will
-                    be underlined in UML diagrams as shown below.
+                    components. Operations can be classifier scoped (<code>static</code> in Java) where they will
+                    be underlined in UML diagrams as shown below.  You may also define instance scoped operations
+                    if you require.
                 </p>
                 <p class="highlight">
-                    Operations will not be defined in the embeddable superclass.  They will be defined in the 
-                    inheriting subclass.  This has consequences when dealing with a multi-tier inheritance 
-                    hierarchy.  Refer to the <a href="howto9.html">inheritance</a> howto for further information.
-                    This also implis that operations are only added to the implementation class on the first
+                    In general, operations will not be defined in the mapped superclass.  
+                    They will be defined in the inheriting subclass.  This has consequences when dealing with a 
+                    multi-tier inheritance hierarchy.  
+                    Refer to the <a href="howto9.html">inheritance</a> howto for further information.
+                    This also implies that operations are only added to the implementation class on the first
                     run of AndroMDA.  Operations defined in the UML model must be manually added to the
                     implementation class afterwards.  This shouldn't cause any issues as the developer would have
                     to define the operation implementation anyway to correspond to the abstract definition in
-                    the embeddable superclass.  The primary purpose for this strategy is to avoid having to
+                    the mapped superclass.  The primary purpose for this strategy is to avoid having to
                     annotate the entity operation with <code>@javax.persistence.Transient</code> annotation
-                    in both the embeddable superclass and the inheriting implementation class.
+                    in both the mapped superclass and the inheriting implementation class.
+                </p>
+                <p class="highlight">
+                    Classifier scoped operations marked as query operations, known as finder methods, 
+                    modelled on entity are not rendered in the entity components, but instead added to the
+                    DAO components.
                 </p>
                 <p>
                     <img src="images/org/andromda/test/1/b/uml.gif"/>
@@ -106,15 +129,27 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/b/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto1/b/Car.java.txt"><code>Car.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                        <li class="impl"><a class="changed" href="src/org/andromda/test/howto1/b/Car.java"><code>Car.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/b/CarDao.java"><code>CarDao.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/ab/CarDaoException.java"><code>CarDaoException.java</code></a></li>
 	                </ul>
 	            </p>
 	            <p>
-	                Entity operations can also be Query operations.  This is discussed further in the
-	                <a href="howto6.html">Query Howto</a>.  However, in general entities should NOT contain
+	                Entity operations modelled as Query operations are discussed further in the
+	                <a href="howto6.html">Query Howto</a>.  In general entities should NOT contain
 	                any business logic.  The EJB3 cartridge, like other persistence modeling cartridges, 
-	                uses the session facade pattern to contain business logic in session bean operations.
+	                uses the session facade pattern to contain business logic in session bean operations while
+	                typical CRUD persistence operations are provided throught the DAO layer.
+	            </p>
+	            <p>
+	                The above example entity models <code>allCarsAreRented()</code> as classifier scoped and
+	                <code>isRented()</code> as instance scoped.  Both will be added to the entity implementation
+	                subclass <code>Car</code>.  The bulk of the entity detail, including much of the metadata exists
+	                within the <code>CarEmbeddable</code> class.  In such cases where non-query operations exists 
+	                for an entity, the implementation class is generated once only and will not be overridden.
 	            </p>
             </subsection>
             <a name="Entity_Relation_Table"/>
@@ -138,8 +173,11 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/c/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-	                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto1/c/Car.java.txt"><code>Car.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/c/Car.java"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/c/CarDao.java"><code>CarDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/c/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/c/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/c/CarDaoException.java"><code>CarDaoException.java</code></a></li>
 	                </ul>
 	            </p>
             </subsection>
@@ -162,8 +200,11 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/d/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto1/d/Car.java.txt"><code>Car.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/d/Car.java"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/d/CarDao.java"><code>CarDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/d/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/d/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/d/CarDaoException.java"><code>CarDaoException.java</code></a></li>
 	                </ul>
 	            </p>
                 <p>
@@ -222,9 +263,9 @@
             <subsection name="Insertable Attribute">
                 <p>
                     To include the mapped column in the SQL insert statement, you set the <code>insertable</code>
-                    property on the <code>@Column</code> annotation which is done by modelling the
+                    property on the <code>@javax.persistence.Column</code> annotation which is done by modelling the
                     <code>@andromda.persistence.column.insert</code> on the attribute.  By default, this is set to
-                    true, so it only needs to be specified if you want the column to be initialised using the
+                    <code>true</code>, so it only needs to be specified if you want the column to be initialised using the
                     database default value.
                 </p>
             </subsection>
@@ -232,9 +273,9 @@
             <subsection name="Updatable Attribute">
                 <p>
                     To include the mapped column in the SQL update statement, you set the <code>updatable</code>
-                    property on the <code>@Column</code> annotation which is done by modelling the
+                    property on the <code>@javax.persistence.Column</code> annotation which is done by modelling the
                     <code>@andromda.persistence.column.update</code> on the attribute.  By default, this is set to
-                    true, so it only needs to be specified if you want the column to be updated using by the
+                    <code>true</code>, so it only needs to be specified if you want the column to be updated using by the
                     database automatically.
                 </p>
             </subsection>
@@ -279,8 +320,11 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/e/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto1/e/Car.java.txt"><code>Car.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/e/Car.java"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/e/CarDao.java"><code>CarDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/e/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/e/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/e/CarDaoException.java"><code>CarDaoException.java</code></a></li>
 	                </ul>
 	            </p>
                 <p>
@@ -308,8 +352,11 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/f/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto1/f/Car.java.txt"><code>Car.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/f/Car.java"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/f/CarDao.java"><code>CarDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/f/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/f/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/f/CarDaoException.java"><code>CarDaoException.java</code></a></li>
 	                </ul>
 	            </p>
             </subsection>
@@ -330,7 +377,7 @@
             <subsection name="LOB BLOB/CLOB Attributes">
                 <p>
                     An attribute can be specified as either a BLOB or CLOB field.  This is modelled by setting
-                    the attribute type to <code>datatype::Clob</code> or <code>datatype::Blob</code>.  This will add
+                    the attribute type to <code>datatype::Blob</code> or <code>datatype::Clob</code>.  This will add
                     the <code>@javax.persistence.Lob</code> annotation to the entity attribute.  The EJB3
                     cartridge will assign a default Java type based on the Java mappings specified in AndroMDA.
                     For a Blob, the default is <code>byte[]</code>.  For a Clob, the default is <code>String</code>.
@@ -371,13 +418,16 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/g/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto1/g/Car.java.txt"><code>Car.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/g/Car.java"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/g/CarDao.java"><code>CarDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/g/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/g/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/g/CarDaoException.java"><code>CarDaoException.java</code></a></li>
 	                </ul>
 	            </p>
                 <p>
                     This example models the attribute named <code>type</code> as a CLOB where the corresponding 
-                    column in the table will be of type String and the cartridge will set the fetch type for the 
+                    column in the table will be of type <code>String</code> and the cartridge will set the fetch type for the 
                     attribute to <b>eagerly</b> fetch.  The attribute <code>information</code> is defined as a LOB,
                     but it's of type <code>char[]</code>.
                 </p>
@@ -400,8 +450,11 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/h/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto1/h/Car.java.txt"><code>Car.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto1/g/Car.java"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/g/CarDao.java"><code>CarDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/g/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/g/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto1/g/CarDaoException.java"><code>CarDaoException.java</code></a></li>
 	                </ul>
 	            </p>
                 <p>
@@ -428,15 +481,15 @@
                 <p>
                     In some cases, setting up lifecycle event callbacks for the entity beans can be quite
                     useful.  The EJB3 cartridge provides the facility to define these callback methods
-                    in the listener class.  This class if NOT generate by default.  To find out more information,
+                    in the listener class.  This class is NOT generated by default.  To find out more information,
                     click on <a href="howto14.html">Listener Callback</a>.
                 </p>
             </subsection>
         </section>
         <section name="Next">
             <p>
-                In the next section we'll learn about entity relationships, click
-                <a href="howto2.html">here</a> to continue.
+                Next we will learn about the DAO components generated for the entities, click
+                <a href="howto19.html">here</a> to continue.
             </p>
         </section>
     </body>
