@@ -148,27 +148,29 @@
         <bootstrappers>
         </bootstrappers>
         <modificationset>
-            <cvs localWorkingCopy="/var/andromda/builds/andromda-plugins/andromda-plugins" />
+            <cvs localWorkingCopy="/andromda/builds/andromda-plugins/andromda-plugins" />
         </modificationset>
         <listeners>
            <currentbuildstatuslistener file="/var/andromda/builds/logs/andromda-plugins/currentbuildstatus.txt"/>
         </listeners>
         <schedule interval="3600">
-            <ant buildfile="/var/andromda/builds/andromda-plugins/andromda-plugins/etc/cc-build/mvn-cc-build.xml"/>
+            <maven2 mvnhome="/usr/local/maven2"  
+				pomfile="/andromda/builds/andromda-plugins/andromda-plugins/pom.xml"
+				goals="clean scm:update | install" />
         </schedule>
-        <log dir="/var/andromda/builds/logs/andromda-plugins">
+        <log dir="/andromda/builds/logs/andromda-plugins">
 	    <!--merge dir="/var/andromda/builds/andromda-contrib/contrib/cartridges/andromda-costcalculator/target/test-reports"/-->
         </log>
         <publishers>
-            <currentbuildstatuspublisher file="/var/andromda/builds/logs/andromda-plugins/currentbuildstatus.txt"/>
-            <htmlemail logdir="/var/andromda/builds/logs/andromda-plugins"
+            <currentbuildstatuspublisher file="/andromda/builds/logs/andromda-plugins/currentbuildstatus.txt"/>
+            <htmlemail logdir="/andromda/builds/logs/andromda-plugins"
                 mailhost="localhost"
                 buildresultsurl="http://andromda.it.su.se/cruisecontrol/buildresults/andromda-plugins"
                 spamwhilebroken="true"
                 subjectprefix="[BUILD]"
                 returnaddress="committers@andromda.org"
                 defaultsuffix="@users.sourceforge.net"
-                xslfile="/var/andromda/builds/continuous-integration/scripts/xsl/andromda.xsl">
+                xslfile="/var/andromda/builds/continuous-integration/scripts/xsl/buildresults.xsl">
                 <map address="matthias@andromda.org" alias="mattes3"/>
                 <map address="chad@andromda.org" alias="cwbrandon"/>
                 <map address="wouter@andromda.org" alias="draftdog"/>
@@ -178,7 +180,7 @@
                 <always address="chad@andromda.org"/>
                 <always address="martin@andromda.org"/>
                 <always address="wouter@andromda.org"/>
-		<always address="nbhatia@users.sourceforge.net"/>
+				<always address="nbhatia@users.sourceforge.net"/>
             </htmlemail>
         </publishers>
     </project>
