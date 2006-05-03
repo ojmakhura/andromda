@@ -128,9 +128,15 @@
 
         <table align="center" cellpadding="2" cellspacing="0" border="0" width="98%">
 
-
-
             <xsl:variable name="build.messages" select="/cruisecontrol/build/message"/>
+
+            <tr><td class="header-data">
+
+                <span class="header-label">Full Build Results:&#160;</span>
+
+                <a href="http://andromda.it.su.se/cruisecontrol">Build results</a>
+
+            </td></tr>
 
             <xsl:if test="cruisecontrol/build/@error">
 
@@ -148,8 +154,6 @@
 
             </xsl:if>
 
-
-
             <xsl:if test="not (cruisecontrol/build/@error)">
 
                 <tr><td class="header-title">BUILD COMPLETE&#160;-&#160;
@@ -161,14 +165,6 @@
             </xsl:if>
 
 
-
-            <tr><td class="header-data">
-
-                <span class="header-label">Full Build Results:&#160;</span>
-
-                <a href="http://team.andromda.org:8080/cruisecontrol/buildresults/andromda-all">Build results</a>
-
-            </td></tr>
 
             <tr><td class="header-data">
 
