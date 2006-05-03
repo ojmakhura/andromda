@@ -156,7 +156,7 @@
         <schedule interval="3600">
             <maven2 mvnhome="/usr/local/maven2"  
 				pomfile="/andromda/builds/andromda-plugins/andromda-plugins/pom.xml"
-				goals="clean scm:update | install" />
+				goal="clean scm:update | install" />
         </schedule>
         <log dir="/andromda/builds/logs/andromda-plugins">
 	    <!--merge dir="/var/andromda/builds/andromda-contrib/contrib/cartridges/andromda-costcalculator/target/test-reports"/-->
