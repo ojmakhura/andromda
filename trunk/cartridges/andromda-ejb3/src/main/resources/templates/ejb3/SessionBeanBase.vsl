@@ -129,7 +129,7 @@ public abstract class ${service.serviceBaseName}
      * Inject DAO ${daoReference.daoName}
      */
     @javax.annotation.EJB
-    protected ${daoReference.fullyQualifiedDaoName} $stringUtils.uncapitalize(${daoReference.daoName});
+    private ${daoReference.fullyQualifiedDaoName} $stringUtils.uncapitalize(${daoReference.daoName});
 #**##end
 #end
 #set ($mdbReferences = $service.messageDrivenReferences)
@@ -285,6 +285,21 @@ $attribute.getDocumentation("     * ")
 
 #*    *##end
 #*  *##end
+#**##end
+#end
+#if (!$entityReferences.empty)
+
+    // ------ DAO Getters --------
+#**##foreach ($daoDependency in $entityReferences)
+#*  *##set ($daoReference = $daoDependency.targetElement)
+
+    /**
+     * Get the injected DAO ${daoReference.daoName}
+     */
+    protected $daoReference.fullyQualifiedDaoName ${daoDependency.daoGetterName}()
+    {
+        return this.$stringUtils.uncapitalize(${daoReference.daoName});
+    }
 #**##end
 #end
 #set ($operations = $service.businessOperations)
