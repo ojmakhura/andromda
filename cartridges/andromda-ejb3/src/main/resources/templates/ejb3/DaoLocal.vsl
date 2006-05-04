@@ -95,9 +95,16 @@ public interface $entity.daoName
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
      * Loads an instance of $entity.fullyQualifiedEntityName from the persistent store.
+#if ($entity.compositePrimaryKeyPresent)
+#**##foreach ($identifier in $entity.identifers)
+     * @param $identifer.name identifier part of the composite PK of the entity to load.
+#**##end
+#else
+     * @param $identifier.name the identifier of the entity to load.
+#end
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
      */
-    public $rootEntityType load($identifier.type.fullyQualifiedName $identifier.name) 
+    public $rootEntityType load(#foreach ($identifier in $entity.identifiers)$identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()), #end#end) 
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
     /**
@@ -110,11 +117,17 @@ public interface $entity.daoName
      *   not occur.
      * </p>
      *
+#if ($entity.compositePrimaryKeyPresent)
+#**##foreach ($identifier in $entity.identifers)
+     * @param $identifer.name identifier part of the composite PK of the entity to load.
+#**##end
+#else
      * @param $identifier.name the identifier of the entity to load.
+#end
      * @return either the entity or the object transformed from the entity.
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
      */
-    public Object load(int transform, $identifier.type.fullyQualifiedName $identifier.name) 
+    public Object load(int transform,#foreach ($identifier in $entity.identifiers) $identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()),#end#end) 
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
     /**
@@ -300,7 +313,7 @@ public interface $entity.daoName
      * <code>identifier</code> from the persistent store.
      * @throws ${entity.fullyQualifiedDaoDefaultExceptionName}
      */
-    public void remove($identifier.type.fullyQualifiedName $identifier.name)
+    public void remove(#foreach ($identifier in $entity.identifiers)$identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()), #end#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 
     /**
@@ -315,11 +328,10 @@ public interface $entity.daoName
     /**
 $operation.getDocumentation("     * ")
      */
-#**##if ($operation.exceptionsPresent)
     $operation.visibility $returnType $operation.signature
+#**##if ($operation.exceptionsPresent)
         throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
 #**##else
-    $operation.visibility $returnType $operation.signature
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 #**##end
 
@@ -330,11 +342,11 @@ $operation.getDocumentation("     * ")
      *   argument allows you to override the query string defined in {@link #${operation.getSignature(false)}}.
      * </p>
      */
-#**##if ($operation.exceptionsPresent)
+
     $operation.visibility $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
+#**##if ($operation.exceptionsPresent)
         throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
 #**##else
-    $operation.visibility $returnType ${operation.name}(String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 #**##end
 
@@ -352,11 +364,11 @@ $operation.getDocumentation("     * ")
      *   not occur.
      * </p>
      */
+
+    $operation.visibility#if ($operation.returnTypePresent) $returnType#else void#end ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
 #**##if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
         throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
 #**##else
-    $operation.visibility $returnType ${operation.name}(int transform#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 #**##end
 
@@ -367,11 +379,11 @@ $operation.getDocumentation("     * ")
      *   argument allows you to override the query string defined in {@link #${operation.name}(int#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)}.
      * </p>
      */
+
+    $operation.visibility#if ($operation.returnTypePresent) $returnType#else void#end ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
 #**##if ($operation.exceptionsPresent)
-    $operation.visibility $returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
         throws $operation.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName};
 #**##else
-    $operation.visibility $returnType ${operation.name}(int transform, String queryString#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};
 #**##end
 
