@@ -79,27 +79,32 @@ public abstract class $entity.daoBaseName
     }
 
 #end
-#set ($identifier = $entity.identifiers.iterator().next())
+#if (!$entity.compositePrimaryKeyPresent)
+#**##set ($identifier = $entity.identifiers.iterator().next())
+#end
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
-     * @see ${entity.fullyQualifiedDaoName}#load(int, $identifier.type.fullyQualifiedName)
+     * @see ${entity.fullyQualifiedDaoName}#load(int,#foreach($identifier in $entity.identifers) $identifier.type.fullyQualifiedName#if ($velocityCount != $entity.identifiers.size()),#end#end)
      */
-    public Object load(final int transform, final $identifier.type.fullyQualifiedName $identifier.name)
+    public Object load(final int transform,#foreach($identifier in $entity.identifiers) final $identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()),#end#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
-#set ($argument = $identifier.name)
-#if($identifier.type.primitive)
-#**##set ($argument = "new ${identifier.type.wrapperName}(${identifier.name})")
-#else
-        if ($argument == null)
+#foreach ($identifier in $entity.identifiers)
+#**##if(!$identifier.type.primitive)
+        if ($identifier.name == null)
         {
             throw new IllegalArgumentException(
-                "${entity.name}.load - '$argument' can not be null");
+                "${entity.name}.load - '$identifier.name' can not be null");
         }
+#**##end
 #end
         try
         {
-            final Object entity = (${entity.fullyQualifiedEntityName})emanager.find(${entity.fullyQualifiedEntityName}.class, $argument);
+#if ($entity.compositePrimaryKeyPresent)
+            final Object entity = (${entity.fullyQualifiedEntityName})emanager.find(${entity.fullyQualifiedEntityName}.class, new ${entity.fullyQualifiedEntityCompositePrimaryKeyName}(#foreach ($identifier in $entity.identifiers)#if($identifier.type.primitive) new ${identifier.type.wrapperName}(${identifier.name})#else $identifier.name#end#if ($velocityCount != $entity.identifiers.size()),#end#end));
+#else
+            final Object entity = (${entity.fullyQualifiedEntityName})emanager.find(${entity.fullyQualifiedEntityName}.class, $identifier.name);
+#end
             return transformEntity(transform, ($entity.fullyQualifiedName)entity);
         }
         catch (Exception ex)
@@ -109,12 +114,12 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#load($identifier.type.fullyQualifiedName)
+     * @see ${entity.fullyQualifiedDaoName}#load(#foreach($identifier in $entity.identifers) $identifier.type.fullyQualifiedName#if ($velocityCount != $entity.identifiers.size()),#end#end)
      */
-    public $rootEntityType load($identifier.type.fullyQualifiedName $identifier.name)
+    public $rootEntityType load(#foreach($identifier in $entity.identifiers) final $identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()),#end#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
-        return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName, $identifier.name);
+        return ($entity.fullyQualifiedEntityName)this.load($entity.daoNoTransformationConstantName,#foreach($identifier in $entity.identifiers) $identifier.name#if ($velocityCount != $entity.identifiers.size()),#end#end);
     }
 
     /**
@@ -368,22 +373,25 @@ public abstract class $entity.daoBaseName
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#remove($identifier.type.fullyQualifiedName)
+     * @see ${entity.fullyQualifiedDaoName}#remove(#foreach ($identifier in $entity.identifiers)$identifier.type.fullyQualifiedName#if ($velocityCount != $entity.identifiers.size()), #end#end)
      */
-    public void remove($identifier.type.fullyQualifiedName $identifier.name)
+    public void remove(#foreach ($identifier in $entity.identifiers)$identifier.type.fullyQualifiedName $identifier.name#if ($velocityCount != $entity.identifiers.size()), #end#end)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
     {
-#set ($argument = $identifier.name)
-#if($identifier.type.primitive)
-#**##set ($argument = "new ${identifier.type.wrapperName}(${identifier.name})")
-#else
-        if ($argument == null)
+#foreach ($identifier in $entity.identifiers)
+#**##if(!$identifier.type.primitive)
+        if ($identifier.name == null)
         {
             throw new IllegalArgumentException(
                 "${entity.name}.remove - '$identifier.name' can not be null");
         }
+#**##end
 #end
-#set ($loadCall = "this.load($identifier.name)")
+#if (!$entity.compositePrimaryKeyPresent)
+#**##set ($loadCall = "this.load($identifier.name)")
+#else
+#**##set ($loadCall = "this.load(#foreach ($identifier in $entity.identifiers)$identifier.name#if ($velocityCount != $entity.identifiers.size()), #end#end)")
+#end
 #if ($entity.generalization)
 #**##set ($loadCall = "($entity.fullyQualifiedEntityName)${loadCall}")
 #end
@@ -438,10 +446,14 @@ public abstract class $entity.daoBaseName
 #**##end
     {
 #**##set ($finderCall = "this.${finder.name}($entity.daoNoTransformationConstantName#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
-#**##if (!$finder.returnType.collectionType)
-#*  *##set ($finderCall = "($returnType)$finderCall")
-#**##end
+#**##if ($finder.returnTypePresent)
+#*  *##if (!$finder.returnType.collectionType)
+#*    *##set ($finderCall = "($returnType)$finderCall")
+#*  *##end
         return $finderCall
+#**##else
+        $finderCall
+#**##end
     }
 
     /**
@@ -455,10 +467,14 @@ public abstract class $entity.daoBaseName
 #**##end
     {
 #**##set ($finderCall = "this.${finder.name}($entity.daoNoTransformationConstantName, queryString#if(!$finder.arguments.empty), ${finder.argumentNames}#end);")
-#**##if (!$finder.returnType.collectionType)
-#*  *##set ($finderCall = "($returnType)$finderCall")
-#**##end
+#**##if ($finder.returnTypePresent)
+#*  *##if (!$finder.returnType.collectionType)
+#*    *##set ($finderCall = "($returnType)$finderCall")
+#*  *##end
         return $finderCall
+#**##else
+        $finderCall
+#**##end
     }
 
 #**##if (!$finder.returnType.collectionType)
@@ -467,7 +483,7 @@ public abstract class $entity.daoBaseName
     /**
      * @see ${entity.fullyQualifiedDaoName}#${finder.name}(int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
-    $finder.visibility $returnType ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility#if ($finder.returnTypePresent) $returnType#else void#end ${finder.name}(final int transform#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #**##if ($finder.exceptionsPresent)
         throws $finder.exceptionList, ${entity.fullyQualifiedDaoDefaultExceptionName}
 #**##else
@@ -513,18 +529,22 @@ public abstract class $entity.daoBaseName
 #*  *##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
             queryObject.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}_${finder.name}");
 #*  *##end
-#*  *##if ($finder.returnType.setType)
+#*  *##if ($finder.returnTypePresent)
+#*    *##if ($finder.returnType.setType)
             java.util.Set results = new java.util.LinkedHashSet(queryObject.getResultList());
             transformEntities(transform, results);
             return results;
-#*  *##elseif ($finder.returnType.collectionType)
+#*    *##elseif ($finder.returnType.collectionType)
             java.util.List results = queryObject.getResultList();
             transformEntities(transform, results);
             return results;
-#*  *##else
-            $finder.returnType.fullyQualifiedName result = ($finder.returnType.fullyQualifiedName)queryObject.getSingleResult();
+#*    *##else
+            Object result = queryObject.getSingleResult();
             result = transformEntity(transform, ($entity.fullyQualifiedName)result);
             return result;
+#*    *##end
+#*  *##else
+            queryObject.executeUpdate();
 #*  *##end
         }
         catch (Exception ex)
@@ -532,14 +552,18 @@ public abstract class $entity.daoBaseName
             throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
         }
 #**##else
+#*  *##if ($finder.returnTypePresent)
         return this.${finder.name}(transform, "$finder.getQuery($entity)"#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
+#*  *##else
+        this.${finder.name}(transform, "$finder.getQuery($entity)"#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
+#*  *##end
 #**##end
     }
 
     /**
      * @see ${entity.fullyQualifiedDaoName}#${finder.name}(int, java.lang.String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
-    $finder.visibility $returnType ${finder.name}(final int transform, final java.lang.String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
+    $finder.visibility#if ($finder.returnTypePresent) $returnType#else void#end ${finder.name}(final int transform, final java.lang.String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #**##if ($finder.exceptionsPresent)
         throws ${finder.exceptionList}, ${entity.fullyQualifiedDaoDefaultExceptionName}
 #**##else
@@ -584,18 +608,22 @@ public abstract class $entity.daoBaseName
 #**##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
             queryObject.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}_${finder.name}");
 #**##end
-#**##if ($finder.returnType.setType)
+#**##if ($finder.returnTypePresent)
+#*  *##if ($finder.returnType.setType)
             java.util.Set results = new java.util.LinkedHashSet(queryObject.getResultList());
             transformEntities(transform, results);
             return results;
-#**##elseif ($finder.returnType.collectionType)
+#*  *##elseif ($finder.returnType.collectionType)
             java.util.List results = queryObject.getResultList();
             transformEntities(transform, results);
             return results;
-#**##else
-            $finder.returnType.fullyQualifiedName result = ($finder.returnType.fullyQualifiedName)queryObject.getSingleResult();
+#*  *##else
+            Object result = queryObject.getSingleResult();
             result = transformEntity(transform, ($entity.fullyQualifiedName)result);
             return result;
+#*  *##end
+#**##else
+            queryObject.executeUpdate();
 #**##end
         }
         catch (Exception ex)
