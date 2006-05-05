@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - HowTo Embeddable Objects</title>
+    </properties>
+    <body>
+        <section name="Embeddable Objects">
+            <p>
+                In some cases you may want to embed plain Java objects or value objects inside your
+                entities.  These are called embedded value objects.  Each persistent property of these
+                embeddable value objects are mapped to column within the entity's table.
+            </p>
+            <p>
+                The <code>@Embeddable</code> annotation is specified on the class whose instance is
+                an embeddable value object of an entity.  Only a limited number of annotations are
+                permitted on the properties of the embeddable value object.
+            </p>
+            <p>
+                A persistent property of an entity which is an instance of an embeddable value object
+                is marked with the <code>@Embedded</code> annotation.  The <code>@AttributeOverride</code>
+                and <code>@AttributeOverrides</code> annotations can override column mappings declared
+                in the embedded value object.
+            </p>
+            <p>
+                <img src="images/org/andromda/test/20/a/uml.gif"/>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                </ul>
+            </p>
+            <p>
+                <ul>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto20/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto20/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto20/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto20/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto20/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto20/a/PersonName.java"><code>PersonName.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto20/a/PersonNameImpl.java"><code>PersonNameImpl.java</code></a></li>
+                </ul>
+            </p>
+            <p>
+                The cartridge provides basic support for embeddable value objects.  Currently, no
+                mapping annotations on properties of the embeddable value object are generated.  This can easily
+                be supported by modification to the <code>EJB3EmbeddedValueFacade</code> and corresponding
+                <code>EmbeddedValue.vsl</code> template.
+            </p>
+        </section>
+    </body>
+</document>
