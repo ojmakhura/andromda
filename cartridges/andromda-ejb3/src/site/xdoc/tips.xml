@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - EJB3 - Tips</title>
+    </properties>
+    <body>
+        <section name="Tips for using the AndroMDA EJB3 cartridge">
+            <p>
+                This section provides you with some pointers that might prove helpful when using AndroMDA with
+                the EJB3 cartridge.  Some of these tips are shared with the Spring cartridge.
+            </p>
+        </section>
+        <section name="Exceptions">
+            <p>
+                It's not needed to model exceptions for all the services you model, the EJB3 cartridge will
+                generate them automatically for you. That way you don't need to keep writing
+                <code>try/catch</code> blocks in the <code>handleXXX</code> methods in the service implementation
+                classes, just throw any error, it will be handled for you.
+            </p>
+            <p>
+                So basically this snippet is a good example of an implementation of a service operation, there is
+                no need to catch any exception and rethrow it:
+<source language="java"><![CDATA[
+protected PersonDetails handleGet(Long id) throws Exception
+{
+    return (PersonDetails)getPersonDao().load(PersonDao.TRANSFORM_PERSONDETAILS, id);
+}
+]]></source>
+            </p>
+        </section>
+        <section name="Using foreign services">
+            <p>
+                You can connect to "foreign" EJB3 services, which are not implemented  in your application but in
+                another one (e.g. a other ear), as with "normal" services: just draw a dependency to the "foreign"
+                service class. The foreign service class has to be defined as any other service but without any method
+                or property.
+            </p>
+            <p>
+                To prevent the EJB3 cartridge from generating java code you have to exclude the packages with a
+                process="false" statement in the andromda configuration just in your appropriate
+                <code>&lt;model&gt;</code> tag:
+                <source language="xml"><![CDATA[
+<modelPackages>
+    <modelPackage process="false">de::my::foreign.package::name</modelPackage>
+</modelPackages>
+                ]]></source>
+                (look at http://team.andromda.org/docs/configuration.html#modelPackage)
+                The EJB3 cartridge should generate the <code>@EJB</code> injections from the dependency for the 
+                source class.
+            </p>
+        </section>
+
+    </body>
+</document>
