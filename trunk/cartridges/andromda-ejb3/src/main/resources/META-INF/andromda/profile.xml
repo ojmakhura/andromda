@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <profile>
-	<documentation>
-		Entity query operations (i.e. finders) can be denoted by setting
-		the query flag on the modeled operation to true (they do not
-		require any stereotypes).
-	</documentation>
+    <documentation>
+        <p>
+             Dependencies can be used between Services and Entities, they
+             won't need any stereotype assigned to them. These dependencies
+             are used to produce entity references (from an entity or service)
+             within the base classes (i.e. DaoBase and ServiceBase),
+             or to produce service references (from another service)
+             within the ServiceBase classes.
+         </p>
+         <p>
+             Entity business operations can be set to <code>classifier</code> scope
+             instead of the usual <code>instance</code> scope. By doing so they
+             will be generated into the corresponding DAO for that entity instead
+             of the entity implementation class.
+         </p>
+         <p>
+             Entity query operations (i.e. finders) can be denoted by setting the
+             query flag on the modeled operation to true
+             (they do not require any stereotypes) and setting it's scope to
+             <code>classifier</code>.
+         </p>
+         <p>
+             Actors represent roles within your model.  To designate that a role
+             has access to a given service you must draw a dependency from an Actor
+             to the <a href="Service"><![CDATA[<<Service>>]]></a>.  To designate the
+             role has access to to a given operation, you must draw a dependency from
+             an Actor to the operation.
+         </p>
+    </documentation>
 	<elements>
 		<elementGroup name="Stereotypes">
 			<element name="ENTITY">
