@@ -26,28 +26,24 @@
                 The following howto should give you a basic understanding on how to model your inheritance
                 hierarchies using the EJB3 cartridge.
             </p>
-            <p>
-                The biggest drawback of implementing any of the inheritance hierarchies using
-                the EJB3 cartridge is the limitation where a manual source class is NOT available in the child
-                nodes of an inheritance hierarchy.  Because the EJB3 cartridge employs mapped superclass inheritance
-                for every entity to be able to provide implementation specific source in the subclass, it is
-                limited by the fact that mapped superclasses can only exist in the root node of the inheritance
-                hierarchy.
-            </p>
-            <a name="Mapped_Superclasses"/>
-			<subsection name="Mapped Superclasses">
+            <a name="Non_Inheriting_Entities"/>
+			<subsection name="Non Interhiting Entities">
                 <p>
                     In a mapped superclass scenario, an entity inherits from a superclass that has persistent state 
-                    and mapping information, but the super class isn't an entity.  This is the strategy employed
-                    by the EJB3 cartridge when generating non-inheriting entities.  
+                    and mapping information, but the super class isn't an entity and is not mapped to a relation table.
+                    This is the strategy employed by the EJB3 cartridge when generating non-inheriting entities if
+                    <code>instance</code> scoped operations are modelled on the entity.
+                </p>
+                <p>
                     A mapped superclass is generated containing
                     almost all of the mapping information.  The subclass contains only the <code>@Entity</code>
                     , <code>@Table</code> and <code>@EntityListeners</code> annotations.  All attribute
                     and relationship mapping information exists in the mapped superclass.  The mapped superclass
-                    is regenerated on every run, however the subclass is not.  As soon as you model
-                    inheriting entities, this strategy doesn't apply since mapped superclasses only exist at 
-                    the root node of the hierarchy.
+                    is regenerated on every run, however the subclass is not.
                 </p>
+            </subsection>
+            <a name="Mapped_Superclasses"/>
+			<subsection name="Mapped Superclasses">
                 <p>
                     To explicity defined an entity as a mapped superclass, model the 
                     <![CDATA[<<MappedSuperclass>>]]> stereotype on the root entity.  Define the subclass entities
@@ -66,29 +62,42 @@
 				</p>
                 <p>
                     <ul>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto9/a/Vehicle.java.txt"><code>Vehicle.java</code></a></li>
-                        <li class="impl"><a class="changed" href="src/org/andromda/test/howto9/a/Car.java.txt"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/a/CarType.java.txt"><code>CarType.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto9/a/Person.java.txt"><code>Person.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto9/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto9/a/Vehicle.java"><code>Vehicle.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto9/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                        <li class="impl"><a class="changed" href="src/org/andromda/test/howto9/a/Car.java"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/CarType.java"><code>CarType.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/CarDao.java"><code>CarDao.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto9/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto9/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/Person.java"><code>Person.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto9/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto9/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto9/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/a/RentalException.java"><code>RentalException.java</code></a></li>
                     </ul>
                 </p>
                 <p>
-                    It's worthwhile to note that only a Vehicle class is generated which contains all the mapping
-                    information.  This class is regenerated every time AndroMDA runs; any manual changes to this
-                    class is overwritten.  Likewise, only the Car entity class, with all mapping information 
-                    is generated.
-                    On the other hand, the Person entity operates under the normal EJB3 cartridge
-                    guidelines since there is no inheritance hierarchy for this entity.  Therefore, a <code>Person</code>
-                    and <code>PersonEmbeddable</code> class is generated and you are allowed to manually edit 
-                    the <code>Person</code> class source file.
+                    It's worthwhile to note that only a <code>VehicleEmbeddable</code> class is generated which 
+                    contains all the mapping information.  
+                    This class is regenerated every time AndroMDA runs; any manual changes to this
+                    class is overwritten.
+                </p>
+                <p>
+                    A <code>CarEmbeddable</code> mapped superclass with all mapping information 
+                    is generated and a <code>Car</code> implementation entity classes.  Remember that this only happens
+                    if the entity contains <code>instance</code> scoped operations.
+                </p>
+                <p>
+                    The the Person entity operates under the normal EJB3 cartridge
+                    guidelines since there is no inheritance hierarchy for this entity.  Therefore, only a 
+                    <code>Person</code> class is generated and should not be modified.
                 </p>
 			</subsection>
             <a name="Single_Table_Strategy"/>
@@ -126,23 +135,36 @@
 				</p>
                 <p>
                     <ul>
-                        <li class="impl"><a href="src/org/andromda/test/howto9/b/Vehicle.java.txt"><code>Vehicle.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto9/b/VehicleEmbeddable.java.txt"><code>VehicleEmbeddable.java</code></a></li>
-                        <li class="impl"><a class="changed" href="src/org/andromda/test/howto9/b/Car.java.txt"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/b/CarType.java.txt"><code>CarType.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/b/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto9/b/Person.java.txt"><code>Person.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto9/b/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalException.java.txt"><code>RentalException.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto9/b/Vehicle.java"><code>Vehicle.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/VehicleDao.java"><code>VehicleDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/VehicleDaoBase.java"><code>VehicleDaoBase.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/VehicleDaoImpl.java"><code>VehicleDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/VehicleDaoException.java"><code>VehicleDaoException.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto9/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                        <li class="impl"><a class="changed" href="src/org/andromda/test/howto9/b/Car.java"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/CarType.java"><code>CarType.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/CarDao.java"><code>CarDao.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto9/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto9/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/Person.java"><code>Person.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/PersonDao.java"><code>PersonDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto9/b/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto9/b/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto9/b/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto9/b/RentalException.java"><code>RentalException.java</code></a></li>
                     </ul>
                 </p>
                 <p>
-                    The discriminator components are discussed in immediately below.
+                    Notice in the previous example where <code>Vehicle</code> was defined as a mapped superclass,
+                    no DAO components were generated.  In this example, <code>Vehicle</code> is an entity and the
+                    the corresponding DAO components were generated. The discriminator components are discussed 
+                    below.
                 </p>
             </subsection>
             <a name="Discriminator_Components"/>
@@ -178,18 +200,20 @@
                     root class.
                 </p>
                 <p>
-                    Most importantly, you need to model the <code>@andromda.persistence.discriminator.value</code>
+                    Most importantly, you can model the <code>@andromda.persistence.discriminator.value</code>
                     tagged value <b>on all classes</b> in the hierarchy.  This value indicates the row in the table
                     is an entity of the annotated entity type.  This is shown in the above diagram on entities
-                    Vehicle and Car.
+                    Vehicle and Car.  However, by default, if no discriminator value is specified for single
+                    table mapping strategy, the cartridge will capitalize and assign the first letter of the entity
+                    as it's discriminator value.
                 </p>
             </subsection>
             <a name="Table_Per_Class_Strategy"/>
 			<subsection name="Table Per Class Strategy">
                 <p>
                     With this strategy, a table exists per class in the hierarchy and each table is comprised of
-                    all the properties persistent by that class.  There is no need to define discriminator column
-                    types or values here.
+                    all the properties persisted by that class.  There is no need to define discriminator column
+                    types or values for this mapping strategy.
                 </p>
                 <p>
                     If the query is based on the root class in the hierarchy, the query is polymorphic which implies
@@ -228,25 +252,6 @@
                     All subclasses follow this same strategy.
                 </p>
             </subsection>
-            <a name="Generic_Finder_Methods"/>
-            <subsection name="Generic Finder Methods">
-                <p>
-                    You will notice that the generic finder method <code>findByPrimaryKey</code> is not generated 
-                    for any of the inheritance mapping strategies within the inheriting subclasses.
-                    Classes that inherit from a base class use the primary key identifier of the base class.
-                    Therefore, because the <code>findByPrimaryKey</code> already exists in the base/root class and 
-                    since we have polymorphic queries, subclass entities are also returned from the queries 
-                    of the root class.
-                </p>
-                <p>
-                    The case is different for the <code>findAll</code> finder method.  The <code>findAll</code>
-                    finder will not be generated for inheriting subclasses when the inheritance strategy is
-                    single table.  Polymorphic queries in the root entity returns the result from all classes in
-                    the hierarchy.  For table per class and joined table mapping strategies, the cartridge will
-                    generate the <code>findAll<![CDATA[<Entity Name>]]></code> finder method in each subclass
-                    as well as the <code>findAll</code> in the root class.
-                </p>
-            </subsection>
             <a name="Helpful_Hints"/>
             <subsection name="Helpful Hints">
                 <p>
@@ -265,7 +270,7 @@
         </section>
         <section name="Next">
             <p>
-                To learn how to develop Message Driven Beans, click <a href="howto9.html">here</a>.
+                To learn how to develop Message Driven Beans, click <a href="howto10.html">here</a>.
             </p>
         </section>
     </body>

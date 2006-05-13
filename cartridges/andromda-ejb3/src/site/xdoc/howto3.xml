@@ -8,32 +8,29 @@
         <section name="Services">
             <p>
                 A common strategy to shield the presentation tier from the persistence tier is to model
-                the services in between, they will be used to implement the business logic in the application tier.
-                The technology behind is of little interest to the developer (that's one of the good points of MDA right!), 
-                but it's good to know POJOs are being used.
+                the services in between.  These services implement the business logic in the application tier.
+                In the EJB3 cartridge, these services are stateless or stateful session beans.
             </p>
             <p>
-                In order to model such services you would just create another class, but this time you will give
-                this class the <![CDATA[<<Service>>]]> stereotype. 
+                To create a service you just create another class and model the <![CDATA[<<Service>>]]> stereotype
+                on this class. 
             </p>
             <p>
-                Generally speaking it is sufficient to only model operations in these services, they represent
-                the operations that can be called remotely, consider these operations the API of your application's
-                back-end.
+                Most of the time you only model operations in these services which represent
+                the operations that can be called remotely (default view type).  The EJB3 cartridge allows you to
+                specify <i>local</i> operation or even both.  These operations are the <b>API</b> of your 
+                application's back-end.
             </p>
             <p>
-                Notice how we have modelled dependencies from the service to the entities.  For previous persistence
-                engines, this would render accessors to the DAOs of both entities in the service or add the
-                necessary xdoclet tags or corresponding <code>env-entry</code> elements to the deployment
-                descriptors.  For the EJB3 cartridge, this is NOT the case!
+                The following illustrates the use of a service bean that operates on the 2 entities.
+                Notice how we have modelled dependencies from the service to the entities.  This will render 
+                the getter accessor to the DAOs of both entities in the service and inject the corresponding
+                DAO (stateless session bean containing CRUD API for entity).
             </p>
             <p>
-                You should still draw such dependencies to indicate the need to access the persistent storage 
-                of entities, however EJB 3.0 relies on the persistence entity manager to handle this task and
+                Drawing these dependencies indicates the need to access the persistent storage 
+                of entities via the persistence entity manager injected in the DAO that handle this task and
                 eliminates much of the complexity.
-            </p>
-            <p>
-                The following example illustrates the use of a service bean that operates on the entity POJOs.
             </p>
             <p>
                 <img src="images/org/andromda/test/3/a/uml.gif"/>
@@ -47,16 +44,22 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><a href="src/org/andromda/test/howto3/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto3/a/Car.java.txt"><code>Car.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto3/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto3/a/Person.java.txt"><code>Person.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto3/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto3/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto3/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto3/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto3/a/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto3/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto3/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto3/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto3/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto3/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto3/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto3/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto3/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto3/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
                 </ul>
             </p>
             <p>
@@ -64,13 +67,13 @@
                 in the sections ahead.
             </p>
             <p>
-                The <code>RentalServiceBean.java</code> injects the <code>javax.ejb.SessionContext</code> by
+                The <code>RentalServiceBase.java</code> injects the <code>javax.ejb.SessionContext</code> by
                 default and makes this available for use in the subclass via the <code>context</code> protected
                 attribute.
             </p>
             <p>
                 The default persistence context is injected into the Entity Manager.  This is defined via the
-                <code>@javax.persistence.PersistenceContext</code> annotation in <code>RentalServiceBean.java</code>.
+                <code>@javax.persistence.PersistenceContext</code> annotation in <code>RentalServiceBase.java</code>.
                 The <code>unitName</code> property matches the entity manager name in <code>persistence.xml</code>
                 and is determined from the project name for the default persistence context.
             </p>
@@ -114,7 +117,7 @@
                 <p>
                     To declare the transactional nature of session bean business methods, you can model
                     the <code>@andromda.ejb.transaction.type</code> tagged value on the session bean business 
-                    methods individually, or on session bean class.  To find out more information, click on
+                    methods individually, or on the session bean class.  To find out more information, click on
                     <a href="howto15.html">Transaction</a>.
                 </p>
             </subsection>
@@ -129,7 +132,8 @@
             <a name="Environment_Entry_Injection"/>
             <subsection name="Environment Entry Injections">
                 <p>
-                    To inject an environment entry resource value, model a service attribute with classifer scope
+                    To inject an environment entry resource value, model a service attribute with 
+                    <code>classifer</code> scope
                     and set the attribute stereotype to <![CDATA[<<EnvEntry>>]]>.  The environment
                     entries will be defined in the session bean class and configured in the ejb-jar.xml 
                     deployment descriptor.
@@ -194,7 +198,7 @@
                     The EJB3 cartridge derives a default persistence context associated with the default
                     entity manager for every session bean.  The persistence context <code>unitName</code>
                     property is determined via the <code>persistenceContextUnitName</code> namespace property
-                    which is provided via <code>andromda.xml</code> descriptor. 
+                    which is provided via your application <code>andromda.xml</code> descriptor. 
                 </p>
                 <p>
                     Every session bean provides the facility to override the default persistence context
@@ -234,17 +238,23 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen"><a href="src/org/andromda/test/howto3/b/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto3/b/Car.java.txt"><code>Car.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto3/b/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto3/b/Person.java.txt"><code>Person.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/b/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto3/b/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto3/b/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto3/b/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto3/b/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
-	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/b/persistence.xml.txt"><code>persistence.xml</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto3/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto3/b/Car.java"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto3/b/CarDao.java"><code>CarDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto3/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto3/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto3/b/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto3/b/Person.java"><code>Person.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto3/b/PersonDao.java"><code>PersonDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto3/b/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto3/b/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto3/b/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                        <li class="impl"><a class="changed" href="src/org/andromda/test/howto3/b/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/b/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/b/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/b/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/b/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto3/b/persistence.xml"><code>persistence.xml</code></a></li>
 	                </ul>
 	            </p>
 	            <p>

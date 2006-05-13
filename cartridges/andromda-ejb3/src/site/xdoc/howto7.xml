@@ -7,8 +7,8 @@
     <body>
         <section name="Exceptions">
             <p>
-                The EJB3 cartridge provides an almost identical exception handling process for application 
-                as with the other persistence cartridges.
+                The EJB3 cartridge provides a similar exception handling process for applications 
+                as the other persistence cartridges.
             </p>
             <p>
                 Simply model a class and assign it the <![CDATA[<<ApplicationException>>]]> stereotype or
@@ -51,18 +51,24 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><a href="src/org/andromda/test/howto7/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto7/a/Car.java.txt"><code>Car.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto7/a/CarType.java.txt"><code>CarType.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto7/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto7/a/Person.java.txt"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto7/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/CarType.java"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto7/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto7/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalException.java"><code>RentalException.java</code></a></li>
                 </ul>
             </p>
         </section>

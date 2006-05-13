@@ -96,6 +96,10 @@
                     run and will never be overwritten, so you are free to add your implementation to the lifecycle
                     callback operations.
                 </p>
+                <p>
+                    Follow the example in the <a href="howto11.html">environment entry injection</a> howto to see
+                    how you can assign lifecycle callbacks on entities.
+                </p>
             </subsection>
             <a name="Session_Bean_Callbacks"/>
             <subsection name="Session Bean Callbacks">

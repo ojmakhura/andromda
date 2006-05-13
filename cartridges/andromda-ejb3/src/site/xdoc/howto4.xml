@@ -9,7 +9,7 @@
             <p>
                 In some cases, you may want to define a composite primary key, rather than a simple primary key.
                 A composite primary key must correspond to two or more persistent fields or properties.  The
-                EJB3 cartridge allow the creation of a composite primary key class to satisfy this requirement.
+                EJB3 cartridge allows the creation of a composite primary key class to satisfy this requirement.
             </p>
             <p>
                 To map two or more attributes of an entity POJO as a property of a composite primary key, simply
@@ -31,17 +31,23 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto4/a/Car.java.txt"><code>Car.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/a/CarPK.java.txt"><code>CarPK.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto4/a/Person.java.txt"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto4/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto4/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto4/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto4/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto4/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto4/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/a/CarPK.java"><code>CarPK.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/a/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto4/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto4/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
                 </ul>
             </p>
             <p>
@@ -51,7 +57,14 @@
                 <code>@javax.persistence.Embeddable</code> annotation.  The <code>CarEmbeddable</code> class
                 contains the corresponding <code>@javax.persistence.EmbeddedId</code> annotation on the
                 composite primary key getter.  Notice how the <code>@javax.persistence.AttributeOverrides</code>
-                annotation is used to map the primary key attributes to the relational database columns.
+                annotation is used to map the primary key attributes to the relational database columns in
+                <code>CarEmbeddable.java</code>.
+            </p>
+            <p>
+                The <code>CarDaoBase</code> class accounts for the composite PK in the load and
+                remove operations.  TODO: To improve on this, add further operations to the DAO
+                components to have the PK class as an argument rather than the individual attributes that
+                form the PK.
             </p>
             <p>
                 The following example illustrates the effect of having a composite primary key on the inverse
@@ -72,17 +85,23 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/b/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto4/b/Car.java.txt"><code>Car.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/b/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto4/b/Person.java.txt"><code>Person.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/b/PersonPK.java.txt"><code>PersonPK.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto4/b/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto4/b/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto4/b/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto4/b/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto4/b/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto4/b/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/b/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto4/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/b/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/b/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/b/PersonPK.java"><code>PersonPK.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/b/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto4/b/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/b/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/b/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto4/b/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/b/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/b/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/b/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto4/b/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
                 </ul>
             </p>
             <p>
@@ -92,7 +111,7 @@
         </section>
         <section name="Next">
             <p>
-                As promised we'll learn how to model enumerations, click <a href="howto5.html">here</a>.
+                In the next section, we will learn how to model enumerations, click <a href="howto5.html">here</a>.
             </p>
         </section>
     </body>

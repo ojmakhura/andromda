@@ -35,8 +35,8 @@
 ]]></source>
 				</p>
 				<p>
-					Once you have done that, the cartridge will create the <code>login-config</code> and
-					and <code>login-service</code> deployment descriptors for JBoss.  
+					Once you have done that, the cartridge will create the <code>login-config.xml</code> and
+					and <code>login-service.xml</code> deployment descriptors for JBoss.  
 					Both files are generated to the ear <code>META-INF</code> directory.  The
 					<code>login-config.xml</code> will look like:
 <source language="xml"><![CDATA[
@@ -72,9 +72,9 @@
                     services are running before the new login module is activated.
 				</p>
 				<p>
-					These 2 files are generated the first time the security realm is enabled.  They will not be
-					overridden.  For example, you can modify these file to prevent the queries checking for
-					case sensitivity by removing the <b>BINARY</b> in the <i>where</i> clauses.
+				    These 2 files are generated the first time the security realm is enabled.  They will not be
+				    overridden.  For example, you can modify these files to prevent the queries checking for
+				    case sensitivity by removing the <b>BINARY</b> in the <i>where</i> clauses.
 				</p>
 				<p>
 				    JBoss will load the MBean service configured in <code>login-service.xml</code> by
@@ -91,7 +91,7 @@
 				</p>
 				<p>
 					The cartridge will also create an <code>auth.conf</code> file in <i>./app/src/main/config</i>.
-					You will need this file if you are outside of the server JVM to be able to authenticate
+					You will need this file if your client is outside of the server JVM to be able to authenticate
 					your credentials.  This file needs to be in your classpath when you run your external
 					client.
 <source><![CDATA[
@@ -161,25 +161,31 @@ PRIMARY KEY(PRINCIPAL_ID)
 				</p>
                 <p>
                     <ul>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/b/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto8/b/Car.java.txt"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/b/CarType.java.txt"><code>CarType.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/b/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto8/b/Person.java.txt"><code>Person.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/b/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/b/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/b/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto8/b/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/b/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/b/RentalException.java.txt"><code>RentalException.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/ejb-jar.xml.txt"><code>ejb-jar.xml</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/jboss.xml.txt"><code>jboss.xml</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto8/b/persistence.xml.txt"><code>persistence.xml</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/auth.conf.txt"><code>auth.conf</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/jboss-app.xml.txt"><code>jboss-app.xml</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/howtomodel-login-config.xml.txt"><code>howtomodel-login-config.xml</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/howtomodel-login-service.xml.txt"><code>howtomodel-login-service.xml</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto8/b/Car.java"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/CarType.java"><code>CarType.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/CarDao.java"><code>CarDao.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto8/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/Person.java"><code>Person.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/PersonDao.java"><code>PersonDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto8/b/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto8/b/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/RentalException.java"><code>RentalException.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/jboss.xml"><code>jboss.xml</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto8/b/persistence.xml"><code>persistence.xml</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/auth.conf"><code>auth.conf</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/jboss-app.xml"><code>jboss-app.xml</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/howtomodel-login-config.xml"><code>howtomodel-login-config.xml</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto8/b/howtomodel-login-service.xml"><code>howtomodel-login-service.xml</code></a></li>
                     </ul>
                 </p>
                 <p>
@@ -187,12 +193,12 @@ PRIMARY KEY(PRINCIPAL_ID)
                     <code>RolesAllowed</code> annotation at the top level of the class as well as on each
                     operation of the service bean.  The <code>RolesAllowed</code> annotation is a list of security
                     role names mapped to security roles allowed to execute the annotated method or all methods if
-                    specifies at the class level.
+                    specified at the class level.
                 </p>
                 <p>
                     The EJB3 cartridge provides a couple of extra security related tagged values.  The
                     <code>@andromda.service.security.denyAll</code> tagged value which can be assigned on
-                    a session bean operation specifies that no roles are permitted to execute that operation.
+                    a session bean operation which specifies that no roles are permitted to execute that operation.
                     If modelled on the session bean class and set to true, then no roles are permitted to 
                     execute all of the operations in that session bean.  This tag overrides any roles specified
                     using actor dependencies.
@@ -217,6 +223,19 @@ PRIMARY KEY(PRINCIPAL_ID)
                     The run-as identity is only applicable to actor-bean dependency.  It cannot be applied
                     to bean operations.  The run-as idendity is particularly useful for message driven beans where
                     the security identity for the execution of the <code>onMessage</code> callback needs to be set.
+                </p>
+                <p>
+                    Finally, the above diagram also illustrates how dependencies can be modelled from actors to
+                    entities.  This creates corresponding security infrastructure in the entity DAO components.
+                    <a href="howto19.html">DAO objects</a> are generated for every entity to expose CRUD API
+                    via stateless session beans.  Since your session facade business layer used the DAO components
+                    layer, you need to propogate the security constraints through the DAO layer.  Have a look at
+                    <code>CarDaoBase.java</code>.  It contains the <code>@RolesAllowed</code> annotation to declare
+                    that the <code>MANAGER</code> and <code>ASSISTANT</code> roles require access to all
+                    operations within the DAO.
+<source><![CDATA[
+@javax.annotation.security.RolesAllowed({"ASSISTANT", "MANAGER"})
+]]></source>
                 </p>
             </subsection>
         </section>
