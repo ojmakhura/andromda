@@ -7,13 +7,22 @@
     <body>
         <section name="AndroMDA EJB Cartridge">
             <p>
-                The purpose of this cartridge is to generate an CMP Entity EJB persistence tier, fronted by
-                Session EJB business object facades.  To learn how to use this cartridge, please see 
-                the <a href="profile.html">Profile</a> and <a href="namespace.html">Namespace</a> sections.
+                The purpose of this cartridge is to generate EJB 3.0 compliant persistence tier, fronted by
+                Session EJB business object facades.  To learn how to use this cartridge you can follow the, 
+                howtos similart to a tutorial.  You do not need to navigate the howtos sequentially.
             </p>
             <p>
-            	If you're using MagicDraw as your modeling tool, it is recommended to use the andromda-profile.zip to 
-            	get an idea about Stereotypes or tagged values to use. 
+                Please see  the <a href="profile.html">Profile</a> and <a href="namespace.html">Namespace</a>
+                sections to discover how to fine-tune and configure this cartridge.
+            </p>
+            <p>
+            	It is recommended to use the AndroMDA Application Generator to create your template project.
+            	This will create a template Maven 2 project for you.  The generator now has the ability to
+            	create EJB 3.0 projects.
+            </p>
+            <p>
+                If you encounter any problems or require further help, visit the <b>EJB Cartridge</b> AndroMDA
+                <a href="http://forum.andromda.org">forums</a>.
             </p>
         </section>
     </body>
