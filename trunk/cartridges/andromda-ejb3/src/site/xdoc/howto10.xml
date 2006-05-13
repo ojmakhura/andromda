@@ -65,27 +65,33 @@
 			</p>
             <p>
                 <ul>
-                    <li class="gen"><a href="src/org/andromda/test/howto10/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto10/a/Car.java.txt"><code>Car.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto10/a/CarType.java.txt"><code>CarType.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto10/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto10/a/Person.java.txt"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto10/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto10/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto10/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto10/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto10/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentServiceBean.java.txt"><code>PaymentServiceBean.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentServiceRemote.java.txt"><code>PaymentServiceRemote.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentServiceDelegate.java.txt"><code>PaymentServiceDelegate.java</code></a></li>
-                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentServiceBeanImpl.java.txt"><code>PaymentServiceBeanImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentServiceException.java.txt"><code>PaymentServiceException.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentProcessorMDBBean.java.txt"><code>PaymentProcessorMDBBean.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentProcessorMDBBeanImpl.java.txt"><code>PaymentProcessorMDBBeanImpl.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/ejb-jar.xml.txt"><code>ejb-jar.xml</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/jboss.xml.txt"><code>jboss.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto10/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto10/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto10/a/CarType.java"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto10/a/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto10/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto10/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto10/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto10/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto10/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto10/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto10/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto10/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto10/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto10/a/RentalServiceBean.java"><code>RentalServiceBeanImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto10/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto10/a/RentalException.java"><code>RentalException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentServiceBase.java"><code>PaymentServiceBase.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentServiceRemote.java"><code>PaymentServiceRemote.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentServiceDelegate.java"><code>PaymentServiceDelegate.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentServiceBean.java"><code>PaymentServiceBean.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentServiceException.java"><code>PaymentServiceException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentProcessorMDBBean.java"><code>PaymentProcessorMDBBean.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto10/a/PaymentProcessorMDBBeanImpl.java"><code>PaymentProcessorMDBBeanImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto10/a/jboss.xml"><code>jboss.xml</code></a></li>
                 </ul>
             </p>
             <p>

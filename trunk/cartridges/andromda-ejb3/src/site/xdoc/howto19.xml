@@ -97,7 +97,7 @@
                 </p>
                 <p>
                     If you enable security and do not model actor dependencies on the entities to limit 
-                    roles permitted to access to your DAO, the EJB3 cartridge will add the
+                    roles permitted to access your DAO, the EJB3 cartridge will add the
                     <code>@javax.annotation.security.PermitAll</code> annotation at the class level of your
                     base DAO class.  This implies that all methods of the DAO are not checked for
                     security constraints.

@@ -34,13 +34,17 @@
             <a name="Service_Delegate"/>
             <subsection name="Service Delegate">
                 <p>
-                    When a client or a presentation tier requires access to the business tier, it makes use of
+                    When a client or the presentation tier requires access to the business tier, it makes use of
                     the <i>Business Delegate</i> pattern.  Business Delegates, or Service Delegates here, use
                     the Service Locator object to locate business components.  This provides loose coupling and
                     increased manageability from the client/web tier to the business tier.
                 </p>
                 <p>
-                    The EJB3 cartridges cuts down the Service Delegates which references the Service Locator
+                    Until web containers provide the means to inject session beans within their processing context,
+                    the best way to invoke business logic is via service delegates.
+                </p>
+                <p>
+                    The EJB3 cartridges cuts down the service delegates which references the service locator
                     and provides the ability to invoke all methods available on the remote interface of
                     the session bean.
                 </p>
@@ -53,13 +57,13 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen"><a class="changed" href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto7/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/ServiceLocator.java"><code>ServiceLocator.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto7/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+	                    <li class="impl"><a href="src/org/andromda/test/howto7/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto7/a/RentalException.java"><code>RentalException.java</code></a></li>
 	                </ul>
 	            </p>
 	            <p>

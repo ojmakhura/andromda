@@ -49,7 +49,7 @@
                 <p>
                     The EJB3 cartridge will also use the <code>@Resource</code> annotation to setup an instance of
                     the appropriate <code>ConnectionFactory</code> and <code>Destination</code> objects for
-                    seding message to JMS queues where you have servicing message-driven beans.  By modelling
+                    seding messages to JMS queues/topics where you have servicing message-driven beans.  By modelling
                     a dependency from the source session bean to the target message-driven bean, be it a MDB
                     servicing a <code>Topic</code> or <code>Queue</code>, all the necessary injections are
                     generated.  You can find an example in the <a href="howto10.html">message-driven</a>
@@ -95,20 +95,27 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto11/a/Car.java.txt"><code>Car.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/CarType.java.txt"><code>CarType.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto11/a/Person.java.txt"><code>Person.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto11/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-	                    <li class="impl"><a href="src/org/andromda/test/howto11/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
-	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto11/a/ejb-jar.xml.txt"><code>ejb-jar.xml</code></a></li>
-	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/jboss.xml.txt"><code>jboss.xml</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto11/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto11/a/Car.java"><code>Car.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto11/a/CarType.java"><code>CarType.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto11/a/CarDao.java"><code>CarDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto11/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto11/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto11/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto11/a/Person.java"><code>Person.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto11/a/PersonEmbeddable.java"><code>PersonEmbeddable.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto11/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto11/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto11/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto11/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                        <li class="impl"><a href="src/org/andromda/test/howto11/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto11/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto11/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto11/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto11/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                        <li class="gen"><a href="src/org/andromda/test/howto11/a/RentalException.java"><code>RentalException.java</code></a></li>
+	                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto11/a/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
+	                    <li class="gen"><a href="src/org/andromda/test/howto11/a/jboss.xml"><code>jboss.xml</code></a></li>
 	                </ul>
 	            </p>
 	            <p>
@@ -116,6 +123,11 @@
 	                <code>ejb-jar.xml</code>.  The <code>RentalServiceBean.java</code> injects the resource using
 	                the <code>@Resource</code> annotation and specifies the name property corresponding to the
 	                <code>env-entry-name</code> in <code>ejb-jar.xml</code> for the environment entry.
+	            </p>
+	            <p>
+	                Notice here that the <code>Person</code> entity has 2 lifecycle callbacks.  We have modelled
+	                then using stereotypes on instance scoped operations.  Click on
+	                <a href="howto14.html">lifecycle callbacks</a> to find out more.
 	            </p>
             </subsection>
         </section>
