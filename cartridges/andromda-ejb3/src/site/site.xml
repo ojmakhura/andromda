@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="EJB3 Cartridge Plugin">
     <title>EJB3 Cartridge</title>
-    <banner>
+    <bannerLeft>
         <name>AndroMDA</name>
         <href>http://team.andromda.org/</href>
-    </banner>
+        <src>images/banner.jpg</src>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy hh:mm"/>
     <body>
     	<links>
     		<item name="EJB3" href="index.html"/>
@@ -39,5 +41,7 @@
             <item name="Embeddable Value Objects" href="howto20.html"/>
             <item name="Tips &amp; Tricks" href="tips.html"/>
         </menu>
+        
+        ${reports}
     </body>
 </project>
