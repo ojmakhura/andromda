@@ -18,8 +18,10 @@
             </p>
             <p>
                 The AndroMDA EJB3 cartridge focuses on the persistence and business tier only. The
-                presentation tier can be handled in AndroMDA as well, but for that we recommend using the
-                <a href="../andromda-bpm4struts-cartridge/index.html">Bpm4Struts</a> cartridge.
+                presentation tier can be handled in AndroMDA as well, but for that we recommend using either the
+                <a href="http://team.andromda.org/docs/andromda-bpm4struts-cartridge/index.html">Bpm4Struts</a>
+                or the <a href="http://team.andromda.org/docs/andromda-jsf-cartridge/index.html">JSF</a> 
+                cartridge.
             </p>
             <p>
                 In this how-to we will cover the following topics:
@@ -104,12 +106,12 @@
                     <li>
                         <a href="howto9.html">Inheritance</a>
                         <ul>
+                            <li><a href="howto9.html#Non_Inheriting_Entities">Non Inheriting Entities</a></li>
                             <li><a href="howto9.html#Mapped_Superclasses">Mapped Superclass</a></li>
                             <li><a href="howto9.html#Single_Table_Strategy">Single Table Strategy</a></li>
                             <li><a href="howto9.html#Discriminator_Components">Discriminator Components</a></li>
                             <li><a href="howto9.html#Table_Per_Class_Strategy">Table Per Class Strategy</a></li>
                             <li><a href="howto9.html#Table_Join_Strategy">Table Join Strategy</a></li>
-                            <li><a href="howto9.html#Generic_Finder_Methods">Generic Finder Methods</a></li>
                             <li><a href="howto9.html#Helpful_Hints">Helpful Hints</a></li>
                         </ul>
                     </li>
@@ -196,7 +198,7 @@
             </p>
             <p>
                 You can download the UML model containing all models for all sections
-                <a href="resources/HowToModel.xml.zip">here</a>.
+                <a href="HowToModel.xml.zip">here</a>.
             </p>
             <p>
                 In order to start the tutorial click <a href="howto1.html">here</a>.
