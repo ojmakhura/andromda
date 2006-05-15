@@ -7,24 +7,18 @@
     <body>
         <section name="Manageable Entities">
             <p>
-                Manageable entities, otherwise known as CRUD facilities, provide a front-end view to managing
+                Manageable entities provide CRUD facilities and a front-end view to managing
                 entities.  The EJB3 cartridge follows the same rules as in
                 <a href="http://galaxy.andromda.org/docs/andromda-cartridges/manageable-entities/index.html">
                 manageable entities</a>.
             </p>
             <p>
-                The most noticable difference to the current manageable entities feature for the Spring
-                cartridge is the replacement of data access objects (DAO) with stateless session beans 
-                for each entity which is marked as <![CDATA[<<Manageable>>]]>.  This and removal of value objects
-                are design changes not visible for a user when using the front-end.
-            </p>
-            <p>
-                There is very little you actually need to do.  Just make sure you have the above
+                There is very little you actually need to do.  Just make sure you have the <![CDATA[<<Manageable>>]]>
                 stereotype modelled on all entities that require CRUD features and their associated
                 entities and the cartridge will take care of everything else.  The following illustrates
                 how we introduce manageable entities into our long-running example.  Since manageable
                 entities are driven via a web/console front-end, the example lists files from both the
-                EJB layer and the Struts web layer.
+                EJB 3.0 persistence layer and the Struts (using BPM4Struts) web layer.
             </p>
             <p>
                 <img src="images/org/andromda/test/16/a/uml.gif"/>
@@ -37,30 +31,36 @@
                 </ul>
             </p>
             <p>
-                The EJB related files are listed below.  The <code>ManageableServiceLocator</code> is used by the
+                The EJB 3.0 related files are listed below.  The <code>ManageableServiceLocator</code> is used by the
                 Struts <b>Action</b> classes in much the same way as the <code>ServiceLocator</code> is used
                 by the Service Delegates.  Notice how the <code>CarManageableService</code> and
-                <code>PersonManageableService</code> beans are defined int the ejb-jar and jboss deployment
-                descriptors.
+                <code>PersonManageableService</code> beans are defined int the <code>ejb-jar.xml</code> and 
+                <code>jboss.xml</code> deployment descriptors.
             </p>
             <p>
                 <ul>
-                    <li class="gen"><a href="src/org/andromda/test/howto16/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto16/a/Car.java.txt"><code>Car.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto16/a/CarType.java.txt"><code>CarType.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto16/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto16/a/Person.java.txt"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto16/a/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/ManageableServiceLocator.java.txt"><code>ManageableServiceLocator.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto16/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/ejb-jar.xml.txt"><code>ejb-jar.xml</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/jboss.xml.txt"><code>jboss.xml</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto16/a/persistence.xml.txt"><code>persistence.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto16/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/CarType.java"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto16/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto16/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto16/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/RentalException.java"><code>RentalException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/ServiceLocator.java"><code>ServiceLocator.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/ManageableServiceLocator.java"><code>ManageableServiceLocator.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto16/a/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto16/a/jboss.xml"><code>jboss.xml</code></a></li>
                 </ul>
             </p>
             <p>

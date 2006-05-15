@@ -40,12 +40,15 @@
                 allows you to modify the construction of the URL for the webservice endpoints.
             </p>
             <p>
-                The following is a very simple example exposing all session bean operations.  This is achieved
-                by modelling the <![CDATA[<<WebService>>]]> stereotype on the <code>TicketService</code>
-                session bean.  Modelling this is very similar to the WebService cartridge process.  The
+                The following is a very simple example of a session bean exposing all it's operations and
+                another session bean exposing only 1 of it's operations.  This is achieved
+                by modelling the <![CDATA[<<WebService>>]]> stereotype on the <code>UserService</code>
+                session bean and <![CDATA[<<WebServiceOperation>>]]> on the <code>addUser</code>
+                operation in <code>UserEndPointService</code> session bean.
+                Modelling this is similar to the WebService cartridge process.  The
                 EJB3 cartridge introduces a few extra tagged values.  The example below models the
                 <code>@andromda.webservice.operation.result.name</code> tagged value on the 
-                <code>processMinimal</code> operation.
+                <code>addUser</code> operation in <code>UserService</code>.
             </p>
             <p>
                 <img src="images/org/andromda/test/18/a/uml.gif"/>
@@ -59,25 +62,32 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><a href="src/org/andromda/test/howto18/a/TicketEmbeddable.java"><code>TicketEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto18/a/Ticket.java"><code>Ticket.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto18/a/ServiceLocator.java"><code>ServiceLocator.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto18/a/TicketServiceBase.java"><code>TicketServiceBase.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto18/a/TicketServiceRemote.java"><code>TicketServiceRemote.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto18/a/TicketServiceDelegate.java"><code>TicketServiceDelegate.java</code></a></li>
-                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto18/a/TicketServiceBean.java"><code>TicketServiceBean.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto18/a/TicketServiceWSInterface.java"><code>TicketServiceWSInterface.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto18/a/TicketServiceException.java"><code>TicketServiceException.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto18/a/TicketException.java"><code>TicketException.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto18/a/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto18/a/jboss.xml"><code>jboss.xml</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto18/a/persistence.xml"><code>persistence.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/User.java"><code>User.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserDao.java"><code>UserDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserDaoBase.java"><code>UserDaoBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserDaoImpl.java"><code>UserDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserDaoException.java"><code>UserDaoException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserEndPointServiceBase.java"><code>UserEndPointServiceBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserEndPointServiceBean.java"><code>UserEndPointServiceBean.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserEndPointServiceRemote.java"><code>UserEndPointServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserEndPointServiceDelegate.java"><code>UserEndPointServiceDelegate.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserEndPointServiceException.java"><code>UserEndPointServiceException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserEndPointServiceWSInterface.java"><code>UserEndPointServiceWSInterface.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserServiceBase.java"><code>UserServiceBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserServiceBean.java"><code>UserServiceBean.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserServiceRemote.java"><code>UserServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserServiceDelegate.java"><code>UserServiceDelegate.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserServiceException.java"><code>UserServiceException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserServiceWSInterface.java"><code>UserServiceWSInterface.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto18/a/UserException.java"><code>UserException.java</code></a></li>
                 </ul>
             </p>
             <p>
-                The <code>TicketServiceBean</code> implementation contains the <code>@WebService</code>
+                The <code>UserServiceBean</code> and <code>UserEndPointServiceBean</code> implementations
+                contain the <code>@WebService</code>
                 annotation defining the <code>endpointInterface</code> property that references the
-                web service interface <code>TicketServiceWSInterface</code> containing all other annotations.  
+                web service interface <code>UserServiceWSInterface</code> and <code>UserEndPointServiceWSInterface</code>
+                correspondingly, containing all other annotations.  
                 Default values are provided via namespace properties, but you can override them using tagged 
                 values.
             </p>
@@ -94,7 +104,7 @@
                     the location specified below.
 <source language="xml"><![CDATA[
 <configuration xmlns="http://www.jboss.org/jbossws-tools">
-    <wsdlToJava wsdlLocation="http://localhost:8080/ejb3demo-ws/services/TicketService?wsdl">
+    <wsdlToJava wsdlLocation="http://localhost:8080/howtomodel-ws/services/UserService?wsdl">
         <mapping fileName="jaxrpc-mapping.xml"/>
     </wsdlToJava>
 </configuration>  
@@ -106,7 +116,7 @@
                 </p>
                 <p>
                     <code>
-                        jboss-inst/bin/wstools.sh -cp {path to TicketService.class} -config jbosswsConfig.xml
+                        jboss-inst/bin/wstools.sh -cp ".;./core/target/src" -config jbosswsConfig.xml
                     </code>
                 </p>
                 <p>
@@ -115,15 +125,15 @@
                 <p>
                     The client can invoke exposed operations like so.
 <source><![CDATA[
-URL wsdlURL = new URL("http://localhost:8080/ejb3demo3-ws/services/TicketService?wsdl");
+URL wsdlURL = new URL("http://localhost:8080/howtomodel-ws/services/UserService?wsdl");
 
-ServiceFactoryImpl factory = new ServiceFactoryImpl();
+org.jboss.ws.jaxrpc.ServiceFactoryImpl factory = new org.jboss.ws.jaxrpc.ServiceFactoryImpl();
 
 File mappingFile = new File("jaxrpc-mapping.xml");
 Service service = factory.createService(wsdlURL, null, mappingFile.toURL());
 
-TicketServiceWSInterface port = (TicketServiceWSInterface)service.getPort(TicketServiceWSInterface.class);
-port.process(1, "000", "Test");
+UserServiceWSInterface port = (UserServiceWSInterface)service.getPort(UserServiceWSInterface.class);
+port.process(user");
 ]]></source>
                 </p>
             </subsection>
@@ -134,13 +144,23 @@ port.process(1, "000", "Test");
                     bean operations as web service endpoints.
                 </p>
                 <p>
-                    In the example above, <code>TicketServiceBean</code> is generated once only since it contains
+                    In the example above, <code>UserServiceBean</code> is generated once only since it contains
                     the session bean implementation.  Therefore, the <code>@WebService</code> annotation is enabled
                     on generation of the class.  To stop exposing this bean, you must manually comment out the
-                    following:
+                    following in <code>UserServiceBean.java</code>:
 <source><![CDATA[
-@javax.jws.WebService(endpointInterface = "org.andromda.demo3.ejb3.test.TicketServiceWSInterface")
+@javax.jws.WebService(endpointInterface = "org.andromda.test.howto18.a.UserServiceWSInterface")
 ]]></source>
+                </p>
+                <p>
+                    Currently, the following tags are not available in the WebService profile;
+                    therefore, you must add them to your model if you wish to use them.
+                    <ul>
+                        <li><a href="profile.html#@andromda.webservice.parameter.style">@andromda.webservice.parameter.style</a></li>
+                        <li><a href="profile.html#@andromda.webservice.parameter.oneway">@andromda.webservice.operation.oneway</a></li>
+                        <li><a href="profile.html#@andromda.webservice.parameter.name">@andromda.webservice.operation.name</a></li>
+                        <li><a href="profile.html#@andromda.webservice.parameter.result.name">@andromda.webservice.operation.result.name</a></li>
+                    </ul>
                 </p>
             </subsection>
         </section>

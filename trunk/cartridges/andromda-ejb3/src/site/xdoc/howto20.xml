@@ -49,6 +49,15 @@
                 be supported by modification to the <code>EJB3EmbeddedValueFacade</code> and corresponding
                 <code>EmbeddedValue.vsl</code> template.
             </p>
+            <a name="Helpful_Hints"/>
+            <subsection name="Helpful Hints">
+                <p>
+                    Even though the EJB3 cartridge generates an implementation source file extending the
+                    auto generated embedded value object, the implementation is currently not used.  Future
+                    version of the EJB3 cartridge will make use of the persistence ORM mapping file and will
+                    fix this issue.
+                </p>
+            </subsection>
         </section>
     </body>
 </document>
