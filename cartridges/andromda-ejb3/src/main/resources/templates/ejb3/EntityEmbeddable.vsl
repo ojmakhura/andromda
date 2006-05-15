@@ -90,7 +90,7 @@ $entity.getDocumentation(" * ")
 #**##if (!$finders.empty)
 @javax.persistence.NamedQueries
 ({
-#*  *##if ($entity.genericFinders)
+#*  *##if ($entity.genericFinders && !$entity.finderFindAllExists)
     @javax.persistence.NamedQuery(name = "${entity.name}.findAll", query = "select $stringUtils.uncapitalize(${entity.name}) from ${entity.name} AS $stringUtils.uncapitalize(${entity.name})")#if (!$finders.empty),#end
 
 #*  *##end
