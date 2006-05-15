@@ -84,7 +84,7 @@ public class EJB3FinderMethodFacadeLogicImpl
      */
     protected boolean handleIsUseQueryCache()
     {
-        boolean queryCacheEnabled = false;
+        boolean queryCacheEnabled = ((EJB3EntityFacade)this.getOwner()).isUseQueryCache();
         String queryCacheEnabledStr = (String)findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_USE_QUERY_CACHE);
         if (StringUtils.isNotBlank(queryCacheEnabledStr))
         {
