@@ -37,7 +37,7 @@
                         <ul>
                             <li>HTTP session state can be cached and accessed across all nodes.</li>
                             <li>Caching includes stateful session beans.</li>
-                            <li>Can cache <i>transient</i> properties across nodes</li>
+                            <li>Can cache <i>transient</i> properties across nodes.</li>
                         </ul>
                     </li>
                 </ul>
@@ -58,43 +58,51 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto17/a/Car.java.txt"><code>Car.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto17/a/CarType.java.txt"><code>CarType.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto17/a/Person.java.txt"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto17/a/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto17/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto17/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto17/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto17/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto17/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto17/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto17/a/ejb-jar.xml.txt"><code>ejb-jar.xml</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto17/a/jboss.xml.txt"><code>jboss.xml</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto17/a/persistence.xml.txt"><code>persistence.xml</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/ejb3-entity-cache-service.xml.txt"><code>ejb3-entity-cache-service.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto17/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/CarType.java"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto17/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto17/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto17/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/RentalException.java"><code>RentalException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/jboss.xml"><code>jboss.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/persistence.xml"><code>persistence.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/ejb3-entity-cache-service.xml"><code>ejb3-entity-cache-service.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/andromda.xml"><code>andromda.xml</code></a></li>
                 </ul>
+            </p>
+            <p>
+                The following sections will show you how to enable and configure caching and clustering.
             </p>
             <a name="Cache_Config"/>
             <subsection name="Cache Configuration">
                 <p>
-                    The cartridge allows you to configure a few caching properties through namespace properties
-                    in the andromda.xml descriptor.  As a minimum, make sure the
+                    The EJB3 cartridge allows you to configure caching through namespace properties
+                    via your application <code>andromda.xml</code> descriptor.  Make sure the
                     <code>hibernateCacheProvider</code> and <code>hibernateTreecacheMbeanObject</code> properties
-                    are defined to use inbuilt JBoss Cache with JBoss.
+                    are defined to use the internal <i>JBoss Cache</i> with JBoss.
 <source language="xml"><![CDATA[
         <namespace name="ejb3">
             <properties>
                 ...
                 <property name="hibernateCacheProvider">org.jboss.ejb3.entity.TreeCacheProviderHook</property>
                 <property name="hibernateTreecacheMbeanObject">jboss.cache:service=EJB3EntityTreeCache</property>
-                <!-- uncomment to enable default entity cache settings
+                <!-- uncomment to enable default entity cache settings -->
                 <property name="hibernateEntityCache">TRANSACTIONAL</property>
-                -->
-                <!-- uncomment to enable default association caching configuration
+                <!-- uncomment to enable default association caching configuration -->
                 <property name="hibernateAssociationCache">TRANSACTIONAL</property>
-                -->
                 ...
             </properties>
         </namespace>
@@ -103,7 +111,7 @@
                     define the default cache settings if you choose to enable entity and association caching.
                 </p>
                 <p>
-                    Your <code>persistence.xml</code> descriptor will look like:
+                    Your generated <code>persistence.xml</code> descriptor will look something like:
 <source language="xml"><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
@@ -111,8 +119,8 @@
      Generated by: persistence.xml.vsl in andromda-ejb3-cartridge.
   -->
 <persistence>
-    <persistence-unit name="howtomodel2">
-        <jta-data-source>java:/jdbc/howtomodel2</jta-data-source>
+    <persistence-unit name="howtomodelcaching">
+        <jta-data-source>java:/jdbc/howtomodelcaching</jta-data-source>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect"/>
@@ -143,23 +151,24 @@
             </properties>
         </namespace>
 ]]></source>
+                    This property must be enabled before all other caching properties are fine-tuned.
                 </p>
                 <p>
                     The <code>useDefaultCacheRegion</code> property allows you to specify whether you want all
-                    entities use the default cache region specified in <code>ejb3-entity-cache-service.xml</code>.
-                    By default, this is set to <code>false</code>.  If you set to <code>true</code>, the user specified
-                    cache regions for entities will not be defined.
+                    entities to use the default cache region specified in <code>ejb3-entity-cache-service.xml</code>
+                    and the cache region set on corresponding finder queries.
+                    By default, this is set to <code>false</code>.  If you set it to <code>true</code>, 
+                    the user specified cache regions for entities will not be defined.
                 </p>
                 <p>
-                    If you enable the default entity cache strategy in your andromda.xml descriptor, by enabling
-                    <code>hibernateEntityCache</code>, then the cache strategy for all entities will be assigned
-                    using its specified value.  To override this default value, you can model the
+                    If you enable the default entity caching in your andromda.xml descriptor (by enabling
+                    <code>hibernateEntityCache</code>), then caching will be enabled for all entities.
+                    To override this default value, you can model the
                     <code>@andromda.persistence.entity.cache</code> tagged value on individual entities.
                 </p>
                 <p>
                     Once you have enabled entity caching, you will notice the
-                    <code>@org.hibernate.annotations.Cache</code> annotation at the class level in all entity 
-                    mapped superclasses.
+                    <code>@org.hibernate.annotations.Cache</code> annotation at the class level in all entities.
                 </p>
                 <p>
                     The corresponding entity cache region is defined in the <code>ejb3-entity-cache-service.xml</code>
@@ -191,7 +200,8 @@
             <subsection name="Association Cache">
                 <p>
                     To enable entity association relationship caching, you enable the 
-                    <code>hibernateEnableAssociationsCache</code>  ejb3 namespace property in your andromda.xml like so:
+                    <code>hibernateEnableAssociationsCache</code>  ejb3 namespace property in your 
+                    <code>andromda.xml</code> like so:
 <source language="xml"><![CDATA[
         <namespace name="ejb3">
             <properties>
@@ -205,9 +215,9 @@
                     You must have <code>hibernateEnableCache</code> enabled.
                 </p>
                 <p>
-                    If you enable the default association cache strategy in your andromda.xml descriptor, by enabling
-                    <code>hibernateAssociationCache</code>, then the cache strategy for all collection associationas
-                    will be assigned using its specified value.  To override this default value, you can model the
+                    If you enable the default association cache strategy in your <code>andromda.xml</code> descriptor, 
+                    (by enabling <code>hibernateAssociationCache</code>), then all collection association caching
+                    will be enabled by default.  To override this default value, you can model the
                     <code>@andromda.persistence.association.cache</code> tagged value on individual target association
                     ends.
                 </p>
@@ -220,8 +230,8 @@
             <a name="Query_Cache"/>
             <subsection name="Query Cache">
                 <p>
-                    To enable entity query caching, you enable the <code>hibernateUseQueryCache</code>
-                    ejb3 namespace property in your andromda.xml like so:
+                    To enable entity query caching for all queries, you enable the <code>hibernateUseQueryCache</code>
+                    ejb3 namespace property in your <code>andromda.xml</code> like so:
 <source language="xml"><![CDATA[
         <namespace name="ejb3">
             <properties>
@@ -233,15 +243,22 @@
             </properties>
         </namespace>
 ]]></source>
-                    You must have <code>hibernateEnableCache</code> enabled.  You then need to enable caching
-                    for each finder method using the <code>@andromda.ejb.query.useCache</code> tagged value.
+                    You must have <code>hibernateEnableCache</code> enabled.  This will enable the query cache
+                    for all queries, including your generic query, the <code>findAll</code> query.
+                </p>
+                <p>
+                    In many circumstance, you shouldn't enable query cache for all queries (using the 
+                    <code>hibernateUseQueryCache</code> property) but enable caching
+                    for required queries only.  You can enable caching for individual finder method using 
+                    the <code>@andromda.ejb.query.useCache</code> tagged value which is modelled on the
+                    finder method.
                 </p>
                 <p>
                     The <code>useDefaultCacheRegion</code> property allows you to specify whether you want all
                     queries to use the default cache region specified in <code>ejb3-entity-cache-service.xml</code>.
-                    By default, this is set to <code>false</code>.  If you set to <code>true</code>, the user specified
-                    cache regions will not be defined and the hint on queries to set the cache region will not be 
-                    assigned.
+                    By default, this is set to <code>false</code>.  If you set it to <code>true</code>, 
+                    the user specified cache regions will not be defined and the hint on queries to 
+                    set the cache region will not be assigned.
                 </p>
                 <p>
                     The cartridge will look for at least one query which is marked for caching.  If it finds one
@@ -268,16 +285,27 @@
                 </p>
                 <p>
                     In the above example, the <code>Car</code> entity has the <code>findByType</code> finder marked
-                    as cacheable.  When generating the Car mapped superclass <code>findByType</code> finder method,
+                    as cacheable.  When generating the<code>findByType</code> DAO method in
+                    <code>CarDaoBase.java</code>,
                     the cartridge will set the <code>org.hibernate.cacheRegion</code> hint automatically like so:
 <source><![CDATA[
-    public static java.util.List<Car> findByType(javax.persistence.EntityManager em, org.andromda.howto2.rental.CarType type)
+public java.util.List findByType(final int transform, final org.andromda.howto2.rental.CarType type)
+    throws org.andromda.howto2.rental.CarDaoException
+{
+    try
     {
-        javax.persistence.Query query = em.createQuery("FROM Car AS car WHERE car.type = :type");
-        query.setParameter("type", type.name());
-        query.setHint("org.hibernate.cacheRegion", "/org/andromda/howto2/rental/Car_findByType");
-        return query.getResultList();
+        javax.persistence.Query queryObject = emanager.createNamedQuery("Car.findByType");
+        queryObject.setParameter("type", type.name());
+        queryObject.setHint("org.hibernate.cacheRegion", "/org/andromda/howto2/rental/Car_findByType");
+        java.util.List results = queryObject.getResultList();
+        transformEntities(transform, results);
+        return results;
     }
+    catch (Exception ex)
+    {
+        throw new org.andromda.howto2.rental.CarDaoException(ex);
+    }
+}
 ]]></source>
                 </p>
                 <p>
@@ -285,9 +313,9 @@
                     configuration service file:
 <source language="xml"><![CDATA[
         ....
-        <!-- The Car findByType query cache -->
-        <region name="/org/andromda/howto2/rental/Car_findByType">
-          <attribute name="maxNodes">1000</attribute>
+        <!-- The Car entity cache -->
+        <region name="/org/andromda/howto2/rental/Car">
+          <attribute name="maxNodes">10000</attribute>
           <attribute name="timeToLiveSeconds">5000</attribute>
         </region>
         ....
@@ -315,13 +343,14 @@
         </namespace>
 ]]></source>
                     This will automatically add the <code>@org.jboss.annotation.ejb.Clustered</code> JBoss
-                    annotation to all session beans which will enable load-balancing and failover of all requests.
+                    annotation to all session beans which will enable load-balancing and failover of all requests
+                    (if you have configured clustering on the container).
                     The default load balance policy <code>org.jboss.ha.framework.interfaces.RandomRobin</code>
                     is used.
                 </p>
                 <p>
                     There is nothing more you need to do for stateless session beans.  For stateful session beans,
-                    you must make sure that the JBoss Cache session state replication service is deployed.
+                    you must make sure that the <i>JBoss Cache</i> session state replication service is deployed.
                     Simply make sure that <code>ejb3-clustered-sfsbcache-service.xml</code> exists in your
                     JBoss deploy directory.
                 </p>

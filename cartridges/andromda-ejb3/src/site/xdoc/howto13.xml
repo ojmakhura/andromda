@@ -8,7 +8,7 @@
         <section name="Interceptor">
             <p>
                 Adding custom written interceptors is very easy using the EJB3 cartridge.  The following sections
-                will provide you with enough detail to add your custom made interceptors to session and
+                will provide you with enough detail to add your custom interceptors to session and
                 message-driven beans.  It discusses default, class and method interceptors.
             </p>
             <p>
@@ -18,7 +18,8 @@
             <p>
                 The following example shows how to model a default interceptor as well as 2 class level
                 interceptors for the <code>RentalService</code> bean.  Method level interceptor are
-                modelled in the same fashion, but a dependency is drawn from the session bean method.
+                modelled in the same fashion, but a dependency is drawn from the session bean method rather than
+                the actual session bean class.
             </p>
             <p>
                 <img src="images/org/andromda/test/13/a/uml.gif"/>
@@ -32,24 +33,29 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><a href="src/org/andromda/test/howto13/a/CarEmbeddable.java.txt"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto13/a/Car.java.txt"><code>Car.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto13/a/CarType.java.txt"><code>CarType.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto13/a/PersonEmbeddable.java.txt"><code>PersonEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto13/a/Person.java.txt"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto13/a/ServiceLocator.java.txt"><code>ServiceLocator.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalServiceBean.java.txt"><code>RentalServiceBean.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalServiceRemote.java.txt"><code>RentalServiceRemote.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalServiceDelegate.java.txt"><code>RentalServiceDelegate.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto13/a/RentalServiceBeanImpl.java.txt"><code>RentalServiceBeanImpl.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalServiceException.java.txt"><code>RentalServiceException.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalException.java.txt"><code>RentalException.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto13/a/ejb-jar.xml.txt"><code>ejb-jar.xml</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto13/a/jboss.xml.txt"><code>jboss.xml</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto13/a/persistence.xml.txt"><code>persistence.xml</code></a></li>
-                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto13/a/DefaultInterceptor.java.txt"><code>DefaultInterceptor.java</code></a></li>
-                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto13/a/LogInterceptor.java.txt"><code>LogInterceptor.java</code></a></li>
-                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto13/a/AdminCheckerInterceptor.java.txt"><code>AdminCheckerInterceptor.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto13/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/CarType.java"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto13/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto13/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto13/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/RentalException.java"><code>RentalException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto13/a/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto13/a/jboss.xml"><code>jboss.xml</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto13/a/DefaultInterceptor.java"><code>DefaultInterceptor.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto13/a/LogInterceptor.java"><code>LogInterceptor.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto13/a/AdminCheckerInterceptor.java"><code>AdminCheckerInterceptor.java</code></a></li>
                 </ul>
             </p>
             <a name="Default_Interceptors"/>
@@ -62,7 +68,7 @@
                 <p>
                     To define a default interceptor for your deployment, model the standard
                     <![CDATA[<<Interceptor>>]]> stereotype on a class and specify the
-                    <code>@andromda.service.interceptor.default</code> tagged value as true.
+                    <code>@andromda.service.interceptor.default</code> tagged value as true on this class.
                     Since this interceptor is invoked
                     for all business methods of all beans, you do not need to model any dependencies on it.
                     The cartridge will generate the class with the necessary interceptor operation and
@@ -99,7 +105,7 @@
                 <p>
                     Method level interceptors are very much similar to class level interceptors, but they are
                     bound to a specific business method within a bean.  This means that they are only invoked
-                    when the modelled business method of a bean are invoked.
+                    when the modelled business methods of the bean are invoked.
                 </p>
                 <p>
                     To define a method level interceptor, model the <![CDATA[<<Interceptor>>]]> stereotype on

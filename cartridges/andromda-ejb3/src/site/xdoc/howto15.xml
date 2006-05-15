@@ -7,8 +7,9 @@
     <body>
         <section name="Transactions">
             <p>
-                Defining transactions within your beans is done via annotations.  This takes the complexity
-                out of the deployment descriptor and makes following transactions very easy.
+                Defining transactions within or accross beans is done via annotations.  This takes the complexity
+                out of the deployment descriptor however it's just as easy to define transaction boundaries
+                from the descriptor.
             </p>
             <a name="Transaction_Type"/>
             <subsection name="Transaction Type">
@@ -21,7 +22,12 @@
 	            <p>
 	                The EJB 3.0 spec defines that the transaction management type cannot be specified for EJB 3.0 
 	                entity POJOs.  These entities execute within the transactional context of the caller, which is
-	                the session bean.
+	                the DAO or session bean.
+	            </p>
+	            <p>
+	                The DAO base class also specifies the transaction attribute as <code>REQUIRED</code>.  Remember
+	                your business logic resides in the session facade using the DAO API interface; hence you control 
+	                your transactions from your session beans.
 	            </p>
 	            <p>
 	                Your <code>TransactionAttributeType</code> options are:
