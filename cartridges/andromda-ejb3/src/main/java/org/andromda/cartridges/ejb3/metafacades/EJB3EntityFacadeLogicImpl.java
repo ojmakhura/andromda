@@ -1122,7 +1122,7 @@ public class EJB3EntityFacadeLogicImpl
         return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(HIBERNATE_ENABLE_CACHE)));
     }
 
-    /*(
+    /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsUseDefaultCacheRegion()
      */
     protected boolean handleIsUseDefaultCacheRegion()
@@ -1581,6 +1581,15 @@ public class EJB3EntityFacadeLogicImpl
                 }
             });
         return allRoles;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsUseQueryCache()
+     */
+    protected boolean handleIsUseQueryCache()
+    {
+        return BooleanUtils.toBoolean(
+                String.valueOf(this.getConfiguredProperty(EJB3Globals.HIBERNATE_USER_QUERY_CACHE)));
     }
     
     

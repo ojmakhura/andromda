@@ -241,4 +241,9 @@ public class EJB3Globals
      */
     public static final String IMPLEMENTATION_OPERATION_NAME_PATTERN = 
         "implementationOperationNamePattern";
+    
+    /**
+     * The property used to specify whether to enable query cache.
+     */
+    public static final String HIBERNATE_USER_QUERY_CACHE = "hibernateUseQueryCache";
 }
