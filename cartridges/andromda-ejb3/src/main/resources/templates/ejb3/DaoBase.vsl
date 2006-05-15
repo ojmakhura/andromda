@@ -147,6 +147,9 @@ public abstract class $entity.daoBaseName
 #else
             javax.persistence.Query query = emanager.createQuery("from ${entity.entityName} as entity");
 #end
+#if ($entity.useQueryCache && !$entity.useDefaultCacheRegion)
+            query.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}_findAll");
+#end
             java.util.List<${entity.fullyQualifiedEntityName}> results = query.getResultList();
             this.transformEntities(transform, results);
             return results;
