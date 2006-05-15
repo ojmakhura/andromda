@@ -96,6 +96,16 @@
 #**##end
 #end
 #foreach ($entity in $entities)
+#**##if ($entity.useQueryCache && !$entity.useDefaultCacheRegion)
+#*  *##if (!$entity.finderFindAllExists)
+
+        <!-- The ${entity.name} findAll query cache -->
+        <region name="/${entity.fullyQualifiedNamePath}_findAll">
+          <attribute name="maxNodes">1000</attribute>
+          <attribute name="timeToLiveSeconds">5000</attribute>
+        </region>
+#*  *##end
+#**##end
 #**##foreach ($finder in $entity.getQueryOperations(true))
 #*  *##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
 
