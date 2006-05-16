@@ -10,7 +10,7 @@
     <artifactId>andromda-ejb3-cartridge</artifactId>
     <packaging>andromda-cartridge</packaging>
     <name>AndroMDA EJB3 Cartridge</name>
-    <description>Produces Entity and Session EJB 3.0 POJO from a model.</description>
+    <description>Produces EJB 3.0 persistence layer from a model.</description>
     <developers>
         <developer>
             <id>vancek</id>
@@ -42,7 +42,7 @@
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>3.2-RC1-SNAPSHOT</version>
+                        <version>3.2-SNAPSHOT</version>
                     </dependency>
                 </dependencies>    
             </plugin>
@@ -53,7 +53,7 @@
                     <dependency>
                         <groupId>org.andromda.translationlibraries</groupId>
                         <artifactId>andromda-ocl-query-library</artifactId>
-                        <version>3.2-RC1-SNAPSHOT</version>
+                        <version>3.2-SNAPSHOT</version>
                     </dependency>
                 </dependencies>    
             </plugin>
@@ -64,7 +64,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
-                <version>3.2-RC1-SNAPSHOT</version>
+                <version>3.2-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <id>profile-transform</id>
@@ -81,9 +81,12 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <configuration>
                     <locales>en</locales>
+                    <templateDirectory>file:${user.home}/.m2/repository/org/andromda/maven/plugins/andromda-site-plugin/3.2-SNAPSHOT/andromda-site-plugin-3.2-SNAPSHOT.jar</templateDirectory>
+                    <template>META-INF/template/andromda-site.vm</template>
                 </configuration>
             </plugin>
         </plugins> 
