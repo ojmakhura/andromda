@@ -11,6 +11,28 @@
     <packaging>andromda-cartridge</packaging>
     <name>AndroMDA EJB3 Cartridge</name>
     <description>Produces Entity and Session EJB 3.0 POJO from a model.</description>
+    <developers>
+        <developer>
+            <id>vancek</id>
+            <name>Vance Karimi</name>
+            <email>vance@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>8</timezone>
+        </developer>
+        <developer>
+            <id>cwbrandon</id>
+            <name>Chad Brandon</name>
+            <email>chad@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Project Admin</role>
+            </roles>
+            <timezone>-6</timezone>
+        </developer>
+    </developers>
     <build>
         <plugins>
             <plugin>
@@ -34,6 +56,29 @@
                         <version>3.2-RC1-SNAPSHOT</version>
                     </dependency>
                 </dependencies>    
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-site-plugin</artifactId>
+                <version>3.2-RC1-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <id>profile-transform</id>
+                        <goals>
+                            <goal>profile-xsl</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>namespace-transform</id>
+                        <goals>
+                            <goal>namespace-xsl</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <artifactId>maven-site-plugin</artifactId>
