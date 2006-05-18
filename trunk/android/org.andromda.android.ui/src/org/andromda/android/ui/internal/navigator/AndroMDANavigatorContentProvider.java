@@ -8,7 +8,8 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 /**
- *
+ * The content provider for the AndroMDA navigator contribution.
+ * 
  * @author Peter Friese
  * @since 23.03.2006
  */
@@ -28,7 +29,11 @@ public class AndroMDANavigatorContentProvider
                     project);
             return new Object[] { projectConfiguration };
         }
-        return null;
+        else
+        {
+            System.out.println("returning NULL in " + this.getClass());
+            return null;
+        }
     }
 
     /**
