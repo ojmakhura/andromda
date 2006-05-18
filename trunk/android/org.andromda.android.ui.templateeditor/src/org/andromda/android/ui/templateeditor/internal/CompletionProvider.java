@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.andromda.android.core.cartridge.CartridgeParsingException;
 import org.andromda.android.core.cartridge.CartridgeRegistry;
-import org.andromda.android.core.cartridge.CartridgeUtils;
 import org.andromda.android.core.cartridge.ICartridgeDescriptor;
 import org.andromda.android.core.cartridge.ICartridgeJavaVariableDescriptor;
 import org.andromda.android.core.cartridge.ICartridgeMetafacadeVariableDescriptor;
@@ -16,6 +15,7 @@ import org.andromda.android.core.cartridge.ICartridgeVariableContainer;
 import org.andromda.android.core.cartridge.ICartridgeVariableDescriptor;
 import org.andromda.android.core.internal.AndroidModelManager;
 import org.andromda.android.core.project.IAndroidProject;
+import org.andromda.android.core.util.ResourceResolver;
 import org.andromda.android.ui.templateeditor.TemplateEditorPlugin;
 import org.andromda.android.ui.util.SWTResourceManager;
 import org.eclipse.core.resources.IContainer;
@@ -64,7 +64,7 @@ public class CompletionProvider
     {
         Collection result = new ArrayList();
 
-        IContainer cartridgeRoot = CartridgeUtils.findCartridgeRoot(file);
+        IContainer cartridgeRoot = ResourceResolver.findCartridgeRoot(file);
         IPath templatePath = file.getProjectRelativePath();
 
         androidProject = AndroidModelManager.getInstance().getAndroidModel().getAndroidProject(file);
