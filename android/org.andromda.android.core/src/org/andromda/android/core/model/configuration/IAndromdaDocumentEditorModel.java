@@ -25,6 +25,11 @@ public interface IAndromdaDocumentEditorModel
      */
     public static final class Factory
     {
+        /** Hidden constructor. */
+        private Factory()
+        {
+        }
+
         /**
          * Creates a new {@link IAndromdaDocumentEditorModel} instance.
          * 
