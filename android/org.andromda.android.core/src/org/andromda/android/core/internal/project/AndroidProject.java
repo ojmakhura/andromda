@@ -10,7 +10,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
  * AndroidProject is a thin wrapper around {@link IProject}.
- * 
+ *
  * @author Peter Friese
  * @since 06.10.2005
  */
@@ -23,7 +23,7 @@ public class AndroidProject
 
     /**
      * Creates a new Android project.
-     * 
+     *
      * @param project
      */
     public AndroidProject(IProject project)
@@ -31,7 +31,10 @@ public class AndroidProject
         this.project = project;
         try
         {
-            addNature(null);
+            if (!project.hasNature(AndroidNature.ID))
+            {
+                addNature(null);
+            }
         }
         catch (CoreException e)
         {
@@ -66,13 +69,16 @@ public class AndroidProject
 
     private void addNature(IProgressMonitor monitor) throws CoreException
     {
-        IProjectDescription description = project.getDescription();
-        String[] prevNatures = description.getNatureIds();
-        String[] newNatures = new String[prevNatures.length + 1];
-        System.arraycopy(prevNatures, 0, newNatures, 0, prevNatures.length);
-        newNatures[prevNatures.length] = AndroidNature.ID;
-        description.setNatureIds(newNatures);
-        project.setDescription(description, monitor);
+        if (!project.hasNature(AndroidNature.ID))
+        {
+            IProjectDescription description = project.getDescription();
+            String[] prevNatures = description.getNatureIds();
+            String[] newNatures = new String[prevNatures.length + 1];
+            System.arraycopy(prevNatures, 0, newNatures, 0, prevNatures.length);
+            newNatures[prevNatures.length] = AndroidNature.ID;
+            description.setNatureIds(newNatures);
+            project.setDescription(description, monitor);
+        }
     }
 
 }
