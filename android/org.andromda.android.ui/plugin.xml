@@ -20,9 +20,20 @@
             class="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"
             finalPerspective="org.andromda.android.ui.internal.perspective.AndroidPerspective"
             hasPages="true"
-            icon="icons/ModelFile.gif"
+            icon="icons/modelfile.gif"
             id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"
             name="AndroMDA Project"
+            preferredPerspectives="org.andromda.android.ui.internal.perspective.AndroidPerspective"
+            project="true"/>
+      <wizard
+            canFinishEarly="false"
+            category="org.andromda.android"
+            class="org.andromda.android.ui.project.wizard.NewAndroidProjectWizardDynamic"
+            finalPerspective="org.andromda.android.ui.internal.perspective.AndroidPerspective"
+            hasPages="true"
+            icon="icons/modelfile.gif"
+            id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizardDynamic"
+            name="AndroMDA Project (dynamic)"
             preferredPerspectives="org.andromda.android.ui.internal.perspective.AndroidPerspective"
             project="true"/>
       <primaryWizard id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"/>
@@ -32,7 +43,7 @@
       <wizard
             category="org.andromda.android"
             class="org.andromda.android.ui.project.wizard.ConvertToAndroidProjectWizard"
-            icon="icons/ModelFile.gif"
+            icon="icons/modelfile.gif"
             id="org.andromda.android.ui.project.wizard.ConvertToAndroidProjectWizard"
             name="Convert Java Project to Android Project"/>
       <category
@@ -118,7 +129,7 @@
    <extension
          point="org.eclipse.ui.ide.projectNatureImages">
       <image
-            icon="icons/andromda_co.GIF"
+            icon="icons/andromda_co.gif"
             id="org.andromda.android.ui.androidprojectNatureImage"
             natureId="org.andromda.android.core.androidnature">
       </image>
@@ -128,7 +139,7 @@
       <editor
             class="org.andromda.android.ui.configuration.editor.ConfigurationEditor"
             default="true"
-            icon="icons/ModelFile.gif"
+            icon="icons/andromda_configuration_editor.gif"
             id="org.andromda.android.ui.editors.configuration.ConfigurationEditor"
             name="AndroMDA Configuration Editor">
          <contentTypeBinding contentTypeId="org.andromda.android.core.andromdaconfiguration"/>
@@ -165,7 +176,7 @@
               id="org.andromda.android.ui.androMDAContent"
               labelProvider="org.andromda.android.ui.internal.navigator.AndroMDANavigatorLabelProvider"
               name="AndroMDA Content"
-              priority="low">
+              priority="highest">
             <triggerPoints>
                 <and>
                     <adapt
@@ -177,11 +188,6 @@
                     <instanceof value="org.eclipse.jdt.core.IJavaProject"/>
                 </and>
             </triggerPoints>
-            <!--possibleChildren>
-               <instanceof value="org.andromda.android.core.configuration.IConfigurationFile"/>
-            </possibleChildren-->
-
         </navigatorContent>
     </extension>
-
 </plugin>
