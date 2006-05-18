@@ -6,10 +6,11 @@ import java.util.Map;
 import org.andromda.android.core.AndroidCore;
 import org.andromda.android.core.internal.cartridge.CartridgeDescriptor;
 import org.andromda.android.core.project.IAndroidProject;
+import org.andromda.android.core.util.ResourceResolver;
 import org.eclipse.core.resources.IContainer;
 
 /**
- * A registry for the cartrodge descriptors.
+ * A registry for the cartridge descriptors.
  * 
  * @author Peter Friese
  * @since 31.01.2006
@@ -58,7 +59,8 @@ public final class CartridgeRegistry
         ICartridgeDescriptor cartridgeDescriptor = (ICartridgeDescriptor)cartridgeDescriptors.get(key);
         if (cartridgeDescriptor == null)
         {
-            cartridgeDescriptor = new CartridgeDescriptor(cartridgesLocation, cartridgeName, "3.2-RC1-SNAPSHOT");
+            String cartridgeJar = ResourceResolver.findCartridge(cartridgesLocation, cartridgeName, "3.2", false);
+            cartridgeDescriptor = new CartridgeDescriptor(cartridgeJar, true);
             cartridgeDescriptors.put(key, cartridgeDescriptor);
         }
         return cartridgeDescriptor;
@@ -104,7 +106,8 @@ public final class CartridgeRegistry
         ICartridgeDescriptor cartridgeDescriptor = (ICartridgeDescriptor)cartridgeDescriptors.get(key);
         if (cartridgeDescriptor == null)
         {
-            cartridgeDescriptor = new CartridgeDescriptor(cartridgesLocation, cartridgeName, "3.2-RC1-SNAPSHOT");
+            String cartridgeJar = ResourceResolver.findCartridge(cartridgesLocation, cartridgeName, "3.2", false);
+            cartridgeDescriptor = new CartridgeDescriptor(cartridgeJar, true);
             cartridgeDescriptors.put(key, cartridgeDescriptor);
         }
         return cartridgeDescriptor;
