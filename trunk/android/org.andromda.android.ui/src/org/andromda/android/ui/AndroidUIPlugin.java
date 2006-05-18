@@ -32,17 +32,17 @@ public class AndroidUIPlugin
     }
 
     /**
-     * This method is called upon plug-in activation
+     * {@inheritDoc}
      */
-    public void start(BundleContext context) throws Exception
+    public void start(final BundleContext context) throws Exception
     {
         super.start(context);
     }
 
     /**
-     * This method is called when the plug-in is stopped
+     * {@inheritDoc}
      */
-    public void stop(BundleContext context) throws Exception
+    public void stop(final BundleContext context) throws Exception
     {
         super.stop(context);
         plugin = null;
@@ -50,6 +50,8 @@ public class AndroidUIPlugin
 
     /**
      * Returns the shared instance.
+     * 
+     * @return The instance of this plug-in.
      */
     public static AndroidUIPlugin getDefault()
     {
@@ -101,26 +103,49 @@ public class AndroidUIPlugin
         return null;
     }
 
+    /**
+     * Return the active workbench page.
+     * 
+     * @return The active workbench page.
+     */
     private IWorkbenchPage internalGetActivePage()
     {
         IWorkbenchWindow window = getWorkbench().getActiveWorkbenchWindow();
         if (window == null)
+        {
             return null;
+        }
         return getWorkbench().getActiveWorkbenchWindow().getActivePage();
     }
 
-    public static void log(IStatus status)
+    /**
+     * Logs the given status.
+     * 
+     * @param status The status to log.
+     */
+    public static void log(final IStatus status)
     {
         getDefault().getLog().log(status);
     }
 
-    public static void logErrorMessage(String message)
+    /**
+     * Logs the given error message.
+     * 
+     * @param message The error message.
+     */
+    public static void logErrorMessage(final String message)
     {
         log(new Status(IStatus.ERROR, getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, message, null));
     }
 
-    public static void logErrorStatus(String message,
-        IStatus status)
+    /**
+     * Logs the given error status.
+     * 
+     * @param message The message to log.
+     * @param status The status to log.
+     */
+    public static void logErrorStatus(final String message,
+        final IStatus status)
     {
         if (status == null)
         {
@@ -132,7 +157,12 @@ public class AndroidUIPlugin
         log(multi);
     }
 
-    public static void log(Throwable e)
+    /**
+     * Logs the given throwable.
+     * 
+     * @param e The throwable to log.
+     */
+    public static void log(final Throwable e)
     {
         log(new Status(IStatus.ERROR, getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, "Internal Error", e));
     }
@@ -143,7 +173,7 @@ public class AndroidUIPlugin
      * @param path the path
      * @return the image descriptor
      */
-    public static ImageDescriptor getImageDescriptor(String path)
+    public static ImageDescriptor getImageDescriptor(final String path)
     {
         return AbstractUIPlugin.imageDescriptorFromPlugin("org.andromda.android.ui", path);
     }
