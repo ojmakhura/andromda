@@ -24,6 +24,7 @@ public class AndroidPerspective
         addViewShortcuts(layout);
         addPerspectiveShortcuts(layout);
         layout.addView("org.eclipse.ui.navigator.ProjectExplorer", IPageLayout.LEFT, 0.25f, editorArea);
+        layout.addView(IPageLayout.ID_PROP_SHEET, IPageLayout.BOTTOM, 0.75f, "org.eclipse.ui.navigator.ProjectExplorer");
         IFolderLayout folderLayout_1 = layout.createFolder("folder0", IPageLayout.RIGHT, 0.68f, editorArea);
         folderLayout_1.addView(IPageLayout.ID_OUTLINE);
         folderLayout_1.addView(JavaUI.ID_TYPE_HIERARCHY);
