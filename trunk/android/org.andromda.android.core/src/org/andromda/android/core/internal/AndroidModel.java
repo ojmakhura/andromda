@@ -1,7 +1,9 @@
 package org.andromda.android.core.internal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.andromda.android.core.AndroidCore;
 import org.andromda.android.core.cartridge.CartridgeParsingException;
@@ -25,16 +27,18 @@ import org.eclipse.core.runtime.CoreException;
 
 /**
  * Provides central access to the Android data model.
- *
+ * 
  * @author Peter Friese
  * @since 07.10.2005
  */
 public class AndroidModel
 {
+    /** Cache for projects that have an Android nature. */
+    private Map cachedAndroidProjects = new HashMap();
 
     /**
      * Retrieves a list of all Android projects in the workspace.
-     *
+     * 
      * @return An array of {@link IAndroidProject}s.
      * @throws CoreException If this method fails.
      */
@@ -56,18 +60,24 @@ public class AndroidModel
 
     /**
      * Retrieves the Android project for the given Eclipse project.
-     *
+     * 
      * @param project The project to retrieve the Android project for.
      * @return An Android project.
      */
     public IAndroidProject getAndroidProject(final IProject project)
     {
-        return getAndroidProject(project, false);
+        IAndroidProject androidProject = (IAndroidProject)cachedAndroidProjects.get(project);
+        if (androidProject == null)
+        {
+            androidProject = getAndroidProject(project, false);
+            cachedAndroidProjects.put(project, androidProject);
+        }
+        return androidProject;
     }
 
     /**
      * Retrieves the Android project for the given Eclipse project.
-     *
+     * 
      * @param project The project to retrieve the Android project for.
      * @param force If set to <code>true</code>, the project will be created in any case.
      * @return An Android project.
@@ -81,7 +91,7 @@ public class AndroidModel
     /**
      * Returns the active Java project associated with the specified resource, or <code>null</code> if no Java project
      * yet exists for the resource.
-     *
+     * 
      * @param resource The resource to get the Android project for.
      * @return The Android project the given resource belongs to.
      */
@@ -102,7 +112,7 @@ public class AndroidModel
 
     /**
      * Retrieves the property groups belonging to the given namespace.
-     *
+     * 
      * @param configurationNamespace The configuration namespace for which we want to retrieve the property groups.
      * @param project The project we're in.
      * @return All property groups belonging to the given namespace.
@@ -137,7 +147,7 @@ public class AndroidModel
 
     /**
      * Returns the configuration file for the given project.
-     *
+     * 
      * @param project The project in which we will look for the AndroMDA configuration file.
      * @return A handle to the configuration file.
      */
