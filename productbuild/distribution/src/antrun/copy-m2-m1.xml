@@ -1,0 +1,45 @@
+<project name="M2 M1 copy" default="copy-m2-m1">
+	
+  <condition property="repositories_present">
+	<and>
+		<available file="${maven1_repo}" type="dir"/>
+		<available file="${maven2_repo}" type="dir"/>
+	</and>
+  </condition>
+	
+	<target name="copy-m2-m1" depends="fail,copy">
+		
+	</target>
+	
+	<target name="fail" unless="repositories_present">
+		<echo>
+  maven1_repo (${maven1_repo} and/or 
+  maven2_repo (${maven2_repo}) not set or does not exist.">			
+		</echo>
+		<fail/>
+	</target>
+	
+	<!-- Copy maven 2 artifacts to maven 1 repository-->
+	<target name="copy" if="repositories_present">
+		<echo>
+  Copying M2 artifacts 
+			from ${maven2_repo}/org/andromda		
+			to ${maven1_repo}/andromda
+		</echo>
+		<copy todir="${maven1_repo}/andromda/uml2" flatten="true" preservelastmodified="true">
+			<fileset dir="${maven2_repo}/org/andromda">
+				<include name="**/*.uml2"/>
+			</fileset>
+		</copy>
+		<copy todir="${maven1_repo}/andromda/jars" flatten="true" preservelastmodified="true">
+			<fileset dir="${maven2_repo}/org/andromda">
+				<include name="**/*.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="${maven1_repo}/andromda/xml.zips" flatten="true" preservelastmodified="true">
+			<fileset dir="${maven2_repo}/org/andromda">
+				<include name="**/*.xml.zip"/>
+			</fileset>
+		</copy>
+	</target>
+</project>

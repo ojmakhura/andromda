@@ -1,0 +1,53 @@
+<project name="Copy artifacts to website" default="copy-2-website">
+	
+  <condition property="repositories_present">
+	<and>
+		<available file="${maven1_repo}" type="dir"/>
+		<available file="${maven2_repo}" type="dir"/>
+	</and>
+  </condition>
+  <available property="website_present" file="${website_dir}" type="dir"/>
+	
+	<target name="copy-2-website" depends="fail1,fail2,copy">
+		
+	</target>
+	
+	<target name="fail1" unless="repositories_present">
+		<echo>
+  maven1_repo (${maven1_repo} and/or 
+  maven2_repo (${maven2_repo}) not set or does not exist.">			
+		</echo>
+		<fail/>
+	</target>
+
+	<target name="fail2" unless="website_present">
+		<echo>
+  webiste dir (${website_dir} not set or does not exist.">			
+		</echo>
+		<fail/>
+	</target>
+	
+	<!-- Copy maven 2 and maven1 artifacts to website -->
+	<target name="copy" >
+		<echo>
+  Copying M1 artifacts 
+			from ${maven1_repo}		
+			to ${website_dir}/maven
+		</echo>
+		<copy todir="${website_dir}/maven" preservelastmodified="true">
+			<fileset dir="${maven1_repo}/">
+				<include name="andromda/**/*"/>
+			</fileset>
+		</copy>
+		<echo>
+  Copying M2 artifacts 
+			from ${maven2_repo}/org/andromda		
+			to ${website_dir}/maven2
+		</echo>
+		<copy todir="${website_dir}/maven2" preservelastmodified="true">
+			<fileset dir="${maven2_repo}">
+				<include name="org/andromda/**/*"/>
+			</fileset>
+		</copy>
+	</target>
+</project>

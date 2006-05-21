@@ -85,6 +85,46 @@
                     </execution>
                 </executions>
             </plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy_repo</id>
+<!-- to set property, do something like this in ~/.m2/settings.xml
+  <activeProfiles>
+      <activeProfile>andromda</activeProfile>
+  </activeProfiles>
+  <profiles>
+    <profile>
+      <id>andromda</id>
+     <properties>
+        <maven1Repository>/var/maven/repository</maven1Repository>
+     <properties>
+    </profile>
+  <profiles>
+-->
+						<phase>install</phase>
+						<configuration>
+							<tasks>
+								<!-- Default values, for stockholm -->
+								<property name="maven1Repository" value="/andromda/maven/repository"/>
+								<property name="website_dir" value="/var/www/andromda"/>
+								<ant dir="src/antrun" antfile="copy-m2-m1.xml">
+									<property name="maven1_repo" value="${maven1Repository}"/>
+									<property name="maven2_repo" value="${settings.localRepository}"/>
+								</ant>
+								<ant dir="src/antrun" antfile="copy-2-website.xml">
+									<property name="maven1_repo" value="${maven1Repository}"/>
+									<property name="maven2_repo" value="${settings.localRepository}"/>
+								</ant>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
         </plugins>
     </build>
 </project>
