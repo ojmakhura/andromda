@@ -11,7 +11,7 @@
         <!-- 20 minutes -->
         <schedule interval="1200">
             <!--ant buildfile="/var/andromda/builds/head/andromda-all/etc/cc-build/mvn-cc-build.xml"/-->
-	    	<maven2 goal="scm:update-project|clean|install" pomfile="/var/andromda/builds/head/andromda-all/pom.xml" mvnscript="/usr/local/maven2/bin/mvn"/>
+	    	<maven2 goal="scm:update|clean|install" pomfile="/var/andromda/builds/head/andromda-all/pom.xml" mvnscript="/usr/local/maven2/bin/mvn"/>
         </schedule>
         <listeners>
            <currentbuildstatuslistener file="/var/andromda/builds/logs/andromda-head/currentbuildstatus.txt"/>
