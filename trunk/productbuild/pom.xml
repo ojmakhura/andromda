@@ -18,9 +18,9 @@
         <url>http://jira.andromda.org/</url>
     </issueManagement>
     <scm>
-      <connection>scm:cvs:pserver:anonymous:@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</connection>
+      <connection>scm:cvs:ext:anonymous:@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</connection>
       <developerConnection>scm:cvs:ext:${maven.username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
-      <url>http://cvs.sourceforge.net/viewcvs.py/andromda/</url>
+      <url>http://andromda.cvs.sourceforge.net/andromda/</url>
     </scm>
     <organization>
       <name>AndroMDA.org</name>
@@ -177,9 +177,9 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <configuration>
                     <tasks>
-                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-cartridge-plugin/andromda-cartridge-plugin.jar"
+                        <copy file="${project.basedir}/lib/org/andromda/maven/plugins/andromda-cartridge-plugin/andromda-cartridge-plugin.jar"
                               tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-cartridge-plugin/${pom.version}/andromda-cartridge-plugin-${pom.version}.jar"/>
-                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar"
+                        <copy file="${project.basedir}/lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar"
                               tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-model-archiver-plugin/${pom.version}/andromda-model-archiver-plugin-${pom.version}.jar"/>
                     </tasks>
                 </configuration>
