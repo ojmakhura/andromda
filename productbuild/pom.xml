@@ -18,7 +18,7 @@
         <url>http://jira.andromda.org/</url>
     </issueManagement>
     <scm>
-      <connection>scm:cvs:ext:anonymous:@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</connection>
+      <connection>scm:cvs:ext:${maven.username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</connection>
       <developerConnection>scm:cvs:ext:${maven.username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
       <url>http://andromda.cvs.sourceforge.net/andromda/</url>
     </scm>
