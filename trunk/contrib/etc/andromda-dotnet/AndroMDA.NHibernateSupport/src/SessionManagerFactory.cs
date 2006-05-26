@@ -16,7 +16,16 @@ namespace AndroMDA.NHibernateSupport
 
         public static ISessionManager SessionManager
         {
-            get { return m_sessionManager; }
+            get 
+			{
+				// If the session manager has not been set yet
+				if (m_sessionManager == null)
+				{
+					// Create a new default session manager
+					m_sessionManager = new DefaultSessionManager();
+				}
+				return m_sessionManager; 
+			}
             set { m_sessionManager = value; }
         }
     }
