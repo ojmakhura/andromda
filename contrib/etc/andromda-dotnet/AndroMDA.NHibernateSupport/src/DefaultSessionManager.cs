@@ -2,6 +2,7 @@
 // Author: Naresh Bhatia
 
 using System;
+using System.Collections;
 using System.Web;
 using NHibernate;
 using NHibernate.Cfg;
@@ -64,7 +65,14 @@ namespace AndroMDA.NHibernateSupport
         private ISessionFactory sessionFactory = null;
         public ISessionFactory SessionFactory
         {
-            get { return sessionFactory; }
+            get 
+			{
+				if (sessionFactory == null)
+				{
+					BuildSessionFactory();
+				}
+				return sessionFactory; 
+			}
         }
 
         /// <summary>
@@ -91,6 +99,7 @@ namespace AndroMDA.NHibernateSupport
 
         // Key used to store the NHibernate session in HttpContext.
         private const string NHibernateSessionKey = "NHibernate.Session";
+
 
         private ISession GetSession()
         {
@@ -162,14 +171,11 @@ namespace AndroMDA.NHibernateSupport
 
         public void HandleApplicationStart()
         {
-            if (sessionFactory != null)
-                throw new Exception("A SessionFactory already exists.");
-
-            config = new Configuration();
-            config.Configure(
-                TranslateConfigPath(
-                System.Configuration.ConfigurationSettings.AppSettings["nhibernate.config"]));
-            sessionFactory = config.BuildSessionFactory();
+			if (sessionFactory != null)
+			{
+				throw new Exception("A SessionFactory already exists.  (Was HandleApplicationStart called twice?)");
+			}
+			BuildSessionFactory();
         }
 
         public void HandleApplicationEnd()
@@ -180,12 +186,21 @@ namespace AndroMDA.NHibernateSupport
 
         public void HandleSessionStart()
         {
-            if (sessionFactory == null)
-                throw new Exception("Session factory does not exist.");
-            if (GetSession() != null)
-                throw new Exception("A Session already exists.");
-            if (!isSessionInitializedLazily)
-                OpenSession();
+			// This uses the SessionFactory property, so if the factory
+			// will attempt to be initialized if it is null
+			if (SessionFactory == null)
+			{
+				throw new Exception("The nhibernate session factory has not been initialized.");
+			}
+
+			if (GetSession() != null)
+			{
+				throw new Exception("A Session already exists.");
+			}
+			if (!isSessionInitializedLazily)
+			{
+				OpenSession();
+			}
         }
 
         public void HandleSessionEnd()
@@ -222,7 +237,65 @@ namespace AndroMDA.NHibernateSupport
                 transaction.Rollback();
                 SetTransaction(null);
             }
-        }
+		}
+
+		private void BuildSessionFactory()
+		{
+			config = new Configuration();
+			System.Collections.Specialized.NameValueCollection nhibernateConfig = System.Configuration.ConfigurationSettings.GetConfig("nhibernate") as System.Collections.Specialized.NameValueCollection;
+			
+			if (SettingExists("nhibernate.config"))
+			{
+				try
+				{
+					// Load specified nhibernate.config file
+					config.Configure(TranslateConfigPath(GetSetting("nhibernate.config")));
+				}
+				catch (Exception e)
+				{
+					throw new Exception("An error occured while attempting to load nhibernate.cfg", e);
+				}
+			}
+			else if (SettingExists("hibernate.dialect", nhibernateConfig))
+			{
+
+				// Load embedded hibernate configuration in web.config
+
+				AddSettingToConfig("hibernate.connection.provider", nhibernateConfig);
+				AddSettingToConfig("hibernate.connection.driver_class", nhibernateConfig);
+				AddSettingToConfig("hibernate.connection.connection_string", nhibernateConfig);
+				AddSettingToConfig("hibernate.connection.isolation", nhibernateConfig);
+				AddSettingToConfig("hibernate.dialect", nhibernateConfig);
+
+				AddSettingToConfig("hibernate.default_schema", nhibernateConfig);
+				AddSettingToConfig("hibernate.use_outer_join", nhibernateConfig);
+				AddSettingToConfig("hibernate.max_fetch_depth", nhibernateConfig);
+				AddSettingToConfig("hibernate.use_reflection_optimizer", nhibernateConfig);
+				AddSettingToConfig("hibernate.cache.provider_class", nhibernateConfig);
+				AddSettingToConfig("hibernate.cache.use_minimal_puts", nhibernateConfig);
+				AddSettingToConfig("hibernate.cache.use_query_cache", nhibernateConfig);
+				AddSettingToConfig("hibernate.cache.query_cache_factory", nhibernateConfig);
+				AddSettingToConfig("hibernate.cache.region_prefix", nhibernateConfig);
+				AddSettingToConfig("hibernate.query.substitutions", nhibernateConfig);
+				AddSettingToConfig("hibernate.show_sql", nhibernateConfig);
+				AddSettingToConfig("hibernate.hbm2ddl.auto", nhibernateConfig);
+
+				if (SettingExists("nhibernate.mapping_assembly", nhibernateConfig))
+				{
+					string mapping_assembly = GetSetting("nhibernate.mapping_assembly", nhibernateConfig);
+					config.AddAssembly(mapping_assembly);
+				}
+
+			}
+			else
+			{
+				// Attempt to configure with the default settings
+				// Usually this attempts to load hibernate.xml.cfg
+				config.Configure();
+			}
+
+			sessionFactory = config.BuildSessionFactory();
+		}
 
         /// <summary>
         /// Translates the specified virtual path for the NHibernate config file to a
@@ -242,5 +315,46 @@ namespace AndroMDA.NHibernateSupport
             else
                 return virtualPath;
         }
+
+		#region Setting utilities
+
+		private string GetSetting(string key)
+		{
+			return GetSetting(key, System.Configuration.ConfigurationSettings.AppSettings);
+		}
+
+		private string GetSetting(string key, System.Collections.Specialized.NameValueCollection sourceConfig)
+		{
+			string setting = sourceConfig[key];
+			if (setting == null) setting = string.Empty;
+			return setting;
+		}
+
+		private bool SettingExists(string key)
+		{
+			return SettingExists(key, System.Configuration.ConfigurationSettings.AppSettings);
+		}
+
+		private bool SettingExists(string key, System.Collections.Specialized.NameValueCollection sourceConfig)
+		{
+			string setting = sourceConfig[key];
+			return !(setting == null || setting == string.Empty);
+		}
+
+		private void AddSettingToConfig(string key)
+		{
+			AddSettingToConfig(key, System.Configuration.ConfigurationSettings.AppSettings);
+		}
+
+		private void AddSettingToConfig(string key, System.Collections.Specialized.NameValueCollection sourceConfig)
+		{
+			if (SettingExists(key, sourceConfig))
+			{
+				config.SetProperty(key, GetSetting(key, sourceConfig));
+			}
+		}
+
+		#endregion
+
     }
 }
