@@ -1,10 +1,17 @@
 package org.andromda.android.ui.internal.project.wizard;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
+import org.andromda.android.core.AndroidCore;
 import org.andromda.android.core.cartridge.CartridgeParsingException;
 import org.andromda.android.core.project.cartridge.IProjectCartridgeDescriptor;
 import org.andromda.android.core.project.cartridge.ProjectCartridgeRegistry;
+import org.andromda.android.ui.AndroidUIPlugin;
+import org.andromda.android.ui.internal.settings.preferences.AndroMDALocationsPreferencePage;
+import org.andromda.android.ui.internal.settings.preferences.AndroidProjectLayoutPreferencePage;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -17,12 +24,17 @@ import org.eclipse.jface.wizard.IWizardNode;
 import org.eclipse.jface.wizard.WizardSelectionPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.ui.dialogs.PreferencesUtil;
 
 /**
  * 
@@ -32,6 +44,8 @@ import org.eclipse.swt.widgets.Table;
 public class ChooseProjectCartridgeWizardPage
         extends WizardSelectionPage
 {
+
+    private Link youNeedToLink;
 
     private TableViewer tableViewer;
 
@@ -103,6 +117,10 @@ public class ChooseProjectCartridgeWizardPage
         //
         setControl(container);
 
+        final Label availablecartridgesLabel = new Label(container, SWT.NONE);
+        availablecartridgesLabel.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+        availablecartridgesLabel.setText("Available &cartridges:");
+
         tableViewer = new TableViewer(container, SWT.BORDER);
         tableViewer.addSelectionChangedListener(new ISelectionChangedListener()
         {
@@ -131,6 +149,24 @@ public class ChooseProjectCartridgeWizardPage
 
         styledText = new StyledText(container, SWT.BORDER);
         styledText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+
+        youNeedToLink = new Link(container, SWT.NONE);
+        youNeedToLink.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
+        youNeedToLink
+                .setText("You need to specify a root directory for AndroMDA cartridges. <a>Configure Android now.</a>");
+        youNeedToLink.addSelectionListener(new SelectionAdapter()
+        {
+            public void widgetSelected(final SelectionEvent e)
+            {
+                PreferencesUtil.createPreferenceDialogOn(
+                        getShell(),
+                        AndroMDALocationsPreferencePage.PREFERENCEPAGE_ID,
+                        new String[] { AndroMDALocationsPreferencePage.PREFERENCEPAGE_ID,
+                                AndroidProjectLayoutPreferencePage.PREFERENCEPAGE_ID }, null).open();
+                setupData();
+            }
+        });
+        youNeedToLink.setVisible(false);
 
         setupData();
     }
@@ -173,9 +209,42 @@ public class ChooseProjectCartridgeWizardPage
      */
     private void setupData()
     {
-        IProjectCartridgeDescriptor[] cartridgeDescriptors = ProjectCartridgeRegistry.getInstance()
-                .getCartridgeDescriptors();
-        tableViewer.setInput(cartridgeDescriptors);
+        if (AndroidCore.getAndroidSettings().isConfigurationValid())
+        {
+            youNeedToLink.setVisible(false);
+            try
+            {
+                getContainer().run(false, false, new IRunnableWithProgress()
+                {
+
+                    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
+                    {
+                        monitor.beginTask("Retrieving cartridges", IProgressMonitor.UNKNOWN);
+                        monitor.worked(10);
+                        IProjectCartridgeDescriptor[] cartridgeDescriptors = ProjectCartridgeRegistry.getInstance()
+                                .getCartridgeDescriptors();
+                        monitor.worked(80);
+
+                        tableViewer.setInput(cartridgeDescriptors);
+                        monitor.worked(10);
+                        monitor.done();
+                    }
+
+                });
+            }
+            catch (InvocationTargetException e)
+            {
+                AndroidUIPlugin.log(e);
+            }
+            catch (InterruptedException e)
+            {
+                // that's ok
+            }
+        }
+        else
+        {
+            youNeedToLink.setVisible(true);
+        }
     }
 
 }

@@ -8,6 +8,7 @@ import org.andromda.android.core.project.IAndroidProject;
 import org.andromda.android.core.project.IAndroidProjectDefinition;
 import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.settings.preferences.AndroidProjectLayoutComposite;
+import org.andromda.android.ui.internal.settings.preferences.AndroidProjectLayoutPreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -30,9 +31,6 @@ import org.eclipse.ui.dialogs.PreferencesUtil;
 public class AndroidProjectLayoutPropertyPage
         extends AbstractAndroidPropertyPage
 {
-
-    /** The ID of the preference page that is used to configure the project layout on a gloal level. */
-    private static final String PREFERENCEPAGE_ID = "org.andromda.android.ui.internal.settings.preferences.AndroidProjectLayoutPreferencePage";
 
     /** The "enable project specific settings" check box. */
     protected Button enableProjectSpecificButton;
@@ -69,8 +67,8 @@ public class AndroidProjectLayoutPropertyPage
         {
             public void widgetSelected(SelectionEvent e)
             {
-                PreferencesUtil.createPreferenceDialogOn(getShell(), PREFERENCEPAGE_ID,
-                        new String[] { PREFERENCEPAGE_ID }, null).open();
+                PreferencesUtil.createPreferenceDialogOn(getShell(), AndroidProjectLayoutPreferencePage.PREFERENCEPAGE_ID,
+                        new String[] { AndroidProjectLayoutPreferencePage.PREFERENCEPAGE_ID }, null).open();
             }
         });
         link.setLayoutData(new GridData(GridData.END, GridData.CENTER, true, false));
