@@ -259,7 +259,7 @@ public interface $entity.daoName
      */
     public $rootEntityType create(
 #*    *##foreach($property in $requiredProperties)
-        $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else)
+        #if ($stringUtils.isNotBlank($property.lobType))${property.lobType}#else$property.getterSetterTypeName#end $property.name#if($velocityCount != $requiredProperties.size()),#else)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};#end
 
 #*    *##end
@@ -279,7 +279,7 @@ public interface $entity.daoName
     public Object create(
         int transform,
 #*    *##foreach($property in $requiredProperties)
-        $property.getterSetterTypeName $property.name#if($velocityCount != $requiredProperties.size()),#else)
+        #if ($stringUtils.isNotBlank($property.lobType))${property.lobType}#else$property.getterSetterTypeName#end $property.name#if($velocityCount != $requiredProperties.size()),#else)
         throws ${entity.fullyQualifiedDaoDefaultExceptionName};#end
 
 #*    *##end
