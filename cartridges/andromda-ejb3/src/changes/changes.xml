@@ -1,0 +1,46 @@
+<document>
+  <properties>
+    <title>EJB3 Cartridge Plugin Project</title>
+    <author email="vance@andromda.org">Vance Karimi</author>
+  </properties>
+  <body>
+    <release version="1.0-SNAPSHOT" date="2006-06-01" desc="Changes for 1.0-SNAPSHOT">
+      <action dev="vancek" type="add">
+        Introduced changes.xml and report.
+      </action>
+      <action dev="vancek" type="add">
+        Added manageable entity support.
+      </action>
+      <action dev="vancek" type="add">
+        Added JBoss cache support.
+      </action>
+      <action dev="vancek" type="update">
+        Set default discriminator value consisting of first character of entity name if one isn't
+        explicitly specified.
+      </action>
+      <action dev="vancek" type="add">
+        Added DAO support for every entity POJO.
+      </action>
+      <action dev="vancek" type="update">
+        Refactored javax.ejb package for interceptor related annotations to javax.annotation.
+        NOTE: These annotations are NOT used anyway since interceptor components are configured
+        via XML descriptor.
+      </action>
+      <action dev="vancek" type="update">
+        Added Maven reporting facilities to site generation. Using new AndroMDA site skin for site
+        generation.  To run these reports, the following Maven report plugins need to be installed.
+        Some may only exist on the Maven sandox.  maven-site-plugin, maven-project-info-reports-plugin,
+        maven-javadoc-plugin, maven-surefire-report-plugin, maven-jxr-plugin, maven-pmd-plugin,
+        maven-checkstyle-plugin, maven-changes-plugin and maven-changelog-plugin.  The maven-changelog-plugin
+        will require you to have cvs.exe (if on windows platform) in your path.
+      </action>
+      <action dev="vancek" type="fix">
+        Many-to-Many association owning side JoinTable - JoinColumn name property fixed. JIRA EJB-25
+      </action>
+      <action dev="vancek" type="fix">
+        NamedQuery definition to pick up firstResult and maxResult arguments modelled with these
+        stereotypes and NOT include then in where clause.
+      </action>
+    </release>
+  </body>
+</document>
