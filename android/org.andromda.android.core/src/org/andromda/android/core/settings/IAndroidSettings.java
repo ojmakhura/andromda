@@ -10,6 +10,13 @@ import org.eclipse.core.resources.IProject;
  */
 public interface IAndroidSettings
 {
+    
+    /**
+     * Check whether the user has provided all settings required to properly run Android.
+     * 
+     * @return <code>true</code> if Android has been set up properly, <code>false</code> if not.
+     */
+    boolean isConfigurationValid();
 
     /**
      * Retrieve the location of the AndroMDA configuration XML file (andromda.xml) for the given project. This is a

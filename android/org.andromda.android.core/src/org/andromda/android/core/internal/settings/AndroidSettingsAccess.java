@@ -1,7 +1,12 @@
 package org.andromda.android.core.internal.settings;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.andromda.android.core.AndroidCore;
 import org.andromda.android.core.settings.IAndroidSettings;
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.Platform;
@@ -13,6 +18,7 @@ import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
 /**
+ * Provides acces to all settings concerning Android.
  * 
  * @author Peter Friese
  * @since 05.12.2005
@@ -201,6 +207,25 @@ public class AndroidSettingsAccess
         IEclipsePreferences androidPreferences = scope.getNode(AndroidCore.PLUGIN_ID);
         androidPreferences.put(MAVEN_LOCATION, location);
         saveNode(androidPreferences);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isConfigurationValid()
+    {
+        List requiredSettings = new ArrayList();
+        requiredSettings.add(getAndroMDACartridgesLocation());
+        requiredSettings.add(getConfigurationLocation());
+        
+        for (Iterator iter = requiredSettings.iterator(); iter.hasNext();)
+        {
+            String setting = (String)iter.next();
+            if (StringUtils.trimToNull(setting) == null) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

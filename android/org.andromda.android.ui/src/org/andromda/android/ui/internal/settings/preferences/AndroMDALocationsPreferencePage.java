@@ -25,6 +25,7 @@ public class AndroMDALocationsPreferencePage
 
     /** The composite containing the input fields. */
     private AndroMDALocationsComposite androMDALocationsComposite;
+    public static final String PREFERENCEPAGE_ID = "org.andromda.android.ui.internal.settings.preferences.AndroMDALocationsPreferencePage";
 
     /**
      * @see org.eclipse.jface.preference.PreferencePage#createContents(org.eclipse.swt.widgets.Composite)

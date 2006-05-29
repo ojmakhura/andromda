@@ -26,6 +26,8 @@ public class AndroidProjectLayoutPreferencePage
 
     /** The composite containing the input fields. */
     private AndroidProjectLayoutComposite projectPropertiesComposite;
+    /** The ID of the preference page that is used to configure the project layout on a gloal level. */
+    public static final String PREFERENCEPAGE_ID = "org.andromda.android.ui.internal.settings.preferences.AndroidProjectLayoutPreferencePage";
 
     public Control createContents(Composite parent)
     {

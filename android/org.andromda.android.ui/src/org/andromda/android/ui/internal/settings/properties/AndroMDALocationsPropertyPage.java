@@ -1,6 +1,7 @@
 package org.andromda.android.ui.internal.settings.properties;
 
 import org.andromda.android.ui.internal.settings.preferences.AndroMDALocationsComposite;
+import org.andromda.android.ui.internal.settings.preferences.AndroMDALocationsPreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -25,8 +26,6 @@ public class AndroMDALocationsPropertyPage
 {
 
     private AndroMDALocationsComposite androMDALocationsComposite;
-
-    private static final String PREFERENCEPAGE_ID = "org.andromda.android.ui.internal.settings.preferences.AndroMDALocationsPreferencePage";
 
     public Control createContents(Composite parent)
     {
@@ -54,8 +53,8 @@ public class AndroMDALocationsPropertyPage
         {
             public void widgetSelected(SelectionEvent e)
             {
-                PreferencesUtil.createPreferenceDialogOn(getShell(), PREFERENCEPAGE_ID,
-                        new String[] { PREFERENCEPAGE_ID }, null).open();
+                PreferencesUtil.createPreferenceDialogOn(getShell(), AndroMDALocationsPreferencePage.PREFERENCEPAGE_ID,
+                        new String[] { AndroMDALocationsPreferencePage.PREFERENCEPAGE_ID }, null).open();
             }
         });
         link.setLayoutData(new GridData(GridData.END, GridData.CENTER, true, false));
