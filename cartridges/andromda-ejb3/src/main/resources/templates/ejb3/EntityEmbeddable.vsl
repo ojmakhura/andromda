@@ -642,8 +642,8 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.JoinTable
     (
         name = "${associationEnd.association.tableName}",
-        joinColumns = {#set ($identifiers = $entity.getIdentifiers())#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end#**#},
-        inverseJoinColumns = {#set ($identifiers = $target.type.getIdentifiers())#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end#**#}
+        joinColumns = {#set ($identifiers = $entity.getIdentifiers())#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "$target.getForeignKeyConstraintName(${attribute.columnName})", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end#**#},
+        inverseJoinColumns = {#set ($identifiers = $target.type.getIdentifiers())#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "$associationEnd.getForeignKeyConstraintName(${attribute.columnName})", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end#**#}
     )
 #*        *##end
 #*      *##end
