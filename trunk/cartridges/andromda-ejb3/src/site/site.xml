@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="EJB3 Cartridge Plugin">
-    <title>EJB3 Cartridge</title>
-    <publishDate format="dd MMM yyyy hh:mm"/>
+    <skin>
+        <groupId>org.andromda.maven.site</groupId>
+        <artifactId>andromda-site-skin</artifactId>
+        <version>3.2-SNAPSHOT</version>
+    </skin>
+    <bannerLeft>
+        <name></name>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy hh:mm zzz"/>
     <body>
     	<links>
     		<item name="EJB3" href="index.html"/>
@@ -9,6 +16,10 @@
       		<item name="AndroMDA" href="../index.html"/>
     	</links>
     	<menu name="Overview">
+    		<item name="About EJB3 Cartridge" href="index.html"/>
+    		<item name="Installation" href="installation.html"/>
+    	</menu>
+    	<menu name="Model">
     		<item name="Profile" href="profile.html"/>
     		<item name="Namespace" href="namespace.html"/>
     	</menu>
@@ -36,7 +47,6 @@
             <item name="Embeddable Value Objects" href="howto20.html"/>
             <item name="Tips &amp; Tricks" href="tips.html"/>
         </menu>
-        
         ${reports}
     </body>
 </project>
