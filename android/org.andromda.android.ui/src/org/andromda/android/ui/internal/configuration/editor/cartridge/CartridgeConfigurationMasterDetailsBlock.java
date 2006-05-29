@@ -2,7 +2,6 @@ package org.andromda.android.ui.internal.configuration.editor.cartridge;
 
 import org.andromda.android.ui.internal.editor.AbstractMasterDetailsBlock;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
-import org.andromda.core.configuration.ModelDocument.Model;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.DetailsPart;
 import org.eclipse.ui.forms.IDetailsPage;

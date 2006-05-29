@@ -8,6 +8,7 @@ import org.andromda.android.core.model.IEditorModel;
 import org.andromda.android.core.model.configuration.IAndromdaDocumentEditorModel;
 import org.andromda.android.ui.internal.configuration.editor.cartridge.CartridgeConfigurationPage;
 import org.andromda.android.ui.internal.configuration.editor.model.ModelConfigurationPage;
+import org.andromda.android.ui.internal.configuration.editor.overview.OverviewPage;
 import org.andromda.android.ui.internal.configuration.editor.server.ServerConfigurationPage;
 import org.andromda.android.ui.internal.editor.AbstractModelFormEditor;
 import org.andromda.core.configuration.AndromdaDocument;
@@ -41,6 +42,9 @@ public class ConfigurationEditor
      */
     protected void addFormPages() throws PartInitException
     {
+        OverviewPage overviewPage = new OverviewPage(this, OverviewPage.PAGE_ID, "Overview");
+        addPage(overviewPage);
+
         ServerConfigurationPage serverConfigurationPage = new ServerConfigurationPage(this,
                 ServerConfigurationPage.PAGE_ID, "Server");
         addPage(serverConfigurationPage);
@@ -147,10 +151,11 @@ public class ConfigurationEditor
      */
     public IAndromdaDocumentEditorModel getAndromdaDocumentEditorModel()
     {
-        if (andromdaDocumentEditorModel == null) {
+        if (andromdaDocumentEditorModel == null)
+        {
             IDocument editorDocument = getDocument();
             andromdaDocumentEditorModel = IAndromdaDocumentEditorModel.Factory.newInstance(editorDocument);
-        }        
+        }
         return andromdaDocumentEditorModel;
     }
 

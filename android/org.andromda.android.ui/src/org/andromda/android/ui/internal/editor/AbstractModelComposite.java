@@ -4,9 +4,7 @@ import org.andromda.android.core.internal.AndroidModelManager;
 import org.andromda.android.core.model.IEditorModel;
 import org.andromda.android.core.model.IModelChangeProvider;
 import org.andromda.android.core.project.IAndroidProject;
-import org.andromda.android.ui.configuration.editor.ConfigurationEditor;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.forms.SectionPart;
 
