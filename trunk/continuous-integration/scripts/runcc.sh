@@ -25,11 +25,11 @@ if [[ $me != $CC_USER ]]; then
 fi
 
 # cd to builds dir
-cd /var/andromda/builds
+cd /andromda/builds
 
 # save previous output
 if [ -f nohup.out ]; then
- rotate-nohup /var/andromda/builds 
+ rotate-nohup /andromda/builds 
 fi
 
 # For some reason cc/maven doesnt create it
