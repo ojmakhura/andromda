@@ -101,6 +101,8 @@ public class EJB3FinderMethodFacadeLogicImpl
         // first see if we can retrieve the query from the super class as an OCL
         // translation
         String queryString = this.getTranslatedQuery();
+        
+        boolean whereClauseExists = false;
 
         // otherwise see if there is a query stored as a tagged value
         if (StringUtils.isEmpty(queryString))
@@ -130,23 +132,30 @@ public class EJB3FinderMethodFacadeLogicImpl
             queryString = "from " + owner.getName() + " as " + variableName;
             if (this.getArguments().size() > 0)
             {
-                queryString = queryString + " where";
                 Collection arguments = this.getArguments();
                 if (arguments != null && !arguments.isEmpty())
                 {
                     Iterator argumentIt = arguments.iterator();
                     for (int ctr = 0; argumentIt.hasNext(); ctr++)
                     {
-                        ParameterFacade argument = (ParameterFacade)argumentIt.next();
-                        String parameter = "?";
-                        if (this.isUseNamedParameters())
+                        EJB3FinderMethodArgumentFacade argument = (EJB3FinderMethodArgumentFacade)argumentIt.next();
+                        if (!argument.isFirstResult() && !argument.isMaxResults())
                         {
-                            parameter = ":" + argument.getName();
-                        }
-                        queryString = queryString + " " + variableName + "." + argument.getName() + " = " + parameter;
-                        if (argumentIt.hasNext())
-                        {
-                            queryString = queryString + " and";
+                            if (!whereClauseExists)
+                            {
+                                queryString = queryString + " where";
+                                whereClauseExists = true;
+                            }
+                            String parameter = "?";
+                            if (this.isUseNamedParameters())
+                            {
+                                parameter = ":" + argument.getName();
+                            }
+                            queryString = queryString + " " + variableName + "." + argument.getName() + " = " + parameter;
+                            if (argumentIt.hasNext())
+                            {
+                                queryString = queryString + " and";
+                            }
                         }
                     }
                 }
