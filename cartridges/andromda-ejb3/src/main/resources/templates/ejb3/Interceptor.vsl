@@ -15,7 +15,7 @@ public class ${interceptor.interceptorName}
      * @param ctx the invocation context
      * @return 
      */
-    @javax.ejb.AroundInvoke
+    @javax.interceptor.AroundInvoke
     public Object execute(javax.ejb.InvocationContext ctx)
         throws Exception 
     {
