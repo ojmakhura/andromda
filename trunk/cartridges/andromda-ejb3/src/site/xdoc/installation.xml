@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - Installation &amp; Configuration</title>
+    </properties>
+    <body>
+        <section name="Installation">
+            <p>
+                Since the EJB3 cartridge is not part of the base AndroMDA package, you need to know a
+                few things to get started with the cartridge.  This installation and configuration
+                guide should provide enough information to get you started.
+            </p>
+            <a name="Requirements"/>
+            <subsection name="Requirements">
+	            <p>
+	                You must have the latest Maven (currently 2.0.4) installed and configured.
+	                You can install Maven 
+	                <a href="http://maven.apache.org/download.html#Installation">here</a>.
+	            </p>
+	            <p>
+	                You need to have an instance of AndroMDA 3.2.  At the time of writing this, 3.2 RC1
+	                was released.  Alternatively, you can get the latest 3.2-SNAPSHOT from CVS and build it.
+	            </p>
+	        </subsection>
+            <a name="Getting_the_Cartridge"/>
+            <subsection name="Getting the Cartridge">
+	            <p>
+	                The first thing you need to do is checkout the latest EJB3 cartridge from
+	                CVS.  Follow the anonymous CVS access at
+	                <a href="http://sourceforge.net/cvs/?group_id=154568">andromdaplugins project</a>
+	                on SourceForge to checkout the latest <b>andromda-ejb</b> module.
+	            </p>
+	        </subsection>
+            <a name="Building_the_Cartridge"/>
+            <subsection name="Building the Cartridge">
+	            <p>
+	                Once you have checked out the andromda-ejb3 cartridge, you can simply build it by
+	                going to the root folder of the project and running <i>mvn</i>.
+	            </p>
+	        </subsection>
+            <a name="Building_Reports"/>
+            <subsection name="Building Reports">
+	            <p>
+	                To build the EJB3 cartridge site documentation requires a few extra Maven 2 plugins
+	                to be downloaded from the Maven 2 sandbox in SVN.  The
+	                <a href="http://maven.apache.org/guides/development/guide-building-m2.html">Maven build</a>
+	                documentation will give you some information on how to access their SVN.
+	            </p>
+	            <p>
+	                You will need to check out the following plugins from Maven <b>sandbox</b>.
+	                <ul>
+	                    <li><p>maven-changes-plugin</p></li>
+	                    <li><p>maven-changelog-plugin</p></li>
+	                </ul>
+	                Once you have built them (mvn install), these plugins will reside in your local repo.
+	            </p>
+	            <p>
+	                In adopting the existing AndroMDA site format for the documentation, the Maven Doxia
+	                plugin needs a patch to be applied.  You can check out <b>doxia-1.0-alpha-8</b>
+	                from Maven SVN and apply the patch <a href="http://jira.codehaus.org/browse/MNG-545">here</a>.
+	                It is not critical to apply this patch, but if it's not applied, the generated XHTML will
+	                not be formated correctly but still acceptable.
+	            </p>
+	            <p>
+	                All other require plugins will be downloaded to your local repo if they don't already
+	                exist.
+	            </p>
+	            <p>
+	                You can download the source examples used in the howto for all sections
+	                <a href="HowToModel-src.zip">here</a> and extract to the target/site folder of the
+	                andromda-ejb3 plugin.
+	            </p>
+	            
+	        </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                To start with EJB 3.0 entity POJOs click <a href="howto1.html">next</a>.
+            </p>
+        </section>
+    </body>
+</document>
