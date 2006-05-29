@@ -214,7 +214,6 @@ public class CartridgeDescriptor
         namespaceMapping = new HashMap();
         namespaceMapping.put("", XML_NAMESPACE_ANDROMDA_METAFACADES);
         metafacadesXmlOptions.setLoadSubstituteNamespaces(namespaceMapping);
-
     }
 
     /**

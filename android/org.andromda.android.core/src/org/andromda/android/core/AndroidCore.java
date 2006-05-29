@@ -159,7 +159,7 @@ public class AndroidCore
      * @return The name space properties.
      */
     public static PropertyGroup[] getCartridgePropertyGroups(final Namespace configurationNamespace,
-        final IAndroidProject project)
+        final IAndroidProject project) 
     {
         return AndroidModelManager.getInstance().getAndroidModel().getCartridgePropertyGroups(configurationNamespace,
                 project);

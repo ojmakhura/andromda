@@ -1,0 +1,1 @@
+scomp -out andromda-andromdapp.jar AndroMDApp.xsd

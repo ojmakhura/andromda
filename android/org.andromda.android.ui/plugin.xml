@@ -9,6 +9,15 @@
              id="org.andromda.android.ui.internal.perspective.AndroidPerspective"
              name="AndroMDA"/>
     </extension>
+    <extension
+          point="org.eclipse.ui.perspectiveExtensions">
+       <perspectiveExtension targetID="org.andromda.android.ui.internal.perspective.AndroidPerspective">
+          <newWizardShortcut id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"/>
+       </perspectiveExtension>
+       <perspectiveExtension targetID="org.eclipse.jdt.ui.JavaPerspective">
+          <newWizardShortcut id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"/>
+       </perspectiveExtension>
+    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
       <category
@@ -23,17 +32,6 @@
             icon="icons/modelfile.gif"
             id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"
             name="AndroMDA Project"
-            preferredPerspectives="org.andromda.android.ui.internal.perspective.AndroidPerspective"
-            project="true"/>
-      <wizard
-            canFinishEarly="false"
-            category="org.andromda.android"
-            class="org.andromda.android.ui.project.wizard.NewAndroidProjectWizardDynamic"
-            finalPerspective="org.andromda.android.ui.internal.perspective.AndroidPerspective"
-            hasPages="true"
-            icon="icons/modelfile.gif"
-            id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizardDynamic"
-            name="AndroMDA Project (dynamic)"
             preferredPerspectives="org.andromda.android.ui.internal.perspective.AndroidPerspective"
             project="true"/>
       <primaryWizard id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"/>

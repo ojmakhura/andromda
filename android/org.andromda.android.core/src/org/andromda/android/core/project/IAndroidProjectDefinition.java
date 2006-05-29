@@ -1,5 +1,6 @@
 package org.andromda.android.core.project;
 
+
 /**
  * This interface provides access to the project definition for Android.
  * 
