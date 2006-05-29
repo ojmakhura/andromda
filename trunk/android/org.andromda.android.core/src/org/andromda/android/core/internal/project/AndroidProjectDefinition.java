@@ -46,6 +46,7 @@ public class AndroidProjectDefinition
     }
 
     /**
+     * @throws InvalidConfigurationException if Android is not set up properly.
      * @see org.andromda.android.core.project.IAndroidProjectDefinition#getAndroMDACartridgesLocation()
      */
     public String getAndroMDACartridgesLocation()

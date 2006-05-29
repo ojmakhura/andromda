@@ -3,8 +3,8 @@ package org.andromda.android.core.project;
 import java.util.Map;
 
 import org.andromda.android.core.AndroidCore;
-import org.andromda.android.core.internal.maven.MavenRunner;
 import org.andromda.android.core.internal.project.AndroidProjectDefinition;
+import org.andromda.android.core.internal.project.generator.AndroMDAppRunner;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IWorkspace;
@@ -12,6 +12,8 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.jdt.core.JavaCore;
 
 /**
  * Creates a new Android project.
@@ -40,24 +42,34 @@ public final class AndroidProjectFactory
         final String projectName,
         final Map projectProperties)
     {
+        monitor.beginTask("", 2000);
         try
         {
+            SubProgressMonitor subMonitor = new SubProgressMonitor(monitor, 1000);
+            subMonitor.beginTask("Getting project", 200);
             IWorkspace workspace = ResourcesPlugin.getWorkspace();
             IWorkspaceRoot root = workspace.getRoot();
             IProject project = root.getProject(projectName);
-            MavenRunner runner = new MavenRunner(projectProperties, project);
-            runner.execute(monitor);
-            project.create(monitor);
-            project.open(monitor);
-            System.out.println("!!!!!!!!!!!!!!!!!!! ADDING NATURE !!!!!!!!!!!!!!");
-            addNatureToProject(project, AndroidCore.NATURE_ID, monitor);
-            System.out.println("!!!!!!!!!!!!!!!!!!! CREATING DESCRIPTION !!!!!!!");
+            subMonitor.beginTask("Generating contents", 800);
+            AndroMDAppRunner runner = new AndroMDAppRunner();
+            runner.setConfiguration(projectProperties);
+            runner.run();
+            subMonitor.done();
+            subMonitor = null;
+
+            subMonitor = new SubProgressMonitor(monitor, 1000);
+            project.create(subMonitor);
+            project.open(subMonitor);
+            addNatureToProject(project, JavaCore.NATURE_ID, subMonitor);
+            addNatureToProject(project, AndroidCore.NATURE_ID, subMonitor);
             new AndroidProjectDefinition(project);
+            subMonitor.done();
         }
         catch (Exception e)
         {
             AndroidCore.log(e);
         }
+        monitor.done();
     }
 
     /**

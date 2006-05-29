@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.Map;
 
+import org.andromda.android.core.project.cartridge.IProjectCartridgeDescriptor;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
@@ -24,6 +25,12 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+/**
+ * This page allows the user to enter basic information about the project and to configure the project location.
+ * 
+ * @author Peter Friese
+ * @since 24.05.2006
+ */
 public class BasicProjectInformationWizardPage
         extends WizardPage
 {
@@ -214,6 +221,14 @@ public class BasicProjectInformationWizardPage
     {
         return completeProjectPath;
     }
+    
+    /**
+     * @return The parent directory of the complete project path.
+     */
+    public String getAdjustedProjectPath() {
+        File complete = new File(getCompleteProjectPath());
+        return complete.getParent();
+    }
 
     private void setCompleteProjectPath()
     {
@@ -296,11 +311,15 @@ public class BasicProjectInformationWizardPage
         return true;
     }
 
+    /**
+     * Commit GUI data to project property object.
+     */
     public void updateData()
     {
-        projectProperties.put("projectName", getProjectFriendlyName());
-        projectProperties.put("projectId", getProjectID());
-        projectProperties.put("projectPath", getCompleteProjectPath());
+        projectProperties.put(IProjectCartridgeDescriptor.PROPERTY_PROJECT_NAME, getProjectFriendlyName());
+        projectProperties.put(IProjectCartridgeDescriptor.PROPERTY_PROJECT_ID, getProjectID());
+        projectProperties.put(IProjectCartridgeDescriptor.PROPERTY_APPLICATION_PARENT_DIRECTORY,
+                getAdjustedProjectPath());
     }
 
 }

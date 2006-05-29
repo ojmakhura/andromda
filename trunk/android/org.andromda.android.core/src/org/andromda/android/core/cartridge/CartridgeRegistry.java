@@ -51,7 +51,7 @@ public final class CartridgeRegistry
      * @param cartridgeName The name of the cartridge, e.g. "spring" or "hibernate".
      * @return A cartridge descriptor.
      */
-    public ICartridgeDescriptor getCartridgeDescriptor(final String cartridgeName)
+    public ICartridgeDescriptor getCartridgeDescriptor(final String cartridgeName) 
     {
         String cartridgesLocation = AndroidCore.getAndroidSettings().getAndroMDACartridgesLocation();
         String key = cartridgesLocation + "::" + cartridgeName;

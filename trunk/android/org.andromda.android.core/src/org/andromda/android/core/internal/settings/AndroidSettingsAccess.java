@@ -13,7 +13,7 @@ import org.osgi.service.prefs.BackingStoreException;
 import org.osgi.service.prefs.Preferences;
 
 /**
- *
+ * 
  * @author Peter Friese
  * @since 05.12.2005
  */

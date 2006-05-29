@@ -118,7 +118,7 @@ public class AndroidModel
      * @return All property groups belonging to the given namespace.
      */
     public PropertyGroup[] getCartridgePropertyGroups(final Namespace configurationNamespace,
-        final IAndroidProject project)
+        final IAndroidProject project) 
     {
         String name = configurationNamespace.getName();
 
