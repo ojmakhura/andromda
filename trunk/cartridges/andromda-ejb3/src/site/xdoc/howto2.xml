@@ -37,8 +37,8 @@
             <p>
                 In this example we have added two attributes to the <code>Person</code> entity. 
                 <ul>
-                    <li>name of type <code>datatype::String</code></li>
-                    <li>birthDate of type <code>datatype::Date</code></li>
+                    <li><p>name of type <code>datatype::String</code></p></li>
+                    <li><p>birthDate of type <code>datatype::Date</code></p></li>
                 </ul>
                 Please note that also for this entity an identifier will be added by default. 
                 If you explicitely want to add an identifier you should model the <![CDATA[<<Identifier>>]]> 
@@ -46,24 +46,24 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen">Auto-generated source that does not need manual editing</li>
-                    <li class="impl">Auto-generated source that should be edited manually</li>
-                    <li class="changed">File that is affected by the modifications applied in this section</li>
+                    <li class="gen"><p>Auto-generated source that does not need manual editing</p></li>
+                    <li class="impl"><p>Auto-generated source that should be edited manually</p></li>
+                    <li class="changed"><p>File that is affected by the modifications applied in this section</p></li>
                 </ul>
             </p>
             <p>
                 <ul>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto2/a/Car.java"><code>Car.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto2/a/CarDao.java"><code>CarDao.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                    <li class="impl"><a href="src/org/andromda/test/howto2/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto2/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/a/Person.java"><code>Person.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto2/a/PersonDao.java"><code>PersonDao.java</code></a></li>
-                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto2/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                    <li class="gen"><a href="src/org/andromda/test/howto2/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></p></li>
+                    <li class="impl"><p><a href="src/org/andromda/test/howto2/a/Car.java"><code>Car.java</code></a></p></li>
+                    <li class="gen"><p><a href="src/org/andromda/test/howto2/a/CarDao.java"><code>CarDao.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></p></li>
+                    <li class="impl"><p><a href="src/org/andromda/test/howto2/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></p></li>
+                    <li class="gen"><p><a href="src/org/andromda/test/howto2/a/CarDaoException.java"><code>CarDaoException.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/a/Person.java"><code>Person.java</code></a></p></li>
+                    <li class="gen"><p><a href="src/org/andromda/test/howto2/a/PersonDao.java"><code>PersonDao.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></p></li>
+                    <li class="gen"><p><a href="src/org/andromda/test/howto2/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></p></li>
+                    <li class="gen"><p><a href="src/org/andromda/test/howto2/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></p></li>
                 </ul>
             </p>
             <p>
@@ -104,18 +104,18 @@
                 By default AndroMDA will look at the multiplicity to generate a good name for the relationship,
                 a few examples where the multiplicity is greater than one:
                 <ul>
-                    <li>car: cars</li>
-                    <li>property: properties</li>
-                    <li>toy: toys</li>
-                    <li>animal: animals</li>
-                    <li>bus: busses</li>
+                    <li><p>car: cars</p></li>
+                    <li><p>property: properties</p></li>
+                    <li><p>toy: toys</p></li>
+                    <li><p>animal: animals</p></li>
+                    <li><p>bus: busses</p></li>
                 </ul>
                 You can override these names by adding your own names to the association ends, in our example
                 you might set the name of the association end at the side of the person to <code>person</code>,
                 this will emit the following output during generation:
                 <ul>
-                    <li>Person.getCars() : Collection</li>
-                    <li>Car.getPerson() : Person</li>
+                    <li><p>Person.getCars() : Collection</p></li>
+                    <li><p>Car.getPerson() : Person</p></li>
                 </ul>
             </p>
             <a name="Cascading"/>
@@ -125,11 +125,11 @@
                     <code>@andromda.persistence.cascade.type</code> tagged value on the target association end.
                     The cascadable options are:
                     <ul>
-                        <li>ALL</li>
-                        <li>PERSIST</li>
-                        <li>MERGE</li>
-                        <li>REMOVE</li>
-                        <li>REFRESH</li>
+                        <li><p>ALL</p></li>
+                        <li><p>PERSIST</p></li>
+                        <li><p>MERGE</p></li>
+                        <li><p>REMOVE</p></li>
+                        <li><p>REFRESH</p></li>
                     </ul>
                     You can set multiple cascade options on the target association end which will define
                     the <code>cascade</code> property of the annotation as array.
@@ -139,24 +139,24 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen">Auto-generated source that does not need manual editing</li>
-	                    <li class="impl">Auto-generated source that should be edited manually</li>
-	                    <li class="changed">File that is affected by the modifications applied in this section</li>
+	                    <li class="gen"><p>Auto-generated source that does not need manual editing</p></li>
+	                    <li class="impl"><p>Auto-generated source that should be edited manually</p></li>
+	                    <li class="changed"><p>File that is affected by the modifications applied in this section</p></li>
 	                </ul>
 	            </p>
 	            <p>
 	                <ul>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto2/b/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/b/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto2/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/b/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/b/Person.java"><code>Person.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/b/PersonDao.java"><code>PersonDao.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/b/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/b/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/b/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/b/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></p></li>
+                        <li class="impl"><p><a href="src/org/andromda/test/howto2/b/Car.java"><code>Car.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/b/CarDao.java"><code>CarDao.java</code></a></p></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/b/CarDaoBase.java"><code>CarDaoBase.java</code></a></p></li>
+                        <li class="impl"><p><a href="src/org/andromda/test/howto2/b/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/b/CarDaoException.java"><code>CarDaoException.java</code></a></p></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/b/Person.java"><code>Person.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/b/PersonDao.java"><code>PersonDao.java</code></a></p></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/b/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/b/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/b/PersonDaoException.java"><code>PersonDaoException.java</code></a></p></li>
 	                </ul>
 	            </p>
             </subsection>
@@ -168,10 +168,10 @@
                     the target association end.  The following default are the default fetch types for the
                     available relationships:
                     <ul>
-                        <li>Many-To-One : EAGER</li>
-                        <li>One-To-Many : LAZY</li>
-                        <li>One-To-One : EAGER</li>
-                        <li>Many-To-Many : LAZY</li>
+                        <li><p>Many-To-One : EAGER</p></li>
+                        <li><p>One-To-Many : LAZY</p></li>
+                        <li><p>One-To-One : EAGER</p></li>
+                        <li><p>Many-To-Many : LAZY</p></li>
                     </ul>
                     Therefore, you only need to specify the latter tagged value if you wish to change
                     the fetch type property from the default.
@@ -181,24 +181,24 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen">Auto-generated source that does not need manual editing</li>
-	                    <li class="impl">Auto-generated source that should be edited manually</li>
-	                    <li class="changed">File that is affected by the modifications applied in this section</li>
+	                    <li class="gen"><p>Auto-generated source that does not need manual editing</p></li>
+	                    <li class="impl"><p>Auto-generated source that should be edited manually</p></li>
+	                    <li class="changed"><p>File that is affected by the modifications applied in this section</p></li>
 	                </ul>
 	            </p>
 	            <p>
 	                <ul>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/c/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto2/c/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/c/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/c/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto2/c/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/c/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/c/Person.java"><code>Person.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/c/PersonDao.java"><code>PersonDao.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/c/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/c/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/c/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/c/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></p></li>
+                        <li class="impl"><p><a href="src/org/andromda/test/howto2/c/Car.java"><code>Car.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/c/CarDao.java"><code>CarDao.java</code></a></p></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/c/CarDaoBase.java"><code>CarDaoBase.java</code></a></p></li>
+                        <li class="impl"><p><a href="src/org/andromda/test/howto2/c/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/c/CarDaoException.java"><code>CarDaoException.java</code></a></p></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/c/Person.java"><code>Person.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/c/PersonDao.java"><code>PersonDao.java</code></a></p></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/c/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/c/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/c/PersonDaoException.java"><code>PersonDaoException.java</code></a></p></li>
 	                </ul>
 	            </p>
             </subsection>
@@ -210,17 +210,23 @@
                     A few notes to consider:
                     <ul>
                         <li>
-                            If <code>ASC</code> or <code>DESC</code> is not specified, <code>ASC</code> order is
-                            assumed.
+                            <p>
+	                            If <code>ASC</code> or <code>DESC</code> is not specified, <code>ASC</code> order is
+	                            assumed.
+	                        </p>
                         </li>
                         <li>
-                            If the ordering tagged value is modelled but no ordering element is supplied, this
-                            renders an empty <code>@javax.persistence.OrderBy</code> annotation which indicates
-                            to the container to assume ordering by primary key as per the spec.
+                            <p>
+	                            If the ordering tagged value is modelled but no ordering element is supplied, this
+	                            renders an empty <code>@javax.persistence.OrderBy</code> annotation which indicates
+	                            to the container to assume ordering by primary key as per the spec.
+	                        </p>
                         </li>
                         <li>
-                            The property used in the order by clause must correspond to a persistent field of
-                            the associated class and that corresponding column must support comparison operators.
+                            <p>
+	                            The property used in the order by clause must correspond to a persistent field of
+	                            the associated class and that corresponding column must support comparison operators.
+	                        </p>
                         </li>
                     </ul>
                 </p>
@@ -229,24 +235,24 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen">Auto-generated source that does not need manual editing</li>
-	                    <li class="impl">Auto-generated source that should be edited manually</li>
-	                    <li class="changed">File that is affected by the modifications applied in this section</li>
+	                    <li class="gen"><p>Auto-generated source that does not need manual editing</p></li>
+	                    <li class="impl"><p>Auto-generated source that should be edited manually</p></li>
+	                    <li class="changed"><p>File that is affected by the modifications applied in this section</p></li>
 	                </ul>
 	            </p>
 	            <p>
 	                <ul>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/d/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto2/d/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/d/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/d/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto2/d/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/d/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/d/Person.java"><code>Person.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/d/PersonDao.java"><code>PersonDao.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/d/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/d/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/d/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/d/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></p></li>
+                        <li class="impl"><p><a href="src/org/andromda/test/howto2/d/Car.java"><code>Car.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/d/CarDao.java"><code>CarDao.java</code></a></p></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/d/CarDaoBase.java"><code>CarDaoBase.java</code></a></p></li>
+                        <li class="impl"><p><a href="src/org/andromda/test/howto2/d/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/d/CarDaoException.java"><code>CarDaoException.java</code></a></p></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/d/Person.java"><code>Person.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/d/PersonDao.java"><code>PersonDao.java</code></a></p></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/d/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/d/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/d/PersonDaoException.java"><code>PersonDaoException.java</code></a></p></li>
 	                </ul>
 	            </p>
             </subsection>
@@ -277,8 +283,8 @@
 	                <code>compositionDefinesEagerLoading</code> namespace property.  These are employed if no
 	                <code>@andromda.persistence.fetch.type</code> tagged value exists.
 	                <ul>
-	                    <li>aggregation: lazy-loaded, no cascade</li>
-	                    <li>composition: eager-loaded, cascade update (cascade option not yet implemented)</li>
+	                    <li><p>aggregation: lazy-loaded, no cascade</p></li>
+	                    <li><p>composition: eager-loaded, cascade update (cascade option not yet implemented)</p></li>
 	                </ul>
 	            </p>
 	            <p>
@@ -291,24 +297,24 @@
 	            </p>
 	            <p>
 	                <ul>
-	                    <li class="gen">Auto-generated source that does not need manual editing</li>
-	                    <li class="impl">Auto-generated source that should be edited manually</li>
-	                    <li class="changed">File that is affected by the modifications applied in this section</li>
+	                    <li class="gen"><p>Auto-generated source that does not need manual editing</p></li>
+	                    <li class="impl"><p>Auto-generated source that should be edited manually</p></li>
+	                    <li class="changed"><p>File that is affected by the modifications applied in this section</p></li>
 	                </ul>
 	            </p>
 	            <p>
 	                <ul>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/e/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto2/e/Car.java"><code>Car.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/e/CarDao.java"><code>CarDao.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/e/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
-                        <li class="impl"><a href="src/org/andromda/test/howto2/e/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/e/CarDaoException.java"><code>CarDaoException.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/e/Person.java"><code>Person.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/e/PersonDao.java"><code>PersonDao.java</code></a></li>
-                        <li class="gen"><a class="changed" href="src/org/andromda/test/howto2/e/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/e/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
-                        <li class="gen"><a href="src/org/andromda/test/howto2/e/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/e/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></p></li>
+                        <li class="impl"><p><a href="src/org/andromda/test/howto2/e/Car.java"><code>Car.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/e/CarDao.java"><code>CarDao.java</code></a></p></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/e/CarDaoBase.java"><code>CarDaoBase.java</code></a></p></li>
+                        <li class="impl"><p><a href="src/org/andromda/test/howto2/e/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/e/CarDaoException.java"><code>CarDaoException.java</code></a></p></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/e/Person.java"><code>Person.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/e/PersonDao.java"><code>PersonDao.java</code></a></p></li>
+                        <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto2/e/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/e/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></p></li>
+                        <li class="gen"><p><a href="src/org/andromda/test/howto2/e/PersonDaoException.java"><code>PersonDaoException.java</code></a></p></li>
 	                </ul>
 	            </p>
 	        </subsection>
