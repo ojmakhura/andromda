@@ -59,10 +59,10 @@ $service.getDocumentation(" * ")
 #*  *##set ($lifecycleCallback = "")
 #**##end
 // Lifecycle callback listeners and interceptors are defined in ejb-jar.xml
-// @javax.ejb.Interceptors({$transform.getInterceptorsAsList(${interceptors}, ${lifecycleCallback})})
+// @javax.interceptor.Interceptors({$transform.getInterceptorsAsList(${interceptors}, ${lifecycleCallback})})
 #end
 #if ($service.excludeDefaultInterceptors)
-// @javax.ejb.ExcludeDefaultInterceptors
+// @javax.interceptor.ExcludeDefaultInterceptors
 #end
 public abstract class ${service.serviceBaseName}
 #if($service.generalization)
@@ -340,15 +340,15 @@ $operation.getDocumentation("     * ")
 #*    *##set ($interceptors = $operation.interceptorReferences)
 #*    *##if ($collectionUtils.size($interceptors) >= 1)
     // Interceptors are defined in ejb-jar.xml
-    // @javax.ejb.Interceptors({$transform.getInterceptorsAsList(${interceptors}, "")})
+    // @javax.interceptor.Interceptors({$transform.getInterceptorsAsList(${interceptors}, "")})
 #*    *##end
 #*    *##if ($operation.excludeDefaultInterceptors)
     // Interceptor default exclusions are defined in ejb-jar.xml
-    // @javax.ejb.ExcludeDefaultInterceptors
+    // @javax.interceptor.ExcludeDefaultInterceptors
 #*    *##end
 #*    *##if ($operation.excludeClassInterceptors)
     // Interceptor class exclusions are defined in ejb-jar.xm
-    // @javax.ejb.ExcludeClassInterceptors
+    // @javax.interceptor.ExcludeClassInterceptors
 #*    *##end
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #*    *##if ($operation.exceptionsPresent)
