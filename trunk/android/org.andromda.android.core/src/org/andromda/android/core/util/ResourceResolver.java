@@ -21,10 +21,48 @@ public class ResourceResolver
     /**
      * Hidden c'tor.
      */
-    private ResourceResolver() {
-        
+    private ResourceResolver()
+    {
+
     }
-    
+
+    /**
+     * Tries to find a project cartridge in the given base directory and all sub directories.
+     * 
+     * @param baseDir The directory to start the search in.
+     * @param name The name of the project cartridge.
+     * @param version The version of the project cartridge.
+     * @param strict If true, only exact version matches are considered, if false, subversions are also acceptable.
+     * @return A filename pointing to the desired library or <code>null</code> if no matching library could be found.
+     */
+    public static final String findProjectCartridge(final String baseDir,
+        final String projectCartridgeName,
+        final String version,
+        boolean strict)
+    {
+
+        // create cartridge base name
+        final StringBuffer basenameBuffer = new StringBuffer();
+        basenameBuffer.append("andromda-andromdapp-project-");
+        basenameBuffer.append(projectCartridgeName);
+        basenameBuffer.append("-");
+
+        // create search pattern
+        final StringBuffer pattern = new StringBuffer();
+        pattern.append("**//");
+        pattern.append(basenameBuffer);
+        pattern.append(version);
+        if (!strict)
+        {
+            pattern.append("*");
+        }
+        pattern.append(".jar");
+        final String[] includes = { pattern.toString() };
+
+        return findResource(baseDir, basenameBuffer.toString(), includes);
+
+    }
+
     /**
      * Tries to find a cartridge in the given base directory and all sub directories.
      * 
@@ -94,27 +132,6 @@ public class ResourceResolver
     }
 
     /**
-     * @param baseName
-     * @param files
-     */
-    private static String findHighestVersion(final String baseName,
-        final String[] files)
-    {
-        int highestIndex = -1;
-        String highest = "";
-        for (int i = 0; i < files.length; i++)
-        {
-            final String version = getVersion(baseName, files[i]);
-            if (highest.compareTo(version) < 0)
-            {
-                highestIndex = i;
-                highest = version;
-            }
-        }
-        return files[highestIndex];
-    }
-
-    /**
      * Tries to find a library in the given base directory and all sub directories.
      * 
      * @param baseDir The directory to start the search in.
@@ -150,9 +167,12 @@ public class ResourceResolver
     }
 
     /**
-     * @param baseDir
-     * @param name
-     * @param includes
+     * Find a resource with the given base name in the given directory, obeying the wildcard rules given in parameter
+     * "includes".
+     * 
+     * @param baseDir The directory to start searching in.
+     * @param baseName The base name of the file to look for.
+     * @param includes The wildcard rules to obey.
      * @return
      */
     private static String findResource(final String baseDir,
@@ -179,6 +199,8 @@ public class ResourceResolver
     }
 
     /**
+     * Determine the version of a file.
+     * 
      * @param string
      * @return
      */
@@ -192,18 +214,27 @@ public class ResourceResolver
         return n3;
     }
 
-    public static void main(final String[] args)
+    /**
+     * Find the highest version in a list of files.
+     * 
+     * @param baseName The base name of the files.
+     * @param files The array of files.
+     */
+    private static String findHighestVersion(final String baseName,
+        final String[] files)
     {
-        final String v1 = "3.2-SNAPSHOT";
-        final String v2 = "3.2-RC1-SNAPSHOT";
-
-        System.out.println(v1.compareTo(v2));
-
-        final String libraryPath = findLibrary("D:/develop/m2repo", "andromda-andromdapp-core", "3.2", false);
-        System.out.println("Found library: " + libraryPath);
-
-        final String cartridgePath = findCartridge("D:/develop/m2repo", "spring", "3.2", false);
-        System.out.println("Found cartridge: " + cartridgePath);
+        int highestIndex = -1;
+        String highest = "";
+        for (int i = 0; i < files.length; i++)
+        {
+            final String version = getVersion(baseName, files[i]);
+            if (highest.compareTo(version) < 0)
+            {
+                highestIndex = i;
+                highest = version;
+            }
+        }
+        return files[highestIndex];
     }
 
 }
