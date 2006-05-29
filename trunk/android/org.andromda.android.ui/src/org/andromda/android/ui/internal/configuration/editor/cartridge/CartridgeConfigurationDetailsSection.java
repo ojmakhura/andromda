@@ -3,7 +3,6 @@ package org.andromda.android.ui.internal.configuration.editor.cartridge;
 import org.andromda.android.core.model.IModelChangedEvent;
 import org.andromda.android.ui.internal.configuration.editor.AbstractAndromdaModelSectionPart;
 import org.andromda.android.ui.internal.editor.AbstractModelFormPage;
-import org.andromda.core.configuration.ModelDocument.Model;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;

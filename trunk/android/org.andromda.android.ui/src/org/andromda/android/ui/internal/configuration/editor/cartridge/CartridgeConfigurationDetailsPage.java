@@ -1,7 +1,6 @@
 package org.andromda.android.ui.internal.configuration.editor.cartridge;
 
 import org.andromda.android.ui.internal.editor.AbstractModelDetailsPage;
-import org.andromda.core.configuration.ModelDocument.Model;
 import org.andromda.core.configuration.NamespaceDocument.Namespace;
 import org.andromda.core.namespace.PropertyDocument.Property;
 import org.andromda.core.namespace.PropertyGroupDocument.PropertyGroup;
