@@ -130,9 +130,9 @@ public abstract class ${mdb.messageDrivenName}
 $operation.getDocumentation("     * ")
      */
 #*  *##if ($operation.postConstruct)
-    @javax.ejb.PostConstruct
+    @javax.annotation.PostConstruct
 #*  *##elseif ($operation.preDestroy)
-    @javax.ejb.PreDestroy
+    @javax.annotation.PreDestroy
 #*  *##end
 #*  *##set ($returnType = $operation.returnType.fullyQualifiedName)
 #*  *##if ($operation.exceptionsPresent)
