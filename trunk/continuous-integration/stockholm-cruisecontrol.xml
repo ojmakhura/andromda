@@ -54,7 +54,7 @@
         <schedule interval="1200">
             <!--ant buildfile="/var/andromda/builds/v3/andromda-all/etc/cc-build/mvn-cc-build.xml"/-->
 	        <!--maven goal="scm:update-project|clean-dist|deploy-distribution" projectfile="/var/andromda/builds/v3/andromda-all/project.xml" mavenscript="/usr/local/maven1/bin/maven"/-->
-			<maven2 goal="scm:update|clean -e|install -e" pomfile="/var/andromda/builds/v3/andromda-all/pom.xml" mvnscript="/usr/local/maven2/bin/mvn"/>
+			<maven2 goal="scm:update|clean -e -U|install -e" pomfile="/var/andromda/builds/v3/andromda-all/pom.xml" mvnscript="/usr/local/maven2/bin/mvn"/>
         </schedule>
         <listeners>
            <currentbuildstatuslistener file="/var/andromda/builds/logs/andromda-v3/currentbuildstatus.txt"/>
