@@ -282,6 +282,20 @@
           <tr><td class="header-title">ERROR Messages</td></tr>
           <tr><td class="header-data">
           <span class="compile-data">
+		  <!-- Identify the stopper - the first node that starts with [INFO] Building  -->
+		  <!--xsl:variable name="stop-id" select="generate-id(preceding-sibling::*)"/-->
+
+		  <xsl:value-of select="preceding-sibling::*[11][text()]"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+		  <xsl:value-of select="preceding-sibling::*[10][text()]"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+		  <xsl:value-of select="preceding-sibling::*[9][text()]"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+		  <xsl:value-of select="preceding-sibling::*[8][text()]"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+		  <xsl:value-of select="preceding-sibling::*[7][text()]"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+		  <xsl:value-of select="preceding-sibling::*[6][text()]"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+		  <xsl:value-of select="preceding-sibling::*[5][text()]"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+		  <xsl:value-of select="preceding-sibling::*[4][text()]"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+		  <xsl:value-of select="preceding-sibling::*[3][text()]"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+		  <xsl:value-of select="preceding-sibling::*[2][text()]"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
+		  <xsl:value-of select="preceding-sibling::*[1][text()]"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
           <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
 		  <xsl:for-each select="following-sibling::*">
             <xsl:value-of select="text()"/><xsl:text disable-output-escaping="yes"><![CDATA[<br/>]]></xsl:text>
