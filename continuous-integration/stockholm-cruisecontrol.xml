@@ -5,29 +5,29 @@
         <bootstrappers>
         </bootstrappers>
         <modificationset>
-            <cvs localWorkingCopy="/var/andromda/builds/head/andromda-all" />
+            <cvs localWorkingCopy="/andromda/builds/head/andromda-all" />
         </modificationset>
         <labelincrementer defaultLabel="stockholm-build.1"/>
         <!-- 20 minutes -->
         <schedule interval="1200">
-            <!--ant buildfile="/var/andromda/builds/head/andromda-all/etc/cc-build/mvn-cc-build.xml"/-->
-	    	<maven2 goal="scm:update|clean|install -e" pomfile="/var/andromda/builds/head/andromda-all/pom.xml" mvnscript="/usr/local/maven2/bin/mvn"/>
+            <!--ant buildfile="/andromda/builds/head/andromda-all/etc/cc-build/mvn-cc-build.xml"/-->
+	    	<maven2 goal="scm:update|clean|install -e" pomfile="/andromda/builds/head/andromda-all/pom.xml" mvnscript="/usr/local/maven2/bin/mvn"/>
         </schedule>
         <listeners>
-           <currentbuildstatuslistener file="/var/andromda/builds/logs/andromda-head/currentbuildstatus.txt"/>
+           <currentbuildstatuslistener file="/andromda/builds/logs/andromda-head/currentbuildstatus.txt"/>
         </listeners>
-		<log dir="/var/andromda/builds/logs/andromda-head">
+		<log dir="/andromda/builds/logs/andromda-head">
         </log>
         <publishers>
-            <currentbuildstatuspublisher file="/var/andromda/builds/logs/andromda-head/currentbuildstatus.txt"/>
-            <htmlemail logdir="/var/andromda/builds/logs/andromda-head"
+            <currentbuildstatuspublisher file="/andromda/builds/logs/andromda-head/currentbuildstatus.txt"/>
+            <htmlemail logdir="/andromda/builds/logs/andromda-head"
                 mailhost="localhost"
                 buildresultsurl="http://andromda.it.su.se/cruisecontrol/buildresults/andromda-head"
                 spamwhilebroken="true"
                 subjectprefix="[BUILD]"
                 returnaddress="committers@andromda.org"
                 defaultsuffix="@users.sourceforge.net"
-                xslfile="/var/andromda/builds/continuous-integration/xsl/andromda-m2.xsl">
+                xslfile="/andromda/builds/continuous-integration/xsl/andromda-m2.xsl">
                 <map address="matthias@andromda.org" alias="mattes3"/>
                 <map address="chad@andromda.org" alias="cwbrandon"/>
                 <map address="wouter@andromda.org" alias="draftdog"/>
@@ -46,47 +46,42 @@
         <bootstrappers>
         </bootstrappers>
         <modificationset>
-            <!--cvs localWorkingCopy="/var/andromda/builds/v3/andromda-all" /-->
+            <!--cvs localWorkingCopy="/andromda/builds/v3/andromda-all" /-->
             <cvs cvsroot=":ext:it-androbuild2@andromda.cvs.sourceforge.net:/cvsroot/andromda" module="andromda-all" tag="V3_x_HEAD" />
         </modificationset>
         <labelincrementer defaultLabel="stockholm-build.1"/>
         <!--schedule interval="10"-->
         <schedule interval="1200">
-            <!--ant buildfile="/var/andromda/builds/v3/andromda-all/etc/cc-build/mvn-cc-build.xml"/-->
-	        <!--maven goal="scm:update-project|clean-dist|deploy-distribution" projectfile="/var/andromda/builds/v3/andromda-all/project.xml" mavenscript="/usr/local/maven1/bin/maven"/-->
-			<maven2 goal="scm:update|clean -e -U|install -e" pomfile="/var/andromda/builds/v3/andromda-all/pom.xml" mvnscript="/usr/local/maven2/bin/mvn"/>
+            <!--ant buildfile="/andromda/builds/v3/andromda-all/etc/cc-build/mvn-cc-build.xml"/-->
+	        <!--maven goal="scm:update-project|clean-dist|deploy-distribution" projectfile="/andromda/builds/v3/andromda-all/project.xml" mavenscript="/usr/local/maven1/bin/maven"/-->
+			<maven2 goal="scm:update|clean -e -U|install -e" pomfile="/andromda/builds/v3/andromda-all/pom.xml" mvnscript="/usr/local/maven2/bin/mvn"/>
         </schedule>
         <listeners>
-           <currentbuildstatuslistener file="/var/andromda/builds/logs/andromda-v3/currentbuildstatus.txt"/>
+           <currentbuildstatuslistener file="/andromda/builds/logs/andromda-v3/currentbuildstatus.txt"/>
         </listeners>
-		<log dir="/var/andromda/builds/logs/andromda-v3">
-            <merge dir="/var/andromda/builds/v3/andromda-all/andromda/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/cartridges/andromda-ejb/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/cartridges/andromda-bpm4struts/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/cartridges/andromda-hibernate/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/cartridges/andromda-java/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/cartridges/andromda-meta/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/cartridges/andromda-spring/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/cartridges/andromda-webservice/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/cartridges/andromda-xmlschema/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/metafacades/uml/uml14/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/repositories/mdr/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/templateengines/velocity/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/translation-libraries/ocl/core/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/translation-libraries/ocl/testsuite/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/translation-libraries/ocl/andromda-query/target/test-reports"/>
-            <merge dir="/var/andromda/builds/v3/andromda-all/translation-libraries/ocl/andromda-validation/target/test-reports"/>
-        </log>
+		<log dir="/andromda/builds/logs/andromda-v3">
+            <merge dir="/andromda/builds/v3/andromda-all/andromda/target/surefire-reports"/>
+            <merge dir="/andromda/builds/v3/andromda-all/cartridges/andromda-bpm4struts/target/surefire-reports"/>
+            <merge dir="/andromda/builds/v3/andromda-all/metafacades/uml/common/target/surefire-reports"/>
+            <merge dir="/andromda/builds/v3/andromda-all/repositories/emf/uml2/target/surefire-reports"/>
+            <merge dir="/andromda/builds/v3/andromda-all/repositories/mdr/uml14/target/surefire-reports"/>
+            <merge dir="/andromda/builds/v3/andromda-all/repositories/mdr/uml2/target/surefire-reports"/>
+            <merge dir="/andromda/builds/v3/andromda-all/templateengines/freemarker/target/surefire-reports"/>
+            <merge dir="/andromda/builds/v3/andromda-all/templateengines/velocity/target/surefire-reports"/>
+            <merge dir="/andromda/builds/v3/andromda-all/translation-libraries/ocl/andromda-validation/target/surefire-reports"/>
+            <merge dir="/andromda/builds/v3/andromda-all/translation-libraries/ocl/core/target/surefire-reports"/>
+            <merge dir="/andromda/builds/v3/andromda-all/utils/target/surefire-reports"/>
+       </log>
         <publishers>
-            <currentbuildstatuspublisher file="/var/andromda/builds/logs/andromda-v3/currentbuildstatus.txt"/>
-            <htmlemail logdir="/var/andromda/builds/logs/andromda-v3"
+            <currentbuildstatuspublisher file="/andromda/builds/logs/andromda-v3/currentbuildstatus.txt"/>
+            <htmlemail logdir="/andromda/builds/logs/andromda-v3"
                 mailhost="localhost"
                 buildresultsurl="http://andromda.it.su.se/cruisecontrol/buildresults/andromda-v3"
                 spamwhilebroken="true"
                 subjectprefix="[BUILD]"
                 returnaddress="committers@andromda.org"
                 defaultsuffix="@users.sourceforge.net"
-                xslfile="/var/andromda/builds/continuous-integration/xsl/andromda-m2.xsl">
+                xslfile="/andromda/builds/continuous-integration/xsl/andromda-m2.xsl">
                 <map address="matthias@andromda.org" alias="mattes3"/>
                 <map address="chad@andromda.org" alias="cwbrandon"/>
                 <map address="wouter@andromda.org" alias="draftdog"/>
@@ -105,32 +100,32 @@
         <bootstrappers>
         </bootstrappers>
         <modificationset>
-            <cvs localWorkingCopy="/var/andromda/builds/andromda-contrib/contrib" />
+            <cvs localWorkingCopy="/andromda/builds/andromda-contrib/contrib" />
         </modificationset>
         <listeners>
-           <currentbuildstatuslistener file="/var/andromda/builds/logs/andromda-contrib/currentbuildstatus.txt"/>
+           <currentbuildstatuslistener file="/andromda/builds/logs/andromda-contrib/currentbuildstatus.txt"/>
         </listeners>
         <schedule interval="3600">
-            <maven goal="scm:update-project|cc-build|deploy-distribution" projectfile="/var/andromda/builds/andromda-contrib/contrib/project.xml" mavenscript="/usr/local/maven1/bin/maven"/>
+            <maven goal="scm:update-project|cc-build|deploy-distribution" projectfile="/andromda/builds/andromda-contrib/contrib/project.xml" mavenscript="/usr/local/maven1/bin/maven"/>
         </schedule>
-        <log dir="/var/andromda/builds/logs/andromda-contrib">
-			<merge dir="/var/andromda/builds/andromda-contrib/contrib/cartridges/andromda-costcalculator/target/test-reports"/>
-			<merge dir="/var/andromda/builds/andromda-contrib/contrib/cartridges/andromda-database/target/test-reports"/>
-			<merge dir="/var/andromda/builds/andromda-contrib/contrib/maven/site/target/test-reports"/>
-			<merge dir="/var/andromda/builds/andromda-contrib/contrib/transformations/configuration/target/test-reports"/>
-			<merge dir="/var/andromda/builds/andromda-contrib/contrib/transformations/spring/target/test-reports"/>
-			<merge dir="/var/andromda/builds/andromda-contrib/contrib/transformers/atl/target/test-reports"/>
+        <log dir="/andromda/builds/logs/andromda-contrib">
+			<merge dir="/andromda/builds/andromda-contrib/contrib/cartridges/andromda-costcalculator/target/test-reports"/>
+			<merge dir="/andromda/builds/andromda-contrib/contrib/cartridges/andromda-database/target/test-reports"/>
+			<merge dir="/andromda/builds/andromda-contrib/contrib/maven/site/target/test-reports"/>
+			<merge dir="/andromda/builds/andromda-contrib/contrib/transformations/configuration/target/test-reports"/>
+			<merge dir="/andromda/builds/andromda-contrib/contrib/transformations/spring/target/test-reports"/>
+			<merge dir="/andromda/builds/andromda-contrib/contrib/transformers/atl/target/test-reports"/>
         </log>
         <publishers>
-            <currentbuildstatuspublisher file="/var/andromda/builds/logs/andromda-contrib/currentbuildstatus.txt"/>
-            <htmlemail logdir="/var/andromda/builds/logs/andromda-contrib"
+            <currentbuildstatuspublisher file="/andromda/builds/logs/andromda-contrib/currentbuildstatus.txt"/>
+            <htmlemail logdir="/andromda/builds/logs/andromda-contrib"
                 mailhost="localhost"
                 buildresultsurl="http://andromda.it.su.se/cruisecontrol/buildresults/andromda-contrib"
                 spamwhilebroken="true"
                 subjectprefix="[BUILD]"
                 returnaddress="committers@andromda.org"
                 defaultsuffix="@users.sourceforge.net"
-                xslfile="/var/andromda/builds/continuous-integration/xsl/andromda.xsl">
+                xslfile="/andromda/builds/continuous-integration/xsl/andromda.xsl">
                 <map address="matthias@andromda.org" alias="mattes3"/>
                 <map address="chad@andromda.org" alias="cwbrandon"/>
                 <map address="wouter@andromda.org" alias="draftdog"/>
@@ -152,7 +147,7 @@
             <cvs localWorkingCopy="/andromda/builds/andromda-plugins/andromda-plugins" />
         </modificationset>
         <listeners>
-           <currentbuildstatuslistener file="/var/andromda/builds/logs/andromda-plugins/currentbuildstatus.txt"/>
+           <currentbuildstatuslistener file="/andromda/builds/logs/andromda-plugins/currentbuildstatus.txt"/>
         </listeners>
         <schedule interval="3600">
             <maven2 mvnhome="/usr/local/maven2"  
@@ -160,7 +155,7 @@
 				goal="clean scm:update | install" />
         </schedule>
         <log dir="/andromda/builds/logs/andromda-plugins">
-	    <!--merge dir="/var/andromda/builds/andromda-contrib/contrib/cartridges/andromda-costcalculator/target/test-reports"/-->
+	    <!--merge dir="/andromda/builds/andromda-contrib/contrib/cartridges/andromda-costcalculator/target/test-reports"/-->
         </log>
         <publishers>
             <currentbuildstatuspublisher file="/andromda/builds/logs/andromda-plugins/currentbuildstatus.txt"/>
@@ -171,7 +166,7 @@
                 subjectprefix="[BUILD]"
                 returnaddress="committers@andromda.org"
                 defaultsuffix="@users.sourceforge.net"
-                xslfile="/var/andromda/builds/continuous-integration/xsl/andromda-m2.xsl">
+                xslfile="/andromda/builds/continuous-integration/xsl/andromda-m2.xsl">
                 <map address="matthias@andromda.org" alias="mattes3"/>
                 <map address="chad@andromda.org" alias="cwbrandon"/>
                 <map address="wouter@andromda.org" alias="draftdog"/>
