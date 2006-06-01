@@ -715,4 +715,33 @@ $attribute.getDocumentation("     * ")
 #*  *##end
 #**##end
 #end
+    // -------- Common Methods -----------
+    
+#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
+#**##set ($entityName = $entity.entityEmbeddableName)
+#else
+#**##set ($entityName = $entity.entityName)
+#end
+    /**
+     * Indicates if the argument is of the same type and all values are equal.
+     *
+     * @param object The target object to compare with
+     * @return boolean True if both objects a 'equal'
+     */
+#renderEqualsMethod($entity $entityName $entity.identifiers)
+
+    /**
+     * Returns a hash code value for the object
+     *
+     * @return int The hash code value
+     */
+#renderHashCodeMethod($entity $entity.identifiers)
+
+    /**
+     * Returns a String representation of the object
+     *
+     * @return String Textual representation of the object displaying name/value pairs for all attributes
+     */
+#renderToStringMethod($entity $entityName $entity.attributes)
+
 }
