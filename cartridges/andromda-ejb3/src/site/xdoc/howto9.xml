@@ -46,9 +46,15 @@
 			<subsection name="Mapped Superclasses">
                 <p>
                     To explicity defined an entity as a mapped superclass, model the 
-                    <![CDATA[<<MappedSuperclass>>]]> stereotype on the root entity.  Define the subclass entities
-                    <b>without</b> primary keys and generalizing the root entity.  The following is an example of this
-                    type of inheritance.
+                    <![CDATA[<<MappedSuperclass>>]]> stereotype on the root entity.  
+                </p>
+                <p class="highlight">
+                    You must explicity define your identifiers either in the mapped superclass or in the inheriting
+                    subclass entities.
+                </p> 
+                <p>
+                    The following is an example of this type of inheritance where the <code>Vehicle</code> mapped
+                    superclass contains the identifier which is automatically used by the <code>Car</code> entity.
                 </p>
 				<p>
 					<img src="images/org/andromda/test/9/a/uml.gif"/>
