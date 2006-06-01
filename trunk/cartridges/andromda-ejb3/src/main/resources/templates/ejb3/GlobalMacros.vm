@@ -3,12 +3,15 @@
 ##  If an entity is rendered, the attributeSet consists of the identifiers,
 ##  if an value type is renderer, the attributeSet consists of all attributes
 ##
+##  If an entity contains a composite primary key consisting of more than 1
+##  identifier, must call accessor on PK object.
+##
 #macro (renderEqualsMethod $class $className $attributeSet)
     public boolean equals(Object object)
     {
-#if ($attributeSet.empty)
+#**##if ($attributeSet.empty)
         return super.equals(object);
-#else
+#**##else
         if (this == object)
         {
             return true;
@@ -18,27 +21,27 @@
             return false;
         }
         final $className that = ($className)object;
-#foreach ($attribute in $attributeSet)
-#set ($idType = $attribute.type)
-#if ($idType.primitive)
-        if (this.$attribute.name != that.${attribute.getterName}())
+#*  *##foreach ($attribute in $attributeSet)
+#*    *##set ($idType = $attribute.type)
+#*    *##if ($idType.primitive)
+        if (this.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}() != that.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}())
         {
             return false;
         }
-#elseif ($idType.arrayType)
-        if (!java.util.Arrays.equals(this.$attribute.name, that.${attribute.getterName}()))
+#*    *##elseif ($idType.arrayType)
+        if (!java.util.Arrays.equals(this.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}(), that.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}()))
         {
             return false;
         }
-#else
-        if (this.$attribute.name == null || that.${attribute.getterName}() == null || !this.${attribute.name}.equals(that.${attribute.getterName}()))
+#*    *##else
+        if (this.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}() == null || that.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}() == null || !this.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}().equals(that.#if ($class.compositePrimaryKeyPresent)getPk().#end${attribute.getterName}()))
         {
             return false;
         }
-#end
-#end
+#*    *##end
+#*  *##end
         return true;
-#end
+#**##end
     }
 #end
 ##
@@ -46,31 +49,65 @@
 ##  If an entity is rendered, the attributeSet consists of the identifiers,
 ##  if an value type is renderer, the attributeSet consists of all attributes
 ##
+##  If an entity contains a composite primary key consisting of more than 1
+##  identifier, must call accessor on PK object.
+##
 #macro (renderHashCodeMethod $class $attributeSet)
     public int hashCode()
     {
-#if ($attributeSet.empty)
+#**##if ($attributeSet.empty)
         return super.hashCode();
-#else
-#if ($class.generalization)
+#**##else
+#*  *##if ($class.generalization)
         int hashCode = super.hashCode();
-#else
+#*  *##else
         int hashCode = 0;
-#end
-#foreach ($attribute in $attributeSet)
-#set ($attrType = $attribute.type)
-#if  ($attribute.getterSetterTypeName == "boolean")
-        hashCode = 29 * hashCode + (${attribute.name} ? 1 : 0);
-#elseif ($attrType.arrayType)
+#*  *##end
+#*  *##foreach ($attribute in $attributeSet)
+#*    *##set ($attrType = $attribute.type)
+#*    *##if  ($attribute.getterSetterTypeName == "boolean")
+        hashCode = 29 * hashCode + (#if ($class.compositePrimaryKeyPresent)this.getPk().#end${attribute.getterName}() ? 1 : 0);
+#*    *##elseif ($attrType.arrayType)
         // arrays are not part of the hashCode calculation
-#elseif ($attrType.primitive)
-        hashCode = 29 * hashCode + (int)${attribute.name};
-#else
-        hashCode = 29 * hashCode + (${attribute.name} == null ? 0 : ${attribute.name}.hashCode());
-#end## if
-#end## foreach
+#*    *##elseif ($attrType.primitive)
+        hashCode = 29 * hashCode + (int)#if ($class.compositePrimaryKeyPresent)this.getPk().#end${attribute.getterName}();
+#*    *##else
+        hashCode = 29 * hashCode + (#if ($class.compositePrimaryKeyPresent)this.getPk().#end${attribute.getterName}() == null ? 0 : #if ($class.compositePrimaryKeyPresent)this.getPk().#end${attribute.getterName}().hashCode());
+#*    *##end## if
+#*  *##end## foreach
 
         return hashCode;
-#end## $attributeSet.empty
+#**##end## $attributeSet.empty
+    }
+#end
+##
+##  This macro will render the toString() method
+##  If an entity is rendered, the attributeSet consists of the identifiers,
+##  if an value type is renderer, the attributeSet consists of all attributes
+##
+##  If an entity contains a composite primary key consisting of more than 1
+##  identifier, must call accessor on PK object.
+##
+#macro (renderToStringMethod $class $className $attributeSet)
+    public String toString()
+    {
+#**##if ($attributeSet.empty)
+        return super.toString();
+#**##else
+        StringBuilder sb = new StringBuilder();
+        sb.append("${className}(=");
+#*  *##if ($class.generalization)
+        sb.append(super.toString());
+#*  *##end
+#*  *##set( $sep = "" )
+#*  *##foreach ($attribute in $attributeSet)
+#*    *##set ($attrType = $attribute.type)
+        sb.append("${sep}#if ($class.compositePrimaryKeyPresent && $attribute.identifier)pk.#end${attribute.name}: ");
+        sb.append(#if ($class.compositePrimaryKeyPresent && $attribute.identifier)this.getPk().#end${attribute.getterName}());
+#*    *##set( $sep = ", " )
+#*  *##end## foreach
+        sb.append(")");
+        return sb.toString();
+#**##end## $attributeSet.empty
     }
 #end
