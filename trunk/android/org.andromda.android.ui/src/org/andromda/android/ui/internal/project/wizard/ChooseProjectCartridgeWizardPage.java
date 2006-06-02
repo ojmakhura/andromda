@@ -220,10 +220,10 @@ public class ChooseProjectCartridgeWizardPage
                     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
                     {
                         monitor.beginTask("Retrieving cartridges", IProgressMonitor.UNKNOWN);
-                        monitor.worked(10);
+                        monitor.worked(30);
                         IProjectCartridgeDescriptor[] cartridgeDescriptors = ProjectCartridgeRegistry.getInstance()
                                 .getCartridgeDescriptors();
-                        monitor.worked(80);
+                        monitor.worked(60);
 
                         tableViewer.setInput(cartridgeDescriptors);
                         monitor.worked(10);
