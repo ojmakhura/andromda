@@ -10,6 +10,7 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.IPreferencesService;
 import org.eclipse.core.runtime.preferences.IScopeContext;
@@ -116,9 +117,20 @@ public class AndroidSettingsAccess
     /**
      * {@inheritDoc}
      */
-    public void setConfigurationsLocation(String location)
+    public void setConfigurationLocation(String location)
     {
         IScopeContext scope = new InstanceScope();
+        IEclipsePreferences androidPreferences = scope.getNode(AndroidCore.PLUGIN_ID);
+        androidPreferences.put(CONFIGURATION_LOCATION, location);
+        saveNode(androidPreferences);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setDefaultConfigurationLocation(String location)
+    {
+        IScopeContext scope = new DefaultScope();
         IEclipsePreferences androidPreferences = scope.getNode(AndroidCore.PLUGIN_ID);
         androidPreferences.put(CONFIGURATION_LOCATION, location);
         saveNode(androidPreferences);
