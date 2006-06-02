@@ -22,14 +22,6 @@ import org.eclipse.swt.widgets.Text;
 public class AndroMDALocationsComposite
         extends Composite
 {
-    /** Label for cartridges location. */
-    private Label profilesLabel;
-
-    /** Text field for profiles location. */
-    private Text profilesText;
-
-    /** Browse button for profiles location. */
-    private Button profilesBrowseButton;
 
     /** Label for cartridges location. */
     private Label cartridgesLabel;
@@ -39,15 +31,6 @@ public class AndroMDALocationsComposite
 
     /** Browse button for cartidges location. */
     private Button cartridgesBrowseButton;
-
-    /** Label for maven home. */
-    private Label mavenHomeLabel;
-
-    /** Text field for maven home location. */
-    private Text mavenHomeText;
-
-    /** Browse button dor maven home location. */
-    private Button mavenHomeBrowseButton;
 
     /**
      * Create the composite.
@@ -60,21 +43,24 @@ public AndroMDALocationsComposite(final Composite parent,
     {
         super(parent, style);
         setLayout(new GridLayout());
+
         final Group locationsGroup = new Group(this, SWT.NONE);
-        locationsGroup.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
         locationsGroup.setText("Locations");
-        final GridLayout gridLayout = new GridLayout();
-        gridLayout.numColumns = 3;
-        locationsGroup.setLayout(gridLayout);
+        locationsGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+        final GridLayout gridLayout_1 = new GridLayout();
+        gridLayout_1.numColumns = 3;
+        locationsGroup.setLayout(gridLayout_1);
 
         cartridgesLabel = new Label(locationsGroup, SWT.NONE);
         cartridgesLabel.setText("Cartridges:");
 
         cartridgesText = new Text(locationsGroup, SWT.BORDER);
-        cartridgesText.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
+        cartridgesText.setToolTipText("Specify where your cartridges are located. Android will perform a recursive scan for your cartridges. \nYou might want to specify your Maven repository root.");
+        cartridgesText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         cartridgesText.setText("cartridges");
 
         cartridgesBrowseButton = new Button(locationsGroup, SWT.NONE);
+        cartridgesBrowseButton.setToolTipText("Choose a directory.");
         cartridgesBrowseButton.addSelectionListener(new SelectionAdapter()
         {
             public void widgetSelected(SelectionEvent e)
@@ -89,52 +75,6 @@ public AndroMDALocationsComposite(final Composite parent,
             }
         });
         cartridgesBrowseButton.setText("Browse...");
-
-        profilesLabel = new Label(locationsGroup, SWT.NONE);
-        profilesLabel.setText("Profiles:");
-
-        profilesText = new Text(locationsGroup, SWT.BORDER);
-        profilesText.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-        profilesText.setText("profiles");
-
-        profilesBrowseButton = new Button(locationsGroup, SWT.NONE);
-        profilesBrowseButton.addSelectionListener(new SelectionAdapter() {
-            public void widgetSelected(SelectionEvent e)
-            {
-                String directoryName = DialogUtils.selectDirectory(getShell(),
-                        "Select location for AndroMDA profile.",
-                        "Please choose the folder that contains the AndroMDA profiles.", profilesText.getText());
-                if (directoryName != null)
-                {
-                    profilesText.setText(directoryName);
-                }
-            }
-        });
-        profilesBrowseButton.setText("Browse...");
-
-        mavenHomeLabel = new Label(locationsGroup, SWT.NONE);
-        mavenHomeLabel.setText("Maven Home:");
-
-        mavenHomeText = new Text(locationsGroup, SWT.BORDER);
-        mavenHomeText.setText("maven");
-        mavenHomeText.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
-
-        mavenHomeBrowseButton = new Button(locationsGroup, SWT.NONE);
-        mavenHomeBrowseButton.addSelectionListener(new SelectionAdapter() {
-            public void widgetSelected(final SelectionEvent e)
-            {
-                String directoryName = DialogUtils.selectDirectory(getShell(),
-                        "Select location for Maven home.",
-                        "Please choose the folder that contains Maven.", mavenHomeText.getText());
-                if (directoryName != null)
-                {
-                    mavenHomeText.setText(directoryName);
-                }
-
-            }
-        });
-        mavenHomeBrowseButton.setText("Browse...");
-        new Label(locationsGroup, SWT.NONE);
     }
 
     /**
@@ -146,12 +86,6 @@ public AndroMDALocationsComposite(final Composite parent,
         cartridgesLabel.setEnabled(enabled);
         cartridgesText.setEnabled(enabled);
         cartridgesBrowseButton.setEnabled(enabled);
-        profilesLabel.setEnabled(enabled);
-        profilesText.setEnabled(enabled);
-        profilesBrowseButton.setEnabled(enabled);
-        mavenHomeLabel.setEnabled(enabled);
-        mavenHomeText.setEnabled(enabled);
-        mavenHomeBrowseButton.setEnabled(enabled);
     }
 
     /**
@@ -162,20 +96,6 @@ public AndroMDALocationsComposite(final Composite parent,
         return cartridgesText;
     }
 
-    /**
-     * @return Returns the profilesText.
-     */
-    public Text getProfilesText()
-    {
-        return profilesText;
-    }
 
-    /**
-     * @return Returns the mavenHomeText.
-     */
-    public Text getMavenHomeText()
-    {
-        return mavenHomeText;
-    }
 
 }

@@ -63,7 +63,7 @@ public class AndroidProjectLayoutPreferencePage
     public boolean performOk()
     {
         IAndroidSettings androidSettings = AndroidCore.getAndroidSettings();
-        androidSettings.setConfigurationsLocation(projectPropertiesComposite.getConfigurationText().getText());
+        androidSettings.setConfigurationLocation(projectPropertiesComposite.getConfigurationText().getText());
         return super.performOk();
     }
 
