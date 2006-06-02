@@ -21,7 +21,6 @@ public class AndroidProjectLayoutComposite
         extends Composite
 {
 
-    private Button browseButton;
 
     private Label configurationLabel;
 
@@ -37,19 +36,17 @@ public class AndroidProjectLayoutComposite
         locationsGroup.setLayoutData(new GridData(GridData.FILL, GridData.CENTER, true, false));
         locationsGroup.setText("Relative Locations");
         final GridLayout gridLayout = new GridLayout();
-        gridLayout.numColumns = 3;
+        gridLayout.numColumns = 2;
         locationsGroup.setLayout(gridLayout);
 
         configurationLabel = new Label(locationsGroup, SWT.NONE);
         configurationLabel.setText("Configuration");
 
         configurationText = new Text(locationsGroup, SWT.BORDER);
+        configurationText.setToolTipText("The name of the file containing the AndroMDA configuration for the project, relative to the project root.");
         final GridData gridData = new GridData(GridData.FILL, GridData.CENTER, true, false);
         gridData.widthHint = 219;
         configurationText.setLayoutData(gridData);
-
-        browseButton = new Button(locationsGroup, SWT.FLAT);
-        browseButton.setText("Browse...");
 
         //
     }
@@ -70,7 +67,6 @@ public class AndroidProjectLayoutComposite
         super.setEnabled(enabled);
         configurationLabel.setEnabled(enabled);
         configurationText.setEnabled(enabled);
-        browseButton.setEnabled(enabled);
     }
 
 }

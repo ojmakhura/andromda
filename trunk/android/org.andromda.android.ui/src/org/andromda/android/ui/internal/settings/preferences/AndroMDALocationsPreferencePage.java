@@ -59,9 +59,7 @@ public class AndroMDALocationsPreferencePage
         String profilesLocation = androidSettings.getAndroMDAProfilesLocation();
         String mavenLocation = androidSettings.getMavenLocation();
 
-        androMDALocationsComposite.getProfilesText().setText(profilesLocation);
         androMDALocationsComposite.getCartridgesText().setText(cartridgesLocation);
-        androMDALocationsComposite.getMavenHomeText().setText(mavenLocation);
     }
 
     /**
@@ -71,8 +69,6 @@ public class AndroMDALocationsPreferencePage
     {
         IAndroidSettings androidSettings = AndroidCore.getAndroidSettings();
         androidSettings.setAndroMDACartridgesLocation(androMDALocationsComposite.getCartridgesText().getText());
-        androidSettings.setAndroMDAProfilesLocation(androMDALocationsComposite.getProfilesText().getText());
-        androidSettings.setMavenLocation(androMDALocationsComposite.getMavenHomeText().getText());
 
         return super.performOk();
     }
