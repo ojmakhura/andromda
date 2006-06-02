@@ -1,6 +1,7 @@
 package org.andromda.translation.ocl.testsuite;
 
 import java.io.File;
+import java.io.FilenameFilter;
 
 import java.net.URL;
 
@@ -75,7 +76,7 @@ public class TranslationTestDiscoverer
     {
         try
         {
-            final String[] files = currentDirectory.list();
+            final String[] files = currentDirectory.list( new TranslationTestNameFilter() );
             if (files == null || files.length == 0)
             {
                 if (logger.isDebugEnabled())
@@ -88,8 +89,10 @@ public class TranslationTestDiscoverer
                 for (int ctr = 0; ctr < files.length; ctr++)
                 {
                     File file = new File(currentDirectory, files[ctr]);
-                    if (StringUtils.trimToEmpty(file.getName()).startsWith(TEST_PREFIX))
+                    if (file.isDirectory())
                     {
+                        this.discoverTests(file);
+                    } else {
                         final URL testUrl = file.toURL();
                         if (logger.isInfoEnabled())
                         {
@@ -102,10 +105,6 @@ public class TranslationTestDiscoverer
                         this.translationTests.put(
                             test.getTranslation(),
                             test);
-                    }
-                    else if (file.isDirectory())
-                    {
-                        this.discoverTests(file);
                     }
                 }
             }
@@ -144,5 +143,13 @@ public class TranslationTestDiscoverer
     {
         this.translationTests.clear();
         instance = null;
+    }
+    
+    class TranslationTestNameFilter implements FilenameFilter {
+
+		public boolean accept(File dir, String name) {
+			return name.startsWith(TEST_PREFIX) || (( new File(dir,name)).isDirectory() && !name.equals(".svn"));
+		}
+    	
     }
 }
