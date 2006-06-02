@@ -48,7 +48,7 @@ public interface IAndroidSettings
      *
      * @param location The location of the configuration files.
      */
-    void setConfigurationsLocation(String location);
+    void setConfigurationLocation(String location);
 
     /**
      * Retrieves the globally configured location of the AndroMDA cartridges.
