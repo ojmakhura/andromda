@@ -20,7 +20,7 @@ public class ${mdb.messageDrivenListenerName}
     }
     
     @javax.annotation.PostConstruct
-    public void postConstruct(javax.ejb.InvocationContext ctx) 
+    public void postConstruct(javax.interceptor.InvocationContext ctx) 
     {
         try
         {
@@ -34,7 +34,7 @@ public class ${mdb.messageDrivenListenerName}
 	}
 	
 	@javax.annotation.PreDestroy
-	public void preDestroy(javax.ejb.InvocationContext ctx) 
+	public void preDestroy(javax.interceptor.InvocationContext ctx) 
 	{
         try
         {

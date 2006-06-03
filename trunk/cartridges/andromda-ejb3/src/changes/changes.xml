@@ -44,6 +44,31 @@
       <action dev="vancek" type="add">
         Added installation howto.
       </action>
+      <action dev="tlu" type="add">
+        Added equals, hashCode and toString methods to entities.
+      </action>
+      <action dev="vancek" type="update">
+        Updates to bring up to date with EJB 3.0 FR.
+        Now require JBoss 4.0.4-GA with EJB 3.0 RC8-PFD update.
+        Update include
+          @javax.annotation.EJB --> @javax.ejb.EJB
+          Interceptor related classes and annotations moved to javax.interceptor package.
+      </action>
+      <action dev="vancek" type="fix">
+        MDB base class must implement javax.jms.MessageListener to avoid the following error message
+        on deployment:
+           java.lang.RuntimeException: unable to determine messagingType interface for MDB
+      </action>
+      <action dev="vancek" type="delete">
+        Removed container configuration option via tagged value on message driven beans since it
+        is no longer supported.
+      </action>
+      <action dev="vancek" type="add">
+        Added minimumPoolSize (@andromda.ejb.mdb.pool.size.min) and maximumPoolSize
+        (@andromda.ejb.mdb.pool.size.min) tagged value options for message 
+        driven beans i.e. to allow singleton message driven beans.  These are added as
+        activation config properties to the ejb-jar.xml.
+      </action>
     </release>
   </body>
 </document>

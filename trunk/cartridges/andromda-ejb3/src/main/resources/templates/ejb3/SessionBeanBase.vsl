@@ -114,7 +114,7 @@ public abstract class ${service.serviceBaseName}
     /**
      * Inject session EJB ${reference.name}
      */
-    @javax.annotation.EJB
+    @javax.ejb.EJB
     protected ${reference.fullyQualifiedServiceRemoteInterfaceName} $stringUtils.uncapitalize(${reference.name});
 #**##end
 #end
@@ -128,7 +128,7 @@ public abstract class ${service.serviceBaseName}
     /**
      * Inject DAO ${daoReference.daoName}
      */
-    @javax.annotation.EJB
+    @javax.ejb.EJB
     private ${daoReference.fullyQualifiedDaoName} $stringUtils.uncapitalize(${daoReference.daoName});
 #**##end
 #end
