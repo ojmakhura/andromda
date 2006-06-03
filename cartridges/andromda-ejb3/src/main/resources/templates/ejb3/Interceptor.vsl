@@ -16,7 +16,7 @@ public class ${interceptor.interceptorName}
      * @return 
      */
     @javax.interceptor.AroundInvoke
-    public Object execute(javax.ejb.InvocationContext ctx)
+    public Object execute(javax.interceptor.InvocationContext ctx)
         throws Exception 
     {
         // Add implementation
