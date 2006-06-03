@@ -42,10 +42,10 @@ $mdb.getDocumentation(" * ")
 #*  *##set ($lifecycleCallback = "")
 #**##end
 // Lifecycle callback listeners and interceptors are defined in ejb-jar.xml
-// javax.ejb.Interceptors({$transform.getInterceptorsAsList(${interceptors}, ${lifecycleCallback})})
+// javax.interceptor.Interceptors({$transform.getInterceptorsAsList(${interceptors}, ${lifecycleCallback})})
 #end
 #if ($service.excludeDefaultInterceptors)
-// @javax.ejb.ExcludeDefaultInterceptors
+// @javax.interceptor.ExcludeDefaultInterceptors
 #end
 
 #if ($mdb.transactionManagement)
@@ -60,6 +60,7 @@ $mdb.getDocumentation(" * ")
 @javax.annotation.security.RunAs("${mdb.runAs}")
 #end
 public abstract class ${mdb.messageDrivenName}
+    implements javax.jms.MessageListener
 {
     // ------ Message Driven Context Injection ------
     
@@ -91,7 +92,7 @@ public abstract class ${mdb.messageDrivenName}
     /**
      * Inject session EJB ${reference.name};
      */
-    @javax.annotation.EJB
+    @javax.ejb.EJB
     protected ${reference.fullyQualifiedServiceRemoteInterfaceName} $stringUtils.uncapitalize(${reference.name});
     
 #**##end

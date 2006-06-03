@@ -47,9 +47,6 @@
 #foreach ($mdb in $mdbs)
         <message-driven>
             <ejb-name>${mdb.messageDrivenName}</ejb-name>
-#**##if ($stringUtils.isNotBlank($mdb.containerConfiguration))
-            <configuration-name>${mdb.containerConfiguration}</configuration-name>
-#**##end
             <destination-jndi-name>${mdb.destination}</destination-jndi-name>
         </message-driven>
         

@@ -460,11 +460,15 @@ public class EJB3Profile
     public static final String TAGGEDVALUE_EJB_SESSION_JNDI_NAME_Local = profile.get("SERVICE_JNDI_NAME_LOCAL");
 
     /**
-     * The tagged value indicating the MDB or session bean
-     * container configuration name specific to JBoss.
+     * The tagged value indicating the bean minimum pool size
      */
-    public static final String TAGGEDVALUE_EJB_CONTAINER_CONFIGURATION = profile.get("CONTAINER_CONFIGURATION");
+    public static final String TAGGEDVALUE_EJB_MDB_MINIMUM_POOL_SIZE = profile.get("MDB_MINIMUM_POOL_SIZE");
 
+    /**
+     * The tagged value indicating the bean maximum pool size
+     */
+    public static final String TAGGEDVALUE_EJB_MDB_MAXIMUM_POOL_SIZE = profile.get("MDB_MAXIMUM_POOL_SIZE");
+    
     /**
      * Defines the association collection type
      */
