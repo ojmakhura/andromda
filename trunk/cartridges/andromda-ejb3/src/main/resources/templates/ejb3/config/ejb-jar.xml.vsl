@@ -79,7 +79,7 @@
             <ejb-class>${mdb.fullyQualifiedMessageDrivenImplementationName}</ejb-class>
             <transaction-type>Container</transaction-type>
             <message-destination-type>${mdb.destinationType}</message-destination-type>
-#**##if ($mdb.transactionManagementBean || $stringUtils.isNotBlank($mdb.messageSelector) || $mdb.destinationTypeTopic)
+#**##if ($mdb.transactionManagementBean || $stringUtils.isNotBlank($mdb.messageSelector) || $mdb.destinationTypeTopic || $mdb.minimumPoolSize > 0 || $mdb.maximumPoolSize > 0)
             <activation-config>
 #*  *##if ($mdb.transactionManagementBean)
                 <activation-config-property>
@@ -99,6 +99,18 @@
                     <activation-config-property-value>${mdb.subscriptionDurability}</activation-config-property-value>
                 </activation-config-property>
 #*  *##end
+#*  *##if ($mdb.minimumPoolSize > 0)
+                <activation-config-property>
+                    <activation-config-property-name>minPoolSize</activation-config-property-name>
+                    <activation-config-property-value>${mdb.minimumPoolSize}</activation-config-property-value>
+                </activation-config-property>
+#*  *##end
+#*  *##if ($mdb.maximumPoolSize > 0)
+                <activation-config-property>
+                    <activation-config-property-name>maxPoolSize</activation-config-property-name>
+                    <activation-config-property-value>${mdb.maximumPoolSize}</activation-config-property-value>
+                </activation-config-property>
+#*  *##end
             </activation-config>
 #**##end
 #**##if ($stringUtils.isNotBlank($mdb.runAs))
@@ -116,6 +128,7 @@
             </env-entry>
 #**##end
         </message-driven>
+        
 #end
     </enterprise-beans>
 

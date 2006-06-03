@@ -18,6 +18,7 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 
 
 /**
@@ -334,13 +335,33 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetContainerConfiguration()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetMinimumPoolSize()
      */
-    protected String handleGetContainerConfiguration()
+    protected int handleGetMinimumPoolSize()
     {
-        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_CONTAINER_CONFIGURATION);
+        int minPoolSize = 0;
+        String minPoolSizeStr = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_MDB_MINIMUM_POOL_SIZE);
+        if (StringUtils.isNotBlank(minPoolSizeStr) && NumberUtils.isDigits(minPoolSizeStr))
+        {
+            minPoolSize = Integer.parseInt(minPoolSizeStr);
+        }
+        return minPoolSize;
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetMaximumPoolSize()
+     */
+    protected int handleGetMaximumPoolSize()
+    {
+        int maxPoolSize = 0;
+        String maxPoolSizeStr = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_MDB_MAXIMUM_POOL_SIZE);
+        if (StringUtils.isNotBlank(maxPoolSizeStr) && NumberUtils.isDigits(maxPoolSizeStr))
+        {
+            maxPoolSize = Integer.parseInt(maxPoolSizeStr);
+        }
+        return maxPoolSize;
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleIsListenerEnabled()
      */

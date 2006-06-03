@@ -1251,14 +1251,25 @@
 				<value>@andromda.ejb.mdb.subscription.durability</value>
 				<appliedOnElement>Message Driven Bean</appliedOnElement>
 			</element>
-			<element name="CONTAINER_CONFIGURATION">
+			<element name="MDB_MINIMUM_POOL_SIZE">
 			    <documentation>
-			        Defines the container configuration name set in
-			        jboss.xml to configure the container for a
-			        session bean or MDB.
+			        Defines the bean's minimum pool size.
+			        Must be an integer and greater than 0, otherwise
+			        will not be set.
 			    </documentation>
-			    <value>@andromda.ejb.container.configuration</value>
-			    <appliedOnElement>Message Driven or Session Bean</appliedOnElement>
+			    <value>@andromda.ejb.mdb.pool.size.min</value>
+			    <appliedOnElement>Message Driven</appliedOnElement>
+			</element>
+			<element name="MDB_MAXIMUM_POOL_SIZE">
+			    <documentation>
+			        Defines the bean's maximum pool size.
+			        Can be used to define singleton message driven
+			        beans.
+			        Must be an integer and greater than 0, otherwise
+			        will not be set.
+			    </documentation>
+			    <value>@andromda.ejb.mdb.pool.size.max</value>
+			    <appliedOnElement>Message Driven</appliedOnElement>
 			</element>
 			<element name="ENTITY_CACHE">
 			    <documentation>
