@@ -163,6 +163,11 @@
             <contentExtension pattern="org.andromda.android.ui.androMDAContent"/>
          </includes>
       </viewerContentBinding>
+      <viewerActionBinding viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <actionExtension pattern="org.andromda.android.ui.androMDAContent"/>
+         </includes>
+      </viewerActionBinding>
    </extension>
 
     <extension
@@ -187,5 +192,12 @@
                 </and>
             </triggerPoints>
         </navigatorContent>
+        <actionProvider
+              class="org.andromda.android.ui.internal.navigator.AndroMDANavigatorActionProvider"
+              id="org.andromda.android.ui.androMDAContent">
+           <enablement>
+              <adapt type="org.eclipse.core.resources.IFile"/>
+           </enablement>
+        </actionProvider>
     </extension>
 </plugin>
