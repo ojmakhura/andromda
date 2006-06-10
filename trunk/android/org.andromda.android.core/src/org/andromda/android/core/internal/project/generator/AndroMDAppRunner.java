@@ -8,6 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.andromda.android.core.AndroidCore;
 import org.andromda.android.core.util.ResourceResolver;
 import org.apache.commons.beanutils.MethodUtils;
 
@@ -59,8 +60,8 @@ public class AndroMDAppRunner
     private URLClassLoader getClassLoader() throws MalformedURLException
     {
         // load class
-        // String libraryRepository = AndroidCore.getAndroidSettings().getMavenLocation();
-        String libraryRepository = "D:/develop/m2repo";
+        String libraryRepository = AndroidCore.getAndroidSettings().getAndroMDACartridgesLocation();
+        
         String androMDAVersion = "3.2-SNAPSHOT";
 
         String andromdappcore = ResourceResolver.findLibrary(libraryRepository, ANDROMDA_ANDROMDAPP_CORE,
