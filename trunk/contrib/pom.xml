@@ -18,8 +18,8 @@
         <url>http://jira.andromda.org/</url>
     </issueManagement>
     <scm>
-      <connection>scm:cvs:pserver:anonymous:@andromda.cvs.sourceforge.net:/cvsroot/andromda:contrib</connection>
-      <developerConnection>scm:cvs:ext:${maven.username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:contrib</developerConnection>
+      <connection>scm:cvs:ext:${cvs_username}@@andromda.cvs.sourceforge.net:/cvsroot/andromda:contrib</connection>
+      <developerConnection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:contrib</developerConnection>
       <url>http://andromda.cvs.sourceforge.net/andromda/contrib</url>
     </scm>
     <organization>
