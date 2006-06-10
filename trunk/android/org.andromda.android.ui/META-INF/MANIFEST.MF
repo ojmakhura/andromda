@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-Name: Android UI Plug-in
 Bundle-SymbolicName: org.andromda.android.ui; singleton=true
-Bundle-Version: 0.0.3
+Bundle-Version: 0.0.4
 Bundle-ClassPath: org.andromda.android.ui.jar,
- lib/commons-lang-2.1.jar,
- lib/commons-collections-3.1.jar
+ lib/commons-collections-3.1.jar,
+ lib/commons-lang-2.1.jar
 Bundle-Activator: org.andromda.android.ui.AndroidUIPlugin
 Bundle-Vendor: AndroMDA.org
 Bundle-Localization: plugin
