@@ -102,6 +102,48 @@ public class ResourceResolver
     }
 
     /**
+     * Tries to find a profile model in the given base directory and all sub directories.
+     * 
+     * @param baseDir The directory to start the search in.
+     * @param name The name of the profile zip.
+     * @param version The version of the profile zip
+     * @param strict If true, only exact version matches are considered, if false, subversions are also acceptable.
+     * @return A filename pointing to the desired profile zip or <code>null</code> if no matching profile zip could be
+     *         found.
+     */
+    public static final String findProfile(final String baseDir,
+        final String profileName,
+        final String version,
+        boolean strict)
+    {
+
+        // create cartridge base name
+        final StringBuffer basenameBuffer = new StringBuffer();
+        basenameBuffer.append("andromda-profile");
+        if (profileName != null)
+        {
+            basenameBuffer.append("-");
+            basenameBuffer.append(profileName);
+        }
+        basenameBuffer.append("-");
+
+        // create search pattern
+        final StringBuffer pattern = new StringBuffer();
+        pattern.append("**//");
+        pattern.append(basenameBuffer);
+        pattern.append(version);
+        if (!strict)
+        {
+            pattern.append("*");
+        }
+        pattern.append(".xml.zip");
+        final String[] includes = { pattern.toString() };
+
+        return findResource(baseDir, basenameBuffer.toString(), includes);
+
+    }
+
+    /**
      * Finds the cartridge root folder for the given file. The search will be performed in the current workspace. This
      * method can be used to find the cartridge root folder for a template file inside a cartridge.
      * 
@@ -210,7 +252,7 @@ public class ResourceResolver
     {
         final File f = new File(file);
         final String n2 = f.getName().replaceFirst(baseName, "");
-        final int ext = n2.lastIndexOf(".jar");
+        final int ext = n2.lastIndexOf(".");
         final String n3 = n2.substring(0, ext);
         return n3;
     }
