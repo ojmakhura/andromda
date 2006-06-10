@@ -14,6 +14,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -203,7 +204,7 @@ public class MavenRunner
         String absolutePath;
         try
         {
-            url = Platform.asLocalURL(url);
+            url = FileLocator.toFileURL(url);
             File file = new File(url.getFile());
             absolutePath = file.getAbsolutePath();
         }
