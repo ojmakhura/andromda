@@ -25,9 +25,16 @@ public class AndroMDANavigatorContentProvider
         if (parentElement instanceof IAdaptable)
         {
             IProject project = (IProject)((IAdaptable)parentElement).getAdapter(IProject.class);
-            IFile projectConfiguration = AndroidModelManager.getInstance().getAndroidModel().getProjectConfiguration(
-                    project);
-            return new Object[] { projectConfiguration };
+            if (project != null)
+            {
+                IFile projectConfiguration = AndroidModelManager.getInstance().getAndroidModel()
+                        .getProjectConfiguration(project);
+                return new Object[] { projectConfiguration };
+            }
+            else
+            {
+                return null;
+            }
         }
         else
         {

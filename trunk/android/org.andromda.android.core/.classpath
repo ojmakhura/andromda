@@ -3,21 +3,18 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
 	<classpathentry kind="src" path="test-resources"/>
-	<classpathentry exported="true" kind="lib" path="lib/andromdapp/andromda-andromdapp.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/xbean.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jsr173_api.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/commons-beanutils-1.7.0.jar"/>
+	<classpathentry exported="true" sourcepath="D:/develop/libraries/apache/commons/beanutils/commons-beanutils-1.7.0-src/src/java" kind="lib" path="lib/commons-beanutils-1.7.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-collections-3.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-lang-2.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/configuration/andromda-configuration.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/namespace/andromda-namespace.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/cartridge/andromda-cartridge.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/metafacade/andromda-metafacades.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/xercesImpl-2.6.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/xalan-2.7.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/xml-apis-1.0.b2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-logging-1.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/log4j-1.2.12.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/andromdapp/andromda-andromdapp.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/metafacade/andromda-metafacades.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/configuration/andromda-configuration.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/cartridge/andromda-cartridge.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/namespace/andromda-namespace.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="output" path="bin"/>
