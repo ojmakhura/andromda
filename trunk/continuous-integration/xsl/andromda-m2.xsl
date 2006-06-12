@@ -185,6 +185,41 @@
 
     </xsl:template>
 
+    <xsl:template match="modification">
+
+        <tr>
+            <xsl:if test="position() mod 2=0">
+                <xsl:attribute name="class">modifications-oddrow</xsl:attribute>
+            </xsl:if>
+
+            <xsl:if test="position() mod 2!=0">
+                <xsl:attribute name="class">modifications-evenrow</xsl:attribute>
+            </xsl:if>
+
+            <td class="modifications-data">
+                <xsl:value-of select="@type"/>
+            </td>
+
+            <td class="modifications-data">
+                <xsl:value-of select="user"/>
+            </td>
+
+            <td class="modifications-data">
+                <xsl:if test="file/project">
+                    <xsl:value-of select="file/project"/>
+                    <xsl:value-of select="'/'"/>
+                    <!--xsl:value-of select="system-property('file.separator')"/-->
+                </xsl:if>
+                <xsl:value-of select="file/filename"/>
+            </td>
+
+            <td class="modifications-data">
+                <xsl:value-of select="comment"/>
+            </td>
+
+        </tr>
+
+    </xsl:template>
 
 
     <xsl:template name="break">
@@ -311,40 +346,4 @@
 
     </xsl:template>
  
-    <xsl:template match="modification">
-
-        <tr>
-            <xsl:if test="position() mod 2=0">
-                <xsl:attribute name="class">modifications-oddrow</xsl:attribute>
-            </xsl:if>
-
-            <xsl:if test="position() mod 2!=0">
-                <xsl:attribute name="class">modifications-evenrow</xsl:attribute>
-            </xsl:if>
-
-            <td class="modifications-data">
-                <xsl:value-of select="@type"/>
-            </td>
-
-            <td class="modifications-data">
-                <xsl:value-of select="user"/>
-            </td>
-
-            <td class="modifications-data">
-                <xsl:if test="project">
-                    <xsl:value-of select="project"/>
-                    <xsl:value-of select="'/'"/>
-                    <!--xsl:value-of select="system-property('file.separator')"/-->
-                </xsl:if>
-                <xsl:value-of select="filename"/>
-            </td>
-
-            <td class="modifications-data">
-                <xsl:value-of select="comment"/>
-            </td>
-
-        </tr>
-
-    </xsl:template>
-
 </xsl:stylesheet>
