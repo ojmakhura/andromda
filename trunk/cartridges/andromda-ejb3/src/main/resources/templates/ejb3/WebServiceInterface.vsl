@@ -26,7 +26,7 @@ public interface ${service.webServiceInterfaceName}
 ## Operation must be exposed as a web-service operation (<<WebService>> on class or <<WebServiceOperation>> on operation)
 ## All operations throw java.rmi.RemoteException
 ##
-#*  *##if (!$operation.lifecycleCallback && ($operation.visibility == "public") && ($operation.viewTypeRemote || $operation.viewTypeBoth) && ($operation.exposed))
+#*  *##if ($operation.viewTypeAbsoluteRemote && $operation.exposed)
     @javax.jws.WebMethod(operationName = "$operation.methodName")
 #*    *##if ($stringUtils.isNotBlank($operation.resultName))
     @javax.jws.WebResult(name = "${operation.resultName}")
