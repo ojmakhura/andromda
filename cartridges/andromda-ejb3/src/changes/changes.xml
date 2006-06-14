@@ -44,7 +44,7 @@
       <action dev="vancek" type="add">
         Added installation howto.
       </action>
-      <action dev="tlu" type="add">
+      <action dev="vancek" due-to="tlu" type="add">
         Added equals, hashCode and toString methods to entities.
       </action>
       <action dev="vancek" type="update">
@@ -69,7 +69,7 @@
         driven beans i.e. to allow singleton message driven beans.  These are added as
         activation config properties to the ejb-jar.xml.  Added documentation.
       </action>
-      <action dev="vance" type="update">
+      <action dev="vancek" type="update">
         Updated the EJB3MetafacadeModel.xml to use the maven2.repository environment variable rather than
         hard coded paths for profiles.
       </action>
@@ -86,13 +86,16 @@
         Introduce JBoss Seam components corresponding with Seam 1.0.0-CR3.
         Always generate a local interface for a session bean if it is a Seam component.
       </action>
-      <action dev="vancek" type="fix">
+      <action dev="vancek" due-to="tlu" type="fix">
         If a session bean operation is modelled for the local view type interface, a local interface is NOT
         generated.  When returning a view type from the EJB3SessionFacade, must lookup all business operations to 
         determine their view type individually and return a view type for the session bean to accomodate local,
-        remote and both.
+        remote and both. JIRA EJB-27
         Refactor service delegate templates and introduce a parent base class which all service delegates extend.
         Fix problem with exposing only remote operations as webservice endpoints.
+      </action>
+      <action dev="vancek" due-to="tlu" type="add">
+        Added support for adding ejb-jar elements to the persistence.xml. JIRA EJB-28.
       </action>
     </release>
   </body>
