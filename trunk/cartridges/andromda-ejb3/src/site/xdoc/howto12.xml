@@ -45,7 +45,7 @@
                 </p>
                 <p>
                     The EJB3 cartridges cuts down the service delegates which references the service locator
-                    and provides the ability to invoke all methods available on the remote interface of
+                    and provides the ability to invoke all available methods on the appropriate view interface of
                     the session bean.
                 </p>
                 <p>
@@ -106,7 +106,7 @@
                 <p>
                     In circumstance where you have manageable entities, a <code>ManageableServiceLocator</code>
                     class will also be generated with similar logic as the <code>ServiceLocator</code>
-                    class, except it provides the facility to get the manageable service beans remote interfaces.
+                    class, except it used the remote interface of the manageable service bean.
                 </p>
             </subsection>
             <a name="Further_Reading"/>

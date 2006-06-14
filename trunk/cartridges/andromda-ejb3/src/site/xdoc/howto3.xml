@@ -93,6 +93,12 @@
                     If you wish, you can override this feature by modelling the <code>@andromda.service.type</code>
                     tagged value on the session bean class.
                 </p>
+                <p class="highlight">
+                    Stateless session beans that are JBoss Seam components do not follow the above rule.  If your
+                    class is modelled as a Seam component and you have modelled attributes on this class, it will not
+                    be rendered as a stateful session bean, unless you specify the <code>@andromda.service.type</code>
+                    tagged value.
+                </p>
             </subsection>
             <a name="View_Interface"/>
             <subsection name="View Interfaces">
@@ -110,6 +116,10 @@
                         <li><p>local - Assigns to class/operation to the local view interface</p></li>
                         <li><p>both - This class/operations are available via the local and remote interfaces</p></li>
                     </ul>
+                </p>
+                <p>
+                    If you have operations that exist in both the local and remote interfaces, your service
+                    delegate class will allow you to select how you want to invoke your bean operations. 
                 </p>
             </subsection>
             <a name="Transactions"/>
@@ -154,8 +164,11 @@
                 <p>
                     As you saw in the example in this howto, a session bean delegate class is generated for
                     every session bean.  A client invokes the session bean's business methods via the delegate
-                    class, acting like a proxy via the service locator class.  Both the service delegate and
-                    service locator classes are regenerated every time AndroMDA is run.  You can find out
+                    class, acting like a proxy via the service locator class.
+                </p>
+                <p>
+                    Both the service delegate and
+                    service locator classes are re-generated every time AndroMDA is run.  You can find out
                     more information about session delegates from <a href="howto12.html">here</a>.
                 </p>
             </subsection>
