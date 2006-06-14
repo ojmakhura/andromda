@@ -12,11 +12,14 @@ $enum.getDocumentation(" * ")
  */
 public enum ${enum.name} implements java.io.Serializable
 {
-#foreach ($literal in $enum.literals) 
+#foreach ($literal in $enum.literals)
+    /**
+$literal.getDocumentation("     * ") 
+     */
     ${literal.name}#if ($velocityCount != $enum.literals.size()),#else#**#;#end
 
-#end
 
+#end
     /**
      * Return the ${enum.name} from a string value
      * @return ${enum.name} enum object
