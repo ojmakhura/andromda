@@ -227,7 +227,14 @@ public class EJB3SessionFacadeLogicImpl
         String sessionType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_SESSION_TYPE);
         if (StringUtils.isBlank(sessionType))
         {
-    	   isStateless = this.getAllInstanceAttributes() == null || this.getAllInstanceAttributes().isEmpty();
+            if (this.isSeamComponent())
+            {
+                isStateless = true;
+            }
+            else
+            {
+                isStateless = this.getAllInstanceAttributes() == null || this.getAllInstanceAttributes().isEmpty();
+            }
         }
         else
         {
@@ -258,8 +265,69 @@ public class EJB3SessionFacadeLogicImpl
      */
     protected java.lang.String handleGetViewType()
     {
-    	return EJB3MetafacadeUtils.getViewType(this, 
+    	String viewType = EJB3MetafacadeUtils.getViewType(this, 
                 String.valueOf(this.getConfiguredProperty(SERVICE_DEFAULT_VIEW_TYPE)));
+
+        /**
+         * Check all session bean operations.
+         * If session view type is remote, check for operations with view type local and return both.
+         * If session view type is local, check for operations with view type remote and return both.
+         * Otherwise session view type is both, return both.
+         * 
+         * NOTE: do not invoke viewType on EJB3SessionOperationFacade to avoid cyclic dependency and throwing
+         * StackOverFlowError.
+         */
+        if (viewType.equalsIgnoreCase(EJB3Globals.VIEW_TYPE_LOCAL))
+        {
+            boolean operationWithRemoteViewExists =
+                CollectionUtils.exists(
+                    this.getBusinessOperations(),
+                    new Predicate()
+                    {
+                        public boolean evaluate(Object object)
+                        {
+                            EJB3SessionOperationFacade operation = (EJB3SessionOperationFacade)object;
+                            String operationViewType = 
+                                String.valueOf(operation.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE));
+                            if (operationViewType.equalsIgnoreCase(EJB3Globals.VIEW_TYPE_REMOTE) || 
+                                    operationViewType.equalsIgnoreCase(EJB3Globals.VIEW_TYPE_BOTH))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    });
+            viewType = (operationWithRemoteViewExists ? EJB3Globals.VIEW_TYPE_BOTH : viewType);
+        }
+        else if (viewType.equalsIgnoreCase(EJB3Globals.VIEW_TYPE_REMOTE))
+        {
+            boolean operationWithLocalViewExists =
+                CollectionUtils.exists(
+                    this.getBusinessOperations(),
+                    new Predicate()
+                    {
+                        public boolean evaluate(Object object)
+                        {
+                            EJB3SessionOperationFacade operation = (EJB3SessionOperationFacade)object;
+                            String operationViewType = 
+                                String.valueOf(operation.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE));
+                            if (operationViewType.equalsIgnoreCase(EJB3Globals.VIEW_TYPE_LOCAL) || 
+                                    operationViewType.equalsIgnoreCase(EJB3Globals.VIEW_TYPE_BOTH))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+                    });
+            viewType = (operationWithLocalViewExists ? EJB3Globals.VIEW_TYPE_BOTH : viewType);
+        }
+        return viewType;
     }
 
     /**
@@ -268,8 +336,8 @@ public class EJB3SessionFacadeLogicImpl
     protected boolean handleIsViewTypeLocal()
     {
         boolean isLocal = false;
-        if (this.getViewType().equalsIgnoreCase(EJB3Globals.VIEW_TYPE_LOCAL) ||
-                this.getViewType().equalsIgnoreCase(EJB3Globals.VIEW_TYPE_BOTH))
+        if (this.getViewType().equalsIgnoreCase(EJB3Globals.VIEW_TYPE_LOCAL) || this.isViewTypeBoth() ||
+                this.isSeamComponent())
         {
             isLocal = true;
         }
@@ -282,12 +350,72 @@ public class EJB3SessionFacadeLogicImpl
     protected boolean handleIsViewTypeRemote()
     {
         boolean isRemote = false;
-        if (this.getViewType().equalsIgnoreCase(EJB3Globals.VIEW_TYPE_REMOTE) || 
-                this.getViewType().equalsIgnoreCase(EJB3Globals.VIEW_TYPE_BOTH))
+        if (this.getViewType().equalsIgnoreCase(EJB3Globals.VIEW_TYPE_REMOTE) || this.isViewTypeBoth())
         {
             isRemote = true;
         }
         return isRemote;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsViewTypeBoth()
+     */
+    protected boolean handleIsViewTypeBoth()
+    {
+        boolean isBoth = false;
+        if (this.getViewType().equalsIgnoreCase(EJB3Globals.VIEW_TYPE_BOTH))
+        {
+            isBoth = true;
+        }
+        return isBoth;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsViewTypeStrictlyLocal()
+     */
+    protected boolean handleIsViewTypeStrictlyLocal()
+    {
+        
+        boolean isViewTypeStrictlyLocal = false;
+        String viewType = EJB3MetafacadeUtils.getViewType(this, 
+                String.valueOf(this.getConfiguredProperty(SERVICE_DEFAULT_VIEW_TYPE)));
+        if (StringUtils.equalsIgnoreCase(viewType, EJB3Globals.VIEW_TYPE_LOCAL) ||
+                        StringUtils.equalsIgnoreCase(viewType, EJB3Globals.VIEW_TYPE_BOTH))
+        {
+            isViewTypeStrictlyLocal = true;
+        }
+        return isViewTypeStrictlyLocal;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsViewTypeStrictlyRemote()
+     */
+    protected boolean handleIsViewTypeStrictlyRemote()
+    {
+        boolean isViewTypeStrictlyRemote = false;
+        String viewType = EJB3MetafacadeUtils.getViewType(this, 
+                String.valueOf(this.getConfiguredProperty(SERVICE_DEFAULT_VIEW_TYPE)));
+        if (StringUtils.equalsIgnoreCase(viewType, EJB3Globals.VIEW_TYPE_REMOTE) ||
+                        StringUtils.equalsIgnoreCase(viewType, EJB3Globals.VIEW_TYPE_BOTH))
+        {
+            isViewTypeStrictlyRemote = true;
+        }
+        return isViewTypeStrictlyRemote;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsViewTypeStrictlyBoth()
+     */
+    protected boolean handleIsViewTypeStrictlyBoth()
+    {
+        boolean isViewTypeStrictlyBoth = false;
+        String viewType = EJB3MetafacadeUtils.getViewType(this, 
+                String.valueOf(this.getConfiguredProperty(SERVICE_DEFAULT_VIEW_TYPE)));
+        if (StringUtils.equalsIgnoreCase(viewType, EJB3Globals.VIEW_TYPE_BOTH))
+        {
+            isViewTypeStrictlyBoth = true;
+        }
+        return isViewTypeStrictlyBoth;
     }
     
     /**
@@ -1003,5 +1131,29 @@ public class EJB3SessionFacadeLogicImpl
                     return isWebService;
                 }
             }) != null;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleIsSeamComponent()
+     */
+    protected boolean handleIsSeamComponent()
+    {
+        return EJB3MetafacadeUtils.isSeamComponent(this);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetSeamComponentScopeType()
+     */
+    protected String handleGetSeamComponentScopeType()
+    {
+        return EJB3MetafacadeUtils.getSeamComponentScopeType(this, this.isStateless());
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetSeamComponentName()
+     */
+    protected String handleGetSeamComponentName()
+    {
+        return EJB3MetafacadeUtils.getSeamComponentName(this);
     }
 }

@@ -96,6 +96,103 @@ public class EJB3SessionOperationFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsViewTypeStrictlyLocal()
+     */
+    protected boolean handleIsViewTypeStrictlyLocal()
+    {
+        boolean isViewTypeStrictlyLocal = false;
+        String viewType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE);
+        if (StringUtils.equalsIgnoreCase(viewType, EJB3Globals.VIEW_TYPE_LOCAL) || this.isViewTypeStrictlyBoth())
+        {
+            isViewTypeStrictlyLocal = true;
+        }
+        return isViewTypeStrictlyLocal;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsViewTypeStrictlyRemote()
+     */
+    protected boolean handleIsViewTypeStrictlyRemote()
+    {
+        boolean isViewTypeStrictlyRemote = false;
+        String viewType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE);
+        if (StringUtils.equalsIgnoreCase(viewType, EJB3Globals.VIEW_TYPE_REMOTE) || this.isViewTypeStrictlyBoth())
+        {
+            isViewTypeStrictlyRemote = true;
+        }
+        return isViewTypeStrictlyRemote;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsViewTypeStrictlyBoth()
+     */
+    protected boolean handleIsViewTypeStrictlyBoth()
+    {
+        boolean isViewTypeStrictlyBoth = false;
+        String viewType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE);
+        if (StringUtils.equalsIgnoreCase(viewType, EJB3Globals.VIEW_TYPE_BOTH))
+        {
+            isViewTypeStrictlyBoth = true;
+        }
+        return isViewTypeStrictlyBoth;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsViewTypeAbsoluteLocal()
+     */
+    protected boolean handleIsViewTypeAbsoluteLocal()
+    {
+        boolean isViewTypeAsbolutelyLocal = false;
+        EJB3SessionFacade session = (EJB3SessionFacade)this.getOwner();
+        if (!this.isLifecycleCallback() && 
+            StringUtils.equalsIgnoreCase(this.getVisibility(), "public") && 
+            ((session.isViewTypeBoth() && 
+                ((session.isViewTypeStrictlyRemote() && this.isViewTypeStrictlyLocal()) || 
+                ((session.isViewTypeStrictlyLocal() || session.isViewTypeStrictlyBoth()) && 
+                        !this.isViewTypeStrictlyRemote()))) || 
+            (session.isViewTypeStrictlyLocal() && !this.isViewTypeStrictlyRemote()) ||
+            this.isViewTypeStrictlyBoth()))
+        {
+            isViewTypeAsbolutelyLocal = true;
+        }
+        return isViewTypeAsbolutelyLocal;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsViewTypeAbsoluteRemote()
+     */
+    protected boolean handleIsViewTypeAbsoluteRemote()
+    {
+        boolean isViewTypeAsbolutelyRemote = false;
+        EJB3SessionFacade session = (EJB3SessionFacade)this.getOwner();
+        if (!this.isLifecycleCallback() && 
+            StringUtils.equalsIgnoreCase(this.getVisibility(), "public") && 
+            ((session.isViewTypeBoth() && 
+                ((session.isViewTypeStrictlyLocal() && this.isViewTypeStrictlyRemote()) || 
+                ((session.isViewTypeStrictlyRemote() || session.isViewTypeStrictlyBoth()) && 
+                        !this.isViewTypeStrictlyLocal()))) || 
+            (session.isViewTypeStrictlyRemote() && !this.isViewTypeStrictlyLocal()) ||
+            this.isViewTypeStrictlyBoth()))
+        {
+            isViewTypeAsbolutelyRemote = true;
+        }
+        return isViewTypeAsbolutelyRemote;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsViewTypeAbsoluteBoth()
+     */
+    protected boolean handleIsViewTypeAbsoluteBoth()
+    {
+        boolean isViewTypeAbsolutelyBoth = false;
+        if (this.isViewTypeAbsoluteLocal() && this.isViewTypeAbsoluteRemote())
+        {
+            isViewTypeAbsolutelyBoth = true;
+        }
+        return isViewTypeAbsolutelyBoth;
+    }
+    
+    /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleGetTransactionType()
      */
     protected String handleGetTransactionType()
@@ -428,5 +525,42 @@ public class EJB3SessionOperationFacadeLogicImpl
     protected boolean handleIsLifecycleCallback()
     {
         return this.isPostConstruct() || this.isPreDestroy() || this.isPostActivate() || this.isPrePassivate();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleIsSeamValidationValidator()
+     */
+    protected boolean handleIsSeamValidationValidator()
+    {
+        boolean isSeamValidorMethod = false;
+        if (this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_VALIDATION_VALIDATOR))
+        {
+            isSeamValidorMethod = true;
+        }
+        return isSeamValidorMethod;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleGetSeamValidationOutcome()
+     */
+    protected String handleGetSeamValidationOutcome()
+    {
+        String validationOutcome = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_VALIDATION_OUTCOME);
+        if (StringUtils.isNotBlank(validationOutcome) &&
+                !StringUtils.equals(validationOutcome, "org.jboss.seam.annotations.Outcome.REDISPLAY"))
+        {
+            validationOutcome = "\"" + validationOutcome + "\"";
+        }
+        return validationOutcome;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#
+     *      handleIsSeamValidationRefreshEntities()
+     */
+    protected boolean handleIsSeamValidationRefreshEntities()
+    {
+        return BooleanUtils.toBoolean(
+                (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_VALIDATION_REFRESH_ENTITIES));
     }
 }
