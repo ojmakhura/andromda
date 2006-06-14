@@ -90,8 +90,7 @@ class EJB3MetafacadeUtils
      * view type can be retrieved from the <code>classifier</code>, then the 
      * <code>defaultViewType</code> is returned.
      * 
-     * If the model element has the entity stereotype, returns 'local'.
-     * Otherwise (session ejb) checks the ejb tagged value and if there is 
+     * If session ejb pojo then checks the ejb tagged value and if there is 
      * no value defined, returns 'remote'.
      *
      * @param classifier The classifier to lookup the view type tagged value
@@ -105,35 +104,34 @@ class EJB3MetafacadeUtils
         final String methodName = "EJBMetafacadeUtils.getViewType";
         ExceptionUtils.checkNull(methodName, "classifer", classifier);
         String viewType = (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE);
-        if (classifier.hasStereotype(EJB3Profile.STEREOTYPE_ENTITY))
+        if (StringUtils.isEmpty(viewType))
         {
-            if (StringUtils.isEmpty(viewType))
+            if (classifier.hasStereotype(EJB3Profile.STEREOTYPE_SERVICE))
             {
-                viewType = (StringUtils.isNotBlank(defaultViewType) ? defaultViewType : EJB3Globals.VIEW_TYPE_LOCAL);
-            }
-        }
-        else if (classifier.hasStereotype(EJB3Profile.STEREOTYPE_SERVICE))
-        {
-            // if the view type wasn't found, search all super classes
-            if (StringUtils.isEmpty(viewType))
-            {
-                viewType = (String)CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
+                // if the view type wasn't found, search all super classes
+                if (StringUtils.isEmpty(viewType))
                 {
-                    public boolean evaluate(Object object)
-                    {
-                        return ((ModelElementFacade)object).findTaggedValue(
-                                EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE) != null;
-                    }
-                });
-            }
-            if (StringUtils.isEmpty(viewType))
-            {
-                viewType = (StringUtils.isNotBlank(defaultViewType) ? defaultViewType : EJB3Globals.VIEW_TYPE_REMOTE);
+                    viewType = (String)CollectionUtils.find(
+                            classifier.getAllGeneralizations(), 
+                            new Predicate()
+                            {
+                                public boolean evaluate(Object object)
+                                {
+                                    return ((ModelElementFacade)object).findTaggedValue(
+                                            EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE) != null;
+                                }
+                            });
+                }
+                if (StringUtils.isEmpty(viewType))
+                {
+                    viewType = (StringUtils.isNotBlank(defaultViewType) ? 
+                            defaultViewType : EJB3Globals.VIEW_TYPE_REMOTE);
+                }
             }
         }
         return viewType.toLowerCase();
     }
-
+    
     /**
      * Gets all the inherited instance attributes, excluding the instance attributes directory from this
      * <code>classifier</code>.
@@ -355,5 +353,57 @@ class EJB3MetafacadeUtils
         fullyQualifiedName.append(StringUtils.trimToEmpty(name));
         fullyQualifiedName.append(StringUtils.trimToEmpty(suffix));
         return fullyQualifiedName.toString();
+    }
+    
+    /**
+     * Returns true if the Seam stereotype is modelled on the class.
+     * 
+     * @param classifier The classifier to lookup if the stereotype is modelled
+     * @return True is stereotype exists, false otherwise
+     */
+    static boolean isSeamComponent(ClassifierFacade classifier)
+    {
+        boolean isSeamComponent = false;
+        if (classifier.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_COMPONENT))
+        {
+            isSeamComponent = true;
+        }
+        return isSeamComponent;
+    }
+    
+    /**
+     * Gets the Seam component scope type for Entity and Session beans.
+     * If no scope has been specified:
+     *     If the Classifier is a stateless session bean, then returns STATELESS
+     *     If the Classifier is an entity or stateful session bean, then returns CONVERSATION
+     * 
+     * @param classifier The classifier to lookup the scope type tagged value
+     * @paam stateful Whether the classifier is a stateful session bean
+     * @return The scope type as a String
+     */
+    static String getSeamComponentScopeType(ClassifierFacade classifier, boolean stateless)
+    {
+        final String methodName = "EJBMetafacadeUtils.getSeamComponentScopeType";
+        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        return (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_SCOPE_TYPE);
+    }
+    
+    /**
+     * Returns the Seam component name.  Can override using tagged value, otherwise just the
+     * class name.
+     * 
+     * @param classifier The classifier to get the tagged value or the name from.
+     * @return The Seam component name
+     */
+    static String getSeamComponentName(ClassifierFacade classifier)
+    {
+        final String methodName = "EJBMetafacadeUtils.getSeamComponentName";
+        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        String componentName = (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_COMPONENT_NAME);
+        if (StringUtils.isBlank(componentName))
+        {
+            componentName = StringUtils.uncapitalize(classifier.getName());
+        }
+        return componentName;
     }
 }
