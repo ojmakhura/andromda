@@ -178,6 +178,43 @@ public class EJB3Profile
      */
     public static final String STEREOTYPE_POST_LOAD = profile.get("POST_LOAD");
     
+    /**
+     * Specifies the bean is a Seam component
+     */
+    public static final String STEREOTYPE_SEAM_COMPONENT = profile.get("SEAM_COMPONENT");
+    
+    /**
+     * Specifies the bean attribute is a component attribute to be injected from a context variable
+     */
+    public static final String STEREOTYPE_SEAM_COMPONENT_IN = profile.get("SEAM_COMPONENT_IN");
+
+    /**
+     * Specifies the bean attribute is a component attribute to be outjected from a context variable
+     */
+    public static final String STEREOTYPE_SEAM_COMPONENT_OUT = profile.get("SEAM_COMPONENT_OUT");
+
+    /**
+     * Specifies the bean operation is a Seam Create lifecycle operation
+     */
+    public static final String STEREOTYPE_SEAM_LIFECYCLE_CREATE = profile.get("SEAM_LIFECYCLE_CREATE");
+
+    /**
+     * Specifies the bean operation is a Seam Destroy lifecycle operation
+     */
+    public static final String STEREOTYPE_SEAM_LIFECYCLE_DESTROY = profile.get("SEAM_LIFECYCLE_DESTROY");
+
+    /**
+     * Specifies the bean component attribute must be validated before the action listener
+     * Seam component method is invoked
+     */
+    public static final String STEREOTYPE_SEAM_VALIDATION_VALID = profile.get("SEAM_VALIDATION_VALID");
+
+    /**
+     * Specifies the bean component operation requires validation of the components before
+     * being invoked
+     */
+    public static final String STEREOTYPE_SEAM_VALIDATION_VALIDATOR = profile.get("SEAM_VALIDATION_VALIDATOR");
+    
     /* ----------------- Tagged Values -------------------- */
     
     /**
@@ -526,4 +563,26 @@ public class EJB3Profile
      */
     public static final String TAGGEDVALUE_WEBSERVICE_OPERATION_RESULT_NAME = 
         profile.get("WEBSERVICE_OPERATION_RESULT_NAME");
+
+    /**
+     * Defines the JBoss Seam component scope type
+     */
+    public static final String TAGGEDVALUE_SEAM_SCOPE_TYPE = profile.get("SEAM_COMPONENT_SCOPE_TYPE");
+
+    /**
+     * Defines the Seam component name
+     */
+    public static final String TAGGEDVALUE_SEAM_COMPONENT_NAME = profile.get("SEAM_COMPONENT_NAME");
+
+    /**
+     * Defines the JSF outcome when validation fails
+     */
+    public static final String TAGGEDVALUE_SEAM_VALIDATION_OUTCOME = profile.get("SEAM_VALIDATION_OUTCOME");
+
+    /**
+     * Defines whether invalid entities in the managed state should be refreshed from the
+     * database when validation fails.
+     */
+    public static final String TAGGEDVALUE_SEAM_VALIDATION_REFRESH_ENTITIES = 
+        profile.get("SEAM_VALIDATION_REFRESH_ENTITIES");
 }

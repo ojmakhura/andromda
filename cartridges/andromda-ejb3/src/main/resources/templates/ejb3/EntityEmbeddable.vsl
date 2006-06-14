@@ -41,6 +41,12 @@ $entity.getDocumentation(" * ")
 @javax.persistence.MappedSuperclass
 #else
 @javax.persistence.Entity
+#**##if ($entity.seamComponent)
+@org.jboss.seam.annotations.Name("${entity.seamComponentName}")
+#*  *##if ($stringUtils.isNotBlank($entity.seamComponentScopeType))
+@org.jboss.seam.annotations.Scope(org.jboss.seam.ScopeType.${entity.seamComponentScopeType})
+#*  *##end
+#**##end
 ##
 ## Include the Table annotation for a base class in single table inheritence hierarchy
 ## but not in the subclasses.  Include in all classes for joined and table per class
@@ -425,6 +431,17 @@ $attribute.getDocumentation("     * ")
 #*      *##end
 #*      *##if ($stringUtils.isNotBlank($attribute.enumerationType))
     @javax.persistence.Enumerated(javax.persistence.EnumType.${attribute.enumerationType})
+#*      *##end
+#*      *##if ($entity.seamComponent)
+##
+## If JBoss Seam is enabled, add NotNull and Length annotations
+##
+#*        *##if (!$attribute.columnNullable)
+    @org.hibernate.validator.NotNull
+#*        *##end
+#*        *##if ($attribute.columnLength)
+    @org.hibernate.validator.Length(max = $attribute.columnLength)
+#*        *##end
 #*      *##end
 #*    *##end
 ##

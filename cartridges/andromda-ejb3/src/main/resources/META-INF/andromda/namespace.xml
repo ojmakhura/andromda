@@ -1064,6 +1064,13 @@
                     locator class.
                 </documentation>
             </property>
+            <property name="seamEnabled">
+                <default>false</default>
+                <documentation>
+                    Set to true to enable the JBoss Seam application
+                    framework for Java EE 5.
+                </documentation>
+            </property>
 		</propertyGroup>
 	</properties>
 </namespace>

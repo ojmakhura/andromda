@@ -221,6 +221,12 @@
         </interceptor-binding>
 #**##end
 #end
+#if (${seamEnabled} == 'true')
+        <interceptor-binding>
+            <ejb-name>*</ejb-name>
+            <interceptor-class>org.jboss.seam.ejb.SeamInterceptor</interceptor-class>
+        </interceptor-binding>
+#end
     </assembly-descriptor>
 
 </ejb-jar>

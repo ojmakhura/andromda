@@ -430,6 +430,71 @@
                 <value>WebServiceOperation</value>
                 <appliedOnElement>Service operation</appliedOnElement>
             </element>
+            <element name="SEAM_COMPONENT">
+                <documentation>
+                    Indicates this bean is a Seam component object.  This
+                    must be set before anything else is modelled on the class.
+                </documentation>
+                <value>Seam</value>
+                <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_COMPONENT_IN">
+                <documentation>
+                    Indicates a Seam component attribute which is to be injected
+                    from a context variable at the begining of each component method
+                    invocation.
+                </documentation>
+                <value>In</value>
+                <appliedOnElement>Session and Java Bean Attribute</appliedOnElement>
+            </element>
+            <element name="SEAM_COMPONENT_OUT">
+                <documentation>
+                    Indicates a Seam component attribute which is to be outjected
+                    to a context variable at the end of each component method
+                    invocation.
+                </documentation>
+                <value>Out</value>
+                <appliedOnElement>Session and Java Bean Attribute</appliedOnElement>
+            </element>
+            <element name="SEAM_LIFECYCLE_CREATE">
+                <documentation>
+                    Indicates that the method is a Seam component lifecycle operation
+                    and should be called when an instance of the component is instantiated by
+                    Seam.
+                </documentation>
+                <value>Create</value>
+                <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
+            </element>
+            <element name="SEAM_LIFECYCLE_DESTROY">
+                <documentation>
+                    Indicates that the method is a Seam component lifecycle operation
+                    and should be called when the context ends and its context variables
+                    are destroyed.
+                    All SFSB components must define a Destroy method to guarantee
+                    destruction of the SFSB when the context ends.
+                </documentation>
+                <value>Destroy</value>
+                <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
+            </element>
+            <element name="SEAM_VALIDATION_VALID">
+                <documentation>
+                    Specifies that the Hibernate Validator should validate this and related 
+                    component attributes before an action listener Seam component method is
+                    invoked.
+                </documentation>
+                <value>Valid</value>
+                <appliedOnElement>Session and Java Bean Attribute</appliedOnElement>
+            </element>
+            <element name="SEAM_VALIDATION_VALIDATOR">
+                <documentation>
+                    Specifies that the validator should validate all Seam components marked
+                    with @Valid annotation before the method is invoked.  Use of
+                    tagged values for outcome when validation fails and for refreshing
+                    entities when validation fails is provided.
+                </documentation>
+                <value>Validator</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
 		</elementGroup>
 		<elementGroup name="Tagged Values">
 			<element name="ATTRIBUTE_PERSISTENCE_OPTIONAL">
@@ -1356,6 +1421,48 @@
 			    </documentation>
 			    <value>@andromda.webservice.operation.result.name</value>
 			    <appliedOnElement>Service and WebService</appliedOnElement>
+			</element>
+			<element name="SEAM_COMPONENT_SCOPE_TYPE">
+			    <documentation>
+			        The JBoss Seam component scope type.
+			        The default for stateless session beans is STATELESS.
+			        The default for entity beans and stateful session beans
+			        is CONVERSATION.
+			    </documentation>
+			    <value>@andromda.seam.component.scope</value>
+			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+			    <allowedValues>
+			        <value>EVENT</value>
+			        <value>PAGE</value>
+			        <value>CONVERSATION</value>
+			        <value>SESSION</value>
+			        <value>BUSINESS_PROCESS</value>
+			        <value>APPLICATION</value>
+			        <value>STATELESS</value>
+			    </allowedValues>
+			</element>
+			<element name="SEAM_COMPONENT_NAME">
+			    <documentation>
+			        Override the default Seam component object name.
+			    </documentation>
+			    <value>@andromda.seam.component.name</value>
+			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_VALIDATION_OUTCOME">
+			    <documentation>
+			        Returns the JSF outcome when validation fails.
+			    </documentation>
+			    <value>@andromda.seam.validation.outcome</value>
+			    <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
+			</element>
+			<element name="SEAM_VALIDATION_REFRESH_ENTITIES">
+			    <documentation>
+			        Specifies whether invalid entities in the managed state
+			        should be refreshed from the database when
+			        validation fails.
+			    </documentation>
+			    <value>@andromda.seam.validation.refreshEntities</value>
+			    <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
 			</element>
 		</elementGroup>
 	</elements>
