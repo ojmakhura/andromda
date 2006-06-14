@@ -69,7 +69,7 @@ $attribute.getDocumentation("     * ")
 ## Only expose methods that are not lifecycle callbacks
 ## Only expose public methods with local view type accessability
 ##
-#*  *##if (!$operation.lifecycleCallback && $operation.visibility == "public" && ($operation.viewTypeLocal || $operation.viewTypeBoth))
+#*  *##if ($operation.viewTypeAbsoluteLocal)
     /**
 $operation.getDocumentation("     * ")
      */
