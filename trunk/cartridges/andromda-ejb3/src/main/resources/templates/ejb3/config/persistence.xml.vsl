@@ -17,6 +17,14 @@
 #if ($stringUtils.isNotBlank($entityManagerJTADataSource))
         <jta-data-source>${entityManagerJTADataSource}</jta-data-source>
 #end
+#if ($stringUtils.isNotBlank($jarFiles))
+#**##set ($jars = $stringUtils.split($jarFiles,','))
+#**##foreach ($jar in $jars)
+#*  *##if ($stringUtils.isNotBlank($jar))
+        <jar-file>${jar}</jar-file>
+#*  *##end
+#**##end
+#end 
         <properties>
 #if ($stringUtils.isNotBlank($hibernateHbm2DDLAuto))
             <property name="hibernate.hbm2ddl.auto" value="${hibernateHbm2DDLAuto}"/>

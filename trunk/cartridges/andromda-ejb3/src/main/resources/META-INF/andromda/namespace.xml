@@ -205,6 +205,12 @@
                     or serializable types to/from JDBC.
                 </documentation>
             </property>
+            <property name="jarFiles" required="false">
+                <documentation>
+                    The comma separated ejb jars that are included
+                    in the deployed ear package.
+                </documentation>
+            </property> 
 		</propertyGroup>
 		<propertyGroup name="Cache">
             <property name="hibernateCacheProvider" required="false">
