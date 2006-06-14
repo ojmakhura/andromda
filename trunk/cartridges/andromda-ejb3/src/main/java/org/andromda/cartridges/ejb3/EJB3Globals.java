@@ -246,4 +246,14 @@ public class EJB3Globals
      * The property used to specify whether to enable query cache.
      */
     public static final String HIBERNATE_USER_QUERY_CACHE = "hibernateUseQueryCache";
+
+    /**
+     * Seam component scope type STATELESS
+     */
+    public static final String SEAM_COMPONENT_SCOPE_STATELESS = "STATELESS";
+    
+    /**
+     * Seam component scope type CONVERSATION
+     */
+    public static final String SEAM_COMPONENT_SCOPE_CONVERSATION = "CONVERSATION";
 }

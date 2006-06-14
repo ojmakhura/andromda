@@ -1591,6 +1591,28 @@ public class EJB3EntityFacadeLogicImpl
         return BooleanUtils.toBoolean(
                 String.valueOf(this.getConfiguredProperty(EJB3Globals.HIBERNATE_USER_QUERY_CACHE)));
     }
-    
-    
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleIsSeamComponent()
+     */
+    protected boolean handleIsSeamComponent()
+    {
+        return EJB3MetafacadeUtils.isSeamComponent(this);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetSeamComponentScopeType()
+     */
+    protected String handleGetSeamComponentScopeType()
+    {
+        return EJB3MetafacadeUtils.getSeamComponentScopeType(this, false);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetSeamComponentName()
+     */
+    protected String handleGetSeamComponentName()
+    {
+        return EJB3MetafacadeUtils.getSeamComponentName(this);
+    }
 }
