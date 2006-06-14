@@ -59,7 +59,7 @@
         on deployment:
            java.lang.RuntimeException: unable to determine messagingType interface for MDB
       </action>
-      <action dev="vancek" type="delete">
+      <action dev="vancek" type="remove">
         Removed container configuration option via tagged value on message driven beans since it
         is no longer supported.
       </action>
@@ -67,7 +67,32 @@
         Added minimumPoolSize (@andromda.ejb.mdb.pool.size.min) and maximumPoolSize
         (@andromda.ejb.mdb.pool.size.min) tagged value options for message 
         driven beans i.e. to allow singleton message driven beans.  These are added as
-        activation config properties to the ejb-jar.xml.
+        activation config properties to the ejb-jar.xml.  Added documentation.
+      </action>
+      <action dev="vance" type="update">
+        Updated the EJB3MetafacadeModel.xml to use the maven2.repository environment variable rather than
+        hard coded paths for profiles.
+      </action>
+      <action dev="vancek" type="update">
+        If session bean is a Seam component, then don't set the bean type to stateful if the bean contains an
+        attribute.  For session bean Seam components, the only way to specify it as a SFSB is via tagged value on
+        the class.
+      </action>
+      <action dev="vancek" type="fix">
+        Don't restrict rendering of accessor methods for session bean attributes that only have 'public'
+        visibility.  Accessors generated for all attributes for all visilities.
+      </action>
+      <action dev="vancek" type="add">
+        Introduce JBoss Seam components corresponding with Seam 1.0.0-CR3.
+        Always generate a local interface for a session bean if it is a Seam component.
+      </action>
+      <action dev="vancek" type="fix">
+        If a session bean operation is modelled for the local view type interface, a local interface is NOT
+        generated.  When returning a view type from the EJB3SessionFacade, must lookup all business operations to 
+        determine their view type individually and return a view type for the session bean to accomodate local,
+        remote and both.
+        Refactor service delegate templates and introduce a parent base class which all service delegates extend.
+        Fix problem with exposing only remote operations as webservice endpoints.
       </action>
     </release>
   </body>
