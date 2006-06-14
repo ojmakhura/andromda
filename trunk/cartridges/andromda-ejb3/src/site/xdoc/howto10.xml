@@ -243,6 +243,24 @@
                     <a href="howto11.html">Environment Entry Injections</a> for further information. 
                 </p>
             </subsection>
+            <a name="Singleton_MDB"/>
+            <subsection name="Singleton MDB">
+                <p>
+                    In some circumstance, you need to configure your MDB to maintain a max pool size of 1
+                    such that you have a singleton message driven bean. This can be achieved via
+                    the <a href="profile.html#@andromda.ejb.mdb.pool.size.max">maximum pool size</a>
+                    tagged value which is modelled on the MDB.
+                </p>
+                <p>
+                    You also have the option of configuring the 
+                    <a href="profile.html#@andromda.ejb.mdb.pool.size.min">minimum pool size</a>
+                    of the MDB.
+                </p>
+                <p>
+                    Both tagged values will add the appropriate activation config property to the
+                    <code>ejb-jar.xml</code> deployment descriptor.
+                </p>
+            </subsection>
         </section>
         <section name="Next">
             <p>
