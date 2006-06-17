@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<faqs id="General FAQ">
+  <part id="General">
+    <faq id="problem_installing">
+      <question>Problems installing the EJB3 cartridge?</question>
+      <answer>
+        <p>
+          Re-read the installation howto.  If that doesn't help, post a new topic in the EJB cartridge forum.
+          Do not post in the sticky guides.
+        </p>
+      </answer>
+    </faq>
+    <faq id="release">
+      <question>When is the EJB3 cartridge going to be released?</question>
+      <answer>
+        <p>
+          Hopefully soon.  Thanks to a few people who use the cartridge, we are able to fix some of the issues
+          with releasing a new cartride.  Unfortunately, until JBoss AS 5, the JBoss EJB 3.0 implementation will
+          not satisfy the EJB 3.0 FR specification, although it is very close.
+        </p>
+      </answer>
+    </faq>
+    <faq id="jboss_seam">
+      <question>Is JBoss Seam going to be supported?</question>
+      <answer>
+        <p>
+          That is definitely in the pipeworks.  There is some initial support in the cartridge in CVS, but no
+          documentation as yet.  Stay tuned and keep your eye on the EJB cartridge forum.
+        </p>
+      </answer>
+    </faq>
+    <faq id="migrating_from_hibernate">
+      <question>Migrating from Hibernate to EJB3?</question>
+      <answer>
+        <p>
+          Migrating from Hibernate will be easier than you think.  Just remember that if you have specified
+          tagged values with tags in the <b>andromda.hibernate</b> namespace, you need to change these to the
+          corresponding tag in the <b>andromda.persistence</b> namespace.  Check the 
+          <a href="profile.html">profile</a> page to find the tagged value you are looking for.
+        </p>
+      </answer>
+    </faq>
+  </part>
+</faqs>

@@ -18,9 +18,17 @@
 	                You can install Maven 
 	                <a href="http://maven.apache.org/download.html#Installation">here</a>.
 	            </p>
+	            <p class="highlight">
+	                If you want to build the site docs, you need to download the latest Maven 2.0.x source
+	                from https://svn.apache.org/repos/asf/maven/components/branches/maven-2.0.x and follow
+	                the instructions to build, assemble and set your M2_HOME and PATH variables.
+	            </p>
 	            <p>
 	                You need to have an instance of AndroMDA 3.2.  At the time of writing this, 3.2 RC1
-	                was released.  Alternatively, you can get the latest 3.2-SNAPSHOT from CVS and build it.
+	                was released but the latest 3.2-SNAPSHOT from CVS contains updates to the project generator
+	                and site plugin, and is more suitable to use with the EJB3 cartridge.  Follow the anonymous
+	                CVS access at <a href="http://sourceforge.net/cvs/?group_id=73047">AndroMDA project</a> to
+	                checkout the latest <b>andromda-all</b>.
 	            </p>
 	        </subsection>
             <a name="Getting_the_Cartridge"/>
@@ -71,7 +79,6 @@
 	                <a href="HowToModel-src.zip">here</a> and extract to the target/site folder of the
 	                andromda-ejb3 plugin.
 	            </p>
-	            
 	        </subsection>
         </section>
         <section name="Next">

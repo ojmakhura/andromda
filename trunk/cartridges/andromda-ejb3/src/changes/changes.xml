@@ -101,9 +101,12 @@
         Generate documentation for enumeration literals.
       </action>
       <action dev="vancek" type="fix">
-       Inheritance hierarchies where the super class is a mapped superclass, the subclass should not
-       render the DiscriminatorValue annotation.  This annotation should only be rendered in subclasses of
-       single table inheritance hierarchies.
+        Inheritance hierarchies where the super class is a mapped superclass, the subclass should not
+        render the DiscriminatorValue annotation.  This annotation should only be rendered in subclasses of
+        single table inheritance hierarchies.
+      </action>
+      <action dev="vancek" type="add">
+        Added FAQ support section menu to site.
       </action>
     </release>
   </body>
