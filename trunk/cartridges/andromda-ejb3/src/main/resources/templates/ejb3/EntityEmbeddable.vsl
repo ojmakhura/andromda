@@ -75,7 +75,7 @@ $entity.getDocumentation(" * ")
 @javax.persistence.DiscriminatorColumn(#if ($entity.discriminatorColumn)name = "${entity.discriminatorColumn}"#set ($argExists = true)#end#if ($entity.discriminatorType)#if ($argExists), #end#**#discriminatorType = javax.persistence.DiscriminatorType.${entity.discriminatorType}#set ($argExists = true)#end#if ($entity.discriminatorColumnDefinition)#if ($argExists), #end#**#columnDefinition = "${entity.discriminatorColumnDefinition}"#set ($argExists = true)#end#if ($entity.discriminatorLength > 0)#if ($argExists), #end#**#length = ${entity.discriminatorLength}#end)
 @javax.persistence.DiscriminatorValue("${entity.discriminatorValue}")
 #*  *##end
-#**##elseif ($entity.requiresGeneralizationMapping && $entity.inheritanceSingleTable)
+#**##elseif ($entity.requiresGeneralizationMapping && $entity.inheritanceSingleTable && !$entity.embeddableSuperclassGeneralizationExists)
 ##
 ## Only include the DiscriminatorValue annotation for subclasses if
 ## the inheritance strategy is single table mapping strategy.
