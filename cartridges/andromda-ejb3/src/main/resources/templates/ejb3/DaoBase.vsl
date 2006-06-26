@@ -265,16 +265,21 @@ public abstract class $entity.daoBaseName
     {
         $entity.fullyQualifiedEntityName entity = new ${entity.fullyQualifiedEntityName}();
 #*    *##foreach ($attribute in $attributes)
+#*      *##if (!$attribute.version)
+##
+## Ignore arg where the corresponding entity attribute is modelled as a version
+##
         entity.${attribute.setterName}($attribute.name);
+#*      *##end
 #*    *##end
         return this.create(transform, entity);
     }
 
 #*  *##end
-#*  *##set ($requiredProperties = $entity.getRequiredProperties(true,false))
-#*  *##if (!$requiredProperties.empty && $entity.getRequiredAttributes(true,false).size() != $requiredProperties.size())
+#*  *##set ($requiredProperties = $entity.getRequiredProperties(true,$entity.usingAssignedIdentifier))
+#*  *##if (!$requiredProperties.empty && $entity.getRequiredAttributes(true,$entity.usingAssignedIdentifier).size() != $requiredProperties.size())
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create(${entity.getRequiredPropertyTypeList(true, false)})
+     * @see ${entity.fullyQualifiedDaoName}#create(${entity.getRequiredPropertyTypeList(true, $entity.usingAssignedIdentifier)})
      */
     public $rootEntityType create(
 #*    *##foreach($property in $requiredProperties)
@@ -283,11 +288,11 @@ public abstract class $entity.daoBaseName
 
 #*    *##end
     {
-        return ($rootEntityType)this.create($entity.daoNoTransformationConstantName, ${entity.getRequiredPropertyNameList(true,false)});
+        return ($rootEntityType)this.create($entity.daoNoTransformationConstantName, ${entity.getRequiredPropertyNameList(true,$entity.usingAssignedIdentifier)});
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create(int, ${entity.getRequiredPropertyTypeList(true, false)})
+     * @see ${entity.fullyQualifiedDaoName}#create(int, ${entity.getRequiredPropertyTypeList(true, $entity.usingAssignedIdentifier)})
      */
     public Object create(
         final int transform,
@@ -493,74 +498,66 @@ public abstract class $entity.daoBaseName
         throws ${entity.fullyQualifiedDaoDefaultExceptionName}
 #**##end
     {
-#**##if ($finder.namedQuery)
         try
         {
             javax.persistence.Query queryObject = emanager.createNamedQuery("${entity.name}.${finder.name}");
-#*  *##foreach($argument in $finder.arguments)
-#*    *##set ($count = $velocityCount - 1)
-#*    *##set ($argumentValue = $argument.name)
-#*    *##if ($argument.firstResult)
+#**##foreach($argument in $finder.arguments)
+#*  *##set ($count = $velocityCount - 1)
+#*  *##set ($argumentValue = $argument.name)
+#*  *##if ($argument.firstResult)
             queryObject.setFirstResult(${argument.name});
-#*    *##elseif ($argument.maxResults)
+#*  *##elseif ($argument.maxResults)
             queryObject.setMaxResults(${argument.name});
+#*  *##else
+#*    *##if($argument.type.primitive)
+#*      *##set ($argumentValue = "new ${argument.type.wrapperName}($argument.name)")
 #*    *##else
-#*      *##if($argument.type.primitive)
-#*        *##set ($argumentValue = "new ${argument.type.wrapperName}($argument.name)")
-#*      *##else
-#*        *##set ($argumentValue = "${argument.name}")
-#*        *##if ($argument.enumerationTypeOrdinal)
-#*          *##set ($argumentValue = "${argumentValue}.ordinal()")
-#*        *##elseif ($argument.enumerationTypeString)
-#*          *##set ($argumentValue = "${argumentValue}.name()")
-#*        *##end
-#*      *##end
-#*      *##if ($argument.temporalType)
-#*        *##set ($argumentValue = "${argumentValue}, javax.persistence.TemporalType.${argument.temporalType}")
-#*      *##end
-#*      *##set ($setParameterOperation = "setParameter")
-#*      *##if ($argument.type.collectionType || $argument.type.arrayType)
-#*        *##set ($setParameterOperation = "${setParameterOperation}List")
-#*      *##end
-#*      *##if ($finder.useNamedParameters)
-            queryObject.${setParameterOperation}("$argument.name", $argumentValue);
-#*      *##else
-            queryObject.${setParameterOperation}($count, $argumentValue);
+#*      *##set ($argumentValue = "${argument.name}")
+#*      *##if ($argument.enumerationTypeOrdinal)
+#*        *##set ($argumentValue = "${argumentValue}.ordinal()")
+#*      *##elseif ($argument.enumerationTypeString)
+#*        *##set ($argumentValue = "${argumentValue}.name()")
 #*      *##end
 #*    *##end
+#*    *##if ($argument.temporalType)
+#*      *##set ($argumentValue = "${argumentValue}, javax.persistence.TemporalType.${argument.temporalType}")
+#*    *##end
+#*    *##set ($setParameterOperation = "setParameter")
+#*    *##if ($argument.type.collectionType || $argument.type.arrayType)
+#*      *##set ($setParameterOperation = "${setParameterOperation}List")
+#*    *##end
+#*    *##if ($finder.useNamedParameters)
+            queryObject.${setParameterOperation}("$argument.name", $argumentValue);
+#*    *##else
+            queryObject.${setParameterOperation}($count, $argumentValue);
+#*    *##end
 #*  *##end
-#*  *##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
+#**##end
+#**##if ($finder.useQueryCache && !$entity.useDefaultCacheRegion)
             queryObject.setHint("org.hibernate.cacheRegion", "/${entity.fullyQualifiedNamePath}_${finder.name}");
-#*  *##end
-#*  *##if ($finder.returnTypePresent)
-#*    *##if ($finder.returnType.setType)
+#**##end
+#**##if ($finder.returnTypePresent)
+#*  *##if ($finder.returnType.setType)
             java.util.Set results = new java.util.LinkedHashSet(queryObject.getResultList());
             transformEntities(transform, results);
             return results;
-#*    *##elseif ($finder.returnType.collectionType)
+#*  *##elseif ($finder.returnType.collectionType)
             java.util.List results = queryObject.getResultList();
             transformEntities(transform, results);
             return results;
-#*    *##else
+#*  *##else
             Object result = queryObject.getSingleResult();
             result = transformEntity(transform, ($entity.fullyQualifiedName)result);
             return result;
-#*    *##end
-#*  *##else
-            queryObject.executeUpdate();
 #*  *##end
+#**##else
+            queryObject.executeUpdate();
+#**##end
         }
         catch (Exception ex)
         {
             throw new ${entity.fullyQualifiedDaoDefaultExceptionName}(ex);
         }
-#**##else
-#*  *##if ($finder.returnTypePresent)
-        return this.${finder.name}(transform, "$finder.getQuery($entity)"#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
-#*  *##else
-        this.${finder.name}(transform, "$finder.getQuery($entity)"#if(!$finder.arguments.empty), ${finder.argumentNames}#end);
-#*  *##end
-#**##end
     }
 
     /**
