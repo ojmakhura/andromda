@@ -35,17 +35,17 @@ public class EJB3AssociationEndFacadeLogicImpl
     /**
      * The default composite association cascade property
      */
-    public static final String ENTITY_DEFAULT_COMPOSITE_CASCADE = "entityCompositeCascade";
+    private static final String ENTITY_DEFAULT_COMPOSITE_CASCADE = "entityCompositeCascade";
     
     /**
      * The default aggregation association cascade property
      */
-    public static final String ENTITY_DEFAULT_AGGREGATION_CASCADE = "entityAggergationCascade";
+    private static final String ENTITY_DEFAULT_AGGREGATION_CASCADE = "entityAggergationCascade";
     
     /**
      * The namespace property storing default collection type for associations
      */
-    public static final String ASSOCIATION_COLLECTION_TYPE = "associationCollectionType";
+    private static final String ASSOCIATION_COLLECTION_TYPE = "associationCollectionType";
     
     /**
      * A flag indicating whether or not specific (java.util.Set, java.util.List,
@@ -53,14 +53,24 @@ public class EJB3AssociationEndFacadeLogicImpl
      * accessors or whether the generic java.util.Collection interface should be
      * used.
      */
-    public static final String SPECIFIC_COLLECTION_INTERFACES = "specificCollectionInterfaces";
+    private static final String SPECIFIC_COLLECTION_INTERFACES = "specificCollectionInterfaces";
     
     /**
      * The property that defines the default collection interface, this is the
      * interface used if the property defined by
-     * {@link #SPECIFIC_COLLECTION_INTERFACES} is true.
+     * {@link #SPECIFIC_COLLECTION_INTERFACES} is false.
      */
-    public static final String DEFAULT_COLLECTION_INTERFACE = "defaultCollectionInterface";
+    private static final String DEFAULT_COLLECTION_INTERFACE = "defaultCollectionInterface";
+    
+    /**
+     * Stores the default collection index name.
+     */
+    private static final String COLLECTION_INDEX_NAME = "associationEndCollectionIndexName";
+
+    /**
+     * Stores the default collection index type.
+     */
+    private static final String COLLECTION_INDEX_TYPE = "associationEndCollectionIndexType";
     
     /**
      * Represents the EJB3 <code>ALL</code> cascade option and fully qualified representation.
@@ -159,6 +169,21 @@ public class EJB3AssociationEndFacadeLogicImpl
      * Stores the default cache strategy for relationship Collections.
      */
     private static final String HIBERNATE_ASSOCIATION_CACHE = "hibernateAssociationCache";
+
+    /**
+     * The 'list' type implementation to use.
+     */
+    private static final String LIST_TYPE_IMPLEMENTATION = "listTypeImplementation";
+
+    /**
+     * The 'set' type implementation to use.
+     */
+    private static final String SET_TYPE_IMPLEMENTATION = "setTypeImplementation";
+
+    /**
+     * The 'map' type implementation to use.
+     */
+    private static final String MAP_TYPE_IMPLEMENTATION = "mapTypeImplementation";
     
     // ---------------- constructor -------------------------------
 	
@@ -173,6 +198,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
      */
+    @Override
     public String getGetterSetterTypeName()
     {
         String getterSetterTypeName = null;
@@ -203,13 +229,12 @@ public class EJB3AssociationEndFacadeLogicImpl
                 }
                 else
                 {
-                    getterSetterTypeName = 
-                        ObjectUtils.toString(this.getConfiguredProperty(DEFAULT_COLLECTION_INTERFACE));
+                    getterSetterTypeName = this.getDefaultCollectionInterface();
                 }
             }
             else
             {
-                getterSetterTypeName = ObjectUtils.toString(this.getConfiguredProperty(DEFAULT_COLLECTION_INTERFACE));
+                getterSetterTypeName = this.getDefaultCollectionInterface();
             }
         }
         else
@@ -256,7 +281,11 @@ public class EJB3AssociationEndFacadeLogicImpl
         {
             EJB3EntityFacade entity = (EJB3EntityFacade)type;
 
-            if (entity.isInheritanceSingleTable() && (entity.getGeneralization() != null))
+            /**
+             * Excluse ONLY if single table inheritance exists
+             */
+            if (entity.isRequiresGeneralizationMapping() && entity.isInheritanceSingleTable()
+                    && !entity.isEmbeddableSuperclassGeneralizationExists())
             {
                 required = false;
             }
@@ -553,6 +582,60 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionTypeImplementation()
+     */
+    protected String handleGetCollectionTypeImplementation()
+    {
+        return this.getCollectionTypeImplementation(null);
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionTypeImplementation(java.lang.String)
+     */
+    protected String handleGetCollectionTypeImplementation(String arg)
+    {
+        StringBuffer implementation = new StringBuffer();
+        if (this.isMany())
+        {
+            implementation.append("new ");
+            if (this.isSet())
+            {
+                implementation.append(this.getConfiguredProperty(SET_TYPE_IMPLEMENTATION));
+            }
+            else if (this.isMap())
+            {
+                implementation.append(this.getConfiguredProperty(MAP_TYPE_IMPLEMENTATION));
+            }
+            else if (this.isList() || this.isCollection())
+            {
+                implementation.append(this.getConfiguredProperty(LIST_TYPE_IMPLEMENTATION));
+            }
+
+            // set this association end's type as a template parameter if required
+            if (Boolean.valueOf(String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
+                       .booleanValue())
+            {
+                implementation.append("<");
+                if (this.isMap())
+                {
+                    implementation.append(this.getCollectionIndexType());
+                    implementation.append(", ");
+                }
+                implementation.append(this.getType().getFullyQualifiedName());
+                implementation.append(">");
+            }
+            implementation.append("(");
+            if (StringUtils.isNotBlank(arg))
+            {
+                implementation.append(arg);
+            }
+            implementation.append(")");
+        }
+
+        return implementation.toString();
+    }
+    
+    /**
      * Gets the collection type defined on this association end.
      *
      * @return the specific collection type.
@@ -561,6 +644,63 @@ public class EJB3AssociationEndFacadeLogicImpl
     {
         return ObjectUtils.toString(
             this.findTaggedValue(EJB3Profile.TAGGEDVALUE_ASSOCIATION_COLLECTION_TYPE));
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionIndexType()
+     */
+    protected String handleGetCollectionIndexType()
+    {
+        Object value = this.findTaggedValue(EJB3Profile.TAGGEDVALUE_ASSOCIATION_INDEX_TYPE);
+        if (value == null)
+        {
+            value = this.getConfiguredProperty(COLLECTION_INDEX_TYPE);
+            if (StringUtils.isBlank(ObjectUtils.toString(value)))
+            {
+                value = null;
+            }
+        }
+
+        if (value != null)
+        {
+            if (value instanceof String)
+            {
+                value = this.getRootPackage().findModelElement((String)value);
+            }
+            if (value instanceof EJB3TypeFacade)
+            {
+                value = ((EJB3TypeFacade)value).getFullyQualifiedEJB3Type();
+            }
+        }
+        return (value != null) ? ObjectUtils.toString(value) : null;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionIndexName()
+     */
+    protected String handleGetCollectionIndexName()
+    {
+        Object value = this.findTaggedValue(EJB3Profile.TAGGEDVALUE_ASSOCIATION_INDEX);
+        if ((value == null) && this.isConfiguredProperty(COLLECTION_INDEX_NAME))
+        {
+            value = this.getConfiguredProperty(COLLECTION_INDEX_NAME);
+            if (StringUtils.isBlank(ObjectUtils.toString(value)))
+            {
+                value = null;
+            }
+        }
+
+        if (value != null)
+        {
+            return ObjectUtils.toString(value);
+        }
+        final String otherEntityName = ((EJB3EntityFacade)this.getOtherEnd().getType()).getEntityName();
+        final Object separator = this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR);
+        return EntityMetafacadeUtils.toSqlName(
+            otherEntityName,
+            separator) + separator + EntityMetafacadeUtils.toSqlName(
+            this.getName(),
+            separator) + separator + "IDX";
     }
     
     /**
@@ -602,6 +742,19 @@ public class EJB3AssociationEndFacadeLogicImpl
         return isSet;
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsCollection()
+     */
+    protected boolean handleIsCollection()
+    {
+        boolean isCollection = this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_COLLECTION);
+        if (!isCollection && StringUtils.isBlank(this.getSpecificCollectionType()))
+        {
+            isCollection = this.isOrdered();
+        }
+        return isCollection;
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetLabelName()
      */
@@ -717,5 +870,26 @@ public class EJB3AssociationEndFacadeLogicImpl
                 EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, new Short(maxLength)));
         buffer.append(constraintSuffix);
         return buffer.toString();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetDefaultCollectionInterface()
+     */
+    protected String handleGetDefaultCollectionInterface()
+    {
+        return ObjectUtils.toString(this.getConfiguredProperty(DEFAULT_COLLECTION_INTERFACE));
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsDefaultCollectionInterfaceSortedSet()
+     */
+    protected boolean handleIsDefaultCollectionInterfaceSortedSet()
+    {
+        boolean isDefaultSortedSet = false;
+        if (StringUtils.equals(this.getDefaultCollectionInterface(), EJB3Globals.COLLECTION_INTERFACE_SORTED_SET))
+        {
+            isDefaultSortedSet = true;
+        }
+        return isDefaultSortedSet;
     }
 }

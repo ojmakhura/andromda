@@ -52,6 +52,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#getGetterName()
      */
+    @Override
 	public String getGetterName() 
 	{
         return "get" + StringUtils.capitalize(super.getName());
@@ -62,13 +63,19 @@ public class EJB3EntityAttributeFacadeLogicImpl
      *
      * @see org.andromda.metafacades.uml.AttributeFacade#isRequired()
      */
+    @Override
     public boolean isRequired()
     {
         boolean required = super.isRequired();
         if (this.getOwner() instanceof EJB3EntityFacade)
         {
             EJB3EntityFacade entity = (EJB3EntityFacade)this.getOwner();
-            if (entity.isInheritanceSingleTable() && entity.getGeneralization() != null)
+            
+            /**
+             * Excluse ONLY if single table inheritance exists
+             */
+            if (entity.isRequiresGeneralizationMapping() && entity.isInheritanceSingleTable() 
+                    && !entity.isEmbeddableSuperclassGeneralizationExists())
             {
                 required = false;
             }
@@ -81,6 +88,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
      *
      * @see org.andromda.metafacades.uml.AttributeFacade#getDefaultValue()
      */
+    @Override
     public String getDefaultValue()
     {
         String defaultValue = super.getDefaultValue();
@@ -359,6 +367,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
      * 
      * @see org.andromda.metafacades.uml.EntityAttribute#getColumnLength()
      */
+    @Override
     public String getColumnLength()
     {
         String columnLength = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH);
@@ -375,6 +384,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
      * 
      * @see org.andromda.metafacades.uml.EntityAttribute#getColumnName()
      */
+    @Override
     public String getColumnName()
     {
         String columnName = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_COLUMN);

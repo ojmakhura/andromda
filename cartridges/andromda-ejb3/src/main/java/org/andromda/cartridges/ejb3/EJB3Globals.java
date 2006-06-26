@@ -256,4 +256,9 @@ public class EJB3Globals
      * Seam component scope type CONVERSATION
      */
     public static final String SEAM_COMPONENT_SCOPE_CONVERSATION = "CONVERSATION";
+
+    /**
+     * The property representing the default collection interface of java.util.SortedSet
+     */
+    public static final String COLLECTION_INTERFACE_SORTED_SET = "java.util.SortedSet";
 }

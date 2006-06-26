@@ -24,11 +24,12 @@ public class EJB3ManageableEntityAttributeFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityAttributeFacadeLogic#handleGetTemporalType()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityAttributeFacadeLogic#getTemporalType()
      */
-    protected String handleGetTemporalType()
+    @Override
+    public String getTemporalType()
     {
-        String temporalType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_TEMPORAL_TYPE);
+        String temporalType = super.getTemporalType();
         if (StringUtils.isBlank(temporalType))
         {
             temporalType = String.valueOf(this.getConfiguredProperty(ENTITY_DEFAULT_TEMPORAL_TYPE));
