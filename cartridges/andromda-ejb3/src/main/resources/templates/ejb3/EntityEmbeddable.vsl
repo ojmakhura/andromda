@@ -55,7 +55,7 @@ $entity.getDocumentation(" * ")
 ## If a class is manually specified as an embeddable superclass, add
 ## the Table annotation to the subclass, not to the base superclass.
 ##
-#**##if (!$entity.entityImplementationRequired && ($entity.requiresSpecializationMapping || ($entity.requiresGeneralizationMapping && ($entity.embeddableSuperclassGeneralizationExists || $entity.inheritanceTablePerClass || $entity.inheritanceJoined))))
+#**##if (!$entity.entityImplementationRequired && ($entity.requiresSpecializationMapping || !$entity.requiresGeneralizationMapping || ($entity.requiresGeneralizationMapping && ($entity.embeddableSuperclassGeneralizationExists || $entity.inheritanceTablePerClass || $entity.inheritanceJoined))))
 @javax.persistence.Table(name = "${entity.tableName}")
 #**##end
 #**##if ($entity.listenerEnabled)
@@ -169,6 +169,12 @@ public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
 #*    *##set ($doAttribute = true)
 #*  *##end
 #*  *##if ($doAttribute)
+#*    *##if (!$attribute.transient && $attribute.version)
+##
+## Add the Version annotation on the attribute itself
+##
+    @javax.persistence.Version
+#*    *##end
 ##
 ## Check for overriding LOB type
 ##
@@ -382,7 +388,7 @@ $attribute.getDocumentation("     * ")
 ##
 #*    *##if ($attribute.transient)
     @javax.persistence.Transient
-#*    *##else
+#*    *##elseif (!$attribute.version)
 #*      *##if ($attribute.identifier)
     @javax.persistence.Id
 #*        *##if ($attribute.sequenceGeneratorType)
@@ -393,9 +399,6 @@ $attribute.getDocumentation("     * ")
 #*        *##if (!$attribute.generatorTypeNone)
     @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.${attribute.generatorType}#if ($attribute.sequenceGeneratorType || $attribute.tableGeneratorType), generator = "${attribute.generatorName}"#end)
 #*        *##end
-#*      *##end
-#*      *##if ($attribute.version)
-    @javax.persistence.Version
 #*      *##end
 #*      *##if ($attribute.lob)
 ##
@@ -559,6 +562,9 @@ $attribute.getDocumentation("     * ")
 #*      *##if ($target.associationCacheEnabled)
     @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
 #*      *##end
+#*      *##if ($target.defaultCollectionInterfaceSortedSet)
+    @org.hibernate.annotations.Sort(type = org.hibernate.annotations.SortType.NATURAL)
+#*      *##end
 #*    *##end
     public $target.getterSetterTypeName ${target.getterName}()
     {
@@ -673,6 +679,9 @@ $attribute.getDocumentation("     * ")
 #*      *##end
 #*      *##if ($target.associationCacheEnabled)
     @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
+#*      *##end
+#*      *##if ($target.defaultCollectionInterfaceSortedSet)
+    @org.hibernate.annotations.Sort(type = org.hibernate.annotations.SortType.NATURAL)
 #*      *##end
 #*    *##end
     public $target.getterSetterTypeName ${target.getterName}()
