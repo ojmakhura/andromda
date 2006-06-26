@@ -75,16 +75,53 @@ otherObject.${attribute.getterName}()#if($velocityCount != $embeddedValue.attrib
     /**
 $attribute.getDocumentation("     * ")
      */
-    $attribute.visibility $attribute.getterSetterTypeName ${attribute.getterName}()
+##
+## If attribute is transient ONLY add Transient annotation
+##
+#*    *##if ($attribute.transient)
+    @javax.persistence.Transient
+#*    *##else
+#*      *##if ($attribute.version)
+    @javax.persistence.Version
+#*      *##end
+#*      *##if ($attribute.lob)
+##
+## Add if LOB type is specified - do not set LOB type as of PFD Spec - inferred from type.
+## Also sepcify Fetch type in Basic annotation if set to EAGER since 
+## default fetch type for LOB annotation is LAZY.
+##
+    @javax.persistence.Lob
+#*        *##if ($attribute.eager)
+    @javax.persistence.Basic(fetch = javax.persistence.FetchType.EAGER)
+#*        *##end
+#*      *##end
+    @javax.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.columnNullable}#end#**#, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
+#*      *##if (!$attribute.lob && $attribute.lazy)
+##
+## Only add the fetch type property for LAZY hints - default is EAGER
+##
+    @javax.persistence.Basic(fetch = javax.persistence.FetchType.LAZY)
+#*      *##end
+#*      *##if ($stringUtils.isNotBlank($attribute.temporalType))
+    @javax.persistence.Temporal(javax.persistence.TemporalType.${attribute.temporalType})
+#*      *##end
+#*      *##if ($stringUtils.isNotBlank($attribute.enumerationType))
+    @javax.persistence.Enumerated(javax.persistence.EnumType.${attribute.enumerationType})
+#*      *##end
+#*    *##end
+##
+## Override attribute type if attribute is a LOB and lob type is specified
+##     
+    $attribute.visibility #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.getterSetterTypeName}#end ${attribute.getterName}()
     {
         return this.${attribute.name};
     }
 
 #if ($embeddedValue.immutable)
     // protected setter, if subclass methods need to normalize the $embeddedValue.name
-    protected void ${attribute.setterName}($attribute.getterSetterTypeName $attribute.name)
+    protected void ${attribute.setterName}(#if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.getterSetterTypeName}#end $attribute.name)
 #else
-    $attribute.visibility void ${attribute.setterName}($attribute.getterSetterTypeName $attribute.name)
+    $attribute.visibility void ${attribute.setterName}(#if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.getterSetterTypeName}#end $attribute.name)
 #end
     {
         this.${attribute.name} = $attribute.name;
@@ -109,8 +146,15 @@ $operation.getDocumentation("     * ")
     /**
      * Indicates if the argument is of the same type and all values are equal.
      */
-#renderEqualsMethod($class $embeddedValue.name $embeddedValue.attributes)
-
 #set ($attributeCollection = $embeddedValue.attributes)
-#renderHashCodeMethod($class $attributeCollection)
+#renderEqualsMethod($embeddedValue $embeddedValue.name $attributeCollection)
+
+#renderHashCodeMethod($embeddedValue $attributeCollection)
+
+    /**
+     * Returns a String representation of the object
+     *
+     * @return String Textual representation of the object displaying name/value pairs for all attributes
+     */
+#renderToStringMethod($embeddedValue $embeddedValue.name $attributeCollection)
 }
