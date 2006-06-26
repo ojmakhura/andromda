@@ -169,6 +169,10 @@
         set.  EJB3ManageableEntityAttributeFacade also extends EJB3EntityAttributeFacade.  This eliminates the
         need for the existing overwritten methods in the manageable entity facades.
       </action>
+      <action dev="vancek" due-to="tlu" type="fix">
+        Fix erroneous signature of entity constructor where no entity attributes exist but navigable associations
+        do exist.
+      </action>
     </release>
   </body>
 </document>
