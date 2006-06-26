@@ -108,7 +108,45 @@
 		</mapping>
 		<property reference="implementationOperationNamePattern"/>
 	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogicImpl" contextRoot="true">
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogicImpl" contextRoot="true">
+		<mapping>
+			<stereotype>ENTITY</stereotype>
+		</mapping>
+		<property reference="sqlMappingsUri"/>
+	</metafacade>
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogicImpl">
+		<mapping>
+			<property name="type.eJB3EntityFacadeMetaType"/>
+		</mapping>
+		<property reference="entityCompositeCascade"/>
+		<property reference="entityAggergationCascade"/>
+        <property reference="associationCollectionType"/>
+        <property reference="specificCollectionInterfaces"/>
+        <property reference="defaultCollectionInterface"/>
+        <property reference="hibernateEnableAssociationsCache"/>
+        <property reference="hibernateAssociationCache"/>
+        <property reference="listTypeImplementation"/>
+        <property reference="setTypeImplementation"/>
+        <property reference="mapTypeImplementation"/>
+        <property reference="associationEndCollectionIndexName"/>
+        <property reference="associationEndCollectionIndexType"/>
+	</metafacade>
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationFacadeLogicImpl">
+		<mapping>
+			<property name="associationEndA.eJB3AssociationEndFacadeMetaType"/>
+		</mapping>
+	</metafacade>
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogicImpl">
+		<mapping>
+			<context>
+				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
+			</context>
+		</mapping>
+		<property reference="entityDefaultGeneratorType"/>
+		<property reference="entityDefaultGeneratorInitialValue"/>
+		<property reference="entityDefaultGeneratorAllocationSize"/>
+	</metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacadeLogicImpl" contextRoot="true">
 		<mapping>
 			<stereotype>FINDER_METHOD</stereotype>
 			<context>
@@ -124,6 +162,7 @@
 			</context>
 			<property name="query"/>
 		</mapping>
+		<property reference="queryUseNamedParameters"/>
 	</metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogicImpl">
 		<mapping>
@@ -131,43 +170,6 @@
 				org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodFacade
 			</context>
 		</mapping>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogicImpl" contextRoot="true">
-		<mapping>
-			<stereotype>ENTITY</stereotype>
-		</mapping>
-		<property reference="sqlMappingsUri"/>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogicImpl">
-		<mapping>
-			<context>
-				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
-			</context>
-		</mapping>
-		<property reference="entityCompositeCascade"/>
-		<property reference="entityAggergationCascade"/>
-        <property reference="associationCollectionType"/>
-        <property reference="specificCollectionInterfaces"/>
-        <property reference="defaultCollectionInterface"/>
-        <property reference="hibernateEnableAssociationsCache"/>
-        <property reference="hibernateAssociationCache"/>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3AssociationFacadeLogicImpl">
-		<mapping>
-			<context>
-				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
-			</context>
-		</mapping>
-	</metafacade>
-	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogicImpl">
-		<mapping>
-			<context>
-				org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade
-			</context>
-		</mapping>
-		<property reference="entityDefaultGeneratorType"/>
-		<property reference="entityDefaultGeneratorInitialValue"/>
-		<property reference="entityDefaultGeneratorAllocationSize"/>
 	</metafacade>
 	
 	<!-- Session EJB Metafacades -->
@@ -202,7 +204,7 @@
 	</metafacade>
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenOperationFacadeLogicImpl">
 		<mapping>
-		    <property name="eJB3MessageDrivenFacadeMetaType"/>
+		    <property name="owner.eJB3MessageDrivenFacadeMetaType"/>
 		</mapping>
 	</metafacade>
 	
@@ -234,5 +236,8 @@
         <mapping>
             <context>org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacade</context>
         </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3TypeFacadeLogicImpl">
+        <property reference="ejb3TypeMappingsUri"/>
     </metafacade>
 </metafacades>
