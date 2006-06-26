@@ -915,6 +915,28 @@
                     <value>list</value>
                 </allowedValues>
             </element>
+            <element name="ASSOCIATION_INDEX">
+                <documentation>
+                    Column containing the collection index, overrides the
+                    <a href="namespace.html#associationEndCollectionIndexName">associationEndCollectionIndexName</a>
+                </documentation>
+                <value>@andromda.persistence.collection.index</value>
+                <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
+                <allowedValues>
+                    <value>A property of this entity</value>
+                </allowedValues>
+            </element>
+            <element name="ASSOCIATION_INDEX_TYPE">
+                <documentation>
+                    The type of the column containing the collection index, overrides the
+                    <a href="namespace.html#associationEndCollectionIndexType">associationEndCollectionIndexType</a>
+                </documentation>
+                <value>@andromda.persistence.collection.index.type</value>
+                <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
+                <allowedValues>
+                    <value>A property of this entity</value>
+                </allowedValues>
+            </element>
 			<element name="LOB_TYPE">
 			    <documentation>
 			        Override the entity attribute type where

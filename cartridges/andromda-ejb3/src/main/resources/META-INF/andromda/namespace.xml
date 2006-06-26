@@ -957,6 +957,24 @@
 			        Manager.
 			    </documentation>
 			</property>
+            <property name="listTypeImplementation">
+                <default>java.util.ArrayList</default>
+                <documentation>
+                    The implementation type to use for association ends that are modeled as lists.
+                </documentation>
+            </property>
+            <property name="setTypeImplementation">
+                <default>java.util.TreeSet</default>
+                <documentation>
+                    The implementation type to use for association ends that are modeled as sets.
+                </documentation>
+            </property>
+            <property name="mapTypeImplementation">
+                <default>java.util.HashMap</default>
+                <documentation>
+                    The implementation type to use for association ends that are modeled as maps.
+                </documentation>
+            </property>
             <property name="specificCollectionInterfaces">
                 <default>false</default>
                 <documentation>
@@ -968,7 +986,7 @@
                 </documentation>
             </property>
             <property name="defaultCollectionInterface">
-                <default>java.util.Collection</default>
+                <default>java.util.SortedSet</default>
                 <documentation>
                     The default collection interface, this is the interface used with association end
                     accessors and mutators if the 
@@ -980,6 +998,32 @@
                 <default>set</default>
                 <documentation>
                     Used to define the default mapping for EJB3 collections.
+                </documentation>
+            </property>
+            <property name="associationEndCollectionIndexName" required="false">
+                <documentation>
+                    The default association end collection index name 
+                    (this can be overridden by the
+                    <a href="profile.html#@andromda_persistence_collection_index">@andromda.persistence.collection.index</a>).
+                </documentation>
+            </property>
+            <property name="associationEndCollectionIndexType" required="false">
+                <default>datatype::String</default>
+                <documentation>
+                    The default association end collection index type 
+                    (this can be overridden by the
+                    <a href="profile.html#@andromda_persistence_collection_index_type">@andromda.persistence.collection.index.type</a>
+                    (this is applicable when the collection is a map).
+                </documentation>
+            </property>
+            <property name="ejb3TypeMappingsUri" required="false">
+                <default>Hibernate</default>
+                <documentation>
+                    URI specifying the specific mappings from model types to ejb3/hibernate types.
+                    (i.e. <code>file:${basedir}/HibernateTypeMappings.xml</code>). This
+                    is not necessary but useful for defining hibernate user types (when
+                    hibernate doesn't support a specific type in the manner needed
+                    for your application).
                 </documentation>
             </property>
             <property name="compositionDefinesEagerLoading">
