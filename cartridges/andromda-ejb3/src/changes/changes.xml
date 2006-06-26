@@ -173,6 +173,10 @@
         Fix erroneous signature of entity constructor where no entity attributes exist but navigable associations
         do exist.
       </action>
+      <action dev="vancek" type="update">
+        Revert the build back to using the default Java compiler (1.4) - 1.5 isn't supported for the automated
+        build process for andromda-plugins.
+      </action>
     </release>
   </body>
 </document>
