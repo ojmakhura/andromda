@@ -99,6 +99,15 @@
                 <a href="http://galaxy.andromda.org/docs/andromda-cartridges/manageable-entities/index.html">
                 manageable entities</a> for AndroMDA.
             </p>
+            <a name="Manageable_Entities_Tips"/>
+            <subsection name="Tips">
+                <p>
+                    You should assign one attribute of every manageable entity as a unique index.  This is
+                    achieved by modelling the <![CDATA[<<Unique>>]]> stereotype on the attribute.  As a result, it
+                    will display the unique attribute value for foreign key reference columns when listing entities, 
+                    rather than the complete target entity property name-value pairs.
+                </p>
+            </subsection>
         </section>
         <section name="Next">
             <p>

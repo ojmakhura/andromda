@@ -512,6 +512,16 @@ public class EJB3Profile
     public static final String TAGGEDVALUE_ASSOCIATION_COLLECTION_TYPE = profile.get("ASSOCIATION_COLLECTION_TYPE");
 
     /**
+     * Defines the index column type for ejb3 indexed collections
+     */
+    public static final String TAGGEDVALUE_ASSOCIATION_INDEX_TYPE = profile.get("ASSOCIATION_INDEX_TYPE");
+    
+    /**
+     * Defines the index column for ejb3 indexed collections
+     */
+    public static final String TAGGEDVALUE_ASSOCIATION_INDEX = profile.get("ASSOCIATION_INDEX");
+    
+    /**
      * Defines whether to exclude the default interceptors for the session operation. 
      */
     public static final String TAGGEDVALUE_SERVICE_INTERCEPTOR_EXCLUDE_DEFAULT = 
