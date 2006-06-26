@@ -171,11 +171,16 @@
       </action>
       <action dev="vancek" due-to="tlu" type="fix">
         Fix erroneous signature of entity constructor where no entity attributes exist but navigable associations
-        do exist.
+        do exist. JIRA EJB-34
       </action>
       <action dev="vancek" type="update">
         Revert the build back to using the default Java compiler (1.4) - 1.5 isn't supported for the automated
         build process for andromda-plugins.
+      </action>
+      <action dev="vancek" due-to="tlu" type="add">
+        Add support for a select few meta type annotations for attribues in embedded value classes. Need to 
+        confirm if @Transient, @Version, @Lob and @Basic are supported.  @Column, @Temporal and @Enumerated have
+        been confirmed to work.  JIRA EJB-31
       </action>
     </release>
   </body>
