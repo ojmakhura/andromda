@@ -26,7 +26,6 @@ public class EJB3ManageableEntityAttributeFacadeLogicImpl
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityAttributeFacadeLogic#getTemporalType()
      */
-    @Override
     public String getTemporalType()
     {
         String temporalType = super.getTemporalType();

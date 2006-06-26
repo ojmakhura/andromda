@@ -198,7 +198,6 @@ public class EJB3AssociationEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
      */
-    @Override
     public String getGetterSetterTypeName()
     {
         String getterSetterTypeName = null;
