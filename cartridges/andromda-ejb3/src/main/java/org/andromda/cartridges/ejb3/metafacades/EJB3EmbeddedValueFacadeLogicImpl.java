@@ -60,4 +60,16 @@ public class EJB3EmbeddedValueFacadeLogicImpl
     {
         return String.valueOf(this.getConfiguredProperty(EMBEDDED_VALUE_IMPLEMENTATION_NAME_PATTERN));
     }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacadeLogic#
+     *      handleGetFullyQualifiedImplementationName()
+     */
+    protected String handleGetFullyQualifiedImplementationName()
+    {
+        return EJB3MetafacadeUtils.getFullyQualifiedName(
+                this.getPackageName(),
+                this.getImplementationName(),
+                null);
+    }
 }
