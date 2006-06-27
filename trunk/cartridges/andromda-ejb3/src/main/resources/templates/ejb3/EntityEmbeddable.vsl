@@ -418,13 +418,44 @@ $attribute.getDocumentation("     * ")
 #*      *##end
 #*      *##if ($attribute.containsEmbeddedObject)
     @javax.persistence.Embedded
+##
+## Render AttributeOverrides if attributes exist on the embedded object
+##
+#*        *##if (!$attribute.type.attributes.empty)
     @javax.persistence.AttributeOverrides
     ({
-#*        *##foreach ($embeddedAttribute in $attribute.type.attributes)
-        @javax.persistence.AttributeOverride(name = "${embeddedAttribute.name}", column = @javax.persistence.Column(name = "${embeddedAttribute.columnName}"#if ($embeddedAttribute.unique), unique = ${embeddedAttribute.unique}#end#if (!$embeddedAttribute.columnNullable), nullable = ${embeddedAttribute.columnNullable}#end#**#, insertable = ${embeddedAttribute.insertEnabled}, updatable = ${embeddedAttribute.updateEnabled}#if ($embeddedAttribute.columnLength), length = ${embeddedAttribute.columnLength}#end#if ($embeddedAttribute.columnDefinition), columnDefinition = "${embeddedAttribute.columnDefinition}"#end#if ($embeddedAttribute.columnPrecision), precision = ${embeddedAttribute.columnPrecision}#end#if ($embeddedAttribute.columnScale), scale = ${embeddedAttribute.columnScale}#end))#if($velocityCount != $attribute.type.attributes.size()),#end
+#*          *##foreach ($embeddedAttribute in $attribute.type.attributes)
+        @javax.persistence.AttributeOverride(name = "${embeddedAttribute.name}", column = @javax.persistence.Column(name = "${attribute.columnName}_${embeddedAttribute.columnName}"#if ($embeddedAttribute.unique), unique = ${embeddedAttribute.unique}#end#if (!$embeddedAttribute.columnNullable), nullable = ${embeddedAttribute.columnNullable}#end#**#, insertable = ${embeddedAttribute.insertEnabled}, updatable = ${embeddedAttribute.updateEnabled}#if ($embeddedAttribute.columnLength), length = ${embeddedAttribute.columnLength}#end#if ($embeddedAttribute.columnDefinition), columnDefinition = "${embeddedAttribute.columnDefinition}"#end#if ($embeddedAttribute.columnPrecision), precision = ${embeddedAttribute.columnPrecision}#end#if ($embeddedAttribute.columnScale), scale = ${embeddedAttribute.columnScale}#end))#if($velocityCount != $attribute.type.attributes.size()),#end
 
-#*        *##end
+#*          *##end
     })
+#*        *##end
+##
+## Render AssociationOverrides for embedded object if associations exist on the embedded object
+##
+#*        *##if (!$attribute.type.associationEnds.empty)
+    @javax.persistence.AssociationOverrides
+    ({
+#*          *##foreach ($associationEnd in $attribute.type.associationEnds)
+#*            *##set ($target = $associationEnd.otherEnd)
+#*            *##if (!$target.type.compositePrimaryKeyPresent)
+        @javax.persistence.AssociationOverride(name = "${target.name}", joinColumns = @javax.persistence.JoinColumn(name = "${attribute.columnName}_$stringUtils.upperCase(${target.name})"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end))#if($velocityCount != $attribute.type.associationEnds.size()),#end
+
+#*            *##else
+#*              *##set ($identifiers = $target.type.getIdentifiers())
+        @javax.persistence.AssociationOverride(name = "${target.name}",
+            joinColumns = 
+            {
+#*              *##foreach ($attribute in $identifiers)
+                @javax.persistence.JoinColumn(name = "${attribute.columnName}_$stringUtils.upperCase(${target.name})_${attribute.columnName}", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
+                
+#*              *##end
+            })#if($velocityCount != $attribute.type.associationEnds.size()),#end
+
+#*            *##end
+#*          *##end
+    })
+#*        *##end
 #*      *##else
     @javax.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.columnNullable}#end#**#, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
 #*      *##end
