@@ -191,7 +191,11 @@ public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
 #**##foreach ($associationEnd in  $entityRelations)
 #*  *##set ($target = $associationEnd.otherEnd)
 #*  *##if ($target.navigable)
-    private $target.getterSetterTypeName ${target.name};
+#*    *##if ($target.many)
+    private $target.getterSetterTypeName $target.name = $target.collectionTypeImplementation;
+#*    *##else
+    private $target.getterSetterTypeName $target.name;
+#*    *##end
 #*  *##end
 #**##end
 #end
