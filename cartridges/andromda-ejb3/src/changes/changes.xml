@@ -184,6 +184,13 @@
         confirm if @Transient, @Version, @Lob and @Basic are supported.  @Column, @Temporal and @Enumerated have
         been confirmed to work.  JIRA EJB-31
       </action>
+      <action dev="vancek" due-to="tlu" type="add">
+        Add support for embedded value object associations as well as attribute overrides. JIRA EJB-32.
+      </action>
+      <action dev="vancek" due-to="tlu" type="fix">
+        Fix problem when there are two embedded value objects of the same type in the same entity. Fix for both
+        attribute and association overrides. JIRA EJB=33
+      </action>
     </release>
   </body>
 </document>
