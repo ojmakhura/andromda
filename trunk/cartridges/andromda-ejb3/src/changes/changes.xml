@@ -186,10 +186,19 @@
       </action>
       <action dev="vancek" due-to="tlu" type="add">
         Add support for embedded value object associations as well as attribute overrides. JIRA EJB-32.
+        NOTE: This is still partial support.  The association mutators need to be added with appropriate
+        annotation to the embedded value object base abstract class.
       </action>
       <action dev="vancek" due-to="tlu" type="fix">
         Fix problem when there are two embedded value objects of the same type in the same entity. Fix for both
         attribute and association overrides. JIRA EJB=33
+      </action>
+      <action dev="vancek" due-to="tlu" type="update">
+        JIRA EJB-29 - the implementation class of the embedded value object was unused and the base class was abstract.
+        This is now fixed with the introduction of the orm.xml deployment descriptor.  Currently, only
+        the embeddable classes are defined.  As a result the @Embeddable annotation is removed from the base abstract
+        class and the embeddable implementation class is now the defined as the embeddable class using orm.xml rather
+        than metadata annotation.
       </action>
     </release>
   </body>

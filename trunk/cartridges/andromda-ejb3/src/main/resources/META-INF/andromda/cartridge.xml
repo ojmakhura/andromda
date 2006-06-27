@@ -355,7 +355,21 @@
     </template>
     
     <!-- Configuration Templates -->
-        
+
+    <template
+        path="templates/ejb3/config/orm.xml.vsl"
+        outputPattern="META-INF/orm.xml"
+        outlet="session-config"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="embeddables">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
     <template
         path="templates/ejb3/config/ejb-jar.xml.vsl"
         outputPattern="META-INF/ejb-jar.xml"

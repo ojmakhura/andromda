@@ -10,8 +10,10 @@ package $embeddedValue.packageName;
 
 /**
 $embeddedValue.getDocumentation(" * ")
+ *
+ * Migrated from using @javax.persistence.Embeddable annotation to mapping in orm.xml
+ * Still use the attribute annotations
  */
-@javax.persistence.Embeddable
 public abstract class $embeddedValue.name
 #if($embeddedValue.generalization)
     extends $embeddedValue.generalization.fullyQualifiedName
@@ -28,19 +30,17 @@ public abstract class $embeddedValue.name
      * Creates a new instance of {@link ${embeddedValue.name}}
      * taking all properties.
      */
-#set ($parenthesis = "(")
-#if ($embeddedValue.attributes.empty)
-#set ($parenthesis = "()")
-#end
-    public static $embeddedValue.name newInstance${parenthesis}#foreach ($attribute in $embeddedValue.attributes)
-$attribute.getterSetterTypeName ${attribute.name}#if($velocityCount != $embeddedValue.attributes.size()),#else)
-#end
-#end
+#**##set ($parenthesis = "(")
+#**##if ($embeddedValue.attributes.empty)
+#*  *##set ($parenthesis = "()")
+#**##end
+    public static $embeddedValue.name newInstance${parenthesis}#foreach ($attribute in $embeddedValue.attributes)$attribute.getterSetterTypeName ${attribute.name}#if($velocityCount != $embeddedValue.attributes.size()),#else)#end#end
+    
     {
         $embeddedValue.implementationName object = new ${embeddedValue.implementationName}();
-#foreach ($attribute in $embeddedValue.attributes)
+#**##foreach ($attribute in $embeddedValue.attributes)
         object.${attribute.setterName}($attribute.name);
-#end
+#**##end
         object.initialize();
         return object;
     }
@@ -69,7 +69,7 @@ otherObject.${attribute.getterName}()#if($velocityCount != $embeddedValue.attrib
     {
     }
 
-#foreach ($attribute in $embeddedValue.attributes)
+#**##foreach ($attribute in $embeddedValue.attributes)
     private $attribute.getterSetterTypeName $attribute.name;
 
     /**
@@ -78,37 +78,37 @@ $attribute.getDocumentation("     * ")
 ##
 ## If attribute is transient ONLY add Transient annotation
 ##
-#*    *##if ($attribute.transient)
+#*  *##if ($attribute.transient)
     @javax.persistence.Transient
-#*    *##else
-#*      *##if ($attribute.version)
+#*  *##else
+#*    *##if ($attribute.version)
     @javax.persistence.Version
-#*      *##end
-#*      *##if ($attribute.lob)
+#*    *##end
+#*    *##if ($attribute.lob)
 ##
 ## Add if LOB type is specified - do not set LOB type as of PFD Spec - inferred from type.
 ## Also sepcify Fetch type in Basic annotation if set to EAGER since 
 ## default fetch type for LOB annotation is LAZY.
 ##
     @javax.persistence.Lob
-#*        *##if ($attribute.eager)
+#*      *##if ($attribute.eager)
     @javax.persistence.Basic(fetch = javax.persistence.FetchType.EAGER)
-#*        *##end
 #*      *##end
+#*    *##end
     @javax.persistence.Column(name = "${attribute.columnName}"#if ($attribute.unique), unique = ${attribute.unique}#end#if (!$attribute.columnNullable), nullable = ${attribute.columnNullable}#end#**#, insertable = ${attribute.insertEnabled}, updatable = ${attribute.updateEnabled}#if ($attribute.columnLength), length = ${attribute.columnLength}#end#if ($attribute.columnDefinition), columnDefinition = "${attribute.columnDefinition}"#end#if ($attribute.columnPrecision), precision = ${attribute.columnPrecision}#end#if ($attribute.columnScale), scale = ${attribute.columnScale}#end)
-#*      *##if (!$attribute.lob && $attribute.lazy)
+#*    *##if (!$attribute.lob && $attribute.lazy)
 ##
 ## Only add the fetch type property for LAZY hints - default is EAGER
 ##
     @javax.persistence.Basic(fetch = javax.persistence.FetchType.LAZY)
-#*      *##end
-#*      *##if ($stringUtils.isNotBlank($attribute.temporalType))
-    @javax.persistence.Temporal(javax.persistence.TemporalType.${attribute.temporalType})
-#*      *##end
-#*      *##if ($stringUtils.isNotBlank($attribute.enumerationType))
-    @javax.persistence.Enumerated(javax.persistence.EnumType.${attribute.enumerationType})
-#*      *##end
 #*    *##end
+#*    *##if ($stringUtils.isNotBlank($attribute.temporalType))
+    @javax.persistence.Temporal(javax.persistence.TemporalType.${attribute.temporalType})
+#*    *##end
+#*    *##if ($stringUtils.isNotBlank($attribute.enumerationType))
+    @javax.persistence.Enumerated(javax.persistence.EnumType.${attribute.enumerationType})
+#*    *##end
+#*  *##end
 ##
 ## Override attribute type if attribute is a LOB and lob type is specified
 ##     
@@ -117,31 +117,31 @@ $attribute.getDocumentation("     * ")
         return this.${attribute.name};
     }
 
-#if ($embeddedValue.immutable)
+#*  *##if ($embeddedValue.immutable)
     // protected setter, if subclass methods need to normalize the $embeddedValue.name
     protected void ${attribute.setterName}(#if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.getterSetterTypeName}#end $attribute.name)
-#else
+#*  *##else
     $attribute.visibility void ${attribute.setterName}(#if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.getterSetterTypeName}#end $attribute.name)
-#end
+#*  *##end
     {
         this.${attribute.name} = $attribute.name;
     }
 
-#end
-#foreach ($operation in $embeddedValue.operations)
-#set ($returnType = $operation.returnType)
-#set ($signature = $operation.signature)
+#**##end
+#**##foreach ($operation in $embeddedValue.operations)
+#*  *##set ($returnType = $operation.returnType)
+#*  *##set ($signature = $operation.signature)
     /**
 $operation.getDocumentation("     * ")
      */
-#if ($operation.exceptionsPresent)
+#*  *##if ($operation.exceptionsPresent)
     $operation.visibility abstract $returnType.fullyQualifiedName $signature
         throws $operation.exceptionList;
-#else
+#*  *##else
     $operation.visibility abstract $returnType.fullyQualifiedName $signature;
-#end
+#*  *##end
 
-#end
+#**##end
 #end
     /**
      * Indicates if the argument is of the same type and all values are equal.
