@@ -159,6 +159,8 @@
         for association end collection index name and type (further map support) to be specified via tagged values 
         @andromda.persistence.collection.index and @andromda.persistence.collection.index.type.  This introduced
         a new facade called EJB3TypeFacade.
+        Every collection type association end now instantiates the corresponding implementation upon
+        declaration.
       </action>
       <action dev="vancek" type="fix">
         Fixed isRequired in EJB3AssociationEndFacade and EJB3EntityAttributeFacade to exclude property if
