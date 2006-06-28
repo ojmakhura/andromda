@@ -12,8 +12,8 @@
     <body>
     	<links>
     		<item name="EJB3" href="index.html"/>
-      		<item name="Cartridges" href="../andromda-cartridges/index.html"/>
-      		<item name="AndroMDA" href="../index.html"/>
+      		<item name="Cartridges" href="http://galaxy.andromda.org/docs/andromda-cartridges/index.html"/>
+      		<item name="AndroMDA" href="http://www.andromda.org"/>
     	</links>
     	<menu name="Overview">
     		<item name="About EJB3 Cartridge" href="index.html"/>
@@ -49,7 +49,9 @@
         </menu>
     	<menu name="Support">
     	    <item name="FAQ" href="faq.html"/>
+    	    <item name="Change Report" href="changes-report.html"/>
     	    <item name="EJB Forum" href="http://galaxy.andromda.org/forum/viewforum.php?f=17"/>
+    	    <item name="JIRA EJB" href="http://galaxy.andromda.org/jira/browse/EJB"/>
     	</menu>
         ${reports}
     </body>

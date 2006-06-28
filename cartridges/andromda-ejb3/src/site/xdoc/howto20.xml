@@ -44,18 +44,36 @@
                 </ul>
             </p>
             <p>
-                The cartridge provides basic support for embeddable value objects.  Currently, no
-                mapping annotations on properties of the embeddable value object are generated.  This can easily
-                be supported by modification to the <code>EJB3EmbeddedValueFacade</code> and corresponding
-                <code>EmbeddedValue.vsl</code> template.
+                You can model basic features on your embeddable class attributes and these will be reflected in the
+                generated embeddable value object.  These features are much the same as described in the
+                <a href="howto1.html">howto for entities</a>. The following is a brief list of annotations
+                and some properties that are available on embeddable attributes.
+                <ul>
+                    <li><p>@Transient</p></li>
+                    <li><p>@Version</p></li>
+                    <li><p>@Lob with @Basic settings to fetch type</p></li>
+                    <li><p>@Column with properties unique, nullable, insertable, updatable, length, columnDefinition, precision and scale</p></li>
+                    <li><p>@Temporal</p></li>
+                    <li><p>@Enumerated</p></li>
+                </ul>
             </p>
             <a name="Helpful_Hints"/>
             <subsection name="Helpful Hints">
                 <p>
-                    Even though the EJB3 cartridge generates an implementation source file extending the
-                    auto generated embedded value object, the implementation is currently not used.  Future
-                    version of the EJB3 cartridge will make use of the persistence ORM mapping file and will
-                    fix this issue.
+                    The EJB3 cartridge now uses the persistence ORM mapping file <b>orm.xml</b> to declare the 
+                    embeddable class metadata.  This means that the <code>@Embeddable</code> annotation is no longer
+                    rendered in the base or implementation for the embeddable object.  
+                    The ORM mapping file defines the embeddable implementation, which extends the abstract embeddable 
+                    base object, as the embeddable class.
+                </p>
+                <p>
+                    This has been adopted so that you can have an implementation for embeddable value object operations 
+                    or any other aspect requiring manual implementation, without having to be concerned with code 
+                    regeneration over-writing your implementation.  This could not be achieved with pure annotations.
+                </p>
+                <p>
+                    The cartridge now support having multiple attributes having the same embeddable value object type
+                    within a single entity.  There is limited support for associations between embeddable value objects.
                 </p>
             </subsection>
         </section>
