@@ -51,6 +51,7 @@
                     <li class="gen"><p><a href="src/org/andromda/test/howto16/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></p></li>
                     <li class="impl"><p><a href="src/org/andromda/test/howto16/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></p></li>
                     <li class="gen"><p><a href="src/org/andromda/test/howto16/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></p></li>
+                    <li class="gen"><p><a href="src/org/andromda/test/howto16/a/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></p></li>
                     <li class="impl"><p><a href="src/org/andromda/test/howto16/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></p></li>
                     <li class="gen"><p><a href="src/org/andromda/test/howto16/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></p></li>
                     <li class="gen"><p><a href="src/org/andromda/test/howto16/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></p></li>
@@ -72,26 +73,26 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarCreateManageableException.java.txt"><code>CarCreateManageableException.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarDeleteManageableException.java.txt"><code>CarDeleteManageableException.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarReadManageableException.java.txt"><code>CarReadManageableException.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarUpdateManageableException.java.txt"><code>CarUpdateManageableException.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarManageableService.java.txt"><code>CarManageableService.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarManageableServiceBase.java.txt"><code>CarManageableServiceBase.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarForm.java.txt"><code>CarForm.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/ManageCar.java.txt"><code>ManageCar.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/car_help.jsp.txt"><code>car_help.jsp</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/car_crud.jsp.txt"><code>car_crud.jsp</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonCreateManageableException.java.txt"><code>PersonCreateManageableException.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonDeleteManageableException.java.txt"><code>PersonDeleteManageableException.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonReadManageableException.java.txt"><code>PersonReadManageableException.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonUpdateManageableException.java.txt"><code>PersonUpdateManageableException.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonManageableService.java.txt"><code>PersonManageableService.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonManageableServiceBase.java.txt"><code>PersonManageableServiceBase.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonForm.java.txt"><code>PersonForm.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/ManagePerson.java.txt"><code>ManagePerson.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/person_help.jsp.txt"><code>person_help.jsp</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/person_crud.jsp.txt"><code>person_crud.jsp</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarCreateManageableException.java"><code>CarCreateManageableException.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarDeleteManageableException.java"><code>CarDeleteManageableException.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarReadManageableException.java"><code>CarReadManageableException.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarUpdateManageableException.java"><code>CarUpdateManageableException.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarManageableService.java"><code>CarManageableService.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarManageableServiceBase.java"><code>CarManageableServiceBase.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/CarForm.java"><code>CarForm.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/ManageCar.java"><code>ManageCar.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/car_help.jsp"><code>car_help.jsp</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/car_crud.jsp"><code>car_crud.jsp</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonCreateManageableException.java"><code>PersonCreateManageableException.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonDeleteManageableException.java"><code>PersonDeleteManageableException.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonReadManageableException.java"><code>PersonReadManageableException.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonUpdateManageableException.java"><code>PersonUpdateManageableException.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonManageableService.java"><code>PersonManageableService.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonManageableServiceBase.java"><code>PersonManageableServiceBase.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/PersonForm.java"><code>PersonForm.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/ManagePerson.java"><code>ManagePerson.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/person_help.jsp"><code>person_help.jsp</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto16/a/crud/person_crud.jsp"><code>person_crud.jsp</code></a></p></li>
                 </ul>
             </p>
             <p>
@@ -102,10 +103,15 @@
             <a name="Manageable_Entities_Tips"/>
             <subsection name="Tips">
                 <p>
-                    You should assign one attribute of every manageable entity as a unique index.  This is
+                    You should assign one attribute of every manageable entity as a <i>unique</i> attribute.  This is
                     achieved by modelling the <![CDATA[<<Unique>>]]> stereotype on the attribute.  As a result, it
                     will display the unique attribute value for foreign key reference columns when listing entities, 
                     rather than the complete target entity property name-value pairs.
+                </p>
+                <p>
+                    By assigning a unique manageable entity attribute, the <code>readAll</code> method of the 
+                    manageable service base implementation avoids the use of <code>left join fetch</code> to
+                    retrieve collection association objects.
                 </p>
             </subsection>
         </section>
