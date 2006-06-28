@@ -40,5 +40,27 @@
         </p>
       </answer>
     </faq>
+    <faq id="use_of_orm.xml">
+      <question>How does an EJB 3.0 project define meta information?</question>
+      <answer>
+        <p>
+          The cartridge now uses a combination of annotations and orm.xml deployment descriptor to define
+          meta mapping information.  The orm.xml will override or even replace certain annotations and allows
+          you to maintain full control by separating generated code and your implementation code.
+        </p>
+      </answer>
+    </faq>
+    <faq id="how_to_stay_up_to_date">
+      <question>How can I stay up to date with the changes to the EJB3 cartridge?</question>
+      <answer>
+        <p>
+          The first thing you should do is register with the AndroMDA forums and select the forums you want to
+          keep your eye on to receive emails of posts.
+        </p>
+        <p>
+          Regularly read the updates in the <a href="changes-report.html">changes report</a>.
+        </p>
+      </answer>
+    </faq>
   </part>
 </faqs>
