@@ -12,9 +12,10 @@
                 embeddable value objects are mapped to column within the entity's table.
             </p>
             <p>
-                The <code>@Embeddable</code> annotation is specified on the class whose instance is
+                The <code>@Embeddable</code> annotation is typically used on the class whose instance is
                 an embeddable value object of an entity.  Only a limited number of annotations are
-                permitted on the properties of the embeddable value object.
+                permitted on the properties of the embeddable value object.  The EJB3 cartridge defines
+                the embeddable value object using an ORM metadata mapping file.
             </p>
             <p>
                 A persistent property of an entity which is an instance of an embeddable value object
@@ -41,6 +42,7 @@
                     <li class="gen"><p><a href="src/org/andromda/test/howto20/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></p></li>
                     <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto20/a/PersonName.java"><code>PersonName.java</code></a></p></li>
                     <li class="impl"><p><a class="changed" href="src/org/andromda/test/howto20/a/PersonNameImpl.java"><code>PersonNameImpl.java</code></a></p></li>
+                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto20/a/orm.xml"><code>orm.xml</code></a></p></li>
                 </ul>
             </p>
             <p>
