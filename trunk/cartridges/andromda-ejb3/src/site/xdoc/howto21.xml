@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - JBoss Seam Integration</title>
+    </properties>
+    <body>
+        <section name="JBoss Seam Integration">
+            <p>
+                The EJB3 cartridge now has the ability to enable your EJB 3.0 components as Seam components.
+                This latest addition is work in progress.
+            </p>
+            <p>
+                Here is the initial roadmap for JBoss Seam integration from the forum
+                
+            </p>
+            <a name="Seam_Roadmap"/>
+            <subsection name="Seam Roadmap">
+                <p>
+					1. Have a new profile called andromda-profile-seam, as part of the andromdaplugins project 
+					containing all stereotypes and tagged values pertaining to seam components. Projects need to download 
+					and build the artifact and manually load the profile module within their UML model.
+				</p>
+				<p>
+					2. Every entity or session bean which is to be modelled as a Seam component should have an 
+					extra <![CDATA[<<Seam>>]]> stereotype.
+				</p>
+				<p>
+					3. #2 will render the @Name stereotype with the value taken as the class name. Should 
+					provide <code>@andromda.seam.component.name</code> tagged value to override this.
+				</p>
+				<p>
+					4. Provide <code>@andromda.seam.component.scope</code> with enumerated values to set the scope if 
+					required, otherwise use defaults.
+				</p>
+				<p>
+					5. @NotNull on getters is rendered based on attribute multiplicity.
+				</p>
+				<p>
+					6. @Length annotation's max property is taken from 
+					<code>@andromda.persistence.column.length</code> tagged value. To specify a min 
+					length, set the tagged value to x,y where x is min, y is max. 
+					Need to account for this in the facade logic impl.
+				</p>
+				<p>
+					7. @In and @Out annotations for bijection are rendered on attributes defined on 
+					session bean class where <![CDATA[<<In>>]]> and <![CDATA[<<Out>>]]> stereotypes are
+					modelled respectively. If attribute multiplicity is 0, 0..1, 0..*, define 
+					require property in both annotations. If attribute multiplicity is 1, 1..* 
+					define create property on @In.
+				</p>
+				<p>
+					8. @Create annotation rendered on session bean operation if a 
+					<![CDATA[<<Create>>]]> stereotype is modelled on it.
+				</p>
+				<p>
+					9. @Destroy annotation is rendered on a session bean operation if a 
+					<![CDATA[<<Destroy>>]]> stereotype is modelled on it.
+				</p>
+				<p>
+					10. Provide tag <code>@andromda.seam.validation.invalid.outcome</code> with enumerated 
+					list of values to be set on session bean operations (to render @IfInvalid) such that 
+					Hibernate Validator can validate component state before invoking action listener 
+					session bean operation (for components with @Valid annotations). 
+					<code>@andromda.seam.validation.invalid.refreshEntities</code> can be set to true or 
+					false and if defined, adds the refreshEntities property to the annotation.
+				</p>
+				<p>
+					11. <![CDATA[<<Valid>>]]> stereotype can be modelled on session bean attributes 
+					to render @Valid annotation for validation (see #10).
+				</p>
+				<p>
+					12. Modify andromdapp project generator to ask a further question:
+					Would you like to use the JBoss Seam application framework?
+					Only if persistence engine is ejb3, a web interface is required and interface type 
+					is JSF. This will add the jboss-seam artifact as dependency to necessary poms 
+					and include it in the ear for deployment. Perhaps include a property called 
+					seamEnabled in the andromda.xml application descriptor in the default namespace.
+				</p>
+				<p>
+					13. If seamEnabled (# 12), ejb-jar.xml contains necessary interceptor binding 
+					and application.xml contains the jboss-seam.jar java module definition.
+				</p>
+				<p>
+					14. As soon as you introduce session bean attributes, the cartridge assumes 
+					the bean is a stateful session bean. One solution would be to remove this 
+					default so that the only way to specify a session bean as a sfsb 
+					is via tagged value <code>@andromda.service.type</code>.
+				</p>
+				<p>
+					15. Stereotype <![CDATA[<<DataModel>>]]> can be modelled on attributes 
+					(of type java.util.List - but I don't think this can be enforced). 
+					This will render @DataModel on the attribute. An optional tagged value 
+					<code>@andromda.seam.datatable.datamodel.name</code> can be modelled on such 
+					attributes to defined the context variable name if more than 1 datamodel exists.
+				</p>
+				<p>
+					16. Stereotype <![CDATA[<<DataModelSelection>>]]> can be modelled on attributes 
+					to inject the selected value from the DataModel into this attribute. This 
+					will render @DataModelSelection on the attribute. An optional tagged value 
+					<code>@andromda.seam.datatable.datamodel.selection.name</code> can define the 
+					name of the context variable defined by the appropriate @DataModel.
+				</p>
+				<p>
+					17. Stereotype <![CDATA[<<Factory>>]]> can be modelled on session bean 
+					component operations with <code>@andromda.seam.component.factory.context.name</code>
+					which is modelled on the operation to set the context variable name.
+				</p>
+				<p>
+					18. Stereotype <![CDATA[<<RequestParameter>>]]> can be modelled on session bean 
+					component attribute to indicate an attribute is to be injected with the value 
+					of a request parameter. Optional tagged value 
+					<![CDATA[@andromda.seam.component.requestParameter.name]]> will define the 
+					request parameter name.
+				</p>
+				<p>
+					19. Tagged value <code>@andromda.seam.transaction.rollback.outcome</code> on session 
+					bean component operation, can have multiple values to indicate that transaction 
+					set for rollback on the specified outcomes.
+				</p>
+				<p>
+					20. Not sure if we really need to touch the Java cartridge. If we can add a new
+					stereotype to define a class/metafacade as a JavaBean in the EJB3 cartridge 
+					and apply the Seam component model to it, it would avoid bloating the 'simple' Java cartridge.
+				</p>
+				<p>
+					21. Tagged value <code>@andromda.seam.component.conversational.ifNotBegunOutcome</code>
+					if set will render the ifNotBegunOutcome property of the @Conversational annotation 
+					to indicate the JSF outcome for the action if no long-running conversation is 
+					active when the component is invoked.
+				</p>
+				<p>
+					22. Stereotype <![CDATA[<<Begin>>]]> can be modelled on session bean component operations 
+					to indicate a long-running conversation started, which will render a @Begin annotation 
+					on the operation. Should define extra tagged values for ifOutcome, join, nested and 
+					pageflow properties of @Begin annotation.
+				</p>
+				<p>
+					23. Stereotype <![CDATA[<<End>>]]> can be modelled on session bean component operations 
+					to indicate the end of a long running conversation. Define tagged values for ifOutcome 
+					and evenIfException properties.
+				</p>
+				<p>
+					24. Define similar stereotypes/tags for jBPM tasks/processes.
+				</p>
+				<p>
+					25. Stereotype <![CDATA[<<Unwrap>>]]> modelled on attributes but is rendered 
+					on getter method of beans.
+				</p>
+				<p>
+					26. Everything needs to have XDOC documentation. 
+                </p>
+            </subsection>
+            <a name="Project_Generator"/>
+            <subsection name="Project Generator">
+                <p>
+                    The AndroMDApp project generator from <code>3.2-SNAPSHOT</code> in CVS onwards supports JBoss Seam 
+                    for EJB3 and JSF for web project only.  As long as you select these components, all the necessary
+                    JBoss Seam properties will be enabled in your project.
+                </p>
+            </subsection>
+            <a name="Seam_Profile"/>
+            <subsection name="EJB3 Seam Profile">
+                <p>
+                    There exists a separate Seam profile that needs to be imported into your project.  This profile
+                    contains the Seam specific tags and stereotypes you need to model on your components.  You can
+                    download the profile project <a href="andromda-profiles-seam-1.0-SNAPSHOT.zip">here</a>.
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>
