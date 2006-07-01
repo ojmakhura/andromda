@@ -87,15 +87,15 @@
         Always generate a local interface for a session bean if it is a Seam component.
       </action>
       <action dev="vancek" due-to="tlu" type="fix">
-        If a session bean operation is modelled for the local view type interface, a local interface is NOT
-        generated.  When returning a view type from the EJB3SessionFacade, must lookup all business operations to 
+        JIRA EJB-27 - If a session bean operation is modelled for the local view type interface, a local interface is 
+        NOT generated.  When returning a view type from the EJB3SessionFacade, must lookup all business operations to 
         determine their view type individually and return a view type for the session bean to accomodate local,
-        remote and both. JIRA EJB-27
+        remote and both.
         Refactor service delegate templates and introduce a parent base class which all service delegates extend.
         Fix problem with exposing only remote operations as webservice endpoints.
       </action>
       <action dev="vancek" due-to="tlu" type="add">
-        Added support for adding ejb-jar elements to the persistence.xml. JIRA EJB-28.
+        JIRA EJB-28 - Added support for adding ejb-jar elements to the persistence.xml.
       </action>
       <action dev="vancek" due-to="tlu" type="update">
         Generate documentation for enumeration literals.
@@ -112,7 +112,7 @@
         Remove references to attributes modelled with a @Version annotation (optimistic lock value for entity) in 
         manageable service components.  Initial work removed attribute from getAttributes, but that caused problems
         from the manageable web tier action methods create and update. To account for this, allow the attribute as
-        arguement to the methods, but do not call the set accessor.
+        argument to the methods, but do not call the corresponding setter.
       </action>
       <action dev="vancek" type="fix">
         Moved the @Version annotation to the entity attribute.  It had no effect on the getter method.
@@ -172,26 +172,26 @@
         need for the existing overwritten methods in the manageable entity facades.
       </action>
       <action dev="vancek" due-to="tlu" type="fix">
-        Fix erroneous signature of entity constructor where no entity attributes exist but navigable associations
-        do exist. JIRA EJB-34
+        JIRA EJB-34 - Fix erroneous signature of entity constructor where no entity attributes exist but navigable 
+        associations do exist.
       </action>
       <action dev="vancek" type="update">
         Revert the build back to using the default Java compiler (1.4) - 1.5 isn't supported for the automated
         build process for andromda-plugins.
       </action>
       <action dev="vancek" due-to="tlu" type="add">
-        Add support for a select few meta type annotations for attribues in embedded value classes. Need to 
-        confirm if @Transient, @Version, @Lob and @Basic are supported.  @Column, @Temporal and @Enumerated have
-        been confirmed to work.  JIRA EJB-31
+        JIRA EJB-31 - Add support for a select few meta type annotations for attribues in embedded value classes. 
+        Need to confirm if @Transient, @Version, @Lob and @Basic are supported.  @Column, @Temporal and @Enumerated 
+        have been confirmed to work.
       </action>
       <action dev="vancek" due-to="tlu" type="add">
-        Add support for embedded value object associations as well as attribute overrides. JIRA EJB-32.
+        JIRA EJB-32 - Add support for embedded value object associations as well as attribute overrides.
         NOTE: This is still partial support.  The association mutators need to be added with appropriate
         annotation to the embedded value object base abstract class.
       </action>
       <action dev="vancek" due-to="tlu" type="fix">
-        Fix problem when there are two embedded value objects of the same type in the same entity. Fix for both
-        attribute and association overrides. JIRA EJB=33
+        JIRA EJB-33 - Fix problem when there are two embedded value objects of the same type in the same entity. 
+        Fix for both attribute and association overrides.
       </action>
       <action dev="vancek" due-to="tlu" type="update">
         JIRA EJB-29 - the implementation class of the embedded value object was unused and the base class was abstract.
@@ -199,6 +199,19 @@
         the embeddable classes are defined.  As a result the @Embeddable annotation is removed from the base abstract
         class and the embeddable implementation class is now the defined as the embeddable class using orm.xml rather
         than metadata annotation.
+      </action>
+      <action dev="vancek" due-to="pawel" type="fx">
+        JIRA EJB-36 - Entities and composite primary keys now implement Comparable interface and implement the 
+        compareTo method.
+        @org.hibernate.annotations.Sort annotation is only set if the collection interface for an association end
+        is defined as java.util.SortedSet.  
+      </action>
+      <action dev="vancek" type="add">
+        Added basic JBoss Seam documentation to site docs.
+      </action>
+      <action dev="vancek" due-to="tlu" type="fix">
+        JIRA EJB-37 - Fix problem with service delegate switch statement where the break statement should not be
+        issued after a return statement. 
       </action>
     </release>
   </body>
