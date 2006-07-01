@@ -78,12 +78,12 @@ public class $service.serviceDelegateName
             {
                 case LOCAL_VIEW_TYPE:
                     #if ($operation.returnTypePresent)return #end#**#get${service.name}Local().${operation.name}(${operation.argumentNames});
-                    break;
+                    #if (!$operation.returnTypePresent)break;#end
                     
                 case REMOTE_VIEW_TYPE:
                 default:
                     #if ($operation.returnTypePresent)return #end#**#get${service.name}Remote().${operation.name}(${operation.argumentNames});
-                    break;
+                    #if (!$operation.returnTypePresent)break;#end
             }
 #*  *##elseif ($operation.viewTypeAbsoluteRemote)
             #if ($operation.returnTypePresent)return #end#**#get${service.name}Remote().${operation.name}(${operation.argumentNames});
