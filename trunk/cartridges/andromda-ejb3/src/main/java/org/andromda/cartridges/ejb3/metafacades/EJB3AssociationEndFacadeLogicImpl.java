@@ -139,7 +139,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     /**
      * Value for collections
      */
-    private static final String COLLECTION_TYPE_COLLECTION = "collection";
+    private static final String COLLECTION_TYPE_COLLECTION = "bag";
 
     /**
      * Stores the valid collection types
@@ -224,6 +224,10 @@ public class EJB3AssociationEndFacadeLogicImpl
                     else if (this.isList())
                     {
                         getterSetterTypeName = mappings.getTo(UMLProfile.LIST_TYPE_NAME);
+                    }
+                    else if (this.isCollection())
+                    {
+                        getterSetterTypeName = mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
                     }
                 }
                 else
@@ -581,7 +585,36 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionTypeImplementation()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#
+     *      handleGetCollectionTypeImplemenationClass()
+     */
+    protected String handleGetCollectionTypeImplemenationClass()
+    {
+        String collectionTypeImplementationClass = null;
+        if (this.isMany())
+        {
+            if (this.isSet())
+            {
+                collectionTypeImplementationClass = String.valueOf(
+                        this.getConfiguredProperty(SET_TYPE_IMPLEMENTATION));
+            }
+            else if (this.isMap())
+            {
+                collectionTypeImplementationClass = String.valueOf(
+                        this.getConfiguredProperty(MAP_TYPE_IMPLEMENTATION));
+            }
+            else if (this.isList() || this.isCollection())
+            {
+                collectionTypeImplementationClass = String.valueOf(
+                        this.getConfiguredProperty(LIST_TYPE_IMPLEMENTATION));
+            }
+        }
+        return collectionTypeImplementationClass;
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#
+     *      handleGetCollectionTypeImplementation()
      */
     protected String handleGetCollectionTypeImplementation()
     {
@@ -589,7 +622,8 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionTypeImplementation(java.lang.String)
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#
+     *      handleGetCollectionTypeImplementation(java.lang.String)
      */
     protected String handleGetCollectionTypeImplementation(String arg)
     {
@@ -597,18 +631,7 @@ public class EJB3AssociationEndFacadeLogicImpl
         if (this.isMany())
         {
             implementation.append("new ");
-            if (this.isSet())
-            {
-                implementation.append(this.getConfiguredProperty(SET_TYPE_IMPLEMENTATION));
-            }
-            else if (this.isMap())
-            {
-                implementation.append(this.getConfiguredProperty(MAP_TYPE_IMPLEMENTATION));
-            }
-            else if (this.isList() || this.isCollection())
-            {
-                implementation.append(this.getConfiguredProperty(LIST_TYPE_IMPLEMENTATION));
-            }
+            implementation.append(this.getCollectionTypeImplemenationClass());
 
             // set this association end's type as a template parameter if required
             if (Boolean.valueOf(String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
@@ -872,7 +895,8 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetDefaultCollectionInterface()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#
+     *      handleGetDefaultCollectionInterface()
      */
     protected String handleGetDefaultCollectionInterface()
     {
@@ -880,15 +904,16 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsDefaultCollectionInterfaceSortedSet()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#
+     *      handleIsCollectionInterfaceSortedSet()
      */
-    protected boolean handleIsDefaultCollectionInterfaceSortedSet()
+    protected boolean handleIsCollectionInterfaceSortedSet()
     {
-        boolean isDefaultSortedSet = false;
-        if (StringUtils.equals(this.getDefaultCollectionInterface(), EJB3Globals.COLLECTION_INTERFACE_SORTED_SET))
+        boolean isInterfaceSortedSet = false;
+        if (this.getGetterSetterTypeName().startsWith(EJB3Globals.COLLECTION_INTERFACE_SORTED_SET))
         {
-            isDefaultSortedSet = true;
+            isInterfaceSortedSet = true;
         }
-        return isDefaultSortedSet;
+        return isInterfaceSortedSet;
     }
 }

@@ -121,10 +121,15 @@ public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
     extends ${entity.generalization.fullyQualifiedName}
 #**##end
 #end
-    implements java.io.Serializable
+##
+## Do not implement Comparable for (implicit or explicitly defined) mapped superclass 
+## or for a subclass in an inheritance hierarchy.
+##
+    implements java.io.Serializable#if (!$entity.entityImplementationRequired && !$entity.embeddableSuperclass && !$entity.requiresGeneralizationMapping), Comparable<${entity.entityName}>#end## no newline
 #if (!$entity.interfaceAbstractions.empty)
         , $entity.implementedInterfaceList
 #end
+
 {
 
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
@@ -598,7 +603,7 @@ $attribute.getDocumentation("     * ")
 #*      *##if ($target.associationCacheEnabled)
     @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
 #*      *##end
-#*      *##if ($target.defaultCollectionInterfaceSortedSet)
+#*      *##if ($target.collectionInterfaceSortedSet)
     @org.hibernate.annotations.Sort(type = org.hibernate.annotations.SortType.NATURAL)
 #*      *##end
 #*    *##end
@@ -716,7 +721,7 @@ $attribute.getDocumentation("     * ")
 #*      *##if ($target.associationCacheEnabled)
     @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
 #*      *##end
-#*      *##if ($target.defaultCollectionInterfaceSortedSet)
+#*      *##if ($target.collectionInterfaceSortedSet)
     @org.hibernate.annotations.Sort(type = org.hibernate.annotations.SortType.NATURAL)
 #*      *##end
 #*    *##end
@@ -784,26 +789,13 @@ $attribute.getDocumentation("     * ")
 #else
 #**##set ($entityName = $entity.entityName)
 #end
-    /**
-     * Indicates if the argument is of the same type and all values are equal.
-     *
-     * @param object The target object to compare with
-     * @return boolean True if both objects a 'equal'
-     */
 #renderEqualsMethod($entity $entityName $entity.identifiers)
 
-    /**
-     * Returns a hash code value for the object
-     *
-     * @return int The hash code value
-     */
 #renderHashCodeMethod($entity $entity.identifiers)
 
-    /**
-     * Returns a String representation of the object
-     *
-     * @return String Textual representation of the object displaying name/value pairs for all attributes
-     */
 #renderToStringMethod($entity $entityName $entity.attributes)
 
+#if (!$entity.entityImplementationRequired && !$entity.embeddableSuperclass && !$entity.requiresGeneralizationMapping)
+#renderCompareToMethod($entity $entityName $entity.identifiers)
+#end
 }

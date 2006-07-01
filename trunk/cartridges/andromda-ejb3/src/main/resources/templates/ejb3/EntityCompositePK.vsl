@@ -10,7 +10,8 @@ package $entity.packageName;
 $entity.getDocumentation(" * ")
  */
 @javax.persistence.Embeddable
-public class ${entity.entityCompositePrimaryKeyName} implements java.io.Serializable
+public class ${entity.entityCompositePrimaryKeyName} 
+    implements java.io.Serializable, Comparable<${entity.entityCompositePrimaryKeyName}>
 {
     private static final long serialVersionUID = 1L;
     
@@ -103,5 +104,32 @@ $attribute.getDocumentation("     * ")
             
 #**##end
 #end
+    }
+    
+    /**
+     * @see java.lang.Comparable#compareTo(T)
+     */
+    public int compareTo(${entity.entityCompositePrimaryKeyName} o)
+    {
+        int cmp = 0;
+#set ($identifiers = $class.identifiers)
+#if (!$identifiers.empty)
+#**##foreach ($identifier in $identifiers)
+#*  *##if (!$identifier.type.primitive && !$identifier.type.arrayType && !$identifier.lob && !$identifier.containsEmbeddedObject)
+#*    *##if ($velocityCount == 1)
+        if (this.${identifier.getterName}() != null)
+        {
+            cmp = this.${identifier.getterName}().compareTo(o.${identifier.getterName}());
+        }
+#*    *##else
+        if (this.${identifier.getterName}() != null)
+        {
+            cmp = (cmp != 0 ? cmp : this.${identifier.getterName}().compareTo(o.${identifier.getterName}()));
+        }
+#*    *##end
+#*  *##end
+#**##end
+#end
+        return cmp;
     }
 }
