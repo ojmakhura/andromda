@@ -7,6 +7,12 @@
 ##  identifier, must call accessor on PK object.
 ##
 #macro (renderEqualsMethod $class $className $attributeSet)
+    /**
+     * Indicates if the argument is of the same type and all values are equal.
+     *
+     * @param object The target object to compare with
+     * @return boolean True if both objects a 'equal'
+     */
     public boolean equals(Object object)
     {
 #**##if ($attributeSet.empty)
@@ -53,6 +59,11 @@
 ##  identifier, must call accessor on PK object.
 ##
 #macro (renderHashCodeMethod $class $attributeSet)
+    /**
+     * Returns a hash code value for the object
+     *
+     * @return int The hash code value
+     */
     public int hashCode()
     {
 #**##if ($attributeSet.empty)
@@ -89,6 +100,11 @@
 ##  identifier, must call accessor on PK object.
 ##
 #macro (renderToStringMethod $class $className $attributeSet)
+    /**
+     * Returns a String representation of the object
+     *
+     * @return String Textual representation of the object displaying name/value pairs for all attributes
+     */
     public String toString()
     {
 #**##if ($attributeSet.empty)
@@ -103,11 +119,51 @@
 #*  *##foreach ($attribute in $attributeSet)
 #*    *##set ($attrType = $attribute.type)
         sb.append("${sep}#if ($class.compositePrimaryKeyPresent && $attribute.identifier)pk.#end${attribute.name}: ");
-        sb.append(#if ($class.compositePrimaryKeyPresent && $attribute.identifier)this.getPk().#end${attribute.getterName}());
+        sb.append(#if ($class.compositePrimaryKeyPresent && $attribute.identifier)this.getPk().#end${attribute.getterName}()#if ($attribute.containsEmbeddedObject).toString()#end);
 #*    *##set( $sep = ", " )
 #*  *##end## foreach
         sb.append(")");
         return sb.toString();
 #**##end## $attributeSet.empty
+    }
+#end
+##
+##  This macro will render the compareTo(Object o) method
+##  This is required since each entity implements Comparable<T>
+##
+#macro (renderCompareToMethod $class $className $identifiers)
+    /**
+     * @see java.lang.Comparable#compareTo(T)
+     */
+    public int compareTo($className o)
+    {
+        int cmp = 0;
+#**##if ($identifiers.size() > 1)
+        if (this.getPk() != null)
+        {
+            cmp = this.getPk().compareTo(o.getPk());
+        }
+#**##else
+#*  *##set ($identifier = $identifiers.iterator().next())
+        if (this.${identifier.getterName}() != null)
+        {
+            cmp = this.${identifier.getterName}().compareTo(o.${identifier.getterName}());
+        }
+#**##end
+#**##set ($attributes = $class.attributes)
+#**##if (!$attributes.empty)
+        else
+        {
+#*  *##foreach ($attribute in $attributes)
+#*    *##if (!$attribute.type.primitive && !$attribute.type.arrayType && !$attribute.lob && !$attribute.identifier && !$attribute.containsEmbeddedObject)
+            if (this.${attribute.getterName}() != null)
+            {
+                cmp = (cmp != 0 ? cmp : this.${attribute.getterName}().compareTo(o.${attribute.getterName}()));
+            }
+#*    *##end
+#*  *##end
+        }
+#**##end
+        return cmp;
     }
 #end

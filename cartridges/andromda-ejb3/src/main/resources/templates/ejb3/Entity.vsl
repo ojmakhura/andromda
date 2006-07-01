@@ -65,7 +65,7 @@ $entity.getDocumentation(" * ")
 #end
 public#if ($entity.abstract) abstract#end class ${entity.entityName}
     extends ${entity.fullyQualifiedEntityEmbeddableName}
-    implements java.io.Serializable
+    implements java.io.Serializable, Comparable<${entity.entityName}>
 {
 
     /**
@@ -198,4 +198,5 @@ $operation.getDocumentation("     * ")
 #*  *##end
 #**##end
 #end
+#renderCompareToMethod($entity $entity.entityName $entity.identifiers)
 }
