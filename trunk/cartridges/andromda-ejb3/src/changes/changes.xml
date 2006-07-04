@@ -213,6 +213,10 @@
         JIRA EJB-37 - Fix problem with service delegate switch statement where the break statement should not be
         issued after a return statement. 
       </action>
+      <action dev="vancek" due-to="sverker" type="fix">
+        JIRA EJB-38 - The query in the DAO base class for finder methods with argument enum type has to set 
+        the enum class as the parameter for the querty, not the value (name or ordinal).
+      </action>
     </release>
   </body>
 </document>
