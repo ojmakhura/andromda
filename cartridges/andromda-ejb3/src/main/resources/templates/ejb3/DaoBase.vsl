@@ -513,11 +513,6 @@ public abstract class $entity.daoBaseName
 #*      *##set ($argumentValue = "new ${argument.type.wrapperName}($argument.name)")
 #*    *##else
 #*      *##set ($argumentValue = "${argument.name}")
-#*      *##if ($argument.enumerationTypeOrdinal)
-#*        *##set ($argumentValue = "${argumentValue}.ordinal()")
-#*      *##elseif ($argument.enumerationTypeString)
-#*        *##set ($argumentValue = "${argumentValue}.name()")
-#*      *##end
 #*    *##end
 #*    *##if ($argument.temporalType)
 #*      *##set ($argumentValue = "${argumentValue}, javax.persistence.TemporalType.${argument.temporalType}")
@@ -585,11 +580,6 @@ public abstract class $entity.daoBaseName
 #*      *##set ($argumentValue = "new ${argument.type.wrapperName}($argument.name)")
 #*    *##else
 #*      *##set ($argumentValue = "${argument.name}")
-#*      *##if ($argument.enumerationTypeOrdinal)
-#*        *##set ($argumentValue = "${argumentValue}.ordinal()")
-#*      *##elseif ($argument.enumerationTypeString)
-#*        *##set ($argumentValue = "${argumentValue}.name()")
-#*      *##end
 #*    *##end
 #*    *##if ($argument.temporalType)
 #*      *##set ($argumentValue = "${argumentValue}, javax.persistence.TemporalType.${argument.temporalType}")
