@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - Generate the EJB 3.0 Project</title>
+    </properties>
+    <body>
+        <section name="Generate the EJB 3.0 Project">
+            <p>
+                Generating your EJB 3.0 project is similar to how you generate any other project using AndroMDA.
+                You can either use the <b>AndroMDApp generator</b> or <b>Android</b>.  Both can be referenced
+                from <a href="http://www.andromda.org">AndroMDA's web site</a>.
+            </p>
+            <p>
+                Using the AndroMDApp generator, simply run the following command
+            </p>
+            <p>
+                <code>mvn andromdapp:generate</code>
+            </p>
+            <p>
+                And follow the process.  The following diagram illustrates how to generate a template
+                EJB 3.0 project with MySQL, JSF + Facelets, WebService and JBoss Seam enabled.
+            </p>
+            <p>
+                <img src="images/andromdapp.gif"/>
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                Now you are ready to start going through the howtos to model your EJB 3.0 requirements.  You
+                cas start with learning about entity POJOs <a href="howto1.html">here</a>.
+            </p>
+        </section>
+    </body>
+</document>
