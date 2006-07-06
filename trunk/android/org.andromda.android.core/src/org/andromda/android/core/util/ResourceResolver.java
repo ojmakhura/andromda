@@ -13,7 +13,7 @@ import org.eclipse.core.runtime.IPath;
 
 /**
  * This class helps to find resources and classes.
- * 
+ *
  * @author Peter Friese
  * @since 15.05.2006
  */
@@ -29,7 +29,7 @@ public class ResourceResolver
 
     /**
      * Tries to find a project cartridge in the given base directory and all sub directories.
-     * 
+     *
      * @param baseDir The directory to start the search in.
      * @param name The name of the project cartridge.
      * @param version The version of the project cartridge.
@@ -66,7 +66,7 @@ public class ResourceResolver
 
     /**
      * Tries to find a cartridge in the given base directory and all sub directories.
-     * 
+     *
      * @param baseDir The directory to start the search in.
      * @param name The name of the library.
      * @param version The version of the library
@@ -103,7 +103,7 @@ public class ResourceResolver
 
     /**
      * Tries to find a profile model in the given base directory and all sub directories.
-     * 
+     *
      * @param baseDir The directory to start the search in.
      * @param name The name of the profile zip.
      * @param version The version of the profile zip
@@ -146,7 +146,7 @@ public class ResourceResolver
     /**
      * Finds the cartridge root folder for the given file. The search will be performed in the current workspace. This
      * method can be used to find the cartridge root folder for a template file inside a cartridge.
-     * 
+     *
      * @param templateFile The file to lookup the cartridge root for.
      * @return The root container of the cartridge. May either be an {@link IFolder} or an {@link IProject}.
      */
@@ -176,7 +176,7 @@ public class ResourceResolver
 
     /**
      * Tries to find a library in the given base directory and all sub directories.
-     * 
+     *
      * @param baseDir The directory to start the search in.
      * @param name The name of the library.
      * @param version The version of the library
@@ -212,7 +212,7 @@ public class ResourceResolver
     /**
      * Find a resource with the given base name in the given directory, obeying the wildcard rules given in parameter
      * "includes".
-     * 
+     *
      * @param baseDir The directory to start searching in.
      * @param baseName The base name of the file to look for.
      * @param includes The wildcard rules to obey.
@@ -237,13 +237,13 @@ public class ResourceResolver
         }
         else
         {
-            return "file:/" + baseDir + File.separator + findHighestVersion(baseName, files);
+            return "file:/" + baseDir + File.separator + getHighestVersion(baseName, files);
         }
     }
 
     /**
      * Determine the version of a file.
-     * 
+     *
      * @param string
      * @return
      */
@@ -259,11 +259,11 @@ public class ResourceResolver
 
     /**
      * Find the highest version in a list of files.
-     * 
+     *
      * @param baseName The base name of the files.
      * @param files The array of files.
      */
-    private static String findHighestVersion(final String baseName,
+    private static String getHighestVersion(final String baseName,
         final String[] files)
     {
         int highestIndex = -1;
