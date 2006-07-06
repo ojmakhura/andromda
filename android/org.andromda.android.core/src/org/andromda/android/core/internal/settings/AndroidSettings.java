@@ -24,43 +24,42 @@ import org.osgi.service.prefs.Preferences;
  * @author Peter Friese
  * @since 05.12.2005
  */
-public class AndroidSettingsAccess
+public final class AndroidSettings
         implements IAndroidSettings
 {
 
-    private static final String CONFIGURATION_LOCATION = "configuration.location";
-
-    private static final String CARTRIDGES_LOCATION = "cartidges.location";
-
-    private static final String PROFILES_LOCATION = "profiles.location";
-
-    private static final String MAVEN_LOCATION = "maven.location";
-
+    /** Access to the preference service. */
     private IPreferencesService preferencesService;
 
-    private static final AndroidSettingsAccess instance = new AndroidSettingsAccess();
+    /** Singleton instance. */
+    private static final AndroidSettings instance = new AndroidSettings();
 
     /**
      * Creates a new AndroidSettingsAccess.
      */
-    private AndroidSettingsAccess()
+    private AndroidSettings()
     {
         super();
         preferencesService = Platform.getPreferencesService();
     }
 
     /**
-     * @return
+     * Returns the singleton instance.
+     * 
+     * @return The singleton instance.
      */
-    public static final AndroidSettingsAccess instance()
+    public static AndroidSettings instance()
     {
         return instance;
     }
 
     /**
+     * Saves a preference node.
+     * 
+     * @param node The node to save.
      * @return result of save request.
      */
-    private boolean saveNode(Preferences node)
+    private boolean saveNode(final Preferences node)
     {
         try
         {
@@ -77,7 +76,7 @@ public class AndroidSettingsAccess
     /**
      * {@inheritDoc}
      */
-    public String getConfigurationLocation(IProject project)
+    public String getConfigurationLocation(final IProject project)
     {
         IScopeContext[] contexts = null;
         if (project != null)
@@ -117,7 +116,7 @@ public class AndroidSettingsAccess
     /**
      * {@inheritDoc}
      */
-    public void setConfigurationLocation(String location)
+    public void setConfigurationLocation(final String location)
     {
         IScopeContext scope = new InstanceScope();
         IEclipsePreferences androidPreferences = scope.getNode(AndroidCore.PLUGIN_ID);
@@ -126,9 +125,11 @@ public class AndroidSettingsAccess
     }
 
     /**
-     * {@inheritDoc}
+     * Sets the default configuration location.
+     * 
+     * @param location The configuration location.
      */
-    public void setDefaultConfigurationLocation(String location)
+    public void setDefaultConfigurationLocation(final String location)
     {
         IScopeContext scope = new DefaultScope();
         IEclipsePreferences androidPreferences = scope.getNode(AndroidCore.PLUGIN_ID);
@@ -145,10 +146,12 @@ public class AndroidSettingsAccess
     }
 
     /**
-     * @param project
-     * @return
+     * Retrieves the cartridges location for the given project.
+     * 
+     * @param project The project to retrieve the cartridge location for.
+     * @return The cartridge location.
      */
-    private String getAndroMDACartridgesLocation(IProject project)
+    private String getAndroMDACartridgesLocation(final IProject project)
     {
         IScopeContext[] contexts = null;
         if (project != null)
@@ -167,8 +170,10 @@ public class AndroidSettingsAccess
     }
 
     /**
-     * @param project
-     * @return
+     * Retrieves the profiles location for the given project.
+     * 
+     * @param project The project to retrieve the profiles location for.
+     * @return The profiles location.
      */
     private String getAndroMDAProfilesLocation(final IProject project)
     {
@@ -224,16 +229,47 @@ public class AndroidSettingsAccess
     /**
      * {@inheritDoc}
      */
+    public String getAndroMDAPreferredVersion()
+    {
+        return preferencesService.getString(AndroidCore.PLUGIN_ID, ANDROMDA_PREFERRED_VERSION, "", null);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setAndroMDAPreferredVersion(final String preferredVersion)
+    {
+        IScopeContext scope = new InstanceScope();
+        IEclipsePreferences androidPreferences = scope.getNode(AndroidCore.PLUGIN_ID);
+        androidPreferences.put(ANDROMDA_PREFERRED_VERSION, preferredVersion);
+        saveNode(androidPreferences);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setDefaultAndroMDAPreferredVersion(final String preferredVersion)
+    {
+        IScopeContext scope = new DefaultScope();
+        IEclipsePreferences androidPreferences = scope.getNode(AndroidCore.PLUGIN_ID);
+        androidPreferences.put(ANDROMDA_PREFERRED_VERSION, preferredVersion);
+        saveNode(androidPreferences);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public boolean isConfigurationValid()
     {
         List requiredSettings = new ArrayList();
         requiredSettings.add(getAndroMDACartridgesLocation());
         requiredSettings.add(getConfigurationLocation());
-        
+
         for (Iterator iter = requiredSettings.iterator(); iter.hasNext();)
         {
             String setting = (String)iter.next();
-            if (StringUtils.trimToNull(setting) == null) {
+            if (StringUtils.trimToNull(setting) == null)
+            {
                 return false;
             }
         }

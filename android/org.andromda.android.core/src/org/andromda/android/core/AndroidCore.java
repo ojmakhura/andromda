@@ -1,7 +1,7 @@
 package org.andromda.android.core;
 
 import org.andromda.android.core.internal.AndroidModelManager;
-import org.andromda.android.core.internal.settings.AndroidSettingsAccess;
+import org.andromda.android.core.internal.settings.AndroidSettings;
 import org.andromda.android.core.project.IAndroidProject;
 import org.andromda.android.core.settings.IAndroidSettings;
 import org.andromda.core.configuration.NamespaceDocument.Namespace;
@@ -148,7 +148,7 @@ public class AndroidCore
      */
     public static IAndroidSettings getAndroidSettings()
     {
-        return AndroidSettingsAccess.instance();
+        return AndroidSettings.instance();
     }
 
     /**

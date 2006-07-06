@@ -10,10 +10,25 @@ import org.eclipse.core.resources.IProject;
  */
 public interface IAndroidSettings
 {
+
+    /** Preference key for the configuration location setting. */
+    String CONFIGURATION_LOCATION = "configuration.location";
     
+    /** Preference key for te cartridges location setting. */
+    String CARTRIDGES_LOCATION = "cartridges.location";
+    
+    /** Preference key for the profiles location. */
+    String PROFILES_LOCATION = "profiles.location";
+    
+    /** Preference key for the maven location. */
+    String MAVEN_LOCATION = "maven.location";
+    
+    /** Preference key for the AndroMDA version. */
+    String ANDROMDA_PREFERRED_VERSION = "andromda.preferred.version";
+
     /**
      * Check whether the user has provided all settings required to properly run Android.
-     * 
+     *
      * @return <code>true</code> if Android has been set up properly, <code>false</code> if not.
      */
     boolean isConfigurationValid();
@@ -22,6 +37,7 @@ public interface IAndroidSettings
      * Retrieve the location of the AndroMDA configuration XML file (andromda.xml) for the given project. This is a
      * project specific setting.
      *
+     * @param project The project to retrieve the configuration for.
      * @return The relative location of the AndroMDA configuration file.
      */
     String getConfigurationLocation(IProject project);
@@ -91,5 +107,19 @@ public interface IAndroidSettings
      * @param location An absolute path to the Maven home.
      */
     void setMavenLocation(String location);
+
+    /**
+     * Sets the preferred AndroMDA version to be used in Android.
+     *
+     * @param preferredVersion The preferred version.
+     */
+    void setAndroMDAPreferredVersion(String preferredVersion);
+
+    /**
+     * Retrieves the preferred AndroMDA version to be used in Android.
+     *
+     * @return The version string.
+     */
+    String getAndroMDAPreferredVersion();
 
 }
