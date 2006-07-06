@@ -9,7 +9,7 @@ import org.andromda.android.core.util.ResourceResolver;
 
 /**
  * This registry manages project cartridges.
- * 
+ *
  * @author Peter Friese
  * @since 22.05.2006
  */
@@ -44,7 +44,7 @@ public class ProjectCartridgeRegistry
      * Retrieves the project cartridge descriptor for the given cartridge. If the descriptor has been loaded previously,
      * a reference to that instance will be returned. Otherwise, the descriptor will be loaded and stored in this
      * registry.
-     * 
+     *
      * @param cartridgeName The name of the project cartridge, e.g. "j2ee-maven2".
      * @return A cartridge descriptor.
      */
@@ -57,8 +57,9 @@ public class ProjectCartridgeRegistry
                 .get(key);
         if (projectCartridgeDescriptor == null)
         {
+            String preferredVersion = AndroidCore.getAndroidSettings().getAndroMDAPreferredVersion();
             String projectCartridgeJar = ResourceResolver.findProjectCartridge(cartridgesLocation, cartridgeName,
-                    "3.2", false);
+                    preferredVersion, false);
             projectCartridgeDescriptor = new ProjectCartridgeDescriptor(projectCartridgeJar);
             projectCartridgeDescriptors.put(key, projectCartridgeDescriptor);
         }
@@ -67,7 +68,7 @@ public class ProjectCartridgeRegistry
 
     /**
      * Retrieves all project cartridges that can be found on the class path.
-     * 
+     *
      * @return An array of project cartridge descriptors.
      * @throws InvalidConfigurationException if Android is not set up properly.
      */

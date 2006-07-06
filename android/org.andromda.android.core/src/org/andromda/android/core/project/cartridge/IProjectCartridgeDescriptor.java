@@ -14,28 +14,33 @@ public interface IProjectCartridgeDescriptor
 {
 
     /** Cartridge prompt ID for the directory we will put the project in. */
-    public static final String PROPERTY_APPLICATION_PARENT_DIRECTORY = "applicationParentDirectory";
+    String PROPERTY_APPLICATION_PARENT_DIRECTORY = "applicationParentDirectory";
 
-    /** Cartridge prompt ID for the project ID */
-    public static final String PROPERTY_PROJECT_ID = "applicationId";
+    /** Cartridge prompt ID for the project ID. */
+    String PROPERTY_PROJECT_ID = "applicationId";
 
     /** Cartridge prompt ID for the project name. */
-    public static final String PROPERTY_PROJECT_NAME = "applicationName";
+    String PROPERTY_PROJECT_NAME = "applicationName";
 
     /** These properties will be gathered by the BasicProjectInformationWizardPage. */
-    public static final String[] PROJECT_BASIC_PROPERTIES = new String[] { 
-        PROPERTY_PROJECT_NAME, 
-        PROPERTY_PROJECT_ID,
-        PROPERTY_APPLICATION_PARENT_DIRECTORY };
+    String[] PROJECT_BASIC_PROPERTIES = new String[] { PROPERTY_PROJECT_NAME, PROPERTY_PROJECT_ID,
+            PROPERTY_APPLICATION_PARENT_DIRECTORY };
 
     /**
      * Get the type of the project generator.
      * 
-     * @throws CartridgeParsingException
+     * @return The type of te project generator.
+     * 
+     * @throws CartridgeParsingException If the cartridge descriptor could not be parsed.
      */
-    public String getType() throws CartridgeParsingException;
+    String getType() throws CartridgeParsingException;
 
-    /** Get all prompt groups. */
-    public Collection getPromptGroups() throws CartridgeParsingException;
+    /**
+     * Get all prompt groups.
+     * 
+     * @return A collection of prompt groups.
+     * @throws CartridgeParsingException If the cartridge descrptor could not be parsed.
+     */
+    Collection getPromptGroups() throws CartridgeParsingException;
 
 }
