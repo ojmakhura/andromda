@@ -5,7 +5,8 @@ import org.andromda.android.core.settings.IAndroidSettings;
 import org.andromda.android.ui.AndroidUIPlugin;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IWorkbench;
@@ -23,6 +24,7 @@ public class AndroMDALocationsPreferencePage
         implements IWorkbenchPreferencePage
 {
 
+    private AndroMDAVersionsComposite androMDAVersionsComposite;
     /** The composite containing the input fields. */
     private AndroMDALocationsComposite androMDALocationsComposite;
     public static final String PREFERENCEPAGE_ID = "org.andromda.android.ui.internal.settings.preferences.AndroMDALocationsPreferencePage";
@@ -33,9 +35,14 @@ public class AndroMDALocationsPreferencePage
     public Control createContents(Composite parent)
     {
         Composite container = new Composite(parent, SWT.NULL);
-        container.setLayout(new FillLayout());
+        final GridLayout gridLayout = new GridLayout();
+        container.setLayout(gridLayout);
 
         androMDALocationsComposite = new AndroMDALocationsComposite(container, SWT.NONE);
+        androMDALocationsComposite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+
+        androMDAVersionsComposite = new AndroMDAVersionsComposite(container, SWT.NONE);
+        androMDAVersionsComposite.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         //
         setupData();
         return container;
@@ -55,11 +62,16 @@ public class AndroMDALocationsPreferencePage
     private void setupData()
     {
         IAndroidSettings androidSettings = AndroidCore.getAndroidSettings();
+
+        // locations
         String cartridgesLocation = androidSettings.getAndroMDACartridgesLocation();
         String profilesLocation = androidSettings.getAndroMDAProfilesLocation();
         String mavenLocation = androidSettings.getMavenLocation();
+        androMDALocationsComposite.setCartridgesLocation(cartridgesLocation);
 
-        androMDALocationsComposite.getCartridgesText().setText(cartridgesLocation);
+        // versions
+        String androMDAPreferredVersion = androidSettings.getAndroMDAPreferredVersion();
+        androMDAVersionsComposite.setPreferredVersion(androMDAPreferredVersion);
     }
 
     /**
@@ -68,7 +80,7 @@ public class AndroMDALocationsPreferencePage
     public boolean performOk()
     {
         IAndroidSettings androidSettings = AndroidCore.getAndroidSettings();
-        androidSettings.setAndroMDACartridgesLocation(androMDALocationsComposite.getCartridgesText().getText());
+        androidSettings.setAndroMDACartridgesLocation(androMDALocationsComposite.getCartridgesLocation());
 
         return super.performOk();
     }
