@@ -12,7 +12,7 @@ import org.andromda.android.core.util.ResourceResolver;
 import org.apache.commons.beanutils.MethodUtils;
 
 /**
- * 
+ *
  * @author Peter Friese
  * @since 03.06.2006
  */
@@ -84,15 +84,14 @@ public class AndroMDARunner
 
     /**
      * Creates a new classloader that has access to the required libraries.
-     * 
+     *
      * @return a classloader that has access to the required libraries.
      * @throws MalformedURLException
      */
     private URLClassLoader getClassLoader() throws MalformedURLException
     {
-        // load class
         String libraryRepository = AndroidCore.getAndroidSettings().getAndroMDACartridgesLocation();
-        String androMDAVersion = "3.2-RC1-SNAPSHOT";
+        String androMDAVersion = AndroidCore.getAndroidSettings().getAndroMDAPreferredVersion();
 
         String andromdacore = ResourceResolver.findLibrary(libraryRepository, ANDROMDA_CORE, androMDAVersion, true);
         String velocity = ResourceResolver.findLibrary(libraryRepository, VELOCITY, "1.4", true);
@@ -151,7 +150,7 @@ public class AndroMDARunner
 
     /**
      * Set the configuraton for the MDA engine.
-     * 
+     *
      * @param configuration the configuration URL
      */
     public void setConfiguration(URL configuration)

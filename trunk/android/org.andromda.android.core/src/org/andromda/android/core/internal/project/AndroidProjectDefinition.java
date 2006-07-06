@@ -1,12 +1,13 @@
 package org.andromda.android.core.internal.project;
 
-import org.andromda.android.core.internal.settings.AndroidSettingsAccess;
+import org.andromda.android.core.AndroidCore;
+import org.andromda.android.core.internal.settings.AndroidSettings;
 import org.andromda.android.core.project.IAndroidProjectDefinition;
 import org.eclipse.core.resources.IProject;
 
 /**
  * The definition of an Android project.
- * 
+ *
  * @author Peter Friese
  * @since 11.10.2005
  */
@@ -20,7 +21,7 @@ public class AndroidProjectDefinition
 
     /**
      * Create a new definition object and load the definition for the given project.
-     * 
+     *
      * @param project the project to load the definition for.
      */
     public AndroidProjectDefinition(IProject project)
@@ -34,7 +35,7 @@ public class AndroidProjectDefinition
      */
     public String getConfigurationLocation()
     {
-        return AndroidSettingsAccess.instance().getConfigurationLocation(project);
+        return AndroidCore.getAndroidSettings().getConfigurationLocation(project);
     }
 
     /**
@@ -42,7 +43,7 @@ public class AndroidProjectDefinition
      */
     public void setConfigurationLocation(String configurationLocation)
     {
-        AndroidSettingsAccess.instance().setConfigurationsLocation(project, configurationLocation);
+        AndroidCore.getAndroidSettings().setConfigurationsLocation(project, configurationLocation);
     }
 
     /**
@@ -51,7 +52,7 @@ public class AndroidProjectDefinition
      */
     public String getAndroMDACartridgesLocation()
     {
-        return AndroidSettingsAccess.instance().getAndroMDACartridgesLocation();
+        return AndroidCore.getAndroidSettings().getAndroMDACartridgesLocation();
     }
 
 }

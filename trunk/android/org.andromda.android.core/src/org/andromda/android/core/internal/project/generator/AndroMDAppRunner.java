@@ -15,7 +15,7 @@ import org.apache.commons.beanutils.MethodUtils;
 /**
  * This class wraps {@link org.andromda.andromdapp.AndroMDApp} and helps with setting up the class path for running the
  * AndroMDA project generator.
- * 
+ *
  * @author Peter Friese
  * @since 16.04.2006
  */
@@ -53,16 +53,14 @@ public class AndroMDAppRunner
 
     /**
      * Creates a new classloader that has access to the required libraries.
-     * 
+     *
      * @return a classloader that has access to the required libraries.
      * @throws MalformedURLException
      */
     private URLClassLoader getClassLoader() throws MalformedURLException
     {
-        // load class
         String libraryRepository = AndroidCore.getAndroidSettings().getAndroMDACartridgesLocation();
-        
-        String androMDAVersion = "3.2-SNAPSHOT";
+        String androMDAVersion = AndroidCore.getAndroidSettings().getAndroMDAPreferredVersion();
 
         String andromdappcore = ResourceResolver.findLibrary(libraryRepository, ANDROMDA_ANDROMDAPP_CORE,
                 androMDAVersion, false);
@@ -88,7 +86,7 @@ public class AndroMDAppRunner
 
     /**
      * Set the configuraton for the project generator.
-     * 
+     *
      * @param configuration the configuration.
      */
     public void setConfiguration(Map configuration)
@@ -98,7 +96,7 @@ public class AndroMDAppRunner
 
     /**
      * Creates the project generator configuration.
-     * 
+     *
      * @return the project generator configuration.
      */
     private String getConfigurationAsString()
@@ -148,7 +146,7 @@ public class AndroMDAppRunner
 
     /**
      * Demo.
-     * 
+     *
      * @param args
      */
     public static void main(String[] args)
