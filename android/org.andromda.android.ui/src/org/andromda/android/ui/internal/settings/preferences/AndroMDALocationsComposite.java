@@ -38,7 +38,7 @@ public class AndroMDALocationsComposite
      * @param parent The parent for this composite.
      * @param style The SWT style for this composite.
      */
-public AndroMDALocationsComposite(final Composite parent,
+    public AndroMDALocationsComposite(final Composite parent,
         final int style)
     {
         super(parent, style);
@@ -55,7 +55,8 @@ public AndroMDALocationsComposite(final Composite parent,
         cartridgesLabel.setText("Cartridges:");
 
         cartridgesText = new Text(locationsGroup, SWT.BORDER);
-        cartridgesText.setToolTipText("Specify where your cartridges are located. Android will perform a recursive scan for your cartridges. \nYou might want to specify your Maven repository root.");
+        cartridgesText
+                .setToolTipText("Specify where your cartridges are located. Android will perform a recursive scan for your cartridges. \nYou might want to specify your Maven repository root.");
         cartridgesText.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         cartridgesText.setText("cartridges");
 
@@ -89,13 +90,21 @@ public AndroMDALocationsComposite(final Composite parent,
     }
 
     /**
-     * @return Returns the cartridgesText.
+     * Set the cartridges location field.
+     *
+     * @param location The cartridges location.
      */
-    public Text getCartridgesText()
+    public void setCartridgesLocation(String location)
     {
-        return cartridgesText;
+        cartridgesText.setText(location);
     }
 
-
+    /**
+     * @return The cartridges location.
+     */
+    public String getCartridgesLocation()
+    {
+        return cartridgesText.getText();
+    }
 
 }
