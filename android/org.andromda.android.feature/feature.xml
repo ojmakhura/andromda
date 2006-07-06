@@ -2,7 +2,7 @@
 <feature
       id="org.andromda.android"
       label="Android - The AndroMDA Eclipse Plug-in"
-      version="0.0.4"
+      version="0.0.5"
       provider-name="AndroMDA.org">
 
    <description url="http://www.andromda.org">
@@ -25,11 +25,11 @@
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.debug.core"/>
-      <import plugin="org.eclipse.jdt.launching"/>
       <import plugin="org.eclipse.debug.ui"/>
-      <import plugin="org.junit"/>
       <import plugin="org.eclipse.jface.text"/>
       <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jdt.launching"/>
+      <import plugin="org.junit"/>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.ui.forms"/>
       <import plugin="org.eclipse.ui.ide"/>
@@ -41,25 +41,30 @@
       <import plugin="org.eclipse.ui.views"/>
       <import plugin="org.eclipse.swt"/>
       <import plugin="org.eclipse.compare"/>
+      <import plugin="org.apache.ant"/>
+      <import plugin="org.eclipse.ui.navigator"/>
    </requires>
 
    <plugin
          id="org.andromda.android.core"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.andromda.android.help"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.andromda.android.ui"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.andromda.android.ui.editor"
@@ -79,6 +84,7 @@
          id="de.byteaction.velocity.ui"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
