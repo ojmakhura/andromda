@@ -22,7 +22,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 /**
- * 
+ *
  * @author Peter Friese
  * @since 22.05.2006
  */
@@ -31,6 +31,7 @@ public class DynamicWizardPage
 {
 
     private Combo combo;
+
     private Composite container;
 
     /** <code>PROMPT_ID_KEY</code> */
@@ -45,7 +46,7 @@ public class DynamicWizardPage
     private final Map projectProperties;
 
     /**
-     * Create the wizard
+     * Create the wizard.
      */
     public DynamicWizardPage(final IPromptGroup promptGroup,
         Map projectProperties)
@@ -59,7 +60,7 @@ public class DynamicWizardPage
 
     /**
      * Create contents of the wizard
-     * 
+     *
      * @param parent
      */
     public void createControl(Composite parent)
@@ -80,8 +81,12 @@ public class DynamicWizardPage
             if (!ArrayUtils.contains(IProjectCartridgeDescriptor.PROJECT_BASIC_PROPERTIES, prompt.getId()))
             {
                 Label label = new Label(container, SWT.NONE);
-                label.setText(prompt.getLabel());
-                label.setToolTipText(prompt.getTooltip());
+                String promptLabel = (prompt.getLabel() != null) ? prompt.getLabel() : "";
+                label.setText(promptLabel);
+
+                String tooltip = (prompt.getTooltip() != null) ? prompt.getTooltip() : "";
+                label.setToolTipText(tooltip);
+
                 label.setData(PROMPT_ID_KEY, prompt.getId());
 
                 // boolean -> Checkbox
@@ -107,7 +112,7 @@ public class DynamicWizardPage
                     {
                         final Text text = new Text(container, SWT.BORDER);
                         text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-                        text.setToolTipText(prompt.getTooltip());
+                        text.setToolTipText(tooltip);
                         text.setData(PROMPT_ID_KEY, prompt.getId());
                     }
                 }
@@ -123,17 +128,20 @@ public class DynamicWizardPage
             Control control = children[i];
             String propertyName = (String)control.getData(PROMPT_ID_KEY);
             String value = null;
-            if (propertyName != null) {
+            if (propertyName != null)
+            {
                 if (control instanceof Text)
                 {
                     Text textField = (Text)control;
                     value = textField.getText();
                 }
-                else if (control instanceof Combo) {
+                else if (control instanceof Combo)
+                {
                     Combo combo = (Combo)control;
                     value = combo.getText();
                 }
-                else if(control instanceof Button) {
+                else if (control instanceof Button)
+                {
                     Button button = (Button)control;
                     boolean selected = button.getSelection();
                     value = Boolean.toString(selected);
