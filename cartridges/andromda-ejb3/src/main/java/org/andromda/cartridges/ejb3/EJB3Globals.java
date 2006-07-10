@@ -30,6 +30,35 @@ public class EJB3Globals
      */
     public static final String LABEL_SINGLE_NAME_PATTERN = "labelSingleNamePattern";
     
+    /**
+     * The pattern used to construct the DAO name.
+     */
+    public static final String DAO_PATTERN = "daoNamePattern";
+
+    /**
+     * The property which stores the persistence context unit name associated with the default
+     * Entity Manager.
+     */
+    public static final String PERSISTENCE_CONTEXT_UNIT_NAME = "persistenceContextUnitName";
+
+    /**
+     * The property used to specify the implementation operation name pattern 
+     * on service and entity beans.
+     */
+    public static final String IMPLEMENTATION_OPERATION_NAME_PATTERN = 
+        "implementationOperationNamePattern";
+    
+    /**
+     * The property used to specify whether to enable query cache.
+     */
+    public static final String HIBERNATE_USER_QUERY_CACHE = "hibernateUseQueryCache";
+
+    /**
+     * The property that stores the comma separated list of roles for manageable
+     * service beans.
+     */
+    public static final String MANAGEABLE_ROLES_ALLOWED = "manageableRolesAllowed";
+    
     // --------------- Constants ---------------------
     
     /**
@@ -223,29 +252,6 @@ public class EJB3Globals
      * The suffix given to transformation method names.
      */
     public static final String TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX = "Collection";
-
-    /**
-     * The pattern used to construct the DAO name.
-     */
-    public static final String DAO_PATTERN = "daoNamePattern";
-
-    /**
-     * The property which stores the persistence context unit name associated with the default
-     * Entity Manager.
-     */
-    public static final String PERSISTENCE_CONTEXT_UNIT_NAME = "persistenceContextUnitName";
-
-    /**
-     * The property used to specify the implementation operation name pattern 
-     * on service and entity beans.
-     */
-    public static final String IMPLEMENTATION_OPERATION_NAME_PATTERN = 
-        "implementationOperationNamePattern";
-    
-    /**
-     * The property used to specify whether to enable query cache.
-     */
-    public static final String HIBERNATE_USER_QUERY_CACHE = "hibernateUseQueryCache";
 
     /**
      * Seam component scope type STATELESS

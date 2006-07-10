@@ -25,6 +25,11 @@ package $manageable.manageablePackageName;
  */
 @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.REQUIRED)
 @javax.ejb.Remote({${manageable.fullyQualifiedManageableServiceName}.class})
+#if ($manageable.securityEnabled)
+#**##if ($stringUtils.isNotBlank(${manageable.manageableRolesAllowed}))
+@javax.annotation.security.RolesAllowed({${manageable.manageableRolesAllowed}})
+#**##end
+#end
 public final class $manageable.manageableServiceBaseName
     implements $manageable.manageableServiceName
 {
@@ -405,7 +410,7 @@ public final class $manageable.manageableServiceBaseName
 #*    *##else
             query.setParameter("$identifier.name", $identifier.name);
 #*    *##end
-            return query.getSingleResult();
+            return ($member.type.fullyQualifiedName)query.getSingleResult();
         }
         catch (Exception ex)
         {

@@ -223,6 +223,16 @@
         This resulted in getTemporalType being refactored in EJB3EntityAttributeFacade and the overriding instance
         in EJB3ManageableEntityAttributeFacade to be removed.
       </action>
+      <action dev="vancek" type="fix">
+        The getter (for BLOB type manageable attributes) in the manageable service base implementation must cast 
+        the single result to appropriate type before returning.
+      </action>
+      <action dev="vancek" type="add">
+        Add @RolesAllowed annotation with permitted roles authorised to access the manageable service. This was
+        achieved by introducing a new namespace property called <b>manageableRolesAllowed</b> rather than defined
+        by actors with dependencies on the manageable entity.  A corresponding getManageableRolesAllowed
+        is available through EJB3ManageableEntityFacade to retrieve the formatted comma separated list of roles.
+      </action>
     </release>
   </body>
 </document>

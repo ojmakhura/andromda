@@ -14,6 +14,7 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.ManageableEntityAttribute;
+import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -284,5 +285,32 @@ public class EJB3ManageableEntityFacadeLogicImpl
         }
 
         return displayAttribute;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableRolesAllowed()
+     */
+    protected String handleGetManageableRolesAllowed()
+    {
+        StringBuffer rolesAllowed = null;
+        String[] roles = StringUtils.split(
+                StringUtils.trimToEmpty(
+                        ObjectUtils.toString(this.getConfiguredProperty(EJB3Globals.MANAGEABLE_ROLES_ALLOWED))),
+                ',');
+        String separator = "";
+        
+        for (int i = 0; i < roles.length; i++)
+        {
+            if (rolesAllowed == null)
+            {
+                rolesAllowed = new StringBuffer();
+            }
+            rolesAllowed.append(separator);
+            rolesAllowed.append('"');
+            rolesAllowed.append(roles[i]);
+            rolesAllowed.append('"');
+            separator = ", ";
+        }
+        return rolesAllowed != null ? rolesAllowed.toString() : null;
     }
 }
