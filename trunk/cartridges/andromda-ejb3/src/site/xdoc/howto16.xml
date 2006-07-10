@@ -100,6 +100,74 @@
                 <a href="http://galaxy.andromda.org/docs/andromda-cartridges/manageable-entities/index.html">
                 manageable entities</a> for AndroMDA.
             </p>
+            <a name="Manageable_Entities_Security"/>
+            <subsection name="Security">
+                <p>
+                    In most cases, you probably want to secure access to the manageable front end.  To secure your
+                    application follow the <a href="howto8.html">security</a> section.  The following
+                    additional changes will aid you to secure your manageable entities using the EJB3
+                    cartridge.
+                </p>
+                <p>
+                    <ul>
+                        <li>
+                            <p>
+                                Make sure you have also enabled the <code>securityRealm</code> property in
+                                the <code>bpm4struts</code> namespace of your andromda.xml application descriptor.
+                                This is on top of the <code>securityRealm</code> property in your
+                                <code>ejb3</code> namespace section.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                You must have the actor dependencies modelled on the manageable entities for the
+                                actors (representing roles/groups) that are authorised access to the
+                                DAO and manageable service layers.
+                            </p>
+                            <p>
+                                Typically, only administrators have access to manageable entities.  Therefore, as a
+                                bare minimum, you can have an actor (i.e. Admin) with a dependency to the 
+                                manageable entity.  This will generate the security constraints in the DAO service
+                                layer and provide the web front end cartridge with the role information.
+                            </p>
+                            <p>
+                                The EJB3 cartridge has introduced a namespace property called 
+                                <code><a href="namespace.html#manageableRolesAllowed">manageableRolesAllowed</a></code>.
+                                You must set this within your <code>ejb3</code> namespace section of your
+                                <code>andromda.xml</code> descriptor file.  This property takes the comma separated
+                                list of roles that are authorised to access the manageable entity services.
+                            </p>
+                            <p>
+                                In the trivial case where you only have the <b>Admin</b> actor/role, you will also
+                                define this property as:
+<source language="xml"><![CDATA[
+        <namespace name="ejb3">
+            <properties>
+                ...
+                <property name="manageableRolesAllowed">Admin</property>
+                ...
+            </properties>
+        </namespace>
+]]></source>
+                                However, when the application complexity requires several actor dependencies to
+                                entities, you have the flexibility to narrow the suitable actors/roles
+                                that have access to manageable entities, by specifying the
+                                <code>manageableRolesAllowed</code> namespace property.
+                            </p>
+                        </li>
+                        <li>
+                            <p>
+                                Finally, the web.xml security and role elements will not be rendered unless you have
+                                modelled a front end application use case with the appropriate actor associations.
+                                Every use case must have one associated activity diagram.  For the most trivial
+                                application, this activity diagram would consist of an initial state with a 
+                                transition to a front end view action state.  The generated JSP allows you to
+                                provide a 'cover' page for your manageable entity component pages.
+                            </p>
+                        </li>
+                    </ul>
+                </p>
+            </subsection>
             <a name="Manageable_Entities_Tips"/>
             <subsection name="Tips">
                 <p>
@@ -112,6 +180,9 @@
                     By assigning a unique manageable entity attribute, the <code>readAll</code> method of the 
                     manageable service base implementation avoids the use of <code>left join fetch</code> to
                     retrieve collection association objects.
+                </p>
+                <p>
+                    Be aware that manageable entities are currently available with the BPM4Struts cartridge only.
                 </p>
             </subsection>
         </section>
