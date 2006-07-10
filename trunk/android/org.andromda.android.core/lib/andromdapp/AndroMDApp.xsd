@@ -235,8 +235,8 @@
     <xs:element name="prompt">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="text" minOccurs="0"/>
-                <xs:element ref="shortText" minOccurs="0"/>
+                <xs:element ref="text" minOccurs="1" />
+                <xs:element ref="shortText" minOccurs="1" />
                 <xs:element ref="preconditions" minOccurs="0"/>
                 <xs:element ref="responses" minOccurs="0"/>
                 <xs:element ref="conditions" minOccurs="0"/>
