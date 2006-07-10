@@ -40,6 +40,11 @@ public class EJB3EntityAttributeFacadeLogicImpl
      */
     public static final String DEFAULT_ENUM_LITERAL_COLUMN_LENGTH = "entityDefaultEnumLiteralColumnLength";
     
+    /**
+     * The property that stores the defuult temporal type for date based attributes
+     */
+    public static final String ENTITY_DEFAULT_TEMPORAL_TYPE = "entityDefaultTemporalType";
+    
     // ---------------- constructor -------------------------------
 
     public EJB3EntityAttributeFacadeLogicImpl (Object metaObject, String context)
@@ -467,7 +472,16 @@ public class EJB3EntityAttributeFacadeLogicImpl
      */
     protected String handleGetTemporalType()
     {
-        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_TEMPORAL_TYPE);
+        String temporalType = null;
+        if (this.getType().isDateType())
+        {
+            temporalType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_TEMPORAL_TYPE);
+            if (StringUtils.isBlank(temporalType))
+            {
+                temporalType = String.valueOf(this.getConfiguredProperty(ENTITY_DEFAULT_TEMPORAL_TYPE));
+            }
+        }
+        return temporalType;
     }
 
     /**

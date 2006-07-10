@@ -217,6 +217,12 @@
         JIRA EJB-38 - The query in the DAO base class for finder methods with argument enum type has to set 
         the enum class as the parameter for the querty, not the value (name or ordinal).
       </action>
+      <action dev="vancek" type="fix">
+        Reset EJB3ManageableEntityAttributeFacade metafacade mapping in metafacades.xml from using property element
+        to use context element.  Otherwise, manageable entity attributes would map to EJB3EntityAttributeFacade.
+        This resulted in getTemporalType being refactored in EJB3EntityAttributeFacade and the overriding instance
+        in EJB3ManageableEntityAttributeFacade to be removed.
+      </action>
     </release>
   </body>
 </document>
