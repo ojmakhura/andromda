@@ -936,6 +936,36 @@
                 </documentation>
             </property>
 		</propertyGroup>
+		<propertyGroup name="Security Properties">
+			<property name="securityRealm" required="false">
+				<documentation>
+					Specifies the security domain to use
+					for role based authorization.  Use the
+					security realm to match allowed roles.
+					This is only applicable for session beans
+					and MDBs.
+				</documentation>
+			</property>
+			<property name="manageableRolesAllowed">
+			    <default>Admin</default>
+			    <documentation>
+			        A comma separated list of roles added to the DAO
+			        base <code>RolesAllowed</code> annotation.
+			        This requires <code>securityRealm</code> be
+			        enabled.
+			        This exists because in some cases it is
+			        incorrect to model an actor dependency on the
+			        manageable entity and expect that actor to
+			        define the authorised role on
+			        ManageableServiceBeans.
+			        This property separates
+			        the roles for manageable session beans and
+			        the remaining components.
+			        It is expected that the list of roles 
+			        secure all manageable session beans.
+			    </documentation>
+			</property>
+		</propertyGroup>
 		<propertyGroup name="Other Properties">
 			<property name="persistenceContainerName">
 				<default>jboss</default>
@@ -1033,15 +1063,6 @@
                     and aggregate associations define lazy loading.
                 </documentation>
             </property>
-			<property name="securityRealm" required="false">
-				<documentation>
-					Specifies the security domain to use
-					for role based authorization.  Use the
-					security realm to match allowed roles.
-					This is only applicable for session beans
-					and MDBs.
-				</documentation>
-			</property>
 			<property name="queryUseNamedParameters">
 				<default>true</default>
 				<documentation>
