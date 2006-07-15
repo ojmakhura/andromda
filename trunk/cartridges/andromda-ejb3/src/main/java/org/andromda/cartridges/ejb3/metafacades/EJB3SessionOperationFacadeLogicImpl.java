@@ -394,7 +394,9 @@ public class EJB3SessionOperationFacadeLogicImpl
      */
     protected String handleGetImplementationSignature()
     {
-        return this.getImplementationOperationName(StringUtils.capitalize(this.getSignature()));
+        return (this.getVisibility().equalsIgnoreCase("public") ? 
+                this.getImplementationOperationName(StringUtils.capitalize(this.getSignature())) :
+                    this.getSignature());
     }
 
     /**

@@ -233,6 +233,15 @@
         by actors with dependencies on the manageable entity.  A corresponding getManageableRolesAllowed
         is available through EJB3ManageableEntityFacade to retrieve the formatted comma separated list of roles.
       </action>
+      <action dev="vancek" type="fix">
+        Modelling non-public operations on session beans rendered incorrect method signatures.  This fix will
+        generate correct signatures for all operations, but only public methods are exposed in the remote/local 
+        interfaces and service base class.
+      </action>
+      <action dev="vancek" type="update">
+        Updated the cartridge.xml to set the outlet for the enumerations template to a new outlet called
+        user-types.  This is defined in namespace.xml and must exist in each project andromda.xml.
+      </action>
     </release>
   </body>
 </document>

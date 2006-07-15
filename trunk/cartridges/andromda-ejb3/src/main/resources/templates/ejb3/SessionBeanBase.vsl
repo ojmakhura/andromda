@@ -333,8 +333,9 @@ $attribute.getDocumentation("     * ")
 #**##foreach ($operation in $operations)
 ##
 ## Check that operation is NOT a lifecycle callback
+## and has public visibility
 ##
-#*  *##if (!$operation.lifecycleCallback)
+#*  *##if (!$operation.lifecycleCallback && $operation.visibility == "public")
     /**
 $operation.getDocumentation("     * ")
      */
