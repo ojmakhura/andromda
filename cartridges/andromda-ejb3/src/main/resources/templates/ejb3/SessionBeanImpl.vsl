@@ -69,10 +69,19 @@ $operation.getDocumentation("     * ")
 #**##foreach ($operation in $operations)
 #*  *##if (!$operation.lifecycleCallback)
     /**
+#*    *##if ($operation.visibility == "public")
      * @see ${service.fullyQualifiedServiceBaseName}#${operation.getSignature(false)}
+#*    *##else
+$operation.getDocumentation("     * ")
+#*    *##end
      */
 #*    *##set ($abstract = $service.abstract && $operation.abstract)
-    protected#if ($abstract) abstract#end $operation.returnType.fullyQualifiedName $operation.implementationSignature
+#*    *##if ($operation.visibility == "public")
+    protected## no newline
+#*    *##else
+    $operation.visibility##no newline
+#*    *##end
+#if ($abstract) abstract#end $operation.returnType.fullyQualifiedName $operation.implementationSignature
 #*    *##if ($abstract)
         throws java.lang.Exception;
 #*    *##else
