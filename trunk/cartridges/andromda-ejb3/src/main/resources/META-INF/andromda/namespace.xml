@@ -115,6 +115,12 @@
 			        are generated
 			    </documentation>
 			</property>
+            <property name="user-types">
+                <documentation>
+                    The location to which user-types such as enumeration 
+                    are generated.
+                </documentation>
+            </property>
 		</propertyGroup>
 		<propertyGroup name="JDBC">
 		    <property name="entityManagerName" required="false">
