@@ -557,7 +557,7 @@
     <template
         path="templates/ejb3/Enumeration.vsl"
         outputPattern="$generatedFile"
-        outlet="commons"
+        outlet="user-types"
         overwrite="true">
         <modelElements variable="enum">
             <modelElement>
