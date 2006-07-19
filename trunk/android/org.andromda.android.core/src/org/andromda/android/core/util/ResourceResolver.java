@@ -5,7 +5,6 @@ import java.io.File;
 import org.apache.tools.ant.DirectoryScanner;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -17,7 +16,7 @@ import org.eclipse.core.runtime.IPath;
  * @author Peter Friese
  * @since 15.05.2006
  */
-public class ResourceResolver
+public final class ResourceResolver
 {
     /**
      * Hidden c'tor.
@@ -31,15 +30,15 @@ public class ResourceResolver
      * Tries to find a project cartridge in the given base directory and all sub directories.
      *
      * @param baseDir The directory to start the search in.
-     * @param name The name of the project cartridge.
+     * @param projectCartridgeName The name of the project cartridge.
      * @param version The version of the project cartridge.
      * @param strict If true, only exact version matches are considered, if false, subversions are also acceptable.
      * @return A filename pointing to the desired library or <code>null</code> if no matching library could be found.
      */
-    public static final String findProjectCartridge(final String baseDir,
+    public static String findProjectCartridge(final String baseDir,
         final String projectCartridgeName,
         final String version,
-        boolean strict)
+        final boolean strict)
     {
 
         // create cartridge base name
@@ -68,15 +67,15 @@ public class ResourceResolver
      * Tries to find a cartridge in the given base directory and all sub directories.
      *
      * @param baseDir The directory to start the search in.
-     * @param name The name of the library.
+     * @param cartridgeName The name of the library.
      * @param version The version of the library
      * @param strict If true, only exact version matches are considered, if false, subversions are also acceptable.
      * @return A filename pointing to the desired library or <code>null</code> if no matching library could be found.
      */
-    public static final String findCartridge(final String baseDir,
+    public static String findCartridge(final String baseDir,
         final String cartridgeName,
         final String version,
-        boolean strict)
+        final boolean strict)
     {
 
         // create cartridge base name
@@ -105,16 +104,16 @@ public class ResourceResolver
      * Tries to find a profile model in the given base directory and all sub directories.
      *
      * @param baseDir The directory to start the search in.
-     * @param name The name of the profile zip.
+     * @param profileName The name of the profile zip.
      * @param version The version of the profile zip
      * @param strict If true, only exact version matches are considered, if false, subversions are also acceptable.
      * @return A filename pointing to the desired profile zip or <code>null</code> if no matching profile zip could be
      *         found.
      */
-    public static final String findProfile(final String baseDir,
+    public static String findProfile(final String baseDir,
         final String profileName,
         final String version,
-        boolean strict)
+        final boolean strict)
     {
 
         // create cartridge base name
@@ -183,10 +182,10 @@ public class ResourceResolver
      * @param strict If true, only exact version matches are considered, if false, subversions are also acceptable.
      * @return A filename pointing to the desired library or <code>null</code> if no matching library could be found.
      */
-    public static final String findLibrary(final String baseDir,
+    public static String findLibrary(final String baseDir,
         final String name,
         final String version,
-        boolean strict)
+        final boolean strict)
     {
 
         // create base name
@@ -216,7 +215,7 @@ public class ResourceResolver
      * @param baseDir The directory to start searching in.
      * @param baseName The base name of the file to look for.
      * @param includes The wildcard rules to obey.
-     * @return
+     * @return The name of the resource we found.
      */
     private static String findResource(final String baseDir,
         final String baseName,
@@ -244,8 +243,9 @@ public class ResourceResolver
     /**
      * Determine the version of a file.
      *
-     * @param string
-     * @return
+     * @param baseName The base name of the file.
+     * @param file The filename.
+     * @return The version of this file, as stripped from the file name.
      */
     private static String getVersion(final String baseName,
         final String file)
@@ -262,6 +262,7 @@ public class ResourceResolver
      *
      * @param baseName The base name of the files.
      * @param files The array of files.
+     * @return The highest possible version number.
      */
     private static String getHighestVersion(final String baseName,
         final String[] files)
