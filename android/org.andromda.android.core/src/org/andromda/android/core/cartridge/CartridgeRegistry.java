@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.andromda.android.core.AndroidCore;
 import org.andromda.android.core.internal.cartridge.CartridgeDescriptor;
-import org.andromda.android.core.internal.settings.AndroidSettings;
 import org.andromda.android.core.project.IAndroidProject;
 import org.andromda.android.core.util.ResourceResolver;
 import org.eclipse.core.resources.IContainer;
@@ -61,7 +60,8 @@ public final class CartridgeRegistry
         if (cartridgeDescriptor == null)
         {
             String preferredVersion = AndroidCore.getAndroidSettings().getAndroMDAPreferredVersion();
-            String cartridgeJar = ResourceResolver.findCartridge(cartridgesLocation, cartridgeName, preferredVersion, false);
+            String cartridgeJar = ResourceResolver.findCartridge(cartridgesLocation, cartridgeName, preferredVersion,
+                    false);
             cartridgeDescriptor = new CartridgeDescriptor(cartridgeJar, true);
             cartridgeDescriptors.put(key, cartridgeDescriptor);
         }
@@ -109,7 +109,8 @@ public final class CartridgeRegistry
         if (cartridgeDescriptor == null)
         {
             String preferredVersion = AndroidCore.getAndroidSettings().getAndroMDAPreferredVersion();
-            String cartridgeJar = ResourceResolver.findCartridge(cartridgesLocation, cartridgeName, preferredVersion, false);
+            String cartridgeJar = ResourceResolver.findCartridge(cartridgesLocation, cartridgeName, preferredVersion,
+                    false);
             cartridgeDescriptor = new CartridgeDescriptor(cartridgeJar, true);
             cartridgeDescriptors.put(key, cartridgeDescriptor);
         }
