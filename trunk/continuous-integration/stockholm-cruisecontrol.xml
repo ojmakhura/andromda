@@ -16,7 +16,7 @@
         <listeners>
            <currentbuildstatuslistener file="/andromda/builds/logs/andromda4/currentbuildstatus.txt"/>
         </listeners>
-		<log dir="/andromda/builds/logs/andromda-head">
+		<log dir="/andromda/builds/logs/andromda4">
         </log>
         <publishers>
             <currentbuildstatuspublisher file="/andromda/builds/logs/andromda4/currentbuildstatus.txt"/>
