@@ -1,17 +1,21 @@
 package org.andromda.android.core.internal.project.cartridge;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import org.andromda.android.core.project.cartridge.IPrecondition;
 import org.andromda.android.core.project.cartridge.IPrompt;
 
 /**
  * An input prompt.
- * 
+ *
  * @author Peter Friese
  * @since 22.05.2006
  */
-class Prompt implements IPrompt
+class Prompt
+        implements IPrompt
 {
 
     /** The id of this prompt. */
@@ -26,8 +30,14 @@ class Prompt implements IPrompt
     /** Holds a list of options for this prompt. */
     private List options = new ArrayList();
 
+    /** Holds a list of precondition for this prompt. */
+    private List preconditions = new ArrayList();
+
     /** The datatype of this prompt. */
-    public String type;
+    private String type;
+
+    /** The type of the preconditions for this prompt. */
+    private String conditionsType;
 
     /**
      * {@inheritDoc}
@@ -40,7 +50,7 @@ class Prompt implements IPrompt
     /**
      * {@inheritDoc}
      */
-    public void setId(String id)
+    public void setId(final String id)
     {
         this.id = id;
     }
@@ -56,11 +66,11 @@ class Prompt implements IPrompt
     /**
      * {@inheritDoc}
      */
-    public void setLabel(String label)
+    public void setLabel(final String label)
     {
         this.label = label;
     }
-    
+
     /**
      * @return the tooltip
      */
@@ -72,7 +82,7 @@ class Prompt implements IPrompt
     /**
      * {@inheritDoc}
      */
-    public void setTooltip(String text)
+    public void setTooltip(final String text)
     {
         this.tooltip = text;
     }
@@ -80,7 +90,7 @@ class Prompt implements IPrompt
     /**
      * {@inheritDoc}
      */
-    public void addOption(String option)
+    public void addOption(final String option)
     {
         options.add(option);
     }
@@ -97,7 +107,7 @@ class Prompt implements IPrompt
     /**
      * {@inheritDoc}
      */
-    public void setType(String type)
+    public void setType(final String type)
     {
         this.type = type;
     }
@@ -109,5 +119,70 @@ class Prompt implements IPrompt
     {
         return type;
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
+    public void addPrecondition(final Precondition precondition)
+    {
+        preconditions.add(precondition);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List getPreconditions()
+    {
+        return preconditions;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isPromptEnabled(final Map projectProperties)
+    {
+        // check preconditions
+        List relevantPreconditions = this.getPreconditions();
+        boolean validPreconditions = true;
+        for (Iterator iter = preconditions.iterator(); iter.hasNext();)
+        {
+            IPrecondition precondition = (IPrecondition)iter.next();
+            validPreconditions = precondition.evaluate(projectProperties);
+
+            // - if we're 'anding' the conditions, we break at the first false
+            if (TYPE_AND.equals(conditionsType))
+            {
+                if (!validPreconditions)
+                {
+                    break;
+                }
+            }
+            else
+            {
+                // otherwise we break at the first true condition
+                if (validPreconditions)
+                {
+                    break;
+                }
+            }
+        }
+        return validPreconditions;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getConditionsType()
+    {
+        return conditionsType;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setConditionsType(final String conditionsType)
+    {
+        this.conditionsType = conditionsType;
+    }
+
 }

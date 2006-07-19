@@ -8,10 +8,13 @@ import org.andromda.android.core.project.cartridge.IProjectCartridgeDescriptor;
 import org.andromda.android.core.project.cartridge.IPrompt;
 import org.andromda.android.core.project.cartridge.IPromptGroup;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.BooleanUtils;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -22,6 +25,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 /**
+ * A dynamic wizard page that display edit fields for prompts of a given prompt group in the project cartridge
+ * descriptor file (andromdapp.xml).
  *
  * @author Peter Friese
  * @since 22.05.2006
@@ -30,11 +35,10 @@ public class DynamicWizardPage
         extends WizardPage
 {
 
-    private Combo combo;
-
+    /** The container containg the widgets. We will later iterate all contained controls, so we need this reference. */
     private Composite container;
 
-    /** <code>PROMPT_ID_KEY</code> */
+    /** The key for the prompt ID in the GUI. */
     private static final String PROMPT_ID_KEY = "ID";
 
     /** The prompt group the wizard is displaying. */
@@ -47,9 +51,12 @@ public class DynamicWizardPage
 
     /**
      * Create the wizard.
+     *
+     * @param promptGroup The prompt group that is displayed on this wiazrd page.
+     * @param projectProperties This map contains the values the user sets up using the wizard.
      */
     public DynamicWizardPage(final IPromptGroup promptGroup,
-        Map projectProperties)
+        final Map projectProperties)
     {
         super(promptGroup.getName());
         this.promptGroup = promptGroup;
@@ -59,11 +66,11 @@ public class DynamicWizardPage
     }
 
     /**
-     * Create contents of the wizard
+     * Create contents of the wizard.
      *
-     * @param parent
+     * @param parent The parent composite.
      */
-    public void createControl(Composite parent)
+    public void createControl(final Composite parent)
     {
         container = new Composite(parent, SWT.NULL);
         final GridLayout gridLayout = new GridLayout();
@@ -87,13 +94,14 @@ public class DynamicWizardPage
                 String tooltip = (prompt.getTooltip() != null) ? prompt.getTooltip() : "";
                 label.setToolTipText(tooltip);
 
-                label.setData(PROMPT_ID_KEY, prompt.getId());
+                label.setData(PROMPT_ID_KEY, prompt);
 
                 // boolean -> Checkbox
                 if (Boolean.class.toString().equals(prompt.getType()))
                 {
                     final Button button = new Button(container, SWT.CHECK);
-                    button.setData(PROMPT_ID_KEY, prompt.getId());
+                    button.setData(PROMPT_ID_KEY, prompt);
+                    button.addSelectionListener(getSelectionListener());
                 }
                 else
                 {
@@ -103,30 +111,56 @@ public class DynamicWizardPage
                         final ComboViewer comboViewer = new ComboViewer(container, SWT.BORDER);
                         comboViewer.setContentProvider(new ArrayContentProvider());
                         comboViewer.setInput(prompt.getOptions());
-                        combo = comboViewer.getCombo();
+                        Combo combo = comboViewer.getCombo();
                         combo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-                        combo.setData(PROMPT_ID_KEY, prompt.getId());
+                        combo.setData(PROMPT_ID_KEY, prompt);
+                        combo.addSelectionListener(getSelectionListener());
                     }
-                    // no respones -> text
+                    // no responses -> text
                     else
                     {
                         final Text text = new Text(container, SWT.BORDER);
                         text.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
                         text.setToolTipText(tooltip);
-                        text.setData(PROMPT_ID_KEY, prompt.getId());
+                        text.setData(PROMPT_ID_KEY, prompt);
+                        text.addSelectionListener(getSelectionListener());
                     }
                 }
             }
         }
     }
 
+    /**
+     * @return a {@link SelectionAdapter} which updates the GUI upon selection.
+     */
+    private SelectionAdapter getSelectionListener()
+    {
+        return new SelectionAdapter()
+        {
+            /**
+             * {@inheritDoc}
+             */
+            public void widgetSelected(final SelectionEvent e)
+            {
+                updateData();
+            }
+
+        };
+    }
+
+    /**
+     * Updates the GUI (data and enablement states).
+     */
     public void updateData()
     {
         Control[] children = container.getChildren();
         for (int i = 0; i < children.length; i++)
         {
             Control control = children[i];
-            String propertyName = (String)control.getData(PROMPT_ID_KEY);
+            IPrompt prompt = (IPrompt)control.getData(PROMPT_ID_KEY);
+            String propertyName = prompt.getId();
+
+            // store property value
             String value = null;
             if (propertyName != null)
             {
@@ -146,8 +180,27 @@ public class DynamicWizardPage
                     boolean selected = button.getSelection();
                     value = Boolean.toString(selected);
                 }
-                projectProperties.put(propertyName, value);
+                if (value != null)
+                {
+                    if ("yesnotruefalse".indexOf(value) >= 0)
+                    {
+                        Boolean booleanValue = BooleanUtils.toBooleanObject(value);
+                        projectProperties.put(propertyName, booleanValue);
+                    }
+                    else
+                    {
+                        projectProperties.put(propertyName, value);
+                    }
+                }
+
             }
+        }
+        for (int i = 0; i < children.length; i++)
+        {
+            Control control = children[i];
+            IPrompt prompt = (IPrompt)control.getData(PROMPT_ID_KEY);
+            boolean promptEnabled = prompt.isPromptEnabled(projectProperties);
+            control.setEnabled(promptEnabled);
         }
 
     }

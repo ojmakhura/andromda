@@ -1,68 +1,109 @@
 package org.andromda.android.core.project.cartridge;
 
 import java.util.List;
+import java.util.Map;
+
+import org.andromda.android.core.internal.project.cartridge.Precondition;
 
 /**
  * This interface describes prompts in a project cartridge.
- * 
+ *
  * @author Peter Friese
  * @since 22.05.2006
  */
 public interface IPrompt
 {
 
+    /** "and" type for conditions. */
+    String TYPE_AND = "and";
+
+    /** "or" type for conditions. */
+    String TYPE_OR = "or";
+
     /**
      * @return the id
      */
-    public String getId();
+    String getId();
 
     /**
      * @param id the id to set
      */
-    public void setId(String id);
+    void setId(String id);
 
     /**
      * @return the label
      */
-    public String getLabel();
+    String getLabel();
 
     /**
      * @param label the label to set
      */
-    public void setLabel(String label);
+    void setLabel(String label);
 
     /**
      * @return the tooltip
      */
-    public String getTooltip();
+    String getTooltip();
 
     /**
      * @param text the tooltip to display
      */
-    public void setTooltip(String text);
+    void setTooltip(String text);
 
     /**
      * @return a list of valid options for this prompt
      */
-    public List getOptions();
+    List getOptions();
 
     /**
      * Adds an option entry to the list of valid options.
-     * 
+     *
      * @param option a valid option
      */
-    public void addOption(String option);
+    void addOption(String option);
 
     /**
      * Set the datatype for this prompt (e.g. boolean, String, Integer ...)
-     * 
+     *
      * @param type the datatype
      */
-    public void setType(String type);
-    
+    void setType(String type);
+
     /**
      * @return the datatype for this prompt
      */
-    public String getType();
+    String getType();
+
+    /**
+     * @return a list of preconditions for this prompt.
+     */
+    List getPreconditions();
+
+    /**
+     * Adds a precondition to the list of precondition.
+     *
+     * @param precondition a valid precondition
+     */
+    void addPrecondition(Precondition precondition);
+
+    /**
+     * @return The type of the condition.
+     */
+    String getConditionsType();
+
+    /**
+     * Sets the type of the condition.
+     *
+     * @param conditionsType The type of the condition.
+     */
+    void setConditionsType(String conditionsType);
+
+    /**
+     * Check whether the prompt is enabled or disabled according to its preconditions.
+     *
+     * @param projectProperties The map of project proerties.
+     * @return <code>true</code> if all preconditions are met, <code>false</code> otherwise.
+     */
+    boolean isPromptEnabled(final Map projectProperties);
 
 }

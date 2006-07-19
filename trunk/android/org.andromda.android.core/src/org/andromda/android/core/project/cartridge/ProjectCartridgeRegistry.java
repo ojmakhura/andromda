@@ -13,7 +13,7 @@ import org.andromda.android.core.util.ResourceResolver;
  * @author Peter Friese
  * @since 22.05.2006
  */
-public class ProjectCartridgeRegistry
+public final class ProjectCartridgeRegistry
 {
     /** The singleton instance. */
     private static ProjectCartridgeRegistry instance;
@@ -70,10 +70,10 @@ public class ProjectCartridgeRegistry
      * Retrieves all project cartridges that can be found on the class path.
      *
      * @return An array of project cartridge descriptors.
-     * @throws InvalidConfigurationException if Android is not set up properly.
      */
     public IProjectCartridgeDescriptor[] getCartridgeDescriptors()
     {
+        // TODO dynamically read available project cartridges on class path
         IProjectCartridgeDescriptor[] result = new IProjectCartridgeDescriptor[2];
         result[0] = getCartridgeDescriptor("j2ee-maven2");
         result[1] = getCartridgeDescriptor(("richclient-ant"));

@@ -12,13 +12,16 @@ import org.andromda.android.core.project.cartridge.IPrompt;
 import org.andromda.android.core.util.XmlUtils;
 import org.andromda.core.andromdapp.AndromdappDocument;
 import org.andromda.core.andromdapp.AndromdappDocument.Andromdapp;
+import org.andromda.core.andromdapp.ConditionDocument.Condition;
+import org.andromda.core.andromdapp.ConditionsType.Enum;
+import org.andromda.core.andromdapp.PreconditionsDocument.Preconditions;
 import org.andromda.core.andromdapp.PromptsDocument.Prompts;
 import org.andromda.core.andromdapp.ResponsesDocument.Responses;
 import org.apache.xmlbeans.XmlOptions;
 
 /**
  * Descriptor for a project cartridge.
- * 
+ *
  * @author Peter Friese
  * @since 21.05.2006
  */
@@ -37,7 +40,7 @@ public class ProjectCartridgeDescriptor
 
     /**
      * Creates a new ProjectCartridgeDescriptor.
-     * 
+     *
      * @param location The location of the project cartridge.
      */
     public ProjectCartridgeDescriptor(String location)
@@ -49,7 +52,7 @@ public class ProjectCartridgeDescriptor
     /**
      * Constructs the location of the requested file depending on whether it is located inside a cartridge jar or rather
      * in the AndroMDA development workspace.
-     * 
+     *
      * @param fileName The filename we're interested in.
      * @return A string with the correct path to the requested file.
      */
@@ -80,7 +83,8 @@ public class ProjectCartridgeDescriptor
     }
 
     /**
-     * {@inheritDoc}
+     * @return
+     * @throws CartridgeParsingException
      */
     private Andromdapp getProjectCartridge() throws CartridgeParsingException
     {
@@ -139,6 +143,24 @@ public class ProjectCartridgeDescriptor
                     {
                         String response = responseArray[k];
                         newPrompt.addOption(response);
+                    }
+                }
+
+                Preconditions preconditions = prompt.getPreconditions();
+                if (preconditions != null)
+                {
+                    String conditionsType = preconditions.getType().toString();
+                    newPrompt.setConditionsType(conditionsType);
+                    Condition[] conditionArray = preconditions.getConditionArray();
+                    for (int k = 0; k < conditionArray.length; k++)
+                    {
+                        Condition condition = conditionArray[k];
+                        String conditionId = condition.getId();
+                        String conditionEqual = condition.getEqual();
+                        String conditionNotEqual = condition.getNotEqual();
+
+                        Precondition precondition = new Precondition(conditionId, conditionEqual, conditionNotEqual);
+                        newPrompt.addPrecondition(precondition);
                     }
                 }
 
