@@ -37,7 +37,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 
 /**
- * 
+ *
  * @author Peter Friese
  * @since 22.05.2006
  */
@@ -90,7 +90,7 @@ public class ChooseProjectCartridgeWizardPage
 
     /**
      * Create the wizard
-     * 
+     *
      * @param projectCartridgeDescriptor
      * @param projectProperties the project generator will be configured with this map.
      */
@@ -104,7 +104,7 @@ public class ChooseProjectCartridgeWizardPage
 
     /**
      * Create contents of the wizard
-     * 
+     *
      * @param parent
      */
     public void createControl(Composite parent)
@@ -148,6 +148,8 @@ public class ChooseProjectCartridgeWizardPage
         table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
         styledText = new StyledText(container, SWT.BORDER);
+        styledText.setEditable(false);
+        styledText.setEnabled(false);
         styledText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
         youNeedToLink = new Link(container, SWT.NONE);
@@ -174,7 +176,7 @@ public class ChooseProjectCartridgeWizardPage
     /**
      * @param projectCartridgeDescriptor
      */
-    protected void setSelectedProjectCartridge(IProjectCartridgeDescriptor projectCartridgeDescriptor)
+    protected void setSelectedProjectCartridge(final IProjectCartridgeDescriptor projectCartridgeDescriptor)
     {
         this.projectCartridgeDescriptor = projectCartridgeDescriptor;
         IWizardNode node = new IWizardNode()
@@ -205,7 +207,7 @@ public class ChooseProjectCartridgeWizardPage
     }
 
     /**
-     * 
+     *
      */
     private void setupData()
     {
@@ -217,7 +219,8 @@ public class ChooseProjectCartridgeWizardPage
                 getContainer().run(false, false, new IRunnableWithProgress()
                 {
 
-                    public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
+                    public void run(final IProgressMonitor monitor) throws InvocationTargetException,
+                            InterruptedException
                     {
                         monitor.beginTask("Retrieving cartridges", IProgressMonitor.UNKNOWN);
                         monitor.worked(30);

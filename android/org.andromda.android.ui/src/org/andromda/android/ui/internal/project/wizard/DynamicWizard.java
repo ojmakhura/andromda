@@ -11,8 +11,8 @@ import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
 
 /**
- * The Dynamic wizard display a series of pages that will be read from a given project cartridge descriptor. 
- *   
+ * The Dynamic wizard display a series of pages that will be read from a given project cartridge descriptor.
+ *
  * @author Peter Friese
  * @since 23.05.2006
  */
@@ -22,22 +22,23 @@ public class DynamicWizard
 
     /** The project cartridge descriptor that will be used to dynamically create the pages. */
     private final IProjectCartridgeDescriptor projectCartridgeDescriptor;
-    
+
     /** The map of properties the user has configred by completing the wizard. */
     private final Map projectProperties;
 
     /**
      * Creates a new DynamicWizard.
-     * 
-     * @param projectCartridgeDescriptor
+     *
+     * @param projectCartridgeDescriptor The project cartridge descriptor.
+     * @param projectProperties The project properties which will be set by this wizard.
      */
-    public DynamicWizard(IProjectCartridgeDescriptor projectCartridgeDescriptor, Map projectProperties)
+    public DynamicWizard(final IProjectCartridgeDescriptor projectCartridgeDescriptor, final Map projectProperties)
     {
         this.projectCartridgeDescriptor = projectCartridgeDescriptor;
         this.projectProperties = projectProperties;
         setNeedsProgressMonitor(true);
     }
-    
+
     /**
      * {@inheritDoc}
      */
