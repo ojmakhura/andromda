@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <cruisecontrol>
+    <project name="andromda4">
+        <bootstrappers>
+        </bootstrappers>
+        <modificationset>
+            <svn localWorkingCopy="/andromda/svn-builds/trunk/andromda4" />
+        </modificationset>
+        <labelincrementer defaultLabel="andromda4.1"/>
+        <!-- 20 minutes -->
+        <schedule interval="1200">
+            <!--ant buildfile="/andromda/builds/head/andromda-all/etc/cc-build/mvn-cc-build.xml"/-->
+	    	<maven2 goal="scm:update|clean -U |install -e -U" pomfile="/andromda/svn-builds/trunk/andromda4/pom.xml" mvnscript="/usr/local/maven2/bin/mvn"/>
+        </schedule>
+        <listeners>
+           <currentbuildstatuslistener file="/andromda/builds/logs/andromda4/currentbuildstatus.txt"/>
+        </listeners>
+		<log dir="/andromda/builds/logs/andromda-head">
+        </log>
+        <publishers>
+            <currentbuildstatuspublisher file="/andromda/builds/logs/andromda4/currentbuildstatus.txt"/>
+            <htmlemail logdir="/andromda/builds/logs/andromda4"
+                mailhost="localhost"
+                buildresultsurl="http://andromda.it.su.se/cruisecontrol/buildresults/andromda4"
+                spamwhilebroken="true"
+                subjectprefix="[BUILD]"
+                returnaddress="committers@andromda.org"
+                defaultsuffix="@users.sourceforge.net"
+                xslfile="/andromda/builds/continuous-integration/xsl/andromda-m2.xsl">
+                <map address="matthias@andromda.org" alias="mattes3"/>
+                <map address="chad@andromda.org" alias="cwbrandon"/>
+                <map address="wouter@andromda.org" alias="draftdog"/>
+                <map address="martin@andromda.org" alias="amartinwest"/>
+                <map address="carlos@andromda.org" alias="carloslcuenca"/>
+                <failure address="committers@andromda.org"/>
+                <always address="chad.brandon@gmail.com"/>
+                <always address="martin@objectgizmos.com"/>
+                <always address="wouter.zoons@coditel.net"/>
+		<always address="nbhatia@users.sourceforge.net"/>
+            </htmlemail>
+        </publishers>
+    </project>
+ 
     <project name="andromda-head">
         <bootstrappers>
         </bootstrappers>
@@ -35,7 +76,7 @@
                 <map address="carlos@andromda.org" alias="carloslcuenca"/>
                 <failure address="committers@andromda.org"/>
                 <always address="chad.brandon@gmail.com"/>
-                <always address="westam@dsl.pipex.com"/>
+                <always address="martin@objectgizmos.com"/>
                 <always address="wouter.zoons@coditel.net"/>
 		<always address="nbhatia@users.sourceforge.net"/>
             </htmlemail>
@@ -89,7 +130,7 @@
                 <map address="carlos@andromda.org" alias="carloslcuenca"/>
                 <failure address="committers@andromda.org"/>
                 <always address="chad.brandon@gmail.com"/>
-                <always address="westam@dsl.pipex.com"/>
+                <always address="martin@objectgizmos.com"/>
                 <always address="wouter.zoons@coditel.net"/>
 		<always address="nbhatia@users.sourceforge.net"/>
             </htmlemail>
