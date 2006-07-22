@@ -242,6 +242,9 @@
         Updated the cartridge.xml to set the outlet for the enumerations template to a new outlet called
         user-types.  This is defined in namespace.xml and must exist in each project andromda.xml.
       </action>
+      <action dev="vancek" due-to="sverker" type="update">
+        JIRA EJB-39 - Add serialVersionUID to DaoDefaultException.
+      </action>
     </release>
   </body>
 </document>
