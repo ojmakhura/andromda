@@ -245,6 +245,11 @@
       <action dev="vancek" due-to="sverker" type="update">
         JIRA EJB-39 - Add serialVersionUID to DaoDefaultException.
       </action>
+      <action dev="vancek" due-to="KnisterPeter" type="update">
+        Changed defaultCollectionInterface namespace property to java.util.TreeSet from
+        java.util.SortedSet.  This eliminates the need for the @org.hibernate.annotations.Sort annotation
+        on collection association ends.  Aim is to decouple the EJB3 cartridge (with default settings) to Hibernate.
+      </action>
     </release>
   </body>
 </document>
