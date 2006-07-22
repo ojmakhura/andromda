@@ -16,6 +16,11 @@ $entity.getDocumentation(" * ")
 public class ${entity.daoDefaultExceptionName}
     extends java.lang.Exception
 {
+    /** 
+     * The serial version UID of this class. Needed for serialization. 
+     */
+    private static final long serialVersionUID = ${entity.serialVersionUID}L;
+
     /**
      * The default constructor.
      */
