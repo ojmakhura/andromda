@@ -32,7 +32,7 @@ public class NewAndroidProjectWizard
         implements INewWizard, IExecutableExtension
 {
 
-    /** Wizard page showing basi cproject properties. */
+    /** Wizard page showing basic project properties. */
     private BasicProjectInformationWizardPage basicProjectInformationPage;
 
     /** This will contain all project properties that the user has entered in the wizard. */
