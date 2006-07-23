@@ -9,15 +9,11 @@ import org.andromda.android.core.project.cartridge.IProjectCartridgeDescriptor;
 import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.project.wizard.BasicProjectInformationWizardPage;
 import org.andromda.android.ui.internal.project.wizard.ChooseProjectCartridgeWizardPage;
-import org.andromda.android.ui.internal.project.wizard.ProjectFeaturesWizardPage;
-import org.andromda.android.ui.internal.project.wizard.ProjectMetaInformationWizardPage;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IJavaElement;
-import org.eclipse.jdt.ui.wizards.JavaCapabilityConfigurationPage;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
@@ -27,7 +23,7 @@ import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 
 /**
  * The <code>New AndroMDA Project Wizard</code>.
- * 
+ *
  * @author Peter Friese
  * @since 22.05.2005
  */
@@ -36,27 +32,13 @@ public class NewAndroidProjectWizard
         implements INewWizard, IExecutableExtension
 {
 
+    /** Wizard page showing basi cproject properties. */
     private BasicProjectInformationWizardPage basicProjectInformationPage;
 
-    private ProjectMetaInformationWizardPage projectMetaInformationWizardPage;
-
-    private IWorkbench workbench;
-
-    private IStructuredSelection selection;
-
-    private ProjectFeaturesWizardPage projectFeaturesWizardPage;
-
-    private static final String ID_ANDROMDAPP_PROCESS_TYPE = "andromdapp";
-
-    /**
-     * This will contain all project properties that the user has entered in the wizard.
-     */
+    /** This will contain all project properties that the user has entered in the wizard. */
     private Map projectProperties = new HashMap();
 
-    private IProject projectHandle;
-
-    private JavaCapabilityConfigurationPage javaCapabilityConfigurationPage;
-
+    /** The configuration element used to trigger this execution. */
     private IConfigurationElement config;
 
     /**
@@ -72,11 +54,10 @@ public class NewAndroidProjectWizard
     /**
      * {@inheritDoc}
      */
-    public void init(IWorkbench workbench,
-        IStructuredSelection selection)
+    public void init(final IWorkbench workbench,
+        final IStructuredSelection selection)
     {
-        this.workbench = workbench;
-        this.selection = selection;
+        // no need to store workbench or selection.
     }
 
     /**
@@ -93,18 +74,23 @@ public class NewAndroidProjectWizard
         addPage(chooseProjectCatridgeWizardPage);
     }
 
+    /**
+     * @throws InterruptedException if project creation is aborted by user.
+     * @throws CoreException if some problem occurrs during project creation.
+     * @throws InvocationTargetException if there is a problem when invoking the project creation.
+     */
     protected void finishPage() throws InterruptedException, CoreException, InvocationTargetException
     {
         WorkspaceModifyOperation op = new WorkspaceModifyOperation()
         {
-            protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException,
+            protected void execute(final IProgressMonitor monitor) throws CoreException, InvocationTargetException,
                     InterruptedException
             {
                 String name = (String)projectProperties.get(IProjectCartridgeDescriptor.PROPERTY_PROJECT_ID);
                 AndroidProjectFactory.createAndroidProject(monitor, name, projectProperties);
             }
         };
-        
+
         getContainer().run(true, true, op);
     }
 
@@ -129,7 +115,7 @@ public class NewAndroidProjectWizard
     }
 
     /**
-     * @return
+     * @return null
      */
     public IJavaElement getCreatedElement()
     {
@@ -139,9 +125,9 @@ public class NewAndroidProjectWizard
     /**
      * {@inheritDoc}
      */
-    public void setInitializationData(IConfigurationElement config,
-        String propertyName,
-        Object data) throws CoreException
+    public void setInitializationData(final IConfigurationElement config,
+        final String propertyName,
+        final Object data) throws CoreException
     {
         this.config = config;
     }
