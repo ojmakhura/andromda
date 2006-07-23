@@ -2,6 +2,7 @@ package org.andromda.android.ui.internal.project.wizard;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.andromda.android.core.project.cartridge.IProjectCartridgeDescriptor;
@@ -180,13 +181,20 @@ public class DynamicWizardPage
                     boolean selected = button.getSelection();
                     value = Boolean.toString(selected);
                 }
-                if (prompt.isSetAsTrue())
-                {
-                    propertyName = value;
-                    value = Boolean.TRUE.toString();
-                }
                 if (value != null)
                 {
+                    if (prompt.isSetAsTrue())
+                    {
+                        propertyName = value;
+                        value = Boolean.TRUE.toString();
+                        // remove old value
+                        List options = prompt.getOptions();
+                        for (Iterator optionsInterator = options.iterator(); optionsInterator.hasNext();)
+                        {
+                            String option = (String)optionsInterator.next();
+                            projectProperties.remove(option);
+                        }
+                    }
                     if ("yesnotruefalse".indexOf(value) >= 0)
                     {
                         Boolean booleanValue = BooleanUtils.toBooleanObject(value);
