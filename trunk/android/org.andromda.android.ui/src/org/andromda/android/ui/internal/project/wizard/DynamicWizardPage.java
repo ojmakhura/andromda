@@ -180,6 +180,11 @@ public class DynamicWizardPage
                     boolean selected = button.getSelection();
                     value = Boolean.toString(selected);
                 }
+                if (prompt.isSetAsTrue())
+                {
+                    propertyName = value;
+                    value = Boolean.TRUE.toString();
+                }
                 if (value != null)
                 {
                     if ("yesnotruefalse".indexOf(value) >= 0)
