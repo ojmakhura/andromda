@@ -39,6 +39,9 @@ class Prompt
     /** The type of the preconditions for this prompt. */
     private String conditionsType;
 
+    /** Whether or not the response should be set to a boolean value of <code>true</code>. */
+    private boolean setAsTrue;
+
     /**
      * {@inheritDoc}
      */
@@ -183,6 +186,22 @@ class Prompt
     public void setConditionsType(final String conditionsType)
     {
         this.conditionsType = conditionsType;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public boolean isSetAsTrue()
+    {
+        return setAsTrue;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void setSetAsTrue(final boolean setAsTrue)
+    {
+        this.setAsTrue = setAsTrue;
     }
 
 }

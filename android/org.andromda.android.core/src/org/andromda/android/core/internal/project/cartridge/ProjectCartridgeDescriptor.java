@@ -13,7 +13,6 @@ import org.andromda.android.core.util.XmlUtils;
 import org.andromda.core.andromdapp.AndromdappDocument;
 import org.andromda.core.andromdapp.AndromdappDocument.Andromdapp;
 import org.andromda.core.andromdapp.ConditionDocument.Condition;
-import org.andromda.core.andromdapp.ConditionsType.Enum;
 import org.andromda.core.andromdapp.PreconditionsDocument.Preconditions;
 import org.andromda.core.andromdapp.PromptsDocument.Prompts;
 import org.andromda.core.andromdapp.ResponsesDocument.Responses;
@@ -132,6 +131,7 @@ public class ProjectCartridgeDescriptor
                 newPrompt.setId(prompt.getId());
                 newPrompt.setLabel(prompt.getShortText());
                 newPrompt.setTooltip(prompt.getText());
+                newPrompt.setSetAsTrue(prompt.getSetResponseAsTrue());
 
                 // get valid options and their type
                 Responses responses = prompt.getResponses();

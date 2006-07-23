@@ -9,7 +9,7 @@ import org.andromda.android.core.project.cartridge.IPromptGroup;
 
 /**
  * A group of prompts.
- * 
+ *
  * @author Peter Friese
  * @since 22.05.2006
  */
@@ -36,7 +36,7 @@ class PromptGroup implements IPromptGroup
     /**
      * {@inheritDoc}
      */
-    public void setDescription(String description)
+    public void setDescription(final String description)
     {
         this.description = description;
     }
@@ -52,7 +52,7 @@ class PromptGroup implements IPromptGroup
     /**
      * {@inheritDoc}
      */
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }
@@ -67,10 +67,10 @@ class PromptGroup implements IPromptGroup
 
     /**
      * Adds the given prompt to this prompt group.
-     * 
+     *
      * @param prompt The new prompt.
      */
-    public void addPrompt(IPrompt prompt)
+    public void addPrompt(final IPrompt prompt)
     {
         prompts.put(prompt.getId(), prompt);
     }

@@ -106,4 +106,18 @@ public interface IPrompt
      */
     boolean isPromptEnabled(final Map projectProperties);
 
+    /**
+     * Whether or not the response should be set to a boolean value of <code>true</code>.
+     *
+     * @param setAsTrue The setResponseAsTrue value
+     */
+    void setSetAsTrue(boolean setAsTrue);
+
+    /**
+     * Whether or not the response should be set to a boolean value of <code>true</code>.
+     *
+     * @return Returns the setResponseAsTrue.
+     */
+    boolean isSetAsTrue();
+
 }
