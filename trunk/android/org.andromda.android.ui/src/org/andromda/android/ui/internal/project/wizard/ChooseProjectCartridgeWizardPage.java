@@ -18,6 +18,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardNode;
@@ -45,8 +46,10 @@ public class ChooseProjectCartridgeWizardPage
         extends WizardSelectionPage
 {
 
+    /** This link will be displayed if the user didn't setup the cartidge directory. */
     private Link youNeedToLink;
 
+    /** This table viewer contains the list of project cartridges. */
     private TableViewer tableViewer;
 
     class TableLabelProvider
@@ -222,13 +225,17 @@ public class ChooseProjectCartridgeWizardPage
                     public void run(final IProgressMonitor monitor) throws InvocationTargetException,
                             InterruptedException
                     {
-                        monitor.beginTask("Retrieving cartridges", IProgressMonitor.UNKNOWN);
+                        monitor.beginTask("Retrieving cartridges", 100);
                         monitor.worked(30);
                         IProjectCartridgeDescriptor[] cartridgeDescriptors = ProjectCartridgeRegistry.getInstance()
                                 .getCartridgeDescriptors();
                         monitor.worked(60);
 
                         tableViewer.setInput(cartridgeDescriptors);
+                        if (cartridgeDescriptors.length > 0)
+                        {
+                            tableViewer.setSelection(new StructuredSelection(cartridgeDescriptors[0]));
+                        }
                         monitor.worked(10);
                         monitor.done();
                     }
