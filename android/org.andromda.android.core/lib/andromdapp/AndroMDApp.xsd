@@ -3,7 +3,7 @@
      This schema defines the andromdapp.xml configuration file.
      CODING CONVENTION: NO TABS, INDENT 4 SPACES
      ========================================================================= -->
-<xs:schema 
+<xs:schema
     targetNamespace="http://andromda.org/core/andromdapp"
     xmlns="http://andromda.org/core/andromdapp"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -11,6 +11,7 @@
     <xs:element name="andromdapp">
         <xs:complexType>
             <xs:sequence>
+                <xs:element ref="documentation" minOccurs="0"/>
                 <xs:element ref="resourceLocations"/>
                 <xs:element ref="directories" minOccurs="0"/>
                 <xs:element ref="conditionalOutput" minOccurs="0"/>
@@ -237,9 +238,9 @@
             <xs:sequence>
                 <xs:element ref="text" minOccurs="1" />
                 <xs:element ref="shortText" minOccurs="1" />
-                <xs:element ref="preconditions" minOccurs="0"/>
-                <xs:element ref="responses" minOccurs="0"/>
-                <xs:element ref="conditions" minOccurs="0"/>
+                <xs:element ref="preconditions" minOccurs="0" />
+                <xs:element ref="responses" minOccurs="0" />
+                <xs:element ref="conditions" minOccurs="0" />
             </xs:sequence>
             <xs:attribute name="id" type="xs:string" use="required">
                 <xs:annotation>
@@ -254,7 +255,7 @@
                     <xs:documentation>
                         Indicates whether or not this prompt requires input.
                     </xs:documentation>
-                </xs:annotation>                
+                </xs:annotation>
             </xs:attribute>
             <xs:attribute name="setResponseAsTrue" type="xs:boolean" use="optional" default="false">
                 <xs:annotation>
@@ -266,15 +267,15 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-	<xs:element name="promptGroup">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="documentation" minOccurs="0"/>
-				<xs:element ref="prompt" maxOccurs="unbounded"/>
-			</xs:sequence>
-			<xs:attribute name="name" type="xs:string" use="required"/>
-		</xs:complexType>
-	</xs:element>
+    <xs:element name="promptGroup">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="documentation" minOccurs="0"/>
+                <xs:element ref="prompt" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="prompts">
         <xs:complexType>
             <xs:sequence>

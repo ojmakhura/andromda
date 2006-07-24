@@ -10,6 +10,8 @@ import org.andromda.android.core.project.cartridge.ProjectCartridgeRegistry;
 import org.andromda.android.ui.AndroidUIPlugin;
 import org.andromda.android.ui.internal.settings.preferences.AndroMDALocationsPreferencePage;
 import org.andromda.android.ui.internal.settings.preferences.AndroidProjectLayoutPreferencePage;
+import org.andromda.android.ui.internal.widgets.FormBrowser;
+import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -24,7 +26,6 @@ import org.eclipse.jface.wizard.IWizard;
 import org.eclipse.jface.wizard.IWizardNode;
 import org.eclipse.jface.wizard.WizardSelectionPage;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
@@ -35,6 +36,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 
 /**
@@ -84,20 +86,20 @@ public class ChooseProjectCartridgeWizardPage
 
     private Table table;
 
-    private StyledText styledText;
-
     /** The project generator will be configured with this map. */
     private final Map projectProperties;
 
     private IProjectCartridgeDescriptor projectCartridgeDescriptor;
 
+    private FormBrowser descriptionBrowser;
+
     /**
-     * Create the wizard
+     * Create the wizard.
      *
      * @param projectCartridgeDescriptor
      * @param projectProperties the project generator will be configured with this map.
      */
-    public ChooseProjectCartridgeWizardPage(Map projectProperties)
+    public ChooseProjectCartridgeWizardPage(final Map projectProperties)
     {
         super("wizardPage");
         this.projectProperties = projectProperties;
@@ -106,11 +108,11 @@ public class ChooseProjectCartridgeWizardPage
     }
 
     /**
-     * Create contents of the wizard
+     * Create contents of the wizard.
      *
-     * @param parent
+     * @param parent The parent composite.
      */
-    public void createControl(Composite parent)
+    public void createControl(final Composite parent)
     {
         Composite container = new Composite(parent, SWT.NULL);
         final GridLayout gridLayout = new GridLayout();
@@ -139,6 +141,29 @@ public class ChooseProjectCartridgeWizardPage
                     setSelectedNode(null);
                     return;
                 }
+                else
+                {
+                    // @tag NewProjectWizard (project cartridge): Set project cartridge description
+                    try
+                    {
+                        String documentation = StringUtils.trimToEmpty(cartridgeDescriptor.getDocumentation());
+//                        documentation = "<p>This wizard creates standard plug-in directory structure and adds the following:</p> " +
+//                                "<li><b>Sample Incremental Project Builder</b>. The sample builder checks XML files in the project and adds a problem marker to not well formed files.</li> " +
+//                                "<li><b>Sample Project Nature</b>. This nature owns the builder.  Builder runs for projects of this nature.</li> " +
+//                                "<li><b>Sample Problem Marker</b>. The builder uses this sub-type of a problem marker to mark errors.</li> " +
+//                                "<li><b>Sample Popup Menu Action</b>. An action in a project context menu allows adding or removing the sample nature to or from a workspace project.</li> " +
+//                                "<p><b>Extensions Used</b></p> " +
+//                                "<li>org.eclipse.core.resources.builders</li> " +
+//                                "<li>org.eclipse.core.resources.markers</li> " +
+//                                "<li>org.eclipse.core.resources.natures</li> " +
+//                                "<li>org.eclipse.ui.popupMenus</li>";
+                        descriptionBrowser.setText(documentation);
+                    }
+                    catch (CartridgeParsingException e)
+                    {
+                        AndroidUIPlugin.log(e);
+                    }
+                }
 
                 setSelectedProjectCartridge(cartridgeDescriptor);
             }
@@ -150,10 +175,9 @@ public class ChooseProjectCartridgeWizardPage
         table = tableViewer.getTable();
         table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-        styledText = new StyledText(container, SWT.BORDER);
-        styledText.setEditable(false);
-        styledText.setEnabled(false);
-        styledText.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        descriptionBrowser = new FormBrowser(container, SWT.BORDER);
+        final GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+        descriptionBrowser.setLayoutData(gridData);
 
         youNeedToLink = new Link(container, SWT.NONE);
         youNeedToLink.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, false, 2, 1));
@@ -254,6 +278,17 @@ public class ChooseProjectCartridgeWizardPage
         else
         {
             youNeedToLink.setVisible(true);
+        }
+    }
+
+    protected void focusAndSelectFirst() {
+        Table table = tableViewer.getTable();
+        table.setFocus();
+        TableItem[] items = table.getItems();
+        if (items.length > 0) {
+            TableItem first = items[0];
+            Object obj = first.getData();
+            tableViewer.setSelection(new StructuredSelection(obj));
         }
     }
 
