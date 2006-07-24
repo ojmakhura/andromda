@@ -262,6 +262,29 @@
                     <code>ejb-jar.xml</code> deployment descriptor.
                 </p>
             </subsection>
+            <a name="MQ_Destinations_Descriptor"/>
+            <subsection name="MQ Destinations Descriptor">
+                <p>
+                    The EJB3 cartridge will create the default MQ destinations XML descriptor which can be
+                    hot deployed to the JBoss container for creating your queues or topics.  The following
+                    is a very basic example with a single queue mbean definition.
+<source language="xml"><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<server>
+    <mbean code="org.jboss.mq.server.jmx.Queue"
+	       name="jboss.mq.destination:service=Queue,name=EmailSenderMDBBean">
+        <depends optional-attribute-name="DestinationManager">jboss.mq:service=DestinationManager</depends>
+        <attribute name="JNDIName">queue/emailSender</attribute>
+    </mbean>
+<!-- jboss mq destinations merge-point -->
+    
+</server>
+]]></source>
+                    This file is created in your project/app/target directory and will be named something like
+                    <code>{PROJECT_NAME}-mq-destinations-service.xml</code>.  Just deploy this to your JBoss 
+                    deploy directory before deploying your application EAR.
+                </p>
+            </subsection>
         </section>
         <section name="Next">
             <p>
