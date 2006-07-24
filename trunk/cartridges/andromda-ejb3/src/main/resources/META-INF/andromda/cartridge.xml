@@ -500,6 +500,20 @@
         </modelElements>
     </template>
     
+    <template
+        path="templates/ejb3/config/jboss/mq-destinations-service.xml.vsl"
+        outputPattern="$generatedFile"
+        outlet="application-config"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="mdbs">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
 	<!-- Message Driven Bean Templates -->
 	
     <template 
