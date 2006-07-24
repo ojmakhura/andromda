@@ -250,6 +250,10 @@
         java.util.SortedSet.  This eliminates the need for the @org.hibernate.annotations.Sort annotation
         on collection association ends.  Aim is to decouple the EJB3 cartridge (with default settings) to Hibernate.
       </action>
+      <action dev="vancek" type="fix">
+        It is invalid to specify an implementation for defaultCollectionInterfac.  This must specify an
+        interface.  Changed from java.util.TreeSet to java.util.Set.
+      </action>
     </release>
   </body>
 </document>
