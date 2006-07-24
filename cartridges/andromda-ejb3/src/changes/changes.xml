@@ -259,6 +259,14 @@
         composition end.  The non-navigable end is assumed to be the owning end of the association.
         This fix renders the mappedBy property for OneToOne annotations on the inverse side of the association.
       </action>
+      <action dev="vancek" due-to="sverker" type="fix">
+        JIRA EJB-40 - Fix support for modelling map associations ends.
+        "The attached patch solves this issue as well as providing an improvement in regards to List associations. 
+        If no OrderBy tagged value is provided, the IndexColumn annotation is used (hibernate extension) to provide 
+        true list association." - The hibernate annotation needs to be switched depending on the persistence
+        provider.  This will be fixed once a namespace property is introduced along the lines of
+        persistenceProvider.
+      </action>
     </release>
   </body>
 </document>

@@ -593,11 +593,20 @@ $attribute.getDocumentation("     * ")
 #*    *##else
 #*      *##set ($argExists = false)
     @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
-#*      *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
-#*        *##if ($stringUtils.isNotEmpty(${target.orderByClause}))
+#*      *##if ($target.map)
+    @javax.persistence.MapKey#if ($target.hasTaggedValue("@andromda.persistence.collection.index"))(name = "${target.collectionIndexName}")#end
+
+#*      *##else
+#*        *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
+#*          *##if ($stringUtils.isNotEmpty(${target.orderByClause}))
     @javax.persistence.OrderBy("${target.orderByClause}")
-#*        *##else
+#*          *##else
     @javax.persistence.OrderBy
+#*          *##end
+#*        *##else
+#*          *##if ($target.list)
+    @org.hibernate.annotations.IndexColumn(name = "${target.collectionIndexName}")
+#*          *##end
 #*        *##end
 #*      *##end
 #*      *##if ($target.associationCacheEnabled)
@@ -711,11 +720,20 @@ $attribute.getDocumentation("     * ")
     )
 #*        *##end
 #*      *##end
-#*      *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
-#*        *##if ($stringUtils.isNotEmpty(${target.orderByClause}))
+#*      *##if ($target.map)
+    @javax.persistence.MapKey#if ($target.hasTaggedValue("@andromda.persistence.collection.index"))(name = "${target.collectionIndexName}")#end
+
+#*      *##else
+#*        *##if ($target.hasTaggedValue("@andromda.persistence.orderBy"))
+#*          *##if ($stringUtils.isNotEmpty(${target.orderByClause}))
     @javax.persistence.OrderBy("${target.orderByClause}")
-#*        *##else
+#*          *##else
     @javax.persistence.OrderBy
+#*          *##end
+#*        *##else
+#*          *##if ($target.list)
+    @org.hibernate.annotations.IndexColumn(name = "${target.collectionIndexName}")
+#*          *##end
 #*        *##end
 #*      *##end
 #*      *##if ($target.associationCacheEnabled)
