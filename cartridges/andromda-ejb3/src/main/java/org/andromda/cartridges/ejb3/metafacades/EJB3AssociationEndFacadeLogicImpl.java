@@ -383,6 +383,10 @@ public class EJB3AssociationEndFacadeLogicImpl
         {
             owning = true;
         }
+        else if (!this.isNavigable())
+        {
+            owning = true;
+        }
         return owning;
     }
 
