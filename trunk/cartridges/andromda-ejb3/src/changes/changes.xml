@@ -254,6 +254,11 @@
         It is invalid to specify an implementation for defaultCollectionInterfac.  This must specify an
         interface.  Changed from java.util.TreeSet to java.util.Set.
       </action>
+      <action dev="vancek" type="fix">
+        Allow the ability to specify unidirectional associations without having to specify an aggregation or
+        composition end.  The non-navigable end is assumed to be the owning end of the association.
+        This fix renders the mappedBy property for OneToOne annotations on the inverse side of the association.
+      </action>
     </release>
   </body>
 </document>
