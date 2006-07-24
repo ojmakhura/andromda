@@ -267,6 +267,10 @@
         provider.  This will be fixed once a namespace property is introduced along the lines of
         persistenceProvider.
       </action>
+      <action dev="vancek" type="add">
+        Generate JBoss MQ destinations service XML descriptor when hot deployed under JBoss, creates
+        the Queue/Topics.
+      </action>
     </release>
   </body>
 </document>
