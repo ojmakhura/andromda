@@ -6,7 +6,7 @@ import org.andromda.android.core.cartridge.CartridgeParsingException;
 
 /**
  * This interface describes a project cartridge.
- * 
+ *
  * @author Peter Friese
  * @since 22.05.2006
  */
@@ -28,16 +28,24 @@ public interface IProjectCartridgeDescriptor
 
     /**
      * Get the type of the project generator.
-     * 
-     * @return The type of te project generator.
-     * 
+     *
+     * @return The type of the project generator.
+     *
      * @throws CartridgeParsingException If the cartridge descriptor could not be parsed.
      */
     String getType() throws CartridgeParsingException;
 
     /**
+     * Get the documentation for the project cartridge.
+     *
+     * @return The cartridge documentation
+     * @throws CartridgeParsingException If the cartridge descriptor could not be parsed.
+     */
+    String getDocumentation() throws CartridgeParsingException;
+
+    /**
      * Get all prompt groups.
-     * 
+     *
      * @return A collection of prompt groups.
      * @throws CartridgeParsingException If the cartridge descrptor could not be parsed.
      */

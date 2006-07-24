@@ -16,6 +16,7 @@ import org.andromda.core.andromdapp.ConditionDocument.Condition;
 import org.andromda.core.andromdapp.PreconditionsDocument.Preconditions;
 import org.andromda.core.andromdapp.PromptsDocument.Prompts;
 import org.andromda.core.andromdapp.ResponsesDocument.Responses;
+import org.apache.xmlbeans.XmlObject;
 import org.apache.xmlbeans.XmlOptions;
 
 /**
@@ -180,5 +181,16 @@ public class ProjectCartridgeDescriptor
         Andromdapp projectCartridge = getProjectCartridge();
         String type = projectCartridge.getType();
         return type;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public String getDocumentation() throws CartridgeParsingException
+    {
+        Andromdapp projectCartridge = getProjectCartridge();
+        XmlObject documentationAsObject = projectCartridge.getDocumentation();
+        String documentation = XmlUtils.getTextValueFromElement(documentationAsObject);
+        return documentation;
     }
 }

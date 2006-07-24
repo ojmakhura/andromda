@@ -73,7 +73,7 @@ public final class ProjectCartridgeRegistry
      */
     public IProjectCartridgeDescriptor[] getCartridgeDescriptors()
     {
-        // TODO dynamically read available project cartridges on class path
+        // @tag NewProjectWizard (project cartridge): dynamically read available cartridges on class path
         IProjectCartridgeDescriptor[] result = new IProjectCartridgeDescriptor[2];
         result[0] = getCartridgeDescriptor("j2ee-maven2");
         result[1] = getCartridgeDescriptor(("richclient-ant"));
