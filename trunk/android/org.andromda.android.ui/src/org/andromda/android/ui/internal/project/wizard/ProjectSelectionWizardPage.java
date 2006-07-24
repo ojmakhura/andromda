@@ -21,7 +21,7 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 
 /**
  * This page displays all projects that are not Android projects.
- * 
+ *
  * @author Peter Friese
  * @since 03.11.2005
  */
@@ -43,9 +43,9 @@ public class ProjectSelectionWizardPage
     }
 
     /**
-     * @see org.eclipse.jface.dialogs.IDialogPage#createControl(org.eclipse.swt.widgets.Composite)
+     * {@inheritDoc}
      */
-    public void createControl(Composite parent)
+    public void createControl(final Composite parent)
     {
         Composite container = new Composite(parent, SWT.NULL);
         container.setLayout(new GridLayout());
@@ -84,7 +84,7 @@ public class ProjectSelectionWizardPage
 
     /**
      * Finds all Java projects that do not have the Android nature assigned.
-     * 
+     *
      * @return an array of {@link IProject}s
      */
     private IProject[] getNonAndroidProjects()
@@ -111,7 +111,7 @@ public class ProjectSelectionWizardPage
 
     /**
      * Gets all projects selected by the user.
-     * 
+     *
      * @return an array of {@link IProject}s
      */
     public IProject[] getSelectedProjects()
