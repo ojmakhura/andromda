@@ -264,7 +264,9 @@ public class EJB3AssociationEndFacadeLogicImpl
              */
             if ("true".equals(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
             {
-                getterSetterTypeName = getterSetterTypeName + "<" + this.getType().getFullyQualifiedName() + ">";
+                getterSetterTypeName = getterSetterTypeName + "<"
+                	+ (this.isMap()? this.getCollectionIndexType() + ", ": "")
+                	+ this.getType().getFullyQualifiedName() + ">";
             }
         }
         return getterSetterTypeName;
@@ -680,12 +682,39 @@ public class EJB3AssociationEndFacadeLogicImpl
         Object value = this.findTaggedValue(EJB3Profile.TAGGEDVALUE_ASSOCIATION_INDEX_TYPE);
         if (value == null)
         {
-            value = this.getConfiguredProperty(COLLECTION_INDEX_TYPE);
-            if (StringUtils.isBlank(ObjectUtils.toString(value)))
+            Object name = this.findTaggedValue(EJB3Profile.TAGGEDVALUE_ASSOCIATION_INDEX);
+            if(name == null)
             {
-                value = null;
+                // Find the identifier
+                EJB3EntityAttributeFacade identifier = ((EJB3EntityFacade)this.getOtherEnd().getType()).getIdentifer();
+                value = identifier.getType().getFullyQualifiedName();
+                return value.toString();
             }
-        }
+            else
+            {
+                // Find the attribute corresponding to name
+                Collection attributes = ((EJB3EntityFacade)this.getOtherEnd().getType()).getAttributes();
+                Iterator it = attributes.iterator();
+                while(it.hasNext())
+                {
+                    EJB3EntityAttributeFacade attribute = (EJB3EntityAttributeFacade) it.next();
+                    if(attribute.getName().equals(name)) 
+                    {
+                        value = attribute.getType().getFullyQualifiedName();
+                        return value.toString();
+                    }
+                }
+            }
+            
+            if (value == null)
+            {
+                value = this.getConfiguredProperty(COLLECTION_INDEX_TYPE);
+                if (StringUtils.isBlank(ObjectUtils.toString(value)))
+                {
+                    value = null;
+                }
+            }
+         }
 
         if (value != null)
         {
