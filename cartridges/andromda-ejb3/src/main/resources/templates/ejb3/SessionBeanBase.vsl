@@ -1,3 +1,4 @@
+#parse("templates/ejb3/Globals.vm")
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -36,7 +37,7 @@ $service.getDocumentation(" * ")
 @javax.ejb.TransactionAttribute(javax.ejb.TransactionAttributeType.${service.transactionType})
 #**##end
 #end
-#if ($stringUtils.isNotBlank($service.securityRealm))
+#if ($service.securityEnabled)
 #**##if ($service.persistenceContainerJboss)
 @org.jboss.annotation.security.SecurityDomain("${service.securityRealm}")
 #**##end
@@ -192,7 +193,10 @@ public abstract class ${service.serviceBaseName}
     /**
      * The $attribute.name property
      */
-#*  *##if ($service.seamComponent)
+#*  *##if ($hibernateExtensionEnabled && $service.seamComponent)
+##
+## Only enable JBoss Seam components if Hibernate extensions are enabled
+##
 #*    *##if ($attribute.seamComponentIn)
     @org.jboss.seam.annotations.In#if (!$attribute.required)(required = false)#else#**#(create = true)#end
     

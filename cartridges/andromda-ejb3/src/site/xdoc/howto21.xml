@@ -11,8 +11,12 @@
                 This latest addition is work in progress.
             </p>
             <p>
-                Here is the initial roadmap for JBoss Seam integration from the forum
-                
+                Here is the initial roadmap for JBoss Seam integration from the forum.
+            </p>
+            <p class="highlight">
+                Remember: You must set the 
+                <a href="namespace.html#persistenceProviderExtensions">persistenceProviderExtensions</a>
+                namespace property such that Hibernate validator specific annotations are generated.
             </p>
             <a name="Seam_Roadmap"/>
             <subsection name="Seam Roadmap">
