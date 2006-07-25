@@ -271,6 +271,11 @@
         Generate JBoss MQ destinations service XML descriptor when hot deployed under JBoss, creates
         the Queue/Topics.
       </action>
+      <action dev="vancek" due-to="KnisterPeter" type="update">
+        Added new namespace property persistenceProviderExtensions.  Default value is none.  Currently, ony
+        hibernate extensions are supported.  If set to hibernate, then hibernate specifc annotations are
+        rendered in appropriate locations based on the model.
+      </action>
     </release>
   </body>
 </document>

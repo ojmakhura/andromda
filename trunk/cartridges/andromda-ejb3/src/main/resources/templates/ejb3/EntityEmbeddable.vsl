@@ -1,3 +1,4 @@
+#parse("templates/ejb3/Globals.vm")
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -82,7 +83,7 @@ $entity.getDocumentation(" * ")
 ##
 @javax.persistence.DiscriminatorValue("${entity.discriminatorValue}")
 #**##end
-#**##if ($entity.cacheEnabled)
+#**##if ($hibernateExtensionEnabled && $entity.cacheEnabled)
 @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${entity.cacheType})
 #**##end
 ##
@@ -476,9 +477,9 @@ $attribute.getDocumentation("     * ")
 #*      *##if ($stringUtils.isNotBlank($attribute.enumerationType))
     @javax.persistence.Enumerated(javax.persistence.EnumType.${attribute.enumerationType})
 #*      *##end
-#*      *##if ($entity.seamComponent)
+#*      *##if ($hibernateExtensionEnabled && $entity.seamComponent)
 ##
-## If JBoss Seam is enabled, add NotNull and Length annotations
+## If JBoss Seam and Hibernate extensions are both enabled, add NotNull and Length annotations
 ##
 #*        *##if (!$attribute.columnNullable)
     @org.hibernate.validator.NotNull
@@ -603,16 +604,25 @@ $attribute.getDocumentation("     * ")
 #*          *##else
     @javax.persistence.OrderBy
 #*          *##end
-#*        *##else
+#*        *##elseif ($hibernateExtensionEnabled)
 #*          *##if ($target.list)
+##
+## Only add the IndexColumn annotation if Hibernate extensions are enabled
+##
     @org.hibernate.annotations.IndexColumn(name = "${target.collectionIndexName}")
 #*          *##end
 #*        *##end
 #*      *##end
-#*      *##if ($target.associationCacheEnabled)
+#*      *##if ($hibernateExtensionEnabled && $target.associationCacheEnabled)
+##
+## Add Cache annotations if association cache and Hibernate extensions are both enabled
+##
     @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
 #*      *##end
-#*      *##if ($target.collectionInterfaceSortedSet)
+#*      *##if ($hibernateExtensionEnabled && $target.collectionInterfaceSortedSet)
+##
+## Only add the Sort annotation if interface is SortedSet and Hibernate extentions are enabled
+##
     @org.hibernate.annotations.Sort(type = org.hibernate.annotations.SortType.NATURAL)
 #*      *##end
 #*    *##end
@@ -730,16 +740,25 @@ $attribute.getDocumentation("     * ")
 #*          *##else
     @javax.persistence.OrderBy
 #*          *##end
-#*        *##else
+#*        *##elseif ($hibernateExtensionEnabled)
+##
+## Only add the IndexColumn annotation if Hibernate extensions are enabled
+##
 #*          *##if ($target.list)
     @org.hibernate.annotations.IndexColumn(name = "${target.collectionIndexName}")
 #*          *##end
 #*        *##end
 #*      *##end
-#*      *##if ($target.associationCacheEnabled)
+#*      *##if ($hibernateExtensionEnabled && $target.associationCacheEnabled)
+##
+## Only add the Cache annotation if assocation cache and Hibernate extensions are both enabled
+##
     @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
 #*      *##end
-#*      *##if ($target.collectionInterfaceSortedSet)
+#*      *##if ($hibernateExtensionEnabled && $target.collectionInterfaceSortedSet)
+##
+## Only add Sort annotation if collection interface is SortedSet and Hibernate extensions are enabled
+##
     @org.hibernate.annotations.Sort(type = org.hibernate.annotations.SortType.NATURAL)
 #*      *##end
 #*    *##end

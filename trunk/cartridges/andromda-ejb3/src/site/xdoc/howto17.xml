@@ -90,6 +90,11 @@
                     <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto17/a/andromda.xml"><code>andromda.xml</code></a></p></li>
                 </ul>
             </p>
+            <p class="highlight">
+                Remember: You must set the 
+                <a href="namespace.html#persistenceProviderExtensions">persistenceProviderExtensions</a>
+                namespace property such that Hibernate cache specific annotations are generated.
+            </p>
             <p>
                 The following sections will show you how to enable and configure caching and clustering.
             </p>

@@ -973,6 +973,26 @@
 			</property>
 		</propertyGroup>
 		<propertyGroup name="Other Properties">
+			<property name="persistenceProviderExtensions">
+				<default>none</default>
+				<documentation>
+					Determines whether the default persistence provider 
+					extensions such as annotations should also be rendered.
+					By default, this is disabled.  
+					To enable caching:
+					this must be set to <b>hibernate</b> such that
+					the Hibernate caching annotations are rendered.
+					To enable JBoss Seam:
+					this must be set to <b>hibernate</b> such that
+					the hibernate validator annotations are
+					rendered.
+					Possible values are:
+					<ul>
+						<li>none</li>
+						<li>hibernate</li>
+					</ul>
+				</documentation>
+			</property>
 			<property name="persistenceContainerName">
 				<default>jboss</default>
 				<documentation>
