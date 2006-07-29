@@ -26,25 +26,46 @@
 	            <p>
 	                You need to have an instance of AndroMDA 3.2.  At the time of writing this, 3.2 RC1
 	                was released but the latest 3.2-SNAPSHOT from CVS contains updates to the project generator
-	                and site plugin, and is more suitable to use with the EJB3 cartridge.  Follow the anonymous
+	                and site plugin; this is more suitable to use with the EJB3 cartridge.  Follow the anonymous
 	                CVS access at <a href="http://sourceforge.net/cvs/?group_id=73047">AndroMDA project</a> to
-	                checkout the latest <b>andromda-all</b>.
+	                checkout and build the latest <b>andromda-all</b> source.
 	            </p>
 	        </subsection>
             <a name="Getting_the_Cartridge"/>
             <subsection name="Getting the Cartridge">
 	            <p>
-	                The first thing you need to do is checkout the latest EJB3 cartridge from
-	                CVS.  Follow the anonymous CVS access at
-	                <a href="http://sourceforge.net/cvs/?group_id=154568">andromdaplugins project</a>
-	                on SourceForge to checkout the latest <b>andromda-ejb</b> module.
+	                Once you have met the requirements above, checkout the latest EJB3 cartridge from
+	                CVS HEAD.  
+	                You have two options:
+	                <ul>
+	                    <li>
+	                        <p>
+	                            Follow the anonymous CVS access at
+	                			<a href="http://sourceforge.net/cvs/?group_id=154568">andromdaplugins project</a>
+	                			on SourceForge to checkout the latest <b>andromda-plugins</b> module from 
+	                			<code>HEAD</code>.
+	                		</p>
+	                	</li>
+	                	<li>
+	                	    <p>
+	                	    	If you are using an IDE like Eclipse, open your CVS repository exploring perspective,
+	                	    	create a new repository with connection type (pserver), username (anonymous),
+	                	    	password(<i>blank</i>) host (andromdaplugins.cvs.sourceforge.net) and repository path
+	                	    	(/cvsroot/andromdaplugins).  Once connected, expand HEAD and check out
+	                	    	<code>andromda-plugins</code>.
+	                	    </p>
+	                	</li>
+	                </ul>  
+	                Note that this will check out all cartridges and plugins 
+	                which are not relevant to the EJB3 cartridge, but will ease the your build process.
 	            </p>
 	        </subsection>
             <a name="Building_the_Cartridge"/>
             <subsection name="Building the Cartridge">
 	            <p>
-	                Once you have checked out the andromda-ejb3 cartridge, you can simply build it by
-	                going to the root folder of the project and running <i>mvn</i>.
+	                Once you have checked out the <code>andromda-plugins</code> project, you can simply build 
+	                the <b>andromda-ejb3</b> catridge in <code>andromda-plugins/cartridges/andromda-ejb3</code>
+	                by running <i>mvn</i> in the latter location.
 	            </p>
 	        </subsection>
             <a name="Building_Reports"/>
