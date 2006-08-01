@@ -40,6 +40,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.dialogs.PreferencesUtil;
 
 /**
+ * using this wizard, the user can choose a project cartridge to create a new AndroMDA project.
  *
  * @author Peter Friese
  * @since 22.05.2006
@@ -54,49 +55,60 @@ public class ChooseProjectCartridgeWizardPage
     /** This table viewer contains the list of project cartridges. */
     private TableViewer tableViewer;
 
+    /**
+     * This label provider labels the project cartridge entries in the list.
+     *
+     * @author Peter Friese
+     * @since 22.05.2006
+     */
     class TableLabelProvider
             extends LabelProvider
             implements ITableLabelProvider
     {
-        public String getColumnText(Object element,
-            int columnIndex)
+        /**
+         * {@inheritDoc}
+         */
+        public String getColumnText(final Object element,
+            final int columnIndex)
         {
             if (element instanceof IProjectCartridgeDescriptor)
             {
-                IProjectCartridgeDescriptor projectCartridgeDescriptor = (IProjectCartridgeDescriptor)element;
+                IProjectCartridgeDescriptor descriptor = (IProjectCartridgeDescriptor)element;
                 try
                 {
-                    return projectCartridgeDescriptor.getType();
+                    return descriptor.getType();
                 }
                 catch (CartridgeParsingException e)
                 {
-                    e.printStackTrace();
+                    AndroidUIPlugin.log(e);
+                    return null;
                 }
-                return null;
             }
             return element.toString();
         }
 
-        public Image getColumnImage(Object element,
-            int columnIndex)
+        /**
+         * {@inheritDoc}
+         */
+        public Image getColumnImage(final Object element,
+            final int columnIndex)
         {
             return null;
         }
     }
 
-    private Table table;
-
     /** The project generator will be configured with this map. */
     private final Map projectProperties;
 
+    /** The selected project cartride descriptor. */
     private IProjectCartridgeDescriptor projectCartridgeDescriptor;
 
+    /** The browser widget that displays the project cartridge description. */
     private FormBrowser descriptionBrowser;
 
     /**
      * Create the wizard.
      *
-     * @param projectCartridgeDescriptor
      * @param projectProperties the project generator will be configured with this map.
      */
     public ChooseProjectCartridgeWizardPage(final Map projectProperties)
@@ -147,16 +159,6 @@ public class ChooseProjectCartridgeWizardPage
                     try
                     {
                         String documentation = StringUtils.trimToEmpty(cartridgeDescriptor.getDocumentation());
-//                        documentation = "<p>This wizard creates standard plug-in directory structure and adds the following:</p> " +
-//                                "<li><b>Sample Incremental Project Builder</b>. The sample builder checks XML files in the project and adds a problem marker to not well formed files.</li> " +
-//                                "<li><b>Sample Project Nature</b>. This nature owns the builder.  Builder runs for projects of this nature.</li> " +
-//                                "<li><b>Sample Problem Marker</b>. The builder uses this sub-type of a problem marker to mark errors.</li> " +
-//                                "<li><b>Sample Popup Menu Action</b>. An action in a project context menu allows adding or removing the sample nature to or from a workspace project.</li> " +
-//                                "<p><b>Extensions Used</b></p> " +
-//                                "<li>org.eclipse.core.resources.builders</li> " +
-//                                "<li>org.eclipse.core.resources.markers</li> " +
-//                                "<li>org.eclipse.core.resources.natures</li> " +
-//                                "<li>org.eclipse.ui.popupMenus</li>";
                         descriptionBrowser.setText(documentation);
                     }
                     catch (CartridgeParsingException e)
@@ -172,7 +174,7 @@ public class ChooseProjectCartridgeWizardPage
         tableViewer.setLabelProvider(new TableLabelProvider());
         tableViewer.setContentProvider(new ArrayContentProvider());
         tableViewer.setInput(new Object());
-        table = tableViewer.getTable();
+        Table table = tableViewer.getTable();
         table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
         descriptionBrowser = new FormBrowser(container, SWT.BORDER);
@@ -201,11 +203,13 @@ public class ChooseProjectCartridgeWizardPage
     }
 
     /**
-     * @param projectCartridgeDescriptor
+     * Set the selected project cartridge selector.
+     *
+     * @param descriptor The project cartridge descriptor.
      */
-    protected void setSelectedProjectCartridge(final IProjectCartridgeDescriptor projectCartridgeDescriptor)
+    protected void setSelectedProjectCartridge(final IProjectCartridgeDescriptor descriptor)
     {
-        this.projectCartridgeDescriptor = projectCartridgeDescriptor;
+        this.projectCartridgeDescriptor = descriptor;
         IWizardNode node = new IWizardNode()
         {
 
@@ -281,11 +285,13 @@ public class ChooseProjectCartridgeWizardPage
         }
     }
 
-    protected void focusAndSelectFirst() {
+    protected void focusAndSelectFirst()
+    {
         Table table = tableViewer.getTable();
         table.setFocus();
         TableItem[] items = table.getItems();
-        if (items.length > 0) {
+        if (items.length > 0)
+        {
             TableItem first = items[0];
             Object obj = first.getData();
             tableViewer.setSelection(new StructuredSelection(obj));
