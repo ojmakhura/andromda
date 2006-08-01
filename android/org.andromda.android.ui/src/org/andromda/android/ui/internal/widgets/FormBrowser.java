@@ -37,7 +37,7 @@ public class FormBrowser
         toolkit.adapt(this);
         toolkit.paintBordersFor(this);
 
-        formText = new ScrolledFormText(this, SWT.NONE, true);
+        formText = new ScrolledFormText(this, SWT.H_SCROLL | SWT.V_SCROLL, true);
         final GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
         gridData.heightHint = 20;
         gridData.widthHint = 20;
