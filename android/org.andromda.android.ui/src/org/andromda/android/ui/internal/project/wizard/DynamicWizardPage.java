@@ -89,7 +89,7 @@ public class DynamicWizardPage
             if (!ArrayUtils.contains(IProjectCartridgeDescriptor.PROJECT_BASIC_PROPERTIES, prompt.getId()))
             {
                 Label label = new Label(container, SWT.NONE);
-                String promptLabel = (prompt.getLabel() != null) ? prompt.getLabel() : "";
+                String promptLabel = (prompt.getLabel() != null) ? prompt.getLabel() + ":" : "";
                 label.setText(promptLabel);
 
                 String tooltip = (prompt.getTooltip() != null) ? prompt.getTooltip() : "";
