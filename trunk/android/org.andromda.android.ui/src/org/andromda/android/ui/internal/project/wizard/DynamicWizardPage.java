@@ -109,7 +109,7 @@ public class DynamicWizardPage
                     // two ore more responses -> radiobutton
                     if (prompt.getOptions().size() >= 2)
                     {
-                        final ComboViewer comboViewer = new ComboViewer(container, SWT.BORDER);
+                        final ComboViewer comboViewer = new ComboViewer(container, SWT.BORDER | SWT.READ_ONLY);
                         comboViewer.setContentProvider(new ArrayContentProvider());
                         comboViewer.setInput(prompt.getOptions());
                         Combo combo = comboViewer.getCombo();
