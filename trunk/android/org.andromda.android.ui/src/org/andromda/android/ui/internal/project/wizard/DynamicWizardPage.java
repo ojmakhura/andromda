@@ -162,40 +162,31 @@ public class DynamicWizardPage
             String propertyName = prompt.getId();
 
             // store property value
-            String value = null;
             if (propertyName != null)
             {
-                if (control instanceof Text)
-                {
-                    Text textField = (Text)control;
-                    value = textField.getText();
-                }
-                else if (control instanceof Combo)
-                {
-                    Combo combo = (Combo)control;
-                    value = combo.getText();
-                }
-                else if (control instanceof Button)
-                {
-                    Button button = (Button)control;
-                    boolean selected = button.getSelection();
-                    value = Boolean.toString(selected);
-                }
+                String value = getFieldValue(control);
                 if (value != null)
                 {
+                    // isSetAsTrue means that we need to store <code>true</code> to a property named after the original
+                    // value of the option.
                     if (prompt.isSetAsTrue())
                     {
+                        // define property name and value
                         propertyName = value;
                         value = Boolean.TRUE.toString();
+
                         // remove old value
                         List options = prompt.getOptions();
-                        for (Iterator optionsInterator = options.iterator(); optionsInterator.hasNext();)
+                        for (Iterator optionsIterator = options.iterator(); optionsIterator.hasNext();)
                         {
-                            String option = (String)optionsInterator.next();
-                            projectProperties.remove(option);
+                            String option = (String)optionsIterator.next();
+                            if (projectProperties.containsKey(option))
+                            {
+                                projectProperties.remove(option);
+                            }
                         }
                     }
-                    if ("yesnotruefalse".indexOf(value) >= 0)
+                    if (prompt.getTypeClass() == Boolean.class)
                     {
                         Boolean booleanValue = BooleanUtils.toBooleanObject(value);
                         projectProperties.put(propertyName, booleanValue);
@@ -208,6 +199,8 @@ public class DynamicWizardPage
 
             }
         }
+
+        // enable / disable input fields according to their preconditions:
         for (int i = 0; i < children.length; i++)
         {
             Control control = children[i];
@@ -216,6 +209,34 @@ public class DynamicWizardPage
             control.setEnabled(promptEnabled);
         }
 
+    }
+
+    /**
+     * Retrieves the value of the given control.
+     *
+     * @param control The control to read.
+     * @return The value the user entered inito the control, if any.
+     */
+    private String getFieldValue(final Control control)
+    {
+        String result = null;
+        if (control instanceof Text)
+        {
+            Text textField = (Text)control;
+            result = textField.getText();
+        }
+        else if (control instanceof Combo)
+        {
+            Combo combo = (Combo)control;
+            result = combo.getText();
+        }
+        else if (control instanceof Button)
+        {
+            Button button = (Button)control;
+            boolean selected = button.getSelection();
+            result = Boolean.toString(selected);
+        }
+        return result;
     }
 
 }
