@@ -15,6 +15,8 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -139,6 +141,14 @@ public class ChooseProjectCartridgeWizardPage
         availablecartridgesLabel.setText("Available &cartridges:");
 
         tableViewer = new TableViewer(container, SWT.BORDER);
+        tableViewer.addDoubleClickListener(new IDoubleClickListener()
+        {
+            public void doubleClick(final DoubleClickEvent e)
+            {
+                advanceToNextPage();
+            }
+
+        });
         tableViewer.addSelectionChangedListener(new ISelectionChangedListener()
         {
             public void selectionChanged(final SelectionChangedEvent event)
@@ -260,10 +270,7 @@ public class ChooseProjectCartridgeWizardPage
                         monitor.worked(60);
 
                         tableViewer.setInput(cartridgeDescriptors);
-                        if (cartridgeDescriptors.length > 0)
-                        {
-                            tableViewer.setSelection(new StructuredSelection(cartridgeDescriptors[0]));
-                        }
+                        focusAndSelectFirst();
                         monitor.worked(10);
                         monitor.done();
                     }
@@ -285,6 +292,9 @@ public class ChooseProjectCartridgeWizardPage
         }
     }
 
+    /**
+     * Selec the first entry in a list.
+     */
     protected void focusAndSelectFirst()
     {
         Table table = tableViewer.getTable();
@@ -298,4 +308,14 @@ public class ChooseProjectCartridgeWizardPage
         }
     }
 
+    /**
+     * Advances to the next wizard page.
+     */
+    private void advanceToNextPage()
+    {
+        if (canFlipToNextPage())
+        {
+            getContainer().showPage(getNextPage());
+        }
+    }
 }
