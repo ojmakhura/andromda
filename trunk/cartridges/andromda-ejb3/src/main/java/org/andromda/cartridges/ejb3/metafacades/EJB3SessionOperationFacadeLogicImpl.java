@@ -1,7 +1,6 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -11,7 +10,6 @@ import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.Role;
-import org.andromda.metafacades.uml.Service;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;

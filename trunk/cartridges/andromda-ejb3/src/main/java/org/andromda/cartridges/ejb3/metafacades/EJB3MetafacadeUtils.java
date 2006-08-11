@@ -5,13 +5,11 @@ import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -39,8 +37,7 @@ class EJB3MetafacadeUtils
             ClassifierFacade classifier, 
             boolean follow)
     {
-        final String methodName = "EJBMetafacadeUtils.getCreateMethods";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         Collection retval = new ArrayList();
         ClassifierFacade entity = classifier;
         do
@@ -71,8 +68,7 @@ class EJB3MetafacadeUtils
      */
     static String getHomeInterfaceName(ClassifierFacade classifier)
     {
-        final String methodName = "EJBMetafacadeUtils.getHomeInterfaceName";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         String homeInterfaceName;
         if (classifier.hasStereotype(UMLProfile.STEREOTYPE_ENTITY))
         {
@@ -101,8 +97,7 @@ class EJB3MetafacadeUtils
             ClassifierFacade classifier,
             String defaultViewType)
     {
-        final String methodName = "EJBMetafacadeUtils.getViewType";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         String viewType = (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_VIEWTYPE);
         if (StringUtils.isEmpty(viewType))
         {
@@ -141,8 +136,7 @@ class EJB3MetafacadeUtils
      */
     static List getInheritedInstanceAttributes(ClassifierFacade classifier)
     {
-        final String methodName = "EJBMetafacadeUtils.getInheritedInstanceAttributes";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         ClassifierFacade current = (ClassifierFacade)classifier.getGeneralization();
         if (current == null)
         {
@@ -166,8 +160,7 @@ class EJB3MetafacadeUtils
      */
     static List getAllInstanceAttributes(ClassifierFacade classifier)
     {
-        final String methodName = "EJBMetafacadeUtils.getAllInstanceAttributes";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         List retval = getInheritedInstanceAttributes(classifier);
         retval.addAll(classifier.getInstanceAttributes());
         return retval;
@@ -187,8 +180,7 @@ class EJB3MetafacadeUtils
             ClassifierFacade classifier, 
             boolean follow)
     {
-        final String methodName = "EJBMetafacadeUtils.getEnvironmentEntries";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
 
         Collection attributes = classifier.getStaticAttributes();
 
@@ -221,8 +213,7 @@ class EJB3MetafacadeUtils
      */
     static String getTransactionType(ClassifierFacade classifier, String defaultTransactionType)
     {
-        final String methodName = "EJBMetafacadeUtils.getTransactionType";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         
         String transactionType = (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isNotBlank(transactionType))
@@ -246,8 +237,7 @@ class EJB3MetafacadeUtils
      */
     static String convertTransactionType(String transType)
     {
-        final String methodName = "EJBMetafacadeUtils.convertTransactionType";
-        ExceptionUtils.checkNull(methodName, "transType", transType);
+        ExceptionUtils.checkNull("transType", transType);
         
         String type = null;
         if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_MANDATORY))
@@ -292,8 +282,7 @@ class EJB3MetafacadeUtils
             ClassifierFacade classifier, 
             boolean follow)
     {
-        final String methodName = "EJBMetafacadeUtils.getConstants";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
 
         Collection attributes = classifier.getStaticAttributes();
 
@@ -325,8 +314,7 @@ class EJB3MetafacadeUtils
      */
     static boolean allowSyntheticCreateMethod(ClassifierFacade classifier)
     {
-        final String methodName = "EJBMetafacadeUtils.allowSyntheticCreateMethod";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         return !classifier.isAbstract() && classifier.findTaggedValue(
                 EJB3Profile.TAGGEDVALUE_EJB_NO_SYNTHETIC_CREATE_METHOD) == null;
     }
@@ -383,8 +371,7 @@ class EJB3MetafacadeUtils
      */
     static String getSeamComponentScopeType(ClassifierFacade classifier, boolean stateless)
     {
-        final String methodName = "EJBMetafacadeUtils.getSeamComponentScopeType";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         return (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_SCOPE_TYPE);
     }
     
@@ -397,8 +384,7 @@ class EJB3MetafacadeUtils
      */
     static String getSeamComponentName(ClassifierFacade classifier)
     {
-        final String methodName = "EJBMetafacadeUtils.getSeamComponentName";
-        ExceptionUtils.checkNull(methodName, "classifer", classifier);
+        ExceptionUtils.checkNull("classifer", classifier);
         String componentName = (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_COMPONENT_NAME);
         if (StringUtils.isBlank(componentName))
         {

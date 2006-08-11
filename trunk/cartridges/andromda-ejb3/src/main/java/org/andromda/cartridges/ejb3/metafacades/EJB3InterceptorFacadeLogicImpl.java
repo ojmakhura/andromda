@@ -1,9 +1,7 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 import org.andromda.cartridges.ejb3.EJB3Profile;

@@ -1,9 +1,6 @@
 package org.andromda.cartridges.ejb3;
 
 import org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacade;
-import org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade;
-import org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade;
-import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.lang.StringUtils;
 

@@ -279,6 +279,9 @@
       <action dev="vancek" type="update">
         Updated installation howto to give more accurate directions on getting and building the EJB3 cartridge.
       </action>
+      <action dev="vancek" due-to="sverker" type="update">
+        JIRA EJB-41 - Cleaned unused imports and some calls to deprecated methods changed to their replacements.
+      </action>
     </release>
   </body>
 </document>

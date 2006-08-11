@@ -1,8 +1,5 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
-import org.andromda.cartridges.ejb3.EJB3Profile;
-
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3AssociationFacade.
  *

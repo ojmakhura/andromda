@@ -1,23 +1,13 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 import org.andromda.cartridges.ejb3.EJB3Globals;
-import org.andromda.cartridges.ejb3.EJB3Profile;
-import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAttribute;
-import org.andromda.metafacades.uml.ManageableEntityAttribute;
-import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
