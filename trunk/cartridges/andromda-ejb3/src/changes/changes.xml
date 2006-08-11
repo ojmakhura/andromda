@@ -282,6 +282,12 @@
       <action dev="vancek" due-to="sverker" type="update">
         JIRA EJB-41 - Cleaned unused imports and some calls to deprecated methods changed to their replacements.
       </action>
+      <action dev="vancek" due-to="sverker" type="fix">
+        JIRA EJB-42 - Fix IllegalStateException "it is illegal to inject UserTransaction into a CMT bean" where a 
+        session bean is modelled with bean managed transactions.  This fix sets the <b>transaction-type</b>
+        for the session to <b>Bean</b> instead of <b>Container</b>.  This does not affect manageable entity session
+        POJOs as they remain container managed transaction demarcation.
+      </action>
     </release>
   </body>
 </document>
