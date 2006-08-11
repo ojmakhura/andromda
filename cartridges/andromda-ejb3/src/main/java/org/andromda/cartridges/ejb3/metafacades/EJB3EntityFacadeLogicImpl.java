@@ -736,7 +736,7 @@ public class EJB3EntityFacadeLogicImpl
             (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_DISCRIMINATOR_COLUMN_LENGTH);
         if (StringUtils.isNotBlank(lengthAsStr))
         {
-            length = NumberUtils.stringToInt(lengthAsStr);
+            length = NumberUtils.toInt(lengthAsStr);
         }
         return length;
     }
@@ -1305,7 +1305,9 @@ public class EJB3EntityFacadeLogicImpl
         }
         return new FilteredCollection(sourceDependencies)
             {
-                public boolean evaluate(Object object)
+				private static final long serialVersionUID = -8193885902084039620L;
+
+				public boolean evaluate(Object object)
                 {
                     boolean valid = false;
                     Object targetElement = ((DependencyFacade)object).getTargetElement();
@@ -1391,7 +1393,9 @@ public class EJB3EntityFacadeLogicImpl
     {
         return new FilteredCollection(this.getAttributes(follow, withIdentifiers))
         {
-            public boolean evaluate(Object object)
+			private static final long serialVersionUID = -8511475954374453779L;
+
+			public boolean evaluate(Object object)
             {
                 return !((AttributeFacade)object).isStatic();
             }

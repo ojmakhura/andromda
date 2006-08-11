@@ -3,10 +3,8 @@ package org.andromda.cartridges.ejb3.metafacades;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.ParameterFacade;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 

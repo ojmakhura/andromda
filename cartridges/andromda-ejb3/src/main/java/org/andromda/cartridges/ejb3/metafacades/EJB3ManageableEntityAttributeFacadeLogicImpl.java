@@ -1,10 +1,5 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
-import org.andromda.cartridges.ejb3.EJB3Globals;
-import org.andromda.cartridges.ejb3.EJB3Profile;
-import org.apache.commons.lang.StringUtils;
-
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityAttributeFacade.
  *

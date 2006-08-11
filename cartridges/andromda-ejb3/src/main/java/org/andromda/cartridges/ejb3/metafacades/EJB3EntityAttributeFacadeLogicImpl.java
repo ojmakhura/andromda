@@ -1,6 +1,5 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
-import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.cartridges.ejb3.EJB3Globals;
