@@ -27,7 +27,11 @@
 #**##end
             <ejb-class>${service.fullyQualifiedServiceName}</ejb-class>
             <session-type>${service.type}</session-type>
+#**##if ($service.transactionManagementBean)
+            <transaction-type>Bean</transaction-type>
+#**##else
             <transaction-type>Container</transaction-type>
+#**##end
 #**##foreach($envEntry in $service.getEnvironmentEntries(true))
             <env-entry>
                 <env-entry-name>${envEntry.name}</env-entry-name>
@@ -77,7 +81,11 @@
             </description>
             <ejb-name>${mdb.messageDrivenName}</ejb-name>
             <ejb-class>${mdb.fullyQualifiedMessageDrivenImplementationName}</ejb-class>
+#**##if ($mdb.transactionManagementBean)
+            <transaction-type>Bean</transaction-type>
+#**##else
             <transaction-type>Container</transaction-type>
+#**##end
             <message-destination-type>${mdb.destinationType}</message-destination-type>
 #**##if ($mdb.transactionManagementBean || $stringUtils.isNotBlank($mdb.messageSelector) || $mdb.destinationTypeTopic || $mdb.minimumPoolSize > 0 || $mdb.maximumPoolSize > 0)
             <activation-config>
