@@ -63,5 +63,34 @@
         </p>
       </answer>
     </faq>
+    <faq id="how_to_rename_ear">
+      <question>How can I rename the EAR file?</question>
+      <answer>
+        <p>
+          In more complex circumstances, you may want to rename your EAR.  For JBoss AS, you may have
+          the prefix sorter deployer enabled, in which case you want to prefix a non-negative digit to the EAR.
+          There are a couple of pitfals you need to know about to get this working.
+        </p>
+        <p>
+          In your top-level POM, in the properties section, create an entry to hold the prefix, if you required
+          a prefix.  You could name it <b>application.deploy.prefix</b>.
+        </p>
+        <p>
+          In your app folder POM, modify the <code>finalName</code> element under the <code>build</code>
+          element to reflect the prefix above.  It would read
+          <code>${application.deploy.prefix}${application.id}-${pom.version}</code>
+        </p>
+        <p>
+          You must also modify the <code>targetPath</code> element in the <code>resource</code> section corresponding
+          to the <b>src/main/application</b> <code>directory</code> element.  This would read
+          <code>../${application.deploy.prefix}${application.id}-${pom.version}</code>
+        </p>
+        <p>
+          Finally, make sure you rename the <code>jndiNamePrefix</code> property in the ejb3 namespace of your
+          andromda.xml application descriptor to reflect this change.  The <code>jndiNamePrefix</code> would read
+          <code>${application.deploy.prefix}${application.id}-${pom.version}</code>.
+        </p>
+      </answer>
+    </faq>
   </part>
 </faqs>
