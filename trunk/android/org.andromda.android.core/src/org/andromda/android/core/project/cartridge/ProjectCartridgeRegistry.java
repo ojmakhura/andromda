@@ -1,6 +1,8 @@
 package org.andromda.android.core.project.cartridge;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.andromda.android.core.AndroidCore;
@@ -67,17 +69,49 @@ public final class ProjectCartridgeRegistry
     }
 
     /**
+     * Scans the repo for all project cartridges.
+     *
+     * @return A collection of cartridge descriptors.
+     */
+    private Collection retrieveAllProjectCartridges()
+    {
+        String cartridgesLocation = AndroidCore.getAndroidSettings().getAndroMDACartridgesLocation();
+        String preferredVersion = AndroidCore.getAndroidSettings().getAndroMDAPreferredVersion();
+        Collection cartridgeFiles = ResourceResolver.findProjectCartridges(cartridgesLocation, preferredVersion, false);
+        for (Iterator iter = cartridgeFiles.iterator(); iter.hasNext();)
+        {
+            String projectCartridgeJar = (String)iter.next();
+            ProjectCartridgeDescriptor projectCartridgeDescriptor = new ProjectCartridgeDescriptor(projectCartridgeJar);
+            String key = cartridgesLocation + "::" + extractCartridgeName(projectCartridgeJar);
+            projectCartridgeDescriptors.put(key, projectCartridgeDescriptor);
+        }
+        return projectCartridgeDescriptors.values();
+
+    }
+
+    /**
+     * Extracts the project cartridge name.
+     *
+     * @param projectCartridgeJar The name of the project cartridge jar.
+     * @return The name of the project cartridge.
+     */
+    private String extractCartridgeName(final String projectCartridgeJar)
+    {
+        String temp = projectCartridgeJar.replaceFirst(".*andromdapp-project-", "");
+        String temp2 = temp.replaceFirst("-\\d.*", "");
+
+        return temp2;
+    }
+
+    /**
      * Retrieves all project cartridges that can be found on the class path.
      *
      * @return An array of project cartridge descriptors.
      */
     public IProjectCartridgeDescriptor[] getCartridgeDescriptors()
     {
-        // @tag NewProjectWizard (project cartridge): dynamically read available cartridges on class path
-        IProjectCartridgeDescriptor[] result = new IProjectCartridgeDescriptor[2];
-        result[0] = getCartridgeDescriptor("j2ee-maven2");
-        result[1] = getCartridgeDescriptor(("richclient-ant"));
-        return result;
+        Collection cartridges = retrieveAllProjectCartridges();
+        return (IProjectCartridgeDescriptor[])cartridges.toArray(new IProjectCartridgeDescriptor[cartridges.size()]);
     }
 
 }

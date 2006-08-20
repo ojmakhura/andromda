@@ -2,12 +2,13 @@ package org.andromda.android.core.util;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Collection;
 
 import junit.framework.TestCase;
 
 /**
  * Test case for {@link ResourceResolver}.
- * 
+ *
  * @author Peter Friese
  * @since 29.05.2006
  */
@@ -30,7 +31,7 @@ public class ResourceResolverTest
      */
     public void testFindCartridge()
     {
-        String cartridesRootPath = getCartridgeRootPath(); 
+        String cartridesRootPath = getCartridgeRootPath();
 
         // non-strict mode:
         final String libraryPath1 = ResourceResolver.findCartridge(cartridesRootPath, "dummy", "3.2", false);
@@ -62,7 +63,7 @@ public class ResourceResolverTest
      */
     public void testFindLibrary()
     {
-        String cartridesRootPath = getCartridgeRootPath(); 
+        String cartridesRootPath = getCartridgeRootPath();
 
         // non-strict mode:
         final String libraryPath1 = ResourceResolver.findLibrary(cartridesRootPath, "andromda-dummy-cartridge", "3.2", false);
@@ -78,10 +79,19 @@ public class ResourceResolverTest
      */
     public void testFindProjectCartridge()
     {
-        String cartridesRootPath = getCartridgeRootPath(); 
+        String cartridesRootPath = getCartridgeRootPath();
 
         final String libraryPath1 = ResourceResolver.findProjectCartridge(cartridesRootPath, "p1", "3.2", false);
         assertEquals("file:/" + cartridesRootPath + File.separator + "project" + File.separator + "andromda-andromdapp-project-p1-3.2.jar", libraryPath1);
+
+        final String libraryPath2 = ResourceResolver.findProjectCartridge(cartridesRootPath, "p2", "3.2", false);
+        assertEquals("file:/" + cartridesRootPath + File.separator + "project" + File.separator + "andromda-andromdapp-project-p2-3.2.jar", libraryPath2);
+
+        final Collection projectCartridges32 = ResourceResolver.findProjectCartridges(cartridesRootPath, "3.2", false);
+        assertEquals(2, projectCartridges32.size());
+
+        final Collection projectCartridges33 = ResourceResolver.findProjectCartridges(cartridesRootPath, "3.3", false);
+        assertEquals(1, projectCartridges33.size());
     }
 
 }
