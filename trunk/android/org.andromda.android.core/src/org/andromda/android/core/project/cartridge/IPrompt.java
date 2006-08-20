@@ -120,4 +120,11 @@ public interface IPrompt
      */
     boolean isSetAsTrue();
 
+    /**
+     * Returns the class of the type of this prompt.
+     *
+     * @return The class of the type of this prompt.
+     */
+    Class getTypeClass();
+
 }
