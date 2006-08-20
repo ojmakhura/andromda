@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.andromda.android.core.AndroidCore;
 import org.andromda.android.core.project.cartridge.IPrecondition;
 import org.andromda.android.core.project.cartridge.IPrompt;
 
@@ -202,6 +203,25 @@ class Prompt
     public void setSetAsTrue(final boolean setAsTrue)
     {
         this.setAsTrue = setAsTrue;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public Class getTypeClass()
+    {
+        if (type != null)
+        {
+            try
+            {
+                return Class.forName(type);
+            }
+            catch (ClassNotFoundException e)
+            {
+                AndroidCore.log(e);
+            }
+        }
+        return null;
     }
 
 }

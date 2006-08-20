@@ -96,6 +96,7 @@ public class Precondition
     {
         boolean valid = false;
         final String equalString = this.getEqual();
+
         final String notEqualString = this.getNotEqual();
         final boolean equalConditionPresent = equalString != null;
         final boolean notEqualConditionPresent = notEqualString != null;

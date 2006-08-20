@@ -171,10 +171,6 @@ public class DynamicWizardPage
                     // value of the option.
                     if (prompt.isSetAsTrue())
                     {
-                        // define property name and value
-                        propertyName = value;
-                        value = Boolean.TRUE.toString();
-
                         // remove old value
                         List options = prompt.getOptions();
                         for (Iterator optionsIterator = options.iterator(); optionsIterator.hasNext();)
@@ -185,6 +181,10 @@ public class DynamicWizardPage
                                 projectProperties.remove(option);
                             }
                         }
+
+                        // set option to true
+                        projectProperties.put(value, Boolean.TRUE);
+
                     }
                     if (prompt.getTypeClass() == Boolean.class)
                     {
