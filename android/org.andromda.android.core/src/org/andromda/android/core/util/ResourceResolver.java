@@ -1,10 +1,13 @@
 package org.andromda.android.core.util;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.apache.tools.ant.DirectoryScanner;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -241,6 +244,42 @@ public final class ResourceResolver
     }
 
     /**
+     * Find a resource with the given base name in the given directory, obeying the wildcard rules given in parameter
+     * "includes".
+     *
+     * @param baseDir The directory to start searching in.
+     * @param includes The wildcard rules to obey.
+     * @return The name of the resource we found.
+     */
+    private static Collection findResources(final String baseDir,
+        final String[] includes)
+    {
+        // go searching
+        final DirectoryScanner ds = new DirectoryScanner();
+        ds.setIncludes(includes);
+        ds.setBasedir(baseDir);
+        ds.setCaseSensitive(false);
+        ds.scan();
+
+        // return only first result or fail
+        final String[] files = ds.getIncludedFiles();
+        if (files.length == 0)
+        {
+            return new ArrayList();
+        }
+        else
+        {
+            Collection result = new ArrayList();
+            for (int i = 0; i < files.length; i++)
+            {
+                String file = files[i];
+                result.add("file:/" + baseDir + File.separator + files[i]);
+            }
+            return result;
+        }
+    }
+
+    /**
      * Determine the version of a file.
      *
      * @param baseName The base name of the file.
@@ -279,6 +318,33 @@ public final class ResourceResolver
             }
         }
         return files[highestIndex];
+    }
+
+    /**
+     * Finds all project cartridges below the given root path.
+     *
+     * @param cartridesRootPath The root path to scan for project cartridges.
+     * @param version The highest possible version number.
+     * @param strict If true, only exact version matches are considered, if false, subversions are also acceptable.
+     * @return A collection Strings that identify files that are cartridge descriptors.
+     */
+    public static Collection findProjectCartridges(final String cartridesRootPath,
+        final String version,
+        final boolean strict)
+    {
+        // create search pattern
+        final StringBuffer pattern = new StringBuffer();
+        pattern.append("**//");
+        pattern.append("*andromdapp-project-*-");
+        pattern.append(version);
+        if (!strict)
+        {
+            pattern.append("*");
+        }
+        pattern.append(".jar");
+        final String[] includes = { pattern.toString() };
+
+        return findResources(cartridesRootPath, includes);
     }
 
 }
