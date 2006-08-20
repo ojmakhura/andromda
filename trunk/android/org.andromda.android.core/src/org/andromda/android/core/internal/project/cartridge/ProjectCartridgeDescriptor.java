@@ -43,7 +43,7 @@ public class ProjectCartridgeDescriptor
      *
      * @param location The location of the project cartridge.
      */
-    public ProjectCartridgeDescriptor(String location)
+    public ProjectCartridgeDescriptor(final String location)
     {
         this.projectCartridgeLocation = location;
         setupDefaultNamespaces();
@@ -190,7 +190,7 @@ public class ProjectCartridgeDescriptor
     {
         Andromdapp projectCartridge = getProjectCartridge();
         XmlObject documentationAsObject = projectCartridge.getDocumentation();
-        String documentation = XmlUtils.getTextValueFromElement(documentationAsObject);
+        String documentation = XmlUtils.getTextValueFromElement2(documentationAsObject);
         return documentation;
     }
 }

@@ -79,6 +79,35 @@ public final class XmlUtils
     }
 
     /**
+     * Gets the text value (if any) from the body of the the given XmlObject
+     * <code>object</code> instance.
+     *
+     * @param object the XmlObject instance for which we'll add the value.
+     * @return the text value as a String
+     */
+    public static String getTextValueFromElement2(final XmlObject object)
+    {
+        String value = null;
+        if (object != null)
+        {
+            XmlCursor cursor = object.newCursor();
+            String documentation = cursor.getTextValue();
+
+            // remove all excess whitespace
+            if (StringUtils.isNotEmpty(value))
+            {
+                // remove tabs
+                value = value.replaceAll("\t", "");
+                // remove newline characters
+                value = value.replaceAll("\n", " ");
+                value = value.replaceAll("    ", "").trim();
+            }
+            cursor.dispose();
+        }
+        return value;
+    }
+
+    /**
      * Gets the element from the passed in XmlObject instance.
      *
      * @param object the XmlObject instance from which to retrieve the element.
