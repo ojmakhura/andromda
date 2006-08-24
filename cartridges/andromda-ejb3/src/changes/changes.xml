@@ -288,6 +288,11 @@
         for the session to <b>Bean</b> instead of <b>Container</b>.  This does not affect manageable entity session
         POJOs as they remain container managed transaction demarcation.
       </action>
+      <action dev="vancek" due-to="Bertl" type="fix">
+        JIRA EJB-43 - Fix issues with the default setup of association cascade properties, in particular adding
+        support for multiple cascade options for the default cascade property on entities.  Fix the naming
+        issue with entityAggregationCascade.
+      </action>
     </release>
   </body>
 </document>

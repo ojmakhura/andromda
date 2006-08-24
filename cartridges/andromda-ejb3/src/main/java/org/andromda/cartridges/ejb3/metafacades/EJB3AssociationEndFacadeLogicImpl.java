@@ -40,7 +40,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     /**
      * The default aggregation association cascade property
      */
-    private static final String ENTITY_DEFAULT_AGGREGATION_CASCADE = "entityAggergationCascade";
+    private static final String ENTITY_DEFAULT_AGGREGATION_CASCADE = "entityAggregationCascade";
     
     /**
      * The namespace property storing default collection type for associations
@@ -461,6 +461,39 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
+     * Resolves a comma separated list of cascade types from andromda.xml
+
+     * @param cascadesString
+     * @return fully qualified cascade type sequence
+     */
+    private String getFullyQualifiedCascadeTypeList(String cascadesString)
+    {
+        StringBuffer buf = null;
+        if (StringUtils.isNotBlank(cascadesString))
+        {
+            String[] ct = cascadesString.split(",");
+            for (int i = 0; i < ct.length; i++)
+            {
+                final String value = ct[i].trim();
+                if (StringUtils.isNotBlank(value))
+                {
+                    if (buf == null)
+                    {
+                        buf = new StringBuffer();
+                    }
+                    else
+                    {
+                        buf.append(", ");
+                    }
+    
+                    buf.append(cascadeTable.get(value));
+                }
+            }
+        }
+        return buf == null ? null : buf.toString();
+    }
+    
+    /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCascadeType()
      */
     protected String handleGetCascadeType()
@@ -488,45 +521,42 @@ public class EJB3AssociationEndFacadeLogicImpl
             }
             cascade = buf.toString();
         }
-        else if (this.isChild())
+        else if ((this.getOtherEnd() != null) && 
+                 (this.getOtherEnd().isAggregation() || this.getOtherEnd().isComposition()))
         {
             cascade = (String)cascadeTable.get(ENTITY_CASCADE_REMOVE);
-            
-            if (this.getOtherEnd() != null)
+            if (this.getOtherEnd().isComposition())
             {
-                if (this.getOtherEnd().isComposition())
+                if (StringUtils.isBlank(this.getCompositionCascadeType()))
                 {
-                    if (StringUtils.isBlank(this.getCompositionCascadeType()))
+                    if (this.getType() instanceof EJB3EntityFacade)
                     {
-                        if (this.getType() instanceof EJB3EntityFacade)
-                        {
-                            EJB3EntityFacade entity = (EJB3EntityFacade)this.getType();
-                            cascade = (entity.getDefaultCascadeType().equalsIgnoreCase(ENTITY_CASCADE_NONE) ? 
-                                    null : (String)cascadeTable.get(entity.getDefaultCascadeType()));
-                        }
-                    }
-                    else
-                    {
-                        cascade = (this.getCompositionCascadeType().equalsIgnoreCase(ENTITY_CASCADE_NONE) ? 
-                                null : (String)cascadeTable.get(this.getCompositionCascadeType()));
+                        EJB3EntityFacade entity = (EJB3EntityFacade)this.getType();
+                        cascade = (entity.getDefaultCascadeType().equalsIgnoreCase(ENTITY_CASCADE_NONE) ? 
+                                null : this.getFullyQualifiedCascadeTypeList(entity.getDefaultCascadeType()));
                     }
                 }
-                else if (this.getOtherEnd().isAggregation())
+                else
                 {
-                    if (StringUtils.isBlank(this.getAggregationCascadeType()))
+                    cascade = (this.getCompositionCascadeType().equalsIgnoreCase(ENTITY_CASCADE_NONE) ? 
+                            null : this.getFullyQualifiedCascadeTypeList(this.getCompositionCascadeType()));
+                }
+            }
+            else if (this.getOtherEnd().isAggregation())
+            {
+                if (StringUtils.isBlank(this.getAggregationCascadeType()))
+                {
+                    if (this.getType() instanceof EJB3EntityFacade)
                     {
-                        if (this.getType() instanceof EJB3EntityFacade)
-                        {
-                            EJB3EntityFacade entity = (EJB3EntityFacade)this.getType();
-                            cascade = (entity.getDefaultCascadeType().equalsIgnoreCase(ENTITY_CASCADE_NONE) ? 
-                                    null : (String)cascadeTable.get(entity.getDefaultCascadeType()));
-                        }
+                        EJB3EntityFacade entity = (EJB3EntityFacade)this.getType();
+                        cascade = (entity.getDefaultCascadeType().equalsIgnoreCase(ENTITY_CASCADE_NONE) ? 
+                                null : this.getFullyQualifiedCascadeTypeList(entity.getDefaultCascadeType()));
                     }
-                    else
-                    {
-                        cascade = (this.getAggregationCascadeType().equalsIgnoreCase(ENTITY_CASCADE_NONE) ?
-                                null : (String)cascadeTable.get(this.getAggregationCascadeType()));
-                    }
+                }
+                else
+                {
+                    cascade = (this.getAggregationCascadeType().equalsIgnoreCase(ENTITY_CASCADE_NONE) ?
+                            null : this.getFullyQualifiedCascadeTypeList(this.getAggregationCascadeType()));
                 }
             }
         }
