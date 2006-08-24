@@ -620,6 +620,8 @@
 						<li>REFRESH</li>
 						<li>NONE if one does not exist</li>
 					</ul>
+					It is possible to comma separate multiple
+					cascade properties.
 				</documentation>
 			</property>
 			<property name="entityCompositeCascade" required="false">
@@ -648,7 +650,7 @@
 					</ul>
 				</documentation>
 			</property>
-			<property name="entityAggergationCascade" required="false">
+			<property name="entityAggregationCascade" required="false">
 				<documentation>
 					Indicates how a UML aggreation should be interpreted
 					to determine cascadable operations that are
