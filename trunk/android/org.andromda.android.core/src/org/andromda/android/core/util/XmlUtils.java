@@ -87,24 +87,24 @@ public final class XmlUtils
      */
     public static String getTextValueFromElement2(final XmlObject object)
     {
-        String value = null;
+        String documentation = null;
         if (object != null)
         {
             XmlCursor cursor = object.newCursor();
-            String documentation = cursor.getTextValue();
+            documentation = cursor.getTextValue();
 
             // remove all excess whitespace
-            if (StringUtils.isNotEmpty(value))
+            if (StringUtils.isNotEmpty(documentation))
             {
                 // remove tabs
-                value = value.replaceAll("\t", "");
+                documentation = documentation.replaceAll("\t", "");
                 // remove newline characters
-                value = value.replaceAll("\n", " ");
-                value = value.replaceAll("    ", "").trim();
+                documentation = documentation.replaceAll("\n", " ");
+                documentation = documentation.replaceAll("    ", "").trim();
             }
             cursor.dispose();
         }
-        return value;
+        return documentation;
     }
 
     /**
