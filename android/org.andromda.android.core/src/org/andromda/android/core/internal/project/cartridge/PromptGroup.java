@@ -1,8 +1,8 @@
 package org.andromda.android.core.internal.project.cartridge;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import org.andromda.android.core.project.cartridge.IPrompt;
 import org.andromda.android.core.project.cartridge.IPromptGroup;
@@ -23,7 +23,7 @@ class PromptGroup implements IPromptGroup
     private String description;
 
     /** The list of prompts contained in this group. */
-    private Map prompts = new HashMap();
+    private List prompts = new ArrayList();
 
     /**
      * {@inheritDoc}
@@ -62,7 +62,7 @@ class PromptGroup implements IPromptGroup
      */
     public Collection getPrompts()
     {
-        return prompts.values();
+        return prompts;
     }
 
     /**
@@ -72,7 +72,7 @@ class PromptGroup implements IPromptGroup
      */
     public void addPrompt(final IPrompt prompt)
     {
-        prompts.put(prompt.getId(), prompt);
+        prompts.add(prompt);
     }
 
 }
