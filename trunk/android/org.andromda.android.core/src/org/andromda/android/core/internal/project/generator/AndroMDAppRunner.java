@@ -109,8 +109,11 @@ public class AndroMDAppRunner
         for (Iterator iter = keys.iterator(); iter.hasNext();)
         {
             String key = (String)iter.next();
-            String value = (String)configuration.get(key);
-            config.append("       <property name=\"" + key + "\">" + value + "</property>\n");
+            Object value = configuration.get(key);
+            if (value != null) {
+                String stringValue = value.toString();
+                config.append("       <property name=\"" + key + "\">" + stringValue + "</property>\n");
+            }
         }
         config.append("   </properties>\n");
         config.append("</andromdapp>\n");
