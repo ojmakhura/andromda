@@ -33,7 +33,11 @@
             id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"
             name="AndroMDA Project"
             preferredPerspectives="org.andromda.android.ui.internal.perspective.AndroidPerspective"
-            project="true"/>
+            project="true">
+         <description>
+            Create an AndroMDA project
+         </description>
+      </wizard>
       <primaryWizard id="org.andromda.android.ui.project.wizard.NewAndroidProjectWizard"/>
    </extension>
    <extension
