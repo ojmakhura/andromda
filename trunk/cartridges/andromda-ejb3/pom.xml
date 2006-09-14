@@ -63,7 +63,7 @@
                 </dependencies>    
             </plugin>
             <plugin>
-                <groupId>org.andromda.maven.plugins</groupId>
+                <groupId>org.andromda.maven.site</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
                 <version>3.2-SNAPSHOT</version>
                 <executions>
@@ -81,6 +81,21 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.andromda.maven.site</groupId>
+						<artifactId>andromda-doxia-module-xdoc</artifactId>
+						<version>3.2-SNAPSHOT</version>
+					</dependency>
+				</dependencies>
+                <configuration>
+                    <locales>en</locales>
+                    <outputEncoding>UTF-8</outputEncoding>
+                </configuration>
+            </plugin>
         </plugins> 
     </build>
     <reporting>
@@ -89,14 +104,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
 	            <artifactId>maven-project-info-reports-plugin</artifactId>
 	        </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <configuration>
-                    <locales>en</locales>
-                    <outputEncoding>UTF-8</outputEncoding>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
