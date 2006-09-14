@@ -39,21 +39,17 @@
 	                You have two options:
 	                <ul>
 	                    <li>
-	                        <p>
-	                            Follow the anonymous CVS access at
-	                			<a href="http://sourceforge.net/cvs/?group_id=154568">andromdaplugins project</a>
-	                			on SourceForge to checkout the latest <b>andromda-plugins</b> module from 
-	                			<code>HEAD</code>.
-	                		</p>
+                            Follow the anonymous CVS access at
+                			<a href="http://sourceforge.net/cvs/?group_id=154568">andromdaplugins project</a>
+                			on SourceForge to checkout the latest <b>andromda-plugins</b> module from 
+                			<code>HEAD</code>.
 	                	</li>
 	                	<li>
-	                	    <p>
-	                	    	If you are using an IDE like Eclipse, open your CVS repository exploring perspective,
-	                	    	create a new repository with connection type (pserver), username (anonymous),
-	                	    	password(<i>blank</i>) host (andromdaplugins.cvs.sourceforge.net) and repository path
-	                	    	(/cvsroot/andromdaplugins).  Once connected, expand HEAD and check out
-	                	    	<code>andromda-plugins</code>.
-	                	    </p>
+                	    	If you are using an IDE like Eclipse, open your CVS repository exploring perspective,
+                	    	create a new repository with connection type (pserver), username (anonymous),
+                	    	password(<i>blank</i>) host (andromdaplugins.cvs.sourceforge.net) and repository path
+                	    	(/cvsroot/andromdaplugins).  Once connected, expand HEAD and check out
+                	    	<code>andromda-plugins</code>.
 	                	</li>
 	                </ul>  
 	                Note that this will check out all cartridges and plugins 
@@ -79,8 +75,8 @@
 	            <p>
 	                You will need to check out the following plugins from Maven <b>sandbox</b>.
 	                <ul>
-	                    <li><p>maven-changes-plugin</p></li>
-	                    <li><p>maven-changelog-plugin</p></li>
+	                    <li>maven-changes-plugin</li>
+	                    <li>maven-changelog-plugin</li>
 	                </ul>
 	                Once you have built them (mvn install), these plugins will reside in your local repo.
 	            </p>

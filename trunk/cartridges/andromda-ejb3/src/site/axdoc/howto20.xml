@@ -28,21 +28,21 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><p>Auto-generated source that does not need manual editing</p></li>
-                    <li class="impl"><p>Auto-generated source that should be edited manually</p></li>
-                    <li class="changed"><p>File that is affected by the modifications applied in this section</p></li>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
                 </ul>
             </p>
             <p>
                 <ul>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto20/a/Person.java"><code>Person.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto20/a/PersonDao.java"><code>PersonDao.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto20/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto20/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto20/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto20/a/PersonName.java"><code>PersonName.java</code></a></p></li>
-                    <li class="impl"><p><a class="changed" href="src/org/andromda/test/howto20/a/PersonNameImpl.java"><code>PersonNameImpl.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto20/a/orm.xml"><code>orm.xml</code></a></p></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto20/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto20/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto20/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto20/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto20/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto20/a/PersonName.java"><code>PersonName.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto20/a/PersonNameImpl.java"><code>PersonNameImpl.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto20/a/orm.xml"><code>orm.xml</code></a></li>
                 </ul>
             </p>
             <p>
@@ -51,12 +51,12 @@
                 <a href="howto1.html">howto for entities</a>. The following is a brief list of annotations
                 and some properties that are available on embeddable attributes.
                 <ul>
-                    <li><p>@Transient</p></li>
-                    <li><p>@Version</p></li>
-                    <li><p>@Lob with @Basic settings to fetch type</p></li>
-                    <li><p>@Column with properties unique, nullable, insertable, updatable, length, columnDefinition, precision and scale</p></li>
-                    <li><p>@Temporal</p></li>
-                    <li><p>@Enumerated</p></li>
+                    <li>@Transient</li>
+                    <li>@Version</li>
+                    <li>@Lob with @Basic settings to fetch type</li>
+                    <li>@Column with properties unique, nullable, insertable, updatable, length, columnDefinition, precision and scale</li>
+                    <li>@Temporal</li>
+                    <li>@Enumerated</li>
                 </ul>
             </p>
             <a name="Helpful_Hints"/>
