@@ -22,29 +22,25 @@
             <p>
                 <ul>
                     <li>
-                        <p>
-	                        <b>Entity Cache</b> - caching database objects like entity POJOs and query results.
-	                        <ul>
-	                            <li><p>POJOs are cached in-memory.</p></li>
-	                            <li><p>Reduces round trips to the database server.</p></li>
-	                            <li>
-	                                <p>
-		                                Access by one node in the cluster makes the POJO available to all nodes via the 
-		                                distributed entity cache.
-		                            </p>
-	                            </li>
-	                        </ul>
-	                    </p>
+                        <b>Entity Cache</b> - caching database objects like entity POJOs and query results.
+                        <ul>
+                            <li>POJOs are cached in-memory.</li>
+                            <li>Reduces round trips to the database server.</li>
+                            <li>
+                                <p>
+	                                Access by one node in the cluster makes the POJO available to all nodes via the 
+	                                distributed entity cache.
+	                            </p>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <p>
-	                        <b>State Cache</b> - stores application state information.
-	                        <ul>
-	                            <li><p>HTTP session state can be cached and accessed across all nodes.</p></li>
-	                            <li><p>Caching includes stateful session beans.</p></li>
-	                            <li><p>Can cache <i>transient</i> properties across nodes.</p></li>
-	                        </ul>
-	                    </p>
+                        <b>State Cache</b> - stores application state information.
+                        <ul>
+                            <li>HTTP session state can be cached and accessed across all nodes.</li>
+                            <li>Caching includes stateful session beans.</li>
+                            <li>Can cache <i>transient</i> properties across nodes.</li>
+                        </ul>
                     </li>
                 </ul>
             </p>
@@ -57,37 +53,37 @@
             </p>
             <p>
                 <ul>
-                    <li class="gen"><p>Auto-generated source that does not need manual editing</p></li>
-                    <li class="impl"><p>Auto-generated source that should be edited manually</p></li>
-                    <li class="changed"><p>File that is affected by the modifications applied in this section</p></li>
+                    <li class="gen">Auto-generated source that does not need manual editing</li>
+                    <li class="impl">Auto-generated source that should be edited manually</li>
+                    <li class="changed">File that is affected by the modifications applied in this section</li>
                 </ul>
             </p>
             <p>
                 <ul>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></p></li>
-                    <li class="impl"><p><a class="changed" href="src/org/andromda/test/howto17/a/Car.java"><code>Car.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/CarType.java"><code>CarType.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/CarDao.java"><code>CarDao.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto17/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></p></li>
-                    <li class="impl"><p><a href="src/org/andromda/test/howto17/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/CarDaoException.java"><code>CarDaoException.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto17/a/Person.java"><code>Person.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/PersonDao.java"><code>PersonDao.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto17/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></p></li>
-                    <li class="impl"><p><a href="src/org/andromda/test/howto17/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></p></li>
-                    <li class="impl"><p><a href="src/org/andromda/test/howto17/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto17/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/RentalException.java"><code>RentalException.java</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/ejb-jar.xml"><code>ejb-jar.xml</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/jboss.xml"><code>jboss.xml</code></a></p></li>
-                    <li class="gen"><p><a href="src/org/andromda/test/howto17/a/persistence.xml"><code>persistence.xml</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto17/a/ejb3-entity-cache-service.xml"><code>ejb3-entity-cache-service.xml</code></a></p></li>
-                    <li class="gen"><p><a class="changed" href="src/org/andromda/test/howto17/a/andromda.xml"><code>andromda.xml</code></a></p></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
+                    <li class="impl"><a class="changed" href="src/org/andromda/test/howto17/a/Car.java"><code>Car.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/CarType.java"><code>CarType.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/CarDao.java"><code>CarDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/CarDaoBase.java"><code>CarDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto17/a/CarDaoImpl.java"><code>CarDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/CarDaoException.java"><code>CarDaoException.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/Person.java"><code>Person.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/PersonDao.java"><code>PersonDao.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/PersonDaoBase.java"><code>PersonDaoBase.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto17/a/PersonDaoImpl.java"><code>PersonDaoImpl.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
+                    <li class="impl"><a href="src/org/andromda/test/howto17/a/RentalServiceBean.java"><code>RentalServiceBean.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/RentalServiceRemote.java"><code>RentalServiceRemote.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/ServiceDelegateBase.java"><code>ServiceDelegateBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/RentalServiceDelegate.java"><code>RentalServiceDelegate.java</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/RentalServiceBase.java"><code>RentalServiceBase.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/RentalServiceException.java"><code>RentalServiceException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/RentalException.java"><code>RentalException.java</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/ejb-jar.xml"><code>ejb-jar.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/jboss.xml"><code>jboss.xml</code></a></li>
+                    <li class="gen"><a href="src/org/andromda/test/howto17/a/persistence.xml"><code>persistence.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/ejb3-entity-cache-service.xml"><code>ejb3-entity-cache-service.xml</code></a></li>
+                    <li class="gen"><a class="changed" href="src/org/andromda/test/howto17/a/andromda.xml"><code>andromda.xml</code></a></li>
                 </ul>
             </p>
             <p class="highlight">
@@ -374,8 +370,8 @@ public java.util.List findByType(final int transform, final org.andromda.howto2.
                 </p>
                 <p>
                     <ul>
-                        <li><p>http://clusterstore.demo.jboss.com/</p></li>
-                        <li><p>http://docs.jboss.org/ejb3/app-server/tutorial/clusteredentity/clusteredentity.html</p></li>
+                        <li>http://clusterstore.demo.jboss.com/</li>
+                        <li>http://docs.jboss.org/ejb3/app-server/tutorial/clusteredentity/clusteredentity.html</li>
                     </ul>
                 </p>
             </subsection>
