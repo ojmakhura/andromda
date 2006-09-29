@@ -89,7 +89,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
         {
             destinationType = (String)this.getConfiguredProperty(MDB_DESTINATION_TYPE);
         }
-        return destinationType;
+        return StringUtils.replaceChars(destinationType, '_', '.');
     }
 
     /**

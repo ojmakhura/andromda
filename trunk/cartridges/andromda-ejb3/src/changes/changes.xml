@@ -293,6 +293,10 @@
         support for multiple cascade options for the default cascade property on entities.  Fix the naming
         issue with entityAggregationCascade.
       </action>
+      <section dev="vancek" type="fix">
+        EJB3MessageDrivenFacade.getDestinationType requires search and replace for destination type retrieved
+        from TV.  i.e. replace all '_' with '.'.
+      </section>
     </release>
   </body>
 </document>
