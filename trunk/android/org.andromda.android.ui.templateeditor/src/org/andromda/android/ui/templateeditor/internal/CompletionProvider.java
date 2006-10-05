@@ -141,12 +141,14 @@ public class CompletionProvider
     {
         ArrayList result = new ArrayList();
 
+        System.out.println("Prefix variable:" + prefix.getVariable());
+
         ICartridgeVariableContainer variableContainer = cartridgeDescriptor.getVariableDescriptors();
         Collection variableDescriptors = variableContainer.getAll();
         for (Iterator iter = variableDescriptors.iterator(); iter.hasNext();)
         {
             ICartridgeVariableDescriptor descriptor = (ICartridgeVariableDescriptor)iter.next();
-            // System.out.println("VariableDescriptor: " + descriptor.getName() + " [" + descriptor.hashCode() + "]");
+            System.out.println("VariableDescriptor: " + descriptor.getName() + " [" + descriptor.hashCode() + "]");
             if (descriptor instanceof ICartridgeJavaVariableDescriptor)
             {
                 if (descriptor instanceof ICartridgeMetafacadeVariableDescriptor)
@@ -159,7 +161,7 @@ public class CompletionProvider
                         System.out.println(variableTemplatePath + " is part of " + templatePath);
                         // Make sure the variable names match. TODO at this time, this is a very simple matching
                         // algorithm.
-                        if (descriptor.getName().indexOf(prefix.getVariable()) > -1)
+                        if (prefix.getVariable().startsWith(descriptor.getName()))
                         {
                             createMemberProposals(prefix, offset, result, cartridgeMetafacadeVariableDescriptor);
                         }
@@ -173,7 +175,7 @@ public class CompletionProvider
                 {
                     ICartridgeJavaVariableDescriptor cartridgeJavaVariableDescriptor = (ICartridgeJavaVariableDescriptor)descriptor;
                     String name = cartridgeJavaVariableDescriptor.getName();
-                    if (name.startsWith(prefix.getVariable()))
+                    if (prefix.getVariable().startsWith(name))
                     {
                         createMemberProposals(prefix, offset, result, cartridgeJavaVariableDescriptor);
                     }
