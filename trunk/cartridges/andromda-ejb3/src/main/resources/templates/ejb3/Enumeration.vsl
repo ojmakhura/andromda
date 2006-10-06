@@ -16,9 +16,45 @@ public enum ${enum.name} implements java.io.Serializable
     /**
 $literal.getDocumentation("     * ") 
      */
-    ${literal.name}#if ($velocityCount != $enum.literals.size()),#else#**#;#end
+    ${literal.name}#if ($literal.enumerationLiteralParametersExist)(${literal.enumerationLiteralParameters})#end#if ($velocityCount != $enum.literals.size()),#else#**#;#end
 
 
+#end
+#foreach ($memberVariable in $enum.memberVariables)
+    /**
+$memberVariable.getDocumentation("     * ") 
+     */
+    $memberVariable.visibility $memberVariable.type.fullyQualifiedName ${memberVariable.name};
+
+#end
+    /**
+     * $enum.name constructor
+     */
+    private ${enum.name}($enum.getMemberVariablesAsList($enum.memberVariables, true, true))
+    {
+#foreach ($memberVariable in $enum.memberVariables)
+        ${memberVariable.setterName}(${memberVariable.name});
+#end
+    }
+
+#foreach ($memberVariable in $enum.memberVariables)
+    /**
+     * Get the $memberVariable.name property
+     * @return ${memberVariable.type.fullyQualifiedName}
+     */
+    public ${memberVariable.type.fullyQualifiedName} ${memberVariable.getterName}()
+    {
+        return $memberVariable.name;
+    }
+
+    /**
+     * Set the $memberVariable.name property.
+     * @param value the new value
+     */
+    public void ${memberVariable.setterName}(${memberVariable.type.fullyQualifiedName} value)
+    {
+        this.${memberVariable.name} = value;
+    }
 #end
     /**
      * Return the ${enum.name} from a string value

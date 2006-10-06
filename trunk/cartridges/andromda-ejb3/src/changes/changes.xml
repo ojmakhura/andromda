@@ -297,6 +297,9 @@
         EJB3MessageDrivenFacade.getDestinationType requires search and replace for destination type retrieved
         from TV.  i.e. replace all '_' with '.'.
       </section>
+      <section dev="vancek" type="add">
+        Add support for member variables within type safe enumerations.
+      </section>
     </release>
   </body>
 </document>
