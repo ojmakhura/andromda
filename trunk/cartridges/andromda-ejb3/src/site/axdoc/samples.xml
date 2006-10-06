@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - Samples</title>
+    </properties>
+    <body>
+        <section name="Samples">
+            <p>
+                To help understand the EJB3 cartridge, the following sample applications have been provided.
+            </p>
+            <p>
+                <ul>
+                    <li><a href="samples.html#Samples_Demo_EJB3">Demo EJB3</a></li>
+                </ul>
+            </p>
+            <a name="Samples_Demo_EJB3"/>
+            <subsection name="Demo EJB3 Sample">
+	            <p>
+	                This sample application is located in the <code>samples/demo-ejb3</code> directory of the
+	                <code>andromda-plugins</code> project on SourceForge.net.
+	            </p>
+	            <p>
+	                The project has the same structure as described in
+	                <a href="http://galaxy.andromda.org/docs/samples.html">AndroMDA Samples</a>.
+	            </p>
+	            <p>
+	                This sample demo illustrates the use of the EJB3 cartridge (EJB 3.0 functionality), 
+	                manageable entities and web services.  It is built for the MySQL database engine using
+	                JBoss 4.0.4 GA or newer.
+	            </p>
+	            <p>
+	                Simply build the demo by executing <code>mvn</code> in the root of the project directory.
+	            </p>
+	            <p>
+	                Once you have build the sample, you need to create the database called <code>demo-ejb3</code>.
+	                You can then deploy the following to JBoss.
+	                <ul>
+	                    <li>demo-ejb3/app/target/demo-ejb3-ds.xml</li>
+	                    <li>demo-ejb3/app/target/demo-ejb3-mq-destinations-service.xml</li>
+	                    <li>demo-ejb3/app/target/demo-ejb3-1.0-SNAPSHOT.ear</li>
+	                </ul>
+	            </p>
+	            <p>
+	                The demo also contains simple clients that you can alter and execute to better understand 
+	                the functionality in each demo sub-package.
+	            </p>
+	        </subsection>
+        </section>
+    </body>
+</document>
