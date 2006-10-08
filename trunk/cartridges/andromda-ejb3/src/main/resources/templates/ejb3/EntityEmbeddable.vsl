@@ -218,7 +218,7 @@ public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
 #**##foreach ($associationEnd in  $entityRelations)
 #*  *##set ($target = $associationEnd.otherEnd)
 #*  *##if ($target.navigable)
-#*    *##if ($target.type.manageable && $target.type.manageableDisplayAttribute.name != $target.type.identifer.name)
+#*    *##if ($target.type.manageable && $target.type.manageableDisplayAttribute.name != $target.type.identifier.name)
 #*      *##if ($target.many)
     private java.util.Collection<${target.type.manageableDisplayAttribute.type.fullyQualifiedName}> ${target.labelName};        		// Manageable display attribute
 #*      *##else
@@ -789,7 +789,7 @@ $attribute.getDocumentation("     * ")
 ## on getter.  A display attribute differs from the identifier if modelled by
 ## the Unique stereotype.
 ##
-#*  *##if ($target.type.manageable && $target.type.manageableDisplayAttribute.name != $target.type.identifer.name)
+#*  *##if ($target.type.manageable && $target.type.manageableDisplayAttribute.name != $target.type.identifier.name)
 #*    *##if ($velocityCount == 1)
     // -------- Manageable Attribute Display -----------
     
