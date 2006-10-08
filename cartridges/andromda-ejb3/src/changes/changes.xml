@@ -298,10 +298,13 @@
         from TV.  i.e. replace all '_' with '.'.
       </action>
       <action dev="vancek" type="add">
-        Add support for member variables within type safe enumerations.
+        UMLMETA-78 - Add support for member variables within type safe enumerations.
       </action>
       <action dev="vancek" type="add">
         Demo EJB3 added to andromda-plugins/samples accompanied by quick site docs.
+      </action>
+      <action dev="vancek" type="fix">
+        Fix getIdentifier naming in EJB3EntityFacade.
       </action>
     </release>
   </body>
