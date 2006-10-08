@@ -1094,9 +1094,9 @@ public class EJB3EntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetIdentifer()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetIdentifier()
      */
-    protected Object handleGetIdentifer()
+    protected Object handleGetIdentifier()
     {
         return (EJB3EntityAttributeFacade)this.getIdentifiers().iterator().next();
     }

@@ -716,7 +716,7 @@ public class EJB3AssociationEndFacadeLogicImpl
             if(name == null)
             {
                 // Find the identifier
-                EJB3EntityAttributeFacade identifier = ((EJB3EntityFacade)this.getOtherEnd().getType()).getIdentifer();
+                EJB3EntityAttributeFacade identifier = ((EJB3EntityFacade)this.getOtherEnd().getType()).getIdentifier();
                 value = identifier.getType().getFullyQualifiedName();
                 return value.toString();
             }
