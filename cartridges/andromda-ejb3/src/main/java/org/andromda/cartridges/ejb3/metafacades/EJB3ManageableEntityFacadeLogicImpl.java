@@ -215,69 +215,6 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#isDeleteWorkaround()
-     */
-    protected boolean handleIsDeleteWorkaround()
-    {
-        return (this.getIdentifiers(true).iterator().next() != null ? true : false);
-    }
-
-    /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#isUpdateWorkaround()
-     */
-    protected boolean handleIsUpdateWorkaround()
-    {
-        return (this.getIdentifiers(true).iterator().next() != null ? true : false);
-    }
-
-    /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#getManageableIdentifierWorkaround()
-     */
-    protected EntityAttribute handleGetManageableIdentifierWorkaround()
-    {
-        return (EntityAttribute)this.getIdentifiers(true).iterator().next();
-    }
-
-    /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetDisplayAttributeWorkaround()
-     */
-    protected AttributeFacade handleGetDisplayAttributeWorkaround()
-    {
-        AttributeFacade displayAttribute = null;
-
-        final Object taggedValueObject = findTaggedValue(UMLProfile.TAGGEDVALUE_MANAGEABLE_DISPLAY_NAME);
-        if (taggedValueObject != null)
-        {
-            displayAttribute = findAttribute(StringUtils.trimToEmpty(taggedValueObject.toString()));
-        }
-
-        final Collection attributes = getAttributes(true);
-        for (final Iterator attributeIterator = attributes.iterator();
-            attributeIterator.hasNext() && displayAttribute == null;)
-        {
-            final EntityAttribute attribute = (EntityAttribute)attributeIterator.next();
-            if (attribute.isUnique())
-            {
-                displayAttribute = attribute;
-            }
-        }
-
-        if (displayAttribute == null)
-        {
-            if (!getIdentifiers().isEmpty())
-            {
-                displayAttribute = (EntityAttribute)getIdentifiers().iterator().next();
-            }
-            else if (!attributes.isEmpty())
-            {
-                displayAttribute = (EntityAttribute)attributes.iterator().next();
-            }
-        }
-
-        return displayAttribute;
-    }
-
-    /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableRolesAllowed()
      */
     protected String handleGetManageableRolesAllowed()

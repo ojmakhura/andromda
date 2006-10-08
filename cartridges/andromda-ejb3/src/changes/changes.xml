@@ -304,7 +304,8 @@
         Demo EJB3 added to andromda-plugins/samples accompanied by quick site docs.
       </action>
       <action dev="vancek" type="fix">
-        Fix getIdentifier naming in EJB3EntityFacade.
+        Fix getIdentifier naming in EJB3EntityFacade which eliminates the workaround solution in 
+        EJB3ManageableEntityFacade.
       </action>
     </release>
   </body>
