@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
@@ -311,7 +312,7 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected java.util.List handleGetAllInstanceAttributes()
     {
-    	return EJB3MetafacadeUtils.getAllInstanceAttributes(this);
+        return EJB3MetafacadeUtils.getAllInstanceAttributes(this);
     }
 
     /**
@@ -319,7 +320,7 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected java.util.List handleGetInheritedInstanceAttributes()
     {
-    	return EJB3MetafacadeUtils.getInheritedInstanceAttributes(this);
+        return EJB3MetafacadeUtils.getInheritedInstanceAttributes(this);
     }
 
     /**
@@ -1391,15 +1392,22 @@ public class EJB3EntityFacadeLogicImpl
             boolean follow, 
             boolean withIdentifiers)
     {
-        return new FilteredCollection(this.getAttributes(follow, withIdentifiers))
-        {
-			private static final long serialVersionUID = -8511475954374453779L;
-
-			public boolean evaluate(Object object)
+        final Collection attributes = this.getAttributes(follow, withIdentifiers);
+        CollectionUtils.filter(
+            attributes,
+            new Predicate()
             {
-                return !((AttributeFacade)object).isStatic();
-            }
-        };
+    			public boolean evaluate(Object object)
+                {
+                    boolean valid = true;
+                    if (object instanceof EntityAttribute)
+                    {
+                        valid = !((EntityAttribute)object).isStatic();
+                    }
+                    return valid;
+                }
+            });
+        return attributes;
     }
 
     /**
