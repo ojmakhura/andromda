@@ -89,7 +89,20 @@ public class EJB3MessageDrivenFacadeLogicImpl
         {
             destinationType = (String)this.getConfiguredProperty(MDB_DESTINATION_TYPE);
         }
-        return StringUtils.replaceChars(destinationType, '_', '.');
+        
+        /**
+         * Formatting required to replace '_' with '.' and return correct casing
+         */
+        destinationType = StringUtils.replaceChars(destinationType, '_', '.');
+        if (destinationType.equalsIgnoreCase(EJB3Globals.MDB_DESTINATION_TYPE_QUEUE))
+        {
+            destinationType = EJB3Globals.MDB_DESTINATION_TYPE_QUEUE;
+        }
+        else if (destinationType.equalsIgnoreCase(EJB3Globals.MDB_DESTINATION_TYPE_TOPIC))
+        {
+            destinationType = EJB3Globals.MDB_DESTINATION_TYPE_TOPIC;
+        }
+        return destinationType;
     }
 
     /**
