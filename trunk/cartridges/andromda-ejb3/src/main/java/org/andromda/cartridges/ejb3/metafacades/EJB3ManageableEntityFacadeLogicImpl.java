@@ -1,13 +1,17 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -239,5 +243,65 @@ public class EJB3ManageableEntityFacadeLogicImpl
             separator = ", ";
         }
         return rolesAllowed != null ? rolesAllowed.toString() : null;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#getIdentifier()
+     * 
+     * Override the implemenation in EJB3EntityFacade as UML2 models cannot retrieve the identifier via the
+     * super EJB3EntityFacade.
+     */
+    public EJB3EntityAttributeFacade getIdentifier()
+    {
+        return (EJB3EntityAttributeFacade)super.getIdentifiers().iterator().next();
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#getAllInstanceAttributes()
+     * 
+     * Override the implemenation in EJB3EntityFacade as UML2 models will not get an 
+     * EJB3ManageableEntityAttributeFacade when retrieving the attributes.
+     */
+    public List getAllInstanceAttributes()
+    {
+        return EJB3MetafacadeUtils.getAllInstanceAttributes(this);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#getInheritedInstanceAttributes()
+     * 
+     * Override the implemenation in EJB3EntityFacade as UML2 models will not get an 
+     * EJB3ManageableEntityAttributeFacade when retrieving the attributes.
+     */
+    public List getInheritedInstanceAttributes()
+    {
+        return EJB3MetafacadeUtils.getInheritedInstanceAttributes(this);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
+     *      getInstanceAttributes(boolean, boolean)
+     *      
+     * Override the implemenation in EJB3EntityFacade as UML2 models will not get an 
+     * EJB3ManageableEntityAttributeFacade when retrieving the attributes.
+     */
+    public Collection getInstanceAttributes(boolean follow, boolean withIdentifiers)
+    {
+        final Collection attributes = this.getAttributes(follow, withIdentifiers);
+        CollectionUtils.filter(
+            attributes,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    boolean valid = true;
+                    if (object instanceof EntityAttribute)
+                    {
+                        valid = !((EntityAttribute)object).isStatic();
+                    }
+                    return valid;
+                }
+            });
+        return attributes;
     }
 }

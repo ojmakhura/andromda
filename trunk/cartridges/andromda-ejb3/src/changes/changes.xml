@@ -295,7 +295,7 @@
       </action>
       <action dev="vancek" type="fix">
         EJB3MessageDrivenFacade.getDestinationType requires search and replace for destination type retrieved
-        from TV.  i.e. replace all '_' with '.'.
+        from TV.  i.e. replace all '_' with '.'.  Also fix casing for javax.jms.Queue and javax.jms.Topic.
       </action>
       <action dev="vancek" type="add">
         UMLMETA-78 - Add support for member variables within type safe enumerations.
@@ -306,6 +306,12 @@
       <action dev="vancek" type="fix">
         Fix getIdentifier naming in EJB3EntityFacade which eliminates the workaround solution in 
         EJB3ManageableEntityFacade.
+      </action>
+      <action dev="vancek" due-to="markh" type="fix">
+        JIRA EJB-45 - ClassCastException when setting Manageable stereotype on entities.  The 
+        EJB3ManageableEntityAttributeFacade was not being picked up correctly.  Instead, the 
+        emf.uml2.ManageableEntityAttributeFacade was used.  The fix was to simply override the methods returning
+        attributes and identifiers in EJB3ManageableEntityFacade.
       </action>
     </release>
   </body>
