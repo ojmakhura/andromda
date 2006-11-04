@@ -14,7 +14,7 @@ import org.eclipse.core.runtime.Status;
 
 /**
  * The Android Core contains provides access to the UI-free part of Android.
- * 
+ *
  * @author Peter Friese
  * @since 29.09.2005
  */
@@ -36,6 +36,7 @@ public class AndroidCore
      */
     public AndroidCore()
     {
+        super();
         plugin = this;
     }
 
@@ -57,7 +58,7 @@ public class AndroidCore
 
     /**
      * Logs a status.
-     * 
+     *
      * @param status The status.
      */
     public static void log(final IStatus status)
@@ -67,7 +68,7 @@ public class AndroidCore
 
     /**
      * Logs a message.
-     * 
+     *
      * @param message The message.
      */
     public static void logErrorMessage(final String message)
@@ -77,7 +78,7 @@ public class AndroidCore
 
     /**
      * Logs a message and a status.
-     * 
+     *
      * @param message The message.
      * @param status The status.
      */
@@ -89,24 +90,24 @@ public class AndroidCore
             logErrorMessage(message);
             return;
         }
-        MultiStatus multi = new MultiStatus(getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, message, null);
+        final MultiStatus multi = new MultiStatus(getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, message, null);
         multi.add(status);
         log(multi);
     }
 
     /**
      * Logs a throwable.
-     * 
-     * @param e The Throwable.
+     *
+     * @param exception The Throwable.
      */
-    public static final void log(final Throwable e)
+    public static final void log(final Throwable exception)
     {
-        log(new Status(IStatus.ERROR, getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, "Internal Error", e));
+        log(new Status(IStatus.ERROR, getPluginId(), IAndroidStatusConstants.INTERNAL_ERROR, "Internal Error", exception));
     }
 
     /**
      * Returns the single instance of the Android Core. Equivalent to <code>getDefault()</code>.
-     * 
+     *
      * @return the Android Core.
      */
     public static AndroidCore getAndroidCore()
@@ -116,7 +117,7 @@ public class AndroidCore
 
     /**
      * Creates a handle for an existing project.
-     * 
+     *
      * @param project The existing project.
      * @return An {@link IAndroidProject} handle to the existing project.
      */
@@ -127,7 +128,7 @@ public class AndroidCore
 
     /**
      * Creates a handle for the given project. If the project does not yet existist, it will be created.
-     * 
+     *
      * @param project The project.
      * @param force If <code>true</code>, the project will be created.
      * @return An {@link IAndroidProject} handle to the project. If the project is <code>null</code>,
@@ -136,11 +137,12 @@ public class AndroidCore
     public static IAndroidProject create(final IProject project,
         final boolean force)
     {
-        if (project == null)
+        IAndroidProject result = null;
+        if (project != null)
         {
-            return null;
+            result = AndroidModelManager.getInstance().getAndroidModel().getAndroidProject(project, force);
         }
-        return AndroidModelManager.getInstance().getAndroidModel().getAndroidProject(project, force);
+        return result;
     }
 
     /**
@@ -153,13 +155,13 @@ public class AndroidCore
 
     /**
      * Retrieves the cartridge name space properties for the given project.
-     * 
+     *
      * @param configurationNamespace The configuration namespace.
      * @param project The current project.
      * @return The name space properties.
      */
     public static PropertyGroup[] getCartridgePropertyGroups(final Namespace configurationNamespace,
-        final IAndroidProject project) 
+        final IAndroidProject project)
     {
         return AndroidModelManager.getInstance().getAndroidModel().getCartridgePropertyGroups(configurationNamespace,
                 project);

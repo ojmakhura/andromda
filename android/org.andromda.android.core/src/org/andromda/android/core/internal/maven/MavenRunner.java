@@ -204,8 +204,8 @@ public class MavenRunner
         String absolutePath;
         try
         {
-            url = FileLocator.toFileURL(url);
-            File file = new File(url.getFile());
+            URL transformedUrl = FileLocator.toFileURL(url);
+            File file = new File(transformedUrl.getFile());
             absolutePath = file.getAbsolutePath();
         }
         catch (IOException e)
