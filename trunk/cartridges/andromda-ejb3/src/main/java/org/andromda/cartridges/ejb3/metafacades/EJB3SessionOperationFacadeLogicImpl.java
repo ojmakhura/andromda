@@ -191,6 +191,46 @@ public class EJB3SessionOperationFacadeLogicImpl
     }
     
     /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#getSignature()
+     * 
+     * Override the default implementation to check for timer service and 
+     * replace all attributes with javax.ejb.Timer attribute.
+     */
+    public String getSignature()
+    {
+        String signature = super.getSignature();
+        if (this.isTimeoutCallback())
+        {
+            final StringBuffer timeoutSignature = new StringBuffer(this.getName());
+            timeoutSignature.append("(");
+            timeoutSignature.append("javax.ejb.Timer timer");
+            timeoutSignature.append(")");
+            signature = timeoutSignature.toString();
+        }
+        return signature;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#getCall()
+     * 
+     * Override the default implmentation to check for timer service and
+     * add the javax.ejb.Timer attribute to the call.
+     */
+    public String getCall()
+    {
+        String call = super.getCall();
+        if (this.isTimeoutCallback())
+        {
+            final StringBuffer buffer = new StringBuffer(this.getName());
+            buffer.append("(");
+            buffer.append("timer");
+            buffer.append(")");
+            call =  buffer.toString();
+        }
+        return call;
+    }
+
+    /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleGetTransactionType()
      */
     protected String handleGetTransactionType()
