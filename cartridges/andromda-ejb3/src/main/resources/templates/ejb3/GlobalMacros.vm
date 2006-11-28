@@ -155,7 +155,7 @@
         else
         {
 #*  *##foreach ($attribute in $attributes)
-#*    *##if (!$attribute.type.primitive && !$attribute.type.arrayType && !$attribute.lob && !$attribute.identifier && !$attribute.containsEmbeddedObject)
+#*    *##if (!$attribute.type.primitive && !$attribute.type.arrayType && !$attribute.lob && !$attribute.identifier && !$attribute.containsEmbeddedObject && !$attribute.type.collectionType)
             if (this.${attribute.getterName}() != null)
             {
                 cmp = (cmp != 0 ? cmp : this.${attribute.getterName}().compareTo(o.${attribute.getterName}()));
