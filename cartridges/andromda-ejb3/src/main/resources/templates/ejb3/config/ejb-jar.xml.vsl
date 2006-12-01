@@ -81,6 +81,7 @@
             </description>
             <ejb-name>${mdb.messageDrivenName}</ejb-name>
             <ejb-class>${mdb.fullyQualifiedMessageDrivenImplementationName}</ejb-class>
+            <messaging-type>javax.jms.MessageListener</messaging-type>
 #**##if ($mdb.transactionManagementBean)
             <transaction-type>Bean</transaction-type>
 #**##else
