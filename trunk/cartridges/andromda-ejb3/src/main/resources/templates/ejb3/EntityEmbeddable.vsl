@@ -401,13 +401,13 @@ $attribute.getDocumentation("     * ")
 #*    *##elseif (!$attribute.version)
 #*      *##if ($attribute.identifier)
     @javax.persistence.Id
-#*        *##if ($attribute.sequenceGeneratorType)
-    @javax.persistence.SequenceGenerator(name = "${attribute.generatorName}"#if ($attribute.sequenceGeneratorType), sequenceName = "${attribute.generatorSourceName}"#end#if ($attribute.sequenceGeneratorType), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
-#*        *##elseif ($attribute.tableGeneratorType)
-    @javax.persistence.TableGenerator(name = "${attribute.generatorName}"#if ($attribute.tableGeneratorType), table = "${attribute.generatorSourceName}"#end#if ($attribute.generatorPkColumnValue), pkColumnValue = "${attribute.generatorPkColumnValue}"#end#if ($attribute.generatorInitialValue), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
+#*        *##if ($attribute.generatorTypeSequence)
+    @javax.persistence.SequenceGenerator(name = "${attribute.generatorName}"#if ($attribute.generatorTypeSequence), sequenceName = "${attribute.generatorSourceName}"#end#if ($attribute.generatorTypeSequence), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
+#*        *##elseif ($attribute.generatorTypeTable)
+    @javax.persistence.TableGenerator(name = "${attribute.generatorName}"#if ($attribute.generatorTypeTable), table = "${attribute.generatorSourceName}"#end#if ($attribute.generatorPkColumnValue), pkColumnValue = "${attribute.generatorPkColumnValue}"#end#if ($attribute.generatorInitialValue), initialValue = ${attribute.generatorInitialValue}#end#if ($attribute.generatorAllocationSize), allocationSize = ${attribute.generatorAllocationSize}#end)
 #*        *##end
 #*        *##if (!$attribute.generatorTypeNone)
-    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.${attribute.generatorType}#if ($attribute.sequenceGeneratorType || $attribute.tableGeneratorType), generator = "${attribute.generatorName}"#end)
+    @javax.persistence.GeneratedValue(strategy = javax.persistence.GenerationType.${attribute.generatorType}#if ($attribute.generatorTypeSequence || $attribute.generatorTypeTable), generator = "${attribute.generatorName}"#end)
 #*        *##end
 #*      *##end
 #*      *##if ($attribute.lob)
