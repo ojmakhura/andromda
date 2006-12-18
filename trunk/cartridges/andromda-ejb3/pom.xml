@@ -16,6 +16,12 @@
         <system>jira</system>
         <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10011</url>
     </issueManagement>
+    <scm>
+      <connection>scm:cvs:pserver:anonymous:@andromdaplugins.cvs.sourceforge.net:/cvsroot/andromdaplugins:andromda-plugins/cartridges/andromda-ejb3</connection>
+      <developerConnection>scm:cvs:ext:${cvs_username}@andromdaplugins.cvs.sourceforge.net:/cvsroot/andromdaplugins:andromda-plugins/cartridges/andromda-ejb3</developerConnection>
+      <tag>HEAD</tag>
+      <url>http://andromdaplugins.cvs.sourceforge.net/</url>
+    </scm>
     <developers>
         <developer>
             <id>vancek</id>
@@ -38,34 +44,74 @@
             <timezone>-6</timezone>
         </developer>
     </developers>
+    <dependencies>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>3.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-utils</artifactId>
+            <version>3.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <version>3.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.metafacades</groupId>
+            <artifactId>andromda-metafacades-uml14</artifactId>
+            <version>3.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-meta-cartridge</artifactId>
+            <version>3.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+            <version>3.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.profiles.uml14</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <type>xml.zip</type>
+            <version>3.3-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
     <build>
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-maven-plugin</artifactId>  
+                <artifactId>andromda-maven-plugin</artifactId>
+                <version>3.3-SNAPSHOT</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.andromda.cartridges</groupId>
                         <artifactId>andromda-meta-cartridge</artifactId>
-                        <version>3.2-SNAPSHOT</version>
+                        <version>3.3-SNAPSHOT</version>
                     </dependency>
                 </dependencies>    
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-cartridge-plugin</artifactId>     
+                <artifactId>andromda-cartridge-plugin</artifactId>
+                <version>3.3-SNAPSHOT</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.andromda.translationlibraries</groupId>
                         <artifactId>andromda-ocl-query-library</artifactId>
-                        <version>3.2-SNAPSHOT</version>
+                        <version>3.3-SNAPSHOT</version>
                     </dependency>
                 </dependencies>    
             </plugin>
             <plugin>
-                <groupId>org.andromda.maven.site</groupId>
+                <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
-                <version>3.2-SNAPSHOT</version>
+                <version>3.3-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <id>profile-transform</id>
@@ -86,9 +132,9 @@
                 <artifactId>maven-site-plugin</artifactId>
 				<dependencies>
 					<dependency>
-						<groupId>org.andromda.maven.site</groupId>
+						<groupId>org.andromda.maven.plugins.site</groupId>
 						<artifactId>andromda-doxia-module-xdoc</artifactId>
-						<version>3.2-SNAPSHOT</version>
+						<version>3.3-SNAPSHOT</version>
 					</dependency>
 				</dependencies>
                 <configuration>
@@ -102,8 +148,8 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-project-info-reports-plugin</artifactId>
-	        </plugin>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin> 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -121,49 +167,58 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
             </plugin>
-		    <plugin>
-		        <groupId>org.apache.maven.plugins</groupId>
-		        <artifactId>maven-pmd-plugin</artifactId>
-			    <configuration>
-			        <targetJdk>1.5</targetJdk>
-			    </configuration>
-		    </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <targetJdk>1.5</targetJdk>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
-	        <!--
-	        <plugin>
-	            <groupId>org.apache.maven.plugins</groupId>
-	            <artifactId>maven-changes-plugin</artifactId>
-	            <reportSets>
-	                <reportSet>
-	                    <reports>
-	                        <report>changes-report</report>
-	                        <report>jira-report</report>
-	                    </reports>
-	                </reportSet>
-	            </reportSets>
-	        </plugin>
-		    <plugin>
-		        <groupId>org.apache.maven.plugins</groupId>
-		        <artifactId>maven-changelog-plugin</artifactId>
-		        <reportSets>
-		            <reportSet>
-		                <id>All Reports</id>
-		                <configuration>
-		                    <type>range</type>
-		                    <range>90</range>
-		                </configuration>
-		                <reports>
-		                    <report>changelog</report>
-		                    <report>file-activity</report>
-		                    <report>dev-activity</report>
-		                </reports>
-		            </reportSet>
-		        </reportSets>
-		    </plugin>
-            -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+                <configuration>
+                    <xmlPath>${basedir}/src/site/changes.xml</xmlPath>
+                </configuration>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>changes-report</report>
+                            <report>jira-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>All Reports</id>
+                        <configuration>
+                            <type>range</type>
+                            <range>90</range>
+                        </configuration>
+                        <reports>
+                            <report>changelog</report>
+                            <report>file-activity</report>
+                            <report>dev-activity</report>
+                            </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
         </plugins>
     </reporting>
     <properties>

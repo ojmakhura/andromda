@@ -1,0 +1,342 @@
+<document>
+  <properties>
+    <title>EJB3 Cartridge Plugin Project</title>
+    <author email="vance@andromda.org">Vance Karimi</author>
+  </properties>
+  <body>
+    <release version="1.0-SNAPSHOT" date="2006-06-01" desc="Changes for 1.0-SNAPSHOT">
+      <action dev="vancek" type="add">
+        Introduced changes.xml and report.
+      </action>
+      <action dev="vancek" type="add">
+        Added manageable entity support.
+      </action>
+      <action dev="vancek" type="add">
+        Added JBoss cache support.
+      </action>
+      <action dev="vancek" type="update">
+        Set default discriminator value consisting of first character of entity name if one isn't
+        explicitly specified.
+      </action>
+      <action dev="vancek" type="add">
+        Added DAO support for every entity POJO.
+      </action>
+      <action dev="vancek" type="update">
+        Refactored javax.ejb package for interceptor related annotations to javax.annotation.
+        NOTE: These annotations are NOT used anyway since interceptor components are configured
+        via XML descriptor.
+      </action>
+      <action dev="vancek" type="update">
+        Added Maven reporting facilities to site generation. Using new AndroMDA site skin for site
+        generation.  To run these reports, the following Maven report plugins need to be installed.
+        Some may only exist on the Maven sandox.  maven-site-plugin, maven-project-info-reports-plugin,
+        maven-javadoc-plugin, maven-surefire-report-plugin, maven-jxr-plugin, maven-pmd-plugin,
+        maven-checkstyle-plugin, maven-changes-plugin and maven-changelog-plugin.  The maven-changelog-plugin
+        will require you to have cvs.exe (if on windows platform) in your path.
+      </action>
+      <action dev="vancek" type="fix">
+        Many-to-Many association owning side JoinTable - JoinColumn name property fixed. JIRA EJB-25
+      </action>
+      <action dev="vancek" type="fix">
+        NamedQuery definition to pick up firstResult and maxResult arguments modelled with these
+        stereotypes and NOT include then in where clause.
+      </action>
+      <action dev="vancek" type="add">
+        Added installation howto.
+      </action>
+      <action dev="vancek" due-to="tlu" type="add">
+        Added equals, hashCode and toString methods to entities.
+      </action>
+      <action dev="vancek" type="update">
+        Updates to bring up to date with EJB 3.0 FR.
+        Now require JBoss 4.0.4-GA with EJB 3.0 RC8-PFD update.
+        Update include
+          @javax.annotation.EJB --> @javax.ejb.EJB
+          Interceptor related classes and annotations moved to javax.interceptor package.
+      </action>
+      <action dev="vancek" type="fix">
+        MDB base class must implement javax.jms.MessageListener to avoid the following error message
+        on deployment:
+           java.lang.RuntimeException: unable to determine messagingType interface for MDB
+      </action>
+      <action dev="vancek" type="remove">
+        Removed container configuration option via tagged value on message driven beans since it
+        is no longer supported.
+      </action>
+      <action dev="vancek" type="add">
+        Added minimumPoolSize (@andromda.ejb.mdb.pool.size.min) and maximumPoolSize
+        (@andromda.ejb.mdb.pool.size.min) tagged value options for message 
+        driven beans i.e. to allow singleton message driven beans.  These are added as
+        activation config properties to the ejb-jar.xml.  Added documentation.
+      </action>
+      <action dev="vancek" type="update">
+        Updated the EJB3MetafacadeModel.xml to use the maven2.repository environment variable rather than
+        hard coded paths for profiles.
+      </action>
+      <action dev="vancek" type="update">
+        If session bean is a Seam component, then don't set the bean type to stateful if the bean contains an
+        attribute.  For session bean Seam components, the only way to specify it as a SFSB is via tagged value on
+        the class.
+      </action>
+      <action dev="vancek" type="fix">
+        Don't restrict rendering of accessor methods for session bean attributes that only have 'public'
+        visibility.  Accessors generated for all attributes for all visilities.
+      </action>
+      <action dev="vancek" type="add">
+        Introduce JBoss Seam components corresponding with Seam 1.0.0-CR3.
+        Always generate a local interface for a session bean if it is a Seam component.
+      </action>
+      <action dev="vancek" due-to="tlu" type="fix">
+        JIRA EJB-27 - If a session bean operation is modelled for the local view type interface, a local interface is 
+        NOT generated.  When returning a view type from the EJB3SessionFacade, must lookup all business operations to 
+        determine their view type individually and return a view type for the session bean to accomodate local,
+        remote and both.
+        Refactor service delegate templates and introduce a parent base class which all service delegates extend.
+        Fix problem with exposing only remote operations as webservice endpoints.
+      </action>
+      <action dev="vancek" due-to="tlu" type="add">
+        JIRA EJB-28 - Added support for adding ejb-jar elements to the persistence.xml.
+      </action>
+      <action dev="vancek" due-to="tlu" type="update">
+        Generate documentation for enumeration literals.
+      </action>
+      <action dev="vancek" type="fix">
+        Inheritance hierarchies where the super class is a mapped superclass, the subclass should not
+        render the DiscriminatorValue annotation.  This annotation should only be rendered in subclasses of
+        single table inheritance hierarchies.
+      </action>
+      <action dev="vancek" type="add">
+        Added FAQ support section menu to site.
+      </action>
+      <action dev="vancek" type="fix">
+        Remove references to attributes modelled with a @Version annotation (optimistic lock value for entity) in 
+        manageable service components.  Initial work removed attribute from getAttributes, but that caused problems
+        from the manageable web tier action methods create and update. To account for this, allow the attribute as
+        argument to the methods, but do not call the corresponding setter.
+      </action>
+      <action dev="vancek" type="fix">
+        Moved the @Version annotation to the entity attribute.  It had no effect on the getter method.
+        Removed all annotations on the corresponding getter method.
+      </action>
+      <action dev="vancek" type="update">
+        Render the @Table annotation on every entity to avoid application server detting the default table name
+        mapped to by this entity.  Currently, the annotation is only rendered when there is an inheritence hierarchy
+        or a mapped superclass.
+      </action>
+      <action dev="vancek" type="update">
+        Update the default Collection for one-to-many and many-to-many associations to the java.util.SortedSet (in
+        namespace.xml).  
+        Moving away from bag collection as the default since it is unnecessary in the majority of cases.  
+        As a result, the @org.hibernate.annotations.Sort annotation is also rendered with a NATURAL sort type.
+        The create and update methods of the manageable service implementation wraps the retrieved bag collection(List)
+        for the 'many' side of the association with an appropriate collection implementation (unless java.util.List
+        is specified as the default).
+      </action>
+      <action dev="vancek" type="fix">
+        Ignore the argument on create and update methods of DAO implementation components where the corresponding 
+        entity attribute is modelled as an optimistic lock value with the Version stereotype.  This should be improved
+        to eliminate the attribute when retrieving the attribute collection.
+      </action>
+      <action dev="vancek" type="update">
+        Each finder is overloaded in the DAO components.  One finder method that doesn't supply a manual query 
+        argument should use the NamedQuery defined on the corresponding entity.  Currently, it generates the query.
+      </action>
+      <action dev="vancek" type="fix">
+        Minor fixes to the EJBQL of the finder methods in the manageable service base for manageable entities.
+      </action>
+      <action dev="vancek" type="fix">
+        In the findAll method of the manageable service base implementation, the query now includes 'left join fetch'
+        for all related 'many' association ends where the target entity does not define a display attribute (where
+        the attribute is modelled with the Unique stereotype).
+      </action>
+      <action dev="vancek" type="update">
+        Updated the metafacade definitions of EJB3AssociationEndFacadeLogicImpl, EJB3AssociationEndFacadeLogicImpl
+        and EJB3MessageDrivenOperationFacadeLogicImpl in metafacade.xml.
+      </action>
+      <action dev="vancek" type="add">
+        Added support for default list, set and map type implementations for collection association ends in 
+        namespace.xml.  Also added the ability
+        for association end collection index name and type (further map support) to be specified via tagged values 
+        @andromda.persistence.collection.index and @andromda.persistence.collection.index.type.  This introduced
+        a new facade called EJB3TypeFacade.
+        Every collection type association end now instantiates the corresponding implementation upon
+        declaration.
+      </action>
+      <action dev="vancek" type="fix">
+        Fixed isRequired in EJB3AssociationEndFacade and EJB3EntityAttributeFacade to exclude property if
+        the entity has a generalization to an mapped superclass.
+      </action>
+      <action dev="vancek" type="update">
+        EJB3ManageableEntityAssociationEndFacade now also extends EJB3AssociationEndFacade with precedence tagged value
+        set.  EJB3ManageableEntityAttributeFacade also extends EJB3EntityAttributeFacade.  This eliminates the
+        need for the existing overwritten methods in the manageable entity facades.
+      </action>
+      <action dev="vancek" due-to="tlu" type="fix">
+        JIRA EJB-34 - Fix erroneous signature of entity constructor where no entity attributes exist but navigable 
+        associations do exist.
+      </action>
+      <action dev="vancek" type="update">
+        Revert the build back to using the default Java compiler (1.4) - 1.5 isn't supported for the automated
+        build process for andromda-plugins.
+      </action>
+      <action dev="vancek" due-to="tlu" type="add">
+        JIRA EJB-31 - Add support for a select few meta type annotations for attribues in embedded value classes. 
+        Need to confirm if @Transient, @Version, @Lob and @Basic are supported.  @Column, @Temporal and @Enumerated 
+        have been confirmed to work.
+      </action>
+      <action dev="vancek" due-to="tlu" type="add">
+        JIRA EJB-32 - Add support for embedded value object associations as well as attribute overrides.
+        NOTE: This is still partial support.  The association mutators need to be added with appropriate
+        annotation to the embedded value object base abstract class.
+      </action>
+      <action dev="vancek" due-to="tlu" type="fix">
+        JIRA EJB-33 - Fix problem when there are two embedded value objects of the same type in the same entity. 
+        Fix for both attribute and association overrides.
+      </action>
+      <action dev="vancek" due-to="tlu" type="update">
+        JIRA EJB-29 - the implementation class of the embedded value object was unused and the base class was abstract.
+        This is now fixed with the introduction of the orm.xml deployment descriptor.  Currently, only
+        the embeddable classes are defined.  As a result the @Embeddable annotation is removed from the base abstract
+        class and the embeddable implementation class is now the defined as the embeddable class using orm.xml rather
+        than metadata annotation.
+      </action>
+      <action dev="vancek" due-to="pawel" type="fx">
+        JIRA EJB-36 - Entities and composite primary keys now implement Comparable interface and implement the 
+        compareTo method.
+        @org.hibernate.annotations.Sort annotation is only set if the collection interface for an association end
+        is defined as java.util.SortedSet.  
+      </action>
+      <action dev="vancek" type="add">
+        Added basic JBoss Seam documentation to site docs.
+      </action>
+      <action dev="vancek" due-to="tlu" type="fix">
+        JIRA EJB-37 - Fix problem with service delegate switch statement where the break statement should not be
+        issued after a return statement. 
+      </action>
+      <action dev="vancek" due-to="sverker" type="fix">
+        JIRA EJB-38 - The query in the DAO base class for finder methods with argument enum type has to set 
+        the enum class as the parameter for the querty, not the value (name or ordinal).
+      </action>
+      <action dev="vancek" type="fix">
+        Reset EJB3ManageableEntityAttributeFacade metafacade mapping in metafacades.xml from using property element
+        to use context element.  Otherwise, manageable entity attributes would map to EJB3EntityAttributeFacade.
+        This resulted in getTemporalType being refactored in EJB3EntityAttributeFacade and the overriding instance
+        in EJB3ManageableEntityAttributeFacade to be removed.
+      </action>
+      <action dev="vancek" type="fix">
+        The getter (for BLOB type manageable attributes) in the manageable service base implementation must cast 
+        the single result to appropriate type before returning.
+      </action>
+      <action dev="vancek" type="add">
+        Add @RolesAllowed annotation with permitted roles authorised to access the manageable service. This was
+        achieved by introducing a new namespace property called <b>manageableRolesAllowed</b> rather than defined
+        by actors with dependencies on the manageable entity.  A corresponding getManageableRolesAllowed
+        is available through EJB3ManageableEntityFacade to retrieve the formatted comma separated list of roles.
+      </action>
+      <action dev="vancek" type="fix">
+        Modelling non-public operations on session beans rendered incorrect method signatures.  This fix will
+        generate correct signatures for all operations, but only public methods are exposed in the remote/local 
+        interfaces and service base class.
+      </action>
+      <action dev="vancek" type="update">
+        Updated the cartridge.xml to set the outlet for the enumerations template to a new outlet called
+        user-types.  This is defined in namespace.xml and must exist in each project andromda.xml.
+      </action>
+      <action dev="vancek" due-to="sverker" type="update">
+        JIRA EJB-39 - Add serialVersionUID to DaoDefaultException.
+      </action>
+      <action dev="vancek" due-to="KnisterPeter" type="update">
+        Changed defaultCollectionInterface namespace property to java.util.TreeSet from
+        java.util.SortedSet.  This eliminates the need for the @org.hibernate.annotations.Sort annotation
+        on collection association ends.  Aim is to decouple the EJB3 cartridge (with default settings) to Hibernate.
+      </action>
+      <action dev="vancek" type="fix">
+        It is invalid to specify an implementation for defaultCollectionInterfac.  This must specify an
+        interface.  Changed from java.util.TreeSet to java.util.Set.
+      </action>
+      <action dev="vancek" type="fix">
+        Allow the ability to specify unidirectional associations without having to specify an aggregation or
+        composition end.  The non-navigable end is assumed to be the owning end of the association.
+        This fix renders the mappedBy property for OneToOne annotations on the inverse side of the association.
+      </action>
+      <action dev="vancek" due-to="sverker" type="fix">
+        JIRA EJB-40 - Fix support for modelling map associations ends.
+        "The attached patch solves this issue as well as providing an improvement in regards to List associations. 
+        If no OrderBy tagged value is provided, the IndexColumn annotation is used (hibernate extension) to provide 
+        true list association." - The hibernate annotation needs to be switched depending on the persistence
+        provider.  This will be fixed once a namespace property is introduced along the lines of
+        persistenceProvider.
+      </action>
+      <action dev="vancek" type="add">
+        Generate JBoss MQ destinations service XML descriptor when hot deployed under JBoss, creates
+        the Queue/Topics.
+      </action>
+      <action dev="vancek" due-to="KnisterPeter" type="update">
+        Added new namespace property persistenceProviderExtensions.  Default value is none.  Currently, ony
+        hibernate extensions are supported.  If set to hibernate, then hibernate specifc annotations are
+        rendered in appropriate locations based on the model.
+      </action>
+      <action dev="vancek" type="update">
+        Updated installation howto to give more accurate directions on getting and building the EJB3 cartridge.
+      </action>
+      <action dev="vancek" due-to="sverker" type="update">
+        JIRA EJB-41 - Cleaned unused imports and some calls to deprecated methods changed to their replacements.
+      </action>
+      <action dev="vancek" due-to="sverker" type="fix">
+        JIRA EJB-42 - Fix IllegalStateException "it is illegal to inject UserTransaction into a CMT bean" where a 
+        session bean is modelled with bean managed transactions.  This fix sets the <b>transaction-type</b>
+        for the session to <b>Bean</b> instead of <b>Container</b>.  This does not affect manageable entity session
+        POJOs as they remain container managed transaction demarcation.
+      </action>
+      <action dev="vancek" due-to="Bertl" type="fix">
+        JIRA EJB-43 - Fix issues with the default setup of association cascade properties, in particular adding
+        support for multiple cascade options for the default cascade property on entities.  Fix the naming
+        issue with entityAggregationCascade.
+      </action>
+      <action dev="vancek" type="fix">
+        EJB3MessageDrivenFacade.getDestinationType requires search and replace for destination type retrieved
+        from TV.  i.e. replace all '_' with '.'.  Also fix casing for javax.jms.Queue and javax.jms.Topic.
+      </action>
+      <action dev="vancek" type="add">
+        UMLMETA-78 - Add support for member variables within type safe enumerations.
+      </action>
+      <action dev="vancek" type="add">
+        Demo EJB3 added to andromda-plugins/samples accompanied by quick site docs.
+      </action>
+      <action dev="vancek" type="fix">
+        Fix getIdentifier naming in EJB3EntityFacade which eliminates the workaround solution in 
+        EJB3ManageableEntityFacade.
+      </action>
+      <action dev="vancek" due-to="markh" type="fix">
+        JIRA EJB-45 - ClassCastException when setting Manageable stereotype on entities.  The 
+        EJB3ManageableEntityAttributeFacade was not being picked up correctly.  Instead, the 
+        emf.uml2.ManageableEntityAttributeFacade was used.  The fix was to simply override the methods returning
+        attributes and identifiers in EJB3ManageableEntityFacade.
+      </action>
+      <action dev="vancek" due-to="harwey" type="fix">
+        JIRA EJB-46 - Missing javax.ejb.Timer attribute for method on session bean
+        modelled as a timeout callback.
+      </action>
+      <action dev="vancek" due-to="turekvl" type="fix">
+        Fix in GlobalMacros.vm to prevent compareTo action on entity properties with Collection/List/Set types.
+      </action>
+      <action dev="vancek" due-to="harwey" type="fix">
+        Add javax.jms.MessageListener messaging-type to ejb-jar.xml for MDBs.
+      </action>
+      <action dev="vancek" type="update">
+        Migrated dependency versions from 3.2-SNAPSHOT to 3.2, overriding dependencies in the pom.xml.
+        NOTE: This can be removed once the andromda-plugins package is upgraded as a whole.
+      </action>
+      <action dev="vancek" type="update">
+        Added maven-changelog-plugin, taglist-maven-plugin and jdepend-maven-plugin reporting.  Also added scm
+        settings to project pom.xml.
+      </action>
+      <action dev="vancek" due-to="tp" type="fix">
+        JIRA-48 - Fix misspelt property names in EntityEmbeddable.vsl for table and sequence generator types.
+      </action>
+      <action dev="vancek" type="update">
+        Moved the changes.xml to src/site.
+      </action>
+    </release>
+  </body>
+</document>

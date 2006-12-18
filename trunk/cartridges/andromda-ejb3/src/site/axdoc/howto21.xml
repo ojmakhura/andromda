@@ -168,7 +168,12 @@
                 <p>
                     There exists a separate Seam profile that needs to be imported into your project.  This profile
                     contains the Seam specific tags and stereotypes you need to model on your components.  You can
-                    download the profile project <a href="andromda-profiles-seam-1.0-SNAPSHOT.zip">here</a>.
+                    get this profile by if you have checked out the latest <i>andromda-plugins</i> project from 
+                    <b>HEAD</b> (follow <a href="installation.html">Installation</a>) and build the
+                    <b>Profiles</b> project.  Once this is done, the profile will be copied to your M2 repository
+                    under <i>M2_REPO/org/andromda/plugins/profiles/uml14/andromda-plugins-profile-seam/VERSION/</i>.
+                    You can then import this <i>andromda-plugins-profile-seam-VERSION.zml.zip</i> profile into your
+                    model to utilise the Seam components.
                 </p>
             </subsection>
         </section>
