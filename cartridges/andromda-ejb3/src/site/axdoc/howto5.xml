@@ -9,14 +9,15 @@
             <p>
                 You might have noticed the attribute named <code>carType</code> in the <code>Car</code> entity. It is
                 is of type <code>String</code>, while in fact it makes more sense to restrict the set of possible 
-                values for this attribute. This can be achieved using <i>type-safe enumerations</i>. 
+                values for this attribute. This can be achieved using <i>Java5 type-safe enumerations</i>. 
                 This is the topic discussed on this page.
             </p>
             <p>
-                Type-safe enumerations are modelled by means of a regular class, only this time you need
+                Java5 type-safe enumerations are modelled by means of a regular class in UML, only this time you need
                 to use the <![CDATA[<<Enumeration>>]]> stereotype. All attributes on such an enumeration will
                 be known as enumeration literals, they will assume the default values you assign to the attributes,
-                or the name of the attribute if the default value is missing.
+                or the name of the attribute if the default value is missing.  This will generate your Java5
+                <b>enum</b> object containing your literals.
             </p>
             <p>
                 In the EJB3 cartridge, enumerations are <i>NOT</i> persisted behind the scenes, unlike the 
@@ -101,7 +102,7 @@ STATION_WAGON : String
                 </p>
                 <p>
                     To use the ordinal values relating to the literals of the type-safe enumeration class,
-                    you do not need to do model the <code>@andromda.persistence.enumeration.type</code>
+                    you do not need to model the <code>@andromda.persistence.enumeration.type</code>
                     tagged value.  By default, if an entity attribute has an enumeration type, the ordinal
                     values of the enumeration literals are used.
                 </p>
