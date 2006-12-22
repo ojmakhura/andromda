@@ -109,7 +109,11 @@
                 </dependencies>    
             </plugin>
             <plugin>
-                <groupId>org.andromda.maven.plugins.site</groupId>
+                <!-- 
+                Once AndroMDA has been migrated to M2 for site generation, must change the following
+                groupId: org.andromda.maven.plugins.site
+                -->
+                <groupId>org.andromda.maven.site</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
                 <version>3.3-SNAPSHOT</version>
                 <executions>
@@ -131,8 +135,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
 				<dependencies>
+                    <!-- 
+                    Once AndroMDA has been migrated to M2 for site generation, must change the following
+                    groupId: org.andromda.maven.plugins.site
+                    -->
 					<dependency>
-						<groupId>org.andromda.maven.plugins.site</groupId>
+						<groupId>org.andromda.maven.site</groupId>
 						<artifactId>andromda-doxia-module-xdoc</artifactId>
 						<version>3.3-SNAPSHOT</version>
 					</dependency>
