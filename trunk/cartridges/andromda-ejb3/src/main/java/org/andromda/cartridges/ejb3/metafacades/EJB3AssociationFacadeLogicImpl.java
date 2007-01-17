@@ -19,7 +19,7 @@ public class EJB3AssociationFacadeLogicImpl
     // --------------- methods ---------------------
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationFacadeLogic#handleGetTableName()
+     * Returns the EJB3 cartridge specific table name for the association
      */
 	public String getTableName() 
 	{

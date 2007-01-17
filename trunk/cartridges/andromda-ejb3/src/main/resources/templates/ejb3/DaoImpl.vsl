@@ -17,7 +17,7 @@ package $entity.packageName;
 
 #set ($superclass = $entity.generalization)
 /**
- * @see $entity.fullyQualifiedName
+ * @see $entity.fullyQualifiedEntityName
  */
 public class $entity.daoImplementationName
     extends $entity.fullyQualifiedDaoBaseName
@@ -38,7 +38,7 @@ public class $entity.daoImplementationName
 #**##if ($operation.returnTypePresent)
         return $operation.returnType.javaNullString;
 #**##else
-        throw new java.lang.UnsupportedOperationException("${entity.fullyQualifiedName}.${signature} Not implemented!");
+        throw new java.lang.UnsupportedOperationException("${entity.fullyQualifiedEntityName}.${signature} Not implemented!");
 #**##end
     }
 
@@ -68,9 +68,9 @@ public class $entity.daoImplementationName
 
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
+     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName)
      */
-    public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(final $entity.fullyQualifiedName entity)
+    public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(final $entity.fullyQualifiedEntityName entity)
     {
         // ${toDoTag} verify behavior of ${valueObjectRef.transformationMethodName}
         return super.${valueObjectRef.transformationMethodName}(entity);

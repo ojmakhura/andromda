@@ -69,8 +69,7 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogic#
-     *      handleIsEnumerationTypeOrdinal()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogic#handleIsEnumerationTypeOrdinal()
      */
     protected boolean handleIsEnumerationTypeOrdinal()
     {
@@ -87,8 +86,7 @@ public class EJB3FinderMethodArgumentFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogic#
-     *      handleGetEnumerationTypeString()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3FinderMethodArgumentFacadeLogic#handleIsEnumerationTypeString()
      */
     protected boolean handleIsEnumerationTypeString()
     {

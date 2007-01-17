@@ -392,4 +392,104 @@ class EJB3MetafacadeUtils
         }
         return componentName;
     }
+    
+    /**
+     * Builds an annotation parameter line
+     * @param parameters The parameters
+     * @return The parameter line
+     */
+    static String buildAnnotationParameters(Collection parameters) 
+    {
+        StringBuffer buf = new StringBuffer();
+        if(!parameters.isEmpty()) 
+        {
+        	buf.append("(");
+        	Iterator it = parameters.iterator();
+        	while(it.hasNext()) 
+            {
+        		String option = (String) it.next();
+        		buf.append(option);
+        		if(it.hasNext()) 
+                {
+        			buf.append(", ");
+        		}
+        	}
+        	buf.append(")");
+    		return buf.toString();
+        } 
+        else 
+        {
+        	return null;
+        }
+    }
+
+    /**
+     * Builds a multi valued parameter string
+     * @param name The name of the parameter
+     * @param values The values for the parameters
+     * @return The parameter string
+     */
+    static String buildAnnotationMultivalueParameter(String name, Collection values) 
+    {
+    	return buildAnnotationMultivalueParameter(name, values, true);
+    }
+
+    /**
+     * Builds a multi valued parameter string
+     * @param name The name of the parameter
+     * @param values The values for the parameters
+     * @param areStrings If the values are strings then sorround with " sign
+     * @return The parameter string
+     */
+    static String buildAnnotationMultivalueParameter(String name, Collection values, boolean areStrings) 
+    {
+    	return buildAnnotationMultivalueParameter(name, values, areStrings, null);
+    }
+    
+    /**
+     * Builds a multi option string
+     * Builds a multi valued parameter string
+     * @param name The name of the parameter
+     * @param values The values for the parameters
+     * @param areStrings If the values are strings then sorround with " sign
+     * @param suffix Any suffix to add to the values
+     * @return The parameter string
+     */
+    static String buildAnnotationMultivalueParameter(String name, Collection values, boolean areStrings, String suffix) 
+    {
+		if(values.isEmpty()) 
+        {
+			return null;
+		} 
+        else 
+        {
+			StringBuffer buf = new StringBuffer();
+			buf.append(name + "={");
+
+			Iterator it = values.iterator();
+			while(it.hasNext()) 
+            {
+				String parameter = (String) it.next();
+				if(areStrings)
+                {
+					buf.append("\"");
+                }
+				buf.append(parameter);
+				if((suffix != null) && !parameter.endsWith(suffix))
+                {
+					buf.append(suffix);
+                }
+				if(areStrings)
+                {
+					buf.append("\"");
+                }
+				if(it.hasNext()) 
+                {
+					buf.append(", ");
+				}
+			}
+			buf.append("}");
+			return buf.toString();
+		}
+    }
 }

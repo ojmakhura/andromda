@@ -438,7 +438,16 @@
                 <value>Seam</value>
                 <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
             </element>
-            <element name="SEAM_COMPONENT_IN">
+            <element name="SEAM_COMPONENT_STARTUP">
+                <documentation>
+                	Specifies that a session scope component is started 
+                	immediately at session creation time, unless dependencies
+                	are specified.
+                </documentation>
+                <value>Startup</value>
+                <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+            </element>
+            <element name="SEAM_BIJECTION_IN">
                 <documentation>
                     Indicates a Seam component attribute which is to be injected
                     from a context variable at the begining of each component method
@@ -447,13 +456,60 @@
                 <value>In</value>
                 <appliedOnElement>Session and Java Bean Attribute</appliedOnElement>
             </element>
-            <element name="SEAM_COMPONENT_OUT">
+            <element name="SEAM_BIJECTION_OUT">
                 <documentation>
                     Indicates a Seam component attribute which is to be outjected
                     to a context variable at the end of each component method
                     invocation.
                 </documentation>
                 <value>Out</value>
+                <appliedOnElement>Session and Java Bean Attribute</appliedOnElement>
+            </element>
+            <element name="SEAM_BIJECTION_UNWRAP">
+                <documentation>
+                	Specifies that the object returned by the annotated getter method 
+                	is the thing that is injected instead of the component instance itself.
+                </documentation>
+                <value>Unwrap</value>
+                <appliedOnElement>Session and Java Bean Attribute</appliedOnElement>
+            </element>
+            <element name="SEAM_BIJECTION_FACTORY">
+                <documentation>
+					When this stereotype is used on an operation which return void 
+					that operation will be used to initialize the value of the named 
+					context variable, when the context variable has no value.
+
+					When it is used on an operation that returns a value then Seam 
+					should use that value to initialize the value of the named context 
+					variable, when the context variable has no value.
+
+					The context variable is specified by tagged value 
+					@andromda.seam.bijection.factory.value. If the method is a getter 
+					method, default to the JavaBeans property name.
+
+					If no scope is explicitly specified by tagged value 
+					@andromda.seam.bijection.factory.scope, the scope of the component 
+					with the @Factory method is used (unless the component is stateless, 
+					in which case the EVENT context is used).
+                </documentation>
+                <value>Factory</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
+            <element name="SEAM_BIJECTION_LOGGER">
+                <documentation>
+	                Specifies that a component field is to be injected with an instance 
+	                of org.jboss.seam.log.Log.
+                </documentation>
+                <value>Logger</value>
+                <appliedOnElement>Session and Java Bean Attribute</appliedOnElement>
+            </element>
+            <element name="SEAM_BIJECTION_REQUEST_PARAMETER">
+                <documentation>
+	                Specifies that a component attribute is to be injected with the 
+	                value of a request parameter. Basic type conversions are performed 
+	                automatically.
+                </documentation>
+                <value>RequestParameter</value>
                 <appliedOnElement>Session and Java Bean Attribute</appliedOnElement>
             </element>
             <element name="SEAM_LIFECYCLE_CREATE">
@@ -476,6 +532,99 @@
                 <value>Destroy</value>
                 <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
             </element>
+            <element name="SEAM_CONVERSATION_BEGIN">
+                <documentation>
+	                Specifies that a long-running conversation begins when this method 
+	                returns a non-null outcome without exception.
+                </documentation>
+                <value>Begin</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_END">
+                <documentation>
+					Specifies that a long-running conversation ends when this method 
+					returns a non-null outcome without exception.
+                </documentation>
+                <value>End</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_BEGIN_TASK">
+                <documentation>
+                	Specifies that a long-running conversation ends when this method 
+                	returns a non-null outcome without exception.
+                </documentation>
+                <value>BeginTask</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_START_TASK">
+                <documentation>
+	                "Starts" a jBPM task. Specifies that a long-running conversation 
+	                begins when this method returns a non-null outcome without exception. 
+	                This conversation is associated with the jBPM task specified in the 
+	                named request parameter. Within the context of this conversation, a 
+	                business process context is also defined, for the business process 
+	                instance of the task instance.
+
+					The jBPM TaskInstance will be available in a request context variable 
+					named taskInstance. The jPBM ProcessInstance will be available in a 
+					request context variable named processInstance. (Of course, these 
+					objects are available for injection via @In.) 
+                </documentation>
+                <value>StartTask</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_END_TASK">
+                <documentation>
+					"Ends" a jBPM task. Specifies that a long-running conversation ends 
+					when this method returns a non-null outcome, and that the current 
+					task is complete. Triggers a jBPM transition. The actual transition 
+					triggered will be the default transition unless the application has 
+					called Transition.setName() on the built-in component named 
+					transition.
+                </documentation>
+                <value>EndTask</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_CREATE_PROCESS">
+                <documentation>
+					Creates a new jBPM process instance when the method returns a 
+					non-null outcome without exception. The ProcessInstance object will 
+					be available in a context variable named processInstance.
+                </documentation>
+                <value>CreateProcess</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
+            <element name="SEAM_CONVERSATION_RESUME_PROCESS">
+                <documentation>
+                	Re-enters the scope of an existing jBPM process instance when the 
+                	method returns a non-null outcome without exception. The 
+                	ProcessInstance object will be available in a context variable 
+                	named processInstance.
+                </documentation>
+                <value>ResumeProcess</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
+            <element name="SEAM_TRANSACTION_TRANSACTIONAL">
+                <documentation>
+					Specifies that a JavaBean component should have a similar 
+					transactional behavior to the default behavior of a session bean 
+					component. ie. method invocations should take place in a 
+					transaction, and if no transaction exists when the method is 
+					called, a transaction will be started just for that method. This 
+					annotation may be applied at either class or method level.
+                </documentation>
+                <value>Transactional</value>
+                <appliedOnElement>Session and Java Beans and Operations</appliedOnElement>
+            </element>
+            <element name="SEAM_TRANSACTION_ROLLBACK">
+                <documentation>
+					If the outcome of the method matches any of the listed outcomes, 
+					or if no outcomes are listed, set the transaction to rollback only 
+					when the method completes.
+                </documentation>
+                <value>Rollback</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
             <element name="SEAM_VALIDATION_VALID">
                 <documentation>
                     Specifies that the Hibernate Validator should validate this and related 
@@ -494,6 +643,86 @@
                 </documentation>
                 <value>Validator</value>
                 <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
+            <element name="SEAM_WEBREMOTE">
+                <documentation>
+					Indicates that the annotated method may be called from client-side 
+					JavaScript. The exclude property is optional and allows objects to 
+					be excluded from the result's object graph.
+                </documentation>
+                <value>WebRemote</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
+            <element name="SEAM_INTERCEPTOR">
+                <documentation>
+					This stereotype appear on Seam interceptor classes.
+
+					Please refer to the documentation for the EJB 3.0 specification 
+					for information about the annotations required for EJB interceptor 
+					definition.
+                </documentation>
+                <value>Interceptor</value>
+                <appliedOnElement>Interceptor classes</appliedOnElement>
+            </element>
+            <element name="SEAM_ASYNCHRONOUS">
+                <documentation>
+					Specifies that the method call is processed asynchronously.
+                </documentation>
+                <value>Asynchronous</value>
+                <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+            </element>
+            <element name="SEAM_ASYNCHRONOUS_DURATION">
+                <documentation>
+					Specifies that a parameter of the asynchronous call is the duration 
+					before the call is processed (or first processed for recurring 
+					calls).
+                </documentation>
+                <value>Duration</value>
+                <appliedOnElement>Session and Java Bean Operation Parameters</appliedOnElement>
+            </element>
+            <element name="SEAM_ASYNCHRONOUS_EXPIRATION">
+                <documentation>
+					Specifies that a parameter of the asynchronous call is the datetime 
+					at which the call is processed (or first processed for recurring 
+					calls).
+                </documentation>
+                <value>Expiration</value>
+                <appliedOnElement>Session and Java Bean Operation Parameters</appliedOnElement>
+            </element>
+            <element name="SEAM_ASYNCHRONOUS_INTERVAL_DURATION">
+                <documentation>
+					Specifies that an asynchronous method call recurs, and that the 
+					annotationed parameter is duration between recurrences.
+                </documentation>
+                <value>IntervalDuration</value>
+                <appliedOnElement>Session and Java Bean Operation Parameters</appliedOnElement>
+            </element>
+            <element name="SEAM_DATA_DATAMODEL">
+                <documentation>
+	                Exposes an attribute of type List, Map, Set or Object[] as a JSF 
+	                DataModel into the scope of the owning component (or the EVENT 
+	                scope if the owning component is STATELESS). In the case of Map, 
+	                each row of the DataModel is a Map.Entry.
+                </documentation>
+                <value>DataModel</value>
+                <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+            </element>
+            <element name="SEAM_DATA_DATAMODEL_SELECTION">
+                <documentation>
+					Injects the selected value from the JSF DataModel (this is the 
+					element of the underlying collection, or the map value).
+                </documentation>
+                <value>DataModelSelection</value>
+                <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+            </element>
+            <element name="SEAM_DATA_DATAMODEL_SELECTION_INDEX">
+                <documentation>
+					Exposes the selection index of the JSF DataModel as an attribute 
+					of the component (this is the row number of the underlying 
+					collection, or the map key).
+                </documentation>
+                <value>DataModelSelectionIndex</value>
+                <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
             </element>
 		</elementGroup>
 		<elementGroup name="Tagged Values">
@@ -1445,6 +1674,13 @@
 			    <value>@andromda.webservice.operation.result.name</value>
 			    <appliedOnElement>Service and WebService</appliedOnElement>
 			</element>
+			<element name="SEAM_COMPONENT_NAME">
+			    <documentation>
+			        Override the default Seam component object name.
+			    </documentation>
+			    <value>@andromda.seam.component.name</value>
+			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+			</element>
 			<element name="SEAM_COMPONENT_SCOPE_TYPE">
 			    <documentation>
 			        The JBoss Seam component scope type.
@@ -1464,12 +1700,355 @@
 			        <value>STATELESS</value>
 			    </allowedValues>
 			</element>
-			<element name="SEAM_COMPONENT_NAME">
+			<element name="SEAM_COMPONENT_ROLE_NAME">
 			    <documentation>
-			        Override the default Seam component object name.
+					Allows a Seam component to be bound to multiple contexts variables. 
+					The @Name/@Scope annotations define a "default role". Each @Role 
+					annotation defines an additional role.
+
+					This tagged value specifies the context variable name.
 			    </documentation>
-			    <value>@andromda.seam.component.name</value>
+			    <value>@andromda.seam.component.role.name</value>
 			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_COMPONENT_ROLE_SCOPE_TYPE">
+			    <documentation>
+					The context variable scope. When no scope is explicitly specified, 
+					the default depends upon the component type, as above.
+
+					Note! If multiple roles are specified then the list of scopes must 
+					be in the same order as the role names.
+			    </documentation>
+			    <value>@andromda.seam.component.role.scope</value>
+			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+			    <allowedValues>
+			        <value>EVENT</value>
+			        <value>PAGE</value>
+			        <value>CONVERSATION</value>
+			        <value>SESSION</value>
+			        <value>BUSINESS_PROCESS</value>
+			        <value>APPLICATION</value>
+			        <value>STATELESS</value>
+			    </allowedValues>
+			</element>
+			<element name="SEAM_COMPONENT_INTERCEPT">
+			    <documentation>
+					Determines when Seam interceptors are active. When no interception 
+					type is explicitly specified, the default depends upon the 
+					component type. For entity beans, the default is NEVER. For session 
+					beans, message driven beans and JavaBeans, the default is ALWAYS. 
+			    </documentation>
+			    <value>@andromda.seam.component.intercept</value>
+			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+			    <allowedValues>
+			        <value>ALWAYS</value>
+			        <value>AFTER_RESTORE_VIEW</value>
+			        <value>AFTER_UPDATE_MODEL_VALUES</value>
+			        <value>INVOKE_APPLICATION</value>
+			        <value>NEVER</value>
+			    </allowedValues>
+			</element>
+			<element name="SEAM_COMPONENT_JNDI_NAME">
+			    <documentation>
+					Specifies the JNDI name that Seam will use to look up the EJB 
+					component. If no JNDI name is explicitly specified, Seam will use 
+					the JNDI pattern specified by org.jboss.seam.core.init.jndiPattern.
+			    </documentation>
+			    <value>@andromda.seam.component.jndiname</value>
+			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_COMPONENT_CONVERSIONAL_IFNOTBEGUNOUTCOME">
+			    <documentation>
+					Specifies that a conversation scope component is conversational, 
+					meaning that no method of the component can be called unless a 
+					long-running conversation started by this component is active 
+					(unless the method would begin a new long-running conversation).
+			    </documentation>
+			    <value>@andromda.seam.component.conversional.ifnotbegunoutcome</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_COMPONENT_STARTUP_DEPENDS">
+			    <documentation>
+					Specifies that the named components must be started first, if they 
+					are installed.
+			    </documentation>
+			    <value>@andromda.seam.component.startup.depends</value>
+			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_COMPONENT_SYNCHRONIZED_TIMEOUT">
+			    <documentation>
+					Specifies that a component is accessed concurrently by multiple 
+					clients, and that Seam should serialize requests. If a request is 
+					not able to obtain its lock on the component in the given timeout 
+					period, an exception will be raised.
+			    </documentation>
+			    <value>@andromda.seam.component.synchronized.timeout</value>
+			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_COMPONENT_READONLY">
+			    <documentation>
+					Specifies that a JavaBean component or component method does not 
+					require state replication at the end of the invocation.
+			    </documentation>
+			    <value>@andromda.seam.component.readonly</value>
+			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_BIJECTION_IN_CREATE">
+			    <documentation>
+					Specifies that Seam should instantiate the component with the same 
+					name as the context variable if the context variable is undefined 
+					(null) in all contexts. Default to false.
+			    </documentation>
+			    <value>@andromda.seam.bijection.in.create</value>
+			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+			</element>
+			<element name="SEAM_BIJECTION_IN_VALUE">
+			    <documentation>
+					Specifies the name of the context variable. Default to the name of 
+					the component attribute. Alternatively, specifies a JSF EL 
+					expression, surrounded by #{...}.
+			    </documentation>
+			    <value>@andromda.seam.bijection.in.value</value>
+			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+			</element>
+			<element name="SEAM_BIJECTION_OUT_VALUE">
+			    <documentation>
+					Specifies the name of the context variable explicitly, instead of 
+					using the annotated instance variable name.
+			    </documentation>
+			    <value>@andromda.seam.bijection.out.value</value>
+			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+			</element>
+			<element name="SEAM_BIJECTION_OUT_SCOPE_TYPE">
+			    <documentation>
+					Specifies that a component attribute that is not a Seam component 
+					type is to be outjected to a specific scope at the end of the 
+					invocation.
+
+					Alternatively, if no scope is explicitly specified, the scope of 
+					the component with the @Out attribute is used (or the EVENT scope 
+					if the component is stateless). 
+			    </documentation>
+			    <value>@andromda.seam.bijection.out.scope</value>
+			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+			    <allowedValues>
+			        <value>EVENT</value>
+			        <value>PAGE</value>
+			        <value>CONVERSATION</value>
+			        <value>SESSION</value>
+			        <value>BUSINESS_PROCESS</value>
+			        <value>APPLICATION</value>
+			        <value>STATELESS</value>
+			    </allowedValues>
+			</element>
+			<element name="SEAM_BIJECTION_FACTORY_VALUE">
+			    <documentation>
+					Specifies the name of the context variable. If the method is a 
+					getter method, default to the JavaBeans property name.
+			    </documentation>
+			    <value>@andromda.seam.bijection.factory.value</value>
+			    <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+			</element>
+			<element name="SEAM_BIJECTION_FACTORY_SCOPE_TYPE">
+			    <documentation>
+					Specifies the scope that Seam should bind the returned value to. 
+					Only meaningful for factory methods which return a value. 
+			    </documentation>
+			    <value>@andromda.seam.bijection.factory.scope</value>
+			    <appliedOnElement>Session and Java Bean Operations</appliedOnElement>
+			    <allowedValues>
+			        <value>EVENT</value>
+			        <value>PAGE</value>
+			        <value>CONVERSATION</value>
+			        <value>SESSION</value>
+			        <value>BUSINESS_PROCESS</value>
+			        <value>APPLICATION</value>
+			        <value>STATELESS</value>
+			    </allowedValues>
+			</element>
+			<element name="SEAM_BIJECTION_LOGGER_VALUE">
+			    <documentation>
+					Specifies the name of the log category. Default to the name of the 
+					component class.
+			    </documentation>
+			    <value>@andromda.seam.bjjection.logger.value</value>
+			    <appliedOnElement>Entity, Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_BIJECTION_REQUEST_PARAMETER_VALUE">
+			    <documentation>
+					Specifies the name of the request parameter. Default to the name 
+					of the component attribute.
+			    </documentation>
+			    <value>@andromda.seam.bijection.requestparameter.value</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_LIFECYCLE_OBSERVER_EVENT">
+			    <documentation>
+					Specifies that the method should be called when a component-driven 
+					event of the specified type occurs.
+			    </documentation>
+			    <value>@andromda.seam.lifecycle.observer.event</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_BEGIN_IF_OUTCOME">
+			    <documentation>
+					Specifies that a long-running conversation begins when this action 
+					listener method returns with one of the given outcomes.
+
+					Example: @Begin(ifOutcome={"success", "continue"})
+			    </documentation>
+			    <value>@andromda.seam.conversation.begin.ifoutcome</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_BEGIN_JOIN">
+			    <documentation>
+					Specifies that if a long-running conversation is already in 
+					progress, the conversation context is simply propagated.
+			    </documentation>
+			    <value>@andromda.seam.conversation.begin.join</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_BEGIN_NESTED">
+			    <documentation>
+					Specifies that if a long-running conversation is already in 
+					progress, a new nested conversation context begins. The nested 
+					conversation will end when the next @End  is encountered, and the 
+					outer conversation will resume. It is perfectly legal for multiple 
+					nested conversations to exist concurrently in the same outer 
+					conversation.
+			    </documentation>
+			    <value>@andromda.seam.conversation.begin.nested</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_BEGIN_FLUSH_MODE">
+			    <documentation>
+					Specify the flush mode of any Seam-managed persistence contexts. 
+					flushMode=FlushModeType.MANUAL supports the use of atomic 
+					conversations where all write operations are queued in the 
+					conversation context until an explicit call to flush() (which 
+					usually occurs at the end of the conversation).
+			    </documentation>
+			    <value>@andromda.seam.conversation.begin.flushmode</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_BEGIN_PAGEFLOW">
+			    <documentation>
+					Specifies a jBPM process definition name that defines the pageflow 
+					for this conversation.
+			    </documentation>
+			    <value>@andromda.seam.conversation.begin.pageflow</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_END_IF_OUTCOME">
+			    <documentation>
+				    Specifies that a long-running conversation ends when this action 
+				    listener method returns with one of the given outcomes.
+			    </documentation>
+			    <value>@andromda.seam.conversation.end.ifoutcome</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_END_BEFORE_REDIRECT">
+			    <documentation>
+					By default, the conversation will not actually be destroyed until 
+					after any redirect has occurred. Setting beforeRedirect=true 
+					specifies that the conversation should be destroyed at the end of 
+					the current request, and that the redirect will be processed in a 
+					new temporary conversation context.
+			    </documentation>
+			    <value> @andromda.seam.conversation.end.beforeredirect</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_END_EVEN_IF_EXCEPTION">
+			    <documentation>
+					Specifies that a long-running conversation ends when this action 
+					listener method throws one of the specified classes of exception.
+			    </documentation>
+			    <value>@andromda.seam.conversation.end.evenifexception</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_START_TASK_ID_PARAMETER">
+			    <documentation>
+					The name of a request parameter which holds the id of the task. 
+					Default to "taskId", which is also the default used by the Seam 
+					taskList JSF component.
+			    </documentation>
+			    <value>@andromda.seam.conversation.starttask.taskidparameter</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_START_TASK_FLUSH_MODE">
+			    <documentation>
+					Set the flush mode of any Seam-managed Hibernate sessions or JPA 
+					persistence contexts that are created during this conversation.
+			    </documentation>
+			    <value>@andromda.seam.conversation.starttask.flushmode</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_BEGIN_TASK_ID_PARAMETER">
+			    <documentation>
+					The name of a request parameter which holds the id of the task. 
+					Default to "taskId", which is also the default used by the Seam 
+					taskList JSF component.
+			    </documentation>
+			    <value>@andromda.seam.conversation.begintask.taskidparameter</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_BEGIN_TASK_FLUSH_MODE">
+			    <documentation>
+					Set the flush mode of any Seam-managed Hibernate sessions or JPA 
+					persistence contexts that are created during this conversation.
+			    </documentation>
+			    <value>@andromda.seam.conversation.begintask.flushmode</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_END_TASK_TRANSITION_NAME">
+			    <documentation>
+					Triggers the given jBPM transition.
+			    </documentation>
+			    <value>@andromda.seam.conversation.endtask.transition.name</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_END_TASK_IF_OUTCOME">
+			    <documentation>
+					Specifies the JSF outcome or outcomes that result in the end of 
+					the task.
+			    </documentation>
+			    <value>@andromda.seam.conversation.endtask.ifoutcome</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_END_TASK_BEFORE_REDIRECT">
+			    <documentation>
+					By default, the conversation will not actually be destroyed until 
+					after any redirect has occurred. Setting beforeRedirect=true 
+					specifies that the conversation should be destroyed at the end of 
+					the current request, and that the redirect will be processed in a 
+					new temporary conversation context.
+			    </documentation>
+			    <value>@andromda.seam.conversation.endtask.beforeredirect</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_CREATE_PROCESS_DEFINITION">
+			    <documentation>
+					The name of the jBPM process definition deployed via 
+					org.jboss.seam.core.jbpm.processDefinitions.
+			    </documentation>
+			    <value>@andromda.seam.conversation.createprocess.definition</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_CONVERSATION_RESUME_PROCESS_PROCESS_ID_PARAMETER">
+			    <documentation>
+					The name a request parameter holding the process id. Default to 
+					"processId".
+			    </documentation>
+			    <value>@andromda.seam.conversation.resumeprocess.processIdParameter</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_TRANSACTION_ROLLBACK_IF_OUTCOME">
+			    <documentation>
+					The JSF outcomes that cause a transaction rollback (no outcomes is 
+					interpreted to mean any outcome).
+			    </documentation>
+			    <value>@andromda.seam.transaction.rollback.ifoutcome</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
 			</element>
 			<element name="SEAM_VALIDATION_OUTCOME">
 			    <documentation>
@@ -1486,6 +2065,109 @@
 			    </documentation>
 			    <value>@andromda.seam.validation.refreshEntities</value>
 			    <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
+			</element>
+			<element name="SEAM_WEBREMOTE_EXCLUDE">
+			    <documentation>
+					Excludes objects from the WebRemote call result's object graph 
+					(see the Remoting chapter for more details).
+			    </documentation>
+			    <value>@andromda.seam.webremote.exclude</value>
+			    <appliedOnElement>Session and Java Bean Operation</appliedOnElement>
+			</element>
+			<element name="SEAM_INTERCEPTOR_STATELESS">
+			    <documentation>
+					Specifies that this interceptor is stateless and Seam may optimize 
+					replication.
+			    </documentation>
+			    <value>@andromda.seam.interceptor.stateless</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_INTERCEPTOR_TYPE">
+			    <documentation>
+					Specifies that this interceptor is a "client-side" interceptor 
+					that is called before the EJB container.
+			    </documentation>
+			    <value>@andromda.seam.interceptor.type</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_INTERCEPTOR_AROUND">
+			    <documentation>
+					Specifies that this interceptor is positioned higher in the stack 
+					than the given interceptors.
+			    </documentation>
+			    <value>@andromda.seam.interceptor.around</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_INTERCEPTOR_WITHIN">
+			    <documentation>
+					Specifies that this interceptor is positioned deeper in the stack 
+					than the given interceptors.
+			    </documentation>
+			    <value>@andromda.seam.interceptor.within</value>
+			    <appliedOnElement>Session and Java Beans</appliedOnElement>
+			</element>
+			<element name="SEAM_DATA_DATAMODEL_VALUE">
+			    <documentation>
+					Name of the conversation context variable. Default to the attribute 
+					name.
+			    </documentation>
+			    <value>@andromda.seam.data.datamodel.value</value>
+			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+			</element>
+			<element name="SEAM_DATA_DATAMODEL_SCOPE_TYPE">
+			    <documentation>
+					If scope=ScopeType.PAGE is explicitly specified, the DataModel will 
+					be kept in the PAGE context.
+			    </documentation>
+			    <value>@andromda.seam.data.datamodel.scope</value>
+			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+			    <allowedValues>
+			        <value>EVENT</value>
+			        <value>PAGE</value>
+			        <value>CONVERSATION</value>
+			        <value>SESSION</value>
+			        <value>BUSINESS_PROCESS</value>
+			        <value>APPLICATION</value>
+			        <value>STATELESS</value>
+			    </allowedValues>
+			</element>
+			<element name="SEAM_DATA_DATAMODEL_SELECTION_VALUE">
+			    <documentation>
+					Name of the conversation context variable. Not needed if there is 
+					exactly one @DataModel in the component.
+			    </documentation>
+			    <value>@andromda.seam.data.datamodelselection.value</value>
+			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+			</element>
+			<element name="SEAM_DATA_DATAMODEL_SELECTION_INDEX_VALUE">
+			    <documentation>
+					Name of the conversation context variable. Not needed if there is 
+					exactly one @DataModel in the component.
+			    </documentation>
+			    <value>@andromda.seam.data.datamodelselectionindex.value</value>
+			    <appliedOnElement>Session and Java Bean Attributes</appliedOnElement>
+			</element>
+			<element name="SEAM_DATA_DATABINDER_CLASS">
+			    <documentation>
+					This meta-annotation make it possible to implement similar 
+					functionality to @DataModel and @DataModelSelection for other 
+					datastructures apart from lists.
+
+				    The class name of the DataModelBinder class
+			    </documentation>
+			    <value>@andromda.seam.data.databinderclass</value>
+			    <appliedOnElement>Java Interfaces</appliedOnElement>
+			</element>
+			<element name="SEAM_DATA_DATASELECTOR_CLASS">
+			    <documentation>
+					This meta-annotation make it possible to implement similar 
+					functionality to @DataModel and @DataModelSelection for other 
+					datastructures apart from lists.
+
+					The DataModelSelector class.
+			    </documentation>
+			    <value>@andromda.seam.data.dataselectorclass</value>
+			    <appliedOnElement>Java Interfaces</appliedOnElement>
 			</element>
 		</elementGroup>
 	</elements>

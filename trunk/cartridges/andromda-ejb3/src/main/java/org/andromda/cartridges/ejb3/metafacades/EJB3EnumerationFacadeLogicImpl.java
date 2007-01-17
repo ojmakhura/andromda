@@ -20,8 +20,7 @@ public class EJB3EnumerationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EnumerationFacadeLogic#
-     *      handleGetMemberVariablesAsList(java.util.Collection, boolean, boolean)
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EnumerationFacadeLogic#handleGetMemberVariablesAsList(java.util.Collection, boolean, boolean)
      */
     protected String handleGetMemberVariablesAsList(
             final Collection variables, 

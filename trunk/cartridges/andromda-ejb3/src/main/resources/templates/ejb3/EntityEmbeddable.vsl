@@ -679,6 +679,7 @@ $attribute.getDocumentation("     * ")
 #*        *##end
 #*      *##end
 #*    *##end
+
     public $target.getterSetterTypeName ${target.getterName}()
     {
         return this.${target.name};
