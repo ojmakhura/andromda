@@ -34,7 +34,7 @@ $constant.getDocumentation("     * ")
 #*  *##end
 #**##end
 #end
-#set ($attributes = $service.instanceAttributes)
+#set ($attributes = $service.filterSeamAttributes(${service.instanceAttributes}))
 #if (!$attributes.empty)
 
     // --------------- Attributes ---------------------
@@ -83,5 +83,11 @@ $operation.getDocumentation("     * ")
 
 #*  *##end
 #**##end
+#end
+#if ($service.stateful)
+
+    // ------------ Lifecycle Methods  -----------------
+    
+    public void destroy();
 #end
 }

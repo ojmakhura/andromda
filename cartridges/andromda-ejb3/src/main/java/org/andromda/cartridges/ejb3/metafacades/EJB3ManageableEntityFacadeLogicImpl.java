@@ -1,15 +1,11 @@
 package org.andromda.cartridges.ejb3.metafacades;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.andromda.cartridges.ejb3.EJB3Globals;
-import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.EntityAttribute;
-import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
@@ -66,8 +62,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
-     *      handleGetManageableServiceCreateExceptionName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableServiceCreateExceptionName()
      */
     protected String handleGetManageableServiceCreateExceptionName()
     {
@@ -79,8 +74,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
-     *      handleGetFullyQualifiedManageableServiceCreateExceptionName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceCreateExceptionName()
      */
     protected String handleGetFullyQualifiedManageableServiceCreateExceptionName()
     {
@@ -91,8 +85,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
-     *      handleGetManageableServiceReadExceptionName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableServiceReadExceptionName()
      */
     protected String handleGetManageableServiceReadExceptionName()
     {
@@ -104,8 +97,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
-     *      handleGetFullyQualifiedManageableServiceReadExceptionName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceReadExceptionName()
      */
     protected String handleGetFullyQualifiedManageableServiceReadExceptionName()
     {
@@ -116,8 +108,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
-     *      handleGetManageableServiceUpdateExceptionName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableServiceUpdateExceptionName()
      */
     protected String handleGetManageableServiceUpdateExceptionName()
     {
@@ -129,8 +120,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
-     *      handleGetFullyQualifiedManageableServiceUpdateExceptionName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceUpdateExceptionName()
      */
     protected String handleGetFullyQualifiedManageableServiceUpdateExceptionName()
     {
@@ -141,8 +131,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
-     *      handleGetManageableServiceDeleteExceptionName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableServiceDeleteExceptionName()
      */
     protected String handleGetManageableServiceDeleteExceptionName()
     {
@@ -154,8 +143,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
-     *      handleGetFullyQualifiedManageableServiceDeleteExceptionName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceDeleteExceptionName()
      */
     protected String handleGetFullyQualifiedManageableServiceDeleteExceptionName()
     {
@@ -166,8 +154,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
-     *      handleGetDefaultPersistenceContextUnitName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacadeLogic#handleGetDefaultPersistenceContextUnitName()
      */
     protected String handleGetDefaultPersistenceContextUnitName()
     {
@@ -185,8 +172,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
-     *      handleGetManageableServiceBaseName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableServiceBaseName()
      */
     protected String handleGetManageableServiceBaseName()
     {
@@ -198,8 +184,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
-     *      handleGetManageableServiceBaseFullPath()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetManageableServiceBaseFullPath()
      */
     protected String handleGetManageableServiceBaseFullPath()
     {
@@ -207,8 +192,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
-     *      handleGetFullyQualifiedManageableServiceBaseName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#handleGetFullyQualifiedManageableServiceBaseName()
      */
     protected String handleGetFullyQualifiedManageableServiceBaseName()
     {
@@ -279,8 +263,7 @@ public class EJB3ManageableEntityFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#
-     *      getInstanceAttributes(boolean, boolean)
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacadeLogic#getInstanceAttributes(boolean, boolean)
      *      
      * Override the implemenation in EJB3EntityFacade as UML2 models will not get an 
      * EJB3ManageableEntityAttributeFacade when retrieving the attributes.

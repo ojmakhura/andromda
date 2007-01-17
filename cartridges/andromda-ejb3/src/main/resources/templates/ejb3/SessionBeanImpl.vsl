@@ -102,7 +102,7 @@ $operation.getDocumentation("     * ")
 #end
 #if (!$operations.empty)
 
-    // -------- Lifecycle Callback Impl --------------
+    // -------- Lifecycle Callback Implementation --------------
     
 #**##foreach ($operation in $operations)
 #*  *##if ($operation.lifecycleCallback)
@@ -119,12 +119,12 @@ $operation.getDocumentation("     * ")
 #end
 #if ($service.stateful)
 
-    // ----------- Remove Method Impl -----------
+    // ----------- Destroy Method Implementation -----------
     
     /**
-     * @see ${service.fullyQualifiedServiceName}#remove()
+     * @see ${service.fullyQualifiedServiceName}#destroy()
      */
-    protected void handleRemove()
+    protected void handleDestroy()
     {
         //TODO: put your implementation here
     }

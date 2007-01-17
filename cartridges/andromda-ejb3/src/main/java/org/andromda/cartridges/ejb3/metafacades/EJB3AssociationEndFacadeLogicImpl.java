@@ -433,8 +433,7 @@ public class EJB3AssociationEndFacadeLogicImpl
      * @param name The tagged name to lookup.
      * @return boolean True if the tagged name exists.  False otherwise.
      * 
-     * @see org.andromda.cartridges.ejb3.metafacades.
-     *          EJB3AssociationEndFacadeLogic#handleHasTaggedValue(java.lang.String)
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleHasTaggedValue(java.lang.String)
      */
     protected boolean handleHasTaggedValue(String name)
     {
@@ -621,8 +620,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#
-     *      handleGetCollectionTypeImplemenationClass()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionTypeImplemenationClass()
      */
     protected String handleGetCollectionTypeImplemenationClass()
     {
@@ -649,8 +647,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#
-     *      handleGetCollectionTypeImplementation()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionTypeImplementation()
      */
     protected String handleGetCollectionTypeImplementation()
     {
@@ -658,8 +655,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#
-     *      handleGetCollectionTypeImplementation(java.lang.String)
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetCollectionTypeImplementation(java.lang.String)
      */
     protected String handleGetCollectionTypeImplementation(String arg)
     {
@@ -892,8 +888,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#
-     *      handleGetForeignKeyConstraintName(java.lang.String)
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetForeignKeyConstraintName(java.lang.String)
      */
     protected String handleGetForeignKeyConstraintName(String suffix)
     {
@@ -958,8 +953,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#
-     *      handleGetDefaultCollectionInterface()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetDefaultCollectionInterface()
      */
     protected String handleGetDefaultCollectionInterface()
     {
@@ -967,8 +961,7 @@ public class EJB3AssociationEndFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#
-     *      handleIsCollectionInterfaceSortedSet()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsCollectionInterfaceSortedSet()
      */
     protected boolean handleIsCollectionInterfaceSortedSet()
     {

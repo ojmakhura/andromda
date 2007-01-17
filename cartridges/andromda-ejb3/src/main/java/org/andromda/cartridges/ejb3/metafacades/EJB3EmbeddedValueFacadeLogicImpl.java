@@ -62,8 +62,7 @@ public class EJB3EmbeddedValueFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacadeLogic#
-     *      handleGetFullyQualifiedImplementationName()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EmbeddedValueFacadeLogic#handleGetFullyQualifiedImplementationName()
      */
     protected String handleGetFullyQualifiedImplementationName()
     {

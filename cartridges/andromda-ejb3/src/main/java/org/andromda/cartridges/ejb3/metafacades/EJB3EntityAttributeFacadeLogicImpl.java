@@ -202,7 +202,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
 	}
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsSequenceGeneratorType()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsGeneratorTypeSequence()
      */
     protected boolean handleIsGeneratorTypeSequence()
     {
@@ -218,7 +218,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsTableGeneratorType()
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsGeneratorTypeTable()
      */
     protected boolean handleIsGeneratorTypeTable()
     {

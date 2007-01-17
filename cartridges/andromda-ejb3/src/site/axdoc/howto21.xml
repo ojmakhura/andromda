@@ -15,8 +15,10 @@
             </p>
             <p class="highlight">
                 Remember: You must set the 
+                <a href="namespace.html#seamEnabled">seamEnabled</a> and 
                 <a href="namespace.html#persistenceProviderExtensions">persistenceProviderExtensions</a>
-                namespace property such that Hibernate validator specific annotations are generated.
+                namespace properties such that Seam specific project settings are generated and 
+                Hibernate validator specific annotations are generated.
             </p>
             <a name="Seam_Roadmap"/>
             <subsection name="Seam Roadmap">

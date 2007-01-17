@@ -251,8 +251,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#
-     *      getAttributesAsList(java.util.Collection, boolean, boolean)
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getAttributesAsList(java.util.Collection, boolean, boolean)
      */
     protected java.lang.String handleGetAttributesAsList(
             java.util.Collection attributes, 
