@@ -332,10 +332,16 @@
         settings to project pom.xml.
       </action>
       <action dev="vancek" due-to="tp" type="fix">
-        JIRA-48 - Fix misspelt property names in EntityEmbeddable.vsl for table and sequence generator types.
+        JIRA EJB-48 - Fix misspelt property names in EntityEmbeddable.vsl for table and sequence generator types.
       </action>
       <action dev="vancek" type="update">
         Moved the changes.xml to src/site.
+      </action>
+      <action dev="vancek" due-to="sverker" type="add">
+        JIRA EJB-47 - Complete remaining support for JBoss Seam within the EJB3 cartridge.  Now uses 
+        andromda-plugins-profile-seam profile.  Support for AndroMDApp project generator in AndroMDA 3.3-SNAPSHOT.
+        This (EJB3 cartridge with Seam support) is NOT a replacement for the Seam cartridge, but another tool which 
+        can be used with the Seam cartridge to develop Seam (JSF)/EJB 3.0 enabled web application.
       </action>
     </release>
   </body>
