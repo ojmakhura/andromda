@@ -8,10 +8,12 @@
         <section name="Samples">
             <p>
                 To help understand the EJB3 cartridge, the following sample applications have been provided.
+                All these samples are located in the <i>andromda-plugins</i> project on SF.net.
             </p>
             <p>
                 <ul>
                     <li><a href="samples.html#Samples_Demo_EJB3">Demo EJB3</a></li>
+                    <li><a href="samples.html#Seam_Booking">Seam Booking Example</a></li>
                 </ul>
             </p>
             <a name="Samples_Demo_EJB3"/>
@@ -44,6 +46,38 @@
 	            <p>
 	                The demo also contains simple clients that you can alter and execute to better understand 
 	                the functionality in each demo sub-package.
+	            </p>
+	        </subsection>
+            <a name="Seam_Booking"/>
+            <subsection name="Seam Booking Example">
+	            <p>
+	                This sample application is located in the <code>samples/booking-seam</code> directory of the
+	                <code>andromda-plugins</code> project on SourceForge.net.
+	            </p>
+	            <p>
+	                The project has the same structure as described in
+	                <a href="http://galaxy.andromda.org/docs/samples.html">AndroMDA Samples</a>.
+	            </p>
+	            <p>
+	                This booking system tries to replicate the JBoss Booking System (available from JBoss)
+                    to illustrate the JBoss Seam features.  It also relies on the EJB3 cartridge. 
+	                It is built for the MySQL database engine using JBoss 4.0.5 GA or newer.
+	            </p>
+	            <p>
+	                Simply build the demo by executing <code>mvn</code> in the root of the project directory.
+	            </p>
+	            <p>
+	                Once you have build the sample, you need to create the database called <code>booking-seam</code>.
+	                You can then deploy the following to JBoss.
+	                <ul>
+	                    <li>booking-seam/app/target/booking-seam-ds.xml</li>
+	                    <li>booking-seam/app/target/booking-seam-1.0-SNAPSHOT.ear</li>
+	                </ul>
+	            </p>
+	            <p>
+	                This example does not contain any view components at this time.  As JBoss Seam funtionality
+                    improves, this project will serve as a complete example for both EJB 3.0 Seam components and
+                    JSF with Facelets view components.
 	            </p>
 	        </subsection>
         </section>

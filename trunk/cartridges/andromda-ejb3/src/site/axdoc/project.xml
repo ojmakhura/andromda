@@ -15,7 +15,7 @@
                 Using the AndroMDApp generator, simply run the following command
             </p>
             <p>
-                <code>mvn andromdapp:generate</code>
+                <code>mvn org.andromda.maven.plugins:andromdapp-maven-plugin:generate</code>
             </p>
             <p>
                 And follow the process.  The following diagram illustrates how to generate a template
