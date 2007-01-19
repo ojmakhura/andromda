@@ -1,0 +1,124 @@
+<andromda>
+    <properties>
+        <property name="failOnValidationErrors">true</property>
+    </properties>
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>${andromda.cartridge.howto.model.uri}</uri>
+                    <moduleSearchLocations>
+                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
+                    </moduleSearchLocations>
+                </model>
+            </models>            
+        </repository>
+    </repositories>
+    <namespaces>
+        <namespace name="default">
+            <properties>
+                <property name="overwrite">true</property>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="jdbcMappingsUri">JDBC</property>
+                <property name="sqlMappingsUri">HypersonicSql</property>
+                <property name="maxSqlNameLength">30</property>
+                <property name="foreignKeySuffix">_FK</property>
+                <property name="ejbJndiNamePrefix">howtomodel-1.0-SNAPSHOT</property>
+                 <!-- these masking properties allow you to configure the way
+                      your model element names are generated -->
+                <property name="classifierNameMask">none</property>
+                <property name="operationNameMask">none</property>
+                <property name="roleNameMask">none</property>
+                <property name="enumerationNameMask">none</property>
+                <property name="enumerationLiteralNameMask">upperunderscore</property>
+                <property name="entityNameMask">none</property>
+                <property name="entityPropertyNameMask">none</property>
+                <property name="parameterNameMask">none</property>
+            </properties>
+        </namespace>
+        <namespace name="ejb3">
+            <properties>
+                <property name="entity-beans">${howto.output.dir}</property>
+                <property name="entity-impls">${howto.output.dir}</property>
+                <property name="entity-config">${howto.output.dir}</property>
+                <property name="session-beans">${howto.output.dir}</property>
+                <property name="session-impls">${howto.output.dir}</property>
+                <property name="session-config">${howto.output.dir}</property>
+                <property name="message-driven-beans">${howto.output.dir}</property>
+                <property name="message-driven-impls">${howto.output.dir}</property>
+                <property name="daos">${howto.output.dir}</property>
+                <property name="dao-impls">${howto.output.dir}</property>
+                <property name="commons">${howto.output.dir}</property>
+                <property name="user-types">${howto.output.dir}</property>
+                <property name="services">${howto.output.dir}</property>
+                <property name="application-config">${howto.output.dir}/org/andromda/test</property>
+                <property name="application-metainf">${application.metainf.dir}</property>
+                <property name="ejb3TypesPackage">org.andromda.test</property>
+                <property name="persistenceContainerName">jboss</property>
+                <property name="persistenceContextUnitName">howtomodel</property>
+                <property name="entityManagerName">howtomodel</property>
+                <property name="entityManagerJTADataSource">java:/jdbc/howtomodel</property>
+                <property name="hibernateDialect">net.sf.hibernate.dialect.HSQLDialect</property>
+                <property name="hibernateHbm2DDLAuto">update</property>
+                <property name="enableTemplating">true</property>
+                <!-- uncomment to enable EJB security
+                <property name="securityRealm">howtomodel</property>
+                -->
+                <property name="jndiNamePrefix">howtomodel-1.0-SNAPSHOT</property>
+                <property name="hibernateEnableCache">false</property>
+                <property name="hibernateEnableAssociationsCache">false</property>
+                <property name="hibernateUseQueryCache">false</property>
+                <property name="useDefaultCacheRegion">false</property>
+                <property name="hibernateCacheProvider">org.jboss.ejb3.entity.TreeCacheProviderHook</property>
+                <property name="hibernateTreecacheMbeanObject">jboss.cache:service=EJB3EntityTreeCache</property>
+                <!-- uncomment to enable default entity cache settings
+                <property name="hibernateEntityCache">TRANSACTIONAL</property>
+                -->
+                <!-- uncomment to enable default association caching configuration
+                <property name="hibernateAssociationCache">TRANSACTIONAL</property>
+                -->
+                <property name="enableClustering">false</property>
+                <property name="webServiceEnabled">true</property>
+                <property name="webServiceContextRoot">/howtomodel-ws</property>
+                <property name="webServiceUrlPattern">/services</property>
+            </properties>
+        </namespace>
+        <namespace name="java">
+            <properties>
+                <property name="exceptions">${howto.output.dir}</property>
+                <property name="value-objects">${howto.output.dir}</property>
+                <property name="interfaces">${howto.output.dir}</property>
+            </properties>
+        </namespace>
+        <namespace name="bpm4struts">
+            <properties>
+                <property name="overwrite">true</property>
+                <property name="xhtml">false</property>
+                <property name="dummyData">true</property>
+                <property name="breadCrumbs">true</property>
+                <property name="onlineHelp">true</property>
+                <property name="welcomeFileName">index.jsp</property>
+                <property name="clientValidation">true</property>
+                <property name="serverValidation">true</property>
+                <property name="server">${howto.output.dir}</property>
+                <property name="forms">${howto.output.dir}</property>
+                <property name="pages">${howto.output.dir}</property>
+                <property name="actions">${howto.output.dir}</property>
+                <property name="controllers">${howto.output.dir}</property>
+                <property name="controller-impls">${howto.output.dir}</property>
+                <property name="decorators">${howto.output.dir}</property>
+                <property name="messages">${howto.output.dir}/WEB-INF/classes</property>
+                <property name="configuration">${howto.output.dir}/WEB-INF</property>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <!-- uncomment to enable web tier security 
+                <property name="securityRealm">${application.id}</property>
+                 -->
+                <property name="serviceAccessorPattern">{0}.ServiceLocator.instance().get{1}()</property>
+                <property name="mergeMappingsUri">file:${conf.dir}/mappings/WebMergeMappings.xml</property>
+                <property name="manageableServiceAccessorPattern">{0}.ManageableServiceLocator.instance().get{1}()</property>
+            </properties>
+        </namespace>
+    </namespaces>
+</andromda>

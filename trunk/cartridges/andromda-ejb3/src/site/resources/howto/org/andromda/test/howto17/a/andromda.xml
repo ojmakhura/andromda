@@ -1,0 +1,127 @@
+<andromda>
+    <properties>
+        <property name="modelValidation">${validation}</property>
+        <property name="cartridgeFilter">${filter}</property>
+    </properties>
+    <server>
+        <host>localhost</host>
+        <port>4457</port>
+    </server>
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>${model.uri}</uri>
+                    <moduleSearchLocations>
+                        <location patterns="**/*.xml.zip, **/*.uml2">${settings.localRepository}/org/andromda/profiles</location>
+                    </moduleSearchLocations>
+                </model>
+            </models>
+        </repository>
+    </repositories>
+    <namespaces>
+        <namespace name="default">
+            <properties>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="sqlMappingsUri">${sql.mappings}</property>
+                <property name="jdbcMappingsUri">JDBC</property>
+                <property name="maxSqlNameLength">30</property>
+                <property name="foreignKeySuffix">_FK</property>
+                <property name="ejbJndiNamePrefix">${application.id}-${pom.version}</property>
+                 <!-- these masking properties allow you to configure the way
+                      your model element names are generated -->
+                <property name="classifierNameMask">none</property>
+                <property name="operationNameMask">none</property>
+                <property name="roleNameMask">none</property>
+                <property name="enumerationNameMask">none</property>
+                <property name="enumerationLiteralNameMask">upperunderscore</property>
+                <property name="entityNameMask">none</property>
+                <property name="entityPropertyNameMask">none</property>
+                <property name="parameterNameMask">none</property>
+            </properties>
+        </namespace>
+        <namespace name="ejb3">
+            <properties>
+                <property name="entity-beans">${core.generated.dir}</property>
+                <property name="entity-impls">${core.manual.dir}</property>
+                <property name="entity-config">${core.generated.dir}</property>
+                <property name="session-beans">${core.generated.dir}</property>
+                <property name="session-impls">${core.manual.dir}</property>
+                <property name="session-config">${core.generated.dir}</property>
+                <property name="message-driven-beans">${core.generated.dir}</property>
+                <property name="message-driven-impls">${core.manual.dir}</property>
+                <property name="daos">${core.generated.dir}</property>
+                <property name="dao-impls">${core.manual.dir}</property>
+                <property name="commons">${common.generated.dir}</property>
+                <property name="services">${core.generated.dir}</property>
+                <property name="application-config">${application.config.dir}</property>
+                <property name="application-metainf">${application.metainf.dir}</property>
+                <property name="ejb3TypesPackage">${application.package}</property>
+                <property name="persistenceContainerName">jboss</property>
+                <property name="persistenceContextUnitName">${application.id}</property>
+                <property name="entityManagerName">${application.id}</property>
+                <property name="entityManagerJTADataSource">${dataSource}</property>
+                <property name="hibernateDialect">${hibernate.dialect}</property>
+                <property name="hibernateHbm2DDLAuto">update</property>
+                <property name="enableTemplating">true</property>
+                <!-- uncomment to specify transaction manager
+                <property name="hibernateTransactionManagerLookupClass">org.hibernate.transaction.JBossTransactionManagerLookup</property>
+                -->
+                <!-- uncomment to enable ejb3 merge mapping
+                <property name="mergeMappingsUri">file:${conf.dir}/mappings/EJB3MergeMappings.xml</property>
+                -->
+                <!-- uncomment to enable EJB security
+                <property name="securityRealm">${application.id}</property>
+                 -->
+                <property name="jndiNamePrefix">${application.id}-${pom.version}</property>
+                <property name="hibernateEnableCache">true</property>
+                <property name="hibernateEnableAssociationsCache">true</property>
+                <property name="hibernateUseQueryCache">false</property>
+                <property name="useDefaultCacheRegion">false</property>
+                <property name="hibernateCacheProvider">org.jboss.ejb3.entity.TreeCacheProviderHook</property>
+                <property name="hibernateTreecacheMbeanObject">jboss.cache:service=EJB3EntityTreeCache</property>
+                <!-- uncomment to enable default entity cache settings -->
+                <property name="hibernateEntityCache">TRANSACTIONAL</property>
+                <!-- uncomment to enable default association caching configuration -->
+                <property name="hibernateAssociationCache">TRANSACTIONAL</property>
+                <property name="enableClustering">true</property>
+                <property name="webServiceEnabled">true</property>
+                <property name="webServiceContextRoot">/${application.id}-ws</property>
+                <property name="webServiceUrlPattern">/services</property>
+                <!-- uncomment to enable JBoss Seam
+                <property name="seamEnabled">true</property>
+                -->
+            </properties>
+        </namespace>
+        <namespace name="java">
+            <properties>
+                <!-- Comment out the enumerations outlet for the java cartridge to avoid conflict
+                     with the ejb3 cartridge.
+                <property name="enumerations">${common.generated.dir}</property> 
+                -->
+                <property name="exceptions">${common.generated.dir}</property>
+                <property name="value-objects">${common.generated.dir}</property>
+                <property name="interfaces">${common.generated.dir}</property>
+            </properties>
+        </namespace>
+        <namespace name="bpm4struts">
+            <properties>
+                <property name="forms">${web.generated.dir}</property>
+                <property name="pages">${web.generated.dir}</property>
+                <property name="actions">${web.generated.dir}</property>
+                <property name="controllers">${web.generated.dir}</property>
+                <property name="controller-impls">${web.manual.java.dir}</property>
+                <property name="decorators">${web.manual.java.dir}</property>
+                <property name="messages">${web.generated.dir}/WEB-INF/classes</property>
+                <property name="configuration">${web.generated.dir}/WEB-INF</property>
+                <!-- uncomment to enable web tier security 
+                <property name="securityRealm">${application.id}</property>
+                 -->
+                <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
+                <property name="mergeMappingsUri">file:${conf.dir}/mappings/WebMergeMappings.xml</property>
+                <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
+            </properties>
+        </namespace>
+    </namespaces>
+</andromda>
