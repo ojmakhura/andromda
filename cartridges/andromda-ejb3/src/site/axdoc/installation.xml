@@ -18,18 +18,21 @@
 	                You can install Maven 
 	                <a href="http://maven.apache.org/download.html#Installation">here</a>.
 	            </p>
-	            <p class="highlight">
-	                If you want to build the site docs, you need to download the latest Maven 2.0.x source
-	                from https://svn.apache.org/repos/asf/maven/components/branches/maven-2.0.x and follow
-	                the instructions to build, assemble and set your M2_HOME and PATH variables.
-	            </p>
 	            <p>
-	                You need to have an instance of AndroMDA 3.2.  At the time of writing this, 3.2 RC1
-	                was released but the latest 3.2-SNAPSHOT from CVS contains updates to the project generator
-	                and site plugin; this is more suitable to use with the EJB3 cartridge.  Follow the anonymous
+	                You need to have an instance of AndroMDA 3.3-SNAPSHOT.  At the time of writing this, 3.2
+	                was released but the latest 3.3-SNAPSHOT from CVS contains updates to the project generator
+	                and site plugin; this is more suitable for use with the EJB3 cartridge.  Follow the anonymous
 	                CVS access at <a href="http://sourceforge.net/cvs/?group_id=73047">AndroMDA project</a> to
-	                checkout and build the latest <b>andromda-all</b> source.
+	                checkout and build the latest <b>andromda-all</b> source from the <i>V3_x_HEAD</i> branch.
 	            </p>
+                <p>
+                    Finally, you will need the JBoss Application Server.  It is recommended to download the
+                    latest GA JBoss AS.  At the time of writing this guide and with the current status of the
+                    EJB3 cartridge, it is recommended to download JBoss AS 4.0.5-GA using the JEMS installer
+                    (at least 1.2.0.GA) and install with the <i>ejb3</i> profile.  Read up more about
+                    the <a href="http://labs.jboss.com/portal/jbossas/?prjlist=false">JBoss AS</a> and download
+                    the installer.
+                </p>
 	        </subsection>
             <a name="Getting_the_Cartridge"/>
             <subsection name="Getting the Cartridge">
@@ -64,16 +67,26 @@
 	                by running <i>mvn</i> in the latter location.
 	            </p>
 	        </subsection>
-            <a name="Building_Reports"/>
-            <subsection name="Building Reports">
+            <a name="Building_Documentation"/>
+            <subsection name="Building Documentation">
+                <p class="highlight">
+                    You NO LONGER need to download the Maven 2.0.x source to build the cartridge
+                    documentation.
+                </p>
 	            <p>
 	                To build the EJB3 cartridge site documentation requires a few extra Maven 2 plugins
-	                to be downloaded from the Maven 2 sandbox in SVN.  The
+	                to be downloaded from the Maven 2 SVN.  The
 	                <a href="http://maven.apache.org/guides/development/guide-building-m2.html">Maven build</a>
 	                documentation will give you some information on how to access their SVN.
 	            </p>
+                <p>
+                    Please follow <a href="http://galaxy.andromda.org/forum/viewtopic.php?t=3976">Maven 2 site Docs</a>
+                    to download and build the necessary Maven 2 projects prior to building the EJB3 cartridge site
+                    docs.
+                </p>
 	            <p>
-	                You will need to check out the following plugins from Maven <b>sandbox</b>.
+	                You will need to check out <i>maven-plugins</i> from Maven <b>trunk</b>.  You only required
+                    the following plugins, so you can disable the other modules if you wish.
 	                <ul>
 	                    <li>maven-changes-plugin</li>
 	                    <li>maven-changelog-plugin</li>
@@ -81,21 +94,18 @@
 	                Once you have built them (mvn install), these plugins will reside in your local repo.
 	            </p>
 	            <p>
-	                In adopting the existing AndroMDA site format for the documentation, the Maven Doxia
-	                plugin needs a patch to be applied.  You can check out <b>doxia-1.0-alpha-8</b>
-	                from Maven SVN and apply the patch <a href="http://jira.codehaus.org/browse/MNG-545">here</a>.
-	                It is not critical to apply this patch, but if it's not applied, the generated XHTML will
-	                not be formated correctly but still acceptable.
-	            </p>
-	            <p>
 	                All other require plugins will be downloaded to your local repo if they don't already
 	                exist.
 	            </p>
 	            <p>
 	                You can download the source examples used in the howto for all sections
-	                <a href="HowToModel-src.zip">here</a> and extract to the target/site folder of the
+	                <a href="howto/HowToModel-src.zip">here</a> and extract to the target/site folder of the
 	                andromda-ejb3 plugin.
 	            </p>
+                <p>
+                    You can download the UML model containing all models for all sections
+                    <a href="howto/HowToModel.xml.zip">here</a>.
+                </p>
 	        </subsection>
         </section>
         <section name="Next">
