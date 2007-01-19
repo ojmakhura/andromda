@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                        http://www.jboss.org/j2ee/schema/jboss_5_0.xsd"
+    version="3.0">
+
+    <enterprise-beans>
+
+        <session>
+            <ejb-name>RentalServiceBean</ejb-name>
+        </session>
+
+        <session>
+            <ejb-name>CarManageableService</ejb-name>
+        </session>
+
+        <session>
+            <ejb-name>PersonManageableService</ejb-name>
+        </session>
+
+        <session>
+            <ejb-name>CarDao</ejb-name>
+        </session>
+
+        <session>
+            <ejb-name>PersonDao</ejb-name>
+        </session>
+
+    </enterprise-beans>
+
+<!-- jboss container merge-point -->
+    
+</jboss>
