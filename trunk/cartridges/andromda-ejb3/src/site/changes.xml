@@ -343,6 +343,10 @@
         This (EJB3 cartridge with Seam support) is NOT a replacement for the Seam cartridge, but another tool which 
         can be used with the Seam cartridge to develop Seam (JSF)/EJB 3.0 enabled web application.
       </action>
+      <action dev="vancek" type="fix">
+        Fix Entity - EntityVO conversion methods in the DAO base classes by adding the Converter
+        template object to the cartridge.xml and the necessary namespace property to namespace.xml.
+      </action>
     </release>
   </body>
 </document>

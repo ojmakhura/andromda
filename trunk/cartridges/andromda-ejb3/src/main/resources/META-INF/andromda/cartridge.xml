@@ -9,6 +9,9 @@
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="collectionUtils" className="org.apache.commons.collections.CollectionUtils"/>
     <templateObject name="transform" className="org.andromda.cartridges.ejb3.EJB3ScriptHelper"/>
+    <templateObject name="converter" className="org.andromda.utils.JavaTypeConverter">
+        <property reference="javaTypeConversionIgnoreList"/>
+    </templateObject>
     
     <!-- cartridge-templateObject merge-point-->
 

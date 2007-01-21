@@ -1170,6 +1170,15 @@
                     framework for Java EE 5.
                 </documentation>
             </property>
+            <property name="javaTypeConversionIgnoreList" required="false">
+                <documentation>
+                   A list of one or more fully qualified java types that should be ignored whenever a type conversion
+                   needs to be done. Currently, there is an issue with ValueObjects generated with the Java Axis
+                   mappings that causes the relevant cartidge to generate DAO "entity to value object" type conversions
+                   incorrectly for all date types.  By listing those date types here, the relevant cartridge will not
+                   attempt to auto-generate conversions for date/time related attributes.
+                </documentation>
+            </property>
 		</propertyGroup>
 	</properties>
 </namespace>
