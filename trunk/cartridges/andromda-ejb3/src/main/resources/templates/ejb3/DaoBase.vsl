@@ -1,3 +1,4 @@
+#parse("templates/ejb3/Globals.vm")
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -58,7 +59,16 @@ public abstract class $entity.daoBaseName
     @javax.persistence.PersistenceContext#if ($entity.defaultPersistenceContextUnitName)(unitName = "${entity.defaultPersistenceContextUnitName}")#end
     
     protected javax.persistence.EntityManager emanager;
+
+#if ($hibernateExtensionEnabled)
+    /**
+     * Injext Hibernate Session
+     */
+    @javax.persistence.PersistenceContext#if ($entity.defaultPersistenceContextUnitName)(unitName = "${entity.defaultPersistenceContextUnitName}")#end
     
+    protected org.hibernate.Session hibernateSession;
+    
+#end
 #foreach($entityRef in $entity.entityReferences)
     private $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
 
