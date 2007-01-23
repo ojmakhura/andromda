@@ -197,9 +197,6 @@ public abstract class ${service.serviceBaseName}
      * The $attribute.name property
      */
 #*  *##if ($service.seamComponent)
-## $hibernateExtensionEnabled && 
-## Only enable JBoss Seam components if Hibernate extensions are enabled
-##
 #*    *##if ($attribute.seamBijectionIn)
     @org.jboss.seam.annotations.In#if ($stringUtils.isNotEmpty($attribute.seamBijectionInParameters))$attribute.seamBijectionInParameters#end
 
@@ -228,7 +225,10 @@ public abstract class ${service.serviceBaseName}
     @org.jboss.seam.annotations.datamodel.DataModelSelectionIndex#if ($stringUtils.isNotEmpty($attribute.seamDataModelSelectionIndexParameters))$attribute.seamDataModelSelectionIndexParameters#end
 
 #*    *##end
-#*    *##if ($attribute.seamValidationValid)
+##
+## Only enable JBoss Seam components if Hibernate extensions are enabled
+##
+#*    *##if ($attribute.seamValidationValid && $hibernateExtensionEnabled)
     @org.hibernate.validator.Valid
 
 #*    *##end
