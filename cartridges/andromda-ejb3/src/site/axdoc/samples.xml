@@ -14,6 +14,7 @@
                 <ul>
                     <li><a href="samples.html#Samples_Demo_EJB3">Demo EJB3</a></li>
                     <li><a href="samples.html#Seam_Booking">Seam Booking Example</a></li>
+                    <li><a href="samples.html#Timetracker_EJB3">Timetracker EJB3</a></li>
                 </ul>
             </p>
             <a name="Samples_Demo_EJB3"/>
@@ -78,6 +79,39 @@
 	                This example does not contain any view components at this time.  As JBoss Seam funtionality
                     improves, this project will serve as a complete example for both EJB 3.0 Seam components and
                     JSF with Facelets view components.
+	            </p>
+	        </subsection>
+            <a name="Timetracker_EJB3"/>
+            <subsection name="Timetracker EJB3 JSF Example">
+	            <p>
+	                This sample application is located in the <code>samples/timetracker-ejb</code> directory of the
+	                <code>andromda-plugins</code> project on SourceForge.net.
+	            </p>
+	            <p>
+	                The project has the same structure as described in
+	                <a href="http://galaxy.andromda.org/docs/samples.html">AndroMDA Samples</a>.
+	            </p>
+	            <p>
+	                This sample application is a re-make of the 
+                    <a href="http://galaxy.andromda.org/index.php?option=com_content&amp;task=category&amp;sectionid=11&amp;id=42&amp;Itemid=89">
+                    AndroMDA Timetracker sample application</a> but
+                    instead uses the EJB3 and the JSF cartridges.
+	            </p>
+	            <p>
+	                Simply build the demo by executing <code>mvn</code> in the root of the project directory.
+	            </p>
+	            <p>
+	                Once you have build the sample, you need to create the database called <code>timetracker</code>.
+	                You can then deploy the following to JBoss.
+	                <ul>
+	                    <li>timetracker-ejb3/app/target/timetracker-ejb3-ds.xml</li>
+	                    <li>timetracker-ejb3/app/target/timetracker-ejb3-1.0-SNAPSHOT.ear</li>
+	                </ul>
+	            </p>
+	            <p>
+	                Once you have deployed the EAR file, you can use the <code>sql.txt</code> MySQL script
+                    to import the data into your database.  This file is located in the root directory of this
+                    project.
 	            </p>
 	        </subsection>
         </section>
