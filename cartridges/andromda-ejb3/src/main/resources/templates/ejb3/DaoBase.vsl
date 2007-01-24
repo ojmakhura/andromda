@@ -69,17 +69,20 @@ public abstract class $entity.daoBaseName
     protected org.hibernate.Session hibernateSession;
     
 #end
-#foreach($entityRef in $entity.entityReferences)
-    private $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
-
+#set ($entityReferences = $entity.entityReferences)
+#if (!$entityReferences.empty)
+    // ------ DAO Injections ------
+    
+#**##foreach($entityRef in $entityReferences)
     /**
-     * Sets the reference to <code>$entityRef.daoName</code>.
+     * Inject DAO $entityRef.targetElement.fullyQualifiedDaoName
      */
-    public void ${entityRef.daoSetterName}($entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName)
-    {
-        this.$entityRef.daoName = $entityRef.daoName;
-    }
-
+    @javax.ejb.EJB
+    protected $entityRef.targetElement.fullyQualifiedDaoName $entityRef.daoName;
+    
+#**##end
+#end
+#foreach($entityRef in $entityReferences)
     /**
      * Gets the reference to <code>$entityRef.daoName</code>.
      */
