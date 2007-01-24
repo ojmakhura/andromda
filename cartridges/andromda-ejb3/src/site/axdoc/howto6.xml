@@ -7,7 +7,7 @@
     <body>
         <section name="Queries">
             <p>
-                All enterprise applications need to perform operations on the underlying datasource, and EJB3
+                All enterprise applications need to perform operations on the underlying datasource, and EJB 3
                 supports this with <b>EJB Query Language</b> or <b>native query</b> support.
             </p>
             <p>
@@ -105,6 +105,119 @@
                 defined if you use the <ocde>@andromda.ejb.query</ocde> tagged value.  It would be suggested
                 that a new tagged value i.e <code>@andromda.ejb.query.named</code> be added to manually
                 set the named query, but OCL is still the preferred solution.
+            </p>
+        </section>
+        <section name="Criteria Queries">
+            <p>
+                In some circumstance it is convenient to have the option of using Hibnerate criteria 
+                queries.  This is particularly usesful for search queries which are really on-the-fly
+                queries.  If you are using <b>JBoss AS</b>, then most likely you are using Hibernate as
+                the persistence engine (unless you have changed this default behaviour).  Criteria queries
+                are a Hibernate feature, so this is a strict requirement.
+            </p>
+            <p>
+                Before you can use criteria queries with the EJB3 cartridge, you must enable the 
+                <code>persistenceProviderExtensions</code> namespace property in the <code>ejb3</code>
+                namespace section of your <i>andromda.xml</i> application descriptor, like so:
+<source language="xml"><![CDATA[
+        <namespace name="ejb3">
+            <properties>
+            ...
+                <property name="persistenceProviderExtensions">hibernate</property>
+            ...
+            </properties>
+        </namespace>
+]]></source>
+            </p>
+            <p>
+                You should also add the <i>hibernate</i> artifact dependency to your root project pom.xml as:
+<source language="xml"><![CDATA[
+    <dependencyManagement>
+        <dependencies>
+            ...
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate</artifactId>
+                <version>3.2.1.ga</version>
+                <scope>provided</scope>
+            </dependency>
+            ...
+        <dependencies>
+    <dependencyManagement>
+]]></source>
+            </p>
+            <p>
+                Then in the <code>core</code> sub-project, add the above dependency to avoid
+                build errors when the <code>org.hibernate.Session</code> object is injected in the
+                DAO base class.
+            </p>
+            <p>
+                By setting the <code>persistenceProviderExtensions</code> property value to <code>hibernate</code>,
+                you are telling the EJB3 cartridge to use <i>Hibernate</i> add-on features and annotations.
+                Specifically, this will inject the <code>org.hibernate.Session</code> into the auto-generated
+                DAO base classes of your project like so:
+<source language="java"><![CDATA[
+    @javax.persistence.PersistenceContext(unitName = "timetracker")    
+    protected org.hibernate.Session hibernateSession;
+]]></source>
+            </p>
+            <p>
+                You can then model a <i>Classifier</i> scoped operation in your Entity such that you can
+                over-write the implementation in the DAOImpl (DAP implementation) and use the session object to
+                create the criteria and perform the query.
+            </p>
+            <p>
+                To further understand this usage, you can take are look at the timetracker-ejb3 
+                <a href="samples.html#Timetracker_EJB3">Timetracker EJB3 - JSF sample</a>.  The following
+                segment of code is taken from this sample project showing you how similar it can be to the
+                standard usage under the Hibernate/Spring cartridges; only difference being that the
+                hibernate session is already injected into the DAO base class for you.
+<source language="java"><![CDATA[
+    protected java.util.List handleFindByCriteria(org.andromda.timetracker.vo.TimecardSearchCriteriaVO criteria)
+    {
+        // Create the timecard criteria
+        Criteria timecardCriteria = hibernateSession.createCriteria(Timecard.class);
+        timecardCriteria.setFetchMode("submitter", FetchMode.JOIN);
+        timecardCriteria.setFetchMode("approver", FetchMode.JOIN);
+        
+        // Add sumitter criteria
+        if (criteria.getSubmitterId() != null)
+        {
+            timecardCriteria.createCriteria("submitter").add(Restrictions.idEq(criteria.getSubmitterId()));
+        }
+        
+        // Add approver criteria
+        if (criteria.getApproverId() != null)
+        {
+            timecardCriteria.createCriteria("approver").add(Restrictions.idEq(criteria.getApproverId()));
+        }
+        
+        // Add status criteria
+        if (criteria.getStatus() != null)
+        {
+            timecardCriteria.add(Restrictions.eq("status", criteria.getStatus()));
+        }
+        
+        // Add startDateMin criteria
+        if (criteria.getStartDateMin() != null)
+        {
+            timecardCriteria.add(Restrictions.ge("startDate", criteria.getStartDateMin()));
+        }
+        
+        // Add startDateMax criteria
+        if (criteria.getStartDateMax() != null)
+        {
+            timecardCriteria.add(Restrictions.le("startDate", criteria.getStartDateMax()));
+        }
+        
+        List timecards = timecardCriteria.list();
+        if (logger.isDebugEnabled())
+        {
+            logger.debug(timecards.size() + " timecards found");
+        }
+        return timecards;
+    }
+]]></source>
             </p>
         </section>
         <section name="Nice to know">
