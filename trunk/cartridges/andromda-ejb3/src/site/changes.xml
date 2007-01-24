@@ -347,6 +347,13 @@
         Fix Entity - EntityVO conversion methods in the DAO base classes by adding the Converter
         template object to the cartridge.xml and the necessary namespace property to namespace.xml.
       </action>
+      <action dev="vancek" type="add">
+        Inject org.hibernate.Session into DAO base class if hibernateExtensionEnabled is true.  This can be used
+        to create Hibernate Search Criteria.
+      </action>
+      <action dev="vancek" type="fix">
+        Fix DAO injection into DAO base when entity references another entity.
+      </action>
     </release>
   </body>
 </document>
