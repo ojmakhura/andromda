@@ -250,7 +250,7 @@ class EJB3MetafacadeUtils
         }
         else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_NOT_SUPPORTED))
         {
-            transType = "NOT_SUPPORTED";
+            type = "NOT_SUPPORTED";
         }
         else if (StringUtils.equalsIgnoreCase(transType, EJB3Globals.TRANSACTION_TYPE_REQUIRED))
         {
