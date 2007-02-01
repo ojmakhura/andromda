@@ -354,6 +354,9 @@
       <action dev="vancek" type="fix">
         Fix DAO injection into DAO base when entity references another entity.
       </action>
+      <action dev="vancek" due-to="rajtuz" type="fix">
+        Fix incorrect method name in EJB3MetafacadeUtils.convertTransactionType() for transaction type NotSupported.
+      </action>
     </release>
   </body>
 </document>
