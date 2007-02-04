@@ -1,3 +1,4 @@
+#parse("templates/ejb3/common/JNDIMacros.vm")
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -111,15 +112,7 @@ public class $serviceLocatorName
     public final $service.fullyQualifiedServiceRemoteInterfaceName get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}_Remote(java.util.Properties env)
         throws javax.naming.NamingException
     {
-#*  *##if ($stringUtils.isNotBlank($service.jndiNameRemote))
-#*    *##set ($jndiName = "${service.jndiNameRemote}")
-#*  *##else
-#*    *##if ($stringUtils.isNotBlank($service.jndiNamePrefix))
-#*        *##set ($jndiName = "${service.jndiNamePrefix}/${service.serviceName}/remote")
-#*    *##else
-#*        *##set ($jndiName = "${service.serviceName}/remote")
-#*    *##end
-#*  *##end
+#remoteJndiName($service true)
         return (${service.fullyQualifiedServiceRemoteInterfaceName})
             getContext(env).lookup("${jndiName}");
     }
@@ -135,15 +128,7 @@ public class $serviceLocatorName
     public final $service.fullyQualifiedServiceLocalInterfaceName get_${transform.toUnderscoreName(${service.fullyQualifiedServiceName})}_Local(java.util.Properties env)
         throws javax.naming.NamingException
     {
-#*  *##if ($stringUtils.isNotBlank($service.jndiNameLocal))
-#*    *##set ($jndiName = "${service.jndiNameLocal}")
-#*  *##else
-#*    *##if ($stringUtils.isNotBlank($service.jndiNamePrefix))
-#*      *##set ($jndiName = "${service.jndiNamePrefix}/${service.serviceName}/local")
-#*    *##else
-#*      *##set ($jndiName = "${service.serviceName}/local")
-#*    *##end
-#*  *##end
+#localJndiName($service true)
         return (${service.fullyQualifiedServiceLocalInterfaceName})
             getContext(env).lookup("${jndiName}");
     }
