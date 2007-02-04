@@ -1,0 +1,32 @@
+##
+##  This macro will render the jndiName template parameter
+##  for the remote interface.  This takes into account if
+##  the jndi name is explicity specified.
+##
+#macro (remoteJndiName $service $includePrefix)
+#**##if ($stringUtils.isNotBlank($service.jndiNameRemote))
+#*  *##set ($jndiName = "${service.jndiNameRemote}")
+#**##else
+#*  *##if ($stringUtils.isNotBlank($service.jndiNamePrefix) && $includePrefix)
+#*      *##set ($jndiName = "${service.jndiNamePrefix}/${service.serviceName}/remote")
+#*  *##else
+#*      *##set ($jndiName = "${service.serviceName}/remote")
+#*  *##end
+#**##end
+#end
+##
+##  This macro will render the jndiName template parameter
+##  for the local interface.  This takes into account if
+##  the jndi name is explicity specified.
+##
+#macro (localJndiName $service $includePrefix)
+#**##if ($stringUtils.isNotBlank($service.jndiNameLocal))
+#*  *##set ($jndiName = "${service.jndiNameLocal}")
+#**##else
+#*  *##if ($stringUtils.isNotBlank($service.jndiNamePrefix) && $includePrefix)
+#*    *##set ($jndiName = "${service.jndiNamePrefix}/${service.serviceName}/local")
+#*  *##else
+#*    *##set ($jndiName = "${service.serviceName}/local")
+#*  *##end
+#**##end
+#end
