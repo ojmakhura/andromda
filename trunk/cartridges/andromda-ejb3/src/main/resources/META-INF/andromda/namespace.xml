@@ -121,6 +121,26 @@
                     are generated.
                 </documentation>
             </property>
+			<property name="test-config">
+			    <documentation>
+			        The location where the JBoss Embedded/Microcontainer
+                    configuration files are generated.
+			    </documentation>
+			</property>
+			<property name="tests">
+			    <documentation>
+			        The location where auto generated session bean test classes
+                    are generated.  These are typically the helper classes
+                    which are re-generated.
+			    </documentation>
+			</property>
+			<property name="test-impls">
+			    <documentation>
+			        The location where manual session bean test classes
+                    are generated.  These will not be regenerated and require
+                    user intervention.
+			    </documentation>
+			</property>
 		</propertyGroup>
 		<propertyGroup name="JDBC">
 		    <property name="entityManagerName" required="false">
@@ -452,6 +472,27 @@
 			    <documentation>
 			        The pattern to use when constructing the service
 			        bean base class name.
+			    </documentation>
+			</property>
+			<property name="serviceTestNamePattern">
+			    <default>{0}Test</default>
+			    <documentation>
+			        The pattern to use when constructing the service
+			        test class name.
+			    </documentation>
+			</property>
+            <property name="serviceTestPackageNamePattern">
+                <default>{0}.test</default>
+                <documentation>
+                    The pattern to use when constructing the package for
+                    the service test class.
+                </documentation>
+            </property>
+			<property name="serviceOperationTestNamePattern">
+			    <default>test{0}</default>
+			    <documentation>
+			        The pattern to use when constructing the service
+			        test operation name.
 			    </documentation>
 			</property>
             <property name="implementationOperationNamePattern">
