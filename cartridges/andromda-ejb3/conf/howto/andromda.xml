@@ -54,6 +54,9 @@
                 <property name="services">${howto.output.dir}</property>
                 <property name="application-config">${howto.output.dir}/org/andromda/test</property>
                 <property name="application-metainf">${application.metainf.dir}</property>
+                <property name="test-config">${howto.output.dir}/org/andromda/test</property>
+                <property name="tests">${howto.output.dir}</property>
+                <property name="test-impls">${howto.output.dir}</property>
                 <property name="ejb3TypesPackage">org.andromda.test</property>
                 <property name="persistenceContainerName">jboss</property>
                 <property name="persistenceContextUnitName">howtomodel</property>

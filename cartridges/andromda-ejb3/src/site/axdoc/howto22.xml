@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="vancek@users.sourceforge.net">Vance Karimi</author>
+        <title>AndroMDA - EJB3 - TestNG with JBoss Embeddable EJB3 Microcontainer</title>
+    </properties>
+    <body>
+        <section name="TestNG with JBoss Embeddable EJB3 Microcontainer">
+            <p>
+                As a developer, you are always tempted to get by with smallest amount of unit testing...some
+                even avoid the subject all together.  With the introduction of EJB 3.0, it was intended to make
+                things easier, including testing.  Setting up the right test environment was always a difficult,
+                specially when you don't always have the luxury of time to get it right!
+            </p>
+            <p>
+                The EJB3 cartridge now provides a basic test framework for your session beans.  You can now
+                use the popular TestNG framework, along with JBoss Embeddable EJB3 Microcontainer to perform
+                your tests outside of the application server.
+            </p>
+            <p>
+                Read up on the <a href="http://docs.jboss.org/ejb3/embedded/embedded.html">JBoss Embedded container</a>.
+                Read about the <a href="http://www.testng.org/">TestNG framework</a>.
+            </p>
+            <p>
+                The example widely available on the internet use JUnit in combination with TestNG.  The EJB3 cartridge
+                only uses TestNG with Maven2.  It is currently using TestNG version 4.7-jdk15 and JBoss Embeddable
+                ALPHA_9.
+            </p>
+            <a name="Setup"/>
+            <subsection name="Setup">
+                <p>
+                    You do not need to download any of the tools mentioned above.  The cartridge will generate
+                    all the required configuration necessary for the JBoss Embeddable container.  All the
+                    required artifacts are also available from the AndroMDA repository.
+                </p>
+                <p>
+                    Because we consider testing such a key component of a project, there is no option to enable or
+                    disable the test framework with an EJB3 project.  Everything is generated whether you want it
+                    or not.  However, all the tests will finish successuflly (as there is not implementation for them).
+                </p>
+                <p>
+                    All you need to do is follow the <a href="project.html">project howto</a> to generate your
+                    EJB3 project.  Make sure you are running the latest AndroMDA since the test framework is only
+                    available from AndroMDA version 3.3-SNAPSHOT onwards.
+                </p>
+                <p>
+                    The test framework will be generated as long as you have at least 1 session bean modelled
+                    in your project.
+                </p>
+            </subsection>
+            <a name="Configuration"/>
+            <subsection name="Configuration">
+                <p>
+                    When you first run <i>mvn</i> over your project, the cartridge will generate all the
+                    JBoss Embeddable container configuration files in <code>core/src/test/resources</code>.
+                    All these files are generated ONCE ONLY and will NOT be over-written.  You can safely make
+                    any modifications to any of these files.
+                </p>
+                <p>
+                    There is one exception to the latter.  The <code>testng.xml</code> configuration file is also
+                    generated in <code>core/src/test/resource</code>, however, this is over-written on every
+                    run over your model.  This is because when you add a new session bean, the trigger to
+                    run the tests for this new bean is inserted into the <code>testng.xml</code> file.
+                </p>
+                <p>
+                    Once of the most interesting configuration files generated is the <code>embedded-jboss-beans.xml</code>.
+                    Take a look at your project's file and notice that the EJB3 cartridge has added 
+                    your datasource to this file, along with the existing <code>DefaultDS</code> datasource, which
+                    is used by the JMS provider.  You are free to modify the connection settings so that
+                    you point this to your development database server.
+                </p>
+                <p>
+                    The <code>log4j.xml</code> file in this directory sets the <i>Threshold</i> to <code>WARN</code>
+                    by default.  If you want to see more detailed log information to the console while the tests
+                    are running, change this to something like <code>DEBUG</code>.
+                </p>
+                <p>
+                    The <code>login-config.xml</code> sets up the JAAS environment for your tests.  If you had
+                    enabled security before running maven over your project the first time, everything will be
+                    generated for you and you don't need to worry about the following.
+                    If you had not
+                    enable security for your project on the first run, a relevent security context will not be
+                    generated for you in this file.  Say that you want to enable security at a later point, then
+                    by simply following <a href="howto8.html">the security howto</a>, you uncomment the
+                    <code>securityRealm</code> property in the <b>ejb3</b> and the web framework namespaces.  You 
+                    must then copy the last <code>application-policy</code> section of the <code>login-config.xml</code>
+                    and change the name property to your <code>application.id</code>.  If your project application id
+                    name is <b>howtomodel</b>, the <code>login-config.xml</code> should contain the following:
+<source language="xml"><![CDATA[
+  <application-policy name="howtomodel">
+    <authentication>
+      <login-module code="org.jboss.security.auth.spi.UsersRolesLoginModule"
+        flag="required"/>
+    </authentication>
+  </application-policy>
+]]></source>
+                </p>
+                <p>
+                    The cartridge will also generate a <code>roles.properties</code> and <code>users.properties</code>
+                    which will help provide basic JAAS authentication for users/roles.
+                </p>
+            </subsection>
+            <a name="Session_Tests"/>
+            <subsection name="Session Tests">
+                <p>
+                    Now take a look in your source folder <code>core/src/test/java</code>.  You should have a file
+                    named <code>EJB3Container.java</code> in one of the packages here.  This file starts and
+                    shuts down the embeddable container before and after running any tests respectively.  It also
+                    provides helper static methods to get the <code>InitialContext</code> so you can retrive
+                    the stub for the session bean (local or remote interface) from JNDI.
+                </p>
+                <p>
+                    It is important to note that if you want to propogate security credentials (principal and password)
+                    because you have enable security and secured your session beans by modelling actors to the class
+                    or operations, you must use the overloaded <code>getInitialContext</code> methods with signature 
+                    that allows you to provide a username and password.  The generated tests actually provide a basic
+                    template that shows you how to do this.
+                </p>
+                <p>
+                    In case you did not enable security on the first generation run, and find you need it later,
+                    apart from following the instructions above to modify the <code>login-config.xml</code>,
+                    you must also modify the <code>EJB3Container.java</code> to uncomment the following section
+                    in the <i>startup</i> method:
+<source><![CDATA[
+            logger.info("==>Deploying security-beans");
+            EJB3StandaloneBootstrap.deployXmlResource("security-beans.xml");
+            logger.info("==>Deployed security-beans");
+]]></source>
+                </p>
+                <p>
+                    Now open up any of the test classes.  These are generated to the <code>core/src/test/java</code>
+                    source folder in the corresponding package.  You will notice the EJB3 cartridge just creates
+                    one test case per session bean business operation.  The the test source files will NOT be
+                    over-written, so if you add or delete business operations from your model, you must make the
+                    changes to these files manually.
+                </p>
+                <p>
+                    You may have noticed how simple these test sources really are and you may be wondering how
+                    we start and stop the embeddable microcontainer and deploy our archives which contain the EJB 3
+                    beans.  Take a look at your <code>testng.xml</code> in <code>core/src/test/resources</code>.
+                    The first class listed to run is the <code>EJB3Container</code>.  This will call the
+                    annotated methods to start and shutdown the embeddable container before and after your tests
+                    respectively.
+                </p>
+                <p>
+                    You can now open the tests and add your implementation before running maven over the <i>core</i>
+                    project or running the tests.
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>
