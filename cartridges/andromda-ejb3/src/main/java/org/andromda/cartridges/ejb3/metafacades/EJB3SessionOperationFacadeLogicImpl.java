@@ -28,6 +28,10 @@ import org.apache.commons.lang.StringUtils;
 public class EJB3SessionOperationFacadeLogicImpl
     extends EJB3SessionOperationFacadeLogic
 {
+    /**
+     * The property which stores the pattern used to generate the service operation test name
+     */
+    private static final String SERVICE_OPERATION_TEST_NAME_PATTERN = "serviceOperationTestNamePattern";
     
     public EJB3SessionOperationFacadeLogicImpl (Object metaObject, String context)
     {
@@ -211,6 +215,27 @@ public class EJB3SessionOperationFacadeLogicImpl
         return signature;
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleGetTestSignature()
+     */
+    protected String handleGetTestSignature()
+    {
+        return this.getTestName() + "()";
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleGetTestName()
+     */
+    protected String handleGetTestName()
+    {
+        String serviceOperationTestNamePattern = 
+            (String)this.getConfiguredProperty(SERVICE_OPERATION_TEST_NAME_PATTERN);
+
+        return MessageFormat.format(
+                serviceOperationTestNamePattern,
+                new Object[] {StringUtils.trimToEmpty(StringUtils.capitalize(this.getName()))});
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#getCall()
      * 

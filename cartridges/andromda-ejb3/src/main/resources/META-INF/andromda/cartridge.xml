@@ -2,6 +2,7 @@
 
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
         <macrolibrary name="templates/ejb3/GlobalMacros.vm"/>
+        <macrolibrary name="templates/ejb3/common/JNDIMacros.vm"/>
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
     
@@ -692,6 +693,190 @@
         <modelElements variable="manageable">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ManageableEntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <!-- TestNG test framework tests -->
+    
+    <template
+        path="templates/ejb3/test/testng.xml.vsl"
+        outputPattern="testng.xml"
+        outlet="test-config"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="true">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/test/EJB3Container.vsl"
+        outputPattern="$generatedFile"
+        outlet="test-impls"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/test/SessionTest.vsl"
+        outputPattern="$generatedFile"
+        outlet="test-impls"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <!-- Microcontainer templates -->
+    
+    <template
+        path="templates/ejb3/microcontainer/default.persistence.properties.vsl"
+        outputPattern="default.persistence.properties"
+        outlet="test-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/microcontainer/ejb3-interceptors-aop.xml.vsl"
+        outputPattern="ejb3-interceptors-aop.xml"
+        outlet="test-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/microcontainer/embedded-jboss-beans.xml.vsl"
+        outputPattern="embedded-jboss-beans.xml"
+        outlet="test-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/microcontainer/jboss-jms-beans.xml.vsl"
+        outputPattern="jboss-jms-beans.xml"
+        outlet="test-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/microcontainer/jndi.properties.vsl"
+        outputPattern="jndi.properties"
+        outlet="test-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/microcontainer/log4j.xml.vsl"
+        outputPattern="log4j.xml"
+        outlet="test-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/microcontainer/login-config.xml.vsl"
+        outputPattern="login-config.xml"
+        outlet="test-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/microcontainer/security-beans.xml.vsl"
+        outputPattern="security-beans.xml"
+        outlet="test-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/microcontainer/roles.properties.vsl"
+        outputPattern="roles.properties"
+        outlet="test-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/microcontainer/users.properties.vsl"
+        outputPattern="users.properties"
+        outlet="test-config"
+        overwrite="false"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="services">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
             </modelElement>
         </modelElements>
     </template>

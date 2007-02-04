@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
+import org.andromda.cartridges.ejb3.EJB3ScriptHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -68,6 +69,15 @@ extends EJB3SessionFacadeLogic
      */
     private static final String SERVICE_BASE_NAME_PATTERN = "serviceBaseNamePattern";
 
+    /**
+     * The property which stores the pattern defining the service bean test class name
+     */
+    private static final String SERVICE_TEST_NAME_PATTERN = "serviceTestNamePattern";
+    
+    /**
+     * The property which stores the pattern defining the service test package
+     */
+    private static final String SERVICE_TEST_PACKAGE_NAME_PATTERN = "serviceTestPackageNamePattern";
     /**
      * The property which stores the pattern defining the default service bean
      * exception class name.
@@ -501,6 +511,17 @@ extends EJB3SessionFacadeLogic
     }
 
     /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade#getTestPackageName
+     */
+    protected String handleGetTestPackageName()
+    {
+        String namespacePattern = String.valueOf(this.getConfiguredProperty(SERVICE_TEST_PACKAGE_NAME_PATTERN));
+        return MessageFormat.format(
+                namespacePattern, 
+                new Object[] {this.getPackageName()});
+    }
+    
+    /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetServiceName()
      */
     protected String handleGetServiceName()
@@ -592,6 +613,19 @@ extends EJB3SessionFacadeLogic
     }
 
     /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetServiceTestName()
+     */
+    protected String handleGetServiceTestName()
+    {
+        String serviceTestNamePattern = 
+            (String)this.getConfiguredProperty(SERVICE_TEST_NAME_PATTERN);
+
+        return MessageFormat.format(
+                serviceTestNamePattern,
+                new Object[] {StringUtils.trimToEmpty(this.getName())});
+    }
+    
+    /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetFullyQualifiedServiceName()
      */
     protected String handleGetFullyQualifiedServiceName()
@@ -669,6 +703,17 @@ extends EJB3SessionFacadeLogic
                 null);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetFullyQualifiedServiceTestName()
+     */
+    protected String handleGetFullyQualifiedServiceTestName()
+    {
+        return EJB3MetafacadeUtils.getFullyQualifiedName(
+                this.getTestPackageName(),
+                this.getServiceTestName(),
+                null);
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetPersistenceContextUnitName()
      */

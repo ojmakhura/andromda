@@ -357,6 +357,16 @@
       <action dev="vancek" due-to="rajtuz" type="fix">
         Fix incorrect method name in EJB3MetafacadeUtils.convertTransactionType() for transaction type NotSupported.
       </action>
+      <action dev="vancek" type="update">
+        Refactored remote and local jndi lookup code generation by extracting to macro in the templates.  This is
+        now used by ServiceLocator.vsl and SessionTest.vsl.
+      </action>
+      <action dev="vancek" type="add">
+        Add support for the JBoss Embedded EJB3 server for testing using TestNG.  Cartridge will generate all
+        required microcontainer configuration files, an EJB3Container intitialiser that starts and shuts down
+        the container before and after all tests, a testng.xml config file and basic test class per session bean
+        modelled.  The embeddable container version is ALPHA_9.
+      </action>
     </release>
   </body>
 </document>
