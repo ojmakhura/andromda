@@ -92,5 +92,21 @@
         </p>
       </answer>
     </faq>
+    <faq id="MalformedURLException_with_Tests">
+      <question>I am getting "java.net.MalformedURLException: no protocol: and" when running the test!</question>
+      <answer>
+        <p>
+          This is a class loader issue where somewhere in the JBoss Microcontainer, the URL referencing your
+          Maven 2 repository is not encoded and you have spaces in this URL.  This is particularly the case
+          if you are running under a Windows OS platform and your default Maven 2 repository is 
+          C:\Documents and Settings\username\.m2\repository.  The problem is the space in the URL!
+        </p>
+        <p>
+          You need to move your repository to a location on your filesystem without spaces and update/add
+          the <i>settings.xml</i> in your .m2 folder to set the <i>localRepository</i> element to
+          this new location.  Here is the <a href="http://maven.apache.org/settings.html">Maven settings guide</a>.
+        </p>
+      </answer>
+    </faq>
   </part>
 </faqs>
