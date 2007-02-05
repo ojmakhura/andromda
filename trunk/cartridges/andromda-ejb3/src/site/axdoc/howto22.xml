@@ -51,6 +51,31 @@
             <a name="Configuration"/>
             <subsection name="Configuration">
                 <p>
+                    The following are typical testing configuration files generated for an <i>ejb3</i> project.
+                </p>
+                <p>
+                    <ul>
+                        <li class="gen">Auto-generated source that does not need manual editing</li>
+                        <li class="impl">Auto-generated source that should be edited manually</li>
+                        <li class="changed">File that is affected by the modifications applied in this section</li>
+                    </ul>
+                </p>
+                <p>
+                    <ul>
+                        <li class="impl"><a class="changed" href="howto/org/andromda/test/default.persistence.properties"><code>default.persistence.properties</code></a></li>
+                        <li class="impl"><a class="changed" href="howto/org/andromda/test/ejb3-interceptors-aop.xml"><code>ejb3-interceptors-aop.xml</code></a></li>
+                        <li class="impl"><a class="changed" href="howto/org/andromda/test/embedded-jboss-beans.xml"><code>embedded-jboss-beans.xml</code></a></li>
+                        <li class="impl"><a class="changed" href="howto/org/andromda/test/jboss-jms-beans.xml"><code>jboss-jms-beans.xml</code></a></li>
+                        <li class="impl"><a class="changed" href="howto/org/andromda/test/jndi.properties"><code>jndi.properties</code></a></li>
+                        <li class="impl"><a class="changed" href="howto/org/andromda/test/log4j.xml"><code>log4j.xml</code></a></li>
+                        <li class="impl"><a class="changed" href="howto/org/andromda/test/login-config.xml"><code>login-config.xml</code></a></li>
+                        <li class="impl"><a class="changed" href="howto/org/andromda/test/security-beans.xml"><code>security-beans.xml</code></a></li>
+                        <li class="impl"><a class="changed" href="howto/org/andromda/test/roles.properties"><code>roles.properties</code></a></li>
+                        <li class="impl"><a class="changed" href="howto/org/andromda/test/users.properties"><code>users.properties</code></a></li>
+                        <li class="impl"><a class="changed" href="howto/org/andromda/test/testng.xml"><code>testng.xml</code></a></li>
+                    </ul>
+                </p>
+                <p>
                     When you first run <i>mvn</i> over your project, the cartridge will generate all the
                     JBoss Embeddable container configuration files in <code>core/src/test/resources</code>.
                     All these files are generated ONCE ONLY and will NOT be over-written.  You can safely make
