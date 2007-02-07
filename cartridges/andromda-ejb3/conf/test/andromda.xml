@@ -18,19 +18,88 @@
         </repository>
     </repositories>
     <namespaces>
-        <namespace name="ejb3">
+        <namespace name="default">
             <properties>
                 <property name="overwrite">true</property>
                 <property name="languageMappingsUri">Java</property>
                 <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="jdbcMappingsUri">JDBC</property>
-                <property name="sqlMappingsUri">Oracle9i</property>
+                <property name="sqlMappingsUri">HypersonicSql</property>
+                <property name="maxSqlNameLength">30</property>
+                <property name="foreignKeySuffix">_FK</property>
+                <property name="ejbJndiNamePrefix">ejb3test-1.0-SNAPSHOT</property>
+                 <!-- these masking properties allow you to configure the way
+                      your model element names are generated -->
+                <property name="classifierNameMask">none</property>
+                <property name="operationNameMask">none</property>
+                <property name="roleNameMask">none</property>
+                <property name="enumerationNameMask">none</property>
+                <property name="enumerationLiteralNameMask">upperunderscore</property>
+                <property name="entityNameMask">none</property>
+                <property name="entityPropertyNameMask">none</property>
+                <property name="parameterNameMask">none</property>
+            </properties>
+        </namespace>
+        <namespace name="ejb3">
+            <properties>
+                <property name="overwrite">true</property>
+                <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
+                <property name="value-objects">${test.output.dir}</property>
                 <property name="entity-beans">${test.output.dir}</property>
                 <property name="entity-impls">${test.output.dir}</property>
+                <property name="entity-config">${test.output.dir}</property>
                 <property name="session-beans">${test.output.dir}</property>
                 <property name="session-impls">${test.output.dir}</property>
-                <property name="value-objects">${test.output.dir}</property>
-                <property name="mergeMappingsUri">file:${pom.basedir}/src/test/mappings/MergeMappings.xml</property>
+                <property name="session-config">${test.output.dir}</property>
+                <property name="message-driven-beans">${test.output.dir}</property>
+                <property name="message-driven-impls">${test.output.dir}</property>
+                <property name="daos">${test.output.dir}</property>
+                <property name="dao-impls">${test.output.dir}</property>
+                <property name="commons">${test.output.dir}</property>
+                <property name="user-types">${test.output.dir}</property>
+                <property name="services">${test.output.dir}</property>
+                <property name="application-config">${test.output.dir}</property>
+                <property name="application-metainf">${test.output.dir}</property>
+                <property name="test-config">${test.output.dir}</property>
+                <property name="tests">${test.output.dir}</property>
+                <property name="test-impls">${test.output.dir}</property>
+                <property name="ejb3TypesPackage">org.andromda.ejb3test</property>
+                <property name="persistenceContainerName">jboss</property>
+                <property name="persistenceContextUnitName">ejb3test</property>
+                <property name="entityManagerName">ejb3test</property>
+                <property name="entityManagerJTADataSource">java:/DefaultDS</property>
+                <property name="hibernateDialect">net.sf.hibernate.dialect.HSQLDialect</property>
+                <property name="hibernateHbm2DDLAuto">update</property>
+                <property name="enableTemplating">true</property>
+                <!-- uncomment to specify transaction manager
+                <property name="hibernateTransactionManagerLookupClass">org.hibernate.transaction.JBossTransactionManagerLookup</property>
+                -->
+                <property name="securityRealm">ejb3test</property>
+                <property name="jndiNamePrefix">ejb3test-1.0-SNAPSHOT</property>
+                <property name="hibernateEnableCache">false</property>
+                <property name="hibernateEnableAssociationsCache">false</property>
+                <property name="hibernateUseQueryCache">false</property>
+                <property name="useDefaultCacheRegion">false</property>
+                <property name="hibernateCacheProvider">org.jboss.ejb3.entity.TreeCacheProviderHook</property>
+                <property name="hibernateTreecacheMbeanObject">jboss.cache:service=EJB3EntityTreeCache</property>
+                <!-- uncomment to enable default entity cache settings
+                <property name="hibernateEntityCache">TRANSACTIONAL</property>
+                -->
+                <!-- uncomment to enable default association caching configuration
+                <property name="hibernateAssociationCache">TRANSACTIONAL</property>
+                -->
+                <property name="enableClustering">false</property>
+                <property name="webServiceEnabled">false</property>
+                <property name="webServiceContextRoot">/ejb3test-ws</property>
+                <property name="webServiceUrlPattern">/services</property>
+                <property name="persistenceProviderExtensions">hibernate</property>
+            </properties>
+        </namespace>
+        <namespace name="java">
+            <properties>
+                <property name="exceptions">${howto.output.dir}</property>
+                <property name="value-objects">${howto.output.dir}</property>
+                <property name="interfaces">${howto.output.dir}</property>
             </properties>
         </namespace>
     </namespaces>
