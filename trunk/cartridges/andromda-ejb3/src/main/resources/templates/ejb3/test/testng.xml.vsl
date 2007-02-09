@@ -8,8 +8,10 @@
 #else
 #**##set ($testPackage = "")
 #end
+#if (!$services.isEmpty())
             <!-- Always start the EJB3 embeddable container before running the tests -->
             <class name="${testPackage}EJB3Container"/>
+#end
 #foreach ($service in $services)
             <class name="${service.fullyQualifiedServiceTestName}"/>
 #end
