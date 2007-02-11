@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="TimeTracker Test Suite" verbose="2" parallel="false">
-    <test name="Services Test">
+<suite name="${entityManagerName} Test Suite" verbose="2" parallel="false">
+    <test name="${entityManagerName} Services Test">
         <classes>
 #if($stringUtils.isNotEmpty($ejb3TypesPackage))
 #**##set ($testPackage = "${ejb3TypesPackage}.test.")
@@ -14,6 +14,9 @@
 #end
 #foreach ($service in $services)
             <class name="${service.fullyQualifiedServiceTestName}"/>
+#end
+#foreach ($mdb in $mdbs)
+            <class name="${mdb.fullyQualifiedMessageDrivenTestName}"/>
 #end
         </classes>
     </test>

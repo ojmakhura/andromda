@@ -48,6 +48,16 @@ public class EJB3MessageDrivenFacadeLogicImpl
      */
     private static final String MESSAGE_DRIVEN_IMPLEMENTATION_NAME_PATTERN = "messageDrivenImplementationNamePattern";
     
+    /**
+     * The property which stores the pattern defining the JMS message driven bean test class name
+     */
+    private static final String MESSAGE_DRIVEN_TEST_NAME_PATTERN = "messageDrivenTestNamePattern";
+    
+    /**
+     * The property which stores the pattern defining the JMS message driven bean test package
+     */
+    private static final String MESSAGE_DRIVEN_TEST_PACKAGE_NAME_PATTERN = "messageDrivenTestPackageNamePattern";
+    
     //  ---------------- constructor -------------------------------
     
     public EJB3MessageDrivenFacadeLogicImpl (Object metaObject, String context)
@@ -106,6 +116,17 @@ public class EJB3MessageDrivenFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetTestPackageName()
+     */
+    protected String handleGetTestPackageName()
+    {
+        String namespacePattern = String.valueOf(this.getConfiguredProperty(MESSAGE_DRIVEN_TEST_PACKAGE_NAME_PATTERN));
+        return MessageFormat.format(
+                namespacePattern, 
+                new Object[] {this.getPackageName()});
+    }
+    
+    /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getFullyQualifiedMessageDrivenImplementationName()
      */
     protected java.lang.String handleGetFullyQualifiedMessageDrivenImplementationName()
@@ -138,6 +159,17 @@ public class EJB3MessageDrivenFacadeLogicImpl
                 null);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetFullyQualifiedMessageDrivenTestName()
+     */
+    protected String handleGetFullyQualifiedMessageDrivenTestName()
+    {
+        return EJB3MetafacadeUtils.getFullyQualifiedName(
+                this.getTestPackageName(),
+                this.getMessageDrivenTestName(),
+                null);
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getMessageDrivenImplementationName()
      */
@@ -177,6 +209,19 @@ public class EJB3MessageDrivenFacadeLogicImpl
                 new Object[] {StringUtils.trimToEmpty(this.getName())});
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetMessageDrivenTestName()
+     */
+    protected String handleGetMessageDrivenTestName()
+    {
+        String messageDrivenTestNamePattern = 
+            (String)this.getConfiguredProperty(MESSAGE_DRIVEN_TEST_NAME_PATTERN);
+
+        return MessageFormat.format(
+                messageDrivenTestNamePattern,
+                new Object[] {StringUtils.trimToEmpty(this.getName())});
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getMessageSelector()
      */
@@ -437,5 +482,4 @@ public class EJB3MessageDrivenFacadeLogicImpl
         }
         return excludeDefault;
     }
-
 }

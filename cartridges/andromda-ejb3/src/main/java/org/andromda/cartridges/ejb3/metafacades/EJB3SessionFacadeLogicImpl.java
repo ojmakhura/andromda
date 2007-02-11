@@ -78,6 +78,7 @@ extends EJB3SessionFacadeLogic
      * The property which stores the pattern defining the service test package
      */
     private static final String SERVICE_TEST_PACKAGE_NAME_PATTERN = "serviceTestPackageNamePattern";
+    
     /**
      * The property which stores the pattern defining the default service bean
      * exception class name.

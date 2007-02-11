@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<deployment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="urn:jboss:bean-deployer bean-deployer_1_0.xsd"
+            xmlns="urn:jboss:bean-deployer">
+#foreach ($mdb in $mdbs)
+#**##if ($mdb.destinationTypeQueue)
+   <bean name="jboss.mq.destination:service=Queue,name=${mdb.messageDrivenName}" class="org.jboss.mq.kernel.Queue">
+     <property name="destinationManagerPojo"><inject bean="jboss.mq:service=DestinationManager"/></property>
+     <property name="initialContextProperties"><inject bean="InitialContextProperties"/></property>
+     <property name="destinationName">${mdb.messageDrivenName}</property>
+     <property name="JNDIName">${mdb.destination}</property>
+   </bean>
+#**##elseif ($mdb.destinationTypeTopic)
+   <bean name="jboss.mq.destination:service=Topic,name=${mdb.messageDrivenName}" class="org.jboss.mq.kernel.Topic">
+     <property name="destinationManagerPojo"><inject bean="jboss.mq:service=DestinationManager"/></property>
+     <property name="initialContextProperties"><inject bean="InitialContextProperties"/></property>
+     <property name="destinationName">${mdb.messageDrivenName}</property>
+     <property name="JNDIName">${mdb.destination}</property>
+   </bean>
+#**##end
+
+#end
+</deployment>
