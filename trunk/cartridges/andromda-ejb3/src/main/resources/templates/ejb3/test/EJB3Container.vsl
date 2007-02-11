@@ -46,45 +46,55 @@ public class EJB3Container
     
             // Boot the JBoss Microcontainer with EJB3 settings, loads ejb3-interceptors-aop.xml
             EJB3StandaloneBootstrap.boot(null);
-            
-            logger.info("==>Deploying embedded-jboss-beans");
-            // Deploy CaveatEmptor beans (datasource, mostly)
-            //EJB3StandaloneBootstrap.deployXmlResource("embedded-jboss-beans.xml");
-            //EJB3StandaloneBootstrap.deployXmlResource("ejb3-interceptors-aop.xml");
-            //EJB3StandaloneBootstrap.deployXmlResource("jboss-jms-beans.xml");
-            logger.info("==>Deployed embedded-jboss-beans");
-            
+
 #if ($stringUtils.isNotBlank(${securityRealm}))
             logger.info("==>Deploying security-beans");
             EJB3StandaloneBootstrap.deployXmlResource("security-beans.xml");
             logger.info("==>Deployed security-beans");
+            
 #else
-            /**
-             * Uncomment the following to enable security
-             * 
-             * logger.info("==>Deploying security-beans");
-             * EJB3StandaloneBootstrap.deployXmlResource("security-beans.xml");
-             * logger.info("==>Deployed security-beans");
-             */
+//            Uncomment the following to enable security
+//            logger.info("==>Deploying security-beans");
+//            EJB3StandaloneBootstrap.deployXmlResource("security-beans.xml");
+//            logger.info("==>Deployed security-beans");
+             
 #end
+#if (!$mdbs.empty())
+            logger.info("==>Deploying jboss-jms-beans - init JBoss MQ core services");
+            EJB3StandaloneBootstrap.deployXmlResource("jboss-jms-beans.xml");
+            logger.info("==>Deployed jboss-jms-beans");
+            
+            logger.info("==>Configure test queue and topic");
+            EJB3StandaloneBootstrap.deployXmlResource("testjms.xml");
+            logger.info("==>Configured test queues and topics");
+            
+#else
+//            logger.info("==>Deploying jboss-jms-beans - init JBoss MQ core services");
+//            EJB3StandaloneBootstrap.deployXmlResource("jboss-jms-beans.xml");
+//            logger.info("==>Deployed jboss-jms-beans");
+            
+//            logger.info("==>Configure test queue and topic");
+//            EJB3StandaloneBootstrap.deployXmlResource("testjms.xml");
+//            logger.info("==>Configured test queues and topics");
 
-    	    EJB3StandaloneBootstrap.scanClasspath();
+#end
+            logger.info("==>Deploying ejb3");
+            EJB3StandaloneBootstrap.scanClasspath();
 
-    	    // Add all EJBs found in the archive that has this file
+            // Add all EJBs found in the archive that has this file
             deployer = new EJB3StandaloneDeployer();
     
-    	    logger.info("==>Deploying ejb3");
             // Deploy everything we got
-    	    deployer.setKernel(EJB3StandaloneBootstrap.getKernel());	
+            deployer.setKernel(EJB3StandaloneBootstrap.getKernel());	
             deployer.create();
-    	    logger.info("==>Deployer created");
+            logger.info("==>Deployer created");
             deployer.start();
-    	    logger.info("==>Deployer started");
+            logger.info("==>Deployer started");
             logger.info("==>End of bootstrapping EJB3 container");
         } 
         catch (Exception ex) 
         {
-			logger.error(ex.getMessage(), ex);
+            logger.error(ex.getMessage(), ex);
             throw new RuntimeException(ex);
         }
     }
@@ -94,7 +104,7 @@ public class EJB3Container
     {
         try 
         {
-			logger.info("==>Invoking EJB3.shutdown...");
+            logger.info("==>Invoking EJB3.shutdown...");
             deployer.stop();
             deployer.destroy();
             EJB3StandaloneBootstrap.shutdown();

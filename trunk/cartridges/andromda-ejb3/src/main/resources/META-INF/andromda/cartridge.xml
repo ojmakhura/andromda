@@ -710,6 +710,23 @@
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
             </modelElement>
+            <modelElement variable="mdbs">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/test/testjms.xml.vsl"
+        outputPattern="testjms.xml"
+        outlet="test-config"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="mdbs">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade"/>
+            </modelElement>
         </modelElements>
     </template>
     
@@ -724,6 +741,9 @@
             <modelElement variable="services">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
             </modelElement>
+            <modelElement variable="mdbs">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade"/>
+            </modelElement>
         </modelElements>
     </template>
     
@@ -735,6 +755,18 @@
         <modelElements variable="service">
             <modelElement>
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+    
+    <template
+        path="templates/ejb3/test/MessageDrivenTest.vsl"
+        outputPattern="$generatedFile"
+        outlet="test-impls"
+        overwrite="false">
+        <modelElements variable="mdb">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade"/>
             </modelElement>
         </modelElements>
     </template>

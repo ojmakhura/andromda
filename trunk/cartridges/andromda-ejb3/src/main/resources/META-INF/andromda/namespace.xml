@@ -533,6 +533,20 @@
 					bean implementation class name.
 				</documentation>
 			</property>
+			<property name="messageDrivenTestNamePattern">
+			    <default>{0}Test</default>
+			    <documentation>
+			        The pattern to use when constructing the message driven bean
+			        test class name.
+			    </documentation>
+			</property>
+            <property name="messageDrivenTestPackageNamePattern">
+                <default>{0}.test</default>
+                <documentation>
+                    The pattern to use when constructing the package for
+                    the message driven bean test class.
+                </documentation>
+            </property>
 			<property name="interceptorNamePattern">
 			    <default>{0}</default>
 			    <documentation>
