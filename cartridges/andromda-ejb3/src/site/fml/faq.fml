@@ -123,5 +123,18 @@
         </p>
       </answer>
     </faq>
+    <faq id="Cannot_create_schema_with_andromdapp_schema">
+      <question>Problems creating schema using "mvn -e -f core/pom.xml andromdapp:schema -Dtasks=create"</question>
+      <answer>
+        <p>
+          Once you deploy your ear package to the application server, all necessary schemas will be created
+          for you based on the <b>hibernate.hbm2ddl.auto</b> property in your application's <i>persistence.xml</i>
+          configuration.
+        </p>
+        <p>
+          Have a look at <a href="http://galaxy.andromda.org/forum/viewtopic.php?t=3083">forum reference</a>.
+        </p>
+      </answer>
+    </faq>
   </part>
 </faqs>
