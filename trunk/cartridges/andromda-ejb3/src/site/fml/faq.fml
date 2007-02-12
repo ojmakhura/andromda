@@ -108,5 +108,20 @@
         </p>
       </answer>
     </faq>
+    <faq id="NoSuchMethodError_KernelAbstractionFactory_setKernel_with_Tests">
+      <question>Why am I getting "java.lang.RuntimeException: java.lang.NoSuchMethodError: org.jboss.ejb3.KernelAbstractionFactory.setKernel(Lorg/jboss/kernel/Kernel;)V" when running the test!</question>
+      <answer>
+        <p>
+          This is a classpath issue.  The JBoss libs/artifacts that are setup as dependencies in the project
+          contain different versions of the org.jboss.ejb3.KernelAbstractionFactory class.
+        </p>
+        <p>
+          You should be able to safely comment out or remove the <b>jboss-ejb3-client</b> dependency from your
+          dependencies list.  This library's version of KernelAbstractionFactory does not contain the
+          <i>kernel</i> attribute.  This allows this class to be seen/loaded from the <b>jboss-ejb3-all</b>
+          library.
+        </p>
+      </answer>
+    </faq>
   </part>
 </faqs>

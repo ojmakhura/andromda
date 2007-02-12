@@ -373,6 +373,10 @@
       <action dev="vancek" type="add">
         Add support for MDB testing within embedded EJB3 container.  Further customised test templates.
       </action>
+      <action dev="vancek" type="add">
+        Resource libs jms-ra.rar and jcainflow.rar are copied to src/test/resources folder of the core project
+        for testing of message driven test cases.
+      </action>
     </release>
   </body>
 </document>
