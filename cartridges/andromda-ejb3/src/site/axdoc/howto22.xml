@@ -73,6 +73,7 @@
                         <li class="impl"><a class="changed" href="howto/org/andromda/test/roles.properties"><code>roles.properties</code></a></li>
                         <li class="impl"><a class="changed" href="howto/org/andromda/test/users.properties"><code>users.properties</code></a></li>
                         <li class="impl"><a class="changed" href="howto/org/andromda/test/testng.xml"><code>testng.xml</code></a></li>
+                        <li class="impl"><a class="changed" href="howto/org/andromda/test/testjms.xml"><code>testjms.xml</code></a></li>
                     </ul>
                 </p>
                 <p>
@@ -170,6 +171,49 @@
                 <p>
                     You can now open the tests and add your implementation before running maven over the <i>core</i>
                     project or running the tests.
+                </p>
+            </subsection>
+            <a name="Message_Driven_Bean_Tests"/>
+            <subsection name="Message Driven Tests">
+                <p>
+                    If you have one or more message driven beans, you must make sure the 
+                    <code>EJB3Container.java</code> contains the following section
+                    in the <i>startup</i> method:
+<source><![CDATA[
+            logger.info("==>Deploying jboss-jms-beans - init JBoss MQ core services");
+            EJB3StandaloneBootstrap.deployXmlResource("jboss-jms-beans.xml");
+            logger.info("==>Deployed jboss-jms-beans");
+            
+            logger.info("==>Configure test queue and topic");
+            EJB3StandaloneBootstrap.deployXmlResource("testjms.xml");
+            logger.info("==>Configured test queues and topics");
+]]></source>
+                </p>
+                <p>
+                    The cartridge will generate one test class with one test case per message driven bean to 
+                    the <code>core/src/test/java</code> source folder in the corresponding package.  
+                    The the test source files will NOT be
+                    over-written, so if you wish, you can add further cases.
+                </p>
+                <p>
+                    Take a look at your <code>testng.xml</code> in <code>core/src/test/resources</code>.
+                    Apart from the other session test classes, you also have a message driven test class
+                    reference.  This is how message driven tests are triggered.
+                </p>
+                <p>
+                    Finally, take a look at <code>testjms.xml</code>.  This file contains the necessary
+                    configuration to create the queue/topics within the embedded container before the
+                    MDB's are deployed and tests are run.  This file will be automatically re-generated on
+                    every run, so when you add another MDB, this file will be updated to reflect the
+                    addition of another queue or topic.
+                </p>
+                <p class="highlight">
+                    For your message driven test framework to work, you need to make sure the <code>jms-ra.rar</code>
+                    and <code>jcainflow.rar</code> RAR files exist in your project <code>src/test/resources</code> 
+                    folder.  These are from JBoss Embeddable Microcontainer <code>lib</code>.  When you run
+                    your model generation phase, these libs will be automatically copied to your resources
+                    folder.  We are forced to do this until Eclipse (perhaps other IDE's don't have this issue) can
+                    include .rar files in the project classpath.
                 </p>
             </subsection>
         </section>
