@@ -66,6 +66,14 @@
     
     <!-- cartridge-resource merge-point -->
     
+    <resource
+        path="lib/jboss/microcontainer/*.rar"
+        outputPattern="{0}"
+        outlet="test-config"
+        overwrite="true"
+        lastModifiedCheck="true"/>
+        
+    
     <!-- Entity Bean Templates -->
 
     <template 
