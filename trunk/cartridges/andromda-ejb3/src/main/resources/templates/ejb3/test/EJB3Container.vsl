@@ -59,7 +59,7 @@ public class EJB3Container
 //            logger.info("==>Deployed security-beans");
              
 #end
-#if (!$mdbs.empty())
+#if (!$mdbs.isEmpty())
             logger.info("==>Deploying jboss-jms-beans - init JBoss MQ core services");
             EJB3StandaloneBootstrap.deployXmlResource("jboss-jms-beans.xml");
             logger.info("==>Deployed jboss-jms-beans");
