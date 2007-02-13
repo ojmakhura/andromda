@@ -39,6 +39,12 @@
         </namespace>
         <namespace name="ejb3">
             <properties>
+                <property name="dataSourceName">jdbc/howtomodel</property>
+                <property name="dataSource">java:/jdbc/howtomodel</property>
+                <property name="username">auser</property>
+                <property name="password">apassword</property>
+                <property name="driver">com.mysql.jdbc.Driver</property>
+                <property name="connectionUrl">jdbc:mysql://localhost:3306/howtomodel</property>
                 <property name="entity-beans">${howto.output.dir}</property>
                 <property name="entity-impls">${howto.output.dir}</property>
                 <property name="entity-config">${howto.output.dir}</property>
@@ -61,7 +67,6 @@
                 <property name="persistenceContainerName">jboss</property>
                 <property name="persistenceContextUnitName">howtomodel</property>
                 <property name="entityManagerName">howtomodel</property>
-                <property name="entityManagerJTADataSource">java:/jdbc/howtomodel</property>
                 <property name="hibernateDialect">net.sf.hibernate.dialect.HSQLDialect</property>
                 <property name="hibernateHbm2DDLAuto">update</property>
                 <property name="enableTemplating">true</property>

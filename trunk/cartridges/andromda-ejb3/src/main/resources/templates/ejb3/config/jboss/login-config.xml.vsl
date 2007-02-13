@@ -10,7 +10,11 @@
                           flag="required">
                 <module-option name="debug">true</module-option>
                 <module-option name="unauthenticatedIdentity">guest</module-option>
-                <module-option name="dsJndiName">${entityManagerJTADataSource}</module-option>
+                <module-option name="dsJndiName">${dataSource}</module-option>
+                <module-option name="userName">${username}</module-option>
+#if ($stringUtils.isNotBlank(${password}))
+                <module-option name="password">${password}</module-option>
+#end
                 <module-option name="principalsQuery">
                     SELECT PASSWORD 'Password' FROM principal WHERE BINARY PRINCIPAL_ID =?
                 </module-option>

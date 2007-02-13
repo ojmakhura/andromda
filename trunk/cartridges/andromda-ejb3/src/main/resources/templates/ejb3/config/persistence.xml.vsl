@@ -14,8 +14,8 @@
     version="1.0">
 -->
     <persistence-unit name="${entityManagerName}">
-#if ($stringUtils.isNotBlank($entityManagerJTADataSource))
-        <jta-data-source>${entityManagerJTADataSource}</jta-data-source>
+#if ($stringUtils.isNotBlank(${dataSource}))
+        <jta-data-source>${dataSource}</jta-data-source>
 #end
 #if ($stringUtils.isNotBlank($jarFiles))
 #**##set ($jars = $stringUtils.split($jarFiles,','))
@@ -83,7 +83,7 @@
     </persistence-unit>
 #foreach ($persistenceContext in $persistenceContexts)
     <persistence-unit name="${persistenceContext.unitName}">
-#**##if ($stringUtils.isNotBlank($entityManagerJTADataSource))
+#**##if ($stringUtils.isNotBlank(${persistenceContext.datasource}))
         <jta-data-source>${persistenceContext.datasource}</jta-data-source>
 #**##end
         <properties>

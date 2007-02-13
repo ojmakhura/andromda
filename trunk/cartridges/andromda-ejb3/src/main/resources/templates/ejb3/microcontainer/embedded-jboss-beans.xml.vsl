@@ -92,13 +92,15 @@
       </constructor>
    </bean>
 
-#if ($stringUtils.isNotBlank(${entityManagerName}))
+#if ($stringUtils.isNotBlank(${dataSource}))
    <bean name="${entityManagerName}DatasourceBootstrap" class="org.jboss.resource.adapter.jdbc.local.LocalTxDataSource">
-      <property name="driverClass">com.mysql.jdbc.Driver</property>
-      <property name="connectionURL">jdbc:mysql://localhost:3306/${entityManagerName}</property>
-      <!--      <property name="connectionURL">jdbc:hsqldb:./hypersonic/localDB</property> -->
-      <property name="userName">sa</property>
-      <property name="jndiName">java:/jdbc/${entityManagerName}</property>
+      <property name="driverClass">${driver}</property>
+      <property name="connectionURL">${connectionUrl}</property>
+      <property name="userName">${username}</property>
+#**##if ($stringUtils.isNotBlank(${password}))
+      <property name="password">${password}</property>
+#**##end
+      <property name="jndiName">${dataSource}</property>
       <property name="minSize">0</property>
       <property name="maxSize">10</property>
       <property name="blockingTimeout">1000</property>
@@ -108,7 +110,7 @@
       <property name="initialContextProperties"><inject bean="InitialContextProperties"/></property>
    </bean>
 
-   <bean name="jdbc/${entityManagerName}" class="java.lang.Object">
+   <bean name="${dataSourceName}" class="java.lang.Object">
       <constructor factoryMethod="getDatasource">
          <factory bean="${entityManagerName}DatasourceBootstrap"/>
       </constructor>
