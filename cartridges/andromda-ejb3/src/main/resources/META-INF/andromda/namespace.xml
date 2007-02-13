@@ -236,7 +236,38 @@
                     The comma separated ejb jars that are included
                     in the deployed ear package.
                 </documentation>
-            </property> 
+            </property>
+            <property name="driver" required="false">
+                <documentation>
+                    JDBC Driver to make a database connection.
+                </documentation>
+            </property>
+            <property name="username" required="false">
+                <documentation>
+                    The database user login name.
+                </documentation>
+            </property>
+            <property name="password" required="false">
+                <documentation>
+                    The database user password.
+                </documentation>
+            </property>
+            <property name="connectionUrl" required="false">
+                <documentation>
+                    URL for the JDBC Driver to make the connection to the database.
+                </documentation>
+            </property>
+            <property name="dataSource" required="false">
+                <documentation>
+                    Full JNDI name of data source to use. (would be used instead
+                    of the connection properties, driver, username, password, etc).
+                </documentation>
+            </property>
+            <property name="dataSourceName" required="false">
+                <documentation>
+                    The JNDI name of data source to use without prefix like java:/.
+                </documentation>
+            </property>
 		</propertyGroup>
 		<propertyGroup name="Cache">
             <property name="hibernateCacheProvider" required="false">

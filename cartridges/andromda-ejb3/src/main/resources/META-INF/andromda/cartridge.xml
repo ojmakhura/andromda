@@ -16,8 +16,13 @@
     
     <!-- cartridge-templateObject merge-point-->
 
+    <property reference="driver"/>
+    <property reference="username"/>
+    <property reference="password"/>
+    <property reference="connectionUrl"/>
+    <property reference="dataSource"/>
+    <property reference="dataSourceName"/>
     <property reference="entityManagerName"/>
-    <property reference="entityManagerJTADataSource"/>
     <property reference="hibernateHbm2DDLAuto"/>
     <property reference="hibernateDialect"/>
     <property reference="hibernateShowSql"/>

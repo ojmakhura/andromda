@@ -43,6 +43,12 @@
         <namespace name="ejb3">
             <properties>
                 <property name="overwrite">true</property>
+                <property name="dataSourceName">DefaultDS</property>
+                <property name="dataSource">java:/DefaultDS</property>
+                <property name="username">auser</property>
+                <property name="password">apassword</property>
+                <property name="driver">a.driver.Class</property>
+                <property name="connectionUrl">a:connection:url</property>
                 <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
                 <property name="value-objects">${test.output.dir}</property>
                 <property name="entity-beans">${test.output.dir}</property>
@@ -67,7 +73,6 @@
                 <property name="persistenceContainerName">jboss</property>
                 <property name="persistenceContextUnitName">ejb3test</property>
                 <property name="entityManagerName">ejb3test</property>
-                <property name="entityManagerJTADataSource">java:/DefaultDS</property>
                 <property name="hibernateDialect">net.sf.hibernate.dialect.HSQLDialect</property>
                 <property name="hibernateHbm2DDLAuto">update</property>
                 <property name="enableTemplating">true</property>
