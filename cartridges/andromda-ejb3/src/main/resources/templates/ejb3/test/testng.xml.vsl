@@ -8,7 +8,7 @@
 #else
 #**##set ($testPackage = "")
 #end
-#if (!$services.isEmpty())
+#if (!$services.isEmpty() || !$mdbs.isEmpty())
             <!-- Always start the EJB3 embeddable container before running the tests -->
             <class name="${testPackage}EJB3Container"/>
 #end
