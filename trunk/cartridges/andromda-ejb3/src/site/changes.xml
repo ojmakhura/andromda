@@ -377,6 +377,15 @@
         Resource libs jms-ra.rar and jcainflow.rar are copied to src/test/resources folder of the core project
         for testing of message driven test cases.
       </action>
+      <action dev="vancek" type="update">
+        Added EJB3MappedSuperclassFacade and EJB3MappedSuperclassAttributeFacade metafacades extending EJB3EntityFacade
+        and EJB3EntityAttributeFacade respectively.  This enables the ability to model a mapped superclass by modelling
+        only the MappedSuperclass stereotype.  The existing way required the Entity stereotype as well as the 
+        MappedSuperclass stereotype.  This excludes a mapped superclass in the group of manageable entities, if entities 
+        are modelled as Manageable as well.  
+        Also added 2 constraints to the EJB3EntityFacade class.  These constraints override
+        the default identifier check and generalization check constraints in the parent Entity metafacade.
+      </action>
     </release>
   </body>
 </document>

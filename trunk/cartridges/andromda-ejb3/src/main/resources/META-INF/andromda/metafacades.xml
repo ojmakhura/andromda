@@ -81,6 +81,21 @@
         </mapping>
     </metafacade>
     
+    <!--  Mapped Superclass Metafacades -->
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MappedSuperclassFacadeLogicImpl" contextRoot="true">
+		<mapping>
+			<stereotype>MAPPED_SUPERCLASS</stereotype>
+		</mapping>
+	</metafacade>
+	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MappedSuperclassAttributeFacadeLogicImpl">
+		<mapping>
+			<context>org.andromda.cartridges.ejb3.metafacades.EJB3MappedSuperclassFacade</context>
+		</mapping>
+		<property reference="entityDefaultGeneratorType"/>
+		<property reference="entityDefaultGeneratorInitialValue"/>
+		<property reference="entityDefaultGeneratorAllocationSize"/>
+	</metafacade>
+    
     <!-- WebService Metafacades -->
     <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3WebServiceFacadeLogicImpl" contextRoot="true">
         <mapping>
