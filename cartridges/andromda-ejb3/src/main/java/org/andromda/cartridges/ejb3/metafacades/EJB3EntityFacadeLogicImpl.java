@@ -17,6 +17,7 @@ import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EnumerationFacade;
@@ -220,9 +221,9 @@ public class EJB3EntityFacadeLogicImpl
         }
 
         // No PK dependency found - try a PK attribute
-        if (super.getIdentifiers() != null && !super.getIdentifiers().isEmpty())
+        if (this.getIdentifiers(true) != null && !this.getIdentifiers(true).isEmpty())
         {
-            AttributeFacade attr = (AttributeFacade)super.getIdentifiers().iterator().next();
+            AttributeFacade attr = (AttributeFacade)this.getIdentifiers(true).iterator().next();
             identifiers.add(attr);
             return identifiers;
         }
@@ -232,6 +233,49 @@ public class EJB3EntityFacadeLogicImpl
         return decorator.getIdentifiers();
     }
     
+    /**
+     * This overrides the default implementation in EntityLogicImpl.java.
+     * 
+     * This provides the means to check super classes, even those modelled
+     * as mapped superclasses, as well as entities.
+     * 
+     * Gets all identifiers for this entity. If 'follow' is true, and if
+     * no identifiers can be found on the entity, a search up the
+     * inheritance chain will be performed, and the identifiers from
+     * the first super class having them will be used.
+     * 
+     * @param follow a flag indicating whether or not the inheritance hiearchy
+     *        should be followed
+     * @return the collection of identifiers.
+     */
+    public Collection getIdentifiers(boolean follow)
+    {
+        final Collection identifiers = new ArrayList(this.getAttributes());
+        MetafacadeUtils.filterByStereotype(
+            identifiers,
+            UMLProfile.STEREOTYPE_IDENTIFIER);
+
+        if (identifiers.isEmpty() && follow)
+        {
+            if (this.getGeneralization() instanceof EJB3EntityFacade)
+            {
+                return ((EJB3EntityFacade)this.getGeneralization()).getIdentifiers(follow);
+            }
+            else if (this.getGeneralization() instanceof EJB3MappedSuperclassFacade)
+            {
+                return ((EJB3MappedSuperclassFacade)this.getGeneralization()).getIdentifiers(follow);
+            }
+            else
+            {
+                return identifiers;
+            }
+        }
+        else
+        {
+            return identifiers;
+        }
+    }
+
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#isSyntheticCreateMethodAllowed()
      */
@@ -1074,7 +1118,7 @@ public class EJB3EntityFacadeLogicImpl
 
         if (displayAttribute == null)
         {
-            if (!getIdentifiers().isEmpty())
+            if (!this.getIdentifiers().isEmpty())
             {
                 displayAttribute = (EntityAttribute)this.getIdentifiers().iterator().next();
             }

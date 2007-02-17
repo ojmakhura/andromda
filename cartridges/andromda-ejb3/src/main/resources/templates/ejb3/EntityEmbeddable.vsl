@@ -826,11 +826,36 @@ $attribute.getDocumentation("     * ")
 #else
 #**##set ($entityName = $entity.entityName)
 #end
-#renderEqualsMethod($entity $entityName $entity.identifiers)
+##
+## This was changed when the EJB3MappedSuperclassFacade was introduced.
+## If normal entity, use identifier attributes
+## If mapped superclass there are 2 options
+##    If an identifier has been explicity defined, then use the identifier
+##    If an identifier has been dynamically created, then use normal attributes and not the identifier
+##
+#if (${entity.embeddableSuperclass})
+#**##if ($entity.dynamicIdentifiersPresent)
+#*  *##set ($attributeSet = ${updatableAttributes})
+#**##else
+#*  *##set ($attributeSet = ${entity.identifiers})
+#**##end
+#else
+#**##set ($attributeSet = ${entity.identifiers})
+#end
+#renderEqualsMethod($entity $entityName $attributeSet)
 
-#renderHashCodeMethod($entity $entity.identifiers)
+#renderHashCodeMethod($entity $attributeSet)
 
-#renderToStringMethod($entity $entityName $entity.attributes)
+#if (${entity.embeddableSuperclass})
+#**##if ($entity.dynamicIdentifiersPresent)
+#*  *##set ($attributeSet = ${updatableAttributes})
+#**##else
+#*  *##set ($attributeSet = ${entity.attributes})
+#**##end
+#else
+#**##set ($attributeSet = ${entity.attributes})
+#end
+#renderToStringMethod($entity $entityName $attributeSet)
 
 #if (!$entity.entityImplementationRequired && !$entity.embeddableSuperclass && !$entity.requiresGeneralizationMapping)
 #renderCompareToMethod($entity $entityName $entity.identifiers)
