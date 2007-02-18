@@ -677,6 +677,17 @@
 					</ul>
 				</documentation>
 			</property>
+			<property name="messageDrivenTopicSubscriptionDurability">
+				<default>NonDurable</default>
+				<documentation>
+					The default topic subscription durability.
+                    Possible values are:
+					<ul>
+						<li>Durable</li>
+						<li>NonDurable</li>
+					</ul>
+				</documentation>
+			</property>
 		</propertyGroup>
 		<propertyGroup name="Entity Properties">
 			<property name="entityViewType">

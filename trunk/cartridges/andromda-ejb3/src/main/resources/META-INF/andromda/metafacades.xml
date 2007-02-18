@@ -223,6 +223,7 @@
 		<property reference="messageDrivenImplementationNamePattern"/>
 		<property reference="messageDrivenListenerNamePattern"/>
 		<property reference="messageDrivenDestinationType"/>
+        <property reference="messageDrivenTopicSubscriptionDurability"/>
         <property reference="messageDrivenTestNamePattern"/>
         <property reference="messageDrivenTestPackageNamePattern"/>
 	</metafacade>

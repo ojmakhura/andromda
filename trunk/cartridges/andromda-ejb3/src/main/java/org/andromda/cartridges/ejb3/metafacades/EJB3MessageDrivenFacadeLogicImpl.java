@@ -31,7 +31,13 @@ public class EJB3MessageDrivenFacadeLogicImpl
     /**
      * The property which stores the default destination type
      */
-    public static final String MDB_DESTINATION_TYPE = "messageDrivenDestinationType";
+    public static final String MESSAGE_DRIVEN_DESTINATION_TYPE = "messageDrivenDestinationType";
+    
+    /**
+     * The property which stores the default subscription durability for a Topic
+     */
+    public static final String MESSAGE_DRIVEN_TOPIC_SUBSCRIPTION_DURABILITY = 
+        "messageDrivenTopicSubscriptionDurability";
     
     /**
      * The property which stores the pattern defining the JMS message driven bean name.
@@ -97,7 +103,7 @@ public class EJB3MessageDrivenFacadeLogicImpl
         String destinationType = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_MDB_DESTINATION_TYPE);
         if (StringUtils.isBlank(destinationType))
         {
-            destinationType = (String)this.getConfiguredProperty(MDB_DESTINATION_TYPE);
+            destinationType = (String)this.getConfiguredProperty(MESSAGE_DRIVEN_DESTINATION_TYPE);
         }
         
         /**
@@ -262,12 +268,17 @@ public class EJB3MessageDrivenFacadeLogicImpl
      */
     protected java.lang.String handleGetSubscriptionDurability()
     {
-        String durability = null;
-        if (StringUtils.equalsIgnoreCase(getDestinationType(), EJB3Globals.MDB_DESTINATION_TYPE_TOPIC))
+        String subscriptionDurability = null;
+        if (this.isDestinationTypeTopic())
         {
-            durability = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_MDB_DURABILITY);
+            subscriptionDurability = String.valueOf(
+                    this.getConfiguredProperty(MESSAGE_DRIVEN_TOPIC_SUBSCRIPTION_DURABILITY));
+            if (this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_MDB_DURABILITY) != null)
+            {
+                subscriptionDurability = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_EJB_MDB_DURABILITY);
+            }
         }
-        return durability;
+        return subscriptionDurability;
     }
 
     /**
