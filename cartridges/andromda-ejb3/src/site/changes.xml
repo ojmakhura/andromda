@@ -386,6 +386,10 @@
         Also added 2 constraints to the EJB3EntityFacade class.  These constraints override
         the default identifier check and generalization check constraints in the parent Entity metafacade.
       </action>
+      <action dev="vancek" due-to="Wzzl" type="fix">
+        Set default topic subscription durability as NonDurable in case a Topic does not have the subscription
+        durability TV modelled.
+      </action>
     </release>
   </body>
 </document>
