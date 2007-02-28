@@ -43,9 +43,15 @@ $entity.getDocumentation(" * ")
 #else
 @javax.persistence.Entity
 #**##if ($entity.seamComponent)
-@org.jboss.seam.annotations.Name("${entity.seamComponentName}")
+/**
+ * Use components.xml to define Seam components
+ * @org.jboss.seam.annotations.Name("${entity.seamComponentName}")
+ */
 #*  *##if ($stringUtils.isNotBlank($entity.seamComponentScopeType))
-@org.jboss.seam.annotations.Scope(org.jboss.seam.ScopeType.${entity.seamComponentScopeType})
+/**
+ * Use components.xml to define Seam component scope type
+ * @org.jboss.seam.annotations.Scope(org.jboss.seam.ScopeType.${entity.seamComponentScopeType})
+ */
 #*  *##end
 #**##end
 ##
@@ -234,10 +240,7 @@ public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
     /**
      * Default empty constructor
      */
-    public #if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)${entity.entityEmbeddableName}#else${entity.entityName}#end()
-    { 
-        // default null constructor
-    }
+    public #if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)${entity.entityEmbeddableName}#else${entity.entityName}#end() {}
     
 ## Autogenerate a constructor implementation with all attributes.
 #set ($allAttributes = $transform.filterByVisibility($entity.allInstanceAttributes, "public"))
@@ -267,15 +270,15 @@ public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
 #set ($relations = $entity.allEntityRelations)
 #if (!$relations.empty)
 #**##if ($entity.syntheticCreateMethodAllowed)
+#*  *##set ($updatableAttributes = $transform.filterUpdatableAttributes($allAttributes, $entity.compositePrimaryKeyPresent))
     /**
      * Constructor with all POJO attribute values and CMR relations.
      *
-#*  *##set ($updatableAttributes = $transform.filterUpdatableAttributes($allAttributes, $entity.compositePrimaryKeyPresent))
 #*  *##foreach($attribute in $updatableAttributes)
      * @param $attribute.name Value for the ${attribute.name} property
 #*  *##end
 #*  *##foreach ($relation in $relations)
-     * @param $relation.otherEnd.name Value for the ${relation.otherEnd.name} relation role
+     * @param $relation.otherEnd.name Value for the ${relation.otherEnd.name} relation
 #*  *##end
      */
     public #if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)${entity.entityEmbeddableName}#else${entity.entityName}#end($entity.getAttributesAsList($allAttributes, true, true, false)#if(!$updatableAttributes.empty), #end#foreach ($relation in $relations)${relation.otherEnd.getterSetterTypeName} $relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
