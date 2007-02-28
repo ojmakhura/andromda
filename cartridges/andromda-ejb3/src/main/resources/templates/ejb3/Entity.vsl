@@ -104,19 +104,20 @@ public#if ($entity.abstract) abstract#end class ${entity.entityName}
 #set ($relations = $entity.allEntityRelations)
 #if (!$relations.empty)
 #**##if ($entity.syntheticCreateMethodAllowed)
+#*  *##set ($updatableAttributes = $transform.filterUpdatableAttributes($allAttributes, $entity.compositePrimaryKeyPresent))
     /**
      * Constructor with all POJO attribute values and CMR relations.
      *
-#*  *##foreach($attribute in $transform.filterUpdatableAttributes($allAttributes, $entity.compositePrimaryKeyPresent))
+#*  *##foreach($attribute in $updatableAttributes)
      * @param $attribute.name Value for the ${attribute.name} property
 #*  *##end
 #*  *##foreach ($relation in $relations)
-     * @param $relation.otherEnd.name Value for the ${relation.otherEnd.name} relation role
+     * @param $relation.otherEnd.name Value for the ${relation.otherEnd.name} relation
 #*  *##end
      */
-    public ${entity.entityName}($entity.getAttributesAsList($allAttributes, true, true, false)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)${relation.otherEnd.getterSetterTypeName} $relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
+    public ${entity.entityName}($entity.getAttributesAsList($allAttributes, true, true, false)#if(!$updatableAttributes.empty), #end#foreach ($relation in $relations)${relation.otherEnd.getterSetterTypeName} $relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
     {
-        super($entity.getAttributesAsList($allAttributes, false, true, false)#if(!$allAttributes.empty), #end#foreach ($relation in $relations)$relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end);
+        super($entity.getAttributesAsList($updatableAttributes, false, true, false)#if(!$updatableAttributes.empty), #end#foreach ($relation in $relations)$relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end);
     }
     
 #**##end
