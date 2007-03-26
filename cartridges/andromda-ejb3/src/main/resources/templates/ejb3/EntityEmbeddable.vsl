@@ -119,7 +119,7 @@ $entity.getDocumentation(" * ")
 #*  *##end
 #**##end
 #end
-public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass) abstract class ${entity.entityEmbeddableName}#else class ${entity.entityName}#end
+public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass) abstract class ${entity.entityEmbeddableName}#else#if($entity.abstract) abstract#end class ${entity.entityName}#end
 
 #if($entity.requiresGeneralizationMapping)
 #**##if($entity.embeddableSuperclassGeneralizationExists)
@@ -258,9 +258,6 @@ public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
      */
     public #if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)${entity.entityEmbeddableName}#else${entity.entityName}#end($entity.getAttributesAsList($allAttributes, true, true, false)) 
     {
-#**##if(!$inheritedAttributes.empty)
-        super($entity.getAttributesAsList($inheritedAttributes, false, true, false));
-#**##end
 #**##foreach ($attribute in $updatableAttributes)
         ${attribute.setterName}(${attribute.name});
 #**##end

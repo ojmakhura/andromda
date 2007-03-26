@@ -390,6 +390,14 @@
         Set default topic subscription durability as NonDurable in case a Topic does not have the subscription
         durability TV modelled.
       </action>
+      <action dev="vancek" due-to="heapifyman" type="fix">
+        Fix entity constructor generation when no attributes modelled but operation and associations exist.
+      </action>
+      <action dev="vancek" due-to="jonnyBgood" type="fix">
+        Fix support for abstract super entity (add super to class declaration) even when super entity is not a 
+        mapped superclass or specializes another entity. This also cleaned up the constructor implementation in
+        the inheriting entity.
+      </action>
     </release>
   </body>
 </document>
