@@ -8,27 +8,54 @@ package $service.packageName;
 #set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedServiceName,'.','/')}.java")
 
 /**
- * @see ${service.fullyQualifiedServiceName}
- */
-/**
+ * @see ${service.fullyQualifiedServiceBaseName}
+ *
+ * Remember to manually configure the local business interface this bean implements if originally you only
+ * defined the remote business interface.  However, this change is automatically reflected in the ejb-jar.xml.
+ *
+#if (!$service.seamComponent)
  * Do not specify the javax.ejb.${service.type} annotation
- * Instead, define the session bean in the ejb-jar.xml descriptor
- * @javax.ejb.${service.type}
+ * Instead, the session bean is defined in the ejb-jar.xml descriptor.
  */
+#else
+ * This session bean is a Seam component.  Currently, Seam components
+ * must have the bean type specified via annotations.  Once this has been
+ * fixed in Seam 1.2.1, it is enough to define the session bean
+ * in ejb-jar.xml and we can safely remove this annotation.
+ */
+@javax.ejb.${service.type}
+#**##if ($service.seamComponentStartup)
+@org.jboss.seam.annotations.Startup#if ($stringUtils.isNotEmpty($service.seamComponentStartupOptions))$service.seamComponentStartupOptions#end
+#**##else
+// Uncomment to define Seam startup
+// @org.jboss.seam.annotations.Startup#if ($stringUtils.isNotEmpty($service.seamComponentStartupOptions))$service.seamComponentStartupOptions#end
+
+#**##end
+#end
 #if ($service.webServiceEnabled)
 @javax.jws.WebService(endpointInterface = "${service.fullyQualifiedWebServiceInterfaceName}")
 #else
-/**
- * Uncomment to enable webservices for ${service.serviceName}
- *@javax.jws.WebService(endpointInterface = "${service.fullyQualifiedWebServiceInterfaceName}")
- */
+// Uncomment to enable webservices for ${service.serviceName}
+// @javax.jws.WebService(endpointInterface = "${service.fullyQualifiedWebServiceInterfaceName}")
 #end
 public class ${service.serviceName} 
     extends ${service.fullyQualifiedServiceBaseName} 
+    implements#if ($service.viewTypeLocal) ${service.fullyQualifiedServiceLocalInterfaceName}#if ($service.viewTypeRemote),#end#end#if ($service.viewTypeRemote) ${service.fullyQualifiedServiceRemoteInterfaceName}#end
+
 {
+#if ($service.stateful)
+    /**
+     * Bean serial version ID
+     */
+    private static final long serialVersionUID = 1L;
+#end
+    
     // --------------- Constructors ---------------
     
 ## Default create method with no arguments.
+    /**
+     * Default constructor extending base class default constructor
+     */
     public ${service.serviceName}()
     {
         super();
@@ -116,17 +143,5 @@ $operation.getDocumentation("     * ")
     
 #*  *##end
 #**##end
-#end
-#if ($service.stateful)
-
-    // ----------- Destroy Method Implementation -----------
-    
-    /**
-     * @see ${service.fullyQualifiedServiceName}#destroy()
-     */
-    protected void handleDestroy()
-    {
-        //TODO: put your implementation here
-    }
 #end
 }

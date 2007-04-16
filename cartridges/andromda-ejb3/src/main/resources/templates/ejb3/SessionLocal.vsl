@@ -10,55 +10,17 @@ package $service.packageName;
 
 /**
  * Local component interface for the ${service.serviceName} session bean.
+#if ($service.seamComponent)
+ * The service that implement this business interface is a Seam component.  The cartridge
+ * only exposes this interface as a Local business interface for the Seam bean
+ * component.
+#end
 $service.getDocumentation(" * ")
  */
+@javax.ejb.Local
 public interface ${service.serviceLocalInterfaceName}
-#if($service.generalization)
-    extends ${service.generalization.fullyQualifiedName}Local
-#end
+    extends ${service.serviceInterfaceName}#if($service.generalization), ${service.generalization.fullyQualifiedName}Local#end
 {
-#set ($constants = $service.constants)
-#if (!$constants.empty)
-
-    // ----------- Accessors For Constants ------------
-    
-#**##foreach($constant in $constants)
-## Only expose the method if it is public.
-#*  *##if($constant.visibility == "public")
-    /**
-     * Get the $attribute.name constant
-$constant.getDocumentation("     * ")
-     */
-    public $constant.type.fullyQualifiedName ${constant.getterName}();
-
-#*  *##end
-#**##end
-#end
-#set ($attributes = $service.filterSeamAttributes(${service.instanceAttributes}))
-#if (!$attributes.empty)
-
-    // --------------- Attributes ---------------------
-    
-#**##foreach ($attribute in $attributes)
-## Only expose the method to the component interface if it is public.
-#*  *##if ($attribute.visibility == "public")
-    /**
-     * Get the $attribute.name property
-$attribute.getDocumentation("     * ")
-     */
-    public $attribute.type.fullyQualifiedName ${attribute.getterName}();
-    
-#*    *##if(!$attribute.readOnly)
-    /**
-     * Set the $attribute.name property
-     * @param value the new value
-     */
-    public void ${attribute.setterName}($attribute.type.fullyQualifiedName value);
-    
-#*    *##end
-#*  *##end
-#**##end
-#end
 #set ($operations = $service.businessOperations)
 #if (!$operations.empty)
 
@@ -68,26 +30,23 @@ $attribute.getDocumentation("     * ")
 ##
 ## Only expose methods that are not lifecycle callbacks
 ## Only expose public methods with local view type accessability
+## or if the session bean is a Seam component, then expose all methods
 ##
-#*  *##if ($operation.viewTypeAbsoluteLocal)
+#*  *##if ($operation.viewTypeAbsoluteLocal || $service.seamComponent)
     /**
 $operation.getDocumentation("     * ")
      */
-#*    *##set ($returnType = $operation.returnType.fullyQualifiedName)
-#*    *##if ($operation.exceptionsPresent)
+#*    *##if ($operation.visibility == "public")
+#*      *##set ($returnType = $operation.returnType.fullyQualifiedName)
+#*      *##if ($operation.exceptionsPresent)
     public $returnType $operation.signature
         throws $operation.exceptionList;
-#*    *##else
+#*      *##else
     public $returnType $operation.signature;
+#*      *##end
 #*    *##end
 
 #*  *##end
 #**##end
-#end
-#if ($service.stateful)
-
-    // ------------ Lifecycle Methods  -----------------
-    
-    public void destroy();
 #end
 }

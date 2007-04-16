@@ -40,6 +40,11 @@ extends EJB3SessionFacadeLogic
     public static final String SERVICE_NAME_PATTERN = "serviceNamePattern";
 
     /**
+     * The property which stores the pattern defining the service bean parent interface name.
+     */
+    public static final String SERVICE_INTERFACE_NAME_PATTERN = "serviceInterfaceNamePattern";
+    
+    /**
      * The property which stores the pattern defining the service bean local interface name.
      */
     public static final String SERVICE_LOCAL_INTERFACE_NAME_PATTERN = "serviceLocalInterfaceNamePattern";
@@ -483,8 +488,7 @@ extends EJB3SessionFacadeLogic
      */
     protected java.lang.String handleGetTransactionType()
     {
-        return EJB3MetafacadeUtils.getTransactionType(this, 
-                String.valueOf(this.getConfiguredProperty(EJB3Globals.TRANSACTION_TYPE)));
+        return EJB3MetafacadeUtils.getTransactionType(this, null);
     }
 
     /**
@@ -534,6 +538,19 @@ extends EJB3SessionFacadeLogic
                 new Object[] {StringUtils.trimToEmpty(this.getName())});
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetServiceInterfaceName()
+     */
+    protected String handleGetServiceInterfaceName()
+    {
+        String serviceInterfaceNamePattern = 
+            (String)this.getConfiguredProperty(SERVICE_INTERFACE_NAME_PATTERN);
+
+        return MessageFormat.format(
+                serviceInterfaceNamePattern,
+                new Object[] {StringUtils.trimToEmpty(this.getName())});
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetServiceLocalInterfaceName()
      */
@@ -659,6 +676,17 @@ extends EJB3SessionFacadeLogic
                 null);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetFullyQualifiedServiceInterfaceName()
+     */
+    protected String handleGetFullyQualifiedServiceInterfaceName()
+    {
+        return EJB3MetafacadeUtils.getFullyQualifiedName(
+                this.getPackageName(),
+                this.getServiceInterfaceName(),
+                null);
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionFacadeLogic#handleGetFullyQualifiedServiceLocalInterfaceName()
      */
@@ -1293,7 +1321,7 @@ extends EJB3SessionFacadeLogic
         else 
         {
             StringBuffer buf = new StringBuffer();
-            buf.append("(depends={");
+            buf.append("(depends = {");
             Iterator it = depends.iterator();
             while(it.hasNext()) 
             {
@@ -1342,5 +1370,4 @@ extends EJB3SessionFacadeLogic
     {
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SEAM_TRANSACTION_TRANSACTIONAL);
     }
-
 }

@@ -20,17 +20,6 @@ $entity.getDocumentation(" * ")
  */
 
 @javax.persistence.Entity
-#if ($entity.seamComponent)
-@org.jboss.seam.annotations.Name("${entity.seamComponentName}")
-#**##if ($stringUtils.isNotBlank($entity.seamComponentScopeType))
-@org.jboss.seam.annotations.Scope(org.jboss.seam.ScopeType.${entity.seamComponentScopeType})
-#**##end
-#else
-// Uncomment to enable seam component name
-// @org.jboss.seam.annotations.Name("${entity.seamComponentName}")
-// Uncomment to set specific component scope type
-//@org.jboss.seam.annotations.Scope(org.jboss.seam.ScopeType.#if ($entity.stateless)STATELESS#else#**#CONVERSATION#end)
-#end
 @javax.persistence.Table(name = "${entity.tableName}")
 #if ($entity.listenerEnabled)
 @javax.persistence.EntityListeners({${entity.fullyQualifiedEntityListenerName}.class})

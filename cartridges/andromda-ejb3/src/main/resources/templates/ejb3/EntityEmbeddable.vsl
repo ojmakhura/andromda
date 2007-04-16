@@ -478,9 +478,12 @@ $attribute.getDocumentation("     * ")
 #*      *##end
 #*      *##if ($hibernateExtensionEnabled && $entity.seamComponent)
 ##
-## If JBoss Seam and Hibernate extensions are both enabled, add NotNull and Length annotations
+## If JBoss Seam and Hibernate extensions are both enabled, add NotNull and Length annotations where required
 ##
-#*        *##if (!$attribute.columnNullable)
+#*        *##if (!$attribute.columnNullable && !($entity.dynamicIdentifiersPresent && $attribute.identifier))
+##
+## Only specify this validator if identifier explicity specified and explicity set as not null
+##
     @org.hibernate.validator.NotNull
 #*        *##end
 #*        *##if ($attribute.columnLength)

@@ -34,10 +34,13 @@
                 entity's implementation class (they are considered to be business operations).
             </p>
             <p>
-                The documentation discussing the modeling of queries in UML is found here:
-                <a href="../andromda-ocl-query-library/modeling.html">Query Translation-Library Modeling</a>.
+                The documentation discussing the modelling of queries in OCL is found on the AndroMDA main
+                project in <a href="http://galaxy.andromda.org/docs/andromda-translation-libraries/index.html">
+                Translation Libraries</a> and
+                <a href="http://galaxy.andromda.org/docs/andromda-translation-libraries/andromda-ocl-translation-libraries/andromda-ocl-query-library/modeling.html">
+                Query Translation Library Modelling</a>.
                 The tagged value overriding queries using EJB QL directly is found here:
-                <a href="../profile.html#@andromda_ejb_query">@andromda.ejb.query</a>.
+                <a href="http://galaxy.andromda.org/docs/andromda-ejb-cartridge/profile.html#@andromda_ejb_query">@andromda.ejb.query</a>.
             </p>
             <p>
                 <img src="images/org/andromda/test/6/a/uml.gif"/>
@@ -138,7 +141,7 @@
             <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate</artifactId>
-                <version>3.2.1.ga</version>
+                <version>3.2.0.ga</version>
                 <scope>provided</scope>
             </dependency>
             ...
@@ -163,7 +166,7 @@
             </p>
             <p>
                 You can then model a <i>Classifier</i> scoped operation in your Entity such that you can
-                over-write the implementation in the DAOImpl (DAP implementation) and use the session object to
+                over-write the implementation in the DAOImpl (DAO implementation) and use the session object to
                 create the criteria and perform the query.
             </p>
             <p>

@@ -67,20 +67,20 @@ public class EJB3SessionAttributeFacadeLogicImpl
         ArrayList parameters = new ArrayList();
         if(!isRequired()) 
         {
-            parameters.add("required=false");
+            parameters.add("required = false");
         } 
         else 
         {
             if(BooleanUtils.toBoolean(
                     (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_IN_CREATE, true))) 
             {
-                parameters.add("create=true");
+                parameters.add("create = true");
             }
         }
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_IN_VALUE, true);
         if(StringUtils.isNotBlank(value)) 
         {
-            parameters.add("value=\"" + value + "\"");
+            parameters.add("value = \"" + value + "\"");
         }
 
         return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
@@ -102,19 +102,19 @@ public class EJB3SessionAttributeFacadeLogicImpl
         ArrayList parameters = new ArrayList();
         if(!isRequired()) 
         {
-            parameters.add("required=false");
+            parameters.add("required = false");
         }
 
         String scope = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_OUT_SCOPE_TYPE, true);
         if(StringUtils.isNotBlank(scope)) 
         {
-            parameters.add("scope=\"" + scope + "\"");
+            parameters.add("scope = org.jboss.seam.ScopeType." + scope);
         }
 
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_OUT_VALUE, true);
         if(StringUtils.isNotBlank(value)) 
         {
-            parameters.add("value=\"" + value + "\"");
+            parameters.add("value = \"" + value + "\"");
         }
 
         return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
@@ -150,12 +150,12 @@ public class EJB3SessionAttributeFacadeLogicImpl
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_VALUE, true);
         if(StringUtils.isNotBlank(value)) 
         {
-            parameters.add("value=\"" + value + "\"");
+            parameters.add("value = \"" + value + "\"");
         }
         String scope = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_SCOPE_TYPE, true);
         if(StringUtils.isNotBlank(scope)) 
         {
-            parameters.add("scope=\"" + scope + "\"");
+            parameters.add("scope = org.jboss.seam.ScopeType." + scope);
         }
 
         return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
@@ -178,7 +178,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
         String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_SELECTION_VALUE, true);
         if(StringUtils.isNotBlank(value)) 
         {
-            parameters.add("value=\"" + value + "\"");
+            parameters.add("value = \"" + value + "\"");
         }
 
         return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
@@ -202,7 +202,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
                 EJB3Profile.TAGGEDVALUE_SEAM_DATA_DATAMODEL_SELECTION_INDEX_VALUE, true);
         if(StringUtils.isNotBlank(value)) 
         {
-            parameters.add("value=\"" + value + "\"");
+            parameters.add("value = \"" + value + "\"");
         }
 
         return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
@@ -231,7 +231,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
             String value = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_LOGGER_VALUE, true);
             if(StringUtils.isNotBlank(value)) 
             {
-                parameters.add("value=\"" + value + "\"");
+                parameters.add("value = \"" + value + "\"");
             }
 
             return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
@@ -256,7 +256,7 @@ public class EJB3SessionAttributeFacadeLogicImpl
                 EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_REQUEST_PARAMETER_VALUE, true);
         if(StringUtils.isNotBlank(value)) 
         {
-            parameters.add("value=\"" + value + "\"");
+            parameters.add("value = \"" + value + "\"");
         }
 
         return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
