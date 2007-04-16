@@ -463,6 +463,13 @@
 					"Bean".
 				</documentation>
 			</property>
+			<property name="serviceInterfaceNamePattern">
+				<default>{0}</default>
+				<documentation>
+					The pattern to use when constructing the service
+					bean parent interface name.
+				</documentation>
+			</property>
 			<property name="serviceLocalInterfaceNamePattern">
 				<default>{0}Local</default>
 				<documentation>
@@ -1221,7 +1228,7 @@
 						<li>NEVER</li>
 					</ul>
 					<strong>NOTE:</strong>
-					Can be overridden on a per entity basis with the
+					Can be overridden on a per bean/bean operation basis with the
 					<a
 						href="profile.html#@andromda_ejb_transaction_type">
 						@andromda.ejb.transaction.type

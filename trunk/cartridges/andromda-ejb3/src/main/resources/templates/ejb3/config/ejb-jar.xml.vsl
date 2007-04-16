@@ -19,7 +19,10 @@
                 ]]>
             </description>
             <ejb-name>${service.serviceName}</ejb-name>
-#**##if ($service.viewTypeRemote)
+##
+## Only define the remote business interface if the bean is NOT a Seam component
+##
+#**##if ($service.viewTypeRemote && !$service.seamComponent)
             <remote>${service.fullyQualifiedServiceRemoteInterfaceName}</remote>
 #**##end
 #**##if ($service.viewTypeLocal)
@@ -140,7 +143,15 @@
         
 #end
     </enterprise-beans>
+#if (${seamEnabled} == 'true')
 
+    <interceptors>
+        <interceptor>
+            <interceptor-class>org.jboss.seam.ejb.SeamInterceptor</interceptor-class>
+        </interceptor>
+    </interceptors>
+    
+#end
     <assembly-descriptor>
 #foreach ($interceptor in $interceptors)
 ##

@@ -398,6 +398,48 @@
         mapped superclass or specializes another entity. This also cleaned up the constructor implementation in
         the inheriting entity.
       </action>
+      <action dev="vancek" type="fix">
+        If transaction type specified on the class level and not on the method level, do not generate the
+        @TransactionAttribute on the method.  Similarly, if not modelled on the class level, do not generate it there.
+        It doesn't make sense to have this annotation at the class level of the parent bean as class level annotations
+        are not inherited.
+      </action>
+      <action dev="vancek" type="update">
+        Remove handleDestroy abstract method in SessionBeanBase.  This was not being called correctly by
+        Seam.
+      </action>
+      <action dev="vancek" type="update">
+        Session bean base or super classes now extend a super interface.  Local and remote business interfaces 
+        extend this super interface. Session bean implementations now extend the business interface(s).
+        This does introduce manual modification when refactoring a session bean's business interface.
+        The super interface contains common constants and attribute mutator definitions.
+      </action>
+      <action dev="vancek" type="update">
+        Update persistence.xml descriptor with schema and namespace attributes.
+        Added provider org.hibernate.ejb.HibernatePersistence property.
+      </action>
+      <action dev="vancek" type="add">
+        Expand on JBoss Seam support.  Move Entity and Session bean Seam component declaration to newly added
+        components.xml.
+        This means removing @org.jboss.seam.annotations.Name and @org.jboss.seam.annotations.Scope annotations.
+        Only specify the @org.hibernate.validator.NotNull annotation on identifier attributes in entity Seam pojos
+        if identifer is explicity modelled and explicity defined as not null.
+        The ejb-jar.xml descriptor will NOT allow remote business interface declaration where the session bean
+        is a Seam component.
+        Add interceptors definition to ejb-jar.xml for the SeamInterceptor.
+      </action>
+      <action dev="vancek" type="update">
+        By default, if a Seam component does not have it's scopte type specified, then the default stateless
+        scope type is assigned to stateless session beans and a conversation scope type is specified for all
+        other types of beans.
+      </action>
+      <action dev="vancek" type="fix">
+        Specify the full package path for ScopeType and FlushModeType where the scope  
+        or the flushMode parameters are required in Seam annotations.
+      </action>
+      <action dev="vancek" type="fix">
+        Fix URLs in howto6.xml for referencing main AndroMDA project.
+      </action>
     </release>
   </body>
 </document>

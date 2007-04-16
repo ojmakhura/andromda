@@ -258,6 +258,8 @@ public class EJB3SessionOperationFacadeLogicImpl
 
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3SessionOperationFacadeLogic#handleGetTransactionType()
+     * 
+     * If no method level transaction type specified, take it from the class level if it exists there.
      */
     protected String handleGetTransactionType()
     {
@@ -268,8 +270,8 @@ public class EJB3SessionOperationFacadeLogicImpl
         }
         else
         {
-            transType = StringUtils.trimToEmpty(
-                    ObjectUtils.toString(this.getConfiguredProperty(EJB3Globals.TRANSACTION_TYPE)));
+            EJB3SessionFacade session = (EJB3SessionFacade)this.getOwner();
+            transType = session.getTransactionType();
         }
         return transType;
     }
@@ -700,13 +702,13 @@ public class EJB3SessionOperationFacadeLogicImpl
         String value = (String) this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_FACTORY_VALUE);
         if(StringUtils.isNotBlank(value)) 
         {
-            parameters.add("\"" + value + "\"");
+            parameters.add("value = \"" + value + "\"");
         }
         
         String scope = (String) this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_BIJECTION_FACTORY_SCOPE_TYPE);
         if(StringUtils.isNotBlank(scope)) 
         {
-            parameters.add("scope=" + scope);
+            parameters.add("scope = org.jboss.seam.ScopeType." + scope);
         }
         
         return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
@@ -735,25 +737,25 @@ public class EJB3SessionOperationFacadeLogicImpl
     		String flushMode = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_BEGIN_FLUSH_MODE);
     		if(StringUtils.isNotBlank(flushMode)) 
             {
-				parameters.add("flushMode=FlushModeType." + flushMode);
+				parameters.add("flushMode = org.jboss.seam.annotations.FlushModeType." + flushMode);
     		}
 
     		String pageflow = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_BEGIN_PAGEFLOW);
     		if(StringUtils.isNotBlank(pageflow)) 
             {
-				parameters.add("pageflow=\"" + pageflow + "\"");
+				parameters.add("pageflow = \"" + pageflow + "\"");
     		}
 
     		String join = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_BEGIN_JOIN);
     		if(StringUtils.isNotBlank(join)) 
             {
-				parameters.add("join=" + join.toLowerCase());
+				parameters.add("join = " + join.toLowerCase());
     		}
 
     		String nested = (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_BEGIN_NESTED);
     		if(StringUtils.isNotBlank(nested)) 
             {
-				parameters.add("nested=" + nested.toLowerCase());
+				parameters.add("nested = " + nested.toLowerCase());
     		}
 
     		Collection ifOutcome = this.findTaggedValues(EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_BEGIN_IF_OUTCOME);
@@ -789,14 +791,14 @@ public class EJB3SessionOperationFacadeLogicImpl
                     EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_BEGIN_TASK_FLUSH_MODE);
     		if(StringUtils.isNotBlank(flushMode)) 
             {
-				parameters.add("flushMode=\"" + flushMode + "\"");
+				parameters.add("flushMode = org.jboss.seam.annotations.FlushModeType." + flushMode + "\"");
     		}
 
     		String taskIdParameter = (String)this.findTaggedValue(
                     EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_BEGIN_TASK_ID_PARAMETER);
     		if(StringUtils.isNotBlank(taskIdParameter)) 
             {
-				parameters.add("taskIdParameter=\"" + taskIdParameter + "\"");
+				parameters.add("taskIdParameter = \"" + taskIdParameter + "\"");
     		}
     		return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);
     	}
@@ -815,7 +817,7 @@ public class EJB3SessionOperationFacadeLogicImpl
 	 */
 	protected String handleGetSeamConversationCreateProcessParameters() 
     {
-		return "(definition=\"" + 
+		return "(definition = \"" + 
             (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_CREATE_PROCESS_DEFINITION) + "\")";
 	}
     
@@ -843,7 +845,7 @@ public class EJB3SessionOperationFacadeLogicImpl
                     EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_END_TASK_BEFORE_REDIRECT);
     		if(StringUtils.isNotBlank(beforeRedirect)) 
             {
-    			parameters.add("beforeRedirect=" + beforeRedirect.toLowerCase());
+    			parameters.add("beforeRedirect = " + beforeRedirect.toLowerCase());
     		}
 
     		Collection ifOutcome = this.findTaggedValues(EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_END_IF_OUTCOME);
@@ -890,14 +892,14 @@ public class EJB3SessionOperationFacadeLogicImpl
                     EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_END_TASK_TRANSITION_NAME);
     		if(StringUtils.isNotBlank(transition)) 
             {
-				parameters.add("transition=\"" + transition + "\"");
+				parameters.add("transition = \"" + transition + "\"");
     		}
 
     		String beforeRedirect = (String)this.findTaggedValue(
                     EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_END_TASK_BEFORE_REDIRECT);
     		if(StringUtils.isNotBlank(beforeRedirect)) 
             {
-    			parameters.add("beforeRedirect=" + beforeRedirect.toLowerCase());
+    			parameters.add("beforeRedirect = " + beforeRedirect.toLowerCase());
     		}
     		Collection ifOutcome = this.findTaggedValues(EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_END_TASK_IF_OUTCOME);
     		if(ifOutcome != null && !ifOutcome.isEmpty()) 
@@ -921,7 +923,7 @@ public class EJB3SessionOperationFacadeLogicImpl
 	 */
 	protected String handleGetSeamConversationResumeProcessParameters() 
     {
-		return "(processIdParameter=\"" + 
+		return "(processIdParameter = \"" + 
             (String)this.findTaggedValue(
                     EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_RESUME_PROCESS_PROCESS_ID_PARAMETER) + "\")";
 	}
@@ -950,14 +952,14 @@ public class EJB3SessionOperationFacadeLogicImpl
                     EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_START_TASK_FLUSH_MODE);
     		if (StringUtils.isNotBlank(flushMode)) 
             {
-				parameters.add("flushMode=" + flushMode);
+				parameters.add("flushMode = org.jboss.seam.annotations.FlushModeType." + flushMode);
     		}
     			
     		String taskIdParameter = (String)this.findTaggedValue(
                     EJB3Profile.TAGGEDVALUE_SEAM_CONVERSATION_START_TASK_ID_PARAMETER);
     		if (StringUtils.isNotBlank(taskIdParameter))
             {
-				parameters.add("taskIdParameter=\"" + taskIdParameter + "\"");
+				parameters.add("taskIdParameter = \"" + taskIdParameter + "\"");
     		}
             
     		return EJB3MetafacadeUtils.buildAnnotationParameters(parameters);

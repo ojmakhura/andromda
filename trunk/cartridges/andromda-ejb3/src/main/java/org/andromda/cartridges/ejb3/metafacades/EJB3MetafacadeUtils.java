@@ -366,13 +366,25 @@ class EJB3MetafacadeUtils
      *     If the Classifier is an entity or stateful session bean, then returns CONVERSATION
      * 
      * @param classifier The classifier to lookup the scope type tagged value
-     * @paam stateful Whether the classifier is a stateful session bean
+     * @paam stateless Whether the classifier is a stateless session bean
      * @return The scope type as a String
      */
     static String getSeamComponentScopeType(ClassifierFacade classifier, boolean stateless)
     {
         ExceptionUtils.checkNull("classifer", classifier);
-        return (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_SCOPE_TYPE);
+        String scopeType = (String)classifier.findTaggedValue(EJB3Profile.TAGGEDVALUE_SEAM_SCOPE_TYPE);
+        if (StringUtils.isBlank(scopeType))
+        {
+            if (stateless)
+            {
+                scopeType = EJB3Globals.SEAM_COMPONENT_SCOPE_STATELESS;
+            }
+            else
+            {
+                scopeType = EJB3Globals.SEAM_COMPONENT_SCOPE_CONVERSATION;
+            }
+        }
+        return scopeType;
     }
     
     /**
@@ -464,7 +476,7 @@ class EJB3MetafacadeUtils
         else 
         {
 			StringBuffer buf = new StringBuffer();
-			buf.append(name + "={");
+			buf.append(name + " = {");
 
 			Iterator it = values.iterator();
 			while(it.hasNext()) 
