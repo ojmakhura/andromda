@@ -95,7 +95,8 @@
         <schedule interval="1200">
             <!--ant buildfile="/andromda/builds/v3/andromda-all/etc/cc-build/mvn-cc-build.xml"/-->
 	        <!--maven goal="scm:update-project|clean-dist|deploy-distribution" projectfile="/andromda/builds/v3/andromda-all/project.xml" mavenscript="/usr/local/maven1/bin/maven"/-->
-			<maven2 goal="scm:update|clean -e -U|install -e" pomfile="/andromda/builds/v3/andromda-all/pom.xml" mvnscript="/usr/local/maven2/bin/mvn"/>
+			<!-- AMW remove clean step since it breaks with some weird maven problem -->
+			<maven2 goal="scm:update|install -e" pomfile="/andromda/builds/v3/andromda-all/pom.xml" mvnscript="/usr/local/maven2/bin/mvn"/>
         </schedule>
         <listeners>
            <currentbuildstatuslistener file="/andromda/builds/logs/andromda-v3/currentbuildstatus.txt"/>
