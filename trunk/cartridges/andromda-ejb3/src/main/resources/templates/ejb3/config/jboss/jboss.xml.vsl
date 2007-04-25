@@ -48,6 +48,9 @@
         <message-driven>
             <ejb-name>${mdb.messageDrivenName}</ejb-name>
             <destination-jndi-name>${mdb.destination}</destination-jndi-name>
+#**##if ($mdb.subscriptionDurable)
+            <mdb-subscription-id>${mdb.durableSubscriptionId}</mdb-subscription-id>
+#**##end
         </message-driven>
         
 #end
