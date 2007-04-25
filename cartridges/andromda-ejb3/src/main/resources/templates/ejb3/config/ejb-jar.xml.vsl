@@ -107,19 +107,21 @@
 #*  *##end
 #*  *##if ($mdb.destinationTypeTopic)
                 <activation-config-property>
-                    <activation-config-property-name>durability</activation-config-property-name>
+                    <activation-config-property-name>subscriptionDurability</activation-config-property-name>
                     <activation-config-property-value>${mdb.subscriptionDurability}</activation-config-property-value>
                 </activation-config-property>
 #*  *##end
 #*  *##if ($mdb.minimumPoolSize > 0)
+                <!-- Not available in JBoss 4.0.5+
                 <activation-config-property>
                     <activation-config-property-name>minPoolSize</activation-config-property-name>
                     <activation-config-property-value>${mdb.minimumPoolSize}</activation-config-property-value>
                 </activation-config-property>
+                -->
 #*  *##end
 #*  *##if ($mdb.maximumPoolSize > 0)
                 <activation-config-property>
-                    <activation-config-property-name>maxPoolSize</activation-config-property-name>
+                    <activation-config-property-name>maxSession</activation-config-property-name>
                     <activation-config-property-value>${mdb.maximumPoolSize}</activation-config-property-value>
                 </activation-config-property>
 #*  *##end

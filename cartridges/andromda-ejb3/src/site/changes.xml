@@ -429,7 +429,7 @@
         Add interceptors definition to ejb-jar.xml for the SeamInterceptor.
       </action>
       <action dev="vancek" type="update">
-        By default, if a Seam component does not have it's scopte type specified, then the default stateless
+        By default, if a Seam component does not have it's scope type specified, then the default stateless
         scope type is assigned to stateless session beans and a conversation scope type is specified for all
         other types of beans.
       </action>
@@ -439,6 +439,12 @@
       </action>
       <action dev="vancek" type="fix">
         Fix URLs in howto6.xml for referencing main AndroMDA project.
+      </action>
+      <action dev="vancek" due-to="Obfuscator" type="update">
+        Update the cartridge to reflect the changes for MDB in JBoss 4.0.5.GA.  These changes include rename of
+        activation config from durability to subscriptionDurability, the addition of mdb-subscription-id in jboss.xml
+        when a topic is durable, removal of minPoolSize activation config and rename of maxPoolSize to maxSession
+        activation config.  Reference http://galaxy.andromda.org/forum/viewtopic.php?p=21537#21537.
       </action>
     </release>
   </body>

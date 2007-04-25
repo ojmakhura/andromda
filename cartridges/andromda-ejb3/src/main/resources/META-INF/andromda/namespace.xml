@@ -585,6 +585,13 @@
                     the message driven bean test class.
                 </documentation>
             </property>
+            <property name="messageDrivenDurableSubscriptionIdPattern">
+                <default>{0}SubscriptionId</default>
+                <documentation>
+                    The pattern to use when constructing the durable subscription
+                    ID for a MDB.  Only use for topics with durable subscription.
+                </documentation>
+            </property>
 			<property name="interceptorNamePattern">
 			    <default>{0}</default>
 			    <documentation>

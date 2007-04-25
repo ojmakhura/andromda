@@ -229,6 +229,16 @@ public class EJB3Globals
     public static final String MDB_DESTINATION_TYPE_QUEUE = "javax.jms.Queue";
     
     /**
+     * Represents the durable subscription topic
+     */
+    public static final String MDB_SUBSCRIPTION_DURABLE = "Durable";
+    
+    /**
+     * Represents the non durable subscription topic
+     */
+    public static final String MDB_SUBSCRIPTION_NONDURABLE = "NonDurable";
+    
+    /**
      * The namespace delimiter (seperates namespaces).
      */
     public static final char NAMESPACE_DELIMITER = '.';

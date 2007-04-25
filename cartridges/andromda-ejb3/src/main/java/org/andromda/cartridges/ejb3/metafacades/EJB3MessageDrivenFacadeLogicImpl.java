@@ -64,6 +64,12 @@ public class EJB3MessageDrivenFacadeLogicImpl
      */
     private static final String MESSAGE_DRIVEN_TEST_PACKAGE_NAME_PATTERN = "messageDrivenTestPackageNamePattern";
     
+    /**
+     * The property which stores the pattern defining the JMS durable subscription ID
+     */
+    private static final String MESSAGE_DRIVEN_DURABLE_SUBSCRIPTION_ID_PATTERN = 
+        "messageDrivenDurableSubscriptionIdPattern";
+    
     //  ---------------- constructor -------------------------------
     
     public EJB3MessageDrivenFacadeLogicImpl (Object metaObject, String context)
@@ -281,6 +287,37 @@ public class EJB3MessageDrivenFacadeLogicImpl
         return subscriptionDurability;
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleIsSubscriptionDurable()
+     */
+    protected boolean handleIsSubscriptionDurable()
+    {
+        return StringUtils.equalsIgnoreCase(this.getSubscriptionDurability(), EJB3Globals.MDB_SUBSCRIPTION_DURABLE) ? 
+                true : false;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleIsSubscriptionNonDurable()
+     */
+    protected boolean handleIsSubscriptionNonDurable()
+    {
+        return StringUtils.equalsIgnoreCase(this.getSubscriptionDurability(), EJB3Globals.MDB_SUBSCRIPTION_NONDURABLE) ? 
+                true : false;
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacadeLogic#handleGetDurableSubscriptionId()
+     */
+    protected String handleGetDurableSubscriptionId()
+    {
+        String durableSubscriptionIdPattern = 
+            (String)this.getConfiguredProperty(MESSAGE_DRIVEN_DURABLE_SUBSCRIPTION_ID_PATTERN);
+
+        return MessageFormat.format(
+                durableSubscriptionIdPattern,
+                new Object[] {StringUtils.trimToEmpty(this.getName())});
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3MessageDrivenFacade#getTransactionManagement()
      */
