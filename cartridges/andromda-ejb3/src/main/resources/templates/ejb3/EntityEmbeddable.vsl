@@ -56,13 +56,15 @@ $entity.getDocumentation(" * ")
 #**##end
 ##
 ## Include the Table annotation for a base class in single table inheritence hierarchy
-## but not in the subclasses.  Include in all classes for joined and table per class
+## but not in the subclasses, regardless of multiple levels in the inhiertance hierarchy.
+##
+## Include in all classes for joined and table per class
 ## inheritance hierarchies.
 ##
 ## If a class is manually specified as an embeddable superclass, add
 ## the Table annotation to the subclass, not to the base superclass.
 ##
-#**##if (!$entity.entityImplementationRequired && ($entity.requiresSpecializationMapping || !$entity.requiresGeneralizationMapping || ($entity.requiresGeneralizationMapping && ($entity.embeddableSuperclassGeneralizationExists || $entity.inheritanceTablePerClass || $entity.inheritanceJoined))))
+#**##if (!$entity.entityImplementationRequired && (($entity.requiresSpecializationMapping && !$entity.requiresGeneralizationMapping) || !$entity.requiresGeneralizationMapping || ($entity.requiresGeneralizationMapping && ($entity.embeddableSuperclassGeneralizationExists || $entity.inheritanceTablePerClass || $entity.inheritanceJoined))))
 @javax.persistence.Table(name = "${entity.tableName}")
 #**##end
 #**##if ($entity.listenerEnabled)
@@ -72,7 +74,10 @@ $entity.getDocumentation(" * ")
 ## Only include the inheritance related annotations for inheritance mapping
 ## that doesn't involve embeddable superclass hierarchy.
 ##
-#**##if ($entity.requiresSpecializationMapping)
+## Only include the inheritance and discriminator column mapping for the top level class
+## in the hierarchy, regardless of the number of levels in the hierarchy.
+##
+#**##if ($entity.requiresSpecializationMapping && !$entity.requiresGeneralizationMapping)
 @javax.persistence.Inheritance(strategy = javax.persistence.InheritanceType.${entity.inheritanceStrategy})
 ##
 ## Discriminator components only apply to single table mapping strategy
