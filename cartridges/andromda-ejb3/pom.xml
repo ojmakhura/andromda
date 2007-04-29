@@ -282,7 +282,7 @@
         </plugins>
     </reporting>
     <properties>
-        <maven.test.skip>true</maven.test.skip>
+        <!--maven.test.skip>false</maven.test.skip-->
         <model.uri>jar:file:${pom.basedir}/src/main/uml/EJB3MetafacadeModel.xml.zip!/EJB3MetafacadeModel.xml</model.uri>
         <test.model.uri>jar:file:${pom.basedir}/src/test/uml/EJB3CartridgeTestModel.xml.zip!/EJB3CartridgeTestModel.xml</test.model.uri>
     </properties>
