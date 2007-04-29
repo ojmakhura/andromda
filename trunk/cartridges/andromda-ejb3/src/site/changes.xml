@@ -446,6 +446,12 @@
         when a topic is durable, removal of minPoolSize activation config and rename of maxPoolSize to maxSession
         activation config.  Reference http://galaxy.andromda.org/forum/viewtopic.php?p=21537#21537.
       </action>
+      <action dev="vancek" due-to="khwalk" type="fix">
+        JIRA EJB-54 - Fix entity level annotations for multiple level single table inheritance hierarchy.  When generating a one
+        level hierarchy, the @Table and @DiscriminatorColumn annotations exist on the top level entity.  However,
+        when there is a multi-level single table inhiertance hierarchy, these 2 annotations exist on every parent
+        entity.
+      </action>
     </release>
   </body>
 </document>
