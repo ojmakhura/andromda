@@ -972,4 +972,20 @@ public class EJB3AssociationEndFacadeLogicImpl
         }
         return isInterfaceSortedSet;
     }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetHibernateCascadeType()
+     */
+    protected String handleGetHibernateCascadeType()
+    {
+        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_HIBERNATE_CASCADE);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsHibernateCascadeExists()
+     */
+    protected boolean handleIsHibernateCascadeExists()
+    {
+        return StringUtils.isNotBlank(this.getHibernateCascadeType()) ? true : false;
+    }
 }

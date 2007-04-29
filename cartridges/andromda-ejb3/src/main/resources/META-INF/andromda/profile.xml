@@ -935,6 +935,14 @@
 			        <value>REFRESH</value>
 			    </allowedValues>
 			</element>
+            <element name="HIBERNATE_CASCADE_TYPE">
+                <documentation>
+                    Place a user defined Hibernate specific cascade value at an association end.
+                    Hibernate extensions must be enabled.
+                </documentation>
+                <value>@andromda.hibernate.cascade</value>
+                <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
+            </element>
 			<element name="ENUMERATION_TYPE">
 			    <documentation>
 			        Specifies the enumeration type for the
