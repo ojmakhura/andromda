@@ -452,6 +452,16 @@
         when there is a multi-level single table inhiertance hierarchy, these 2 annotations exist on every parent
         entity.
       </action>
+      <action dev="vancek" due-to="heapifyman" type="add">
+        JIRA EJB-51 - Provide support for Hibernate cascade on association ends by modelling the 
+        @andromda.hibernate.cascade tagged value.  This will only work if Hibernate extensions is enabled
+        (persistenceProviderExtensions namespace property is set to hibernate). This request was for the
+        org.hibernate.annotations.CascadeType.DELETE_ORPHAN cascade type on the one-to-many end, however
+        support for this annotations is provided for all association types.  It's up to the user to restrict
+        this annotations suitably. i.e. Only specify the DELETE_ORPHAN on the one-to-many end.
+        To add more than one cascade property, simply comma separate the types when setting the value of
+        the @andromda.hibernate.cascade tagged value.
+      </action>
     </release>
   </body>
 </document>

@@ -562,6 +562,14 @@ $attribute.getDocumentation("     * ")
 #*        *##end
     })
 #*      *##end
+#*      *##if ($hibernateExtensionEnabled)
+#*        *##if ($target.hibernateCascadeExists)
+##
+## Set Hibernate cascade if explicitly defined
+##
+    @org.hibernate.annotations.Cascade({${target.hibernateCascadeType}})
+#*        *##end
+#*      *##end
 #*    *##end
     public $target.getterSetterTypeName ${target.getterName}()
     {
@@ -614,23 +622,34 @@ $attribute.getDocumentation("     * ")
 #*        *##elseif ($hibernateExtensionEnabled)
 #*          *##if ($target.list)
 ##
-## Only add the IndexColumn annotation if Hibernate extensions are enabled
+## Only add the IndexColumn annotation if Hibernate extensions is enabled
 ##
     @org.hibernate.annotations.IndexColumn(name = "${target.collectionIndexName}")
 #*          *##end
 #*        *##end
 #*      *##end
-#*      *##if ($hibernateExtensionEnabled && $target.associationCacheEnabled)
+##
+## Add the general Hibernate annotations if Hibernate extensions is enabled
+##
+#*      *##if ($hibernateExtensionEnabled)
+#*        *##if ($target.associationCacheEnabled)
 ##
 ## Add Cache annotations if association cache and Hibernate extensions are both enabled
 ##
     @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
-#*      *##end
-#*      *##if ($hibernateExtensionEnabled && $target.collectionInterfaceSortedSet)
+#*        *##end
+#*        *##if ($target.collectionInterfaceSortedSet)
 ##
 ## Only add the Sort annotation if interface is SortedSet and Hibernate extentions are enabled
 ##
     @org.hibernate.annotations.Sort(type = org.hibernate.annotations.SortType.NATURAL)
+#*        *##end
+#*        *##if ($target.hibernateCascadeExists)
+##
+## Set Hibernate cascade if explicitly defined
+##
+    @org.hibernate.annotations.Cascade({${target.hibernateCascadeType}})
+#*        *##end
 #*      *##end
 #*    *##end
     public $target.getterSetterTypeName ${target.getterName}()
@@ -684,6 +703,14 @@ $attribute.getDocumentation("     * ")
         
 #*          *##end
     })
+#*        *##end
+#*      *##end
+#*      *##if ($hibernateExtensionEnabled)
+#*        *##if ($target.hibernateCascadeExists)
+##
+## Set Hibernate cascade if explicitly defined
+##
+    @org.hibernate.annotations.Cascade({${target.hibernateCascadeType}})
 #*        *##end
 #*      *##end
 #*    *##end
@@ -757,17 +784,25 @@ $attribute.getDocumentation("     * ")
 #*          *##end
 #*        *##end
 #*      *##end
-#*      *##if ($hibernateExtensionEnabled && $target.associationCacheEnabled)
+#*      *##if ($hibernateExtensionEnabled)
+#*        *##if ($target.associationCacheEnabled)
 ##
 ## Only add the Cache annotation if assocation cache and Hibernate extensions are both enabled
 ##
     @org.hibernate.annotations.Cache(usage = org.hibernate.annotations.CacheConcurrencyStrategy.${target.cacheType})
-#*      *##end
-#*      *##if ($hibernateExtensionEnabled && $target.collectionInterfaceSortedSet)
+#*        *##end
+#*        *##if ($target.collectionInterfaceSortedSet)
 ##
 ## Only add Sort annotation if collection interface is SortedSet and Hibernate extensions are enabled
 ##
     @org.hibernate.annotations.Sort(type = org.hibernate.annotations.SortType.NATURAL)
+#*        *##end
+#*        *##if ($target.hibernateCascadeExists)
+##
+## Set Hibernate cascade if explicitly defined
+##
+    @org.hibernate.annotations.Cascade({${target.hibernateCascadeType}})
+#*        *##end
 #*      *##end
 #*    *##end
     public $target.getterSetterTypeName ${target.getterName}()

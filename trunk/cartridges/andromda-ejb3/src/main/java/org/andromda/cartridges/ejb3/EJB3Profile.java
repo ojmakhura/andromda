@@ -847,6 +847,11 @@ public class EJB3Profile
         profile.get("ASSOCIATION_CACHE");
 
     /**
+     * Defines the tagged value for hibernate cascade on an association end
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_CASCADE = profile.get("HIBERNATE_CASCADE_TYPE");
+    
+    /**
      * Defines whether query cache is enable for query.
      */
     public static final String TAGGEDVALUE_EJB_USE_QUERY_CACHE = 
