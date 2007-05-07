@@ -30,9 +30,9 @@
 			<subsection name="Non Interhiting Entities">
                 <p>
                     In a mapped superclass scenario, an entity inherits from a superclass that has persistent state 
-                    and mapping information, but the super class isn't an entity and is not mapped to a relation table.
+                    and mapping information, but the super class is NOT an entity and is not mapped to a relation table.
                     This is the strategy employed by the EJB3 cartridge when generating non-inheriting entities if
-                    <code>instance</code> scoped operations are modelled on the entity.
+                    <code>instance</code> scoped operations exist on the entity.
                 </p>
                 <p>
                     A mapped superclass is generated containing
@@ -41,16 +41,47 @@
                     and relationship mapping information exists in the mapped superclass.  The mapped superclass
                     is regenerated on every run, however the subclass is not.
                 </p>
+                <p class="highlight">
+                    Until we declare entity pojos via orm.xml instead of annotations, the inheriting subclass
+                    in the latter scenario will require manual modifications if you change certain metamodel
+                    tags.
+                </p>
             </subsection>
             <a name="Mapped_Superclasses"/>
 			<subsection name="Mapped Superclasses">
                 <p>
-                    To explicity defined an entity as a mapped superclass, model the 
-                    <![CDATA[<<MappedSuperclass>>]]> stereotype on the root entity.
+                    To explicity define an entity as a mapped superclass, model the 
+                    <![CDATA[<<MappedSuperclass>>]]> stereotype on the root entity.  In the past, you had to
+                    model the <![CDATA[<<Entity>>]]> stereotype as well on this class, but this is no longer
+                    necessary if you are using the latest cartridge source.
                 </p>
                 <p class="highlight">
-                    You must explicity define your identifiers either in the mapped superclass or in the inheriting
-                    subclass entities.
+                    If you do not want to model the <![CDATA[<<Entity>>]]> stereotype as well - in theory, a mapped
+                    superclass is NOT an entity and it doesn't make sense for this stereotype to exist - you must 
+                    also disable the following two constraints in your <code>andromda.xml</code> by adding the following
+                    <b>constraints</b> section.  Rest assured that by disabling these constraints, your are not
+                    vulnerable to modelling flaws, since the constraints that exist on the <i>EJB3EntityFacade</i> will
+                    enforce these constraints.
+<source language="xml"><![CDATA[
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>${model.uri}</uri>
+                    <moduleSearchLocations>
+                         <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/</location>
+                    </moduleSearchLocations>
+                    <constraints enforceAll="true">
+                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entities can only generalize other entities</constraint>
+                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entity must have at least one primary key</constraint>
+                    </constraints>
+                </model>
+            </models>
+        </repository>
+]]></source>
+                </p>
+                <p class="highlight">
+                    In this case, you must explicity define your identifiers either in the mapped superclass or in 
+                    the inheriting subclass entity.
                 </p> 
                 <p>
                     The following is an example of this type of inheritance where the <code>Vehicle</code> mapped
@@ -68,7 +99,7 @@
 				</p>
                 <p>
                     <ul>
-                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/a/VehicleEmbeddable.java"><code>VehicleEmbeddable.java</code></a></li>
+                        <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/a/Vehicle.java"><code>Vehicle.java</code></a></li>
                         <li class="gen"><a class="changed" href="howto/org/andromda/test/howto9/a/CarEmbeddable.java"><code>CarEmbeddable.java</code></a></li>
                         <li class="impl"><a class="changed" href="howto/org/andromda/test/howto9/a/Car.java"><code>Car.java</code></a></li>
                         <li class="gen"><a href="howto/org/andromda/test/howto9/a/CarType.java"><code>CarType.java</code></a></li>
@@ -91,45 +122,29 @@
                     </ul>
                 </p>
                 <p>
-                    It's worthwhile to note that only a <code>VehicleEmbeddable</code> class is generated which 
-                    contains all the mapping information.  
+                    It's worthwhile to note that only a <code>Vehicle</code> class is generated which 
+                    contains all the mapping information.  In this case, because the <code>Vehicle</code> class
+                    was explicitly defined as a mapped superclass, the naming pattern does NOT append
+                    <code>Embeddable</code> to the class name.
                     This class is regenerated every time AndroMDA runs; any manual changes to this
-                    class is overwritten.
+                    class will be overwritten.
                 </p>
                 <p>
-                    A <code>CarEmbeddable</code> mapped superclass with all mapping information 
-                    is generated and a <code>Car</code> implementation entity classes.  Remember that this only happens
-                    if the entity contains <code>instance</code> scoped operations.
+                    The process also generates a <code>CarEmbeddable</code> mapped superclass, containing all 
+                    mapping information, along with an extending <code>Car</code> implementation entity class.
+                    Remember that this only happens if the entity contains <code>instance</code> scoped operations.
+                    The naming pattern here dictates that <code>Embeddable</code> is appended to the mapped superclass.
+                    Remember this is NOT the case when you explicitly define the a mapped superclass.
                 </p>
                 <p>
-                    The the Person entity operates under the normal EJB3 cartridge
+                    The Person entity operates under normal EJB3 cartridge
                     guidelines since there is no inheritance hierarchy for this entity.  Therefore, only a 
-                    <code>Person</code> class is generated and should not be modified.
+                    <code>Person</code> class is generated and should not be modified since it will be overwritten
+                    during the next build.
                 </p>
-                <p>
+                <p class="highlight">
                     If you are going to enable manageable entities, you must ONLY enable
-                    your identifiers in the subclass and not the parent mapped superclass.  Furthermore, you must 
-                    also disable
-                    the following two constraints in your <code>andromda.xml</code> by adding the following
-                    <b>constraints</b> section.  Rest assured that by disabling these constraints, your are not
-                    vulnerable to modelling flaws, since the constraints on the <i>EJB3EntityFacade</i> will
-                    enforce these constraints.
-<source language="xml"><![CDATA[
-        <repository name="netBeansMDR">
-            <models>
-                <model>
-                    <uri>${model.uri}</uri>
-                    <moduleSearchLocations>
-                         <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/</location>
-                    </moduleSearchLocations>
-                    <constraints enforceAll="true">
-                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entities can only generalize other entities</constraint>
-                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entity must have at least one primary key</constraint>
-                    </constraints>
-                </model>
-            </models>
-        </repository>
-]]></source>
+                    your identifiers in the subclass and not the parent mapped superclass.
                 </p>
 			</subsection>
             <a name="Single_Table_Strategy"/>

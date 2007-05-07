@@ -30,9 +30,9 @@ public class EJB3OperationFacadeLogicImpl
      */
     protected boolean handleIsBusinessOperation()
     {
-        return !this.hasStereotype(EJB3Profile.STEREOTYPE_CREATE_METHOD) &&
-                !this.hasStereotype(EJB3Profile.STEREOTYPE_FINDER_METHOD) &&
-                !this.hasStereotype(EJB3Profile.STEREOTYPE_SELECT_METHOD);
+        return !this.isCreateMethod() &&
+                !this.isFinderMethod() &&
+                !this.isSelectMethod();
     }
 
     /**
@@ -43,6 +43,22 @@ public class EJB3OperationFacadeLogicImpl
         return this.hasStereotype(EJB3Profile.STEREOTYPE_SELECT_METHOD);
     }
 
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleIsCreateMethod()
+     */
+    protected boolean handleIsCreateMethod()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_CREATE_METHOD);
+    }
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleIsFinderMethod()
+     */
+    protected boolean handleIsFinderMethod()
+    {
+        return this.hasStereotype(EJB3Profile.STEREOTYPE_FINDER_METHOD) || this.isQuery();
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3OperationFacadeLogic#handleIsPrePersist()
      */

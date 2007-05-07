@@ -14,8 +14,12 @@ package $entity.packageName;
 ## 1. an embeddable superclass
 ## 2. an abstract class
 ##
-## 
-#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
+##
+## If the entity is explicity defined as a mapped superclass then use the standard entity name
+## If explicity business operations are modelled on the entity, then the entity naming convention differs
+## All other entities have the standard entity name
+##
+#if ($entity.entityImplementationRequired)
 #**##set ($generatedFile = "${stringUtils.replace($entity.fullyQualifiedEntityEmbeddableName,'.','/')}.java")
 #else
 #**##set ($generatedFile = "${stringUtils.replace($entity.fullyQualifiedEntityName,'.','/')}.java")
@@ -124,10 +128,10 @@ $entity.getDocumentation(" * ")
 #*  *##end
 #**##end
 #end
-public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass) abstract class ${entity.entityEmbeddableName}#else#if($entity.abstract) abstract#end class ${entity.entityName}#end
+public#if ($entity.entityImplementationRequired) abstract class ${entity.entityEmbeddableName}#else#if($entity.abstract) abstract#end class ${entity.entityName}#end
 
 #if($entity.requiresGeneralizationMapping)
-#**##if($entity.embeddableSuperclassGeneralizationExists)
+#**##if($entity.embeddableSuperclassGeneralizationExists && $entity.entityImplementationRequired)
     extends ${entity.generalization.fullyQualifiedEntityEmbeddableName}
 #**##else
     extends ${entity.generalization.fullyQualifiedName}
@@ -245,7 +249,7 @@ public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
     /**
      * Default empty constructor
      */
-    public #if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)${entity.entityEmbeddableName}#else${entity.entityName}#end() {}
+    public #if ($entity.entityImplementationRequired)${entity.entityEmbeddableName}#else${entity.entityName}#end() {}
     
 ## Autogenerate a constructor implementation with all attributes.
 #set ($allAttributes = $transform.filterByVisibility($entity.allInstanceAttributes, "public"))
@@ -261,7 +265,7 @@ public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
      * @param $attribute.name Value for the ${attribute.name} property
 #**##end
      */
-    public #if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)${entity.entityEmbeddableName}#else${entity.entityName}#end($entity.getAttributesAsList($allAttributes, true, true, false)) 
+    public #if ($entity.entityImplementationRequired)${entity.entityEmbeddableName}#else${entity.entityName}#end($entity.getAttributesAsList($allAttributes, true, true, false)) 
     {
 #**##foreach ($attribute in $updatableAttributes)
         ${attribute.setterName}(${attribute.name});
@@ -283,7 +287,7 @@ public#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
      * @param $relation.otherEnd.name Value for the ${relation.otherEnd.name} relation
 #*  *##end
      */
-    public #if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)${entity.entityEmbeddableName}#else${entity.entityName}#end($entity.getAttributesAsList($allAttributes, true, true, false)#if(!$updatableAttributes.empty), #end#foreach ($relation in $relations)${relation.otherEnd.getterSetterTypeName} $relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
+    public #if ($entity.entityImplementationRequired)${entity.entityEmbeddableName}#else${entity.entityName}#end($entity.getAttributesAsList($allAttributes, true, true, false)#if(!$updatableAttributes.empty), #end#foreach ($relation in $relations)${relation.otherEnd.getterSetterTypeName} $relation.otherEnd.name#if($velocityCount != $relations.size()), #end#end)
     {
 #*  *##foreach ($attribute in $updatableAttributes)
         ${attribute.setterName}(${attribute.name});
@@ -305,7 +309,7 @@ $operation.getDocumentation("    * ")
      * @param $attribute Value for the $attribute property
 #**##end
      */
-    public #if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)${entity.entityEmbeddableName}#else${entity.entityName}#end(${operation.typedArgumentList}) 
+    public #if ($entity.entityImplementationRequired)${entity.entityEmbeddableName}#else${entity.entityName}#end(${operation.typedArgumentList}) 
     {
 #**##foreach($attribute in $opArguments)
         this.${attribute} = $attribute;
@@ -319,7 +323,7 @@ $operation.getDocumentation("    * ")
      *
      * @param pk Composite primary key
      */
-    public #if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)${entity.entityEmbeddableName}#else${entity.entityName}#end(${entity.fullyQualifiedEntityCompositePrimaryKeyName} pk)
+    public #if ($entity.entityImplementationRequired)${entity.entityEmbeddableName}#else${entity.entityName}#end(${entity.fullyQualifiedEntityCompositePrimaryKeyName} pk)
     {
         this.pk = pk;
     }
@@ -608,7 +612,15 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.Transient
 #*    *##else
 #*      *##set ($argExists = false)
+##
+## When the target entity is a mapped superclass AND Hibernate extensions is enabled
+## then instead of the @OneToMany annotations, add the @CollectionOfElements instead
+##
+#*      *##if ($target.type.embeddableSuperclass && $hibernateExtensionEnabled)
+    @org.hibernate.annotations.CollectionOfElements
+#*      *##else
     @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
+#*      *##end
 #*      *##if ($target.map)
     @javax.persistence.MapKey#if ($target.hasTaggedValue("@andromda.persistence.collection.index"))(name = "${target.collectionIndexName}")#end
 
@@ -750,7 +762,15 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.Transient
 #*    *##else
 #*      *##set ($argExists = false)
+##
+## When the target entity is a mapped superclass AND Hibernate extensions is enabled
+## then instead of the @ManyToMany annotations, add the @CollectionOfElements
+##
+#*      *##if ($target.type.embeddableSuperclass && $hibernateExtensionEnabled)
+    @org.hibernate.annotations.CollectionOfElements
+#*      *##else
     @javax.persistence.ManyToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
+#*      *##end
 ## Use Aggregation and Composition to determine owning side
 #*      *##if (${associationEnd.association.tableName})
 #*        *##if($associationEnd.owning)
@@ -864,7 +884,7 @@ $attribute.getDocumentation("     * ")
 #end
     // -------- Common Methods -----------
     
-#if ($entity.entityImplementationRequired || $entity.embeddableSuperclass)
+#if ($entity.entityImplementationRequired)
 #**##set ($entityName = $entity.entityEmbeddableName)
 #else
 #**##set ($entityName = $entity.entityName)

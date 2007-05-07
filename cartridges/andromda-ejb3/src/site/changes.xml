@@ -462,6 +462,13 @@
         To add more than one cascade property, simply comma separate the types when setting the value of
         the @andromda.hibernate.cascade tagged value.
       </action>
+      <action dev="vancek" due-to="khwalk" type="fix">
+        JIRA EJB-53 - When a modelled entity with a MappedSuperclass stereotype has an association to another
+        entity, the association definition in this other entity is incorrectly named.  The resolution is to
+        avoid appending Embeddable to the mapped superclass and don't apply a naming pattern when a mapped superclass
+        is explicity modelled.  It is fine to apply this naming pattern when this is not explicitly modelled and
+        instance scoped operations exist on the entity and a mapped superclass is generated.
+      </action>
     </release>
   </body>
 </document>
