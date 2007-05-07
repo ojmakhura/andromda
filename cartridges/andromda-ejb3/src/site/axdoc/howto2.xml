@@ -159,6 +159,14 @@
                         <li class="gen"><a href="howto/org/andromda/test/howto2/b/PersonDaoException.java"><code>PersonDaoException.java</code></a></li>
 	                </ul>
 	            </p>
+                <p class="highlight">
+                    If you enable Hibernate extensions by setting the value of the <b>persistenceProviderExtensions</b>
+                    namespace property in your andromda.xml to <i>hibernate</i>, you can also model the
+                    <code>@andromda.hibernate.cascade</code> tagged value on your association ends.  This way, you
+                    can further customize your cascade solution to use Hibernate specific cascade types such as
+                    SAVE_UPDATE and DELETE_ORPHAN.  Remember, this tagged value accepts a comma separated list
+                    of fully qualified cascade types.
+                </p>
             </subsection>
             <a name="Fetch_Type"/>
             <subsection name="Fetch Type">
