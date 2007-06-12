@@ -324,7 +324,7 @@
         Add javax.jms.MessageListener messaging-type to ejb-jar.xml for MDBs.
       </action>
       <action dev="vancek" type="update">
-        Migrated dependency versions from 3.2-SNAPSHOT to 3.2, overriding dependencies in the pom.xml.
+        Migrated dependency versions from 3.3-SNAPSHOT to 3.2, overriding dependencies in the pom.xml.
         NOTE: This can be removed once the andromda-plugins package is upgraded as a whole.
       </action>
       <action dev="vancek" type="update">

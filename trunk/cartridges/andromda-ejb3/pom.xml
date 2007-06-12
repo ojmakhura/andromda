@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -105,7 +105,7 @@
                 <plugin>
                     <extensions>true</extensions>
                     <groupId>org.andromda.maven.plugins</groupId>
-                    <artifactId>andromda-cartridge-plugin</artifactId>  
+                    <artifactId>andromda-cartridge-plugin</artifactId>
                     <version>3.3-SNAPSHOT</version>
                     <executions>
                         <execution>
@@ -116,7 +116,7 @@
                                 <configurationUri>file:${pom.basedir}/conf/test/andromda.xml</configurationUri>
                             </configuration>
                         </execution>
-                    </executions> 
+                    </executions>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -143,7 +143,7 @@
                         <artifactId>andromda-ocl-query-library</artifactId>
                         <version>3.3-SNAPSHOT</version>
                     </dependency>
-                </dependencies>    
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
@@ -202,7 +202,7 @@
                     <outputEncoding>UTF-8</outputEncoding>
                 </configuration>
             </plugin>
-        </plugins> 
+        </plugins>
     </build>
     <reporting>
         <plugins>
