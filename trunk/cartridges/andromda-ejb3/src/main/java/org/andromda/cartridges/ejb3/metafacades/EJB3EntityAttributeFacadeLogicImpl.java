@@ -248,6 +248,22 @@ public class EJB3EntityAttributeFacadeLogicImpl
         }
         return isAuto;
     }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsGeneratorTypeGeneric()
+     */
+    protected boolean handleIsGeneratorTypeGeneric()
+    {
+        boolean isGeneric = false;
+        if (StringUtils.isNotBlank(this.getGeneratorType())) 
+        {
+            if (this.getGeneratorType().equalsIgnoreCase(EJB3Globals.GENERATOR_TYPE_GENERIC))
+            {
+                isGeneric = true;
+            }
+        }
+        return isGeneric;
+    }
 
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#handleIsGeneratorTypeNone()
@@ -287,6 +303,14 @@ public class EJB3EntityAttributeFacadeLogicImpl
     protected String handleGetGeneratorName()
     {
         return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_GENERATOR_NAME);
+    }
+    
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityAttributeFacadeLogic#getGeneratorGenericStrategy()
+     */
+    protected String handleGetGeneratorGenericStrategy()
+    {
+        return (String)this.findTaggedValue(EJB3Profile.TAGGEDVALUE_PERSISTENCE_GENERATOR_GENERIC_STRATEGY);
     }
 
     /**

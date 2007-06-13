@@ -102,6 +102,11 @@ public class EJB3Globals
     public static final String GENERATOR_TYPE_AUTO = "AUTO";
     
     /**
+     * Represents the generic generator type
+     */
+    public static final String GENERATOR_TYPE_GENERIC = "GENERIC";
+    
+    /**
      * Represents the none generator type
      */
     public static final String GENERATOR_TYPE_NONE = "NONE";

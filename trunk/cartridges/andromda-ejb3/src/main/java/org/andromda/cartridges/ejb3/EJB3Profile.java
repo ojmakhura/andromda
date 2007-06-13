@@ -553,6 +553,12 @@ public class EJB3Profile
         profile.get("GENERATOR_NAME");
     
     /**
+     * The tagged value indicating the generator generic strategy.
+     */
+    public static final String TAGGEDVALUE_PERSISTENCE_GENERATOR_GENERIC_STRATEGY = 
+        profile.get("GENERATOR_GENERIC_STRATEGY");
+    
+    /**
      * The tagged value indicating the generator source name.
      */
     public static final String TAGGEDVALUE_PERSISTENCE_GENERATOR_SOURCE_NAME = 
