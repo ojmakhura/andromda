@@ -975,6 +975,7 @@
 			        <value>SEQUENCE</value>
 			        <value>IDENTITY</value>
 			        <value>TABLE</value>
+                    <value>GENERIC</value>
 			        <value>NONE</value>
 			    </allowedValues>
 			</element>
@@ -991,6 +992,19 @@
 			        Entity Attribute
 			    </appliedOnElement>
 			</element>
+            <element name="GENERATOR_GENERIC_STRATEGY">
+                <documentation>
+                    Defines either a predefined Hibernate strategy
+                    or a fully qualified class name for use in
+                    id generation using persistence layer extensions.
+                </documentation>
+                <value>
+                    @andromda.persistence.generator.genericStrategy
+                </value>
+                <appliedOnElement>
+                    Entity Attribute
+                </appliedOnElement>
+            </element>
 			<element name="GENERATOR_SOURCE_NAME">
 			    <documentation>
 			        Specifies either the table name that stores the

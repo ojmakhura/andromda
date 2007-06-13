@@ -469,6 +469,11 @@
         is explicity modelled.  It is fine to apply this naming pattern when this is not explicitly modelled and
         instance scoped operations exist on the entity and a mapped superclass is generated.
       </action>
+      <action dev="vancek" due-to="daveangulo" type="add">
+        JIRA EJB-50 - Add UUID generic generator support as a Hibernate extension.  This will render the
+        @GenericGenerator annotation.  Modified the persistence profile (uml1.4 and 2.0) to support the necessary 
+        tagged value.
+      </action>
     </release>
   </body>
 </document>
