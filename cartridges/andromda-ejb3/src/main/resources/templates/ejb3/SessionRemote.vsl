@@ -26,6 +26,7 @@ $service.getDocumentation(" * ")
 #end
 public interface ${service.serviceRemoteInterfaceName}
     extends ${service.serviceInterfaceName}#if ($service.generalization), ${service.generalization.fullyQualifiedName}Remote#end
+
 {
 #set ($operations = $service.businessOperations)
 #if (!$operations.empty)
