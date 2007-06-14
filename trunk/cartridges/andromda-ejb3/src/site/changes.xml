@@ -477,6 +477,10 @@
       <action dev="vancek" type="update">
         Fix naming of the serviceRemoteInterfaceName property to serviceRemoteInterfaceNamePattern.
       </action>
+      <action dev="vancek" due-to="dima" type="fix">
+        JIRA EJB-55 - Fix optimistic locking - version attribute.  Set the annotation on the getter and change
+        modifier on version attribute to public.
+      </action>
     </release>
   </body>
 </document>

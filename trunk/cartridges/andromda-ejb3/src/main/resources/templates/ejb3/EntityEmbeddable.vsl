@@ -190,16 +190,11 @@ public#if ($entity.entityImplementationRequired) abstract class ${entity.entityE
 #*    *##set ($doAttribute = true)
 #*  *##end
 #*  *##if ($doAttribute)
-#*    *##if (!$attribute.transient && $attribute.version)
-##
-## Add the Version annotation on the attribute itself
-##
-    @javax.persistence.Version
-#*    *##end
 ##
 ## Check for overriding LOB type
+## If the attribute is used in optimistic locking, make public, otherwise make private
 ##
-    private #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name;
+    #if (!$attribute.transient && $attribute.version)public#else#**#private#end #if ($stringUtils.isNotBlank($attribute.lobType))${attribute.lobType}#else${attribute.type.fullyQualifiedName}#end $attribute.name;
 #*  *##end
 #**##end
 
@@ -506,6 +501,11 @@ $attribute.getDocumentation("     * ")
     @org.hibernate.validator.Length(max = $attribute.columnLength)
 #*        *##end
 #*      *##end
+#*    *##else
+##
+## Add the Version annotation on the attribute itself
+##
+    @javax.persistence.Version
 #*    *##end
 ##
 ## Override attribute type if attribute is a LOB and lob type is specified
