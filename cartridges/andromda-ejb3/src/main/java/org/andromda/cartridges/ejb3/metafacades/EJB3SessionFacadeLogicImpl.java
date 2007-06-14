@@ -52,7 +52,7 @@ extends EJB3SessionFacadeLogic
     /**
      * The property which stores the pattern defining the service bean remote interface name.
      */
-    private static final String SERVICE_REMOTE_INTERFACE_NAME_PATTERN = "serviceRemoteInterfaceName";
+    private static final String SERVICE_REMOTE_INTERFACE_NAME_PATTERN = "serviceRemoteInterfaceNamePattern";
 
     /**
      * The property which stores the pattern defining the service bean listener callback name.
