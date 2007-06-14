@@ -477,7 +477,7 @@
 					bean local interface name.
 				</documentation>
 			</property>
-			<property name="serviceRemoteInterfaceName">
+			<property name="serviceRemoteInterfaceNamePattern">
 				<default>{0}Remote</default>
 				<documentation>
 					The pattern to use when constructing the service

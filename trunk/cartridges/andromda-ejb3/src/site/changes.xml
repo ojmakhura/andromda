@@ -409,7 +409,7 @@
         Seam.
       </action>
       <action dev="vancek" type="update">
-        Session bean base or super classes now extend a super interface.  Local and remote business interfaces 
+        Session bean base classes now implement a super interface.  Local and remote business interfaces 
         extend this super interface. Session bean implementations now extend the business interface(s).
         This does introduce manual modification when refactoring a session bean's business interface.
         The super interface contains common constants and attribute mutator definitions.
@@ -473,6 +473,9 @@
         JIRA EJB-50 - Add UUID generic generator support as a Hibernate extension.  This will render the
         @GenericGenerator annotation.  Modified the persistence profile (uml1.4 and 2.0) to support the necessary 
         tagged value.
+      </action>
+      <action dev="vancek" type="update">
+        Fix naming of the serviceRemoteInterfaceName property to serviceRemoteInterfaceNamePattern.
       </action>
     </release>
   </body>
