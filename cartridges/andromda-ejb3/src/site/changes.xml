@@ -484,6 +484,11 @@
       <action dev="vancek" due-to="heapifyman" type="add">
         JIRA EJB-56 - Add support for multiplicity on enumeration types.
       </action>
+      <action dev="vancek" tue-to="mrkanban" type="fix">
+        When a child entity inherits from a mapped superclass and the child entity has an implementation, the
+        child mapped superclass did not extend the parent mapped superclass correctly.  This was a side-effect of
+        applying EJB-53.
+      </action>
     </release>
   </body>
 </document>
