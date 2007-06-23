@@ -131,7 +131,7 @@ $entity.getDocumentation(" * ")
 public#if ($entity.entityImplementationRequired) abstract class ${entity.entityEmbeddableName}#else#if($entity.abstract) abstract#end class ${entity.entityName}#end
 
 #if($entity.requiresGeneralizationMapping)
-#**##if($entity.embeddableSuperclassGeneralizationExists && $entity.entityImplementationRequired)
+#**##if($entity.embeddableSuperclassGeneralizationExists && $entity.generalization.entityImplementationRequired)
     extends ${entity.generalization.fullyQualifiedEntityEmbeddableName}
 #**##else
     extends ${entity.generalization.fullyQualifiedName}
