@@ -74,7 +74,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
             EJB3EntityFacade entity = (EJB3EntityFacade)this.getOwner();
             
             /**
-             * Excluse ONLY if single table inheritance exists
+             * Exclude ONLY if single table inheritance exists
              */
             if (entity.isRequiresGeneralizationMapping() && entity.isInheritanceSingleTable() 
                     && !entity.isEmbeddableSuperclassGeneralizationExists())
@@ -449,7 +449,7 @@ public class EJB3EntityAttributeFacadeLogicImpl
             }
             if (!isOrdinal)
             {
-                definition = "VARCHAR(" + length + ") NOT NULL";
+                definition = "VARCHAR(" + length + ")";
             }
         }
         return definition;
