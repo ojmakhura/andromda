@@ -481,6 +481,9 @@
         JIRA EJB-55 - Fix optimistic locking - version attribute.  Set the annotation on the getter and change
         modifier on version attribute to public.
       </action>
+      <action dev="vancek" due-to="heapifyman" type="add">
+        JIRA EJB-56 - Add support for multiplicity on enumeration types.
+      </action>
     </release>
   </body>
 </document>
