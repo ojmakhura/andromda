@@ -816,12 +816,20 @@
 					</a>
 					tagged value, can be the following possible values:
 					<ul>
-						<li>SINGLE_TABLE - table per hierarchy.</li>
 						<li>
-							TABLE_PER_CLASS - table per class in
-							hierarchy.
+                            SINGLE_TABLE - A single table per class hierarchy. One table will have all 
+                            properties of every class in the hierarchy.
+                        </li>
+						<li>
+							TABLE_PER_CLASS - A table per concrete class in the
+							hierarchy. Each class will have a table dedicated to it, with all of its 
+                            properties and the properties of its superclass mapped to this table. 
 						</li>
-						<li>JOINED - Table per class.</li>
+						<li>
+                            JOINED - A table per subclass. Each class will have its own table. Each 
+                            table will have only the properties that are defined in that particular class. 
+                            These tables will not have properties of any superclass or subclass.
+                        </li>
 					</ul>
 				</documentation>
 			</property>
