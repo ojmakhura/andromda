@@ -628,6 +628,13 @@ $attribute.getDocumentation("     * ")
 #*      *##else
     @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
 #*      *##end
+##
+## Set the JointTable annotation to limit the association table name length.
+## This is only set if the relationship is unidirectional.
+##
+#*      *##if (!$associationEnd.navigable && $target.navigable)
+    @javax.persistence.JoinTable(name = "${associationEnd.association.tableName}")
+#*      *##end
 #*      *##if ($target.map)
     @javax.persistence.MapKey#if ($target.hasTaggedValue("@andromda.persistence.collection.index"))(name = "${target.collectionIndexName}")#end
 

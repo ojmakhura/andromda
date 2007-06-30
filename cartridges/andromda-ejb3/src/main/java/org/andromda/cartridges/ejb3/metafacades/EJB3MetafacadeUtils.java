@@ -5,6 +5,7 @@ import org.andromda.cartridges.ejb3.EJB3Profile;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -503,5 +504,69 @@ class EJB3MetafacadeUtils
 			buf.append("}");
 			return buf.toString();
 		}
+    }
+    
+    /**
+     * Gets the SQL name. (i.e. column name, table name, etc.). If it can't find
+     * the corresponding tagged value with the specified <code>name</code>,
+     * then it uses the element name by default and just returns that.
+     *
+     * @param prefix the optional prefix to add to the sql name (i.e. table name
+     *        prefix, etc.).
+     * @param element from which to retrieve the SQL name.
+     * @param name the name of the tagged value.
+     * @param nameMaxLength if this is not null, then the name returned will be
+     *        trimmed to this length (if it happens to be longer).
+     * @param suffix the optional suffix to add to the sql name (i.e. foreign
+     *        key suffix, etc.)
+     * @param separator character used to separate words
+     * @return the SQL name as a String.
+     */
+    public static String getSqlNameFromTaggedValue(
+        String prefix,
+        final EJB3AssociationFacade element,
+        String name,
+        final Short nameMaxLength,
+        String suffix,
+        final Object separator)
+    {
+        if (element != null)
+        {
+            Object value = element.findTaggedValue(name);
+            StringBuffer buffer = new StringBuffer(StringUtils.trimToEmpty((String)value));
+            if (StringUtils.isEmpty(buffer.toString()))
+            {
+                // if we can't find the tagValue then use the
+                // element name for the name
+                buffer = new StringBuffer(
+                        EntityMetafacadeUtils.toSqlName(
+                            element.getName(),
+                            separator));
+
+                suffix = StringUtils.trimToEmpty(suffix);
+                prefix = StringUtils.trimToEmpty(prefix);
+                if (nameMaxLength != null)
+                {
+                    final short maxLength = (short)(nameMaxLength.shortValue() - suffix.length() - prefix.length());
+                    buffer =
+                        new StringBuffer(
+                            EntityMetafacadeUtils.ensureMaximumNameLength(
+                                buffer.toString(),
+                                new Short(maxLength)));
+                }
+                if (StringUtils.isNotBlank(prefix))
+                {
+                    buffer.insert(
+                        0,
+                        prefix);
+                }
+                if (StringUtils.isNotBlank(suffix))
+                {
+                    buffer.append(suffix);
+                }
+            }
+            name = buffer.toString();
+        }
+        return name;
     }
 }
