@@ -484,10 +484,26 @@
       <action dev="vancek" due-to="heapifyman" type="add">
         JIRA EJB-56 - Add support for multiplicity on enumeration types.
       </action>
-      <action dev="vancek" tue-to="mrkanban" type="fix">
+      <action dev="vancek" due-to="mrkanban" type="fix">
         When a child entity inherits from a mapped superclass and the child entity has an implementation, the
         child mapped superclass did not extend the parent mapped superclass correctly.  This was a side-effect of
         applying EJB-53.
+      </action>
+      <action dev="vancek" due-to="darquerus " type="add">
+        JIRA EJB-59 - Add support for setting the join table for unidirectional one-to-many associations.  Currently,
+        this exists for many-to-many associations using the JoinTable annotation.  
+        Existing users must be aware that this will change the default behaviour of the cartridge for the join 
+        table name.  The EJB 3.0 spec defines the join table name with the owning side first and underscore 
+        separated. AndroMDA (not the EJB3 cartridge) defines the inverse end first with a digit two (2) as the 
+        separater and truncates the name by the specified length in the andromda.xml namespace property 
+        maxSqlNameLength.  Prior to this change (lack of a JoinTable annotation), the EJB 3.0 default name was 
+        used for one-to-many associations and the AndroMDA naming convention was used for many-to-many associations.  
+        We are now adopting the the EJB 3.0 naming convention for join table names for both association types.
+        To avoid recreation of join tables for existing many-to-many associations, you have the choice of specifying
+        the @andromda.persistence.table tagged value on the specific associations or setting the association name
+        to correspond to the join table.  You should also define the namespace property
+        relationNameSeparator in the andromda.xml within the ejb3 namespace with a value of underscore (_) if you
+        wish to adopt this separator.  The default separator will remain the AndroMDA default digit two.
       </action>
     </release>
   </body>

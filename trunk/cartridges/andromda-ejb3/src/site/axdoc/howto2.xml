@@ -264,18 +264,31 @@
 	                </ul>
 	            </p>
             </subsection>
-            <a name="Join_Table_Many_To_Many"/>
-            <subsection name="Join Table for Many-To-Many Relationship">
+            <a name="Join_Table_Many_To_Many_And_One_To_Many"/>
+            <subsection name="Join Table for Many-To-Many and One-To-Many Relationship">
                 <p>
-                    For a Many-To-Many association, the <code>@javax.persistence.JoinTable</code> annotation
-                    is specified on the OWNING side of the association.  This is determined by modelling the
+                    For a Many-To-Many and now One-To-Many association, the <code>@javax.persistence.JoinTable</code> 
+                    annotation is specified on the OWNING side of the association.  This is determined by modeling the
                     <code>owning</code> side as an aggregation or composition.
                 </p>
                 <p>
-                    The join table name is defined by default to be the table name of the primary table of owning 
+                    If there is no owning side defined, then the AndroMDA default convention of
+                    an alphabetical name ordering is adopted.
+                </p>
+                <p>
+                    The join table name is defined by default to be the table name of the primary table of the owning 
                     side concatenated with the table name of the primary table of the inverse side.  
-                    You can override the <code>name</code> property by modelling the 
-                    <code>@andromda.persistence.table</code> tagged value on the assocation.
+                    You can override the <code>name</code> property by modeling the 
+                    <code>@andromda.persistence.table</code> tagged value on the assocation or alternatively,
+                    specify a name for the association.
+                </p>
+                <p>
+                    The default relation name separator is adopted from the AndroMDA metafacade namespace layer.
+                    You can simply change this in your application's andromda.xml by specifying the following
+                    property in the <b>ejb3</b> namespace.
+<source language="java"><![CDATA[
+    <property name="relationNameSeparator">_</property>
+]]></source>
                 </p>
             </subsection>
             <a name="Aggregation_Composition"/>
