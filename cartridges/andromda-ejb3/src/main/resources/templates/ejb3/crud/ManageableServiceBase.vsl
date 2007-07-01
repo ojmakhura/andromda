@@ -157,6 +157,24 @@ public final class $manageable.manageableServiceBaseName
 #end
 #if ($manageable.read)
     /**
+     * Entity read operation
+     *
+     * @return $manageable.fullyQualifiedEntityName
+     * @throws $manageable.fullyQualifiedManageableServiceReadExceptionName
+     */
+	public $manageable.fullyQualifiedEntityName readById($identifier.type.fullyQualifiedName $identifier.name)
+        throws ${manageable.fullyQualifiedManageableServiceReadExceptionName}
+	{
+		try{
+			return (${manageable.fullyQualifiedEntityName})emanager.find(${manageable.fullyQualifiedEntityName}.class, ${identifier.name});
+        }
+        catch (Exception ex)
+        {
+            throw new ${manageable.fullyQualifiedManageableServiceReadExceptionName}(ex);
+        }
+	}
+
+    /**
      * Read operation
      *
      * @return java.util.List
