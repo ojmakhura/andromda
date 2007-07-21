@@ -489,7 +489,7 @@
         child mapped superclass did not extend the parent mapped superclass correctly.  This was a side-effect of
         applying EJB-53.
       </action>
-      <action dev="vancek" due-to="darquerus " type="add">
+      <action dev="vancek" due-to="darquerus" type="add">
         JIRA EJB-59 - Add support for setting the join table for unidirectional one-to-many associations.  Currently,
         this exists for many-to-many associations using the JoinTable annotation.  
         Existing users must be aware that this will change the default behaviour of the cartridge for the join 
@@ -504,6 +504,15 @@
         to correspond to the join table.  You should also define the namespace property
         relationNameSeparator in the andromda.xml within the ejb3 namespace with a value of underscore (_) if you
         wish to adopt this separator.  The default separator will remain the AndroMDA default digit two.
+      </action>
+      <action dev="walter" type="add">
+        JIRA EJB-58 - Add readById method to crud services such that cartridge can be used with JSF2 cartridge 
+        and crud/manageable features.
+      </action>
+      <action dev="vancek" due-to="hermida" type="fix">
+        JIRA EJB-65 - Modify the cartridge to support abstract parent entities.  EJB2.x did not support this, but
+        this is now supported with EJb 3.0.  An abstract parent entity can have a relationship with any other
+        entity and this should be available to the child inheriting entities.  Add test cases to support this.
       </action>
     </release>
   </body>

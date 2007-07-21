@@ -289,24 +289,7 @@ public class EJB3EntityFacadeLogicImpl
      */
     protected java.util.Collection handleGetAllEntityRelations()
     {
-        // Only concrete entities may have EJB relations. Return
-        // an empty collection for everything else
-        if (this.isAbstract())
-        {
-            return Collections.EMPTY_LIST;
-        }
-
-        Collection result = new ArrayList();
-        result.addAll(getEntityRelations());
-        
-        ClassifierFacade classifier = (ClassifierFacade)this.getGeneralization();
-        while (classifier != null && classifier instanceof EJB3EntityFacade && classifier.isAbstract())
-        {
-            EJB3EntityFacade entity = (EJB3EntityFacade)classifier;
-            result.addAll(entity.getEntityRelations());
-            classifier = (ClassifierFacade)classifier.getGeneralization();
-        }
-        return result;
+        return this.getEntityRelations();
     }
 
     /**
@@ -413,17 +396,6 @@ public class EJB3EntityFacadeLogicImpl
             ClassifierFacade target = associationEnd.getOtherEnd().getType();
             if (target instanceof EJB3EntityFacade && associationEnd.getOtherEnd().isNavigable())
             {
-                // Check the integrity constraint
-                Object value = associationEnd.getOtherEnd().getAssociation().findTaggedValue(
-                        EJB3Profile.TAGGEDVALUE_GENERATE_CMR);
-                String generateCmr = value == null ? null : value.toString();
-                if (target.isAbstract() && !"false".equalsIgnoreCase(generateCmr))
-                {
-                    throw new IllegalStateException("Relation '" + associationEnd.getAssociation().getName() +
-                            "' has the abstract target '" +
-                            target.getName() +
-                            "'. Abstract targets are not allowed in EJB.");
-                }
                 result.add(associationEnd);
             }
         }
