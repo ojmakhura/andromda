@@ -562,13 +562,13 @@ $attribute.getDocumentation("     * ")
 ## Otherwise add the JoinColumn annotation.
 ##
 #*      *##if (!$target.type.compositePrimaryKeyPresent)
-    @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
+    @javax.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
 #*      *##else
 #*        *##set ($identifiers = $target.type.getIdentifiers())
     @javax.persistence.JoinColumns
     ({
 #*        *##foreach ($attribute in $identifiers)
-        @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})_${attribute.columnName}", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
+        @javax.persistence.JoinColumn(name = "$associationEnd.getForeignKeyName(${attribute.columnName})", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
         
 #*        *##end
     })
@@ -579,6 +579,13 @@ $attribute.getDocumentation("     * ")
 ## Set Hibernate cascade if explicitly defined
 ##
     @org.hibernate.annotations.Cascade({${target.hibernateCascadeType}})
+#*        *##end
+#*        *##if ($target.foreignKeyConstraintDefined)
+##
+## Override the Hibernate foreign key constraint name
+## Currently does not support composite PKs
+##
+    @org.hibernate.annotations.ForeignKey(name = "$target.getForeignKeyConstraintName(${target.type.identifier.columnName})")
 #*        *##end
 #*      *##end
 #*    *##end
@@ -621,10 +628,13 @@ $attribute.getDocumentation("     * ")
 #*      *##set ($argExists = false)
 ##
 ## When the target entity is a mapped superclass AND Hibernate extensions is enabled
-## then instead of the @OneToMany annotations, add the @CollectionOfElements instead
+## then instead of the @OneToMany annotations, add the @CollectionOfElements instead.
+## This is only applied when the target entity in the association is NOT and entity.
+## In this situation, the target entity is a mapped superclass.
 ##
 #*      *##if ($target.type.embeddableSuperclass && $hibernateExtensionEnabled)
-    @org.hibernate.annotations.CollectionOfElements
+    @org.hibernate.annotations.CollectionOfElements#if ($target.eager)(fetch = javax.persistence.FetchType.EAGER)#end
+
 #*      *##else
     @javax.persistence.OneToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if ($associationEnd.navigable)#if ($argExists) ,#end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
 #*      *##end
@@ -633,7 +643,12 @@ $attribute.getDocumentation("     * ")
 ## This is only set if the relationship is unidirectional.
 ##
 #*      *##if (!$associationEnd.navigable && $target.navigable)
-    @javax.persistence.JoinTable(name = "${associationEnd.association.tableName}")
+    @javax.persistence.JoinTable
+    (
+        name = "${associationEnd.association.tableName}",
+        joinColumns = {#set ($identifiers = $entity.getIdentifiers())#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "$associationEnd.getForeignKeyName(${attribute.columnName})", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end#**#},
+        inverseJoinColumns = {#set ($identifiers = $target.type.getIdentifiers())#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "$target.getForeignKeyName(${attribute.columnName})", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end#**#}
+    )
 #*      *##end
 #*      *##if ($target.map)
     @javax.persistence.MapKey#if ($target.hasTaggedValue("@andromda.persistence.collection.index"))(name = "${target.collectionIndexName}")#end
@@ -646,6 +661,16 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.OrderBy
 #*          *##end
 #*        *##elseif ($hibernateExtensionEnabled)
+##
+## Override the Hibernate foreign key constraint name
+## Must define the name property.  If the constraint on the entity itself is not defined, then dont
+## render the annotation at all.
+##
+#*          *##if ($associationEnd.owning)
+#*            *##if ($associationEnd.foreignKeyConstraintDefined)
+    @org.hibernate.annotations.ForeignKey(#if ($associationEnd.foreignKeyConstraintDefined)name = "$associationEnd.getForeignKeyConstraintName(${associationEnd.type.identifier.columnName})"#end#if ($target.foreignKeyConstraintDefined)#if ($associationEnd.foreignKeyConstraintDefined), #end#**#inverseName = "$target.getForeignKeyConstraintName(${target.type.identifier.columnName})"#end#**#)
+#*            *##end
+#*          *##end
 #*          *##if ($target.list)
 ##
 ## Only add the IndexColumn annotation if Hibernate extensions is enabled
@@ -719,13 +744,13 @@ $attribute.getDocumentation("     * ")
 ## Otherwise add the JoinColumn annotation.
 ##
 #*        *##if (!$target.type.compositePrimaryKeyPresent)
-    @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)
+    @javax.persistence.JoinColumn(name = "${target.columnName}"#if ($associationEnd.columnDefinition), columnDefinition = "${associationEnd.columnDefinition}"#end)    
 #*        *##else
 #*          *##set ($identifiers = $target.type.getIdentifiers())
     @javax.persistence.JoinColumns
     ({
 #*          *##foreach ($attribute in $identifiers)
-        @javax.persistence.JoinColumn(name = "$stringUtils.upperCase(${target.name})_${attribute.columnName}", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
+        @javax.persistence.JoinColumn(name = "$associationEnd.getForeignKeyName(${attribute.columnName})", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()),#end
         
 #*          *##end
     })
@@ -738,9 +763,14 @@ $attribute.getDocumentation("     * ")
 ##
     @org.hibernate.annotations.Cascade({${target.hibernateCascadeType}})
 #*        *##end
+#*        *##if($associationEnd.owning && $target.foreignKeyConstraintDefined)
+##
+## Override the Hibernate foreign key constraint name
+##
+    @org.hibernate.annotations.ForeignKey(name = "$target.getForeignKeyConstraintName(${target.type.identifier.columnName})")
+#*        *##end
 #*      *##end
 #*    *##end
-
     public $target.getterSetterTypeName ${target.getterName}()
     {
         return this.${target.name};
@@ -778,10 +808,13 @@ $attribute.getDocumentation("     * ")
 #*      *##set ($argExists = false)
 ##
 ## When the target entity is a mapped superclass AND Hibernate extensions is enabled
-## then instead of the @ManyToMany annotations, add the @CollectionOfElements
+## then instead of the @OneToMany annotations, add the @CollectionOfElements instead.
+## This is only applied when the target entity in the association is NOT and entity.
+## In this situation, the target entity is a mapped superclass.
 ##
 #*      *##if ($target.type.embeddableSuperclass && $hibernateExtensionEnabled)
-    @org.hibernate.annotations.CollectionOfElements
+    @org.hibernate.annotations.CollectionOfElements#if ($target.eager)(fetch = javax.persistence.FetchType.EAGER)#end
+
 #*      *##else
     @javax.persistence.ManyToMany(#if ($target.cascadeType)cascade = {${target.cascadeType}}#set ($argExists = true)#end#if(!$associationEnd.owning)#if ($argExists), #end#**#mappedBy = "${associationEnd.name}"#set ($argExists = true)#end#if ($target.eager)#if ($argExists), #end#**#fetch = javax.persistence.FetchType.EAGER#end)
 #*      *##end
@@ -794,8 +827,8 @@ $attribute.getDocumentation("     * ")
     @javax.persistence.JoinTable
     (
         name = "${associationEnd.association.tableName}",
-        joinColumns = {#set ($identifiers = $entity.getIdentifiers())#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "$target.getForeignKeyConstraintName(${attribute.columnName})", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end#**#},
-        inverseJoinColumns = {#set ($identifiers = $target.type.getIdentifiers())#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "$associationEnd.getForeignKeyConstraintName(${attribute.columnName})", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end#**#}
+        joinColumns = {#set ($identifiers = $entity.getIdentifiers())#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "$associationEnd.getForeignKeyName(${attribute.columnName})", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end#**#},
+        inverseJoinColumns = {#set ($identifiers = $target.type.getIdentifiers())#foreach ($attribute in $identifiers)@javax.persistence.JoinColumn(name = "$target.getForeignKeyName(${attribute.columnName})", referencedColumnName = "${attribute.columnName}")#if($velocityCount != $identifiers.size()), #end#end#**#}
     )
 #*        *##end
 #*      *##end
@@ -819,6 +852,16 @@ $attribute.getDocumentation("     * ")
 #*        *##end
 #*      *##end
 #*      *##if ($hibernateExtensionEnabled)
+##
+## Override the Hibernate foreign key constraint name
+## Only generate the ForeignKey annotation if the constraint on the entity end is defined. The
+## inverseName property cannot be defined without the name property.
+##
+#*        *##if($associationEnd.owning)
+#*          *##if($associationEnd.foreignKeyConstraintDefined)
+    @org.hibernate.annotations.ForeignKey(#if ($associationEnd.foreignKeyConstraintDefined)name = "$associationEnd.getForeignKeyConstraintName(${associationEnd.type.identifier.columnName})"#end#if ($target.foreignKeyConstraintDefined)#if ($associationEnd.foreignKeyConstraintDefined), #end#**#inverseName = "$target.getForeignKeyConstraintName(${target.type.identifier.columnName})"#end#**#)
+#*          *##end
+#*        *##end
 #*        *##if ($target.associationCacheEnabled)
 ##
 ## Only add the Cache annotation if assocation cache and Hibernate extensions are both enabled

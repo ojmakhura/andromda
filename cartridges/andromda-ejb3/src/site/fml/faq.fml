@@ -137,10 +137,20 @@
       </answer>
     </faq>
     <faq id="JSF_manageable_entities">
-      <question>Does ejb3 cartridge support Manageable Entities ?</question>
+      <question>Does ejb3 cartridge support Manageable Entities?</question>
       <answer>
         <p>
           Yes. The ejb3 cartidge can be used with the JSF2 cartridge to get full support to Manageable Entities.
+        </p>
+      </answer>
+    </faq>
+    <faq id="Inheritance_strategy_differences_between_hibernate_ejb3_cartridges">
+      <question>I used to use the subclass strategy with the Hibernate cartridge. Home come I get "Cannot use identity column key generation with union-subclass mapping for" when I use the TABLE_PER_CLASS strategy with the EJB3 cartridge?</question>
+      <answer>
+        <p>
+          The EJB3 cartridge equivalent of the subclass inheritance strategy for the Hibernate cartridge is the
+          JOINED inheritance strategy.  Read more about it in 
+          <a href="http://galaxy.andromda.org/forum/viewtopic.php?t=4825">forum thread</a>.
         </p>
       </answer>
     </faq>
