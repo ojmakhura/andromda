@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import org.andromda.cartridges.ejb3.EJB3Globals;
 import org.andromda.cartridges.ejb3.EJB3Profile;
+import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
@@ -887,6 +888,20 @@ public class EJB3AssociationEndFacadeLogicImpl
         return BooleanUtils.toBoolean(String.valueOf(this.getConfiguredProperty(HIBERNATE_ASSOCIATION_ENABLE_CACHE)));
     }
 
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleIsForeignKeyConstraintDefined()
+     */
+    protected boolean handleIsForeignKeyConstraintDefined()
+    {
+        boolean fkConstraintDefined = false;
+        if (findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME) != null)
+        {
+            fkConstraintDefined = true;
+        }
+        return fkConstraintDefined;
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetForeignKeyConstraintName(java.lang.String)
      */
@@ -904,17 +919,50 @@ public class EJB3AssociationEndFacadeLogicImpl
 
         if (taggedValueObject == null)
         {
-            final ClassifierFacade type = getOtherEnd().getType();
+            final ClassifierFacade type = this.getOtherEnd().getType();
             if (type instanceof Entity)
             {
-                Entity entity = (Entity)type;
-                buffer.append(entity.getTableName());
+                //Entity entity = (Entity)type;
+                //Instead of using the entity name, use the association end name to avoid duplication of
+                //FK constraint names which causes failures during table creation for some DBs (MySQL)
+                buffer.append(
+                        EntityMetafacadeUtils.toSqlName(
+                                this.getOtherEnd().getName(),
+                                this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR)));
             }
             else
             {
                 // should not happen
                 buffer.append(type.getName().toUpperCase());
             }
+            
+            buffer.append(this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+            
+            /**
+             * Add the suffix - which is the name of the identifier pk column if not blank
+             * otherwise use the column name of the relationship
+             */
+            if (StringUtils.isNotBlank(suffix))
+            {
+                buffer.append(suffix);
+            }
+            else
+            {
+                buffer.append(this.getColumnName());
+            }
+            constraintName = buffer.toString();
+            
+            final String constraintSuffix = 
+                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.CONSTRAINT_SUFFIX)).trim();
+            
+            /**
+             * we take into consideration the maximum length allowed
+             */
+            final String maxLengthString = (String)getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH);
+            final short maxLength = (short)(Short.valueOf(maxLengthString).shortValue() - constraintSuffix.length());
+            buffer = new StringBuffer(
+                    EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, new Short(maxLength)));
+            buffer.append(constraintSuffix);
         }
         else
         {
@@ -922,36 +970,46 @@ public class EJB3AssociationEndFacadeLogicImpl
             buffer.append(taggedValueObject.toString());
         }
 
-        buffer.append(this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
-        
-        /**
-         * Add the suffix - which is the name of the identifier pk column if not blank
-         * otherwise use the column name of the relationship
-         */
-        if (StringUtils.isNotBlank(suffix))
-        {
-            buffer.append(suffix);
-        }
-        else
-        {
-            buffer.append(this.getColumnName());
-        }
-        constraintName = buffer.toString();
-        
-        final String constraintSuffix = 
-            ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.CONSTRAINT_SUFFIX)).trim();
-        
-        /**
-         * we take into consideration the maximum length allowed
-         */
-        final String maxLengthString = (String)getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH);
-        final short maxLength = (short)(Short.valueOf(maxLengthString).shortValue() - constraintSuffix.length());
-        buffer = new StringBuffer(
-                EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, new Short(maxLength)));
-        buffer.append(constraintSuffix);
         return buffer.toString();
     }
 
+
+    /**
+     * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetForeignKeyName(java.lang.String)
+     */
+    protected String handleGetForeignKeyName(String suffix)
+    {
+        if (StringUtils.isNotBlank(suffix))
+        {
+            suffix = new String(
+                    this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR) + 
+                    suffix + 
+                    this.getForeignKeySuffix());
+        }
+        else
+        {
+            suffix = this.getForeignKeySuffix();
+        }
+                
+        String columnName = null;
+        // prevent ClassCastException if the association isn't an Entity
+        if (this.getType() instanceof Entity)
+        {
+            final String columnNamePrefix =
+                this.isConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)
+                ? ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)) : null;
+            columnName =
+                EntityMetafacadeUtils.getSqlNameFromTaggedValue(
+                    columnNamePrefix,
+                    this,
+                    UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+                    ((Entity)this.getType()).getMaxSqlNameLength(),
+                    suffix,
+                    this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+        }
+        return columnName;
+    }
+    
     /**
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3AssociationEndFacadeLogic#handleGetDefaultCollectionInterface()
      */

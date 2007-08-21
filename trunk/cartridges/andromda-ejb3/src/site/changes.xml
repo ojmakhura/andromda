@@ -514,6 +514,15 @@
         this is now supported with EJb 3.0.  An abstract parent entity can have a relationship with any other
         entity and this should be available to the child inheriting entities.  Add test cases to support this.
       </action>
+      <action dev="vancek" due-to="hermida" type="fix">
+        JIRA EJB-67, EJB-68, EJB-69 - Improved generation of JoinColumn and JoinTable annotations for all apprpriate
+        associations.  By default, foreign key column names have the _FK suffix.  You can explicitly overwrite
+        FK column names by defining the @andromda.persistence.column tagged value.  You can also explicitly overwrite
+        the foreign key constraint names by enabling hibernate extensions and modeling the
+        @andromda.persistence.foreignkey.constraint tagged value.  Refer to the relationshipts howto for further
+        details.  You should be aware that this patch will change the way the cartridge generates your foreign keys.
+        Previously, it appended the _C suffix.  
+      </action>
     </release>
   </body>
 </document>
