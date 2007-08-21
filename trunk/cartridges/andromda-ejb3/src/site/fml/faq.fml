@@ -154,5 +154,23 @@
         </p>
       </answer>
     </faq>
+    <faq id="JSF_ServiceLocator_pattern">
+      <question>How do I access SessionBeans from JSF using the ServiceLocator?</question>
+      <answer>
+        <p>
+          Use the following properties in <i>andromda.xml</i>.          
+          namespace "ejb3":
+          <code><property name="jndiNamePrefix">${application.id}-${pom.version}</property></code>
+          <code><property name="serviceInterfaceNamePattern">{0}Interface</property></code>
+          <code><property name="serviceRemoteInterfaceNamePattern">{0}</property></code>
+          
+          namespace "jsf":
+          <code><property name="serviceAccessorPattern">(${application.package}.service.{1}) ${application.package}.ServiceLocator.getInstance().getService("${application.id}-${pom.version}/{1}")</property></code>
+        </p>
+        <p>
+          Have a look at <a href="http://galaxy.andromda.org/forum/viewtopic.php?p=23142">forum reference</a>.
+        </p>
+      </answer>
+    </faq>
   </part>
 </faqs>
