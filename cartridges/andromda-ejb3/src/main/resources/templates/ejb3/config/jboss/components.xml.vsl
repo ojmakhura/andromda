@@ -27,6 +27,15 @@
         
 #**##end
 #end
+#foreach ($valueobject in $valueobjects)
+#**##if ($valueobject.seamComponent)
+    <component
+        name="${valueobject.seamComponentName}"
+        class="${valueobject.fullyQualifiedName}"
+        scope="${valueobject.seamComponentScopeType}"/>
+        
+#**##end
+#end
 
     <!-- seam-components merge-point -->
 </components>

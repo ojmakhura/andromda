@@ -68,21 +68,23 @@
             <subsection name="Seam Quick Start Guide">
                 <p>
                     Because we are not going to replace the existing JBoss tutorials here, it is assumed you have
-                    followed the links above to understand the Seams framework and where you need the appropriate
+                    followed the links above to understand the Seam framework and where you need the appropriate
                     annotation or metadata.  The following sections will briefly explain the more common Seam 
-                    stereotypes and tagged values and you can always find more documentation on these within
+                    stereotypes and tagged values. You can always find more documentation on these within
                     the <i>andromda-profile-seam</i>.
                 </p>
             </subsection>
             <subsection name="Seam Component">
 				<p>
-					Every entity or session bean which is to be modelled as a Seam component must have an 
-					extra <![CDATA[<<Seam>>]]> stereotype, along with the <![CDATA[<<Entity>>]]> stereotype.
+					Every entity or session bean which is to be modeled as a Seam component must have an 
+					extra <![CDATA[<<Seam>>]]> stereotype, along with the traditional <![CDATA[<<Entity>>]]> 
+                    or <![CDATA[<<Service>>]]> stereotypes.  However, now you can also model a value object with
+                    the <![CDATA[<<ValueObject>>]]> stereotype as a Seam component in the same way.
 				</p>
             </subsection>
             <subsection name="Component Name">
 				<p>
-					If you render the <![CDATA[<<Seam>>]]> stereotype, the <![CDATA[@Name]]> annotation will be 
+					If you model the <![CDATA[<<Seam>>]]> stereotype, the <![CDATA[@Name]]> annotation will be 
                     generated with the value being the class name. You can override this by modelling the 
 					<![CDATA[@andromda.seam.component.name]]> tagged value.
 				</p>
@@ -94,7 +96,7 @@
                     type.
 				</p>
                 <p>
-                    If you have modelled roles for the component, then you can use the 
+                    If you have modeled roles for the component, then you can use the 
                     <![CDATA[@andromda.seam.component.role.scope]]> tagged value where the list of scopes must be
                     in the same order as the role names.
                 </p>
@@ -109,8 +111,8 @@
             <subsection name="Bijection">
 				<p>
 					The <![CDATA[@In]]> and <![CDATA[@Out]]> annotations for bijection are rendered on attributes 
-                    defined on session bean class where <![CDATA[<<In>>]]> and <![CDATA[<<Out>>]]> stereotypes are
-					modelled respectively.
+                    defined on session bean classes where <![CDATA[<<In>>]]> and <![CDATA[<<Out>>]]> stereotypes are
+					modeled respectively.
                 </p>
                 <p>
                     If attribute multiplicity is 0, 0..1, 0..*, the 
@@ -132,14 +134,14 @@
             <subsection name="Creating Seam Component">
 				<p>
 					The <![CDATA[@Create]]> annotation is rendered on session bean operations if a 
-					<![CDATA[<<Create>>]]> stereotype is modelled on this method, indicating that the method
+					<![CDATA[<<Create>>]]> stereotype is modeled on this method, indicating that the method
                     should be called when an instance of the component is instantiated by Seam.
 				</p>
             </subsection>
             <subsection name="Destruction of Context Variables">
 				<p>
 					The <![CDATA[@Destroy]]> annotation is rendered on a session bean operation if a 
-					<![CDATA[<<Destroy>>]]> stereotype is modelled on it.  Otherwise, by default,
+					<![CDATA[<<Destroy>>]]> stereotype is modeled on it.  Otherwise, by default,
                     a <b>Destroy</b> method is generated with this annotation.
 				</p>
             </subsection>
@@ -158,12 +160,12 @@
             </subsection>
             <subsection name="Component Validation">
 				<p>
-					The <![CDATA[<<Valid>>]]> stereotype can be modelled on session bean component attributes 
+					The <![CDATA[<<Valid>>]]> stereotype can be modeled on session bean component attributes 
 					to render the <![CDATA[@Valid]]> annotation for Hibernate Validator to recursively 
                     validate this and related objects.
 				</p>
                 <p>
-                    The <![CDATA[<<Validator>>]]> stereotype can be modelled on Seam component operations indicating
+                    The <![CDATA[<<Validator>>]]> stereotype can be modeled on Seam component operations indicating
                     the validator must validate the component before invoking the method.
                 </p>
 				<p>
@@ -173,8 +175,8 @@
                 </p>
                 <p> 
 					The <![CDATA[@andromda.seam.validation.refreshEntities]]> tagged value can also optionally be
-                    modelled with values 'true' or 
-					'false' and if defined, adds the <i>efreshEntities</i> property to the annotation.  This will
+                    modeled with values 'true' or 
+					'false' and if defined, adds the <i>refreshEntities</i> property to the annotation.  This will
                     indicate any invalid entity in the managed state be refreshed from the database when 
                     validation fails.  This is used in conjuction with extended persistence context.
 				</p>
@@ -182,7 +184,7 @@
             <subsection name="Stateful Session Bean Components">
 				<p>
 					As soon as you introduce session bean attributes, the cartridge defines 
-					the bean as a stateful session bean only if none of the attributes are modelled with Seam related
+					the bean as a stateful session bean only if none of the attributes are modeled with Seam related
                     stereotypes or tagged values.  If you have only Seam component attributes in the session bean
                     (which by the way, is a Seam component), the bean is not defined as a SFSB.  If you wish 
                     to explicity define this bean as a SFSB you can do this via the tagged value 
@@ -191,13 +193,13 @@
             </subsection>
             <subsection name="Data Model">
 				<p>
-					The <![CDATA[<<DataModel>>]]> stereotype can be modelled on component attributes 
+					The <![CDATA[<<DataModel>>]]> stereotype can be modeled on component attributes 
 					of type List, Map, Set or Object[]. 
 					This will render <![CDATA[@DataModel]]> on the attribute. 
                 </p>
                 <p>
                     An optional tagged value 
-					<![CDATA[@andromda.seam.data.datamodel.value]]> can be modelled on such 
+					<![CDATA[@andromda.seam.data.datamodel.value]]> can be modeled on such 
 					attributes to defined the context variable name if more than one datamodel exists.
 				</p>
                 <p>
@@ -208,7 +210,7 @@
             </subsection>
             <subsection name="Data Model Selection">
 				<p>
-					The <![CDATA[<<DataModelSelection>>]]> stereotype can be modelled on component attributes 
+					The <![CDATA[<<DataModelSelection>>]]> stereotype can be modeled on component attributes 
 					to inject the selected value from the <b>DataModel</b> into the attribute. The JSF
                     DataModel is the underlying colleciton or map value.  This 
 					will render <![CDATA[@DataModelSelection]]> on the attribute.
@@ -223,9 +225,9 @@
             </subsection>
             <subsection name="Initializing Context Variable">
 				<p>
-					The <![CDATA[<<Factory>>]]> stereotype can be modelled on session bean 
+					The <![CDATA[<<Factory>>]]> stereotype can be modeled on session bean 
 					component operations with the optional <![CDATA[@andromda.seam.bijection.factory.value]]>
-					tagged value which can be modelled on the operation to set the context variable name.
+					tagged value which can be modeled on the operation to set the context variable name.
                     If this tagged value is NOT set, the default value is the property name.  You can optionally
                     explicity specify the scope of the context variable by using the 
                     <![CDATA[@andromda.seam.bijection.factory.scope]]> tagged value.
@@ -233,7 +235,7 @@
             </subsection>
             <subsection name="Request Parameters">
 				<p>
-					The <![CDATA[<<RequestParameter>>]]> stereotype can be modelled on session bean 
+					The <![CDATA[<<RequestParameter>>]]> stereotype can be modeled on session bean 
 					component attributes to indicate an attribute is to be injected with the value 
 					of a request parameter. 
                 </p>
@@ -260,14 +262,14 @@
             <subsection name="Action Outcome in Absence of a Conversation">
 				<p>
 					The tagged value <![CDATA[@andromda.seam.component.conversational.ifnotbegunoutcome]]>
-					an be set to render the <b>ifNotBegunOutcome</b> property on the <![CDATA[@Conversational]]> 
+					can be set to render the <b>ifNotBegunOutcome</b> property on the <![CDATA[@Conversational]]> 
                     annotation to indicate the JSF outcome for the action, if no long-running conversation is 
 					active when the component is invoked.
 				</p>
             </subsection>
             <subsection name="Beginging a Conversation">
 				<p>
-					The<![CDATA[<<Begin>>]]> stereotype can be modelled on Seam bean component operations 
+					The<![CDATA[<<Begin>>]]> stereotype can be modeled on Seam component operations 
 					to indicate a long-running conversation has started.  This will render a <![CDATA[@Begin]]> 
                     annotation on the operation. The following tagged values can be defined within the context of this
                     component:
@@ -282,7 +284,7 @@
             </subsection>
             <subsection name="Ending a Conversation">
 				<p>
-					The <![CDATA[<<End>>]]> stereotype can be modelled on Seam bean component operations 
+					The <![CDATA[<<End>>]]> stereotype can be modeled on Seam component operations 
 					to indicate the end of a long running conversation. The following tagged values can be
                     defined within the context of this component:
                     <ul>
@@ -299,7 +301,7 @@
             </subsection>
             <subsection name="Unwrap Stereotype">
 				<p>
-					The stereotype <![CDATA[<<Unwrap>>]]> can be modelled on attributes but is rendered 
+					The stereotype <![CDATA[<<Unwrap>>]]> can be modeled on attributes but is rendered 
 					on getter method of bean components.
 				</p>
             </subsection>

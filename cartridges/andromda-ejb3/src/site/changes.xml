@@ -523,6 +523,11 @@
         details.  You should be aware that this patch will change the way the cartridge generates your foreign keys.
         Previously, it appended the _C suffix.  
       </action>
+      <action dev="vancek" due-to="chawax" type="add">
+        JIRA EJB-82 - Support generating Value Objects as Seam components.  This required adding an 
+        EJB3ValueObjectFacade metafacade for the cartridge and modifying the components.xml generation to
+        account for the new type Seam component.
+      </action>
     </release>
   </body>
 </document>

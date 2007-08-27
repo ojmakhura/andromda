@@ -464,6 +464,9 @@
             <modelElement variable="entities">
                 <type name="org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade"/>
             </modelElement>
+            <modelElement variable="valueobjects">
+                <type name="org.andromda.cartridges.ejb3.metafacades.EJB3ValueObjectFacade"/>
+            </modelElement>
         </modelElements>
     </template>
 
