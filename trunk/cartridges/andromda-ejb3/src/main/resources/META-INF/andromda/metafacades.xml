@@ -267,4 +267,9 @@
     <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3TypeFacadeLogicImpl">
         <property reference="ejb3TypeMappingsUri"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3ValueObjectFacadeLogicImpl">
+        <mapping>
+            <stereotype>VALUE_OBJECT</stereotype>
+        </mapping>
+    </metafacade>
 </metafacades>
