@@ -96,10 +96,17 @@ public abstract class ${service.serviceBaseName}
 #**##foreach ($dependency in $references)
 #*  *##set ($reference = $dependency.targetElement)
 
+#*  *##if ($service.seamComponent && $reference.seamComponent)
+    /**
+     * Inject Seam session EJB ${reference.name} 
+     */
+    @org.jboss.seam.annotations.In
+#*  *##else
     /**
      * Inject session EJB ${reference.name}
      */
     @javax.ejb.EJB
+#*  *##end
     protected ${reference.fullyQualifiedServiceRemoteInterfaceName} $stringUtils.uncapitalize(${reference.name});
 #**##end
 #end
