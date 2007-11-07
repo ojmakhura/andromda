@@ -532,6 +532,11 @@
         JIRA EJB-89 - Fixed prefix for getter methods of type boolean by using the (is) keyword rather than
         (get).
       </action>
+      <action dev="vancek" due-to="chawax " type="fix">
+        JIRA EJB-70 - When a dependency is drawn to a target session bean modelled with Seam and Service stereotypes,
+        then instead of using the @EJB annotation, use the Seam @In annotation. This applies when the source
+        session bean is also a Seam component.
+      </action>
     </release>
   </body>
 </document>
