@@ -528,6 +528,10 @@
         EJB3ValueObjectFacade metafacade for the cartridge and modifying the components.xml generation to
         account for the new type Seam component.
       </action>
+      <action dev="vancek" due-to="aabdelaziz" type="fix">
+        JIRA EJB-89 - Fixed prefix for getter methods of type boolean by using the (is) keyword rather than
+        (get).
+      </action>
     </release>
   </body>
 </document>

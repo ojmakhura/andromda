@@ -54,14 +54,6 @@ public class EJB3EntityAttributeFacadeLogicImpl
     // --------------- methods ---------------------
 
     /**
-     * @see org.andromda.metafacades.uml.AttributeFacade#getGetterName()
-     */
-	public String getGetterName() 
-	{
-        return "get" + StringUtils.capitalize(super.getName());
-	}
-
-    /**
      * Overridden to provide handling of inheritance.
      *
      * @see org.andromda.metafacades.uml.AttributeFacade#isRequired()
