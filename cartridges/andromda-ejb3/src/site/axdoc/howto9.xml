@@ -50,38 +50,14 @@
             <a name="Mapped_Superclasses"/>
 			<subsection name="Mapped Superclasses">
                 <p>
-                    To explicity define an entity as a mapped superclass, model the 
-                    <![CDATA[<<MappedSuperclass>>]]> stereotype on the root entity.  In the past, you had to
-                    model the <![CDATA[<<Entity>>]]> stereotype as well on this class, but this is no longer
-                    necessary if you are using the latest cartridge source.
+                    To explicity define an entity as a mapped superclass, model the <![CDATA[<<Entity>>]]> <b>AND</b>
+                    <![CDATA[<<MappedSuperclass>>]]> stereotypes on the class.  (Note: The cartridge did attempt to 
+                    avoid the need to model the <![CDATA[<<Entity>>]]> stereotype, however this caused issue with UML2
+                    models)
                 </p>
                 <p class="highlight">
-                    If you do not want to model the <![CDATA[<<Entity>>]]> stereotype as well - in theory, a mapped
-                    superclass is NOT an entity and it doesn't make sense for this stereotype to exist - you must 
-                    also disable the following two constraints in your <code>andromda.xml</code> by adding the following
-                    <b>constraints</b> section.  Rest assured that by disabling these constraints, your are not
-                    vulnerable to modelling flaws, since the constraints that exist on the <i>EJB3EntityFacade</i> will
-                    enforce these constraints.
-<source language="xml"><![CDATA[
-        <repository name="netBeansMDR">
-            <models>
-                <model>
-                    <uri>${model.uri}</uri>
-                    <moduleSearchLocations>
-                         <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/</location>
-                    </moduleSearchLocations>
-                    <constraints enforceAll="true">
-                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entities can only generalize other entities</constraint>
-                        <constraint enforce="false">org::andromda::metafacades::uml::Entity::entity must have at least one primary key</constraint>
-                    </constraints>
-                </model>
-            </models>
-        </repository>
-]]></source>
-                </p>
-                <p class="highlight">
-                    In this case, you must explicity define your identifiers either in the mapped superclass or in 
-                    the inheriting subclass entity.
+                    You must explicity define your identifier(s) either in the mapped superclass or in 
+                    the subclass entity.
                 </p> 
                 <p>
                     The following is an example of this type of inheritance where the <code>Vehicle</code> mapped

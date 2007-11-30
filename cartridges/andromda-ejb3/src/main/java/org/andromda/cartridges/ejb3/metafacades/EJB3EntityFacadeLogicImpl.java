@@ -204,6 +204,9 @@ public class EJB3EntityFacadeLogicImpl
     // --------------- methods ---------------------
     
     /**
+     * This was meant to overrides the default implementation in EntityLogicImpl.java.
+     * TODO: check - is it really required?
+     * 
      * @see org.andromda.cartridges.ejb3.metafacades.EJB3EntityFacade#getIdentifiers()
      */
     public Collection handleGetIdentifiers()
