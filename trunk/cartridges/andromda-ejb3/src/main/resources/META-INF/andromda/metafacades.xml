@@ -85,6 +85,7 @@
     <!--  Mapped Superclass Metafacades -->
 	<metafacade class="org.andromda.cartridges.ejb3.metafacades.EJB3MappedSuperclassFacadeLogicImpl" contextRoot="true">
 		<mapping>
+            <stereotype>ENTITY</stereotype>
 			<stereotype>MAPPED_SUPERCLASS</stereotype>
 		</mapping>
 	</metafacade>

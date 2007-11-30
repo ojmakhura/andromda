@@ -537,6 +537,14 @@
         then instead of using the @EJB annotation, use the Seam @In annotation. This applies when the source
         session bean is also a Seam component.
       </action>
+      <action dev="vancek" type="fix">
+        JIRA EJB-53 - After applying the patch to add EJB3MappedSuperclassFacade metafacades which extend
+        EJB3EntityFacade and avoid the need to also model the Entity stereotype (as well as the MappedSuperclass),
+        several bugs appeared where dynamic identifiers were created regardless of the condition and explicitly
+        modelled identifiers were ignored.  This only affected UML2 models.  This patch reverses a part of that
+        patched; such that we still require to model the Entity stereotype as well as the MappedSuperclass
+        stereotype on all mapped superclasses.
+      </action>
     </release>
   </body>
 </document>
