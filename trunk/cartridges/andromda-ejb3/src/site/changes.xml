@@ -545,6 +545,10 @@
         patched; such that we still require to model the Entity stereotype as well as the MappedSuperclass
         stereotype on all mapped superclasses.
       </action>
+      <action dev="vancek" due-to="luca.dallolio" type="fix">
+        JIRA EJB-71 - When modeling a ValueObject based on an entity that has a composite PK, the transformer to
+        the VO does not call the getters on the embeddable class, which throws an exception during compilation.
+      </action>
     </release>
   </body>
 </document>
