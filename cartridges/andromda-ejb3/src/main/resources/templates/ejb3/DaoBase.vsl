@@ -861,7 +861,11 @@ public abstract class $entity.daoBaseName
 #* *##foreach ($entityProperty in $entityProperties)
 #*    *##if ($property.name.equals($entityProperty.name))
 #*        *##set ($entityPropertyGetterValue = false)
-#*        *##set ($entityPropertyGetterValue = $converter.typeConvert($entityProperty.type.fullyQualifiedName, "source.${entityProperty.getterName}()", $property.type.fullyQualifiedName))
+#*        *##if ($entity.compositePrimaryKeyPresent)
+#*          *##set ($entityPropertyGetterValue = $converter.typeConvert($entityProperty.type.fullyQualifiedName, "source.getPk().${entityProperty.getterName}()", $property.type.fullyQualifiedName))
+#*        *##else
+#*          *##set ($entityPropertyGetterValue = $converter.typeConvert($entityProperty.type.fullyQualifiedName, "source.${entityProperty.getterName}()", $property.type.fullyQualifiedName))
+#*        *##end
 #*        *##if ($entityPropertyGetterValue)
         target.${property.setterName}($entityPropertyGetterValue);
 #*        *##else
