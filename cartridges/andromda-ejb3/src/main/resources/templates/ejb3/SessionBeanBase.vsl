@@ -190,7 +190,7 @@ public abstract class ${service.serviceBaseName}
 
 #*    *##end
 #*    *##if ($attribute.seamDataModel)
-    @org.jboss.seam.annotations.datamodel.DataModel#if ($stringUtils.isNotEmpty($attribute.seamDataModelParameters))$attribute.seamDataModel#end
+    @org.jboss.seam.annotations.datamodel.DataModel#if ($stringUtils.isNotEmpty($attribute.seamDataModelParameters))$attribute.seamDataModelParameters#end
 
 #*    *##end
 #*    *##if ($attribute.seamDataModelSelection)
