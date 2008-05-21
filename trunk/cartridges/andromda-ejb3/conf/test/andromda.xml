@@ -8,13 +8,13 @@
                 <model>
                     <uri>${test.model.uri}</uri>
                     <moduleSearchLocations>
-                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles</location>
+                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
                     </moduleSearchLocations>
                     <modelPackages>
                         <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
                     </modelPackages>
                 </model>
-            </models>            
+            </models>
         </repository>
     </repositories>
     <namespaces>
