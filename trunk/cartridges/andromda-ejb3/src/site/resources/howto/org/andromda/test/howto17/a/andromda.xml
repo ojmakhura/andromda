@@ -13,7 +13,8 @@
                 <model>
                     <uri>${model.uri}</uri>
                     <moduleSearchLocations>
-                        <location patterns="**/*.xml.zip, **/*.uml2">${settings.localRepository}/org/andromda/profiles</location>
+                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
+                        <location patterns="**/*.xml.zip,**/*.xml">${basedir}/../../profiles/uml-1.4</location>
                     </moduleSearchLocations>
                 </model>
             </models>
