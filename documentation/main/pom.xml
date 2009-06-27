@@ -9,6 +9,11 @@
     <packaging>pom</packaging>
     <name>AndroMDA Primary Site Documentation</name>
     <description>The top level site AndroMDA documentation</description>
+    <scm>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/documentation/main</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/documentation/main</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <build>
         <plugins>
             <plugin>

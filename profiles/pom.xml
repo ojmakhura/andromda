@@ -13,6 +13,11 @@
         These profiles allow all AndroMDA stereotypes, tagged values, and datatypes to
         be referenced from a model.
     </description>
+    <scm>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/profiles</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/profiles</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <modules>
         <module>uml-1.4</module>
         <module>uml-2.0</module>

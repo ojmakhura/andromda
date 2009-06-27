@@ -12,6 +12,11 @@
     <description>
         The grouping of AndroMDApp projects.
     </description>
+    <scm>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromdapp/projects</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromdapp/projects</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <modules>
         <module>j2ee/maven2</module>
         <module>richclient/ant</module>

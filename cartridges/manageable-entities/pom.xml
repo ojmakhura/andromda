@@ -9,6 +9,11 @@
     <packaging>pom</packaging>
     <name>AndroMDA Manageable Entities</name>
     <description>AndroMDA Manageable Entities documentation.</description>
+    <scm>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartriges/manageable-entities</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartriges/manageable-entities</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <build>
         <plugins>
             <plugin>

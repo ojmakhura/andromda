@@ -9,6 +9,11 @@
     <packaging>jar</packaging>
     <name>AndroMDA FreeMarker Template Engine</name>
     <description>The template engine that supports the FreeMarker scripting language.</description>
+    <scm>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/templateengines/freemarker</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/templateengines/freemarker</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
 	<dependencies>
     	<dependency> 
     		<groupId>freemarker</groupId>

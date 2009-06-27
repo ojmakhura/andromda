@@ -14,10 +14,9 @@
         <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10001</url>
     </issueManagement>
     <scm>
-        <connection>scm:cvs:pserver:anonymous:@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all/ant</connection>
-        <developerConnection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
-        <tag>V3_x_HEAD</tag>
-        <url>http://andromda.cvs.sourceforge.net/</url>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/ant</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk</developerConnection>
+          <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <reporting>
         <plugins>

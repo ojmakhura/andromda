@@ -14,6 +14,11 @@
        as the client technology. The generated project is for server side code (deployed on
        JBoss), and generic client side code to access published services via remote invocation.
     </description>
+    <scm>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromdapp/projects/richclient/ant</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromdapp/projects/richclient/ant</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <inceptionYear>2005</inceptionYear>
     <dependencies>
         <dependency>
