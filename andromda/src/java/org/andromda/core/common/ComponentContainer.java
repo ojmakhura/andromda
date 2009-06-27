@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.apache.log4j.Logger;
 
 
@@ -35,10 +34,11 @@ import org.apache.log4j.Logger;
  * </p>
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class ComponentContainer
 {
-    private static Logger logger = Logger.getLogger(ComponentContainer.class);
+    private static final Logger logger = Logger.getLogger(ComponentContainer.class);
 
     /**
      * Where all component default implementations are found.
@@ -60,7 +60,7 @@ public class ComponentContainer
      *
      * @return PluginDiscoverer the static instance.
      */
-    public final static ComponentContainer instance()
+    public static ComponentContainer instance()
     {
         if (instance == null)
         {
@@ -87,16 +87,16 @@ public class ComponentContainer
      * <code>META-INF/services</code> directory for the default
      * implementation.
      * 
-     * @param implemenation the fully qualified name of the implementation
+     * @param implementation the fully qualified name of the implementation
      *        class.
-     * @param the type to retrieve if the implementation is empty.
+     * @param type the type to retrieve if the implementation is empty.
      * @return a new instance of the given <code>type</code>
      */
     public Object newComponent(
         String implementation,
         final Class type)
     {
-        Object component = null;
+        Object component;
         implementation = implementation != null ? implementation.trim() : "";
         if (implementation.length() == 0)
         {
@@ -116,15 +116,15 @@ public class ComponentContainer
      * <code>META-INF/services</code> directory for the default
      * implementation.
      * 
-     * @param implemenation the implementation class.
-     * @param the type to retrieve if the implementation is empty.
+     * @param implementation the implementation class.
+     * @param type the type to retrieve if the implementation is empty.
      * @return a new instance of the given <code>type</code>
      */
     public Object newComponent(
         final Class implementation,
         final Class type)
     {
-        Object component = null;
+        Object component;
         if (implementation == null)
         {
             component = this.newDefaultComponent(type);
@@ -141,12 +141,13 @@ public class ComponentContainer
      * <code>META-INF/services</code> directory and finding its default
      * implementation.
      *
+     * @param type 
      * @return a new instance of the given <code>type</code>
      */
     public Object newDefaultComponent(final Class type)
     {
         ExceptionUtils.checkNull("type", type);
-        Object component = null;
+        Object component;
         try
         {
             final String implementation = this.getDefaultImplementation(type);
@@ -271,11 +272,10 @@ public class ComponentContainer
      * <code>META-INF/services</code> directory. Returns an empty String if
      * none is found.
      *
-     * @param typeName the name of the type (i.e.
-     *        org.andromda.core.templateengine.TemplateEngine)
-     * @return
+     * @param type the type (i.e. org.andromda.core.templateengine.TemplateEngine)
+     * @return the default implementation for the argument Class or the empty string if none is found
      */
-    private final String getDefaultImplementation(final Class type)
+    private String getDefaultImplementation(final Class type)
     {
         final String contents = ResourceUtils.getContents(this.getComponentDefaultConfigurationPath(type));
         return contents != null ? contents.trim() : "";
@@ -359,7 +359,7 @@ public class ComponentContainer
      * @param namespace the name of the namespace.
      * @return the namespace container.
      */
-    private final ComponentContainer getNamespaceContainer(final String namespace)
+    private ComponentContainer getNamespaceContainer(final String namespace)
     {
         return (ComponentContainer)this.findComponent(namespace); 
     }
@@ -388,7 +388,7 @@ public class ComponentContainer
      * a unique (within this container) <code>key</code> is registered.
      *
      * @param key the unique key.
-     * @return boolean true/false depending on whether or not it is registerd.
+     * @return boolean true/false depending on whether or not it is registered.
      */
     public boolean isRegistered(final Object key)
     {
@@ -401,7 +401,7 @@ public class ComponentContainer
      *
      * @param namespace the namespace for which to register the component.
      * @param key the unique key.
-     * @return Object the registered component.
+     * @param component 
      */
     public void registerComponentByNamespace(
         final String namespace,
@@ -428,6 +428,7 @@ public class ComponentContainer
      * container) <code>key</code>.
      *
      * @param key the unique key.
+     * @param component 
      * @return Object the registered component.
      */
     public Object registerComponent(
@@ -449,7 +450,6 @@ public class ComponentContainer
      * @param defaultTypeName the name of the "default" type of the
      *        implementation to use for the componentInterface. Its expected
      *        that this is the name of a class.
-     * @return Object the registered component.
      */
     public void registerDefaultComponent(
         final Class componentInterface,
@@ -512,7 +512,6 @@ public class ComponentContainer
      * Registers the component of the specified <code>type</code>.
      *
      * @param type the type Class.
-     * @return Object an instance of the type registered.
      */
     public void registerComponentType(final Class type)
     {

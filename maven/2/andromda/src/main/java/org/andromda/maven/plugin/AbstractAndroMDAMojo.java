@@ -82,6 +82,7 @@ public abstract class AbstractAndroMDAMojo
     protected ArtifactRepository localRepository;
 
     /**
+     * Initialize configuration and execute plugin
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute()

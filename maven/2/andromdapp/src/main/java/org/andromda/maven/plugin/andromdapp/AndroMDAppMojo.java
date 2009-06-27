@@ -13,6 +13,7 @@ import org.apache.maven.plugin.MojoExecutionException;
  * @author Chad Brandon
  * @goal generate
  * @requiresProject false
+ * @requiresDependencyResolution
  */
 public class AndroMDAppMojo
     extends AbstractAndroMDAppMojo

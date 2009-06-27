@@ -1,0 +1,28 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda.cartridges</groupId>
+        <artifactId>andromda-cartridges</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-manageable-entities</artifactId>
+    <packaging>pom</packaging>
+    <name>AndroMDA Manageable Entities</name>
+    <description>AndroMDA Manageable Entities documentation.</description>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin> 
+        </plugins>
+    </reporting>
+</project>

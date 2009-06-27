@@ -7,13 +7,18 @@
 #set ($generatedFile = "$stringUtils.replace($userTypesPackage, '.', '/')/${className}.java")
 package $userTypesPackage;
 
+import java.io.InputStream;
 import java.io.ByteArrayInputStream;
-import java.sql.Blob;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.sql.Blob;
 
+import ${hibernateUtils.hibernatePackage}.HibernateException;
 import ${hibernateUtils.hibernateUserTypePackage}.UserType;
 
 /**
@@ -38,7 +43,7 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#returnedClass()
      */
-    public Class returnedClass()
+    public Class#if($enableTemplating)<?>#end returnedClass()
     {
         return byte[].class;
     }
@@ -57,26 +62,60 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#nullSafeGet(java.sql.ResultSet, java.lang.String[], java.lang.Object)
      */
-    public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner)
-        throws SQLException
+    public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException
     {
-        final Blob blob = resultSet.getBlob(names[0]);
-        return (blob == null) ? null : blob.getBytes(1, (int)blob.length());
+        final Object object;
+
+        final InputStream inputStream = resultSet.getBinaryStream(names[0]);
+        if (inputStream == null)
+        {
+            object = null;
+        }
+        else
+        {
+            final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+			try
+            {
+			    final byte[] buffer = new byte[65536];
+                int read = -1;
+				
+                while ((read = inputStream.read(buffer)) > -1)
+                {
+                    outputStream.write(buffer, 0, read);
+                }
+                outputStream.close();
+            }
+            catch (IOException exception)
+            {
+                throw new HibernateException("Unable to read blob " + names[0], exception);
+            }
+            object = outputStream.toByteArray();
+        }
+
+        return object;
     }
 
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#nullSafeSet(java.sql.PreparedStatement, java.lang.Object, int)
      */
-    public void nullSafeSet(PreparedStatement statement, Object value, int index)
-        throws SQLException
+    public void nullSafeSet(PreparedStatement statement, Object value, int index) throws SQLException
     {
-        if (value == null)
+        final byte[] bytes = (byte[])value;
+        if (bytes == null)
         {
-            statement.setNull(index, java.sql.Types.BLOB);
+            try
+            {
+                statement.setBinaryStream(index, null, 0);
+            }
+            catch (SQLException exception)
+            {
+                Blob nullBlob = null;
+                statement.setBlob(index, nullBlob);
+            }
         }
         else
         {
-            final byte[] bytes = (byte[])value;
             statement.setBinaryStream(index, new ByteArrayInputStream(bytes), bytes.length);
         }
     }
@@ -106,7 +145,7 @@ public class $className
 #if ($hibernateUtils.version3)
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#replace(Object original, Object target, Object owner)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#replace(Object, Object, Object)
      */
     public Object replace(Object original, Object target, Object owner)
     {
@@ -114,7 +153,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(java.io.Serializable cached, Object owner)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(java.io.Serializable, Object)
      */
     public Object assemble(java.io.Serializable cached, Object owner)
     {
@@ -122,7 +161,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(Object value)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#disassemble(Object)
      */
      public java.io.Serializable disassemble(Object value)
      {
@@ -130,7 +169,7 @@ public class $className
      }
 
      /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(Object value)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#hashCode(Object)
      */
      public int hashCode(Object x)
      {

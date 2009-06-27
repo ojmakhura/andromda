@@ -9,42 +9,66 @@
           "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-cascade="$entity.hibernateDefaultCascade">
-    <class name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName"#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end dynamic-insert="$entity.dynamicInsert" dynamic-update="$entity.dynamicUpdate"#if (!$entity.specializations.empty && $entity.hibernateInheritanceClass && !$entity.abstract) discriminator-value="$entity.entityImplementationName"#end>
+#if ($mapSubclassesInSeparateFile && $entity.generalization)
+#renderSubClass3($entity "    ")
+#else
+    <class name="$entity.fullyQualifiedEntityImplementationName" table="$entity.tableName"#if($stringUtils.isNotBlank($entity.schema)) schema="$entity.schema"#end#if(!$entity.lazy) lazy="false"#end#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end dynamic-insert="$entity.dynamicInsert" dynamic-update="$entity.dynamicUpdate"#if (!$entity.specializations.empty && $entity.hibernateInheritanceClass && !$entity.abstract) discriminator-value="$entity.hibernateDiscriminatorValue"#end#if ($entity.xmlTagName) node="$entity.xmlTagName"#end>
 #if($hibernateEnableCache.equalsIgnoreCase("true"))
         <cache usage="$entity.hibernateCacheType" />
 #end
-#if (!$entity.identifiers.empty)
+#if (!$entity.compositeIdentifier)
 #set ($identifier = $entity.identifiers.iterator().next())
-#end
-        <id name="$identifier.name" type="$identifier.type.fullyQualifiedHibernateType" unsaved-value="$identifier.type.javaNullString">
-            <column name="$identifier.columnName" sql-type="$identifier.sqlType"/>
+        <id name="$identifier.name" type="$identifier.fullyQualifiedHibernateType" unsaved-value="$identifier.type.javaNullString"#if ($identifier.xmlTagName) node="$identifier.xmlTagName"#end>
+            <column name="$identifier.columnName"#if ($generateDatabaseDependentCode) sql-type="$identifier.sqlType"#end/>
             <generator class="$entity.hibernateGeneratorClass">
 #if ($entity.sequenceHibernateGeneratorClass)
-                <param name="sequence">${entity.tableName}${sequenceIdentifierSuffix}</param>
+#if($stringUtils.isNotBlank($entity.schema))
+#set($sequencePrefix = "${entity.schema}.")
+#else
+#set($sequencePrefix = "")
+#end
+                <param name="sequence">${sequencePrefix}${entity.sequenceName}</param>
 #elseif ($entity.foreignHibernateGeneratorClass)
                 <param name="property">$entity.parentEnd.name</param>
 #end
             </generator>
         </id>
+#else
+        <composite-id name="$stringUtils.uncapitalize($entity.name)Pk" class="${entity.fullyQualifiedEntityName}PK">
+#foreach ($identifier in $entity.identifiers)
+            <key-property name="$identifier.name" type="$identifier.type.fullyQualifiedHibernateType">
+                <column name="$identifier.columnName"#if ($generateDatabaseDependentCode) sql-type="$identifier.sqlType"#end not-null="true"/>
+            </key-property>
+#end
+#foreach ($sourceEnd in $entity.identifierAssociationEnds)
+            <key-many-to-one name="$sourceEnd.otherEnd.name" class="$sourceEnd.otherEnd.type.fullyQualifiedEntityImplementationName" >
+#foreach ($identifier in ${sourceEnd.otherEnd.type.identifiers})
+                <column name="$identifier.columnName"#if ($generateDatabaseDependentCode) sql-type="$identifier.sqlType"#end/>
+#end
+            </key-many-to-one>
+#end
+        </composite-id>
+#end
 #if (!$entity.specializations.empty && $entity.hibernateInheritanceClass)
         <discriminator column="$entity.hibernateDiscriminatorColumn" type="$entity.hibernateDiscriminatorType"/>
 #end
 #if ($stringUtils.isNotBlank($entity.hibernateVersionProperty))
-        <version name="$entity.hibernateVersionProperty" type="int" column="$entity.hibernateVersionProperty"/>
+        <version name="$entity.hibernateVersionProperty" type="int" column="$entity.hibernateVersionPropertySqlName"/>
 #end
 ## If super inheritance is 'interface', render super properties etc
 #foreach ($generalization in $entity.allGeneralizations)
 #if($generalization.mappingRequiresSuperProperties)
-#renderPropertiesAndAssociations3($generalization "" )
+#renderPropertiesAndAssociations3($generalization "" "        ")
 #end
 #end
 ## render the properties and associations (if any)
-#renderPropertiesAndAssociations3($entity "" )
+#renderPropertiesAndAssociations3($entity "" "        ")
 ## render the subclass elements if class or subclass strategy.
 #if ($entity.requiresSpecializationMapping)
 #foreach ($entity in $entity.specializations)
-#renderSubClass3($entity)
+#renderSubClass3($entity "        ")
 #end## foreach
 #end## ($entity.requiresMappingSpecialization)
     </class>
+#end
 </hibernate-mapping>

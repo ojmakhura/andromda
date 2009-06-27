@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.andromda</groupId>
         <artifactId>andromda</artifactId>
-        <version>4.0-M1-SNAPSHOT</version>
+        <version>3.4-SNAPSHOT</version>
     </parent>
     <groupId>org.andromda.taglibs</groupId>
     <artifactId>andromda-taglibs</artifactId>
@@ -27,12 +27,12 @@
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.1</version>
+            <version>2.3</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>1.0.4</version>
+            <version>1.1</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>

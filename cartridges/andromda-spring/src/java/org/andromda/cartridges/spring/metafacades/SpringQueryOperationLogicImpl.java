@@ -1,9 +1,12 @@
 package org.andromda.cartridges.spring.metafacades;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
 import org.andromda.cartridges.spring.SpringProfile;
+import org.andromda.cartridges.spring.SpringUtils;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
@@ -69,7 +72,7 @@ public class SpringQueryOperationLogicImpl
      */
     protected boolean handleIsCriteriaFinder()
     {
-        return (getCriteriaArgument() != null);
+        return this.getCriteriaArgument() != null;
     }
 
     /**
@@ -77,17 +80,18 @@ public class SpringQueryOperationLogicImpl
      */
     protected ParameterFacade handleGetCriteriaArgument()
     {
-        Collection parameters = getParameters();
-        for (final Iterator iter = parameters.iterator(); iter.hasNext();)
+        ParameterFacade foundParameter = null;
+        for (final Iterator iterator = this.getParameters().iterator(); iterator.hasNext();)
         {
-            ParameterFacade parameter = (ParameterFacade)iter.next();
-            ClassifierFacade type = parameter.getType();
-            if (type.hasStereotype(UMLProfile.STEREOTYPE_CRITERIA))
+            final ParameterFacade parameter = (ParameterFacade)iterator.next();
+            final ClassifierFacade type = parameter.getType();
+            if (type != null && type.hasStereotype(UMLProfile.STEREOTYPE_CRITERIA))
             {
-                return parameter;
+                foundParameter = parameter;
+                break;
             }
         }
-        return null;
+        return foundParameter;
     }
 
     /**
@@ -115,35 +119,64 @@ public class SpringQueryOperationLogicImpl
         if (StringUtils.isEmpty(queryString))
         {
             ModelElementFacade owner;
+            String entityName = null;
             if (entity == null)
             {
                 owner = this.getOwner();
+                entityName = owner.getFullyQualifiedName(); 
             }
             else
             {
                 owner = entity;
+                //retrieve the entity implementation for proper hibernate mapping resolving 
+                entityName = entity.getFullyQualifiedEntityImplementationName();
             }
             String variableName = StringUtils.uncapitalize(owner.getName());
-            queryString = "from " + owner.getFullyQualifiedName() + " as " + variableName;
+            queryString = "from " + entityName + " as " + variableName;
             if (this.getArguments().size() > 0)
             {
                 queryString = queryString + " where";
                 Collection arguments = this.getArguments();
                 if (arguments != null && !arguments.isEmpty())
                 {
-                    Iterator argumentIt = arguments.iterator();
-                    for (int ctr = 0; argumentIt.hasNext(); ctr++)
+                    final Iterator iterator = arguments.iterator();
+                    for (int ctr = 0; iterator.hasNext(); ctr++)
                     {
-                        ParameterFacade argument = (ParameterFacade)argumentIt.next();
-                        String parameter = "?";
-                        if (this.isUseNamedParameters())
+                        ParameterFacade argument = (ParameterFacade)iterator.next();
+                        final ClassifierFacade type = argument.getType();
+                        if (type != null)
                         {
-                            parameter = ":" + argument.getName();
-                        }
-                        queryString = queryString + " " + variableName + "." + argument.getName() + " = " + parameter;
-                        if (argumentIt.hasNext())
-                        {
-                            queryString = queryString + " and";
+                            final String parameterName = argument.getName();
+                            if (type != null && type.isEmbeddedValue())
+                            {
+                                for (final Iterator attributeIterator = type.getAttributes(true).iterator(); attributeIterator.hasNext();)
+                                {
+                                    final AttributeFacade attribute = (AttributeFacade)attributeIterator.next();
+                                    String parameter = "?";
+                                    if (this.isUseNamedParameters())
+                                    {
+                                        parameter = ":" + SpringUtils.concatNamesCamelCase(Arrays.asList(new String[]{parameterName, attribute.getName()}));
+                                    }
+                                    queryString = queryString + " " + variableName + "." + parameterName + "." + attribute.getName() + " = " + parameter;
+                                    if (attributeIterator.hasNext())
+                                    {
+                                        queryString = queryString + " and";
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                String parameter = "?";
+                                if (this.isUseNamedParameters())
+                                {
+                                    parameter = ":" + parameterName;
+                                }
+                                queryString = queryString + " " + variableName + "." + parameterName + " = " + parameter;
+                                if (iterator.hasNext())
+                                {
+                                    queryString = queryString + " and";
+                                }
+                            }
                         }
                     }
                 }

@@ -376,7 +376,7 @@ public class NamespaceComponents
     {
         private final Collator collator = Collator.getInstance();
 
-        private NamespaceRegistryComparator()
+        NamespaceRegistryComparator()
         {
             collator.setStrength(Collator.PRIMARY);
         }

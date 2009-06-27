@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * <p/>
+ * <p>
  * Represents an EJB finder method. </p> Metaclass facade implementation.
  */
 public class EJBFinderMethodFacadeLogicImpl

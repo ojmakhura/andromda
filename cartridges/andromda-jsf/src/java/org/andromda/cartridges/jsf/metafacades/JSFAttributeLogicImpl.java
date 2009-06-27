@@ -20,6 +20,7 @@ import org.apache.commons.lang.StringUtils;
  * MetafacadeLogic implementation for org.andromda.cartridges.jsf.metafacades.JSFAttribute.
  *
  * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute
+ * @author Bob Fields
  */
 public class JSFAttributeLogicImpl
     extends JSFAttributeLogic
@@ -34,7 +35,7 @@ public class JSFAttributeLogicImpl
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getMessageKey()
      */
-    protected java.lang.String handleGetMessageKey()
+    protected String handleGetMessageKey()
     {
         final StringBuffer messageKey = new StringBuffer();
         if (!this.isNormalizeMessages())
@@ -69,7 +70,7 @@ public class JSFAttributeLogicImpl
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getMessageValue()
      */
-    protected java.lang.String handleGetMessageValue()
+    protected String handleGetMessageValue()
     {
         return StringUtilsHelper.toPhrase(super.getName());
     }
@@ -112,7 +113,7 @@ public class JSFAttributeLogicImpl
         {
             final String typeName = type.getFullyQualifiedName();
             final String name = this.getName();
-            if ("java.lang.String".equals(typeName))
+            if ("java.lang.String".equals(typeName) || "String".equals(typeName))
             {
                 return "\"" + name + "-test" + "\"";
             }
@@ -164,35 +165,35 @@ public class JSFAttributeLogicImpl
             {
                 return "(byte)" + name.hashCode();
             }
-            if ("java.lang.Integer".equals(typeName))
+            if ("java.lang.Integer".equals(typeName) || "Integer".equals(typeName))
             {
                 return "new Integer((int)" + name.hashCode() + ")";
             }
-            if ("java.lang.Boolean".equals(typeName))
+            if ("java.lang.Boolean".equals(typeName) || "Boolean".equals(typeName))
             {
                 return "Boolean.FALSE";
             }
-            if ("java.lang.Long".equals(typeName))
+            if ("java.lang.Long".equals(typeName) || "Long".equals(typeName))
             {
                 return "new Long((long)" + name.hashCode() + ")";
             }
-            if ("java.lang.Character".equals(typeName))
+            if ("java.lang.Character".equals(typeName) || "Character".equals(typeName))
             {
                 return "new Character(char)" + name.hashCode() + ")";
             }
-            if ("java.lang.Float".equals(typeName))
+            if ("java.lang.Float".equals(typeName) || "Float".equals(typeName))
             {
                 return "new Float((float)" + name.hashCode() / hashCode() + ")";
             }
-            if ("java.lang.Double".equals(typeName))
+            if ("java.lang.Double".equals(typeName) || "Double".equals(typeName))
             {
                 return "new Double((double)" + name.hashCode() / hashCode() + ")";
             }
-            if ("java.lang.Short".equals(typeName))
+            if ("java.lang.Short".equals(typeName) || "Short".equals(typeName))
             {
                 return "new Short((short)" + name.hashCode() + ")";
             }
-            if ("java.lang.Byte".equals(typeName))
+            if ("java.lang.Byte".equals(typeName) || "Byte".equals(typeName))
             {
                 return "new Byte((byte)" + name.hashCode() + ")";
             }
@@ -292,7 +293,7 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getFormPropertyId(java.lang.String)
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getFormPropertyId(String)
      */
     protected String handleGetFormPropertyId(final ParameterFacade ownerParameter)
     {
@@ -307,57 +308,67 @@ public class JSFAttributeLogicImpl
         boolean selectable = false;
         if (ownerParameter != null)
         {
-            if (ownerParameter.isActionParameter())
+            selectable = this.isInputMultibox() || this.isInputSelect() || this.isInputRadio();
+            if (!selectable)
             {
-                selectable = this.isInputMultibox() || this.isInputSelect() || this.isInputRadio();
-                final ClassifierFacade type = this.getType();
-
-                if (!selectable && type != null)
+                if (ownerParameter.isActionParameter())
                 {
-                    final String name = this.getName();
-                    final String typeName = type.getFullyQualifiedName();
-
-                    // - if the parameter is not selectable but on a targetting page it IS selectable we must
-                    //   allow the user to set the backing list too                 
-                    final Collection views = ownerParameter.getAction().getTargetViews();
-                    for (final Iterator iterator = views.iterator(); iterator.hasNext() && !selectable;)
+                    final ClassifierFacade type = this.getType();
+                    if (type != null)
                     {
-                        final FrontEndView view = (FrontEndView)iterator.next();
-                        final Collection parameters = view.getAllActionParameters();
-                        for (final Iterator parameterIterator = parameters.iterator();
-                            parameterIterator.hasNext() && !selectable;)
+                        final String name = this.getName();
+                        final String typeName = type.getFullyQualifiedName();
+    
+                        // - if the parameter is not selectable but on a targetting page it IS selectable we must
+                        //   allow the user to set the backing list too                 
+                        final Collection views = ownerParameter.getAction().getTargetViews();
+                        for (final Iterator iterator = views.iterator(); iterator.hasNext() && !selectable;)
                         {
-                            final JSFParameter parameter = (JSFParameter)parameterIterator.next();
-                            final String parameterName = parameter.getName();
-                            final ClassifierFacade parameterType = parameter.getType();
-                            if (parameterType != null)
+                            final FrontEndView view = (FrontEndView)iterator.next();
+                            final Collection parameters = view.getAllActionParameters();
+                            for (final Iterator parameterIterator = parameters.iterator();
+                                parameterIterator.hasNext() && !selectable;)
                             {
-                                final String parameterTypeName = parameterType.getFullyQualifiedName();
-                                if (name.equals(parameterName) && typeName.equals(parameterTypeName))
+                                final Object object = parameterIterator.next();
+                                if (object instanceof JSFParameter)
                                 {
-                                    selectable =
-                                        parameter.isInputMultibox() || parameter.isInputSelect() ||
-                                        parameter.isInputRadio();
+                                    final JSFParameter parameter = (JSFParameter)object;
+                                    final String parameterName = parameter.getName();
+                                    final ClassifierFacade parameterType = parameter.getType();
+                                    if (parameterType != null)
+                                    {
+                                        final String parameterTypeName = parameterType.getFullyQualifiedName();
+                                        if (name.equals(parameterName) && typeName.equals(parameterTypeName))
+                                        {
+                                            selectable =
+                                                parameter.isInputMultibox() || parameter.isInputSelect() ||
+                                                parameter.isInputRadio();
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-            else if (ownerParameter.isControllerOperationArgument())
-            {
-                final String name = this.getName();
-                final Collection actions = ownerParameter.getControllerOperation().getDeferringActions();
-                for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                else if (ownerParameter.isControllerOperationArgument())
                 {
-                    final JSFAction action = (JSFAction)actionIterator.next();
-                    final Collection formFields = action.getFormFields();
-                    for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
+                    final String name = this.getName();
+                    final Collection actions = ownerParameter.getControllerOperation().getDeferringActions();
+                    for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
                     {
-                        final JSFParameter parameter = (JSFParameter)fieldIterator.next();
-                        if (name.equals(parameter.getName()))
+                        final JSFAction action = (JSFAction)actionIterator.next();
+                        final Collection formFields = action.getFormFields();
+                        for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
                         {
-                            selectable = parameter.isSelectable();
+                            final Object object = fieldIterator.next();
+                            if (object instanceof JSFParameter)
+                            {
+                                final JSFParameter parameter = (JSFParameter)object;
+                                if (name.equals(parameter.getName()))
+                                {
+                                    selectable = parameter.isSelectable();
+                                }
+                            }
                         }
                     }
                 }
@@ -383,21 +394,22 @@ public class JSFAttributeLogicImpl
             (ModelElementFacade)this.THIS(),
             this.getType());
     }
-
+    
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFParameter#getValidatorVars()
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getValidatorVars(JSFParameter)
      */
-    protected java.util.Collection handleGetValidatorVars()
+    protected Collection handleGetValidatorVars(JSFParameter ownerParameter)
     {
         return JSFUtils.getValidatorVars(
             ((ModelElementFacade)this.THIS()),
-            this.getType());
+            this.getType(),
+            ownerParameter);
     }
 
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getValidWhen()
      */
-    protected java.lang.String handleGetValidWhen()
+    protected String handleGetValidWhen()
     {
         return JSFUtils.getValidWhen(this);
     }
@@ -543,7 +555,7 @@ public class JSFAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getValidatorArgs(java.lang.String)
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttribute#getValidatorArgs(String)
      */
     protected Collection handleGetValidatorArgs(final String validatorType)
     {
@@ -586,14 +598,14 @@ public class JSFAttributeLogicImpl
     public String getDefaultValue()
     {
         String defaultValue = super.getDefaultValue();
-        if (StringUtils.isNotBlank(defaultValue))
+        /*if (StringUtils.isNotBlank(defaultValue))
         {
             final ClassifierFacade type = this.getType();
             if (type != null && type.isStringType())
             {
                 defaultValue = "\"" + defaultValue + "\"";
             }
-        }
+        }*/
         return defaultValue;
     }
 
@@ -602,7 +614,7 @@ public class JSFAttributeLogicImpl
      */
     protected boolean handleIsEqualValidator()
     {
-        final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS());
+        final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS(), null);
         return equal != null && equal.trim().length() > 0;
     }
 
@@ -634,15 +646,19 @@ public class JSFAttributeLogicImpl
                         for (final Iterator parameterIterator = parameters.iterator();
                             parameterIterator.hasNext() && !required;)
                         {
-                            final JSFParameter parameter = (JSFParameter)parameterIterator.next();
-                            final String parameterName = parameter.getName();
-                            final ClassifierFacade parameterType = parameter.getType();
-                            if (parameterType != null)
+                            final Object object = parameterIterator.next();
+                            if (object instanceof JSFParameter)
                             {
-                                final String parameterTypeName = parameterType.getFullyQualifiedName();
-                                if (name.equals(parameterName) && typeName.equals(parameterTypeName))
+                                final JSFParameter parameter = (JSFParameter)object;
+                                final String parameterName = parameter.getName();
+                                final ClassifierFacade parameterType = parameter.getType();
+                                if (parameterType != null)
                                 {
-                                    required = parameter.isInputTable();
+                                    final String parameterTypeName = parameterType.getFullyQualifiedName();
+                                    if (name.equals(parameterName) && typeName.equals(parameterTypeName))
+                                    {
+                                        required = parameter.isInputTable();
+                                    }
                                 }
                             }
                         }
@@ -659,10 +675,14 @@ public class JSFAttributeLogicImpl
                     final Collection formFields = action.getFormFields();
                     for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !required;)
                     {
-                        final JSFParameter parameter = (JSFParameter)fieldIterator.next();
-                        if (name.equals(parameter.getName()))
+                        final Object object = fieldIterator.next();
+                        if (object instanceof JSFParameter)
                         {
-                            required = parameter.isBackingValueRequired();
+                            final JSFParameter parameter = (JSFParameter)object;
+                            if (name.equals(parameter.getName()))
+                            {
+                                required = parameter.isBackingValueRequired();
+                            }
                         }
                     }
                 }
@@ -693,5 +713,14 @@ public class JSFAttributeLogicImpl
     protected String handleGetInputTableIdentifierColumns()
     {
         return ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_TABLE_IDENTIFIER_COLUMNS)).trim();
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAttributer#isReset()
+     */
+    protected boolean handleIsReset()
+    {
+        return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_RESET)))
+                   .booleanValue();
     }
 }

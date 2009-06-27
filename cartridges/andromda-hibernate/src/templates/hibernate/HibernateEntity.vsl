@@ -16,6 +16,9 @@ public abstract class $entity.entityName
     extends $entity.generalization.fullyQualifiedEntityImplementationName
 #else
     implements java.io.Serializable
+#if (!$entity.interfaceAbstractions.empty)
+        , $entity.implementedInterfaceList
+#end
 #end
 {
     /**
@@ -24,6 +27,7 @@ public abstract class $entity.entityName
     private static final long serialVersionUID = ${entity.serialVersionUID}L;
 
 #if ($stringUtils.isNotBlank($entity.hibernateVersionProperty))
+#if (!$entity.generalization || ($entity.generalization && !$entity.hibernateInheritanceSubclass))
 #set ($versionProperty = $entity.hibernateVersionProperty)
 #set ($versionPropertyCapitalized = $stringUtils.capitalize($entity.hibernateVersionProperty))
     /**
@@ -42,7 +46,23 @@ public abstract class $entity.entityName
     }
 
 #end
+#end
+#if($entity.compositeIdentifier)
+#set($primaryKeyType="${entity.fullyQualifiedEntityName}PK")
+#set($primaryKeyName="$stringUtils.uncapitalize($entity.name)Pk")
+	private $primaryKeyType $primaryKeyName;
+	
+	public $primaryKeyType get${entity.name}Pk() {
+        return this.${primaryKeyName};
+    }
+
+    public void set${entity.name}Pk($primaryKeyType $primaryKeyName) {
+        this.$primaryKeyName = $primaryKeyName;
+    }
+
+#end
 #foreach ($attribute in $entity.attributes)
+#if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
 #set ($typeName = $attribute.type.fullyQualifiedName)
 #if ($attribute.containsEmbeddedObject)
 #set ($typeName = $attribute.type.fullyQualifiedEntityName)
@@ -62,6 +82,7 @@ $attribute.getDocumentation("     * ")
         this.${attribute.name} = $attribute.name;
     }
 
+#end
 #end
 ## Generate the associations
 #foreach ($associationEnd in $entity.associationEnds)
@@ -154,7 +175,7 @@ $operation.getDocumentation("     * ")
 #end
 #end
      */
-#renderHashCodeMethod($entity $identifiers)
+#renderHashCodeMethod($entity $entity.entityName $identifiers)
 
 #end
 #if (!$entity.abstract)
@@ -179,7 +200,7 @@ $operation.getDocumentation("     * ")
         public static $entity.fullyQualifiedName newInstance(## no newline
 #set ($comma = "")
 #foreach ($property in $entity.allRequiredConstructorParameters)
-#if (!$property.identifier)
+#if ($entity.usingForeignIdentifier || !$property.identifier)
 ${comma}${property.getterSetterTypeName} ${property.name}## no newline
 #set ($comma = ", ")
 #end
@@ -188,14 +209,21 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
         {
             final ${entity.fullyQualifiedName} entity = new ${entity.fullyQualifiedEntityImplementationName}();
 #foreach ($property in $entity.allRequiredConstructorParameters)
-#if (!$property.identifier)
+#if ($entity.usingForeignIdentifier || !$property.identifier)
             entity.${property.setterName}(${property.name});
 #end
 #end
             return entity;
         }
-
 #end
+#set ($propertiesPresent = false)
+#foreach ($property in $entity.allProperties)
+#if ($entity.usingForeignIdentifier || !$property.identifier)
+#set ($propertiesPresent = true)
+#end
+#end
+#if ($propertiesPresent)
+
         /**
          * Constructs a new instance of {@link ${entity.fullyQualifiedName}}, taking all possible properties
          * (except the identifier(s))as arguments.
@@ -203,7 +231,7 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
         public static $entity.fullyQualifiedName newInstance(## no newline
 #set ($comma = "")
 #foreach ($property in $entity.allProperties)
-#if (!$property.identifier)
+#if ($entity.usingForeignIdentifier || !$property.identifier)
 ${comma}${property.getterSetterTypeName} ${property.name}## no newline
 #set ($comma = ", ")
 #end
@@ -212,14 +240,15 @@ ${comma}${property.getterSetterTypeName} ${property.name}## no newline
         {
             final ${entity.fullyQualifiedName} entity = new ${entity.fullyQualifiedEntityImplementationName}();
 #foreach ($property in $entity.allProperties)
-#if (!$property.identifier)
+#if ($entity.usingForeignIdentifier || !$property.identifier)
             entity.${property.setterName}(${property.name});
 #end
 #end
             return entity;
         }
+#end
     }
-
+    
 #end
 // HibernateEntity.vsl merge-point
 }

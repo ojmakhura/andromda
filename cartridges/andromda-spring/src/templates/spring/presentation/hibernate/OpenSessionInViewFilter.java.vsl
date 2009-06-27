@@ -1,4 +1,3 @@
-#parse("templates/spring/SpringGlobals.vm")
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -29,6 +28,6 @@ public class $openSessionInViewFilterName
             org.springframework.context.access.ContextSingletonBeanFactoryLocator.getInstance("$beanRefFactory");
         final org.springframework.beans.factory.access.BeanFactoryReference reference =
             beanFactoryLocator.useBeanFactory("$beanRefFactoryId");
-        return (org.hibernate.SessionFactory)reference.getFactory().getBean(this.getSessionFactoryBeanName());
+        return (${hibernateUtils.basePackage}.SessionFactory)reference.getFactory().getBean(this.getSessionFactoryBeanName());
    }
 }

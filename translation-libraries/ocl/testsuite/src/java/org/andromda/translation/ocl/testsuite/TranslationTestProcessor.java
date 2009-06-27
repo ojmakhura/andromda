@@ -31,7 +31,7 @@ import org.apache.log4j.Logger;
 public class TranslationTestProcessor
     extends TestCase
 {
-    private static Logger logger = Logger.getLogger(TranslationTestProcessor.class);
+    private static final Logger logger = Logger.getLogger(TranslationTestProcessor.class);
 
     /**
      * The shared instance of this class.
@@ -93,7 +93,6 @@ public class TranslationTestProcessor
      * The location of the directory that contains the test source.
      */
     private String testSourceDirectory;
-    ;
 
     /**
      * Sets the location of the directory that contains the test souce.
@@ -174,7 +173,7 @@ public class TranslationTestProcessor
                         repositoriesContainer.loadModel(model);
                         final RepositoryFacade repositoryImplementation =
                             repositoriesContainer.getImplementation(repository.getName());
-                        this.model = repositoryImplementation.getModel(model.getAccessFacadeType());
+                        this.model = repositoryImplementation.getModel();
 
                         // - make sure the factory has access to the model
                         factory.setModel(this.model, model.getType());

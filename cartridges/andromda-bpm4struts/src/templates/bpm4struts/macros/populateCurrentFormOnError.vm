@@ -20,7 +20,16 @@
                 for (final java.util.Enumeration names = request.getParameterNames(); names.hasMoreElements();)
                 {
                     final String name = String.valueOf(names.nextElement());
-                    parameters.put(name, request.getParameter(name));
+                    final String[] values = request.getParameterValues(name);
+
+                    if (values.length == 1)
+                    {
+                        parameters.put(name, values[0]);
+                    }
+                    else
+                    {
+                        parameters.put(name, values);
+                    }
                 }
 ##
 ## Checkbox fields need to be reset since the request will not contain parameters for unchecked

@@ -2,7 +2,6 @@ package org.andromda.core.common;
 
 import java.util.Collection;
 import java.util.List;
-
 import org.andromda.core.namespace.NamespaceComponent;
 import org.andromda.core.templateengine.TemplateEngine;
 
@@ -13,12 +12,14 @@ import org.andromda.core.templateengine.TemplateEngine;
  *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public interface Plugin
     extends NamespaceComponent
 {
     /**
      * Initializes the plugin.
+     * @throws Exception 
      */
     public void initialize()
         throws Exception;
@@ -54,6 +55,7 @@ public interface Plugin
 
     /**
      * Returns a list containing the name of each resource contained within the plugin.
+     * @return contents
      */
     public List getContents();
 }

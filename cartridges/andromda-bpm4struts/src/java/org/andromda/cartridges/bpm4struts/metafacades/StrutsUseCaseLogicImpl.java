@@ -311,7 +311,7 @@ public class StrutsUseCaseLogicImpl
 
     /**
      * <code>true</code> if the argument ancestor node is actually an ancestor of the first node.
-     * <p/>
+     * <p>
      * <em>Note: DefaultMutableTreeNode's isNodeAncestor does not work because of its specific impl.</em>
      */
     private boolean isNodeAncestor(

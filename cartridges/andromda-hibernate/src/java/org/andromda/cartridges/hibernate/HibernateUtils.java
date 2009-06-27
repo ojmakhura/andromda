@@ -13,6 +13,8 @@ import org.apache.commons.collections.CollectionUtils;
  * Contains utilities used within the Hibernate cartridge.
  *
  * @author Chad Brandon
+ * @author Joel Kozikowski
+ * @author Wouter Zoons
  */
 public class HibernateUtils
 {
@@ -31,7 +33,7 @@ public class HibernateUtils
             {
                 public void execute(Object object)
                 {
-                    if (object != null && Service.class.isAssignableFrom(object.getClass()))
+                    if (object instanceof Service)
                     {
                         allRoles.addAll(((Service)object).getAllRoles());
                     }
@@ -62,12 +64,7 @@ public class HibernateUtils
      */
     public String getHibernatePackage()
     {
-        String packageName = "org.hibernate";
-        if (!HibernateGlobals.HIBERNATE_VERSION_3.equals(this.hibernateVersion))
-        {
-            packageName = "net.sf.hibernate";
-        }
-        return packageName;
+        return this.isVersion3() ? "org.hibernate" : "net.sf.hibernate";
     }
 
     /**
@@ -78,24 +75,80 @@ public class HibernateUtils
      */
     public String getHibernateUserTypePackage()
     {
-        StringBuffer packageName = new StringBuffer();
-        if (HibernateGlobals.HIBERNATE_VERSION_3.equals(this.hibernateVersion))
-        {
-            packageName.append(".usertype");
-        }
-        packageName.insert(
-            0,
-            this.getHibernatePackage());
-        return packageName.toString();
+        return isVersion3() ? this.getHibernatePackage() + ".usertype" : this.getHibernatePackage();
     }
-    
+
     /**
      * Indicates whether or not Hibernate 3 is enabled.
-     * 
+     *
      * @return true/false
      */
     public boolean isVersion3()
     {
-        return HibernateGlobals.HIBERNATE_VERSION_3.equals(this.hibernateVersion);
+        return isVersion3(this.hibernateVersion);
+    }
+
+    /**
+     * Indicates whether or not the given property value is version 3 or not.
+     *
+     * @param hibernateVersionPropertyValue the value of the property
+     * @return true/false
+     */
+    public static boolean isVersion3(String hibernateVersionPropertyValue)
+    {
+        boolean version3 = false;
+        if (hibernateVersionPropertyValue != null)
+        {
+            version3 = hibernateVersionPropertyValue.equals(HibernateGlobals.HIBERNATE_VERSION_3);
+        }
+        return version3;
+    }
+
+    /**
+     * Denotes whether or not to make use of Hibernate 3 XML persistence support.
+     */
+    private String hibernateXmlPersistence;
+
+    /**
+     * @param hibernateXmlPersistence <code>true</code> when you to make use of Hibernate 3 XML persistence support,
+     *      <code>false</code> otherwise
+     */
+    public void setHibernateXMLPersistence(final String hibernateXmlPersistence)
+    {
+        this.hibernateXmlPersistence = hibernateXmlPersistence;
+    }
+
+    public boolean isXmlPersistenceActive()
+    {
+        return isXmlPersistenceActive(
+            this.hibernateVersion,
+            this.hibernateXmlPersistence);
+    }
+
+    public static boolean isXmlPersistenceActive(
+        String hibernateVersionPropertyValue,
+        String hibernateXMLPersistencePropertyValue)
+    {
+        return isVersion3(hibernateVersionPropertyValue) &&
+            "true".equalsIgnoreCase(hibernateXMLPersistencePropertyValue);
+    }
+
+    private String hibernateMappingStrategy;
+
+    public void setHibernateMappingStrategy(String hibernateMappingStrategy)
+    {
+        this.hibernateMappingStrategy = hibernateMappingStrategy;
+    }
+
+    public boolean isMapSubclassesInSeparateFile()
+    {
+        return mapSubclassesInSeparateFile(this.hibernateMappingStrategy);
+    }
+
+    public static boolean mapSubclassesInSeparateFile(
+        String hibernateMappingStrategy)
+    {
+        // subclass or hierarchy
+        return HibernateGlobals.HIBERNATE_MAPPING_STRATEGY_SUBCLASS.equalsIgnoreCase(hibernateMappingStrategy);
     }
 }

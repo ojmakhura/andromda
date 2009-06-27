@@ -292,6 +292,17 @@
                     <value>Comma-separated list of column names</value>
                 </allowedValues>
             </element>
+            <element name="TABLE_PAGEABLE">
+                <documentation>
+                    A flag indicating whether or not a table is "pageable".  When a table is flagged as "pageable", support for DB paging is generated.
+                </documentation>
+                <value>@andromda.presentation.view.table.pageable</value>
+                <appliedOnElement>A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value default="true">false</value>
+                </allowedValues>
+            </element>
             <element name="INPUT_REQUIRED">
                 <documentation>
                     Denotes whether or not this is a required field. If a field is required its type will always be
@@ -313,6 +324,32 @@
                 <allowedValues>
                     <value default="true">false</value>
                     <value>true</value>
+                </allowedValues>
+            </element>
+            <element name="ACTION_SUCCESS_MESSAGE">
+                <documentation>
+                    On action completion will have a success message rendered on screen
+                </documentation>
+                <value>@andromda.presentation.action.success.message</value>
+                <appliedOnElement>Transition</appliedOnElement>
+                <allowedValues>
+                    <value>
+                        Any message you would like to see displayed, it will be included in the resource bundle
+                        for internationalization
+                    </value>
+                </allowedValues>
+            </element>
+            <element name="ACTION_WARNING_MESSAGE">
+                <documentation>
+                    On action completion will have a warning message rendered on screen
+                </documentation>
+                <value>@andromda.presentation.action.warning.message</value>
+                <appliedOnElement>Transition</appliedOnElement>
+                <allowedValues>
+                    <value>
+                        Any message you would like to see displayed, it will be included in the resource bundle
+                        for internationalization
+                    </value>
                 </allowedValues>
             </element>
             <element name="INPUT_FORMAT">
@@ -391,7 +428,7 @@
                         Netscape's guide to regular expressions in Javascript</a>
                     </p>
                 </documentation>
-                <value>@andromda.presentation.web.view.field.format</value>
+                <value>@andromda.presentation.view.field.format</value>
                 <appliedOnElement>Parameter coming out of an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype</appliedOnElement>
                 <allowedValues>
                     <value>Any of the formats listed above</value>

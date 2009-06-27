@@ -1,17 +1,20 @@
 package org.andromda.metafacades.emf.uml2;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
+import org.eclipse.uml2.InstanceValue;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.LinkEndFacade.
  *
  * @see org.andromda.metafacades.uml.LinkEndFacade
  */
-public class LinkEndFacadeLogicImpl
-    extends LinkEndFacadeLogic
+public class LinkEndFacadeLogicImpl extends LinkEndFacadeLogic
 {
-    public LinkEndFacadeLogicImpl(
-        org.eclipse.uml2.Element metaObject,
-        String context)
+    public LinkEndFacadeLogicImpl(LinkEnd metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -21,8 +24,26 @@ public class LinkEndFacadeLogicImpl
      */
     protected java.lang.Object handleGetInstance()
     {
-        // TODO: add your implementation here!
-        return null;
+        final Collection values = this.getInstances();
+        return values.isEmpty() ? null : values.iterator().next();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.LinkEndFacade#getInstances()
+     */
+    protected java.util.Collection handleGetInstances()
+    {
+        final Collection values = new ArrayList(this.metaObject.getValues());
+
+        CollectionUtils.transform(values, new Transformer()
+        {
+            public Object transform(Object object)
+            {
+                return UmlUtilities.ELEMENT_TRANSFORMER.transform(((InstanceValue)object).getInstance());
+            }
+        });
+
+        return values;
     }
 
     /**
@@ -30,8 +51,7 @@ public class LinkEndFacadeLogicImpl
      */
     protected java.lang.Object handleGetAssociationEnd()
     {
-        // TODO: add your implementation here!
-        return null;
+        return UmlUtilities.ELEMENT_TRANSFORMER.transform(this.metaObject.getDefiningFeature());
     }
 
     /**
@@ -39,7 +59,6 @@ public class LinkEndFacadeLogicImpl
      */
     protected java.lang.Object handleGetLink()
     {
-        // TODO: add your implementation here!
-        return null;
+        return UmlUtilities.ELEMENT_TRANSFORMER.transform(this.metaObject.getOwner());
     }
 }

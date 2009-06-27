@@ -27,7 +27,7 @@
         </mapping>
     </metafacade>
     
-    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerLogicImpl" contextRoot="true">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerLogicImpl">
         <mapping>
             <property name="useCase"/>
         </mapping>
@@ -125,20 +125,35 @@
         </mapping>
     </metafacade>
 
+    <!-- mapping rule for uml14 support -->
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.SignalEvent$Impl">
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
 
+    <!-- mapping rule for uml14 support -->
     <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
         <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
             <property name="containedInFrontEndUseCase"/>
         </mapping>
     </metafacade>
+    
+    <!-- mapping rule for emf-uml2 support -->
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ActivityImpl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    
+    <!-- mapping rule for emf-uml22 support -->
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsTriggerLogicImpl">
+        <mapping class="org.eclipse.uml2.uml.internal.impl.ActivityImpl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
 
-    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityLogicImpl"
-                contextRoot="true">
+    <metafacade class="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityLogicImpl" contextRoot="true">
         <mapping>
             <stereotype>ENTITY</stereotype>
             <stereotype>MANAGEABLE</stereotype>

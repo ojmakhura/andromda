@@ -7,10 +7,12 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.faces.component.UIInput;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang.ObjectUtils;
@@ -19,6 +21,7 @@ import org.apache.commons.validator.Field;
 import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.ValidatorAction;
+import org.apache.commons.validator.ValidatorException;
 
 
 /**
@@ -818,18 +821,12 @@ public class ParameterChecks
         ValidatorAction action,
         Field field)
     {
-        String value = null;
-        if (object != null)
-        {
-            value = String.valueOf(parameters.get(field.getProperty()));
-        }
-
+        String value = ObjectUtils.toString(object);
         if (!StringUtils.isBlank(value))
         {
             try
             {
                 int min = Integer.parseInt(field.getVarValue("minlength"));
-
                 if (!GenericValidator.minLength(
                         value,
                         min))
@@ -968,7 +965,7 @@ public class ParameterChecks
             }
         }
     }
-    
+
     /**
      *  Checks if the field's value is equal to another field's value on the same form.
      *
@@ -988,22 +985,86 @@ public class ParameterChecks
         Map parameters,
         Collection errors,
         ValidatorAction action,
-        Field field)
+        Field field) throws Exception
     {
         final String value = ObjectUtils.toString(object);
         if (StringUtils.isNotBlank(value))
         {
             final String equalFieldName = field.getVarValue("fieldName");
-            final UIInput equalField = (UIInput)context.getViewRoot().findComponent(equalFieldName);
-            final Object equalFieldValue = equalField.getValue();
-            if (equalFieldValue == null || !equalFieldValue.equals(object))
+            final EditableValueHolder equalField = (EditableValueHolder)findComponent(context, equalFieldName);
+            final Object equalFieldValue = equalField.getSubmittedValue() != null ? equalField.getSubmittedValue() : equalField.getValue();
+
+            if (equalFieldValue != null && !equalFieldValue.equals(value))
             {
                 errors.add(ValidatorMessages.getMessage(
                     action,
                     field,
-                    context)); 
+                    context));
             }
 
         }
+    }
+
+    public static UIComponent findComponent(final FacesContext context, final String componentId)
+        throws ValidatorException
+    {
+        UIComponent component = null;
+        final int index = componentId.indexOf(':');
+        if (index != -1)
+        {
+            final String parentId = componentId.substring(0, index);
+            UIComponent parent = context.getViewRoot().findComponent(parentId);
+            if (parent == null)
+            {
+                throw new ValidatorException("No component with id: " + parentId + " could be found on view!");
+            }
+            final String restOfId = componentId.substring(index + 1, componentId.length());
+            component = findComponent(context, parent, restOfId);
+        }
+        return component;
+    }
+
+    private static final char COMPONENT_NAME_SEPERATOR = ':';
+
+    public static UIComponent findComponent(final FacesContext context, final UIComponent parent, String componentId)
+    {
+        UIComponent component = null;
+        final int index = componentId.indexOf(COMPONENT_NAME_SEPERATOR);
+        if (index != -1)
+        {
+            final String firstId = componentId.substring(0, index);
+            component = findChildComponent(parent, firstId);
+            componentId = componentId.substring(index + 1, componentId.length());
+        }
+        else if (StringUtils.isNotBlank(componentId))
+        {
+            component = findChildComponent(parent, componentId);
+        }
+        if (component != null && componentId.indexOf(COMPONENT_NAME_SEPERATOR) != -1)
+        {
+            component = findComponent(context, component, componentId);
+        }
+        return component;
+    }
+
+    public static UIComponent findChildComponent(final UIComponent component, final String id)
+    {
+        UIComponent child = null;
+        if (component != null && component.getId().equals(id))
+        {
+            child = component;
+        }
+        else
+        {
+            for (final Iterator iterator = component.getFacetsAndChildren(); iterator.hasNext();)
+            {
+                child = findChildComponent((UIComponent)iterator.next(), id);
+                if (child != null)
+                {
+                    break;
+                }
+            }
+        }
+        return child;
     }
 }

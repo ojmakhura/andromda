@@ -9,29 +9,7 @@
     </parent>
     <artifactId>${applicationId}-workflow</artifactId>
     <packaging>jar</packaging>
-    <name>$applicationName Workflow Module</name>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.andromda</groupId>
-                <artifactId>andromda-core</artifactId>
-                <exclusions>
-                    <exclusion>
-                        <groupId>xerces</groupId>
-                        <artifactId>xerces</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>xalan</groupId>
-                        <artifactId>xalan</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>xml-apis</groupId>
-                        <artifactId>xml-apis</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <name>${applicationName} Workflow Module</name>
     <dependencies>
         <dependency>
             <groupId>org.jbpm</groupId>
@@ -51,5 +29,15 @@
                 </excludes>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-multi-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId> 
+                <artifactId>maven-source-plugin</artifactId> 
+            </plugin>
+        </plugins>
     </build>
 </project>

@@ -2,12 +2,9 @@ package org.andromda.maven.plugin.bootstrap;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.List;
-
 import org.andromda.core.AndroMDA;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
@@ -105,6 +102,9 @@ public class AndroMDAMojo
      */
     protected ArtifactRepository localRepository;
 
+    /**
+     * @see org.apache.maven.plugin.Mojo#execute()
+     */
     public void execute()
         throws MojoExecutionException
     {

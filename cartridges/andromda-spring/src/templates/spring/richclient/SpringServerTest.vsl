@@ -8,36 +8,69 @@
 package $service.packageName;
 #end
 
+#if ($acegiServiceSecurity)
+import org.acegisecurity.Authentication;
+import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.GrantedAuthorityImpl;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
+#end
 import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
 
 import ${service.packageName}.${service.name};
+import ${springTypesPackage}.${serviceLocatorName};
 
 /**
 * A unit test for exercising the methods of ${service.name}. This unit test
 * makes local calls, bypassing remote invocations of service methods.
 */
-public class ${service.name}LocalTest extends
-        AbstractDependencyInjectionSpringContextTests {
+public class ${service.name}LocalTest 
+    extends AbstractDependencyInjectionSpringContextTests 
+{
+
+#if ($acegiServiceSecurity)
+    private Authentication mockUser;
+    
+#end
+    protected void onSetUp() 
+        throws Exception 
+    {
+        super.onSetUp();
+#if ($acegiServiceSecurity)
+        // $toDoTag Specify which roles the "test user" will have for this test
+        GrantedAuthority[] mockAuthorities = 
+            { 
+                new GrantedAuthorityImpl("ROLE_SomeRole1"),
+                new GrantedAuthorityImpl("ROLE_SomeRole2"),
+                new GrantedAuthorityImpl("ROLE_SomeRole3")
+            };
+        mockUser = new UsernamePasswordAuthenticationToken("joeuser", "12345", mockAuthorities);
+#end
+    }
 
 #foreach ($operation in $service.operations)
     public void test${stringUtils.capitalise($operation.name)}()
     {
-        ${service.name} testService = (${service.name})applicationContext.getBean("$service.getBeanName(false)");
+        $service.name testService = ${serviceLocatorName}.instance().get${service.name}();
         assertNotNull(testService);
 
-        // ${toDoTag} Write test code for ${service.name}::${operation.name}() server test.
+#if ($acegiServiceSecurity)
+        SecurityContextHolder.getContext().setAuthentication(mockUser);
+        
+#end
+        // $toDoTag Write test code for ${service.name}::${operation.name}() server test.
     }
 
 #end
     protected String[] getConfigLocations()
     {
-        return new String[] { "$beanRefFactory" };
+        // $toDoTag ${service.name}LocalTest test configuration files (if any), should be listed inside the brackets...
+        return new String[] { };
     }
-
 
     public static void main(String[] args)
     {
+        ${serviceLocatorName}.instance().init("$serverTestBeanRefFactory");
         junit.textui.TestRunner.run(${service.name}LocalTest.class);
     }
-
 }

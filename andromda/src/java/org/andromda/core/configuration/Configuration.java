@@ -1,5 +1,10 @@
 package org.andromda.core.configuration;
 
+import org.andromda.core.common.ResourceUtils;
+import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.mapping.Mappings;
+import org.apache.commons.lang.StringUtils;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
@@ -8,11 +13,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-
-import org.andromda.core.common.ResourceUtils;
-import org.andromda.core.common.XmlObjectFactory;
-import org.andromda.core.mapping.Mappings;
-import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -31,7 +31,7 @@ public class Configuration
      * @param uri the URI to the configuration file.
      * @return the configured instance.
      */
-    public final static Configuration getInstance(final URL uri)
+    public static Configuration getInstance(final URL uri)
     {
         final Configuration configuration =
             (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(uri);
@@ -45,7 +45,7 @@ public class Configuration
      * @param stream the InputStream containing the configuration file.
      * @return the configured instance.
      */
-    public final static Configuration getInstance(final InputStream stream)
+    public static Configuration getInstance(final InputStream stream)
     {
         final Configuration configuration =
             (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(new InputStreamReader(stream));
@@ -59,7 +59,7 @@ public class Configuration
      * @param string the String containing the configuration.
      * @return the configured instance.
      */
-    public final static Configuration getInstance(final String string)
+    public static Configuration getInstance(final String string)
     {
         final Configuration configuration =
             (Configuration)XmlObjectFactory.getInstance(Configuration.class).getObject(string);
@@ -234,7 +234,7 @@ public class Configuration
     /**
      * Gets the URI from which this instance was
      * configured or null (it it was not set).
-     * @return
+     * @return the URI as a String instance
      */
     public String getContents()
     {
@@ -271,20 +271,24 @@ public class Configuration
     }
 
     /**
-     * Loads all mappings from the specified mapping search locations If the location points to a directory the directory
+     * Loads all mappings from the specified mapping search locations.
+     * If the location points to a directory the directory
      * contents will be loaded, otherwise just the mapping itself will be loaded.
      */
     private void initializeMappings()
     {
-        final Collection mappingsLocations = new ArrayList();
-        if (mappingsLocations != null)
+        if (this.mappingsSearchLocations != null)
         {
+            final Collection mappingsLocations = new ArrayList();
             final Location[] locations = this.getMappingsSearchLocations();
-            final int locationNumber = locations.length;
-            for (int ctr = 0; ctr < locationNumber; ctr++)
+            for (int ctr = 0; ctr < locations.length; ctr++)
             {
                 mappingsLocations.addAll(Arrays.asList(locations[ctr].getResources()));
             }
+
+            // clear out any old cached mappings
+            Mappings.clearLogicalMappings();
+
             for (final Iterator iterator = mappingsLocations.iterator(); iterator.hasNext();)
             {
                 try

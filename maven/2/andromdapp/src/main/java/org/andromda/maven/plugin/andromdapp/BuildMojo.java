@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import java.lang.reflect.Method;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -58,7 +60,7 @@ public class BuildMojo
     private File baseDirectory;
 
     /**
-     * A comma seperated list of modules to execute in the form:
+     * A comma separated list of modules to execute in the form:
      * <em>-Dmodules=mda,core,common</em> or if you want to specify the goals
      * to execute as well:
      * <em>-Dmodules=mda:[goal1+goal2+goal3],core:[goal1]<em>.
@@ -240,6 +242,7 @@ public class BuildMojo
             }
             else
             {
+                this.executionProperties.putAll(this.session.getExecutionProperties());
                 this.executeModules(this.modules);
             }
         }
@@ -358,7 +361,7 @@ public class BuildMojo
     /**
      * Creates all project modules and executes them.
      *
-     * @param modules the comma seperated list of modules to execute.
+     * @param modules the comma separated list of modules to execute.
      * @return true if any modules were executed, false otherwise.
      * @throws MojoExecutionException
      * @throws CycleDetectedException
@@ -512,14 +515,25 @@ public class BuildMojo
                     final MavenProject project = ProjectUtils.getProject(
                             this.projectBuilder,
                             this.session,
-                            pom);
-                    if (this.getLog().isDebugEnabled())
+                            pom,
+                            this.getLog());
+                    if (project != null)
                     {
-                        this.getLog().debug("Adding project " + project.getId());
+                        if (this.getLog().isDebugEnabled())
+                        {
+                            this.getLog().debug("Adding project " + project.getId());
+                        }
+                        projects.put(
+                            project,
+                            poms.get(pom));
                     }
-                    projects.put(
-                        project,
-                        poms.get(pom));
+                    else
+                    {
+                        if (this.getLog().isWarnEnabled())
+                        {
+                            this.getLog().warn("Could not load project from pom: " + pom + " - ignoring");
+                        }
+                    }
                 }
                 catch (ProjectBuildingException exception)
                 {

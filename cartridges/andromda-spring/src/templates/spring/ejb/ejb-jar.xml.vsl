@@ -1,5 +1,3 @@
-#parse("templates/spring/ejb/SpringSessionEJBGlobals.vm")
-#if ($ejbsEnabled)
 <?xml version="1.0" encoding="$xmlEncoding"?>
 <!DOCTYPE ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Enterprise JavaBeans 2.0//EN"
                          "http://java.sun.com/dtd/ejb-jar_2_0.dtd">
@@ -22,9 +20,10 @@
 #if ($service.ejbRemoteView)
             <home>${service.fullyQualifiedEjbName}Home</home>
             <remote>$service.fullyQualifiedEjbName</remote>
-#else
-            <local-home>${service.fullyQualifiedEjbName}Home</local-home>
-            <local>$service.fullyQualifiedEjbName</local>
+#end
+#if ($service.ejbLocalView)
+            <local-home>${service.fullyQualifiedLocalEjbName}Home</local-home>
+            <local>${service.fullyQualifiedLocalEjbName}</local>
 #end
             <ejb-class>$service.fullyQualifiedEjbImplementationName</ejb-class>
             <session-type>Stateless</session-type>
@@ -77,57 +76,31 @@
             </method>
         </method-permission>
 
-#foreach ($operation in $service.operations)
-        <method-permission>
-            <description><![CDATA[$operation.signature security constraint]]></description>
-#if (!$ejbSecurityEnabled || $operation.roles.empty)
-            <unchecked/>
-#else
-#foreach ($role in $operation.roles)
-            <role-name>$role.name</role-name>
-#end
-#end
-            <method>
-                <description><![CDATA[$operation.getDocumentation("", -1, false)]]></description>
-                <ejb-name>$service.name</ejb-name>
-#set ($interface = "Local")
-#if ($service.ejbRemoteView)
-#set ($interface = "Remote")
-#end
-                <method-intf>$interface</method-intf>
-                <method-name>$operation.name</method-name>
-#if (!$operation.arguments.empty)
-                <method-params>
-#foreach ($argument in $operation.arguments)
-                    <method-param>$argument.type.fullyQualifiedName</method-param>
-#end
-                </method-params>
-#end
-            </method>
-        </method-permission>
+#foreach ($operation in $service.implementationOperations)
+#renderEjbJarMethodPermission($operation)
 
+#end
+#foreach ($superclass in $service.allGeneralizations)
+#foreach ($operation in $superclass.implementationOperations)
+#renderEjbJarMethodPermission($operation)
+
+#end
 #end
 #end
 #if ($ejbTransactionsEnabled.equalsIgnoreCase("true"))
 #foreach ($service in $services)
-#foreach ($operation in $service.operations)
-        <container-transaction>
-            <method>
-                <ejb-name>$service.name</ejb-name>
-                <method-name>$operation.name</method-name>
-                <method-params>
-#foreach ($argument in $operation.arguments)
-                    <method-param>$argument.type.fullyQualifiedName</method-param>
-#end
-                </method-params>
-            </method>
-            <trans-attribute>$operation.ejbTransactionType</trans-attribute>
-        </container-transaction>
+#foreach ($operation in $service.implementationOperations)
+#renderEjbJarContainerTransaction($operation)
 
+#end
+#foreach ($superclass in $service.allGeneralizations)
+#foreach ($operation in $superclass.implementationOperations)
+#renderEjbJarContainerTransaction($operation)
+
+#end
 #end
 #end
 #end
     </assembly-descriptor>
 
 </ejb-jar>
-#end

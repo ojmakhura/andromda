@@ -3,7 +3,7 @@ package org.andromda.core.transformation;
 
 /**
  * Thrown when an exception occurs during
- * XSTL transformation by the {@link XslTransformer).
+ * XSTL transformation by the {@link XslTransformer}.
  *
  * @author Chad Brandon
  */
@@ -34,7 +34,7 @@ public class XslTransformerException
      * Constructs an instance of TransformerException.
      *
      * @param message any message to give.
-     * @param parent the parent throwab.e
+     * @param parent the parent throwable
      */
     public XslTransformerException(
         String message,

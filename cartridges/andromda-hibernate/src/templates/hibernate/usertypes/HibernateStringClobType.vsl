@@ -7,9 +7,9 @@
 #set ($generatedFile = "$stringUtils.replace($userTypesPackage, '.', '/')/${className}.java")
 package $userTypesPackage;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringReader;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,7 +32,7 @@ public class $className
      */
 ## the value of this field should change whenever the class signature changes
     private static final long serialVersionUID = 10000L;
-    
+
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#sqlTypes()
      */
@@ -44,7 +44,7 @@ public class $className
     /**
      * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#returnedClass()
      */
-    public Class returnedClass()
+    public Class#if($enableTemplating)<?>#end returnedClass()
     {
         return String.class;
     }
@@ -86,8 +86,12 @@ public class $className
         try
         {
             //First we get the stream
-            InputStream inputStream = resultSet.getAsciiStream(names[0]);
-            byte[] buf = new byte[1024];
+            Reader inputStream = resultSet.getCharacterStream(names[0]);
+            if (inputStream == null)
+            {
+                return null;
+            }
+            char[] buf = new char[1024];
             int read = -1;
 
             while ((read = inputStream.read(buf)) > 0)
@@ -115,18 +119,20 @@ public class $className
         int index)
         throws HibernateException, SQLException
     {
-        data = data == null ? new String() : data;
-        String in = (String)data;
-
-        byte[] buf = in.getBytes();
-        int len = buf.length;
-
-        ByteArrayInputStream bais = new ByteArrayInputStream(buf);
-
-        preparedStatement.setAsciiStream(
-            index,
-            bais,
-            len);
+        if (data != null)
+        {
+            StringReader r = new StringReader((String)data);
+            preparedStatement.setCharacterStream(
+                index,
+                r,
+                ((String)data).length());
+        }
+        else
+        {
+            preparedStatement.setNull(
+                index,
+                sqlTypes()[0]);
+        }
     }
 
     /**
@@ -155,7 +161,7 @@ public class $className
     public boolean isMutable()
     {
         return false;
-    }    
+    }
 #if ($hibernateUtils.version3)
 
     /**

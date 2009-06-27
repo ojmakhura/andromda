@@ -46,8 +46,8 @@
         </repository>
     </repositories>
     <mappingsSearchLocations>
-        <location>/path/to/mappings/location1</location>
-        <location>/path/to/mappings/location2</location>
+        <location patterns="*.xml">/path/to/mappings/location1</location>
+        <location patterns="*.xml">/path/to/mappings/location2</location>
     </mappingsSearchLocations>
     <namespaces>
         <namespace name="default">

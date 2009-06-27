@@ -8,7 +8,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
 import org.andromda.metafacades.uml.ActorFacade;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -16,9 +15,8 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAttribute;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ManageableEntity;
-import org.andromda.metafacades.uml.ManageableEntityAssociationEnd;
-import org.andromda.metafacades.uml.ManageableEntityAttribute;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
@@ -26,15 +24,19 @@ import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.ManageableEntity.
  *
  * @see org.andromda.metafacades.uml.ManageableEntity
+ * @author Bob Fields
  */
 public class ManageableEntityLogicImpl
     extends ManageableEntityLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ManageableEntityLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
@@ -49,9 +51,10 @@ public class ManageableEntityLogicImpl
     }
 
     /**
+     * @return manageablePackageName
      * @see org.andromda.metafacades.uml.ManageableEntity#getManageablePackageName()
      */
-    protected java.lang.String handleGetManageablePackageName()
+    protected String handleGetManageablePackageName()
     {
         String manageablePackageName = "";
 
@@ -72,55 +75,55 @@ public class ManageableEntityLogicImpl
 
     protected String handleGetManageablePackagePath()
     {
-        return StringUtils.replace(
-            this.getManageablePackageName(),
-            this.getNamespaceSeparator(),
-            "/");
+        return StringUtils.replace(this.getManageablePackageName(), this.getNamespaceSeparator(), "/");
     }
 
-    protected java.util.List handleGetManageableAssociationEnds()
+    protected List handleGetManageableAssociationEnds()
     {
-        final List manageableAssociationEnds = new ArrayList();
+        final Set manageableAssociationEnds = new LinkedHashSet();// linked hashset to guarantee ordering wo/ duplicates
         collectAssociationEnds(manageableAssociationEnds, this);
-        return manageableAssociationEnds;
+        return new ArrayList(manageableAssociationEnds);
     }
 
-    private void collectAssociationEnds(Collection manageableAssociationEnds, ManageableEntity entity)
+    /**
+     * This method recursively collects all association ends to which a manageable entity would need to navigate
+     *
+     * @param manageableAssociationEnds the collection in which to collect the association ends
+     * @param entity the entity from which to recursively gather the association ends
+     */
+    private static void collectAssociationEnds(Collection<AssociationEndFacade> manageableAssociationEnds, ManageableEntity entity)
     {
-        final Collection associationEnds = getAssociationEnds();
-        for (final Iterator associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
+        final Collection<AssociationEndFacade> associationEnds = entity.getAssociationEnds();
+        for (final Iterator<AssociationEndFacade> associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
-            final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEndIterator.next();
+            final AssociationEndFacade associationEnd = associationEndIterator.next();
             final AssociationEndFacade otherEnd = associationEnd.getOtherEnd();
 
-            if (otherEnd.isNavigable())
+            if (otherEnd.isNavigable() && otherEnd.getType() instanceof Entity)
             {
-                if (associationEnd.isMany() || (associationEnd.isOne2One() && otherEnd.isChild()))
-                {
-                    final Object otherEndType = otherEnd.getType();
-                    if (otherEndType instanceof Entity)
-                    {
-                        manageableAssociationEnds.add(otherEnd);
-                    }
-                }
+                manageableAssociationEnds.add(otherEnd);
             }
         }
 
         // retrieve all association ends for all parents (recursively)
-        final Collection parentEntities = entity.getAllGeneralizations();
-        for (Iterator parentEntityIterator = parentEntities.iterator(); parentEntityIterator.hasNext();)
+        final Collection<GeneralizableElementFacade> parentEntities = entity.getAllGeneralizations();
+        for (final Iterator<GeneralizableElementFacade> parentEntityIterator = parentEntities.iterator(); parentEntityIterator.hasNext();)
         {
-            final ManageableEntity parentEntity = (ManageableEntity)parentEntityIterator.next();
-            collectAssociationEnds(manageableAssociationEnds, parentEntity);
+            final Object parentEntityObject = parentEntityIterator.next();
+            if (parentEntityObject instanceof ManageableEntity)
+            {
+                collectAssociationEnds(manageableAssociationEnds, (ManageableEntity)parentEntityObject);
+            }
         }
     }
 
     /**
+     * @return !this.isAbstract()
      * @see org.andromda.metafacades.uml.ManageableEntity#isCreate()
      */
     protected boolean handleIsCreate()
     {
-        return true;
+        return !this.isAbstract();
     }
 
     protected String handleGetManageableServiceName()
@@ -170,12 +173,12 @@ public class ManageableEntityLogicImpl
 
     protected List handleGetManageableAttributes()
     {
-        return new ArrayList(getAttributes(true));
+        return new ArrayList(this.getAttributes(true));
     }
 
     protected Object handleGetManageableIdentifier()
     {
-        return getIdentifiers(true).iterator().next();
+        return this.getIdentifiers(true).iterator().next();
     }
 
     protected List handleGetManageableMembers()
@@ -198,7 +201,7 @@ public class ManageableEntityLogicImpl
                 buffer.append(", ");
             }
 
-            final ManageableEntityAttribute attribute = (ManageableEntityAttribute)attributes.get(i);
+            final AttributeFacade attribute = (AttributeFacade)attributes.get(i);
             final ClassifierFacade type = attribute.getType();
             if (type != null)
             {
@@ -214,8 +217,7 @@ public class ManageableEntityLogicImpl
         final List associationEnds = this.getManageableAssociationEnds();
         for (int i = 0; i < associationEnds.size(); i++)
         {
-            final ManageableEntityAssociationEnd associationEnd =
-                (ManageableEntityAssociationEnd)associationEnds.get(i);
+            final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEnds.get(i);
             final Entity entity = (Entity)associationEnd.getType();
 
             final Iterator identifierIterator = entity.getIdentifiers().iterator();
@@ -252,10 +254,11 @@ public class ManageableEntityLogicImpl
 
     protected boolean handleIsManageable()
     {
-        return true;
+        return Boolean.valueOf((String)this.getConfiguredProperty(
+            UMLMetafacadeProperties.ENABLE_MANAGEABLE_ENTITIES)).booleanValue();
     }
 
-    protected java.util.List handleGetReferencingManageables()
+    protected List handleGetReferencingManageables()
     {
         final Set referencingManageables = new LinkedHashSet();
         final Collection associationEnds = getAssociationEnds();
@@ -314,14 +317,14 @@ public class ManageableEntityLogicImpl
         return displayAttribute;
     }
 
-    protected java.util.List handleGetUsers()
+    protected List handleGetUsers()
     {
         final Set users = new LinkedHashSet();
 
-        final Collection dependencies = getTargetDependencies();
-        for (final Iterator dependencyIterator = dependencies.iterator(); dependencyIterator.hasNext();)
+        final Collection<DependencyFacade> dependencies = getTargetDependencies();
+        for (final Iterator<DependencyFacade> dependencyIterator = dependencies.iterator(); dependencyIterator.hasNext();)
         {
-            final DependencyFacade dependency = (DependencyFacade)dependencyIterator.next();
+            final DependencyFacade dependency = dependencyIterator.next();
             final Object dependencyObject = dependency.getSourceElement();
 
             if (!users.contains(dependencyObject) && dependencyObject instanceof ActorFacade)
@@ -333,18 +336,16 @@ public class ManageableEntityLogicImpl
         return new ArrayList(users);
     }
 
-    private void collectActors(
-        ActorFacade actor,
-        Collection actors)
+    private void collectActors(ActorFacade actor, Collection actors)
     {
         if (!actors.contains(actor))
         {
             actors.add(actor);
 
-            final Collection childActors = actor.getGeneralizedByActors();
-            for (final Iterator iterator = childActors.iterator(); iterator.hasNext();)
+            final Collection<ActorFacade> childActors = actor.getGeneralizedByActors();
+            for (final Iterator<ActorFacade> iterator = childActors.iterator(); iterator.hasNext();)
             {
-                final ActorFacade childActor = (ActorFacade)iterator.next();
+                final ActorFacade childActor = iterator.next();
                 collectActors(childActor, actors);
             }
         }
@@ -474,29 +475,27 @@ public class ManageableEntityLogicImpl
         return resolveable;
     }
 
-    protected java.util.List handleGetAllManageables()
+    protected List<ClassifierFacade> handleGetAllManageables()
     {
-        final Set allManageableEntities = new TreeSet(new ManageableComparator());
+        final Set<ClassifierFacade> allManageableEntities = new TreeSet(new ManageableComparator());
 
-        final Collection allClasses = getModel().getAllClasses();
-        for (final Iterator classIterator = allClasses.iterator(); classIterator.hasNext();)
+        final Collection<ClassifierFacade> allClasses = getModel().getAllClasses();
+        for (final Iterator<ClassifierFacade> classIterator = allClasses.iterator(); classIterator.hasNext();)
         {
-            final Object classObject = classIterator.next();
+            final ClassifierFacade classObject = classIterator.next();
             if (classObject instanceof ManageableEntity)
             {
                 allManageableEntities.add(classObject);
             }
         }
 
-        return new ArrayList(allManageableEntities);
+        return new ArrayList<ClassifierFacade>(allManageableEntities);
     }
 
-    private final class ManageableComparator
+    final static class ManageableComparator
         implements Comparator
     {
-        public int compare(
-            Object left,
-            Object right)
+        public int compare(Object left, Object right)
         {
             final ModelElementFacade leftEntity = (ModelElementFacade)left;
             final ModelElementFacade rightEntity = (ModelElementFacade)right;

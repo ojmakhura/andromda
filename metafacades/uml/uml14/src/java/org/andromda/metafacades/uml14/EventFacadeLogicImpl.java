@@ -2,22 +2,26 @@ package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.omg.uml.behavioralelements.statemachines.State;
 import org.omg.uml.behavioralelements.statemachines.Transition;
-
+import org.omg.uml.behavioralelements.statemachines.Event;
 
 /**
  * MetafacadeLogic implementation.
  *
  * @see org.andromda.metafacades.uml.EventFacade
+ * @author Bob Fields
  */
 public class EventFacadeLogicImpl
     extends EventFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EventFacadeLogicImpl(
-        org.omg.uml.behavioralelements.statemachines.Event metaObject,
-        java.lang.String context)
+        Event metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -25,6 +29,7 @@ public class EventFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EventFacade#getParameters()
      */
+    @Override
     protected Collection handleGetParameters()
     {
         return metaObject.getParameter();
@@ -33,13 +38,14 @@ public class EventFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EventFacade#getTransition()
      */
-    protected Object handleGetTransition()
+    @Override
+    protected Transition handleGetTransition()
     {
         Transition eventTransition = null;
 
-        final Collection allTransitions =
+        final Collection<Transition> allTransitions =
             UML14MetafacadeUtils.getModel().getStateMachines().getTransition().refAllOfType();
-        for (final Iterator iterator = allTransitions.iterator(); iterator.hasNext() && eventTransition == null;)
+        for (final Iterator<Transition> iterator = allTransitions.iterator(); iterator.hasNext() && eventTransition == null;)
         {
             final Transition transition = (Transition)iterator.next();
             if (metaObject.equals(transition.getTrigger()))
@@ -54,12 +60,13 @@ public class EventFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EventFacade#getState()
      */
-    protected Object handleGetState()
+    @Override
+    protected State handleGetState()
     {
         State eventState = null;
 
-        final Collection allStates = UML14MetafacadeUtils.getModel().getStateMachines().getState().refAllOfType();
-        for (final Iterator stateIterator = allStates.iterator(); stateIterator.hasNext() && eventState == null;)
+        final Collection<State> allStates = UML14MetafacadeUtils.getModel().getStateMachines().getState().refAllOfType();
+        for (final Iterator<State> stateIterator = allStates.iterator(); stateIterator.hasNext() && eventState == null;)
         {
             final State state = (State)stateIterator.next();
             if (state.getDeferrableEvent().contains(metaObject))

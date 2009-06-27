@@ -1,67 +1,67 @@
-<%@ include file="/$jspIncludes" %>
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="1.2"
+          xmlns:f="http://java.sun.com/jsf/core"
+          xmlns:h="http://java.sun.com/jsf/html"
+          xmlns:t="http://myfaces.apache.org/tomahawk"
+          xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:xm="http://java.sun.com/jsp/jstl/xml"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:a="http://www.andromda.org/cartridges/jsf"
+          xmlns:afh="http://xmlns.oracle.com/adf/faces/html"
+          xmlns:af="http://xmlns.oracle.com/adf/faces">
+    <jsp:directive.page contentType="text/html;charset=utf-8"/>
+    <jsp:directive.include file="/$jspIncludes"/>
 
-<html>
+    <fmt:message var="title" key="${view.titleKey}" scope="request"/>
 
-<fmt:message var="viewTitle" key="${view.titleKey}" scope="request"/>
-<%@include file="/includes/head.jspf" %>
+    <f:view>
 
-<body>
+    <html>
 
-<f:view>
+        <jsp:directive.include file="/includes/head.jspf"/>
 
-    <x:panelLayout id="page" layout="#{${layoutOptionsBeanName}.sidebarLayout}"
-            styleClass="pageLayout"
-            headerClass="pageHeader"
-            navigationClass="#{${layoutOptionsBeanName}.pageNavigationClass}"
-            bodyClass="pageBody"
-            footerClass="pageFooter"
-            width="100%">
+        <body>
 
-        <f:facet name="header">
-            <f:subview id="header">
-#if ($view.useCase.registrationUseCase)
-                <jsp:include page="/includes/registration-header.jsp" />
-#else
-                <jsp:include page="/includes/header.jsp" />
-#end
-            </f:subview>
-        </f:facet>
-
+            <af:panelPage title="#{title}">
+                <f:facet name="brandingApp">
+                    <jsp:directive.include file="/includes/header.jsp"/>
+                </f:facet>
+                <f:facet name="menu2">
+                    <af:menuBar>
+                        <t:graphicImage url="/images/space.gif"/>
+                    </af:menuBar>
+                </f:facet>
 #if (!$view.useCase.registrationUseCase)
-        <f:facet name="navigation">
-            <f:subview id="menu">
-                <jsp:include page="/includes/navigation.jsp" />
-            </f:subview>
-        </f:facet>
-
+                <f:facet name="menu3">
+                    <af:form><jsp:directive.include file="/includes/menu.jspf"/></af:form>
+                </f:facet>
 #end
-        <f:facet name="body">
-            <h:panelGroup id="body">
-                <h:panelGrid columns="1" styleClass="viewHeader">
-                    <h:outputText value="#{viewTitle}"/>
-                </h:panelGrid>
+                <f:facet name="appCopyright">
+                    <jsp:directive.include file="/includes/footer.jspf"/>
+                </f:facet>
+                <t:div id="pageContent">
+                    <jsp:directive.include file="/includes/messages.jspf"/>
 #if ($view.nonTableVariablesPresent)
-                <%@ include file="${view.path}-vars.jspf" %>
+                    <jsp:directive.include file="${view.path}-vars.jspf"/>
 #end
 #foreach ($action in $view.actions)
 #if (!$action.tableLink)
-                <%@ include file="${action.viewFragmentPath}.jspf" %>
+                    <jsp:directive.include file="${action.viewFragmentPath}.jspf"/>
 #end
 #end
 #foreach ($variable in $view.variables)
 #if ($variable.table)
-                <%@ include file="${view.path}-${variable.name}.jspf" %>
+                    <jsp:directive.include file="${view.path}-${variable.name}.jspf"/>
 #end
 #end
-            </h:panelGroup>
-        </f:facet>
+                </t:div>
+            </af:panelPage>
 
-        <%@include file="/includes/footer.jspf" %>
+        </body>
 
-    </x:panelLayout>
+    </html>
 
-</f:view>
+    </f:view>
 
-</body>
-
-</html>
+</jsp:root>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Spring Cartridge">
+    <skin>
+        <groupId>org.andromda.maven.plugins.site</groupId>
+        <artifactId>andromda-site-skin</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </skin>
+    <bannerLeft>
+        <name></name>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy hh:mm zzz"/>
+	<body>
+        <!-- <pdf href="andromda-spring-cartridge.pdf"/> -->
+    	<links>
+    		<item name="Spring" href="/index.html"/>
+    	</links>
+        <menu name="Overview">
+            <item name="Profile" href="/profile.html"/>
+            <item name="Namespace" href="/namespace.html"/>
+        </menu>
+        <menu name="How-to">
+            <item name="Introduction" href="/howto.html"/>
+            <item name="Entities" href="/howto1.html"/>
+            <item name="Relationships" href="/howto2.html"/>
+            <item name="Services" href="/howto3.html"/>
+            <item name="Value Objects" href="/howto4.html"/>
+            <item name="Enumerations" href="/howto5.html"/>
+            <item name="Queries" href="/howto6.html"/>
+            <item name="Exceptions" href="/howto7.html"/>
+            <item name="Security" href="/howto8.html"/>
+            <item name="Tips &amp; Tricks" href="/tips.html"/>
+        </menu>
+        <menu ref="reports"/>
+  	</body>
+</project>

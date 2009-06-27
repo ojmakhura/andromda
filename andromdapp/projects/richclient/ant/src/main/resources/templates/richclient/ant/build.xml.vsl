@@ -18,7 +18,8 @@
         <include name="metafacades/andromda-metafacades-uml/*/andromda-metafacades-uml-*.jar"/>
         <include name="metafacades/andromda-metafacades-uml14/*/andromda-metafacades-uml14-*.jar"/>
         <include name="repositories/andromda-repository-emf/*/andromda-repository-emf-*.jar"/>
-        <include name="repositories/andromda-repository-mdr/*/andromda-repository-mdr-*.jar"/>
+        <include name="repositories/andromda-repository-mdr/*/andromda-repository-mdr*.jar"/>
+        <include name="repositories/andromda-repository-mdr-uml14/*/andromda-repository-mdr-uml14*.jar"/>
         <include name="repositories/andromda-repository-emf-uml2/*/andromda-repository-emf-uml2-*.jar"/>
         <include name="translationlibraries/andromda-ocl-query-library/*/andromda-ocl-query-library-*.jar"/>
         <include name="translationlibraries/andromda-ocl-translation-core/*/andromda-ocl-translation-core-*.jar"/>
@@ -63,7 +64,7 @@
 	
   <target name="1.mda" description="Generates code from the UML model" depends="init, clean">
     <taskdef name="andromda" classname="org.andromda.ant.task.AndroMDAGenTask" classpathref="andromda.classpath"/>
-    <andromda configurationUri="file:${basedir}/mda/conf/andromda.xml"/>
+    <andromda configurationUri="file:${basedir}/mda/config/andromda.xml"/>
   </target>
 
   <target name="2a.schema-create-db" description="Creates the database, then installs the generated schema files on the database">
@@ -206,11 +207,14 @@
         they can be removed from here). Any libraries your services need should
         also be added here. -->
       <include name="**/spring*.jar"/>
-      <include name="**/hibernate*.jar"/>
+      <include name="**/hibernate-3*.jar"/>
       <include name="**/antlr*.jar"/>
       <include name="**/ehcache*.jar"/>
       <include name="**/commons-beanutils*.jar"/>
       <include name="**/commons-logging*.jar"/>
+#if ($enableAcegi == 'yes')      
+      <include name="**/acegi*.jar"/>
+#end      
   </fileset>
 	
   <target name="make-server-war" unless="server-war-built">
@@ -221,11 +225,11 @@
      <copy todir="${jars-temp}" failonerror="true" flatten="true">
         <fileset refid="deployment-libraries"/>
      </copy>
-     <war destfile="server/target/${application.id}.war" duplicate="fail" webxml="server/target/conf/dist/WEB-INF/web.xml">
+     <war destfile="server/target/${application.id}.war" duplicate="fail" webxml="server/target/config/dist/WEB-INF/web.xml">
         <lib dir="${jars-temp}"/>
         <classes dir="server/target/classes/dist"/>
         <classes dir="common/target/classes/dist"/>
-        <webinf dir="server/target/conf/dist/WEB-INF">
+        <webinf dir="server/target/config/dist/WEB-INF">
            <exclude name="web.xml"/>
         </webinf>
      </war>
@@ -239,7 +243,7 @@
      <jar destfile="client/target/${application.id}-client.jar">
          <zipfileset dir="client/target/classes/dist"/>
          <zipfileset dir="common/target/classes/dist"/>
-         <zipfileset dir="client/target/conf/dist"/>
+         <zipfileset dir="client/target/config/dist"/>
      </jar>
   </target>
 

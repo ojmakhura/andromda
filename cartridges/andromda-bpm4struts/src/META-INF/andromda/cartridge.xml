@@ -1,6 +1,6 @@
 <cartridge>
 
-    <templateEngine>
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
         <!-- library of macros used in template engine -->
         <macrolibrary name="templates/bpm4struts/pages/page.jsp.vm"/>
         <macrolibrary name="templates/bpm4struts/pages/crud/manageable.jsp.vm"/>
@@ -46,6 +46,7 @@
     <property reference="defaultTableExportTypes"/>
     <property reference="renderPageVariables"/>
     <property reference="toDoTag"/>
+    <property reference="virtualHost"/>
 
     <!-- cartridge-property merge-point -->
 
@@ -261,6 +262,7 @@
             <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter">
                     <property name="table"/>
+                    <property name="jsp"/>
                 </type>
             </modelElement>
         </modelElements>
@@ -665,28 +667,10 @@
         generateEmptyFiles="false">
         <modelElements>
             <modelElement variable="manageables">
-                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
-                    <property name="manageable"/>
-                </type>
-            </modelElement>
-        </modelElements>
-    </template>
-
-<!--
-    <template
-        path="templates/bpm4struts/configuration/crud/validation-admin.xml.vsl"
-        outputPattern="validation-admin.xml"
-        outlet="configuration"
-        overwrite="true"
-        outputToSingleFile="true"
-        generateEmptyFiles="false">
-        <modelElements variable="manageables">
-            <modelElement>
                 <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
             </modelElement>
         </modelElements>
     </template>
--->
 
     <!-- cartridge-template merge-point -->
 

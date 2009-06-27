@@ -1,13 +1,95 @@
 ## Contains exception utilities used within the exception templates
+#if ($webFault)
+#set ($exceptionAttribute = $stringUtils.uncapitalize(${class.name}))
+    // protected Object $exceptionAttribute;
+
+    /*
+     * Create webservice exception with detail exception.
+     * @param message Exception message
+     * @param ${exceptionAttribute}In webservice Throwable detail
+    public ${class.name}(String message, Object ${exceptionAttribute}In) 
+    {
+        super(message);
+        this.$exceptionAttribute = ${exceptionAttribute}In;
+    }
+     */
+
+    /*
+     * Create webservice exception with detail exception.
+     * @param message Exception message
+     * @param ${exceptionAttribute}In webservice Throwable detail
+     * @param cause webservice Throwable cause
+    public ${class.name}(String message, Object ${exceptionAttribute}In, Throwable cause) 
+    {
+        super(message, cause);
+        this.$exceptionAttribute = ${exceptionAttribute}In;
+    }
+     */
+
+    /*
+     * Get webservice detail exception.
+     * @return this.$exceptionAttribute com.sun.org.apache.xerces.internal.dom.ElementNSImpl
+    public Object getFaultInfo() 
+    {
+        return this.$exceptionAttribute;
+    }
+     */
+
+    /**
+    private String faultCode;
+     * Get webservice faultCode.
+     * @return this.$exceptionAttribute com.sun.org.apache.xerces.internal.dom.ElementNSImpl
+    public Object getFaultCode() 
+    {
+        return this.faultCode;
+    }
+     */
+
+    /**
+    private String faultString;
+     * Get webservice detail exception.
+     * @return this.faultString
+    public Object getFaultString() 
+    {
+        return this.faultString;
+    }
+     */
+
+    // Must override default Exception stackTrace in order to avoid the JAX-WS Error
+    // java.lang.StackTraceElement in Sun JDK5 and 6 does not have a no-arg default constructor
+    /**
+     * @see java.lang.Throwable#getStackTrace()
+     */
+    @Override
+    @XmlTransient
+    public StackTraceElement[] getStackTrace()
+    {
+        return super.getStackTrace();
+    }
+    
+    /**
+     * @see java.lang.Throwable#setStackTrace(StackTraceElement[])
+     */
+    @Override
+    @XmlTransient
+    public void setStackTrace(StackTraceElement[] element)
+    {
+        super.setStackTrace(element);
+    }
+
+#end
     /**
      * Finds the root cause of the parent exception
-     * by traveling up the exception tree
+     * by traveling up the exception tree. Performs printStackTrace if
+     * an exception is thrown.
+     * @param th Throwable to find the cause from
+     * @return targetException Throwable cause
      */
     private static Throwable findRootCause(Throwable th)
     {
         if (th != null)
         {
-            // Lets reflectively get any JMX or EJB exception causes.
+            // Reflectively get any JMX or EJB exception causes.
             try
             {
                 Throwable targetException = null;
@@ -46,3 +128,69 @@
         }
         return th;
     }
+
+#foreach ($operation in $class.operations)
+#set ($returnType = $operation.returnType)
+#set ($returnObject = "returnValue")
+    /**
+$operation.getDocumentation("     * ")
+#foreach ($parameter in $operation.parameters)
+#if ($parameter.inParameter)
+     * @param $parameter.name default=$parameter.defaultValue required=$parameter.required
+#end
+#end
+#if ($returnType.fullyQualifiedName != "void")
+     * @return $returnType.fullyQualifiedName
+#end
+#if ($operation.exceptionsPresent)
+     * @throws $operation.exceptionList
+#end
+     */
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType.fullyQualifiedName $operation.signature
+        throws $operation.exceptionList
+#else
+    $operation.visibility $returnType.fullyQualifiedName $operation.signature
+#end
+    {
+        //TODO: implement $operation.visibility $returnType.fullyQualifiedName $operation.signature
+#set ($returnTypeName = $operation.type.fullyQualifiedName)
+#if ($operation.returnTypePresent)
+#if (!$operation.type.primitive)
+        return null;
+#elseif ("boolean" == $returnTypeName)
+        return false;
+#else
+        return ($returnTypeName)0;
+#end
+#else
+        throw new UnsupportedOperationException("${class.fullyQualifiedName}.${operation.signature} Not implemented!");
+#end
+    }
+
+#end
+#foreach ($attribute in $class.attributes)
+    private $attribute.getterSetterTypeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
+
+    /** 
+     * $attribute.documentation
+##$attribute.getDocumentation("     * ")
+     * @return ${attribute.name}
+     */
+    public $attribute.getterSetterTypeName ${attribute.getterName}()
+    {
+        return this.${attribute.name};
+    }
+
+## - always have as public, having read-only causes too many issues when attempting to 
+##   use in other cartridges
+    /** 
+     * $attribute.documentation
+##$attribute.getDocumentation("     * ")
+     * @param ${attribute.name}In
+     */
+    public void ${attribute.setterName}($attribute.getterSetterTypeName ${attribute.name}In)
+    {
+        this.${attribute.name} = ${attribute.name}In;
+    }
+#end

@@ -1,16 +1,27 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.Collections;
+import org.andromda.metafacades.uml.InstanceFacade;
+import org.omg.uml.behavioralelements.commonbehavior.Instance;
+import org.omg.uml.foundation.core.Attribute;
+import org.omg.uml.behavioralelements.commonbehavior.AttributeLink;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.AttributeLinkFacade.
  *
  * @see org.andromda.metafacades.uml.AttributeLinkFacade
+ * @author Bob Fields
  */
 public class AttributeLinkFacadeLogicImpl
     extends AttributeLinkFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public AttributeLinkFacadeLogicImpl(
-        org.omg.uml.behavioralelements.commonbehavior.AttributeLink metaObject,
+        AttributeLink metaObject,
         String context)
     {
         super(metaObject, context);
@@ -19,23 +30,17 @@ public class AttributeLinkFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AttributeLinkFacade#getAttribute()
      */
-    protected java.lang.Object handleGetAttribute()
+    @Override
+    protected Attribute handleGetAttribute()
     {
         return metaObject.getAttribute();
     }
 
     /**
-     * @see org.andromda.metafacades.uml.AttributeLinkFacade#getLinkEnd()
-     */
-    protected java.lang.Object handleGetLinkEnd()
-    {
-        return metaObject.getLinkEnd();
-    }
-
-    /**
      * @see org.andromda.metafacades.uml.AttributeLinkFacade#getInstance()
      */
-    protected java.lang.Object handleGetInstance()
+    @Override
+    protected Instance handleGetInstance()
     {
         return metaObject.getInstance();
     }
@@ -43,8 +48,18 @@ public class AttributeLinkFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.AttributeLinkFacade#getValue()
      */
-    protected java.lang.Object handleGetValue()
+    @Override
+    protected Instance handleGetValue()
     {
         return metaObject.getValue();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.AttributeLinkFacade#getValues()
+     */
+    @Override
+    protected Collection<InstanceFacade> handleGetValues()
+    {
+        return Collections.singleton(this.getValue());
     }
 }

@@ -2,9 +2,7 @@ package org.andromda.cartridges.jsf.validator;
 
 import java.io.InputStream;
 import java.io.Serializable;
-
 import java.lang.reflect.Method;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,7 +11,6 @@ import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
@@ -37,15 +34,19 @@ public class JSFValidator
     private static final Log logger = LogFactory.getLog(JSFValidator.class);
 
     /**
-     * Constructs a new instance of this class with the given
+     * Constructs a new instance of this class with the given <code>form</code> and
      * <code>validatorAction</code>.
      *
+     * @param form
      * @param validatorAction
      */
-    public JSFValidator(final ValidatorAction validatorAction)
+    public JSFValidator(final String formId, final ValidatorAction validatorAction)
     {
+        this.formId = formId;
         this.validatorAction = validatorAction;
     }
+
+    private String formId;
 
     public JSFValidator()
     {
@@ -205,35 +206,49 @@ public class JSFValidator
      * This <code>validate</code> method is called by JSF to verify the
      * component to which the validator is attached.
      *
-     * @param context The faces context
-     * @param component The component to validate
+     * @see javax.faces.validator.Validator#validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
      */
     public void validate(
         final FacesContext context,
         final UIComponent component,
         final Object value)
     {
-        final UIForm form = findForm(component);
-        if (form != null)
+        if (this.formId != null)
         {
             try
             {
-                final Collection errors = new ArrayList();
-                this.getValidatorMethod().invoke(
-                    this.getValidatorClass(),
-                    new Object[]
-                    {
-                        context, value, this.getParameters(), errors, this.validatorAction,
-                        this.getFormField(
-                            form.getId(),
-                            component.getId())
-                    });
-                if (!errors.isEmpty())
+                final Form validatorForm = getValidatorResources().getForm(
+                    Locale.getDefault(),
+                    this.formId);
+                if (validatorForm != null)
                 {
-                    throw new ValidatorException(new FacesMessage(
-                            FacesMessage.SEVERITY_ERROR,
-                            (String)errors.iterator().next(),
-                            null));
+                    final Field field = this.getFormField(validatorForm, component.getId());
+                    if (field != null)
+                    {
+                        final Collection errors = new ArrayList();
+                        this.getValidatorMethod().invoke(
+                            this.getValidatorClass(),
+                            new Object[]
+                            {
+                                context, value, this.getParameters(), errors, this.validatorAction,
+                                field
+                            });
+                        if (!errors.isEmpty())
+                        {
+                            throw new ValidatorException(new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR,
+                                    (String)errors.iterator().next(),
+                                    null));
+                        }
+                    }
+                    else
+                    {
+                        logger.error("No field with id '" + component.getId() + "' found on form '" + this.formId + "'");
+                    }
+                }
+                else
+                {
+                    logger.error("No validator form could be found with id '" + this.formId + "'");
                 }
             }
             catch (final ValidatorException exception)
@@ -303,18 +318,15 @@ public class JSFValidator
      * Attempts to retrieve the form field from the form with the given <code>formName</code>
      * and the field with the given <code>fieldName</code>.  If it can't be retrieved, null
      * is returned.
-     * @param formName the name of the form.
+     * @param form the form to validate.
      * @param fieldName the name of the field.
      * @return the found field or null if it could not be found.
      */
     private Field getFormField(
-        final String formName,
+        final Form form,
         final String fieldName)
     {
         Field field = null;
-        final Form form = getValidatorResources().getForm(
-                Locale.getDefault(),
-                formName);
         if (form != null)
         {
             field = form.getField(fieldName);
@@ -335,35 +347,13 @@ public class JSFValidator
     }
 
     /**
-     * Recursively finds the valueHolder's form (if the valueHolder is nested within a form).
-     *
-     * @param component the valueHolder for which to find the form.
-     * @return the form or null if there is no form for the valueHolder.
-     */
-    public static UIForm findForm(final UIComponent component)
-    {
-        UIForm form = null;
-        if (component != null)
-        {
-            if (component instanceof UIForm)
-            {
-                form = (UIForm)component;
-            }
-            else
-            {
-                form = findForm(component.getParent());
-            }
-        }
-        return form;
-    }
-
-    /**
      * @see java.lang.Object#toString()
      */
     public String toString()
     {
-        return super.toString() + "[" + this.validatorAction != null ? this.validatorAction.getName() : null + "]";
+        return super.toString() + ":formId=" + formId + ", validatorAction="
+            + (this.validatorAction != null ? this.validatorAction.getName() : null);
     }
 
-    private static final long serialVersionUID = -5627108517488240081L;
+    private static final long serialVersionUID = 1;
 }

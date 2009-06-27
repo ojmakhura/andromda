@@ -1,15 +1,27 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.Collections;
+import org.andromda.metafacades.uml.InstanceFacade;
+import org.omg.uml.behavioralelements.commonbehavior.Instance;
+import org.omg.uml.behavioralelements.commonbehavior.Link;
+import org.omg.uml.foundation.core.AssociationEnd;
+import org.omg.uml.behavioralelements.commonbehavior.LinkEnd;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.LinkEndFacade.
  *
  * @see org.andromda.metafacades.uml.LinkEndFacade
+ * @author Bob Fields
  */
 public class LinkEndFacadeLogicImpl
     extends LinkEndFacadeLogic
 {
-    public LinkEndFacadeLogicImpl (org.omg.uml.behavioralelements.commonbehavior.LinkEnd metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public LinkEndFacadeLogicImpl (LinkEnd metaObject, String context)
     {
         super (metaObject, context);
     }
@@ -17,7 +29,8 @@ public class LinkEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.LinkEndFacade#getInstance()
      */
-    protected java.lang.Object handleGetInstance()
+    @Override
+    protected Instance handleGetInstance()
     {
         return metaObject.getInstance();
     }
@@ -25,7 +38,8 @@ public class LinkEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.LinkEndFacade#getAssociationEnd()
      */
-    protected java.lang.Object handleGetAssociationEnd()
+    @Override
+    protected AssociationEnd handleGetAssociationEnd()
     {
         return metaObject.getAssociationEnd();
     }
@@ -33,9 +47,18 @@ public class LinkEndFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.LinkEndFacade#getLink()
      */
-    protected java.lang.Object handleGetLink()
+    @Override
+    protected Link handleGetLink()
     {
         return metaObject.getLink();
     }
 
+    /**
+     * @see org.andromda.metafacades.uml.LinkEndFacade#getInstances()
+     */
+    @Override
+    protected Collection<InstanceFacade> handleGetInstances()
+    {
+        return Collections.singleton(this.getInstance());
+    }
 }

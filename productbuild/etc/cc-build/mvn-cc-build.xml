@@ -3,36 +3,13 @@
 	<property name="project.dir" value="${basedir}/../.."/>
 	
 	<target name="default">
-    	<echo message="basedir    :${basedir}"/>
-    	<echo message="project.dir:${project.dir}"/>
-		<antcall target="cvs-update"/>
 		<exec dir="${project.dir}" executable="mvn" >
 			<arg value="clean"/>
         </exec> 
 		<exec dir="${project.dir}" executable="mvn" >
 			<arg value="install"/>
         </exec> 
-		<antcall target="deploy-artifacts"/>
 	</target>
 	
-	<target name="cvs-update">
-		<echo message="project.dir:${project.dir}"/>
-		<!-- run as exec so able to spec dir -->
-		<exec dir="${project.dir}" executable="cvs" >
-			<arg value="update"/>
-			<arg value="-P"/>
-			<arg value="-d"/>
-        </exec> 
-	</target>
-
-	<target name="deploy-artifacts">
-		<mkdir dir="/var/www/andromda/maven2/org"/>
-		<copy todir="/var/www/andromda/maven2/org">
-			<fileset dir="/var/maven2/repository/org">
-				<include name="andromda/**/*"/>
-			</fileset>
-		</copy>
-			
-	</target>
 	
 </project>

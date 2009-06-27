@@ -46,14 +46,16 @@ public final class $manageable.manageableDaoBaseName
         return this.$member.daoName;
     }
 
-#if ($member.many)## in this case we need to be able to load multiple entities at the same time
-    protected java.util.Set find${member.type.name}ByIds(${member.type.manageableIdentifier.type.fullyQualifiedName}[] ids)
+#end
+#foreach ($associatedClass in $manageable.allAssociatedClasses)
+#if($associatedClass.manageable)
+    private java.util.Set find${associatedClass.name}ByIds(${associatedClass.manageableIdentifier.type.fullyQualifiedName}[] ids)
     {
-        final Session session = getSession(false);
+        final Session session = this.getSession(false);
         try
         {
-            final Criteria criteria = session.createCriteria(${member.type.fullyQualifiedEntityImplementationName}.class);
-            criteria.add(Expression.in("$member.type.manageableIdentifier.name", ids));
+            final Criteria criteria = session.createCriteria(${associatedClass.fullyQualifiedEntityImplementationName}.class);
+            criteria.add(Expression.in("$associatedClass.manageableIdentifier.name", ids));
             return new java.util.HashSet(criteria.list());
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
@@ -65,7 +67,7 @@ public final class $manageable.manageableDaoBaseName
 #end
 #end
 #if ($manageable.create)
-    public void create($memberList)
+    public $manageable.fullyQualifiedEntityName create($memberList)
     {
         final ${manageable.fullyQualifiedEntityName} entity = new ${manageable.fullyQualifiedEntityImplementationName}();
 #foreach ($member in $manageable.manageableAttributes)
@@ -74,49 +76,52 @@ public final class $manageable.manageableDaoBaseName
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if ($member.many)
 #set ($memberEntityName = "${member.name}Entities")
-        java.util.Set $memberEntityName = null;
-        if ($member.name != null)
-        {
-            $memberEntityName = this.find${member.type.name}ByIds($member.name);
-        }
+        final java.util.Set $memberEntityName = ($member.name != null && ${member.name}.length > 0)
+            ? this.find${member.type.name}ByIds($member.name)
+            : java.util.Collections.EMPTY_SET;
 #else
 #set ($memberEntityName = "${member.name}Entity")
         $member.type.fullyQualifiedName $memberEntityName = null;
         if ($member.name != null)
         {
-            $memberEntityName = ${member.daoGetterName}().load($member.name);
+            $memberEntityName = ($member.type.fullyQualifiedName)${member.daoGetterName}().load($member.name);
         }
 #end
-#if ($member.required)
+
         entity.${member.setterName}($memberEntityName);
-#else
-        if ($memberEntityName != null)
-        {
-            entity.${member.setterName}($memberEntityName);
-#if ($member.many)
+
+#if ($member.many2many)
 #if ($member.otherEnd.navigable)
-            // set the other ends of the many2many association too
-            for (final java.util.Iterator iterator = ${memberEntityName}.iterator(); iterator.hasNext();)
-            {
-                final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
-                element.${member.otherEnd.getterName}().add(entity);
-            }
-#else
-            // we ought to be setting the other end of the many2many association here
-            // but the navigability on the other end has been disabled, therefore doing
-            // the following would break compilation: element.${member.otherEnd.getterName}()
-            // the result is that only one end of this association will be set
-#end
-#end
+        // set the other ends of the many2many association too
+        for (final java.util.Iterator iterator = ${memberEntityName}.iterator(); iterator.hasNext();)
+        {
+            final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
+            element.${member.otherEnd.getterName}().add(entity);
         }
+#else
+        // we ought to be setting the other end of the many2many association here
+        // but the navigability on the other end has been disabled, therefore doing
+        // the following would break compilation: element.${member.otherEnd.getterName}()
+        // the result is that only one end of this association will be set
+#end
 #end
 #end
 
-        this.getDao().create(entity);
+        return (${manageable.fullyQualifiedEntityName})this.getDao().create(entity);
     }
 
 #end
 #if ($manageable.read)
+    public $manageable.fullyQualifiedEntityName readById($identifier.type.fullyQualifiedName $identifier.name)
+    {
+        return getDao().load($identifier.name);
+    }
+
+#if($manageableSearchMatchMode == 'anywhere')
+#set($matchMode = 'MatchMode.ANYWHERE')
+#else
+#set($matchMode = 'MatchMode.START')
+#end
     public java.util.List read($memberList)
     {
         final Session session = getSession(false);
@@ -135,7 +140,7 @@ public final class $manageable.manageableDaoBaseName
 #else
             if ($member.name != null)
 #if ($member.type.stringType)
-                criteria.add(Expression.ilike("$member.name", $member.name, MatchMode.START));
+                criteria.add(Expression.ilike("$member.name", $member.name, $matchMode));
 #elseif ($member.type.dateType)
             {
                 // we check whether or not the user supplied time information within this particular date argument
@@ -164,7 +169,7 @@ public final class $manageable.manageableDaoBaseName
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if ($member.many)
-            if ($member.name != null) criteria.createCriteria("$member.name").add(Expression.in("$member.manageableIdentifier.name", $member.name));
+            if ($member.name != null && ${member.name}.length > 0) criteria.createCriteria("$member.name").add(Expression.in("$member.manageableIdentifier.name", $member.name));
 #else
 #if ($member.type.primitive)
             criteria.add(Expression.eq("$member.name", new ${member.manageableIdentifier.type.wrapperName}($member.name)));
@@ -256,10 +261,10 @@ public final class $manageable.manageableDaoBaseName
 #end
 #end
 #if ($manageable.update)
-    public void update($memberList)
+    public $manageable.fullyQualifiedEntityName update($memberList)
     {
 #set ($identifier = $manageable.manageableIdentifier)
-        final $manageable.fullyQualifiedEntityName entity = (${manageable.fullyQualifiedName})this.getDao().load($identifier.name);
+        final $manageable.fullyQualifiedEntityName entity =#if($manageable.fullyQualifiedName != $manageable.generalizationRoot.fullyQualifiedName) (${manageable.fullyQualifiedName})#end this.getDao().load($identifier.name);
 
 #foreach ($member in $manageable.manageableAttributes)
 #if (!$member.equals($identifier))## the identifier is already present since we loaded the entity
@@ -269,45 +274,39 @@ public final class $manageable.manageableDaoBaseName
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if ($member.many)
 #set ($memberEntityName = "${member.name}Entities")
-        java.util.Set $memberEntityName = null;
-        if ($member.name != null)
-        {
-            $memberEntityName = this.find${member.type.name}ByIds($member.name);
-        }
+        final java.util.Set $memberEntityName = ($member.name != null && ${member.name}.length > 0)
+            ? this.find${member.type.name}ByIds($member.name)
+            : java.util.Collections.EMPTY_SET;
 #else
 #set ($memberEntityName = "${member.name}Entity")
         $member.type.fullyQualifiedName $memberEntityName = null;
         if ($member.name != null)
         {
-            $memberEntityName = (${member.type.fullyQualifiedName})${member.daoGetterName}().load($member.name);
+            $memberEntityName =#if($member.type.fullyQualifiedName != $member.type.generalizationRoot.fullyQualifiedName) (${member.type.fullyQualifiedName})#end ${member.daoGetterName}().load($member.name);
         }
 #end
-#if ($member.required)
+
         entity.${member.setterName}($memberEntityName);
-#else
-        if ($memberEntityName != null)
-        {
-            entity.${member.setterName}($memberEntityName);
-#if ($member.many)
+
+#if ($member.many2many)
 #if ($member.otherEnd.navigable)
-            // set the other ends of the many2many association too
-            for (final java.util.Iterator iterator = ${memberEntityName}.iterator(); iterator.hasNext();)
-            {
-                final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
-                element.${member.otherEnd.getterName}().add(entity);
-            }
-#else
-            // we ought to be setting the other end of the many2many association here
-            // but the navigability on the other end has been disabled, therefore doing
-            // the following would break compilation: element.${member.otherEnd.getterName}()
-            // the result is that only one end of this association will be set
-#end
-#end
+        // set the other ends of the many2many association too
+        for (final java.util.Iterator iterator = ${memberEntityName}.iterator(); iterator.hasNext();)
+        {
+            final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
+            element.${member.otherEnd.getterName}().add(entity);
         }
+#else
+        // we ought to be setting the other end of the many2many association here
+        // but the navigability on the other end has been disabled, therefore doing
+        // the following would break compilation: element.${member.otherEnd.getterName}()
+        // the result is that only one end of this association will be set
+#end
 #end
 #end
 
         this.getDao().update(entity);
+        return entity;
     }
 
 #end
@@ -319,12 +318,12 @@ public final class $manageable.manageableDaoBaseName
         {
 #if ($hibernateUtils.version3)
             final ${hibernateUtils.basePackage}.Query queryObject =
-                session.createQuery("delete $manageable.fullyQualifiedEntityImplementationName where ${identifier.name} in (:ids)");
+                session.createQuery("delete $manageable.generalizationRoot.fullyQualifiedEntityImplementationName where $identifier.name in (:ids)");
             queryObject.setParameterList("ids", ids);
             queryObject.executeUpdate();
 #else
-            final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
-            criteria.add(Expression.in("$manageable.manageableIdentifier.name", ids));
+            final Criteria criteria = session.createCriteria(${manageable.generalizationRoot.fullyQualifiedEntityImplementationName}.class);
+            criteria.add(Expression.in("$identifier.name", ids));
             final java.util.List list = criteria.list();
             getHibernateTemplate().deleteAll(list);
 #end

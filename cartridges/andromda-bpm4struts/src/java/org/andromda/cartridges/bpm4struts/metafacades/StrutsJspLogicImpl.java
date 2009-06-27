@@ -5,13 +5,13 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
@@ -21,6 +21,7 @@ import org.apache.commons.lang.StringUtils;
  * MetafacadeLogic implementation.
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp
+ * @author Bob Fields
  */
 public class StrutsJspLogicImpl
     extends StrutsJspLogic
@@ -47,6 +48,17 @@ public class StrutsJspLogicImpl
             }
         }
         return packageName;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getPackagePath()
+     */
+    public String getPackagePath()
+    {
+        return StringUtils.replace(
+            this.getPackageName(),
+            String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR)),
+            "/");
     }
 
     protected String handleGetMessageKey()
@@ -183,7 +195,7 @@ public class StrutsJspLogicImpl
 
     /**
      * Overridden since StrutsAction does not extend FrontEndAction.
-     * 
+     *
      * @see org.andromda.metafacades.uml.FrontEndView#getAllActionParameters()
      */
     public List getAllActionParameters()
@@ -200,15 +212,15 @@ public class StrutsJspLogicImpl
 
     /**
      * Overridden because StrutsAction does not extend FrontEndAction.
-     * 
+     *
      * @see org.andromda.metafacades.uml.FrontEndView#getActions()
      */
     public List getActions()
     {
         final List actions = new ArrayList();
-        final Collection outgoing = this.getOutgoing();
+        final Collection outgoings = this.getOutgoings();
 
-        for (final Iterator iterator = outgoing.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = outgoings.iterator(); iterator.hasNext();)
         {
             final Object object = iterator.next();
             if (object instanceof StrutsAction)
@@ -221,9 +233,9 @@ public class StrutsJspLogicImpl
     protected List handleGetNonActionForwards()
     {
         final List actions = new ArrayList();
-        final Collection outgoing = getOutgoing();
+        final Collection outgoings = getOutgoings();
 
-        for (final Iterator iterator = outgoing.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = outgoings.iterator(); iterator.hasNext();)
         {
             final Object object = iterator.next();
             if (!(object instanceof StrutsAction))
@@ -258,7 +270,7 @@ public class StrutsJspLogicImpl
         Collection processedTransitions,
         Collection actions)
     {
-        final Collection incomingTransitions = stateVertex.getIncoming();
+        final Collection incomingTransitions = stateVertex.getIncomings();
         for (final Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
         {
             final TransitionFacade incomingTransition = (TransitionFacade)iterator.next();
@@ -299,7 +311,7 @@ public class StrutsJspLogicImpl
             }
             else
             {
-                final Collection incomingTransitions = transition.getSource().getIncoming();
+                final Collection incomingTransitions = transition.getSource().getIncomings();
                 for (final Iterator iterator = incomingTransitions.iterator(); iterator.hasNext();)
                 {
                     final TransitionFacade incomingTransition = (TransitionFacade)iterator.next();
@@ -329,23 +341,6 @@ public class StrutsJspLogicImpl
         }
 
         return nonTableActions;
-    }
-
-    protected List handleGetTables()
-    {
-        final List tables = new ArrayList();
-
-        final List pageVariables = getPageVariables();
-        for (int i = 0; i < pageVariables.size(); i++)
-        {
-            final StrutsParameter pageVariable = (StrutsParameter)pageVariables.get(i);
-            if (pageVariable.isTable())
-            {
-                tables.add(pageVariable);
-            }
-        }
-
-        return tables;
     }
 
     private boolean normalizeMessages()

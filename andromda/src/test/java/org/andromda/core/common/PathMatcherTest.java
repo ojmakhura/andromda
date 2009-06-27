@@ -22,16 +22,20 @@ public class PathMatcherTest
         assertTrue(PathMatcher.wildcardMatch(path, "**/*Tes*.java"));
         assertFalse(PathMatcher.wildcardMatch(path, "**/*TestFile*.java"));
         assertFalse(PathMatcher.wildcardMatch(path, "**/.java"));
+        assertTrue(PathMatcher.wildcardMatch(path, "org/andromda/**/*"));
 
         path = "Test.java";
         assertTrue(PathMatcher.wildcardMatch(path, "*.java"));
         assertTrue(PathMatcher.wildcardMatch(path, "**/*.java"));
+        assertTrue(PathMatcher.wildcardMatch(path, "**/*"));
 
         assertTrue(PathMatcher.wildcardMatch(path, "*.java"));
         assertTrue(PathMatcher.wildcardMatch(path, "**.java"));
+        assertTrue(PathMatcher.wildcardMatch(path, "**/*"));
         assertFalse(PathMatcher.wildcardMatch(path, "***/*.java"));
 
         path = "org/Test.java";
         assertFalse(PathMatcher.wildcardMatch(path, "*.java"));
+        assertTrue(PathMatcher.wildcardMatch(path, "**/*"));
     }
 }

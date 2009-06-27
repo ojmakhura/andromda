@@ -2,10 +2,9 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
-
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.eclipse.uml2.Classifier;
@@ -13,16 +12,21 @@ import org.eclipse.uml2.Generalization;
 
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.GeneralizableElementFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.GeneralizableElementFacade.
  *
  * @see org.andromda.metafacades.uml.GeneralizableElementFacade
  */
 public class GeneralizableElementFacadeLogicImpl
     extends GeneralizableElementFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public GeneralizableElementFacadeLogicImpl(
-        Object metaObject,
-        String context)
+        final Object metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
@@ -54,14 +58,10 @@ public class GeneralizableElementFacadeLogicImpl
     protected java.lang.Object handleGetGeneralization()
     {
         Object parent = null;
-        Collection generalizations = ((Classifier)metaObject).getGeneralizations();
-        if (generalizations != null)
+        final Collection generalizations = ((Classifier)this.metaObject).getGeneralizations();
+        if (generalizations != null && !generalizations.isEmpty())
         {
-            Iterator iterator = generalizations.iterator();
-            if (iterator.hasNext())
-            {
-                parent = iterator.next();
-            }
+            parent = ((Generalization)generalizations.iterator().next()).getGeneral();
         }
         return parent;
     }
@@ -71,8 +71,7 @@ public class GeneralizableElementFacadeLogicImpl
      */
     protected java.util.Collection handleGetSpecializations()
     {
-        Collection specializations = UmlUtilities.getSpecializations((Classifier)metaObject);
-        return specializations;
+        return UmlUtilities.getSpecializations((Classifier)this.metaObject);
     }
 
     /**
@@ -80,12 +79,11 @@ public class GeneralizableElementFacadeLogicImpl
      */
     protected java.util.Collection handleGetGeneralizations()
     {
-        Collection parents = new HashSet();
-        Collection generalizations = ((Classifier)metaObject).getGeneralizations();
+        Collection parents = new LinkedHashSet();
+        Collection generalizations = ((Classifier)this.metaObject).getGeneralizations();
         if (generalizations != null && !generalizations.isEmpty())
         {
-            Iterator iterator = generalizations.iterator();
-            while (iterator.hasNext())
+            for (final Iterator iterator = generalizations.iterator(); iterator.hasNext();)
             {
                 parents.add(((Generalization)iterator.next()).getGeneral());
             }
@@ -98,7 +96,7 @@ public class GeneralizableElementFacadeLogicImpl
      */
     protected java.util.Collection handleGetGeneralizationLinks()
     {
-        return ((Classifier)metaObject).getGeneralizations();
+        return ((Classifier)this.metaObject).getGeneralizations();
     }
 
     /**
@@ -106,7 +104,7 @@ public class GeneralizableElementFacadeLogicImpl
      */
     protected java.util.Collection handleGetAllSpecializations()
     {
-        final Set allSpecializations = new HashSet();
+        final Set allSpecializations = new LinkedHashSet();
         if (this.getSpecializations() != null)
         {
             allSpecializations.addAll(this.getSpecializations());
@@ -124,18 +122,47 @@ public class GeneralizableElementFacadeLogicImpl
      */
     protected java.util.Collection handleGetAllGeneralizations()
     {
-        Collection generalizations = new ArrayList();
-        for (GeneralizableElementFacade element = this.getGeneralization(); element != null;
-            element = element.getGeneralization())
+        final Collection generalizations = new ArrayList();
+        for (final Iterator iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
         {
+            final GeneralizableElementFacade element = (GeneralizableElementFacade)iterator.next();
             generalizations.add(element);
+            generalizations.addAll(element.getAllGeneralizations());
         }
         return generalizations;
     }
 
-    protected Object handleFindTaggedValue(String tagName, boolean follow)
+    protected Object handleFindTaggedValue(
+        final String tagName,
+        final boolean follow)
     {
-        // TODO Auto-generated method stub
-        return null;
+        Object value = this.findTaggedValue(tagName);
+        if (value == null && follow)
+        {
+            for (GeneralizableElementFacade element = this.getGeneralization(); value == null && element != null;
+                element = element.getGeneralization())
+            {
+                value = element.findTaggedValue(
+                        tagName,
+                        follow);
+                if (value != null)
+                {
+                    break;
+                }
+            }
+        }
+        return value;
+    }
+
+    protected Object handleGetGeneralizationRoot()
+    {
+        GeneralizableElementFacade generalizableElement = (GeneralizableElementFacade)THIS();
+
+        while (generalizableElement.getGeneralization() != null)
+        {
+            generalizableElement = generalizableElement.getGeneralization();
+        }
+
+        return generalizableElement;
     }
 }

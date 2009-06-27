@@ -12,4 +12,8 @@
         <from>datatype::Time</from>
 	  	<to>java.util.Calendar</to>
 	</mapping>
+    <mapping>
+        <from>datatype::Integer</from>
+        <to>java.math.BigInteger</to>
+    </mapping>
 </mappings>

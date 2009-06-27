@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ResourceFinder;
@@ -26,13 +27,13 @@ import org.andromda.core.common.XmlObjectFactory;
  */
 public class AndroMDApp
 {
-    
+
     /**
      * An AndroMDApp configuration that contains some internal configuration information (like the AndroMDA
      * version, and other common properties).
      */
     private static final String INTERNAL_CONFIGURATION_URI = "META-INF/andromdapp/configuration.xml";
-    
+
     /**
      * Runs the AndroMDApp generation process.
      */
@@ -140,7 +141,7 @@ public class AndroMDApp
             this.configurations.add(factory.getObject(ResourceUtils.toURL(configurationUri)));
         }
     }
-    
+
     /**
      * Adds the configuration contents stored as a String.
      *
@@ -152,7 +153,7 @@ public class AndroMDApp
         {
             final XmlObjectFactory factory = XmlObjectFactory.getInstance(Configuration.class);
             this.configurations.add(factory.getObject(configuration));
-        }        
+        }
     }
 
     /**
@@ -162,40 +163,51 @@ public class AndroMDApp
     private List chooseTypeAndRun(boolean write)
         throws Exception
     {
-        AndroMDAppType andromdapp = null;
-        if (this.types.size() > 1)
-        {
-            final StringBuffer typesChoice = new StringBuffer("[");
-            for (final Iterator iterator = this.types.keySet().iterator(); iterator.hasNext();)
-            {
-                final String type = (String)iterator.next();
-                typesChoice.append(type);
-                if (iterator.hasNext())
-                {
-                    typesChoice.append(", ");
-                }
-            }
-            typesChoice.append("]");
-            this.printText("Please choose the type of application to generate " + typesChoice);
-            String selectedType = this.readLine();
-            while (!this.types.containsKey(selectedType))
-            {
-                selectedType = this.readLine();
-            }
-            andromdapp = (AndroMDAppType)this.types.get(selectedType);
-        }
-        else if (!this.types.isEmpty())
-        {
-            andromdapp = (AndroMDAppType)((Map.Entry)this.types.entrySet().iterator().next()).getValue();
-        }
-        else
+        if (this.types.isEmpty())
         {
             throw new AndroMDAppException("No '" + DESCRIPTOR + "' descriptor files could be found");
         }
+        final Map properties = new LinkedHashMap();
+        for (final Iterator iterator = this.configurations.iterator(); iterator.hasNext();)
+        {
+            Configuration configuration = (Configuration)iterator.next();
+            properties.putAll(configuration.getAllProperties());
+        }
+        final String applicationType = (String)properties.get(APPLICATION_TYPE);
+        final Set validTypes = this.types.keySet();
+        AndroMDAppType andromdapp = (AndroMDAppType)this.types.get(applicationType);
+        if (andromdapp == null)
+        {
+            if (this.types.size() > 1)
+            {
+                final StringBuffer typesChoice = new StringBuffer("[");
+                for (final Iterator iterator = validTypes.iterator(); iterator.hasNext();)
+                {
+                    final String type = (String)iterator.next();
+                    typesChoice.append(type);
+                    if (iterator.hasNext())
+                    {
+                        typesChoice.append(", ");
+                    }
+                }
+                typesChoice.append("]");
+                this.printText("Please choose the type of application to generate " + typesChoice);
+                String selectedType = this.readLine();
+                while (!this.types.containsKey(selectedType))
+                {
+                    selectedType = this.readLine();
+                }
+                andromdapp = (AndroMDAppType)this.types.get(selectedType);
+            }
+            else if (!this.types.isEmpty())
+            {
+                andromdapp = (AndroMDAppType)((Map.Entry)this.types.entrySet().iterator().next()).getValue();
+            }
+        }
 
-        andromdapp.setConfigurations(this.configurations);        
+        andromdapp.setConfigurations(this.configurations);
         andromdapp.initialize();
-        
+
         final Map templateContext = andromdapp.getTemplateContext();
 
         final XmlObjectFactory factory = XmlObjectFactory.getInstance(AndroMDApp.class);
@@ -206,7 +218,12 @@ public class AndroMDApp
         andromdapp.addToTemplateContext(templateContext);
         return andromdapp.processResources(write);
     }
-    
+
+    /**
+     * Identifies the AndroMDApp type (used to override the prompting of the type).
+     */
+    private static final String APPLICATION_TYPE = "andromdappType";
+
     /**
      * Removes all structure generated from the previous run.
      */
@@ -230,15 +247,15 @@ public class AndroMDApp
                 throw (AndroMDAppException)throwable;
             }
             throw new AndroMDAppException(throwable);
-        }      
+        }
     }
-    
+
     /**
      * Deletes the given file and any empty parent directories
      * that the file might be contained within.
-     * 
+     *
      * @param file the file to remove.
-     * @throws MalformedURLException 
+     * @throws MalformedURLException
      */
     private void deleteFile(final File file) throws MalformedURLException
     {
@@ -249,7 +266,7 @@ public class AndroMDApp
             {
                 if (file.delete())
                 {
-                    AndroMDALogger.info("Removed: '" + file.toURL() + "'");
+                    AndroMDALogger.info("Removed: '" + file.toURI().toURL() + "'");
                 }
                 this.deleteFile(file.getParentFile());
             }

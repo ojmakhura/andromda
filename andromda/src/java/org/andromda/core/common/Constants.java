@@ -29,12 +29,12 @@ public class Constants
         {
             directory.append("/");
         }
-        directory.append(".andromda/");
         final String userName = System.getProperty("user.name");
         if (StringUtils.isNotBlank(userName))
         {
             directory.append(userName).append("/");
         }
+        directory.append(".andromda/");
         TEMPORARY_DIRECTORY = directory.toString();
     }
     

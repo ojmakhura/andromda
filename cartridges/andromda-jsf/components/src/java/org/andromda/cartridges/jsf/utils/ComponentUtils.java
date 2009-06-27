@@ -1,5 +1,7 @@
 package org.andromda.cartridges.jsf.utils;
 
+import java.lang.reflect.Method;
+
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
@@ -8,6 +10,8 @@ import javax.faces.component.UISelectBoolean;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.webapp.UIComponentTag;
+
+import org.apache.commons.lang.ObjectUtils;
 
 
 /**
@@ -19,7 +23,7 @@ public class ComponentUtils
 {
     /**
      * Sets the value property of a component.
-     * 
+     *
      * @param context the current faces context.
      * @param component the component.
      * @param value the value to set.
@@ -60,7 +64,7 @@ public class ComponentUtils
             }
         }
     }
-    
+
     /**
      * Sets the property with the given <code>name</code> of a component.
      * @param name the name of the component to set.
@@ -89,7 +93,7 @@ public class ComponentUtils
             }
         }
     }
-    
+
     /**
      * Sets the boolean value of property with the given <code>name</code> of a component.
      * @param name the name of the component to set.
@@ -116,6 +120,92 @@ public class ComponentUtils
             {
                 component.getAttributes().put(name, Boolean.valueOf(value));
             }
+        }
+    }
+
+    /**
+     * Gets the attribute from the given object.  The object can be either a context, request
+     * or resposne (HttpServletContext/PortletContext, HttpServletRequest/PortletRequest, etc).
+     *
+     * @param object the object from which to retrieve the attribute.
+     * @param attributeName the attribute name.
+     * @return the value of the attribute if one is present.
+     */
+    public static Object getAttribute(final Object object, final String attributeName)
+    {
+        try
+        {
+            Object attribute = null;
+            if (object != null)
+            {
+                try
+                {
+                    final Method method = object.getClass().getMethod("getAttribute", new Class[]{String.class});
+                    attribute = method.invoke(object, new Object[]{attributeName});
+                }
+                catch (NoSuchMethodException exception)
+                {
+                }
+            }
+            return attribute;
+        }
+        catch (Exception exception)
+        {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    /**
+     * Sets the attribute on the given object.  The object can be either a context, request
+     * or resposne (HttpServletContext/PortletContext, HttpServletRequest/PortletRequest, etc).
+     *
+     * @param object the object on which to set the attribute.
+     * @param attributeName the attribute name.
+     * @param attributeValue the value of the attribute to set.
+     * @return the value of the attribute if one is present.
+     */
+    public static void setAttribute(final Object object, final String attributeName, final Object attributeValue)
+    {
+        try
+        {
+            if (object != null)
+            {
+                try
+                {
+                    final Method method = object.getClass().getMethod("setAttribute", new Class[]{String.class, Object.class});
+                    method.invoke(object, new Object[]{attributeName, attributeValue});
+                }
+                catch (NoSuchMethodException exception)
+                {
+                }
+            }
+        }
+        catch (Exception exception)
+        {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    /**
+     * Gets the context path from the given request object (PortletRequest/HttpServletRequest)
+     *
+     * @param request the request object from which to retrieve the context path.
+     * @return the context path.
+     */
+    public static String getContextPath(final Object request)
+    {
+        try
+        {
+            String contextPath = null;
+            if (request != null)
+            {
+                contextPath = ObjectUtils.toString(request.getClass().getMethod("getContextPath", new Class[0]).invoke(request, (Object[])null));
+            }
+            return contextPath;
+        }
+        catch (Exception exception)
+        {
+            throw new RuntimeException(exception);
         }
     }
 }

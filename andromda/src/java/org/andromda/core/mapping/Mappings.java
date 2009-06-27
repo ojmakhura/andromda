@@ -2,15 +2,13 @@ package org.andromda.core.mapping;
 
 import java.io.File;
 import java.io.FileReader;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
@@ -28,6 +26,8 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * used. </p>
  *
  * @author Chad Brandon
+ * @author Wouter Zoons
+ * @author Bob Fields
  * @see org.andromda.core.common.XmlObjectFactory
  */
 public class Mappings
@@ -36,7 +36,7 @@ public class Mappings
      * Contains the set of Mapping objects keyed by the 'type' element defined
      * within the from type mapping XML file.
      */
-    private Map mappings = new LinkedHashMap();
+    private final Map mappings = new LinkedHashMap();
 
     /**
      * A static mapping containing all logical mappings currently available.
@@ -55,7 +55,7 @@ public class Mappings
      * @param mappingsUri the URI to the XML type mappings configuration file.
      * @return Mappings the configured Mappings instance.
      */
-    public static final Mappings getInstance(String mappingsUri)
+    public static Mappings getInstance(String mappingsUri)
     {
         mappingsUri = StringUtils.trimToEmpty(mappingsUri);
         ExceptionUtils.checkEmpty(
@@ -94,7 +94,7 @@ public class Mappings
      *         <code>mappings</code> doesn't extend anything.
      * @throws Exception if an exception occurs.
      */
-    private static final Mappings getInheritedMappings(final Mappings mappings)
+    private static Mappings getInheritedMappings(final Mappings mappings)
         throws Exception
     {
         return getInheritedMappings(
@@ -105,6 +105,7 @@ public class Mappings
     /**
      * Attempts to get any inherited mappings for the
      * given <code>mappings</code>.
+     * This method may only be called when the logical mappings have been initialized.
      *
      * @param mappings the mappings instance for which to
      *        get the inherited mappings.
@@ -114,8 +115,9 @@ public class Mappings
      *         or just the same mappings unchanged if the
      *         <code>mappings</code> doesn't extend anything.
      * @throws Exception if an exception occurs.
+     * @see #initializeLogicalMappings()
      */
-    private static final Mappings getInheritedMappings(
+    private static Mappings getInheritedMappings(
         final Mappings mappings,
         final boolean ignoreInheritanceFailure)
         throws Exception
@@ -144,9 +146,7 @@ public class Mappings
             }
             if (parentMappings != null)
             {
-                final Map allMappings = new LinkedHashMap(parentMappings.mappings);
-                allMappings.putAll(mappings.mappings);
-                mappings.mappings = allMappings;
+                mergeWithoutOverriding(parentMappings, mappings);
             }
         }
         return mappings;
@@ -159,7 +159,7 @@ public class Mappings
      * @param mappingsUri the URI to the XML type mappings configuration file.
      * @return Mappings the configured Mappings instance.
      */
-    public static final Mappings getInstance(final URL mappingsUri)
+    public static Mappings getInstance(final URL mappingsUri)
     {
         return getInstance(
             mappingsUri,
@@ -175,7 +175,7 @@ public class Mappings
      *        to retrieve the mapping's inheritance should be ignored.
      * @return Mappings the configured Mappings instance.
      */
-    private static final Mappings getInstance(
+    private static Mappings getInstance(
         final URL mappingsUri,
         final boolean ignoreInheritanceFailure)
     {
@@ -200,15 +200,15 @@ public class Mappings
      * Returns a new configured instance of this Mappings configured from the
      * mappingsFile.
      *
-     * @param mappingsUri the URI to the XML type mappings configuration file.
+     * @param mappingsFile the XML type mappings configuration file.
      * @return Mappings the configured Mappings instance.
      */
-    private static final Mappings getInstance(final File mappingsFile)
+    private static Mappings getInstance(final File mappingsFile)
         throws Exception
     {
         final Mappings mappings =
             (Mappings)XmlObjectFactory.getInstance(Mappings.class).getObject(new FileReader(mappingsFile));
-        mappings.resource = mappingsFile.toURL();
+        mappings.resource = mappingsFile.toURI().toURL();
         return mappings;
     }
 
@@ -216,21 +216,81 @@ public class Mappings
      * This initializes all logical mappings that
      * are contained with global Mapping set.  This
      * <strong>MUST</strong> be called after all logical
-     * mappings have been added through {@link #addLogicalMappings(Mappings)}
+     * mappings have been added through {@link #addLogicalMappings(java.net.URL)}
      * otherwise inheritance between logical mappings will not work correctly.
      */
     public static void initializeLogicalMappings()
     {
-        final Map initialized = new LinkedHashMap();
-        for (final Iterator nameIterator = logicalMappings.keySet().iterator(); nameIterator.hasNext();)
+        // !!! no calls to getInstance(..) must be made in this method !!!
+
+        // reorder the logical mappings so that they can safely be loaded
+        // (top-level mappings first)
+
+        final Map unprocessedMappings = new HashMap(logicalMappings);
+        final Map processedMappings = new LinkedHashMap(); // these will be in the good order
+
+        // keep looping until there are no more unprocessed mappings
+        // if nothing more can be processed but there are unprocessed mappings left
+        // then we have an error (cyclic dependency or unknown parent mappings) which cannot be solved
+        boolean processed = true;
+        while (processed)
         {
-            final String name = (String)nameIterator.next();
-            final Mappings mappings = (Mappings)logicalMappings.get(name);
-            initialized.put(
-                name,
-                getInstance(mappings.getResource()));
+            // we need to have at least one entry processed before the routine qualifies for the next iteration
+            processed = false;
+
+            // we only process mappings if they have parents that have already been processed
+            for (final Iterator iterator = unprocessedMappings.entrySet().iterator(); iterator.hasNext();)
+            {
+                final Map.Entry logicalMapping = (Map.Entry)iterator.next();
+                final String name = (String)logicalMapping.getKey();
+                final Mappings mappings = (Mappings)logicalMapping.getValue();
+
+                if (mappings.extendsUri == null)
+                {
+                    // no parent mappings are always safe to add
+
+                    // move to the map of processed mappings
+                    processedMappings.put(name, mappings);
+                    // remove from the map of unprocessed mappings
+                    iterator.remove();
+                    // set the flag
+                    processed = true;
+                }
+                else if (processedMappings.containsKey(mappings.extendsUri))
+                {
+                    final Mappings parentMappings = (Mappings)processedMappings.get(mappings.extendsUri);
+                    if (parentMappings != null)
+                    {
+                        mergeWithoutOverriding(parentMappings, mappings);
+                    }
+
+                    // move to the map of processed mappings
+                    processedMappings.put(name, mappings);
+                    // remove from the map of unprocessed mappings
+                    iterator.remove();
+                    // set the flag
+                    processed = true;
+                }
+            }
+
         }
-        logicalMappings.putAll(initialized);
+
+        if (!unprocessedMappings.isEmpty())
+        {
+            throw new MappingsException(
+                "Logical mappings cannot be initialized due to invalid inheritance: " +
+                    unprocessedMappings.keySet());
+        }
+
+        logicalMappings.putAll(processedMappings);
+    }
+
+    /**
+     * Clears the entries from the logical mappings cache.
+     */
+    public static void clearLogicalMappings()
+    {
+        logicalMappings.clear();
     }
 
     /**
@@ -320,17 +380,33 @@ public class Mappings
     }
 
     /**
+     * Reads the argument parent mappings and copies any mapping entries that do not already exist in this instance.
+     * This method preserves ordering and add new entries to the end.
+     *
+     * @param sourceMappings the mappings from which to read possible new entries
+     * @param targetMappings the mappings to which to store possible new entries from the sourceMappings
+     */
+    private static void mergeWithoutOverriding(Mappings sourceMappings, Mappings targetMappings)
+    {
+        final Map allMappings = new LinkedHashMap(targetMappings.mappings.size() + sourceMappings.mappings.size());
+        allMappings.putAll(sourceMappings.mappings);
+        allMappings.putAll(targetMappings.mappings);
+        targetMappings.mappings.clear();
+        targetMappings.mappings.putAll(allMappings);
+    }
+
+    /**
      * Returns the <code>to</code> mapping from a given <code>from</code>
      * mapping.
      *
      * @param from the <code>from</code> mapping, this is the type/identifier
      *        that is in the model.
      * @return String to the <code>to</code> mapping (this is the mapping that
-     *         can be retrieved if a corresponding 'from' is found.
+     *         can be retrieved if a corresponding 'from' is found).
      */
     public String getTo(String from)
     {
-        from = StringUtils.deleteWhitespace(StringUtils.trimToEmpty(from));
+        from = StringUtils.trimToEmpty(from);
         final String initialFrom = from;
         String to = null;
 
@@ -350,10 +426,10 @@ public class Mappings
 
     /**
      * Adds a mapping to the globally available mappings, these are used by this
-     * class to instatiate mappings from logical names as opposed to physical
+     * class to instantiate mappings from logical names as opposed to physical
      * names.
      *
-     * @param mappings the Mappings to add to the globally available Mapping
+     * @param mappingsUri the Mappings URI to add to the globally available Mapping
      *        instances.
      */
     public static void addLogicalMappings(final URL mappingsUri)
@@ -417,7 +493,7 @@ public class Mappings
      * Constructs the complete path from the given <code>relativePath</code>
      * and the resource of the parent {@link Mappings#getResource()} as the root
      * of the path.
-     *
+     * @param relativePath 
      * @return the complete path.
      */
     final String getCompletePath(final String relativePath)
@@ -453,7 +529,7 @@ public class Mappings
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

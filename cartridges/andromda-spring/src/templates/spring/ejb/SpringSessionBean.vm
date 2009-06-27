@@ -1,0 +1,57 @@
+##
+##   This macro generates the operation code
+##
+#macro (renderServiceEjbOperation $operation)
+#set ($returnType = $operation.returnType)
+#set ($signature = $operation.signature)
+    /**
+     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     */
+    $operation.visibility $returnType.fullyQualifiedName $signature
+#if ($operation.exceptionsPresent)
+        $operation.throwsClause
+#end
+    {
+#if ($ejbSecurityEnabled)
+#if ($externalPrincipalStoreClass)
+#set ($principalStoreClassName = $externalPrincipalStoreClass)
+#else
+#set ($principalStoreClassName = $principalStoreName)
+#if($stringUtils.isNotEmpty($springTypesPackage))
+#set ($principalStoreClassName = "${springTypesPackage}.${principalStoreClassName}")
+#end
+#end
+        ${principalStoreClassName}.setSessionContext(super.getSessionContext());
+#end
+
+        try
+        {
+#if ($operation.returnTypePresent)
+            return this.${businessObject}.${operation.call};
+#else
+            this.${businessObject}.${operation.call};
+#end
+        }
+        catch (Exception exception)
+        {
+#foreach($exception in $operation.exceptions)
+            if (exception instanceof $exception.fullyQualifiedName)
+            {
+                throw ($exception.fullyQualifiedName)exception;
+            }
+#end
+            final Throwable cause = getRootCause(exception);
+#foreach($exception in $operation.exceptions)
+            if (cause instanceof $exception.fullyQualifiedName)
+            {
+                throw ($exception.fullyQualifiedName)cause;
+            }
+#end
+            if (cause instanceof Exception)
+            {
+                throw new javax.ejb.EJBException((Exception)cause);
+            }
+            throw new javax.ejb.EJBException(exception);
+        }
+    }
+#end

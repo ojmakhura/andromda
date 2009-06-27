@@ -1,0 +1,55 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create User Entity</title>
+</head>
+<body>
+    <h2>Create User Entity</h2>
+    <!------------------------- Intro Text ------------------------->
+    <p>
+        This page provides directions to create the <code>User</code> entity using ArgoUML.
+        The model is shown below for your reference.
+    </p>
+    <!------------------------- Main Text ------------------------->
+    <table width="100%" border="0">
+        <tbody>
+            <tr>
+                <!-- img src="images/User.png" alt="User" / -->
+                <td align="center" style="width: 100%">
+                    {mosimage}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        {mosimage}
+        <!-- img src="images/DomainPackage.png" alt="Containment Tree" / -->
+    </p>
+    <p>
+        We will create <code>User</code> in a package named <code>org.andromda.timetracker.domain</code>.
+        When finished, the explorer pane in ArgoUML will look like the screen shot
+        on the right.
+    </p>
+    <ol>
+        <li>In the TimeTracker model create a package called <code>domain</code> under <code>
+            org.andromda.timetracker</code>.</li>
+        <li>In the explorer pane on the left, right-click on the <code>domain</code> package
+            and select Create Diagram&rarr;New Class Diagram. Type "Domain Objects" as the name of
+            this diagram on the property panel.</li>
+        <li>Add a new class to the diagram and name it <code>User</code>.</li>
+        <li>Add the stereotype called <code>Entity</code> to <code>User</code>.</li>
+        <li>Add the 3 attributes to <code>User</code>.</li>
+        <li>Make sure the User class is selected and go to its property panel at the bottom
+            of the screen.</li>
+        <li>Click on the <em>Tagged Values</em> tab and add a new tagged value by clicking 
+            in the right column and selecting the tagged value named
+            <code>@andromda.persistence.table</code> from the drop down menu. This tagged 
+            value allows you to override the default table name for the entity. In the
+            left column type the value <code>USERS</code>.</li>
+        <li>Make sure your class diagram matches the one shown above.</li>
+        <li>Make sure that the ArgoUML explorer panel matches the screen shot shown above.</li>
+        <li>Save the model by selecting File&rarr;Save Project.</li>
+    </ol>
+    <p>
+        Now go back to the main tutorial page and continue from where you left off.
+    </p>
+</body>
+</html>

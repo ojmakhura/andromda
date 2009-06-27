@@ -62,8 +62,8 @@ public class FileComparator
     {
         try
         {
-            String actualContents = ResourceUtils.getContents(actualFile.toURL());
-            String expectedContents = ResourceUtils.getContents(expectedFile.toURL());
+            String actualContents = ResourceUtils.getContents(actualFile.toURI().toURL());
+            String expectedContents = ResourceUtils.getContents(expectedFile.toURI().toURL());
             String message = "actual file <" + actualFile + "> does not match\n";
             if (this.binary)
             {

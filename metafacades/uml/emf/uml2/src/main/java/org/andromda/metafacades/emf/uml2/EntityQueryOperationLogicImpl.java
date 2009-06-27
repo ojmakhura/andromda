@@ -5,7 +5,8 @@ import org.andromda.translation.ocl.ExpressionKinds;
 
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.EntityQueryOperation.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.EntityQueryOperation.
  *
  * @see org.andromda.metafacades.uml.EntityQueryOperation
  */
@@ -13,8 +14,8 @@ public class EntityQueryOperationLogicImpl
     extends EntityQueryOperationLogic
 {
     public EntityQueryOperationLogicImpl(
-        Object metaObject,
-        String context)
+        final Object metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
@@ -22,7 +23,7 @@ public class EntityQueryOperationLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityQueryOperation#getQuery(java.lang.String)
      */
-    protected java.lang.String handleGetQuery(java.lang.String translation)
+    protected java.lang.String handleGetQuery(final java.lang.String translation)
     {
         ExceptionUtils.checkEmpty(
             "translation",

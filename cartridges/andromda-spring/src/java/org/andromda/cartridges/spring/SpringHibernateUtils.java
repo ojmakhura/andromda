@@ -1,19 +1,20 @@
 package org.andromda.cartridges.spring;
 
-
+import org.andromda.cartridges.spring.metafacades.SpringGlobals;
 
 /**
  * Contains utilities used within the Spring cartridge
  * when dealing with Hibernate.
  *
  * @author Chad Brandon
+ * @author Joel Kozikowski
  */
 public class SpringHibernateUtils
 {
     /**
      * The version of Hibernate we're generating for.
      */
-    private String hibernateVersion = "3";
+    private String hibernateVersion = SpringGlobals.HIBERNATE_VERSION_3;
 
     /**
      * Sets the version of Hibernate we're generating for.
@@ -26,12 +27,6 @@ public class SpringHibernateUtils
     }
 
     /**
-     * The Hibernate 2 version number (for determining the
-     * correct package).
-     */
-    private static final String VERSION_2 = "2";
-
-    /**
      * Gets the appropriate hibernate package name for the given
      * <code>version</code>.
      *
@@ -39,16 +34,7 @@ public class SpringHibernateUtils
      */
     public String getBasePackage()
     {
-        String packageName = null;
-        if (VERSION_2.equals(hibernateVersion))
-        {
-            packageName = "net.sf.hibernate";
-        }
-        else
-        {
-            packageName = "org.hibernate";
-        }
-        return packageName;
+        return this.isVersion3() ? "org.hibernate" : "net.sf.hibernate";
     }
 
     /**
@@ -58,17 +44,17 @@ public class SpringHibernateUtils
      */
     public String getCriterionPackage()
     {
-        final StringBuffer packageName = new StringBuffer();
-        if (VERSION_2.equals(hibernateVersion))
-        {
-            packageName.append(".expression");
-        }
-        else
-        {
-            packageName.append(".criterion");
-        }
-        packageName.insert(0, this.getBasePackage());
-        return packageName.toString();
+        return this.getBasePackage() + (this.isVersion3() ? ".criterion" : ".expression");
+    }
+
+    /**
+     * Gets the appropriate hibernate Restrictions/Expression fully qualified class name for the given <code>version</code>.
+     *
+     * @return the fully qualified Hibernate Restriction/Expression class name.
+     */
+    public String getRestrictionClass()
+    {
+        return getCriterionPackage() + (this.isVersion3() ? ".Restrictions" : ".Expression");
     }
 
     /**
@@ -79,18 +65,9 @@ public class SpringHibernateUtils
      */
     public String getSpringHibernatePackage()
     {
-        String packageName = null;
-        if (VERSION_2.equals(hibernateVersion))
-        {
-            packageName = "org.springframework.orm.hibernate";
-        }
-        else
-        {
-            packageName = "org.springframework.orm.hibernate3";
-        }
-        return packageName;
+        return this.isVersion3() ? "org.springframework.orm.hibernate3" : "org.springframework.orm.hibernate";
     }
-    
+
     /**
      * Retrieves the appropriate package for Hibernate user types given
      * the version defined within this class.
@@ -99,18 +76,9 @@ public class SpringHibernateUtils
      */
     public String getEagerFetchMode()
     {
-        String fetchMode = null;
-        if (VERSION_2.equals(this.hibernateVersion))
-        {
-            fetchMode = "EAGER";
-        }
-        else
-        {
-            fetchMode = "JOIN";
-        }
-        return fetchMode;
+        return this.isVersion3() ? "JOIN" : "EAGER";
     }
-    
+
     /**
      * Retrieves the fully qualified name of the class that retrieves the Hibernate
      * disjunction instance.
@@ -118,25 +86,69 @@ public class SpringHibernateUtils
      */
     public String getDisjunctionClassName()
     {
-        final StringBuffer className = new StringBuffer(this.getCriterionPackage() + '.');
-        if (VERSION_2.equals(hibernateVersion))
-        {
-            className.append("Expression");
-        }
-        else
-        {
-            className.append("Restrictions");
-        }
-        return className.toString();
+        return this.getCriterionPackage() + (this.isVersion3() ? ".Restrictions" : ".Expression");
     }
-    
+
     /**
      * Indicates whether or not version 3 is the one that is currently being used.
-     * 
+     *
      * @return true/false
      */
     public boolean isVersion3()
     {
-        return !VERSION_2.equals(hibernateVersion);
+        return isVersion3(hibernateVersion);
+    }
+
+    public static boolean isVersion3(String hibernateVersionPropertyValue)
+    {
+        return SpringGlobals.HIBERNATE_VERSION_3.equals(hibernateVersionPropertyValue);
+    }
+
+    /**
+     * Denotes whether or not to make use of Hibernate 3 XML persistence support.
+     */
+    private String hibernateXmlPersistence;
+
+    /**
+     * @param hibernateXmlPersistence <code>true</code> when you to make use of Hibernate 3 XML persistence support,
+     *      <code>false</code> otherwise
+     */
+    public void setHibernateXMLPersistence(final String hibernateXmlPersistence)
+    {
+        this.hibernateXmlPersistence = hibernateXmlPersistence;
+    }
+
+    public boolean isXmlPersistenceActive()
+    {
+        return isXmlPersistenceActive(
+            this.hibernateVersion,
+            this.hibernateXmlPersistence);
+    }
+
+    public static boolean isXmlPersistenceActive(
+        String hibernateVersionPropertyValue,
+        String hibernateXMLPersistencePropertyValue)
+    {
+        return isVersion3(hibernateVersionPropertyValue) &&
+            "true".equalsIgnoreCase(hibernateXMLPersistencePropertyValue);
+    }
+
+    private String hibernateMappingStrategy;
+
+    public void setHibernateMappingStrategy(String hibernateMappingStrategy)
+    {
+        this.hibernateMappingStrategy = hibernateMappingStrategy;
+    }
+
+    public boolean isMapSubclassesInSeparateFile()
+    {
+        return mapSubclassesInSeparateFile(this.hibernateMappingStrategy);
+    }
+
+    public static boolean mapSubclassesInSeparateFile(
+        String hibernateMappingStrategy)
+    {
+        // subclass or hierarchy
+        return SpringGlobals.HIBERNATE_MAPPING_STRATEGY_SUBCLASS.equalsIgnoreCase(hibernateMappingStrategy);
     }
 }

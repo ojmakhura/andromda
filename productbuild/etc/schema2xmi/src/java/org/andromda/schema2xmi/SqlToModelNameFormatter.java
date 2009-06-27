@@ -41,7 +41,7 @@ public class SqlToModelNameFormatter
     public static String toCamelCase(String name)
     {
         StringBuffer buffer = new StringBuffer();
-        String[] tokens = name.split("_");
+        String[] tokens = name.split("_|\\s+");
         if (tokens != null && tokens.length > 0)
         {
             for (int ctr = 0; ctr < tokens.length; ctr++)

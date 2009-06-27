@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo - Custom Code</title>
+    </properties>
+
+    <body>
+        <section name="Custom Code">
+            <p>
+                Now that we have a controller for our use-case, and we have a few operations modeled in that controller,
+                we can start deferring (delegating) control from specific points in our activity graph.
+            </p>
+            <p>
+                There are two different locations from where to defer control: action states and decision points.
+            </p>
+            <p>
+                We have already seen how to use <a href="howto2.html#Decision_Points">decision points</a>, this is one
+                place where you can defer control. For decision points there is a special requirement though:
+                the operation <em>must</em> have a return value.
+            </p>
+            <p>
+                You must model a <em>call-event</em> trigger on the transition entering the decision point.
+                If you have properly associated the controller to the use-case you should be able to
+                enter/select the operation to execute there.
+            </p>
+            <p>
+                <img src="howto/org/andromda/test/decision-points.gif"/>
+            </p>
+            <p>
+                Server-side action states can also defer control to one of your operations, just add
+                a <em>deferrable event</em> to the action state, you may model as many of such events as you wish,
+                they will be executed in the order you add them. It is possible you must explicitely tell your UML
+                tool to show deferrable events in your action state.
+            </p>
+            <p>
+                <img src="howto/org/andromda/test/custom-code.gif"/>
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                It's possible to model the objects you want stored in session scope, learn all
+                about that here: <a href="howto5.html">Session Objects</a>.
+            </p>
+        </section>
+    </body>
+</document>

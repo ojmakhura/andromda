@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+    <properties>
+        <author email="naresh@andromda.org">Naresh Bhatia</author>
+        <title>Create PersonVO using MagicDraw</title>
+    </properties>
+
+    <body>
+
+        <section name="Create PersonVO using MagicDraw">
+            <p>
+                This page provides directions to create the PersonVO using MagicDraw. The model is
+                shown below for your reference.
+            </p>
+
+            <p>
+                <div align="center">
+                    <img src="../../../images/magicdraw/PersonVO.jpg"/>
+                </div>
+            </p>
+
+            <p>
+              <ol>
+                <li>In the TimeTracker model create a package called <code>vo</code> under
+                    <code>org.andromda.timetracker</code>. We will create our value objects in this package.</li>
+                <li>In the Containment Tree on the left, right-click on the <code>vo</code> package and select
+                    New Diagram > Class Diagram. Type in Value Objects as the name of this diagram
+                    and click OK. The diagram is created and opened in a new window.</li>
+                <li>From the Containment Tree on the left, drag the <code>Person</code> class on to the diagram.
+                    Warning: It is important to bring in the existing <code>Person</code> class from the <code>domain</code>
+                    package into this diagram. DO NOT create a new <code>Person</code> class in this diagram.
+                    Doing so will create a new class in the <code>vo</code> package
+                    - this is not our intention. All we need is a reference to the existing <code>Person</code>
+                    class in the <code>domain</code> package.</li>
+                <li>Add a new class to the diagram and name it <code>PersonVO</code>.</li>
+                <li>Add the stereotype called ValueObject to <code>PersonVO</code>.</li>
+                <li>Add four attributes to <code>PersonVO</code> as shown above.</li>
+                <li>Select the dependency relationship from the toolbar. Now left-click the mouse on the
+                    <code>Person</code> class, drag it to the <code>PersonVO</code> class and release
+                    the mouse. A dependency relationship is added between the two classes.</li>
+                <li>Add a new class to the diagram and name it <code>PersonVO[]</code>.</li>
+                <li>Make sure your class diagram matches the one shown above.</li>
+                <li>Save the model by selecting File > Save Project.</li>
+              </ol>
+            </p>
+
+            <p>
+              We are now ready to generate code for the <code>PersonVO</code> value object. Please go back to the main
+              tutorial page and continue from where you left off.
+            </p>
+        </section>
+
+    </body>
+</document>

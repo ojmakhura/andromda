@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
-
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActionState;
@@ -16,6 +16,7 @@ import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
@@ -27,10 +28,15 @@ import org.andromda.utils.StringUtilsHelper;
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.FrontEndForward.
  *
  * @see org.andromda.metafacades.uml.FrontEndForward
+ * @author Bob Fields
  */
 public class FrontEndForwardLogicImpl
     extends FrontEndForwardLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndForwardLogicImpl(
         Object metaObject,
         String context)
@@ -41,6 +47,7 @@ public class FrontEndForwardLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndForward#isContainedInFrontEndUseCase()
      */
+    @Override
     protected boolean handleIsContainedInFrontEndUseCase()
     {
         return this.getFrontEndActivityGraph() != null;
@@ -49,10 +56,11 @@ public class FrontEndForwardLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndForward#getFrontEndActivityGraph()
      */
-    protected Object handleGetFrontEndActivityGraph()
+    @Override
+    protected FrontEndActivityGraph handleGetFrontEndActivityGraph()
     {
         final Object graph = this.getSource().getStateMachine();
-        return graph instanceof FrontEndActivityGraph ? graph : null;
+        return (FrontEndActivityGraph)(graph instanceof FrontEndActivityGraph ? graph : null);
     }
 
     /**
@@ -96,6 +104,7 @@ public class FrontEndForwardLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndForward#getActionMethodName()
      */
+    @Override
     protected String handleGetActionMethodName()
     {
         return StringUtilsHelper.lowerCamelCaseName(this.getName());
@@ -104,6 +113,7 @@ public class FrontEndForwardLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndForward#isEnteringView()
      */
+    @Override
     protected boolean handleIsEnteringView()
     {
         return this.getTarget() instanceof FrontEndView;
@@ -112,6 +122,7 @@ public class FrontEndForwardLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndForward#isExitingView()
      */
+    @Override
     protected boolean handleIsExitingView()
     {
         return this.getSource() instanceof FrontEndView;
@@ -120,7 +131,8 @@ public class FrontEndForwardLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndForward#getUseCase()
      */
-    protected Object handleGetUseCase()
+    @Override
+    protected FrontEndUseCase handleGetUseCase()
     {
         FrontEndUseCase useCase = null;
         final FrontEndActivityGraph graph = this.getFrontEndActivityGraph();
@@ -139,37 +151,33 @@ public class FrontEndForwardLogicImpl
      * All action states that make up this action, this includes all possible action states traversed
      * after a decision point too.
      */
-    private Collection actionStates = null;
+    private Collection<FrontEndActionState> actionStates = null;
 
     /**
+     * @return new ArrayList(actionStates)
      * @see org.andromda.metafacades.uml.FrontEndAction#getActionStates()
      */
-    protected java.util.List handleGetActionStates()
+    //@Override
+    protected List<FrontEndActionState> handleGetActionStates()
     {
         if (actionStates == null)
         {
             this.initializeCollections();
         }
-        return new ArrayList(actionStates);
+        return new ArrayList<FrontEndActionState>(actionStates);
     }
 
     /**
      * Initializes all action states, action forwards, decision transitions and transitions in one shot, so that they
-     * can be queried more effiencently later on.
+     * can be queried more efficiently later on.
      */
     private void initializeCollections()
     {
-        this.actionStates = new LinkedHashSet();
-        this.transitions = new LinkedHashSet();
+        this.actionStates = new LinkedHashSet<FrontEndActionState>();
         this.collectTransitions(
             this,
-            transitions);
+            new LinkedHashSet());
     }
-
-    /**
-     * All transitions that can be traversed when calling this action.
-     */
-    private Collection transitions = null;
 
     /**
      * Recursively collects all action states, action forwards, decision transitions and transitions.
@@ -177,9 +185,9 @@ public class FrontEndForwardLogicImpl
      * @param transition the current transition that is being processed
      * @param processedTransitions the set of transitions already processed
      */
-    private final void collectTransitions(
+    private void collectTransitions(
         final TransitionFacade transition,
-        final Collection processedTransitions)
+        final Collection<TransitionFacade> processedTransitions)
     {
         if (processedTransitions.contains(transition))
         {
@@ -190,7 +198,7 @@ public class FrontEndForwardLogicImpl
         final StateVertexFacade target = transition.getTarget();
         if (target instanceof FrontEndActionState)
         {
-            this.actionStates.add(target);
+            this.actionStates.add((FrontEndActionState)target);
             final FrontEndForward forward = ((FrontEndActionState)target).getForward();
             if (forward != null)
             {
@@ -204,21 +212,23 @@ public class FrontEndForwardLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getDecisionTrigger()
      */
-    protected Object handleGetDecisionTrigger()
+    @Override
+    protected EventFacade handleGetDecisionTrigger()
     {
-        return this.isEnteringDecisionPoint() ? getTrigger() : null;
+        return (this.isEnteringDecisionPoint() ? getTrigger() : null);
     }
 
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getActions()
      */
-    protected java.util.List handleGetActions()
+    @Override
+    protected List<FrontEndAction> handleGetActions()
     {
-        final Set actions = new LinkedHashSet();
+        final Set<FrontEndAction> actions = new LinkedHashSet<FrontEndAction>();
         this.findActions(
             actions,
-            new LinkedHashSet());
-        return new ArrayList(actions);
+            new LinkedHashSet<FrontEndForward>());
+        return new ArrayList<FrontEndAction>(actions);
     }
 
     /**
@@ -231,9 +241,9 @@ public class FrontEndForwardLogicImpl
      * @param actions the default set of actions, duplicates will not be recorded
      * @param handledForwards the forwards already processed
      */
-    private final void findActions(
-        final Set actions,
-        final Set handledForwards)
+    private void findActions(
+        final Set<FrontEndAction> actions,
+        final Set<FrontEndForward> handledForwards)
     {
         if (!handledForwards.contains(this.THIS()))
         {
@@ -241,7 +251,7 @@ public class FrontEndForwardLogicImpl
 
             if (this instanceof FrontEndAction) // @todo this is not so nice because FrontEndAction extends FrontEndForward, solution would be to override in FrontEndAction
             {
-                actions.add(this.THIS());
+                actions.add((FrontEndAction)this.THIS());
             }
             else
             {
@@ -261,8 +271,8 @@ public class FrontEndForwardLogicImpl
                     final PseudostateFacade pseudostate = (PseudostateFacade)vertex;
                     if (!pseudostate.isInitialState())
                     {
-                        final Collection incomingForwards = pseudostate.getIncoming();
-                        for (final Iterator forwardIterator = incomingForwards.iterator(); forwardIterator.hasNext();)
+                        final Collection<TransitionFacade> incomingForwards = pseudostate.getIncomings();
+                        for (final Iterator<TransitionFacade> forwardIterator = incomingForwards.iterator(); forwardIterator.hasNext();)
                         {
                             final FrontEndForward forward = (FrontEndForward)forwardIterator.next();
                             actions.addAll(forward.getActions());
@@ -274,7 +284,7 @@ public class FrontEndForwardLogicImpl
     }
 
     /**
-     * Overriden since a transition doesn't exist in a package.
+     * Overridden since a transition doesn't exist in a package.
      *
      * @see org.andromda.metafacades.uml14.ModelElementFacadeLogic#handleGetPackageName()
      */
@@ -293,16 +303,18 @@ public class FrontEndForwardLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getForwardParameters()
      */
-    protected java.util.List handleGetForwardParameters()
+    @Override
+    protected List<ParameterFacade> handleGetForwardParameters()
     {
         final EventFacade trigger = this.getTrigger();
-        return trigger == null ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
+        return trigger == null ? Collections.EMPTY_LIST : new ArrayList<ParameterFacade>(trigger.getParameters());
     }
 
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getOperationCall()
      */
-    protected Object handleGetOperationCall()
+    @Override
+   protected Object handleGetOperationCall()
     {
         FrontEndControllerOperation operation = null;
         final EventFacade triggerEvent = this.getTrigger();

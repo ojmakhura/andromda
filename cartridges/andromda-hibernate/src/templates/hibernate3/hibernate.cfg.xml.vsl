@@ -52,8 +52,8 @@
 #if ($stringUtils.isNotBlank($hibernateDialect))
         <property name="dialect">$hibernateDialect</property>
 #end
-#if ($stringUtils.isNotBlank($hibernateDefaultSchema))
-        <property name="default_schema">$hibernateDefaultSchema</property>
+#if ($stringUtils.isNotBlank($schemaName))
+        <property name="default_schema">$schemaName</property>
 #end
 #if ($stringUtils.isNotBlank($hibernateMaxFetchDepth))
         <property name="max_fetch_depth">$hibernateMaxFetchDepth</property>

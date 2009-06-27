@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import org.andromda.cartridges.spring.SpringHibernateUtils;
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -13,7 +14,6 @@ import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
-import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.ValueObject;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -182,7 +182,8 @@ public class SpringEntityLogicImpl
     protected java.lang.String handleGetBeanName(boolean targetSuffix)
     {
         final String beanName = StringUtils.uncapitalize(StringUtils.trimToEmpty(this.getName()));
-        final StringBuffer beanNameBuffer = new StringBuffer(this.getDaoNamePattern().replaceAll("\\{0\\}", beanName));
+        StringBuffer beanNameBuffer = new StringBuffer(String.valueOf(this.getConfiguredProperty(SpringGlobals.BEAN_NAME_PREFIX))); 
+        beanNameBuffer.append(this.getDaoNamePattern().replaceAll("\\{0\\}", beanName));
         if (targetSuffix)
         {
             beanNameBuffer.append(SpringGlobals.BEAN_NAME_TARGET_SUFFIX);
@@ -223,19 +224,6 @@ public class SpringEntityLogicImpl
             generalization = generalization.getGeneralization())
             ;
         return generalization;
-    }
-
-    /**
-     * The namespace property storing the hibernate default-cascade value for an entity.
-     */
-    private static final String HIBERNATE_DEFAULT_CASCADE = "hibernateDefaultCascade";
-
-    /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateDefaultCascade()
-     */
-    protected String handleGetHibernateDefaultCascade()
-    {
-        return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
     }
 
     /**
@@ -391,6 +379,7 @@ public class SpringEntityLogicImpl
         {
             inheritance = superEntity.getHibernateInheritanceStrategy();
         }
+        inheritance = inheritance != null ? inheritance.toLowerCase() : null;
         if (StringUtils.isBlank(inheritance) || !inheritanceStrategies.contains(inheritance))
         {
             inheritance = this.getDefaultInheritanceStrategy();
@@ -429,16 +418,19 @@ public class SpringEntityLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.SpringEntity#isRequiresHibernateMapping()
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isRequiresHibernateMapping()
      */
     protected boolean handleIsRequiresHibernateMapping()
     {
         final SpringEntity superEntity = this.getSuperEntity();
-        return this.isRoot() &&
-        (
-            !this.isHibernateInheritanceInterface() || this.getSpecializations().isEmpty() ||
-            (superEntity != null && superEntity.isHibernateInheritanceInterface())
-        );
+        return
+            SpringHibernateUtils.mapSubclassesInSeparateFile(
+                (String)this.getConfiguredProperty(SpringGlobals.HIBERNATE_MAPPING_STRATEGY)) ||
+            this.isRoot() &&
+            (
+                !this.isHibernateInheritanceInterface() || this.getSpecializations().isEmpty() ||
+                (superEntity != null && superEntity.isHibernateInheritanceInterface())
+            );
     }
 
     /**
@@ -476,20 +468,11 @@ public class SpringEntityLogicImpl
      */
     protected String handleGetAttributeEmbeddedValueList()
     {
-        final Collection embeddedValues = new ArrayList();
-        for (final Iterator iterator = this.getAttributes().iterator(); iterator.hasNext();)
+        final StringBuffer buffer = new StringBuffer();
+        for (final Iterator iterator = this.getEmbeddedValues().iterator(); iterator.hasNext();)
         {
             final AttributeFacade attribute = (AttributeFacade)iterator.next();
-            final ClassifierFacade type = attribute.getType();
-            if (type != null && type.hasStereotype(UMLProfile.STEREOTYPE_EMBEDDED_VALUE))
-            {
-                embeddedValues.add(attribute.getName());
-            }
-        }
-        final StringBuffer buffer = new StringBuffer();
-        for (final Iterator iterator = embeddedValues.iterator(); iterator.hasNext();)
-        {
-            final String name = (String)iterator.next();
+            final String name = attribute.getName();
             if (StringUtils.isNotBlank(name))
             {
                 buffer.append('\"' + name + '\"');

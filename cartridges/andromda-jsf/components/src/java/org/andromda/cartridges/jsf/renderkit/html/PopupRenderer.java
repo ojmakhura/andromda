@@ -1,7 +1,6 @@
 package org.andromda.cartridges.jsf.renderkit.html;
 
 import java.io.IOException;
-
 import java.util.Iterator;
 import java.util.Map;
 
@@ -16,10 +15,9 @@ import javax.faces.el.MethodBinding;
 import javax.faces.event.ActionEvent;
 import javax.faces.render.Renderer;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.andromda.cartridges.jsf.Constants;
 import org.andromda.cartridges.jsf.component.html.HtmlPopupFrame;
+import org.andromda.cartridges.jsf.utils.ComponentUtils;
 
 
 /**
@@ -31,16 +29,6 @@ public class PopupRenderer
     public static final String POPUP_FRAME_HIDDEN = "hiddenPopupFrame";
 
     /**
-     * Retrieves the current request instance.
-     *
-     * @return the current request.
-     */
-    private HttpServletRequest getRequest()
-    {
-        return (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
-    }
-
-    /**
      * Retrieve the popup resource path (the path within the
      * deployed web application) given the relative <code>path</code>
      *
@@ -49,7 +37,17 @@ public class PopupRenderer
      */
     private String getPopupResourcePath(final String path)
     {
-        return getRequest().getContextPath() + Constants.RESOURCE_CONTEXT + path;
+        return ComponentUtils.getContextPath(FacesContext.getCurrentInstance().getExternalContext().getRequest()) + Constants.RESOURCE_CONTEXT + path;
+    }
+
+    private Object getRequestAttribute(final String attributeName)
+    {
+        return ComponentUtils.getAttribute(FacesContext.getCurrentInstance().getExternalContext().getRequest(), attributeName);
+    }
+
+    private void setRequestAttribute(final String attributeName, final String attributeValue)
+    {
+        ComponentUtils.setAttribute(FacesContext.getCurrentInstance().getExternalContext().getRequest(), attributeName, attributeValue);
     }
 
     /**
@@ -63,9 +61,9 @@ public class PopupRenderer
         throws IOException
     {
         final ResponseWriter writer = context.getResponseWriter();
-        if (this.getRequest().getAttribute(JS_ATTRIBUTE) == null)
+        if (this.getRequestAttribute(JS_ATTRIBUTE) == null)
         {
-            getRequest().setAttribute(
+            this.setRequestAttribute(
                 JS_ATTRIBUTE,
                 JS_ATTRIBUTE);
             writer.startElement(

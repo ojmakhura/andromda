@@ -8,11 +8,11 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndActionState;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.FrontEndController;
+import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndFinalState;
 import org.andromda.metafacades.uml.FrontEndForward;
@@ -35,10 +35,15 @@ import org.apache.commons.lang.StringUtils;
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.FrontEndAction.
  *
  * @see org.andromda.metafacades.uml.FrontEndAction
+ * @author Bob Fields
  */
 public class FrontEndActionLogicImpl
     extends FrontEndActionLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndActionLogicImpl(
         Object metaObject,
         String context)
@@ -47,9 +52,11 @@ public class FrontEndActionLogicImpl
     }
 
     /**
+     * Returns either a PseudostateFacade or FrontEndView
+     * @return input source
      * @see org.andromda.metafacades.uml.FrontEndAction#getInput()
      */
-    protected java.lang.Object handleGetInput()
+    protected Object handleGetInput()
     {
         Object input = null;
         final ModelElementFacade source = this.getSource();
@@ -74,15 +81,17 @@ public class FrontEndActionLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getParameters()
      */
-    protected java.util.List handleGetParameters()
+    @Override
+    protected List handleGetParameters()
     {
         final EventFacade trigger = this.getTrigger();
         return trigger == null ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
     }
     
     /**
-     * @see  org.andromda.metafacades.uml.FrontEndAction#findParameter(java.lang.String)
+     * @see  org.andromda.metafacades.uml.FrontEndAction#findParameter(String)
      */
+    @Override
     protected ParameterFacade handleFindParameter(final String name)
     {
         return (ParameterFacade)CollectionUtils.find(
@@ -100,7 +109,8 @@ public class FrontEndActionLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getDeferredOperations()
      */
-    protected java.util.List handleGetDeferredOperations()
+    @Override
+    protected List handleGetDeferredOperations()
     {
         final Collection deferredOperations = new LinkedHashSet();
         final FrontEndController controller = this.getController();
@@ -130,6 +140,7 @@ public class FrontEndActionLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getDecisionTransitions()
      */
+    @Override
     protected List handleGetDecisionTransitions()
     {
         if (decisionTransitions == null)
@@ -142,11 +153,12 @@ public class FrontEndActionLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getTargetViews()
      */
-    protected List handleGetTargetViews()
+    @Override
+    protected List<StateVertexFacade> handleGetTargetViews()
     {
-        final Collection targetViews = new LinkedHashSet();
-        final Collection forwards = this.getActionForwards();
-        for (final Iterator iterator = forwards.iterator(); iterator.hasNext();)
+        final Collection<StateVertexFacade> targetViews = new LinkedHashSet<StateVertexFacade>();
+        final Collection<FrontEndForward> forwards = this.getActionForwards();
+        for (final Iterator<FrontEndForward> iterator = forwards.iterator(); iterator.hasNext();)
         {
             final FrontEndForward forward = (FrontEndForward)iterator.next();
             if (forward.isEnteringView())
@@ -221,8 +233,8 @@ public class FrontEndActionLogicImpl
         else if (target instanceof PseudostateFacade && ((PseudostateFacade)target).isDecisionPoint())
         {
             this.decisionTransitions.add(transition);
-            final Collection outcomes = target.getOutgoing();
-            for (final Iterator iterator = outcomes.iterator(); iterator.hasNext();)
+            final Collection<TransitionFacade> outcomes = target.getOutgoings();
+            for (final Iterator<TransitionFacade> iterator = outcomes.iterator(); iterator.hasNext();)
             {
                 final TransitionFacade outcome = (TransitionFacade)iterator.next();
                 collectTransitions(
@@ -243,8 +255,8 @@ public class FrontEndActionLogicImpl
         }
         else // all the rest is ignored but outgoing transitions are further processed
         {
-            final Collection outcomes = target.getOutgoing();
-            for (final Iterator iterator = outcomes.iterator(); iterator.hasNext();)
+            final Collection<TransitionFacade> outcomes = target.getOutgoings();
+            for (final Iterator<TransitionFacade> iterator = outcomes.iterator(); iterator.hasNext();)
             {
                 final TransitionFacade outcome = (TransitionFacade)iterator.next();
                 collectTransitions(
@@ -257,6 +269,7 @@ public class FrontEndActionLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getActionStates()
      */
+    @Override
     protected List handleGetActionStates()
     {
         if (this.actionStates == null)
@@ -269,6 +282,7 @@ public class FrontEndActionLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getTransitions()
      */
+    @Override
     protected List handleGetTransitions()
     {
         if (this.transitions == null)
@@ -281,6 +295,7 @@ public class FrontEndActionLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getActionForwards()
      */
+    @Override
     protected List handleGetActionForwards()
     {
         if (this.actionForwards == null)
@@ -293,10 +308,11 @@ public class FrontEndActionLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getController()
      */
-    protected Object handleGetController()
+    @Override
+    protected FrontEndController handleGetController()
     {
         final FrontEndActivityGraph graph = this.getFrontEndActivityGraph();
-        return graph == null ? null : graph.getController();
+        return (FrontEndController)(graph == null ? null : graph.getController());
     }
 
     /**
@@ -304,6 +320,7 @@ public class FrontEndActionLogicImpl
      *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName()
      */
+    @Override
     public String handleGetPackageName()
     {
         String packageName = null;
@@ -319,6 +336,7 @@ public class FrontEndActionLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#isUseCaseStart()
      */
+    @Override
     protected boolean handleIsUseCaseStart()
     {
         final StateVertexFacade source = getSource();
@@ -328,9 +346,10 @@ public class FrontEndActionLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndAction#getFormFields()
      */
-    protected List handleGetFormFields()
+    @Override
+    protected List<ParameterFacade> handleGetFormFields()
     {
-        final Map formFieldMap = new LinkedHashMap();
+        final Map<String, ParameterFacade> formFieldMap = new LinkedHashMap<String, ParameterFacade>();
 
         // - For an action that starts the use case, we need to detect all usecases forwarding to the one 
         //   belonging to this action if there are any parameters in those transitions we need to have 
@@ -340,19 +359,19 @@ public class FrontEndActionLogicImpl
             final FrontEndUseCase useCase = this.getUseCase();
             if (useCase != null)
             {
-                final Collection finalStates = useCase.getReferencingFinalStates();
-                for (final Iterator finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
+                final Collection<FrontEndFinalState> finalStates = useCase.getReferencingFinalStates();
+                for (final Iterator<FrontEndFinalState> finalStateIterator = finalStates.iterator(); finalStateIterator.hasNext();)
                 {
                     final Object finalStateObject = finalStateIterator.next();
 
                     // we need to test for the type because a non struts-use-case final state might accidently
-                    // we linking to this use-case (for example: the user temporarily wants to disable code generation
+                    // link to this use-case (for example: the user temporarily wants to disable code generation
                     // for a specific use-case and is not removing the final-state to use-case link(s))
                     if (finalStateObject instanceof FrontEndFinalState)
                     {
                         final FrontEndFinalState finalState = (FrontEndFinalState)finalStateObject;
-                        final Collection parameters = finalState.getInterUseCaseParameters();
-                        for (final Iterator parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
+                        final Collection<FrontEndParameter> parameters = finalState.getInterUseCaseParameters();
+                        for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
                         {
                             final ParameterFacade parameter = (ParameterFacade)parameterIterator.next();
                             formFieldMap.put(
@@ -373,10 +392,10 @@ public class FrontEndActionLogicImpl
             final FrontEndForward forward = actionState.getForward();
             if (forward != null)
             {
-                final Collection forwardParameters = forward.getForwardParameters();
-                for (final Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
+                final Collection<FrontEndParameter> forwardParameters = forward.getForwardParameters();
+                for (final Iterator<FrontEndParameter> parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
                 {
-                    final ModelElementFacade forwardParameter = (ModelElementFacade)parameterIterator.next();
+                    final ParameterFacade forwardParameter = (ParameterFacade)parameterIterator.next();
                     formFieldMap.put(
                         forwardParameter.getName(),
                         forwardParameter);
@@ -394,42 +413,47 @@ public class FrontEndActionLogicImpl
             if (target instanceof FrontEndView)
             {
                 final FrontEndView view = (FrontEndView)target;
-                final Collection viewVariables = view.getVariables();
-                for (final Iterator pageVariableIterator = viewVariables.iterator(); pageVariableIterator.hasNext();)
+                final Collection<FrontEndParameter> viewVariables = view.getVariables();
+                for (final Iterator<FrontEndParameter> pageVariableIterator = viewVariables.iterator(); pageVariableIterator.hasNext();)
                 {
-                    final ModelElementFacade facade = (ModelElementFacade)pageVariableIterator.next();
+                    final ParameterFacade facade = (ParameterFacade)pageVariableIterator.next();
                     formFieldMap.put(
                         facade.getName(),
                         facade);
                 }
-                final Collection allActionParameters = view.getAllFormFields();
-                for (final Iterator actionParameterIterator = allActionParameters.iterator();
+                final Collection<FrontEndParameter> allActionParameters = view.getAllFormFields();
+                for (final Iterator<FrontEndParameter> actionParameterIterator = allActionParameters.iterator();
                     actionParameterIterator.hasNext();)
                 {
                     // - don't allow existing parameters that are tables be overwritten (since they take
                     //   precedence
-                    FrontEndParameter variable = (FrontEndParameter)actionParameterIterator.next();
-                    final String name = variable.getName();
-                    final FrontEndParameter existingVariable = (FrontEndParameter)formFieldMap.get(name);
-                    if (existingVariable != null)
+                    final Object parameter = actionParameterIterator.next();
+                    if (parameter instanceof FrontEndParameter)
                     {
-                        if (existingVariable.isTable())
+                        FrontEndParameter variable = (FrontEndParameter)parameter;
+                        final String name = variable.getName();
+                        final Object existingParameter = formFieldMap.get(name);
+                        if (existingParameter instanceof FrontEndParameter)
                         {
-                            variable = existingVariable;
+                            final FrontEndParameter existingVariable = (FrontEndParameter)existingParameter;
+                            if (existingVariable.isTable())
+                            {
+                                variable = existingVariable;
+                            }
                         }
+                        formFieldMap.put(
+                            name,
+                            variable);
                     }
-                    formFieldMap.put(
-                        name,
-                        variable);
                 }
             }
             else if (target instanceof FrontEndFinalState)
             {
                 // only add these if there is no parameter recorded yet with the same name
-                final Collection forwardParameters = forward.getForwardParameters();
-                for (final Iterator parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
+                final Collection<FrontEndParameter> forwardParameters = forward.getForwardParameters();
+                for (final Iterator<FrontEndParameter> parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
                 {
-                    final ModelElementFacade facade = (ModelElementFacade)parameterIterator.next();
+                    final FrontEndParameter facade = (FrontEndParameter)parameterIterator.next();
                     if (!formFieldMap.containsKey(facade.getName()))
                     {
                         formFieldMap.put(
@@ -441,29 +465,33 @@ public class FrontEndActionLogicImpl
         }
 
         // we do the action parameters in the end because they are allowed to overwrite existing properties
-        final Collection actionParameters = this.getParameters();
-        for (final Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
+        final Collection<FrontEndParameter> actionParameters = this.getParameters();
+        for (final Iterator<FrontEndParameter> parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
         {
-            FrontEndParameter variable = (FrontEndParameter)parameterIterator.next();
-            formFieldMap.put(
-                variable.getName(),
-                variable);
+            final Object parameter = parameterIterator.next();
+            if (parameter instanceof FrontEndParameter)
+            {
+                final FrontEndParameter variable = (FrontEndParameter)parameter;
+                formFieldMap.put(
+                    variable.getName(),
+                    variable);
+            }
         }
 
         // - if we don't have any fields defined on this action and there are no action forwards, 
         //   take the parameters from the deferred operations (since we would want to stay on the same view)
         if (formFieldMap.isEmpty() && this.getActionForwards().isEmpty())
         {
-            for (final Iterator iterator = this.getDeferredOperations().iterator(); iterator.hasNext();)
+            for (final Iterator<FrontEndControllerOperation> iterator = this.getDeferredOperations().iterator(); iterator.hasNext();)
             {
                 final OperationFacade operation = (OperationFacade)iterator.next();
-                for (final Iterator parameterIterator = operation.getArguments().iterator(); parameterIterator.hasNext();)
+                for (final Iterator<ParameterFacade> parameterIterator = operation.getArguments().iterator(); parameterIterator.hasNext();)
                 {
                     final ParameterFacade parameter = (ParameterFacade)parameterIterator.next();
                     formFieldMap.put(parameter.getName(), parameter);
                 }
             }
         }
-        return new ArrayList(formFieldMap.values());
+        return new ArrayList<ParameterFacade>(formFieldMap.values());
     }
 }

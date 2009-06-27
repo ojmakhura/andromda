@@ -10,7 +10,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.andromda.cartridges.meta.MetaProfile;
 import org.andromda.core.metafacade.MetafacadeException;
 import org.andromda.metafacades.uml.AssociationEndFacade;
@@ -25,12 +24,13 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-
+import org.apache.log4j.Logger;
 
 /**
  * Metaclass facade implementation.
  *
  * @see org.andromda.cartridges.meta.metafacades.Metafacade
+ * @author Bob Fields
  */
 public class MetafacadeLogicImpl
     extends MetafacadeLogic
@@ -44,12 +44,20 @@ public class MetafacadeLogicImpl
      */
     private static final String METAMODEL_VERSION_PACKAGE = "metamodelVersionPackage";
     private Map featureMap = null;
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(MetafacadeLogic.class);
 
+    /**
+     * @param metaObjectIn
+     * @param context
+     */
     public MetafacadeLogicImpl(
-        java.lang.Object metaObject,
+        Object metaObjectIn,
         String context)
     {
-        super(metaObject, context);
+        super(metaObjectIn, context);
     }
 
     /**
@@ -59,7 +67,8 @@ public class MetafacadeLogicImpl
      *
      * @return the metaclass object
      */
-    protected Object handleGetMetaclass()
+    @Override
+    protected ClassifierFacade handleGetMetaclass()
     {
         // delegate to recursive method
         return getMetaclass(this);
@@ -67,9 +76,9 @@ public class MetafacadeLogicImpl
 
     /**
      * Returns the class tagged with &lt;&lt;metaclass&gt;&gt; that is connected
-     * to cl via a dependency.
+     * to classifier via a dependency.
      *
-     * @param cl the source classifier
+     * @param classifier the source classifier
      * @return the metaclass object
      */
     private ClassifierFacade getMetaclass(ClassifierFacade classifier)
@@ -94,8 +103,9 @@ public class MetafacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#isMetaclassDirectDependency()
+     * @see Metafacade#isMetaclassDirectDependency()
      */
+    @Override
     protected boolean handleIsMetaclassDirectDependency()
     {
         boolean isMetaClassDirectDependency = false;
@@ -117,40 +127,45 @@ public class MetafacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicName()
+     * @see Metafacade#getLogicName()
      */
+    @Override
     protected String handleGetLogicName()
     {
         return this.getName() + "Logic";
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicImplName()
+     * @see org.andromda.cartridges.meta.metafacades.Metafacade#getLogicImplName()
      */
+    @Override
     protected String handleGetLogicImplName()
     {
         return this.getName() + "LogicImpl";
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getFullyQualifiedLogicImplName()
+     * @see org.andromda.cartridges.meta.metafacades.Metafacade#getFullyQualifiedLogicImplName()
      */
+    @Override
     protected String handleGetFullyQualifiedLogicImplName()
     {
         return this.getMetafacadeSupportClassName(this.getLogicImplName());
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getFullyQualifiedLogicName()
+     * @see org.andromda.cartridges.meta.metafacades.Metafacade#getFullyQualifiedLogicName()
      */
+    @Override
     protected String handleGetFullyQualifiedLogicName()
     {
         return this.getMetafacadeSupportClassName(this.getLogicName());
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicFile(java.lang.String)
+     * @see org.andromda.cartridges.meta.metafacades.Metafacade#getLogicFile()
      */
+    @Override
     protected String handleGetLogicFile()
     {
         return this.getFullyQualifiedLogicName().replace('.', '/') + ".java";
@@ -169,8 +184,9 @@ public class MetafacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicPackageName(java.lang.String)
+     * @see org.andromda.cartridges.meta.metafacades.Metafacade#getLogicPackageName()
      */
+    @Override
     protected String handleGetLogicPackageName()
     {
         String packageName = this.getMetaModelVersionPackage();
@@ -182,8 +198,9 @@ public class MetafacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getLogicImplFile(java.lang.String)
+     * @see org.andromda.cartridges.meta.metafacades.Metafacade#getLogicImplFile()
      */
+    @Override
     protected String handleGetLogicImplFile()
     {
         return this.getFullyQualifiedLogicImplName().replace('.', '/') + ".java";
@@ -210,23 +227,25 @@ public class MetafacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacadeLogic#handleGetMethodDataForPSM(org.andromda.metafacades.uml.ClassifierFacade)
+     * @see org.andromda.cartridges.meta.metafacades.MetafacadeLogic#handleGetMethodDataForPSM(org.andromda.metafacades.uml.ClassifierFacade)
      */
+    @Override
     protected Collection handleGetMethodDataForPSM(ClassifierFacade facade)
     {
         return this.getMethodDataForPSM(facade, true);
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getMethodDataForPSM()
+     * @see org.andromda.cartridges.meta.metafacades.Metafacade#getMethodDataForPSM()
      */
+    @Override
     protected Collection handleGetMethodDataForPSM()
     {
         return this.getMethodDataForPSM(null, false);
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getMethodDataForPSM(boolean)
+     * @see org.andromda.cartridges.meta.metafacades.Metafacade#getMethodDataForPSM(boolean)
      */
     private final Collection getMethodDataForPSM(
         final ClassifierFacade facade,
@@ -275,7 +294,6 @@ public class MetafacadeLogicImpl
         }
         catch (Throwable th)
         {
-            th.printStackTrace();
             throw new RuntimeException(th);
         }
     }
@@ -285,7 +303,6 @@ public class MetafacadeLogicImpl
         final Set declarationSet,
         final Metafacade facade)
     {
-        final String methodName = "MetafacadeFacadeLogicImpl.internalGetMethodDataForPSM";
         try
         {
             final String methodVisibility = "public";
@@ -352,17 +369,17 @@ public class MetafacadeLogicImpl
                 }
             }
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            String errMsg = "Error performing " + methodName;
-            logger.error(errMsg, th);
-            throw new MetafacadeException(errMsg, th);
+            MetafacadeLogicImpl.logger.error(throwable);
+            throw new MetafacadeException(throwable);
         }
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#isRequiresInheritanceDelegatation()
+     * @see org.andromda.cartridges.meta.metafacades.Metafacade#isRequiresInheritanceDelegatation()
      */
+    @Override
     protected boolean handleIsRequiresInheritanceDelegatation()
     {
         boolean requiresInheritanceDelegation = false;
@@ -377,8 +394,9 @@ public class MetafacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#isConstructorRequiresMetaclassCast()
+     * @see org.andromda.cartridges.meta.metafacades.Metafacade#isConstructorRequiresMetaclassCast()
      */
+    @Override
     protected boolean handleIsConstructorRequiresMetaclassCast()
     {
         boolean requiresCast = false;
@@ -393,6 +411,7 @@ public class MetafacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.GeneralizableElementFacade#getGeneralizations()
      */
+    @Override
     public Collection getGeneralizations()
     {
         final List generalizations = new ArrayList(super.getGeneralizationLinks());
@@ -420,8 +439,9 @@ public class MetafacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.meta.metafacades.MetafacadeFacade#getGeneralizationCount()
+     * @see org.andromda.cartridges.meta.metafacades.Metafacade#getGeneralizationCount()
      */
+    @Override
     protected int handleGetGeneralizationCount()
     {
         int count = 0;
@@ -436,7 +456,7 @@ public class MetafacadeLogicImpl
     /**
      * Used to sort metafacade generalizations by precedence.
      */
-    private static final class GeneralizationPrecedenceComparator
+    static final class GeneralizationPrecedenceComparator
         implements Comparator
     {
         public int compare(
@@ -447,5 +467,26 @@ public class MetafacadeLogicImpl
             MetafacadeGeneralization b = (MetafacadeGeneralization)objectB;
             return a.getPrecedence().compareTo(b.getPrecedence());
         }
+    }
+
+    /**
+     * @see org.andromda.cartridges.meta.metafacades.MetafacadeLogic#getAllParents()
+     */
+    @Override
+    protected Collection handleGetAllParents()
+    {
+        Set allParents = new LinkedHashSet();
+        final Collection parents = this.getGeneralizations();
+        allParents.addAll(parents);
+        for (final Iterator iterator = parents.iterator(); iterator.hasNext();)
+        {
+            final Object object = iterator.next();
+            if (object instanceof Metafacade)
+            {
+                final Metafacade metafacade = (Metafacade)object;
+                allParents.addAll(metafacade.getAllParents());    
+            }
+        }
+        return allParents;
     }
 }

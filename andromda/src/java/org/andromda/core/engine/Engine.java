@@ -11,6 +11,7 @@ import org.andromda.core.metafacade.ModelValidationMessage;
  *
  * @see ModelProcessor
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class Engine
 {
@@ -39,6 +40,7 @@ public class Engine
      * Initializes Engine (discovers all plugins, etc) with the
      * given configuration.  This configuration is overridden (if changed)
      * when calling {@link #run(Configuration)}.
+     * @param configuration 
      */
     public void initialize(final Configuration configuration)
     {
@@ -53,6 +55,7 @@ public class Engine
      *
      * @param configuration the AndroMDA configuration the contains the repositories containing
      *        the models to load.
+     * @return messages from modelProcessor.loadIfNecessary
      */
     public ModelValidationMessage[] loadModelsIfNecessary(final Configuration configuration)
     {

@@ -1,0 +1,14 @@
+<project>
+    <extend>../project.xml</extend>
+    <name>AndroMDA Profiles</name>
+    <artifactId>andromda-profiles</artifactId>
+    <shortDescription>The AndoMDA profile for models.</shortDescription>
+    <description>
+        This profile should be imported as a model when possible so
+        that all AndroMDA stereotypes, tagged values and datatypes
+        can be used.
+    </description>
+    <build>
+        <sourceDirectory>src/main/uml</sourceDirectory>
+    </build>
+</project>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    This is used to map merge patterns in files generated
+    by Bpm4Struts to new patterns. Just add content to the
+    CDATA sections of the <to/> elements in order to
+    use the following merge points.
+-->
+<mappings name="WebMerge">
+    <mapping>
+        <from><![CDATA[<!-- context-param merge-point -->]]></from>
+        <to>
+            <![CDATA[
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/applicationContext-acegi-security.xml
+        </param-value>
+    </context-param>
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- filter merge-point -->]]></from>
+        <to>
+            <![CDATA[
+    <filter>
+        <filter-name>Acegi Filter Chain Proxy</filter-name>
+        <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
+        <init-param>
+            <param-name>targetClass</param-name>
+            <param-value>org.acegisecurity.util.FilterChainProxy</param-value>
+        </init-param>
+    </filter>
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- filter-mapping merge-point -->]]></from>
+        <to>
+            <![CDATA[
+    <filter-mapping>
+        <filter-name>Acegi Filter Chain Proxy</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- listener merge-point -->]]></from>
+        <to>
+            <![CDATA[
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- error-page merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- servlet merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- servlet-mapping merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- welcome-file-list merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- security-constraint merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- security-role merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- global-forwards merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- mime-type merge-point -->]]></from>
+        <to>
+            <![CDATA[
+            ]]>
+        </to>
+    </mapping>
+    <!--
+        This next mapping will merge the entire messages.properties into the generated
+        messages.properties
+    -->
+    <mapping>
+        <from><![CDATA[# custom-messages merge-point]]></from>
+        <to>
+            <path>../../../../../web/src/main/properties/messages.properties</path>
+        </to>
+    </mapping>
+</mappings>

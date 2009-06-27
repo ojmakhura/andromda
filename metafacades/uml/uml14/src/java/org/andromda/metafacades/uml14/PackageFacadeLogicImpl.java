@@ -1,22 +1,27 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
-
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.ObjectUtils;
 import org.omg.uml.UmlPackage;
+import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.core.UmlClass;
 
 
 /**
  * Metaclass facade implementation.
+ * @author Bob Fields
  */
 public class PackageFacadeLogicImpl
     extends PackageFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public PackageFacadeLogicImpl(
         org.omg.uml.modelmanagement.UmlPackage metaObject,
         String context)
@@ -25,9 +30,10 @@ public class PackageFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.PackageFacade#handleGetClasses()
+     * @see org.andromda.metafacades.uml.PackageFacade#getClasses()
      */
-    public java.util.Collection handleGetClasses()
+    @Override
+    public Collection<UmlClass> handleGetClasses()
     {
         return new FilteredCollection(metaObject.getOwnedElement())
             {
@@ -39,31 +45,34 @@ public class PackageFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.PackageFacade#handleGetSubPackages()
+     * @see org.andromda.metafacades.uml.PackageFacade#getSubPackages()
      */
-    protected Collection handleGetSubPackages()
+    @Override
+    protected Collection<UmlPackage> handleGetSubPackages()
     {
         return new FilteredCollection(metaObject.getOwnedElement())
             {
                 public boolean evaluate(Object object)
                 {
-                    return object instanceof org.omg.uml.modelmanagement.UmlPackage;
+                    return object instanceof UmlPackage;
                 }
             };
     }
 
     /**
-     * @see org.andromda.metafacades.uml.PackageFacade#handleGetModelElements()
+     * @see org.andromda.metafacades.uml.PackageFacade#getModelElements()
      */
-    protected Collection handleGetModelElements()
+    @Override
+    protected Collection<ModelElement> handleGetModelElements()
     {
         return ((UmlPackage)MetafacadeFactory.getInstance().getModel().getModel()).getCore().getModelElement()
                 .refAllOfType();
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelFacade#findModelElement(java.lang.String)
+     * @see org.andromda.metafacades.uml.PackageFacade#findModelElement(String)
      */
+    @Override
     public ModelElementFacade handleFindModelElement(final String fullyQualifiedName)
     {
         return (ModelElementFacade)this.shieldedElement(
@@ -74,8 +83,9 @@ public class PackageFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.PackageFacadeLogic#getOwnedElements()
+     * @see org.andromda.metafacades.uml.PackageFacade#getOwnedElements()
      */
+    @Override
     protected Collection handleGetOwnedElements()
     {
         return metaObject.getOwnedElement();

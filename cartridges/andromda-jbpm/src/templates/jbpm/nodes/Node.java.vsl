@@ -33,13 +33,13 @@ public final class $node.nodeClassName implements $nodeInterfaceName
     private org.jbpm.graph.exe.Token token = null;
 
 #if ($node.split)
-#foreach ($transition in $node.outgoing)
+#foreach ($transition in $node.outgoings)
     /**
      * The name of one of the child tokens which is created once this node is entered, this particular
      * token is associated with the branch that is created by following the transition called
      * <em>$transition.name</em>.
      */
-    public static final java.lang.String #renderTokenName($transition.name) = "$transition.name";
+    public static final String #renderTokenName($transition.name) = "$transition.name";
 
 #end
 #end
@@ -67,16 +67,16 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 
     /**
      * Returns the identifier for the underlying process instance. This method is a conveniece method as it
-     * is perfectly equivalent to <code>new java.lang.Long(getToken().getProcessInstance().getId())</code>.
+     * is perfectly equivalent to <code>new Long(getToken().getProcessInstance().getId())</code>.
      *
      * @return the identifier for the proces instance to which this node is associated
      */
-    public java.lang.Long getProcessInstanceId()
+    public Long getProcessInstanceId()
     {
-        return new java.lang.Long(this.token.getProcessInstance().getId());
+        return new Long(this.token.getProcessInstance().getId());
     }
 
-#foreach ($transition in $node.outgoing)
+#foreach ($transition in $node.outgoings)
 #if ($transition.name || $transition.condition)
     /**
      * The name of one of the transitions exiting this node.
@@ -89,9 +89,9 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 #end
      */
 #if ($transition.name)
-    public static final java.lang.String #renderTransitionName($transition.name) = "$transition.name";
+    public static final String #renderTransitionName($transition.name) = "$transition.name";
 #else
-    public static final java.lang.String #renderTransitionName($transition.condition) = "$transition.condition";
+    public static final String #renderTransitionName($transition.condition) = "$transition.condition";
 #end
 
 #end
@@ -182,7 +182,7 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 #end
 #end
 #if ($node.split)
-#foreach ($transition in $node.outgoing)
+#foreach ($transition in $node.outgoings)
     /**
      * Returns the current node for the token found in the branch when following the outgoing
      * <em>$transition.name</em> transition. Since this token is a child of the token encapsulated by <em>this
@@ -223,8 +223,8 @@ public final class $node.nodeClassName implements $nodeInterfaceName
 ##
 ## this node can be signalled
 ##
-#foreach ($transition in $node.outgoing)
-#if ($node.outgoing.size() == 1)
+#foreach ($transition in $node.outgoings)
+#if ($node.outgoings.size() == 1)
 #if ($transition.name)
 #set ($signalMethodName = "signal$stringUtils.upperCamelCaseName($transition.name)")
 #else

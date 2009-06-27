@@ -105,7 +105,7 @@ public class JSFControllerOperationLogicImpl
         {
             signature.append(this.getFormName() + " form");
         }
-        signature.append(")");
+        signature.append(") throws java.lang.Exception");
         return signature.toString();
     }
 }

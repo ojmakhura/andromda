@@ -8,6 +8,7 @@
                 <type>andromda-cartridge</type>
                 <extension>jar</extension>
                 <packaging>andromda-cartridge</packaging>
+                <language>java</language> 
             </configuration>
         </component>
         <component>
@@ -16,9 +17,10 @@
             <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
             <configuration>
                 <phases>
+                    <generate-test-sources>org.apache.maven.plugins:maven-surefire-plugin:test</generate-test-sources>
                     <process-test-resources>org.apache.maven.plugins:maven-resources-plugin:testResources</process-test-resources>
                     <test-compile>org.apache.maven.plugins:maven-compiler-plugin:testCompile</test-compile>
-                    <test>org.apache.maven.plugins:maven-surefire-plugin:test</test>
+                    <!--test>org.apache.maven.plugins:maven-surefire-plugin:test</test-->
                     <process-resources>org.apache.maven.plugins:maven-resources-plugin:resources</process-resources>
                     <compile>org.apache.maven.plugins:maven-compiler-plugin:compile</compile>
                     <package>org.andromda.maven.plugins:andromda-cartridge-plugin:andromda-cartridge</package>

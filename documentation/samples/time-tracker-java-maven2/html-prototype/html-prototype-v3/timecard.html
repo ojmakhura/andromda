@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Edit Timecard</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="styles/global.css" type="text/css" />
+</head>
+<body>
+
+    <div class="topmenu">
+        <a class="menu" href="login.html">Log out [nbhatia]</a>
+    </div>
+
+    <div class="header">
+        <h1><span>Time</span>Tracker</h1>
+    </div>
+
+    <div class="menubar">
+        <ul>
+            <li class="first"><a href="home.html">Home</a></li>
+            <li><a class="selected" href="timecard.html">Timecard Details</a></li>
+            <li><a href="search-timecards.html">Search Timecards</a></li>
+            <li><a href="approve-timecards.html">Approve Timecards</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <form action="timecard.html" method="POST">
+
+            <h2>Timecard</h2>
+
+            <div class="timecardstatus">
+                <table class="timecardtable">
+                    <tr>
+                        <th>Submitter</th>
+                        <th>Approver</th>
+                        <th>Status</th>
+                        <th>Start Date</th>
+                    </tr>
+                    <tr>
+                        <td>nbhatia</td>
+                        <td>
+                            <select name="approver">
+                                <option value="0">-- Select --</option>
+                                <option value="4">cmicali</option>
+                                <option value="3">ecrutchfield</option>
+                                <option value="2">lcoude</option>
+                                <option value="1">nbhatia</option>
+                            </select>
+                        </td>
+                        <td>Draft</td>
+                        <td>
+                            06/05/2006
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="timecard">
+                <table class="full_width">
+                    <colgroup span="4" style="width:22%;" />
+                    <colgroup span="1" style="width:12%;" />
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Task</th>
+                            <th class="align_center"><a class="button" href="">Delete</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>06/05/2006</td>
+                            <td>09:00 AM</td>
+                            <td>12:00 PM</td>
+                            <td>Analysis</td>
+                            <td class="align_center"><input class="checkbox" type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>06/05/2006</td>
+                            <td>01:00 PM</td>
+                            <td>05:00 PM</td>
+                            <td>Research</td>
+                            <td class="align_center"><input class="checkbox" type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>06/06/2006</td>
+                            <td>09:00 AM</td>
+                            <td>12:00 PM</td>
+                            <td>Analysis</td>
+                            <td class="align_center"><input class="checkbox" type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>06/06/2006</td>
+                            <td>01:00 PM</td>
+                            <td>05:00 PM</td>
+                            <td>Analysis</td>
+                            <td class="align_center"><input class="checkbox" type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>06/07/2006</td>
+                            <td>09:00 AM</td>
+                            <td>12:00 PM</td>
+                            <td>Analysis</td>
+                            <td class="align_center"><input class="checkbox" type="checkbox" /></td>
+                        </tr>
+                        <tr>
+                            <td>06/07/2006</td>
+                            <td>01:00 PM</td>
+                            <td>05:00 PM</td>
+                            <td>Research</td>
+                            <td class="align_center"><input class="checkbox" type="checkbox" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table class="add_allocation_table bordered_table full_width">
+                    <colgroup span="4" style="width:22%;" />
+                    <colgroup span="1" style="width:12%;" />
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select name="date">
+                                    <option value="0">06/05/2006</option>
+                                    <option value="1">06/06/2006</option>
+                                    <option value="2">06/07/2006</option>
+                                    <option value="3">06/08/2006</option>
+                                    <option value="4">06/09/2006</option>
+                                    <option value="5">06/10/2006</option>
+                                    <option value="6">06/11/2006</option>
+                                </select>
+                            </td>
+                            <td><input type="text" id="start" size="7" /></td>
+                            <td><input type="text" id="end" size="7" /></td>
+                            <td>
+                                <select name="task">
+                                    <option value="0">-- Select --</option>
+                                    <option value="1">Analysis</option>
+                                    <option value="2">Reseach</option>
+                                </select>
+                            </td>
+                            <td class="align_center"><a class="button" href="">Add</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="comments">
+                <label for="comments">Comments</label><br />
+                <textarea id="comments" rows="2" cols="80"></textarea>
+            </div>
+
+            <div>
+                <a class="button" href="timecard.html">Save</a>
+                <a class="button" href="search-timecards.html">Delete</a>
+                <a class="button" href="timecard.html">Submit</a>
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>

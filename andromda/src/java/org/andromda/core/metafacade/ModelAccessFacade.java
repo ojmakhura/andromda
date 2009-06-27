@@ -19,6 +19,7 @@ import org.andromda.core.configuration.Filters;
  *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public interface ModelAccessFacade
 {
@@ -68,11 +69,11 @@ public interface ModelAccessFacade
      * @param modelElement the modelElement
      * @return Collection of Strings with stereotype names
      */
-    public Collection getStereotypeNames(Object modelElement);
+    public Collection<String> getStereotypeNames(Object modelElement);
 
     /**
      * Finds all the model elements that have the specified <code>stereotype</code> (with any filtering
-     * applied from the information provided by {@link #setPackageFilter(ModelPackages)}).
+     * applied from the information provided by {@link #setPackageFilter(Filters)}).
      *
      * @param stereotype the name of the stereotype, they are matched without regard to case.
      * @return Collection of model elements having the given stereotype
@@ -81,7 +82,7 @@ public interface ModelAccessFacade
 
     /**
      * Returns all elements from the model (with any filtering
-     * applied from the information provided by {@link #setPackageFilter(ModelPackages)}).
+     * applied from the information provided by {@link #setPackageFilter(Filters)}).
      *
      * @return Collection of all metafacades
      */

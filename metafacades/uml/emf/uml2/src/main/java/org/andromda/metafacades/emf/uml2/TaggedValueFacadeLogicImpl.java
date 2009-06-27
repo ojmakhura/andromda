@@ -5,7 +5,8 @@ import java.util.Collection;
 
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.TaggedValueFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.TaggedValueFacade.
  *
  * @see org.andromda.metafacades.uml.TaggedValueFacade
  */
@@ -13,10 +14,10 @@ public class TaggedValueFacadeLogicImpl
     extends TaggedValueFacadeLogic
 {
     public TaggedValueFacadeLogicImpl(
-        Object metaObject,
-        String context)
+        final TagDefinition metaObject,
+        final String context)
     {
-        super((TagDefinition)metaObject, context);
+        super(metaObject, context);
     }
 
     /**
@@ -24,7 +25,7 @@ public class TaggedValueFacadeLogicImpl
      */
     protected java.lang.Object handleGetValue()
     {
-        return metaObject.getValue();
+        return this.metaObject.getValue();
     }
 
     /**
@@ -33,7 +34,7 @@ public class TaggedValueFacadeLogicImpl
     protected java.util.Collection handleGetValues()
     {
         Collection collection = new ArrayList();
-        collection.add(metaObject.getValue());
+        collection.addAll(this.metaObject.getValues());
         return collection;
     }
 }

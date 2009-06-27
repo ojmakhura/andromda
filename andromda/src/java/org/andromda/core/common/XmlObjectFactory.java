@@ -4,12 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
-
 import java.net.URL;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.commons.digester.Digester;
 import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.lang.StringUtils;
@@ -31,7 +28,7 @@ import org.xml.sax.SAXParseException;
  * allows us to define a consistent way in which schema validation is performed.
  * <p/>
  * <p>
- * It seperates each concern into one file, for example: to configure and perform validation on the MetafacadeMappings
+ * It separates each concern into one file, for example: to configure and perform validation on the MetafacadeMappings
  * class, we need 3 files 1.) the java object (MetafacadeMappings.java), 2.) the rules file which tells the apache
  * digester how to populate the java object from the XML configuration file (MetafacadeMappings-Rules.xml), and 3.) the
  * XSD schema validation file (MetafacadeMappings.xsd). Note that each file is based on the name of the java object:
@@ -41,12 +38,13 @@ import org.xml.sax.SAXParseException;
  * </p>
  * <p>
  * In order to add/modify an existing element/attribute in your configuration file, first make the modification in your
- * java object, then modify it's rules file to instruct the digester on how to configure your new attribute/method in
+ * java object, then modify its rules file to instruct the digester on how to configure your new attribute/method in
  * the java object, and then modify your XSD file to provide correct validation for this new method/attribute. Please
  * see the org.andromda.core.metafacade.MetafacadeMappings* files for an example on how to do this.
  * </p>
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class XmlObjectFactory
 {
@@ -116,7 +114,7 @@ public class XmlObjectFactory
      * @param objectClass the Class of the object from which to configure this factory.
      * @return the XmlObjectFactoy instance.
      */
-    public static final XmlObjectFactory getInstance(final Class objectClass)
+    public static XmlObjectFactory getInstance(final Class objectClass)
     {
         ExceptionUtils.checkNull(
             "objectClass",
@@ -321,7 +319,7 @@ public class XmlObjectFactory
     /**
      * Handles the validation errors.
      */
-    private static final class XmlObjectValidator
+    static final class XmlObjectValidator
         implements org.xml.sax.ErrorHandler
     {
         /**
@@ -356,7 +354,7 @@ public class XmlObjectFactory
          * @param exception the exception from which to extract the message.
          * @return the message.
          */
-        private final String getMessage(final SAXParseException exception)
+        private String getMessage(final SAXParseException exception)
         {
             final StringBuffer message = new StringBuffer();
             if (exception != null)
@@ -364,7 +362,7 @@ public class XmlObjectFactory
                 message.append(exception.getMessage());
                 message.append(", line: ");
                 message.append(exception.getLineNumber());
-                message.append(", column: " + exception.getColumnNumber());
+                message.append(", column: ").append(exception.getColumnNumber());
             }
             return message.toString();
         }
@@ -390,7 +388,7 @@ public class XmlObjectFactory
         }
 
         /**
-         * @see org.xml.sax.EntityResolver#resolveEntity(java.lang.String, java.lang.String)
+         * @see org.xml.sax.EntityResolver#resolveEntity(String, String)
          */
         public InputSource resolveEntity(
             final String publicId,
@@ -453,7 +451,7 @@ public class XmlObjectFactory
                             // - ignore
                         }
                     }
-                    if (inputStream != null)
+                    if (inputStream != null && uri != null)
                     {
                         source = new InputSource(inputStream);
                         source.setPublicId(publicId);

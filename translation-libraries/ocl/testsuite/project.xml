@@ -1,0 +1,68 @@
+<project>
+    <extend>../project.xml</extend>
+    <artifactId>andromda-ocl-translation-testsuite</artifactId>
+    <name>AndroMDA Translation-Library Test Suite</name>
+    <description>
+  		Provides an AndroMDA Translation-Library Test Suite, for testing
+  		translation libraries throughout the translation-library lifecycle.
+  	</description>
+    <shortDescription>AndroMDA Translation-Library Test Suite.</shortDescription>
+	<package>org.andromda.translation.ocl.testsuite</package>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-metafacades-uml</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-ocl-translation-core</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+     		<version>3.1</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.3</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>jboss</groupId>
+            <artifactId>javassist</artifactId>
+            <version>2.6</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.8</version>
+            <properties/>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+                <filtering>false</filtering>
+            </resource>
+        </resources>
+    </build>
+    <properties/>
+</project>

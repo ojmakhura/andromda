@@ -3,15 +3,19 @@ package org.andromda.metafacades.uml14;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.ValueObject;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.ValueObjectAssociationEnd.
  *
  * @see org.andromda.metafacades.uml.ValueObjectAssociationEnd
+ * @author Bob Fields
  */
 public class ValueObjectAssociationEndLogicImpl
         extends ValueObjectAssociationEndLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ValueObjectAssociationEndLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
@@ -22,6 +26,7 @@ public class ValueObjectAssociationEndLogicImpl
      *
      * @see org.andromda.metafacades.uml.AssociationEndFacade#getGetterSetterTypeName()
      */
+    @Override
     protected String handleGetGetterSetterTypeName()
     {
         String name = super.handleGetGetterSetterTypeName();
@@ -43,6 +48,7 @@ public class ValueObjectAssociationEndLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ValueObjectAssociationEnd#isValueObjectType()
      */
+    @Override
     protected boolean handleIsValueObjectType()
     {
         return this.getType() instanceof ValueObject;

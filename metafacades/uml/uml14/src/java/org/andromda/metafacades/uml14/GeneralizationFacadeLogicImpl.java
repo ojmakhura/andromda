@@ -1,17 +1,24 @@
 package org.andromda.metafacades.uml14;
 
+import org.omg.uml.foundation.core.GeneralizableElement;
+import org.omg.uml.foundation.core.Generalization;
 
 /**
  * MetafacadeLogic implementation.
  *
  * @see org.andromda.metafacades.uml.GeneralizationFacade
+ * @author Bob Fields
  */
 public class GeneralizationFacadeLogicImpl
     extends GeneralizationFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public GeneralizationFacadeLogicImpl(
-        org.omg.uml.foundation.core.Generalization metaObject,
-        java.lang.String context)
+        Generalization metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -21,7 +28,8 @@ public class GeneralizationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.GeneralizationFacade#getChild()
      */
-    public java.lang.Object handleGetChild()
+    @Override
+    public GeneralizableElement handleGetChild()
     {
         return metaObject.getChild();
     }
@@ -29,7 +37,8 @@ public class GeneralizationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.GeneralizationFacade#getParent()
      */
-    public java.lang.Object handleGetParent()
+    @Override
+    public GeneralizableElement handleGetParent()
     {
         return metaObject.getParent();
     }

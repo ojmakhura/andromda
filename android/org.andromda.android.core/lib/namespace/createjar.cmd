@@ -1,1 +1,0 @@
-scomp -out andromda-namespace.jar NamespaceRegistry.xsd

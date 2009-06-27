@@ -1,0 +1,372 @@
+package org.axis2test4;
+
+import java.lang.reflect.Method;
+
+import java.net.URL;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.wsdl.Definition;
+import javax.wsdl.Port;
+import javax.wsdl.Service;
+import javax.wsdl.extensions.soap.SOAPAddress;
+import javax.wsdl.factory.WSDLFactory;
+import javax.wsdl.xml.WSDLReader;
+
+import javax.xml.namespace.QName;
+
+import org.apache.axiom.om.OMElement;
+import org.apache.axis2.AxisFault;
+import org.apache.axis2.addressing.EndpointReference;
+import org.apache.axis2.client.ServiceClient;
+import org.apache.axis2.client.async.Callback;
+import org.apache.axis2.engine.DefaultObjectSupplier;
+import org.apache.axis2.transport.http.HTTPConstants;
+import org.apache.axis2.transport.http.HttpTransportProperties.Authenticator;
+import org.xml.sax.InputSource;
+
+
+/**
+ * A webservice client using Axis2 libraries that allows you to invoke operations on wrapped
+ * style services.
+ *
+ * @author Chad Brandon
+ */
+public class WebServiceClient
+    extends ServiceClient
+{
+    private Class serviceClass;
+    private Definition definition;
+
+    /**
+     * Constructs a new client taking a WSDL and serviceClass
+     *
+     * @param wsdlUrl the URL to the WSDL for the service.
+     * @param serviceClass the class used for communicating with the service (i.e. can be a regular java object).
+     * @throws AxisFault
+     */
+    public WebServiceClient(
+        final String wsdlUrl,
+        final Class serviceClass)
+        throws AxisFault
+    {
+        this(wsdlUrl, serviceClass, null, null);
+    }
+
+    /**
+     * Constructs a new client taking a WSDL, the serviceClass and username and password.
+     *
+     * @param wsdlUrl the URL to the WSDL for the service.
+     * @param serviceClass the class used for communicating with the service (i.e. can be a regular java object).
+     * @param username the username to access to the service (if its protected by basic auth).
+     * @param password the password to access the service (if its protected by basic auth).
+     * @throws AxisFault
+     */
+    public WebServiceClient(
+        final String wsdlUrl,
+        final Class serviceClass,
+        final String username,
+        final String password)
+        throws AxisFault
+    {
+        this(wsdlUrl, null, serviceClass, username, password);
+    }
+
+    /**
+     * Constructs a new client taking a WSDL, endpointAddress, serviceClass and username and password.
+     *
+     * @param wsdlUrl the URL to the WSDL for the service.
+     * @param endpointAddress the "end point" or "port" address of the service (if null, then the one in the WSDL will be used).
+     * @param serviceClass the class used for communicating with the service (i.e. can be a regular java object).
+     * @param username the username to access to the service (if its protected by basic auth).
+     * @param password the password to access the service (if its protected by basic auth).
+     * @throws AxisFault
+     */
+    public WebServiceClient(
+        final String wsdlUrl,
+        final String endpointAddress,
+        final Class serviceClass,
+        final String username,
+        final String password)
+        throws AxisFault
+    {
+        super();
+        this.serviceClass = serviceClass;
+        try
+        {
+            final WSDLReader reader = WSDLFactory.newInstance().newWSDLReader();
+            if (username != null && username.trim().length() > 0)
+            {
+                final Authenticator authenticator = new Authenticator();
+                final List<String> authorizationSchemes = new ArrayList<String>();
+                authorizationSchemes.add(Authenticator.BASIC);
+                authenticator.setAuthSchemes(authorizationSchemes);
+                authenticator.setUsername(username);
+                authenticator.setPassword(password);
+                authenticator.setPreemptiveAuthentication(true);
+                this.getOptions().setProperty(
+                    HTTPConstants.AUTHENTICATE,
+                    authenticator);
+                this.definition =
+                    this.readProtectedWsdl(
+                        reader,
+                        wsdlUrl,
+                        username,
+                        password);
+            }
+            else
+            {
+                this.definition = reader.readWSDL(wsdlUrl);
+            }
+            String portAddress;
+            if (endpointAddress != null && endpointAddress.trim().length() > 0)
+            {
+                portAddress = endpointAddress;
+            }
+            else
+            {
+                portAddress = this.findEndPointAddress();
+            }
+            this.setTargetEPR(new EndpointReference(portAddress));
+        }
+        catch (Exception exception)
+        {
+            throw new AxisFault(exception);
+        }
+    }
+
+    /**
+     * Reads a WSDL protected by basic authentication.
+     *
+     * @param reader the WSDL reader to use for reading the WSDL.
+     * @param address the address of the WSDL.
+     * @param username the username to authenticate with.
+     * @param password the password to authenticate with.
+     * @return the WSDL definition
+     * @throws Exception
+     */
+    private Definition readProtectedWsdl(
+        final WSDLReader reader,
+        String address,
+        String username,
+        String password)
+        throws Exception
+    {
+        final org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
+        final org.apache.commons.httpclient.params.HttpClientParams params =
+            new org.apache.commons.httpclient.params.HttpClientParams();
+        params.setAuthenticationPreemptive(true);
+        client.setParams(params);
+
+        final org.apache.commons.httpclient.Credentials credentials =
+            new org.apache.commons.httpclient.UsernamePasswordCredentials(username, password);
+        final org.apache.commons.httpclient.auth.AuthScope scope =
+            new org.apache.commons.httpclient.auth.AuthScope(
+                new URL(address).getHost(),
+                org.apache.commons.httpclient.auth.AuthScope.ANY_PORT,
+                org.apache.commons.httpclient.auth.AuthScope.ANY_REALM);
+        client.getState().setCredentials(
+            scope,
+            credentials);
+
+        final org.apache.commons.httpclient.methods.GetMethod get =
+            new org.apache.commons.httpclient.methods.GetMethod(address);
+        get.setDoAuthentication(true);
+
+        int status = client.executeMethod(get);
+
+        InputSource inputSource = null;
+        boolean authenticated = (status > 0) && (status < 400);
+        if (authenticated)
+        {
+            inputSource = new InputSource(get.getResponseBodyAsStream());
+        }
+        else
+        {
+            throw new RuntimeException("Could not authenticate user: '" + username + "' to WSDL: '" + address + "'");
+        }
+        final Definition definition = reader.readWSDL(
+                address,
+                inputSource);
+        get.releaseConnection();
+        return definition;
+    }
+
+    /**
+     * Finds the end point address of the service.
+     *
+     * @return the service end point address.
+     */
+    private String findEndPointAddress()
+    {
+        String address = null;
+        final Map services = this.definition.getServices();
+        for (final Iterator iterator = services.keySet().iterator(); iterator.hasNext();)
+        {
+            final QName name = (QName)iterator.next();
+            if (this.serviceClass.getSimpleName().equals(name.getLocalPart()))
+            {
+                final Service service = (Service)services.get(name);
+                final Map ports = service.getPorts();
+                for (final Iterator portIterator = ports.keySet().iterator(); portIterator.hasNext();)
+                {
+                    final String portName = (String)portIterator.next();
+                    final Port port = (Port)ports.get(portName);
+                    for (final Iterator addressIterator = port.getExtensibilityElements().iterator();
+                        addressIterator.hasNext();)
+                    {
+                        final Object element = addressIterator.next();
+                        if (element instanceof SOAPAddress)
+                        {
+                            address = ((SOAPAddress)element).getLocationURI();
+                        }
+                    }
+                }
+            }
+        }
+        return address;
+    }
+
+    /**
+     * Invokes the operation identified by the given <code>operationName</code> with the
+     * given <code>arguments</code>.
+     *
+     * @param operationName the name of the operation to invoke.
+     * @param the arguments of the operation.
+     *
+     * @throws AxisFault
+     */
+    public Object invokeBlocking(
+        String operationName,
+        Object[] arguments)
+        throws AxisFault
+    {
+        final Method method = this.getMethod(
+                operationName,
+                arguments);
+        final OMElement omElement = Axis2ClientUtils.getOperationOMElement(
+                this.definition,
+                method,
+                arguments);
+        final OMElement response = super.sendReceive(omElement);
+        Object result = null;
+        if (method.getReturnType() != void.class)
+        {
+            result =
+                Axis2ClientUtils.deserialize(
+                    response.getFirstElement(),
+                    method.getReturnType(),
+                    new DefaultObjectSupplier());
+        }
+        return result;
+    }
+
+    /**
+     * Invoke the nonblocking/Asynchronous call
+     *
+     * @param operationName
+     * @param arguments     -  This should be OM Element (payload) invocation behaves accordingly
+     * @param callback
+     * @throws org.apache.axis2.AxisFault
+     */
+    public void invokeNonBlocking(
+        String operationName,
+        Object[] arguments,
+        Callback callback)
+        throws AxisFault
+    {
+        final Method method = this.getMethod(
+                operationName,
+                arguments);
+        final OMElement omElement = Axis2ClientUtils.getOperationOMElement(
+                this.definition,
+                method,
+                arguments);
+        super.sendReceiveNonBlocking(
+            omElement,
+            callback);
+    }
+
+    public void invokeRobust(
+        String operationName,
+        Object[] arguments)
+        throws AxisFault
+    {
+        final Method method = this.getMethod(
+                operationName,
+                arguments);
+        final OMElement omElement = Axis2ClientUtils.getOperationOMElement(
+                this.definition,
+                method,
+                arguments);
+        super.sendRobust(omElement);
+    }
+
+    private Map<String, Method> methods = new HashMap<String, Method>();
+
+    private Method getMethod(
+        final String name,
+        final Object[] arguments)
+    {
+        Method found = methods.get(name);
+        if (found == null)
+        {
+            for (final Iterator iterator = this.getAllMethods().iterator(); iterator.hasNext();)
+            {
+                final Method method = (Method)iterator.next();
+                if (method.getName().equals(name) && arguments.length == method.getParameterTypes().length)
+                {
+                    found = method;
+                    this.methods.put(
+                        name,
+                        found);
+                    break;
+                }
+            }
+        }
+        return found;
+    }
+
+    /**
+     * Loads all methods from the given <code>clazz</code> (this includes
+     * all super class methods, public, private and protected).
+     *
+     * @param clazz the class to retrieve the methods.
+     * @return the loaded methods.
+     */
+    private List getAllMethods()
+    {
+        final Set<Method> methods = new LinkedHashSet<Method>();
+        loadMethods(
+            this.serviceClass,
+            methods);
+        return new ArrayList<Method>(methods);
+    }
+
+    /**
+     * Loads all methods from the given <code>clazz</code> (this includes
+     * all super class methods).
+     *
+     * @param methods the list to load full of methods.
+     * @param clazz the class to retrieve the methods.
+     */
+    private void loadMethods(
+        final Class clazz,
+        final Set<Method> methods)
+    {
+        methods.addAll(Arrays.asList(clazz.getDeclaredMethods()));
+        if (clazz.getSuperclass() != null)
+        {
+            loadMethods(
+                clazz.getSuperclass(),
+                methods);
+        }
+    }
+}

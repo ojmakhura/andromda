@@ -25,10 +25,17 @@ public class AndroMDAMojo
     /**
      * Whether or not a last modified check should be performed before running AndroMDA again.
      *
-     * @parameter expression="false"
-     * @required
+     * @parameter expression="${lastModifiedCheck}"
      */
-    private boolean lastModifiedCheck;
+    private boolean lastModifiedCheck = false;
+    
+    /**
+     * Whether or not processing should be skipped (this is if you just want to force AndroMDA
+     * not to run on your model).
+     * 
+     * @parameter expression="${andromda.run.skip}"
+     */
+    private boolean skipProcessing = false;
 
     /**
      * The directory to which the build source is located (any generated source).
@@ -43,49 +50,52 @@ public class AndroMDAMojo
     public void execute(final Configuration configuration)
         throws MojoExecutionException
     {
-        boolean execute = true;
-        if (this.lastModifiedCheck)
+        if (!this.skipProcessing)
         {
-            final URL configurationUri = ResourceUtils.toURL(this.configurationUri);
-            final File directory = new File(this.buildSourceDirectory);
-            execute = ResourceUtils.modifiedAfter(
-                    ResourceUtils.getLastModifiedTime(configurationUri),
-                    directory);
-            if (!execute)
+            boolean execute = true;
+            if (this.lastModifiedCheck)
             {
-                final Repository[] repositories = configuration.getRepositories();
-                int repositoryCount = repositories.length;
-                for (int ctr = 0; ctr < repositoryCount; ctr++)
+                final URL configurationUri = ResourceUtils.toURL(this.configurationUri);
+                final File directory = new File(this.buildSourceDirectory);
+                execute = ResourceUtils.modifiedAfter(
+                        ResourceUtils.getLastModifiedTime(configurationUri),
+                        directory);
+                if (!execute)
                 {
-                    final Repository repository = repositories[ctr];
-                    if (repository != null)
+                    final Repository[] repositories = configuration.getRepositories();
+                    int repositoryCount = repositories.length;
+                    for (int ctr = 0; ctr < repositoryCount; ctr++)
                     {
-                        final Model[] models = repository.getModels();
-                        final int modelCount = models.length;
-                        for (int ctr2 = 0; ctr2 < modelCount; ctr2++)
+                        final Repository repository = repositories[ctr];
+                        if (repository != null)
                         {
-                            final Model model = models[ctr2];
-                            execute = ResourceUtils.modifiedAfter(
-                                    model.getLastModified(),
-                                    directory);
-                            if (execute)
+                            final Model[] models = repository.getModels();
+                            final int modelCount = models.length;
+                            for (int ctr2 = 0; ctr2 < modelCount; ctr2++)
                             {
-                                break;
+                                final Model model = models[ctr2];
+                                execute = ResourceUtils.modifiedAfter(
+                                        model.getLastModified(),
+                                        directory);
+                                if (execute)
+                                {
+                                    break;
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-        if (execute)
-        {
-            final AndroMDA andromda = AndroMDA.newInstance();
-            andromda.run(configuration);
-            andromda.shutdown();
-        }
-        else
-        {
-            this.getLog().info("Files are up-to-date, skipping AndroMDA execution");
+            if (execute)
+            {
+                final AndroMDA andromda = AndroMDA.newInstance();
+                andromda.run(configuration);
+                andromda.shutdown();
+            }
+            else
+            {
+                this.getLog().info("Files are up-to-date, skipping AndroMDA execution");
+            }
         }
         final File buildSourceDirectory =
             this.buildSourceDirectory != null ? new File(this.buildSourceDirectory) : null;

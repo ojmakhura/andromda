@@ -73,12 +73,12 @@ public abstract class HibernateSchemaManagement
         }
         try
         {
-            hibernate2ClassName = HIBERNATE_3_PACKAGE + "." + this.getExecutionClassName();
+            hibernate2ClassName = HIBERNATE_2_PACKAGE + "." + this.getExecutionClassName();
             hibernateClass = ClassUtils.loadClass(hibernate2ClassName);
         }
         catch (Exception exception)
         {
-            // - ignore, means we can't find the Hibernate 3 class
+            // - ignore, means we can't find the Hibernate 2 class
         }
         if (hibernateClass == null)
         {

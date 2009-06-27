@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="AndroMDA Repositories">
+    <skin>
+        <groupId>org.andromda.maven.plugins.site</groupId>
+        <artifactId>andromda-site-skin</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </skin>
+    <bannerLeft>
+        <name></name>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy hh:mm zzz"/>
+	<body>
+    	<links>
+    	    <item name="Home" href="../index.html"/>
+      		<item name="Repositories" href="/index.html"/>
+    	</links>
+		<menu name="Overview">
+			<item name="About" href="/index.html"/>
+			<item name="Developing" href="/developing.html"/>
+    	</menu>
+    	<menu name="Available Repositories">
+			<item name="MDR" href="andromda-repository-mdr/index.html"/>	
+            <item name="EMF" href="andromda-repository-emf/index.html"/>	
+            <item name="EMF-UML2" href="andromda-repository-emf-uml2/index.html"/>	
+    	</menu>
+    	<menu ref="reports"/>
+  	</body>
+</project>

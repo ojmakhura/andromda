@@ -443,6 +443,16 @@
         </to>
     </expression>
     -->
+    
+    <expression>
+        <from>
+            context SubjectService::addEvent(eventVO:EventVO)
+            pre: eventVO.status.eventStatusId->notEmpty()
+        </from>
+        <to>
+            final java.lang.Object contextElement = this; boolean constraintValid = org.andromda.translation.ocl.validation.OCLResultEnsurer.ensure(org.andromda.translation.ocl.validation.OCLCollections.notEmpty(org.andromda.translation.ocl.validation.OCLIntrospector.invoke(eventVO,"status.eventStatusId")));
+        </to>
+    </expression>
 
 </translation-test>
 

@@ -30,23 +30,23 @@
                     <alias attr-name="notEqual" prop-name="notEqual"/>
                     <alias attr-name="present" prop-name="present"/>
                 </set-properties-rule>
-                <set-next-rule methodname="addCondition"/>                
+                <set-next-rule methodname="addCondition"/>
             </pattern>
             <pattern value="output">
                 <call-method-rule methodname="addOutputPath" paramcount="2" paramtypes="java.lang.String,java.lang.String"/>
-                <call-param-rule paramnumber="0"/>        
-                <call-param-rule attrname="patterns" paramnumber="1"/>            
+                <call-param-rule paramnumber="0"/>
+                <call-param-rule attrname="patterns" paramnumber="1"/>
             </pattern>
             <set-next-rule methodname="addOutputConditions"/>
         </pattern>
         <pattern value="mappings/mapping">
-            <object-create-rule classname="org.andromda.andromdapp.Mapping" />
+            <object-create-rule classname="org.andromda.andromdapp.Mapping"/>
             <pattern value="from">
-                <call-method-rule methodname="addFrom" paramcount="1" />
+                <call-method-rule methodname="addFrom" paramcount="1"/>
                 <call-param-rule paramnumber="0"/>
             </pattern>
             <pattern value="to">
-                <call-method-rule methodname="setTo" paramcount="1" />
+                <call-method-rule methodname="setTo" paramcount="1"/>
                 <call-param-rule paramnumber="0"/>
             </pattern>
             <set-next-rule methodname="addMapping"/>
@@ -57,13 +57,18 @@
         </pattern>
         <pattern value="templateEngine">
             <set-properties-rule>
-                 <alias attr-name="className" prop-name="templateEngineClass"/>
-                 <alias attr-name="extensions" prop-name="templateExtensions"/>
+                <alias attr-name="className" prop-name="templateEngineClass"/>
+                <alias attr-name="extensions" prop-name="templateExtensions"/>
             </set-properties-rule>
+            <pattern value="exclusion">
+                <call-method-rule methodname="addTemplateEngineExclusion" paramcount="2" paramtypes="java.lang.String,java.lang.String"/>
+                <call-param-rule paramnumber="0"/>
+                <call-param-rule attrname="patterns" paramnumber="1"/>
+            </pattern>
             <pattern value="macrolibrary">
                 <call-method-rule methodname="addMacrolibrary" paramcount="1" paramtypes="java.lang.String"/>
                 <call-param-rule attrname="name" paramnumber="0"/>
-             </pattern>
+            </pattern>
         </pattern>
         <pattern value="templateObject">
             <call-method-rule methodname="addTemplateObject" paramcount="2" paramtypes="java.lang.String,java.lang.String"/>
@@ -94,18 +99,18 @@
                         <alias attr-name="notEqual" prop-name="notEqual"/>
                         <alias attr-name="present" prop-name="present"/>
                     </set-properties-rule>
-                    <set-next-rule methodname="addCondition"/>                
+                    <set-next-rule methodname="addCondition"/>
                 </pattern>
                 <set-next-rule methodname="addPreconditions"/>
             </pattern>
             <pattern value="responses">
                 <set-properties-rule>
                     <alias attr-name="type" prop-name="responseType"/>
-                </set-properties-rule>  
+                </set-properties-rule>
                 <pattern value="response">
                     <call-method-rule methodname="addResponse" paramcount="1" paramtypes="java.lang.String"/>
                     <call-param-rule paramnumber="0"/>
-                </pattern>              
+                </pattern>
             </pattern>
             <pattern value="conditions/condition">
                 <object-create-rule classname="org.andromda.andromdapp.Condition"/>

@@ -8,6 +8,16 @@
     <!-- define template external properties -->
     <property reference="propertyReferenceOne"/>
     <property reference="propertyReferenceTwo"/>
+    
+    <condition name="viewTypeIsJsp">$viewType.equalsIgnoreCase('jsp')</condition>
+    
+    <resource
+        path="resources/lib/facelets/*.jar"
+        outputPattern="WEB-INF/lib/{0}"
+        outlet="configuration"
+        overwrite="true"
+        outputCondition="viewTypeIsFacelets"
+        lastModifiedCheck="true"/>
 
     <template
         path="EntityBean.vsl"
@@ -25,7 +35,8 @@
         outlet="axis-configuration"
         overwrite="true"
         outputToSingleFile="true"
-        outputOnEmptyElements="false">
+        outputOnEmptyElements="false"
+        outputCondition="$viewType.equals('jsp')">
         <modelElements variable="services">
             <modelElement>
                 <type name="org.andromda.cartridges.webservice.metafacades.WebService">

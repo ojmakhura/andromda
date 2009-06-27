@@ -70,10 +70,12 @@ public class IntrospectorTest
         assertTrue(Introspector.instance().containsValidProperty(testBean, "nestedBean.booleanProperty", "false"));
         assertFalse(Introspector.instance().containsValidProperty(testBean, "nestedBean.emptyCollectionProperty", null));
         assertTrue(Introspector.instance().containsValidProperty(testBean, "nestedBean.nonEmptyCollectionProperty", null));
+        assertTrue(Introspector.instance().containsValidProperty(testBean, "aBCProperty", "true"));
     }
     
     private static final class TestBean
     {
+        private boolean abcProperty = true;
         private boolean booleanProperty = true;
         private Integer integerProperty = new Integer(1);
         private String stringProperty = "TestBean";
@@ -82,6 +84,14 @@ public class IntrospectorTest
         private byte byteProperty = 01;
         private NestedBean nestedBean = new NestedBean();
         private String aPropertyName;
+        public boolean isABCProperty()
+        {
+            return abcProperty;
+        }
+        public void setABCProperty(boolean abcProperty)
+        {
+            this.abcProperty = abcProperty;
+        }
         public boolean isBooleanProperty()
         {
             return booleanProperty;

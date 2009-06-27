@@ -1,7 +1,10 @@
 package org.andromda.cartridges.jsf.converters;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -39,10 +42,14 @@ public class DateTimeConverter
         {
             value = ((Calendar)value).getTime();
         }
-        final String result = super.getAsString(
-                context,
-                component,
-                value);
+        final String pattern = this.getPattern();
+        String result = null;
+        if (value != null && pattern != null && pattern.trim().length() > 0)
+        {
+            DateFormat format = new SimpleDateFormat(pattern);
+            format.setTimeZone(this.getTimeZone());
+            result = format.format((Date)value);
+        }
         return result;
     }
 
@@ -68,6 +75,7 @@ public class DateTimeConverter
             if (Calendar.class.isAssignableFrom(componentType) && asObject instanceof Date)
             {
                 final Calendar calendar = Calendar.getInstance();
+                calendar.setTimeZone(this.getTimeZone());
                 calendar.setTime((Date)asObject);
                 asObject = calendar;
             }
@@ -81,7 +89,7 @@ public class DateTimeConverter
      * @param component the component from which to retrieve the type.
      * @return true/false
      */
-    private Class getComponentType(
+    protected Class getComponentType(
         final FacesContext context,
         final UIComponent component)
     {
@@ -100,7 +108,7 @@ public class DateTimeConverter
      * @param component the component from which to retrieve the value.
      * @return true/false
      */
-    private Object getComponentValue(
+    protected Object getComponentValue(
         final FacesContext context,
         final UIComponent component)
     {
@@ -111,6 +119,50 @@ public class DateTimeConverter
             value = binding.getValue(context);
         }
         return value;
+    }
+
+    private TimeZone timeZone;
+
+    /**
+     * @see #getTimeZone()
+     * @see javax.faces.convert.DateTimeConverter#restoreState(javax.faces.context.FacesContext, java.lang.Object)
+     */
+    public void restoreState(FacesContext facesContext, Object state)
+    {
+        super.restoreState(facesContext, state);
+        Object values[] = (Object[])state;
+        this.timeZone = (TimeZone)values[4];
+    }
+
+    /**
+     * @see #getTimeZone()
+     * @see javax.faces.convert.DateTimeConverter#saveState(javax.faces.context.FacesContext)
+     */
+    public Object saveState(FacesContext facesContext)
+    {
+        Object values[] = (Object[])super.saveState(facesContext);
+        values[4] = this.timeZone;
+        return values;
+    }
+
+    /**
+     * @see #getTimeZone()
+     * @see javax.faces.convert.DateTimeConverter#setTimeZone(java.util.TimeZone)
+     */
+    public void setTimeZone(TimeZone timeZone)
+    {
+        this.timeZone = timeZone;
+    }
+
+    /**
+     * Overridden because the default timeZone is set as GMT, whereas it should be the default
+     * for the operating system (at least in my opinion).
+     *
+     * @see javax.faces.convert.DateTimeConverter#getTimeZone()
+     */
+    public TimeZone getTimeZone()
+    {
+        return this.timeZone == null ? TimeZone.getDefault() : this.timeZone;
     }
 
     public static final String CONVERTER_ID = "andromda.faces.DateTime";

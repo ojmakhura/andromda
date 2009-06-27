@@ -194,10 +194,10 @@ public class ConcreteSyntaxUtils
     }
 
     /**
-     * Gets all the parameters from the <code>featureCall</code> instance as a comma seperated String.
+     * Gets all the parameters from the <code>featureCall</code> instance as a comma separated String.
      *
      * @param featureCall the featureCall from which to retrieve the parameters
-     * @return String the comma seperated String
+     * @return String the comma separated String
      */
     public static String getParametersAsString(AFeatureCall featureCall)
     {
@@ -205,10 +205,10 @@ public class ConcreteSyntaxUtils
     }
 
     /**
-     * Gets all the parameters from the <code>PFeatureCallParameters</code> instance as a comma seperated String.
+     * Gets all the parameters from the <code>PFeatureCallParameters</code> instance as a comma separated String.
      *
      * @param featureCallParameters the featureCallParameters from which to retrieve the parameters
-     * @return String the comma seperated String
+     * @return String the comma separated String
      */
     public static String getParametersAsString(PFeatureCallParameters featureCallParameters)
     {

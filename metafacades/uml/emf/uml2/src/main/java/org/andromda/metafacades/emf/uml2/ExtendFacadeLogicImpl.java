@@ -10,8 +10,8 @@ public class ExtendFacadeLogicImpl
     extends ExtendFacadeLogic
 {
     public ExtendFacadeLogicImpl(
-        Object metaObject,
-        String context)
+        final org.eclipse.uml2.Extend metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
@@ -21,8 +21,7 @@ public class ExtendFacadeLogicImpl
      */
     protected java.lang.Object handleGetBase()
     {
-        // TODO: add your implementation here!
-        return null;
+        return this.metaObject.getExtendedCase();
     }
 
     /**
@@ -30,8 +29,7 @@ public class ExtendFacadeLogicImpl
      */
     protected java.util.List handleGetExtensionPoints()
     {
-        // TODO: add your implementation here!
-        return null;
+        return this.metaObject.getExtensionLocations();
     }
 
     /**
@@ -39,7 +37,6 @@ public class ExtendFacadeLogicImpl
      */
     protected java.lang.Object handleGetExtension()
     {
-        // TODO: add your implementation here!
-        return null;
+        return this.metaObject.getExtension();
     }
 }

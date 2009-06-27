@@ -1,23 +1,31 @@
 package org.andromda.cartridges.webservice.metafacades;
 
+import org.andromda.cartridges.webservice.WebServiceGlobals;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WebServiceParameter.
  *
  * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameter
+ * @author Bob Fields
  */
 public class WebServiceParameterLogicImpl
         extends WebServiceParameterLogic
 {
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public WebServiceParameterLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * @return !this.isRequired()
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameter#isNillable()
      */
     protected boolean handleIsNillable()
@@ -26,6 +34,7 @@ public class WebServiceParameterLogicImpl
     }
 
     /**
+     * @return testTypeName
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceParameter#getTestTypeName()
      */
     protected String handleGetTestTypeName()
@@ -70,5 +79,42 @@ public class WebServiceParameterLogicImpl
             }
         }
         return testTypeName;
+    }
+
+    /**
+     * The property defining the web service XML Adapter for Jaxb.
+     */
+    private static final String USE_ATTRIBUTES = "useAttributes";
+
+    @Override
+    protected boolean handleIsAttribute()
+    {
+        boolean isAttribute = this.hasStereotype(WebServiceGlobals.STEREOTYPE_XML_ATTRIBUTE);
+        if (!isAttribute)
+        {
+            String attributes = String.valueOf(this.getConfiguredProperty(USE_ATTRIBUTES));
+            if (StringUtils.isEmpty(attributes))
+            {
+                attributes = "true";
+            }
+            isAttribute = Boolean.parseBoolean(attributes);
+        }
+        return isAttribute;
+    }
+
+    @Override
+    protected boolean handleIsElement()
+    {
+        boolean isAttribute = this.hasStereotype(WebServiceGlobals.STEREOTYPE_XML_ELEMENT);
+        if (!isAttribute)
+        {
+            String attributes = String.valueOf(this.getConfiguredProperty(USE_ATTRIBUTES));
+            if (StringUtils.isEmpty(attributes))
+            {
+                attributes = "true";
+            }
+            isAttribute = Boolean.parseBoolean(attributes);
+        }
+        return !isAttribute;
     }
 }

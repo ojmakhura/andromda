@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!--
+        the first level mapping when testing the 'extends' feature
+        for transitive capabilities
+-->
+<mappings name="TestMappingsExtendsLevelB">
+
+    <extends>TestMappingsExtendsLevelA</extends>
+
+    <mapping>
+        <from>datatype::bbb</from>
+        <to>BBB</to>
+    </mapping>
+
+</mappings>

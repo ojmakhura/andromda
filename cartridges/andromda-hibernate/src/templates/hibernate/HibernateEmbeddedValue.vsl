@@ -111,5 +111,5 @@ $operation.getDocumentation("     * ")
 #renderEqualsMethod($class $embeddedValue.name $embeddedValue.attributes)
 
 #set ($attributeCollection = $embeddedValue.attributes)
-#renderHashCodeMethod($class $attributeCollection)
+#renderHashCodeMethod($class $embeddedValue.name $attributeCollection)
 }

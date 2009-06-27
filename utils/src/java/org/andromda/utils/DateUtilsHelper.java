@@ -78,8 +78,8 @@ public class DateUtilsHelper
 
     private static final class FormatPattern
     {
-        private String pattern = null;
-        private String replacement = null;
+        private final String pattern;
+        private final String replacement;
 
         public FormatPattern(
             final String formatPattern,

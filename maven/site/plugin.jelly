@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+
+<project xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+         xmlns:x="jelly:xml"
+         xmlns:u="jelly:util"
+         xmlns:maven="jelly:maven">
+         
+    <j:set var="pluginResources" value="${plugin.resources}/andromda"/>
+    <j:set var="reportBuildSrcDir" value="${maven.build.dir}/report/copiedsrc"/>
+
+    <!-- ===================================================================
+          Add both the custom JSL style sheet, and the custom CSS files.
+         =================================================================== -->
+    <postGoal name="xdoc:copy-resources">
+        <ant:copy todir="${maven.build.dir}/jsl">
+            <ant:fileset dir="${pluginResources}/jsl"/>
+        </ant:copy>
+        <ant:copy todir="${maven.docs.dest}/style" overwrite="true">
+            <ant:fileset dir="${pluginResources}/style"/>
+        </ant:copy>
+    </postGoal>
+
+    <preGoal name="xdoc:copy-resources">
+        <attainGoal name="xdoc:profile-xsl"/>
+        <attainGoal name="xdoc:namespace-xsl"/>
+    </preGoal>
+
+    <goal name="xdoc:profile-xsl">
+        <!-- if a namespace.xml is present then generate documentation for it -->
+        <u:available file="${maven.src.dir}/META-INF/andromda/profile.xml">
+            <!-- setting the XSLT factory provider @todo: do this only once (wouter)-->
+            <j:invokeStatic var="dummy" method="setProperty" className="java.lang.System">
+                <j:arg value="javax.xml.transform.TransformerFactory" type="java.lang.String"/>
+                <j:arg value="org.apache.xalan.processor.TransformerFactoryImpl" type="java.lang.String"/>
+            </j:invokeStatic>
+            <!-- copy the stylesheet for this specific run -->
+            <ant:copy file="${pluginResources}/xsl/profile.xsl" todir="${maven.build.dir}/xsl"/>
+            <!-- replace the variable property in the stylesheet -->
+            <ant:replace file="${maven.build.dir}/xsl/profile.xsl" token="%module%" value="${pom.name}"/>
+            <!-- performing the transformations -->
+            <ant:xslt force="true"
+                in="${maven.src.dir}/META-INF/andromda/profile.xml"
+                out="${maven.gen.docs}/profile.xml"
+                style="${maven.build.dir}/xsl/profile.xsl"/>
+        </u:available>
+    </goal>
+
+    <goal name="xdoc:namespace-xsl">
+        <!-- if a namespace.xml is present then generate documentation for it -->
+        <u:available file="${maven.src.dir}/META-INF/andromda/namespace.xml">
+            <!-- setting the XSLT factory provider @todo: do this only once (wouter)-->
+            <j:invokeStatic var="dummy" method="setProperty" className="java.lang.System">
+                <j:arg value="javax.xml.transform.TransformerFactory" type="java.lang.String"/>
+                <j:arg value="org.apache.xalan.processor.TransformerFactoryImpl" type="java.lang.String"/>
+            </j:invokeStatic>
+            <!-- copy the stylesheet for this specific run -->
+            <ant:copy file="${pluginResources}/xsl/namespace.xsl" todir="${maven.build.dir}/xsl"/>
+            <!-- replace the variable property in the stylesheet -->
+            <ant:replace file="${maven.build.dir}/xsl/namespace.xsl" token="%module%" value="${pom.name}"/>
+            <!-- performing the transformations -->
+            <j:new var="transformer" className="org.andromda.maven.site.XslTransformer"/>
+            <j:set var="inputDocument" value="${maven.build.dest}/META-INF/andromda/namespace.xml"/>
+            <j:set var="transformation" value="${maven.build.dir}/xsl/namespace.xsl"/>
+            <j:set var="outputDocument" value="${maven.gen.docs}/namespace.xml"/>
+            <j:set var="dummy" value="${transformer.transform(inputDocument,transformation,outputDocument)}"/>
+        </u:available>
+    </goal>
+
+    <preGoal name="xdoc:init">
+        <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.jsl" value="file:${maven.build.dir}/jsl/site.jsl"/>
+        <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.date" value="left"/>
+        <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.date.format" value="dd MMMM yyyy HH:mm z"/>
+        <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.version" value="${pom.currentVersion}"/>
+        <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.includeProjectDocumentation" value="yes"/>
+        <maven:set plugin="maven-xdoc-plugin" property="maven.xdoc.theme.url" value="style/maven-andromda.css"/>
+    </preGoal>
+
+    <!-- ===================================================================
+     Intercept the 'site' goal so that we can fake out the reports
+     by copying our real source to a temp directory and then setting the
+     pom's source directory to point to that one (since the reports only
+     handle one source directory per project). The report plugins
+     really should support multiple source directories but right now
+     the don't so we do this to get around it.
+   =================================================================== -->
+    <preGoal name="site">
+        <!-- because of some retarded reason this goal is executed twice if we don't include this condition-->
+        <j:if test="${!context.getAntProject().getReferences().containsKey('copied.src.path')}">
+            <ant:mkdir dir="${reportBuildSrcDir}"/>
+            <j:set var="buildSrcDir" value="${maven.build.src}"/>
+            <j:set var="sourceDirectory" value="${pom.build.sourceDirectory}"/>
+            <u:available file="${sourceDirectory}">
+                <ant:copy todir="${reportBuildSrcDir}">
+                    <ant:fileset dir="${sourceDirectory}"/>
+                </ant:copy>
+            </u:available>
+            <u:available file="${buildSrcDir}">
+                <ant:copy todir="${reportBuildSrcDir}">
+                    <ant:fileset dir="${buildSrcDir}"/>
+                </ant:copy>
+            </u:available>
+            <j:set var="dummy" value="${pom.build.setSourceDirectory(reportBuildSrcDir)}"/>
+            <!-- the javadoc plugin requires the following property to be set to the proper path -->
+            <j:set var="mavenCompileSrcPath" value="${context.getAntProject().getReferences().get('maven.compile.src.set')}"/>
+            <ant:path id="copied.src.path">
+                <ant:pathelement location="${reportBuildSrcDir}"/>
+            </ant:path>
+            <j:set var="copiedSrcPath" value="${context.getAntProject().getReferences().get('copied.src.path')}"/>
+            <j:set var="dummy" value="${context.getAntProject().getReferences().put('maven.compile.src.set',copiedSrcPath)}"/>
+        </j:if>
+    </preGoal>
+
+    <!-- ===================================================================
+           Reset the pom.build.sourceDirectory back to the real source now
+           that we're done with the reports
+         =================================================================== -->
+    <postGoal name="site">
+        <j:if test="${!context.getAntProject().getReferences().containsKey('copied.src.path')}">
+            <j:set var="dummy" value="${pom.build.setSourceDirectory(sourceDirectory)}"/>
+            <j:set var="dummy" value="${context.getAntProject().getReferences().put('maven.compile.src.set',mavenCompileSrcPath)}"/>
+        </j:if>
+    </postGoal>
+
+</project>

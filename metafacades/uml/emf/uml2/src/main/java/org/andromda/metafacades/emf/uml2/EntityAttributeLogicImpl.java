@@ -7,24 +7,32 @@ import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.EntityAttribute.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.EntityAttribute.
  *
  * @see org.andromda.metafacades.uml.EntityAttribute
+ * @author Bob Fields
  */
 public class EntityAttributeLogicImpl
     extends EntityAttributeLogic
 {
     public EntityAttributeLogicImpl(
-        Object metaObject,
-        String context)
+        final Object metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
+
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(EntityAttributeLogicImpl.class);
 
     /**
      * Overridden to provide name masking.
@@ -59,8 +67,11 @@ public class EntityAttributeLogicImpl
             this.isConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)
             ? ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)) : null;
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
-            columnNamePrefix, this, UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-            maxSqlNameLength,this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+            columnNamePrefix,
+            this,
+            UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
+            maxSqlNameLength,
+            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
     /**
@@ -146,6 +157,7 @@ public class EntityAttributeLogicImpl
      */
     protected boolean handleIsUnique()
     {
+        // TODO: Do we consider isUnique from AttributeFacade ?
         return this.hasStereotype(UMLProfile.STEREOTYPE_UNIQUE);
     }
 
@@ -159,9 +171,11 @@ public class EntityAttributeLogicImpl
     }
 
     /**
-     * Gets a Mappings instance from a property registered under the given <code>propertyName</code>.
+     * Gets a Mappings instance from a property registered under the given
+     * <code>propertyName</code>.
      *
-     * @param propertyName the property name to register under.
+     * @param propertyName
+     *            the property name to register under.
      * @return the Mappings instance.
      */
     private TypeMappings getMappingsProperty(final String propertyName)
@@ -182,7 +196,7 @@ public class EntityAttributeLogicImpl
             catch (Throwable th)
             {
                 String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
-                logger.error(
+                this.logger.error(
                     errMsg,
                     th);
 
@@ -194,5 +208,18 @@ public class EntityAttributeLogicImpl
             mappings = (TypeMappings)property;
         }
         return mappings;
+    }
+
+    protected boolean handleIsTransient()
+    {
+        return this.hasStereotype(UMLProfile.STEREOTYPE_TRANSIENT);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.EntityAttribute#getUniqueGroup()
+     */
+    protected String handleGetUniqueGroup() {
+        final String group = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_UNIQUE_GROUP);
+        return group != null ? StringUtils.trimToEmpty(group) : null;
     }
 }

@@ -1,13 +1,11 @@
 package org.andromda.core.common;
 
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
 import org.andromda.core.configuration.Namespaces;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -19,10 +17,11 @@ import org.apache.log4j.Logger;
  * made available to the cartridge templates.
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class TemplateObject
 {
-    private static Logger logger = Logger.getLogger(TemplateObject.class);
+    private static final Logger logger = Logger.getLogger(TemplateObject.class);
 
     /**
      * The name of this template object made available to the
@@ -86,7 +85,7 @@ public class TemplateObject
     /**
      * Sets all the nested properties on the templateObject object.
      *
-     * @param templateObject
+     * @param templateObject the template object on which to populate properties.
      */
     protected void setProperties(final Object templateObject)
     {
@@ -156,7 +155,6 @@ public class TemplateObject
      * populate bean like properties of template objects.
      *
      * @param reference the name of the property reference.
-     * @param defaultValue the default value of the property reference.
      */
     public void addPropertyReference(final String reference)
     {
@@ -225,7 +223,7 @@ public class TemplateObject
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

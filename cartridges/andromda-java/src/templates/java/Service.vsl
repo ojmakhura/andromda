@@ -1,3 +1,4 @@
+#if ($umlUtils.shouldOutput($service))
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -11,12 +12,15 @@ package $service.packageName;
 $service.getDocumentation(" * ")
  */
 public interface $service.name
-#if($service.generalization)
+#if ($service.generalization)
     extends $service.generalization.fullyQualifiedName
+#end
+#if (!$service.interfaceAbstractions.empty)
+    #if ($service.generalization), #else extends #end${service.implementedInterfaceList}
 #end
 {
 
-#foreach ( $operation in $service.operations )
+#foreach ($operation in $service.operations)
     /**
 $operation.getDocumentation("     * ")
      */
@@ -29,3 +33,4 @@ $operation.getDocumentation("     * ")
 
 #end
 }
+#end

@@ -2,7 +2,8 @@ package org.andromda.metafacades.emf.uml2;
 
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.ExtensionPointFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.ExtensionPointFacade.
  *
  * @see org.andromda.metafacades.uml.ExtensionPointFacade
  */
@@ -10,8 +11,8 @@ public class ExtensionPointFacadeLogicImpl
     extends ExtensionPointFacadeLogic
 {
     public ExtensionPointFacadeLogicImpl(
-        Object metaObject,
-        String context)
+        final org.eclipse.uml2.ExtensionPoint metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
@@ -21,7 +22,6 @@ public class ExtensionPointFacadeLogicImpl
      */
     protected java.lang.Object handleGetUseCase()
     {
-        // TODO: add your implementation here!
-        return null;
+        return this.metaObject.getUseCase();
     }
 }

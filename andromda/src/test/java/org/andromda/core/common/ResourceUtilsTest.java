@@ -24,7 +24,7 @@ public class ResourceUtilsTest
         assertNotNull(resources);
         assertFalse(resources.isEmpty());
         assertEquals(
-            4,
+            5,
             resources.size());
     }
 
@@ -37,7 +37,16 @@ public class ResourceUtilsTest
         assertNotNull(resources);
         assertFalse(resources.isEmpty());
         assertEquals(
-            4,
+            5,
             resources.size());
+    }
+
+    public void testResolveClasspathResource()
+        throws Exception
+    {
+        URL resource = ResourceUtils.resolveClasspathResource(
+            "classpath:" + ResourceUtilsTest.class.getPackage().getName().replace('.', '/') + '/' +
+            "ResourceUtilsTestDir/one.zip!/two.zip!/three.zip!/file.txt" );
+        assertNotNull(resource);
     }
 }

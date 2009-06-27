@@ -1,7 +1,6 @@
 package org.andromda.utils;
 
 import junit.framework.TestCase;
-import org.andromda.utils.StringUtilsHelper;
 
 
 /**
@@ -182,15 +181,22 @@ public class StringUtilsHelperTest
             {
                 new String[] {null, ""}, new String[] {"", ""}, new String[] {"               ", ""},
                 new String[] {"key", "keys"}, new String[] {"word", "words"}, new String[] {"property", "properties"},
-                new String[] {"bus", "busses"}, new String[] {"cross", "crosses"}, new String[] {"lackey", "lackeys"},
-                new String[] {"noun", "nouns"}
+                new String[] {"bus", "buses"}, new String[] {"cross", "crosses"}, new String[] {"girl", "girls"},
+                new String[] {"noun", "nouns"}, new String[] {"knife", "knives"}, new String[] {"child", "children"},
+                new String[] {"person", "people"}, new String[] {"foot", "feet"}, new String[] {"woman", "women"},
+                new String[] {"elf", "elves"}, new String[] {"series", "series"},
+                new String[] {"keys", "keys"}, new String[] {"words", "words"}, new String[] {"properties", "properties"},
+                new String[] {"buses", "buses"}, new String[] {"crosses", "crosses"}, new String[] {"girls", "girls"},
+                new String[] {"nouns", "nouns"}, new String[] {"knives", "knives"}, new String[] {"children", "children"},
+                new String[] {"people", "people"}, new String[] {"feet", "feet"}, new String[] {"women", "women"}, new String[] {"elves", "elves"}, 
             };
 
         for (int i = 0; i < fixture.length; i++)
         {
             String[] strings = fixture[i];
-            assertEquals(
-                StringUtilsHelper.pluralize(strings[0]),
+            String plural = StringUtilsHelper.pluralize(strings[0]);
+            assertEquals(plural + "!=" + strings[1],
+                plural,
                 strings[1]);
         }
     }

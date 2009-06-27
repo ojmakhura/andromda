@@ -1,8 +1,19 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.andromda.metafacades.uml.ActionStateFacade;
+import org.andromda.metafacades.uml.FinalStateFacade;
+import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.StateVertexFacade;
+import org.eclipse.uml2.Action;
+import org.eclipse.uml2.Activity;
+
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.TransitionFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.TransitionFacade.
  *
  * @see org.andromda.metafacades.uml.TransitionFacade
  */
@@ -10,125 +21,95 @@ public class TransitionFacadeLogicImpl
     extends TransitionFacadeLogic
 {
     public TransitionFacadeLogicImpl(
-        Object metaObject,
-        String context)
+        final org.eclipse.uml2.Transition metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.TransitionFacade#isTriggerPresent()
-     */
+    protected Object handleGetEffect()
+    {
+        // Effect is mapped to action, not activity
+        // We return the first action encountered in the activity
+        Action effectAction = null;
+        Activity effect = this.metaObject.getEffect();
+        if (effect != null)
+        {
+            Collection nodes = effect.getNodes();
+            for (Iterator nodesIt = nodes.iterator(); nodesIt.hasNext() && effectAction == null;)
+            {
+                Object nextNode = nodesIt.next();
+                if (nextNode instanceof Action)
+                {
+                    effectAction = (Action)nextNode;
+                }
+            }
+        }
+        return effectAction;
+    }
+
+    protected Object handleGetSource()
+    {
+        return this.metaObject.getSource();
+    }
+
+    protected Object handleGetTarget()
+    {
+        return this.metaObject.getTarget();
+    }
+
+    protected Object handleGetTrigger()
+    {
+        // We use the effect instead of trigger. It's the same "trick" as
+        // using entry instead of deferrable events
+        return this.metaObject.getEffect();
+    }
+
+    protected Object handleGetGuard()
+    {
+        return this.metaObject.getGuard();
+    }
+
     protected boolean handleIsTriggerPresent()
     {
-        // TODO: put your implementation here.
-        return false;
+        return this.metaObject.getEffect() != null;
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.TransitionFacade#isExitingDecisionPoint()
-     */
     protected boolean handleIsExitingDecisionPoint()
     {
-        // TODO: put your implementation here.
-        return false;
+        final StateVertexFacade sourceVertex = this.getSource();
+        return sourceVertex instanceof PseudostateFacade && ((PseudostateFacade)sourceVertex).isDecisionPoint();
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.TransitionFacade#isEnteringDecisionPoint()
-     */
     protected boolean handleIsEnteringDecisionPoint()
     {
-        // TODO: put your implementation here.
-        return false;
+        final StateVertexFacade target = this.getTarget();
+        return target instanceof PseudostateFacade && ((PseudostateFacade)target).isDecisionPoint();
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.TransitionFacade#isExitingActionState()
-     */
     protected boolean handleIsExitingActionState()
     {
-        // TODO: put your implementation here.
-        return false;
+        return this.getSource() instanceof ActionStateFacade;
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.TransitionFacade#isEnteringActionState()
-     */
     protected boolean handleIsEnteringActionState()
     {
-        // TODO: put your implementation here.
-        return false;
+        return this.getTarget() instanceof ActionStateFacade;
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.TransitionFacade#isExitingInitialState()
-     */
     protected boolean handleIsExitingInitialState()
     {
-        // TODO: put your implementation here.
-        return false;
+        StateVertexFacade sourceVertex = this.getSource();
+        return sourceVertex instanceof PseudostateFacade && ((PseudostateFacade)sourceVertex).isInitialState();
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.TransitionFacade#isEnteringFinalState()
-     */
     protected boolean handleIsEnteringFinalState()
     {
-        // TODO: put your implementation here.
-        return false;
+        return this.getTarget() instanceof FinalStateFacade;
     }
 
-    /**
-     * @see org.andromda.metafacades.uml.TransitionFacade#getEffect()
-     */
-    protected java.lang.Object handleGetEffect()
-    {
-        // TODO: add your implementation here!
-        return null;
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.TransitionFacade#getTrigger()
-     */
-    protected java.lang.Object handleGetTrigger()
-    {
-        // TODO: add your implementation here!
-        return null;
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.TransitionFacade#getTarget()
-     */
-    protected java.lang.Object handleGetTarget()
-    {
-        // TODO: add your implementation here!
-        return null;
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.TransitionFacade#getSource()
-     */
-    protected java.lang.Object handleGetSource()
-    {
-        // TODO: add your implementation here!
-        return null;
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.TransitionFacade#getGuard()
-     */
-    protected java.lang.Object handleGetGuard()
-    {
-        // TODO: add your implementation here!
-        return null;
-    }
-
-    /**
-     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
-     */
     public Object getValidationOwner()
     {
-        return getTarget().getStateMachine();
+        return this.getTarget().getStateMachine();
     }
 }

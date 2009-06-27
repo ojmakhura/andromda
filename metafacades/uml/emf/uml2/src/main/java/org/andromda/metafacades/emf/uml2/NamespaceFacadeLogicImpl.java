@@ -1,8 +1,11 @@
 package org.andromda.metafacades.emf.uml2;
 
+import org.eclipse.uml2.Namespace;
+
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.NamespaceFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.NamespaceFacade.
  *
  * @see org.andromda.metafacades.uml.NamespaceFacade
  */
@@ -10,8 +13,8 @@ public class NamespaceFacadeLogicImpl
     extends NamespaceFacadeLogic
 {
     public NamespaceFacadeLogicImpl(
-        Object metaObject,
-        String context)
+        final Object metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
@@ -21,7 +24,6 @@ public class NamespaceFacadeLogicImpl
      */
     protected java.util.Collection handleGetOwnedElements()
     {
-        // TODO: add your implementation here!
-        return null;
+        return ((Namespace)this.metaObject).getOwnedElements();
     }
 }

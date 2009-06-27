@@ -1,13 +1,11 @@
-<h:messages id="messageList" errorClass="error" globalOnly="true"/>
 #set($formName = $action.formBeanName)
 #if ($action.hyperlink || $action.popup)
+<af:form>
 #if ($action.hyperlink)
-<h:commandLink action="#{${action.controller.beanName}.${action.triggerName}}">
+    <af:commandLink text="#{messages['$action.messageKey']}" action="#{${action.controller.beanName}.${action.triggerName}}">
 #else
-<h:form styleClass="noSpace">
-    <jsf:popup scrolling="yes" height="350px" width="550px" actionOpen="#{${action.controller.beanName}.${action.triggerName}}" center="false">
+    <a:popup scrolling="yes" height="350px" width="550px" actionOpen="#{${action.controller.beanName}.${action.triggerName}}" center="false">
 #end
-    <h:outputText value="#{messages['$action.messageKey']}"/>
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.complex)
 #renderActionCommandLinkParameter($parameter "")
@@ -17,23 +15,20 @@
 #end
 #end
 #if ($action.hyperlink)
-</h:commandLink>
+    </af:commandLink>
 #else
-    </jsf:popup> 
-</h:form>
+    </a:popup> 
 #end
+</af:form>
 <f:verbatim><br/><br/></f:verbatim>
 #else
-#set ($clientValidation = $clientValidation.equalsIgnoreCase("true"))
+#set ($clientValidation = $clientValidation && $action.validationRequired)
 #set ($formValidateName = "validate$stringUtils.capitalize($formName)")
-<h:form id="$formName" name="$formName"#if($clientValidation) onsubmit="return $formValidateName(this);"#end enctype="multipart/form-data">
+<h:form id="$formName"#if($clientValidation) onsubmit="return $formValidateName(this);"#end enctype="multipart/form-data">
 #if (!$action.hiddenParameters.empty)
-    <%@ include file="${action.viewFragmentPath}-hidden-params.jspf" %>
+    <jsp:directive.include file="${action.viewFragmentPath}-hidden-params.jspf"/>
 #end
-    <h:panelGrid columns="3" styleClass="formTable"
-                 headerClass="formHeader"
-                 footerClass="formFooter"
-                 columnClasses="formLabels,,formInputs">           
+    <af:panelForm>          
 #foreach ($parameter in $action.parameters)
 #if (!$parameter.complex)
 #renderActionInput($parameter "")
@@ -43,22 +38,15 @@
 #end
 #end
 #end
-        <h:panelGroup/>
-        <h:panelGroup/>
-        <h:panelGroup>
-            <h:commandButton id="${action.triggerName}-submit"
-                             value="#{messages['$action.messageKey']}"
-                             action="#{${action.controller.beanName}.${action.triggerName}}"
-                             type="submit"
-                             styleClass="actionButton"/>
+        <f:facet name="footer">
+            <af:panelButtonBar>
+                <af:commandButton text="#{messages['$action.messageKey']}" action="#{${action.controller.beanName}.${action.triggerName}}"/>
 #if ($action.resettable)
-            <h:commandButton id="${action.triggerName}-reset"
-                             value="#{messages['$action.trigger.resetMessageKey']}"
-                             type="reset"
-                             styleClass="actionButton"/>
+                <af:resetButton text="#{messages['$action.trigger.resetMessageKey']}"/>
 #end
-        </h:panelGroup>
-    </h:panelGrid>
-    <jsf:validator id="${formName}Validator"#if($clientValidation) functionName="$formValidateName"#end/>
+            </af:panelButtonBar>
+        </f:facet>
+    </af:panelForm>
+    <a:validator#if(!$clientValidation) client="false"#end/>
 </h:form>
 #end

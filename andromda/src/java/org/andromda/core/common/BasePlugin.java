@@ -50,7 +50,7 @@ public abstract class BasePlugin
                 this.getNamespace(),
                 NamespaceProperties.MERGE_LOCATION,
                 false);
-        this.mergeLocation = mergeProperty != null ? new File(mergeProperty.getValue()).toURL() : null;
+        this.mergeLocation = mergeProperty != null ? new File(mergeProperty.getValue()).toURI().toURL() : null;
         if (this.mergeLocation != null)
         {
             this.getTemplateEngine().setMergeLocation(this.getMergeLocation().getFile());
@@ -191,7 +191,6 @@ public abstract class BasePlugin
      * <code>templateContext</code>.
      *
      * @param templateContext the template context
-     * @param properties      the user properties
      */
     private void addTemplateObjectsToContext(final Map templateContext)
     {
@@ -215,7 +214,7 @@ public abstract class BasePlugin
      *
      * @param templateContext the template context
      */
-    private final void addPropertyReferencesToContext(final Map templateContext)
+    private void addPropertyReferencesToContext(final Map templateContext)
     {
         final String[] propertyReferences = this.getPropertyReferences();
         if (propertyReferences != null && propertyReferences.length > 0)

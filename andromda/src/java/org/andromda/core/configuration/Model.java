@@ -3,9 +3,7 @@ package org.andromda.core.configuration;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,10 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ResourceUtils;
-import org.andromda.core.engine.ModelProcessorException;
-import org.andromda.core.metafacade.ModelAccessFacade;
 
 
 /**
@@ -154,7 +149,7 @@ public class Model
             this.urisAsStrings = new String[uriNumber];
             for (int ctr = 0; ctr < uriNumber; ctr++)
             {
-                urisAsStrings[ctr] = ((URL)uris.get(ctr)).toString();
+                urisAsStrings[ctr] = (uris.get(ctr)).toString();
             }
         }
         return this.urisAsStrings;
@@ -268,39 +263,6 @@ public class Model
     }
 
     /**
-     * Stores the model facade types keyed by namespace.
-     */
-    private Map accessFacadeTypes = new HashMap();
-
-    /**
-     * Gets the facade type of the model (i.e. the type of {@link ModelAccessFacade}).
-     *
-     * @return Returns the type.
-     */
-    public Class getAccessFacadeType()
-    {
-        Class type = null;
-        if (this.type != null && this.type.trim().length() > 0)
-        {
-            type = (Class)this.accessFacadeTypes.get(this.type);
-            if (type == null)
-            {
-                type =
-                    ClassUtils.findClassOfType(
-                        Namespaces.instance().getResourceRoots(this.type),
-                        ModelAccessFacade.class);
-                if (type == null)
-                {
-                    throw new ModelProcessorException("No model access facade could be found within namespace '" +
-                        this.type + "', verify that the value of your model 'type' attribute is a namespace which " +
-                        "contains a model access facade");
-                }
-            }
-        }
-        return type;
-    }
-
-    /**
      * Sets the type of model (i.e. the type of metamodel this model
      * is based upon).
      *
@@ -356,7 +318,7 @@ public class Model
 
     /**
      * Stores all resources including all resources found within the module search locations
-     * as well as a resource for the {@link #uri}.
+     * as well as a resource for the {@link #getUris()}.
      */
     private URL[] moduleSearchLocationResources = null;
 
@@ -414,7 +376,7 @@ public class Model
     {
         String toString = super.toString();
         final String key = this.getKey();
-        if (key != null || key.trim().length() == 0)
+        if (key != null && key.trim().length() > 0)
         {
             toString = key;
         }
@@ -437,10 +399,9 @@ public class Model
      * (its made up of a list of all the uris for this model
      * concatinated).
      *
-     * @param uri the model uri.
      * @return the unique key
      */
-    private final String getKey()
+    private String getKey()
     {
         if (this.key == null || this.key.trim().length() == 0)
         {
@@ -536,9 +497,9 @@ public class Model
 
     /**
      * Loads (or re-loads) the last modified times from the
-     * {@link #uri} and the modules found on the module search path.
+     * {@link #getUris()} and the modules found on the module search path.
      */
-    private final void loadLastModifiedTimes()
+    private void loadLastModifiedTimes()
     {
         final Object modelKey = this.getKey();
         Map lastModifiedTimes = (Map)modelModifiedTimes.get(modelKey);
@@ -572,7 +533,7 @@ public class Model
     /**
      * Clears out the current last modified times.
      */
-    static final void clearLastModifiedTimes()
+    static void clearLastModifiedTimes()
     {
         modelModifiedTimes.clear();
     }

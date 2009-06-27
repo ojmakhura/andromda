@@ -4,15 +4,19 @@ import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.ManageableEntityAttribute.
  *
  * @see org.andromda.metafacades.uml.ManageableEntityAttribute
+ * @author Bob Fields
  */
 public class ManageableEntityAttributeLogicImpl
     extends ManageableEntityAttributeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ManageableEntityAttributeLogicImpl(
         Object metaObject,
         String context)
@@ -23,6 +27,7 @@ public class ManageableEntityAttributeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ManageableEntityAttribute#isDisplay()
      */
+    @Override
     protected boolean handleIsDisplay()
     {
         boolean display = true;
@@ -46,7 +51,7 @@ public class ManageableEntityAttributeLogicImpl
                 display = true;
             }
 
-            // only display identifiers when explicitely modeled
+            // only display identifiers when explicitly modeled
             else // if ("auto".equalsIgnoreCase(displayStrategy))
             {
                 display = ((Entity)this.getOwner()).isUsingAssignedIdentifier();
@@ -59,8 +64,9 @@ public class ManageableEntityAttributeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ManageableEntityAttribute#isManageableGetterAvailable()
      */
+    @Override
     protected boolean handleIsManageableGetterAvailable()
     {
-        return this.getType() != null ? this.getType().isBlobType() : false;
+        return this.getType() != null && this.getType().isBlobType();
     }
 }

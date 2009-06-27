@@ -1,14 +1,14 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.metafacades.uml.PseudostateFacade;
-
 import java.util.Collection;
+import org.andromda.metafacades.uml.PseudostateFacade;
 
 
 /**
  * MetafacadeLogic implementation.
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActivityGraph
+ * @author Bob Fields
  */
 public class StrutsActivityGraphLogicImpl
     extends StrutsActivityGraphLogic
@@ -27,8 +27,8 @@ public class StrutsActivityGraphLogicImpl
         if (!initialStates.isEmpty())
         {
             final PseudostateFacade initialState = (PseudostateFacade)initialStates.iterator().next();
-            final Collection outgoing = initialState.getOutgoing();
-            firstAction = (outgoing.isEmpty()) ? null : outgoing.iterator().next();
+            final Collection outgoings = initialState.getOutgoings();
+            firstAction = (outgoings.isEmpty()) ? null : outgoings.iterator().next();
         }
         return firstAction;
     }

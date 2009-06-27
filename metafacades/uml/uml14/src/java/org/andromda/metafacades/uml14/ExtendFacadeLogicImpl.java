@@ -1,24 +1,32 @@
 package org.andromda.metafacades.uml14;
 
-
+import java.util.List;
+import org.omg.uml.behavioralelements.usecases.UseCase;
+import org.omg.uml.behavioralelements.usecases.Extend;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.ExtendFacade.
  *
  * @see org.andromda.metafacades.uml.ExtendFacade
+ * @author Bob Fields
  */
 public class ExtendFacadeLogicImpl
     extends ExtendFacadeLogic
 {
-    public ExtendFacadeLogicImpl (org.omg.uml.behavioralelements.usecases.Extend metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public ExtendFacadeLogicImpl (Extend metaObject, String context)
     {
         super (metaObject, context);
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ExtendFacade#handleGetBase()
+     * @see org.andromda.metafacades.uml.ExtendFacade#getBase()
      */
-    protected Object handleGetBase()
+    @Override
+    protected UseCase handleGetBase()
     {
         return metaObject.getBase();
     }
@@ -26,15 +34,17 @@ public class ExtendFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ExtendFacade#getExtensionPoints()
      */
-    protected java.util.List handleGetExtensionPoints()
+    @Override
+    protected List handleGetExtensionPoints()
     {
         return metaObject.getExtensionPoint();
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ExtendFacade#handleGetExtension()
+     * @see org.andromda.metafacades.uml.ExtendFacade#getExtension()
      */
-    protected Object handleGetExtension()
+    @Override
+    protected UseCase handleGetExtension()
     {
         return metaObject.getExtension();
     }

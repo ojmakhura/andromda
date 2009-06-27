@@ -25,7 +25,7 @@
         </description>
         <attribute>
             <name>id</name>
-            <required>true</required>
+            <required>false</required>
             <rtexprvalue>false</rtexprvalue>
             <description>
                 The component identifier for this component. This value
@@ -34,12 +34,11 @@
             </description>
         </attribute>
         <attribute>
-            <name>functionName</name>
+            <name>client</name>
             <required>false</required>
             <rtexprvalue>false</rtexprvalue>
             <description>
-                The name of the function to generate, if this isn't
-                present then client side validation will not be rendered.
+                Whether or not client-side validation should be disabled.  By default client-side validation is enabled.
             </description>
         </attribute>
     </tag>

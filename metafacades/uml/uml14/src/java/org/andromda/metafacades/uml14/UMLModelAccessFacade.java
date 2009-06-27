@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.configuration.Filters;
 import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
+import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.PackageFacade;
 import org.apache.commons.collections.CollectionUtils;
@@ -26,6 +26,7 @@ import org.omg.uml.foundation.core.ModelElement;
  *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class UMLModelAccessFacade
     implements ModelAccessFacade
@@ -34,7 +35,7 @@ public class UMLModelAccessFacade
     private UmlPackage model;
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#setModel(java.lang.Object)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#setModel(Object)
      */
     public void setModel(final Object model)
     {
@@ -44,18 +45,21 @@ public class UMLModelAccessFacade
             "modelElement",
             model.getClass());
         this.model = (UmlPackage)model;
+        // TODO: - clears out the foreign key cache (probably not
+        //         the cleanest way, but the easiest at this point).
+        EntityMetafacadeUtils.clearForeignKeyConstraintNameCache();
     }
 
     /**
      * @see org.andromda.core.metafacade.ModelAccessFacade#getModel()
      */
-    public Object getModel()
+    public UmlPackage getModel()
     {
         return model;
     }
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#getName(java.lang.Object)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getName(Object)
      */
     public String getName(final Object modelElement)
     {
@@ -68,7 +72,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#getPackageName(java.lang.Object)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getPackageName(Object)
      */
     public String getPackageName(final Object modelElement)
     {
@@ -80,7 +84,7 @@ public class UMLModelAccessFacade
         final ModelElementFacade modelElementFacade = (ModelElementFacade)modelElement;
         final StringBuffer packageName = new StringBuffer(modelElementFacade.getPackageName(true));
 
-        // - if the model element is a package then the package name will be the name 
+        // - if the model element is a package then the package name will be the name
         //   of the package with its package name
         if (modelElement instanceof PackageFacade)
         {
@@ -95,16 +99,16 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#getStereotypeNames(java.lang.Object)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getStereotypeNames(Object)
      */
-    public Collection getStereotypeNames(final Object modelElement)
+    public Collection<String> getStereotypeNames(final Object modelElement)
     {
-        Collection stereotypeNames = new ArrayList();
+        Collection<String> stereotypeNames = new ArrayList();
         if (modelElement instanceof ModelElement)
         {
             ModelElement element = (ModelElement)modelElement;
-            Collection stereotypes = element.getStereotype();
-            for (final Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
+            Collection<ModelElement> stereotypes = element.getStereotype();
+            for (final Iterator<ModelElement> iterator = stereotypes.iterator(); iterator.hasNext();)
             {
                 ModelElement stereotype = (ModelElement)iterator.next();
                 stereotypeNames.add(stereotype.getName());
@@ -118,7 +122,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#findByStereotype(java.lang.String)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#findByStereotype(String)
      */
     public Collection findByStereotype(String stereotype)
     {
@@ -129,13 +133,13 @@ public class UMLModelAccessFacade
         {
             if (this.model != null)
             {
-                final Collection underlyingElements = model.getCore().getModelElement().refAllOfType();
-                if (underlyingElements != null || !underlyingElements.isEmpty())
+                final Collection<ModelElement> underlyingElements = model.getCore().getModelElement().refAllOfType();
+                if (underlyingElements != null && !underlyingElements.isEmpty())
                 {
-                    for (final Iterator iterator = underlyingElements.iterator(); iterator.hasNext();)
+                    for (final Iterator<ModelElement> iterator = underlyingElements.iterator(); iterator.hasNext();)
                     {
                         ModelElement element = (ModelElement)iterator.next();
-                        Collection stereotypeNames = this.getStereotypeNames(element);
+                        Collection<String> stereotypeNames = this.getStereotypeNames(element);
                         if (stereotypeNames != null && stereotypeNames.contains(stereotype))
                         {
                             metafacades.add(MetafacadeFactory.getInstance().createMetafacade(element));
@@ -155,9 +159,9 @@ public class UMLModelAccessFacade
     /**
      * @see org.andromda.core.metafacade.ModelAccessFacade#getModelElements()
      */
-    public Collection getModelElements()
+    public Collection<MetafacadeBase> getModelElements()
     {
-        Collection metafacades = Collections.EMPTY_LIST;
+        Collection<MetafacadeBase> metafacades = Collections.EMPTY_LIST;
         if (this.model != null)
         {
             metafacades =
@@ -185,9 +189,9 @@ public class UMLModelAccessFacade
     /**
      * Filters out those metafacades which <strong>should </strong> be processed.
      *
-     * @param modelElements the Collection of modelElements.
+     * @param metafacades the Collection of modelElements.
      */
-    private final void filterMetafacades(final Collection metafacades)
+    private void filterMetafacades(final Collection metafacades)
     {
         if (this.modelPackages != null && !this.modelPackages.isEmpty())
         {
@@ -203,7 +207,7 @@ public class UMLModelAccessFacade
                             final ModelElementFacade modelElementFacade = (ModelElementFacade)metafacade;
                             final StringBuffer packageName = new StringBuffer(modelElementFacade.getPackageName(true));
 
-                            // - if the model element is a package then the package name will be the name 
+                            // - if the model element is a package then the package name will be the name
                             //   of the package with its package name
                             if (metafacade instanceof PackageFacade)
                             {

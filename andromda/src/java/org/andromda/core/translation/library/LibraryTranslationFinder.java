@@ -31,7 +31,7 @@ public class LibraryTranslationFinder
      * @param libraryName
      * @return the Library found or null if none is found.
      */
-    protected static final Library findLibrary(final String libraryName)
+    protected static Library findLibrary(final String libraryName)
     {
         return (Library)ComponentContainer.instance().findComponentByNamespace(libraryName, Library.class);
     }

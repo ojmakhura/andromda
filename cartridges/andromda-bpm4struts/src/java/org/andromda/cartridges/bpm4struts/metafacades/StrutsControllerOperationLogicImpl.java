@@ -270,8 +270,7 @@ public class StrutsControllerOperationLogicImpl
             final ParameterFacade serviceParameter = (ParameterFacade)iterator.next();
             final ClassifierFacade controllerParameterType = (ClassifierFacade)parameterMap.get(
                 serviceParameter.getName());
-            matches = (controllerParameterType == null) ?
-                false : controllerParameterType.equals(serviceParameter.getType());
+            matches = (controllerParameterType != null) && controllerParameterType.equals(serviceParameter.getType());
         }
 
         return matches;

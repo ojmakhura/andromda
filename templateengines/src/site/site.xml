@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="AndroMDA Template Engines">
+    <skin>
+        <groupId>org.andromda.maven.plugins.site</groupId>
+        <artifactId>andromda-site-skin</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </skin>
+    <bannerLeft>
+        <name></name>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy hh:mm zzz"/>
+	<body>
+    	<links>
+    	    <item name="Home" href="../index.html"/>
+      		<item name="Template Engines" href="/index.html"/>
+    	</links>
+		<menu name="Overview">
+			<item name="About" href="index.html"/>
+			<item name="Developing" href="developing.html"/>
+    	</menu>
+    	<menu name="Available Template Engines">
+			<item name="Velocity" href="andromda-templateengine-velocity/index.html"/>	
+    	</menu>
+    	<menu ref="reports"/>
+  	</body>
+</project>

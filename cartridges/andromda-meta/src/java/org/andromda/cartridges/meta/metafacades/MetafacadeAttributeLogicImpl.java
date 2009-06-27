@@ -7,20 +7,26 @@ import org.apache.commons.lang.StringUtils;
  * MetafacadeLogic implementation for org.andromda.cartridges.meta.metafacades.MetafacadeAttribute.
  *
  * @see org.andromda.cartridges.meta.metafacades.MetafacadeAttribute
+ * @author Bob Fields
  */
 public class MetafacadeAttributeLogicImpl
     extends MetafacadeAttributeLogic
 {
+    /**
+     * @param metaObjectIn
+     * @param context
+     */
     public MetafacadeAttributeLogicImpl(
-        Object metaObject,
+        Object metaObjectIn,
         String context)
     {
-        super(metaObject, context);
+        super(metaObjectIn, context);
     }
 
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeAttribute#getImplementationOperationName()
      */
+    @Override
     protected String handleGetImplementationOperationName()
     {
         return StringUtils.trimToEmpty(

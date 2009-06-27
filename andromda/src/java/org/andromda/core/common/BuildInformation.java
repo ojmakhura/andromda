@@ -25,7 +25,7 @@ public class BuildInformation
      *
      * @return the shared BuildInformation instance.
      */
-    public static final BuildInformation instance()
+    public static BuildInformation instance()
     {
         return instance;
     }
@@ -63,7 +63,7 @@ public class BuildInformation
      */
     private String buildVersion;
 
-    private final void initialize()
+    private void initialize()
     {
         final String buildPropertiesUri = "META-INF/andromda-build.properties";
         final String versionPropertyName = "andromda.build.version";

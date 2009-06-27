@@ -38,28 +38,56 @@
         overflowToDisk="true" />
 
 #if($hibernateEnableCache == "true")
+#if($hibernateEnableDistributedCache == "true")
+    <cacheManagerPeerProviderFactory
+        class="net.sf.ehcache.distribution.RMICacheManagerPeerProviderFactory"
+        properties="peerDiscovery=automatic,
+        multicastGroupAddress=$hibernateDistributedCacheMulticastAddress,
+        multicastGroupPort=$hibernateDistributedCacheMulticastPort,
+        socketTimeoutMillis=$hibernateDistributedCacheSocketTimeout"/>
+
+    <cacheManagerPeerListenerFactory
+        class="net.sf.ehcache.distribution.RMICacheManagerPeerListenerFactory"/>
+#end
+
 #foreach($entity in $entities)
-    <cache 
+    <cache
         name="$entity.fullyQualifiedEntityImplementationName"
         maxElementsInMemory="$entity.ehCacheMaxElementsInMemory"
         eternal="$entity.ehCacheEternal"
         timeToIdleSeconds="$entity.ehCacheTimeToIdleSeconds"
         timeToLiveSeconds="$entity.ehCacheTimeToLiveSeconds"
-        overflowToDisk="$entity.ehCacheOverflowToDisk"/>
+        overflowToDisk="$entity.ehCacheOverflowToDisk"
+#if ($entity.hibernateCacheDistributed)
+    >
+        <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+    </cache>
+#else
+    />
+#end
 
 #if($hibernateEnableAssociationsCache == "true")
 #foreach ($sourceEnd in $entity.associationEnds)
 #if ($sourceEnd.one2Many)
 #set ($otherEnd = $sourceEnd.otherEnd)
+#if ($otherEnd.navigable)
 #set ($association = $sourceEnd.association)
-    <cache 
+    <cache
         name="${entity.fullyQualifiedEntityImplementationName}.$otherEnd.name"
         maxElementsInMemory="$association.ehCacheMaxElementsInMemory"
         eternal="$association.ehCacheEternal"
         timeToIdleSeconds="$association.ehCacheTimeToIdleSeconds"
         timeToLiveSeconds="$association.ehCacheTimeToLiveSeconds"
-        overflowToDisk="$association.ehCacheOverflowToDisk"/>
+        overflowToDisk="$association.ehCacheOverflowToDisk"
+#if ($association.hibernateCacheDistributed)
+    >
+        <cacheEventListenerFactory class="net.sf.ehcache.distribution.RMICacheReplicatorFactory"/>
+    </cache>
+#else
+    />
+#end
 
+#end
 #end
 #end
 #end

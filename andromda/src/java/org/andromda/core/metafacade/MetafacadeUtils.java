@@ -1,11 +1,9 @@
 package org.andromda.core.metafacade;
 
 import java.lang.reflect.Constructor;
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.Introspector;
 import org.andromda.core.configuration.Namespaces;
@@ -16,6 +14,7 @@ import org.apache.log4j.Logger;
  * Contains static utility methods for dealing with metafacade instances.
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 final class MetafacadeUtils
 {
@@ -27,7 +26,7 @@ final class MetafacadeUtils
      * @param mapping the MetafacadeMapping instance that contains the properties.
      * @return true/false
      */
-    static final boolean propertiesValid(
+    static boolean propertiesValid(
         final MetafacadeBase metafacade,
         final MetafacadeMapping mapping)
     {
@@ -106,10 +105,11 @@ final class MetafacadeUtils
      *
      * @param metafacadeClass the metafacade class.
      * @param mappingObject the object to which the metafacade is mapped.
+     * @param context 
      * @return the new metafacade.
      * @throws Exception if any error occurs during metafacade creation
      */
-    static final MetafacadeBase constructMetafacade(
+    static MetafacadeBase constructMetafacade(
         final Class metafacadeClass,
         final Object mappingObject,
         final String context)
@@ -127,19 +127,19 @@ final class MetafacadeUtils
 
     /**
      * Retrieves the inherited mapping class name for the given <code>mapping</code> by traveling 
-     * up the inheritance hiearchy to find the first one that has the mapping class name declared.
+     * up the inheritance hierarchy to find the first one that has the mapping class name declared.
      *
-     * @param mapping the {@link MetafacadeMapping} instance for which we'll retrieve it's mapping class.
+     * @param mapping the {@link MetafacadeMapping} instance for which we'll retrieve its mapping class.
      * @return the name of the mapping class.
      */
     public static String getInheritedMappingClassName(final MetafacadeMapping mapping)
     {
         final Class metafacadeClass = mapping.getMetafacadeClass();
-        final Collection interfaces = ClassUtils.getAllInterfaces(metafacadeClass);
+        final Collection<Class> interfaces = ClassUtils.getAllInterfaces(metafacadeClass);
         final MetafacadeImpls metafacadeImpls = MetafacadeImpls.instance();
-        final Map mappingInstances = MetafacadeMappings.getAllMetafacadeMappingInstances();
+        final Map<Class, String> mappingInstances = MetafacadeMappings.getAllMetafacadeMappingInstances();
         String className = null;
-        for (final Iterator iterator = interfaces.iterator(); iterator.hasNext() && className == null;)
+        for (final Iterator<Class> iterator = interfaces.iterator(); iterator.hasNext() && className == null;)
         {
             final String metafacadeInterface = ((Class)iterator.next()).getName();
             final Class metafacadeImplClass = metafacadeImpls.getMetafacadeImplClass(metafacadeInterface);
@@ -177,7 +177,7 @@ final class MetafacadeUtils
      *
      * @return the logger instance.
      */
-    private static final Logger getLogger()
+    private static Logger getLogger()
     {
         return MetafacadeFactory.getInstance().getLogger();
     }

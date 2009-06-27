@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <extend>../project.xml</extend>
+    <artifactId>andromda-utils-plugin</artifactId>
+    <name>AndroMDA Utils Maven Plugin</name>
+    <shortDescription>AndroMDA Utils Maven Plugin</shortDescription>
+    <description>
+        Provides utility features.
+    </description>
+    <developers>
+        <developer>
+            <name>Wouter Zoons</name>
+            <id>draftdog</id>
+            <email>wouter@andromda.org</email>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+            </roles>
+        </developer>
+    </developers>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>.</directory>
+                <includes>
+                    <include>plugin.jelly</include>
+                    <include>plugin.properties</include>
+                    <include>project.xml</include>
+                    <include>plugin-resources/**/*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+</project>

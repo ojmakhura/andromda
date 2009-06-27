@@ -21,6 +21,7 @@ import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -197,7 +198,8 @@ public class JSFUtils
      */
     public static String getDateFormat(String format)
     {
-        return isStrictDateFormat(format) ? getToken(
+        format = StringUtils.trimToEmpty(format);
+        return format.endsWith(STRICT) ? getToken(
             format,
             1,
             2) : getToken(
@@ -205,13 +207,15 @@ public class JSFUtils
             0,
             1);
     }
+    
+    private static final String STRICT = "strict";
 
     /**
      * @return <code>true</code> if this field's value needs to conform to a strict date format, <code>false</code> otherwise
      */
     public static boolean isStrictDateFormat(String format)
     {
-        return "strict".equalsIgnoreCase(getToken(
+        return strictDateTimeFormat ? strictDateTimeFormat : STRICT.equalsIgnoreCase(getToken(
                 format,
                 0,
                 2));
@@ -459,15 +463,20 @@ public class JSFUtils
      * Retrieves the "equal" value from the given element (if one is present).
      *
      * @param element the element from which to retrieve the equal value.
+     * @param ownerParameter the optional owner parameter (specified if the element is an attribute).
      * @return the "equal" value.
      */
-    public static java.lang.String getEqual(final ModelElementFacade element)
+    public static java.lang.String getEqual(final ModelElementFacade element, final ParameterFacade ownerParameter)
     {
         String equal = null;
         if (element != null)
         {
             final Object value = element.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_EQUAL);
             equal = value == null ? null : value.toString();
+            if (StringUtils.isNotBlank(equal) && ownerParameter != null)
+            {
+                equal = ownerParameter.getName() + StringUtilsHelper.upperCamelCaseName(equal);
+            }
         }
         return equal;
     }
@@ -664,7 +673,7 @@ public class JSFUtils
             {
                 validatorTypesList.add("validwhen");
             }
-            if (JSFUtils.getEqual(element) != null)
+            if (JSFUtils.getEqual(element, null) != null)
             {
                 validatorTypesList.add("equal");
             }
@@ -686,11 +695,13 @@ public class JSFUtils
      *
      * @param element the element from which to retrieve the variables
      * @param type the type of the element.
+     * @param ownerParameter the optional owner parameter (if the element is an attribute for example).
      * @return the collection of validator variables.
      */
     public static java.util.Collection getValidatorVars(
         final ModelElementFacade element,
-        final ClassifierFacade type)
+        final ClassifierFacade type,
+        final ParameterFacade ownerParameter)
     {
         final Map vars = new LinkedHashMap();
         if (element != null && type != null)
@@ -789,7 +800,7 @@ public class JSFUtils
                     Arrays.asList(new Object[] {test, validWhen}));
             }
             
-            final String equal = JSFUtils.getEqual(element);
+            final String equal = JSFUtils.getEqual(element, ownerParameter);
             if (equal != null)
             {
                 final String fieldName = "fieldName";
@@ -851,7 +862,7 @@ public class JSFUtils
         else if ("date".equals(validatorType))
         {
             final String validatorFormat = JSFUtils.getInputFormat(element);
-            if (validatorFormat != null && JSFUtils.isStrictDateFormat(validatorFormat))
+            if (JSFUtils.isStrictDateFormat(validatorFormat))
             {
                 args.add("${var:datePatternStrict}");
             }
@@ -867,7 +878,7 @@ public class JSFUtils
         else if ("equal".equals(validatorType))
         {
             ModelElementFacade equalParameter = null;
-            final String equal = JSFUtils.getEqual(element);
+            final String equal = JSFUtils.getEqual(element, null);
             if (element instanceof ParameterFacade)
             {
                 final FrontEndParameter parameter = (FrontEndParameter)element;
@@ -910,6 +921,21 @@ public class JSFUtils
         }
         return args;
     }
+    
+    /**
+     * Whether or not date patterns should be treated as strict.
+     */
+    private static boolean strictDateTimeFormat;
+    
+    /**
+     * Sets whether or not the dattern patterns should be treated as strict.
+     * 
+     * @param strictDateTimeFormat
+     */
+    public void setStrictDateTimeFormat(final boolean strictDateTimeFormat)
+    {
+        JSFUtils.strictDateTimeFormat = strictDateTimeFormat;
+    }
 
     /**
      * Indicates whether or not the format for this element is a strict date
@@ -919,7 +945,7 @@ public class JSFUtils
     public static boolean isStrictDateFormat(final ModelElementFacade element)
     {
         final String format = JSFUtils.getInputFormat(element);
-        return format != null && JSFUtils.isStrictDateFormat(format);
+        return JSFUtils.isStrictDateFormat(format);
     }
 
     /**
@@ -956,5 +982,69 @@ public class JSFUtils
             }
         }
         return format;
+    }
+    
+    /**
+     * The JSP view type.
+     */
+    private static final String VIEW_TYPE_JSP = "jsp";
+    
+    /**
+     * The facelet view type.
+     */
+    private static final String VIEW_TYPE_FACELETS = "facelets";
+    
+    /**
+     * Stores the view type
+     */
+    private String viewType;
+    
+    /**
+     * Sets the view type to use.
+     * 
+     * @param viewType the view type.
+     */
+    public void setViewType(final String viewType)
+    {
+        this.viewType = viewType;
+    }
+    
+    /**
+     * Gets the current view type.
+     * 
+     * @return the view type.
+     */
+    public String getViewType()
+    {
+        return this.viewType;
+    }
+    
+    /**
+     * The XHTML extension.
+     */
+    private static final String EXTENSION_XHTML = "xhtml";
+    
+    /**
+     * Gets the extension for the current view type.
+     * 
+     * @return the view type extension.
+     */
+    public String getViewExtension()
+    {
+        String extension;
+        if (VIEW_TYPE_JSP.equals(this.viewType))
+        {
+            extension = this.viewType;
+        }
+        else if (VIEW_TYPE_FACELETS.equals(this.viewType))
+        {
+            extension = EXTENSION_XHTML;
+        }
+        else
+        {
+            throw new RuntimeException("'" + this.viewType + "' is not a valid viewType, the options are '" 
+                + VIEW_TYPE_JSP + "' or '" + VIEW_TYPE_FACELETS + "'");
+        }
+        return extension;
     }
 }

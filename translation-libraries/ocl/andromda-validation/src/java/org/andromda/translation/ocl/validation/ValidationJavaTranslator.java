@@ -154,11 +154,13 @@ public class ValidationJavaTranslator
             features.load(stream);
             stream.close();
             stream = null;
+            
         }
-        catch (Throwable th)
+        catch (final Throwable throwable)
         {
-            throw new ValidationTranslatorException(th);
+            throw new ValidationTranslatorException(throwable);
         }
+
     }
 
     /**
@@ -576,7 +578,8 @@ public class ValidationJavaTranslator
      */
     private String getPathTail(String navigationalPath)
     {
-        return StringUtils.trimToEmpty(navigationalPath).replaceAll(".*\\.", "");
+        final int dotIndex = navigationalPath.indexOf(".");
+        return dotIndex != -1 ? navigationalPath.substring(dotIndex + 1, navigationalPath.length()) : navigationalPath;
     }
 
     /**
@@ -590,7 +593,6 @@ public class ValidationJavaTranslator
             final String variableName = ((APathName)node.getPathName()).getName().getText();
             final String variableValue = getDeclaredLetVariableValue(variableName);
             final boolean isDeclaredAsLetVariable = (variableValue != null);
-
             String featureExpression = TranslationUtils.deleteWhitespace(node);
             if (isDeclaredAsLetVariable)
             {
@@ -642,8 +644,8 @@ public class ValidationJavaTranslator
                         }
                         if (this.isOperationArgument(expressionAsString))
                         {
-                            // if the expression is an argument, then 
-                            // that becomes the invoked object
+                            // - if the expression is an argument, then 
+                            //   that becomes the invoked object
                             invokedObject = this.getRootName(expressionAsString);
                             expressionAsString = this.getPathTail(expressionAsString);
                             introspectorCall = !invokedObject.equals(expressionAsString);
@@ -1365,6 +1367,5 @@ public class ValidationJavaTranslator
         this.getExpression().insertInTranslatedExpression(0,
                 "final java.lang.Object " + CONTEXT_ELEMENT_NAME + " = this; ");
         this.getExpression().appendToTranslatedExpression(");");
-
     }
 }

@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create User Entity</title>
+</head>
+<body>
+    <h2>Create User Entity</h2>
+    <!------------------------- Intro Text ------------------------->
+    <p>
+        This page provides directions to create the <code>User</code> entity using MagicDraw.
+        The model is shown below for your reference.
+    </p>
+    <!------------------------- Main Text ------------------------->
+    <table width="100%" border="0">
+        <tbody>
+            <tr>
+                <!-- img src="Images/User.jpg" alt="User" / -->
+                <td align="center" style="width: 100%">
+                    {mosimage}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        {mosimage}
+        <!-- img src="Images/DomainPackage.jpg" alt="Containment Tree" / -->
+    </p>
+    <p>
+        We will create <code>User</code> in a package named <code>org.andromda.timetracker.domain</code>.
+        When finished, the containment tree in MagicDraw will look like the screen shot
+        on the right.
+    </p>
+    <ol>
+        <li>In the TimeTracker model create a package called <code>domain</code> under <code>
+            org.andromda.timetracker</code>.</li>
+        <li>In the Containment Tree on the left, right-click on the <code>domain</code> package
+            and select New Diagram > Class Diagram. Type in "Domain Objects" as the name of
+            this diagram and click OK. The diagram is created and opened in a new window.</li>
+        <li>Add a new class to the diagram and name it <code>User</code>.</li>
+        <li>Add the stereotype called Entity to <code>User</code>.</li>
+        <li>Add the 3 attributes to <code>User</code>.</li>
+        <li>Double click on the class to open the class specification.</li>
+        <li>Click on the <em>Tagged Values</em> tab and then click on the tagged value named
+            <code>@andromda.persistence.table</code>. This tagged value allows you to override
+            the default table name for the entity. Click the <em>Create Value</em> button. Enter
+            the value <code>USERS</code> in the right panel. Click OK to add this tagged value
+            to the <code>User</code> entity.</li>
+        <li>Note that the tagged value shows up in the diagram. To suppress it, right-click
+            on the entity and choose <em>Presentation Options</em>, then deselect <em>Show Tagged
+                Values</em>.</li>
+        <li>Make sure your class diagram matches the one shown above.</li>
+        <li>Make sure that the MagicDraw containment tree matches the screen shot shown above.</li>
+        <li>Save the model by selecting File > Save Project.</li>
+    </ol>
+    <p>
+        Now go back to the main tutorial page and continue from where you left off.
+    </p>
+</body>
+</html>

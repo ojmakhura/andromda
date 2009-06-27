@@ -18,7 +18,7 @@ ${indent}<logic:present role="$roles">
 #set ($separator = "?")
 #foreach ($parameter in $parameters)
 #if ($parameter.defaultValuePresent)
-#set ($parameterValue = "$parameter.defaultValue")
+#set ($parameterValue = "${parameter.defaultValue}")
 #else
 #set ($parameterValue = "${${formBeanName}.${parameter.name}}")
 #end
@@ -26,7 +26,7 @@ ${indent}<logic:present role="$roles">
 #set ($requestPath = "${requestPath}${separator}${parameter.name}=${parameterValue}")
 #end
 ${indent}    <p>
-${indent}        <html:link action="${requestPath}" #if($hints=="true")onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end>
+${indent}        <html:link action="${requestPath.replaceAll('"', '')}" #if($hints=="true")onmouseover="hints.show('${trigger.name}')" onmouseout="hints.hide()"#end>
 ${indent}            <bean:message key="$triggerKey"/>
 ${indent}        </html:link>
 ${indent}    </p>
@@ -83,7 +83,8 @@ ${indent}</html:link>
 #set ($delim = '&')
 #else
 #if ($parameter.defaultValuePresent)
-#set($linkParameters="${linkParameters}${parameter.defaultValue}'")
+#set ($defaultValue=${parameter.defaultValue.replaceAll("\"","")})
+#set($linkParameters="${linkParameters}$defaultValue'")
 #else
 #set($linkParameters="${linkParameters}'+getDiv('$parameter.styleId$rowIndex').value")
 #end
@@ -188,7 +189,11 @@ ${indent}</logic:notPresent>
 #set ($fieldName = $field.name)
 #set ($formBeanName = $action.useCase.formKey)## used to denote the request scope form
 #if($field.fieldRowCount)#set($rowCount=" rows=$quote$field.fieldRowCount$quote")#else#set($rowCount='')#end
+#if($field.textArea)
+#if($field.fieldColumnCount)#set($columnCount=" cols=$quote$field.fieldColumnCount$quote")#else#set($columnCount='')#end
+#else
 #if($field.fieldColumnCount)#set($columnCount=" size=$quote$field.fieldColumnCount$quote")#else#set($columnCount='')#end
+#end
 #if($rowIndex=='')#set($beanName=$formBeanName)#else#set($beanName="row")#end
 #set ($styleId = "$field.styleId$rowIndex")
 #if ($field.readOnly)

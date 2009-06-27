@@ -6,21 +6,27 @@ import org.andromda.translation.ocl.ExpressionKinds;
 
 /**
  * Metaclass facade implementation.
+ * @author Bob Fields
  */
 public class EntityQueryOperationLogicImpl
     extends EntityQueryOperationLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EntityQueryOperationLogicImpl(
-        java.lang.Object metaObject,
+        Object metaObject,
         String context)
     {
         super(metaObject, context);
     }
 
     /**
-     * @see org.andromda.metafacades.uml.EntityFinderMethodFacade#getQuery(java.lang.String)
+     * @see org.andromda.metafacades.uml.EntityQueryOperation#getQuery(String)
      */
-    protected java.lang.String handleGetQuery(String translation)
+    @Override
+    protected String handleGetQuery(String translation)
     {
         ExceptionUtils.checkEmpty("translation", translation);
         final String[] translatedExpressions = this.translateConstraints(ExpressionKinds.BODY, translation);

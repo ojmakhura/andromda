@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo - Calling Back-End Services</title>
+    </properties>
+
+    <body>
+        <section name="Calling Back-End Services">
+            <p>
+                It is possible to connect the presentation layer to the service (application) layer, if you
+                are modeling your application's back-end with one of the other cartridges, and you're modeling
+                services using the <![CDATA[<<Service>>]]> stereotype you will simply need to model a dependency
+                from the <a href="howto3.html">controller class</a> to the service class.
+            </p>
+            <p>
+                You can have dependencies to as many services as you like, for each one of the them an accessor
+                will be generated.
+            </p>
+            <p class="highlight">
+                Because of the strict separation between the three enterprise tiers it would not be a good idea
+                to make the bpm4struts cartridge aware of how to call the actual service instances in the
+                back-end tier, since this
+                is most likely different on different platforms (Spring, EJB, ...). For this reason we have
+                introduced a <a href="namespace.html">namespace</a> property called
+                <a href="namespace.html#serviceAccessorPattern">serviceAccessorPattern</a>.
+                It allows you to specify how calls to the back end ought to be rendered, if you have generated the
+                project structure using the
+                <a href="../../starting.html#My_first_AndroMDA_project">andromdapp:generate</a> Maven plugin you should
+                not need to change this property.
+            </p>
+            <p>
+                One could argue why not calling service operations directly from the activity graph, here are a few
+                reasons:
+                <ol>
+                    <li>Activity graphs can have only one context at a time, so your deferred calls would
+                        be limited to a single service
+                    </li>
+                    <li>Operation signatures do not always perfectly map, parameter names and types might be different;
+                        generally speaking it is good practice to have an intermediate layer in which you
+                        can handle these differences.
+                    </li>
+                    <li>Often you will not want to directly expose exceptions from the back-end to your presentation
+                        layer, this can also be handled in the controller.
+                    </li>
+                </ol>
+            </p>
+            <p>
+                <img src="howto/org/andromda/test/back-end.gif"/>
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                Next section: <a href="howto8.html">Tables</a>.
+            </p>
+        </section>
+    </body>
+</document>

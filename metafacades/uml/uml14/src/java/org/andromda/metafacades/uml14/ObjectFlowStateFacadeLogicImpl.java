@@ -2,22 +2,32 @@ package org.andromda.metafacades.uml14;
 
 import org.omg.uml.behavioralelements.statemachines.CompositeState;
 import org.omg.uml.behavioralelements.statemachines.StateMachine;
-
+import org.omg.uml.foundation.core.Classifier;
+import org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState;
 
 /**
  * Metaclass facade implementation.
+ * @author Bob Fields
  */
 public class ObjectFlowStateFacadeLogicImpl
     extends ObjectFlowStateFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ObjectFlowStateFacadeLogicImpl(
-        org.omg.uml.behavioralelements.activitygraphs.ObjectFlowState metaObject,
+        ObjectFlowState metaObject,
         String context)
     {
         super(metaObject, context);
     }
 
-    protected Object handleGetStateMachine()
+    /**
+     * @see org.andromda.metafacades.uml14.StateVertexFacadeLogicImpl#handleGetStateMachine()
+     */
+    @Override
+    protected StateMachine handleGetStateMachine()
     {
         StateMachine stateMachine = null;
         CompositeState compositeState = metaObject.getContainer();
@@ -30,15 +40,11 @@ public class ObjectFlowStateFacadeLogicImpl
                 compositeState = compositeState.getContainer();
             }
         }
-        else
-        {
-            stateMachine = compositeState.getStateMachine();
-        }
 
         return stateMachine;
     }
 
-    protected Object handleGetType()
+    protected Classifier handleGetType()
     {
         return metaObject.getType();
     }

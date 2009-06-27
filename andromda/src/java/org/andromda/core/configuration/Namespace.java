@@ -2,6 +2,7 @@ package org.andromda.core.configuration;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -44,7 +45,7 @@ public class Namespace
     /**
      * Stores the collected properties
      */
-    private final Map properties = new LinkedHashMap();
+    private final Map<String, Collection<Property>> properties = new LinkedHashMap<String, Collection<Property>>();
 
     /**
      * Adds a property to this Namespace object. A property must correspond to a java bean property name on a Plugin in
@@ -56,14 +57,32 @@ public class Namespace
     {
         if (property != null)
         {
-            this.properties.put(
-                property.getName(),
-                property);
+            Collection<Property> properties = this.properties.get(property.getName());
+            if (properties == null)
+            {
+                properties = new ArrayList<Property>();
+                this.properties.put(
+                    property.getName(),
+                    properties);
+            }
+            properties.add(property);
         }
     }
 
     /**
-     * Retrieves the property with the specified name.
+     * Retrieves the properties with the specified name.
+     *
+     * @param name the name of the property.
+     *
+     * @return the property
+     */
+    public Collection<Property> getProperties(final String name)
+    {
+        return this.properties.get(name);
+    }
+
+    /**
+     * Retrieves the property (the first one found) with the specified name.
      *
      * @param name the name of the property.
      *
@@ -71,7 +90,9 @@ public class Namespace
      */
     public Property getProperty(final String name)
     {
-        return (Property)this.properties.get(name);
+        final Collection<Property> properties = this.getProperties(name);
+        return properties == null || properties.isEmpty() ?
+            null : properties.iterator().next();
     }
 
     /**

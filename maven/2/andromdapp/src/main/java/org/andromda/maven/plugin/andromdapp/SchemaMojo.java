@@ -33,6 +33,7 @@ import org.andromda.core.common.ResourceUtils;
 import org.andromda.maven.plugin.andromdapp.hibernate.HibernateCreateSchema;
 import org.andromda.maven.plugin.andromdapp.hibernate.HibernateDropSchema;
 import org.andromda.maven.plugin.andromdapp.hibernate.HibernateUpdateSchema;
+import org.andromda.maven.plugin.andromdapp.hibernate.HibernateValidateSchema;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
@@ -59,7 +60,7 @@ public class SchemaMojo
     extends AbstractMojo
 {
     /**
-     * The schema task to execute (create, drop, update)
+     * The schema task to execute (create, drop, update, validate)
      *
      * @parameter expression="${tasks}"
      */
@@ -100,6 +101,14 @@ public class SchemaMojo
      * @readonly
      */
     private ArtifactFactory factory;
+
+    /**
+     * Whether or not scripts should be executed (if this is set to false, they will
+     * only be generated, but not executed).
+     *
+     * @parameter expression="${executeScripts}"
+     */
+    private boolean executeScripts = true;
 
     /**
      * @parameter expression="${plugin.artifacts}"
@@ -182,7 +191,6 @@ public class SchemaMojo
             AndroMDALogger.initialize();
             this.initializeClassLoaderWithJdbcDriver();
 
-            connection = this.getConnection();
             final List tasks = this.getTasks();
             if (tasks != null && !tasks.isEmpty())
             {
@@ -241,6 +249,7 @@ public class SchemaMojo
                     }
 
                     final SchemaManagement schemaManagement = (SchemaManagement)ClassUtils.newInstance(type);
+                    connection = executeScripts ? this.getConnection() : null;
                     this.executeSql(
                         connection,
                         schemaManagement.execute(
@@ -354,7 +363,7 @@ public class SchemaMojo
                 {
                     getLog().debug("adding to classpath '" + file + "'");
                 }
-                classpathUrls[ctr] = file.toURL();
+                classpathUrls[ctr] = file.toURI().toURL();
             }
 
             final URLClassLoader loader =
@@ -368,7 +377,6 @@ public class SchemaMojo
      * Initializes the context class loader with the given
      * <code>jdbcDriverJar</code>
      *
-     * @throws DependencyResolutionRequiredException
      * @throws MalformedURLException
      */
     protected void initializeClassLoaderWithJdbcDriver()
@@ -376,7 +384,7 @@ public class SchemaMojo
     {
         Thread.currentThread().setContextClassLoader(
             new URLClassLoader(
-                new URL[] {new File(this.jdbcDriverJar).toURL()},
+                new URL[] {new File(this.jdbcDriverJar).toURI().toURL()},
                 Thread.currentThread().getContextClassLoader()));
     }
 
@@ -483,7 +491,11 @@ public class SchemaMojo
             {
                 this.successes = 0;
                 this.failures = 0;
-                final Statement statement = connection.createStatement();
+                Statement statement = null;
+                if (connection != null)
+                {
+                    statement = connection.createStatement();
+                }
                 final InputStream stream = sqlUrl.openStream();
                 final BufferedReader resourceInput = new BufferedReader(new InputStreamReader(stream));
                 StringBuffer sql = new StringBuffer();
@@ -500,11 +512,14 @@ public class SchemaMojo
                     sql.append(line);
                     if (line.endsWith(STATEMENT_END))
                     {
-                        this.executeSql(
-                            statement,
-                            sql.toString().replaceAll(
-                                STATEMENT_END,
-                                ""));
+                        if (statement != null)
+                        {
+                            this.executeSql(
+                                statement,
+                                sql.toString().replaceAll(
+                                    STATEMENT_END,
+                                    ""));
+                        }
                         sql = new StringBuffer();
                     }
                     sql.append("\n");
@@ -565,7 +580,7 @@ public class SchemaMojo
 
     static
     {
-        // - initialize the hibernat taks types
+        // - initialize the hibernate task types
         final Map hibernateTasks = new LinkedHashMap();
         tasksCache.put(
             "hibernate",
@@ -579,5 +594,8 @@ public class SchemaMojo
         hibernateTasks.put(
             "update",
             HibernateUpdateSchema.class);
+        hibernateTasks.put(
+            "validate",
+            HibernateValidateSchema.class);
     }
 }

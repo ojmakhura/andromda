@@ -33,11 +33,20 @@ public class $className
         String resourceString;
         try
         {
-            final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME, context.getViewRoot().getLocale());
+            java.util.Locale locale;
+            if (context != null && context.getViewRoot() != null)
+            {
+                locale = context.getViewRoot().getLocale();
+            }
+            else
+            {
+                locale = java.util.Locale.getDefault();
+            }
+            final ResourceBundle bundle = ResourceBundle.getBundle(BUNDLE_NAME, locale);
             resourceString = bundle.getString(key);
             if (arguments != null)
             {
-                final MessageFormat format = new MessageFormat(resourceString, context.getViewRoot().getLocale());
+                final MessageFormat format = new MessageFormat(resourceString, locale);
                 resourceString = format.format(arguments);
             }
         }

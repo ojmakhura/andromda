@@ -297,7 +297,7 @@
             from org.andromda.translation.query.Activity as activity 
             where activity.activityCase.actionRequired >= :startDate 
             and activity.activityCase.actionRequired <= :endDate 
-            and activity.status not :status
+            and activity.status <> :status
             ]]>          
         </to>
     </expression>

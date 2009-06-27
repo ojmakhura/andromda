@@ -1,14 +1,14 @@
 package org.andromda.core.common;
 
-import java.io.BufferedReader;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-
+import java.io.OutputStream;
 import java.net.URL;
-
 import org.apache.commons.lang.StringUtils;
 
 
@@ -18,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
  * generated resources are current.
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class ResourceWriter
 {
@@ -32,7 +33,7 @@ public class ResourceWriter
      *
      * @return the shared instance.
      */
-    public static final ResourceWriter instance()
+    public static ResourceWriter instance()
     {
         return instance;
     }
@@ -52,7 +53,9 @@ public class ResourceWriter
         final String namespace)
         throws IOException
     {
-        ExceptionUtils.checkNull("file", file);
+        ExceptionUtils.checkNull(
+            "file",
+            file);
         this.writeStringToFile(
             string,
             file.toString(),
@@ -65,27 +68,35 @@ public class ResourceWriter
      *
      * @param string the string to write to the file
      * @param fileLocation the location of the file which to write.
+     * @throws IOException 
      */
     public void writeStringToFile(
         final String string,
         final String fileLocation)
         throws IOException
     {
-        this.writeStringToFile(string, fileLocation, true);
+        this.writeStringToFile(
+            string,
+            fileLocation,
+            true);
     }
 
     /**
      * Writes the string to the file specified by the fileLocation argument.
      *
      * @param string the string to write to the file
-     * @param fileLocation the file which to write.
+     * @param file the file which to write.
+     * @throws IOException 
      */
     public void writeStringToFile(
         final String string,
         final File file)
         throws IOException
     {
-        this.writeStringToFile(string, file != null ? file.toString() : null, true);
+        this.writeStringToFile(
+            string,
+            file != null ? file.toString() : null,
+            true);
     }
 
     /**
@@ -102,7 +113,11 @@ public class ResourceWriter
         final boolean recordHistory)
         throws IOException
     {
-        this.writeStringToFile(string, fileLocation, null, recordHistory);
+        this.writeStringToFile(
+            string,
+            fileLocation,
+            null,
+            recordHistory);
     }
 
     /**
@@ -120,7 +135,11 @@ public class ResourceWriter
         final String namespace)
         throws IOException
     {
-        this.writeStringToFile(string, fileLocation, namespace, true);
+        this.writeStringToFile(
+            string,
+            fileLocation,
+            namespace,
+            true);
     }
 
     /**
@@ -134,7 +153,7 @@ public class ResourceWriter
      *        recorded.
      * @throws IOException
      */
-    private final void writeStringToFile(
+    private void writeStringToFile(
         String string,
         final String fileLocation,
         final String namespace,
@@ -145,15 +164,19 @@ public class ResourceWriter
         {
             string = "";
         }
-        ExceptionUtils.checkEmpty("fileLocation", fileLocation);
+        ExceptionUtils.checkEmpty(
+            "fileLocation",
+            fileLocation);
         final File file = new File(fileLocation);
         ResourceUtils.makeDirectories(fileLocation);
         final Merger merger = Merger.instance();
         if (merger.requiresMerge(namespace))
         {
-            string = Merger.instance().getMergedString(string, namespace);
+            string = Merger.instance().getMergedString(
+                    string,
+                    namespace);
         }
-        FileOutputStream stream = new FileOutputStream(file);
+        final OutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
         byte[] output;
         if (StringUtils.isNotBlank(this.encoding))
         {
@@ -163,10 +186,14 @@ public class ResourceWriter
         {
             output = string.getBytes();
         }
-        stream.write(output);
+        final InputStream inputStream = new BufferedInputStream(new ByteArrayInputStream(output));
+        for (int ctr = inputStream.read(); ctr != -1; ctr = inputStream.read())
+        {
+            stream.write(ctr);
+        }
+        inputStream.close();
         stream.flush();
         stream.close();
-        stream = null;
         if (recordHistory)
         {
             this.recordHistory(file);
@@ -178,47 +205,15 @@ public class ResourceWriter
      *
      * @param url the URL to read
      * @param fileLocation the location which to write.
+     * @throws IOException 
      */
     public void writeUrlToFile(
         final URL url,
         final String fileLocation)
         throws IOException
     {
-        ExceptionUtils.checkNull("url", url);
-        ExceptionUtils.checkEmpty("fileLocation", fileLocation);
-        final File file = new File(fileLocation);
-        final File parent = file.getParentFile();
-        if (parent != null)
-        {
-            parent.mkdirs();
-        }
-        FileOutputStream stream = new FileOutputStream(file);
-        if (StringUtils.isNotBlank(this.encoding))
-        {
-            BufferedReader inputReader = new BufferedReader(new InputStreamReader(
-                        url.openStream(),
-                        this.encoding));
-            for (int ctr = inputReader.read(); ctr != -1; ctr = inputReader.read())
-            {
-                stream.write(ctr);
-            }
-            inputReader.close();
-            inputReader = null;
-        }
-        else
-        {
-            InputStream inputStream = url.openStream();
-            for (int ctr = inputStream.read(); ctr != -1; ctr = inputStream.read())
-            {
-                stream.write(ctr);
-            }
-            inputStream.close();
-            inputStream = null;
-        }
-        stream.flush();
-        stream.close();
-        stream = null;
-        this.recordHistory(file);
+        ResourceUtils.writeUrlToFile(url, fileLocation, this.encoding);
+        this.recordHistory(new File(fileLocation));
     }
 
     /**
@@ -242,11 +237,13 @@ public class ResourceWriter
     /**
      * Resets the a history file, to write the history {@link #writeHistory()} must be called.
      *
-     * @param used to construct the file name from the modelUri where the history is stored
+     * @param modelUri used to construct the file name from the modelUri where the history is stored
      */
     public void resetHistory(final String modelUri)
     {
-        String modelFile = modelUri.replace('\\', '/');
+        String modelFile = modelUri.replace(
+                '\\',
+                '/');
         int lastSlash = modelFile.lastIndexOf('/');
         if (lastSlash != -1)
         {
@@ -284,7 +281,7 @@ public class ResourceWriter
     /**
      * Stores the file history.
      */
-    private final String getHistoryStorage()
+    private String getHistoryStorage()
     {
         return HISTORY_LOCATION + this.modelFile;
     }
@@ -306,16 +303,13 @@ public class ResourceWriter
     /**
      * Writes the string to the file specified by the fileLocation argument.
      *
-     * @param string the string to write to the file
-     * @param fileLocation
-     * @param overwrite if true, replaces the file (if it exists, otherwise),
-     *        adds to the contents of the file.
+     * @param file the file to which to record the history to
      */
-    private final void recordHistory(File file)
+    private void recordHistory(File file)
     {
         if (this.history != null)
         {
-            this.history.append(file + ",");
+            this.history.append(file).append(',');
         }
         this.writtenCount++;
     }
@@ -334,7 +328,7 @@ public class ResourceWriter
             final File historyFile = new File(getHistoryStorage());
             if (historyFile.exists() && historyFile.lastModified() >= time)
             {
-                final String history = ResourceUtils.getContents(new File(getHistoryStorage()).toURL());
+                final String history = ResourceUtils.getContents(new File(getHistoryStorage()).toURI().toURL());
                 final String[] files = history.split(",");
                 long lastModified = 0;
                 for (int ctr = 0; ctr < files.length; ctr++)

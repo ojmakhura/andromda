@@ -23,7 +23,7 @@ public class Location
     private String path;
 
     /**
-     * The patterns (a comma seperated list) to
+     * The patterns (a comma separated list) to
      * include in the path search
      */
     private String patterns;

@@ -99,7 +99,6 @@ $operation.getDocumentation("     * ")
             return handle${stringUtils.capitalize($operation.name)}($parameters);
 #else
             handle${stringUtils.capitalize($operation.name)}($parameters);
-            session.flush();
 #end
         }
 #foreach ( $exception in $operation.exceptions )
@@ -119,6 +118,10 @@ $operation.getDocumentation("     * ")
             {
                 try
                 {
+                    if (!this.ctx.getRollbackOnly())
+                    {
+                        session.flush();
+                    }
                     session.close();
                 }
                 catch (HibernateException he)

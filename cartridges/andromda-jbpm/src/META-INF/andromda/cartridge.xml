@@ -1,6 +1,6 @@
 <cartridge>
 
-    <templateEngine>
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
         <macrolibrary name="templates/jbpm/definitions/process-definition.xml.vm"/>
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo - i18n</title>
+    </properties>
+
+    <body>
+        <section name="Internationalization">
+            <p>
+                The bpm4struts cartridge has been designed with internationalization <em>(i18n)</em> in mind,
+                a few resource bundles, dictionaries if you will, exist by default; you have the option of translating
+                them to any number of languages of your choice.
+            </p>
+            <p>
+                These resource bundles are listed below, they are output in the <code>messages</code> outlet,
+                which should normally point to <code>/WEB-INF/classes</code>
+            </p>
+            <p class="highlight">
+                A very interesting feature exists that might make it considerably easier for you if you have lots
+                of similar messages in the resource bundle. Set the
+                <a href="namespace.html"><code>normalizeMessages</code></a> namespace property
+                to <code>true</code>. This will make sure elements with the same name will use the same message, when
+                translating such a resource bundle you will never need to do the same work twice. This feature is
+                disabled by default, enabling you to customize each possible message. In most cases it's better
+                to enable it though.
+            </p>
+            <p>
+                The proper way to create resource bundles for additional languages is to create
+                a file with the same name but suffix it with locale specific codes, this is explained
+                in more detail here:
+                <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/ResourceBundle.html">http://java.sun.com/j2se/1.5.0/docs/api/java/util/ResourceBundle.html</a>.
+                Put these files in the same directory as the original one.
+            </p>
+            <subsection name="application-resources.properties">
+                <p>
+                    This bundle contains labels generated from names in the UML model. These labels are used for
+                    input field labels, tooltips, online help text, etc...
+                </p>
+                <p>
+                    In order to render labels from this bundle you will need to write something like this
+                    (replace <code>label.key</code> by the actual properties' key):
+                </p>
+<source language="xml"><![CDATA[
+    <bean:message key="label.key"/>
+]]></source>
+            </subsection>
+            <subsection name="displaytag.properties">
+                <p>
+                    The <a href="http://displaytag.sourceforge.net/">displaytag</a> library is used for the
+                    displaying of tables, the paging and sorting features use words that might need
+                    internationalization. A default properties file is generated, containing all possible messages.
+                </p>
+                <p>
+                    You won't need to call the messages in this bundle directly, use the <code>custom</code> bundle
+                    instead.
+                </p>
+            </subsection>
+            <subsection name="Custom Resources">
+                <p class="highlight">
+                    If you have generated your AndroMDA project using <code>andromdapp:generate</code> then the following
+                    will have already been configured, you may skip this section.
+                </p>
+                <p>
+                    In order to make use of custom message properties you will need to create your own resource bundle 
+                    with your custom set of messages and put it somewhere in your source tree, for example in
+                    <code>/web/src/main/properties/custom.properties</code>.
+                </p>
+                <p>
+                    Next, tell AndroMDA to merge this file into the generated resource bundle, 
+                    it is sufficient to add the following to <code>/mda/src/main/config/mappings/WebMergeMappings.xml</code>:
+                </p>
+<source language="xml"><!--
+    <mapping>
+        <from><![CDATA[# custom-messages merge-point]]></from>
+        <to>
+            <path>../../../web/src/main/properties/custom.properties</path>
+        </to>
+    </mapping>
+--></source>
+                <p>
+                    That's it, now you can start using your own resource messages. It is even possible to override
+                    the default generated ones by simply repeating them in your custom resource bundle. If you want
+                    you can specify multiple <![CDATA[<path>]]> elements, that way all of them will be merged.
+                </p>
+                <p class="highlight">
+                    This feature is particularly interesting when you want to have messages displayed in a more
+                    dynamic fashion: you can decide in the controller what message to show, save them
+                    (using <code>saveMessages(..)</code>), and have them picked up from the bundle.
+                </p>
+            </subsection>
+            <subsection name="Date Formats">
+                <p>
+                    It is also possible to have input fields representing dates automatically formatted. Two ways to do
+                    this exist: on a global level you can use the <code>defaultDateFormat</code>
+                    namespace property which defaults to <code>dd/MM/yyyy</code> (go
+                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">here</a> to learn more about
+                    possible date formats)
+                    , it sets the format for all dates in the modeled application; on a field
+                    level it is possible to use the <code>@andromda.struts.view.field.format</code> tagged value,
+                    just make sure the parameter is a date type and it will override the global setting.
+                </p>
+                <p>
+                    Use the <code>strict</code> keyword in front of the date format, that way the application
+                    will strictly check the format, without being lenient.
+                </p>
+                <p class="highlight">
+                    Use dates in combination with the <code>@andromda.presentation.web.view.field.calendar=true</code>
+                    tagged value to have a popup calendar trigger rendered next to the input field, the selected date
+                    will immediately be converted into the correct format. A screenshot is shown here:
+                    <a href="howto2.html">Activity Graphs</a> <em>(bottom of the page)</em>
+                </p>
+            </subsection>
+        </section>
+        <section name="Nice to know">
+            <subsection name="Action Forms">
+                <p>
+                    Using dates for action parameters will yield a specific date formatter to be generated
+                    in the corresponding action form, this in addition to other convenience methods. The following
+                    code is showing this in more details, this example has been taken from the
+                    <a href="samples.html#online-store">online store</a> sample, you're looking at a fragment
+                    from the <code>my.onlinestore.purchase.EnterUserDetailsPurchaseForm</code> class.
+                </p>
+<source language="java"><![CDATA[
+    private final static java.text.DateFormat deliveryDateDateFormatter = new java.text.SimpleDateFormat("dd-MM-yyyy");
+
+    /**
+     * Resets the given <code>deliveryDate</code>.
+     */
+    public void resetDeliveryDate()
+    {
+        this.deliveryDate = null;
+    }
+
+    public void setDeliveryDateAsDate(java.util.Date deliveryDate)
+    {
+        this.deliveryDate = deliveryDate;
+    }
+
+    /**
+     * Returns the Date instance representing the <code>deliveryDate</code> field.
+     *
+     * @see my.onlinestore.purchase.EnterUserDetailsPurchaseForm#getDeliveryDate
+     * @see my.onlinestore.purchase.EnterUserDetailsPurchaseForm#getDeliveryDateDateFormatter
+     */
+    public java.util.Date getDeliveryDateAsDate()
+    {
+        return this.deliveryDate;
+    }
+
+    public void setDeliveryDate(java.lang.String deliveryDate)
+    {
+        if (deliveryDate == null || deliveryDate.trim().length()==0)
+        {
+            this.deliveryDate = null;
+        }
+        else
+        {
+            try
+            {
+                this.deliveryDate = deliveryDateDateFormatter.parse(deliveryDate);
+            }
+            catch(java.text.ParseException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    /**
+     * <p>
+     *  This date specifies the date you would like the items
+     *  delivered.
+     * </p>
+     *
+     * This method returns a <code>java.lang.String</code> instance, in order to get the
+     * <code>java.util.Date</code> instance see the <code>getDeliveryDateAsDate()</code>
+     * method.
+     * <p>
+     * The conversion from Date to String (and vice-versa) is done by means of a date formatter, which
+     * can be accessed here: <code>getDeliveryDateDateFormatter()</code>.
+     *
+     * @see my.onlinestore.purchase.EnterUserDetailsPurchaseForm#getDeliveryDateAsDate
+     * @see my.onlinestore.purchase.EnterUserDetailsPurchaseForm#getDeliveryDateDateFormatter
+     */
+    public java.lang.String getDeliveryDate()
+    {
+        return (deliveryDate == null) ? null : deliveryDateDateFormatter.format(deliveryDate);
+    }
+
+    /**
+     * Returns the date formatter used for the <code>deliveryDate</code> property.
+     *
+     * @see my.onlinestore.purchase.EnterUserDetailsPurchaseForm#getDeliveryDate
+     * @see my.onlinestore.purchase.EnterUserDetailsPurchaseForm#getDeliveryDateAsDate
+     */
+    public final static java.text.DateFormat getDeliveryDateDateFormatter()
+    {
+        return EnterUserDetailsPurchaseForm.deliveryDateDateFormatter;
+    }
+]]></source>
+            </subsection>
+        </section>
+    </body>
+</document>

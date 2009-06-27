@@ -12,7 +12,7 @@ dirname=`pwd`
 source set-env.sh
 
 if [ -z $CC_CONFIG_FILE ];then
-   CC_CONFIG_FILE=stockholm-cruisecontrol.xml
+   CC_CONFIG_FILE=cruisecontrol-3_x.xml
 fi
 
 echo "Using config file:$CC_CONFIG_FILE"
@@ -40,14 +40,6 @@ mkdir -p ../logs/andromda-all
 logger "runcc.sh - starting cruisecontrol"
 logger "PATH: $PATH"
 logger "JAVA_HOME:$JAVA_HOME"
-
-system_name=`uname -a | awk '{ print $2 }'`
-case $system_name in
-    "andromda.it.su.se" )
-       # Remove multiple line env var, bug in maven/continuum
-       unset which
-       ;;
-esac
 
 nohup nice cruisecontrol.sh -port 8989 -user ${CC_JMX_USER} -password ${CC_JMX_PASS} -configfile $dirname/${CC_CONFIG_FILE} &
 pid=$!

@@ -24,7 +24,10 @@
             <type>java.lang.String</type>
             <description>
                 The language to escape to, so far the following languages are
-                supported: html, java and javascript.
+                supported: html, java and javascript. You may enter a sequence of
+                languages by separating each of them using a comma; in 
+                that case escaping will be performed starting with the first
+                language specified.
             </description>
         </attribute>
     </tag>

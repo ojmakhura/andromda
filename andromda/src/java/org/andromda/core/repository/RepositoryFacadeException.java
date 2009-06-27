@@ -6,6 +6,7 @@ package org.andromda.core.repository;
  *
  * @author <A HREF="http://www.amowers.com">Anthony Mowers </A>
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public final class RepositoryFacadeException
     extends RuntimeException
@@ -23,7 +24,7 @@ public final class RepositoryFacadeException
     /**
      * Constructor for the RepositoryFacadeException object
      *
-     * @param message describes cause of the exception
+     * @param parent describes cause of the exception
      */
     public RepositoryFacadeException(final Throwable parent)
     {

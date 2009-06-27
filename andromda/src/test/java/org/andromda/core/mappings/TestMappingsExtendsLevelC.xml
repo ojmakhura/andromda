@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!--
+        the second level mapping when testing the 'extends' feature
+        for transitive capabilities
+-->
+<mappings name="TestMappingsExtendsLevelC">
+
+    <extends>TestMappingsExtendsLevelB</extends>
+
+    <mapping>
+        <from>datatype::ccc</from>
+        <to>CCC</to>
+    </mapping>
+
+</mappings>

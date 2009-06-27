@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <author email="chad@andromda.org">Chad Brandon</author>
+        <title>AndroMDA Namespace</title>
+    </properties>
+    <body>
+        <section name="AndroMDA Namespace">
+            <p>
+                AndroMDA namespace components are described through a single XML descriptor, the namespace.xml file.  
+                You'll find this file in a cartridge, translation-library or metafacades jar (basically any component that 
+                can reside with a <em>namespace</em>) located in the <em>/META-INF/andromda</em> directory of that jar.
+            </p>
+            <p class="highlight">
+                In order for a namespace component to be <em>"discovered"</em> by AndroMDA, it <strong>MUST</strong> be registered within this descriptor.
+            </p>
+            <p>
+                There are several purposes of the namespace descriptor:
+                <ol>
+                    <li>Allowing discovery of the namespace by AndroMDA when placed on the classpath</li>
+                    <li>Providing registration all components for the namespace</li>
+                    <li>Defining any properties that are used to configure the namespace</li>
+                </ol>
+            </p>
+            <p class="highlight">
+                Each namespace descriptor must adhere to this <a href="namespace/schema.html">XML Schema</a>.
+            </p>
+            <p>
+                Take a look at how a typlical namespace descriptor is structured in the <a href="#Namespace_Descriptor_Example">example below</a>.  
+                You'll notice from this example that both the cartridge and metafacades components are defined
+                for the <em>webservice</em> namespace.  What this means, is that when AndroMDA <em>"discovers"</em> this namespace,
+                it will know that it needs to register both a cartridge and a set of metafacades under the namespace of <em>webservice</em> 
+                (the descriptors for both the cartridge and metafacades will be need to be present in the webservice cartridge jar in order
+                for these to be correctly registered).
+            </p>
+            <p>
+                You'll also notice that we have plenty of properties defined in this example as well.  AndroMDA uses these properties
+                in two ways:
+                <ul>
+                    <li>The core uses these properties internally (the name of the property, whether or not its required, and its default value)</li>
+                    <li>
+                        The namespace documentation is generated from these properties (see the 
+                        <a href="andromda-cartridges/andromda-bpm4struts-cartridge/namespace.html">BPM4Struts namespace documentation</a>
+                        for an example).
+                    </li>
+                </ul>
+                Properties are grouped logically according to <em>propertyGroup</em> elements, each with a <em>required</em> name 
+                defining what the group of properties configures, and an <em>optional</em> documentation element that describes in 
+                more detail what this group of properties does.  Each property defines the name of a property that can be configured 
+                through a namespace element in the <a href="configuration.html">AndroMDA Configuration</a>.  Properties defined here 
+                are referenced within the namespace component descriptors (in for example: the META-INF/andromda/cartridge.xml and META-INF/andromda/metafacades.xml).  
+            </p>   
+            <p>
+                Each property element defines the following aspects about a given property: 
+                <ul>
+                    <li>The name of the property.</li>
+                    <li>
+                        Whether or not the property is <em>required</em> (the required attribute will determine whether or not AndroMDA will 
+                        warn you if you do not have the property defined for the specific namespace in your 
+                        <a href="configuration.html">AndroMDA Configuration</a>).
+                    </li>
+                    <li>
+                        The default of the property (if a default should be present).
+                    </li>
+                    <li>
+                        The optional documentation of the property (this is a description of what exactly the property configures within the namespace).
+                    </li>
+                </ul>    
+            </p>
+            <p class="highlight">
+                Because of the fact the <em>documentation</em> element is of type <em>xs:anyType</em> you can embed any other xml elements within it.
+            </p>
+            <subsection name="Namespace Descriptor Example">
+                <source language="xml">
+<![CDATA[<namespace name="webservice">
+    <components>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
+    </components>
+    <properties>
+        <propertyGroup name="Outlets">
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="wsdls">
+                <documentation>
+                    Specifies the directory to which generated WSDL's will be placed.
+                </documentation>
+            </property>
+            <property name="java-types">
+                <documentation>
+                    The directory to which any non implementation Java files will be generated.
+                </documentation>
+            </property>
+            <property name="axis-configuration">
+                <documentation>
+                    The directory to which any AXIS specific configuration files
+                    are generated (such as the WSDD files, etc).
+                </documentation>
+            </property>
+            <property name="axis-tests" required="false">
+                <documentation>
+                    The directory to which AXIS specific test classes are generated.
+                </documentation>
+            </property>
+            <property name="axis-test-impls" required="false">
+                <documentation>
+                    The directory to which the AXIS specific test implementation classes are generated.
+                </documentation>
+            </property>
+            <property name="wss4j-configuration" required="false">
+                <documentation>
+                    The directory to which any <a href="http://ws.apache.org/ws-fx/wss4j/index.html">WSS4J</a>
+                    specific configuration files are generated.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Other">
+            <property name="namespacePrefix">
+                <default>impl</default>
+                <documentation>
+                    Defines the prefix to give to the default namespace.
+                </documentation>
+            </property>
+            <property name="qualifiedNameLocalPartPattern">
+                <default>{0}</default>
+                <documentation>
+                    The pattern to use when a qualified name local part is created.
+                    <em>{0}</em> represents the name of the classifier (i.e.
+                    <em>WS{0}</em> would give all your types and services a prefix
+                    of <em>WS</em>).
+                </documentation>
+            </property>
+            <property name="namespacePattern">
+                <default>http://{0}</default>
+                <documentation>
+                    The pattern to use when a namespace is created.
+                    <em>{0}</em> represents the package name of the classifier (i.e.
+                    <em>ws.{0}</em> would prefix all your type and service
+                    namespaces with <em>ws.</em>).
+                </documentation>
+            </property>
+            ...
+        </propertyGroup>
+        ...
+    </properties>
+</namespace>]]>                   
+                </source>
+            </subsection> 
+        </section>
+    </body>
+</document>

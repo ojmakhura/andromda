@@ -6,8 +6,9 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
+import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndUseCase;
+import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
@@ -17,10 +18,15 @@ import org.apache.commons.lang.StringUtils;
  * MetafacadeLogic implementation.
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalState
+ * @author Bob Fields
  */
 public class StrutsFinalStateLogicImpl
     extends StrutsFinalStateLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsFinalStateLogicImpl(
         java.lang.Object metaObject,
         java.lang.String context)
@@ -29,7 +35,7 @@ public class StrutsFinalStateLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacad#getValue()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     public String getName()
     {
@@ -73,7 +79,6 @@ public class StrutsFinalStateLogicImpl
         {
             fullPath = useCase.getActionPath() + ".do";
         }
-
         return fullPath;
     }
 
@@ -86,7 +91,6 @@ public class StrutsFinalStateLogicImpl
     public FrontEndUseCase getTargetUseCase()
     {
         FrontEndUseCase targetUseCase = null;
-
         // first check if there is a hyperlink from this final state to a use-case
         // this works at least in MagicDraw
         final Object taggedValue = this.findTaggedValue(UMLProfile.TAGGEDVALUE_MODEL_HYPERLINK);
@@ -101,7 +105,9 @@ public class StrutsFinalStateLogicImpl
                 targetUseCase = (FrontEndUseCase)taggedValue;
             }
         }
-        else // maybe the name points to a use-case ?
+        
+        // maybe the name points to a use-case ?
+        if (targetUseCase == null)
         {
             final String name = super.getName();
             if (StringUtils.isNotBlank(name))
@@ -116,16 +122,31 @@ public class StrutsFinalStateLogicImpl
         return targetUseCase;
     }
 
+    /**
+     * Need to override default handling in StateVertexFacade.handleGetActions()
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalStateLogic#getActions()
+     */
+    public List getActions()
+    {
+        return handleGetActions();
+    }
+    
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalStateLogic#getActions()
+     */
+    // TODO StateVertexFacade.handleGetActions calls getOutgoings. Why?
+    // Changed from previous handleGetActions because that could never be called by FacadeLogic which delegates to StateVertexFacade.
+    //@Override
     protected List handleGetActions()
     {
-        Set actions = new LinkedHashSet();
-        Collection incoming = this.getIncoming();
+        Set<FrontEndAction> actions = new LinkedHashSet<FrontEndAction>();
+        Collection<TransitionFacade> incomings = this.getIncomings();
 
-        for (final Iterator incomingIterator = incoming.iterator(); incomingIterator.hasNext();)
+        for (final Iterator<TransitionFacade> incomingIterator = incomings.iterator(); incomingIterator.hasNext();)
         {
             StrutsForward forward = (StrutsForward)incomingIterator.next();
             actions.addAll(forward.getActions());
         }
-        return new ArrayList(actions);
+        return new ArrayList<FrontEndAction>(actions);
     }
 }

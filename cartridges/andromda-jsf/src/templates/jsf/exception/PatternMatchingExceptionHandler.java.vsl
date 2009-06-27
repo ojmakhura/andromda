@@ -20,8 +20,6 @@ public class $patternMatchingExceptionHandler
 {
     private static final $patternMatchingExceptionHandler instance = new ${patternMatchingExceptionHandler}();
 
-    private static final java.util.regex.Pattern compiledPattern = java.util.regex.Pattern.compile("$exceptionHandlerPattern");
-
     /**
      * Gets the shared PatternMatchingExceptionHandler instance.
      *
@@ -46,18 +44,7 @@ public class $patternMatchingExceptionHandler
         String matched = null;
         if (cause != null && cause.getMessage() != null)
         {
-            final java.util.regex.Matcher matcher = compiledPattern.matcher(cause.getMessage().replaceAll("[\\s]+", " "));
-            try
-            {
-                if (matcher.matches())
-                {
-                    matched = matcher.group(3);
-                }
-            }
-            catch (java.lang.IllegalStateException ex)
-            {
-                // no match was found ignore
-            }
+            matched = ${managedBeansPackage}.JsfUtils.extractMessageKey(cause.getMessage());
             if (matched != null)
             {
                 return matched;

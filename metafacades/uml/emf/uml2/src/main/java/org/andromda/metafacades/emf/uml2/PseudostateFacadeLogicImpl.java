@@ -1,8 +1,11 @@
 package org.andromda.metafacades.emf.uml2;
 
+import org.eclipse.uml2.PseudostateKind;
+
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.PseudostateFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.PseudostateFacade.
  *
  * @see org.andromda.metafacades.uml.PseudostateFacade
  */
@@ -10,8 +13,8 @@ public class PseudostateFacadeLogicImpl
     extends PseudostateFacadeLogic
 {
     public PseudostateFacadeLogicImpl(
-        Object metaObject,
-        String context)
+        final org.eclipse.uml2.Pseudostate metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
@@ -21,8 +24,7 @@ public class PseudostateFacadeLogicImpl
      */
     protected boolean handleIsChoice()
     {
-        // TODO: put your implementation here.
-        return false;
+        return this.metaObject.getKind().getValue() == (PseudostateKind.CHOICE);
     }
 
     /**
@@ -30,53 +32,7 @@ public class PseudostateFacadeLogicImpl
      */
     protected boolean handleIsDecisionPoint()
     {
-        // TODO: put your implementation here.
-        return false;
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.PseudostateFacade#isDeepHistory()
-     */
-    protected boolean handleIsDeepHistory()
-    {
-        // TODO: put your implementation here.
-        return false;
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.PseudostateFacade#isFork()
-     */
-    protected boolean handleIsFork()
-    {
-        // TODO: put your implementation here.
-        return false;
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.PseudostateFacade#isInitialState()
-     */
-    protected boolean handleIsInitialState()
-    {
-        // TODO: put your implementation here.
-        return false;
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.PseudostateFacade#isJoin()
-     */
-    protected boolean handleIsJoin()
-    {
-        // TODO: put your implementation here.
-        return false;
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.PseudostateFacade#isJunction()
-     */
-    protected boolean handleIsJunction()
-    {
-        // TODO: put your implementation here.
-        return false;
+        return (this.isChoice() || this.isJunction()) && this.metaObject.getOutgoings().size() > 1;
     }
 
     /**
@@ -84,8 +40,47 @@ public class PseudostateFacadeLogicImpl
      */
     protected boolean handleIsMergePoint()
     {
-        // TODO: put your implementation here.
-        return false;
+        return (this.isChoice() || this.isJunction()) && this.metaObject.getIncomings().size() > 1;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.PseudostateFacade#isDeepHistory()
+     */
+    protected boolean handleIsDeepHistory()
+    {
+        return this.metaObject.getKind().getValue() == (PseudostateKind.DEEP_HISTORY);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.PseudostateFacade#isFork()
+     */
+    protected boolean handleIsFork()
+    {
+        return this.metaObject.getKind().getValue() == (PseudostateKind.FORK);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.PseudostateFacade#isInitialState()
+     */
+    protected boolean handleIsInitialState()
+    {
+        return this.metaObject.getKind().getValue() == (PseudostateKind.INITIAL);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.PseudostateFacade#isJoin()
+     */
+    protected boolean handleIsJoin()
+    {
+        return this.metaObject.getKind().getValue() == (PseudostateKind.JOIN);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.PseudostateFacade#isJunction()
+     */
+    protected boolean handleIsJunction()
+    {
+        return this.metaObject.getKind().getValue() == (PseudostateKind.JUNCTION);
     }
 
     /**
@@ -93,8 +88,7 @@ public class PseudostateFacadeLogicImpl
      */
     protected boolean handleIsShallowHistory()
     {
-        // TODO: put your implementation here.
-        return false;
+        return this.metaObject.getKind().getValue() == (PseudostateKind.SHALLOW_HISTORY);
     }
 
     /**
@@ -102,8 +96,7 @@ public class PseudostateFacadeLogicImpl
      */
     protected boolean handleIsSplit()
     {
-        // TODO: put your implementation here.
-        return false;
+        return (this.isJoin() || this.isFork()) && this.metaObject.getOutgoings().size() > 1;
     }
 
     /**
@@ -111,13 +104,9 @@ public class PseudostateFacadeLogicImpl
      */
     protected boolean handleIsCollect()
     {
-        // TODO: put your implementation here.
-        return false;
+        return (this.isJoin() || this.isFork()) && this.metaObject.getIncomings().size() > 1;
     }
 
-    /**
-     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
-     */
     public Object getValidationOwner()
     {
         return this.getStateMachine();

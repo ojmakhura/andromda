@@ -2,6 +2,7 @@ package org.andromda.cartridges.spring.metafacades;
 
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.ObjectUtils;
 
 
 /**
@@ -89,11 +90,150 @@ public class SpringManageableEntityLogicImpl
 
     protected String handleGetManageableValueObjectClassName()
     {
-        return getName() + "ValueObject";
+        return getName() + this.getConfiguredProperty(SpringGlobals.CRUD_VALUE_OBJECT_SUFFIX);
     }
 
     protected String handleGetFullyQualifiedManageableValueObjectName()
     {
         return getManageablePackageName() + getNamespaceProperty() + getManageableValueObjectClassName();
     }
+
+    protected boolean handleIsRemotingTypeRmi()
+    {
+        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_RMI);
+    }
+
+    protected boolean handleIsRemotingTypeNone()
+    {
+        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_NONE);
+    }
+
+    protected boolean handleIsRemotingTypeHttpInvoker()
+    {
+        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_HTTPINVOKER);
+    }
+
+    protected boolean handleIsRemotingTypeHessian()
+    {
+        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_HESSIAN);
+    }
+
+    protected boolean handleIsRemotingTypeBurlap()
+    {
+        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_BURLAP);
+    }
+
+    protected String handleGetRemoteUrl()
+    {
+        final StringBuffer result = new StringBuffer();
+
+        String propertyPrefix = ObjectUtils.toString(this.getConfiguredProperty(SpringGlobals.CONFIG_PROPERTY_PREFIX));
+
+        if (this.isRemotingTypeNone())
+        {
+            // nothing
+        }
+        else if (this.isRemotingTypeHttpInvoker() || this.isRemotingTypeHessian() || this.isRemotingTypeBurlap())
+        {
+            // server
+            result.append("${" + propertyPrefix + "remoteHttpScheme}://${");
+            result.append(propertyPrefix);
+            result.append("remoteServer}");
+
+            // port
+            if (hasServiceRemotePort())
+            {
+                result.append(":${");
+                result.append(propertyPrefix);
+                result.append("remotePort}");
+            }
+
+            // context
+            if (hasServiceRemoteContext())
+            {
+                result.append("/${");
+                result.append(propertyPrefix);
+                result.append("remoteContext}");
+            }
+
+            // service name
+            result.append("/remote");
+            result.append(this.getManageableServiceName());
+        }
+        else if (this.isRemotingTypeRmi())
+        {
+            // server
+            result.append("${" + propertyPrefix + "remoteRmiScheme}://${");
+            result.append(propertyPrefix);
+            result.append("remoteServer}");
+
+            // port
+            if (hasServiceRemotePort())
+            {
+                result.append(":${");
+                result.append(propertyPrefix);
+                result.append("remotePort}");
+            }
+
+            // service name
+            result.append("/remote");
+            result.append(this.getManageableServiceName());
+        }
+
+        return result.toString();
+    }
+
+    protected String handleGetRemoteServer()
+    {
+        return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(SpringGlobals.SERVICE_REMOTE_SERVER)));
+    }
+
+    protected String handleGetRemotePort()
+    {
+        final String serviceRemotePort =
+            StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(SpringGlobals.SERVICE_REMOTE_PORT)));
+        return SpringMetafacadeUtils.getServiceRemotePort(this, serviceRemotePort);
+    }
+
+    protected String handleGetRemoteContext()
+    {
+        return this.isConfiguredProperty(SpringGlobals.SERVICE_REMOTE_CONTEXT)
+            ? ObjectUtils.toString(this.getConfiguredProperty(SpringGlobals.SERVICE_REMOTE_CONTEXT)) : "";
+    }
+
+    protected boolean handleIsRemotable()
+    {
+        return !this.isRemotingTypeNone();
+    }
+
+    /**
+     * Gets the remoting type for this service.
+     */
+    private String getRemotingType()
+    {
+        final String serviceRemotingType =
+            StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(SpringGlobals.SERVICE_REMOTING_TYPE)));
+        return SpringMetafacadeUtils.getServiceRemotingType(this, serviceRemotingType);
+    }
+
+    /**
+     * Checks whether this service has a remote port assigned.
+     *
+     * @return <code>true</code> if the service has a remote port, <code>false</code> otherwise.
+     */
+    private boolean hasServiceRemotePort()
+    {
+        return StringUtils.isNotEmpty(this.getRemotePort());
+    }
+
+    /**
+     * Checks whether the service has a remote context assigned.
+     *
+     * @return <code>true</code> if the service has a remote context, <code>false</code> otherweise.
+     */
+    private boolean hasServiceRemoteContext()
+    {
+        return StringUtils.isNotEmpty(this.getRemoteContext());
+    }
+
 }

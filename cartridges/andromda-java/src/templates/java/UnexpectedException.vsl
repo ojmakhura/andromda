@@ -1,3 +1,5 @@
+#if ($umlUtils.shouldOutput($class))
+## IMPORTANT!!! We can remove this when we upgrade to AndroMDA 3.4
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -12,18 +14,35 @@ package $class.packageName;
 /**
 $class.getDocumentation(" * ")
  */
+#if ($XMLBindingAnnotations)
+    @XmlRootElement(name="TestApplicationException")
+    // Annotate get/set fields with @XmlTransient, not the private fields.
+    @XmlAccessorType(XmlAccessType.PROPERTY)
+    @XmlType(name="testApplicationException")
+    @WebFault( name="${class.name}", faultBean="$class.fullyQualifiedName", targetNamespace="http://$javaUtils.reversePackage($class.packageName)")
+#end
 public class ${class.name}
 #if($class.generalization)
     extends ${class.generalization.fullyQualifiedName}
 #else
-    extends java.lang.RuntimeException
+    extends RuntimeException
+#end
+#if (!$class.interfaceAbstractions.empty)
+    implements $class.implementedInterfaceList
 #end
 {
+#if ($serializable)
+    /** The serial version UID of this class. Throwable implements Serializable so declaration not needed. */
+    private static final long serialVersionUID = 1L;
+
+#end
     /**
      * The default constructor.
      */
     public ${class.name}()
-    {}
+    {
+        // Avoid compiler warning from uncommented empty method
+    }
 
     /**
      * Constructs a new instance of ${class.name}
@@ -59,3 +78,4 @@ public class ${class.name}
 #parse("templates/java/ExceptionUtils.vm")
 
 }
+#end

@@ -22,6 +22,7 @@ import org.codehaus.plexus.util.InterpolationFilterReader;
  * executes AndroMDApp.
  * 
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public abstract class AbstractAndroMDAppMojo
     extends AbstractMojo
@@ -56,6 +57,27 @@ public abstract class AbstractAndroMDAppMojo
      */
     protected List propertyFiles;
     
+    /**
+     * Set this to 'true' to bypass cartridge tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
+     *
+     * @parameter expression="${maven.test.skip}"
+     */
+    protected boolean skip;
+
+    /**
+     *  Set this to 'true' to skip running tests, but still compile them. Its use is NOT RECOMMENDED, but quite convenient on occasion. 
+     *
+     * @parameter expression="${skipTests}"
+     */
+    protected boolean skipTests;
+
+    /**
+     * Set this to true to ignore a failure during testing. Its use is NOT RECOMMENDED, but quite convenient on occasion.
+     *
+     * @parameter expression="${maven.test.failure.ignore}" default-value="false"
+     */
+    protected boolean testFailureIgnore;
+
     /**
      * Collects and returns all properties as a Properties instance.
      * 
@@ -106,6 +128,8 @@ public abstract class AbstractAndroMDAppMojo
      * of the specified property if there is one.
      *
      * @param string the string to perform replacement on.
+     * @return this.replaceProperties(this.getProperties(), string);
+     * @throws IOException 
      */
     protected String replaceProperties(final String string)
         throws IOException

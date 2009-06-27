@@ -1,27 +1,49 @@
-#parse("templates/spring/SpringGlobals.vm")
-#if ($ejbsEnabled && $springUtils.remoteEjbsPresent($services))
+#if ($ejbsEnabled && $remoteEjbsPresent)
 <?xml version="1.0" encoding="$xmlEncoding"?>
 
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
 
-    <!-- define JndiEnvironment helper bean for setting jndiEnvironment of all service proxies  -->
-    <bean id="jndiServerEnvironment" class="${springTypesPackage}.${serviceLocatorName}$JndiEnvironment">
-        <property name="providerUrl"><value>$ejbRemoteProviderUrl</value></property>
-        <property name="initialContextFactory"><value>$ejbRemoteInitialContextFactory</value></property>
-        <property name="urlPkgPrefixes"><value>$ejbRemoteUrlPackagePrefixes</value></property>
+    <!-- ========================= Start of BEAN POSTPROCESSORS ======================== -->
+
+    <bean id="propertyPlaceholderConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties">
+            <props>
+                <prop key="remoteServer">$stringUtils.substringBefore($ejbRemoteProviderUrl, ":")</prop>
+                <prop key="remotePort">$stringUtils.substringAfter($ejbRemoteProviderUrl, ":")</prop>
+                <prop key="ejbInitialContextFactory">$ejbRemoteInitialContextFactory</prop>
+                <prop key="ejbUrlPkgPrefixes">$ejbRemoteUrlPackagePrefixes</prop>
+            </props>
+        </property>
+        <property name="systemPropertiesModeName">
+            <value>SYSTEM_PROPERTIES_MODE_OVERRIDE</value>
+        </property>
     </bean>
 
+    <!-- ========================= End of BEAN POSTPROCESSORS ========================== -->
+
+	
     <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
 
+##encode variables names with single quotes to prevent rendering by velocity
+#set ($textProviderUrl = '${remoteServer}:${remotePort}')
+#set ($textInitialContextFactory = '${ejbInitialContextFactory}')
+#set ($textUrlPkgPrefixes = '${ejbUrlPkgPrefixes}')
 #foreach($service in $services)
 #if ($service.ejbRemoteView)
     <!-- $service.name -->
     <bean id="$service.getBeanName(false)" class="$ejbRemoteProxyFactoryBean">
         <property name="jndiName"><value>$service.ejbJndiName</value></property>
         <property name="businessInterface"><value>$service.fullyQualifiedName</value></property>
-        <property name="jndiEnvironment"><ref local="jndiServerEnvironment" /></property>
+        <property name="jndiEnvironment">
+            <props>
+                <prop key="java.naming.provider.url">${textProviderUrl}</prop>
+                <prop key="java.naming.factory.initial">${textInitialContextFactory}</prop>
+                <prop key="java.naming.factory.url.pkgs">${textUrlPkgPrefixes}</prop>
+            </props>
+		</property>
     </bean>
 
 #end

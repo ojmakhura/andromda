@@ -1,9 +1,11 @@
 package org.andromda.core.common;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -15,6 +17,7 @@ import org.andromda.core.configuration.Property;
 import org.andromda.core.mapping.Mapping;
 import org.andromda.core.mapping.Mappings;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -29,6 +32,8 @@ import org.apache.commons.lang.StringUtils;
  */
 public class Merger
 {
+    private static final Logger logger = Logger.getLogger(Merger.class);
+
     /**
      * The shared instance
      */
@@ -44,7 +49,7 @@ public class Merger
      *
      * @return the shared instance.
      */
-    public static final Merger instance()
+    public static Merger instance()
     {
         return instance;
     }
@@ -70,8 +75,8 @@ public class Merger
         // check (may need to refactor the mergedStringCache solution)
         if (namespace != null && string != null)
         {
-            final Mappings mergeMappings = this.getMergeMappings(namespace);
-            if (mergeMappings != null)
+            final Collection<Mappings> mappingInstances = this.getMergeMappings(namespace);
+            for (final Mappings mergeMappings : mappingInstances)
             {
                 final Collection mappings = mergeMappings.getMappings();
                 if ((mappings != null) && !mappings.isEmpty())
@@ -86,8 +91,7 @@ public class Merger
                             for (final Iterator fromsIterator = froms.iterator(); fromsIterator.hasNext();)
                             {
                                 final String from = StringUtils.trimToEmpty((String)fromsIterator.next());
-
-                                if (StringUtils.isNotEmpty(from))
+                                if (StringUtils.isNotEmpty(from) && string.contains(from))
                                 {
                                     final String to = mapping.getTo() != null ? mapping.getTo().trim() : "";
                                     string = StringUtils.replace(string, from, to);
@@ -147,8 +151,17 @@ public class Merger
      */
     public boolean requiresMerge(final String namespace)
     {
-        final Mappings mergeMappings = this.getMergeMappings(namespace);
-        return (mergeMappings != null) && !mergeMappings.getMappings().isEmpty();
+        boolean requiresMerge = false;
+        final Collection<Mappings> mergeMappings = this.getMergeMappings(namespace);
+        for (final Mappings mappings : mergeMappings)
+        {
+            requiresMerge = !mappings.getMappings().isEmpty();
+            if (requiresMerge)
+            {
+                break;
+            }
+        }
+        return requiresMerge;
     }
 
     /**
@@ -158,25 +171,51 @@ public class Merger
      * @param namespace the namespace to which the mappings belong.
      * @return the Mappings instance.
      */
-    private final Mappings getMergeMappings(final String namespace)
+    private Collection<Mappings> getMergeMappings(final String namespace)
     {
-        Mappings mergeMappings = null;
+        final Collection<Mappings> mappings = new ArrayList<Mappings>();
         if (StringUtils.isNotBlank(namespace))
         {
-            final Property mergeMappingsUri =
-                Namespaces.instance().getProperty(namespace, NamespaceProperties.MERGE_MAPPINGS_URI, false);
-            String mergeMappingsUriValue = (mergeMappingsUri != null) ? mergeMappingsUri.getValue() : null;
-            if (StringUtils.isNotBlank(mergeMappingsUriValue))
+            final Collection<Property> mergeMappingsUris =
+                Namespaces.instance().getProperties(namespace, NamespaceProperties.MERGE_MAPPINGS_URI, false);
+            if (mergeMappingsUris != null)
             {
-                mergeMappings = (Mappings)this.mergeMappingsCache.get(mergeMappingsUriValue);
-
-                if (mergeMappings == null)
+                for (final Property mergeMappingsUri : mergeMappingsUris)
                 {
-                    mergeMappings = Mappings.getInstance(mergeMappingsUriValue);
-                    this.mergeMappingsCache.put(mergeMappingsUriValue, mergeMappings);
+                    String mergeMappingsUriValue = (mergeMappingsUri != null) ? mergeMappingsUri.getValue() : null;
+                    if (StringUtils.isNotBlank(mergeMappingsUriValue))
+                    {
+                        Mappings mergeMappings = (Mappings)this.mergeMappingsCache.get(mergeMappingsUriValue);
+                        if (mergeMappings == null)
+                        {
+                            try
+                            {
+                                mergeMappings = Mappings.getInstance(mergeMappingsUriValue);
+                                this.mergeMappingsCache.put(mergeMappingsUriValue, mergeMappings);
+                            }
+                            catch (Exception exception)
+                            {
+                                if (ExceptionUtils.getRootCause(exception) instanceof FileNotFoundException)
+                                {
+                                    if (logger.isDebugEnabled())
+                                    {
+                                        logger.debug(exception);
+                                    }
+                                }
+                                else
+                                {
+                                    throw new MergerException(exception);
+                                }
+                            }
+                        }
+                        if (mergeMappings != null)
+                        {
+                            mappings.add(mergeMappings);
+                        }
+                    }
                 }
             }
         }
-        return mergeMappings;
+        return mappings;
     }
 }

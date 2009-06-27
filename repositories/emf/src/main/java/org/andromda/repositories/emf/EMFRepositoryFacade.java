@@ -6,41 +6,50 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ResourceFinder;
+import org.andromda.core.engine.ModelProcessor;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.repository.RepositoryFacade;
 import org.andromda.core.repository.RepositoryFacadeException;
+import org.apache.log4j.Logger;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 
 
 /**
- * An abtract EMF {@link RepositoryFacade} instance that should be extended by any repository wishing to load EMF models.
+ * An abstract EMF {@link RepositoryFacade} instance that should be extended by any repository wishing to load EMF models.
  *
  * @author Steve Jerman
  * @author Chad Brandon
+ * @author Bob Fields (Multiple model support)
  */
 public abstract class EMFRepositoryFacade
     implements RepositoryFacade
 {
     /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(EMFRepositoryFacade.class);
+
+    /**
      * Stores the resources (i.e. models) loaded into EMF.
      */
-    protected final ResourceSet resourceSet = new ResourceSetImpl();
+    protected ResourceSet resourceSet;
+    
+    protected ModelAccessFacade modelFacade;
 
     /**
      * Stores the actual loaded model.
      */
-    private Object model;
+    // Modification required for multi-model support - fix compile errors after change
+    // and implement multiple model processing by iterating through models in the list.
+    protected List<Resource> model;
 
     /**
      * The options for loading the model.
@@ -58,46 +67,91 @@ public abstract class EMFRepositoryFacade
     }
 
     /**
-     * Reads the model with the given <code>uri</code> into the EModelElement
-     * instance.
+     * Reads the model with the given <code>uri</code>.
      *
      * @param uri the URI to the model
-     * @return the model element instance.
      */
-    protected EObject readModel(final String uri)
+    protected void readModel(final String uri)
     {
-        EObject modelPackage = null;
         try
         {
-            final Resource resource = resourceSet.createResource(EMFRepositoryFacadeUtils.createUri(uri));
-            if (resource == null)
+            if (this.model==null) 
+            {
+                this.model = new ArrayList<Resource>();
+            }
+            Resource modelResource = this.resourceSet.createResource(EMFRepositoryFacadeUtils.createUri(uri));
+            if (modelResource == null)
             {
                 throw new RepositoryFacadeException("'" + uri + "' is an invalid model");
             }
-            resource.load(this.getLoadOptions());
-            EcoreUtil.resolveAll(resource);
-            modelPackage =
-                (EObject)EcoreUtil.getObjectByType(
-                    resource.getContents(),
-                    EcorePackage.eINSTANCE.getEObject());
+            modelResource.load(this.getLoadOptions());
+            // Show errors and warnings, if any....
+            EList errors = modelResource.getErrors();
+            if (errors!=null && errors.size()>0)
+            {
+                logger.info(errors);
+            }
+            EList warnings = modelResource.getWarnings();
+            if (warnings!=null && warnings.size()>0)
+            {
+                logger.info(warnings);
+            }
+            // Don't validate that model resources can be loaded, if not necessary
+            if (ModelProcessor.getModelValidation())
+            {
+                try {
+                    //logger.debug("EMFRepositoryFacade.readModel.resolve: " + modelResource.getURI());
+                    // Duplicate call to EcoreUtil.resolveAll(modelResource);
+                    //long now = System.currentTimeMillis();
+                    for (Iterator<EObject> i = modelResource.getAllContents();  i.hasNext(); )
+                    {
+                        long now1 = System.currentTimeMillis();
+                        EObject eObject = i.next();
+                        //logger.debug("EMFRepositoryFacade.resolveAll.crossRef: " + EcoreUtil.getURI(eObject) + " " + (System.currentTimeMillis()-now1) + " ms");
+                        for (Iterator<EObject> crossRefIterator =  eObject.eCrossReferences().iterator();  crossRefIterator.hasNext(); )
+                        {
+                            long now2 = System.currentTimeMillis();
+                            EObject crossRef = crossRefIterator.next();
+                            //EObject resolved = EcoreUtil.resolve(crossRef, this.resourceSet);
+                            //logger.debug("EMFRepositoryFacade.resolveAll.crossRef: " + crossRef.toString() + " = " + EcoreUtil.getURI(crossRef) + " " + (System.currentTimeMillis()-now2) + " ms");
+                        }
+                    }
+                } catch (RuntimeException e) {
+                    logger.error("EMFRepositoryFacade.readModel.resolveAll :" + e);
+                }
+            }
+            this.model.add(modelResource);
         }
         catch (final Exception exception)
         {
             throw new RepositoryFacadeException(exception);
         }
-        return modelPackage;
     }
 
     /**
      * @see org.andromda.core.repository.RepositoryFacade#open()
      */
-    public abstract void open();
+    public void open()
+    {
+        this.resourceSet = this.createNewResourceSet();
+    }
+
+    /**
+     * Creates and returns a new resource suitable suitable for loading models into EMF.
+     * This callback is used when (re-)initializing this repository so that it can be reused between different
+     * AndroMDA runs, once a resource set is used for a model it becomes 'polluted' so that subsequent models
+     * will see things from the previous runs, which might mess up the processing.
+     *
+     * @return a new resource set to be used by this repository
+     */
+    protected abstract ResourceSet createNewResourceSet();
 
     /**
      * @see org.andromda.core.repository.RepositoryFacade#close()
      */
     public void close()
     {
+        // Ignore. Avoid compiler warning.
     }
 
     /**
@@ -106,9 +160,9 @@ public abstract class EMFRepositoryFacade
     private static final String MODULES_PATH = "META-INF/emf/modules";
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.lang.String[], java.lang.String[])
+     * @see org.andromda.core.repository.RepositoryFacade#readModel(String[], String[])
      */
-    public void readModel(
+    public final void readModel(
         String[] modelUris,
         String[] moduleSearchPaths)
     {
@@ -137,19 +191,20 @@ public abstract class EMFRepositoryFacade
                 }
             }
         }
-        resourceSet.setURIConverter(new EMFURIConverter(moduleSearchPathList));
-        if (modelUris != null && modelUris.length > 0)
+        logger.debug("ModuleSearchPaths: " + moduleSearchPathList);
+        this.resourceSet.setURIConverter(new EMFURIConverter(moduleSearchPathList));
+        if (modelUris.length > 0)
         {
             final int numberOfModelUris = modelUris.length;
             for (int ctr = 0; ctr < numberOfModelUris; ctr++)
             {
-                model = this.readModel(modelUris[ctr]);
+                this.readModel(modelUris[ctr]);
             }
         }
     }
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.io.InputStream[], java.lang.String[], java.lang.String[])
+     * @see org.andromda.core.repository.RepositoryFacade#readModel(java.io.InputStream[], String[], String[])
      */
     public void readModel(
         InputStream[] stream,
@@ -162,29 +217,29 @@ public abstract class EMFRepositoryFacade
     }
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#writeModel(java.lang.Object, java.lang.String, java.lang.String, java.lang.String)
+     * @see org.andromda.core.repository.RepositoryFacade#writeModel(Object, String, String, String)
      */
     public void writeModel(
-        Object model,
+        Object modelIn,
         String location,
         String version,
         String encoding)
     {
         this.writeModel(
-            model,
+            modelIn,
             location,
             "");
     }
 
     /**
-     * @see org.andromda.core.repository.RepositoryFacade#writeModel(java.lang.Object, java.lang.String, java.lang.String)
+     * @see org.andromda.core.repository.RepositoryFacade#writeModel(Object, String, String)
      */
     public void writeModel(
-        Object model,
+        Object modelIn,
         String location,
         String version)
     {
-        final org.eclipse.emf.ecore.EModelElement element = (org.eclipse.emf.ecore.EModelElement)model;
+        final org.eclipse.emf.ecore.EModelElement element = (org.eclipse.emf.ecore.EModelElement)modelIn;
         final Resource resource = element.eResource();
         final URI uri = URI.createURI(location);
         resource.setURI(uri);
@@ -199,45 +254,11 @@ public abstract class EMFRepositoryFacade
     }
 
     /**
-     * The model access facade instance.
-     */
-    private ModelAccessFacade modelFacade = null;
-
-    /**
-     * @see org.andromda.core.repository.RepositoryFacade#getModel(java.lang.Class)
-     */
-    public ModelAccessFacade getModel(Class type)
-    {
-        if (this.modelFacade == null)
-        {
-            try
-            {
-                this.modelFacade =
-                    (ModelAccessFacade)ComponentContainer.instance().newComponent(
-                        type,
-                        ModelAccessFacade.class);
-            }
-            catch (final Throwable throwable)
-            {
-                throw new RepositoryFacadeException(throwable);
-            }
-        }
-        if (this.model != null)
-        {
-            this.modelFacade.setModel(this.model);
-        }
-        else
-        {
-            this.modelFacade = null;
-        }
-        return this.modelFacade;
-    }
-
-    /**
      * @see org.andromda.core.repository.RepositoryFacade#clear()
      */
     public void clear()
     {
-        model = null;
+        this.model = null;
+        this.resourceSet = this.createNewResourceSet();
     }
 }

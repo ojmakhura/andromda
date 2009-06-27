@@ -8,19 +8,20 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.GuardFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
  * MetafacadeLogic implementation.
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsForward
+ * @author Bob Fields
  */
 public class StrutsForwardLogicImpl
     extends StrutsForwardLogic
@@ -95,11 +96,11 @@ public class StrutsForwardLogicImpl
         final EventFacade trigger = this.getTrigger();
         if (trigger != null) forwardName = trigger.getName();
         //name
-        if (forwardName == null) forwardName = this.getName();
+        if (StringUtils.isEmpty(forwardName)) forwardName = this.getName();
         //target
-        if (forwardName == null) forwardName = this.getTarget().getName();
+        if (StringUtils.isEmpty(forwardName)) forwardName = this.getTarget().getName();
         // else
-        if (forwardName == null) forwardName = "unknown";
+        if (StringUtils.isEmpty(forwardName)) forwardName = "unknown";
         // return
         return forwardName;
     }
@@ -216,7 +217,7 @@ public class StrutsForwardLogicImpl
                     final PseudostateFacade pseudostate = (PseudostateFacade)vertex;
                     if (!pseudostate.isInitialState())
                     {
-                        final Collection incomingForwards = pseudostate.getIncoming();
+                        final Collection incomingForwards = pseudostate.getIncomings();
                         for (final Iterator forwardIterator = incomingForwards.iterator(); forwardIterator.hasNext();)
                         {
                             final StrutsForward forward = (StrutsForward)forwardIterator.next();

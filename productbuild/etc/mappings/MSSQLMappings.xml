@@ -19,7 +19,7 @@
     <mapping>
         <from>datatype::Timestamp</from>
         <from>datatype::DateTime</from>
-        <to>TIMESTAMP</to>
+        <to>DATETIME</to>
     </mapping>
     <mapping>
         <from>datatype::char</from>
@@ -44,7 +44,7 @@
     <mapping>
         <from>datatype::long</from>
         <from>datatype::Long</from>
-        <to>NUMERIC(19,0)</to>
+        <to>BIGINT</to>
     </mapping>
     <mapping>
         <from>datatype::float</from>

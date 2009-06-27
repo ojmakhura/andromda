@@ -7,7 +7,6 @@ import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.XmlObjectFactory;
@@ -23,6 +22,7 @@ import org.apache.log4j.Logger;
  * instances.
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class LibraryTranslation
 {
@@ -171,8 +171,8 @@ public class LibraryTranslation
     }
 
     /**
-     * Calls the handlerMethod from a translation fragment. Each handle method must take a java.lang.String as the first
-     * argument (the body of the fragment from the translation template) and a java.lang.Object for the second argument
+     * Calls the handlerMethod from a translation fragment. Each handle method must take a String as the first
+     * argument (the body of the fragment from the translation template) and a Object for the second argument
      * (the node being parsed that we may need to retrieve any additional information from).
      *
      * @param name the name of the fragment to retrieve.
@@ -194,14 +194,14 @@ public class LibraryTranslation
                 String handlerMethod = fragment.getHandlerMethod();
                 if (StringUtils.isNotEmpty(handlerMethod))
                 {
-                    Class[] argTypes = new Class[] {java.lang.String.class, java.lang.Object.class};
+                    Class[] argTypes = new Class[] {String.class, Object.class};
+                    Method method = null;
+                    // add the translation as the first arg
+                    Object[] args = new Object[] {translation, node};
 
                     try
                     {
-                        final Method method = this.getTranslator().getClass().getMethod(handlerMethod, argTypes);
-
-                        // add the translation as the first arg
-                        final Object[] args = new Object[] {translation, node};
+                        method = this.getTranslator().getClass().getMethod(handlerMethod, argTypes);
 
                         method.invoke(
                             this.getTranslator(),
@@ -215,8 +215,20 @@ public class LibraryTranslation
                             " in order to handle processing of the fragment --> '" + name + "'";
                         logger.error(errMsg);
                     }
-                    catch (final Throwable throwable)
+                    catch (Throwable throwable)
                     {
+                        if (throwable.getCause()!=null)
+                        {
+                            throwable = throwable.getCause();
+                        }
+                        // At least output the location where the error happened, not the entire stack trace.
+                        StackTraceElement[] trace = throwable.getStackTrace();
+                        String location = " AT " + trace[0].getClassName() + "." + trace[0].getMethodName() + ":" + trace[0].getLineNumber();
+                        if (throwable.getMessage()!=null)
+                        {
+                            location += " " + throwable.getMessage();
+                        }
+                        logger.error(this.getTranslator().getClass() + " " + throwable + " invoking " + this.getTranslator() + " METHOD " + method + " WITH " + args + location + " fragment " + name);
                         throw new LibraryException(throwable);
                     }
                 }
@@ -313,7 +325,7 @@ public class LibraryTranslation
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

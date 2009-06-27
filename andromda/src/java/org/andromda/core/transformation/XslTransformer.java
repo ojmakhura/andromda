@@ -28,7 +28,7 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * An implementation of Transformer that provides
- * XSLT transformations.  The {@link #transform(URL, URL[])}
+ * XSLT transformations.  The {@link #transform(String, Transformation[])}
  * operation will apply the given XSLT files to the model
  * in the order which they are found.
  *
@@ -40,7 +40,7 @@ public class XslTransformer
     /**
      * Applies the given XSLT files to the model in the order in which they are found.
      *
-     * @see org.andromda.core.transformation.Transformer#transform(java.net.URL, org.andromda.core.configuration.Transformation[])
+     * @see org.andromda.core.transformation.Transformer#transform(String, org.andromda.core.configuration.Transformation[])
      */
     public InputStream transform(
         final String modelUri,
@@ -116,7 +116,7 @@ public class XslTransformer
      * Provides the URI resolving capabilities for the
      * {@ XslTransformer}
      */
-    private static final class TransformerURIResolver
+    static final class TransformerURIResolver
         implements URIResolver
     {
         /**
@@ -131,7 +131,7 @@ public class XslTransformer
             if (this.location != null)
             {
                 String locationUri = ResourceUtils.normalizePath(this.location.toString());
-                locationUri = locationUri.substring(0, locationUri.toString().lastIndexOf('/') + 1);
+                locationUri = locationUri.substring(0, locationUri.lastIndexOf('/') + 1);
                 source = new StreamSource(locationUri + href);
             }
             return source;

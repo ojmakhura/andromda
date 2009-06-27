@@ -1,2 +1,1 @@
-#set($useCase = $applicationUseCases.iterator().next())
-<%response.sendRedirect(request.getContextPath() + "$useCase.path");%>
+<%response.sendRedirect(request.getContextPath() + "${applicationUseCases.iterator().next().path}.${facesServletExtension}");%>

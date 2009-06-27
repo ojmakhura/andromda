@@ -131,24 +131,24 @@ ${indent}</join>
 ##
 ##
 #macro (events $state $indent)
-#if (!$state.beforeSignal.empty)
+#if (!$state.beforeSignals.empty)
 ${indent}<event type="before-signal">
-#actions($state.beforeSignal "${indent}    ")
+#actions($state.beforeSignals "${indent}    ")
 ${indent}</event>
 #end
-#if (!$state.afterSignal.empty)
+#if (!$state.afterSignals.empty)
 ${indent}<event type="after-signal">
-#actions($state.afterSignal "${indent}    ")
+#actions($state.afterSignals "${indent}    ")
 ${indent}</event>
 #end
-#if (!$state.nodeEnter.empty)
+#if (!$state.nodeEnters.empty)
 ${indent}<event type="node-enter">
-#actions($state.nodeEnter "${indent}    ")
+#actions($state.nodeEnters "${indent}    ")
 ${indent}</event>
 #end
-#if (!$state.nodeLeave.empty)
+#if (!$state.nodeLeaves.empty)
 ${indent}<event type="node-leave">
-#actions($state.nodeLeave "${indent}    ")
+#actions($state.nodeLeaves "${indent}    ")
 ${indent}</event>
 #end
 #end
@@ -205,7 +205,7 @@ ${indent}<action#renderName($action)#renderClass($action)#renderConfigType($acti
 ##
 ##
 #macro (transitions $state $indent $considerConditions)
-#foreach ($transition in $state.outgoing)
+#foreach ($transition in $state.outgoings)
 #if ($state.decisionPoint && $transition.condition)
 ${indent}<transition name="$transition.condition" to="$transition.target.name"#if(!$transition.trigger)/#end>
 #else

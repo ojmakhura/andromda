@@ -53,6 +53,62 @@ public class BeanSorter
     }
 
     /**
+     * Performs sorting of the collection by one property to
+     * sort with more than one property see {@link sort(java.util.Collection, SortCriteria[])}.
+     *
+     * @see sort(java.util.Collection, SortCriteria[])
+     *
+     * @param beans the Collection of PersistentObjects to sort
+     * @param sortBy the property to sort by (i.e. firstName, etc). Can
+     *        be a nested property such as 'person.address.street'.
+     * @param ordering the ordering of the sorting (either {@link SortCriteria#ASENDING}
+     *        or {@link SortCriteria#DESCENDING})
+     * @param nullsFirst a flag indicating whether or not null values should be sorted to the beginning
+     *        or the ending of the list.
+     * @return the sorted List
+     */
+    public static List sort(
+        final Collection beans,
+        final String sortBy,
+        final boolean nullsFirst)
+    {
+        return sort(
+            beans,
+            new SortCriteria[] {new SortCriteria(
+                    sortBy,
+                    nullsFirst)});
+    }
+
+    /**
+     * Performs sorting of the collection by one property to
+     * sort with more than one property see {@link sort(java.util.Collection, SortCriteria[])}.
+     *
+     * @see sort(java.util.Collection, SortCriteria[])
+     *
+     * @param beans the Collection of PersistentObjects to sort
+     * @param sortBy the property to sort by (i.e. firstName, etc). Can
+     *        be a nested property such as 'person.address.street'.
+     * @param ordering the ordering of the sorting (either {@link SortCriteria#ASENDING}
+     *        or {@link SortCriteria#DESCENDING})
+     * @param nullsFirst a flag indicating whether or not null values should be sorted to the beginning
+     *        or the ending of the list.
+     * @return the sorted List
+     */
+    public static List sort(
+        final Collection beans,
+        final String sortBy,
+        final Ordering ordering,
+        final boolean nullsFirst)
+    {
+        return sort(
+            beans,
+            new SortCriteria[] {new SortCriteria(
+                    sortBy,
+                    ordering,
+                    nullsFirst)});
+    }
+
+    /**
      * <p>
      * Sorts the passed in Collection and returns
      * a sorted List.  Performs SQL like sorting for any
@@ -66,8 +122,8 @@ public class BeanSorter
      * @param sortBy an array of SortCriteria.  This array of SortCriteria
      * specifies which attributes to sort by.  You can also specify whether you want
      * {@link SortCriteria#ASCENDING} or {@link SortCriteria#DESCENDING} ordering for each attribute.
-     * Attributes to sort by, MUST be simple attributes 
-     * (i.e. name, type, etc, they can not be complex objects, but the properties can be 
+     * Attributes to sort by, MUST be simple attributes
+     * (i.e. name, type, etc, they can not be complex objects, but the properties can be
      * nested simple types within associated beans).
      *
      * @return List the sorted List
@@ -90,7 +146,7 @@ public class BeanSorter
 
         List sorted = null;
 
-        // - if the beans passed in, isn't assignable to List, 
+        // - if the beans passed in, isn't assignable to List,
         //   create a new ArrayList
         if (!(beans instanceof List))
         {
@@ -104,7 +160,7 @@ public class BeanSorter
         int sortByNum = sortBy.length;
 
         // - use the Comparator chain to provide SQL like sorting of properties
-        ComparatorChain chain = new ComparatorChain();
+        final ComparatorChain chain = new ComparatorChain();
         for (int ctr = 0; ctr < sortByNum; ctr++)
         {
             final SortCriteria orderBy = sortBy[ctr];

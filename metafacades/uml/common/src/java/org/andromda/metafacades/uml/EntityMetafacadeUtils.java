@@ -2,9 +2,9 @@ package org.andromda.metafacades.uml;
 
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
-
+import java.util.ArrayList;
 import java.util.Collection;
-
+import java.util.Random;
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
  * Utilities for dealing with entity metafacades
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class EntityMetafacadeUtils
 {
@@ -36,9 +37,9 @@ public class EntityMetafacadeUtils
             modelElementName);
 
         StringBuffer sqlName = new StringBuffer();
-        StringCharacterIterator iter = new StringCharacterIterator(StringUtils.uncapitalize(modelElementName));
+        StringCharacterIterator iterator = new StringCharacterIterator(StringUtils.uncapitalize(modelElementName));
 
-        for (char character = iter.first(); character != CharacterIterator.DONE; character = iter.next())
+        for (char character = iterator.first(); character != CharacterIterator.DONE; character = iterator.next())
         {
             if (Character.isUpperCase(character))
             {
@@ -155,36 +156,46 @@ public class EntityMetafacadeUtils
      */
     public static String getSqlNameFromTaggedValue(
         String prefix,
-        ModelElementFacade element,
+        final ModelElementFacade element,
         String name,
-        Short nameMaxLength,
+        final Short nameMaxLength,
         String suffix,
-        Object separator)
+        final Object separator)
     {
         if (element != null)
         {
             Object value = element.findTaggedValue(name);
-            name = StringUtils.trimToEmpty((String)value);
-            if (StringUtils.isEmpty(name))
+            StringBuffer buffer = new StringBuffer(StringUtils.trimToEmpty((String)value));
+            if (StringUtils.isEmpty(buffer.toString()))
             {
                 // if we can't find the tagValue then use the
                 // element name for the name
-                name = element.getName();
-                name = toSqlName(
-                        name,
-                        separator);
+                buffer = new StringBuffer(toSqlName(
+                            element.getName(),
+                            separator));
+                suffix = StringUtils.trimToEmpty(suffix);
+                prefix = StringUtils.trimToEmpty(prefix);
+                if (nameMaxLength != null)
+                {
+                    final short maxLength = (short)(nameMaxLength.shortValue() - suffix.length() - prefix.length());
+                    buffer =
+                        new StringBuffer(
+                            EntityMetafacadeUtils.ensureMaximumNameLength(
+                                buffer.toString(),
+                                new Short(maxLength)));
+                }
                 if (StringUtils.isNotBlank(prefix))
                 {
-                    name = StringUtils.trimToEmpty(prefix) + name;
+                    buffer.insert(
+                        0,
+                        prefix);
                 }
                 if (StringUtils.isNotBlank(suffix))
                 {
-                    name = name + StringUtils.trimToEmpty(suffix);
+                    buffer.append(suffix);
                 }
             }
-            name = ensureMaximumNameLength(
-                    name,
-                    nameMaxLength);
+            name = buffer.toString();
         }
         return name;
     }
@@ -217,34 +228,30 @@ public class EntityMetafacadeUtils
     }
 
     /**
-     * Retrieves the identifiers for the given <code>entity</code>. If
-     * <code>follow</code> is true then the inheritance hierachy will also be
-     * searched.
+     * Gets all identifiers for an entity. If 'follow' is true, and if
+     * no identifiers can be found on the entity, a search up the
+     * inheritance chain will be performed, and the identifiers from
+     * the first super class having them will be used.   If no
+     * identifiers exist, a default identifier will be created if the
+     * allowDefaultIdentifiers property is set to true.
      *
-     * @param follow a flag indicating whether or not the inheritance hiearchy
+     * @param entity the entity for which to retrieve the identifiers
+     * @param follow a flag indicating whether or not the inheritance hierarchy
      *        should be followed
      * @return the collection of identifiers.
      */
-    public static Collection getIdentifiers(
-        Entity entity,
-        boolean follow)
+    public static Collection<AttributeFacade> getIdentifiers(
+        final Entity entity,
+        final boolean follow)
     {
-        Collection identifiers = entity.getAttributes();
+        final Collection<AttributeFacade> identifiers = new ArrayList<AttributeFacade>(entity.getAttributes());
         MetafacadeUtils.filterByStereotype(
             identifiers,
             UMLProfile.STEREOTYPE_IDENTIFIER);
 
-        for (ClassifierFacade superClass = (ClassifierFacade)entity.getGeneralization();
-            superClass != null && identifiers.isEmpty() && follow;
-            superClass = (ClassifierFacade)superClass.getGeneralization())
-        {
-            if (superClass.hasStereotype(UMLProfile.STEREOTYPE_ENTITY))
-            {
-                Entity facade = (Entity)superClass;
-                identifiers.addAll(facade.getIdentifiers(follow));
-            }
-        }
-        return identifiers;
+        return (identifiers.isEmpty() && follow && entity.getGeneralization() instanceof Entity
+            ? getIdentifiers((Entity)entity.getGeneralization(), follow)
+            : identifiers);
     }
 
     /**
@@ -263,10 +270,10 @@ public class EntityMetafacadeUtils
         String value = typeName;
         if (StringUtils.isNotEmpty(typeName))
         {
-            char beginChar = '(';
-            char endChar = ')';
-            int beginIndex = value.indexOf(beginChar);
-            int endIndex = value.indexOf(endChar);
+            final char beginChar = '(';
+            final char endChar = ')';
+            final int beginIndex = value.indexOf(beginChar);
+            final int endIndex = value.indexOf(endChar);
             if (beginIndex != -1 && endIndex != -1 && endIndex > beginIndex)
             {
                 String replacement = value.substring(
@@ -283,5 +290,116 @@ public class EntityMetafacadeUtils
             }
         }
         return value;
+    }
+
+    /**
+     * Constructs and returns the foreign key constraint name for the given <code>associationEnd</code>, <code>suffix</code>, <code>sqlNameSeperator</code>
+     * and <code>maxLengthProperty</code>.
+     *
+     * @param associationEnd the association end for which to construct the constraint name.
+     * @param suffix the suffix appended to the constraint name (if not limited by length).
+     * @param sqlNameSeperator the SQL name separator to use (i.e. '_').
+     * @param maxLengthProperty the numeric value stored as a string indicating the max length the constraint may be.
+     * @return the constructed foreign key constraint name.
+     */
+    public static String getForeignKeyConstraintName(EntityAssociationEnd associationEnd, String suffix, String sqlNameSeperator, String maxLengthProperty)
+    {
+        String constraintName;
+
+        final Object taggedValueObject = associationEnd.findTaggedValue(
+                UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME);
+        if (taggedValueObject == null)
+        {
+            // we construct our own foreign key constraint name here
+            StringBuffer buffer = new StringBuffer();
+
+            final ClassifierFacade type = associationEnd.getOtherEnd().getType();
+            if (type instanceof Entity)
+            {
+                Entity entity = (Entity)type;
+                buffer.append(entity.getTableName());
+            }
+            else
+            {
+                // should not happen
+                buffer.append(type.getName().toUpperCase());
+            }
+
+            buffer.append(sqlNameSeperator);
+            buffer.append(associationEnd.getColumnName());
+            constraintName = buffer.toString();
+
+            // we take into consideration the maximum length allowed
+            final short maxLength = (short)(Short.valueOf(maxLengthProperty).shortValue() - suffix.length());
+            buffer = new StringBuffer(EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, new Short(maxLength)));
+            buffer.append(suffix);
+            constraintName = EntityMetafacadeUtils.getUniqueForeignKeyConstraintName(buffer.toString());
+        }
+        else
+        {
+            // use the tagged value
+            constraintName = taggedValueObject.toString();
+        }
+        return constraintName;
+    }
+
+    /**
+     * An internal static cache for foreign key names (allows us to keep track
+     * of which ones have been used).  Its not great that its static, but for now
+     * this is the easiest way to enforce this.
+     */
+    private static Collection<String> foreignKeyConstraintNameCache = new ArrayList<String>();
+
+    /**
+     * Retrieves a unique foreign key constraint name given the proposedName.  Compares the proposedName
+     * against any foreign key names already stored in an internal collection.
+     *
+     * @param proposedName the proposed foreign key name.
+     * @return the unique foreign key name.
+     */
+    private static String getUniqueForeignKeyConstraintName(String proposedName)
+    {
+        final char[] characters = proposedName.toCharArray();
+        int numericValue = 0;
+        for (int ctr = 0; ctr < characters.length; ctr++)
+        {
+            numericValue = numericValue + Character.getNumericValue(characters[0]);
+        }
+        return getUniqueForeignKeyConstraintName(proposedName, new Random(numericValue));
+    }
+
+    /**
+     * Retrieves a unique foreign key constraint name given the proposedName.  Compares the proposedName
+     * against any foreign key names already stored in an internal collection.
+     *
+     * @param proposedName the proposed foreign key name.
+     * @param random the Random number generator to use for enforcing uniqueness.
+     * @return the unique foreign key name.
+     */
+    private static String getUniqueForeignKeyConstraintName(String proposedName, final Random random)
+    {
+        String name;
+        if (foreignKeyConstraintNameCache.contains(proposedName))
+        {
+            final char[] characters = proposedName.toCharArray();
+            int randomInt = random.nextInt(characters.length);
+            char randomChar = Character.toUpperCase(characters[randomInt]);
+            proposedName = proposedName.substring(0, proposedName.length() - 1) + randomChar;
+            name = getUniqueForeignKeyConstraintName(proposedName, random);
+        }
+        else
+        {
+            name = proposedName;
+            foreignKeyConstraintNameCache.add(name);
+        }
+        return name;
+    }
+
+    /**
+     * Clears out the foreign key cache.
+     */
+    public static void clearForeignKeyConstraintNameCache()
+    {
+        foreignKeyConstraintNameCache.clear();
     }
 }

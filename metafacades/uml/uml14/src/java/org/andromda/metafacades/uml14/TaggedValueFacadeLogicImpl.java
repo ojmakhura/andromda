@@ -1,18 +1,23 @@
 package org.andromda.metafacades.uml14;
 
-import org.apache.commons.lang.StringUtils;
-import org.omg.uml.foundation.core.TagDefinition;
-
 import java.util.ArrayList;
 import java.util.Collection;
+import org.apache.commons.lang.StringUtils;
+import org.omg.uml.foundation.core.TagDefinition;
+import org.omg.uml.foundation.core.TaggedValue;
 
 /**
  * Metaclass facade implementation.
+ * @author Bob Fields
  */
 public class TaggedValueFacadeLogicImpl
         extends TaggedValueFacadeLogic
 {
-    public TaggedValueFacadeLogicImpl(org.omg.uml.foundation.core.TaggedValue metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public TaggedValueFacadeLogicImpl(TaggedValue metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -42,6 +47,7 @@ public class TaggedValueFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.TaggedValueFacade#getValues()
      */
+    @Override
     public Collection handleGetValues()
     {
         final Collection values = new ArrayList();
@@ -53,7 +59,8 @@ public class TaggedValueFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.TaggedValueFacade#getValue()
      */
-    public java.lang.Object handleGetValue()
+    @Override
+    public Object handleGetValue()
     {
         final Collection values = this.getValues();
         return (values.isEmpty()) ? null : values.iterator().next();

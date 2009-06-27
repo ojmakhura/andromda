@@ -9,7 +9,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
@@ -106,7 +105,7 @@ public class StrutsActionLogicImpl
         else if ((target instanceof PseudostateFacade) && ((PseudostateFacade) target).isDecisionPoint())
         {
             decisionTransitions.add(transition);
-            final Collection outcomes = target.getOutgoing();
+            final Collection outcomes = target.getOutgoings();
             for (final Iterator iterator = outcomes.iterator(); iterator.hasNext();)
             {
                 final TransitionFacade outcome = (TransitionFacade) iterator.next();
@@ -124,7 +123,7 @@ public class StrutsActionLogicImpl
         }
         else // all the rest is ignored but outgoing transitions are further processed
         {
-            final Collection outcomes = target.getOutgoing();
+            final Collection outcomes = target.getOutgoings();
             for (final Iterator iterator = outcomes.iterator(); iterator.hasNext();)
             {
                 final TransitionFacade outcome = (TransitionFacade) iterator.next();
@@ -142,6 +141,23 @@ public class StrutsActionLogicImpl
     {
         final StateVertexFacade source = getSource();
         return (source instanceof StrutsJsp) ? ((StrutsJsp) source).getFullPath() : "";
+    }
+
+    protected boolean handleIsMultipartFormData()
+    {
+        boolean multipartFormPost = false;
+
+        final Collection formFields = this.getActionFormFields();
+        for (final Iterator fieldIterator = formFields.iterator(); !multipartFormPost && fieldIterator.hasNext();)
+        {
+            final StrutsParameter field = (StrutsParameter)fieldIterator.next();
+            if (field.isFile())
+            {
+                multipartFormPost = true;
+            }
+        }
+
+        return multipartFormPost;
     }
 
     protected boolean handleIsFormPost()

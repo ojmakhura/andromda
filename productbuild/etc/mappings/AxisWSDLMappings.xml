@@ -8,6 +8,7 @@
     <mapping>
         <from>datatype::DateTime</from>
         <from>datatype::Timestamp</from>
+        <from>datatype::Time</from>
         <from>datatype::Date</from>
         <to>dateTime</to>
     </mapping>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+    <properties>
+        <author email="naresh@andromda.org">Naresh Bhatia</author>
+        <title>Create an Entity</title>
+    </properties>
+
+    <body>
+        <section name="Create an Entity">
+            <p>
+                In this section you will create your very first entity using AndroMDA. Since people
+                are central to TimeTracker, we will start out by modeling a <code>Person</code>
+                entity. <code>Person</code> has three attributes: <code>username, firstName</code>
+                and <code>lastName</code>. The model for the <code>Person</code> entity
+                is shown below.
+            </p>
+
+            <p>
+                <div align="center">
+                    <img src="images/magicdraw/PersonEntity.jpg"/>
+                </div>
+            </p>
+
+            <p>
+                Note that we have marked the <code>Person</code> class with a stereotype
+                of <code>Entity</code>. This tells AndroMDA that <code>Person</code> is
+                an Entity as opposed to other type of model elements such as Enumeration or
+                EmbeddedValue. Stereotypes determine what pattern of code AndroMDA will
+                generate for a model element. More specifically, they determine which
+                AndroMDA code generation templates will be triggered.
+            </p>
+
+            <p>
+                Note that we have marked all three attributes to be of type <code>String</code>.
+                This type should not be confused with the Java type <code>java.lang.String</code>.
+                In model driven architecture, the model is kept independent of technology
+                and hence all model elements are defined in terms of platform independent
+                types. So <code>String</code> in this context is a platform independent type.
+                When we run AndroMDA to generate code, it will translate platform
+                independent types into platform dependent types such as <code>java.lang.String</code>.
+                If we were to use the same model to generate a .NET application, AndroMDA will
+                translate <code>String</code> into <code>System.String</code>, which is the
+                .NET equivalent of <code>java.lang.String</code>. As you can see, a key
+                advantage of the model driven approach is that your investment in the business
+                models is preserved even as technologies come and go.
+            </p>
+
+            <p>
+                Now let us enter the <code>Person</code> entity in the empty model that was created by the
+                AndroMDA application plugin. If you remember, this model was created at
+                timetracker/mda/src/uml/TimeTrackerModel.xmi. Please follow one of the links below to edit
+                the model with the UML tool of your choice.
+            </p>
+
+            <p>
+                <a href="resources/uml-tools/argouml/create-person-entity.html" target="_blank">ArgoUML</a>
+                <a href="resources/uml-tools/magicdraw/create-person-entity.html" target="_blank">MagicDraw</a>
+            </p>
+        </section>
+
+        <section name="Generate Code">
+                <p> Follow the steps below to generate code.
+                    <ol>
+                        <li>Open a Command Prompt and change your directory to <code>C:/timetracker</code>.</li>
+                        <li>Execute the command <code>maven -o install</code>. As mentioned earlier, the <code>-o</code>
+                            option instructs maven to run in "offline" mode, using the libraries in the local
+                            repository. This allows the build to run much faster. Make sure you get a
+                            <code>BUILD SUCCESSFUL</code> message when Maven finishes execution.</li>
+                    </ol>
+                </p>
+
+                <p>
+                    Open the folder C:/timetracker/core/target/src/org/andromda/timetracker/domain in Windows Explorer.
+                    Note that there are 6 files generated in this folder as a result of creating the single
+                    <code>Person</code> entity in the application model.
+                    <ol>
+                        <li><strong>Person.java:</strong> This is the primary class that implements the
+                        <code>Person</code> entity. It contains the 3 attributes from the model along with their getters
+                        and setters. AndroMDA automatically adds an <code>id</code> attribute that represents
+                        the unique identifier for <code>Person</code> instances in the database. In addition,
+                        AndroMDA generates <code>equals()</code> and <code>hashCode()</code> methods for the
+                        entity. Note that <code>Person</code> is an abstract class - it cannot be instantiated.
+                        The <code>PersonImpl</code> class described below, is a concrete class that extends
+                        <code>Person</code>. It can be instantiated using the factory methods imbedded in
+                        the <code>Person</code> class.</li>
+
+                        <li><strong>PersonImpl.java:</strong> As mentioned above <code>PersonImpl</code> is a concrete
+                        extension of the <code>Person</code> class. It is meant to be a container for any custom code
+                        that developers would like to add to the <code>Person</code> entity.</li>
+
+                        <li><strong>PersonDao.java:</strong> Data access objects for any entity are create as a trio
+                        of classes: an interface, an abstract base class and a concrete implementation.
+                        <code>PersonDao</code> is the interface for the <code>Person</code> data access object.
+                        It specifies CRUD methods for the DAO.</li>
+
+                        <li><strong>PersonDaoBase.java:</strong> <code>PersonDaoBase</code> implements all of the
+                        CRUD methods specified in the <code>PersonDao</code> interface class.</li>
+
+                        <li><strong>PersonDaoImpl.java:</strong> <code>PersonDaoImpl</code> is a concrete extension
+                        of the <code>PersonDaoBase</code> class. It is meant to be a container for any custom code
+                        that developers would like to add to the <code>Person</code> data access object.</li>
+
+                        <li><strong>Person.hbm.xml:</strong> This is the Hibernate mapping file that maps the
+                        <code>Person</code> entity to its relational representation in the database.</li>
+                    </ol>
+                </p>
+
+                <p>
+                    Note that all six files are generated in the <code>target</code> folder of the core project.
+                    The <code>target</code> folder is intended for auto generated files only. None of the files
+                    in this folder should be modified by hand because code regeneration will wipe them out
+                    completely, thus deleting all your changes. It is also a best practice not to check this
+                    code into your source repository. Instead let your build script generate it on the fly.
+                </p>
+
+                <p>
+                    By now you must be wondering where to add the custom code. We already said above that developers
+                    can add custom code into <code>PersonImpl.java</code> and <code>PersonDaoImpl.java</code>.
+                    But why are these classes generated in the <code>target</code> folder then? Well, AndroMDA is pretty
+                    smart. You have given it no indication that you want to write custom code. As long as that is the
+                    case it will keep generating the <code>Impl</code> classes in the target folder. However, as soon
+                    as you tell AndroMDA that you want to write some custom code in these classes, it will generate them
+                    in the <code>src</code> folder under the core project. Now you are free to modify the <code>Impl</code>
+                    classes and add any code to them. AndroMDA will never overwrite files in the project <code>src</code> folder.
+                    They are auto-generated only once for your convenience. In a later section of this tutorial we will
+                    show you how to write custom code.
+                </p>
+        </section>
+
+        <section name="Create the Schema">
+            <p>In addition to the entity and DAO classes shown above, AndroMDA automatically generates DDL
+            to create tables in your database. This DDL is located at C:/timetracker/core/target/schema-create.sql.
+            Open this file and review its contents. You should see the SQL to create the <code>PERSON</code> table.
+            Follow the steps below to create this table in your database.
+
+                <p class="highlight">
+                    Note that PostgreSQL does not like the first statement in schema-create.sql (drop sequence hibernate_sequence).
+                    Please comment out this line for PostgreSQL.
+                </p>
+
+                <ol>
+                    <li>Open a Command Prompt and change your directory to <code>C:/timetracker</code>.</li>
+                    <li>Execute the command <code>maven -o create-schema</code>. This will create the
+                    <code>PERSON</code> table in your database. Use your database utilities to verify
+                    that the table has indeed been created.</li>
+                </ol>
+            </p>
+        </section>
+
+        <section name="What's Next?">
+            <p>
+                Now that we have modeled the <code>Person</code> entity, it is time to create a value object to go with it.
+                Click <a href="create-value-object.html">here</a> to model the <code>PersonVO</code> value object.
+            </p>
+        </section>
+    </body>
+</document>

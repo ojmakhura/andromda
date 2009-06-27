@@ -6,6 +6,7 @@ package org.andromda.core.repository;
  * a repository instance.
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public final class RepositoryException
     extends RuntimeException
@@ -23,7 +24,7 @@ public final class RepositoryException
     /**
      * Constructor for the RepositoryException object
      *
-     * @param message describes cause of the exception
+     * @param parent describes cause of the exception
      */
     public RepositoryException(final Throwable parent)
     {

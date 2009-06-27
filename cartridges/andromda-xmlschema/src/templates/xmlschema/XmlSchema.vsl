@@ -24,6 +24,10 @@
     </xsd:simpleType>
 #else
     <xsd:complexType name="$typeName">
+#if ($type.generalization)
+    <xsd:complexContent>
+    <xsd:extension base="${type.generalization.name}Type">
+#end
         <xsd:sequence>
 #foreach ($associationEnd in $type.associationEnds)
 #set ($otherEnd = $associationEnd.otherEnd)
@@ -41,6 +45,10 @@
 #if ($attribute.xsdAttribute)
         <xsd:attribute name="${attribute.name}"#if($attribute.required) use="required" #end type="xsd:${attribute.type.fullyQualifiedName}"/>
 #end
+#end
+#if ($type.generalization)
+    </xsd:extension>
+    </xsd:complexContent>
 #end
     </xsd:complexType>
 #end

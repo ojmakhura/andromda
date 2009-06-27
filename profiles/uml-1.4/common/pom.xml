@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.andromda.profiles.uml14</groupId>
         <artifactId>andromda-profiles-uml14</artifactId>
-        <version>4.0-M1-SNAPSHOT</version>
+        <version>3.4-SNAPSHOT</version>
     </parent>
     <packaging>xml.zip</packaging>
     <artifactId>andromda-profile</artifactId>
@@ -46,6 +46,13 @@
         </dependency>
         <dependency>
             <groupId>org.andromda.profiles.uml14</groupId>
+            <artifactId>andromda-profile-messaging</artifactId>
+            <version>${pom.version}</version>
+            <type>xml.zip</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.profiles.uml14</groupId>
             <artifactId>andromda-profile-xml</artifactId>
             <version>${pom.version}</version>
             <type>xml.zip</type>
@@ -63,6 +70,13 @@
             <artifactId>andromda-profile-presentation</artifactId>
             <version>${pom.version}</version>
             <type>xml.zip</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.omg.profiles.uml14</groupId>
+            <artifactId>UML_Standard_Profile</artifactId>
+            <version>1.0</version>
+            <type>jar</type>
             <scope>runtime</scope>
         </dependency>
     </dependencies>

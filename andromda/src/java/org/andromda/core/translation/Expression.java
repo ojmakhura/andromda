@@ -60,7 +60,7 @@ public class Expression
         final String replacement)
     {
         this.translatedExpression =
-            new StringBuffer(this.getTranslatedExpression().toString().replaceAll(pattern, replacement));
+            new StringBuffer(this.getTranslatedExpression().replaceAll(pattern, replacement));
     }
 
     /**

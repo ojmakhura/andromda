@@ -1,0 +1,23 @@
+<serviceGroup>
+#if (!$axis2WrappedMessageReceiver)
+#set ($axis2WrappedMessageReceiver = "WrappedMessageReceiver")
+#if ($stringUtils.isNotBlank($webserviceTypesPackage))
+#*  *##set ($axis2WrappedMessageReceiver = "$webserviceTypesPackage.$axis2WrappedMessageReceiver")
+#end
+#end
+#foreach ($service in $services)
+    <service name="$service.qName">
+        <description>
+$service.getDocumentation("            ", 64, false)
+        </description>
+        <parameter name="ServiceClass" locked="false">$service.rpcClassName</parameter>
+        <messageReceivers>
+#if ($service.wrappedStyle)
+            <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out" class="$axis2WrappedMessageReceiver"/>
+#else
+            <messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out" class="$axis2DefaultMessageReceiver"/>
+#end
+        </messageReceivers>
+    </service>
+#end
+</serviceGroup>

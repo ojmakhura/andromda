@@ -10,7 +10,7 @@ $service.getDocumentation(" * ")
  */
 public interface ${service.name}
 #if ($service.generalization)
-    extends $service.fullyQualifiedName
+    extends $service.generalization.fullyQualifiedName
 #else
     extends javax.ejb.EJBObject
 #end

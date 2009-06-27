@@ -1,32 +1,37 @@
 package org.andromda.cartridges.meta.metafacades;
 
+import java.util.Collection;
 import org.andromda.cartridges.meta.MetaProfile;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.Collection;
 
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.meta.metafacades.MetafacadeGeneralization.
  *
  * @see org.andromda.cartridges.meta.metafacades.MetafacadeGeneralization
+ * @author Bob Fields
  */
 public class MetafacadeGeneralizationLogicImpl
     extends MetafacadeGeneralizationLogic
 {
+    /**
+     * @param metaObjectIn
+     * @param context
+     */
     public MetafacadeGeneralizationLogicImpl(
-        Object metaObject,
+        Object metaObjectIn,
         String context)
     {
-        super(metaObject, context);
+        super(metaObjectIn, context);
     }
 
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeGeneralization#getPrecedence()
      */
-    protected java.lang.Integer handleGetPrecedence()
+    @Override
+    protected Integer handleGetPrecedence()
     {
         Integer precedence = new Integer(999999999);
         String value =
@@ -49,6 +54,7 @@ public class MetafacadeGeneralizationLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeGeneralization#getGetterName()
      */
+    @Override
     protected String handleGetGetterName()
     {
         String name = this.getName();
@@ -66,6 +72,7 @@ public class MetafacadeGeneralizationLogicImpl
     /**
      * @see org.andromda.cartridges.meta.metafacades.MetafacadeGeneralization#getGetterNameVisibility()
      */
+    @Override
     protected String handleGetGetterNameVisibility()
     {
         String visibility = "private";
@@ -86,6 +93,7 @@ public class MetafacadeGeneralizationLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
+    @Override
     public String getName()
     {
         String name = super.getName();

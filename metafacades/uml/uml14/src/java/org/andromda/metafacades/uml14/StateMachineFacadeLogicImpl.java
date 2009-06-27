@@ -1,29 +1,36 @@
 package org.andromda.metafacades.uml14;
 
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
 import org.apache.commons.collections.Predicate;
-import org.omg.uml.behavioralelements.statemachines.FinalState;
 import org.omg.uml.behavioralelements.statemachines.CompositeState;
+import org.omg.uml.behavioralelements.statemachines.FinalState;
 import org.omg.uml.behavioralelements.statemachines.Pseudostate;
 import org.omg.uml.behavioralelements.statemachines.State;
+import org.omg.uml.foundation.core.ModelElement;
 import org.omg.uml.foundation.datatypes.PseudostateKindEnum;
-import org.andromda.metafacades.uml.PseudostateFacade;
-
-import java.util.Collection;
-import java.util.Set;
-import java.util.LinkedHashSet;
-import java.util.Iterator;
-
+import org.omg.uml.behavioralelements.statemachines.StateMachine;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.StateMachineFacade.
  *
  * @see org.andromda.metafacades.uml.StateMachineFacade
+ * @author Bob Fields
  */
 public class StateMachineFacadeLogicImpl
     extends StateMachineFacadeLogic
 {
 
-    public StateMachineFacadeLogicImpl (org.omg.uml.behavioralelements.statemachines.StateMachine metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public StateMachineFacadeLogicImpl (StateMachine metaObject, String context)
     {
         super (metaObject, context);
     }
@@ -31,7 +38,8 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getContextElement()
      */
-    protected java.lang.Object handleGetContextElement()
+    @Override
+    protected ModelElement handleGetContextElement()
     {
         return metaObject.getContext();
     }
@@ -39,7 +47,8 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getFinalStates()
      */
-    protected java.util.Collection handleGetFinalStates()
+    @Override
+    protected Collection handleGetFinalStates()
     {
         final Predicate filter =
             new Predicate()
@@ -55,7 +64,8 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getStates()
      */
-    protected java.util.Collection handleGetStates()
+    @Override
+    protected Collection handleGetStates()
     {
         final Predicate filter =
             new Predicate()
@@ -71,14 +81,15 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getInitialTransition()
      */
-    protected java.lang.Object handleGetInitialTransition()
+    @Override
+    protected TransitionFacade handleGetInitialTransition()
     {
-        Object transition = null;
+        TransitionFacade transition = null;
 
         final PseudostateFacade initialState = getInitialState();
         if (initialState != null)
         {
-            final Collection transitions = initialState.getOutgoing();
+            final Collection<TransitionFacade> transitions = initialState.getOutgoings();
             if (!transitions.isEmpty())
             {
                 transition = transitions.iterator().next();
@@ -91,7 +102,8 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getTransitions()
      */
-    protected java.util.Collection handleGetTransitions()
+    @Override
+    protected Collection handleGetTransitions()
     {
         return metaObject.getTransitions();
     }
@@ -99,7 +111,8 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getInitialStates()
      */
-    protected java.util.Collection handleGetInitialStates()
+    @Override
+    protected Collection handleGetInitialStates()
     {
         final Predicate filter =
             new Predicate()
@@ -116,11 +129,12 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getInitialState()
      */
-    protected java.lang.Object handleGetInitialState()
+    @Override
+    protected PseudostateFacade handleGetInitialState()
     {
-        Object initialState = null;
+        PseudostateFacade initialState = null;
 
-        final Collection initialStates = getInitialStates();
+        final Collection<PseudostateFacade> initialStates = getInitialStates();
         if (!initialStates.isEmpty())
         {
             initialState = initialStates.iterator().next();
@@ -132,7 +146,8 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getPseudostates()
      */
-    protected java.util.Collection handleGetPseudostates()
+    @Override
+    protected Collection handleGetPseudostates()
     {
         final Predicate filter =
             new Predicate()
@@ -167,7 +182,10 @@ public class StateMachineFacadeLogicImpl
         return filteredCollection;
     }
 
-    public Object getValidationOwner()
+    /**
+     * @return getPackage()
+     */
+    public Object handleGetValidationOwner()
     {
         return getPackage();
     }

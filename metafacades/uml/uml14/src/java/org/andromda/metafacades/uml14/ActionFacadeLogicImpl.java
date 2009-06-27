@@ -1,26 +1,31 @@
 package org.andromda.metafacades.uml14;
 
-import org.omg.uml.behavioralelements.activitygraphs.ActionState;
-import org.omg.uml.behavioralelements.statemachines.Transition;
-
 import java.util.Collection;
 import java.util.Iterator;
+import org.omg.uml.behavioralelements.activitygraphs.ActionState;
+import org.omg.uml.behavioralelements.statemachines.Transition;
+import org.omg.uml.behavioralelements.commonbehavior.Action;
 
 /**
  * MetafacadeLogic implementation.
  *
  * @see org.andromda.metafacades.uml.ActionFacade
+ * @author Bob Fields
  */
 public class ActionFacadeLogicImpl
         extends ActionFacadeLogic
 {
-    public ActionFacadeLogicImpl(org.omg.uml.behavioralelements.commonbehavior.Action metaObject,
-                                 java.lang.String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public ActionFacadeLogicImpl(Action metaObject,
+                                 String context)
     {
         super(metaObject, context);
     }
 
-    protected Object handleGetTransition()
+    protected Transition handleGetTransition()
     {
         Transition effectTransition = null;
 
@@ -37,7 +42,7 @@ public class ActionFacadeLogicImpl
         return effectTransition;
     }
 
-    protected Object handleGetActionState()
+    protected ActionState handleGetActionState()
     {
         ActionState entryState = null;
 
@@ -54,6 +59,9 @@ public class ActionFacadeLogicImpl
         return entryState;
     }
 
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
+     */
     public Object getValidationOwner()
     {
         Object validationOwner = getTransition();

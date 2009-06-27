@@ -158,6 +158,7 @@ $constant.getDocumentation("     * ")
      *
      * @ejb.interface-method
 #end
+     */
     $constant.visibility $constant.type.fullyQualifiedName ${constant.getterName}()
     {
         return $constant.name;
@@ -173,7 +174,7 @@ $constant.getDocumentation("     * ")
      */
      public $constant.type.fullyQualifiedName ejbHomeGet${constant.name}() 
      {
-         return ${constant.getterName};
+         return ${constant.getterName}();
      }
 #end
 #end

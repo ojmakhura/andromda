@@ -13,7 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.Constants;
 import org.andromda.core.common.ExceptionUtils;
@@ -40,7 +39,7 @@ import org.apache.velocity.runtime.resource.loader.FileResourceLoader;
  *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
- * @see http://jakarta.apache.org/velocity/
+ * @see "http://jakarta.apache.org/velocity/"
  */
 public class VelocityTemplateEngine
     implements TemplateEngine
@@ -97,6 +96,8 @@ public class VelocityTemplateEngine
     private final Collection mergedTemplateFiles = new ArrayList();
 
     /**
+     * @param namespace 
+     * @throws Exception 
      * @see org.andromda.core.templateengine.TemplateEngine#init(java.lang.String)
      */
     public void initialize(final String namespace)
@@ -196,8 +197,8 @@ public class VelocityTemplateEngine
     }
 
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#processTemplate(java.lang.String, java.util.Map,
-     *      java.io.StringWriter)
+     * @see org.andromda.core.templateengine.TemplateEngine#processTemplate(String, java.util.Map,
+     *      java.io.Writer)
      */
     public void processTemplate(
         final String templateFile,
@@ -251,14 +252,11 @@ public class VelocityTemplateEngine
         if (templateObjects != null && !templateObjects.isEmpty())
         {    
             // copy the templateObjects to the velocityContext
-            if (templateObjects != null)
+            for (final Iterator namesIterator = templateObjects.keySet().iterator(); namesIterator.hasNext();)
             {
-                for (final Iterator namesIterator = templateObjects.keySet().iterator(); namesIterator.hasNext();)
-                {
-                    final String name = (String)namesIterator.next();
-                    final Object value = templateObjects.get(name);
-                    this.velocityContext.put(name, value);
-                }
+                final String name = (String)namesIterator.next();
+                final Object value = templateObjects.get(name);
+                this.velocityContext.put(name, value);
             }
         }
     }
@@ -309,8 +307,6 @@ public class VelocityTemplateEngine
                 final StringWriter writer = new StringWriter();
                 this.velocityEngine.evaluate(this.velocityContext, writer, LOG_TAG, expression);
                 evaluatedExpression = writer.toString();
-                // - reset the velocity context
-                this.velocityContext = null;
             }
             catch (final Throwable throwable)
             {
@@ -400,7 +396,7 @@ public class VelocityTemplateEngine
      * <p/>
      * Error messages can now be traced to plugin activities. </p>
      */
-    private static class VelocityLoggingReceiver
+    static class VelocityLoggingReceiver
         implements LogSystem
     {
         /**

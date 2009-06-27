@@ -12,7 +12,7 @@ import org.apache.myfaces.taglib.html.ext.HtmlDataTableTag;
  * @author Chad Brandon
  */
 public class HtmlExtendedDataTableTag
-        extends HtmlDataTableTag
+    extends HtmlDataTableTag
 {
 
     /**

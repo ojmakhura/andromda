@@ -5,6 +5,8 @@
  */
 package org.andromda.samples.carrental.admins;
 
+import java.util.Collection;
+
 /**
  * @see org.andromda.samples.carrental.admins.Administrator
  */
@@ -26,4 +28,13 @@ public class AdministratorImpl
         return null;
     }
 
+    public Collection findByAccountNo(String accountNo) throws org.andromda.samples.carrental.admins.AdminException
+    {
+        return null;
+    }
+
+    public Collection findAll() throws org.andromda.samples.carrental.admins.AdminException
+    {
+        return null;
+    }
 }

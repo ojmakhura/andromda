@@ -5,10 +5,15 @@
 // license-header java merge-point
 package $manageable.manageablePackageName;
 
-public final class $manageable.manageableValueObjectClassName
+public class $manageable.manageableValueObjectClassName
+#if ($manageable.generalization)
+    extends $manageable.generalization.fullyQualifiedManageableValueObjectName
+#else
     implements java.io.Serializable
+#end
 {
 #foreach ($member in $manageable.manageableAttributes)
+#if ($manageable.attributes.contains($member))## only process attributes defined in this class
     private $member.type.fullyQualifiedName $member.name;
 
     $member.visibility $member.type.fullyQualifiedName ${member.getterName}()
@@ -22,11 +27,12 @@ public final class $manageable.manageableValueObjectClassName
     }
 
 #end
+#end
 #foreach ($member in $manageable.manageableAssociationEnds)
+#if (!$manageable.generalization.manageableAssociationEnds.contains($member))## do not process associations defined in an ancestor
+#set ($fieldType = $member.type.identifiers.iterator().next().type.fullyQualifiedName)
 #if ($member.many)
-#set ($fieldType = "java.util.Collection")
-#else
-#set ($fieldType = $member.manageableIdentifier.type.fullyQualifiedName)
+#set ($fieldType = "${fieldType}[]")
 #end
     private $fieldType $member.name;
 
@@ -40,13 +46,12 @@ public final class $manageable.manageableValueObjectClassName
         this.$member.name = $member.name;
     }
 
-#if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
-#if ($member.many)
-#set ($fieldType = "java.util.Collection")
-#set ($labelSuffix = "Labels")
-#else
+#if ($member.type.displayAttribute.name != $member.type.identifiers.iterator().next().name)
 #set ($fieldType = $member.type.displayAttribute.type.fullyQualifiedName)
 #set ($labelSuffix = "Label")
+#if ($member.many)
+#set ($fieldType = "${fieldType}[]")
+#set ($labelSuffix = "${labelSuffix}s")
 #end
     private $fieldType ${member.name}${labelSuffix};
 
@@ -60,6 +65,7 @@ public final class $manageable.manageableValueObjectClassName
         this.${member.name}${labelSuffix} = ${member.name}${labelSuffix};
     }
 
+#end
 #end
 #end
 }

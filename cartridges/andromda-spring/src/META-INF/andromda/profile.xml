@@ -83,15 +83,19 @@
                 <allowedValues>
                     <value>local</value>
                     <value>remote</value>
+                    <value>both</value>
                 </allowedValues>
             </element>
             <element name="TRANSACTION_TYPE">
                 <documentation>
                     Defines a Spring transaction type for the service operation
-                    (when <strong>NOT</strong> wrapped by EJBs).
+                    (when <strong>NOT</strong> wrapped by EJBs). Using this tagged value on a service
+                    will enable it on all of its operations. If this tagged value is present on such a
+                    service operation it will take priority over any transaction declaration in a
+                    broader scope such as its service or the global namespace.
                 </documentation>
                 <value>@andromda.spring.transaction.type</value>
-                <appliedOnElement>Service Operation</appliedOnElement>
+                <appliedOnElement>Service or Service Operation</appliedOnElement>
                 <allowedValues>
                     <value>PROPAGATION_NEVER</value>
                     <value>PROPAGATION_NESTED</value>
@@ -133,7 +137,8 @@
             <element name="SPRING_SERVICE_REMOTING_TYPE">
                 <documentation>
                     Services marked with this stereotype will be exported using Spring's remoting
-                    architecture.
+                    architecture. Please note that in order to be able to use
+                    <a href="http://lingo.codehaus.org/">Lingo remoting</a>, you need to use Spring 2.0.
                 </documentation>
                 <value>@andromda.spring.service.remoting.type</value>
                 <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
@@ -143,6 +148,7 @@
                     <value>httpinvoker</value>
                     <value>burlap</value>
                     <value>hessian</value>
+                    <value>lingo></value>
                 </allowedValues>
             </element>
             <element name="SPRING_SERVICE_REMOTE_PORT">
@@ -167,9 +173,24 @@
                     Set this tagged value to true in order to suppress generation of the bean class. The bean will be
                     listed in the applicationContext.xml files, however. The idea behind this tagged value is to enable
                     users to use Spring beans that are contained in Jar files,
-                    e.g. <code>net.sf.acegisecurity.providers.rcp.RemoteAuthenticationManager</code>.
+                    e.g. <code>org.acegisecurity.providers.rcp.RemoteAuthenticationManager</code>.
                 </documentation>
                 <value>@andromda.spring.service.config.only</value>
+                <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="SPRING_SERVICE_PRIVATE">
+                <documentation>
+                    Set this tagged value to true in order to define the service as private. Private services are not 
+                    available through the ServiceLocator, are not exposed via remoting and their methods are not 
+                    intercepted by neither the transaction manager nor the security interceptor. The idea behind this 
+                    tagged value is to enable users to create services which could be used only via dependencies, not by 
+                    standalone instantiation.
+                </documentation>
+                <value>@andromda.service.private</value>
                 <appliedOnElement><![CDATA[<<Service>>]]></appliedOnElement>
                 <allowedValues>
                     <value>true</value>
@@ -254,6 +275,30 @@
                 <appliedOnElement>an attribute of a <![CDATA[<<Criteria>>]]> class</appliedOnElement>
                 <allowedValues>
                     <value>an integer</value>
+                </allowedValues>
+            </element>
+            <element name="ACTIVEMQ_OPTIMIZE_ACKNOWLEDGE">
+                <documentation>
+                    Use this tagged value to set the sessop flag on an incoming
+                    connection when using ActiveMQ.
+                </documentation>
+                <value>@andromda.activemq.optimizeAcknowledge</value>
+                <appliedOnElement>A transition going into a service operation from a messaging destination</appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="MESSAGING_SESSION_ACKNOWLEDGE_MODE">
+                <documentation>
+                    Use this tagged value to set the session acknowledge mode.
+                </documentation>
+                <value>@andromda.messaging.sessionAcknowledgeMode</value>
+                <appliedOnElement>A transition going into a service operation from a messaging destination</appliedOnElement>
+                <allowedValues>
+                    <value>AUTO_ACKNOWLEDGE</value>
+                    <value>CLIENT_ACKNOWLEDGE</value>
+                    <value>DUPS_OK_ACKNOWLEDGE</value>
                 </allowedValues>
             </element>
         </elementGroup>
@@ -379,6 +424,34 @@
                 <appliedOnElement></appliedOnElement>
                 <allowedValues>
                     <value></value>
+                </allowedValues>
+            </element>
+            <element name="MANAGEABLE_MAXIMUM_LIST_SIZE">
+                <documentation>
+                    The maximum number of rows to fetch from the database in a single operation. Tune this parameter
+                    to avoid downloading thousands of rows each time, most of the time the user will want to use
+                    the search facility to refine the result set
+                </documentation>
+                <value>@andromda.manageable.table.maxlistsize</value>
+                <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>a strictly positive integer</value>
+                    <value default="true">250</value>
+                </allowedValues>
+            </element>
+            <element name="MANAGEABLE_DISPLAY_NAME">
+                <documentation>
+                    The column representing this entity,by default the first <![CDATA[<<Unique>>]]> attribute found
+                    is taken but you might want to specify another column yourself. This value is used when one entity
+                    has a foreign key to another one and you want to select the value of this foreign key
+                    from a combobox and you would like to see a more meaningful label for each option, if no
+                    <![CDATA[<<Unique>>]]> attribute is found the identifier is used, which isn't very helpful.
+                </documentation>
+                <value>@andromda.manageable.table.displayname</value>
+                <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>any column name present in this entity</value>
+                    <value default="true">the name of the identifier column</value>
                 </allowedValues>
             </element>
         </elementGroup>

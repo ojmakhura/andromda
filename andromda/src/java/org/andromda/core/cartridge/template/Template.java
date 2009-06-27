@@ -1,8 +1,8 @@
 package org.andromda.core.cartridge.template;
 
 import java.io.File;
-
 import org.andromda.core.cartridge.Resource;
+import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -15,6 +15,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Anthony Mowers
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class Template
     extends Resource
@@ -73,7 +74,7 @@ public class Template
         final File directory,
         String outputPattern)
     {
-        File file = null;
+        File file;
 
         if (outputPattern == null || outputPattern.trim().length() == 0)
         {
@@ -123,7 +124,7 @@ public class Template
     }
 
     /**
-     * Sets the model elements that are suported by this template.
+     * Sets the model elements that are supported by this template.
      *
      * @param supportedModelElements the ModelElements instance.
      * @see org.andromda.core.cartridge.template.ModelElements
@@ -177,7 +178,7 @@ public class Template
      * Sets whether or not we should output a file when no elements exist in the collection of elements when {@link
      * #isOutputToSingleFile()} returns <code>true</code>.
      *
-     * @param outputOnNoElements the boolean flag.
+     * @param outputOnEmptyElements the boolean flag.
      * @see #isOutputOnEmptyElements()
      * @see #isOutputToSingleFile()
      */
@@ -187,7 +188,7 @@ public class Template
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

@@ -91,6 +91,12 @@ public class CartridgeArchiverMojo
     private static final String[] OUTPUT_INCLUDES = new String[] {"**/*"};
 
     /**
+     * Set this to true to ignore a failure during testing. Its use is NOT RECOMMENDED, but quite convenient on occasion.
+     * @parameter expression="${maven.test.failure.ignore}"
+     */
+    private boolean testFailureIgnore = false;
+
+    /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute()
@@ -158,7 +164,14 @@ public class CartridgeArchiverMojo
         }
         catch (final Throwable throwable)
         {
-            throw new MojoExecutionException("An error occured while packaging this cartridge", throwable);
+            if (this.testFailureIgnore)
+            {
+                this.getLog().error(this.project.getArtifactId() + ": An error occured while packaging this cartridge", throwable);
+            }
+            else
+            {
+                throw new MojoExecutionException("An error occured while packaging this cartridge", throwable);
+            }
         }
     }
 

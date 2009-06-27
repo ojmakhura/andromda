@@ -5,15 +5,16 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.log4j.Logger;
 
 
 /**
  * A simple class providing the ability to manipulate properties on java bean objects.
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public final class Introspector
 {
@@ -27,7 +28,7 @@ public final class Introspector
      *
      * @return the shared introspector instance.
      */
-    public static final Introspector instance()
+    public static Introspector instance()
     {
         if (instance == null)
         {
@@ -35,6 +36,11 @@ public final class Introspector
         }
         return instance;
     }
+
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(Introspector.class);
 
     /**
      * <p> Indicates whether or not the given <code>object</code> contains a
@@ -61,7 +67,7 @@ public final class Introspector
         final String name,
         final String value)
     {
-        boolean valid = false;
+        boolean valid;
 
         try
         {
@@ -132,7 +138,7 @@ public final class Introspector
      * @param name the name of the object.
      * @param value the value to populate.
      */
-    private final void setNestedProperty(
+    private void setNestedProperty(
         final Object object,
         String name,
         final Object value)
@@ -168,14 +174,14 @@ public final class Introspector
      * Attempts to retrieve the property with the given <code>name</code> on the <code>object</code>.
      *
      * @param object the object to which the property belongs.
-     * @param the name of the property
+     * @param name the name of the property
      * @return the value of the property.
      */
     public final Object getProperty(
         final Object object,
         final String name)
     {
-        Object result = null;
+        Object result;
 
         try
         {
@@ -185,7 +191,7 @@ public final class Introspector
         }
         catch (final IntrospectorException throwable)
         {
-            // Dont catch our own exceptions.
+            // Don't catch our own exceptions.
             // Otherwise get Exception/Cause chain which
             // can hide the original exception.
             throw throwable;
@@ -207,13 +213,13 @@ public final class Introspector
 
     /**
      * Gets a nested property, that is it gets the properties
-     * seperated by '.'.
+     * separated by '.'.
      *
      * @param object the object from which to retrieve the nested property.
      * @param name the name of the property
      * @return the property value or null if one couldn't be retrieved.
      */
-    private final Object getNestedProperty(
+    private Object getNestedProperty(
         final Object object,
         final String name)
     {
@@ -233,7 +239,7 @@ public final class Introspector
                 {
                     throw new IntrospectorException("Invalid property call --> '" + name + "'");
                 }
-                final Object nextInstance = internalGetProperty(
+                final Object nextInstance = this.internalGetProperty(
                         object,
                         name.substring(
                             0,
@@ -258,7 +264,7 @@ public final class Introspector
      * @param name the name of the property.
      * @return the property method or null if one wasn't found.
      */
-    private final Method getWriteMethod(
+    private Method getWriteMethod(
         final Object object,
         final String name)
     {
@@ -298,6 +304,7 @@ public final class Introspector
      *
      * @param object the object to check.
      * @param name the property to check for.
+     * @return this.getReadMethod(object, name) != null
      */
     public boolean isReadable(
         final Object object,
@@ -314,6 +321,7 @@ public final class Introspector
      *
      * @param object the object to check.
      * @param name the property to check for.
+     * @return this.getWriteMethod(object, name) != null
      */
     public boolean isWritable(
         final Object object,
@@ -336,20 +344,20 @@ public final class Introspector
      * @param name the name of the property.
      * @return the property method or null if one wasn't found.
      */
-    private final Method getReadMethod(
+    private Method getReadMethod(
         final Object object,
         final String name)
     {
         Method readMethod = null;
         final Class objectClass = object.getClass();
-        Map classWriteMethods = (Map)this.readMethodsCache.get(objectClass);
-        if (classWriteMethods == null)
+        Map classReadMethods = (Map)this.readMethodsCache.get(objectClass);
+        if (classReadMethods == null)
         {
-            classWriteMethods = new HashMap();
+            classReadMethods = new HashMap();
         }
         else
         {
-            readMethod = (Method)classWriteMethods.get(name);
+            readMethod = (Method)classReadMethods.get(name);
         }
         if (readMethod == null)
         {
@@ -359,12 +367,12 @@ public final class Introspector
             readMethod = descriptor != null ? descriptor.getReadMethod() : null;
             if (readMethod != null)
             {
-                classWriteMethods.put(
+                classReadMethods.put(
                     name,
                     readMethod);
                 this.readMethodsCache.put(
                     objectClass,
-                    classWriteMethods);
+                    classReadMethods);
             }
         }
         return readMethod;
@@ -376,14 +384,14 @@ public final class Introspector
     private final Map propertyDescriptorsCache = new HashMap();
 
     /**
-     * Retrives the property descriptor for the given type and name of
+     * Retrieves the property descriptor for the given type and name of
      * the property.
      *
      * @param type the Class of which we'll attempt to retrieve the property
      * @param name the name of the property.
      * @return the found property descriptor
      */
-    private final PropertyDescriptor getPropertyDescriptor(
+    private PropertyDescriptor getPropertyDescriptor(
         final Class type,
         final String name)
     {
@@ -397,7 +405,7 @@ public final class Introspector
         {
             propertyDescriptor = (PropertyDescriptor)classPropertyDescriptors.get(name);
         }
-        ;
+        
         if (propertyDescriptor == null)
         {
             try
@@ -465,16 +473,15 @@ public final class Introspector
      * @param object the object from which to retrieve the property.
      * @param name the name of the property
      * @return the resulting property value
-     * @throws Exception if an error occurs during introspection.
      */
-    private final Object internalGetProperty(
+    private Object internalGetProperty(
         final Object object,
         final String name)
     {
         Object property = null;
 
-        // - prevent stack-over-flows by checking to make sure
-        //   we aren't entering any circular evalutions
+        // - prevent stack overflows by checking to make sure
+        //   we aren't entering any circular evaluations
         final Object value = this.evaluatingObjects.get(object);
         if (value == null || !value.equals(name))
         {
@@ -497,8 +504,20 @@ public final class Introspector
                             object,
                             (Object[])null);
                 }
-                catch (final Throwable throwable)
+                catch (Throwable throwable)
                 {
+                    if (throwable.getCause()!=null)
+                    {
+                        throwable = throwable.getCause();
+                    }
+                    // At least output the location where the error happened, not the entire stack trace.
+                    StackTraceElement[] trace = throwable.getStackTrace();
+                    String location = " AT " + trace[0].getClassName() + "." + trace[0].getMethodName() + ":" + trace[0].getLineNumber();
+                    if (throwable.getMessage()!=null)
+                    {
+                        location += " " + throwable.getMessage();
+                    }
+                    logger.error("Introspector " + throwable + " invoking " + object + " METHOD " + method + " WITH " + name + location);
                     throw new IntrospectorException(throwable);
                 }
             }
@@ -515,9 +534,8 @@ public final class Introspector
      * @param object the object from which to retrieve the property.
      * @param name the name of the property to set.
      * @param value the value of the property to set.
-     * @throws Exception if an error occurs during introspection.
      */
-    private final void internalSetProperty(
+    private void internalSetProperty(
         final Object object,
         final String name,
         Object value)
@@ -525,7 +543,7 @@ public final class Introspector
         if (object != null || name != null || name.length() > 0)
         {
             Class expectedType = null;
-            if (value != null)
+            if (value != null && object != null)
             {
                 final PropertyDescriptor descriptor = this.getPropertyDescriptor(
                         object.getClass(),
@@ -563,7 +581,7 @@ public final class Introspector
 
     /**
      * Shuts this instance down and reclaims
-     * any resouces used by this instance.
+     * any resources used by this instance.
      */
     public void shutdown()
     {

@@ -2,7 +2,7 @@ package org.andromda.cartridges.jsf.validator;
 
 /**
  * An exception thrown when a validation configuration error occurs.
- * 
+ *
  * @author Chad Brandon
  */
 public class JSFValidatorException

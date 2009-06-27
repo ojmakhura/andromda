@@ -9,14 +9,19 @@ import org.omg.uml.foundation.core.Namespace;
  * MetafacadeLogic implementation.
  *
  * @see org.andromda.metafacades.uml.NamespaceFacade
+ * @author Bob Fields
  */
 public class NamespaceFacadeLogicImpl
     extends NamespaceFacadeLogic
 {
     // ---------------- constructor -------------------------------
+    /**
+     * @param metaObject
+     * @param context
+     */
     public NamespaceFacadeLogicImpl(
         org.omg.uml.foundation.core.Namespace metaObject,
-        java.lang.String context)
+        String context)
     {
         super(metaObject, context);
     }

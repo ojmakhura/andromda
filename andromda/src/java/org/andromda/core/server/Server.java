@@ -10,14 +10,14 @@ import org.andromda.core.configuration.Configuration;
  *
  * @see Client
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public interface Server
 {
     /**
      * Starts the server instance listening for requests with the given
      * configuration.
-     *
-     * @throws Exception
+     * @param configuration 
      */
     public void start(final Configuration configuration);
 }

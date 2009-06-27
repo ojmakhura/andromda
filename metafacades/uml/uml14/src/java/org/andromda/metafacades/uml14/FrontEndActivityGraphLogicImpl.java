@@ -1,11 +1,11 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.Collection;
-
 import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
@@ -14,11 +14,16 @@ import org.andromda.metafacades.uml.UseCaseFacade;
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.FrontEndActivityGraph.
  *
  * @see org.andromda.metafacades.uml.FrontEndActivityGraph
+ * @author Bob Fields
  */
 public class FrontEndActivityGraphLogicImpl
     extends FrontEndActivityGraphLogic
 {
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndActivityGraphLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
@@ -27,6 +32,7 @@ public class FrontEndActivityGraphLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndActivityGraph#isContainedInFrontEndUseCase()
      */
+    @Override
     protected boolean handleIsContainedInFrontEndUseCase()
     {
         return this.getUseCase() instanceof FrontEndUseCase;
@@ -51,15 +57,16 @@ public class FrontEndActivityGraphLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndActivityGraph#getInitialAction()
      */
-    protected Object handleGetInitialAction()
+    @Override
+    protected TransitionFacade handleGetInitialAction()
     {
-        Object firstAction = null;
-        final Collection initialStates = getInitialStates();
+        TransitionFacade firstAction = null;
+        final Collection<PseudostateFacade> initialStates = getInitialStates();
         if (!initialStates.isEmpty())
         {
             final PseudostateFacade initialState = (PseudostateFacade)initialStates.iterator().next();
-            final Collection outgoing = initialState.getOutgoing();
-            firstAction = outgoing.isEmpty() ? null : outgoing.iterator().next();
+            final Collection<TransitionFacade> outgoings = initialState.getOutgoings();
+            firstAction = outgoings.isEmpty() ? null : outgoings.iterator().next();
         }
         return firstAction;
     }
@@ -67,7 +74,8 @@ public class FrontEndActivityGraphLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndActivityGraph#getController()
      */
-    protected java.lang.Object handleGetController()
+    @Override
+    protected Object handleGetController()
     {
         Object controller = null;
 

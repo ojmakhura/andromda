@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="AndroMDA Translation-Library Maven Plugin">
+    <skin>
+        <groupId>org.andromda.maven.plugins.site</groupId>
+        <artifactId>andromda-site-skin</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </skin>
+    <bannerLeft>
+        <name></name>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy hh:mm zzz"/>
+  	<body>
+    	<links>
+    		<item name="AndroMDA Translation-Library Maven Plugin" href="/index.html"/>
+    	</links>
+    	<menu name="Overview">
+      		<item name="Goals" href="/goals.html"/>
+      		<item name="Properties" href="/properties.html" />
+			<item name="Download" href="/download.html"/>      		
+    	</menu>
+    	<menu ref="reports"/>
+  	</body>
+</project>

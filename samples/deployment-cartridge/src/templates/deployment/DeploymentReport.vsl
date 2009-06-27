@@ -1,0 +1,19 @@
+<deployment-report>
+#foreach ($node in $nodes)
+
+    <node name="$node.name">
+#foreach ($component in $node.deployedComponents)
+        <component name="$component.name">
+#foreach ($artifact in $component.manifestingArtifacts)
+            <artifact name="$artifact.name">
+#foreach ($package in $artifact.wrappedPackages)
+                <package name="$package.fullyQualifiedName" />
+#end
+            </artifact>
+#end
+        </component>
+#end
+    </node>
+#end
+
+</deployment-report>

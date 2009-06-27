@@ -50,5 +50,14 @@ public class XSDAssociationEndLogicImpl
         }
         return minOccurs;
     }
+    
+    /**
+     * @see org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEnd#isOwnerSchemaType()
+     */
+    protected boolean handleIsOwnerSchemaType()
+    {
+        final Object owner = this.getType();
+        return owner instanceof XSDComplexType || owner instanceof XSDEnumerationType;
+    }
 
 }

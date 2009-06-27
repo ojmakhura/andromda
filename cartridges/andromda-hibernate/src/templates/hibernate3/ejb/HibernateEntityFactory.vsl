@@ -45,15 +45,15 @@ public abstract class ${entity.name}Factory
 
 #end
 #if (!$entity.getIdentifiers(true).empty)
-#set ($primaryKey = $entity.getIdentifiers(true).iterator().next())
-#set ($primaryKeyTypeName = $primaryKey.type.fullyQualifiedName)
-#end
     /**
      *
      * Finds ${entity.name} object by its primary key.
      * In Hibernate, this is just a call to load().
      *
      */
+#if (!$entity.compositeIdentifier)
+#set ($primaryKey = $entity.getIdentifiers(true).iterator().next())
+#set ($primaryKeyTypeName = $primaryKey.type.fullyQualifiedName)
     public static $entity.name findByPrimaryKey (org.hibernate.Session session, $primaryKeyTypeName ${primaryKey.name})
         throws org.hibernate.HibernateException
     {
@@ -65,6 +65,17 @@ public abstract class ${entity.name}Factory
         return object;
     }
 
+#else
+#set ($primaryKeyName = "$stringUtils.uncapitalize($entity.name)Pk")
+	public static $entity.name findByPrimaryKey (org.hibernate.Session session, ${entity.fullyQualifiedEntityName}PK ${primaryKeyName})
+        throws org.hibernate.HibernateException
+    {
+        ${entity.name} object = (${entity.name}) session.load(${entity.entityImplementationName}.class, ${primaryKeyName});
+        return object;
+    }
+
+#end
+#end
 #foreach ($finder in $entity.getQueryOperations(true))
 #set ($returnType = $finder.returnType.fullyQualifiedName)
 ##

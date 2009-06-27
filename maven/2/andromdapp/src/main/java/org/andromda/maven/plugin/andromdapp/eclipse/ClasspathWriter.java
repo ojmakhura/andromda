@@ -43,7 +43,19 @@ public class ClasspathWriter
     }
 
     /**
-     * Writes the .classpath files for Eclipse.
+     * Writes the .classpath file for eclipse.
+     *
+     * @param projects the list of projects from which the .classpath will get its dependencies.
+     * @param repositoryVariableName the name of the maven repository variable.
+     * @param artifactFactory the factory for constructing artifacts.
+     * @param artifactResolver the artifact resolver.
+     * @param localRepository the local repository instance.
+     * @param artifactMetadataSource
+     * @param classpathArtifactTypes the artifacts types that are allowed in the classpath file.
+     * @param remoteRepositories the list of remote repository instances.
+     * @param resolveTransitiveDependencies whether or not dependencies shall be transitively resolved.
+     * @param merge anything extra (not auto-generated), that should be "merged" into the generated .classpath
+     * @throws Exception
      */
     public void write(
         final List projects,
@@ -54,7 +66,9 @@ public class ClasspathWriter
         final ArtifactMetadataSource artifactMetadataSource,
         final Set classpathArtifactTypes,
         final List remoteRepositories,
-        final boolean resolveTransitiveDependencies)
+        final boolean resolveTransitiveDependencies,
+        final Variable[] variables,
+        final String merge)
         throws Exception
     {
         final String rootDirectory = ResourceUtils.normalizePath(this.project.getBasedir().toString());
@@ -78,32 +92,17 @@ public class ClasspathWriter
             projectArtifactIds.add(projectArtifact.getId());
         }
 
-        final Set allArtifacts = new LinkedHashSet();
+        // - write the source roots for the root project (if they are any)
+        this.writeSourceRoots(this.project, rootDirectory, writer);
+
+        final Set allArtifacts = new LinkedHashSet(this.project.createArtifacts(
+            artifactFactory,
+            null,
+            null));
         for (final Iterator iterator = projects.iterator(); iterator.hasNext();)
         {
             final MavenProject project = (MavenProject)iterator.next();
-            for (final Iterator sourceIterator = project.getCompileSourceRoots().iterator(); sourceIterator.hasNext();)
-            {
-                final String sourceRoot = ResourceUtils.normalizePath((String)sourceIterator.next());
-                if (new File(sourceRoot).isDirectory())
-                {
-                    String sourceRootPath = StringUtils.replace(
-                            sourceRoot,
-                            rootDirectory,
-                            "");
-                    if (sourceRootPath.startsWith("/"))
-                    {
-                        sourceRootPath = sourceRootPath.substring(
-                                1,
-                                sourceRootPath.length());
-                        this.writeClasspathEntry(
-                            writer,
-                            "src",
-                            sourceRootPath);
-                    }
-                }
-            }
-
+            this.writeSourceRoots(project, rootDirectory, writer);
             final Set artifacts = project.createArtifacts(
                     artifactFactory,
                     null,
@@ -169,6 +168,7 @@ public class ClasspathWriter
             final OrArtifactFilter filter = new OrArtifactFilter();
             filter.add(new ScopeArtifactFilter(Artifact.SCOPE_COMPILE));
             filter.add(new ScopeArtifactFilter(Artifact.SCOPE_PROVIDED));
+            filter.add(new ScopeArtifactFilter(Artifact.SCOPE_TEST));
             final ArtifactResolutionResult result =
                 artifactResolver.resolveTransitively(
                     allArtifacts,
@@ -182,18 +182,32 @@ public class ClasspathWriter
             allArtifacts.addAll(result.getArtifacts());
         }
 
-        final List allArtifactPaths = new ArrayList(allArtifacts);
-        for (final ListIterator iterator = allArtifactPaths.listIterator(); iterator.hasNext();)
+        final List artifactPathList = new ArrayList(allArtifacts);
+        for (final ListIterator iterator = artifactPathList.listIterator(); iterator.hasNext();)
         {
             final Artifact artifact = (Artifact)iterator.next();
             if (classpathArtifactTypes.contains(artifact.getType()))
             {
                 final File artifactFile = artifact.getFile();
-                final String path =
+                final String artifactPath = ResourceUtils.normalizePath(artifactFile.toString());
+                String path =
                     StringUtils.replace(
-                        ResourceUtils.normalizePath(artifactFile.toString()),
+                        artifactPath,
                         ResourceUtils.normalizePath(localRepository.getBasedir()),
-                        repositoryVariableName);
+                        VAR_PREFIX + repositoryVariableName);
+                if (path.equals(artifactPath))
+                {
+                    // - replace any variables if present
+                    if (variables != null)
+                    {
+                        for (final Variable variable : variables)
+                        {
+                            final String name = StringUtils.trimToEmpty(variable.getName());
+                            final String value = StringUtils.trimToEmpty(variable.getValue());
+                            path = StringUtils.replace(path, value, VAR_PREFIX + name);
+                        }
+                    }
+                }
                 iterator.set(path);
             }
             else
@@ -203,15 +217,32 @@ public class ClasspathWriter
         }
 
         // - sort the paths
-        Collections.sort(allArtifactPaths);
+        Collections.sort(artifactPathList);
 
-        for (final Iterator iterator = allArtifactPaths.iterator(); iterator.hasNext();)
+        // - get rid of any duplicates
+        final Set artifactPaths = new LinkedHashSet(artifactPathList);
+
+        for (final Iterator iterator = artifactPaths.iterator(); iterator.hasNext();)
         {
-            final String path = (String)iterator.next();
-            this.writeClasspathEntry(
-                writer,
-                "var",
-                path);
+            String path = (String)iterator.next();
+            if (path.startsWith(VAR_PREFIX))
+            {
+                this.writeClasspathEntry(
+                    writer,
+                    "var",
+                    path.split(VAR_PREFIX)[1]);
+            }
+            else
+            {
+                if (path.startsWith(rootDirectory))
+                {
+                    path = StringUtils.replace(path, rootDirectory + '/', "");
+                }
+                this.writeClasspathEntry(
+                    writer,
+                    "lib",
+                    path);
+            }
         }
 
         this.writeClasspathEntry(
@@ -235,10 +266,52 @@ public class ClasspathWriter
             "output",
             outputPath);
 
+        if (StringUtils.isNotBlank(merge))
+        {
+            writer.writeMarkup(merge);
+        }
         writer.endElement();
 
         logger.info("Classpath file written --> '" + classpathFile + "'");
         IOUtil.close(fileWriter);
+    }
+
+    private static final String VAR_PREFIX = "var:";
+
+    private static final String DRIVE_PATTERN = ".*:";
+
+    /**
+     * Writes the source roots for the given project.
+     *
+     * @param project the project for which to write the source roots.
+     * @param rootDirectory the root project's base directory
+     * @param writer the XMLWriter used to write the source roots.
+     */
+    private void writeSourceRoots(final MavenProject project, String rootDirectory, final XMLWriter writer)
+    {
+        // - strip the drive prefix (so we don't have to worry about replacement dependent on case)
+        rootDirectory = rootDirectory.replaceFirst(DRIVE_PATTERN, "");
+        for (final Iterator sourceIterator = project.getCompileSourceRoots().iterator(); sourceIterator.hasNext();)
+        {
+            final String sourceRoot = ResourceUtils.normalizePath((String)sourceIterator.next()).replaceFirst(DRIVE_PATTERN, "");
+            if (new File(sourceRoot).isDirectory())
+            {
+                String sourceRootPath = StringUtils.replace(
+                        sourceRoot,
+                        rootDirectory,
+                        "");
+                if (sourceRootPath.startsWith("/"))
+                {
+                    sourceRootPath = sourceRootPath.substring(
+                            1,
+                            sourceRootPath.length());
+                    this.writeClasspathEntry(
+                        writer,
+                        "src",
+                        sourceRootPath);
+                }
+            }
+        }
     }
 
     /**

@@ -42,6 +42,10 @@ public class TypeMappingsTest
 
     private static final String ARRAY_SUFFIX = "[]";
 
+    private static final String TO_3 = "Class<? extends ToType>";
+
+    private static final String FROM_6 = "Class<? extends FromType>";
+
     public void testGetTo()
     {
         Mappings mappings1 = new Mappings();
@@ -76,5 +80,16 @@ public class TypeMappingsTest
 
         assertEquals(TO_2, typeMappings2.getTo(FROM_5));
         assertEquals(TO_2 + ARRAY_SUFFIX, typeMappings2.getTo(FROM_5 + ARRAY_SUFFIX));
+
+        Mappings mappings3 = new Mappings();
+        Mapping mapping3 = new Mapping();
+        mapping3.setTo(TO_3);
+        mapping3.addFrom(FROM_6);
+        mappings3.addMapping(mapping3);
+        TypeMappings typeMappings3 = TypeMappings.getInstance(mappings3);
+        // make sure whitespace isn't deleted, only trimmed (Java generics would fail compilation otherwise for example)
+        assertEquals(
+            TO_3,
+            typeMappings3.getTo(FROM_6));
     }
 }

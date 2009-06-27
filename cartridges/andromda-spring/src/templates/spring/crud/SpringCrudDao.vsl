@@ -11,10 +11,12 @@ package $manageable.manageablePackageName;
 public interface $manageable.manageableDaoName
 {
 #if ($manageable.create)
-    public void create($memberList);
+    public $manageable.fullyQualifiedEntityName create($memberList);
 
 #end
 #if ($manageable.read)
+    public $manageable.fullyQualifiedEntityName readById($identifier.type.fullyQualifiedName $identifier.name);
+
     public java.util.List read($memberList);
 
     public java.util.List readAll();
@@ -31,7 +33,7 @@ public interface $manageable.manageableDaoName
 #end
 #end
 #if ($manageable.update)
-    public void update($memberList);
+    public $manageable.fullyQualifiedEntityName update($memberList);
 
 #end
 #if ($manageable.delete)

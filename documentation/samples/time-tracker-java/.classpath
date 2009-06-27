@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry output="core/target/classes" kind="src" path="core/src/java"/>
+	<classpathentry output="core/target/classes" kind="src" path="core/target/src"/>
+	<classpathentry output="common/target/classes" kind="src" path="common/src/java"/>
+	<classpathentry output="common/target/classes" kind="src" path="common/target/src"/>
+	<classpathentry output="console/target/classes" kind="src" path="console/src/java"/>
+	<classpathentry output="web/target/classes" kind="src" path="web/src/java"/>
+	<classpathentry output="web/target/classes" kind="src" path="web/target/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/maven/repository/hibernate/jars/hibernate-3.0.5.jar"/>
+	<classpathentry kind="lib" path="D:/maven/repository/commons-logging/jars/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="D:/maven/repository/commons-lang/jars/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="D:/maven/repository/commons-collections/jars/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="D:/maven/repository/springframework/jars/spring-1.2.5.jar"/>
+	<classpathentry kind="lib" path="D:/maven/repository/struts/jars/struts-1.2.7.jar"/>
+	<classpathentry kind="lib" path="D:/maven/repository/servletapi/jars/servletapi-2.4-20040521.jar"/>
+	<classpathentry kind="lib" path="D:/maven/repository/commons-beanutils/jars/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="D:/maven/repository/commons-validator/jars/commons-validator-1.1.4.jar"/>
+	<classpathentry kind="lib" path="D:/maven/repository/jboss/jars/jboss-j2ee-3.2.3.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

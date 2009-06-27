@@ -1,5 +1,4 @@
 #if (!$manageables.empty)
-#parse("templates/spring/SpringGlobals.vm")
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -89,6 +88,7 @@ public class ${manageableServiceLocatorName}
      */
     public synchronized void shutdown()
     {
+        ((org.springframework.context.support.AbstractApplicationContext)this.getContext()).close();
         if (this.beanFactoryReference != null)
         {
             this.beanFactoryReference.release();

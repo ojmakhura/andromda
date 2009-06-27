@@ -3,7 +3,7 @@
   <groupId>org.andromda.bootstrap.maven.plugins</groupId>
   <artifactId>andromda-configuration-mojo</artifactId>
   <name>AndroMDA Configuration Mojo</name>
-  <version>4.0-M1-SNAPSHOT</version>
+  <version>3.3</version>
   <description>An abstract Mojo that another Mojo should extend when it needs to deal with with the AndroMDA configuration</description>
   <url>http://www.andromda.org/andromda-maven-plugins/andromda-configuration-mojo</url>
   <issueManagement>
@@ -12,13 +12,6 @@
   </issueManagement>
   <ciManagement>
     <system>continuum</system>
-    <notifiers>
-      <notifier>
-        <configuration>
-          <address>committers@andromda.org</address>
-        </configuration>
-      </notifier>
-    </notifiers>
   </ciManagement>
   <inceptionYear>2005</inceptionYear>
   <mailingLists>
@@ -41,10 +34,18 @@
       <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-cvs</archive>
     </mailingList>
   </mailingLists>
+  <licenses>
+    <license>
+      <name>The AndroMDA Project</name>
+      <url>licenses/LICENSE.txt</url>
+      <distribution>repo</distribution>
+      <comments>AndroMDA runs under a BSD license</comments>
+    </license>
+  </licenses>
   <scm>
-    <connection>scm:cvs:pserver:anonymous:@cvs.sourceforge.net:/cvsroot/andromda:andromda-all/andromda-maven-plugins/andromda-configuration-mojo</connection>
-    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/andromda:andromda-all/andromda-maven-plugins/andromda-configuration-mojo</developerConnection>
-    <url>http://cvs.sourceforge.net/viewcvs.py/andromda/andromda-maven-plugins/andromda-configuration-mojo</url>
+    <connection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all/andromda-maven-plugins/andromda-configuration-mojo</connection>
+    <developerConnection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all/andromda-maven-plugins/andromda-configuration-mojo</developerConnection>
+    <url>http://andromda.cvs.sourceforge.net/andromda-maven-plugins/andromda-configuration-mojo</url>
   </scm>
   <organization>
     <name>AndroMDA.org</name>
@@ -55,11 +56,6 @@
       <id>andromda</id>
       <name>AndroMDA Repository</name>
       <url>http://team.andromda.org/maven2</url>
-    </repository>
-    <repository>
-      <id>dcri</id>
-      <name>DCRI Repository</name>
-      <url>http://itdev.dcri.duke.edu/maven2</url>
     </repository>
     <repository>
       <snapshots>
@@ -77,11 +73,6 @@
       <url>http://team.andromda.org/maven2</url>
     </pluginRepository>
     <pluginRepository>
-      <id>dcri</id>
-      <name>DCRI Repository</name>
-      <url>http://itdev.dcri.duke.edu/maven2</url>
-    </pluginRepository>
-    <pluginRepository>
       <releases>
         <updatePolicy>never</updatePolicy>
       </releases>
@@ -95,12 +86,26 @@
   </pluginRepositories>
   <reporting>
     <outputDirectory>target/site</outputDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
   </reporting>
   <distributionManagement>
     <repository>
+      <uniqueVersion>false</uniqueVersion>
       <id>andromda-repository</id>
       <name>AndroMDA Repository</name>
-      <url>scp://galaxy.andromda.org/var/www/andromda/maven2</url>
+      <url>file:/var/www/andromda/maven2</url>
     </repository>
+    <site>
+      <id>website</id>
+      <url>file:/var/www/andromda/docs/andromda-maven-plugins/andromda-configuration-mojo</url>
+    </site>
   </distributionManagement>
 </project>

@@ -104,6 +104,22 @@
                 is in a language other than english.
             </documentation>
         </property>
+        <property name="pluralizeAttributeNames">
+            <default>true</default>
+            <documentation>
+                Turns on/off the pluralization of attribute names with multiplicities
+                greater than one.  Jaxb 2.1 by default pluralizes all attribute names,
+                Jaxb 2.0 by default does not. false for backwards compatibility with Andro 3.3.
+            </documentation>
+        </property>
+        <property name="pluralizeParameterNames">
+            <default>true</default>
+            <documentation>
+                Turns on/off the pluralization of method parameter names with multiplicities
+                greater than one.  Jaxb 2.1 by default pluralizes all parameter names,
+                Jaxb 2.0 by default does not. false for backwards compatibility with Andro 3.3.
+            </documentation>
+        </property>
         <property name="namespaceSeparator">
             <default>.</default>
             <documentation>
@@ -165,6 +181,12 @@
                 after 30 characters when retrieveing the column name or table name.
             </documentation>
         </property>
+        <property name="schemaName" required="false">
+            <documentation>
+                The name of the default schema in which all persistent entity tables
+                are stored.
+            </documentation>
+        </property>
         <property name="tableNamePrefix" required="false">
             <documentation>
                 The prefix to give all persistent entity table names.  For example
@@ -192,6 +214,16 @@
                 The suffix to use when creating constraints such as for entity associations.
                 This is appended to the <code>foreignKeySuffix</code> suffix for foreign
                 key constraint names.
+            </documentation>
+        </property>
+        <property name="enableManageableEntities">
+            <default>true</default>
+            <documentation>
+                Whether or not to enable <![CDATA[<<Manageable>>]]> entities. Sometimes it is interesting
+                to disable the related code generating for a specific cartridge; let's say for
+                example that you only want to have the back-end code generated, not the front-end code: in
+                this case you'ld simple set this property to <code>false</code> in the corresponding
+                cartridge's (i.e. bpm4struts) namespace.
             </documentation>
         </property>
         <property name="manageablePackageSuffix">
@@ -289,6 +321,12 @@
                 The visibility to give default identifiers.
             </documentation>
         </property>
+        <property name="defaultEnumerationLiteralType">
+            <default>datatype::String</default>
+            <documentation>
+                The type to give default enumeration literals.
+            </documentation>
+        </property>
         <property name="relationNameSeparator">
             <default>2</default>
             <documentation>
@@ -320,8 +358,17 @@
             <documentation>
                The tag to use that prefixes all comments in generated source code that requires
                manual modifications.  Eclipse users may want to set this to "TODO", which is 
-               the default Eclipse task tag.
+               the default Eclipse task tag. NetBeans users may want to use @todo
             </documentation>
+        </property>
+        <property name="typeSafeEnumsEnabled">
+        <default>false</default>
+        <documentation>
+            Indicates whether enumerations must be generated using a Java 5 type-safe enum or a 
+	        traditional enumeration-pattern class. Note that there are 2 prerequisites for this
+            property to work correctly: you must use a Java 5 compiler and you must use Hibernate 3
+            for Object-relational mapping.
+        </documentation>
         </property>
     </propertyGroup>
 </properties>

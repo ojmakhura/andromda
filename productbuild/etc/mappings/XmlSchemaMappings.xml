@@ -18,7 +18,6 @@
         <from>datatype::Blob</from>
         <from>datatype::byte[]</from>
         <from>datatype::Byte[]</from>
-        <from>datatype::Clob</from>
         <to>base64Binary</to>
     </mapping>
     <mapping>
@@ -27,6 +26,7 @@
         <from>datatype::char[]</from>
         <from>datatype::Char[]</from>
         <from>datatype::String</from>
+        <from>datatype::Clob</from>
         <to>string</to>
     </mapping>
     <mapping>

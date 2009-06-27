@@ -133,7 +133,7 @@
             </element>
             <element name="HIBERNATE_LAZY">
                 <documentation>
-                    Used to denote how a relationship must be loaded:
+                    Used to denote how entities, relationships or attributes must be loaded:
                     <code>true</code>for
                     <code>lazy</code>,
                     <code>false</code>for
@@ -144,10 +144,13 @@
                     set to
                     <code>false</code>) and defaults to
                     <code>true</code>for the other kinds.
+                    For entities, defaults to <code>false</code> for Hibernate 2 and
+                    <code>true</code> for Hibernate 3 and NHibernate.
                 </documentation>
                 <value>@andromda.hibernate.lazy</value>
-                <appliedOnElement>Association ends between
-                    <a href="#Entity"><![CDATA[<<Entity>>]]></a>classes, or on attributes of an
+                <appliedOnElement>
+                    <a href="#Entity"><![CDATA[<<Entity>>]]></a>classes, association ends between
+                    <a href="#Entity"><![CDATA[<<Entity>>]]></a>classes, or attributes of an
                     <a href="#Entity"><![CDATA[<<Entity>>]]></a>
                 </appliedOnElement>
                 <allowedValues>
@@ -262,7 +265,7 @@
             </element>
             <element name="HIBERNATE_PROXY">
                 <documentation>
-                    Defines if a proxy will be enabled for the entity. Overrrides the "hibernateProxy" namespace
+                    Defines if a proxy will be enabled for the entity. Overrides the "hibernateProxy" namespace
                     property.
                 </documentation>
                 <value>@andromda.hibernate.entity.proxy</value>
@@ -372,9 +375,71 @@
                     stores the SQL formula that will be used to assign a value to this property.
                 </documentation>
                 <value>@andromda.hibernate.formula</value>
-                <appliedOnElement>the attribute of an <![CDATA[<<Entity>>]]></appliedOnElement>
+                <appliedOnElement>The attribute of an <![CDATA[<<Entity>>]]></appliedOnElement>
                 <allowedValues>
                     <value>An SQL code fragment</value>
+                </allowedValues>
+            </element>
+            <element name="ENTITY_DISCRIMINATOR_COLUMN">
+                <documentation>
+                    Used at the class level of an entity and is
+                    optional. This value indicates the name of the
+                    column to be used for the discriminator. If not
+                    specified for the SINGLE_TABLE or JOINED inheritance
+                    mapping strategies, then default to <b>TYPE</b>.
+                </documentation>
+                <value>@andromda.persistence.discriminator.column.name</value>
+                <appliedOnElement>The <![CDATA[<<Entity>>]]> classes</appliedOnElement>
+                <allowedValues>
+                    <value>column name</value>
+                </allowedValues>
+            </element>
+            <element name="ENTITY_DISCRIMINATOR_TYPE">
+                <documentation>
+                    Used to override the default entity inheritance
+                    discriminator type defined by the
+                    <a href="namespace.html#entityDiscriminatorType">
+                        entityDiscriminatorType
+                    </a>
+                    namespace property.
+                    <ul>
+                        Permitted values are:
+                        <li>STRING</li>
+                        <li>CHAR</li>
+                        <li>INTEGER</li>
+                    </ul>
+                    <p>
+                        The tagged value of
+                        @andromda.persistence.discriminator.type is set
+                        once on the base/root class to indicate the type
+                        of the column used for the discriminator. The
+                        default discriminator type is defined by the
+                        <a
+                            href="namespaces.html#entityDiscriminatorType">
+                            entityDiscriminatorType
+                        </a>
+                        namespace property.
+                    </p>
+                </documentation>
+                <value>@andromda.persistence.discriminator.type</value>
+                <appliedOnElement>The <![CDATA[<<Entity>>]]> classes</appliedOnElement>
+                <allowedValues>
+                    <value>STRING</value>
+                    <value>CHAR</value>
+                    <value>INTEGER</value>
+                </allowedValues>
+            </element>
+            <element name="ENTITY_DISCRIMINATOR_VALUE">
+                <documentation>
+                    Used at the class level of an entity and is
+                    optional. This is the value that indicates that the
+                    row is an entity of the annotated entity type. It
+                    should be specified for each class in the hierarchy.
+                </documentation>
+                <value>@andromda.persistence.discriminator.value</value>
+                <appliedOnElement>The <![CDATA[<<Entity>>]]> classes</appliedOnElement>
+                <allowedValues>
+                    <value>A String</value>
                 </allowedValues>
             </element>
             <element name="HIBERNATE_PROPERTY_INSERT">
@@ -400,6 +465,35 @@
                 </documentation>
                 <value>@andromda.hibernate.property.update</value>
                 <appliedOnElement>the attribute of an <![CDATA[<<Entity>>]]></appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+            <element name="HIBERNATE_XML_TAG_NAME">
+                <documentation>
+                    Defines the name of the XML element that is generated when
+                    an entity, attribute, or associated entity is represented in XML format.
+                    Valid only when XML persistence has been enabled. Controls the <i>node</i>
+                    attribute in the Hibernate mapping file.
+                    See also <a href="namespace.html#hibernateXMLPersistence">hibernateXMLPersistence</a>
+                </documentation>
+                <value>@andromda.hibernate.xml.tagName</value>
+                <appliedOnElement>the attribute of an <![CDATA[<<Entity>>]]>, or an the <![CDATA[<<Entity>>]]> itself,
+                                  or on an association end between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
+                <allowedValues>
+                    <value>Any valid XML tag name</value>
+                </allowedValues>
+            </element>
+            <element name="HIBERNATE_XML_EMBED">
+                <documentation>
+                    Specifies wheter or not the entity attached to the association end should be
+                    embedded as a complete XML structure, or simply as a referenc to its ID.
+                    Controls the <i>embed-xml</i> attribute in the Hibernate mapping file.
+                    See also <a href="namespace.html#hibernateXMLPersistence">hibernateXMLPersistence</a>
+                </documentation>
+                <value>@andromda.hibernate.xml.embed</value>
+                <appliedOnElement>Association ends between <![CDATA[<<Entity>>]]> classes</appliedOnElement>
                 <allowedValues>
                     <value>true</value>
                     <value>false</value>
@@ -433,6 +527,17 @@
                     <value>read-only</value>
                 </allowedValues>
             </element>
+            <element name="HIBERNATE_ENTITYCACHE_DISTRIBUTED">
+                <documentation>
+                    Defines whether the cache for this entity is to be distributed.
+                </documentation>
+                <value>@andromda.hibernate.entity.cache.distributed</value>
+                <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
             <element name="HIBERNATE_ASSOCIATION_CACHE">
                 <documentation>
                     Defines the cache strategy for the association.
@@ -443,6 +548,17 @@
                     <value>read-write</value>
                     <value>nonstrict-read-write</value>
                     <value>read-only</value>
+                </allowedValues>
+            </element>
+            <element name="HIBERNATE_ASSOCIATIONCACHE_DISTRIBUTED">
+                <documentation>
+                    Defines whether the cache for this association is to be distributed.
+                </documentation>
+                <value>@andromda.hibernate.association.cache.distributed</value>
+                <appliedOnElement><![CDATA[<<Entity>>]]></appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value>false</value>
                 </allowedValues>
             </element>
             <element name="HIBERNATE_EHCACHE_MAX_ELEMENTS">

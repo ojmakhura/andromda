@@ -206,10 +206,10 @@ public final class OCLCollections
     }
     
     /**
-     * Returns the sum of all the element in the collection. Every element must extend java.lang.Number or this method
+     * Returns the sum of all the element in the collection. Every element must extend Number or this method
      * will throw an exception.
      *
-     * @param collection a collection containing only classes extending java.lang.Number
+     * @param collection a collection containing only classes extending Number
      * @return the sum of all the elements in the collection
      */
     public static double sum(final Object collection)
@@ -230,10 +230,10 @@ public final class OCLCollections
     }
 
     /**
-     * Returns the sum of all the element in the collection. Every element must extend java.lang.Number or this method
+     * Returns the sum of all the element in the collection. Every element must extend Number or this method
      * will throw an exception.
      *
-     * @param collection a collection containing only classes extending java.lang.Number
+     * @param collection a collection containing only classes extending Number
      * @return the sum of all the elements in the collection
      */
     public static double sum(final Collection collection)
@@ -252,7 +252,7 @@ public final class OCLCollections
                 {
                     throw new UnsupportedOperationException(
                         "In order to calculate the sum of a collection\'s elements " +
-                        "all of them must extend java.lang.Number, found: " + object.getClass().getName());
+                        "all of them must extend Number, found: " + object.getClass().getName());
                 }
             }
         }

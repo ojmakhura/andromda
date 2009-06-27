@@ -2,6 +2,7 @@ package org.andromda.core.cartridge;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
 
 import junit.framework.TestCase;
 
@@ -73,11 +74,14 @@ public class CartridgeTest
         Collection resources = this.cartridge.getResources();
         assertNotNull(resources);
         assertEquals(
-            2,
+            3,
             resources.size());
 
         // first template
         final Iterator templateIterator = resources.iterator();
+        Resource resource = (Resource)templateIterator.next();
+        assertTrue(resource.isLastModifiedCheck());
+        
         Template template = (Template)templateIterator.next();
         assertEquals(
             "EntityBean.vsl",
@@ -114,6 +118,7 @@ public class CartridgeTest
         assertEquals(
             "axis-configuration",
             template.getOutlet());
+        assertEquals("$viewType.equals('jsp')", template.getOutputCondition());
         assertTrue(template.isOverwrite());
         assertTrue(template.isOutputToSingleFile());
         assertFalse(template.isOutputOnEmptyElements());
@@ -143,6 +148,13 @@ public class CartridgeTest
         Type.Property property2 = (Type.Property)propertyIterator.next();
         assertEquals("propertyThree", property2.getName());
         assertEquals("Contents", property2.getValue());
+        
+        final Map conditions = cartridge.getConditions();
+        assertEquals(1, conditions.size());
+        final String expressionName = (String)conditions.keySet().iterator().next();
+        assertEquals("viewTypeIsJsp", expressionName);
+        final String expressionValue = (String)conditions.get(expressionName);
+        assertEquals("$viewType.equalsIgnoreCase('jsp')", expressionValue);
     }
 
     public void testGetPropertyReferences()

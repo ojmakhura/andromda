@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo</title>
+    </properties>
+
+    <body>
+        <section name="Modeling example">
+            <p>
+                We want to get you kick-started so that you can get productive with this cartridge as soon as
+                possible. For this reason the following sections describe a very small example that will allow
+                us to explain more features with less application complexity.
+            </p>
+            <p>
+                Please note that everything happens in UML! There is no hand-coding needed!
+            </p>
+            <p>
+                In some cases you will see something slightly different on the images compared to what
+                you see when you model it yourself, don't worry, it's me who played with the model
+                so it would present nicely.
+            </p>
+            <p>
+                In this how-to we will cover the following topics:
+                <ul>
+                    <li><a href="howto1.html">UseCases</a></li>
+                    <li>
+                        <a href="howto2.html">Activity Graphs</a>
+                        <ul>
+                            <li><a href="howto2.html#Initial_States">Initial states</a></li>
+                            <li><a href="howto2.html#Action_States">Action states</a></li>
+                            <li><a href="howto2.html#Transitions">Transitions</a></li>
+                            <li><a href="howto2.html#Event_Parameters">Event Parameters</a></li>
+                            <li><a href="howto2.html#Page_Variables">Page Variables</a></li>
+                            <li><a href="howto2.html#Decision_Points">Decision Points</a></li>
+                            <li><a href="howto2.html#Final_States">Final States</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="howto3.html">Controllers</a></li>
+                    <li><a href="howto4.html">Custom Code</a></li>
+                    <li><a href="howto5.html">Session Objects</a></li>
+                    <li><a href="howto6.html">Security</a></li>
+                    <li><a href="howto7.html">Calling Back-End Services</a></li>
+                    <li><a href="howto8.html">Tables</a></li>
+                    <li><a href="howto9.html">Other Content</a></li>
+                    <li><a href="howto10.html">Internationalization</a></li>
+                </ul>
+            </p>
+            <p>
+                You can download the UML model containing all models for all sections
+                <a href="howto/HowToModel.xml.zip">here</a>.
+            </p>
+            <p>
+                In order to start the tutorial click <a href="howto1.html">here</a>.
+            </p>
+        </section>
+    </body>
+</document>

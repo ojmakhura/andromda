@@ -2,6 +2,7 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -29,542 +30,968 @@ import org.eclipse.uml2.TemplateBinding;
 import org.eclipse.uml2.TemplateSignature;
 import org.eclipse.uml2.VisibilityKind;
 
+
 /**
- * Represents a TagDefinition metaclass (was needed because it doesn't
- * exist in the uml2 metamodel).
- * 
- * @author Steve Jermain
+ * Represents a TagDefinition metaclass (was needed because it doesn't exist in
+ * the uml2 metamodel).
+ *
+ * @author Steve Jerman
  */
 public class TagDefinitionImpl
     implements TagDefinition
 {
+    /**
+     * The name of the tag.
+     */
     private String name;
-    private String value;
+
+    /**
+     * The value of the tag: collection of strings.
+     */
+    private Collection values;
 
     /**
      * Constructor
+     *
      * @param name
-     * @param value
+     * @param value a single String value
      */
     public TagDefinitionImpl(
-        String name,
-        String value)
+        final String name,
+        final Object value)
     {
         this.name = name;
-        this.value = value;
+        this.values = new ArrayList();
+        this.values.add(value);
     }
 
     /**
+     * Generalized constructor.
+     *
      * @param object
      * @param object2
      */
     public TagDefinitionImpl(
-        Object name,
-        Object value)
+        final String name,
+        final Collection values)
     {
-        if (name instanceof String && value instanceof String)
-        {
-            this.name = (String)name;
-            this.value = (String)value;
-        }
+        this.name = name;
+        this.values = values;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.TagDefinition#getName()
+     */
     public String getName()
     {
-        return name;
+        return this.name;
     }
 
-    public String getValue()
+    /**
+     * @see org.andromda.metafacades.emf.uml2.TagDefinition#getValue()
+     */
+    public Object getValue()
     {
-        return value;
+        return this.values.iterator().next();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.TagDefinition#getValues()
+     */
     public Collection getValues()
     {
-        ArrayList c = new ArrayList();
-        c.add(value);
-        return c;
+        return this.values;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml2.TagDefinition#toString()
+     */
     public String toString()
     {
-        return name + " : " + value;
+        StringBuffer out = new StringBuffer(this.name + ": ");
+        for (Iterator it = this.values.iterator(); it.hasNext();)
+        {
+            out.append(it.next());
+            out.append(it.hasNext() ? ", " : ".");
+        }
+        return out.toString();
     }
 
-    public void setName(String arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#setName(java.lang.String)
+     */
+    public void setName(final String arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#getQualifiedName()
+     */
     public String getQualifiedName()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#getVisibility()
+     */
     public VisibilityKind getVisibility()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public void setVisibility(VisibilityKind arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#setVisibility(org.eclipse.uml2.VisibilityKind)
+     */
+    public void setVisibility(final VisibilityKind arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#getClientDependencies()
+     */
     public EList getClientDependencies()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public Dependency getClientDependency(String arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#getClientDependency(java.lang.String)
+     */
+    public Dependency getClientDependency(final String arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#getNameExpression()
+     */
     public StringExpression getNameExpression()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public void setNameExpression(StringExpression arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#setNameExpression(org.eclipse.uml2.StringExpression)
+     */
+    public void setNameExpression(final StringExpression arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 
-    public StringExpression createNameExpression(EClass arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#createNameExpression(org.eclipse.emf.ecore.EClass)
+     */
+    public StringExpression createNameExpression(final EClass arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#createNameExpression()
+     */
     public StringExpression createNameExpression()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#allNamespaces()
+     */
     public List allNamespaces()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#isDistinguishableFrom(org.eclipse.uml2.NamedElement,
+     *      org.eclipse.uml2.Namespace)
+     */
     public boolean isDistinguishableFrom(
-        NamedElement arg0,
-        Namespace arg1)
+        final NamedElement arg0,
+        final Namespace arg1)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#separator()
+     */
     public String separator()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#qualifiedName()
+     */
     public String qualifiedName()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#validateVisibilityNeedsOwnership(org.eclipse.emf.common.util.DiagnosticChain,
+     *      java.util.Map)
+     */
     public boolean validateVisibilityNeedsOwnership(
-        DiagnosticChain arg0,
-        Map arg1)
+        final DiagnosticChain arg0,
+        final Map arg1)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#getNamespace()
+     */
     public Namespace getNamespace()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#validateNoName(org.eclipse.emf.common.util.DiagnosticChain,
+     *      java.util.Map)
+     */
     public boolean validateNoName(
-        DiagnosticChain arg0,
-        Map arg1)
+        final DiagnosticChain arg0,
+        final Map arg1)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#validateQualifiedName(org.eclipse.emf.common.util.DiagnosticChain,
+     *      java.util.Map)
+     */
     public boolean validateQualifiedName(
-        DiagnosticChain arg0,
-        Map arg1)
+        final DiagnosticChain arg0,
+        final Map arg1)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#getLabel()
+     */
     public String getLabel()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public String getLabel(boolean arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#getLabel(boolean)
+     */
+    public String getLabel(final boolean arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public Dependency createDependency(NamedElement arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.NamedElement#createDependency(org.eclipse.uml2.NamedElement)
+     */
+    public Dependency createDependency(final NamedElement arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.TemplateableElement#getTemplateBindings()
+     */
     public EList getTemplateBindings()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public TemplateBinding createTemplateBinding(EClass arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.TemplateableElement#createTemplateBinding(org.eclipse.emf.ecore.EClass)
+     */
+    public TemplateBinding createTemplateBinding(final EClass arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.TemplateableElement#createTemplateBinding()
+     */
     public TemplateBinding createTemplateBinding()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.TemplateableElement#getOwnedTemplateSignature()
+     */
     public TemplateSignature getOwnedTemplateSignature()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public void setOwnedTemplateSignature(TemplateSignature arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.TemplateableElement#setOwnedTemplateSignature(org.eclipse.uml2.TemplateSignature)
+     */
+    public void setOwnedTemplateSignature(final TemplateSignature arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 
-    public TemplateSignature createOwnedTemplateSignature(EClass arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.TemplateableElement#createOwnedTemplateSignature(org.eclipse.emf.ecore.EClass)
+     */
+    public TemplateSignature createOwnedTemplateSignature(final EClass arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.TemplateableElement#createOwnedTemplateSignature()
+     */
     public TemplateSignature createOwnedTemplateSignature()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.TemplateableElement#parameterableElements()
+     */
     public Set parameterableElements()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#getOwnedElements()
+     */
     public EList getOwnedElements()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#getOwner()
+     */
     public Element getOwner()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#getOwnedComments()
+     */
     public EList getOwnedComments()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public Comment createOwnedComment(EClass arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#createOwnedComment(org.eclipse.emf.ecore.EClass)
+     */
+    public Comment createOwnedComment(final EClass arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#createOwnedComment()
+     */
     public Comment createOwnedComment()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#validateNotOwnSelf(org.eclipse.emf.common.util.DiagnosticChain,
+     *      java.util.Map)
+     */
     public boolean validateNotOwnSelf(
-        DiagnosticChain arg0,
-        Map arg1)
+        final DiagnosticChain arg0,
+        final Map arg1)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#validateHasOwner(org.eclipse.emf.common.util.DiagnosticChain,
+     *      java.util.Map)
+     */
     public boolean validateHasOwner(
-        DiagnosticChain arg0,
-        Map arg1)
+        final DiagnosticChain arg0,
+        final Map arg1)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#allOwnedElements()
+     */
     public Set allOwnedElements()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#mustBeOwned()
+     */
     public boolean mustBeOwned()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
-    public EAnnotation createEAnnotation(String arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#createEAnnotation(java.lang.String)
+     */
+    public EAnnotation createEAnnotation(final String arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public boolean isApplied(Stereotype arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#isApplied(org.eclipse.uml2.Stereotype)
+     */
+    public boolean isApplied(final Stereotype arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
-    public boolean isRequired(Stereotype arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#isRequired(org.eclipse.uml2.Stereotype)
+     */
+    public boolean isRequired(final Stereotype arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#getApplicableStereotypes()
+     */
     public Set getApplicableStereotypes()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public Stereotype getApplicableStereotype(String arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#getApplicableStereotype(java.lang.String)
+     */
+    public Stereotype getApplicableStereotype(final String arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#getAppliedStereotypes()
+     */
     public Set getAppliedStereotypes()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public Stereotype getAppliedStereotype(String arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#getAppliedStereotype(java.lang.String)
+     */
+    public Stereotype getAppliedStereotype(final String arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public void apply(Stereotype arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#apply(org.eclipse.uml2.Stereotype)
+     */
+    public void apply(final Stereotype arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 
-    public void unapply(Stereotype arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#unapply(org.eclipse.uml2.Stereotype)
+     */
+    public void unapply(final Stereotype arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#getValue(org.eclipse.uml2.Stereotype,
+     *      java.lang.String)
+     */
     public Object getValue(
-        Stereotype arg0,
-        String arg1)
+        final Stereotype arg0,
+        final String arg1)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#setValue(org.eclipse.uml2.Stereotype,
+     *      java.lang.String, java.lang.Object)
+     */
     public void setValue(
-        Stereotype arg0,
-        String arg1,
-        Object arg2)
+        final Stereotype arg0,
+        final String arg1,
+        final Object arg2)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#hasValue(org.eclipse.uml2.Stereotype,
+     *      java.lang.String)
+     */
     public boolean hasValue(
-        Stereotype arg0,
-        String arg1)
+        final Stereotype arg0,
+        final String arg1)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#getModel()
+     */
     public Model getModel()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#getNearestPackage()
+     */
     public Package getNearestPackage()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#destroy()
+     */
     public void destroy()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 
-    public String getAppliedVersion(Stereotype arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#getAppliedVersion(org.eclipse.uml2.Stereotype)
+     */
+    public String getAppliedVersion(final Stereotype arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#getKeywords()
+     */
     public Set getKeywords()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public boolean hasKeyword(String arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#hasKeyword(java.lang.String)
+     */
+    public boolean hasKeyword(final String arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
-    public void addKeyword(String arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#addKeyword(java.lang.String)
+     */
+    public void addKeyword(final String arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 
-    public void removeKeyword(String arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.uml2.Element#removeKeyword(java.lang.String)
+     */
+    public void removeKeyword(final String arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EModelElement#getEAnnotations()
+     */
     public EList getEAnnotations()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public EAnnotation getEAnnotation(String arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EModelElement#getEAnnotation(java.lang.String)
+     */
+    public EAnnotation getEAnnotation(final String arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eClass()
+     */
     public EClass eClass()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eResource()
+     */
     public Resource eResource()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eContainer()
+     */
     public EObject eContainer()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eContainingFeature()
+     */
     public EStructuralFeature eContainingFeature()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eContainmentFeature()
+     */
     public EReference eContainmentFeature()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eContents()
+     */
     public EList eContents()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eAllContents()
+     */
     public TreeIterator eAllContents()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eIsProxy()
+     */
     public boolean eIsProxy()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eCrossReferences()
+     */
     public EList eCrossReferences()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
-    public Object eGet(EStructuralFeature arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature)
+     */
+    public Object eGet(final EStructuralFeature arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature,
+     *      boolean)
+     */
     public Object eGet(
-        EStructuralFeature arg0,
-        boolean arg1)
+        final EStructuralFeature arg0,
+        final boolean arg1)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eSet(org.eclipse.emf.ecore.EStructuralFeature,
+     *      java.lang.Object)
+     */
     public void eSet(
-        EStructuralFeature arg0,
-        Object arg1)
+        final EStructuralFeature arg0,
+        final Object arg1)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 
-    public boolean eIsSet(EStructuralFeature arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eIsSet(org.eclipse.emf.ecore.EStructuralFeature)
+     */
+    public boolean eIsSet(final EStructuralFeature arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
-    public void eUnset(EStructuralFeature arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.ecore.EObject#eUnset(org.eclipse.emf.ecore.EStructuralFeature)
+     */
+    public void eUnset(final EStructuralFeature arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.common.notify.Notifier#eAdapters()
+     */
     public EList eAdapters()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.common.notify.Notifier#eDeliver()
+     */
     public boolean eDeliver()
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
         return false;
     }
 
-    public void eSetDeliver(boolean arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.common.notify.Notifier#eSetDeliver(boolean)
+     */
+    public void eSetDeliver(final boolean arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 
-    public void eNotify(Notification arg0)
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.eclipse.emf.common.notify.Notifier#eNotify(org.eclipse.emf.common.notify.Notification)
+     */
+    public void eNotify(final Notification arg0)
     {
-        // TODO Auto-generated method stub
+        // TODO Raccord de méthode auto-généré
     }
 }

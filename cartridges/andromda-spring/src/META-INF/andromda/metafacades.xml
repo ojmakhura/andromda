@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
-<!-- contains the hibernate cartridge metafacade mappings -->
+<!-- contains the spring cartridge metafacade mappings -->
 <metafacades>
+    <property reference="hibernateVersion"/>
+    <property reference="hibernateXMLPersistence"/>
     <property reference="daoNamePattern"/>
     <property reference="daoBaseNamePattern"/>
     <property reference="daoImplementationNamePattern"/>
     <property reference="ejbJndiNamePrefix"/>
     <property reference="ejbPackageNamePattern"/>
+    <property reference="implementationPackageNamePattern"/>
     <property reference="defaultServiceExceptionNamePattern"/>
     <property reference="defaultServiceExceptions"/>
     <property reference="serviceInterceptors"/>
     <property reference="serviceRemotingType"/>
     <property reference="serviceRemotePort"/>
+    <property reference="serviceRemotePortJMS"/>
     <property reference="serviceRemoteContext"/>
     <property reference="serviceRemoteServer"/>
     <property reference="entityNamePattern"/>
@@ -21,8 +25,10 @@
     <property reference="ejbServiceOperationTransactionType"/>
     <property reference="serviceHibernateInterceptorEnabled"/>
     <property reference="ejbViewType"/>
-    <property reference="richClient"/>    
-    <property reference="configPropertyPrefix"/>    
+    <property reference="richClient"/>
+    <property reference="configPropertyPrefix"/>
+    <property reference="jmsDestinationTemplatePattern"/>
+    <property reference="beanNamePrefix"/>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogicImpl">
         <mapping>
             <stereotype>FINDER_METHOD</stereotype>
@@ -35,7 +41,8 @@
             <property name="query"/>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringCriteriaSearchLogicImpl" contextRoot="true">
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringCriteriaSearchLogicImpl"
+        contextRoot="true">
         <mapping>
             <stereotype>CRITERIA</stereotype>
         </mapping>
@@ -45,7 +52,8 @@
             <context>org.andromda.cartridges.spring.metafacades.SpringCriteriaSearch</context>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl" contextRoot="true">
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceLogicImpl"
+        contextRoot="true">
         <mapping>
             <stereotype>SERVICE</stereotype>
         </mapping>
@@ -58,10 +66,11 @@
             <stereotype>ENTITY</stereotype>
             <stereotype>MANAGEABLE</stereotype>
         </mapping>
+        <property reference="crudValueObjectSuffix"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringManageableEntityAttributeLogicImpl">
         <mapping>
-            <property name="owner.manageable"/>
+            <context>org.andromda.cartridges.spring.metafacades.SpringManageableEntity</context>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringManageableEntityAssociationEndLogicImpl">
@@ -73,6 +82,7 @@
         <mapping>
             <stereotype>ENTITY</stereotype>
         </mapping>
+        <property reference="hibernateMappingStrategy"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceOperationLogicImpl">
         <mapping>
@@ -86,5 +96,21 @@
         </mapping>
         <property reference="implementationOperationNamePattern"/>
     </metafacade>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringServiceOperationLogicImpl">
+        <mapping>
+            <property name="owner.serviceMetaType"/>
+        </mapping>
+        <property reference="implementationOperationNamePattern"/>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.spring.metafacades.SpringDependencyLogicImpl"/>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringQueueLogicImpl" contextRoot="true">
+        <mapping>
+            <stereotype>QUEUE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.spring.metafacades.SpringTopicLogicImpl" contextRoot="true">
+        <mapping>
+            <stereotype>TOPIC</stereotype>
+        </mapping>
+    </metafacade>
 </metafacades>

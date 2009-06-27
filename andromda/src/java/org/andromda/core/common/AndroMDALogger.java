@@ -1,9 +1,7 @@
 package org.andromda.core.common;
 
 import java.io.InputStream;
-
 import java.net.URL;
-
 import org.andromda.core.configuration.Namespaces;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.BasicConfigurator;
@@ -18,6 +16,7 @@ import org.apache.log4j.xml.DOMConfigurator;
  *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
+ * @author Bob Fields
  * @since 26.11.2003
  */
 public class AndroMDALogger
@@ -170,21 +169,33 @@ public class AndroMDALogger
         LogManager.shutdown();
     }
 
+    /**
+     * @param object
+     */
     public static void debug(Object object)
     {
         logger.debug(object);
     }
 
+    /**
+     * @param object
+     */
     public static void info(Object object)
     {
         logger.info(object);
     }
 
+    /**
+     * @param object
+     */
     public static void warn(Object object)
     {
         logger.warn(object);
     }
 
+    /**
+     * @param object
+     */
     public static void error(Object object)
     {
         logger.error(object);

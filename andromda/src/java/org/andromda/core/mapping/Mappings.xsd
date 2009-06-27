@@ -20,7 +20,7 @@
             <xs:sequence>
                 <xs:element name="extends" type="xs:string" minOccurs="0"/>
                 <xs:element ref="documentation" minOccurs="0"/>
-                <xs:element ref="mapping" maxOccurs="unbounded"/>
+                <xs:element ref="mapping" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="name" type="xs:string" use="required"/>
         </xs:complexType>

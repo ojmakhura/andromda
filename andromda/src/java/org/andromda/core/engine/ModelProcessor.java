@@ -7,8 +7,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
-
+import java.util.Map;
 import org.andromda.core.ModelValidationException;
 import org.andromda.core.cartridge.Cartridge;
 import org.andromda.core.common.AndroMDALogger;
@@ -21,6 +22,7 @@ import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Configuration;
 import org.andromda.core.configuration.Filters;
 import org.andromda.core.configuration.Model;
+import org.andromda.core.configuration.Namespace;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
 import org.andromda.core.metafacade.MetafacadeFactory;
@@ -40,6 +42,7 @@ import org.apache.log4j.Logger;
  * or multiple models. </p>
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class ModelProcessor
 {
@@ -212,34 +215,43 @@ public class ModelProcessor
                 {
                     AndroMDALogger.warn("WARNING! No cartridges found, check your classpath!");
                 }
+                
+                final Map cartridgesByNamespace = this.loadCartridgesByNamespace(cartridges);
+                
+                // - we want to process by namespace so that the order within the configuration is kept
+                final Collection namespaces = this.namespaces.getNamespaces();
 
                 // - pre-load the models
                 messages = this.loadIfNecessary(models);
-                for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
+                for (final Iterator iterator = namespaces.iterator(); iterator.hasNext();)
                 {
-                    final Cartridge cartridge = (Cartridge)iterator.next();
-                    cartridgeName = cartridge.getNamespace();
-                    if (this.shouldProcess(cartridgeName))
+                    final Namespace namespace = (Namespace)iterator.next();
+                    final Cartridge cartridge = (Cartridge)cartridgesByNamespace.get(namespace.getName());
+                    if (cartridge != null)
                     {
-                        // - set the active namespace on the shared factory and profile instances
-                        this.factory.setNamespace(cartridgeName);
-                        cartridge.initialize();
-
-                        // - process each model with the cartridge
-                        for (int ctr = 0; ctr < models.length; ctr++)
+                        cartridgeName = cartridge.getNamespace();
+                        if (this.shouldProcess(cartridgeName))
                         {
-                            final Model model = models[ctr];
-
-                            // - set the namespace on the metafacades instance so we know the 
-                            //   correct facades to use
-                            this.factory.setModel(
-                                this.repositories.getImplementation(repositoryName).getModel(
-                                    model.getAccessFacadeType()),
-                                model.getType());
-                            cartridge.processModelElements(this.factory);
-                            writer.writeHistory();
+                             // - set the active namespace on the shared factory and profile instances
+                            this.factory.setNamespace(cartridgeName);
+                            cartridge.initialize();
+    
+                            // - process each model with the cartridge
+                            for (int ctr = 0; ctr < models.length; ctr++)
+                            {
+                                final Model model = models[ctr];
+                                AndroMDALogger.info("Processing cartridge " + cartridge.getNamespace() + " on model " + model);
+   
+                                // - set the namespace on the metafacades instance so we know the 
+                                //   correct facades to use
+                                this.factory.setModel(
+                                    this.repositories.getImplementation(repositoryName).getModel(),
+                                    model.getType());
+                                cartridge.processModelElements(this.factory);
+                                writer.writeHistory();
+                            }
+                            cartridge.shutdown();
                         }
-                        cartridge.shutdown();
                     }
                 }
             }
@@ -263,6 +275,23 @@ public class ModelProcessor
             throw new ModelProcessorException(messsage, throwable);
         }
         return messages == null ? Collections.EMPTY_LIST : messages;
+    }
+    
+    /**
+     * Loads the given list of <code>cartridges</code> into a map keyed by namespace.
+     * 
+     * @param cartridges the cartridges loaded.
+     * @return the loaded cartridge map.
+     */
+    private Map loadCartridgesByNamespace(final Collection cartridges)
+    {
+        final Map cartridgesByNamespace = new LinkedHashMap();
+        for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
+        {
+            final Cartridge cartridge = (Cartridge)iterator.next();
+            cartridgesByNamespace.put(cartridge.getNamespace(), cartridge);
+        }
+        return cartridgesByNamespace;
     }
 
     /**
@@ -307,8 +336,8 @@ public class ModelProcessor
      * Loads the model into the repository only when necessary (the model has a timestamp
      * later than the last timestamp of the loaded model).
      *
-     * @param repositoryName the name of the repository that will load/read the model.
      * @param model the model to be loaded.
+     * @return List validation messages
      */
     protected final List loadModelIfNecessary(final Model model)
     {
@@ -336,7 +365,6 @@ public class ModelProcessor
      * (also logs any validation failures).
      *
      * @param repositoryName the name of the repository storing the model to validate.
-     * @param constraints any constraint filters to apply to the validation messages.
      * @return any {@link ModelValidationMessage} instances that may have been collected
      *         during validation.
      */
@@ -344,15 +372,15 @@ public class ModelProcessor
         final String repositoryName,
         final Model model)
     {
-        final Filters constraints = model != null ? model.getConstraints() : null;
+        final Filters constraints = (model != null ? model.getConstraints() : null);
         final List validationMessages = new ArrayList();
-        if (this.modelValidation)
+        if (ModelProcessor.modelValidation && model != null)
         {
             final long startTime = System.currentTimeMillis();
             AndroMDALogger.info("- validating model -");
             final Collection cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
             final ModelAccessFacade modelAccessFacade =
-                this.repositories.getImplementation(repositoryName).getModel(model.getAccessFacadeType());
+                this.repositories.getImplementation(repositoryName).getModel();
 
             // - clear out the factory's caches (such as any previous validation messages, etc.)
             this.factory.clearCaches();
@@ -400,7 +428,7 @@ public class ModelProcessor
     }
 
     /**
-     * Calcuates the duration in seconds between the
+     * Calculates the duration in seconds between the
      * given <code>startTime</code> and the current time.
      * @param startTime the time to compare against.
      * @return the duration of time in seconds.
@@ -471,6 +499,7 @@ public class ModelProcessor
      * that need to be reloaded, and if so, re-loads them.
      *
      * @param repositories the repositories from which to load the model(s).
+     * @return messages
      */
     final List loadIfNecessary(final org.andromda.core.configuration.Repository[] repositories)
     {
@@ -493,7 +522,6 @@ public class ModelProcessor
     /**
      * Checks to see if <em>any</em> of the models need to be reloaded, and if so, re-loads them.
      *
-     * @param repositoryName the name of the repository used to load/read the models
      * @param models that will be loaded (if necessary).
      * @return any validation messages collected during loading.
      */
@@ -529,18 +557,30 @@ public class ModelProcessor
     /**
      * Whether or not model validation should be performed.
      */
-    private boolean modelValidation = true;
+    private static boolean modelValidation = true;
 
     /**
      * Sets whether or not model validation should occur. This is useful for
-     * performance reasons (i.e. if you have a large model it can significatly descrease the amount of time it takes for
+     * performance reasons (i.e. if you have a large model it can significantly decrease the amount of time it takes for
      * AndroMDA to process a model). By default this is set to <code>true</code>.
      *
-     * @param modelValidation true/false on whether model validation should be performed or not.
+     * @param modelValidationIn true/false on whether model validation should be performed or not.
      */
-    public void setModelValidation(final boolean modelValidation)
+    public void setModelValidation(final boolean modelValidationIn)
     {
-        this.modelValidation = modelValidation;
+        ModelProcessor.modelValidation = modelValidationIn;
+    }
+
+    /**
+     * Gets whether or not model validation should occur. This is useful for
+     * performance reasons (i.e. if you have a large model it can significantly decrease the amount of time it takes for
+     * AndroMDA to process a model). By default this is set to <code>true</code>.
+     *
+     * @return modelValidation true/false on whether model validation should be performed or not.
+     */
+    public static boolean getModelValidation()
+    {
+        return ModelProcessor.modelValidation;
     }
 
     /**
@@ -571,8 +611,8 @@ public class ModelProcessor
 
     /**
      * Indicates whether or not the <code>namespace</code> should be processed. This is determined in conjunction with
-     * {@link #setCartridgeFilter(String)}. If the <code>cartridgeFilter</code> is not defined, then this method will
-     * <strong>ALWAYS </strong> return true.
+     * {@link #setCartridgeFilter(String)}. If the <code>cartridgeFilter</code> is not defined and the namespace is
+     * present within the configuration, then this method will <strong>ALWAYS </strong> return true.
      *
      * @param namespace the name of the namespace to check whether or not it should be processed.
      * @return true/false on whether or not it should be processed.
@@ -599,13 +639,13 @@ public class ModelProcessor
 
     /**
      * <p/>
-     * Sets the current cartridge filter. This is a comma seperated list of namespaces (matching cartridges names) that
+     * Sets the current cartridge filter. This is a comma separated list of namespaces (matching cartridges names) that
      * should be processed. </p>
      * <p/>
      * If this filter is defined, then any cartridge names found in this list <strong>will be processed </strong>, while
      * any other discovered cartridges <strong>will not be processed </strong>. </p>
      *
-     * @param namespaces a comma seperated list of the cartridge namespaces to be processed.
+     * @param namespaces a comma separated list of the cartridge namespaces to be processed.
      */
     public void setCartridgeFilter(String namespaces)
     {
@@ -773,7 +813,7 @@ public class ModelProcessor
     {
         private final Collator collator = Collator.getInstance();
 
-        private ValidationMessageTypeComparator()
+        ValidationMessageTypeComparator()
         {
             collator.setStrength(Collator.PRIMARY);
         }
@@ -798,7 +838,7 @@ public class ModelProcessor
     {
         private final Collator collator = Collator.getInstance();
 
-        private ValidationMessageNameComparator()
+        ValidationMessageNameComparator()
         {
             collator.setStrength(Collator.PRIMARY);
         }

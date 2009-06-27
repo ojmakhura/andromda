@@ -4,12 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
-
 import java.text.SimpleDateFormat;
-
 import java.util.Date;
 import java.util.Random;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
@@ -20,6 +17,7 @@ import org.apache.log4j.Logger;
  * ExceptionRecorder provides a function to record an exception to a file along with the trace data if active. </p>
  *
  * @author Martin West
+ * @author Bob Fields
  */
 public class ExceptionRecorder
 {
@@ -86,7 +84,8 @@ public class ExceptionRecorder
      * <_nn>.exc where YY..SS is the timestamp <_nn>is an ascending sequence number when multiple exceptions occur in
      * the same second. Returns the filename of the generated exception report. </p>
      *
-     * @param Exception to record.
+     * @param throwable to record.
+     * @return record("", throwable, "S")
      */
     public String record(Throwable throwable)
     {
@@ -101,6 +100,7 @@ public class ExceptionRecorder
      *
      * @param errorMessage to log with the exception report.
      * @param throwable    to record.
+     * @return record(errorMessage, throwable, "S")
      */
     public String record(
         String errorMessage,
@@ -110,7 +110,7 @@ public class ExceptionRecorder
     }
 
     /**
-     * The default prefix given, if prefix in {@link #record(String, Throwable, String)is null.
+     * The default prefix given, if prefix in {@link #record(String, Throwable, String) is null}.
      */
     private static final String DEFAULT_PREFIX = "andromda";
 
@@ -123,6 +123,7 @@ public class ExceptionRecorder
      * @param message   diagnostic message
      * @param throwable exception to record.
      * @param prefix    for the file name.
+     * @return result string
      */
     public String record(
         String message,
@@ -187,6 +188,8 @@ public class ExceptionRecorder
 
     /**
      * Gets a unique file name.
+     * @param prefix 
+     * @return uniqueName
      */
     protected synchronized String getUniqueName(String prefix)
     {

@@ -1,23 +1,31 @@
 package org.andromda.metafacades.uml14;
 
+import org.omg.uml.foundation.core.ModelElement;
+import org.omg.uml.foundation.core.TemplateArgument;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.TemplateArgumentFacade.
  *
  * @see org.andromda.metafacades.uml.TemplateArgumentFacade
+ * @author Bob Fields
  */
 public class TemplateArgumentFacadeLogicImpl
     extends TemplateArgumentFacadeLogic
 {
 
-    public TemplateArgumentFacadeLogicImpl (org.omg.uml.foundation.core.TemplateArgument metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public TemplateArgumentFacadeLogicImpl (TemplateArgument metaObject, String context)
     {
         super (metaObject, context);
     }
     /**
      * @see org.andromda.metafacades.uml.TemplateArgumentFacade#getElement()
      */
-    protected java.lang.Object handleGetElement()
+    @Override
+    protected ModelElement handleGetElement()
     {
         return metaObject.getModelElement();
     }

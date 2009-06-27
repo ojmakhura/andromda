@@ -1,0 +1,293 @@
+
+body, HTML
+{
+    color: black;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	margin:0;
+}
+
+a:link, a:visited
+{
+    color: #006699;
+}
+
+a:hover
+{
+    color: #DD6900;
+}
+
+fieldset
+{	
+	float:left;
+	padding:0 0.4em 0.4em 0.4em;;
+	margin:0;
+}
+
+h1
+{
+    color: Black;
+    font-size: 2em;
+    margin: 0em;
+
+}
+
+h1 span
+{
+    color: #ee0000;
+}
+
+h2
+{
+    font-size: 1.2em;
+    margin:0;
+    padding: 0 0 .5em 0;
+}
+
+h3
+{
+	font-size:0.9em;
+	margin-bottom:1px;
+}
+
+form {
+	margin: 0;
+}
+
+input, select, textarea {
+	border: solid 1px #c0c0c0;
+}
+
+fieldset select {
+	border: solid 1px #c0c0c0;
+}
+
+input.Submit {
+    padding: 1px 1px 2px 2px;
+    border: outset 2px #3366ff;
+    background-color: #0033CC;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    font-size: 0.8em;
+    font-weight: bold;
+    margin:10px;
+}
+
+input[type="checkbox"]
+{
+border:0;
+}
+
+input[value]
+{
+	margin:0;
+	padding:0;
+}
+
+label
+{
+    font-size: 0.8em;
+    font-weight:bold;
+    margin:1em 0 0 0;
+    padding: 0;
+    display:block;
+}
+
+legend {
+	font-size: 1.2em;
+	font-weight:bold;
+	margin:0;
+	padding:0;	
+}
+
+
+tr {
+	font-size:0.8em;
+}
+th {
+	text-align:left;
+}
+tfoot {
+	background:#cec;
+}
+#content
+{
+    padding: 0 10px 1.75em 1em;
+}
+
+#comments
+{
+    padding:0;
+}
+
+#header {
+	padding: 0.5em;
+}
+
+#full_width
+{
+    width: 98%;
+}
+
+#leftmenu
+{
+    padding: 0 1em 0 0;
+    margin: 0 1em 0 0;
+    float: left;
+    border-right: solid 1px #aaa;
+    height: 40em;
+}
+
+#menubar
+{
+    text-align: center;
+    font-size: 0.85em;
+    padding:0 0 1.5em 0em;
+    margin-bottom: 1em;
+}
+#menubar a:link, #menubar a:visited {
+	text-decoration: none;
+	color:#000000;
+}
+
+#menubar ul
+{
+    position:relative;
+    float:left;
+    width:98%;
+    padding: 0 0 0 1em;
+    margin:0;
+    list-style:none;
+    line-height:1em;
+    border-bottom:1px solid #aaa;
+}
+#menubar ul li {
+    float:left;
+    margin:0;
+    padding:0;
+}
+#menubar ul li a {
+	display:block;
+    color: Black;
+    text-decoration:none;
+    background:#fff;
+    margin:0;
+    padding:0.25em 1em;
+    border-left:none;
+    border-bottom: none;
+    border-top:1px solid #aaa;
+    border-right:1px solid #aaa;
+}
+#menubar ul li a.visited {
+	color:#000000;
+}
+#menubar ul li a.selected
+{
+    border-bottom: none;
+}
+#menubar ul li.first {
+	border-left:1px solid #aaa;
+}
+#menubar ul li a:hover, #menubar ul li a:active, #menubar ul li a.selected:link, #menubar ul li a.selected:visited
+{
+    background:#eee;  
+}
+#timecard
+{
+    padding: 0 0 .5em 0;
+}
+#timecard table {
+	border:2px solid #aaa;
+	border-collapse:collapse;
+	width:50%;
+}
+
+#timecard table colgroup {
+	width:25%;
+}
+
+#timecard table th {
+	padding: 0.5em;
+    background: #eee;
+    border-bottom: solid 1px #aaa;	
+}
+#timecard table td
+{
+    padding: 0.5em;
+    border-bottom: solid 1px #ccc;
+}
+
+#timecardtable
+{
+    border-bottom: none;
+}
+
+#timecardstatus
+{
+    padding: 0 0 1em 0;
+}
+
+#timecardstatus table
+{
+    border-collapse: collapse;
+    border: 2px solid #aaa;
+    width:50%;
+}
+
+#timecardstatus table td, #timecardstatus table th
+{
+    padding: 0.5em;
+    background: #eee;
+}
+
+#timecardstatus table th
+{
+    border-bottom: solid 1px #aaa;
+}
+
+#approvetimecard
+{
+    padding: 0 0 1em 0;
+}
+
+#approvetimecard table
+{
+    border-collapse: collapse;
+    border: 2px solid #aaa;
+}
+
+#approvetimecard table td, #approvetimecard table th
+{
+    padding: 0.5em;
+    background: #eee;
+}
+
+#approvetimecard table th
+{
+    border-bottom: solid 1px #aaa;
+}
+#topmenu
+{
+    background: #eee;
+    border-bottom: solid 1px #aaa;
+    padding: 0.3em 1em 0.3em 1em;
+    font-size: 0.7em;
+    text-align: right;
+}
+
+#sidebar
+{
+    padding: 0 1em 0 0;
+    margin: 0 1em 0 0;
+    float: left;
+    border-right: solid 1px #aaa;
+    height: 40em;
+}
+#fieldgroup
+{
+    padding: 0 0 1em 1em;
+}
+
+.alignCenter {
+	text-align: center;
+}

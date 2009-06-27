@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/$applicationId" docBase="${applicationId}-web-${applicationVersion}"
+<Context path="/$applicationId" docBase="${applicationId}-${applicationVersion}"
          debug="99" reloadable="true" antiJARLocking="true" antiResourceLocking="false">
 
-    <Resource name="${applicationId}DS" auth="Container" type="javax.sql.DataSource"
+    <Resource name="${dataSource.name}" auth="Container" type="javax.sql.DataSource"
               maxActive="100" maxIdle="30" maxWait="10000"
               driverClassName="${jdbc.driver}"
               username="${jdbc.username}" password="${jdbc.password}"

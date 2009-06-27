@@ -7,26 +7,38 @@ import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * Metaclass facade implementation.
+ * @author Bob Fields
  */
 public class EntityAttributeLogicImpl
         extends EntityAttributeLogic
 {
 
-    public EntityAttributeLogicImpl(java.lang.Object metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public EntityAttributeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
+
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(EntityAttributeLogicImpl.class);
 
     /**
      * Overridden to provide name masking.
      *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
+    @Override
     protected String handleGetName()
     {
         final String nameMask = String.valueOf(this.getConfiguredProperty(
@@ -37,6 +49,7 @@ public class EntityAttributeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#getColumnName()
      */
+    @Override
     protected String handleGetColumnName()
     {
         final Short maxSqlNameLength =
@@ -52,6 +65,7 @@ public class EntityAttributeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#getColumnLength()
      */
+    @Override
     protected String handleGetColumnLength()
     {
         return (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_LENGTH);
@@ -60,23 +74,26 @@ public class EntityAttributeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#isIdentifier()
      */
+    @Override
     protected boolean handleIsIdentifier()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);
     }
 
-    /**
+    /*
      * @see org.andromda.metafacades.uml.EntityAttribute#isUnique()
-     */
+    @Override
     protected boolean handleIsUnique()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_UNIQUE);
     }
+     */
 
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#getColumnIndex()
      */
-    protected java.lang.String handleGetColumnIndex()
+    @Override
+    protected String handleGetColumnIndex()
     {
         final String index = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_INDEX);
         return index != null ? StringUtils.trimToEmpty(index) : null;
@@ -85,7 +102,8 @@ public class EntityAttributeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#getSqlType()
      */
-    protected java.lang.String handleGetSqlType()
+    @Override
+    protected String handleGetSqlType()
     {
         String value = null;
         if (this.getSqlMappings() != null)
@@ -118,7 +136,8 @@ public class EntityAttributeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EntityAttribute#getJdbcType()
      */
-    protected java.lang.String handleGetJdbcType()
+    @Override
+    protected String handleGetJdbcType()
     {
         String value = null;
         if (this.getJdbcMappings() != null)
@@ -147,6 +166,7 @@ public class EntityAttributeLogicImpl
     /**
      * Gets the JDBC mappings.
      */
+    @Override
     protected TypeMappings handleGetJdbcMappings()
     {
         return this.getMappingsProperty(UMLMetafacadeProperties.JDBC_MAPPINGS_URI);
@@ -185,4 +205,49 @@ public class EntityAttributeLogicImpl
         return mappings;
     }
 
+    protected boolean handleIsTransient()
+    {
+        return this.hasStereotype(UMLProfile.STEREOTYPE_TRANSIENT);
+    }
+
+    /**
+     * @return unique group
+     * @see org.andromda.metafacades.uml.EntityAttribute#getUniqueGroup()
+     */
+    protected String handleGetUniqueGroup() {
+        final String group = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN_UNIQUE_GROUP);
+        return group != null ? StringUtils.trimToEmpty(group) : null;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.EntityAttribute#getKeywords()
+    public Collection<String> handleGetKeywords()
+    {
+        //return super.getKeywords();
+        return this.metaObject.getKeywords();
+    }
+     */
+
+    /*public String handleGetLabel()
+    {
+        return this.metaObject.getLabel();
+    }
+
+    public ModelElementFacade handleGetModelNamespace()
+    {
+        return this.metaObject.getNamespace();
+    }
+
+    public String handleGetQualifiedName()
+    {
+        return this.metaObject.getQualifiedName();
+    }*/
+
+    /**
+     * @see org.andromda.metafacades.uml.ModelElementFacade#hasKeyword(String)
+    public boolean handleHasKeyword(String keywordName)
+    {
+        return super.hasKeyword(keywordName);
+    }
+     */
 }

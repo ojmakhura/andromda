@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<uml:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:uml="http://www.eclipse.org/uml2/1.0.0/UML" xmi:id="_7zZYwCXvEdyeC6-v07fheA" name="model" appliedProfile="_74wZ4CXvEdyeC6-v07fheA _75DU0CXvEdyeC6-v07fheA _75DU0yXvEdyeC6-v07fheA _75pxwCXvEdyeC6-v07fheA _762EkCXvEdyeC6-v07fheA _GSY9wCnwEd6PR4fGfoLgtQ _H5NxoCnwEd6PR4fGfoLgtQ _J2O38CnwEd6PR4fGfoLgtQ _MXeFoCnwEd6PR4fGfoLgtQ _N5FCUCnwEd6PR4fGfoLgtQ">
+  <eAnnotations xmi:id="_NrW40CXwEdyeC6-v07fheA" source="http://www.eclipse.org/emf/2002/Ecore"/>
+  <packageImport xmi:type="uml:ProfileApplication" xmi:id="_74wZ4CXvEdyeC6-v07fheA">
+    <eAnnotations xmi:id="_74wZ4SXvEdyeC6-v07fheA" source="attributes">
+      <details xmi:id="_74wZ4iXvEdyeC6-v07fheA" key="version" value="0"/>
+    </eAnnotations>
+    <importedPackage xmi:type="uml:Profile" href="pathmap://UML2_PROFILES/Basic.profile.uml2#_6mFRgK86Edih9-GG5afQ0g"/>
+    <importedProfile href="pathmap://UML2_PROFILES/Basic.profile.uml2#_6mFRgK86Edih9-GG5afQ0g"/>
+  </packageImport>
+  <packageImport xmi:type="uml:ProfileApplication" xmi:id="_75DU0CXvEdyeC6-v07fheA">
+    <eAnnotations xmi:id="_75DU0SXvEdyeC6-v07fheA" source="attributes">
+      <details xmi:id="_75DU0iXvEdyeC6-v07fheA" key="version" value="0"/>
+    </eAnnotations>
+    <importedPackage xmi:type="uml:Profile" href="pathmap://UML2_PROFILES/Intermediate.profile.uml2#_Cz7csK87Edih9-GG5afQ0g"/>
+    <importedProfile href="pathmap://UML2_PROFILES/Intermediate.profile.uml2#_Cz7csK87Edih9-GG5afQ0g"/>
+  </packageImport>
+  <packageImport xmi:type="uml:ProfileApplication" xmi:id="_75DU0yXvEdyeC6-v07fheA">
+    <eAnnotations xmi:id="_75DU1CXvEdyeC6-v07fheA" source="attributes">
+      <details xmi:id="_75DU1SXvEdyeC6-v07fheA" key="version" value="0"/>
+    </eAnnotations>
+    <importedPackage xmi:type="uml:Profile" href="pathmap://UML2_PROFILES/Complete.profile.uml2#_M7pTkK87Edih9-GG5afQ0g"/>
+    <importedProfile href="pathmap://UML2_PROFILES/Complete.profile.uml2#_M7pTkK87Edih9-GG5afQ0g"/>
+  </packageImport>
+  <packageImport xmi:type="uml:ProfileApplication" xmi:id="_75pxwCXvEdyeC6-v07fheA">
+    <eAnnotations xmi:id="_75pxwSXvEdyeC6-v07fheA" source="attributes">
+      <details xmi:id="_75pxwiXvEdyeC6-v07fheA" key="version" value="0"/>
+    </eAnnotations>
+    <importedPackage xmi:type="uml:Profile" href="pathmap://UML2_MSL_PROFILES/Default.epx#_a_S3wNWLEdiy4IqP8whjFA?Default"/>
+    <importedProfile href="pathmap://UML2_MSL_PROFILES/Default.epx#_a_S3wNWLEdiy4IqP8whjFA?Default"/>
+  </packageImport>
+  <packageImport xmi:type="uml:ProfileApplication" xmi:id="_762EkCXvEdyeC6-v07fheA">
+    <eAnnotations xmi:id="_76_OgCXvEdyeC6-v07fheA" source="attributes">
+      <details xmi:id="_76_OgSXvEdyeC6-v07fheA" key="version" value="0"/>
+    </eAnnotations>
+    <importedPackage xmi:type="uml:Profile" href="pathmap://UML2_MSL_PROFILES/Deployment.epx#_vjbuwOvHEdiDX5bji0iVSA?Deployment"/>
+    <importedProfile href="pathmap://UML2_MSL_PROFILES/Deployment.epx#_vjbuwOvHEdiDX5bji0iVSA?Deployment"/>
+  </packageImport>
+  <packageImport xmi:id="_8AD7wCXvEdyeC6-v07fheA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML2_LIBRARIES/UML2PrimitiveTypes.library.uml2#_EfRZoK86EdieaYgxtVWN8Q"/>
+  </packageImport>
+  <packageImport xmi:type="uml:ProfileApplication" xmi:id="_GSY9wCnwEd6PR4fGfoLgtQ">
+    <eAnnotations xmi:id="_GSY9wSnwEd6PR4fGfoLgtQ" source="attributes">
+      <details xmi:id="_GSY9winwEd6PR4fGfoLgtQ" key="version" value="0"/>
+    </eAnnotations>
+    <importedPackage xmi:type="uml:Profile" href="pathmap://m2repository/org/andromda/profiles/emf/uml2/andromda-profile-common/3.4.1-SNAPSHOT/andromda-profile-common-3.4.1-SNAPSHOT.uml2#_8a70287_1078771814628_224704_589"/>
+    <importedProfile href="pathmap://m2repository/org/andromda/profiles/emf/uml2/andromda-profile-common/3.4.1-SNAPSHOT/andromda-profile-common-3.4.1-SNAPSHOT.uml2#_8a70287_1078771814628_224704_589"/>
+  </packageImport>
+  <packageImport xmi:type="uml:ProfileApplication" xmi:id="_H5NxoCnwEd6PR4fGfoLgtQ">
+    <eAnnotations xmi:id="_H5NxoSnwEd6PR4fGfoLgtQ" source="attributes">
+      <details xmi:id="_H5NxoinwEd6PR4fGfoLgtQ" key="version" value="0"/>
+    </eAnnotations>
+    <importedPackage xmi:type="uml:Profile" href="pathmap://m2repository/org/andromda/profiles/emf/uml2/andromda-profile-persistence/3.4.1-SNAPSHOT/andromda-profile-persistence-3.4.1-SNAPSHOT.uml2#_9_0_2_12ab03bf_1120853774265_65497_87"/>
+    <importedProfile href="pathmap://m2repository/org/andromda/profiles/emf/uml2/andromda-profile-persistence/3.4.1-SNAPSHOT/andromda-profile-persistence-3.4.1-SNAPSHOT.uml2#_9_0_2_12ab03bf_1120853774265_65497_87"/>
+  </packageImport>
+  <packageImport xmi:type="uml:ProfileApplication" xmi:id="_J2O38CnwEd6PR4fGfoLgtQ">
+    <eAnnotations xmi:id="_J2O38SnwEd6PR4fGfoLgtQ" source="attributes">
+      <details xmi:id="_J2O38inwEd6PR4fGfoLgtQ" key="version" value="0"/>
+    </eAnnotations>
+    <importedPackage xmi:type="uml:Profile" href="pathmap://m2repository/org/andromda/profiles/emf/uml2/andromda-profile-service/3.4.1-SNAPSHOT/andromda-profile-service-3.4.1-SNAPSHOT.uml2#_9_0_2_12ab03bf_1120852978046_265263_0"/>
+    <importedProfile href="pathmap://m2repository/org/andromda/profiles/emf/uml2/andromda-profile-service/3.4.1-SNAPSHOT/andromda-profile-service-3.4.1-SNAPSHOT.uml2#_9_0_2_12ab03bf_1120852978046_265263_0"/>
+  </packageImport>
+  <packageImport xmi:type="uml:ProfileApplication" xmi:id="_MXeFoCnwEd6PR4fGfoLgtQ">
+    <eAnnotations xmi:id="_MXeFoSnwEd6PR4fGfoLgtQ" source="attributes">
+      <details xmi:id="_MXeFoinwEd6PR4fGfoLgtQ" key="version" value="0"/>
+    </eAnnotations>
+    <importedPackage xmi:type="uml:Profile" href="pathmap://m2repository/org/andromda/profiles/emf/uml2/andromda-profile-webservice/3.4.1-SNAPSHOT/andromda-profile-webservice-3.4.1-SNAPSHOT.uml2#_9_0_2_12ab03bf_1120852932765_76536_0"/>
+    <importedProfile href="pathmap://m2repository/org/andromda/profiles/emf/uml2/andromda-profile-webservice/3.4.1-SNAPSHOT/andromda-profile-webservice-3.4.1-SNAPSHOT.uml2#_9_0_2_12ab03bf_1120852932765_76536_0"/>
+  </packageImport>
+  <packageImport xmi:type="uml:ProfileApplication" xmi:id="_N5FCUCnwEd6PR4fGfoLgtQ">
+    <eAnnotations xmi:id="_N5FCUSnwEd6PR4fGfoLgtQ" source="attributes">
+      <details xmi:id="_N5FCUinwEd6PR4fGfoLgtQ" key="version" value="0"/>
+    </eAnnotations>
+    <importedPackage xmi:type="uml:Profile" href="pathmap://m2repository/org/andromda/profiles/emf/uml2/andromda-profile-xml/3.4.1-SNAPSHOT/andromda-profile-xml-3.4.1-SNAPSHOT.uml2#_9_0_2_12ab03bf_1120852471296_986007_0"/>
+    <importedProfile href="pathmap://m2repository/org/andromda/profiles/emf/uml2/andromda-profile-xml/3.4.1-SNAPSHOT/andromda-profile-xml-3.4.1-SNAPSHOT.uml2#_9_0_2_12ab03bf_1120852471296_986007_0"/>
+  </packageImport>
+  <packageImport xmi:id="_Q_HmMCnwEd6PR4fGfoLgtQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://m2repository/org/andromda/profiles/emf/uml2/andromda-profile-datatype/3.4.1-SNAPSHOT/andromda-profile-datatype-3.4.1-SNAPSHOT.uml2#eee_1045467100313_135436_1"/>
+  </packageImport>
+  <ownedMember xmi:type="uml:Package" xmi:id="_UW5VUHBCEdyzBeV1cEAmlQ" name="PrimitiveTypes">
+    <ownedMember xmi:type="uml:PrimitiveType" xmi:id="_UW5VVHBCEdyzBeV1cEAmlQ" name="BigDecimal"/>
+    <ownedMember xmi:type="uml:PrimitiveType" xmi:id="_jJoe8HBEEdyzBeV1cEAmlQ" name="BigInteger"/>
+    <ownedMember xmi:type="uml:PrimitiveType" xmi:id="_UW5VUXBCEdyzBeV1cEAmlQ" name="Date"/>
+    <ownedMember xmi:type="uml:PrimitiveType" xmi:id="_eZJhQHRoEd2XYY41Ptd_Hw" name="DateTime"/>
+    <ownedMember xmi:type="uml:PrimitiveType" xmi:id="_UW5VUnBCEdyzBeV1cEAmlQ" name="Double"/>
+    <ownedMember xmi:type="uml:PrimitiveType" xmi:id="_5Ml1QHBDEdyzBeV1cEAmlQ" name="Money"/>
+    <ownedMember xmi:type="uml:PrimitiveType" xmi:id="_pYgRcHBDEdyzBeV1cEAmlQ" name="Object"/>
+    <ownedMember xmi:type="uml:PrimitiveType" xmi:id="_czE7UHRoEd2XYY41Ptd_Hw" name="Time"/>
+    <ownedMember xmi:type="uml:PrimitiveType" xmi:id="_fuFT4HRoEd2XYY41Ptd_Hw" name="Timestamp"/>
+    <ownedMember xmi:type="uml:PrimitiveType" xmi:id="_9zVW4HBDEdyzBeV1cEAmlQ" name="void"/>
+  </ownedMember>
+</uml:Model>

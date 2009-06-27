@@ -60,7 +60,7 @@
             <property name="generalizationNamePattern">
                 <default>super{0}</default>
                 <documentation>
-                    The pattern used for constructing the generalize name
+                    The pattern used for constructing the generalized name
                     for the delegated generalizations (these are exposed
                     to the child metafacade implementation class when
                     a metafacade extends more than one other metafacade).
@@ -73,6 +73,36 @@
                 <documentation>
                     The fully qualified name of the root metafacade class.  This normally
                     should not be changed from the default.
+                </documentation>
+            </property>
+            <property name="enableTemplating">
+                <default>true</default>
+                <documentation>
+                    Enable Templating
+                </documentation>
+            </property>
+            <property name="typeSafeEnumsEnabled">
+                <default>true</default>
+                <documentation>
+                    TypeSafe Enumerations enabled
+                </documentation>
+            </property>
+            <property name="pluralizeAssociationEndNames">
+                <default>true</default>
+                <documentation>
+                    Pluralize association end names with multiplicity *
+                </documentation>
+            </property>
+            <property name="pluralizeAttributeNames">
+                <default>true</default>
+                <documentation>
+                    Pluralize Attribute Names with multiplicity *
+                </documentation>
+            </property>
+            <property name="pluralizeParameterNames">
+                <default>true</default>
+                <documentation>
+                    Pluralize Operation Parameters with multiplicity *
                 </documentation>
             </property>
         </propertyGroup>

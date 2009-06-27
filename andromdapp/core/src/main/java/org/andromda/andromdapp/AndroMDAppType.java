@@ -9,11 +9,14 @@ import java.io.StringWriter;
 import java.net.URL;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ComponentContainer;
@@ -163,10 +166,9 @@ public class AndroMDAppType
      * <code>prompt</code>.
      *
      * @param prompt the prompt from which to format the prompt text.
-     * @return the response of the prompt.
      */
     private void setConditionalProperties(
-        final List conditions,
+        final List<Condition> conditions,
         final Object value)
     {
         for (final Iterator iterator = conditions.iterator(); iterator.hasNext();)
@@ -248,6 +250,37 @@ public class AndroMDAppType
     }
 
     /**
+     * Stores the template engine exclusions.
+     */
+    private Map templateEngineExclusions = new LinkedHashMap();
+
+    /**
+     * Adds a template engine exclusion (these are the things that the template engine
+     * will exclude when processing templates)
+     *
+     * @param path the path to the resulting output
+     * @param patterns any patterns to which the conditions should apply
+     */
+    public void addTemplateEngineExclusion(
+        final String path,
+        final String patterns)
+    {
+        this.templateEngineExclusions.put(
+            path,
+            AndroMDAppUtils.stringToArray(patterns));
+    }
+
+    /**
+     * Gets the template engine exclusions.
+     *
+     * @return the map of template engine exclusion paths and its patterns (if it has any defined).
+     */
+    final Map getTemplateEngineExclusions()
+    {
+        return this.templateEngineExclusions;
+    }
+
+    /**
      * The 'yes' response.
      */
     private static final String RESPONSE_YES = "yes";
@@ -271,13 +304,14 @@ public class AndroMDAppType
      * Processes the files for the project.
      *
      * @param write whether or not the resources should be written when collected.
+     * @return processedResources
      * @throws Exception
      */
-    protected List processResources(boolean write)
+    protected List<File> processResources(boolean write)
         throws Exception
     {
         // - all resources that have been processed.
-        final List processedResources = new ArrayList();
+        final List<File> processedResources = new ArrayList<File>();
         final File rootDirectory = this.verifyRootDirectory(new File(this.getRoot()));
         final String bannerStart = write ? "G e n e r a t i n g" : "R e m o v i n g";
         this.printLine();
@@ -302,15 +336,17 @@ public class AndroMDAppType
                             resourceDirectory,
                             false,
                             null);
+                    final Set newContents = new LinkedHashSet();
                     locations.put(
                         location,
-                        contents);
+                        newContents);
                     for (final ListIterator contentsIterator = contents.listIterator(); contentsIterator.hasNext();)
                     {
                         final String path = (String)contentsIterator.next();
-                        if (!path.endsWith(FORWARD_SLASH))
+                        if (path!=null && !path.endsWith(FORWARD_SLASH))
                         {
-                            for (final Iterator mappingIterator = this.mappings.iterator(); mappingIterator.hasNext();)
+                            boolean hasNewPath = false;
+                            for (final Iterator<Mapping> mappingIterator = this.mappings.iterator(); mappingIterator.hasNext();)
                             {
                                 final Mapping mapping = (Mapping)mappingIterator.next();
                                 String newPath = mapping.getMatch(path);
@@ -326,15 +362,15 @@ public class AndroMDAppType
                                         ResourceWriter.instance().writeUrlToFile(
                                             absolutePath,
                                             ResourceUtils.normalizePath(TEMPORARY_MERGE_LOCATION + '/' + newPath));
-                                        contentsIterator.set(newPath);
+                                        newContents.add(newPath);
+                                        hasNewPath = true;
                                     }
                                 }
                             }
-                        }
-                        else
-                        {
-                            // - remove any directories from the contents
-                            contentsIterator.remove();
+                            if (!hasNewPath)
+                            {
+                                newContents.add(path);
+                            }
                         }
                     }
                 }
@@ -342,13 +378,13 @@ public class AndroMDAppType
         }
 
         // - second process and write any output from the defined resource locations.
-        for (final Iterator iterator = locations.keySet().iterator(); iterator.hasNext();)
+        for (final Iterator<String> iterator = locations.keySet().iterator(); iterator.hasNext();)
         {
             final String location = (String)iterator.next();
-            final List contents = (List)locations.get(location);
+            final Collection contents = (Collection)locations.get(location);
             if (contents != null)
             {
-                for (final Iterator contentsIterator = contents.iterator(); contentsIterator.hasNext();)
+                for (final Iterator<String> contentsIterator = contents.iterator(); contentsIterator.hasNext();)
                 {
                     final String path = (String)contentsIterator.next();
                     final String projectRelativePath = StringUtils.replace(
@@ -357,7 +393,7 @@ public class AndroMDAppType
                             "");
                     if (this.isWriteable(projectRelativePath))
                     {
-                        if (this.hasTemplateExtension(path))
+                        if (this.isValidTemplate(path))
                         {
                             final File outputFile =
                                 new File(
@@ -379,7 +415,7 @@ public class AndroMDAppType
                                         path + "' with template context '" + this.templateContext + "'", throwable);
                                 }
                                 writer.flush();
-                                this.printText(MARGIN + "Output: '" + outputFile.toURL() + "'");
+                                this.printText(MARGIN + "Output: '" + outputFile.toURI().toURL() + "'");
                                 ResourceWriter.instance().writeStringToFile(
                                     writer.toString(),
                                     outputFile);
@@ -407,7 +443,7 @@ public class AndroMDAppType
                                     ResourceWriter.instance().writeUrlToFile(
                                         resource,
                                         outputFile.toString());
-                                    this.printText(MARGIN + "Output: '" + outputFile.toURL() + "'");
+                                    this.printText(MARGIN + "Output: '" + outputFile.toURI().toURL() + "'");
                                 }
                                 processedResources.add(outputFile);
                             }
@@ -425,7 +461,7 @@ public class AndroMDAppType
             if (this.isWriteable(directoryPath))
             {
                 directory.mkdirs();
-                this.printText(MARGIN + "Output: '" + directory.toURL() + "'");
+                this.printText(MARGIN + "Output: '" + directory.toURI().toURL() + "'");
             }
         }
 
@@ -433,7 +469,7 @@ public class AndroMDAppType
         {
             // - write the "instructions can be found" information
             this.printLine();
-            this.printText(MARGIN + "New application generated to --> '" + rootDirectory.toURL() + "'");
+            this.printText(MARGIN + "New application generated to --> '" + rootDirectory.toURI().toURL() + "'");
             if (this.instructions != null && this.instructions.trim().length() > 0)
             {
                 File instructions = new File(
@@ -445,7 +481,7 @@ public class AndroMDAppType
                         "', please make sure you have the correct instructions defined in your descriptor --> '" +
                         this.resource + "'");
                 }
-                this.printText(MARGIN + "Instructions for your new application --> '" + instructions.toURL() + "'");
+                this.printText(MARGIN + "Instructions for your new application --> '" + instructions.toURI().toURL() + "'");
             }
             this.printLine();
         }
@@ -456,7 +492,7 @@ public class AndroMDAppType
      * Indicates whether or not this path is <em>writable</em>
      * based on the path and any output conditions that may be specified.
      *
-     * @param path the path tot check.
+     * @param path the path to check.
      * @return true/false
      */
     private boolean isWriteable(String path)
@@ -470,80 +506,118 @@ public class AndroMDAppType
                     1,
                     path.length());
         }
-        boolean writable = true;
+
+        Boolean writable = null;
+
+        final Map evaluatedPaths = new LinkedHashMap();
         for (final Iterator iterator = this.outputConditions.iterator(); iterator.hasNext();)
         {
             final Conditions conditions = (Conditions)iterator.next();
             final Map outputPaths = conditions.getOutputPaths();
             final String conditionsType = conditions.getType();
-            for (final Iterator pathIterator = outputPaths.keySet().iterator(); pathIterator.hasNext();)
+            int ctr = 0;
+            for (final Iterator pathIterator = outputPaths.keySet().iterator(); pathIterator.hasNext(); ctr++)
             {
                 final String outputPath = (String)pathIterator.next();
-                if (path.startsWith(outputPath))
-                {
-                    final String[] patterns = (String[])outputPaths.get(outputPath);
-                    if (ResourceUtils.matchesAtLeastOnePattern(
-                            path,
-                            patterns))
-                    {
-                        for (final Iterator conditionIterator = conditions.getConditions().iterator();
-                            conditionIterator.hasNext();)
-                        {
-                            final Condition condition = (Condition)conditionIterator.next();
-                            final String id = condition.getId();
-                            if (id != null && id.trim().length() > 0)
-                            {
-                                writable = condition.evaluate(this.templateContext.get(id));
 
-                                // - if we're 'anding' the conditions, we break at the first false
-                                if (Conditions.TYPE_AND.equals(conditionsType))
+                // - only evaluate if we haven't yet evaluated
+                writable = (Boolean)evaluatedPaths.get(path);
+                if (writable == null)
+                {
+                    if (path.startsWith(outputPath))
+                    {
+                        final String[] patterns = (String[])outputPaths.get(outputPath);
+                        if (ResourceUtils.matchesAtLeastOnePattern(
+                                path,
+                                patterns))
+                        {
+                            // - assume writable is false, since the path matches at least one conditions path.
+                            for (final Iterator conditionIterator = conditions.getConditions().iterator();
+                                conditionIterator.hasNext();)
+                            {
+                                final Condition condition = (Condition)conditionIterator.next();
+                                final String id = condition.getId();
+                                if (id != null && id.trim().length() > 0)
                                 {
-                                    if (!writable)
+                                    final boolean result = condition.evaluate(this.templateContext.get(id));
+                                    writable = Boolean.valueOf(result);
+                                    if (Conditions.TYPE_AND.equals(conditionsType) && !result)
                                     {
+                                        // - if we 'and' the conditions, we break at the first false
                                         break;
                                     }
-                                }
-                                else
-                                {
-                                    // otherwise we break at the first true condition
-                                    if (writable)
+                                    else if (Conditions.TYPE_OR.equals(conditionsType) && result)
                                     {
+                                        // - otherwise we break at the first true condition
                                         break;
                                     }
                                 }
                             }
                         }
                     }
+                    if (writable != null)
+                    {
+                        evaluatedPaths.put(
+                            path,
+                            writable);
+                    }
                 }
             }
         }
-        return writable;
+
+        // - if writable is still null, set to true
+        if (writable == null)
+        {
+            writable = Boolean.TRUE;
+        }
+        return writable.booleanValue();
     }
 
     /**
      * Indicates whether or not the given <code>path</code> matches at least
-     * one of the file extensions stored in the {@link #templateExtensions}.
+     * one of the file extensions stored in the {@link #templateExtensions}
+     * and isn't in the template engine exclusions.
      *
      * @param path the path to check.
      * @return true/false
      */
-    private boolean hasTemplateExtension(final String path)
+    private boolean isValidTemplate(final String path)
     {
-        boolean hasTemplateExtension = false;
-        if (this.templateExtensions != null)
+        boolean exclude = false;
+        final Map exclusions = this.getTemplateEngineExclusions();
+        for (final Iterator pathIterator = exclusions.keySet().iterator(); pathIterator.hasNext();)
         {
-            final int numberOfExtensions = this.templateExtensions.length;
-            for (int ctr = 0; ctr < numberOfExtensions; ctr++)
+            final String exclusionPath = (String)pathIterator.next();
+            if (path.startsWith(exclusionPath))
             {
-                final String extension = '.' + this.templateExtensions[ctr];
-                if (extension != null && path.endsWith(extension))
+                final String[] patterns = (String[])exclusions.get(exclusionPath);
+                exclude = ResourceUtils.matchesAtLeastOnePattern(
+                    exclusionPath,
+                    patterns);
+                if (exclude)
                 {
-                    hasTemplateExtension = true;
                     break;
                 }
             }
         }
-        return hasTemplateExtension;
+        boolean validTemplate = false;
+        if (!exclude)
+        {
+            if (this.templateExtensions != null)
+            {
+                final int numberOfExtensions = this.templateExtensions.length;
+                for (int ctr = 0; ctr < numberOfExtensions; ctr++)
+                {
+                    final String extension = '.' + this.templateExtensions[ctr];
+                    validTemplate = path.endsWith(extension);
+                    if (validTemplate)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        return validTemplate;
     }
 
     /**
@@ -560,7 +634,7 @@ public class AndroMDAppType
             for (int ctr = 0; ctr < numberOfExtensions; ctr++)
             {
                 final String extension = '.' + this.templateExtensions[ctr];
-                if (extension != null && path.endsWith(extension))
+                if (path.endsWith(extension))
                 {
                     path = path.substring(
                             0,
@@ -736,14 +810,14 @@ public class AndroMDAppType
     /**
      * Stores any configuration information used when running this type.
      */
-    private List configurations;
+    private List<Configuration> configurations;
 
     /**
      * Sets the configuration instance for this type.
      *
      * @param configuration the optional configuration instance.
      */
-    final void setConfigurations(final List configurations)
+    final void setConfigurations(final List<Configuration> configurations)
     {
         this.configurations = configurations;
     }
@@ -751,7 +825,7 @@ public class AndroMDAppType
     /**
      * Stores the available prompts for this andromdapp.
      */
-    private final List prompts = new ArrayList();
+    private final List<Prompt> prompts = new ArrayList<Prompt>();
 
     /**
      * Adds a prompt to the collection of prompts contained within this
@@ -769,7 +843,7 @@ public class AndroMDAppType
      *
      * @return the list of prompts.
      */
-    public List getPrompts()
+    public List<Prompt> getPrompts()
     {
         return this.prompts;
     }
@@ -777,7 +851,7 @@ public class AndroMDAppType
     /**
      * The locations where templates are stored.
      */
-    private List resourceLocations = new ArrayList();
+    private List<String> resourceLocations = new ArrayList<String>();
 
     /**
      * Adds a location where templates and or project files are located.
@@ -793,7 +867,7 @@ public class AndroMDAppType
      * The any empty directories that should be created when generating the
      * application.
      */
-    private List directories = new ArrayList();
+    private List<String> directories = new ArrayList<String>();
 
     /**
      * The relative path to the directory to be created.
@@ -809,12 +883,11 @@ public class AndroMDAppType
      * Stores the output conditions (that is the conditions
      * that must apply for the defined output to be written).
      */
-    private List outputConditions = new ArrayList();
+    private List<Conditions> outputConditions = new ArrayList<Conditions>();
 
     /**
      * Adds an conditions element to the output conditions..
-     *
-     * @param outputCondition the output conditions to add.
+     * @param outputConditions the output conditions to add.
      */
     public void addOutputConditions(final Conditions outputConditions)
     {
@@ -887,7 +960,7 @@ public class AndroMDAppType
     /**
      * Stores any of the mappings available to this type.
      */
-    private List mappings = new ArrayList();
+    private List<Mapping> mappings = new ArrayList<Mapping>();
 
     /**
      * Adds a new mapping to this type.

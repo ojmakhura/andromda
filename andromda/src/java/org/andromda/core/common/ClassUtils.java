@@ -4,10 +4,12 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
-
+import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -16,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
  * Contains utilities for dealing with classes.
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class ClassUtils
     extends org.apache.commons.lang.ClassUtils
@@ -62,7 +65,6 @@ public class ClassUtils
      *
      * @param className the name of the class to load.
      * @return Class the loaded class
-     * @throws ClassNotFoundException if the class can not be found
      */
     public static Class loadClass(String className)
     {
@@ -78,7 +80,7 @@ public class ClassUtils
                 "");
 
         final ClassLoader loader = getClassLoader();
-        Class loadedClass = null;
+        Class loadedClass;
         try
         {
             // check and see if its a primitive and if so convert it
@@ -105,7 +107,7 @@ public class ClassUtils
      *
      * @return the class loader.
      */
-    public static final ClassLoader getClassLoader()
+    public static ClassLoader getClassLoader()
     {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         if (loader == null)
@@ -126,7 +128,7 @@ public class ClassUtils
      *         java.lang wrapper class if <code>name</code> is a Java
      *         primitive type; <code>false</code> if not
      */
-    protected static final Class getPrimitiveClass(
+    protected static Class getPrimitiveClass(
         final String name,
         final ClassLoader loader)
     {
@@ -140,17 +142,19 @@ public class ClassUtils
         Class primitiveClass = null;
         if (isPrimitiveType(name) && !name.equals("void"))
         {
-            String className = null;
+            final String className;
             if ("char".equals(name))
             {
-                className = "java.lang.Character";
+                className = "Character";
             }
-            if ("int".equals(name))
+            else if ("int".equals(name))
             {
-                className = "java.lang.Integer";
+                className = "Integer";
             }
-
-            className = "java.lang." + StringUtils.capitalize(name);
+            else
+            {
+                className = StringUtils.capitalize(name);
+            }
 
             try
             {
@@ -175,6 +179,7 @@ public class ClassUtils
      * @param clazz  the Class from which to retrieve the static fields
      * @param type the type of static fields to retrieve, if null all are retrieved
      * @return Collection the collection of static field values.
+     * @throws IllegalAccessException - if some aspect of this static field prevents it from being added to this collection.
      */
     public static Collection getStaticFieldValues(
         final Class clazz,
@@ -219,7 +224,7 @@ public class ClassUtils
      * @param className the root interface className
      * @return a list containing all interfaces ordered from the root down.
      */
-    public static final List getInterfaces(final String className)
+    public static List getInterfaces(final String className)
     {
         final List interfaces = new ArrayList();
         if (className != null && className.trim().length() > 0)
@@ -233,10 +238,10 @@ public class ClassUtils
      * Retrieves all interfaces for the given <code>clazz</code> (including <code>clazz</code>
      * itself, assuming it's an interface as well).
      *
-     * @param className the root interface className
+     * @param clazz the root interface class
      * @return a list containing all interfaces ordered from the root down.
      */
-    public static final List getInterfaces(final Class clazz)
+    public static List getInterfaces(final Class clazz)
     {
         final List interfaces = new ArrayList();
         if (clazz != null)
@@ -258,7 +263,7 @@ public class ClassUtils
      * @param className the name of the class for which to retrieve the interfaces
      * @return the array containing the reversed interfaces.
      */
-    public static final Class[] getInterfacesReversed(final String className)
+    public static Class[] getInterfacesReversed(final String className)
     {
         Class[] interfaces = (Class[])getInterfaces(className).toArray(new Class[0]);
         if (interfaces != null && interfaces.length > 0)
@@ -275,7 +280,7 @@ public class ClassUtils
      * @param name a <code>String</code> with the name of the type
      * @return <code>true</code> if <code>name</code> is a Java primitive type; <code>false</code> if not
      */
-    protected static final boolean isPrimitiveType(final String name)
+    protected static boolean isPrimitiveType(final String name)
     {
         return ("void".equals(name) || "char".equals(name) || "byte".equals(name) || "short".equals(name) ||
         "int".equals(name) || "long".equals(name) || "float".equals(name) || "double".equals(name) ||
@@ -291,7 +296,7 @@ public class ClassUtils
      * Searches the contents of the <code>directoryUri</code> and returns the first
      * Class found that is of the given <code>type</code>.
      *
-     * @param directoryUri the URI to search, ie. a directory or an archive.
+     * @param directoryUris the URIs to search, ie. directories or archives.
      * @param type the type to find.
      * @return the class or null if not found.
      */
@@ -327,7 +332,7 @@ public class ClassUtils
                             final Class loadedClass = getClassLoader().loadClass(typeName);
                             if (type.isAssignableFrom(loadedClass))
                             {
-                                found = loadedClass;
+                                found = loadedClass;                          
                                 break;
                             }
                         }
@@ -343,10 +348,44 @@ public class ClassUtils
     }
     
     /**
+     * Loads all methods from the given <code>clazz</code> (this includes
+     * all super class methods, public, private and protected).
+     *
+     * @param clazz the class to retrieve the methods.
+     * @return the loaded methods.
+     */
+    public static List getAllMethods(final Class clazz)
+    {
+        final Set methods = new LinkedHashSet();
+        loadMethods(clazz, methods);
+        return new ArrayList(methods);
+    }
+    
+    /**
+     * Loads all methods from the given <code>clazz</code> (this includes
+     * all super class methods).
+     *
+     * @param methods the list to load full of methods.
+     * @param clazz the class to retrieve the methods.
+     */
+    private static void loadMethods(
+        final Class clazz,
+        final Set methods)
+    {
+        methods.addAll(Arrays.asList(clazz.getDeclaredMethods()));
+        if (clazz.getSuperclass() != null)
+        {
+            loadMethods(
+                    clazz.getSuperclass(),
+                    methods);
+        }
+    }
+    
+    /**
      * Indicates whether or not a class of the given <code>type</code>
      * is present in one of the given <code>directoryUris</code>.
      * 
-     * @param directoryUri the URI to search, ie. a directory or an archive.
+     * @param directoryUris the URIs to search, ie. directories or archives.
      * @param type the type to check.
      * @return true/false.
      */

@@ -1,22 +1,25 @@
-#if ($stringUtils.isNotBlank($useCase.packageName))
-package $useCase.packageName;
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
 #end
 
 /**
  * Stores all forward paths available in the use case $useCase.name keyed by forward name.
  */
-final class $useCase.forwardsClassName
+public final class $useCaseForwardsClassName
 {
     /**
      * Gets the path given the forward <code>name</code>.  If a path can
      * not be found, null is returned.
      */
-    static final String getPath(final String name)
+    public static final String getPath(final String name)
     {
         if (forwards.isEmpty())
         {
-#foreach ($forward in $useCase.forwards)
-            forwards.put("$forward.name", "${forward.path}.${facesServletExtension}");
+#foreach ($useCase in $useCases)
+            forwards.put("$useCase.forwardName", "${useCase.path}.${facesServletExtension}}");
+#foreach ($rule in $useCase.navigationRules)
+            forwards.put("$rule.fromOutcome", "${rule.path}.${facesServletExtension}");
+#end
 #end
         }
         return (String)forwards.get(name);

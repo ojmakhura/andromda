@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!--
+        the third level mapping when testing the 'extends' feature
+        for transitive capabilities
+-->
+<mappings name="TestMappingsExtendsLevelD">
+
+    <extends>TestMappingsExtendsLevelC</extends>
+
+    <mapping>
+        <from>datatype::ddd</from>
+        <to>DDD</to>
+    </mapping>
+
+</mappings>

@@ -1,8 +1,12 @@
 package org.andromda.metafacades.emf.uml2;
 
+import org.eclipse.uml2.Element;
+import org.eclipse.uml2.StateMachine;
+
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.PartitionFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.PartitionFacade.
  *
  * @see org.andromda.metafacades.uml.PartitionFacade
  */
@@ -10,8 +14,8 @@ public class PartitionFacadeLogicImpl
     extends PartitionFacadeLogic
 {
     public PartitionFacadeLogicImpl(
-        Object metaObject,
-        String context)
+        final org.eclipse.uml2.Region metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
@@ -21,7 +25,11 @@ public class PartitionFacadeLogicImpl
      */
     protected java.lang.Object handleGetActivityGraph()
     {
-        // TODO: add your implementation here!
+        Element owner = this.metaObject.getOwner();
+        if (owner instanceof StateMachine)
+        {
+            return owner;
+        }
         return null;
     }
 
@@ -30,7 +38,6 @@ public class PartitionFacadeLogicImpl
      */
     protected java.util.Collection handleGetVertices()
     {
-        // TODO: add your implementation here!
-        return null;
+        return this.metaObject.getSubvertices();
     }
 }

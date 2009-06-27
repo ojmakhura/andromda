@@ -1,0 +1,55 @@
+<andromda>
+    <properties>
+        <property name="modelValidation">true</property>
+        <property name="cartridgeFilter">${filter}</property>
+    </properties>
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>${model.uri}</uri>
+                    <moduleSearchLocations>
+                        <location>${maven.repo.local}/andromda/xml.zips</location>
+                        <location patterns="**/*.xml.zip,**/*.xml">${settings.localRepository}/org/andromda/profiles/uml14</location>
+                        <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
+                    </moduleSearchLocations>
+                </model>
+            </models>
+        </repository>
+    </repositories>
+    <namespaces>
+        <namespace name="default">
+            <properties>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="overwrite">true</property>
+            </properties>
+        </namespace>
+        <namespace name="java">
+            <properties>
+                <property name="value-objects">${web.generated.dir}</property>
+            </properties>
+        </namespace>
+        <namespace name="bpm4struts">
+            <properties>
+                <property name="preventDirectPageAccess">true</property>
+                <property name="xhtml">false</property>
+                <property name="maxBreadCrumbs">5</property>
+                <property name="normalizeMessages">true</property>
+                <property name="onlineHelp">true</property>
+                <property name="defaultDateFormat">dd-MM-yyyy</property>
+                <property name="welcomeFileName">index.jsp</property>
+                <property name="clientValidation">true</property>
+                <property name="serverValidation">true</property>
+                <property name="server">${web.generated.dir}</property>
+                <property name="forms">${web.generated.dir}</property>
+                <property name="pages">${web.generated.dir}</property>
+                <property name="actions">${web.generated.dir}</property>
+                <property name="controllers">${web.generated.dir}</property>
+                <property name="controller-impls">${web.generated.dir}</property>
+                <property name="messages">${web.generated.dir}/WEB-INF/classes</property>
+                <property name="configuration">${web.generated.dir}/WEB-INF</property>
+            </properties>
+        </namespace>
+    </namespaces>
+</andromda>

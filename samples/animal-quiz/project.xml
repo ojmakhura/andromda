@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<artifactId>${application.id}</artifactId>
+  	<name>The Animal Quiz Sample</name>
+  	<shortDescription>The Animal Quiz Sample</shortDescription>
+  	<description>
+  		Contains the Animal Quiz Sample Project.
+  	</description>
+  	<package>${application.package}</package>
+    <issueTrackingUrl>${issue.tracking.location}/BrowseProject.jspa?id=10021&amp;decorator=none</issueTrackingUrl>
+</project>

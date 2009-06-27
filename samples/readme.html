@@ -1,0 +1,275 @@
+<html>
+    <head>
+       <title>Andromda Samples</title>
+    </head>
+    <body>
+        The samples illustrate the use of AndroMDA with Maven.
+        Both the Animal Quiz and Car Rental System show typical
+        AndroMDA project structures.
+        <p>
+            Provided in this
+            distribution is a maven plugin, you can use this
+            plugin to generate your own application having the
+            same structure as these samples.  To run it, just install
+            the plugin into your $MAVEN_HOME/plugins directory (copy the
+            file maven-andromdapp-plugin-[VERSION-NAME].jar).
+            In the directory where you would like your project directory
+            created enter 'maven andromdapp:generate'.
+        </p>
+        <p>
+            It's also possible to build an Ant based project with AndroMDA by
+            using the &#60;andromda&#62;. ant task (although its currently not shown in the
+            samples).
+        </p>
+        <p>
+            The following instructions assume you are familiar with operating
+            a JBoss system. The JBOSS_HOME environment variable should be set.
+			The sample configuration is set to use the default server.
+			To change modify the jboss.config setting in the app/project.proerties file.
+        </p>
+        <p>
+            To build the samples, perform the following steps:
+            <ol>
+                <li>
+                    Install the latest version of <a href="http://maven.apache.org">Maven</a>
+                    and add it to your $PATH or %PATH%. This sample has been tested with version
+                    1.0.2.
+                </li>
+                <li>
+                    From this directory (the directory in which this file you're reading is located) type 'maven';
+                    this will build all samples.  After the build has completed successfully,
+                    follow the instructions for each sample below.
+                </li>
+            </ol>
+        </p>
+        <p>
+        NOTE: After you've built the samples the first time, you can build them again
+              with the '-o' parameter passed to maven.  (i.e. you can
+              type 'maven -o').  The '-o' tells Maven to build offline and since
+              it isn't trying to download the dependencies, it will build much faster.
+        </p>
+
+		http://www.andromda.org/crud
+
+        <h2>OnlineStore application.</h2>
+        <p>
+            To run:
+            <ol>
+                <li>Deploy the ear to the app server as follows:
+                <li>Start JBoss.</li>
+                <ol>
+                  <li>cd online-store</li>
+                  <li>maven deploy</li>
+                  <li>Check the jboss log for successful activation of the ear.</li>
+                </ol>
+                <li>Open <a href="http://localhost:8080/OnlineStore">Local OnlineStore on port 8080</a></li>
+                <li>
+                    The first page expects the user to enter his name and password, his
+                    name must be at least 3 characters and start with a capital, the password
+                    needs to be 6 characters or more and consists of alphanumerical characters
+                    (both uppercase and lowercase), when the user clicks on 'proceed' we go to the
+                    second page
+                </li>
+                <li>
+                    The second page lists items that can be purchased, the user can select
+                    an arbitrary number of items from this list, there is also a checkbox
+                    where to user can confirm he read the store's licence
+                </li>
+                <li>
+                    The third and last page asks the user to enter his email and creditcard
+                    number, he also needs to enter his age, which must be in a range from 12
+                    to 112. After placing the order the application returns to the beginning.
+                </li>
+            </ol>
+            For the latest version of these instructions go to:
+            <a href="http://www.andromda.org/andromda-bpm4struts-cartridge/samples.html#online-store">Online Store</a>
+        </p>
+
+     <h2>AnimalQuiz Sample</h2>
+        <p>
+            To run:
+            <ol>
+                <li>
+                    Check that HSQLDB TCP connnections are enabled.
+                    Edit [JBOSS_HOME]/server/[SERVER_NAME]/deploy/hsqldb-ds.xml
+                    and uncomment two pragmas, one for the connection
+					<pre>
+      &lt;connection-url&gt;jdbc:hsqldb:hsql://localhost:1701&lt;/connection-url&gt;
+					</pre>
+					and one for the mbean.
+					<pre>
+   &lt;mbean code="org.jboss.jdbc.HypersonicDatabase"
+     name="jboss:service=Hypersonic"&gt;
+     &lt;attribute name="Port"&gt;1701&lt;/attribute&gt;
+     &lt;attribute name="Silent"&gt;true&lt;/attribute&gt;
+     &lt;attribute name="Database"&gt;default&lt;/attribute&gt;
+     &lt;attribute name="Trace"&gt;false&lt;/attribute&gt;
+     &lt;attribute name="No_system_exit"&gt;true&lt;/attribute&gt;
+   &lt;/mbean&gt;
+
+					</pre>
+                </li>
+                <li>
+                    If deploying against JBoss 4.x, remove the jboss-ws4ee.sar file from your jboss configuration's
+                    deploy directory. JBoss 4.x bundles axis libraries in this sar file and this causes problems for
+                    any other application deployed in the container that also bundles the axis libraries. As the animal
+                    quiz has web service support, it has the axis libraries bundled with it - hence the need to remove
+                    the ones JBoss provides.
+                </li>
+                <li>[Re]Start JBoss as neccessary.</li>
+                <li>
+                    Change directory to samples/animal-quiz and
+                    execute maven -o create-schema. You may have to tweak the
+					settings in project.properties if you change the database.
+                    You should see something like:
+                                        <pre>
+create-schema:
+execute-script:
+    [sql] Executing file: /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/core/target/schema-create.sql
+    [sql] 3 of 3 SQL statements executed successfully
+BUILD SUCCESSFUL
+                                        </pre>
+                </li>
+                <li>run maven -o deploy, you should see something like:
+                                   <pre>
+build:start:
+
+deploy:
+build:start:
+
+ear:init:
+
+ear:ear:
+    [echo] Generating appxml file:"/work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/application.xml version 1.3 encoding: UTF-8"
+
+    [echo] Building EAR animal-quiz-app-3.0-RC2 with appxml "/work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/application.xml"
+    [echo] Bundling: ejb - andromda/samples:animal-quiz-core - 3.0-RC2
+    [echo] Dependency animal-quiz-core-3.0-RC2.jar will be bundled as /animal-quiz-core-3.0-RC2.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: war - andromda/samples:animal-quiz-webservice - 3.0-RC2
+    [echo] Dependency animal-quiz-webservice-3.0-RC2.war will be bundled as /animal-quiz-webservice-3.0-RC2.war
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: war - andromda/samples:animal-quiz-web - 3.0-RC2
+    [echo] Dependency animal-quiz-web-3.0-RC2.war will be bundled as /animal-quiz-web-3.0-RC2.war
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - andromda/samples:animal-quiz-common - 3.0-RC2
+    [echo] Dependency animal-quiz-common-3.0-RC2.jar will be bundled as /animal-quiz-common-3.0-RC2.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - commons-beanutils:commons-beanutils - 1.7.0
+    [echo] Dependency commons-beanutils-1.7.0.jar will be bundled as /commons-beanutils-1.7.0.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - commons-collections:commons-collections - 3.1
+    [echo] Dependency commons-collections-3.1.jar will be bundled as /commons-collections-3.1.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - commons-lang:commons-lang - 2.0
+    [echo] Dependency commons-lang-2.0.jar will be bundled as /commons-lang-2.0.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - hibernate:hibernate - 2.1.8
+    [echo] Dependency hibernate-2.1.8.jar will be bundled as /hibernate-2.1.8.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - cglib:cglib - 2.0.2
+    [echo] Dependency cglib-2.0.2.jar will be bundled as /cglib-2.0.2.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - dom4j:dom4j - 1.4
+    [echo] Dependency dom4j-1.4.jar will be bundled as /dom4j-1.4.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - odmg:odmg - 3.0
+    [echo] Dependency odmg-3.0.jar will be bundled as /odmg-3.0.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - ehcache:ehcache - 0.9
+    [echo] Dependency ehcache-0.9.jar will be bundled as /ehcache-0.9.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [echo] Bundling: jar - asm:asm - 1.4.3
+    [echo] Dependency asm-1.4.3.jar will be bundled as /asm-1.4.3.jar
+    [copy] Copying 1 file to /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+    [ear] Building ear: /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/animal-quiz-app-3.0-RC2.ear
+    [delete] Deleting directory /work/andromda/andromda-bin-3.0-RC2/samples/animal-quiz/app/target/tmpEarDeps
+
+deploy:
+    [copy] Copying 1 file to /usr/local/jboss/server/default/deploy
+BUILD SUCCESSFUL
+                                   </pre>
+				</li>
+                <li>Open <a href="http://localhost:8080/animal-quiz">Local AnimalQuiz</a></li>
+                <li>Now you have to think of an animal and click the got one button.</li>
+                <li>
+                    The program will try to guess your choice. Initially after one guess,
+                    elephant, it will give up and prompt you for the animal and question.
+                </li>
+            </ol>
+        </p>
+
+        <h2>CRUD application.</h2>
+        <p>
+            To run:
+            <ol>
+                <li>Deploy the ear to the app server as follows:
+				<li>
+                    Change directory to samples/animal-quiz and
+                    execute maven -o create-schema. You may have to tweak the
+					settings in project.properties if you change the database.
+                    You should see something like:
+                                        <pre>
+build:start:
+
+create-schema:
+execute-script:
+    [sql] Executing file: /var/andromda/builds/v3/andromda-all/samples/crud/core/target/schema-create.sql
+    [sql] 11 of 11 SQL statements executed successfully
+BUILD SUCCESSFUL
+Total time: 8 seconds
+                                       </pre>
+
+				</li>
+                <li>Start JBoss.</li>
+                <ol>
+                  <li>cd crud
+                  <li>maven deploy
+                  <li>Check the jboss log for successful activation of the ear.
+                </ol>
+                <li>Open <a href="http://localhost:8080/crud">Local crud on port 8080</a></li>
+                <li>
+                    TBC
+                </li>
+            </ol>
+            For the latest version of these instructions go to:
+            <a href="http://www.andromda.org/andromda-bpm4struts-cartridge/samples.html#crud">CRUD</a>
+        </p>
+
+        <h2>Car Rental Sample</h2>
+        This example is undergoing rework to use the latest BPM4Struts cartridge.
+        <p>
+            To run:
+            <ol>
+                <li>Copy the ear file to [JBOSS_HOME]/server/[SERVER_NAME]/deploy<li>
+                <ul>
+                    <li>car-rental-system/app/ejb/target/car-rental-system-[VERSION].ear</li>
+                </ul>
+                <li>Check that HSQLDB TCP connnections are enabled.</li>
+                Edit [JBOSS_HOME]/server/[SERVER_NAME]/deploy/hsqldb-ds.xml</li>
+                and uncomment two pragmas, one for the connection and one for the mbean.</li>
+                <li>[Re]Start JBoss as necessary.</li>
+                <li>Open <a href="http://localhost:8080/car-rental-system">Local Car Rental System</a></li>
+                <li>
+                    The follow the instructions at
+                    <a href="http://www.andromda.org/docs/car-rental-system.html">
+                    andromda car-rental system</a>.
+                </li>
+            </ol>
+        </p>
+
+        <h2>TimeTracker Application</h2>
+        <p>
+            This is the completed version of the example used in the Getting Started guide.
+            It is included here in case you need to troubleshoot your own version
+            while going through the tutorial.
+        </p>
+
+        <p>
+            Good Luck!
+            <br/>
+            <br/>
+            The AndroMDA Team
+        </p>
+    </body>
+</html>

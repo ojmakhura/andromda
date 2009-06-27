@@ -1,7 +1,6 @@
 package org.andromda.translation.ocl.validation;
 
 import java.lang.reflect.Method;
-
 import org.andromda.core.common.Introspector;
 import org.andromda.translation.ocl.syntax.OCLPatterns;
 import org.apache.commons.lang.StringUtils;
@@ -92,11 +91,18 @@ public final class OCLIntrospector
         }
         catch (Throwable throwable)
         {
-            final String message =
+            // At least output the location where the error happened, not the entire stack trace.
+            StackTraceElement[] trace = throwable.getStackTrace();
+            String location = " AT " + trace[0].getClassName() + "." + trace[0].getMethodName() + ":" + trace[0].getLineNumber();
+            if (throwable.getMessage()!=null)
+            {
+                location += " " + throwable.getMessage();
+            }
+            /*final String message =
                 "Error invoking feature '" + feature + "' on element '" + element + "' with arguments '" +
-                StringUtils.join(arguments, ',') + "'";
+                StringUtils.join(arguments, ',') + "'";*/
             throwable = getRootCause(throwable);
-            logger.error(message);
+            logger.error("OCLIntrospector " + throwable + " invoking " + element + " METHOD " + feature + " WITH " + StringUtils.join(arguments, ',') + location);
             throw new OCLIntrospectorException(throwable);
         }
         return result;

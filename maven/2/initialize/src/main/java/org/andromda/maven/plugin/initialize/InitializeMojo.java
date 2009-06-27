@@ -23,7 +23,7 @@ import org.codehaus.plexus.util.FileUtils;
  *
  * @author Chad Brandon
  * @goal initialize
- * @phase generate-resources
+ * @phase validate
  */
 public class InitializeMojo
     extends AbstractMojo
@@ -53,6 +53,14 @@ public class InitializeMojo
     protected String localArtifactDirectory;
 
     /**
+     * @parameter expression="${bootstrap.artifacts}"
+     * @description Whether or not bootstrap artifacts should be installed, by default they are not.  If this is
+     *              set to true this means the andromda bootstrap plugin will be updating the bootstaps, therefore
+     *              this plugin will not deploy any of the current bootstraps (since that would create an inconsistent state).
+     */
+    protected boolean installBootstraps;
+
+    /**
      * @parameter expression="org/andromda/bootstrap"
      * @required
      * @readonly
@@ -61,49 +69,73 @@ public class InitializeMojo
     protected String bootstrapDirectoryName;
 
     /**
+     * Set this to 'true' to bypass cartridge tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
+     *
+     * @parameter expression="${maven.test.skip}" default-value="false"
+     */
+    protected boolean skip;
+
+    /**
+     *  Set this to 'true' to skip running tests, but still compile them. Its use is NOT RECOMMENDED, but quite convenient on occasion. 
+     *
+     * @parameter expression="${skipTests}" default-value="false"
+     */
+    protected boolean skipTests;
+
+    /**
+     * Set this to true to ignore a failure during testing. Its use is NOT RECOMMENDED, but quite convenient on occasion.
+     *
+     * @parameter expression="${maven.test.failure.ignore}" default-value="false"
+     */
+    protected boolean testFailureIgnore;
+
+    /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-        try
+        if (!this.installBootstraps)
         {
-            final File bootstrapDirectory = new File(this.localArtifactDirectory);
-            final Collection contents = this.getDirectoryContents(bootstrapDirectory);
-            for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
+            try
             {
-                String path = (String)iterator.next();
-                final String extension = FileUtils.getExtension(path);
-                String fileName = this.getFileName(path);
-                final String version = this.project.getVersion();
-                final String versionedFileName =
-                    StringUtils.replace(
-                        fileName,
-                        '.' + extension,
-                        '-' + version + '.' + extension);
-                final String artifactId = this.getArtifactId(path);
-                final String newPath =
-                    StringUtils.replace(
-                        path,
-                        fileName,
-                        artifactId + '/' + version + '/' + versionedFileName);
-                final File bootstrapFile = new File(this.localArtifactDirectory, path);
-                final File repositoryFile = new File(
-                        this.localRepository.getBasedir(),
-                        newPath);
-
-                if (bootstrapFile.lastModified() > repositoryFile.lastModified())
+                final File bootstrapDirectory = new File(this.localArtifactDirectory);
+                final Collection contents = this.getDirectoryContents(bootstrapDirectory);
+                for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
                 {
-                    this.getLog().info("Installing bootstrap artifact " + bootstrapFile + " to " + repositoryFile);
-                    FileUtils.copyFile(
-                        bootstrapFile,
-                        repositoryFile);
+                    String path = (String)iterator.next();
+                    final String extension = FileUtils.getExtension(path);
+                    String fileName = this.getFileName(path);
+                    final String version = this.project.getVersion();
+                    final String versionedFileName =
+                        StringUtils.replace(
+                            fileName,
+                            '.' + extension,
+                            '-' + version + '.' + extension);
+                    final String artifactId = this.getArtifactId(path);
+                    final String newPath =
+                        StringUtils.replace(
+                            path,
+                            fileName,
+                            artifactId + '/' + version + '/' + versionedFileName);
+                    final File bootstrapFile = new File(this.localArtifactDirectory, path);
+                    final File repositoryFile = new File(
+                            this.localRepository.getBasedir(),
+                            newPath);
+
+                    if (bootstrapFile.lastModified() > repositoryFile.lastModified())
+                    {
+                        this.getLog().info("Installing bootstrap artifact " + bootstrapFile + " to " + repositoryFile);
+                        FileUtils.copyFile(
+                            bootstrapFile,
+                            repositoryFile);
+                    }
                 }
             }
-        }
-        catch (final Throwable throwable)
-        {
-            throw new MojoExecutionException("Error installing bootstrap artifact(s)", throwable);
+            catch (final Throwable throwable)
+            {
+                throw new MojoExecutionException("Error installing bootstrap artifact(s)", throwable);
+            }
         }
     }
 

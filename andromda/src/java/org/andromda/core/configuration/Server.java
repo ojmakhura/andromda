@@ -94,7 +94,7 @@ public class Server
     {
         if (StringUtils.isNotBlank(loadInterval))
         {
-            this.loadInterval = new Integer(loadInterval).intValue();
+            this.loadInterval = Integer.parseInt(loadInterval);
         }
     }
 

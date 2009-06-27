@@ -3,6 +3,7 @@ package org.andromda.utils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
+import org.andromda.utils.inflector.EnglishInflector;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -264,11 +265,11 @@ public class StringUtilsHelper
      *
      * @param word the word needing the predicate
      * @return the argument prefixed with the predicate
-     * @todo: this method could be implemented with better logic, for example to
-     * support 'an r' and 'a rattlesnake'
      */
     public static String prefixWithAPredicate(final String word)
     {
+        // todo: this method could be implemented with better logic, for example to support 'an r' and 'a rattlesnake'
+
         final StringBuffer formattedBuffer = new StringBuffer();
 
         formattedBuffer.append("a ");
@@ -320,54 +321,13 @@ public class StringUtilsHelper
      * </p>
      *
      * @param singularNoun A singular noun to pluralize
-     * @return The plural of the argument singularNoun
+     * @return The plural of the argument singularNoun or the empty String if the argument is
+     *      <code>null</code> or blank.
      */
     public static String pluralize(final String singularNoun)
     {
-        String pluralNoun = trimToEmpty(singularNoun);
-
-        int nounLength = pluralNoun.length();
-
-        if (nounLength == 1)
-        {
-            pluralNoun = pluralNoun + 's';
-        }
-        else if (nounLength > 1)
-        {
-            char secondToLastChar = pluralNoun.charAt(nounLength - 2);
-
-            if (pluralNoun.endsWith("y"))
-            {
-                switch (secondToLastChar)
-                {
-                    case 'a': // fall-through
-                    case 'e': // fall-through
-                    case 'i': // fall-through
-                    case 'o': // fall-through
-                    case 'u':
-                        pluralNoun = pluralNoun + 's';
-                        break;
-                    default:
-                        pluralNoun = pluralNoun.substring(0, nounLength - 1) + "ies";
-                }
-            }
-            else if (pluralNoun.endsWith("s"))
-            {
-                switch (secondToLastChar)
-                {
-                    case 's':
-                        pluralNoun = pluralNoun + "es";
-                        break;
-                    default:
-                        pluralNoun = pluralNoun + "ses";
-                }
-            }
-            else
-            {
-                pluralNoun = pluralNoun + 's';
-            }
-        }
-        return pluralNoun;
+        final String plural = EnglishInflector.pluralize(singularNoun);
+        return plural == null ? "" : plural.trim();
     }
 
     /**
@@ -553,7 +513,7 @@ public class StringUtilsHelper
     public static String getLineSeparator()
     {
         // - for reasons of platform compatibility we do not use the 'line.separator' property
-        //   since this will break the build on different platforms (for exampele
+        //   since this will break the build on different platforms (for example
         //   when comparing cartridge output zips)
         return LINE_SEPARATOR;
     }

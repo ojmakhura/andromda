@@ -3,8 +3,8 @@ package org.andromda.metafacades.emf.uml2;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.andromda.core.metafacade.MetafacadeConstants;
+import org.andromda.metafacades.uml.BindingFacade;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
@@ -22,39 +22,66 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.SystemUtils;
+import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.xmi.impl.XMIHelperImpl;
+import org.eclipse.uml2.Abstraction;
 import org.eclipse.uml2.Comment;
-import org.eclipse.uml2.Model;
+import org.eclipse.uml2.Constraint;
+import org.eclipse.uml2.Dependency;
+import org.eclipse.uml2.Deployment;
+import org.eclipse.uml2.DirectedRelationship;
+import org.eclipse.uml2.Element;
+import org.eclipse.uml2.Implementation;
+import org.eclipse.uml2.Manifestation;
 import org.eclipse.uml2.NamedElement;
-import org.eclipse.uml2.Namespace;
+import org.eclipse.uml2.Permission;
+import org.eclipse.uml2.Realization;
+import org.eclipse.uml2.StateMachine;
+import org.eclipse.uml2.Substitution;
+import org.eclipse.uml2.TemplateBinding;
+import org.eclipse.uml2.TemplateSignature;
+import org.eclipse.uml2.TemplateableElement;
+import org.eclipse.uml2.Usage;
 import org.eclipse.uml2.VisibilityKind;
 
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.ModelElementFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.ModelElementFacade.
  *
  * @see org.andromda.metafacades.uml.ModelElementFacade
+ * @author Bob Fields
  */
 public class ModelElementFacadeLogicImpl
     extends ModelElementFacadeLogic
 {
     static XMIHelperImpl xmiHelper = new XMIHelperImpl();
 
+    /**
+     * @param metaObjectIn
+     * @param context
+     */
     public ModelElementFacadeLogicImpl(
-        org.eclipse.uml2.Element metaObject,
-        String context)
+        final org.eclipse.uml2.Element metaObjectIn,
+        final String context)
     {
-        super(metaObject, context);
+        super(metaObjectIn, context);
     }
+
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(ModelElementFacadeLogicImpl.class);
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getVisibility()
      */
-    protected java.lang.String handleGetVisibility()
+    @Override
+    protected String handleGetVisibility()
     {
-        if (metaObject instanceof NamedElement)
+        if (this.metaObject instanceof NamedElement)
         {
-            final NamedElement element = (NamedElement)metaObject;
+            final NamedElement element = (NamedElement)this.metaObject;
             final VisibilityKind kind = element.getVisibility();
             String visibility = null;
             if (kind.equals(VisibilityKind.PACKAGE_LITERAL))
@@ -86,7 +113,8 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackagePath()
      */
-    protected java.lang.String handleGetPackagePath()
+    @Override
+    protected String handleGetPackagePath()
     {
         return StringUtils.replace(
             this.getPackageName(),
@@ -97,79 +125,50 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
-    protected java.lang.String handleGetName()
+    @Override
+    protected String handleGetName()
     {
-        return ((NamedElement)metaObject).getName();
+        // In UML2, model elements need not have a name,
+        // only when they are an instance of NamedElement.
+        if (this.metaObject instanceof NamedElement)
+        {
+            NamedElement namedElement = (NamedElement) this.metaObject;
+            return namedElement.getName();
+
+        }
+        return "";
     }
 
     /**
-     * Constructs the package name for the given <code>metaObject</code>, seperating the package name by the given
-     * <code>separator</code>.
+     * Gets the appropriate namespace property for retrieve the namespace scope
+     * operation (dependng on the given <code>modelName</code> flag.
      *
-     * @param metaObject the Model Element
-     * @param separator the PSM namespace separator
-     * @param modelName true/false on whether or not to get the model package name instead
-     *        of the PSM package name.
-     * @return the package name.
-     */
-    private String getPackageName(
-        NamedElement metaObject,
-        String separator,
-        boolean modelName)
-    {
-        String packageName = "";
-        for (NamedElement namespace = (NamedElement)metaObject.getOwner(); !(namespace instanceof Model);
-            namespace = (NamedElement)namespace.getOwner())
-        {
-            packageName = packageName.equals("") ? namespace.getName() : namespace.getName() + separator + packageName;
-        }
-        if (modelName && StringUtils.isNotBlank(packageName))
-        {
-            packageName = StringUtils.replace(
-                    packageName,
-                    separator,
-                    MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR);
-        }
-        return packageName;
-    }
-
-    /**
-     * Gets the appropriate namespace property for retrieve the namespace scope operation (dependng on the given
-     * <code>modelName</code> flag.
-     *
-     * @param modelName whether or not the scope operation for the model should be retrieved as oppposed to the mapped
-     *                  scope operator.
+     * @param modelName
+     *            whether or not the scope operation for the model should be
+     *            retrieved as oppposed to the mapped scope operator.
      * @return the scope operator.
      */
     private String getNamespaceScope(boolean modelName)
     {
-        String namespaceScope = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
-        if (!modelName)
-        {
-            namespaceScope =
-                ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR));
-        }
-        return namespaceScope;
+        return modelName
+            ? MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR
+            : ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR));
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName()
      */
-    protected java.lang.String handleGetPackageName()
+    @Override
+    protected String handleGetPackageName()
     {
-        final boolean modelName = false;
-        final String packageName =
-            this.getPackageName(
-                (NamedElement)metaObject,
-                this.getNamespaceScope(modelName),
-                modelName);
-        return packageName;
+        return UmlUtilities.getPackageName(this.metaObject, this.getNamespaceScope(false), false);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName()
      */
-    protected java.lang.String handleGetFullyQualifiedName()
+    @Override
+    protected String handleGetFullyQualifiedName()
     {
         return this.getFullyQualifiedName(false);
     }
@@ -177,7 +176,8 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedNamePath()
      */
-    protected java.lang.String handleGetFullyQualifiedNamePath()
+    @Override
+    protected String handleGetFullyQualifiedNamePath()
     {
         return StringUtils.replace(
             this.getFullyQualifiedName(),
@@ -190,7 +190,7 @@ public class ModelElementFacadeLogicImpl
      *
      * @return the array suffix.
      */
-    private final String getArraySuffix()
+    private String getArraySuffix()
     {
         return String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ARRAY_NAME_SUFFIX));
     }
@@ -198,12 +198,13 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getLanguageMappings()
      */
+    @Override
     protected org.andromda.metafacades.uml.TypeMappings handleGetLanguageMappings()
     {
         final String propertyName = UMLMetafacadeProperties.LANGUAGE_MAPPINGS_URI;
         Object property = this.getConfiguredProperty(propertyName);
         TypeMappings mappings = null;
-        String uri = null;
+        String uri;
         if (String.class.isAssignableFrom(property.getClass()))
         {
             uri = (String)property;
@@ -218,7 +219,7 @@ public class ModelElementFacadeLogicImpl
             catch (Throwable th)
             {
                 String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
-                logger.error(
+                ModelElementFacadeLogicImpl.logger.error(
                     errMsg,
                     th);
 
@@ -233,9 +234,11 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
+     * @return Collection String of org.eclipse.uml2.Stereotype.getName()
      * @see org.andromda.metafacades.uml.ModelElementFacade#getStereotypeNames()
      */
-    protected java.util.Collection handleGetStereotypeNames()
+    @Override
+    protected Collection handleGetStereotypeNames()
     {
         return UmlUtilities.getStereotypeNames(this.metaObject);
     }
@@ -243,33 +246,38 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getId()
      */
-    protected java.lang.String handleGetId()
+    @Override
+    protected String handleGetId()
     {
-        return xmiHelper.getID(metaObject);
+        return xmiHelper.getID(this.metaObject);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#isConstraintsPresent()
      */
+    @Override
     protected boolean handleIsConstraintsPresent()
     {
         return this.getConstraints() != null && !this.getConstraints().isEmpty();
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValue(java.lang.String)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValue(String)
      */
-    protected java.lang.Object handleFindTaggedValue(java.lang.String name)
+    @Override
+    protected Object handleFindTaggedValue(final String name)
     {
-        Collection taggedValues = findTaggedValues(name);
+        Collection taggedValues = this.findTaggedValues(name);
         return taggedValues.isEmpty() ? null : taggedValues.iterator().next();
     }
 
     /**
      * Assumes no stereotype inheritance
-     * @see org.andromda.metafacades.uml.ModelElementFacade#hasStereotype(java.lang.String)
+     *
+     * @see org.andromda.metafacades.uml.ModelElementFacade#hasStereotype(String)
      */
-    protected boolean handleHasStereotype(java.lang.String stereotypeName)
+    @Override
+    protected boolean handleHasStereotype(final String stereotypeName)
     {
         return UmlUtilities.containsStereotype(
             this.metaObject,
@@ -279,9 +287,10 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String)
      */
-    protected java.lang.String handleGetDocumentation(java.lang.String indent)
+    @Override
+    protected String handleGetDocumentation(final String indent)
     {
-        return getDocumentation(
+        return this.getDocumentation(
             indent,
             64);
     }
@@ -289,7 +298,8 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName(boolean)
      */
-    protected java.lang.String handleGetFullyQualifiedName(boolean modelName)
+    @Override
+    protected String handleGetFullyQualifiedName(boolean modelName)
     {
         String fullName = StringUtils.trimToEmpty(this.getName());
         final String packageName = this.getPackageName(true);
@@ -300,9 +310,10 @@ public class ModelElementFacadeLogicImpl
         }
         if (!modelName)
         {
-            if (this.getLanguageMappings() != null)
+            final TypeMappings languageMappings = this.getLanguageMappings();
+            if (languageMappings != null)
             {
-                fullName = StringUtils.deleteWhitespace(this.getLanguageMappings().getTo(fullName));
+                fullName = StringUtils.trimToEmpty(languageMappings.getTo(fullName));
 
                 // now replace the metafacade scope operators
                 // with the mapped scope operators
@@ -328,7 +339,8 @@ public class ModelElementFacadeLogicImpl
             // start the parameter list
             buffer.append("<");
 
-            // loop over the parameters, we are so to have at least one (see outer condition)
+            // loop over the parameters, we are so to have at least one (see
+            // outer condition)
             final Collection templateParameters = this.getTemplateParameters();
             for (Iterator parameterIterator = templateParameters.iterator(); parameterIterator.hasNext();)
             {
@@ -361,50 +373,73 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(String,
+     *      int)
      */
-    protected java.lang.String handleGetDocumentation(
-        java.lang.String indent,
-        int lineLength)
+    @Override
+    protected String handleGetDocumentation(
+        final String indent,
+        final int lineLength)
     {
-        return getDocumentation(
+        return this.getDocumentation(
             indent,
             lineLength,
             true);
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#hasExactStereotype(java.lang.String)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#hasExactStereotype(String)
      */
-    protected boolean handleHasExactStereotype(java.lang.String stereotypeName)
+    @Override
+    protected boolean handleHasExactStereotype(final String stereotypeName)
     {
-        return UmlUtilities.containsStereotype(
-            this.metaObject,
-            stereotypeName);
+        return this.getStereotypeNames().contains(StringUtils.trimToEmpty(stereotypeName));
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraint(java.lang.String, java.lang.String)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraint(String,
+     *      String)
      */
-    protected java.lang.String handleTranslateConstraint(
-        java.lang.String name,
-        java.lang.String translation)
+    @Override
+    protected String handleTranslateConstraint(
+        final String name,
+        final String translation)
     {
-        // TODO: put your implementation here.
-        return null;
+        String translatedExpression = "";
+        ConstraintFacade constraint =
+            (ConstraintFacade)CollectionUtils.find(
+                this.getConstraints(),
+                new Predicate()
+                {
+                    public boolean evaluate(Object object)
+                    {
+                        final ConstraintFacade constraintIn = (ConstraintFacade)object;
+                        return StringUtils.trimToEmpty(constraintIn.getName()).equals(StringUtils.trimToEmpty(name));
+                    }
+                });
+
+        if (constraint != null)
+        {
+            translatedExpression = constraint.getTranslation(translation);
+        }
+        return translatedExpression;
     }
 
     /**
-     * Private helper that translates all the expressions contained in the <code>constraints</code>, and returns an
-     * array of the translated expressions.
+     * Private helper that translates all the expressions contained in the
+     * <code>constraints</code>, and returns an array of the translated
+     * expressions.
      *
-     * @param constraints the constraints to translate
-     * @param translation the translation to transate <code>to</code>.
-     * @return String[] the translated expressions, or null if no constraints were found
+     * @param constraints
+     *            the constraints to translate
+     * @param translation
+     *            the translation to transate <code>to</code>.
+     * @return String[] the translated expressions, or null if no constraints
+     *         were found
      */
     private String[] translateConstraints(
-        Collection constraints,
-        String translation)
+        final Collection constraints,
+        final String translation)
     {
         String[] translatedExpressions = null;
         if (constraints != null && !constraints.isEmpty())
@@ -421,18 +456,20 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String, java.lang.String)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(String,
+     *      String)
      */
-    protected java.lang.String[] handleTranslateConstraints(
-        final java.lang.String kind,
-        java.lang.String translation)
+    @Override
+    protected String[] handleTranslateConstraints(
+        final String kind,
+        final String translation)
     {
         Collection constraints = this.getConstraints();
         CollectionUtils.filter(
             constraints,
             new Predicate()
             {
-                public boolean evaluate(Object object)
+                public boolean evaluate(final Object object)
                 {
                     ConstraintFacade constraint = (ConstraintFacade)object;
                     return UMLMetafacadeUtils.isConstraintKind(
@@ -446,9 +483,10 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(java.lang.String)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#translateConstraints(String)
      */
-    protected java.lang.String[] handleTranslateConstraints(java.lang.String translation)
+    @Override
+    protected String[] handleTranslateConstraints(final String translation)
     {
         return this.translateConstraints(
             this.getConstraints(),
@@ -456,36 +494,36 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getConstraints(java.lang.String)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getConstraints(String)
      */
-    protected java.util.Collection handleGetConstraints(final java.lang.String kind)
+    @Override
+    protected Collection handleGetConstraints(final String kind)
     {
-        final Collection filteredConstraints =
-            CollectionUtils.select(
-                getConstraints(),
-                new Predicate()
+        return CollectionUtils.select(
+            this.getConstraints(),
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
                 {
-                    public boolean evaluate(Object object)
+                    if (object instanceof ConstraintFacade)
                     {
-                        if (object instanceof ConstraintFacade)
-                        {
-                            ConstraintFacade constraint = (ConstraintFacade)object;
-                            return ((ExpressionKinds.BODY.equals(kind) && constraint.isBodyExpression()) ||
-                            (ExpressionKinds.DEF.equals(kind) && constraint.isDefinition()) ||
-                            (ExpressionKinds.INV.equals(kind) && constraint.isInvariant()) ||
-                            (ExpressionKinds.PRE.equals(kind) && constraint.isPreCondition()) ||
-                            (ExpressionKinds.POST.equals(kind) && constraint.isPostCondition()));
-                        }
-                        return false;
+                        ConstraintFacade constraint = (ConstraintFacade)object;
+                        return ((ExpressionKinds.BODY.equals(kind) && constraint.isBodyExpression()) ||
+                        (ExpressionKinds.DEF.equals(kind) && constraint.isDefinition()) ||
+                        (ExpressionKinds.INV.equals(kind) && constraint.isInvariant()) ||
+                        (ExpressionKinds.PRE.equals(kind) && constraint.isPreCondition()) ||
+                        (ExpressionKinds.POST.equals(kind) && constraint.isPostCondition()));
                     }
-                });
-        return filteredConstraints;
+                    return false;
+                }
+            });
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValues(java.lang.String)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#findTaggedValues(String)
      */
-    protected java.util.Collection handleFindTaggedValues(java.lang.String name)
+    @Override
+    protected Collection handleFindTaggedValues(String name)
     {
         final Collection values = new ArrayList();
 
@@ -499,12 +537,28 @@ public class ModelElementFacadeLogicImpl
             final Collection taggedValues = this.getTaggedValues();
             for (final Iterator taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext();)
             {
-                TaggedValueFacade taggedValue = (TaggedValueFacade)taggedValueIterator.next();
+                final TaggedValueFacade taggedValue = (TaggedValueFacade)taggedValueIterator.next();
 
                 // does this name match the argument tagged value name ?
-                if (name.equals(taggedValue.getName()))
+                if (UmlUtilities.doesTagValueNameMatch(name, taggedValue.getName()))
                 {
-                    values.add(taggedValue.getValue());
+                    // 'tagged values' can have arrays of strings as well as
+                    // strings as values.
+                    /* http://galaxy.andromda.org/jira/browse/UMLMETA-89
+                    Object value = taggedValue.getValue();
+                    if (value instanceof Collection)
+                    {
+                        values.addAll((Collection) taggedValue.getValue());
+                    }
+                    else
+                    {
+                        values.add(taggedValue.getValue());
+                    } */
+                    // 
+                    if (taggedValue.getValues() != null && taggedValue.getValues().size() > 0) 
+                    {
+                        values.addAll(taggedValue.getValues());
+                    }
                 }
             }
         }
@@ -512,12 +566,14 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int, boolean)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(String,
+     *      int, boolean)
      */
-    protected java.lang.String handleGetDocumentation(
-        java.lang.String indent,
+    @Override
+    protected String handleGetDocumentation(
+        final String indent,
         int lineLength,
-        boolean htmlStyle)
+        final boolean htmlStyle)
     {
         final StringBuffer documentation = new StringBuffer();
 
@@ -526,7 +582,7 @@ public class ModelElementFacadeLogicImpl
             lineLength = Integer.MAX_VALUE;
         }
 
-        final Collection comments = metaObject.getOwnedComments();
+        final Collection comments = this.metaObject.getOwnedComments();
         if (comments != null && !comments.isEmpty())
         {
             for (final Iterator commentIterator = comments.iterator(); commentIterator.hasNext();)
@@ -560,7 +616,8 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName(boolean)
      */
-    protected java.lang.String handleGetPackageName(boolean modelName)
+    @Override
+    protected String handleGetPackageName(final boolean modelName)
     {
         String packageName = this.getPackageName();
         if (modelName)
@@ -577,86 +634,183 @@ public class ModelElementFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getTaggedValues()
      */
-    protected java.util.Collection handleGetTaggedValues()
+    @Override
+    protected Collection handleGetTaggedValues()
     {
-        return UmlUtilities.getAndroMDATags(metaObject);
+        return UmlUtilities.getTaggedValue(this.metaObject);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackage()
      */
-    protected java.lang.Object handleGetPackage()
+    @Override
+    protected Object handleGetPackage()
     {
-        return metaObject.getNearestPackage();
+        return this.metaObject.getNearestPackage();
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getRootPackage()
      */
-    protected java.lang.Object handleGetRootPackage()
+    @Override
+    protected Object handleGetRootPackage()
     {
-        return metaObject.getModel();
+        // Be careful here, UML2 Model is mapped to a PackageFacade -
+        // RootPackage
+        return this.metaObject.getModel();
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getTargetDependencies()
      */
-    protected java.util.Collection handleGetTargetDependencies()
+    @Override
+    protected Collection handleGetTargetDependencies()
     {
-        // TODO: add your implementation here!
-        return null;
+        ArrayList dependencies = new ArrayList();
+        dependencies.addAll(UmlUtilities.getAllMetaObjectsInstanceOf(
+                DirectedRelationship.class,
+                this.metaObject.getModel()));
+        CollectionUtils.filter(
+            dependencies,
+            new Predicate()
+            {
+                public boolean evaluate(final Object object)
+                {
+                    DirectedRelationship relation = (DirectedRelationship) object;
+                    if(isAUml14Dependency(relation))
+                    {
+                        // we only check first, see dependency facade for more detail.
+                        return ModelElementFacadeLogicImpl.this.metaObject.equals(relation.getTargets().get(0));
+                    }
+                    return false;
+                }
+            });
+        return dependencies;
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getModel()
      */
-    protected java.lang.Object handleGetModel()
+    @Override
+    protected Object handleGetModel()
     {
-        return metaObject.getModel();
+        // Be careful here, Model Facade is mapped to resource
+        return this.metaObject.getModel().eResource();
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getStereotypes()
      */
-    protected java.util.Collection handleGetStereotypes()
+    @Override
+    protected Collection handleGetStereotypes()
     {
-        return metaObject.getAppliedStereotypes();
+        return this.metaObject.getAppliedStereotypes();
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getConstraints()
      */
-    protected java.util.Collection handleGetConstraints()
+    @Override
+    protected Collection handleGetConstraints()
     {
-        return ((Namespace)metaObject).getOwnedRules();
+        ArrayList constraints = new ArrayList();
+        constraints.addAll(UmlUtilities.getAllMetaObjectsInstanceOf(Constraint.class, this.metaObject.getModel()));
+
+        CollectionUtils.filter(
+                constraints,
+                new Predicate()
+                {
+                    public boolean evaluate(final Object object)
+                    {
+                        Constraint constraint = (Constraint) object;
+                        return constraint.getConstrainedElements().contains(ModelElementFacadeLogicImpl.this.metaObject);
+                    }
+                });
+        return constraints;
     }
 
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getSourceDependencies()
      */
-    protected java.util.Collection handleGetSourceDependencies()
+    @Override
+    protected Collection handleGetSourceDependencies()
     {
-        // TODO: add your implementation here!
-        return null;
+        // A more efficient implementation of this would have been to use getClientDependencies() and getTemplateBindings()
+        // But it would have required the same filtering
+        // This way, the code is the "same" as getTargettingDependencies
+        ArrayList dependencies = new ArrayList();
+        dependencies.addAll(UmlUtilities.getAllMetaObjectsInstanceOf(
+                DirectedRelationship.class,
+                this.metaObject.getModel()));
+        CollectionUtils.filter(
+            dependencies,
+            new Predicate()
+            {
+                public boolean evaluate(final Object object)
+                {
+                    DirectedRelationship relation = (DirectedRelationship) object;
+                    if(relation != null && isAUml14Dependency(relation) && relation.getSources() != null && relation.getSources().size()>0)
+                    {
+                        // we only check first, see dependency facade for more detail.
+                           return ModelElementFacadeLogicImpl.this.metaObject.equals(relation.getSources().get(0));
+                    }
+                    return false;
+                }
+            });
+        return dependencies;
     }
 
     /**
+     * This function test if the given relation is a dependency in UML1.4 sense of term.
+     * @param relation The relation to test
+     * @return
+     */
+    static boolean isAUml14Dependency(DirectedRelationship relation)
+    {
+        // this ensure that this relation is either a dependency or a template binding
+        boolean isAUml14Dependency = (relation instanceof Dependency) || (relation instanceof TemplateBinding);
+
+        // but we don't want subclass of dependency
+        isAUml14Dependency = isAUml14Dependency && !(relation instanceof Abstraction); // present in uml 1.4 (but filter in uml14 facade)
+        isAUml14Dependency = isAUml14Dependency && !(relation instanceof Deployment);
+        isAUml14Dependency = isAUml14Dependency && !(relation instanceof Implementation);
+        isAUml14Dependency = isAUml14Dependency && !(relation instanceof Manifestation);
+        isAUml14Dependency = isAUml14Dependency && !(relation instanceof Permission); // present in uml 1.4
+        isAUml14Dependency = isAUml14Dependency && !(relation instanceof Realization);
+        isAUml14Dependency = isAUml14Dependency && !(relation instanceof Substitution);
+        isAUml14Dependency = isAUml14Dependency && !(relation instanceof Usage);// present in uml 1.4
+
+        return isAUml14Dependency;
+    }
+
+    /**
+     * @return stateMachine org.eclipse.uml2.StateMachine
      * @see org.andromda.metafacades.uml.ModelElementFacade#getStateMachineContext()
      */
-    protected java.lang.Object handleGetStateMachineContext()
+    @Override
+    protected Object handleGetStateMachineContext()
     {
-        // TODO: add your implementation here!
-        return null;
+        // TODO: What should this method return ?
+        // As I've seen in uml1.4 impl, it should return the statemachine which this element is the context for.
+        // Let's say for UML2: Return the owner if the latter is a StateMachine
+        StateMachine stateMachine = null;
+        Element owner = this.metaObject.getOwner();
+        if(owner instanceof StateMachine)
+        {
+            stateMachine = (StateMachine) owner;
+        }
+        return stateMachine;
     }
 
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationName()
      */
+    @Override
     public String getValidationName()
     {
         final StringBuffer validationName = new StringBuffer();
         final Object seperator = MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR;
-        for (NamedElement namespace = (NamedElement)metaObject.getOwner(); namespace != null;
+        for (NamedElement namespace = (NamedElement)this.metaObject.getOwner(); namespace != null;
             namespace = (NamedElement)namespace.getOwner())
         {
             if (validationName.length() == 0)
@@ -688,32 +842,147 @@ public class ModelElementFacadeLogicImpl
         return validationName.toString();
     }
 
+    @Override
     protected boolean handleIsBindingDependenciesPresent()
     {
-        // TODO Auto-generated method stub
-        return false;
+        final Collection dependencies = new ArrayList(this.getSourceDependencies());
+        CollectionUtils.filter(
+            dependencies,
+            new Predicate()
+            {
+                public boolean evaluate(Object object)
+                {
+                    return object instanceof BindingFacade;
+                }
+            });
+        return !dependencies.isEmpty();
     }
 
+    @Override
     protected boolean handleIsTemplateParametersPresent()
     {
-        // TODO Auto-generated method stub
-        return false;
+        // TODO: Be sure it works with RSM / MD11.5
+        final Collection params = this.getTemplateParameters();
+        return params != null && !params.isEmpty();
     }
 
-    protected void handleCopyTaggedValues(ModelElementFacade element)
+    @Override
+    protected void handleCopyTaggedValues(final ModelElementFacade element)
     {
-        // TODO Auto-generated method stub
+        // TODO What to do with this ?
     }
 
+    @Override
     protected Object handleGetTemplateParameter(String parameterName)
     {
-        // TODO Auto-generated method stub
-        return null;
+        // TODO: Be sure it works with RSM / MD11.5
+        TemplateParameterFacade templateParameter = null;
+        if (StringUtils.isNotEmpty(parameterName))
+        {
+            parameterName = StringUtils.trimToEmpty(parameterName);
+            final Collection parameters = this.getTemplateParameters();
+            if (parameters != null && !parameters.isEmpty())
+            {
+                for (final Iterator iterator = parameters.iterator(); iterator.hasNext();)
+                {
+                    final TemplateParameterFacade currentTemplateParameter = (TemplateParameterFacade)iterator.next();
+                    if (currentTemplateParameter.getParameter() != null)
+                    {
+                        final ModelElementFacade parameter = currentTemplateParameter.getParameter();
+
+                        // there should not be two template parameters with the same parameter name, but nothing
+                        // prevents the model from allowing that.  So return the first instance if found.
+                        if (parameterName.equals(parameter.getName()))
+                        {
+                            templateParameter = currentTemplateParameter;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return templateParameter;
     }
 
+    @Override
     protected Collection handleGetTemplateParameters()
     {
-        // TODO Auto-generated method stub
-        return null;
+        // TODO: Be sure it works with RSM / MD11.5
+        Collection templateParameters = new ArrayList();
+        if (this.metaObject instanceof TemplateableElement)
+        {
+            TemplateableElement templateableElement = (TemplateableElement)this.metaObject;
+            TemplateSignature templateSignature = templateableElement.getOwnedTemplateSignature();
+            if (templateSignature != null)
+            {
+                templateParameters.addAll(templateSignature.getParameters());
+            }
+        }
+        return templateParameters;
+    }
+
+    /**
+     * @return this.metaObject.getKeywords()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getKeywords()
+     */
+    @Override
+    protected Collection<String> handleGetKeywords()
+    {
+        return this.metaObject.getKeywords();
+    }
+
+    /**
+     * @return element.getLabel()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getLabel()
+     */
+    @Override
+    protected String handleGetLabel()
+    {
+        final NamedElement element = (NamedElement)this.metaObject;
+        return element.getLabel();
+    }
+
+    /**
+     * @return element.getNamespace()
+     */
+    // * @see org.andromda.metafacades.uml.ModelElementFacade#getModelNamespace()
+    //@Override
+    protected ModelElementFacade handleGetModelNamespace()
+    {
+        final NamedElement element = (NamedElement)this.metaObject;
+        //return (ModelElementFacade) element.getNamespace();
+        return (ModelElementFacade)this.shieldedElement(element.getNamespace());
+    }
+
+    /**
+     * @return this.metaObject.getOwner()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getOwner()
+    //@Override
+    protected Element handleGetOwner()
+    {
+        return this.metaObject.getOwner();
+    }
+     */
+
+    /**
+     * @return element.getQualifiedName()
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getQualifiedName()
+     */
+    protected String handleGetQualifiedName()
+    {
+        final NamedElement element = (NamedElement)this.metaObject;
+        return element.getQualifiedName();
+    }
+
+    /**
+     * @param keywordName 
+     * @return this.metaObject.hasKeyword(keywordName)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#hasKeyword(String)
+     */
+    //@Override
+    protected boolean handleHasKeyword(String keywordName)
+    {
+        return this.metaObject.hasKeyword(keywordName);
     }
 }

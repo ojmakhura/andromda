@@ -35,8 +35,11 @@ public class JSFProfile
     public static final String TAGGEDVALUE_INPUT_VALIDATORS = profile.get("INPUT_VALIDATORS");
     public static final String TAGGEDVALUE_INPUT_FORMAT = profile.get("INPUT_FORMAT");
     public static final String TAGGEDVALUE_INPUT_RESET = profile.get("INPUT_RESET");
+    public static final String TAGGEDVALUE_TABLE_PAGEABLE = profile.get("TABLE_PAGEABLE");
     public static final String TAGGEDVALUE_VIEW_TYPE = profile.get("VIEW_TYPE");
     public static final String TAGGEDVALUE_ACTION_FORM_RESET = profile.get("ACTION_FORM_RESET");
+    public static final String TAGGEDVALUE_ACTION_SUCCESS_MESSAGE = profile.get("ACTION_SUCCESS_MESSAGE");
+    public static final String TAGGEDVALUE_ACTION_WARNING_MESSAGE = profile.get("ACTION_WARNING_MESSAGE");
 
     /* ----------------- Data Types -------------------- */
     public static final String CHARACTER_TYPE_NAME = profile.get("CHARACTER_TYPE");

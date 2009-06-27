@@ -1,12 +1,13 @@
 package org.andromda.translation.ocl.testsuite;
 
 import java.io.File;
-import java.io.FilenameFilter;
 
 import java.net.URL;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
 
 import org.andromda.core.common.XmlObjectFactory;
 import org.apache.commons.lang.StringUtils;
@@ -20,12 +21,17 @@ import org.apache.log4j.Logger;
  */
 public class TranslationTestDiscoverer
 {
-    private static Logger logger = Logger.getLogger(TranslationTestDiscoverer.class);
+    private static final Logger logger = Logger.getLogger(TranslationTestDiscoverer.class);
 
     /**
      * This is the prefix of translation tests, each translation test must start with this in order to be found.
      */
     private static final String TEST_PREFIX = "TranslationTest-";
+
+    /**
+     * Names of ignored files when file.isDirectory()
+     */
+    private static final List IGNORED_DIRECTORIES = Arrays.asList(new String[] { "CVS", ".svn" });
 
     /**
      * Stores the discovered translation tests.
@@ -76,7 +82,7 @@ public class TranslationTestDiscoverer
     {
         try
         {
-            final String[] files = currentDirectory.list( new TranslationTestNameFilter() );
+            final String[] files = currentDirectory.list();
             if (files == null || files.length == 0)
             {
                 if (logger.isDebugEnabled())
@@ -89,10 +95,8 @@ public class TranslationTestDiscoverer
                 for (int ctr = 0; ctr < files.length; ctr++)
                 {
                     File file = new File(currentDirectory, files[ctr]);
-                    if (file.isDirectory())
+                    if (StringUtils.trimToEmpty(file.getName()).startsWith(TEST_PREFIX))
                     {
-                        this.discoverTests(file);
-                    } else {
                         final URL testUrl = file.toURL();
                         if (logger.isInfoEnabled())
                         {
@@ -105,6 +109,10 @@ public class TranslationTestDiscoverer
                         this.translationTests.put(
                             test.getTranslation(),
                             test);
+                    }
+                    else if (file.isDirectory() && !IGNORED_DIRECTORIES.contains(file.getName()))                    
+                    {
+                        this.discoverTests(file);
                     }
                 }
             }
@@ -143,13 +151,5 @@ public class TranslationTestDiscoverer
     {
         this.translationTests.clear();
         instance = null;
-    }
-    
-    class TranslationTestNameFilter implements FilenameFilter {
-
-		public boolean accept(File dir, String name) {
-			return name.startsWith(TEST_PREFIX) || (( new File(dir,name)).isDirectory() && !name.equals(".svn"));
-		}
-    	
     }
 }

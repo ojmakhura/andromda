@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.profiles.DefaultProfileManager;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectBuilder;
@@ -35,7 +36,8 @@ public class ProjectUtils
     public static synchronized MavenProject getProject(
         final MavenProjectBuilder projectBuilder,
         final MavenSession session,
-        final File pom)
+        final File pom,
+        final Log logger)
         throws ProjectBuildingException
     {
         // - first attempt to get a project from the cache
@@ -49,15 +51,25 @@ public class ProjectUtils
             if (project == null)
             {
                 // - if we didn't find it in the session, create it
-                project =
-                    projectBuilder.build(
+                try
+                {
+                    project =
+                        projectBuilder.build(
+                            pom,
+                            session.getLocalRepository(),
+                            new DefaultProfileManager(session.getContainer()));
+                    projectCache.put(
                         pom,
-                        session.getLocalRepository(),
-                        new DefaultProfileManager(session.getContainer()));
+                        project);
+                }
+                catch (Exception ex)
+                {
+                    if (logger.isDebugEnabled())
+                    {
+                        logger.debug("Failed to build project from pom: " + pom, ex);
+                    }
+                }
             }
-            projectCache.put(
-                pom,
-                project);
         }
         return project;
     }

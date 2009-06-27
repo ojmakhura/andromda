@@ -3,11 +3,9 @@ package org.andromda.maven.plugin.configuration;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
@@ -16,7 +14,6 @@ import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Configuration;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.repository.ArtifactRepository;
 import org.apache.maven.model.Dependency;
@@ -34,6 +31,7 @@ import org.codehaus.plexus.util.InterpolationFilterReader;
  * class.
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public abstract class AbstractConfigurationMojo
     extends AbstractMojo
@@ -46,8 +44,9 @@ public abstract class AbstractConfigurationMojo
     /**
      * Creates the Configuration instance from the {@link #configurationUri}
      *
+     * @param configurationUri 
      * @return the configuration instance
-     * @throws MalformedURLException if the URL is invalid.
+     * @throws IOException if the URL is invalid.
      */
     protected Configuration getConfiguration(final URL configurationUri)
         throws IOException
@@ -113,6 +112,8 @@ public abstract class AbstractConfigurationMojo
      * of the specified property if there is one.
      *
      * @param string the string to perform replacement on.
+     * @return this.replaceProperties(this.getProperties(),string);
+     * @throws IOException
      */
     protected String replaceProperties(final String string)
         throws IOException
@@ -164,7 +165,7 @@ public abstract class AbstractConfigurationMojo
     /**
      * Sets the current context class loader from the given runtime classpath elements.
      *
-     * @throws DependencyResolutionRequiredException
+     * @param classpathFiles 
      * @throws MalformedURLException
      */
     protected void initializeClasspathFromClassPathElements(final List classpathFiles)
@@ -181,7 +182,7 @@ public abstract class AbstractConfigurationMojo
                 {
                     getLog().debug("adding to classpath '" + file + "'");
                 }
-                classpathUrls[ctr] = file.toURL();
+                classpathUrls[ctr] = file.toURI().toURL();
             }
 
             final URLClassLoader loader =
@@ -285,15 +286,17 @@ public abstract class AbstractConfigurationMojo
 
     /**
      * Gets the artifact factory used to construct any new required artifacts.
+     * @return ArtifactFactory
      */
     protected abstract ArtifactFactory getFactory();
 
     /**
      * Gets the current project's registered plugin implementations.
+     * @return pluginList
      *
      * @parameter expression="${project.build.plugins}"
      * @required
-     * @readonlya
+     * @readonly
      */
     protected abstract List getPlugins();
 
@@ -303,4 +306,25 @@ public abstract class AbstractConfigurationMojo
      * @return the local repository instance of the current project.
      */
     protected abstract ArtifactRepository getLocalRepository();
+
+    /**
+     * Set this to 'true' to bypass cartridge tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
+     *
+     * @parameter expression="${maven.test.skip}" default-value="false"
+     */
+    protected boolean skip;
+
+    /**
+     *  Set this to 'true' to skip running tests, but still compile them. Its use is NOT RECOMMENDED, but quite convenient on occasion. 
+     *
+     * @parameter expression="${skipTests}" default-value="false"
+     */
+    protected boolean skipTests;
+
+    /**
+     * Set this to true to ignore a failure during testing. Its use is NOT RECOMMENDED, but quite convenient on occasion.
+     *
+     * @parameter expression="${maven.test.failure.ignore}" default-value="false"
+     */
+    protected boolean testFailureIgnore;
 }

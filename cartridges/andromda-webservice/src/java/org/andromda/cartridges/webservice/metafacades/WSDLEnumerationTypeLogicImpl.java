@@ -4,31 +4,44 @@ import org.andromda.cartridges.webservice.WebServiceGlobals;
 import org.andromda.cartridges.webservice.WebServiceUtils;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType.
  *
  * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType
+ * @author Bob Fields
  */
 public class WSDLEnumerationTypeLogicImpl
         extends WSDLEnumerationTypeLogic
 {
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public WSDLEnumerationTypeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(WSDLEnumerationTypeLogicImpl.class);
+
+    /**
+     * @return getSchemaType(true, true)
      * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getSchemaType()
      */
-    protected java.lang.String handleGetSchemaType()
+    protected String handleGetSchemaType()
     {
         return this.getSchemaType(true, true);
     }
 
     /**
+     * @return qualfiedNameLocalPartPattern
      * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getQName()
      */
     protected String handleGetQName()
@@ -37,6 +50,7 @@ public class WSDLEnumerationTypeLogicImpl
     }
 
     /**
+     * @return configuredProperty(WebServiceLogicImpl.NAMESPACE_PREFIX)
      * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getNamespacePrefix()
      */
     protected String handleGetNamespacePrefix()
@@ -46,6 +60,7 @@ public class WSDLEnumerationTypeLogicImpl
 
     /**
      * Gets the <code>qualifiedNameLocalPartPattern</code> for this WSDL enumeration.
+     * @return getConfiguredProperty(WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN)
      */
     protected String getQualfiedNameLocalPartPattern()
     {
@@ -53,6 +68,7 @@ public class WSDLEnumerationTypeLogicImpl
     }
 
     /**
+     * @return WebServiceUtils.reversePackage(packageName)
      * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getNamespace()
      */
     protected String handleGetNamespace()
@@ -67,6 +83,7 @@ public class WSDLEnumerationTypeLogicImpl
 
     /**
      * Gets the <code>namespacePattern</code> for this type.
+     * @return getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN)
      */
     protected String getNamespacePattern()
     {
@@ -85,15 +102,20 @@ public class WSDLEnumerationTypeLogicImpl
     }
 
     /**
+     * @param withPrefix 
+     * @param preserveArray 
+     * @return WebServiceUtils.getSchemaType
      * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getSchemaType(boolean, boolean)
+     * @see org.andromda.cartridges.webservice.WebServiceUtils#getSchemaType(org.andromda.metafacades.uml.ClassifierFacade, TypeMappings, String, String, String, boolean, boolean)
      */
-    public java.lang.String handleGetSchemaType(boolean withPrefix, boolean preserveArray)
+    public String handleGetSchemaType(boolean withPrefix, boolean preserveArray)
     {
         return WebServiceUtils.getSchemaType(this, this.getSchemaTypeMappings(), this.getNamespacePrefix(),
                 this.getQName(), this.getWsdlArrayNamePrefix(), withPrefix, preserveArray);
     }
 
     /**
+     * @return getConfiguredProperty(WebServiceGlobals.ARRAY_NAME_PREFIX)
      * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getWsdlArrayNamePrefix()
      */
     protected String handleGetWsdlArrayNamePrefix()
@@ -102,6 +124,7 @@ public class WSDLEnumerationTypeLogicImpl
     }
 
     /**
+     * @return this.getWsdlArrayNamePrefix() + this.getQName()
      * @see org.andromda.cartridges.webservice.metafacades.WSDLEnumerationType#getWsdlArrayName()
      */
     protected String handleGetWsdlArrayName()

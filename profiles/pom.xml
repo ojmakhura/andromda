@@ -1,11 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project>
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.andromda</groupId>
         <artifactId>andromda</artifactId>
-        <version>4.0-M1-SNAPSHOT</version>
+        <version>3.4-SNAPSHOT</version>
     </parent>
     <groupId>org.andromda.profiles</groupId>
     <artifactId>andromda-profiles</artifactId>
@@ -15,6 +13,13 @@
         These profiles allow all AndroMDA stereotypes, tagged values, and datatypes to
         be referenced from a model.
     </description>
+    <modules>
+        <module>uml-1.4</module>
+        <module>uml-2.0</module>
+        <module>emf/uml22</module>
+        <module>emf/uml2</module>
+        <module>emf/rsm75</module>
+    </modules>
     <build>
         <pluginManagement>
             <plugins>
@@ -25,10 +30,6 @@
                     <version>${pom.version}</version>
                 </plugin>
             </plugins>
-        </pluginManagement>        
+        </pluginManagement>
     </build>
-    <modules>
-        <module>uml-1.4</module>
-        <module>emf/uml2</module>
-    </modules>
 </project>

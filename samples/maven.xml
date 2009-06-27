@@ -1,0 +1,26 @@
+<project default="install"
+         xmlns:ant="jelly:ant"
+         xmlns:j="jelly:core">
+
+  	<!-- ==================================================================
+  			 Installs all libraries in the local repository                                                    
+  		 ================================================================== -->
+  	<goal name="install">
+		<attainGoal name="multiproject:install"/>	
+  	</goal> 
+  	
+  	<!-- ==================================================================
+  			 Clean                                                     
+  		 ================================================================== -->
+  	<goal name="clean">  		
+		<attainGoal name="multiproject:clean"/>
+		<!-- get rid of all the log files -->
+		<ant:delete>
+			<ant:fileset dir=".">
+				<ant:include name="**/*.log*"/>
+				<ant:exclude name="maven.log"/>
+			</ant:fileset>
+		</ant:delete>
+  	</goal> 
+  	  	
+</project>

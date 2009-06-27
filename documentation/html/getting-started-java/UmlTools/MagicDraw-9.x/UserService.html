@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create UserService</title>
+</head>
+<body>
+    <h2>Create UserService</h2>
+    <!------------------------- Intro Text ------------------------->
+    <p>
+        This page provides directions to create the <code>UserService</code> using MagicDraw.
+        The model is shown below for your reference.
+    </p>
+    <!------------------------- Main Text ------------------------->
+    <table width="100%" border="0">
+        <tbody>
+            <tr>
+                <!-- img src="Images/UserService.jpg" alt="UserService" / -->
+                <td align="center" style="width: 100%">
+                    {mosimage}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        {mosimage}
+        <!-- img src="Images/ServicePackage.jpg" alt="Containment Tree" / -->
+    </p>
+    <p>
+        We will create <code>UserService</code> in a package named <code>org.andromda.timetracker.service</code>.
+        When finished, the containment tree in MagicDraw will look like the screen shot
+        on the right.
+    </p>
+    <ol>
+        <li>In the TimeTracker model create a package called <code>service</code> under <code>
+            org.andromda.timetracker</code>.</li>
+        <li>In the Containment Tree on the left, right-click on the <code>service</code> package
+            and select New Diagram > Class Diagram. Type in Services as the name of this diagram
+            and click OK. The diagram is created and opened in a new window.</li>
+        <li>Add a new class to the diagram and name it <code>UserService</code>.</li>
+        <li>Add the stereotype called Service to <code>UserService</code>.</li>
+        <li>Let's add the <code>getAllUsers()</code> method to <code>UserService</code>. Right-click
+            on the <code>UserService</code> class and select Insert New Operation. A new operation
+            is inserted with the specification "+unnamed1()". Write over this specification
+            with this new one: "+getAllUsers()". Do not specify the return value right now because
+            MagicDraw gets confused with the <code>UserVO[]</code> syntax. After typing the
+            operation click outside the class exit the edit mode.</li>
+        <li>Now double-click the operation to open the Operation Specification dialog box.</li>
+        <li>Choose <code>UserVO[]</code> in the Return Type drop-down and then click OK.</li>
+        <li>Make sure your class diagram matches the one shown above.</li>
+        <li>Make sure that the MagicDraw containment tree matches the screen shot shown above.</li>
+        <li>Save the model by selecting File > Save Project.</li>
+    </ol>
+    <p>
+        We are now ready to generate code for the <code>UserService</code>. Please go back
+        to the main tutorial page and continue from where you left off.
+    </p>
+</body>
+</html>

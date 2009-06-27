@@ -169,6 +169,10 @@
                              <alias attr-name="process" prop-name="apply" />
                         </set-properties-rule>
 
+                        <set-properties-rule>
+                             <alias attr-name="namespaces" prop-name="namespaces" />
+                        </set-properties-rule>
+
                         <call-method-rule
                             methodname="setValue"
                             paramcount="1"/>
@@ -183,7 +187,7 @@
                     <set-next-rule methodname="setPackages" />
 
                 </pattern>
-                
+
                 <pattern value="constraints">
 
                     <object-create-rule
@@ -216,7 +220,7 @@
                     <set-next-rule methodname="setConstraints" />
 
                 </pattern>
-                
+
                 <set-properties-rule>
                      <alias attr-name="lastModifiedCheck" prop-name="lastModifiedCheck" />
                 </set-properties-rule>

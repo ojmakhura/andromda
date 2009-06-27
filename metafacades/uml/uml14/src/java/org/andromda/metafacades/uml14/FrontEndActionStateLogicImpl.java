@@ -12,10 +12,12 @@ import org.andromda.metafacades.uml.CallEventFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndExceptionHandler;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
@@ -26,10 +28,15 @@ import org.andromda.utils.StringUtilsHelper;
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.FrontEndActionState.
  *
  * @see org.andromda.metafacades.uml.FrontEndActionState
+ * @author Bob Fields
  */
 public class FrontEndActionStateLogicImpl
     extends FrontEndActionStateLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndActionStateLogicImpl(
         Object metaObject,
         String context)
@@ -40,6 +47,7 @@ public class FrontEndActionStateLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndActionState#isServerSide()
      */
+    @Override
     protected boolean handleIsServerSide()
     {
         return !(this.THIS() instanceof FrontEndView);
@@ -48,7 +56,8 @@ public class FrontEndActionStateLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndActionState#getActionMethodName()
      */
-    protected java.lang.String handleGetActionMethodName()
+    @Override
+    protected String handleGetActionMethodName()
     {
         return '_' + StringUtilsHelper.lowerCamelCaseName(getName());
     }
@@ -56,6 +65,7 @@ public class FrontEndActionStateLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndActionState#isContainedInFrontEndUseCase()
      */
+    @Override
     protected boolean handleIsContainedInFrontEndUseCase()
     {
         return this.getStateMachine() instanceof FrontEndActivityGraph;
@@ -64,11 +74,12 @@ public class FrontEndActionStateLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndActionState#getForward()
      */
-    protected Object handleGetForward()
+    @Override
+    protected TransitionFacade handleGetForward()
     {
-        Object forward = null;
+        TransitionFacade forward = null;
 
-        for (final Iterator iterator = this.getOutgoing().iterator(); iterator.hasNext() && forward == null;)
+        for (final Iterator iterator = this.getOutgoings().iterator(); iterator.hasNext() && forward == null;)
         {
             final TransitionFacade transition = (TransitionFacade)iterator.next();
             if (!(transition instanceof FrontEndExceptionHandler))
@@ -82,16 +93,17 @@ public class FrontEndActionStateLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndActionState#getControllerCalls()
      */
-    protected List handleGetControllerCalls()
+    @Override
+    protected List<OperationFacade> handleGetControllerCalls()
     {
-        final List controllerCallsList = new ArrayList();
-        final Collection deferrableEvents = this.getDeferrableEvents();
-        for (final Iterator iterator = deferrableEvents.iterator(); iterator.hasNext();)
+        final List<OperationFacade> controllerCallsList = new ArrayList();
+        final Collection<EventFacade>  deferrableEvents = this.getDeferrableEvents();
+        for (final Iterator<EventFacade>  iterator = deferrableEvents.iterator(); iterator.hasNext();)
         {
-            final EventFacade event = (EventFacade)iterator.next();
+            final EventFacade event = iterator.next();
             if (event instanceof CallEventFacade)
             {
-                final Object operationObject = ((CallEventFacade)event).getOperation();
+                final OperationFacade operationObject = ((CallEventFacade)event).getOperation();
                 if (operationObject != null)
                 {
                     controllerCallsList.add(operationObject);
@@ -99,7 +111,7 @@ public class FrontEndActionStateLogicImpl
             }
             else if (event instanceof FrontEndEvent)
             {
-                final Object callObject = ((FrontEndEvent)event).getControllerCall();
+                final FrontEndControllerOperation callObject = ((FrontEndEvent)event).getControllerCall();
                 if (callObject != null)
                 {
                     controllerCallsList.add(callObject);
@@ -112,27 +124,29 @@ public class FrontEndActionStateLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndActionState#getExceptions()
      */
-    protected List handleGetExceptions()
+    @Override
+    protected List<FrontEndExceptionHandler> handleGetExceptions()
     {
-        final Set exceptions = new LinkedHashSet();
-        final Collection outgoing = getOutgoing();
-        for (final Iterator iterator = outgoing.iterator(); iterator.hasNext();)
+        final Set<FrontEndExceptionHandler> exceptions = new LinkedHashSet<FrontEndExceptionHandler>();
+        final Collection<TransitionFacade> outgoing = getOutgoings();
+        for (final Iterator<TransitionFacade> iterator = outgoing.iterator(); iterator.hasNext();)
         {
-            final TransitionFacade transition = (TransitionFacade)iterator.next();
+            final TransitionFacade transition = iterator.next();
             if (transition instanceof FrontEndExceptionHandler)
             {
-                exceptions.add(transition);
+                exceptions.add((FrontEndExceptionHandler)transition);
             }
         }
-        return new ArrayList(exceptions);
+        return new ArrayList<FrontEndExceptionHandler>(exceptions);
     }
     
     /**
      * @see org.andromda.metafacades.uml.FrontEndActionState#getContainerActions()
      */
-    protected List handleGetContainerActions()
+    @Override
+    protected List<FrontEndAction> handleGetContainerActions()
     {
-        final Collection actionSet = new LinkedHashSet();
+        final Collection<FrontEndAction> actionSet = new LinkedHashSet<FrontEndAction>();
 
         final StateMachineFacade stateMachineFacade = this.getStateMachine();
         if (stateMachineFacade instanceof ActivityGraphFacade)
@@ -142,8 +156,8 @@ public class FrontEndActionStateLogicImpl
 
             if (useCase instanceof FrontEndUseCase)
             {
-                final Collection actions = ((FrontEndUseCase)useCase).getActions();
-                for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                final Collection<FrontEndAction> actions = ((FrontEndUseCase)useCase).getActions();
+                for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
                     final FrontEndAction action = (FrontEndAction)actionIterator.next();
                     if (action.getActionStates().contains(this))
@@ -153,6 +167,6 @@ public class FrontEndActionStateLogicImpl
                 }
             }
         }
-        return new ArrayList(actionSet);
+        return new ArrayList<FrontEndAction>(actionSet);
     }
 }

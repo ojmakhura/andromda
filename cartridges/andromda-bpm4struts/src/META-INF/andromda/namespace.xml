@@ -300,6 +300,11 @@
             <documentation>
                 Other various properties that couldn't be classified into another category.
             </documentation>
+            <property name="virtualHost" required="false">
+                <documentation>
+                    The name to use for the virtual host (if one is required).  For example application.myserver.com.
+                </documentation>
+            </property>
             <property name="defaultActionRedirect">
                 <default>false</default>
                 <documentation>

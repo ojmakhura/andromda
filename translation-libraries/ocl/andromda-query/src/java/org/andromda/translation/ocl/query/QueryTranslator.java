@@ -242,7 +242,7 @@ public class QueryTranslator
         APropertyCallExpression propertyCallExpression = (APropertyCallExpression)node;
         List featureCalls = ConcreteSyntaxUtils.getFeatureCalls(propertyCallExpression);
 
-        List params = params = ConcreteSyntaxUtils.getParameters((AFeatureCall)featureCalls.get(0));
+        List params = ConcreteSyntaxUtils.getParameters((AFeatureCall)featureCalls.get(0));
 
         translation = this.replaceFragment(translation, TranslationUtils.deleteWhitespace(params.get(0)), 0);
         translation = this.replaceFragment(translation, TranslationUtils.deleteWhitespace(params.get(1)), 1);

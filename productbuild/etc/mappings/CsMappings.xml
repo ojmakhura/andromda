@@ -22,7 +22,7 @@
     </mapping>
     <mapping>
         <from>datatype::File</from>
-        <to>java.io.File</to>
+        <to>System.IO.File</to>
     </mapping>
     <mapping>
         <from>datatype::String</from>
@@ -158,10 +158,10 @@
     </mapping>
     <mapping>
         <from>datatype::ContentHandler</from>
-        <to>org.xml.sax.ContentHandler</to>
+        <to>System.Xml.XmlReader</to>
     </mapping>
     <mapping>
         <from>datatype::TreeNode</from>
-        <to>javax.swing.tree.TreeNode</to>
+        <to>System.Windows.Forms.TreeNode</to>
     </mapping>
 </mappings>

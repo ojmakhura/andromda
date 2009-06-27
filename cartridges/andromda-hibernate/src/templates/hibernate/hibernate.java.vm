@@ -18,6 +18,13 @@
             return false;
         }
         final $className that = ($className)object;
+#if($class.compositeIdentifier)
+#set($primaryKeyName="$stringUtils.uncapitalize($className)Pk")
+        if (this.$primaryKeyName == null || that.$primaryKeyName == null || !this.${primaryKeyName}.equals(that.${primaryKeyName}))
+        {
+            return false;
+        }
+#else
 #foreach ($attribute in $attributeSet)
 #set ($idType = $attribute.type)
 #if ($idType.primitive)
@@ -37,6 +44,7 @@
         }
 #end
 #end
+#end
         return true;
 #end
     }
@@ -46,7 +54,7 @@
 ##  If an entity is rendered, the attributeSet consists of the identifiers,
 ##  if an value type is renderer, the attributeSet consists of all attributes
 ##
-#macro (renderHashCodeMethod $class $attributeSet)
+#macro (renderHashCodeMethod $class $className $attributeSet)
     public int hashCode()
     {
 #if ($attributeSet.empty)
@@ -57,6 +65,10 @@
 #else
         int hashCode = 0;
 #end
+#if($class.compositeIdentifier)
+#set($primaryKeyName="$stringUtils.uncapitalize($className)Pk")
+        hashCode = 29 * hashCode + ($primaryKeyName == null ? 0 : ${primaryKeyName}.hashCode());
+#else
 #foreach ($attribute in $attributeSet)
 #set ($attrType = $attribute.type)
 #if  ($attribute.getterSetterTypeName == "boolean")
@@ -69,6 +81,7 @@
         hashCode = 29 * hashCode + (${attribute.name} == null ? 0 : ${attribute.name}.hashCode());
 #end## if
 #end## foreach
+#end
 
         return hashCode;
 #end## $attributeSet.empty

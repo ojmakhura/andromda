@@ -1,0 +1,258 @@
+<andromda>
+    <properties>
+        <property name="modelValidation">true</property>
+        <property name="cartridgeFilter">${filter}</property>
+    </properties>
+    <server>
+        <host>localhost</host>
+        <port>4446</port>
+    </server>
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>${maven.andromda.model.uri}</uri>
+                    <moduleSearchLocations>
+                        <location>${maven.repo.local}/andromda/xml.zips</location>
+                    </moduleSearchLocations>
+                </model>
+            </models>
+        </repository>
+    </repositories>
+    <namespaces>
+        <namespace name="default">
+            <properties>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="sqlMappingsUri">${sql.mappings}</property>
+                <property name="jdbcMappingsUri">JDBC</property>
+                <property name="maxSqlNameLength">30</property>
+                <property name="foreignKeySuffix">_FK</property>
+                <property name="ejbJndiNamePrefix">${application.id}-${application.version}</property>
+                 <!-- these masking properties allow you to configure the way
+                      your model element names are generated -->
+                <property name="classifierNameMask">none</property>
+                <property name="operationNameMask">none</property>
+                <property name="roleNameMask">none</property>
+                <property name="enumerationNameMask">none</property>
+                <property name="enumerationLiteralNameMask">upperunderscore</property>
+                <property name="entityNameMask">none</property>
+                <property name="entityPropertyNameMask">none</property>
+                <property name="parameterNameMask">none</property>
+#if ($spring)
+                <property name="hibernateVersion">$hibernateVersion</property>
+#end
+            </properties>
+        </namespace>
+#if ($ejb)
+        <namespace name="ejb">
+            <properties>
+                <property name="entity-beans">${maven.andromda.core.generated.dir}</property>
+                <property name="session-beans">${maven.andromda.core.generated.dir}</property>
+                <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="session-impls">${maven.andromda.core.manual.dir}</property>
+            </properties>
+        </namespace>
+#elseif ($hibernate)
+        <namespace name="hibernate">
+            <properties>
+                <property name="hibernateVersion">$hibernateVersion</property>
+                <property name="hibernateTypeMappingsUri">Hibernate</property>
+                <property name="dataSource">${dataSource}</property>
+                <property name="hibernateShowSql">${hibernate.db.showSql}</property>
+                <property name="hibernateDialect">${hibernate.db.dialect}</property>
+                <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
+                <property name="hibernateTransactionManagerLookup">${hibernate.transaction.manager.lookup}</property>
+                <property name="customTypesPackage">${application.package}</property>
+                <property name="hibernateJdbcBatchSize">0</property>
+                <property name="hibernateEnableCache">false</property>
+                <property name="hibernateEnableAssociationsCache">false</property>
+                <property name="hibernateQueryUseNamedParameters">true</property>
+                <property name="compositionDefinesEagerLoading">true</property>
+#if ($hibernateVersion == "2")
+                <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
+                <property name="hibernateTransactionFactoryClass">net.sf.hibernate.transaction.JTATransactionFactory</property>
+#else
+                <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
+                <property name="hibernateTransactionFactoryClass">org.hibernate.transaction.JTATransactionFactory</property>
+#end
+                <property name="entities">${maven.andromda.core.generated.dir}</property>
+                <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="entity-mappings">${maven.andromda.core.generated.dir}</property>
+                <property name="user-types">${maven.andromda.core.generated.dir}</property>
+                <property name="session-beans">${maven.andromda.core.generated.dir}</property>
+                <property name="session-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="configuration">${maven.andromda.core.generated.dir}</property>
+                <property name="cache">${maven.andromda.core.generated.dir}</property>
+                <!-- uncomment to enable EJB security
+                <property name="securityRealm">${application.id}</property>
+                -->
+            </properties>
+        </namespace>
+#else
+        <namespace name="spring">
+            <properties>
+                <property name="dataSource">${dataSource}</property>
+                <property name="username">${dataSource.user}</property>
+                <property name="password">${dataSource.password}</property>
+                <property name="driver">${dataSource.driver.class}</property>
+                <property name="connectionUrl">${dataSource.url}</property>
+                <property name="hibernateDialect">${hibernate.db.dialect}</property>
+                <property name="hibernateShowSql">${hibernate.db.showSql}</property>
+                <property name="hibernateQueryUseNamedParameters">true</property>
+#if ($hibernateVersion == "2")
+                <property name="sessionFactory">org.springframework.orm.hibernate.LocalSessionFactoryBean</property>
+                <property name="localTransactionManager">org.springframework.orm.hibernate.HibernateTransactionManager</property>
+                <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
+#else
+                <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
+                <property name="localTransactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
+                <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
+#end
+                <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
+                <property name="springTypesPackage">${application.package}</property>
+                <property name="daos">${maven.andromda.core.generated.dir}</property>
+                <property name="dao-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="spring-configuration">${maven.andromda.core.generated.dir}</property>
+                <property name="services">${maven.andromda.core.generated.dir}</property>
+                <property name="service-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="service-interfaces">${maven.andromda.common.generated.dir}</property>
+                <property name="criteria">${maven.andromda.common.generated.dir}</property>
+                <property name="value-objects">${maven.andromda.common.generated.dir}</property>
+#if ($ear)
+                <property name="enableSpringTransactionsWhenEjbsEnabled">true</property>
+                <!-- to remove any dependency on EJB, comment the following property -->
+                <property name="session-ejbs">${maven.andromda.core.generated.dir}</property>
+                <!-- uncomment to enable EJB security
+                <property name="securityRealm">${application.id}</property>
+                 -->
+#end
+#if ($webservice)
+                <property name="javaTypeConversionIgnoreList">java.util.Date,java.sql.Timestamp,java.sql.Date</property>
+                <property name="webServiceOutgoingAttachmentHandlerCallPattern">${application.package}.AxisAttachmentHandler.saveAttachment(content, contentType, dime)</property>
+                <property name="webServiceIncomingAttachmentHandlerCallPattern">${application.package}.AxisAttachmentHandler.getAttachments()</property>
+#end
+            </properties>
+        </namespace>
+        <namespace name="hibernate">
+            <properties>
+                <property name="hibernateEnableCache">false</property>
+                <property name="hibernateEnableAssociationsCache">false</property>
+                <property name="hibernateTypeMappingsUri">Hibernate</property>
+                <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
+                <property name="defaultHibernateGeneratorClass">${hibernate.generatorClass}</property>
+                <property name="hibernateDefaultCascade">none</property>
+                <property name="entities">${maven.andromda.core.generated.dir}</property>
+                <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="entity-mappings">${maven.andromda.core.generated.dir}</property>
+                <property name="user-types">${maven.andromda.core.generated.dir}</property>
+                <property name="customTypesPackage">${application.package}</property>
+                <property name="compositionDefinesEagerLoading">true</property>
+                <property name="cache">${maven.andromda.core.generated.dir}</property>
+            </properties>
+        </namespace>
+#end
+#if ($workflow)
+        <namespace name="jbpm">
+            <properties>
+                <property name="definitions">${maven.andromda.workflow.generated.dir}</property>
+                <property name="handlers">${maven.andromda.workflow.generated.dir}</property>
+                <property name="handler-impls">${maven.andromda.workflow.manual.dir}/java</property>
+                <property name="helpers">${maven.andromda.workflow.generated.dir}</property>
+                <property name="nodes">${maven.andromda.workflow.generated.dir}</property>
+                <property name="clients">${maven.andromda.workflow.generated.dir}</property>
+                <property name="configuration">${maven.andromda.workflow.manual.dir}/conf</property>
+                <property name="clientPackage">${application.package}.business.process</property>
+            </properties>
+        </namespace>
+#end
+#if ($webservice)
+        <namespace name="webservice">
+            <properties>
+                <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
+                <property name="languageMappingsUri">AxisJavaMappings</property>
+                <property name="defaultProvider">${default.provider}</property>
+                <property name="applicationName">${application.id}</property>
+                <property name="wsdlSoapAddress">${wsdl.soap.address}</property>
+                <property name="webserviceTypesPackage">${application.package}</property>
+#if ($hibernate)
+                <property name="ejbInterfacePattern">{0}.ejb.{1}</property>
+                <property name="ejbHomeInterfacePattern">{0}.ejb.{1}Home</property>
+#elseif ($ejb)
+                <property name="ejbInterfacePattern">{0}.ejb.{1}</property>
+                <property name="ejbHomeInterfacePattern">{0}.ejb.{1}LocalHome</property>
+#else
+                <property name="rpcClassNamePattern">{0}.{1}WSDelegator</property>
+#end
+                <property name="wsdls">${maven.andromda.webservice.generated.wsdl.dir}</property>
+                <property name="configuration">${maven.andromda.webservice.generated.dir}</property>
+                <property name="webservice-types">${maven.andromda.core.generated.dir}</property>
+            </properties>
+        </namespace>
+#end
+        <namespace name="java">
+            <properties>
+#if ($webservice)
+                <property name="languageMappingsUri">AxisJavaMappings</property>
+                <property name="useArraysForMultiplicitiesOfTypeMany">true</property>
+#end
+                <property name="enumerations">${maven.andromda.common.generated.dir}</property>
+                <property name="exceptions">${maven.andromda.common.generated.dir}</property>
+                <property name="value-objects">${maven.andromda.common.generated.dir}</property>
+                <property name="interfaces">${maven.andromda.common.generated.dir}</property>
+            </properties>
+        </namespace>
+#if ($struts)
+        <namespace name="bpm4struts">
+            <properties>
+                <property name="forms">${maven.andromda.web.generated.dir}</property>
+                <property name="pages">${maven.andromda.web.generated.dir}</property>
+                <property name="actions">${maven.andromda.web.generated.dir}</property>
+                <property name="controllers">${maven.andromda.web.generated.dir}</property>
+                <property name="controller-impls">${maven.andromda.web.manual.java.dir}</property>
+                <property name="decorators">${maven.andromda.web.manual.java.dir}</property>
+                <property name="messages">${maven.andromda.web.generated.dir}/WEB-INF/classes</property>
+                <property name="configuration">${maven.andromda.web.generated.dir}/WEB-INF</property>
+                <property name="securityRealm"></property>
+#if ($ejb)
+                <property name="serviceAccessorPattern">{0}.{1}Util.getHome().create()</property>
+#else
+                <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
+#end
+                <property name="mergeMappingsUri">file:${maven.conf.dir}/mappings/WebMergeMappings.xml</property>
+                <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
+            </properties>
+        </namespace>
+#elseif ($jsf)
+        <namespace name="jsf">
+            <properties>
+#if ($webservice)
+                <property name="languageMappingsUri">AxisJavaMappings</property>
+#end
+                <property name="viewType">facelets</property>
+                <property name="applicationName">${application.name}</property>
+                <property name="forms">${maven.andromda.web.generated.dir}</property>
+                <property name="views">${maven.andromda.web.generated.dir}</property>
+                <property name="managed-beans">${maven.andromda.web.generated.dir}</property>
+                <property name="controllers">${maven.andromda.web.generated.dir}</property>
+                <property name="controller-impls">${maven.andromda.web.manual.java.dir}</property>
+                <property name="messages">${maven.andromda.web.generated.dir}</property>
+                <property name="configuration">${maven.andromda.web.generated.dir}</property>
+                <property name="libraries">${maven.andromda.web.generated.dir}</property>
+                <!-- uncomment to enable web tier security  -->
+                <property name="securityRealm">${application.id}</property>
+#if ($ejb)
+                <property name="serviceAccessorPattern">{0}.{1}Util.getHome().create()</property>
+#else
+                <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
+#end
+                <property name="mergeMappingsUri">file:${maven.conf.dir}/mappings/WebMergeMappings.xml</property>
+            </properties>
+        </namespace>
+#end
+    </namespaces>
+</andromda>

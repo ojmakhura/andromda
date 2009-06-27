@@ -1,20 +1,20 @@
 package org.andromda.core.mappings;
 
-import java.net.URL;
+import junit.framework.TestCase;
+import org.andromda.core.mapping.Mapping;
+import org.andromda.core.mapping.Mappings;
+import org.andromda.core.mapping.MappingsException;
 
+import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
 
-import junit.framework.TestCase;
-
-import org.andromda.core.mapping.Mapping;
-import org.andromda.core.mapping.Mappings;
-
 
 /**
- * Tests {@link org.andromda.core.mappings.Mappings)
+ * Tests {@link org.andromda.core.mapping.Mappings)
  *
  * @author Chad Brandon
+ * @author Wouter Zoons
  */
 public class MappingsTest
     extends TestCase
@@ -22,7 +22,7 @@ public class MappingsTest
     /**
      * Constructor for MappingsTest.
      *
-     * @param name
+     * @param name the name for this test case
      */
     public MappingsTest(String name)
     {
@@ -38,6 +38,8 @@ public class MappingsTest
     private static final String FROM_5 = "datatype.String";
     private static final String NOT_MAPPED_1 = "datatype.byte";
     private static final String NOT_MAPPED_2 = "datatype.String[]";
+    private static final String TO_3 = "Class<? extends ToType>";
+    private static final String FROM_6 = "Class<? extends FromType>";
 
     public void testGetTo()
     {
@@ -78,13 +80,23 @@ public class MappingsTest
         assertEquals(
             TO_2,
             mappings2.getTo(FROM_5));
+
+        Mappings mappings3 = new Mappings();
+        Mapping mapping3 = new Mapping();
+        mapping3.setTo(TO_3);
+        mapping3.addFrom(FROM_6);
+        mappings3.addMapping(mapping3);
+        // make sure whitespace isn't deleted, only trimmed (Java generics would fail compilation otherwise for example)
+        assertEquals(
+            TO_3,
+            mappings3.getTo(FROM_6));
     }
 
     public void testMappingsInheritance()
     {
-        URL testMappingsParentUri = MappingsTest.class.getResource("TestMappingsParent.xml");
+        final URL testMappingsParentUri = MappingsTest.class.getResource("TestMappingsParent.xml");
         assertNotNull(testMappingsParentUri);
-        Mappings testMappingsParent = Mappings.getInstance(testMappingsParentUri);
+        final Mappings testMappingsParent = Mappings.getInstance(testMappingsParentUri);
         assertNotNull(testMappingsParent);
         final Collection mappings1 = testMappingsParent.getMappings();
         assertEquals(
@@ -113,7 +125,7 @@ public class MappingsTest
             "Type_Three",
             mapping3.getTo());
 
-        URL testMappingsUri = MappingsTest.class.getResource("TestMappings.xml");
+        final URL testMappingsUri = MappingsTest.class.getResource("TestMappings.xml");
         assertNotNull(testMappingsUri);
         Mappings testMappings = Mappings.getInstance(testMappingsUri);
         assertNotNull(testMappings);
@@ -150,5 +162,72 @@ public class MappingsTest
         assertEquals(
             "Type_Four",
             mapping4.getTo());
+    }
+
+    public void testEmptyMappings()
+    {
+        final URL testEmptyMappingsUri = MappingsTest.class.getResource("TestMappingsEmpty.xml");
+        assertNotNull(testEmptyMappingsUri);
+
+        final Mappings mappings = Mappings.getInstance(testEmptyMappingsUri);
+        assertNotNull(mappings);
+
+        final Collection mappingCollection = mappings.getMappings();
+        assertEquals(0, mappingCollection.size());
+    }
+
+    public void testTransitivelyExtendingLogicalMappings()
+    {
+        // the order has been mixed up on purpose
+        Mappings.addLogicalMappings(MappingsTest.class.getResource("TestMappingsExtendsLevelA.xml"));
+        Mappings.addLogicalMappings(MappingsTest.class.getResource("TestMappingsExtendsLevelD.xml"));
+        Mappings.addLogicalMappings(MappingsTest.class.getResource("TestMappingsExtendsLevelC.xml"));
+        Mappings.addLogicalMappings(MappingsTest.class.getResource("TestMappingsExtendsLevelB.xml"));
+
+        Mappings.initializeLogicalMappings();
+
+        final Mappings mappings = Mappings.getInstance("TestMappingsExtendsLevelD");
+        assertNotNull(mappings);
+
+        final Mapping aaa = mappings.getMapping("datatype::aaa");
+        assertNotNull(aaa);
+        assertEquals("AAA", aaa.getTo());
+
+        final Mapping bbb = mappings.getMapping("datatype::bbb");
+        assertNotNull(bbb);
+        assertEquals("BBB", bbb.getTo());
+
+        final Mapping ccc = mappings.getMapping("datatype::ccc");
+        assertNotNull(ccc);
+        assertEquals("CCC", ccc.getTo());
+
+        final Mapping ddd = mappings.getMapping("datatype::ddd");
+        assertNotNull(ddd);
+        assertEquals("DDD", ddd.getTo());
+    }
+
+    public void testCyclicInheritanceLogicalMappingsException()
+    {
+        Mappings.addLogicalMappings(MappingsTest.class.getResource("TestMappingsCyclicA.xml"));
+        Mappings.addLogicalMappings(MappingsTest.class.getResource("TestMappingsCyclicB.xml"));
+
+        try
+        {
+            Mappings.initializeLogicalMappings();
+            fail("Expected exception");
+        }
+        catch (MappingsException mappingsException)
+        {
+            final String message = mappingsException.getMessage();
+            assertTrue(message.startsWith("Logical mappings cannot be initialized due to invalid inheritance"));
+            assertTrue(message.indexOf("TestMappingsCyclicA") != -1);
+            assertTrue(message.indexOf("TestMappingsCyclicB") != -1);
+        }
+        finally
+        {
+            // clear out the cached entries so that the other tests won't fail because if the invalid
+            // ones we have entered here
+            Mappings.clearLogicalMappings();
+        }
     }
 }

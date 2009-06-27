@@ -22,25 +22,25 @@ public class EscapeTag extends BodyTagSupport
 
     public int doAfterBody() throws JspException
     {
-        final String bodyText = this.getBodyContent().getString();
+        String escapedString = this.getBodyContent().getString();
 
-        String escapedString;
+        final String[] languages = this.language.split(",");
+        for (int i = 0; i < languages.length; i++)
+        {
+            final String language = languages[i].trim();
 
-        if ("html".equalsIgnoreCase(language))
-        {
-            escapedString = StringEscapeUtils.escapeHtml(bodyText);
-        }
-        else if ("javascript".equalsIgnoreCase(language))
-        {
-            escapedString = StringEscapeUtils.escapeJavaScript(bodyText);
-        }
-        else if ("java".equalsIgnoreCase(language))
-        {
-            escapedString = StringEscapeUtils.escapeJava(bodyText);
-        }
-        else
-        {
-            escapedString = bodyText;
+            if ("html".equalsIgnoreCase(language))
+            {
+                escapedString = StringEscapeUtils.escapeHtml(escapedString);
+            }
+            else if ("javascript".equalsIgnoreCase(language))
+            {
+                escapedString = StringEscapeUtils.escapeJavaScript(escapedString);
+            }
+            else if ("java".equalsIgnoreCase(language))
+            {
+                escapedString = StringEscapeUtils.escapeJava(escapedString);
+            }
         }
 
         try

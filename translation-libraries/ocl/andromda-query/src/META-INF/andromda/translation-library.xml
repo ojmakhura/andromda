@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <translation-library>
+    
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine"/>
 
     <!-- contains the default class name (for this library) that provides the translation processing
          of the the translation file (it must implement org.andromda.core.translation.Translator)
@@ -8,9 +10,7 @@
     <translator>org.andromda.translation.ocl.query.QueryTranslator</translator>
 
     <!-- transformers -->
-    <templateObject
-        name="stringUtils"
-        className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
 
     <translation name="Hibernate-QL">
         <description>

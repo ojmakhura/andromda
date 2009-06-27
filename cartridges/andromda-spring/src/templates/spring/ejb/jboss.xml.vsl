@@ -1,5 +1,3 @@
-#parse("templates/spring/ejb/SpringSessionEJBGlobals.vm")
-#if ($ejbsEnabled)
 <?xml version="1.0" encoding="$xmlEncoding"?>
 <!DOCTYPE jboss PUBLIC "-//JBoss//DTD JBOSS 3.0//EN" 
                        "http://www.jboss.org/j2ee/dtd/jboss_3_2.dtd">
@@ -17,8 +15,9 @@
             <ejb-name>$service.name</ejb-name>
 #if ($service.ejbRemoteView)
             <jndi-name>$service.ejbJndiName</jndi-name>
-#else
-            <local-jndi-name>$service.ejbJndiName</local-jndi-name>
+#end
+#if ($service.ejbLocalView)
+            <local-jndi-name>$service.ejbLocalJndiName</local-jndi-name>
 #end
         </session>
 
@@ -26,4 +25,3 @@
    </enterprise-beans>
 
 </jboss>
-#end

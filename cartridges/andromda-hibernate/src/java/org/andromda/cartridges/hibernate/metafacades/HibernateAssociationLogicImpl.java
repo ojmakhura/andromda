@@ -106,4 +106,23 @@ public class HibernateAssociationLogicImpl
         }
         return Boolean.valueOf(eternal).booleanValue();
     }
+
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#isHibernateCacheDistributed()
+     */
+    protected boolean handleIsHibernateCacheDistributed()
+    {
+        {
+            String distributed = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITYCACHE_DISTRIBUTED);
+            boolean distributedCachingEnabled = Boolean.valueOf(StringUtils.trimToEmpty(distributed)).booleanValue();
+
+            if (distributedCachingEnabled)
+            {
+                String entityCacheDistributed =
+                    (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATIONCACHE_DISTRIBUTED);
+                return Boolean.valueOf(StringUtils.trimToEmpty(entityCacheDistributed)).booleanValue();
+            }
+            return false;
+        }
+    }
 }

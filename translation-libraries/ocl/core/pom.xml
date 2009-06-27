@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.andromda.translationlibraries</groupId>
         <artifactId>andromda-ocl-translation-libraries</artifactId>
-        <version>4.0-M1-SNAPSHOT</version>
+        <version>3.4-SNAPSHOT</version>
     </parent>
       <artifactId>andromda-ocl-translation-core</artifactId>
     <packaging>jar</packaging>
@@ -14,7 +14,6 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-sablecc-plugin</artifactId>
-                <version>${pom.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -26,6 +25,13 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-install-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
                     <installDirectory>${basedir}/../../../lib</installDirectory>
                 </configuration>

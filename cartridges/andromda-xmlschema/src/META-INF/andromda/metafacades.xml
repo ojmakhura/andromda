@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
 <metafacades>
-    <metafacade class="org.andromda.cartridges.xmlschema.metafacades.XSDAttributeLogicImpl"/>
+    <metafacade class="org.andromda.cartridges.xmlschema.metafacades.XSDEnumerationTypeLogicImpl">
+        <mapping>
+            <stereotype>XML_SCHEMA_TYPE</stereotype>
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.xmlschema.metafacades.XSDComplexTypeLogicImpl">
+        <mapping>
+            <stereotype>XML_SCHEMA_TYPE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.xmlschema.metafacades.XSDAttributeLogicImpl">
+        <mapping>
+            <property name="ownerSchemaType"/>
+        </mapping>
+    </metafacade>
     <metafacade class="org.andromda.cartridges.xmlschema.metafacades.XSDAssociationEndLogicImpl">
         <mapping>
-            <property name="association"/>
+            <property name="ownerSchemaType"/>
         </mapping>
     </metafacade>
 </metafacades>
-

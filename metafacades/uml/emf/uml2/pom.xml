@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.andromda.metafacades</groupId>
         <artifactId>andromda-uml-metafacades</artifactId>
-        <version>4.0-M1-SNAPSHOT</version>
+        <version>3.4-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-metafacades-emf-uml2</artifactId>
     <packaging>xml.zip</packaging>
@@ -12,6 +12,16 @@
   		The Eclipse EMF UML2 metafacades.  This is the set of EMF UML 2 metafacades
   		implementations.  These implement the common UML metafacades.
   	</description>
+    <issueManagement>
+        <system>jira</system>
+        <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10004</url>
+    </issueManagement>
+    <scm>
+        <connection>scm:cvs:pserver:anonymous:@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all/metafacades/uml/emf/uml2</connection>
+        <developerConnection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
+        <tag>V3_x_HEAD</tag>
+        <url>http://andromda.cvs.sourceforge.net/</url>
+    </scm>
 	<dependencies>
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
@@ -23,16 +33,50 @@
             <artifactId>andromda-metafacades-uml</artifactId>
             <version>${pom.version}</version>
         </dependency>
-		<dependency> 
+		<!--dependency> 
     		<groupId>org.eclipse.uml2</groupId>
-      		<artifactId>eclipse-uml2-common</artifactId>
+      		<artifactId>common</artifactId>
      		<version>1.1.1</version>
-    	</dependency>    
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.core</groupId>
+                    <artifactId>runtime</artifactId>
+                </exclusion>
+            </exclusions>
+    	</dependency-->    
 		<dependency> 
-    		<groupId>org.eclipse.uml2</groupId>
-      		<artifactId>eclipse-uml2</artifactId>
+    		<groupId>org.eclipse</groupId>
+      		<artifactId>uml2</artifactId>
      		<version>1.1.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.core</groupId>
+                    <artifactId>runtime</artifactId>
+                </exclusion>
+            </exclusions>
     	</dependency>
+        <dependency> 
+            <groupId>org.eclipse.uml2</groupId>
+            <artifactId>resources</artifactId>
+            <version>1.1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.core</groupId>
+                    <artifactId>runtime</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>common</artifactId>
+            <version>2.1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.core</groupId>
+                    <artifactId>runtime</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 	</dependencies>	
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
@@ -42,11 +86,35 @@
                 <artifactId>andromda-bootstrap-plugin</artifactId>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-beautifier-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-model-archiver-plugin</artifactId>
                 <configuration>
                     <modelSourceDirectory>src/main/uml</modelSourceDirectory>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.andromda.maven.plugins.site</groupId>
+                <artifactId>andromda-site-plugin</artifactId>
+                <version>${pom.version}</version>
+                <executions>
+                    <execution>
+                        <id>namespace-transform</id>
+                        <goals>
+                            <goal>namespace-xsl</goal>
+                        </goals>
+                        <configuration> 
+                            <namespaceDocumentPath>${pom.basedir}/target/classes/META-INF/andromda/namespace.xml</namespaceDocumentPath>
+                        </configuration> 
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
  		<resources>
@@ -76,4 +144,66 @@
 	  		</resource>
     	</resources>
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin> 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <minmemory>128m</minmemory>
+                    <maxmemory>512</maxmemory>
+                    <sourcepath>${basedir}/src/main/java;${basedir}/target/src</sourcepath>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <targetJdk>1.5</targetJdk>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>changes-report</report>
+                            <report>jira-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>All Reports</id>
+                        <configuration>
+                            <type>range</type>
+                            <range>90</range>
+                        </configuration>
+                        <reports>
+                            <report>changelog</report>
+                            <report>file-activity</report>
+                            <report>dev-activity</report>
+                            </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

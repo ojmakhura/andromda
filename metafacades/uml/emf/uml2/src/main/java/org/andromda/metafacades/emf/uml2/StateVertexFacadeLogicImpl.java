@@ -1,69 +1,83 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.eclipse.uml2.Element;
+import org.eclipse.uml2.StateMachine;
+
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.StateVertexFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.StateVertexFacade.
  *
  * @see org.andromda.metafacades.uml.StateVertexFacade
+ * @author Bob Fields
  */
 public class StateVertexFacadeLogicImpl
     extends StateVertexFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StateVertexFacadeLogicImpl(
-        Object metaObject,
-        String context)
+        final org.eclipse.uml2.Vertex metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
 
     /**
-     * @see org.andromda.metafacades.uml.StateVertexFacade#getOutgoing()
+     * @see org.andromda.metafacades.uml.StateVertexFacade#getOutgoings()
      */
-    protected java.util.Collection handleGetOutgoing()
+    protected Collection handleGetOutgoings()
     {
-        // TODO: add your implementation here!
-        return null;
+        ArrayList outList = new ArrayList();
+        outList.addAll(this.metaObject.getOutgoings());
+        return outList;
     }
 
     /**
-     * @see org.andromda.metafacades.uml.StateVertexFacade#getIncoming()
+     * @see org.andromda.metafacades.uml.StateVertexFacade#getIncomings()
      */
-    protected java.util.Collection handleGetIncoming()
+    protected Collection handleGetIncomings()
     {
-        // TODO: add your implementation here!
-        return null;
+        ArrayList inList = new ArrayList();
+        inList.addAll(this.metaObject.getIncomings());
+        return inList;
     }
 
     /**
      * @see org.andromda.metafacades.uml.StateVertexFacade#getContainer()
      */
-    protected java.lang.Object handleGetContainer()
+    protected Object handleGetContainer()
     {
-        // TODO: add your implementation here!
-        return null;
+        //TODO: What's this ?
+        return this.metaObject.getContainer().getNamespace();
     }
 
     /**
      * @see org.andromda.metafacades.uml.StateVertexFacade#getPartition()
      */
-    protected java.lang.Object handleGetPartition()
+    protected Object handleGetPartition()
     {
-        // TODO: add your implementation here!
-        return null;
+        return this.metaObject.getContainer();
     }
 
     /**
      * @see org.andromda.metafacades.uml.StateVertexFacade#getStateMachine()
      */
-    protected java.lang.Object handleGetStateMachine()
+    protected Object handleGetStateMachine()
     {
-        // TODO: add your implementation here!
-        return null;
+        Element owner = this.metaObject;
+        while (!(owner instanceof StateMachine))
+        {
+            owner = owner.getOwner();
+        }
+        return owner;
     }
 
-    /**
-     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
-     */
     public Object getValidationOwner()
     {
         return getStateMachine();

@@ -23,6 +23,18 @@ public class HibernateProfile
     /* ----------------- Tagged Values -------------------- */
 
     /**
+     * Tag attached to entities, attributes, and/or association ends to specify the
+     * name of the XML node to generate when v3 XML Persistence is activated.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_XML_TAG_NAME = profile.get("HIBERNATE_XML_TAG_NAME");
+
+    /**
+     * Tag attached to association ends to determine if the associated entity should be embed
+     * in as XML when v3 XML Persistence is activated.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_XML_EMBED = profile.get("HIBERNATE_XML_EMBED");
+
+    /**
      * Stores the hibernate generator class.
      */
     public static final String TAGGEDVALUE_HIBERNATE_GENERATOR_CLASS = profile.get("HIBERNATE_GENERATOR_CLASS");
@@ -35,8 +47,8 @@ public class HibernateProfile
     /**
      * Define whether the marked finder will use named parameters or positional parameters.
      */
-    public static final String TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS = profile
-            .get("HIBERNATE_USE_NAMED_PARAMETERS");
+    public static final String TAGGEDVALUE_HIBERNATE_USE_NAMED_PARAMETERS =
+        profile.get("HIBERNATE_USE_NAMED_PARAMETERS");
 
     /**
      * Stores the viewtype of the Hibernate Session EJB.
@@ -129,6 +141,18 @@ public class HibernateProfile
         profile.get("HIBERNATE_EHCACHE_OVERFLOW_TO_DISK");
 
     /**
+     * Defines if the cache for this entity is to be distributed.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_ENTITYCACHE_DISTRIBUTED =
+        profile.get("HIBERNATE_ENTITYCACHE_DISTRIBUTED");
+
+    /**
+     * Defines if the cache for this association is to be distributed.
+     */
+    public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATIONCACHE_DISTRIBUTED =
+        profile.get("HIBERNATE_ASSOCIATIONCACHE_DISTRIBUTED");
+
+    /**
      * Defines the association collection type
      */
     public static final String TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE =
@@ -177,6 +201,22 @@ public class HibernateProfile
      * Stores sql formula for an attribute.
      */
     public static final String TAGGEDVALUE_HIBERNATE_FORMULA = profile.get("HIBERNATE_FORMULA");
+
+    /**
+    * Column name of the dicriminator-column
+    */
+    public static final String TAGGEDVALUE_ENTITY_DISCRIMINATOR_COLUMN =
+        profile.get("ENTITY_DISCRIMINATOR_COLUMN");
+
+    /**
+    * Column type of the discriminator-column
+    */
+    public static final String TAGGEDVALUE_ENTITY_DISCRIMINATOR_TYPE = profile.get("ENTITY_DISCRIMINATOR_TYPE");
+
+    /**
+    * Value of the class for the discriminator-column
+    */
+    public static final String TAGGEDVALUE_ENTITY_DISCRIMINATOR_VALUE = profile.get("ENTITY_DISCRIMINATOR_VALUE");
 
     /**
      * Specifies whether a mapped column should be included in SQL INSERT statements.

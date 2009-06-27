@@ -8,6 +8,7 @@ import java.util.List;
 
 import junit.framework.TestResult;
 
+import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.maven.plugin.configuration.AbstractConfigurationMojo;
@@ -62,13 +63,6 @@ public class TranslationLibraryTestMojo
      * @readonly
      */
     protected String testSourceDirectory;
-
-    /**
-     * Set this to 'true' to bypass translation-library tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
-     *
-     * @parameter expression="${maven.test.skip}"
-     */
-    protected boolean skip;
 
     /**
      * This is the URI to the AndroMDA configuration file.
@@ -133,6 +127,9 @@ public class TranslationLibraryTestMojo
         {
             try
             {
+                // - initialize the AndroMDA logger instance     
+                AndroMDALogger.initialize();
+                
                 this.getLog().info("--------------------------------------------------------------------------------");
                 this.getLog().info("  A n d r o M D A   T r a n s l a t i o n - L i b r a r y  T e s t   S u i t e  ");
                 this.getLog().info("--------------------------------------------------------------------------------");
@@ -166,18 +163,28 @@ public class TranslationLibraryTestMojo
                 this.getLog().info(formatter.endTestSuite());
                 if (result.failureCount() > 0 || result.errorCount() > 0)
                 {
-                    throw new MojoExecutionException("Test are some test failures");
+                    throw new MojoExecutionException("There are some test failures");
                 }
                 processor.shutdown();
             }
             catch (final Throwable throwable)
             {
-                if (throwable instanceof MojoExecutionException)
+                if (throwable instanceof MojoExecutionException && !this.testFailureIgnore)
                 {
                     throw (MojoExecutionException)throwable;
                 }
-                throw new MojoExecutionException("An error occured while testing translation-library",
-                    ExceptionUtils.getRootCause(throwable));
+                else if (this.testFailureIgnore)
+                {
+                    this.getLog().error("An error occured while testing translation-library '" +
+                            this.translationName + "'",
+                        ExceptionUtils.getRootCause(throwable));
+                }
+                else
+                {
+                    throw new MojoExecutionException("An error occured while testing translation-library '" +
+                            this.translationName + "'",
+                            ExceptionUtils.getRootCause(throwable));
+                }
             }
         }
         else

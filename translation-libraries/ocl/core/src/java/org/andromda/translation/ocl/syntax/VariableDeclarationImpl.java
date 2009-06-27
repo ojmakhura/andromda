@@ -58,7 +58,7 @@ public class VariableDeclarationImpl
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

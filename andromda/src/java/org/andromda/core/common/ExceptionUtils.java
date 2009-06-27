@@ -16,6 +16,24 @@ public class ExceptionUtils
      * @param methodExecuteName the name of the method we are currently executing
      * @param argumentName the name of the argument we are checking for null
      * @param argument the argument we are checking
+     * @deprecated used {@link #checkNull(String, Object)} instead since we can detect the method name.
+     */
+    public static void checkNull(
+        final String methodExecuteName,
+        final String argumentName,
+        final Object argument)
+    {
+        checkNull(
+            argumentName,
+            argument,
+            3);
+    }
+
+    /**
+     * Checks if the argument is null, and if so, throws an IllegalArgumentException, does nothing if not.
+     *
+     * @param argumentName the name of the argument we are checking for null
+     * @param argument the argument we are checking
      */
     public static void checkNull(
         final String argumentName,
@@ -30,7 +48,6 @@ public class ExceptionUtils
     /**
      * Checks if the argument is null, and if so, throws an IllegalArgumentException, does nothing if not.
      *
-     * @param methodExecuteName the name of the method we are currently executing
      * @param argumentName the name of the argument we are checking for null
      * @param argument the argument we are checking
      * @param stackDepth the depth of the stack from which to retrieve the methodInformation.
@@ -49,6 +66,26 @@ public class ExceptionUtils
         {
             throw new IllegalArgumentException(getMethodName(stackDepth) + " - '" + argumentName + "' can not be null");
         }
+    }
+
+    /**
+     * Checks if the argument is null or an empty String throws an IllegalArgumentException if it is, does nothing if
+     * not.
+     *
+     * @param methodExecuteName the name of the method we are currently executing
+     * @param argumentName the name of the argument we are checking for null
+     * @param argument the argument we are checking
+     * @deprecated use {@link #checkEmpty(String, String)} instead since we can detect the method name.
+     */
+    public static void checkEmpty(
+        final String methodExecuteName,
+        final String argumentName,
+        final String argument)
+    {
+        checkEmpty(
+            argumentName,
+            argument,
+            3);
     }
 
     /**
@@ -90,6 +127,29 @@ public class ExceptionUtils
             throw new IllegalArgumentException(getMethodName(stackDepth) + " - '" + argumentName +
                 "' can not be null or an empty String");
         }
+    }
+
+    /**
+     * Checks if the argumentClass is assignable to assignableToClass, and if not throws an IllegalArgumentException,
+     * otherwise does nothing.
+     *
+     * @param methodExecuteName the method name of the method, this method is being executed within
+     * @param assignableToClass the Class that argumentClass must be assignable to
+     * @param argumentClass the argumentClass we are checking
+     * @param argumentName the name of the argument we are checking
+     * @deprecated use {@link #checkAssignable(Class, String, Class)} since we can detect the method name.
+     */
+    public static void checkAssignable(
+        final String methodExecuteName,
+        final Class assignableToClass,
+        final String argumentName,
+        final Class argumentClass)
+    {
+        checkAssignable(
+            assignableToClass,
+            argumentName,
+            argumentClass,
+            3);
     }
 
     /**

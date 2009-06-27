@@ -3,8 +3,8 @@
      This schema defines the AndroMDA configuration xml file.
      CODING CONVENTION: NO TABS, INDENT 4 SPACES
      ========================================================================= -->
-<xs:schema 
-    xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
     elementFormDefault="qualified">
     <xs:element name="andromda">
         <xs:complexType>
@@ -68,6 +68,7 @@
             <xs:simpleContent>
                 <xs:extension base="xs:string">
                     <xs:attribute name="process" type="xs:boolean" use="optional"/>
+                    <xs:attribute name="namespaces" type="xs:string" use="optional"/>
                 </xs:extension>
             </xs:simpleContent>
         </xs:complexType>
@@ -130,10 +131,6 @@
                 <xs:element ref="property" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
-        <xs:unique name="uniquePropertyName">
-            <xs:selector xpath="property"/>
-            <xs:field xpath="@name"/>
-        </xs:unique>
     </xs:element>
     <xs:element name="property">
         <xs:complexType>

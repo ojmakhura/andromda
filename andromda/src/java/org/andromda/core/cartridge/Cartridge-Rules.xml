@@ -49,7 +49,6 @@
         </pattern>
 
         <!-- add the TemplateObjects to the Cartridge -->
-
         <pattern value="templateObject">
 
             <object-create-rule
@@ -80,6 +79,23 @@
             <set-next-rule methodname="addTemplateObject" />
 
         </pattern>
+        
+        <!-- add the conditions to the Cartridge -->
+        <pattern value="condition">
+
+            <call-method-rule
+                methodname="addCondition"
+                paramcount="2"
+                paramtypes="java.lang.String,java.lang.String"/>
+
+            <call-param-rule
+                attrname="name"
+                paramnumber="0" />
+
+            <call-param-rule
+                paramnumber="1"/>
+
+        </pattern>
 
         <!-- add a resource to the cartridge -->
         <pattern value="resource">
@@ -97,6 +113,14 @@
 
             <set-properties-rule>
                  <alias attr-name="overwrite" prop-name="overwrite" />
+            </set-properties-rule>
+
+            <set-properties-rule>
+                 <alias attr-name="outputCondition" prop-name="outputCondition" />
+            </set-properties-rule>
+            
+            <set-properties-rule>
+                 <alias attr-name="lastModifiedCheck" prop-name="lastModifiedCheck" />
             </set-properties-rule>
 
             <set-next-rule methodname="addResource" />
@@ -137,7 +161,11 @@
                  <alias attr-name="outputOnEmptyElements" prop-name="outputOnEmptyElements" />
             </set-properties-rule>
 
-             <pattern value="modelElements">
+            <set-properties-rule>
+                 <alias attr-name="outputCondition" prop-name="outputCondition" />
+            </set-properties-rule>
+
+            <pattern value="modelElements">
 
                 <object-create-rule
                     classname="org.andromda.core.cartridge.template.ModelElements" />

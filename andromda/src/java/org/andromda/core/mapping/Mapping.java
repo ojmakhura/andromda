@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.ResourceUtils;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -17,6 +18,7 @@ import org.andromda.core.common.ResourceUtils;
  * itself.
  *
  * @author Chad Brandon
+ * @author Wouter Zoons
  * @see org.andromda.core.mapping.Mappings
  */
 public class Mapping
@@ -54,25 +56,28 @@ public class Mapping
      */
     public String getTo()
     {
+        final StringBuffer to = new StringBuffer();
+        if (StringUtils.isNotBlank(this.to))
+        {
+            to.append(this.to);
+        }
         if (!this.paths.isEmpty())
         {
             try
             {
-                final StringBuffer pathsContents = new StringBuffer();
                 for (final Iterator iterator = this.paths.iterator(); iterator.hasNext();)
                 {
-                    pathsContents.append(
+                    to.append(
                         ResourceUtils.getContents(
                             new FileReader(this.mappings.getCompletePath((String)iterator.next()))));
                 }
-                this.to = pathsContents.toString();
             }
             catch (final FileNotFoundException exception)
             {
                 throw new MappingsException(exception);
             }
         }
-        return this.to;
+        return to.toString();
     }
 
     /**
@@ -119,5 +124,30 @@ public class Mapping
     final void setMappings(final Mappings mappings)
     {
         this.mappings = mappings;
+    }
+
+    /**
+     * Returns a String representation of this mapping in the form of <code>from1, from2, from3 --> to</code>.
+     *
+     * @return a String representing the mapping instance
+     */
+    public String toString()
+    {
+        final StringBuffer buffer = new StringBuffer(512); // 512 should be enough for resizing not to occur
+
+        for (Iterator fromIterator = this.froms.iterator(); fromIterator.hasNext();)
+        {
+            final String from = (String)fromIterator.next();
+            buffer.append(from);
+
+            if (fromIterator.hasNext())
+            {
+                buffer.append(", ");
+            }
+        }
+
+        buffer.append(" --> ").append(this.to);
+
+        return buffer.toString();
     }
 }

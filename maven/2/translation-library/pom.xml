@@ -3,7 +3,7 @@
     <parent>
         <artifactId>andromda-maven-plugins</artifactId>
         <groupId>org.andromda.maven.plugins</groupId>
-        <version>4.0-M1-SNAPSHOT</version>
+        <version>3.4-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-translation-library-plugin</artifactId>
     <packaging>maven-plugin</packaging>
@@ -13,6 +13,12 @@
         as running translation-library tests).
     </description>
     <inceptionYear>2005</inceptionYear>
+    <scm>
+        <connection>scm:cvs:pserver:anonymous:@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all/maven/2/translaction-library</connection>
+        <developerConnection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
+        <tag>V3_x_HEAD</tag>
+        <url>http://andromda.cvs.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda</groupId>
@@ -38,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>org.andromda.repositories</groupId>
-            <artifactId>andromda-repository-mdr</artifactId>
+            <artifactId>andromda-repository-mdr-uml14</artifactId>
             <version>${pom.version}</version>
             <scope>runtime</scope>
         </dependency>
@@ -51,17 +57,16 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-project</artifactId>
-            <version>2.0.1</version>
+            <version>${maven.version}</version>
         </dependency>      
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
-            <version>1.0.4</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <scope>compile</scope>
         </dependency>  
     </dependencies>
     <build>
@@ -74,5 +79,50 @@
                 </includes>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin> 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <minmemory>128m</minmemory>
+                    <maxmemory>512</maxmemory>
+                    <sourcepath>${basedir}/src/java;${basedir}/target/src</sourcepath>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>All Reports</id>
+                        <configuration>
+                            <type>range</type>
+                            <range>90</range>
+                        </configuration>
+                        <reports>
+                            <report>changelog</report>
+                            <report>file-activity</report>
+                            <report>dev-activity</report>
+                            </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+        </plugins>
+    </reporting>
 </project>

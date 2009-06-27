@@ -11,6 +11,9 @@
     <packaging>war</packaging>
     <name>${applicationName} Web Services</name>
     <build>
+        <!-- Change from default src/main/java and src/test/java>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>src-test</testSourceDirectory -->
         <plugins>
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
@@ -22,7 +25,13 @@
                 <configuration>
                     <warSourceDirectory>target/src</warSourceDirectory>
                     <excludes>**/*.java</excludes>
+                    <!-- Even though these dependencies are 'provided', they are still bundled with the war file. Modify as necessary. -->
+                    <packagingExcludes>**/*.ref,**/andromda-*.jar,**/active*.jar,**/antlr*.jar,**/backport*.jar,**/bsh*.jar,**/*-pool.jar,**/cxf-rt*.jar,**/cxf-api*.jar,**/cxf-common*.jar,**/cxf-tools*.jar,**/dom4j*.jar,**/ehcache.jar,**/geronimo-servlet*.jar,**/geronimo-jms*.jar,**/groovy*.jar,**/jaxb-xjc*.jar,**/jetty*.jar,**/jaxen*.jar,**/jdom*.jar,**/qdox*.jar,**/spring-2.0.8.jar,**/xalan*.jar,**/xml-api*.jar,**/xmlbean*.jar,**/xmlsec*.jar</packagingExcludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId> 
+                <artifactId>maven-source-plugin</artifactId> 
             </plugin>
         </plugins>
     </build>

@@ -1,16 +1,21 @@
 package org.andromda.metafacades.uml14;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.util.Collection;
+import org.apache.commons.lang.StringUtils;
+import org.omg.uml.foundation.core.Dependency;
 
 /**
  * Metaclass facade implementation.
+ * @author Bob Fields
  */
 public class DependencyFacadeLogicImpl
         extends DependencyFacadeLogic
 {
-    public DependencyFacadeLogicImpl(org.omg.uml.foundation.core.Dependency metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public DependencyFacadeLogicImpl(Dependency metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -22,6 +27,7 @@ public class DependencyFacadeLogicImpl
      *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
+    @Override
     public String handleGetName()
     {
         String name = super.handleGetName();
@@ -35,7 +41,8 @@ public class DependencyFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.DependencyFacade#getGetterName()
      */
-    public java.lang.String handleGetGetterName()
+    @Override
+    public String handleGetGetterName()
     {
         return "get" + StringUtils.capitalize(this.getName());
     }
@@ -43,7 +50,8 @@ public class DependencyFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.DependencyFacade#getSetterName()
      */
-    public java.lang.String handleGetSetterName()
+    @Override
+    public String handleGetSetterName()
     {
         return "set" + StringUtils.capitalize(this.getName());
     }
@@ -51,6 +59,7 @@ public class DependencyFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.DependencyFacade#getTargetElement()
      */
+    @Override
     public Object handleGetTargetElement()
     {
         Object targetElement = null;
@@ -66,6 +75,7 @@ public class DependencyFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.DependencyFacade#getSourceElement()
      */
+    @Override
     protected Object handleGetSourceElement()
     {
         Object sourceElement = null;

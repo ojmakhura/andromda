@@ -5,40 +5,56 @@ import org.andromda.cartridges.webservice.WebServiceUtils;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WSDLType.
  *
  * @see org.andromda.cartridges.webservice.metafacades.WSDLType
+ * @author Bob Fields
  */
 public class WSDLTypeLogicImpl
         extends WSDLTypeLogic
 {
     // ---------------- constructor -------------------------------
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public WSDLTypeLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(WSDLTypeLogicImpl.class);
+
+    /**
+     * @return String this.getSchemaType(true, true)
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getSchemaType()
      */
-    public java.lang.String handleGetSchemaType()
+    public String handleGetSchemaType()
     {
         return this.getSchemaType(true, true);
     }
 
     /**
+     * @param withPrefix 
+     * @param preserveArray 
+     * @return String WebServiceUtils.getSchemaType
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getSchemaType(boolean, boolean)
      */
-    public java.lang.String handleGetSchemaType(boolean withPrefix, boolean preserveArray)
+    public String handleGetSchemaType(boolean withPrefix, boolean preserveArray)
     {
         return WebServiceUtils.getSchemaType(this, this.getSchemaTypeMappings(), this.getNamespacePrefix(),
                 this.getQName(), this.getWsdlArrayNamePrefix(), withPrefix, preserveArray);
     }
 
     /**
+     * @return getQName().insert(0, this.getWsdlArrayNamePrefix())
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getWsdlArrayName()
      */
     protected String handleGetWsdlArrayName()
@@ -49,6 +65,7 @@ public class WSDLTypeLogicImpl
     }
 
     /**
+     * @return String getConfiguredProperty(WebServiceGlobals.ARRAY_NAME_PREFIX)
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getWsdlArrayNamePrefix()
      */
     protected String handleGetWsdlArrayNamePrefix()
@@ -57,6 +74,7 @@ public class WSDLTypeLogicImpl
     }
 
     /**
+     * @return String this.getQualfiedNameLocalPartPattern().replaceAll("\\{0\\}")
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getQName()
      */
     protected String handleGetQName()
@@ -65,9 +83,10 @@ public class WSDLTypeLogicImpl
     }
 
     /**
+     * @return String WebServiceUtils.reversePackage(packageName)
      * @see org.andromda.cartridges.webservice.metafacades.WSDLType#getNamespace()
      */
-    protected java.lang.String handleGetNamespace()
+    protected String handleGetNamespace()
     {
         String packageName = this.getPackageName();
         if (this.isReverseNamespace())
@@ -131,6 +150,7 @@ public class WSDLTypeLogicImpl
 
     /**
      * Gets the <code>qualifiedNameLocalPartPattern</code> for this WSDL type.
+     * @return String getConfiguredProperty(WebServiceLogicImpl.QNAME_LOCAL_PART_PATTERN)
      */
     protected String getQualfiedNameLocalPartPattern()
     {
@@ -139,6 +159,7 @@ public class WSDLTypeLogicImpl
 
     /**
      * Gets the <code>namespacePattern</code> for this type.
+     * @return getConfiguredProperty(WebServiceLogicImpl.NAMESPACE_PATTERN)
      */
     protected String getNamespacePattern()
     {

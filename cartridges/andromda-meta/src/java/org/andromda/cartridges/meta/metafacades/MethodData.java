@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-
 /**
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
+ * @author Cyril Combe
  * @since 10.12.2003
  */
-public class MethodData
-    implements Comparable
+public class MethodData implements Comparable
 {
     private String metafacadeName;
     private String visibility;
@@ -22,88 +21,107 @@ public class MethodData
     private final ArrayList arguments = new ArrayList();
     private final ArrayList exceptions = new ArrayList();
 
+    /**
+     * @param metafacadeNameIn
+     * @param visibilityIn
+     * @param isAbstractIn
+     * @param returnTypeNameIn
+     * @param nameIn
+     * @param documentationIn
+     */
     public MethodData(
-        String metafacadeName,
-        String visibility,
-        boolean isAbstract,
-        String returnTypeName,
-        String name,
-        String documentation)
+        String metafacadeNameIn,
+        String visibilityIn,
+        boolean isAbstractIn,
+        String returnTypeNameIn,
+        String nameIn,
+        String documentationIn)
     {
-        this.metafacadeName = metafacadeName;
-        this.visibility = visibility;
-        this.isAbstract = isAbstract;
-        this.name = name;
-        this.returnTypeName = returnTypeName;
-        this.documentation = documentation;
-    }
-
-    public void addArgument(ArgumentData argument)
-    {
-        arguments.add(argument);
+        this.metafacadeName = metafacadeNameIn;
+        this.visibility = visibilityIn;
+        this.isAbstract = isAbstractIn;
+        this.name = nameIn;
+        this.returnTypeName = returnTypeNameIn;
+        this.documentation = documentationIn;
     }
 
     /**
-     * @return
+     * @param argument
+     */
+    public void addArgument(ArgumentData argument)
+    {
+        this.arguments.add(argument);
+    }
+
+    /**
+     * @return arguments
      */
     public Collection getArguments()
     {
-        return arguments;
+        return this.arguments;
     }
 
+    /**
+     * @param typeName
+     */
     public void addException(String typeName)
     {
-        exceptions.add(typeName);
+        this.exceptions.add(typeName);
     }
 
+    /**
+     * @return exceptions
+     */
     public Collection getExceptions()
     {
-        return exceptions;
+        return this.exceptions;
     }
 
     /**
      * Gets the metafacade name.
-     *
+     * 
      * @return the name of the metafacade
      */
     public String getMetafacadeName()
     {
-        return metafacadeName;
+        return this.metafacadeName;
     }
 
     /**
      * Gets the name of the method.
-     *
+     * 
      * @return the name.
      */
     public String getName()
     {
-        return name;
+        return this.name;
     }
 
     /**
      * Gets the name of the return type for this method.
-     *
+     * 
      * @return the return type name.
      */
     public String getReturnTypeName()
     {
-        return returnTypeName;
+        return this.returnTypeName;
     }
 
     /**
      * Builds a string representing a declaration for this method.
-     *
-     * @param suppressAbstractDeclaration optionally suppress the "abstract" modifier
+     * 
+     * @param suppressAbstractDeclaration
+     *            optionally suppress the "abstract" modifier
      * @return String the declaration
      */
     public String buildMethodDeclaration(boolean suppressAbstractDeclaration)
     {
-        String declaration =
-            visibility + " " + ((isAbstract && !suppressAbstractDeclaration) ? "abstract " : "") +
-            ((returnTypeName != null) ? (returnTypeName + " ") : "") + name + "(";
+        String declaration = this.visibility + " " 
+                + ((this.isAbstract && !suppressAbstractDeclaration) ? "abstract " : "")
+                + ((this.returnTypeName != null) ? (this.returnTypeName + " ") : "") + this.name + "(";
 
-        for (final Iterator iterator = arguments.iterator(); iterator.hasNext();)
+        declaration += getTypedArgumentList();
+        /*for (final Iterator iterator = this.arguments.iterator(); iterator.hasNext();)
         {
             final ArgumentData argument = (ArgumentData)iterator.next();
             declaration += (argument.getFullyQualifiedTypeName() + " " + argument.getName());
@@ -111,13 +129,13 @@ public class MethodData
             {
                 declaration += ", ";
             }
-        }
+        }*/
         declaration += ")";
 
-        if (exceptions.size() > 0)
+        if (this.exceptions.size() > 0)
         {
             declaration += " throws ";
-            for (final Iterator iterator = exceptions.iterator(); iterator.hasNext();)
+            for (final Iterator iterator = this.exceptions.iterator(); iterator.hasNext();)
             {
                 String exception = (String)iterator.next();
                 declaration += exception;
@@ -132,15 +150,51 @@ public class MethodData
     }
 
     /**
-     * Builds a string representing a call to the method.
+     * Builds a string representing a comma separated parameter type + name list.
      *
+     * @return String the declaration
+     */
+    public String getTypedArgumentList()
+    {
+        return getTypedArgumentList(null);
+    }
+
+    /**
+     * Builds a string representing a comma separated parameter type + name list.
+     *
+     * @param modifier Optional modifier before each parameter
+     * @return String the declaration
+     */
+    public String getTypedArgumentList(String modifier)
+    {
+        String declaration = "";
+
+        for (final Iterator iterator = this.arguments.iterator(); iterator.hasNext();)
+        {
+            final ArgumentData argument = (ArgumentData)iterator.next();
+            if (modifier!=null)
+            {
+                declaration += modifier + " ";
+            }
+            declaration += (argument.getFullyQualifiedTypeName() + " " + argument.getName());
+            if (iterator.hasNext())
+            {
+                declaration += ", ";
+            }
+        }
+        return declaration;
+    }
+
+    /**
+     * Builds a string representing a call to the method.
+     * 
      * @return String how a call would look like
      */
     public String buildMethodCall()
     {
         String call = getName() + "(";
 
-        for (final Iterator iterator = arguments.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = this.arguments.iterator(); iterator.hasNext();)
         {
             final ArgumentData argument = (ArgumentData)iterator.next();
             call += argument.getName();
@@ -154,16 +208,16 @@ public class MethodData
     }
 
     /**
-     * Builds a signature which can be used as a key into a map. Consists of the return type, the name and the f.q.
-     * types of the arguements.
-     *
+     * Builds a signature which can be used as a key into a map. Consists of the methodName, number of arguments, 
+     * return type, the name and the f.q. types of the arguments.
+     * 
      * @return String the key that identifies this method
      */
     public String buildCharacteristicKey()
     {
-        String key = ((returnTypeName != null) ? (returnTypeName + " ") : "") + name + "(";
+        String key = ((this.returnTypeName != null) ? (this.returnTypeName + " ") : "") + this.name + "(";
 
-        for (final Iterator iterator = arguments.iterator(); iterator.hasNext();)
+        for (final Iterator iterator = this.arguments.iterator(); iterator.hasNext();)
         {
             final ArgumentData argument = (ArgumentData)iterator.next();
             key += argument.getFullyQualifiedTypeName();
@@ -179,51 +233,54 @@ public class MethodData
 
     /**
      * Indicates whether or not this method is abstract.
-     *
+     * 
      * @return true/false
      */
     public boolean isAbstract()
     {
-        return isAbstract;
+        return this.isAbstract;
     }
 
     /**
      * Gets the visibility of this method.
-     *
+     * 
      * @return the visibility.
      */
     public String getVisibility()
     {
-        return visibility;
+        return this.visibility;
     }
 
     /**
      * Gets the documentation for this method.
-     *
+     * 
      * @return the documentation.
      */
     public String getDocumentation()
     {
-        return documentation;
+        return this.documentation;
     }
 
     /**
      * Tells if this method returns something.
-     *
+     * 
      * @return boolean
      */
     public boolean isReturnTypePresent()
     {
-        return returnTypeName != null && !returnTypeName.equals("void");
+        return this.returnTypeName != null && !this.returnTypeName.equals("void");
     }
 
     /**
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     * @see Comparable#compareTo(Object)
      */
     public int compareTo(final Object object)
     {
         MethodData other = (MethodData)object;
         int result = getMetafacadeName().compareTo(other.getMetafacadeName());
-        return (result != 0) ? result : getName().compareTo(other.getName());
+
+        // Use the characteristic key in order to have a deterministic order, starting with method name and number of arguments
+        return (result != 0) ? result : (name + arguments.size() + ", " + buildCharacteristicKey())
+            .compareTo(other.getName() + other.getArguments().size() + ", " + other.buildCharacteristicKey());
     }
 }

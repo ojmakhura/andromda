@@ -124,7 +124,7 @@
 
         <!-- if 'and' is encountered in the expression then
              'and' will just be returned -->
-        <fragment name="and.*"
+        <fragment name="and\s+.*"
                   handlerMethod="handleLogicalExpression">
             <kind name="body">
                 AND
@@ -133,7 +133,7 @@
 
         <!-- if 'or' is encountered in the expression then
              'or' will just be returned -->
-        <fragment name="or.*"
+        <fragment name="or\s+.*"
                   handlerMethod="handleLogicalExpression">
             <kind name="body">
                 OR

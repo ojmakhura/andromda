@@ -1,5 +1,9 @@
 package org.andromda.metafacades.emf.uml2;
 
+import org.eclipse.uml2.Constraint;
+import org.eclipse.uml2.Element;
+import org.eclipse.uml2.Transition;
+
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.GuardFacade.
@@ -10,8 +14,8 @@ public class GuardFacadeLogicImpl
     extends GuardFacadeLogic
 {
     public GuardFacadeLogicImpl(
-        Object metaObject,
-        String context)
+        final Constraint metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
@@ -21,8 +25,17 @@ public class GuardFacadeLogicImpl
      */
     protected java.lang.String handleGetBody()
     {
-        // TODO: put your implementation here.
-        return null;
+        String body = null;
+        if (this.metaObject.getSpecification() != null)
+        {
+            body = this.metaObject.getSpecification().stringValue();
+        }
+        return body;
+    }
+
+    public Object getValidationOwner()
+    {
+        return getTransition();
     }
 
     /**
@@ -30,15 +43,11 @@ public class GuardFacadeLogicImpl
      */
     protected java.lang.Object handleGetTransition()
     {
-        // TODO: add your implementation here!
+        Element owner = this.metaObject.getOwner();
+        if (owner instanceof Transition)
+        {
+            return owner;
+        }
         return null;
-    }
-
-    /**
-     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
-     */
-    public Object getValidationOwner()
-    {
-        return getTransition();
     }
 }

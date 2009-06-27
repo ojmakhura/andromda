@@ -2,9 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.andromda.bootstrap.repositories</groupId>
   <artifactId>andromda-repository-mdr</artifactId>
-  <name>AndroMDA MDR Repository</name>
-  <version>4.0-M1-SNAPSHOT</version>
-  <description>This MDR repository module allows AndroMDA to use the NetBeans MDR as a repository for loading, and querying object models.</description>
+  <name>AndroMDA MDR Repository (Common)</name>
+  <version>3.3</version>
+  <description>This MDR repository module allows AndroMDA to use the NetBeans MDR as a repository for loading, 
+  	    and querying object models.</description>
   <url>http://www.andromda.org/andromda-repositories/andromda-repository-mdr</url>
   <issueManagement>
     <system>jira</system>
@@ -12,13 +13,6 @@
   </issueManagement>
   <ciManagement>
     <system>continuum</system>
-    <notifiers>
-      <notifier>
-        <configuration>
-          <address>committers@andromda.org</address>
-        </configuration>
-      </notifier>
-    </notifiers>
   </ciManagement>
   <inceptionYear>2003</inceptionYear>
   <mailingLists>
@@ -41,10 +35,19 @@
       <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-cvs</archive>
     </mailingList>
   </mailingLists>
+  <licenses>
+    <license>
+      <name>The AndroMDA Project</name>
+      <url>licenses/LICENSE.txt</url>
+      <distribution>repo</distribution>
+      <comments>AndroMDA runs under a BSD license</comments>
+    </license>
+  </licenses>
   <scm>
-    <connection>scm:cvs:pserver:anonymous:@cvs.sourceforge.net:/cvsroot/andromda:andromda-all/andromda-repositories/andromda-repository-mdr</connection>
-    <developerConnection>scm:cvs:ext:${maven.username}@cvs.sourceforge.net:/cvsroot/andromda:andromda-all/andromda-repositories/andromda-repository-mdr</developerConnection>
-    <url>http://cvs.sourceforge.net/viewcvs.py/andromda/andromda-repositories/andromda-repository-mdr</url>
+    <connection>scm:cvs:pserver:anonymous:@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all/repositories/mdr/common</connection>
+    <developerConnection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
+    <tag>V3_x_HEAD</tag>
+    <url>http://andromda.cvs.sourceforge.net/</url>
   </scm>
   <organization>
     <name>AndroMDA.org</name>
@@ -55,11 +58,6 @@
       <id>andromda</id>
       <name>AndroMDA Repository</name>
       <url>http://team.andromda.org/maven2</url>
-    </repository>
-    <repository>
-      <id>dcri</id>
-      <name>DCRI Repository</name>
-      <url>http://itdev.dcri.duke.edu/maven2</url>
     </repository>
     <repository>
       <snapshots>
@@ -77,11 +75,6 @@
       <url>http://team.andromda.org/maven2</url>
     </pluginRepository>
     <pluginRepository>
-      <id>dcri</id>
-      <name>DCRI Repository</name>
-      <url>http://itdev.dcri.duke.edu/maven2</url>
-    </pluginRepository>
-    <pluginRepository>
       <releases>
         <updatePolicy>never</updatePolicy>
       </releases>
@@ -95,12 +88,57 @@
   </pluginRepositories>
   <reporting>
     <outputDirectory>target/site</outputDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-changelog-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <id>All Reports</id>
+            <configuration>
+              <type>range</type>
+              <range>90</range>
+            </configuration>
+            <reports>
+              <report>changelog</report>
+              <report>file-activity</report>
+              <report>dev-activity</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <minmemory>128m</minmemory>
+          <maxmemory>512</maxmemory>
+          <sourcepath>/home/carlos/workspace/andromda-all/repositories/mdr/common/src/java</sourcepath>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <targetJdk>1.5</targetJdk>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
   </reporting>
   <distributionManagement>
     <repository>
+      <uniqueVersion>false</uniqueVersion>
       <id>andromda-repository</id>
       <name>AndroMDA Repository</name>
-      <url>scp://galaxy.andromda.org/var/www/andromda/maven2</url>
+      <url>file:/var/www/andromda/maven2</url>
     </repository>
+    <site>
+      <id>website</id>
+      <url>file:/var/www/andromda/docs/andromda-repositories/andromda-repository-mdr</url>
+    </site>
   </distributionManagement>
 </project>

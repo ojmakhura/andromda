@@ -15,13 +15,13 @@
     /**
      * Stores the values.
      */
-    private java.lang.Object[] $valueListName;
+    private Object[] $valueListName;
     
     /**
      * Stores the labels
      */
-    private java.lang.Object[] $labelListName;
-#set ($listType = "java.lang.Object[]")
+    private Object[] $labelListName;
+#set ($listType = "Object[]")
 #set ($backingListMethod = $stringUtils.capitalize($backingListName))
 #set ($valueListMethod = $stringUtils.capitalize($valueListName))
 #set ($labelListMethod = $stringUtils.capitalize($labelListName))
@@ -40,12 +40,12 @@
             labels = values;
         }
 
-        final int length = java.lang.Math.min(labels.length, values.length);
+        final int length = Math.min(labels.length, values.length);
         javax.faces.model.SelectItem[] backingList = new javax.faces.model.SelectItem[length];
 
         for (int ctr = 0; ctr < length; ctr++)
         {
-            backingList[ctr] = new javax.faces.model.SelectItem(java.lang.String.valueOf(values[ctr]), java.lang.String.valueOf(labels[ctr]));
+            backingList[ctr] = new javax.faces.model.SelectItem(values[ctr], String.valueOf(labels[ctr]));
         }
         return backingList;
     }
@@ -70,7 +70,7 @@
         this.$labelListName = $labelListName;
     }
 
-#set ($setBackingListMethodSignature = "set${backingListMethod}(java.util.Collection items, java.lang.String valueProperty, java.lang.String labelProperty)")
+#set ($setBackingListMethodSignature = "set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty, Class valuePropertyType)")
     public void $setBackingListMethodSignature
     {
         if (valueProperty == null || labelProperty == null)
@@ -81,24 +81,45 @@
         this.${labelListName} = null;
         if (items != null)
         {
-            this.${valueListName} = new java.lang.Object[items.size()];
-            this.${labelListName} = new java.lang.Object[items.size()];
+            this.${valueListName} = new Object[items.size()];
+            this.${labelListName} = new Object[items.size()];
 
             try
             {
                 int ctr = 0;
                 for (final java.util.Iterator iterator = items.iterator(); iterator.hasNext(); ctr++)
                 {
-                    final java.lang.Object item = iterator.next();
-                    this.${valueListName}[ctr] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, valueProperty);
-                    this.${labelListName}[ctr] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, labelProperty);
+                    final Object item = iterator.next();
+                    this.${valueListName}[ctr] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, valueProperty.trim());
+                    // - if the valuePropertyType is specified, attempt to convert all values to that type
+                    if (valuePropertyType != null)
+                    {
+                        final Object value = this.${valueListName}[ctr];
+                        if (value != null && !valuePropertyType.isInstance(value))
+                        {
+                            try
+                            {
+                                this.${valueListName}[ctr] = org.apache.commons.beanutils.ConvertUtils.convert(String.valueOf(value), valuePropertyType);      
+                            }
+                            catch (final Exception exception)
+                            {
+                                // - ignore, means we couldn't perform the conversion
+                            }
+                        }                   
+                    }
+                    this.${labelListName}[ctr] = org.apache.commons.beanutils.PropertyUtils.getProperty(item, labelProperty.trim());
                 }
             }
             catch (final Throwable throwable)
             {
-                throw new java.lang.RuntimeException(throwable);
+                throw new RuntimeException(throwable);
             }
         }
+    }
+    
+    public void set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty)
+    {
+        this.set${backingListMethod}(items, valueProperty, labelProperty, null);
     }
     
 #if ($field.type.arrayType || $field.type.collectionType)

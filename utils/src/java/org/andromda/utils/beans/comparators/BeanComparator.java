@@ -2,17 +2,15 @@ package org.andromda.utils.beans.comparators;
 
 import java.io.InputStream;
 import java.io.Serializable;
-
 import java.lang.reflect.InvocationTargetException;
-
 import java.net.URL;
-
 import java.util.Comparator;
 import java.util.Properties;
 
 import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.Introspector;
+import org.andromda.utils.beans.BeanSorter;
 import org.andromda.utils.beans.SortCriteria;
 import org.apache.commons.lang.StringUtils;
 
@@ -69,7 +67,7 @@ public class BeanComparator
 
     // - The following variables are saved since we only need to check some things once
     //   within the method and checking each time slows performance.
-    private boolean areSameType = false;
+    private boolean assignableTypes = false;
 
     /**
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
@@ -87,17 +85,17 @@ public class BeanComparator
             objectB);
 
         // we'll assume that if the first set of objects are equal types
-        // then all must be (this of course could turn out to be false, but may hinder 
+        // then all must be (this of course could turn out to be false, but may hinder
         // performance to check each object, each time).
-        if (!areSameType)
+        if (!assignableTypes)
         {
-            if (objectA.getClass() != objectB.getClass())
+            if (!objectA.getClass().isInstance(objectB) && !objectB.getClass().isInstance(objectA))
             {
                 String errMsg =
-                    methodName + " - objectA '" + objectA + "' and objectB '" + objectB + " must be of the same type";
+                    methodName + " - objectA '" + objectA + "' and objectB '" + objectB + " must be of assignable types ";
                 throw new ClassCastException(errMsg);
             }
-            areSameType = true;
+            assignableTypes = true;
         }
         try
         {
@@ -129,25 +127,41 @@ public class BeanComparator
             int result = 0;
 
             //first sort for null values, null values will always come last
-            if (aValue != null && bValue == null)
+            if (aValue != null || bValue != null)
             {
-                result = -1;
-            }
-            else if (aValue == null && bValue != null)
-            {
-                result = 1;
-            }
-            else if (aValue != null && bValue != null)
-            {
-                result = this.getComparator(aValue.getClass()).compare(
+                if (aValue == null)
+                {
+                    if (sortCriteria.isNullsFirst())
+                    {
+                        result = -1;
+                    }
+                    else
+                    {
+                        result = 1;
+                    }
+                }
+                else if (bValue == null)
+                {
+                    if (sortCriteria.isNullsFirst())
+                    {
+                        result = 1;
+                    }
+                    else
+                    {
+                        result = -1;
+                    }
+                }
+                else
+                {
+                    result = this.getComparator(aValue.getClass()).compare(
                         aValue,
                         bValue);
+                }
             }
             return result;
         }
         catch (final Throwable throwable)
         {
-            throwable.printStackTrace();
             throw new ComparatorException(throwable);
         }
     }
@@ -228,7 +242,7 @@ public class BeanComparator
         {
             if (this.comparator == null)
             {
-                final String comparatorName = comparators.getProperty(type.getName());
+                final String comparatorName = findComparatorName(type);
                 if (comparatorName != null && comparatorName.length() > 0)
                 {
                     this.comparator = (Comparator)ClassUtils.loadClass(comparatorName).newInstance();
@@ -244,6 +258,16 @@ public class BeanComparator
         {
             throw new ComparatorException(throwable);
         }
+    }
+
+    private String findComparatorName(final Class type)
+    {
+        String comparatorName = comparators.getProperty(type.getName());
+        if ((comparatorName == null || comparatorName.length() == 0) && type.getSuperclass() != null)
+        {
+            comparatorName = findComparatorName(type.getSuperclass());
+        }
+        return comparatorName;
     }
 
     /**

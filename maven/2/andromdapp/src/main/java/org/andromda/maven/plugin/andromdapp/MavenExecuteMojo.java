@@ -1,12 +1,10 @@
 package org.andromda.maven.plugin.andromdapp;
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Properties;
 
 import org.andromda.maven.plugin.andromdapp.utils.ProjectUtils;
 import org.andromda.maven.plugin.andromdapp.utils.Projects;
@@ -219,12 +217,23 @@ public class MavenExecuteMojo
                     final MavenProject project = ProjectUtils.getProject(
                             this.projectBuilder,
                             this.session,
-                            pom);
-                    if (this.getLog().isDebugEnabled())
+                            pom,
+                            this.getLog());
+                    if (project != null)
                     {
-                        getLog().debug("Adding project " + project.getId());
+                        if (this.getLog().isDebugEnabled())
+                        {
+                            getLog().debug("Adding project " + project.getId());
+                        }
+                        projects.add(project);
                     }
-                    projects.add(project);
+                    else
+                    {
+                        if (this.getLog().isWarnEnabled())
+                        {
+                            this.getLog().warn("Could not load project from pom: " + pom + " - ignoring");
+                        }
+                    }
                 }
                 catch (ProjectBuildingException exception)
                 {

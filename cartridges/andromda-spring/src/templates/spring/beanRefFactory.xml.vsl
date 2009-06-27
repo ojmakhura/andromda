@@ -1,4 +1,3 @@
-#parse("templates/spring/SpringGlobals.vm")
 <?xml version="1.0" encoding="$xmlEncoding"?>
 
 <!DOCTYPE beans
@@ -6,7 +5,11 @@
            "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-
+#foreach ($service in $services)
+#if ($service.remotable)
+#set ($remotingEnabled = true)
+#end
+#end
     <bean id="$beanRefFactoryId"
          class="org.springframework.context.support.ClassPathXmlApplicationContext">
         <constructor-arg>
@@ -14,11 +17,20 @@
                 <value>$stringUtils.replace($applicationContext, '/', '.')</value>
 #if ($stringUtils.isNotBlank($dataSource))
                 <value>$stringUtils.replace($applicationContextDataSource, '/', '.')</value>
-#else
+#elseif($stringUtils.isNotBlank($driver))
                 <value>$stringUtils.replace($applicationContextLocalDataSource, '/', '.')</value>
+#end
+#if (!$destinations.empty)
+                <value>$stringUtils.replace($applicationContextJms, '/', '.')</value>
 #end
 #if (!$manageables.empty)
                 <value>$stringUtils.replace($applicationContextManageable, '/', '.')</value>
+#end
+#if ($remotingEnabled && !$ejbsEnabled)
+                <value>${applicationContextServer}</value>
+#if ($acegiServiceSecurity)
+                <value>$stringUtils.replace($applicationContextServerAuthentication, '/', '.')</value>
+#end
 #end
                 <!-- beanRefFactory merge-point -->
            </list>
@@ -30,15 +42,24 @@
          class="org.springframework.context.support.ClassPathXmlApplicationContext">
         <constructor-arg>
            <list>
-#if ($springUtils.remoteEjbsPresent($services))
+#if($ejbViewType.equalsIgnoreCase('both'))
+                <value>$stringUtils.replace($applicationContextLocalEjb, '/', '.')</value>
+#else
+#if ($remoteEjbsPresent)
                 <value>$stringUtils.replace($applicationContextRemoteEjb, '/', '.')</value>
 #end
-#if ($springUtils.localEjbsPresent($services))
+#if ($localEjbsPresent)
                 <value>$stringUtils.replace($applicationContextLocalEjb, '/', '.')</value>
 #end
+#end
+#if ($remotingEnabled && $ejbsEnabled)
+                <value>${applicationContextServer}</value>
+#end
+                <!-- beanRefFactoryEjb merge-point -->
            </list>
         </constructor-arg>
     </bean>
 #end
+    <!-- beanRefFactoryEjbXml merge-point -->
 
 </beans>

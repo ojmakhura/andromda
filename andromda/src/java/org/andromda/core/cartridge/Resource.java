@@ -16,6 +16,7 @@ import org.apache.commons.lang.StringUtils;
  * cartridge resource element. </p>
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class Resource
 {
@@ -43,12 +44,37 @@ public class Resource
     {
         this.outlet = outlet;
     }
+    
+    /**
+     * Stores the outputCondition that must evaluate to true for the template to be written.
+     */
+    private String outputCondition;
+    
+    /**
+     * Sets the outputCondition that must evaluate to true in order for the template to be written.
+     * 
+     * @param outputCondition the template engine outputCondition.
+     */
+    public void setOutputCondition(final String outputCondition)
+    {
+        this.outputCondition = outputCondition;
+    }
+    
+    /**
+     * Gets the outputCondition that must evaluate to true in order for the template to be written.
+     * 
+     * @return the template engine outputCondition.
+     */
+    public String getOutputCondition()
+    {
+        return this.outputCondition;
+    }
 
     /**
      * Returns the fully qualified name of the resource output to be written, this means: <ul> <li>the output pattern
      * has been translated</li> <li>the output directory name has been prepended</li> </ul>
      *
-     * @param argument  any arguments to be inserted into the MessageFormat style messages.
+     * @param arguments any arguments to be inserted into the MessageFormat style messages.
      * @param directory the directory to which output will be written.
      * @param outputPattern if undefined, the value of {@link #getOutputPattern()} will be used.
      * @return File absolute directory.
@@ -71,7 +97,7 @@ public class Resource
             {
                 outputPattern = this.getOutputPattern();
             }
-            String outputFileName = null;
+            String outputFileName;
             try
             {
                 outputFileName = MessageFormat.format(
@@ -125,6 +151,31 @@ public class Resource
     public void setOverwrite(final boolean overwrite)
     {
         this.overwrite = overwrite;
+    }
+    
+    /**
+     * Whether or not a last modified check should be performed before writing the resource.
+     */
+    private boolean lastModifiedCheck;
+    
+    /**
+     * Sets whether or not a last modified check should be performed before writing the resource.
+     * 
+     * @param lastModifiedCheck true/false
+     */
+    public void setLastModifiedCheck(final boolean lastModifiedCheck)
+    {
+        this.lastModifiedCheck = lastModifiedCheck;
+    }
+    
+    /**
+     * Whether or not a last modified check should be performed before writing the resource.
+     * 
+     * @return true/false
+     */
+    public boolean isLastModifiedCheck()
+    {
+        return this.lastModifiedCheck;
     }
 
     /**

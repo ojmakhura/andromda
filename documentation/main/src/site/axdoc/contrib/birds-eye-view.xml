@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="joel@lighthouse-pmg.com">Joel Kozikowski</author>
+        <title>AndroMDA - A bird's eye view</title>
+    </properties>
+
+    <body>
+
+        <section name="A Bird's Eye view of AndroMDA">
+            <p>By Joel Kozikowski</p>
+            <p>
+                <em>The purpose of this document is to give a high level view of the entire AndroMDA system so you can
+                    quickly get up to speed in using it.  It is intended to be used by an experienced developer (but new
+                    to AndroMDA) as a road map to find their way around all of the components. It does not go into
+                    detail on any one aspect of the system.  Instead, it identifies common how does that work type
+                    questions, and then points you to material for further study. A basic understanding of UML is
+                    assumed. If you are completely new to UML, you may want to try one of the numerous books on the
+                    subject before tackling AndroMDA. A good crash course on UML can be found here:
+                    <a href="http://bdn.borland.com/article/0,1410,31863,00.html">
+                        http://bdn.borland.com/article/0,1410,31863,00.html</a>
+                </em>
+            </p>
+            <subsection name="System overview">
+                <p>AndroMDA is a code generation tool that takes a UML model as input and generates source code as
+                    output.  Using a series of template files (which you can customize if you wish), AndroMDA can
+                    produce source code from a UML model in any programming language.  Default templates exist to
+                    generate Java code (and in particular J2EE code).</p>
+                <p>There are two primary components used in the AndroMDA system:
+                    <ol>
+                        <li>The AndroMDA code generation engine.</li>
+                        <li>Apache's Maven project builder and management system.</li>
+                    </ol>
+                </p>
+                <p>The AndroMDA code generator is actually a generic code generation engine. The engine is a platform
+                    that hosts code modules (called cartridges) that do the actual code generation.  An AndroMDA
+                    cartridge is a collection of source code template files and Java helper classes (called Metafacades)
+                    packaged into a .JAR file.  There are a variety of pre-existing cartridges that you can plug in to
+                    the engine to generate code a particular way.  The pre-existing cartridges all generate Java source
+                    code for various popular Open Source libraries (such as Spring, Hibernate, and J2EE). The engine is
+                    not limited to these however.  You can write your own cartridges, and (at least in theory) generate
+                    code from UML for any programming language.</p>
+                <p>An excellent explanation/demonstration of AndroMDA's capabilities can be found in the HowTo guide
+                    explaining how to model using the Spring Cartridge.  There, you can see examples of a UML model, and
+                    the resulting Java source code (very valuable to study).  For more details, see
+                    <a href="../andromda-cartridges/andromda-spring-cartridge/howto1.html">the Spring howto documentation</a>.
+                </p>
+                <p>Maven is actually an optional component.  The AndroMDA engine could be called directly from the
+                    command line, from within an IDE, or from a build script (such as from within Ant).  However, a
+                    series of Maven plug-ins already exist to greatly simplify the process of using AndroMDA. Unless you
+                    are trying to integrate AndroMDA into a pre-existing project, using Maven is highly recommended.  It
+                    is the normal way of accessing AndroMDA services.</p>
+                <p>If you are unfamiliar with Maven, learning it first (at least at the conceptual level) is highly
+                    recommended.  A good overview article of what Maven is and what it is capable of can be found here:
+                    <a href="http://www.devx.com/java/Article/17204">http://www.devx.com/java/Article/17204</a>
+                </p>
+                <p>For a complete list of articles you can use to familiarize yourself with Maven, see
+                    <a href="http://maven.apache.org/reference/articles.html">Maven articles</a>.
+                </p>
+                <p>For instructions on how to install the necessary components to get AndroMDA up and running see
+                    <a href="../starting.html">Getting started</a>.
+                </p>
+            </subsection>
+            <subsection name="Project development cycle">
+                <p>The following is a typical AndroMDA project's development cycle (for Java). Details for each step
+                    follow this section.</p>
+                <ol>
+                    <li>Create a new project directory using the command
+                        <b>maven andromdapp:generate</b>
+                        (which calls a maven plug-in known as the maven app generator plug-in). 
+                    </li>
+                    <li>Configure the generated project to fit your specific needs</li>
+                    <li>Use MagicDraw to edit the file
+                        <b>&lt;
+                            <i>projectDir</i>
+                            &gt;/mda/src/uml/&lt;
+                            <i>projectName</i>
+                            &gt;Model.xmi
+                        </b>
+                        . This file is where you save your UML model.
+                    </li>
+                    <li>Generate code by issuing one of the following commands from your project's root directory:</li>
+                    <ol>
+                        <li>
+                            <b>maven mda</b>
+                            (re)generates source code from the model
+                        </li>
+                        <li>
+                            <b>maven install</b>
+                            (re)generates source code, including the database schema files, then builds all source
+                            modules.
+                        </li>
+                        <li>
+                            <b>maven create-schema</b>
+                            installs the SQL DDL to your database if you are using AndroMDA to generate your persistence
+                            layer (such as with Hibernate and/or Spring).  This command assumes the DDL file has already
+                            been created (using
+                            <b>maven install</b>
+                            )
+                        </li>
+                    </ol>
+                    <li>Hand code any methods requiring manual implementation in the source files found in
+                        <b>&lt;
+                            <i>projectDir</i>
+                            &gt;/core/src/java
+                        </b>
+                        .
+                    </li>
+                    <li>Compile and test your code</li>
+                    <li>As your project evolves, make refinements
+                        <i>first</i>
+                        to the UML model by re-starting the process from step 3 above.
+                    </li>
+                </ol>
+                <p>A complete list of Maven goals for your project that you may want to use for step #4 above can be
+                    found in the file
+                    <b>&lt;
+                        <i>projectDir</i>
+                        &gt;/readme.txt
+                    </b>
+                    (which is created by the app generator).
+                </p>
+            </subsection>
+            <subsection name="Creating a new project">
+                <p>To create a new project, first change to the desired PARENT directory of your soon to be created
+                    project directory, and issue the
+                    <b>maven andromdapp:generate</b>
+                    command.  When asked for a project ID use a short name (without any spaces) that will represent the
+                    sub-directory's name.  For example, if in the
+                    <b>\myProjects</b>
+                    directory you generate a project with the ID myDemo, your project's root directory will be
+                    <b>/myProjects/myDemo</b>.
+                </p>
+                <p>For more information, see
+                    <a href="../starting.html#My%20first%20AndroMDA%20project">My first AndroMDA project</a> as well as
+                    <a href="../andromda-maven-plugins/andromdapp-maven-plugin/index.html">the andromdapp plugin</a>
+                </p>
+            </subsection>
+            <subsection name="Project Directory Structure">
+                <p>The most significant sub-directories in the project structure created by the Maven app generation
+                    plug-in are as follows:</p>
+                <p>
+                    <b>&lt;
+                        <i>projectDir</i>
+                        &gt;/mda/src
+                    </b>
+                </p>
+                <p>Where the UML model file is located.</p>
+                <p>
+                    <b>&lt;
+                        <i>projectDir</i>
+                        &gt;/mda/conf
+                    </b>
+                </p>
+                <p>Where the AndroMDA engine configuration file is located.</p>
+                <p>
+                    <b>&lt;
+                        <i>projectDir</i>
+                        &gt;/core/target
+                    </b>
+                </p>
+                <p>Where the code generator places most of the resulting files.  The SQL schema files are found in this
+                    directory. Java source files are found in the
+                    <b>src/</b>
+                    sub-directory. You may view this code for study, but
+                    <i>do not</i>
+                    make any modifications to it, as it will be overwritten on subsequent runs of the code generator.
+                </p>
+                <p>
+                    <b>&lt;projectDir&gt;/core/src</b>
+                </p>
+                <p>Source files that require manual implementation go here.  Files in this directory will NOT be
+                    overwritten on subsequent runs of the code generator.</p>
+                <p>For a complete description of project sub-directories, see the file
+                    <b>&lt;
+                        <i>projectDir</i>
+                        &gt;/readme.txt
+                    </b>
+                </p>
+            </subsection>
+            <subsection name="AndroMDA configuration">
+                <p>The AndroMDA engine is ultimately driven by the configuration information found in the file
+                    <b>andromda.xml</b>
+                    .  If using a project generated by the Maven app generator plug-in, this file is located in the
+                    <b>&lt;
+                        <i>projectDir</i>
+                        &gt;/mda/conf
+                    </b>
+                    sub-directory. This file contains, among other things, the name of the UML model file to be used by
+                    the engine, as well as configuration settings for the various AndroMDA Cartridges used by your
+                    project (these settings are segregated from each other in sections called namespaces).
+                </p>
+                <p>For general information about the configuration information found in
+                    <b>andromda.xml</b>, see <a href="../configuration.html">the configuration page</a>
+                </p>
+                <p>For information about cartridge specific configuration options, first go to the
+                    <a href="../andromda-cartridges/index.html">AndroMDA Cartridge page</a>
+                    , select the desired cartridge from the Available Cartridges menu on the left, then select the
+                    Namespace option under the Documentation menu.
+                </p>
+                <p>If you used the Maven app generator (and subsequently use Maven to actually
+                    <i>build</i>
+                    your project), many of the configuration values found in
+                    <b>andromda.xml</b>
+                    are actually delegated up to Maven build properties.
+                </p>
+                <p>The file
+                    <b>&lt;
+                        <i>projectDir</i>
+                        &gt;project.properties
+                    </b>
+                    contains Maven properties that are passed down to
+                    <b>andromda.xml</b>
+                    (and other parts of the build scripts) that are project wide settings (regardless of which developer
+                    is currently building the system, and which version is being built).  These include things such as
+                    JDBC configuration settings, which database dialect you want Hibernate to use (e.g. Hypersonic,
+                    mySQL, etc.).
+                </p>
+                <p>The file
+                    <b>
+                        <i>&lt;projectDir&gt;build.properties</i>
+                    </b>
+                    contains Maven properties that are specific to the version being built.
+                </p>
+                <p>Maven build properties can also be overridden on a workstation (and/or developer) by workstation
+                    basis.  For more information about Maven build properties in general, see
+                    <a href="http://maven.apache.org/reference/properties.html">
+                        http://maven.apache.org/reference/properties.html</a>
+                </p>
+            </subsection>
+            <subsection name="Creating your UML Model">
+                <p>In theory, AndroMDA can use the output of any UML modeling tool as its starting point for code
+                    generation, provided the UML modeling tool can output to the Object Management Group's industry
+                    standard XML Metadata Interchange (XMI) file format (see
+                    <a href="http://www.omg.org/technology/documents/formal/xmi.htm">
+                        http://www.omg.org/technology/documents/formal/xmi.htm</a>).
+                </p>
+                <p>In <i>practice</i>, you will save yourself a LOT of headache if you simply use MagicDraw as your UML tool (a free
+                    community edition is available at <a href="http://www.magicdraw.com/">http://www.magicdraw.com</a>
+                    ).  All of the developers on the AndroMDA team use MagicDraw (so obviously there will be better 
+                    out of the box support for that particular tool).
+                </p>
+                <p class="highlight">
+                    <em>
+                        <p>
+                            Note from the editor: While it is true that AndroMDA works best with MagicDraw there is
+                            no dependency what-so-ever, not in the code, not in any of the transformations. AndroMDA
+                            works fine with other tools such as Poseidon, Aris UML, etc.. Sometimes there's a
+                            restriction due to the poor UML support in certain areas such as activity graphs, but
+                            that's not an AndroMDA problem, it's the tool not properly supporting UML and/or XMI.
+                        </p>
+                        <p>
+                            The AndroMDA team is more than willing to make sure users can use their UML tool
+                            or preference, especially when that tool is open-source or free.
+                        </p>
+                    </em>
+                </p>
+                <p>AndroMDA code generation is driven by UML
+                    <i>stereotypes</i>
+                    .  In a nutshell, the engine traverses your UML model, looking for classes tagged with a specific
+                    stereotype.  If it finds a stereotype it recognizes, the appropriate cartridge is called to generate
+                    code for that class. Which stereotypes are recognized depend on the AndroMDA Cartridge(s) being
+                    used. Stereotype recognition is case sensitive.
+                </p>
+                <p>A key concept in the Model Driven Architecture methodology is the idea of the developer first
+                    creating a
+                    <i>Platform Independent Model</i>
+                    (the PIM) of the system.  By Platform Independent, that means a model devoid of any platform
+                    <i>specific</i>
+                    items (such as a class's attribute defined using a Java data type like java.lang.String).  Many UML
+                    tools are
+                    <i>designed</i>
+                    to generate Java code, so they use Java data types by default when modeling (violating the PIM
+                    concept). AndroMDA expects UML models to contain
+                    <i>generic</i>
+                    data types (specifically, UML data types).
+                </p>
+                <p>To simplify modeling (insuring the proper UML data types and stereotypes are used), the AndroMDA UML
+                    Profile has been developed which can (and really
+                    <i>must</i>
+                    ) be included as part of your model. The profile is named
+                    <b>
+                        <i>andromda-profile-XXX.xml.zip</i>
+                    </b>
+                    (where XXX is the version of AndroMDA you are using).  The profile contains all of the UML data
+                    types, stereotypes, and tagged values that are known to work with AndroMDA and all of its
+                    Cartridges.  Any new UML model should begin by importing this file into your project (with
+                    MagicDraw, this is done by using the File_Use Profile/Module menu option). See the
+                    <a href="../faq.html#profile-import">Frequently Asked Questions</a>
+                    for more information.
+                </p>
+                <p>If your project was generated using the Maven app generation plug-in, the pre-created project model
+                    file
+                    <b>&lt;
+                        <i>projectDir</i>
+                        &gt;/mda/src/uml/&lt;
+                        <i>projectName</i>
+                        &gt;Model.xmi
+                    </b>
+                    will already have included this profile.
+                </p>
+                <p>The profile file itself can be found in the AndroMDA source distribution in the
+                    <b>&lt;
+                        <i>sourceDir</i>
+                        &gt;/etc/profile/target
+                    </b>
+                    sub-directory.  Frequently, when opening a UML file with MagicDraw, it will ask for you to specify
+                    the location of this file.  Copying the profile file from the AndroMDA source dir to MagicDraw's
+                    profile directory (
+                    <b>/Program Files/Magic Draw UML/profiles</b>
+                    on a Windows XP installation) will allow MagicDraw to find the profile file on its own.
+                </p>
+                <p>For general information on AndroMDA modeling, see
+                    <a href="../modeling.html">Modeling in AndroMDA</a>
+                </p>
+                <p>For a tutorial on creating models that work with the Spring cartridge (the most popular AndroMDA
+                    plug-in), see
+                    <a href="../andromda-cartridges/andromda-spring-cartridge/howto.html">the AndroMDA Spring cartridge howto</a>
+                </p>
+                <p>For information about cartridge specific stereotypes and tagged values, first go to
+                    <a href="../andromda-cartridges/index.html">the AndroMDA
+                    Cartridge page</a>, select the desired cartridge from the Available
+                    Cartridges menu on the left, and then select the
+                    Profile option on the left hand menu.
+                </p>
+                <p>For more information on the Model Driven Architecture methodology in general, see
+                    <a href="http://www.omg.org/mda/">http://www.omg.org/mda/</a>
+                </p>
+            </subsection>
+            <subsection name="How AndroMDA generates code">
+                <p>The following describes the process used by the AndroMDA engine to generate code.  Details of each
+                    step follow this section.</p>
+                <ol>
+                    <li>All of the cartridges that the project requires are loaded by the engine.</li>
+                    <li>The engine then parses the UML model's XMI file, creating an object tree of the model for use by
+                        the engine and the cartridge templates.  In addition to the main object tree, helper classes
+                        (called Metafacades) are created to simplify the work of the cartridge templates.</li>
+                    <li>The engine traverses the object tree, looking for classes tagged with stereotypes it
+                        recognizes</li>
+                    <li>For each class located, the appropriate cartridge template(s) are identified and dispatched to
+                        generate code.  Multiple source code files may be generated for each tagged class in the model:
+                        more than one template in a given cartridge may generate code for any given class; more than one
+                        cartridge may generate code for any given class. The default templates for a cartridge may be
+                        used, or a customized version may be used, depending on your configuration.</li>
+                    <li>Step #4 is repeated for every class in the model.</li>
+                </ol>
+                <h3>Loading the Cartridges to use</h3>
+                <p>When the AndroMDA engine is started, it first loads and activates the cartridges it will use.  For a
+                    particular cartridge to be used, the cartridge .JAR file must:</p>
+
+                <ol>
+                    <li>Be in the Java  CLASSPATH of the AndroMDA engine</li>
+                    <li>Be activated by referencing its namespace in the
+                        <b>andromda.xml</b>
+                        configuration file.
+                    </li>
+                </ol>
+                <p>To put the cartridge in the CLASSPATH of the engine if using the Maven plug-in, modify the
+                    <b>&lt;
+                        <i>projectDir</i>
+                        &gt;/mda/project.xml
+                    </b>
+                    file and add a &lt;dependency&gt; for the cartridge to the &lt;dependencies&gt; section.  For more
+                    information, see Using a cartridge at
+                    <a href="../andromda-cartridges/index.html">the cartridges index page</a>
+                </p>
+                <p>If using the Maven plug-in, the
+                    <b>andromda.xml</b>
+                    configuration file is located in the
+                    <b>&lt;
+                        <i>projectDir</i>
+                        &gt;/mda/conf
+                    </b>
+                    directory.  This file contains one or more &lt;namespace&gt; tags to activate the cartridge(s).
+                </p>
+                <p>For more information on configuring a cartridge's namespace, see
+                    <a href="../configuration.html#namespace">configuring AndroMDA namespaces</a>
+                </p>
+                <h3>Loading the UML model</h3>
+                <p>Just as there is a standardized object model to represent a parsed XML file (The Document Object
+                    Model) and popular Java implementations of the DOM API (such as Apache's Xerces), so is there a
+                    standardized object model for the metadata stored in a UML model.  The standardized object model
+                    that represents UML metadata is called The Meta Object Facility (the MOF - see
+                    <a href="http://www.omg.org/mof">http://www.omg.org/mof</a>
+                    ).  One Java implementation of this API is Netbeans' MDR (MetaData Repository - see
+                    <a href="http://mdr.netbeans.org/">http://mdr.netbeans.org/</a>
+                    ).  The AndroMDA engine uses the Netbeans MDR to load the UML model into memory.
+                </p>
+                <p>The act of generating code from the UML model requires some computation not easily handled by the
+                    simple scripting capabilities found in the template engine used by AndroMDA.  Things such as
+                    traversing the MDR looking for relationships among classes, testing for certain conditions in the
+                    model, formulating identifier names and package names based on attributes found in the UML model -
+                    these all require computation handled easier in Java code.  To simplify the source code templates,
+                    the Facade design pattern is used to create helper classes that shield the complexities of the MDR
+                    from the template.  These helper classes are called Metafacades (for meta data facades).  Each
+                    cartridge used by the AndroMDA engine usually contains its own set of Metafacades to aid in platform
+                    specific code generation.  It is the engine's responsibility to instantiate these Metafacades for
+                    use by the source code templates.</p>
+                <p>For more information about Metafacades, see
+                    <a href="../andromda-metafacades/index.html">the metafacades documentation</a>
+                </p>
+                <h3>Matching Stereotypes to Cartridges</h3>
+                <p>After initializing, the AndroMDA engine traverses the UML model, looking for classes marked with a
+                    specific stereotype.  When it finds a stereotype it recognizes (or more specifically, a stereotype
+                    that a cartridge is known to recognize), the appropriate cartridge(s) is called to generate the
+                    code.</p>
+                <p>A cartridge is actually a .JAR file.  In this .JAR file there is (amongst other things), a file named
+                    <b>/META-INF/andromda/cartridge.xml</b>.  This file is called the Cartridge Descriptor. 
+                    Inside the Cartridge Descriptor, there are
+                    <span>&lt;template&gt;</span>
+                    tags that specify the code generation templates available from the Cartridge.  Inside each
+                    <span>&lt;template&gt;</span>
+                    tag is a
+                    <span>&lt;modelElements&gt;</span>
+                    tag. This
+                    <span>&lt;modelElements&gt;</span>
+                    node will contain one or more
+                    <span>&lt;modelElement&gt;</span>
+                    nodes.  Each
+                    <span>&lt;modelElement&gt;</span>
+                    is used to specify (among other things) the stereotype the template maps to.  This specification is
+                    done in one of two ways:
+                </p>
+                <ol>
+                    <li>directly via an attribute of the
+                        <span>&lt;modelElement&gt;</span>
+                        tag named stereotype.  The value of the stereotype attribute specifies the stereotype the
+                        template maps to.
+                    </li>
+                    <li>indirectly via a
+                        <span>&lt;type&gt;
+                        </span>
+                        inner node.  The
+                        <span>&lt;type&gt;</span>
+                        node specifies the name of the Metafacade class the template uses. The Metafacade's definition,
+                        in turn, contains a definition of the stereotype the Metafacade maps to. The Metafacade's
+                        definition is found in the Metafacade Descriptor - a file in the cartridge .JAR file named
+                        <b>/META-INF/andromda-metafacades.xml</b>
+                        .  The Metafacade Descriptor contains
+                        <span>&lt;metafacade&gt;</span>
+                        tags for each metafacade used by the cartridge.  Each
+                        <span>&lt;metafacade&gt;</span>
+                        tag in turn contains a
+                        <span>&lt;stereotype&gt;</span>
+                        tag which defines the name of the stereotype the metafacade maps to.
+                    </li>
+                </ol>
+                <p>For more information on the Cartridge Descriptor, see The Cartridge Descriptor at
+                    <a href="../andromda-cartridges/index.html">the cartridge index page</a>
+                    .
+                </p>
+                <p>For more information on the Metafacade Descriptor, see
+                    <a href="../andromda-metafacades/configuring.html">configuring metafacades</a>
+                </p>
+                <h3>Generating code from templates</h3>
+                <p>Once the AndroMDA engine has identified a class from the UML model and matched it to a cartridge, the
+                    appropriate templates are called to generate code.</p>
+                <p>By default, AndroMDA uses the Apache Software Foundation's Velocity template engine to generate
+                    code.  Mechanisms exist to allow other template engines to be used, but in practice, Velocity does
+                    most of the work.  If you are unfamiliar with Velocity, see
+                    <a href="http://jakarta.apache.org/velocity/docs/user-guide.html#What%20is%20Velocity?">
+                        http://jakarta.apache.org/velocity/docs/user-guide.html#What%20is%20Velocity?</a>
+                    for a good overview.
+                </p>
+                <p>To see all of the templates available from a particular cartridge, examine the contents of the
+                    cartridge's Cartridge Descriptor file (
+                    <b>/META-INF/andromda/cartridge.xml)</b>
+                    .  This file can be found in one of two places:
+                </p>
+                <ol>
+                    <li>inside of the cartridge .JAR file itself</li>
+                    <li>if it is part of the default AndroMDA source distribution, in the
+                        <b>/src/META-INF/andromda</b>
+                        sub-directory of the cartridge's source directory (
+                        <b>&lt;
+                            <i>androMDASourceDir</i>
+                            &gt;/cartridges/&lt;
+                            <i>nameOfCartridge</i>
+                            &gt;
+                        </b>
+                        )
+                    </li>
+                </ol>
+                <p>Each template available for use in the cartridge is defined in a
+                    <span>&lt;template&gt;</span>
+                    node inside the Cartridge Descriptor.  The
+                    <span>&lt;template&gt;</span>
+                    node contains several pieces of important information:
+                </p>
+                <ol>
+                    <li>The path attribute specifies the complete path (inside of the cartridge .JAR file) to the
+                        template file</li>
+                    <li>The outlet attribute specifies (indirectly) the sub-directory where the source file will be
+                        written to.  An outlet is a conceptual name assigned to a sub-directory. It is actually the name
+                        of a property found in the cartridge's namespace in the
+                        <b>andromda.xml</b>
+                        configuration file.  For example, an outlet named config-files would mean there is a namespace
+                        property named config-files in
+                        <b>andromda.xml</b>
+                        that specifies the sub-directory where all configuration files are to be written to.
+                    </li>
+                    <li>The overwrite attribute specifies whether or not the template will overwrite pre-existing source
+                        files on subsequent runs of the code generator.  In general, source code that requires hand
+                        modification will have the overwrite attribute set to false and will have a different outlet
+                        than code that does not require hand modification.</li>
+                    <li>The
+                        <span>&lt;modelElements&gt;</span>
+                        tag defines the Metafacade used by the template.  The variable attribute of the
+                        <span>&lt;modelElements&gt;</span>
+                        tag defines the name of the instance variable to be used by the template.  That template
+                        variable will be an instance of the specified Metafacade.
+                    </li>
+                </ol>
+                <p>The
+                    <span>&lt;modelElements&gt;</span>
+                    tag of a
+                    <span>&lt;template&gt;</span>
+                    definition contains a
+                    <span>&lt;modelElement&gt;</span>
+                    tag, which may in turn contain a
+                    <span>&lt;type&gt;</span>
+                    tag.  The
+                    <span>&lt;type&gt;</span>
+                    tag specifies the Metafacade class that the template will use.  The
+                    <span>&lt;type&gt;</span>
+                    tag may optionally contain
+                    <span>&lt;property&gt;</span>
+                    tags.  These
+                    <span>&lt;property&gt;</span>
+                    tags are used for conditional code generation.  If a value is specified for a property, that
+                    property
+                    <i>must</i>
+                    match that value for template code to be saved to disk.  If the
+                    <span>&lt;property&gt;</span>
+                    tag does not contain a value, then that property simply must be defined.  The property might be a
+                    namespace property defined in the
+                    <b>andromda.xml</b>
+                    config file (to allow for the code generation to be defined at configuration time).  The property
+                    may instead be a property set by the template after it has run.  This allows the template itself to
+                    determine if code should be generated at run-time.
+                </p>
+                <p>For more information on how cartridges work in general, see
+                    <a href="../andromda-cartridges/index.html">the cartridge index page</a>
+                </p>
+                <p>The Velocity Template Language reference guide can be found here
+                    <a href="http://jakarta.apache.org/velocity/docs/vtl-reference-guide.html">
+                        http://jakarta.apache.org/velocity/docs/vtl-reference-guide.html</a>
+                </p>
+                <p>For more details on the Velocity template engine in general, see
+                    <a href="http://jakarta.apache.org/velocity/index.html">
+                        http://jakarta.apache.org/velocity/index.html</a>
+                </p>
+            </subsection>
+            <subsection name="Customizing code generation">
+                <p>There are several ways to customize the code generation process. </p>
+                <ol>
+                    <li>Override a template from a pre-existing cartridge with a custom version</li>
+                    <li>Customize the entire cartridge, re-compiling the .JAR file</li>
+                    <li>Write your own cartridge from scratch.</li>
+                </ol>
+                <h3>Overriding a cartridge's default template(s)</h3>
+                <p>The simplest way to customize code generation is to slightly modify or simply re-write one or two
+                    templates in an existing cartridge.  Assuming a particular cartridge does mostly what you are
+                    looking for, but you need to change or extend its functionality, you can instruct the AndroMDA
+                    engine to use your template rather than the one from the cartridge's .JAR file.</p>
+                <ol>
+                    <li>locate the
+                        <i>original</i>
+                        template file you wish to modify.  These files can be found in the
+                        <b>/templates</b>
+                        sub-directory of the cartridge's .JAR file. If you have the AndroMDA source distribution
+                        installed on your machine, you can also find them in the
+                        <b>/src/templates</b>
+                        sub-directory of the of the cartridge's source directory (
+                        <b>&lt;
+                            <i>androMDASourceDir</i>
+                            &gt;/cartridges/&lt;
+                            <i>nameOfCartridge</i>
+                            &gt;
+                        </b>
+                        ).
+                    </li>
+                    <li>Copy the desired files to your project directory.  If your project conforms to the standard
+                        project structure using the Maven plug-ins, the best place to put your copy is in the
+                        <b>/mda/src</b>
+                        directory of your project (such as
+                        <b>&lt;
+                            <i>projectDir</i>
+                            &gt;/mda/src/customTemplates
+                        </b>
+                        /).  Since you may override templates from more than one cartridge, it is also a good idea to
+                        further segregate each cartridge into its own sub-directory.  Finally, it is important you honor
+                        the template structure found in the cartridge.  So, to override the hibernate.hbm.xml.vsl
+                        template for version 3, place a copy of that file in the sub-directory
+                        <b>&lt;
+                            <i>projectDir</i>
+                            &gt;mda/src/customTemplates/andromda-hibernate/templates/hibernate3
+                        </b>
+                        .
+                    </li>
+                    <li>In the cartridge's
+                        <span>&lt;namespace&gt;</span>
+                        entry in the
+                        <b>andromda.xml</b>
+                        configuration file, specify a mergeLocation property. For our example Hibernate template
+                        overwrite, we would make the following addition in the andromda.xml file:
+                    </li>
+                </ol>
+                <source language="xml"><![CDATA[
+<namespace name="hibernate">
+   ...
+   <properties>
+      ...
+      <property name="mergeLocation">${maven.src.dir}/customTemplates/andromda-hibernate</property>
+      ...
+   </properties>
+   ...
+</namespace>
+]]></source>
+                <p>When you specify a mergeLocation property, the AndroMDA engine will first look in your mergeLocation
+                    directory when looking for a particular template file.  If it does not find it, it will fall back on
+                    the cartridge's .JAR file.</p>
+                <p>See Overriding cartridge resources at
+                    <a href="../andromda-cartridges/index.html#mergeLocation">overriding cartridge resources</a>
+                    for more details.
+                </p>
+                <h3>Customizing existing cartridges</h3>
+                <p>The standard cartridges that come with AndroMDA can be modified and extended if you need more control
+                    than a simple template override can provide. The source directory for a cartridge comes with the
+                    AndroMDA source distribution.  The cartridge's root directory is
+                    <b>&lt;
+                        <i>androMDASourceDir</i>
+                        &gt;/cartridges/&lt;
+                        <i>nameOfCartridge</i>
+                        &gt;
+                    </b>
+                    . All the source files are located under that directory.  From the cartridge root directory, the
+                    command
+                    <b>maven install</b>
+                    will re-build and re-package the cartridge.
+                </p>
+                <p>For more details on developing cartridges, see
+                    <a href="../andromda-cartridges/developing.html">developing cartridges</a>
+                </p>
+                <h3>Writing cartridges from scratch</h3>
+                <p>Entire cartridges can also be developed.  The most difficult aspect of cartridge development is the
+                    probable need for custom Metafacades.  The good news is that AndroMDA can be used to develop
+                    metafacades.  You can model your metafacade with MagicDraw, then have AndroMDA generate the
+                    metafacade code.</p>
+                <p>For more details on developing metafacades, see
+                    <a href="../andromda-metafacades/developing.html">developing metafacades</a>
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

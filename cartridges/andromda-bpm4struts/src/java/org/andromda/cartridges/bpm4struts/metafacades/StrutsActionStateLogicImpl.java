@@ -7,7 +7,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
@@ -18,6 +17,7 @@ import org.andromda.metafacades.uml.UseCaseFacade;
  * MetafacadeLogic implementation.
  *
  * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionState
+ * @author Bob Fields
  */
 public class StrutsActionStateLogicImpl
     extends StrutsActionStateLogic
@@ -66,8 +66,8 @@ public class StrutsActionStateLogicImpl
     public java.util.List getExceptions()
     {
         final Map exceptionsMap = new LinkedHashMap();
-        final Collection outgoing = getOutgoing();
-        for (final Iterator iterator = outgoing.iterator(); iterator.hasNext();)
+        final Collection outgoings = getOutgoings();
+        for (final Iterator iterator = outgoings.iterator(); iterator.hasNext();)
         {
             final TransitionFacade transition = (TransitionFacade)iterator.next();
             if (transition instanceof StrutsExceptionHandler)

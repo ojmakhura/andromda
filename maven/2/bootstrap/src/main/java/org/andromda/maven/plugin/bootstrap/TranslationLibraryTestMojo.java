@@ -64,13 +64,6 @@ public class TranslationLibraryTestMojo
     protected String testSourceDirectory;
 
     /**
-     * Set this to 'true' to bypass translation-library tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
-     *
-     * @parameter expression="${maven.test.skip}"
-     */
-    protected boolean skip;
-
-    /**
      * This is the URI to the AndroMDA configuration file.
      *
      * @parameter expression="file:${basedir}/conf/test/andromda.xml"
@@ -124,12 +117,33 @@ public class TranslationLibraryTestMojo
     protected ArtifactRepository localRepository;
 
     /**
+     * Set this to 'true' to bypass cartridge tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
+     *
+     * @parameter expression="${maven.test.skip}"
+     */
+    protected boolean skip;
+
+    /**
+     *  Set this to 'true' to skip running tests, but still compile them. Its use is NOT RECOMMENDED, but quite convenient on occasion. 
+     *
+     * @parameter expression="${skipTests}"
+     */
+    protected boolean skipTests;
+
+    /**
+     * Set this to true to ignore a failure during testing. Its use is NOT RECOMMENDED, but quite convenient on occasion.
+     *
+     * @parameter expression="${maven.test.failure.ignore}" default-value="false"
+     */
+    protected boolean testFailureIgnore;
+
+    /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-        if (!this.skip)
+        if (!this.skip && !this.skipTests)
         {
             try
             {
@@ -166,18 +180,28 @@ public class TranslationLibraryTestMojo
                 this.getLog().info(formatter.endTestSuite());
                 if (result.failureCount() > 0 || result.errorCount() > 0)
                 {
-                    throw new MojoExecutionException("Test are some test failures");
+                    throw new MojoExecutionException("There are some test failures");
                 }
                 processor.shutdown();
             }
             catch (final Throwable throwable)
             {
-                if (throwable instanceof MojoExecutionException)
+                if (throwable instanceof MojoExecutionException && !this.testFailureIgnore)
                 {
                     throw (MojoExecutionException)throwable;
                 }
-                throw new MojoExecutionException("An error occured while testing translation-library",
-                    ExceptionUtils.getRootCause(throwable));
+                else if (this.testFailureIgnore)
+                {
+                    this.getLog().error("An error occured while testing translation-library '" +
+                            this.translationName + "'",
+                        ExceptionUtils.getRootCause(throwable));
+                }
+                else
+                {
+                    throw new MojoExecutionException("An error occured while testing translation-library '" +
+                            this.translationName + "'",
+                            ExceptionUtils.getRootCause(throwable));
+                }
             }
         }
         else

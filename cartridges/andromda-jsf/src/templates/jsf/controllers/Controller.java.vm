@@ -1,0 +1,36 @@
+##
+##  This macro determines what to do when processing a transition
+##
+#macro (processTransition $transition)
+#if (!$transition)
+null;
+#elseif ($transition.enteringFinalState)
+#set ($targetUseCase = $transition.target.targetUseCase)
+(($targetUseCase.controller.fullyQualifiedName)this.resolveVariable("$targetUseCase.controller.beanName")).${targetUseCase.controllerAction}();
+#elseif ($transition.enteringView)
+"$transition.target.fromOutcome";
+#elseif ($transition.enteringDecisionPoint)
+__${transition.operationCall.name}(#if (!$action.formFields.empty)form#end);
+#else
+${transition.target.actionMethodName}(#if (!$action.formFields.empty)form#end);
+#end
+#end
+##
+##   This macro generates code to save any success messages and warning messages
+##
+#macro (saveMessages $transition $indent)
+#set ($messagesFullyQualifiedName = "Messages")
+#if ($stringUtils.isNotBlank($managedBeansPackage))
+#set($messagesFullyQualifiedName = "${managedBeansPackage}.${messagesFullyQualifiedName}")
+#end
+#if ($transition.successMessagesPresent)
+#foreach ($message in $transition.successMessages.entrySet())
+${indent}this.addInfoMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+#end
+#end
+#if ($transition.warningMessagesPresent)
+#foreach ($message in $transition.warningMessages.entrySet())
+${indent}this.addWarningMessage(${messagesFullyQualifiedName}.get("$message.key", (Object[])null));
+#end
+#end
+#end

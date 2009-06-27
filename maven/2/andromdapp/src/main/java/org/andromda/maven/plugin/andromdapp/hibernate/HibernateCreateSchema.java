@@ -1,5 +1,6 @@
 package org.andromda.maven.plugin.andromdapp.hibernate;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -22,11 +23,19 @@ public class HibernateCreateSchema
         final Map options,
         final List arguments)
     {
-        arguments.add("--output=" + this.getRequiredProperty(
-                options,
-                CREATE_OUTPUT_PATH));
+        String outputPath = this.getRequiredProperty(
+            options,
+            CREATE_OUTPUT_PATH);
+        final File file = new File(outputPath);
+        final File parent = file.getParentFile();
+        if (parent != null)
+        {
+            parent.mkdirs();
+        }
+        arguments.add("--output=" + outputPath);
         arguments.add("--text");
         arguments.add("--quiet");
+        arguments.add("--create"); //don't generate drop statements (the HibernateDropSchema does this) 
     }
 
     /**

@@ -1,0 +1,15 @@
+#if ($acegiServiceSecurity && $acegiUserCacheConfigLocation == 'default' && $stringUtils.isNotBlank($acegiDaoUserCacheImplClass))
+<ehcache>
+    <!-- Sets the path to the directory where cache .data files are created. -->
+    <diskStore path="java.io.tmpdir"/>
+
+    <!-- Cache configuration for user authentication -->
+
+    <cache name="${acegiUserCacheName}"
+        maxElementsInMemory="100"
+        eternal="false"
+        timeToIdleSeconds="600"
+        timeToLiveSeconds="36000"
+        overflowToDisk="true"/>
+</ehcache>
+#end

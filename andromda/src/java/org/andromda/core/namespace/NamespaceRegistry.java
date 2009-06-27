@@ -12,6 +12,7 @@ import java.util.Map;
  * all components within a namespace are registered.
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class NamespaceRegistry
 {
@@ -118,7 +119,7 @@ public class NamespaceRegistry
     /**
      * Attempts to retrieve the property definition for the given
      * <code>name</code>.
-     *
+     * @param name 
      * @return the property definition or null if one could not be found.
      */
     public PropertyDefinition getPropertyDefinition(final String name)
@@ -203,7 +204,7 @@ public class NamespaceRegistry
      * Adds a resource root to this namespace (since a namespace can consist of multiple
      * locations)
      *
-     * @param resource The resource to set.
+     * @param resourceRoot The resource root to set.
      */
     final void addResourceRoot(final URL resourceRoot)
     {
@@ -211,7 +212,7 @@ public class NamespaceRegistry
     }
 
     /**
-     * @see java.lang.Object#toString()
+     * @see Object#toString()
      */
     public String toString()
     {

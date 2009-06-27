@@ -1,0 +1,111 @@
+#set ($className = "ArraySerializer")
+#if ($stringUtils.isNotBlank($webserviceTypesPackage))
+package $webserviceTypesPackage;
+#end
+
+import java.io.IOException;
+
+import javax.xml.namespace.QName;
+
+import org.apache.axis.encoding.SerializationContext;
+import org.apache.commons.lang.StringUtils;
+import org.xml.sax.Attributes;
+
+
+/**
+ * An ArraySerializer for Axis1 that extends the default one provided by Axis (provides the
+ * correct names for array elements when being serialized to the SOAP messages).
+ *
+ * @author Chad Brandon
+ */
+public class $className
+    extends org.apache.axis.encoding.ser.ArraySerializer
+{
+    /**
+     * Just delegate to the super contructor.
+     */
+    public ArraySerializer(
+        final Class javaType,
+        final QName xmlType)
+    {
+        super(javaType, xmlType);
+    }
+
+    /**
+     * Just delegate to the super contructor.
+     */
+    public ArraySerializer(
+        final Class javaType,
+        final QName xmlType,
+        final QName componentType)
+    {
+        super(javaType, xmlType, componentType);
+    }
+
+    /**
+     * Just delegate to the super contructor.
+     */
+    public ArraySerializer(
+        final Class javaType,
+        final QName xmlType,
+        final QName componentType,
+        final QName componentQName)
+    {
+        super(javaType, xmlType, componentType, componentQName);
+    }
+
+    /**
+     * Overrides the default array serialization in order to provide the correct array item names.
+     *
+     * @see org.apache.axis.encoding.Serializer#serialize(javax.xml.namespace.QName, org.xml.sax.Attributes, java.lang.Object, org.apache.axis.encoding.SerializationContext)
+     */
+    public void serialize(
+        final QName name,
+        final Attributes attributes,
+        final Object value,
+        final SerializationContext context)
+        throws IOException
+    {
+        if (value == null)
+        {
+            throw new IOException(
+                "For some reason, the value of the array is null; it isn't possible to serialize a null array");
+        }
+        Class arrayClass = value.getClass();
+        if (!arrayClass.isArray())
+        {
+            throw new IOException("This serializer that not serialize anything other than arrays, and '" + arrayClass +
+                "' is not an array type");
+        }
+
+        // - set the item QName so that we get the correct array item names
+        context.setItemQName(
+            new QName(
+                name.getNamespaceURI(),
+                this.getArrayComponentTypeName(arrayClass, context),
+                name.getPrefix()));
+        super.serialize(
+            name,
+            attributes,
+            value,
+            context);
+    }
+    
+    private String getArrayComponentTypeName(final Class arrayClass, final SerializationContext context)
+    {
+        final Class componentType = arrayClass.getComponentType();
+        String name;
+        QName componentTypeName = context.getTypeMapping().getTypeQName(componentType);
+        if (componentTypeName != null)
+        {
+            name = componentTypeName.getLocalPart();
+        }
+        else
+        {
+            name = componentType.getName();
+        }
+        return StringUtils.uncapitalize(name).replaceAll(
+            ".*\\.",
+        "");
+    }
+}

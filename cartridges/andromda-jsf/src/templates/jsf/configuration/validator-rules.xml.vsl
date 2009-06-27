@@ -25,6 +25,10 @@
                 oRequired = eval('new ' + formName.value + '_required()');
                 for (x in oRequired) {
                    var field = form[oRequired[x][0]];
+                    if (!field)
+                    {
+                        return true;
+                    }
 
                     if (field.type == 'text' ||
                         field.type == 'textarea' ||
@@ -86,9 +90,13 @@
                 oMinLength = eval('new ' + formName.value + '_minlength()');
                 for (x in oMinLength) {
                     var field = form[oMinLength[x][0]];
-
+                    if (!field)
+                    {
+                        return true;
+                    }
                     if (field.type == 'text' ||
-                        field.type == 'textarea') {
+                        field.type == 'textarea' ||
+                        field.type == 'password') {
 
                         var iMin = parseInt(oMinLength[x][2]("minlength"));
                         if ((trim(field.value).length > 0) && (field.value.length < iMin)) {
@@ -131,9 +139,13 @@
                 oMaxLength = eval('new ' + formName.value + '_maxlength()');
                 for (x in oMaxLength) {
                     var field = form[oMaxLength[x][0]];
-
+                    if (!field)
+                    {
+                        return true;
+                    }
                     if (field.type == 'text' ||
-                        field.type == 'textarea') {
+                        field.type == 'textarea' ||
+                        field.type == 'password') {
 
                         var iMax = parseInt(oMaxLength[x][2]("maxlength"));
                         if (field.value.length > iMax) {
@@ -176,9 +188,13 @@
                 oMasked = eval('new ' + formName.value + '_mask()');
                 for (x in oMasked) {
                     var field = form[oMasked[x][0]];
-
+                    if (!field)
+                    {
+                        return true;
+                    }
                     if ((field.type == 'text' ||
-                         field.type == 'textarea') &&
+                         field.type == 'textarea' ||
+                         field.type == 'password') &&
                          (field.value.length > 0)) {
 
                         if (!matchPattern(field.value, oMasked[x][2]("mask"))) {
@@ -227,11 +243,15 @@
                 oByte = eval('new ' + formName.value + '_ByteValidations()');
                 for (x in oByte) {
                    var field = form[oByte[x][0]];
-
+                    if (!field)
+                    {
+                        return true;
+                    }
                     if (field.type == 'text' ||
                         field.type == 'textarea' ||
                         field.type == 'select-one' ||
-                  field.type == 'radio') {
+                        field.type == 'radio' ||
+                        field.type == 'password') {
 
                   var value = '';
                   // get field's value
@@ -299,11 +319,15 @@
                 oShort = eval('new ' + formName.value + '_ShortValidations()');
                 for (x in oShort) {
                    var field = form[oShort[x][0]];
-
+                    if (!field)
+                    {
+                        return true;
+                    }
                     if (field.type == 'text' ||
                         field.type == 'textarea' ||
                         field.type == 'select-one' ||
-                        field.type == 'radio') {
+                        field.type == 'radio' ||
+                        field.type == 'password') {
 
                         var value = '';
                   // get field's value
@@ -370,11 +394,15 @@
                 oInteger = eval('new ' + formName.value + '_IntegerValidations()');
                 for (x in oInteger) {
                    var field = form[oInteger[x][0]];
-
+                    if (!field)
+                    {
+                        return true;
+                    }
                     if (field.type == 'text' ||
                         field.type == 'textarea' ||
                         field.type == 'select-one' ||
-                        field.type == 'radio') {
+                        field.type == 'radio' ||
+                        field.type == 'password') {
 
                         var value = '';
                   // get field's value
@@ -418,7 +446,7 @@
          </javascript>
 
       </validator>
-      
+
       <validator name="long"
             classname="org.andromda.cartridges.jsf.validator.ParameterChecks"
                method="validateLong"
@@ -441,11 +469,15 @@
                 oLong = eval('new ' + formName.value + '_LongValidations()');
                 for (x in oLong) {
                    var field = form[oLong[x][0]];
-
+                    if (!field)
+                    {
+                        return true;
+                    }
                     if (field.type == 'text' ||
                         field.type == 'textarea' ||
                         field.type == 'select-one' ||
-                        field.type == 'radio') {
+                        field.type == 'radio' ||
+                        field.type == 'password') {
 
                         var value = '';
                   // get field's value
@@ -486,7 +518,7 @@
                 return bValid;
             }]]>
          </javascript>
-          
+
       </validator>
 
       <validator name="float"
@@ -511,11 +543,15 @@
                 oFloat = eval('new ' + formName.value + '_FloatValidations()');
                 for (x in oFloat) {
                    var field = form[oFloat[x][0]];
-
+                    if (!field)
+                    {
+                        return true;
+                    }
                     if (field.type == 'text' ||
                         field.type == 'textarea' ||
                         field.type == 'select-one' ||
-                        field.type == 'radio') {
+                        field.type == 'radio' ||
+                        field.type == 'password') {
 
                        var value = '';
                   // get field's value
@@ -562,7 +598,7 @@
          </javascript>
 
       </validator>
-      
+
       <validator name="equal"
             classname="org.andromda.cartridges.jsf.validator.ParameterChecks"
                method="validateEqual"
@@ -582,7 +618,7 @@
                var fields = new Array();
                var formName = form.getAttributeNode("name");
                oEqual = eval('new ' + formName.value + '_EqualValidations()');;
-               
+
                for (x in oEqual)
                {
                    var field = form[oEqual[x][0]];
@@ -591,7 +627,18 @@
                    if ((field.type == 'hidden' || field.type == 'text' || field.type == 'textarea' || field.type == 'password') &&
                        (value.length > 0) && field.disabled == false)
                    {
-                        var equalField = document.getElementById(equalFieldName);
+                        var equalField =  document.getElementById(equalFieldName);
+                        if (!equalField)
+                        {
+                            // - try getting the field the way that trinidad identifies it (it doesn't give the element
+                            //   the prefix of the form name like regular JSF forms do).
+                            var formAndFieldName = equalFieldName.split(':');
+                            var formObject = document.getElementById(formAndFieldName[0]);
+                            if (formObject)
+                            {
+                                equalField = formObject.elements[formAndFieldName[1]];
+                            }
+                        }
                         if (equalField)
                         {
                             var valid = equalField.value == value;
@@ -604,14 +651,14 @@
                         }
                     }
                 }
-                
+
                 var bValid = true;
                 if (fields.length > 0)
                 {
                     bValid = false;
                     focusField.focus();
                     alert(fields.join('\n'));
-                }       
+                }
                 return bValid;
             }
             ]]>
@@ -639,75 +686,79 @@
                var fields = new Array();
                var formName = form.getAttributeNode("name");
                oDate = eval('new ' + formName.value + '_DateValidations()');;
-        
+
                for (x in oDate)
                {
                    var field = form[oDate[x][0]];
+                    if (!field)
+                    {
+                        return true;
+                    }
                    var value = field.value;
                    var datePattern = oDate[x][2]("datePatternStrict");
                    var strict = (datePattern!=null);
                    // try loose pattern
                    if (!strict) datePattern = oDate[x][2]("datePattern");
-        
+
                    if ((field.type == 'hidden' || field.type == 'text' || field.type == 'textarea') &&
                        (value.length > 0) && (datePattern.length > 0) && field.disabled == false)
                    {
                         // all possible date/time character sequences
                         var matches = datePattern.match( /(y+|M+|d+|H+|m+|s+)*/g );
                         var matchedTokens = new Array();    // we will keep track of the matches
-        
+
                         var datePatternSub = datePattern;   // keeps track of the remaining pattern to process
                         var datePatternRegExp = "^";        // keeps track of the constructed regular expression
-        
+
                         for (var i=0; i<matches.length; i++)
                         {
                             var match = matches[i];
                             var matchLength = match.length;
-        
+
                             // JavaScript returns empty matches too (ie. the delimiters that could not be matched)
                             if (matchLength > 0)
                             {
                                 // store this token
                                 matchedTokens.push(match);
-        
+
                                 // locate the match in the remaining pattern
                                 var matchSubIndex = datePatternSub.indexOf(match);
-        
+
                                 // if there are characters before the match was found
                                 if (matchSubIndex > 0)
                                 {
                                     // append those characters to the resulting regular expression too
                                     datePatternRegExp = datePatternRegExp.concat("[",datePatternSub.substring(0,matchSubIndex),"]");
                                 }
-        
+
                                 // append the regular expression fragment for this match
                                 datePatternRegExp = datePatternRegExp.concat("(\\d{",(strict)?matchLength:("1,"+matchLength),"})");
-        
+
                                 // substring the remaining fragment
                                 datePatternSub = datePatternSub.substring(matchSubIndex+matchLength);
                             }
                         }
-        
+
                         // close the regular expression
                         datePatternRegExp = datePatternRegExp.concat("$");
-        
+
                         // construct an actual regular expression instance
                         datePatternRegExp = new RegExp(datePatternRegExp);
-        
+
                         var valid = datePatternRegExp.test(value);
                         // attempt to match the user value
                         if (valid)
                         {
                             // attempt to check for a valid date and time
                             var matched = datePatternRegExp.exec(value);
-        
+
                             var year = 0;
                             var month = 1;
                             var day = 1;
                             var hour = 0;
                             var minute = 0;
                             var second = 0;
-        
+
                             for (var i=0; i<matchedTokens.length; i++)
                             {
                                 var match = matchedTokens[i];
@@ -721,10 +772,10 @@
                                     case 's' : second = matched[i+1]; break;
                                 }
                             }
-        
+
                             valid = isValidDate(day,month,year) && isValidTime(second,minute,hour);
                         }
-        
+
                         if (!valid)
                         {
                             fields[fieldIndex] = oDate[x][1];           // record this field as invalid
@@ -733,7 +784,7 @@
                         }
                     }
                 }
-                
+
                 var bValid = true;
                 if (fields.length > 0)
                 {
@@ -741,10 +792,10 @@
                     focusField.focus();
                     alert(fields.join('\n'));
                 }
-        
+
                 return bValid;
             }
-        
+
             function isValidDate(day, month, year) {
                 if (month < 1 || month > 12) {
                     return false;
@@ -768,7 +819,7 @@
          </javascript>
 
       </validator>
-      
+
       <validator name="time"
             classname="org.andromda.cartridges.jsf.validator.ParameterChecks"
                method="validateTime"
@@ -796,6 +847,10 @@
        for (x in oTime)
        {
            var field = form[oTime[x][0]];
+           if (!field)
+           {
+               return true;
+           }
            var value = field.value;
            var timePattern = oTime[x][2]("timePattern");
 
@@ -914,9 +969,13 @@
                 oRange = eval('new ' + formName.value + '_intRange()');;
                 for (x in oRange) {
                     var field = form[oRange[x][0]];
-
+                    if (!field)
+                    {
+                        return true;
+                    }
                     if ((field.type == 'text' ||
-                         field.type == 'textarea') &&
+                         field.type == 'textarea' ||
+                         field.type == 'password') &&
                         (field.value.length > 0)) {
 
                         var iMin = parseInt(oRange[x][2]("min"));
@@ -962,9 +1021,13 @@
                 oRange = eval('new ' + formName.value + '_floatRange()');;
                 for (x in oRange) {
                     var field = form[oRange[x][0]];
-
+                    if (!field)
+                    {
+                        return true;
+                    }
                     if ((field.type == 'text' ||
-                         field.type == 'textarea') &&
+                         field.type == 'textarea' ||
+                         field.type == 'password') &&
                         (field.value.length > 0)) {
 
                         var fMin = parseFloat(oRange[x][2]("min"));
@@ -1009,12 +1072,18 @@
                 var formName = form.getAttributeNode("name");
                 oCreditCard = eval('new ' + formName.value + '_creditCard()');;
                 for (x in oCreditCard) {
-                    if ((form[oCreditCard[x][0]].type == 'text' ||
-                         form[oCreditCard[x][0]].type == 'textarea') &&
-                        (form[oCreditCard[x][0]].value.length > 0)) {
-                        if (!luhnCheck(form[oCreditCard[x][0]].value)) {
+                    var field = form[oCreditCard[x][0]];
+                    if (!field)
+                    {
+                        return true;
+                    }
+                    if ((field.type == 'text' ||
+                         field.type == 'textarea' ||
+                         field.type == 'password') &&
+                        (field.value.length > 0)) {
+                        if (!luhnCheck(field.value)) {
                             if (i == 0) {
-                                focusField = form[oCreditCard[x][0]];
+                                focusField = field;
                             }
                             fields[i++] = oCreditCard[x][1];
                             bValid = false;
@@ -1088,12 +1157,18 @@
                 var formName = form.getAttributeNode("name");
                 oEmail = eval('new ' + formName.value + '_email()');;
                 for (x in oEmail) {
-                    if ((form[oEmail[x][0]].type == 'text' ||
-                         form[oEmail[x][0]].type == 'textarea') &&
-                        (form[oEmail[x][0]].value.length > 0)) {
-                        if (!checkEmail(form[oEmail[x][0]].value)) {
+                    var field = form[oEmail[x][0]];
+                    if (!field)
+                    {
+                        return true;
+                    }
+                    if ((field.type == 'text' ||
+                         field.type == 'textarea' ||
+                         field.type == 'password') &&
+                        (field.value.length > 0)) {
+                        if (!checkEmail(field.value)) {
                             if (i == 0) {
-                                focusField = form[oEmail[x][0]];
+                                focusField = field;
                             }
                             fields[i++] = oEmail[x][1];
                             bValid = false;
@@ -1161,7 +1236,7 @@
          </javascript>
 
       </validator>
-      
+
       <validator name="url"
             classname="org.andromda.cartridges.jsf.validator.ParameterChecks"
                method="validateUrl"
@@ -1172,7 +1247,7 @@
                        org.apache.commons.validator.Field"
               depends=""
                   msg="errors.url"/>
-                  
+
      <!-- This simply allows us to include javascript helper functions; not a real validator action -->
      <validator name="javascriptUtilities"
             classname=""
@@ -1180,9 +1255,9 @@
          methodParams=""
               depends=""
                   msg="">
-           
+
          <javascript><![CDATA[
-            function isAllDigits(argvalue) 
+            function isAllDigits(argvalue)
             {
                 argvalue = argvalue.toString();
                 var validChars = "0123456789";
@@ -1201,9 +1276,9 @@
                     if (validChars.indexOf(argvalue.substring(n, n+1)) == -1) return false;
                 }
                 return true;
-            }          
+            }
             // Trim whitespace from left and right sides of s.
-            function trim(s) 
+            function trim(s)
             {
                 return s.replace( /^\s*/, "" ).replace( /\s*$/, "" );
             }
@@ -1217,7 +1292,7 @@
                 return valid;
             }]]>
          </javascript>
-           
+
      </validator>
 
      <!-- validator-rules merge-point -->

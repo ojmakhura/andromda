@@ -1,5 +1,12 @@
 package org.andromda.metafacades.emf.uml2;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
+import org.eclipse.uml2.ValueSpecification;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.AttributeLinkFacade.
@@ -9,9 +16,7 @@ package org.andromda.metafacades.emf.uml2;
 public class AttributeLinkFacadeLogicImpl
     extends AttributeLinkFacadeLogic
 {
-    public AttributeLinkFacadeLogicImpl(
-        Object metaObject,
-        String context)
+    public AttributeLinkFacadeLogicImpl(AttributeLink metaObject, String context)
     {
         super(metaObject, context);
     }
@@ -21,17 +26,7 @@ public class AttributeLinkFacadeLogicImpl
      */
     protected java.lang.Object handleGetAttribute()
     {
-        // TODO: add your implementation here!
-        return null;
-    }
-
-    /**
-     * @see org.andromda.metafacades.uml.AttributeLinkFacade#getLinkEnd()
-     */
-    protected java.lang.Object handleGetLinkEnd()
-    {
-        // TODO: add your implementation here!
-        return null;
+        return UmlUtilities.ELEMENT_TRANSFORMER.transform(this.metaObject.getDefiningFeature());
     }
 
     /**
@@ -39,8 +34,7 @@ public class AttributeLinkFacadeLogicImpl
      */
     protected java.lang.Object handleGetInstance()
     {
-        // TODO: add your implementation here!
-        return null;
+        return UmlUtilities.ELEMENT_TRANSFORMER.transform(this.metaObject.getOwningInstance());
     }
 
     /**
@@ -48,7 +42,25 @@ public class AttributeLinkFacadeLogicImpl
      */
     protected java.lang.Object handleGetValue()
     {
-        // TODO: add your implementation here!
-        return null;
+        final Collection values = this.getValues();
+        return values.isEmpty() ? null : values.iterator().next();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.AttributeLinkFacade#getValues()
+     */
+    protected Collection handleGetValues()
+    {
+        final Collection values = new ArrayList(this.metaObject.getValues());
+
+        CollectionUtils.transform(values, new Transformer()
+        {
+            public Object transform(Object object)
+            {
+                return InstanceFacadeLogicImpl.createInstanceFor((ValueSpecification)object);
+            }
+        });
+
+        return values;
     }
 }

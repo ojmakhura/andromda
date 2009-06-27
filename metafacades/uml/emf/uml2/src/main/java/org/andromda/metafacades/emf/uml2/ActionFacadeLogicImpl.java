@@ -1,5 +1,9 @@
 package org.andromda.metafacades.emf.uml2;
 
+import org.eclipse.uml2.Element;
+import org.eclipse.uml2.State;
+import org.eclipse.uml2.Transition;
+
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.ActionFacade.
@@ -10,8 +14,8 @@ public class ActionFacadeLogicImpl
     extends ActionFacadeLogic
 {
     public ActionFacadeLogicImpl(
-        Object metaObject,
-        String context)
+        final org.eclipse.uml2.Action metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
@@ -21,8 +25,8 @@ public class ActionFacadeLogicImpl
      */
     protected java.lang.Object handleGetTransition()
     {
-        // TODO: add your implementation here!
-        return null;
+        final Element owner = this.metaObject.getActivity().getOwner();
+        return owner instanceof Transition ? owner : null;
     }
 
     /**
@@ -30,7 +34,19 @@ public class ActionFacadeLogicImpl
      */
     protected java.lang.Object handleGetActionState()
     {
-        // TODO: add your implementation here!
-        return null;
+        final Element owner = this.metaObject.getActivity().getOwner();
+        return owner instanceof State ? owner : null;
+    }
+
+    public Object getValidationOwner()
+    {
+        Object validationOwner = getTransition();
+
+        if (validationOwner == null)
+        {
+            validationOwner = getActionState();
+        }
+
+        return validationOwner;
     }
 }

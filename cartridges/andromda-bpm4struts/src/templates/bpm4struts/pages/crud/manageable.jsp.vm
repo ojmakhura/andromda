@@ -10,7 +10,7 @@ ${indent}<html:hidden name="$manageableFormName" property="$field.name"/>
 #macro ( renderAttribute $field $indent )
 #set ($quote ='"')
 #if($field.fieldRowCount)#set($rowCount=" rows=$quote$field.fieldRowCount$quote")#else#set($rowCount='')#end
-#if($field.fieldColumnCount)#set($columnCount=" size=$quote$field.fieldColumnCount$quote")#else#set($columnCount='')#end
+#if($field.widgetType == "textarea" && $field.fieldColumnCount)#set($columnCount=" cols=$quote$field.fieldColumnCount$quote")#elseif($field.fieldColumnCount)#set($columnCount=" size=$quote$field.fieldColumnCount$quote")#else#set($columnCount='')#end
 #if ($field.type.fullyQualifiedName == 'boolean' || $field.type.fullyQualifiedName == 'java.lang.Boolean')
 ${indent}<html:checkbox name="$manageableFormName" property="$field.name" styleClass="criteriaField" styleId="$field.name"/>
 #elseif ($field.type.enumeration)

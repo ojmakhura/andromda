@@ -2,7 +2,11 @@ package org.andromda.cartridges.jbpm;
 
 import org.andromda.core.profile.Profile;
 
-
+/**
+ * The jBPM profile. Contains the profile information (tagged values, and stereotypes) for the jBPM cartridge.
+ *
+ * @author Wouter Zoons
+ */
 public class JBpmProfile
 {
     /**

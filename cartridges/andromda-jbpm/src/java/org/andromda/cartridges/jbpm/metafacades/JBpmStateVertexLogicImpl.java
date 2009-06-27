@@ -1,14 +1,15 @@
 package org.andromda.cartridges.jbpm.metafacades;
 
-import org.andromda.utils.StringUtilsHelper;
-import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.StateMachineFacade;
+import org.andromda.utils.StringUtilsHelper;
 
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmStateVertex.
  *
  * @see org.andromda.cartridges.jbpm.metafacades.JBpmStateVertex
+ * @author Bob Fields
  */
 public class JBpmStateVertexLogicImpl
     extends JBpmStateVertexLogic
@@ -24,7 +25,8 @@ public class JBpmStateVertexLogicImpl
      */
     protected boolean handleIsContainedInBusinessProcess()
     {
-        return this.getStateMachine() instanceof ActivityGraphFacade
+        return this.getStateMachine()!= null 
+                && this.getStateMachine() instanceof ActivityGraphFacade
                 && ((ActivityGraphFacade)this.getStateMachine()).getUseCase() instanceof JBpmProcessDefinition;
     }
 

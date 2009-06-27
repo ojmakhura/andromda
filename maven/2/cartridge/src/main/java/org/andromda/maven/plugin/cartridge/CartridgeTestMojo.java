@@ -3,148 +3,32 @@ package org.andromda.maven.plugin.cartridge;
 import java.io.File;
 import java.io.IOException;
 
-import java.util.Iterator;
-import java.util.List;
-
 import junit.framework.Test;
 import junit.framework.TestResult;
 
 import org.andromda.cartridges.testsuite.CartridgeTest;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.maven.plugin.AndroMDAMojo;
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.factory.ArtifactFactory;
-import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.model.Dependency;
-import org.apache.maven.model.Plugin;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.project.MavenProject;
-import org.apache.maven.settings.Settings;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
-import org.codehaus.plexus.archiver.manager.ArchiverManager;
 import org.codehaus.plexus.util.FileUtils;
 
 
 /**
  * Provides the ability to compare cartridge output with existing output.
  *
- * @phase test
+ * @phase generate-test-sources
  * @goal test
  * @requiresDependencyResolution test
  * @description runs AndroMDA Cartridge tests
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class CartridgeTestMojo
-    extends AbstractMojo
+    extends AbstractCartridgeTestMojo
 {
-    /**
-     * Base directory to which the cartridge test report is written
-     *
-     * @parameter expression="${project.build.directory}/cartridge-test/reports"
-     */
-    private String reportDirectory;
-
-    /**
-     * Specifies the directory that contains the "actual" output (meaning the output
-     * that was currently generated)
-     * @parameter expression="${project.build.directory}/cartridge-test/actual"
-     * @required
-     */
-    protected String actualDirectory;
-
-    /**
-     * Specifies the directory that contains the "expected" output.
-     * @parameter expression="${project.build.directory}/cartridge-test/expected"
-     * @required
-     */
-    protected String expectedDirectory;
-
-    /**
-     * The location of the archive storing the expected output.
-     * @parameter expression="${basedir}/src/test/expected/cartridge-output.zip"
-     * @required
-     */
-    protected String expectedOutputArchive;
-
-    /**
-     * This is the URI to the AndroMDA configuration file.
-     *
-     * @parameter expression="file:${basedir}/conf/test/andromda.xml"
-     * @required
-     */
-    private String configurationUri;
-
-    /**
-     * @parameter expression="${project}"
-     * @required
-     * @readonly
-     */
-    private MavenProject project;
-
-    /**
-     * @parameter expression="${project.build.filters}"
-     */
-    private List propertyFiles;
-
-    /**
-     * The current user system settings for use in Maven. (allows us to pass the user
-     * settings to the AndroMDA configuration).
-     *
-     * @parameter expression="${settings}"
-     * @required
-     * @readonly
-     */
-    private Settings settings;
-
-    /**
-     * Defines the extensions of binary files, binary files are checked for presence
-     * and equality, however they aren't compared as strings, like every other file.
-     *
-     * @parameter expression="jpg,jpeg,gif,png,jar,zip"
-     */
-    private String binaryOutputSuffixes;
-
-    /**
-     * To look up Archiver/UnArchiver implementations
-     *
-     * @parameter expression="${component.org.codehaus.plexus.archiver.manager.ArchiverManager}"
-     * @required
-     */
-    protected ArchiverManager archiverManager;
-
-    /**
-     * The registered plugin implementations.
-     *
-     * @parameter expression="${project.build.plugins}"
-     * @required
-     * @readonlya
-     */
-    protected List plugins;
-
-    /**
-     * @parameter expression="${component.org.apache.maven.artifact.factory.ArtifactFactory}"
-     * @required
-     * @readonly
-     */
-    private ArtifactFactory factory;
-
-    /**
-     * @parameter expression="${localRepository}"
-     * @required
-     * @readonly
-     */
-    protected ArtifactRepository localRepository;
-
-    /**
-     * Set this to 'true' to bypass cartridge tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
-     *
-     * @parameter expression="${maven.test.skip}"
-     */
-    protected boolean skip;
-
     /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
@@ -156,8 +40,16 @@ public class CartridgeTestMojo
             final File expectedOutputArchive = new File(this.expectedOutputArchive);
             if (!expectedOutputArchive.exists() || !expectedOutputArchive.isFile())
             {
-                throw new MojoExecutionException("The path specifying the expectedOutputArchive '" +
-                    this.expectedOutputArchive + "' must be a file");
+                if (this.testFailureIgnore)
+                {
+                    this.getLog().error("The path specifying the expectedOutputArchive '" +
+                            this.expectedOutputArchive + "' must be a file");
+                }
+                else
+                {
+                    throw new MojoExecutionException("The path specifying the expectedOutputArchive '" +
+                            this.expectedOutputArchive + "' must be a file");
+                }
             }
 
             try
@@ -182,113 +74,70 @@ public class CartridgeTestMojo
                     expectedOutputArchive,
                     new File(this.expectedDirectory));
 
-                final CartridgeTest cartridgeTest = CartridgeTest.instance();
-                cartridgeTest.setActualOutputPath(this.actualDirectory);
-                cartridgeTest.setExpectedOutputPath(this.expectedDirectory);
-                cartridgeTest.setBinarySuffixes(this.binaryOutputSuffixes);
-
-                final CartridgeTestFormatter formatter = new CartridgeTestFormatter();
-
-                // - set the report location
-                final File report = new File(this.reportDirectory, this.project.getArtifactId() + ".txt");
-                formatter.setReportFile(report);
-                final TestResult result = new TestResult();
-                result.addListener(formatter);
-                final Test suite = CartridgeTest.suite();
-                formatter.startTestSuite(this.project.getName());
-                suite.run(result);
-                this.getLog().info("");
-                this.getLog().info("Results:");
-                this.getLog().info(formatter.endTestSuite(suite));
-                cartridgeTest.shutdown();
-                if (result.failureCount() > 0 || result.errorCount() > 0)
+                /*// Throws NullPointerException during unpack process, don't know why
+                if (this.skipTests)
                 {
-                    throw new MojoExecutionException("Test are some test failures");
+                    this.getLog().info(this.project.getArtifactId() + " Unpacked expected results, Skipping cartridge comparison tests");
                 }
+                else
+                {*/
+                    final CartridgeTest cartridgeTest = CartridgeTest.instance();
+                    cartridgeTest.setActualOutputPath(this.actualDirectory);
+                    cartridgeTest.setExpectedOutputPath(this.expectedDirectory);
+                    cartridgeTest.setBinarySuffixes(this.binaryOutputSuffixes);
+    
+                    final CartridgeTestFormatter formatter = new CartridgeTestFormatter();
+    
+                    // - set the report location
+                    final File report = new File(this.reportDirectory, this.project.getArtifactId() + ".txt");
+                    formatter.setReportFile(report);
+                    formatter.setTestFailureIgnore(this.testFailureIgnore);
+                    final TestResult result = new TestResult();
+                    result.addListener(formatter);
+                    final Test suite = CartridgeTest.suite();
+                    formatter.startTestSuite(this.project.getName());
+                    suite.run(result);
+                    this.getLog().info("");
+                    this.getLog().info("Results:");
+                    this.getLog().info(formatter.endTestSuite(suite));
+                    cartridgeTest.shutdown();
+                    if (result.failureCount() > 0 || result.errorCount() > 0)
+                    {
+                        if (this.testFailureIgnore)
+                        {
+                            this.getLog().error("There are test failures, failureCount=" + result.failureCount() + " errorCount=" + result.errorCount()
+                                    + ", Cartridge=" + this.project.getArtifactId());
+                        }
+                        else
+                        {
+                            throw new MojoExecutionException("There are test failures, failureCount=" + result.failureCount() + " errorCount=" + result.errorCount());
+                        }
+                    }
+                /*}*/
             }
             catch (final Throwable throwable)
             {
-                if (throwable instanceof MojoExecutionException)
+                if (throwable instanceof MojoExecutionException && !this.testFailureIgnore)
                 {
                     throw (MojoExecutionException)throwable;
                 }
-                throw new MojoExecutionException("An error occured while testing cartridge '" +
-                    this.project.getArtifactId() + "'",
-                    ExceptionUtils.getRootCause(throwable));
+                else if (this.testFailureIgnore)
+                {
+                    this.getLog().error("An error occured while testing cartridge '" +
+                        this.project.getArtifactId() + "'",
+                        ExceptionUtils.getRootCause(throwable));
+                }
+                else
+                {
+                    throw new MojoExecutionException("An error occured while testing cartridge '" +
+                            this.project.getArtifactId() + "'",
+                            ExceptionUtils.getRootCause(throwable));
+                }
             }
         }
         else
         {
             this.getLog().info("Skipping cartridge tests");
-        }
-    }
-
-    /**
-     * Adds any dependencies for the cartridge plugin
-     * to the current dependencies of the project.
-     */
-    private void addCartridgeTestDependencies()
-    {
-        if (this.plugins != null && !this.plugins.isEmpty())
-        {
-            for (final Iterator iterator = this.plugins.iterator(); iterator.hasNext();)
-            {
-                final Plugin plugin = (Plugin)iterator.next();
-                if (Constants.ARTIFACT_ID.equals(plugin.getArtifactId()))
-                {
-                    final List dependencies = plugin.getDependencies();
-                    if (dependencies != null)
-                    {
-                        for (final Iterator dependencyIterator = plugin.getDependencies().iterator();
-                            dependencyIterator.hasNext();)
-                        {
-                            final Dependency dependency = (Dependency)dependencyIterator.next();
-                            dependency.setScope(Artifact.SCOPE_RUNTIME);
-                            this.addDependency(dependency);
-                        }
-                    }
-                }
-            }
-        }
-
-        // - get all test dependencies, change the scope and add them to them to the dependencies of this
-        //   project as runtime scope so that the AndroMDA plugin can see them.
-        for (final Iterator iterator = this.project.getTestDependencies().iterator(); iterator.hasNext();)
-        {
-            final Dependency dependency = (Dependency)iterator.next();
-            dependency.setScope(Artifact.SCOPE_RUNTIME);
-            this.project.getDependencies().add(dependency);
-        }
-        for (final Iterator iterator = this.project.getTestArtifacts().iterator(); iterator.hasNext();)
-        {
-            final Artifact artifact = (Artifact)iterator.next();
-            artifact.setScope(Artifact.SCOPE_RUNTIME);
-            this.project.getArtifacts().add(artifact);
-        }
-    }
-
-    /**
-     * Adds a dependency to the current project's dependencies.
-     *
-     * @param dependency
-     */
-    private void addDependency(final Dependency dependency)
-    {
-        if (dependency != null)
-        {
-            final Artifact artifact =
-                this.factory.createArtifact(
-                    dependency.getGroupId(),
-                    dependency.getArtifactId(),
-                    dependency.getVersion(),
-                    dependency.getScope(),
-                    dependency.getType());
-            final File file = new File(
-                    this.localRepository.getBasedir(),
-                    this.localRepository.pathOf(artifact));
-            artifact.setFile(file);
-            this.project.getDependencies().add(dependency);
-            this.project.getArtifacts().add(artifact);
         }
     }
 
@@ -315,9 +164,13 @@ public class CartridgeTestMojo
         }
         catch (Throwable throwable)
         {
-            if (throwable instanceof IOException || throwable instanceof ArchiverException)
+            if (this.testFailureIgnore)
             {
-                throw new MojoExecutionException("Error unpacking file: " + file + "to: " + location, throwable);
+                this.getLog().error(this.project.getArtifactId() + " Error unpacking file " + file + " to " + location, throwable);
+            }
+            else if (throwable instanceof IOException || throwable instanceof ArchiverException)
+            {
+                throw new MojoExecutionException("Error unpacking file: " + file + " to: " + location, throwable);
             }
         }
     }

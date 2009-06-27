@@ -3,7 +3,6 @@ package org.andromda.maven.plugin.modelarchiver;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
@@ -88,6 +87,14 @@ public class Uml2ArchiverMojo
     protected String replacementExtensions;
 
     /**
+     * Whether or not to do replacement of embedded model HREF reference extensions.
+     *
+     * @parameter expression=false
+     * @required
+     */
+    protected boolean replaceExtensions;
+
+    /**
      * The pattern of the model file(s) that should be versioned.
      *
      * @parameter expression=".*(\\.uml2)"
@@ -111,13 +118,24 @@ public class Uml2ArchiverMojo
         getLog().debug("workDirectory[" + workDirectory + "]");
         getLog().debug("outputDirectory[" + outputDirectory + "]");
         getLog().debug("finalName[" + finalName + "]");
+        getLog().debug("replaceExtensions[" + replaceExtensions + "]");
 
         try
         {
+            final File buildDirectory = new File(this.workDirectory);
+            if (!buildDirectory.exists())
+            {
+                buildDirectory.mkdirs();
+            }
+            else
+            {
+                // old files in directory are not automatically deleted. 
+                FileUtils.forceDelete(buildDirectory.getAbsolutePath() + "/*.uml2");
+                FileUtils.forceDelete(buildDirectory.getAbsolutePath() + "/models");
+            }
             // - the directory which to extract the model file
             final File modelExtractDirectory = new File(this.workDirectory, "models/xmi");
             modelExtractDirectory.mkdirs();
-            final File buildDirectory = new File(this.workDirectory);
 
             final File modelSourceDir = modelSourceDirectory;
             final String[] replacementExtensions =
@@ -148,15 +166,23 @@ public class Uml2ArchiverMojo
                                         this.finalName + '.' + FileUtils.getExtension(extractedFile.toString()));
                                 extractedFile.renameTo(newFile);
                                 String contents = IOUtils.toString(new FileReader(newFile));
-                                for (int ctr3 = 0; ctr3 < replacementExtensions.length; ctr3++)
+                                if (replaceExtensions)
                                 {
-                                    final String version = escapePattern(this.project.getVersion());
-                                    final String extension = escapePattern(replacementExtensions[ctr3]);
-                                    final String extensionPattern = "((\\-" + version + ")?)" + extension;
-                                    final String newExtension = "\\-" + version + extension;
-                                    contents = contents.replaceAll(
-                                            extensionPattern,
-                                            newExtension);
+                                    for (int ctr3 = 0; ctr3 < replacementExtensions.length; ctr3++)
+                                    {
+                                        final String version = escapePattern(this.project.getVersion());
+                                        final String extension = escapePattern(replacementExtensions[ctr3]);
+                                        final String extensionPattern = "((\\-" + version + ")?)" + extension;
+                                        final String newExtension = "\\-" + version + extension;
+                                        contents = contents.replaceAll(
+                                                extensionPattern,
+                                                newExtension);
+                                        // Fix replacement error for standard UML profiles which follow the _Profile. naming convention.
+                                        contents =
+                                            contents.replaceAll(
+                                                "_Profile\\-" + version,
+                                                "_Profile");
+                                    }
                                 }
                                 final FileWriter fileWriter = new FileWriter(newFile);
                                 fileWriter.write(contents);

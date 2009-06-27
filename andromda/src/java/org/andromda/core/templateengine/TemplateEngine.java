@@ -12,6 +12,7 @@ import java.util.Map;
  * templates used by the system.
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public interface TemplateEngine
 {
@@ -21,6 +22,7 @@ public interface TemplateEngine
      * @param namespace The name of a namespace this can be used for whatever the
      *        template engine implementation likes. For example, it can help
      *        determine the name of the log file to which output is logged.
+     * @throws Exception 
      */
     public void initialize(String namespace)
         throws Exception;
@@ -67,7 +69,7 @@ public interface TemplateEngine
      * so that these templates can override plugin templates in order to provide
      * customization.
      *
-     * @param the location of the merge files.
+     * @param mergeLocation the location of the merge files.
      */
     public void setMergeLocation(String mergeLocation);
     
@@ -77,7 +79,7 @@ public interface TemplateEngine
      *  
      * @param expression the expression to evaluate.
      * @param templateObjects any additional objects we wish to make available
-     *        to the template engine when the expression is evaluted.  It this is null
+     *        to the template engine when the expression is evaluated.  It this is null
      *        there will be nothing to be evaluated and therefore this operation will return
      *        null.
      * @return the result of the evaluated expression as a String.

@@ -1,0 +1,43 @@
+<project xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+         xmlns:velocity="jelly:velocity"
+         xmlns:artifact="artifact">
+
+   <preGoal name="jar:jar">
+        <!-- replace the ${pom.currentVersion} in these
+             files so we don't need to maintain them between
+             different releases -->
+        <j:set var="pluginResources" value="plugin-resources/andromdapp"/>
+        <j:set
+            var="pluginResourceJ2eeDir"
+            value="${pluginResources}/templates/j2ee-app"/>
+        <!-- merge all the versions in -->
+        <ant:delete file="${maven.build.dest}/project.xml"/>
+        <velocity:merge
+            name="${maven.build.dest}/project.xml"
+            basedir="${basedir}"
+            template="/project.xml"/>
+        <!-- copy over the empty model -->
+        <ant:copy
+            file="${model.location}"
+            todir="${maven.build.dest}/${pluginResourceJ2eeDir}/mda/src/uml"/>
+        <!-- Replace references to the '${andromdaVersion} property' -->
+        <ant:replace file="${maven.build.dest}/${pluginResourceJ2eeDir}/readme.txt.vsl"
+            token="current.version"
+            value="${pom.currentVersion}"/>
+        <!-- Replace references to the '${andromdaVersion} property' -->
+        <ant:replace file="${maven.build.dest}/${pluginResourceJ2eeDir}/build.properties.vsl"
+            token="current.version"
+            value="${pom.currentVersion}"/>
+    </preGoal>
+
+    <!-- Install into the local repository -->
+    <postGoal name="plugin:install">
+        <attainGoal name="jar:jar"/>
+        <artifact:install
+            artifact="${maven.build.dir}/${maven.final.name}.jar"
+            type="plugin"
+            project="${pom}"/>
+    </postGoal>
+
+</project>

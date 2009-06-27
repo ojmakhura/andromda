@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.andromda.cartridges</groupId>
         <artifactId>andromda-cartridges</artifactId>
-        <version>4.0-M1-SNAPSHOT</version>
+        <version>3.4-SNAPSHOT</version>
     </parent>
     <artifactId>andromda-jsf-cartridge-components</artifactId>
     <packaging>jar</packaging>
@@ -11,24 +11,27 @@
     <description>Constains custom JSF components used by the JSF cartridge.</description>
     <dependencies>
         <dependency>
-            <groupId>myfaces</groupId>
+            <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-impl</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.5</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>myfaces</groupId>
+            <groupId>org.apache.myfaces.core</groupId>
             <artifactId>myfaces-api</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.5</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>myfaces</groupId>
+            <groupId>org.apache.myfaces.tomahawk</groupId>
             <artifactId>tomahawk</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.6</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.1</version>
+            <version>2.3</version>
         </dependency>
         <dependency>
             <groupId>commons-validator</groupId>
@@ -43,13 +46,14 @@
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>1.0.4</version>
+            <version>1.1</version>
         </dependency>
         <!-- taglib dependencies -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jsp-api</artifactId>
             <version>2.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

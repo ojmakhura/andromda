@@ -1,4 +1,4 @@
-<andromda>
+<andromda xmlns="http://andromda.org/core/configuration">
     <properties>
         <property name="cartridgeFilter">bpm4struts</property>
         <property name="failOnValidationErrors">false</property>
@@ -9,13 +9,29 @@
                 <model>
                     <uri>${test.model.uri}</uri>
                     <moduleSearchLocations>
-                        <location patterns="**/*.xml.zip">${basedir}/../../profiles</location>
+                        <location patterns="**/*.xml.zip">${basedir}/../../profiles/uml-1.4</location>
+                        <location patterns="**/*.xml.zip">${pom.basedir}/../../profiles/uml-1.4</location>
+                        <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
                     </moduleSearchLocations>
                 </model>
             </models>            
         </repository>
     </repositories>
     <namespaces>
+        <namespace name="default">
+            <properties>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="enableTemplating">false</property>
+                <property name="enableAnnotations">false</property>
+                <property name="typeSafeEnumsEnabled">false</property>
+                <!--property name="enumerationLiteralNameMask">upperunderscore</property-->
+                <property name="pluralizeAssociationEndNames">true</property>
+                <property name="pluralizeAttributeNames">true</property>
+                <property name="pluralizeParameterNames">true</property>
+                <property name="toDoTag">@todo</property>
+            </properties>
+        </namespace>
         <namespace name="bpm4struts">
             <properties>
                 <property name="overwrite">true</property>
@@ -36,8 +52,6 @@
                 <property name="controller-impls">${test.output.dir}</property>
                 <property name="messages">${test.output.dir}</property>
                 <property name="configuration">${test.output.dir}</property>
-                <property name="languageMappingsUri">Java</property>
-                <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="serviceAccessorPattern">{0}.ServiceLocator.instance().get{1}()</property>
                 <property name="servicePackageNamePattern">{0}.ws</property>
                 <property name="roleNameMask">uppercamelcase</property>
@@ -46,6 +60,9 @@
                 <property name="actionPathPrefix">/testPrefix/{0}</property>
                 <property name="decorators">${test.output.dir}</property>
                 <property name="preventDirectPageAccess">true</property>
+                <property name="facades">${maven.build.src}</property>
+                <property name="facade-logics">${maven.build.src}</property>
+                <property name="facade-logic-impls">${java.src.dir}</property>
             </properties>
         </namespace>
     </namespaces>

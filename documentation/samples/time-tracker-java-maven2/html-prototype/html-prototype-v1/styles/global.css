@@ -1,0 +1,163 @@
+body
+{
+    background-image: url(../images/BlueGradient.gif); /* width=200px */
+    background-repeat: repeat-y;
+    color: #000088;
+    font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+    margin: 0px;
+}
+
+a:link, a:visited
+{
+    color: #006699;
+}
+
+a:hover
+{
+    color: #DD6900;
+}
+
+a.button:link, a.button:visited, a.button:hover
+{
+    padding: 2px 4px 2px 4px;
+    border: outset 2px #3366ff;
+    background-color: #0033CC;
+    text-decoration: none;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+a.menu:link, a.menu:visited
+{
+    text-decoration: none;
+    color: #006699;
+}
+
+a.menu:hover
+{
+    text-decoration: underline;
+    color: #DD6900;
+}
+
+h1
+{
+    color: #FFFFFF;
+    font-size: 2em;
+    text-align: center;
+    margin: 0px;
+}
+
+h2
+{
+    font-size: 1em;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+h3
+{
+    font-size: 0.8em;
+    text-align: left;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+input,
+select,
+textarea
+{
+    border: solid 1px #c0c0c0;
+}
+
+tr
+{
+    font-size: 0.8em;
+}
+
+th
+{
+    text-align: left;
+}
+
+.add_allocation_table tr
+{
+    background-color: #D0E0F1;
+}
+
+.align_center
+{
+    text-align: center;
+}
+
+.align_left
+{
+    text-align: left;
+}
+
+.align_right
+{
+    text-align: right;
+}
+
+.bordered_div,
+.bordered_table th,
+.bordered_table td
+{
+    border: solid 1px #CFCFCF;
+}
+
+.bordered_table th
+{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.buttonbar
+{
+    margin-top: 10px;
+    text-align: center;
+}
+
+.checkbox
+{
+    border: none;
+}
+
+.content
+{
+    margin-left: 200px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.full_width
+{
+    width: 100%;
+}
+
+.header
+{
+    background-color: #1B5AA1;
+    height: 45px;
+}
+
+.menubar
+{
+    background-color: #CFCFCF;
+    height: 18px;
+    font-size: .8em;
+    text-align: center;
+}
+
+#search
+{
+    position: absolute;
+    top: 63px;
+    left: 0px;
+    width: 180px;
+    padding-left: 10px;
+    padding-right: 10px;
+}

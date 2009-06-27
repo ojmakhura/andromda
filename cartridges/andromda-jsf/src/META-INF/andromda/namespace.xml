@@ -20,8 +20,19 @@
             </documentation>
             <property name="configuration">
                 <documentation>
-                    The location to which Struts configuration files are generated. These are the files
-                    that typically appear in WEB-INF, such as validation-rules.xml and tiles-defs.xml.
+                    The location to which configuration files are generated. These are the files
+                    that typically appear in WEB-INF, such as faces-config.xml and validation-rules.xml, etc.
+                </documentation>
+            </property>
+            <property name="custom-resources" required="false">
+                <documentation>
+                    The location to which any customizable resources will be generated.
+                </documentation>
+            </property>
+            <property name="libraries" required="false">
+                <documentation>
+                    The location to which JSF libraries will be generated (these are the libraries required for JSF support, 
+                    myfaces libraries, etc).  If this isn't defined, its expected that the libraries will be provided by another means.
                 </documentation>
             </property>
             <property name="controllers">
@@ -48,10 +59,9 @@
                     The location to which message resource bundles are generated.
                 </documentation>
             </property>
-            <property name="jsps" required="false">
+            <property name="views">
                 <documentation>
-                    Application JSPs: login pages, stylesheets, etc (basically 
-                    anything in support of JSP view rendering).
+                    Where the application views (JSPs, Facelets, etc) are output.
                 </documentation>
             </property>
             <property name="forms">
@@ -71,6 +81,12 @@
                     form information and navigation rules).
                 </documentation>
             </property>
+            <property name="facesConfigFiles" required="false">
+                <documentation>
+                    Comma separated list of URIs of (additional) faces config files.
+                    (e.g. /WEB-INF/jsf-config.xml).  See JSF 1.0 PRD2, 10.3.2
+                </documentation>
+            </property>
             <property name="formScope">
                 <default>request</default>
                 <documentation>
@@ -83,36 +99,54 @@
                     The extension used for the application's handling of JSF pages.
                 </documentation>
             </property>
+            <property name="fileUploadMaxMemoryPerRequest">
+                <default>512000</default>
+                <documentation>
+                    Maximum memory per request (in bytes) for file uploads.
+                </documentation>
+            </property>
+            <property name="fileUploadMaxDiskSpacePerRequest">
+                <default>10240000</default>
+                <documentation>
+                    Maximum memory per request (in bytes) for file uploads.
+                </documentation>
+            </property>
+            <property name="logoutRedirectPath" required="false">
+                <documentation>
+                    The path to which the application redirects after logout occurs.
+                    If this is unspecified, the application redirects to the application
+                    use case entry point.
+                </documentation>
+            </property>
         </propertyGroup>
         <propertyGroup name="UI Layout">
             <documentation>
                 Properties related to the configuration of the user interface layout.
             </documentation>
-            <property name="layoutOptionsMenuItem">
+            <property name="enablePreferences">
                 <default>true</default>
                 <documentation>
-                    Whether or not a layout options menu item should be included in the menu (this
-                    menu item allows you to control menu positioning, etc).
+                    Whether or not a preferences menu item should be included in the menu (this
+                    menu item allows you to control skinning, etc).
                 </documentation>
             </property>
-            <property name="layoutOptionsName">
-                <default>LayoutOptions</default>
+            <property name="preferencesClassName">
+                <default>Preferences</default>
                 <documentation>
-                    Defines the name of the layout options class (which allows dynamic control
-                    of the UI's view layout).
+                    Defines the name of the preferences class (which allows dynamic control
+                    of the UI's view preferences; skinning, etc).
                 </documentation>
             </property>
-            <property name="layoutOptionsBeanName">
-                <default>layoutOptions</default>
+            <property name="skin">
+                <default>default</default>
                 <documentation>
-                    Defines the bean name under which the layout options class will be stored.
+                    The default skin to be applied (i.e look and feel of the application).
                 </documentation>
             </property>
-            <property name="sidebarLayout">
-                <default>classic</default>
+            <property name="preferencesBeanName">
+                <default>preferences</default>
                 <documentation>
-                    The default layout to use for the navigation layout (this is only applicable
-                    when the <a href="#menuLayout">menuLayout</a> is <em>side</em>.
+                    Defines the bean name under which the preferences class will be stored.
                 </documentation>
             </property>
             <property name="menuLayout">
@@ -129,8 +163,14 @@
                     </ul>
                 </documentation>
             </property>
-            <property name="navigationTheme">
-                <default>ThemeOffice</default>
+            <property name="maxTableRows">
+                <default>10</default>
+                <documentation>
+                    The dfault value to set for the maximum rows displayed in a table.
+                </documentation>
+            </property>            
+            <property name="menuTheme">
+                <default>ThemePanel</default>
                 <documentation>
                     The navigation theme to use (the possible choices are:
                     ThemeOffice, ThemeMiniBlack, ThemeIE, ThemePanel).
@@ -161,23 +201,30 @@
                 </documentation>
             </property>
         </propertyGroup>
-        <propertyGroup name="JSP pages">
+        <propertyGroup name="Views">
+            <documentation>
+                Properties that configure view information.
+            </documentation>
+            <property name="viewType">
+                <default>jsp</default>
+                <documentation>Defines the type of view to render, currently the options are: 'jsp' or 'facelets'.</documentation>
+            </property>
             <property name="welcomeFileName">
                 <default>index.jsp</default>
                 <documentation>
-                    The path of the JSP that is the welcome file.
+                    The path of the file that will be the welcome file (minus the extension).
                 </documentation>
             </property>   
             <property name="loginFileName">
-                <default>login.jsp</default>
+                <default>login</default>
                 <documentation>
-                    The path to the JSP that provides the login page.
+                    The path to the file that provides the login page (minus the extension).
                 </documentation>
-            </property> 
+            </property>
             <property name="logoutFileName">
-                <default>logout.jsp</default>
+                <default>logout</default>
                 <documentation>
-                    The path to the JSP that provides application logout.
+                    The path to the file that provides application logout (minus the extension)
                 </documentation>
             </property> 
             <property name="defaultMultiSelectSize">
@@ -186,11 +233,13 @@
                     The default size to use for multi select boxes.
                 </documentation>
             </property>
-        </propertyGroup>
-        <propertyGroup name="Views">
-            <documentation>
-                Properties that configure view information.
-            </documentation>
+            <property name="enableFaceletsDevelopmentSupport">
+                <default>false</default>
+                <documentation>
+                    Whether or not the Facelet development support should be enabled (in the generated web.xml), this is
+                    useful to enable when developing with Faclets, however should be disabled when going to production.
+                </documentation>
+            </property>
             <property name="defaultDateFormat">
                 <default>MM/dd/yyyy</default>
                 <documentation>
@@ -199,6 +248,16 @@
                     Take a look
                     <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">here</a>
                     to see how to properly construct date formats.
+                </documentation>
+            </property>
+            <property name="strictDateTimeFormat">
+                <default>false</default>
+                <documentation>
+                    Specifies whether or not date and time formats are to be strictly matched.
+                    This property takes either true or false as values. If set to true all dates and times
+                    entered by the end-user will fail validation if they do not strictly adhere to their given format.
+                    Note that this strictness can always be overriden locally
+                    using the @andromda.struts.view.field.format tagged value.
                 </documentation>
             </property>
             <property name="defaultTimeFormat">
@@ -227,22 +286,48 @@
                 </documentation>
             </property>
         </propertyGroup>
+        <propertyGroup name="Table Paging (DB paging)">
+            <documentation>
+                These properties provide the ability to configure DB paging support for tables used by the cartridge (this is very.
+            </documentation>
+            <property name="paginationResultClassName" required="false">
+                <documentation>
+                    This is the fully qualified name of the class that provides the pagination results supplied from the middle tier; like a service operation.
+                    (i.e. if using the Spring cartridge, you'd set this as <em>name.of.your.model.package.PaginationResult</em> where "name.of.your.model.package" is
+                    the name of your model's root package).  This must be defined in order for the PageableDataModel class to be generated (which is required
+                    for DB backed paging support).
+                </documentation>
+            </property>
+        </propertyGroup>
         <propertyGroup name="Other">
             <documentation>
                 Other various properties that couldn't be classified into another category.
             </documentation>
-            <property name="maximumFormsInHistory">
-                <default>5</default>
+            <property name="virtualHost" required="false">
                 <documentation>
-                    The maximum number of forms kept in history, this usually means how many times
-                    you can hit the back button and get a guaranteed result.
+                    The name to use for the virtual host (if one is required).  For example application.myserver.com.
                 </documentation>
             </property>
-            <property name="formHistoryBeanName">
-                <default>formHistory</default>
+            <property name="formSerialization">
+                <default>true</default>
                 <documentation>
-                    The name of the managed bean that stores the form history.
-                </documentation>                
+                    Whether or not forms should be serialized to disk (and therefore stored for later retrieval
+                    for example when the user's session is lost). This just provides simple perisistence for the application
+                    state.
+                </documentation>
+            </property>
+            <property name="adfContextAttributeName">
+                <default>AndroMDAADFContext</default>
+                <documentation>
+                    The name of the temporary variable that stores the current ADF faces context (this 
+                    should typically not be changed).
+                </documentation>
+            </property>
+            <property name="useCaseForwardsClassName">
+                <default>UseCaseForwards</default>
+                <documentation>
+                    The name of the class containing all use case forwards.
+                </documentation>
             </property>
             <property name="sessionTimeout">
                 <default>45</default>
@@ -265,7 +350,7 @@
                 </documentation>
             </property>
             <property name="fileTypeName">
-                <default>org.apache.myfaces.custom.fileupload.UploadedFile</default>
+                <default>oracle.adf.view.faces.model.UploadedFile</default>
                 <documentation>
                     The fully qualified type name to use when file types are modeled for parameters (used for
                     for file uploads).
@@ -363,6 +448,12 @@
                     <em>{0}</em> is the name of the controller operation capitalized.                    
                 </documentation>
             </property>
+            <property name="formMessagesProperty">
+                <default>jsfMessages</default>
+                <documentation>
+                    Defines the name of the property on a form that stores messages.
+                </documentation>
+            </property>
             <property name="formBeanPattern">
                 <default>{0}{1}Form</default>
                 <documentation>
@@ -395,7 +486,7 @@
             <property name="jspIncludes">
                 <default>includes.jspf</default>
                 <documentation>
-                    Defines the name of the default jsp includes file (this contains any 
+                    Defines the name of the default includes file (this contains any 
                     message resources as well as tag libs.
                 </documentation>
             </property>
@@ -416,15 +507,15 @@
                     </ul>
                 </documentation>
             </property>
-            <property name="exceptionHandlerPattern">
+            <property name="messageResourceKeyPattern">
                 <default>(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)</default>
                 <documentation>
                     Used to define the pattern used for retrieving message resource keys
-                    from exceptions.  This is useful when exceptions are thrown from the business
-                    tier and you want to map these to messages in your presentation.
-                    Normally you won't need to change this pattern, however you may want to
-                    if you want to enable it to handle exceptions you may have no control over
-                    (i.e. SQLExceptions).  Currently the default pattern supports an exception with
+                    from messages (like exceptions).  This is useful when exceptions or other messages
+                    are propogated from the business tier and you want to map these to messages in your presentation tier.
+                    Normally you won't need to change this pattern, however you may want to,
+                    if you want to use it for exceptions you may have no control over
+                    (i.e. SQLExceptions).  Currently the default pattern supports a message with
                     an embedded <em>{some.resource.key}</em> type key.
                 </documentation>
             </property>

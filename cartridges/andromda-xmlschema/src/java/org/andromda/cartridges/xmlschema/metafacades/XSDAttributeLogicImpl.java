@@ -69,4 +69,13 @@ public class XSDAttributeLogicImpl
         return !this.isXsdAttribute();
     }
 
+    /**
+     * @see org.andromda.cartridges.xmlschema.metafacades.XSDAttribute#isOwnerSchemaType()
+     */
+    protected boolean handleIsOwnerSchemaType()
+    {
+        final Object owner = this.getOwner();
+        return owner instanceof XSDComplexType || owner instanceof XSDEnumerationType;
+    }
+
 }

@@ -22,7 +22,7 @@ public class Translation
     private String name;
     private final Map fragments = new LinkedHashMap();
     private final Collection ignorePatterns = new ArrayList();
-    private Collection validatePatterns;
+    private Collection validatePatterns;    // (wouter) TODO: Chad, this field is only updated, never queried, can we remove it ? 
 
     /**
      * The library translation to which this translation belongs.

@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.MetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
@@ -18,6 +20,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.omg.uml.foundation.core.Classifier;
+import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.foundation.core.Parameter;
 import org.omg.uml.foundation.datatypes.CallConcurrencyKind;
 import org.omg.uml.foundation.datatypes.CallConcurrencyKindEnum;
@@ -26,20 +31,31 @@ import org.omg.uml.foundation.datatypes.ScopeKindEnum;
 
 /**
  * Metaclass facade implementation.
+ * @author Bob Fields
  */
 public class OperationFacadeLogicImpl
         extends OperationFacadeLogic
 {
-    public OperationFacadeLogicImpl(org.omg.uml.foundation.core.Operation metaObject, String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public OperationFacadeLogicImpl(Operation metaObject, String context)
     {
         super(metaObject, context);
     }
+
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(OperationFacadeLogicImpl.class);
 
     /**
      * Overridden to provide name masking.
      *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
+    @Override
     protected String handleGetName()
     {
         final String nameMask = String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.OPERATION_NAME_MASK));
@@ -49,7 +65,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
      */
-    public Object getValidationOwner()
+    public ClassifierFacade getValidationOwner()
     {
         return this.getOwner();
     }
@@ -57,6 +73,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getSignature()
      */
+    @Override
     protected String handleGetSignature()
     {
         return this.getSignature(true);
@@ -65,14 +82,16 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getSignature(boolean)
      */
+    @Override
     protected String handleGetSignature(boolean withArgumentNames)
     {
-        return this.getSignature(this.getName(), withArgumentNames, null);
+        return MetafacadeUtils.getSignature(this.getName(), this.getArguments(), withArgumentNames, null);
     }
 
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getTypedArgumentList()
      */
+    @Override
     protected String handleGetTypedArgumentList()
     {
         return this.getTypedArgumentList(true);
@@ -86,6 +105,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getCall()
      */
+    @Override
     protected String handleGetCall()
     {
         return this.getCall(this.getName());
@@ -110,6 +130,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getArgumentNames()
      */
+    @Override
     protected String handleGetArgumentNames()
     {
         StringBuffer buffer = new StringBuffer();
@@ -127,7 +148,8 @@ public class OperationFacadeLogicImpl
                 {
                     buffer.append(", ");
                 }
-                buffer.append(parameter.getName());
+                ParameterFacade facade = (ParameterFacade)this.shieldedElement(parameter);
+                buffer.append(facade.getName());
                 commaNeeded = true;
             }
         }
@@ -137,6 +159,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getArgumentTypeNames()
      */
+    @Override
     protected String handleGetArgumentTypeNames()
     {
         StringBuffer buffer = new StringBuffer();
@@ -163,13 +186,25 @@ public class OperationFacadeLogicImpl
     }
 
     /**
+     * @return fully qualified return type, including multiplicity
+     * @see org.andromda.metafacades.uml.OperationFacade#getGetterSetterReturnTypeName()
+     */
+    @Override
+    protected String handleGetGetterSetterReturnTypeName()
+    {
+        // Multiplicity in return type is only supported in UML2
+        return getReturnType().getFullyQualifiedName();
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.OperationFacade#getReturnType()
      */
-    protected Object handleGetReturnType()
+    @Override
+    protected Classifier handleGetReturnType()
     {
-        Object type = null;
-        final Collection parms = metaObject.getParameter();
-        for (final Iterator iterator = parms.iterator(); iterator.hasNext();)
+        Classifier type = null;
+        final Collection<Parameter> parms = metaObject.getParameter();
+        for (final Iterator<Parameter> iterator = parms.iterator(); iterator.hasNext();)
         {
             final Parameter parameter = (Parameter)iterator.next();
             if (ParameterDirectionKindEnum.PDK_RETURN.equals(parameter.getKind()))
@@ -184,9 +219,10 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getArguments()
      */
-    protected Collection handleGetArguments()
+    @Override
+    protected Collection<Parameter> handleGetArguments()
     {
-        final Collection arguments = new ArrayList(metaObject.getParameter());
+        final Collection<Parameter> arguments = new ArrayList<Parameter>(metaObject.getParameter());
         CollectionUtils.filter(arguments, new Predicate()
         {
             public boolean evaluate(Object object)
@@ -200,7 +236,8 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getOwner()
      */
-    protected Object handleGetOwner()
+    @Override
+    protected Classifier handleGetOwner()
     {
         return this.metaObject.getOwner();
     }
@@ -208,14 +245,16 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getParameters()
      */
-    protected Collection handleGetParameters()
+    @Override
+    protected Collection<Parameter> handleGetParameters()
     {
         return metaObject.getParameter();
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacade#findTaggedValue(java.lang.String, boolean)
+     * @see org.andromda.metafacades.uml.OperationFacade#findTaggedValue(String, boolean)
      */
+    @Override
     protected Object handleFindTaggedValue(String name, boolean follow)
     {
         name = StringUtils.trimToEmpty(name);
@@ -235,6 +274,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#isStatic()
      */
+    @Override
     protected boolean handleIsStatic()
     {
         return ScopeKindEnum.SK_CLASSIFIER.equals(this.metaObject.getOwnerScope());
@@ -243,14 +283,56 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#isAbstract()
      */
+    @Override
     protected boolean handleIsAbstract()
     {
         return metaObject.isAbstract();
     }
 
     /**
+     * @return metaObject.isLeaf()
+     * @see org.andromda.metafacades.uml.OperationFacade#isLeaf()
+     */
+    @Override
+    protected boolean handleIsLeaf()
+    {
+        return metaObject.isLeaf();
+    }
+
+    /**
+     * @return false always
+     * @see org.andromda.metafacades.uml.OperationFacade#isMany()
+     */
+    //@Override
+    protected boolean handleIsMany()
+    {
+        return false;
+    }
+
+    /** 
+     * @return false always
+     * @see org.andromda.metafacades.uml.OperationFacade#isOrdered()
+     */
+    //@Override
+    protected boolean handleIsOrdered()
+    {
+        return false;
+    }
+
+    /** 
+     * @return false always
+     * @see org.andromda.metafacades.uml.OperationFacade#isOrdered()
+     */
+    //@Override
+    protected boolean handleIsUnique()
+    {
+        return this.hasStereotype(UMLProfile.STEREOTYPE_UNIQUE);
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.OperationFacade#isQuery()
      */
+    @Override
     protected boolean handleIsQuery()
     {
         return metaObject.isQuery();
@@ -259,6 +341,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#isExceptionsPresent()
      */
+    @Override
     protected boolean handleIsExceptionsPresent()
     {
         return !this.getExceptions().isEmpty();
@@ -267,9 +350,10 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getExceptions()
      */
-    protected Collection handleGetExceptions()
+    @Override
+    protected Collection<DependencyFacade> handleGetExceptions()
     {
-        Collection exceptions = new LinkedHashSet();
+        Collection <DependencyFacade>exceptions = new LinkedHashSet<DependencyFacade>();
 
         // finds both exceptions and exception references
         final class ExceptionFilter
@@ -299,16 +383,16 @@ public class OperationFacadeLogicImpl
 
         // first get any dependencies on this operation's
         // owner (because these will represent the default exception(s))
-        Collection ownerDependencies = this.getOwner().getSourceDependencies();
-        if (ownerDependencies != null && !ownerDependencies.isEmpty())
+        final Collection<DependencyFacade> ownerDependencies = new ArrayList<DependencyFacade>(this.getOwner().getSourceDependencies());
+        if (!ownerDependencies.isEmpty())
         {
             CollectionUtils.filter(ownerDependencies, new ExceptionFilter());
             exceptions.addAll(ownerDependencies);
         }
 
-        Collection operationDependencies = this.getSourceDependencies();
+        final Collection<DependencyFacade> operationDependencies = new ArrayList<DependencyFacade>(this.getSourceDependencies());
         // now get any exceptions directly on the operation
-        if (operationDependencies != null && !operationDependencies.isEmpty())
+        if (!operationDependencies.isEmpty())
         {
             CollectionUtils.filter(operationDependencies, new ExceptionFilter());
             exceptions.addAll(operationDependencies);
@@ -317,7 +401,7 @@ public class OperationFacadeLogicImpl
         // now transform the dependency(s) to the actual exception(s)
         CollectionUtils.transform(exceptions, new Transformer()
         {
-            public Object transform(Object object)
+            public ModelElementFacade transform(Object object)
             {
                 return ((DependencyFacade)object).getTargetElement();
             }
@@ -328,6 +412,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getExceptionList()
      */
+    @Override
     protected String handleGetExceptionList()
     {
         return this.getExceptionList(null);
@@ -336,20 +421,24 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#isReturnTypePresent()
      */
+    @Override
     protected boolean handleIsReturnTypePresent()
     {
         boolean hasReturnType = false;
         if (this.getReturnType() != null)
         {
-            hasReturnType = !StringUtils.trimToEmpty(
-                this.getReturnType().getFullyQualifiedName(true)).equals(UMLProfile.VOID_TYPE_NAME);
+            hasReturnType = !(StringUtils.trimToEmpty(
+                this.getReturnType().getFullyQualifiedName()).equalsIgnoreCase("void")
+              || StringUtils.trimToEmpty(
+                this.getReturnType().getFullyQualifiedName(true)).equals(UMLProfile.VOID_TYPE_NAME));
         }
         return hasReturnType;
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacade#getExceptionList(java.lang.String)
+     * @see org.andromda.metafacades.uml.OperationFacade#getExceptionList(String)
      */
+    @Override
     protected String handleGetExceptionList(String initialExceptions)
     {
         initialExceptions = StringUtils.trimToEmpty(initialExceptions);
@@ -377,28 +466,21 @@ public class OperationFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacade#getTypedArgumentList(java.lang.String)
+     * @see org.andromda.metafacades.uml.OperationFacade#getTypedArgumentList(String)
      */
+    @Override
     protected String handleGetTypedArgumentList(String modifier)
     {
         return this.getTypedArgumentList(true, modifier);
     }
 
     /**
-     * @see org.andromda.metafacades.uml.OperationFacade#getSignature(java.lang.String)
+     * @see org.andromda.metafacades.uml.OperationFacade#getSignature(String)
      */
+    @Override
     protected String handleGetSignature(String argumentModifier)
     {
-        return this.getSignature(this.getName(), true, argumentModifier);
-    }
-
-    private String getSignature(final String name, final boolean withArgumentNames, final String argumentModifier)
-    {
-        final StringBuffer signature = new StringBuffer(name);
-        signature.append("(");
-        signature.append(this.getTypedArgumentList(withArgumentNames, argumentModifier));
-        signature.append(")");
-        return signature.toString();
+        return MetafacadeUtils.getSignature(this.getName(), this.getArguments(), true, argumentModifier);
     }
 
     private String getTypedArgumentList(boolean withArgumentNames, String modifier)
@@ -416,7 +498,7 @@ public class OperationFacadeLogicImpl
                 String type = null;
                 if (paramter.getType() == null)
                 {
-                    this.logger.error(
+                    OperationFacadeLogicImpl.logger.error(
                             "ERROR! No type specified for parameter --> '" + paramter.getName() +
                             "' on operation --> '" +
                             this.getName() +
@@ -451,9 +533,10 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getConcurrency()
      */
+    @Override
     protected String handleGetConcurrency()
     {
-        String concurrency = null;
+        String concurrency;
 
         final CallConcurrencyKind concurrencyKind = metaObject.getConcurrency();
         if (concurrencyKind == null || CallConcurrencyKindEnum.CCK_CONCURRENT.equals(concurrencyKind))
@@ -481,6 +564,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getPreconditionName()
      */
+    @Override
     protected String handleGetPreconditionName()
     {
         return this.getPreconditionPattern().replaceAll("\\{0\\}", this.getName());
@@ -489,6 +573,7 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getPostconditionName()
      */
+    @Override
     protected String handleGetPostconditionName()
     {
         return this.getPostconditionPattern().replaceAll("\\{0\\}", this.getName());
@@ -497,14 +582,16 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getPreconditionSignature()
      */
+    @Override
     protected String handleGetPreconditionSignature()
     {
-        return this.getSignature(this.getPreconditionName(), true, null);
+        return MetafacadeUtils.getSignature(this.getPreconditionName(), this.getArguments(), true, null);
     }
 
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getPreconditionCall()
      */
+    @Override
     protected String handleGetPreconditionCall()
     {
         return this.getCall(this.getPreconditionName());
@@ -533,25 +620,28 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#isPreconditionsPresent()
      */
+    @Override
     protected boolean handleIsPreconditionsPresent()
     {
-        final Collection preconditions = this.getPreconditions();
+        final Collection<ConstraintFacade> preconditions = this.getPreconditions();
         return preconditions != null && !preconditions.isEmpty();
     }
 
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#isPostconditionsPresent()
      */
+    @Override
     protected boolean handleIsPostconditionsPresent()
     {
-        final Collection postconditions = this.getPostconditions();
+        final Collection<ConstraintFacade> postconditions = this.getPostconditions();
         return postconditions != null && !postconditions.isEmpty();
     }
 
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getPreconditions()
      */
-    protected Collection handleGetPreconditions()
+    @Override
+    protected Collection<ConstraintFacade> handleGetPreconditions()
     {
         return this.getConstraints(ExpressionKinds.PRE);
     }
@@ -559,14 +649,16 @@ public class OperationFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.OperationFacade#getPostconditions()
      */
-    protected Collection handleGetPostconditions()
+    @Override
+    protected Collection<ConstraintFacade> handleGetPostconditions()
     {
         return this.getConstraints(ExpressionKinds.POST);
     }
     
     /**
-     * @see  org.andromda.metafacades.uml.OperationFacade#findParameter(java.lang.String)
+     * @see  org.andromda.metafacades.uml.OperationFacade#findParameter(String)
      */
+    @Override
     protected ParameterFacade handleFindParameter(final String name)
     {
         return (ParameterFacade)CollectionUtils.find(
@@ -581,4 +673,76 @@ public class OperationFacadeLogicImpl
             });
     }
 
+    /**
+     * Get the UML upper multiplicity
+     * Not implemented for UML1.4
+     */
+    @Override
+    protected int handleGetUpper()
+    {
+        //throw new UnsupportedOperationException("'upper' is not a UML1.4 feature");
+        return 1;
+     }
+
+    /**
+     * Get the UML lower multiplicity
+     * Not implemented for UML1.4
+     */
+    @Override
+    protected int handleGetLower()
+    {
+        //throw new UnsupportedOperationException("'lower' is not a UML1.4 feature");
+        return 0;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml14.OperationFacadeLogic#handleGetReturnParameter()
+     */
+    @Override
+    public ParameterFacade handleGetReturnParameter()
+    {
+        //throw new UnsupportedOperationException("ReturnResults is not a UML1.4 feature");
+        ParameterFacade facade = null;
+        final Collection<Parameter> parms = metaObject.getParameter();
+        for (final Iterator<Parameter> iterator = parms.iterator(); iterator.hasNext();)
+        {
+            final Parameter parameter = iterator.next();
+            if (ParameterDirectionKindEnum.PDK_RETURN.equals(parameter.getKind()))
+            {
+                facade = (ParameterFacade)shieldedElement(parameter);
+                break;
+            }
+        }
+        return facade;
+    }
+
+    protected boolean handleIsOverriding()
+    {
+        return this.getOverriddenOperation() != null;
+    }
+
+    protected OperationFacade handleGetOverriddenOperation()
+    {
+        OperationFacade overriddenOperation = null;
+
+        final String signature = this.getSignature(false);
+
+        ClassifierFacade ancestor = this.getOwner().getSuperClass();
+        while (overriddenOperation == null && ancestor != null)
+        {
+            for (Iterator operationIterator = ancestor.getOperations().iterator();
+                 overriddenOperation == null && operationIterator.hasNext();)
+            {
+                final OperationFacade ancestorOperation = (OperationFacade)operationIterator.next();
+                if (signature.equals(ancestorOperation.getSignature(false)))
+                {
+                    overriddenOperation = ancestorOperation;
+                }
+            }
+
+            ancestor = ancestor.getSuperClass();
+        }
+
+        return overriddenOperation;
+    }
 }

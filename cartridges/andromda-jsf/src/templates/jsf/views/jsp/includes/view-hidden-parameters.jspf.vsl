@@ -1,18 +1,4 @@
 ##
-##    This JSP fragment stores all hidden parameters for an action.
-##
-#foreach ($field in $action.hiddenParameters)
-#if (!$field.complex)
-#renderHiddenInputField($field "")
-#else
-#foreach ($attribute in $field.attributes)
-#if ($attribute.inputHidden)
-#renderHiddenInputField($attribute $field)
-#end
-#end
-#end
-#end
-##
 ##  This macro renders the hidden input parameters
 ##
 #macro(renderHiddenInputField $field $ownerParameter)
@@ -25,7 +11,21 @@
 #end
 <h:inputHidden id="${propertyId}" value="#{${action.formBeanName}.${valuePropertyName}}">
 #if ($field.type.dateType)
-    <jsf:convertDateTime pattern="$field.format"/>
+    <a:convertDateTime pattern="$field.format"/>
 #end
 </h:inputHidden>
+#end
+##
+##    This JSP fragment stores all hidden parameters for an action.
+##
+#foreach ($field in $action.hiddenParameters)
+#if (!$field.complex)
+#renderHiddenInputField($field "")
+#else
+#foreach ($attribute in $field.attributes)
+#if ($attribute.inputHidden || $field.inputHidden)
+#renderHiddenInputField($attribute $field)
+#end
+#end
+#end
 #end

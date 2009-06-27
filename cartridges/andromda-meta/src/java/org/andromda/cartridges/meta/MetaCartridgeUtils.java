@@ -1,13 +1,11 @@
 package org.andromda.cartridges.meta;
 
 import java.text.Collator;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -42,14 +40,14 @@ public class MetaCartridgeUtils
     /**
      * Used to sort operations by <code>fullyQualifiedName</code>.
      */
-    private final static class FullyQualifiedNameComparator
+    final static class FullyQualifiedNameComparator
         implements Comparator
     {
         private final Collator collator = Collator.getInstance();
 
-        private FullyQualifiedNameComparator()
+        FullyQualifiedNameComparator()
         {
-            collator.setStrength(Collator.PRIMARY);
+            this.collator.setStrength(Collator.PRIMARY);
         }
 
         public int compare(
@@ -59,7 +57,7 @@ public class MetaCartridgeUtils
             ModelElementFacade a = (ModelElementFacade)objectA;
             ModelElementFacade b = (ModelElementFacade)objectB;
 
-            return collator.compare(
+            return this.collator.compare(
                 a.getFullyQualifiedName(),
                 b.getFullyQualifiedName());
         }

@@ -144,29 +144,11 @@ public class JSFViewLogicImpl
                     else if (forward instanceof JSFAction)
                     {
                         forwards.put(((JSFAction)forward).getName(), forward);
-                    }  
+                    }
                 }
             }
         }
         return new ArrayList(forwards.values());
-    }
-
-    /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#isTableLink()
-     */
-    protected List handleGetTables()
-    {
-        final List tables = new ArrayList();
-        final List variables = this.getVariables();
-        for (int ctr = 0; ctr < variables.size(); ctr++)
-        {
-            final JSFParameter variable = (JSFParameter)variables.get(ctr);
-            if (variable.isTable())
-            {
-                tables.add(variable);
-            }
-        }
-        return tables;
     }
 
     /**
@@ -227,7 +209,7 @@ public class JSFViewLogicImpl
         }
         return actions;
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getFormKey()
      */
@@ -255,7 +237,7 @@ public class JSFViewLogicImpl
     {
         return !this.getFormActions().isEmpty() || !this.getVariables().isEmpty();
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#isPopulatorRequired()
      */
@@ -274,7 +256,7 @@ public class JSFViewLogicImpl
         }
         return required;
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#isPopup()
      */
@@ -292,16 +274,20 @@ public class JSFViewLogicImpl
         boolean present = false;
         for (final Iterator iterator = this.getVariables().iterator(); iterator.hasNext();)
         {
-            final FrontEndParameter variable = (FrontEndParameter)iterator.next();
-            if (!variable.isTable())
+            final Object object = iterator.next();
+            if (object instanceof FrontEndParameter)
             {
-                present = true;
-                break;
+                final FrontEndParameter variable = (FrontEndParameter)object;
+                if (!variable.isTable())
+                {
+                    present = true;
+                    break;
+                }
             }
         }
         return present;
     }
-    
+
     /**
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#isHasNameOfUseCase()
      */
@@ -325,34 +311,46 @@ public class JSFViewLogicImpl
         final Map variables = new LinkedHashMap();
         for (final Iterator iterator = this.getAllActionParameters().iterator(); iterator.hasNext();)
         {
-            final JSFParameter parameter = (JSFParameter)iterator.next();
-            final String parameterName = parameter.getName();
-            final Collection attributes = parameter.getAttributes();
-            if (attributes.isEmpty())
+            final Object object = iterator.next();
+            if (object instanceof JSFParameter)
             {
-                if (parameter.isBackingValueRequired() || parameter.isSelectable())
+                final JSFParameter parameter = (JSFParameter)object;
+                final String parameterName = parameter.getName();
+                final Collection attributes = parameter.getAttributes();
+                if (attributes.isEmpty())
                 {
-                    variables.put(parameterName, parameter);
-                }
-            }
-            else
-            {
-                boolean hasBackingValue = false;
-                for (final Iterator attributeIterator = attributes.iterator(); attributeIterator.hasNext();)
-                {
-                    final JSFAttribute attribute = (JSFAttribute)attributeIterator.next();
-                    if (attribute.isSelectable(parameter) || attribute.isBackingValueRequired(parameter))
+                    if (parameter.isBackingValueRequired() || parameter.isSelectable())
                     {
-                        hasBackingValue = true;
-                        break;
+                        variables.put(parameterName, parameter);
                     }
                 }
-                if (hasBackingValue)
+                else
                 {
-                    variables.put(parameterName, parameter);
+                    boolean hasBackingValue = false;
+                    for (final Iterator attributeIterator = attributes.iterator(); attributeIterator.hasNext();)
+                    {
+                        final JSFAttribute attribute = (JSFAttribute)attributeIterator.next();
+                        if (attribute.isSelectable(parameter) || attribute.isBackingValueRequired(parameter))
+                        {
+                            hasBackingValue = true;
+                            break;
+                        }
+                    }
+                    if (hasBackingValue)
+                    {
+                        variables.put(parameterName, parameter);
+                    }
                 }
             }
         }
         return new ArrayList(variables.values());
+    }
+
+    /**
+     * @see org.andromda.cartridges.jsf.metafacades.JSFView#getFromOutcome()
+     */
+    protected String handleGetFromOutcome()
+    {
+        return JSFUtils.toWebResourceName(this.getUseCase().getName() + "-" + this.getName());
     }
 }

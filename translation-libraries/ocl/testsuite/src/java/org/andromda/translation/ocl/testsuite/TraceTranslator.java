@@ -388,7 +388,7 @@ public class TraceTranslator
             extends ClassPool
     {
 
-        private static Logger logger = Logger.getLogger(TranslatorClassPool.class);
+        private static final Logger logger = Logger.getLogger(TranslatorClassPool.class);
 
         protected TranslatorClassPool()
         {

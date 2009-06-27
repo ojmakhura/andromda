@@ -1,0 +1,198 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create Search Timecards Use Case</title>
+</head>
+<body>
+    <h2>Create Search Timecards Use Case</h2>
+    <!------------------------- Intro Text ------------------------->
+    <p>
+        This page provides directions to create the <code>Search Timecards</code> use case
+        along with its activity diagram and the <code>SearchController</code>. Use the containment
+        tree shown below to guide you throughout this procedure. Note that all three elements
+        mentioned here will be placed in the package <code>org.andromda.timetracker.web.timecardsearch</code>.
+    </p>
+    <!------------------------- Main Text ------------------------->
+    <table width="100%" border="0">
+        <tbody>
+            <tr>
+                <!-- img src="Images/SearchTimecardsContainmentTree.jpg" alt="Search Timecards Containment Tree" / -->
+                <td align="center" style="width: 100%">
+                    {mosimage}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        Let's start by creating the <code>Search Timecards</code> use case.
+    </p>
+    <p>
+        {mosimage}
+        <!-- img src="Images/SearchTimecardsUC.jpg" alt="Search Timecards Use Case" / -->
+    </p>
+    <ol>
+        <li>Create a package under the <code>TimeTracker</code> model by right-clicking on it
+            in the containment tree and selecting New Element > Package. Name this new package
+            <code>Use Cases</code> because we will create our use case diagrams here. </li>
+        <li>In the <code>Use Cases</code> package, create a use case diagram by right clicking
+            on it and selecting New Diagram > Use Case Diagram. In the dialog box that comes
+            up, enter the name <code>Application Use Cases</code> for this diagram. Click <em>OK</em>
+            to create the diagram.</li>
+        <li>In the toolbar on the left of the use case diagram click on the Use Case tool {mosimage}.
+            <!-- img src="Images/MagicDrawUseCaseTool.jpg" alt="Use Case Tool" / -->
+            Now click anywhere inside the diagram. A new use case will be created. Type the
+            phrase "Search Timecards" to name the use case. Note that the use case is created
+            under the <code>Use Cases</code> package in the containment tree. This is not the
+            final location of the use case, but we will move later to the correct location.</li>
+        <li>Right click on the use case and give it two stereotypes as discussed earlier: <code>
+            FrontEndUseCase</code> and <code>FrontEndApplication</code>.</li>
+    </ol>
+    <p>
+        Now lets create the package <code>org.andromda.timetracker.web.timecardsearch</code>
+        which is the final destination of our front-end elements.
+    </p>
+    <ol>
+        <li>Create a package called <code>web</code> under <code>org.andromda.timetracker</code>.</li>
+        <li>Create a package called <code>timecardsearch</code> under <code>web</code>.</li>
+        <li>Drag the <code>Search Timecards</code> use case under the <code>timecardsearch</code>
+            package.</li>
+        <li>Now create a class called <code>SearchController</code> under the <code>timecardsearch</code>
+            package. Do this by right-clicking on <code>timecardsearch</code>, choose New Element
+            > Class and them name the class.</li>
+        <li>Right-click on the <code>Search Timecards</code> use case and choose New Diagram
+            > Activity Diagram to create an activity diagram. Name it <code>Search Timecards Activity
+                Diagram</code>. This action automatically associates the activity diagram to
+            the use case.</li>
+        <li>All that is left now is to connect the <code>SearchController</code> to the activity
+            diagram. To do this, right-click on the <code>SearchController</code>, and choose
+            State/Activity Diagram > Assign. In the Assign dialog box click on the <code>Search
+                Timecards Activity Diagram</code> and click <em>Assign</em>.</li>
+        <li>Click <em>Close</em> to dismiss the dialog box.</li>
+    </ol>
+    <p>
+        {mosimage}
+        <!-- img src="Images/SearchTimecardsAD1.jpg" alt="Search Timecards Activity Diagram" / -->
+    </p>
+    <p>
+        We are done with the basic structure for the web page. Now let's create the page
+        flow on the <code>Search Timecards Activity Diagram</code>. Open this diagram and
+        follow the steps below. Use the tool bar on the left to create various elements
+        on the diagram. Use the tool tips and the status bar to identify the tool bar icons.</p>
+    <ol>
+        <li>Create an Initial State at the top using the Initial State tool {mosimage}.
+            <!-- img src="Images/MagicDrawInitialStateTool.jpg" alt="Initial State Tool" / -->
+        </li>
+        <li>Drop an Action State below it using the Action State tool {mosimage}.
+            <!-- img src="Images/MagicDrawActionStateTool.jpg" alt="Action State Tool" / -->
+            Right-click on the action state and open its specification. Type <code>Populate Search
+                Screen</code> in the Name field and click OK. (Note: Do not enter the name by
+            typing it in the diagram, it does not become the name of the action state - it is
+            simply added as a label for the shape.)</li>
+        <li>Create a transition from the initial state to the <code>Populate Search Screen</code>
+            state. Use the Transition tool {mosimage}
+            <!-- img src="Images/MagicDrawTransitionTool.jpg" alt="Transition Tool" / -->
+            for this.</li>
+        <li>Drop another action state below <code>Populate Search Screen</code>. Again, go to
+            the specification of this state and name it <code>Search Timecards</code>. Since
+            this state represents a screen, give it the stereotype of <code>FrontEndView</code>.</li>
+        <li>Create a transition from <code>Populate Search Screen</code> to <code>Search Timecards</code>
+            and another in the reverse direction. In other words, the use case simply switches
+            between the two states - of course, most of the time it stays in the <code>Search Timecards</code>
+            state, waiting for use input.</li>
+        <li>Now we need to tell AndroMDA about the Search Criteria panel on the search screen.
+            In fact, this is a form that will submit 5 parameters to server: submitter, approver,
+            status, start date minimum and start date maximum. This is modeled using a trigger
+            of type signal on the transition coming out of the front-end view. Follow the steps
+            below to specify the trigger.
+            <ul>
+                <li>Right click on the transition out of <code>Search Timecards</code> and open its
+                    specification.</li>
+                <li>Find the panel called "Trigger" and click the <em>Edit</em> button in this panel.</li>
+                <li>Specify <code>search</code> as the name of the trigger and "signal" as its type.</li>
+                <li>Click on the parameters tab.</li>
+                <li>Click <em>Add</em> to add the first parameter. The Parameter Specification dialog
+                    comes up. Enter <code>submitter</code> as the name of the parameter and <code>Long</code>
+                    as its type (note that it is <code>Long</code>, not <code>long</code>). Now click
+                    on the Tagged Values tab and click on the tagged value named <code>@andromda.presentation.web.view.field.type</code>.
+                    This tagged value tells AndroMDA what type of field <code>submitter</code> is. Since
+                    submitter is a drop-down box, i.e. selection, we need to set the value of this tag
+                    to <code>select</code>. To do this, click the <em>Create Value</em> button. The
+                    value is shown in the right panel and is already set to <code>select</code>. So
+                    just click OK to add this parameter and close the dialog box.</li>
+                <li>Add the second parameter called <code>approver</code> with type of <code>Long</code>.
+                    Again set the tagged value <code>@andromda.presentation.web.view.field.type</code>
+                    to <code>select</code>.</li>
+                <li>Add the third parameter called <code>status</code> with type of <code>String</code>.
+                    Again set the tagged value <code>@andromda.presentation.web.view.field.type</code>
+                    to <code>select</code>.</li>
+                <li>Add the fourth parameter called <code>startDateMinimum</code> with type of <code>
+                    Date</code>. This time set the tagged value <code>@andromda.presentation.web.view.field.calendar</code>
+                    to <code>true</code>. This will make sure that you will get a text field for the
+                    date along with a calendar widget on its side.</li>
+                <li>Add the fifth parameter called <code>startDateMaximum</code> with type of <code>
+                    Date</code>. Again set the tagged value <code>@andromda.presentation.web.view.field.calendar</code>
+                    to <code>true</code>.</li>
+                <li>Click OK twice to dismiss all dialog boxes. You will see a long trigger specification
+                    appears on the diagram. Here's a trick to reduce this clutter. Just open the transition
+                    specification again. Note that its name is empty. Enter the word <code>search</code>
+                    in the name field and click OK. Now the digram will show the name of the transition
+                    instead of the trigger specification. In some cases, the size of this label may
+                    be large -- shrink it down to a reasonable size.</li>
+            </ul>
+        </li>
+    </ol>
+    <p>
+        We are now almost done with our activity diagram except for one thing. The activity
+        diagram still has to call the <code>SearchController</code> to populate the submitter
+        and approver drop-downs. To do this we will first specify a method on <code>SearchController</code>
+        called <code>populateSearchScreen()</code>. Follow the steps below to add this method:
+    </p>
+    <ol>
+        <li>In the containment tree, right-click on <code>SearchController</code> and select
+            New > Operation.</li>
+        <li>Enter <code>populateSearchScreen</code> as the name of the operation.</li>
+        <li>Double click on the operation to open the Operation Specification dialog.</li>
+        <li>Specify the return type as <code>void</code>.</li>
+        <li>Click on the Parameters tab.</li>
+        <li>Add the same 5 parameters that you added to the trigger above - the names and types
+            should match exactly. That's how AndroMDA knows how to call the controller method.</li>
+        <li>Click OK to close the dialog.</li>
+    </ol>
+    <p>
+        Now that we have an appropriate controller method, let's call it from the activity
+        diagram.</p>
+    <ol>
+        <li>Right-click on the <code>Populate Search Screen</code> action state and open its
+            specification.</li>
+        <li>Click on the Detail tab.</li>
+        <li>Click Add in the Deferrable events panel. The Time Event Specification dialog comes
+            up.</li>
+        <li>Clear out the name field.</li>
+        <li>Since this will be a call to a controller method, change the type to call.</li>
+        <li>The Operation drop-down shows the controller methods available to call (since we
+            attached the controller to this activity diagram). Select the <code>populateSearchScreen()</code>
+            methood.</li>
+        <li>Click OK twice to dismiss the dialog box.</li>
+        <li>Right-click on the <code>Populate Search Screen</code> action state and make sure
+            that <em>Suppress Actions</em> menu item is unchecked. This starts displaying the
+            <code>Populate Search Screen</code> call in the diagram.</li>
+    </ol>
+    <p>
+        There is just one more thing left. The <code>SearchController</code> needs to be
+        able to call the service layer to get the list of users. To add this capability,
+        we need to create a dependency from the <code>SearchController</code> to the <code>UserService</code>.</p>
+    <p>
+        {mosimage}
+        <!-- img src="Images/SearchControllerToUserService.jpg" alt="Search Controller To UserService" / -->
+    </p>
+    <ol>
+        <li>Open the Services diagram in the service package.</li>
+        <li>From the Containment Tree on the left, drag the <code>SearchController</code> class
+            on to the diagram.</li>
+        <li>Draw a dependency from <code>SearchController</code> to <code>UserService</code>.</li>
+        <li>Save the model.</li>
+    </ol>
+    <p>
+        We have now completely modeled the Search Criteria panel. Please go back to the
+        main tutorial page and continue from where you left off
+    </p>
+</body>
+</html>

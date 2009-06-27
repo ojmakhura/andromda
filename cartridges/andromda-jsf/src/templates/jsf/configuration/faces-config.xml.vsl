@@ -1,12 +1,20 @@
 <?xml version="1.0"?>
 
 <!DOCTYPE faces-config PUBLIC
-  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
   "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 
 <!-- =========== FULL CONFIGURATION FILE ================================== -->
 
 <faces-config>
+    <application>
+        <default-render-kit-id>
+            oracle.adf.core
+        </default-render-kit-id>
+    </application>
+    <lifecycle>
+        <phase-listener>${managedBeansPackage}.MessagePhaseListener</phase-listener>
+    </lifecycle>
 #if(!$applicationUseCases.empty)
 #set($applicationUseCase = $applicationUseCases.iterator().next())
 #end
@@ -28,7 +36,7 @@
     <managed-bean>
         <managed-bean-name>$controller.beanName</managed-bean-name>
         <managed-bean-class>$controller.fullyQualifiedImplementationName</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
+        <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
 #end
     <!-- global navigational-rules -->
@@ -36,71 +44,70 @@
     <navigation-rule>
         <navigation-case>
             <from-outcome>$useCase.forwardName</from-outcome>
-            <to-view-id>${useCase.path}.jsp</to-view-id>
+            <to-view-id>${useCase.path}.${jsfUtils.viewExtension}</to-view-id>
             <redirect/>
         </navigation-case>
     </navigation-rule>
 #end
 #foreach ($useCase in $useCases)
-#foreach ($view in $useCase.views)
+#foreach ($rule in $useCase.navigationRules)
     <navigation-rule>
-        <from-view-id>${view.path}.jsp</from-view-id>
-#foreach ($forward in $view.forwards)
         <navigation-case>
-            <from-outcome>$forward.name</from-outcome>
-            <to-view-id>${forward.path}.jsp</to-view-id>
+            <from-outcome>$rule.fromOutcome</from-outcome>
+            <to-view-id>${rule.path}.${jsfUtils.viewExtension}</to-view-id>
             <redirect/>
         </navigation-case>
-#end
     </navigation-rule>
 #end
 #end
+#if ($enablePreferences)
 
     <navigation-rule>
         <navigation-case>
-            <from-outcome>layout-options</from-outcome>
-            <to-view-id>/layout/layout-options.jsp</to-view-id>
+            <from-outcome>preferences</from-outcome>
+            <to-view-id>/preferences/preferences.${jsfUtils.viewExtension}</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
+#end
 #if ($stringUtils.isNotBlank($securityRealm))
 
     <navigation-rule>
         <navigation-case>
             <from-outcome>logout</from-outcome>
-            <to-view-id>/logout.jsp</to-view-id>
+            <to-view-id>/logout.${jsfUtils.viewExtension}</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
 #end
+#if ($enablePreferences)
 
     <managed-bean>
-        <managed-bean-name>$layoutOptionsBeanName</managed-bean-name>
-        <managed-bean-class>${managedBeansPackage}.${layoutOptionsName}</managed-bean-class>
+        <managed-bean-name>$preferencesBeanName</managed-bean-name>
+        <managed-bean-class>${managedBeansPackage}.${preferencesClassName}</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
-            <property-name>sidebarLayout</property-name>
-            <value>$sidebarLayout</value>
+            <property-name>skin</property-name>
+            <value>$skin</value>
         </managed-property>
         <managed-property>
-            <property-name>menuLayout</property-name>
-            <value>$menuLayout</value>
+            <property-name>menuTheme</property-name>
+            <value>$menuTheme</value>
         </managed-property>
+#if ($stringUtils.isNotBlank($maxTableRows))
         <managed-property>
-            <property-name>theme</property-name>
-            <value>$navigationTheme</value>
+            <property-name>maxTableRows</property-name>
+            <value>$maxTableRows</value>
         </managed-property>
+#end
     </managed-bean>
-    
-    <managed-bean>
-        <managed-bean-name>$formHistoryBeanName</managed-bean-name>
-        <managed-bean-class>${managedBeansPackage}.FormHistory</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    
+#end
+
 #foreach ($enumeration in $enumerations)
     <converter>
         <converter-for-class>$enumeration.fullyQualifiedName</converter-for-class>
         <converter-class>$enumeration.fullyQualifiedConverterName</converter-class>
-    </converter>  
+    </converter>
 #end
 
     <!-- faces-config merge-point -->

@@ -262,7 +262,7 @@ public class OclParser
         public void inAPathName(APathName name)
         {
             // we only want to add the first name (since the other
-            // names will all be comma seperated and stored within
+            // names will all be comma separated and stored within
             // the inACommaFeatureCallParameterOption() method)
             if (this.namesAndTypes.isEmpty())
             {

@@ -1,0 +1,12 @@
+<project default="jar:install">
+    
+    <!-- ==================================================================
+             Cleans the cartridge
+         ================================================================== -->        
+    <goal name="clean">
+        <attainGoal name="clean:clean"/>
+    </goal>
+    
+</project>
+
+

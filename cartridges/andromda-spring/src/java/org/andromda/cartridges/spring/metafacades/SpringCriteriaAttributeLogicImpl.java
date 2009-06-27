@@ -151,19 +151,19 @@ public class SpringCriteriaAttributeLogicImpl
 
         if (matchMode != null)
         {
-            if (matchMode.equals(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE))
+            if (matchMode.equalsIgnoreCase(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_ANYWHERE))
             {
                 matchModeConstant = "ANYWHERE";
             }
-            else if (matchMode.equals(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_END))
+            else if (matchMode.equalsIgnoreCase(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_END))
             {
                 matchModeConstant = "END";
             }
-            else if (matchMode.equals(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_EXACT))
+            else if (matchMode.equalsIgnoreCase(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_EXACT))
             {
                 matchModeConstant = "EXACT";
             }
-            else if (matchMode.equals(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_START))
+            else if (matchMode.equalsIgnoreCase(SpringProfile.TAGGEDVALUEVALUE_MATCHMODE_START))
             {
                 matchModeConstant = "START";
             }

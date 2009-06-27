@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+    <properties>
+        <author email="naresh@andromda.org">Naresh Bhatia</author>
+        <title>The Sample Application</title>
+    </properties>
+
+    <body>
+        <section name="The Sample Application - TimeTracker">
+            <p>
+                Northwind Corporation uses a paper based system to track the time
+                of their employees. This process is highly inefficient and hence
+                the CIO of Northwind has tasked you to create an online time
+                tracking system called TimeTracker. Unfortunately, he wants the
+                system delivered by next week and if you can't meet this deadline
+                he will give away the job to someone else. Suddenly you remember
+                a conversation with your friend the other day where he was raving
+                about how AndroMDA can generate large portions of an application
+                from business level specifications. You say to yourself "If this
+                is really true, it will help me meet my deadline. Let's give AndroMDA
+                a try." So you accept the CIO's offer and get to work.
+            </p>
+
+            <p>
+                Your first stop is at the office of the Director of Human Resources.
+                You ask her to describe the current time tracking process. She says
+                "At the beginning of every week, each person picks up a new timecard
+                from the supply room. As they work on different tasks, they record
+                their start and stop times on this timecard. Every task has a task id
+                which they look up from the employee handbook. At the end of the
+                week people submit their timecards to their managers for approval.
+                A manager can either approve or reject the timecard. If rejected, they
+                must put a comment on the timecard stating the reason for rejection.
+                The submitter of the timecard must then make necessary corrections
+                and resubmit the timecard for approval." You politely ask the director
+                for a copy of a typical timecard. Here's what she gives you.
+                <p>
+                    <div align="center">
+                        <img src="images/SampleTimecard.jpg"/>
+                    </div>
+                </p>
+            </p>
+        </section>
+
+        <section name="What's Next?">
+            <p>
+                Armed with this knowledge you are eager to get started. You rush
+                back to your office. It is time to install the necessary development
+                tools and software. Click <a href="env-setup.html">here</a> to get
+                started.
+            </p>
+        </section>
+    </body>
+</document>

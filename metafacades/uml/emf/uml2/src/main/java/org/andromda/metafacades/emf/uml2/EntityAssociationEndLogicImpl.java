@@ -1,34 +1,40 @@
 package org.andromda.metafacades.emf.uml2;
 
 import java.util.Collection;
-
 import org.andromda.metafacades.uml.AttributeFacade;
-import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
+import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.ObjectUtils;
-
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.EntityAssociationEnd.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.EntityAssociationEnd.
  *
  * @see org.andromda.metafacades.uml.EntityAssociationEnd
+ * @author Bob Fields
  */
 public class EntityAssociationEndLogicImpl
     extends EntityAssociationEndLogic
 {
     public EntityAssociationEndLogicImpl(
-        Object metaObject,
-        String context)
+        final Object metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
+
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(EntityAssociationEndLogicImpl.class);
 
     /**
      * Overridden to provide name masking.
@@ -39,13 +45,15 @@ public class EntityAssociationEndLogicImpl
     {
         final String nameMask =
             String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENTITY_PROPERTY_NAME_MASK));
-        return NameMasker.mask(super.handleGetName(), nameMask);
+        return NameMasker.mask(
+            super.handleGetName(),
+            nameMask);
     }
 
     /**
      * @see org.andromda.metafacades.uml.EntityAssociationEnd#getColumnName()
      */
-    protected java.lang.String handleGetColumnName()
+    protected String handleGetColumnName()
     {
         String columnName = null;
 
@@ -89,45 +97,11 @@ public class EntityAssociationEndLogicImpl
      */
     protected java.lang.String handleGetForeignKeyConstraintName()
     {
-        String constraintName;
-
-        final Object taggedValueObject =
-            findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME);
-        if (taggedValueObject == null)
-        {
-            // we construct our own foreign key constraint name here
-            final StringBuffer buffer = new StringBuffer();
-
-            final ClassifierFacade type = getOtherEnd().getType();
-            if (type instanceof Entity)
-            {
-                Entity entity = (Entity)type;
-                buffer.append(entity.getTableName());
-            }
-            else
-            {
-                // should not happen
-                buffer.append(type.getName().toUpperCase());
-            }
-
-            buffer.append(getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
-            buffer.append(this.getColumnName());
-            buffer.append(getConfiguredProperty(UMLMetafacadeProperties.CONSTRAINT_SUFFIX));
-
-            constraintName = buffer.toString();
-        }
-        else
-        {
-            // use the tagged value
-            constraintName = taggedValueObject.toString();
-        }
-
-        // we take into consideration the maximum length allowed
-        final String maxLengthString = (String)getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH);
-        final Short maxLength = Short.valueOf(maxLengthString);
-        return EntityMetafacadeUtils.ensureMaximumNameLength(
-            constraintName,
-            maxLength);
+        return EntityMetafacadeUtils.getForeignKeyConstraintName(
+            (EntityAssociationEnd)THIS(),
+            ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.CONSTRAINT_SUFFIX)).trim(),
+            ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR)).trim(),
+            ObjectUtils.toString(getConfiguredProperty(UMLMetafacadeProperties.MAX_SQL_NAME_LENGTH)).trim());
     }
 
     /**
@@ -149,8 +123,10 @@ public class EntityAssociationEndLogicImpl
         {
             EntityAttribute identifier = null;
 
-            // we retrieve the column length from the first identifier of the primary key 
-            // on the other side (since that should correspond to the foreign key).         
+            // we retrieve the column length from the first identifier of the
+            // primary key
+            // on the other side (since that should correspond to the foreign
+            // key).
             if (this.getType() instanceof Entity)
             {
                 final Entity type = (Entity)this.getType();
@@ -204,7 +180,7 @@ public class EntityAssociationEndLogicImpl
             catch (Throwable throwable)
             {
                 String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
-                logger.error(
+                this.logger.error(
                     errMsg,
                     throwable);
 
@@ -216,5 +192,25 @@ public class EntityAssociationEndLogicImpl
             mappings = (TypeMappings)property;
         }
         return mappings;
+    }
+
+    protected boolean handleIsTransient()
+    {
+        return this.hasStereotype(UMLProfile.STEREOTYPE_TRANSIENT);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.EntityAssociationEnd#isIdentifiersPresent()
+     */
+    protected boolean handleIsIdentifiersPresent() {
+        return this.hasStereotype(UMLProfile.STEREOTYPE_IDENTIFIER);
+    }
+    
+    /**
+     * @see org.andromda.metafacades.uml.EntityAssociationEnd#getUniqueGroup()
+     */
+    protected String handleGetUniqueGroup() {
+        final String group = (String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSOCIATION_END_UNIQUE_GROUP);
+        return group != null ? StringUtils.trimToEmpty(group) : null;
     }
 }

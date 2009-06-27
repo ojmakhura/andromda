@@ -1,0 +1,57 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create Timecard Entity</title>
+</head>
+<body>
+    <h2>Create Timecard Entity</h2>
+    <!------------------------- Intro Text ------------------------->
+    <p>
+        This page provides directions to create the <code>Timecard</code> entity using RSM.
+    </p>
+    <!------------------------- Main Text ------------------------->
+    <p>
+        Follow the steps below to create the <code>Timecard</code> entity along with the
+        two associations.
+    </p>
+    <p>
+    {mosimage}
+    </p>
+    <ol>
+        <li>Open the diagram called "Domain Objects" and create a class called <code>Timecard</code>
+            in it. Make sure the class is created in the <code>org.andromda.timetracker.domain</code>
+            package by inspecting the model explorer.</li>
+        <li>Set the stereotype of the <code>Timecard</code> class to Entity.</li>
+        <li>Add the 3 attributes as shown above.</li>
+        <li>Add the <code>findByCriteria()</code> method as shown above. By default the method
+            is created at instance scope. Select the method and open the <em>General</em>
+            property tab and check the <em>static</em> box.</li>
+        <li>Select the association relationship from the toolbar. Use the tool tips and the
+            status bar to identify the association tool. Create an asociation from <code>Timecard</code>
+            to <code>User</code>.</li>
+        <li>In the <em>General</em> property tab uncheck <em>Navigable</em> for the <code>Timecard</code>'s association end. This will make
+            the association one-way from <code>Timecard</code> to <code>Person</code>.</li>
+        <li>On the <code>User</code>'s end of the association set the multiplicity
+            to <code>1</code>. Similarly set the multiplicity of the <code>Timecard</code> end to many <code>*</code>.</li>
+        <li>On the <code>User</code>'s end of the association type <code>submitter</code> in the <em>role</em> box.
+            The <code>Timecard</code>'s end does not have to be named because it is not navigable.</li>
+        <li>Select the <code>- submitter</code> label in the diagram, and in the <em>General</em> property tab
+            make this property <code>public</code>. This completes the submitter
+            association from <code>Timecard</code> to <code>User</code>.</li>
+        <li>Similarly add an <code>approver</code> association from <code>Timecard</code> to
+            <code>User</code>. Move the associations up or down as appropriate so they do not
+            overlap each other. This can be made easier by right-clicking on the association
+            and choosing <em>Format > Path Style > Rectilinear</em>.</li>
+        <li>Save your <code>timetracker</code> model by double-clicking on <code>timetracker.emx</code>
+        	and clicking on <em>File > Save</em> (<em>Ctrl + S</em>).</li>
+        <li>
+        	Select <em>File > Export...</em>. Choose <em>UML2 Model</em> and then click on <em>Next</em>.
+        	As <em>source</em> select <code>/TimeTracker/timetracker.emx</code> and as <em>destination</em>
+        	browse to <code>C:\timetracker\mda\src\main\uml</code>.
+        </li>
+    </ol>
+    <p>
+        Now go back to the main tutorial page and continue from where you left off.
+    </p>
+    <!------------------------- End of Text ------------------------->
+</body>
+</html>

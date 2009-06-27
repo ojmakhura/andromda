@@ -7,6 +7,7 @@
     <xs:element name="andromdapp">
         <xs:complexType>
             <xs:sequence>
+                <xs:element ref="documentation" minOccurs="0"/>
                 <xs:element ref="resourceLocations"/>
                 <xs:element ref="directories" minOccurs="0"/>
                 <xs:element ref="conditionalOutput" minOccurs="0"/>
@@ -162,6 +163,15 @@
         </xs:complexType>
     </xs:element>
     <xs:element name="directory" type="xs:string"/>
+    <xs:element name="exclusion">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="patterns" type="xs:string" use="optional"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="documentation" type="xs:anyType"/>
     <xs:element name="from" type="xs:string"/>
     <xs:element name="instructions" type="xs:string">
@@ -231,10 +241,11 @@
     <xs:element name="prompt">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="text" minOccurs="0"/>
-                <xs:element ref="preconditions" minOccurs="0"/>
-                <xs:element ref="responses" minOccurs="0"/>
-                <xs:element ref="conditions" minOccurs="0"/>
+                <xs:element ref="text" minOccurs="1" />
+                <xs:element ref="shortText" minOccurs="1" />
+                <xs:element ref="preconditions" minOccurs="0" />
+                <xs:element ref="responses" minOccurs="0" />
+                <xs:element ref="conditions" minOccurs="0" />
             </xs:sequence>
             <xs:attribute name="id" type="xs:string" use="required">
                 <xs:annotation>
@@ -249,7 +260,7 @@
                     <xs:documentation>
                         Indicates whether or not this prompt requires input.
                     </xs:documentation>
-                </xs:annotation>                
+                </xs:annotation>
             </xs:attribute>
             <xs:attribute name="setResponseAsTrue" type="xs:boolean" use="optional" default="false">
                 <xs:annotation>
@@ -261,15 +272,15 @@
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-	<xs:element name="promptGroup">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="documentation" minOccurs="0"/>
-				<xs:element ref="prompt" maxOccurs="unbounded"/>
-			</xs:sequence>
-			<xs:attribute name="name" type="xs:string" use="required"/>
-		</xs:complexType>
-	</xs:element>
+    <xs:element name="promptGroup">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="documentation" minOccurs="0"/>
+                <xs:element ref="prompt" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="prompts">
         <xs:complexType>
             <xs:sequence>
@@ -344,6 +355,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element ref="macrolibrary" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="exclusion" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
             <xs:attribute name="className" type="xs:string">
                 <xs:annotation>
@@ -386,5 +398,6 @@
         </xs:complexType>
     </xs:element>
     <xs:element name="text" type="xs:string"/>
+    <xs:element name="shortText" type="xs:string"/>
     <xs:element name="to" type="xs:string"/>
 </xs:schema>

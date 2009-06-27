@@ -1,11 +1,11 @@
 package org.andromda.core.profile;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.NamespaceProperties;
@@ -19,9 +19,11 @@ import org.andromda.core.namespace.BaseNamespaceComponent;
  * Profiles allow us to extend aspects of a model.
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class Profile
     extends BaseNamespaceComponent
+    implements Serializable
 {
     /**
      * The shared instance of this class.
@@ -49,6 +51,8 @@ public class Profile
 
     /**
      * Adds a new element to this namespace registry.
+     * @param name 
+     * @param value 
      */
     public void addElement(
         final String name,
@@ -66,8 +70,9 @@ public class Profile
      * @param name the profile name to retrieve.
      * @return the value.
      */
-    public String get(final String name)
+    public String get(String name)
     {
+        name = name != null ? name.trim() : null;
         // - attempt to get the profile value from the profile defined
         //   by the profile mappings uri first
         String value = (String)this.elements.get(name);
@@ -102,7 +107,7 @@ public class Profile
         for (final Iterator iterator = profiles.iterator(); iterator.hasNext();)
         {
             final Profile profile = (Profile)iterator.next();
-            
+
             String namespace = profile.getNamespace();
             if (Namespaces.instance().isShared(namespace))
             {
@@ -146,12 +151,12 @@ public class Profile
     private final Map allElements = new LinkedHashMap();
 
     /**
-     * Adds the elements to the interal elements map.
+     * Adds the elements to the internal elements map.
      */
     private void addElements(final Profile profile)
     {
         final Collection elements = profile != null ? profile.elements.keySet() : null;
-        if (elements != null)
+        if (elements != null && profile != null)
         {
             final String namespace = profile.getNamespace();
             final Map namespaceElements = this.getNamespaceElements(namespace);

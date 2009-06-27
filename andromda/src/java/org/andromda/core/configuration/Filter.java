@@ -1,6 +1,9 @@
 package org.andromda.core.configuration;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 
 
 /**
@@ -58,5 +61,28 @@ public class Filter
     public void setApply(final boolean process)
     {
         this.apply = process;
+    }
+
+    private Collection namespaces = new ArrayList();
+
+    /**
+     * Sets the comma separated list of namespaces to which the filter applies.
+     *
+     * @param namespaces a comma separated list of namespaces to apply to the filter.
+     */
+    public void setNamespaces(String namespaces)
+    {
+        this.namespaces.clear();
+        this.namespaces.addAll(Arrays.asList(namespaces.split("\\s*,\\s*")));
+    }
+
+    /**
+     * Gets the list of namespaces that this filter applies to.
+     *
+     * @return the list of namespaces.
+     */
+    public Collection getNamespaceList()
+    {
+        return this.namespaces;
     }
 }

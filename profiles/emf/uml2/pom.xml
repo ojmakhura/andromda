@@ -3,14 +3,14 @@
     <parent>
         <groupId>org.andromda.profiles</groupId>
         <artifactId>andromda-profiles</artifactId>
-        <version>4.0-M1-SNAPSHOT</version>
+        <version>3.4-SNAPSHOT</version>
     </parent>
     <groupId>org.andromda.profiles.emf.uml2</groupId>
     <artifactId>andromda-profiles-emf-uml2</artifactId>
-    <name>AndroMDA EMF UML2 Profile</name>
+    <name>AndroMDA EMF-UML2 Profiles</name>
     <packaging>pom</packaging>
 	<description>
-        Contains the AndroMDA EMF UML2 profiles.
+        Contains the AndroMDA EMF-UML2 profiles.
     </description>
     <build>
         <plugins>
@@ -23,5 +23,13 @@
     <modules>
         <module>common</module>
         <module>datatype</module>
+        <module>messaging</module>
+        <module>meta</module>
+        <module>persistence</module>
+        <module>presentation</module>
+        <module>process</module>
+        <module>service</module>
+        <module>webservice</module>
+        <module>xml</module>
     </modules>
 </project>

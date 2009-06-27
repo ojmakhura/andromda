@@ -13,8 +13,6 @@ import org.andromda.core.common.ResourceWriter;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 
 
-//import org.hibernate.cfg.Configuration;
-
 /**
  * Provides the ability to create a schema from Hibernate
  * mapping files.
@@ -63,7 +61,7 @@ public class HibernateUpdateSchema
             temporaryProperitesFile.toString());
         arguments.add("--properties=" + temporaryProperitesFile);
     }
-    
+
     /**
      * The class loader containing the jdbc driver.
      */
@@ -84,7 +82,7 @@ public class HibernateUpdateSchema
                 "jdbcDriverJar");
         if (jdbcDriverJarLoader == null)
         {
-            jdbcDriverJarLoader = new URLClassLoader(new URL[] {new File(jdbcDriverJar).toURL()});
+            jdbcDriverJarLoader = new URLClassLoader(new URL[] {new File(jdbcDriverJar).toURI().toURL()});
         }
         return jdbcDriverJarLoader;
     }

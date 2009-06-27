@@ -2,6 +2,8 @@
 <!-- contains the hibernate cartridge metafacade mappings -->
 <metafacades>
     <property reference="hibernateVersion"/>
+    <property reference="hibernateXMLPersistence"/>
+    <property reference="hibernateXMLPersistIDAsAttribute"/>
     <property reference="entityNamePattern"/>
     <property reference="entityImplementationNamePattern"/>
     <property reference="defaultHibernateGeneratorClass"/>
@@ -9,6 +11,7 @@
     <property reference="hibernateCompositionCascade"/>
     <property reference="hibernateAggregationCascade"/>
     <property reference="hibernateEntityCache"/>
+    <property reference="hibernateEnableDistributedCache"/>
     <property reference="hibernateEntityDynamicInsert"/>
     <property reference="hibernateEntityDynamicUpdate"/>
     <property reference="hibernateProxy"/>
@@ -28,15 +31,19 @@
     <property reference="enumerationNamePattern"/>
     <property reference="hibernateQueryUseSpecializedSetters"/>
     <property reference="versionProperty"/>
+    <property reference="enumTypesPackage" />
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
         <mapping>
             <stereotype>ENTITY</stereotype>
         </mapping>
+        <property reference="hibernateMappingStrategy"/>
+        <property reference="defaultEntityDiscriminatorColumn"/>
+        <property reference="defaultEntityDiscriminatorType"/>
+        <property reference="sequenceIdentifierSuffix"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEndLogicImpl">
         <mapping>
-            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
-            <property name="association"/>
+            <property name="type.hibernateEntityMetaType"/>
         </mapping>
         <property reference="hibernateAssociationEndOuterJoin"/>
         <property reference="listTypeImplementation"/>
@@ -50,7 +57,7 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationLogicImpl">
         <mapping>
-            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
+            <property name="associationEndA.hibernateAssociationEndMetaType"/>
         </mapping>
         <property reference="hibernateAssociationCache"/>
     </metafacade>
@@ -60,15 +67,23 @@
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
     </metafacade>
-    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl" contextRoot="true">
+    <metafacade
+        class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl"
+        contextRoot="true">
         <mapping>
-            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
+            <property name="owner.hibernateEntityMetaType"/>
             <property name="query"/>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperationLogicImpl">
         <mapping>
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateService</context>
+        </mapping>
+        <property reference="serviceOperationTransactionType"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperationLogicImpl">
+        <mapping>
+            <property name="owner.interface"/>
         </mapping>
         <property reference="serviceOperationTransactionType"/>
     </metafacade>
@@ -94,6 +109,7 @@
         <mapping>
             <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
         </mapping>
+		<property reference="hibernateTypeMappingsUri"/>
     </metafacade>
     <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValueLogicImpl" contextRoot="true">
         <mapping>

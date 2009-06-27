@@ -25,7 +25,7 @@ public final class $manageable.manageableServiceBaseName
     }
 
 #if ($manageable.create)
-    public void create($memberList)
+    public $manageable.fullyQualifiedManageableValueObjectName create($memberList)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
             , java.rmi.RemoteException
@@ -41,11 +41,20 @@ public final class $manageable.manageableServiceBaseName
 
 #end
 #end
-        dao.create($memberListArguments);
+        return toValueObject(dao.create($memberListArguments));
     }
 
 #end
 #if ($manageable.read)
+    public $manageable.fullyQualifiedManageableValueObjectName readById(${identifier.type.fullyQualifiedName} $identifier.name)
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
+    {
+        return toValueObject(dao.readById($identifier.name));
+    }
+
     public java.util.List read($memberList)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
@@ -98,7 +107,7 @@ public final class $manageable.manageableServiceBaseName
 #end
 #end
 #if ($manageable.update)
-    public void update($memberList)
+    public $manageable.fullyQualifiedManageableValueObjectName update($memberList)
         throws Exception
 #if ($ejbViewType.equalsIgnoreCase("remote"))
             , java.rmi.RemoteException
@@ -114,7 +123,7 @@ public final class $manageable.manageableServiceBaseName
 
 #end
 #end
-        dao.update($memberListArguments);
+        return toValueObject(dao.update($memberListArguments));
     }
 
 #end
@@ -136,7 +145,7 @@ public final class $manageable.manageableServiceBaseName
 
 #end
 
-    private java.util.List toValueObjects(java.util.Collection entities)
+    private static java.util.List toValueObjects(java.util.Collection entities)
     {
         final java.util.List list = new java.util.ArrayList();
 
@@ -148,7 +157,7 @@ public final class $manageable.manageableServiceBaseName
         return list;
     }
 
-    private $manageable.fullyQualifiedManageableValueObjectName toValueObject($manageable.fullyQualifiedEntityName entity)
+    private static $manageable.fullyQualifiedManageableValueObjectName toValueObject($manageable.fullyQualifiedEntityName entity)
     {
         final $manageable.fullyQualifiedManageableValueObjectName valueObject = new ${manageable.fullyQualifiedManageableValueObjectName}();
 
@@ -161,49 +170,50 @@ public final class $manageable.manageableServiceBaseName
 
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if ($member.many)
-        final java.util.Collection $member.name = entity.${member.getterName}();
-        if (${member.name}.isEmpty())
+        final java.util.Collection ${member.name} = entity.${member.getterName}();
+        if (${member.name} == null || ${member.name}.isEmpty())
         {
-            valueObject.${member.setterName}(java.util.Collections.EMPTY_LIST);
-#if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
-            valueObject.${member.setterName}Labels(java.util.Collections.EMPTY_LIST);
+            valueObject.${member.setterName}(null);
+#if ($member.type.displayAttribute.name != $member.type.manageableIdentifier.name)
+            valueObject.${member.setterName}Labels(null);
 #end
         }
         else
         {
-            final java.util.List values = new java.util.ArrayList();
-#if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
-            final java.util.List labels = new java.util.ArrayList();
+            final ${member.type.manageableIdentifier.type.fullyQualifiedName}[] values = new ${member.type.manageableIdentifier.type.fullyQualifiedName}[${member.name}.size()];
+#if ($member.type.displayAttribute.name != $member.type.manageableIdentifier.name)
+            final ${member.type.displayAttribute.type.fullyQualifiedName}[] labels = new ${member.type.displayAttribute.type.fullyQualifiedName}[${member.name}.size()];
 #end
-            for (final java.util.Iterator iterator = ${member.name}.iterator(); iterator.hasNext();)
+            int counter = 0;
+            for (final java.util.Iterator iterator = ${member.name}.iterator(); iterator.hasNext();counter++)
             {
                 final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
-                values.add(element.${member.manageableIdentifier.getterName}());
-#if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
-                labels.add(element.${member.type.displayAttribute.getterName}());
+                values[counter] = element.${member.type.manageableIdentifier.getterName}();
+#if ($member.type.displayAttribute.name != $member.type.manageableIdentifier.name)
+                labels[counter] = element.${member.type.displayAttribute.getterName}();
 #end
             }
             valueObject.${member.setterName}(values);
-#if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
+#if ($member.type.displayAttribute.name != $member.type.manageableIdentifier.name)
             valueObject.${member.setterName}Labels(labels);
 #end
         }
 #else
-#if ($member.manageableIdentifier)
+#if ($member.type.manageableIdentifier)
         final $member.type.fullyQualifiedName $member.name = entity.${member.getterName}();
 #if (!$member.type.primitive)
         if ($member.name != null)
 #end
         {
-            valueObject.${member.setterName}(${member.name}.${member.manageableIdentifier.getterName}());
-#if ($member.type.displayAttribute.name != $member.manageableIdentifier.name)
+            valueObject.${member.setterName}(${member.name}.${member.type.manageableIdentifier.getterName}());
+#if ($member.type.displayAttribute.name != $member.type.manageableIdentifier.name)
             valueObject.${member.setterName}Label(${member.name}.${member.type.displayAttribute.getterName}());
 #end
         }
 #end
 #end
-#end
 
+#end
         return valueObject;
     }
 }

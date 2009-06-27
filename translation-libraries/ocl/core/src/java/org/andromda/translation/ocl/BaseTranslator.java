@@ -34,8 +34,8 @@ import java.util.Map;
  * of translation fragments from the translation template file, pre-processing, post-processing, etc.
  * <p/>
  * The primary methods (in addition to methods you'll extend to handle expression parsing) to take note of when
- * extending this class are: <ul> <li><a href="#handleTranslationFragment(org.andromda.core.translation.node.Node)">handleTranslationFragment(java.lang.String,
- * Node node) </a></li> <li><a href="#getTranslationFragment(java.lang.String)">getTranslationFragment(java.lang.String)
+ * extending this class are: <ul> <li><a href="#handleTranslationFragment(org.andromda.core.translation.node.Node)">handleTranslationFragment(String,
+ * Node node) </a></li> <li><a href="#getTranslationFragment(String)">getTranslationFragment(String)
  * </a></li> <li><a href="#getExpression()">getExpression() </a></li> <li><a href="#preProcess()">preProcess() </a></li>
  * <li><a href="#postProcess()">postProcess() </a></li> </ul> </p>
  *
@@ -112,10 +112,10 @@ public abstract class BaseTranslator
      * fragments defined within the current translation file.
      * <p/>
      * <a name="#handlerMethod"/> A handlerMethod must have two arguments: <ol> <li>The first argument must be a
-     * <code>java.lang.String</code> which will be the body of the corresponding <code>kind</code> element for the
+     * <code>String</code> which will be the body of the corresponding <code>kind</code> element for the
      * matching fragment. (i.e. if <code>'context LegalAgreement inv: allInstances -> isUnique(documentTitle')'</code>
      * is being translated, then the body of the element &lt;kind name="inv"/&gt; would be returned)</li> <li>The second
-     * argument is of type <code>java.lang.Object</code> and is the node that is currently being parsed at the time the
+     * argument is of type <code>Object</code> and is the node that is currently being parsed at the time the
      * matching of the <code>fragmentName</code> occurred.</li> </ol>
      * <p/>
      * <p/>
@@ -149,7 +149,7 @@ public abstract class BaseTranslator
      * @param node the node being parsed, the toString value of this node is what is matched against the translation
      *             fragment. We also need to pass the node to our <a href="#handlerMethod">handlerMethod </a> so that it
      *             can be used it for additional processing (if we need it).
-     * @see getTranslationFragment(java.lang.String)
+     * @see getTranslationFragment(String)
      */
     protected void handleTranslationFragment(Object node)
     {
@@ -198,7 +198,7 @@ public abstract class BaseTranslator
     }
 
     /**
-     * Performs any initlization. Subclasses should override this method if they want to provide any initilization
+     * Performs any initialization. Subclasses should override this method if they want to provide any initilization
      * before translation begins.
      */
     public void preProcess()
@@ -212,8 +212,8 @@ public abstract class BaseTranslator
      * ExpressionTranslator.translate() since the TraceTranslator doesn't need a <code>contextElement</code> and we
      * don't want to slow down the trace by having to read and load a model each time. </p>
      *
-     * @see org.andromda.core.translation.ExpressionTranslator#translate( java.lang.String, java.lang.Object,
-            *      java.lang.String)
+     * @see org.andromda.core.translation.ExpressionTranslator#translate( String, Object,
+            *      String)
      */
     public Expression translate(String translationName, String expression, Object contextElement)
     {

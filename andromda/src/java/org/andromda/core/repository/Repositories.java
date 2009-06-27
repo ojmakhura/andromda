@@ -1,18 +1,21 @@
 package org.andromda.core.repository;
 
+import org.andromda.core.common.AndroMDALogger;
+import org.andromda.core.common.ComponentContainer;
+import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.Introspector;
+import org.andromda.core.configuration.Model;
+import org.andromda.core.configuration.Namespaces;
+import org.andromda.core.namespace.PropertyDefinition;
+import org.andromda.core.transformation.Transformer;
+import org.apache.commons.lang.StringUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import org.andromda.core.common.AndroMDALogger;
-import org.andromda.core.common.ComponentContainer;
-import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.configuration.Model;
-import org.andromda.core.transformation.Transformer;
-import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -33,7 +36,7 @@ public class Repositories
      *
      * @return the shared instance.
      */
-    public static final Repositories instance()
+    public static Repositories instance()
     {
         if (instance == null)
         {
@@ -55,14 +58,35 @@ public class Repositories
         // - find and open any repositories
         if (this.repositories.isEmpty())
         {
+            final Namespaces namespaces = Namespaces.instance();
             final Collection repositories = ComponentContainer.instance().findComponentsOfType(Repository.class);
             for (final Iterator iterator = repositories.iterator(); iterator.hasNext();)
             {
                 final Repository repository = (Repository)iterator.next();
                 final RepositoryFacade repositoryImplementation = repository.getImplementation();
+                final String namespace = repository.getNamespace();
+                final PropertyDefinition[] properties = namespaces.getPropertyDefinitions(namespace);
+                if (properties != null && properties.length > 0)
+                {
+                    final int numberOfProperties = properties.length;
+                    for (int ctr = 0; ctr < numberOfProperties; ctr++)
+                    {
+                        final PropertyDefinition property = properties[ctr];
+                        final String propertyName = property.getName();
+                        if (Introspector.instance().isWritable(repositoryImplementation, propertyName))
+                        {
+                            Introspector.instance().setProperty(
+                                repositoryImplementation,
+                                property.getName(),
+                                namespaces.getPropertyValue(
+                                    namespace,
+                                    property.getName()));
+                        }
+                    }
+                }
                 repositoryImplementation.open();
                 this.repositories.put(
-                    repository.getNamespace(),
+                    namespace,
                     repositoryImplementation);
             }
         }
@@ -112,7 +136,9 @@ public class Repositories
      */
     public boolean loadModel(final Model model)
     {
-        ExceptionUtils.checkNull("model", model);
+        ExceptionUtils.checkNull(
+            "model",
+            model);
         boolean loaded = model.isChanged();
         if (loaded)
         {
@@ -122,7 +148,7 @@ public class Repositories
             {
                 throw new RepositoryException("Could not retrieve the repository to which the '" + model + "' belongs");
             }
-    
+
             // - first perform any transformations
             final Transformer transformer =
                 (Transformer)ComponentContainer.instance().findRequiredComponent(Transformer.class);
@@ -135,7 +161,7 @@ public class Repositories
                         uris[ctr],
                         model.getTransformations());
             }
-    
+
             // - now load the models into the repository
             for (int ctr = 0; ctr < uriNumber; ctr++)
             {
@@ -147,9 +173,9 @@ public class Repositories
                 streams,
                 uris,
                 model.getModuleSearchLocationPaths());
-    
+
             // - set the package filter
-            repositoryImplementation.getModel(model.getAccessFacadeType()).setPackageFilter(model.getPackages());
+            repositoryImplementation.getModel().setPackageFilter(model.getPackages());
             try
             {
                 for (int ctr = 0; ctr < uriNumber; ctr++)

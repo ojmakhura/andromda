@@ -1,5 +1,6 @@
 package org.andromda.cartridges.webservice.metafacades;
 
+import org.andromda.cartridges.webservice.WebServiceGlobals;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
@@ -8,10 +9,15 @@ import org.apache.commons.lang.StringUtils;
  * MetafacadeLogic implementation for org.andromda.cartridges.webservice.metafacades.WebServiceOperation.
  *
  * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation
+ * @author Bob Fields
  */
 public class WebServiceOperationLogicImpl
     extends WebServiceOperationLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public WebServiceOperationLogicImpl(
         Object metaObject,
         String context)
@@ -20,6 +26,7 @@ public class WebServiceOperationLogicImpl
     }
 
     /**
+     * @return getOwner().hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE) or hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE_OPERATION)
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#isExposed()
      */
     protected boolean handleIsExposed()
@@ -44,6 +51,7 @@ public class WebServiceOperationLogicImpl
     }
 
     /**
+     * @return getTestImplementationOperationNamePrefix() + StringUtils.capitalize(this.getTestName())
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getTestImplementationName()
      */
     protected String handleGetTestImplementationName()
@@ -53,6 +61,7 @@ public class WebServiceOperationLogicImpl
     }
 
     /**
+     * @return "this." + this.getTestImplementationSignature()
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getTestImplementationCall()
      */
     protected String handleGetTestImplementationCall()
@@ -61,6 +70,7 @@ public class WebServiceOperationLogicImpl
     }
 
     /**
+     * @return this.getTestImplementationOperationNamePrefix() + StringUtils.capitalize(this.getTestSignature())
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getTestImplementationSignature()
      */
     protected String handleGetTestImplementationSignature()
@@ -75,6 +85,7 @@ public class WebServiceOperationLogicImpl
     private static final String TEST_NAME_PREFIX = "test";
 
     /**
+     * @return TEST_NAME_PREFIX + StringUtils.capitalize(this.getName())
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getTestName()
      */
     protected String handleGetTestName()
@@ -83,6 +94,7 @@ public class WebServiceOperationLogicImpl
     }
 
     /**
+     * @return "this." + this.getSignature()
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getTestCall()
      */
     protected String handleGetTestCall()
@@ -91,10 +103,32 @@ public class WebServiceOperationLogicImpl
     }
 
     /**
+     * @return this.getTestName() + "()"
      * @see org.andromda.cartridges.webservice.metafacades.WebServiceOperation#getTestSignature()
      */
     protected String handleGetTestSignature()
     {
         return this.getTestName() + "()";
+    }
+
+    /**
+     * The property defining the default style to give the web services.
+     */
+    private static final String PROPERTY_DEFAULT_PARAMETER_STYLE = "defaultParameterStyle";
+    private static final String DEFAULT = "default";
+
+    @Override
+    protected String handleGetParameterStyle()
+    {
+        String style = (String)this.findTaggedValue(WebServiceGlobals.WEB_SERVICE_PARAMETER_STYLE);
+        if (StringUtils.isEmpty(style) || style.equals(DEFAULT))
+        {
+            style = String.valueOf(this.getConfiguredProperty(PROPERTY_DEFAULT_PARAMETER_STYLE));
+        }
+        if (StringUtils.isEmpty(style) || style.equals(DEFAULT))
+        {
+            style = "wrapped";
+        }
+        return style;
     }
 }

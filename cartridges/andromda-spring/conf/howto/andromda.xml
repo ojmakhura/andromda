@@ -8,7 +8,8 @@
                 <model>
                     <uri>${andromda.cartridge.howto.model.uri}</uri>
                     <moduleSearchLocations>
-                        <location patterns="**/*.xml.zip">${basedir}/../../profiles</location>
+                        <location patterns="**/*.xml.zip">${basedir}/../../profiles/uml-1.4</location>
+                        <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
                     </moduleSearchLocations>
                 </model>
             </models>            
@@ -27,6 +28,7 @@
         <namespace name="spring">
             <properties>
                 <property name="services">${howto.output.dir}</property>
+                <property name="service-interfaces">${howto.output.dir}</property>
                 <property name="service-impls">${howto.output.dir}</property>
                 <property name="service-locator">${howto.output.dir}</property>
                 <property name="session-ejbs">${howto.output.dir}</property>
@@ -39,7 +41,7 @@
                 <property name="hibernateUseQueryCache">false</property>
                 <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
                 <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
-                <property name="mergeMappingsUri">file:${maven.src.dir}/test/mappings/MergeMappings.xml</property>
+                <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
                 <property name="advice-impls">${howto.output.dir}</property>
                 <property name="hibernateQueryUseNamedParameters">true</property>
                 <property name="open-session-in-view">${howto.output.dir}</property>
@@ -51,6 +53,8 @@
                 <property name="defaultHibernateGeneratorClass">native</property>
                 <property name="entities">${howto.output.dir}</property>
                 <property name="entity-impls">${howto.output.dir}</property>
+                <property name="entity-mappings">${howto.output.dir}</property>
+                <property name="user-types">${howto.output.dir}</property>
             </properties>
         </namespace>
         <namespace name="java">

@@ -71,32 +71,32 @@ application.package=${applicationPackage}.${application.id}
 andromda.model.uri=file:${basedir}/mda/src/uml/${applicationId}-model.xmi
 
 source.client.base.dir=client/src
-source.client.impl.dir=${source.client.base.dir}/impl
+source.client.impl.dir=${source.client.base.dir}/main
 source.client.impl.dir.java=${source.client.impl.dir}/java
 source.client.codeGen.dir=${source.client.base.dir}/generated
 source.client.codeGen.dir.java=${source.client.codeGen.dir}/java
-source.client.codeGen.dir.config=${source.client.codeGen.dir}/conf
+source.client.codeGen.dir.config=${source.client.codeGen.dir}/config
 source.client.testCode.dir=${source.client.base.dir}/test
 source.client.testCode.dir.java=${source.client.testCode.dir}/java
-source.client.testCode.dir.config=${source.client.testCode.dir}/conf
+source.client.testCode.dir.config=${source.client.testCode.dir}/config
 
 source.common.base.dir=common/src
-source.common.impl.dir=${source.common.base.dir}/impl
+source.common.impl.dir=${source.common.base.dir}/main
 source.common.impl.dir.java=${source.common.impl.dir}/java
 source.common.codeGen.dir=${source.common.base.dir}/generated
 source.common.codeGen.dir.java=${source.common.codeGen.dir}/java
-source.common.codeGen.dir.config=${source.common.codeGen.dir}/conf
+source.common.codeGen.dir.config=${source.common.codeGen.dir}/config
 
 source.server.base.dir=server/src
-source.server.impl.dir=${source.server.base.dir}/impl
+source.server.impl.dir=${source.server.base.dir}/main
 source.server.impl.dir.java=${source.server.impl.dir}/java
 source.server.codeGen.dir=${source.server.base.dir}/generated
 source.server.codeGen.dir.java=${source.server.codeGen.dir}/java
-source.server.codeGen.dir.config=${source.server.codeGen.dir}/conf
+source.server.codeGen.dir.config=${source.server.codeGen.dir}/config
 source.server.codeGen.dir.sql=${source.server.codeGen.dir}/sql
 source.server.testCode.dir=${source.server.base.dir}/test
 source.server.testCode.dir.java=${source.server.testCode.dir}/java
-source.server.testCode.dir.config=${source.server.testCode.dir}/conf
+source.server.testCode.dir.config=${source.server.testCode.dir}/config
 
 andromda.cartridgeFilter=
 

@@ -23,7 +23,6 @@ public class ModelValidationMessage
      * indicating what has been violated.
      * 
      * @param metafacade the metafacade being validated.
-     * @param modelElementName the name of the model element being validated.
      * @param message the message to to communitate about the validation.
      */
     public ModelValidationMessage(
@@ -40,7 +39,7 @@ public class ModelValidationMessage
      * what has been violated.
      * 
      * @param metafacade the metafacade being validated.
-     * @param modelElementName the name of the model element being validated.
+     * @param name the name of the model element being validated.
      * @param message the message to to communitate about the validation.
      */
     public ModelValidationMessage(

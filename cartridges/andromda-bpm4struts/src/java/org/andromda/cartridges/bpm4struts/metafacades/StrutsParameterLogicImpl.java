@@ -109,7 +109,7 @@ public class StrutsParameterLogicImpl
 
     protected List handleGetFormFields()
     {
-        List formFields;
+        final List formFields;
         if (isControllerOperationArgument() && getName() != null)
         {
             final String name = getName();
@@ -143,7 +143,7 @@ public class StrutsParameterLogicImpl
     {
         String nullValue = null;
 
-        ClassifierFacade type = getType();
+        final ClassifierFacade type = getType();
         if (type != null)
         {
             nullValue = type.getJavaNullString();
@@ -156,7 +156,7 @@ public class StrutsParameterLogicImpl
      */
     protected boolean handleIsResetRequired()
     {
-        boolean resetRequired = false;
+        final boolean resetRequired;
 
         if (isSelectable())
         {
@@ -165,16 +165,13 @@ public class StrutsParameterLogicImpl
         else
         {
             final ClassifierFacade type = getType();
-            if (type != null)
+            if (type == null)
             {
-                if (type.isArrayType() || type.isFileType())
-                {
-                    resetRequired = true;
-                }
-                else
-                {
-                    resetRequired = isValidatorBoolean();
-                }
+                resetRequired = false;
+            }
+            else
+            {
+                resetRequired = (type.isArrayType() || type.isFileType()) ? true : this.isValidatorBoolean();
             }
         }
         return resetRequired;
@@ -514,6 +511,16 @@ public class StrutsParameterLogicImpl
 
         return required;
     }
+    
+    /**
+     * Override to not allow selectable parameters to be considered tables.
+     * 
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#isTable()
+     */
+    public boolean isTable()
+    {
+        return super.isTable() && !this.isSelectable() && !this.isHiddenField();
+    }
 
     protected boolean handleIsAllGlobalTableActionsHaveSameParameter()
     {
@@ -794,7 +801,7 @@ public class StrutsParameterLogicImpl
         // in case of a custom array just add the attributes
         if (this.isCustomArrayTable())
         {
-            final Collection attributes = this.getType().getNonArray().getAttributes();
+            final Collection attributes = this.getType().getNonArray().getAttributes(true);
             for (final Iterator attributeIterator = attributes.iterator(); attributeIterator.hasNext();)
             {
                 final ModelElementFacade attribute = (ModelElementFacade)attributeIterator.next();

@@ -1,0 +1,263 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Starter App</title>
+</head>
+<body>
+    <h2>Starter App</h2>
+    <!------------------------- Intro Text ------------------------->
+    <p>
+        In this section, we will create a starter application using the AndroMDA plugin.
+        We will later build on this application to incrementally add time tracking features.
+        We recommend that you have the completed application (downloaded in the previous
+        section) on hand in case you need to troubleshoot your version.
+    </p>
+    <!------------------------- Main Text ------------------------->
+    <p>
+        One caution before we start - please follow all instructions very carefully and
+        precisely. DO NOT take any shortcuts because doing so will only waste your time.
+        There is a good reason for every step in this tutorial. You will not find any fluff
+        here!
+    </p>
+    <p>
+        Ok, we are now ready to start. Follow the steps below to create the starter application:
+    </p>
+    <ol>
+        <li>Open a Command Prompt and change its directory to a location where you would like
+            to create the application folder. In this example, we have chosen the C:\ directory
+            for this purpose. The application will be created in the directory C:\timetracker.
+            <em>Note: If you decide to create the application at a different location, make sure
+                there are no spaces in your pathname - otherwise Maven will run into build problems.</em></li>
+        <li>Now execute the following command to generate the starter application. Answer the
+            questions exactly as shown in the output that follows. You are allowed to enter
+            your own name in response to the first question :-).</li>
+    </ol>
+    <pre>
+C:\>mvn org.andromda.maven.plugins:andromdapp-maven-plugin:3.3:generate
+[INFO] Scanning for projects...
+[INFO] Searching repository for plugin with prefix: 'andromdapp'.
+[INFO] ----------------------------------------------------------------------------
+[INFO] Building Maven Default Project
+[INFO]    task-segment: [andromdapp:generate] (aggregator-style)
+[INFO] ----------------------------------------------------------------------------
+[INFO] [andromdapp:generate]
+INFO  [AndroMDA] discovered andromdapp type --> 'richclient'
+INFO  [AndroMDA] discovered andromdapp type --> 'j2ee'
+
+Please choose the type of application to generate [richclient, j2ee]
+j2ee
+
+Please enter the location in which your new application will be created
+(i.e. f:/java/development):
+C:/
+
+Please enter your first and last name (i.e. Chad Brandon):
+Naresh Bhatia
+
+Which kind of modeling tool will you use? [uml1.4, uml2, emf-uml2]:
+Use the list below to enter the correct choice:
+    ArgoUML:        uml1.4
+    MagicDraw 9.x:  uml1.4
+    MagicDraw 15.5: uml2
+    RSM 6:          emf-uml2
+uml1.4
+
+Please enter the name of your J2EE project (i.e. Animal Quiz):
+TimeTracker
+
+Please enter an id for your J2EE project (i.e. animalquiz):
+timetracker
+
+Please enter a version for your project (i.e. 1.0-SNAPSHOT):
+1.0-SNAPSHOT
+
+Please enter the root package name for your J2EE project
+(i.e. org.andromda.samples.animalquiz):
+org.andromda.timetracker
+
+Would you like an EAR or standalone WAR? [ear, war]:
+ear
+
+Please enter the type of transactional/persistence cartridge to use
+[hibernate, ejb, ejb3, spring, none]:
+spring
+
+Please enter the Spring version to use (enter '1' for 1.x or '2' for 2.x) [1, 2]: 
+2
+
+Please enter the database backend for the persistence layer
+[hypersonic, mysql, oracle, db2, informix, mssql, pointbase,
+ postgres, sybase, sabdb, progress, derby]:
+mysql
+
+Will your project need workflow engine capabilities?
+(it uses jBPM and Hibernate3)? [yes, no]:
+no
+
+Will your project have a web user interface? [yes, no]:
+yes
+
+Would you like your web user interface to use JSF or Struts? [jsf, struts]:
+struts
+
+Would you like to be able to expose your services as web services? [yes, no]:
+no
+-------------------------------------------------------------------------------------
+    G e n e r a t i n g   A n d r o M D A   P o w e r e d   A p p l i c a t i o n
+-------------------------------------------------------------------------------------
+    Output: 'file:/C://timetracker/app/pom.xml'
+    Output: 'file:/C://timetracker/app/src/main/application/META-INF/jboss-app.xml'
+    Output: 'file:/C://timetracker/app/src/main/config/timetracker-ds.xml'
+    Output: 'file:/C://timetracker/common/pom.xml'
+    Output: 'file:/C://timetracker/core/target/classes/META-INF/ejb-jar.xml'
+    Output: 'file:/C://timetracker/core/pom.xml'
+    Output: 'file:/C://timetracker/mda/pom.xml'
+    Output: 'file:/C://timetracker/mda/src/main/config/andromda.xml'
+    Output: 'file:/C://timetracker/mda/src/main/config/mappings/WebMergeMappings.xml'
+    Output: 'file:/C://timetracker/mda/src/main/uml/timetracker.xmi'
+    Output: 'file:/C://timetracker/pom.xml'
+    Output: 'file:/C://timetracker/readme.txt'
+    Output: 'file:/C://timetracker/web/pom.xml'
+    Output: 'file:/C://timetracker/web/src/main/properties/messages.properties'
+    Output: 'file:/C://timetracker/web/target/timetracker-web-1.0-SNAPSHOT/WEB-INF/web.xml'
+-------------------------------------------------------------------------------------
+    New application generated to --> 'file:/C://timetracker/'
+    Instructions for your new application --> 'file:/C://timetracker/readme.txt'
+-------------------------------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 3 minutes 45 seconds
+[INFO] Finished at: Sat May 20 21:47:51 EDT 2006
+[INFO] Final Memory: 9M/22M
+[INFO] ------------------------------------------------------------------------
+
+C:\>
+    </pre>
+    <p>
+        Examine the various folders and files created by the <code>andromdapp</code> plugin.
+        You will notice files called <code>pom.xml</code> in various folders under timetracker.
+        These files make up several Maven projects. In fact, the timetracker directory contains
+        a hierarchy of Maven projects as shown below.
+    </p>
+    <pre>
+timetracker
+     |
+     |-- mda
+     |
+     |-- common
+     |
+     |-- core
+     |
+     |-- web
+     |
+     +-- app
+    </pre>
+    <ul>
+        <li><strong>timetracker:</strong> This is the master project that controls the overall
+            build process and common properties.</li>
+        <li><strong>mda:</strong> The mda project is the most important sub-project of the application.
+            It houses the TimeTracker UML model under the src/main/uml directory. The mda project
+            is also where AndroMDA is configured to generate the files needed to assemble the
+            application.</li>
+        <li><strong>common:</strong> The common sub-project collects resources and classes that
+            are shared among other sub-projects. These include value objects and embedded values.</li>
+        <li><strong>core:</strong> The core sub-project collects resources and classes that
+            use the Spring framework, optionally making use of Hibernate and/or EJBs under the
+            hood. These include entity classes, data access objects, hibernate mapping files,
+            and services.</li>
+        <li><strong>web:</strong> The web sub-project collects those resources and classes that
+            make up the presentation layer.</li>
+        <li><strong>app:</strong> The app sub-project collects those resources and classes that
+            are required to build the .ear bundle.</li>
+    </ul>
+    <p>
+        You can find more details about these files in <code>readme.txt</code> under the
+        timetracker folder. This file also contains a description of useful Maven targets
+        for the project. As a matter of fact, developers frequently refer to this file for
+        commonly used Maven commands. Open this file now and get yourself familiar with
+        it.
+    </p>
+    <h3>Configure TimeTracker Application</h3>
+    <p>
+        We will make minor configuration changes to the project generated by AndroMDA to
+        fine tune how TimeTracker is built, telling you the reason for each change as we
+        go along.
+    </p>
+    <p>
+        Open the AndroMDA configuration file located at <code>timetracker\mda\src\main\config\andromda.xml</code>.
+        Make the following changes:
+    </p>
+    <ol>
+        <li>Search for the property called <code>enableSpringTransactionsWhenEjbsEnabled</code>
+            and change its value from <code>true</code> to <code>false</code>. Since we will
+            be using EJBs, we do not want Spring to be controlling database transactions.</li>
+        <li>Search for the namespace called <code>bpm4struts</code>. In this namespace, add
+            a property to change the default date format for the application so it matches that
+            in the prototype. The property will look like this:<br />
+            <code>&lt;property name="defaultDateFormat"&gt;MM/dd/yyyy&lt;/property&gt;</code>
+        </li>
+        <li>Add another property in the <code>bpm4struts</code> namespace as shown below:<br />
+            <code>&lt;property name="normalizeMessages"&gt;true&lt;/property&gt;</code><br />
+            This property allows generation of smaller resource bundles with duplicate element
+            names specified by a single message. This optimization is turned off by default
+            for backward compatibility. </li>
+        <li>Save and close <code>andromda.xml</code></li>
+    </ol>
+    <p>
+        Open the top level POM file located at <code>timetracker\pom.xml</code>. Make the
+        following changes:
+    </p>
+    <ol>
+        <li>Search for the following line which specifies the JDBC driver used by the application:<br />
+            <code>&lt;jdbc.driver.jar&gt;${jboss.home}/server/default/lib/hsqldb.jar&lt;/jdbc.driver.jar&gt;</code><br />
+            Since we are using MySQL, change this line as follows (be sure to specify the correct
+            version of your driver):<br />
+            <code>&lt;jdbc.driver.jar&gt;${jboss.home}/server/default/lib/mysql-connector-java-5.0.4.jar&lt;/jdbc.driver.jar&gt;</code>
+        </li>
+        <li>Search for the following two lines which specify the database username and password:<br />
+            <code>&lt;jdbc.username&gt;sa&lt;/jdbc.username&gt;<br />
+                &lt;jdbc.password&gt;&lt;/jdbc.password&gt;<br />
+            </code>Change the username and password values to those used during database creation:<br />
+            <code>&lt;jdbc.username&gt;timetracker&lt;/jdbc.username&gt;<br />
+                &lt;jdbc.password&gt;timetracker&lt;/jdbc.password&gt;<br />
+            </code></li>
+        <li>Search for <code>&lt;repositories&gt;</code> section. Here you will find a declaration
+            for the AndroMDA Repository. Add a declaration for the Java.net repository. This
+            repository will be used to dowload jars provided by Sun (such as <code>jta.jar</code>).
+            The resulting <code>&lt;repositories&gt;</code> section is shown below:
+            <pre>
+    &lt;repositories&gt;
+        &lt;repository&gt;
+            &lt;id&gt;andromda&lt;/id&gt;
+            &lt;name&gt;AndroMDA Repository&lt;/name&gt;
+            &lt;url&gt;http://team.andromda.org/maven2&lt;/url&gt;
+        &lt;/repository&gt;
+        &lt;repository&gt;
+            &lt;id&gt;maven2-repository.dev.java.net&lt;/id&gt;
+            &lt;name&gt;Java.net Repository for Maven 2&lt;/name&gt;
+            &lt;url&gt;https://maven2-repository.dev.java.net/nonav/repository&lt;/url&gt;
+            &lt;layout&gt;default&lt;/layout&gt;
+        &lt;/repository&gt;
+    &lt;/repositories&gt;
+            </pre>
+        </li>
+        <li>Save and close <code>pom.xml</code></li>
+    </ol>
+    <p>
+        Open the POM file for the mda sub-project located at <code>timetracker\mda\pom.xml</code>
+        and make the following change:
+    </p>
+    <ol>
+        <li>Search for property called <code>hibernate.db.showSql</code> and change its value
+            from <code>true</code> to <code>false</code>. This prevents verbose Hibernate messages
+            to be printed on the JBoss console. We will still have the appropriate SQL messages
+            in the JBoss log file, which is the better place to look at these messages.</li>
+        <li>Save and close <code>pom.xml</code></li>
+    </ol>
+    <h3>What's Next?</h3>
+    <p>
+        Now that we have created the base application, it is time to start modeling. Click
+        the <em>Next</em> link below to model your first entity.
+    </p>
+</body>
+</html>

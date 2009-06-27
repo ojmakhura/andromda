@@ -8,10 +8,11 @@
 #foreach ($constraint in $modelElement.getConstraints($constraintKind))
 #set ($constraintTranslation = $constraint.getTranslation("validation.Java"))
 #set ($constraintDocumentation = $constraint.getDocumentation("",-1,false))
+        try
         {
 ## - we need to replace the references of "this" with "this.THIS()" in order to validate the correct metafacade instance 
 ##  (since we're using delegate inheritance)
-            $stringUtils.replace($constraintTranslation, 'final java.lang.Object contextElement = this;', 'final java.lang.Object contextElement = this.THIS();') 
+            $stringUtils.replace($constraintTranslation, 'final Object contextElement = this;', 'final Object contextElement = this.THIS();') 
             if (!constraintValid)
                 validationMessages.add(
                     new org.andromda.core.metafacade.ModelValidationMessage(
@@ -19,7 +20,17 @@
                         "$metaUtils.getFullyQualifiedConstraintName($constraint)",
                         "$escapeUtils.escapeJava($constraintDocumentation)"));
         }
+        catch (Throwable th)
+        {
+            Throwable cause = th.getCause();
+            while (cause != null) {th = cause;}
+            logger.error("Error validating constraint '$metaUtils.getFullyQualifiedConstraintName($constraint)' ON " 
+                + this.THIS().toString() + ": " + th.getMessage(), th);
+        }
 #set ($constraintDocumentation = false)## reset to make sure we do not reuse the documentation of previous constraints
+#end
+#if ($modelElement.getConstraints($constraintKind).empty)
+        // $modelElement.name has no $constraintKind constraints
 #end
 #set ($constraint = false)## reset to make sure we do not reuse the last constraint
 #end

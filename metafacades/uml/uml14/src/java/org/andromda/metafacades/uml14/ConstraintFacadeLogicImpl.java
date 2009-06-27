@@ -1,26 +1,30 @@
 package org.andromda.metafacades.uml14;
 
 import java.util.List;
-
 import org.andromda.core.translation.Expression;
 import org.andromda.core.translation.ExpressionTranslator;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.translation.ocl.ExpressionKinds;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-
+import org.omg.uml.foundation.core.Constraint;
 
 /**
  * Metafacade implementation for org.andromda.metafacades.uml.ConstraintFacade.
  *
  * @see org.andromda.metafacades.uml.ConstraintFacade
+ * @author Bob Fields
  */
 public class ConstraintFacadeLogicImpl
     extends ConstraintFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ConstraintFacadeLogicImpl(
-        org.omg.uml.foundation.core.Constraint metaObject,
-        java.lang.String context)
+        Constraint metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -28,7 +32,8 @@ public class ConstraintFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ConstraintFacade#getBody()
      */
-    public java.lang.String handleGetBody()
+    @Override
+    public String handleGetBody()
     {
         String body = null;
         if (this.metaObject.getBody() != null)
@@ -41,7 +46,8 @@ public class ConstraintFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ConstraintFacade#getContextElement()
      */
-    public java.lang.Object handleGetContextElement()
+    @Override
+    public Object handleGetContextElement()
     {
         Object element = null;
         final List elements = this.metaObject.getConstrainedElement();
@@ -55,6 +61,7 @@ public class ConstraintFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ConstraintFacade#isInvariant()
      */
+    @Override
     public boolean handleIsInvariant()
     {
         return UMLMetafacadeUtils.isConstraintKind(
@@ -65,6 +72,7 @@ public class ConstraintFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ConstraintFacade#isPreCondition()
      */
+    @Override
     public boolean handleIsPreCondition()
     {
         return UMLMetafacadeUtils.isConstraintKind(
@@ -75,6 +83,7 @@ public class ConstraintFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ConstraintFacade#isPostCondition()
      */
+    @Override
     public boolean handleIsPostCondition()
     {
         return UMLMetafacadeUtils.isConstraintKind(
@@ -85,6 +94,7 @@ public class ConstraintFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ConstraintFacade#isDefinition()
      */
+    @Override
     public boolean handleIsDefinition()
     {
         return UMLMetafacadeUtils.isConstraintKind(
@@ -95,6 +105,7 @@ public class ConstraintFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ConstraintFacade#isBodyExpression()
      */
+    @Override
     public boolean handleIsBodyExpression()
     {
         return UMLMetafacadeUtils.isConstraintKind(
@@ -103,8 +114,9 @@ public class ConstraintFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ConstraintFacade#getTranslation(java.lang.String)
+     * @see org.andromda.metafacades.uml.ConstraintFacade#getTranslation(String)
      */
+    @Override
     public String handleGetTranslation(String language)
     {
         final Expression expression =
@@ -116,7 +128,7 @@ public class ConstraintFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(java.lang.String, int, boolean)
+     * @see org.andromda.metafacades.uml.ModelElementFacade#getDocumentation(String, int, boolean)
      */
     public String getDocumentation(
         String indent,
@@ -124,7 +136,7 @@ public class ConstraintFacadeLogicImpl
         boolean htmlStyle)
     {
         String documentation = super.getDocumentation(indent, lineLength, htmlStyle);
-        boolean isBlank = false;
+        boolean isBlank;
 
         if (htmlStyle)
         {

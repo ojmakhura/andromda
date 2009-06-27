@@ -1,0 +1,7 @@
+<project>
+
+  	<preGoal name="pom:install">
+ 		<attainGoal name="andromda:run"/>
+  	</preGoal>
+
+</project>

@@ -1,4 +1,4 @@
-#parse("templates/spring/SpringGlobals.vm")
+#if (!$externalPrincipalStoreClass)
 // license-header java merge-point
 //
 // Attention: Generated code! Do not modify by hand!
@@ -16,8 +16,20 @@ package $springTypesPackage;
  */
 public final class PrincipalStore
 {
+#if ($enableTemplating)
+    private static final ThreadLocal<java.security.Principal> store = new ThreadLocal<java.security.Principal>();
+#else
     private static final ThreadLocal store = new ThreadLocal();
+#end
 
+#if ($ejbSecurityEnabled)
+#if ($enableTemplating)
+    private static final ThreadLocal<javax.ejb.SessionContext> sessionContext = new ThreadLocal<javax.ejb.SessionContext>();
+#else
+    private static final ThreadLocal sessionContext = new ThreadLocal();
+#end
+
+#end
     /**
      * Get the user <code>principal</code>
      * for the currently executing thread.
@@ -26,8 +38,29 @@ public final class PrincipalStore
      */
     public static java.security.Principal get()
     {
-        return (java.security.Principal)store.get();
+#if ($ejbSecurityEnabled)
+        java.security.Principal principal;
+        javax.ejb.SessionContext context = getSessionContext();
+        if (context != null)
+        {
+            principal = context.getCallerPrincipal();
+        }
+        else
+        {
+            principal =#if(!$enableTemplating)(java.security.Principal)#end store.get();
+        }
+        return principal;
+#else
+        return#if(!$enableTemplating)(java.security.Principal)#end store.get();
+#end
     }
+#if ($ejbSecurityEnabled)
+
+    private static javax.ejb.SessionContext getSessionContext()
+    {
+        return#if (!$enableTemplating)(javax.ejb.SessionContext)#end sessionContext.get();
+    }
+#end
 
     /**
      * Set the <code>principal</code> for the currently
@@ -39,4 +72,59 @@ public final class PrincipalStore
     {
         store.set(principal);
     }
+#if ($ejbSecurityEnabled)
+
+    /**
+     * Set the <code>sessionContext</code> for the currently
+     * executing thread.
+     *
+     * @param name the user sessionContext
+     */
+    public static void setSessionContext(final javax.ejb.SessionContext context)
+    {
+        sessionContext.set(context);
+    }
+
+#foreach ($role in $roles)
+#set ($isInRoleName = "is${stringUtils.upperCamelCaseName($role.name.toLowerCase())}")
+    /**
+     * Indicates whether or not the current principal plays the <strong>$role.name</strong> role in the application.
+     */
+    public static boolean $isInRoleName()
+    {
+        final javax.ejb.SessionContext sessionContext = getSessionContext();
+        boolean $isInRoleName = sessionContext != null;
+        if ($isInRoleName)
+        {
+#set ($specializedRoles = $role.generalizedByActors)
+            $isInRoleName = sessionContext.isCallerInRole("$role.name")
+#foreach ($specializedRole in $role.generalizedByActors)
+                || sessionContext.isCallerInRole("$specializedRole.name")
+#end
+            ;
+        }
+        return $isInRoleName;
+    }
+
+#end
+
+    /**
+     * Gets all roles belonging to the current principal.
+     *
+     * @return the names of the current principal roles.
+     */
+    public static java.lang.String[] getPrincipalRoles()
+    {
+        final java.util.Collection#if($enableTemplating)<java.lang.String>#end roles = new java.util.ArrayList#if($enableTemplating)<java.lang.String>#end();
+#foreach ($role in $roles)
+#set ($isInRoleName = "is${stringUtils.upperCamelCaseName($role.name.toLowerCase())}")
+        if ($isInRoleName())
+        {
+            roles.add("$role.name");
+        }
+#end
+        return #if(!$enableTemplating)(String[])#end roles.toArray(new String[0]);
+    }
+#end
 }
+#end

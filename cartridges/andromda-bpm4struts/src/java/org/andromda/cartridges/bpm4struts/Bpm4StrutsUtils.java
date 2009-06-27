@@ -255,7 +255,7 @@ public final class Bpm4StrutsUtils
             "1".equalsIgnoreCase(string);
     }
 
-    private final static class ManageableEntityComparator
+    final static class ManageableEntityComparator
         implements Comparator
     {
         public int compare(

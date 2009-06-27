@@ -16,18 +16,18 @@ public class JSFValidatorTag
     extends UIComponentTag
 {
     /**
-     * The function name for validating the enclosing form.
+     * Whether or not client side validation should be enabled
      */
-    private String functionName;
+    private String client;
 
     /**
-     * Sets the function name.
+     * Sets whether or not client side validation shall be enabled.
      *
-     * @param functionName The new value for the function name.
+     * @param client a true/false string.
      */
-    public void setFunctionName(final String functionName)
+    public void setClient(final String client)
     {
-        this.functionName = functionName;
+        this.client = client;
     }
 
     /**
@@ -39,11 +39,11 @@ public class JSFValidatorTag
     {
         super.setProperties(component);
 
-        final String attributeName = JSFValidatorComponent.FUNCTION_NAME;
-        final String attributeValue = this.functionName;
+        final String attributeName = JSFValidatorComponent.CLIENT;
+        final String attributeValue = this.client;
         if (attributeValue != null)
         {
-            if (UIComponentTag.isValueReference(this.functionName))
+            if (UIComponentTag.isValueReference(this.client))
             {
                 final FacesContext context = FacesContext.getCurrentInstance();
                 final Application application = context.getApplication();
@@ -62,20 +62,19 @@ public class JSFValidatorTag
         final String validatorId = this.getId();
         if (validatorId != null)
         {
-            component.getAttributes().put(
-                JSFValidatorComponent.VALIDATOR_ID,
-                validatorId);
             component.setId(validatorId);
         }
     }
 
     /**
-     * Sets the <code>functionName</code> property to null.
+     * Sets the <code>client</code> property to null.
+     * 
+     * @see javax.servlet.jsp.tagext.Tag#release()
      */
     public void release()
     {
         super.release();
-        this.functionName = null;
+        this.client = null;
     }
 
     /**

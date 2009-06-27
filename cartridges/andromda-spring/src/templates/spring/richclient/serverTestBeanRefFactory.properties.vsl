@@ -1,0 +1,9 @@
+#set ($generatedFile = "${stringUtils.substringBeforeLast($serverTestBeanRefFactory, '.')}.properties")    
+dataSource.driverClassName=org.hsqldb.jdbcDriver
+dataSource.username=sa
+dataSource.password=
+dataSource.url=jdbc:hsqldb:mem:testDB
+sessionFactory.hibernateProperties[hibernate.dialect]=${hibernateUtils.basePackage}.dialect.HSQLDialect
+sessionFactory.hibernateProperties[hibernate.hbm2ddl.auto]=create-drop
+sessionFactory.hibernateProperties[hibernate.show_sql]=true
+

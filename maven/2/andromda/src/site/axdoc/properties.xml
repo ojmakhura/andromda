@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <title>AndroMDA Maven Plug-in Properties</title>
+    </properties>
+    <body>
+        <section name="AndroMDA Maven Plug-in Settings">
+            <subsection name="andromda:run">
+                <table>
+                    <tr>
+                        <th>Property</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <a name="maven_andromda_configuration_uri"/>
+                        <td>maven.andromda.configuration.uri</td>
+                        <td>Yes</td>
+                        <td>
+                            The URI to the <a href="/configuration.html">AndroMDA configuration file</a>(this configures AndroMDA).
+                            For example: <em>maven.andromda.configuration.uri=file:${maven.conf.dir}/andromda.xml</em>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                           maven.andromda.currentPlugin
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            Specifies the current plugin which this plugin is running within.  You'll
+                            need to specify this property if you want to be able to define namespace
+                            properties when calling this plugin from within another plugin. (i.e. you'd
+                            specify this within the containing plugin:
+                            <em><![CDATA[<j:set var="maven.andromda.currentPlugin" value="${plugin}"/>]]>)</em>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.run.without.ant
+                        </td>
+                        <td>
+                            No, default is <code>true</code>.
+                        </td>
+                        <td>
+                            Whether or not AndroMDA should be run without Ant, this is sometimes not desirable
+                            as it isn't possible to run forked without running inside of Ant.  However setting
+                            this value to true renders much greater times in initialization speed therefore
+                            increasing the speed in which a model is processed.  Please note that when
+                            running with this flag to true, you'll need to explicitly specify any modules within the
+                            moduleSearchLocations element of your <a href="/configuration.html">AndroMDA configuration</a>
+                            (because modules will NOT be able to be found on the classpath).
+                        </td>
+                    </tr>
+                </table>
+            </subsection>
+            <a name="schema2xmi"/>
+            <subsection name="andromda:schema2xmi">
+                <table>
+                    <tr>
+                        <th>Property</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.inputModel
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            The URI to the input model. If this isn't
+                            provided, then a new model will be created.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.user
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            The schema user name.  If this isn't
+                            provided, you'll be prompted to enter it.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.password
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            The schema user's password.  If this isn't
+                            provided, you'll be prompted to enter it.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.connectionUrl
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            The connection URL for the database
+                            (i.e. <code>jdbc:oracle:thin:@youroraclehost:1521:yoursid</code>).
+                            If this isn't provided, you'll be prompted to enter it.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.driverClass
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            The class name for the JDBC driver.
+                            (i.e. <code>oracle.jdbc.driver.OracleDriver</code>).
+                            If this isn't provided, you'll be prompted to enter it.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.mappingsUri
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            The URI to the mappings file, which maps SQL types
+                            (and JDBC types) to model types.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.outputModel
+                        </td>
+                        <td>
+                            Yes
+                        </td>
+                        <td>
+                            The location to which the output model will
+                            be written. Default is <code>${maven.build.dir}/schema2xmi/transformed.xmi</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.package
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            Specifies the name of the package to which
+                            the model classes will be added. If not
+                            specified classes are added directly to
+                            the model itself.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.tablePattern
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            A regular expression pattern for limiting
+                            the number of tables matched when reading
+                            the schema. (i.e. <code>[\p{Lower}\p{Upper}[_]]*</code>
+                            will match all table names having upper or lower
+                            case letters, and containing underscores.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.columnPattern
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            A regular expression pattern for limiting the number of columns
+                            added when reading the schema. (i.e. <code>FIRST_NAME|LAST_NAME</code>
+                            will match on columns named <em>FIRST_NAME</em> and <em>LAST_NAME</em>
+                            in any of the tables).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.schema
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                             A schema name; must match the schema name as
+                             it is stored in the database.  If you do
+                             not specifiy it then it will not be used
+                             to narrow the table search.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.classStereotype
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            A comma seperated list of stereotype(s) to
+                            add to the generated model classes.
+                            Default is <code>Entity</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.identifierStereotype
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            A comma seperated list of stereotype(s) to
+                            add to the generated model class identifiers.
+                            Default is <code>Identifier</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.tableTaggedValue
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            The table name tagged value to add to the
+                            generated model classes.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            maven.andromda.schema2xmi.columnTaggedValue
+                        </td>
+                        <td>
+                            No
+                        </td>
+                        <td>
+                            The column name tagged value to add to the
+                            generated model class attributes.
+                        </td>
+                    </tr>
+                </table>
+            </subsection>
+        </section>
+    </body>
+</document>

@@ -2,16 +2,18 @@ package org.andromda.metafacades.uml14;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.OperationFacade;
@@ -24,77 +26,151 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.omg.uml.foundation.core.Abstraction;
+import org.omg.uml.foundation.core.AssociationClass;
 import org.omg.uml.foundation.core.Attribute;
-import org.omg.uml.foundation.core.CorePackage;
+import org.omg.uml.foundation.core.Classifier;
 import org.omg.uml.foundation.core.DataType;
 import org.omg.uml.foundation.core.Interface;
 import org.omg.uml.foundation.core.Operation;
 
-
 /**
  * Metaclass facade implementation.
+ * @author Bob Fields
  */
 public class ClassifierFacadeLogicImpl
     extends ClassifierFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ClassifierFacadeLogicImpl(
-        org.omg.uml.foundation.core.Classifier metaObject,
+        Classifier metaObject,
         String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(ClassifierFacadeLogicImpl.class);
+
+    /**
      * Overridden to provide name masking.
      *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
+    @Override
     protected String handleGetName()
     {
         final String nameMask =
             String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.CLASSIFIER_NAME_MASK));
-        return NameMasker.mask(
-            super.handleGetName(),
-            nameMask);
+        return NameMasker.mask(super.handleGetName(), nameMask);
+    }
+
+    protected Collection<Operation> handleGetOperations()
+    {
+        return new FilteredCollection(this.metaObject.getFeature())
+        {
+            public boolean evaluate(Object object)
+            {
+                return object instanceof org.omg.uml.foundation.core.Operation;
+            }
+        };
     }
 
     /**
+     * Note: if this instance represents an actual class we resolve any realized interfaces recursively, in case this
+     * instance represents an interface we return only the owned operations.
+     *
      * @see org.andromda.metafacades.uml.ClassifierFacade#getOperations()
      */
-    protected java.util.Collection handleGetOperations()
+    @Override
+    protected Collection<Operation> handleGetImplementationOperations()
     {
-        return new FilteredCollection(metaObject.getFeature())
+        final Collection<Operation> operations = new LinkedHashSet();
+
+        // add all of this classifier's operations
+        operations.addAll(new FilteredCollection(metaObject.getFeature())
             {
                 public boolean evaluate(Object object)
                 {
                     return object instanceof Operation;
                 }
-            };
+            });
+
+        if (!this.isInterface())
+        {
+            final Collection<ClassifierFacade> interfaces = this.getInterfaceAbstractions();
+            for (Iterator interfaceIterator = interfaces.iterator(); interfaceIterator.hasNext();)
+            {
+                final ClassifierFacade interfaceElement = (ClassifierFacade)interfaceIterator.next();
+                operations.addAll(resolveInterfaceOperationsRecursively(interfaceElement));
+            }
+        }
+
+        return operations;
+    }
+
+    private static Collection<Operation> resolveInterfaceOperationsRecursively(ClassifierFacade interfaceClassifier)
+    {
+        final Collection<Operation> operations = new LinkedHashSet(interfaceClassifier.getOperations()); // preserve ordering
+
+        final Collection<GeneralizableElementFacade> generalizations = interfaceClassifier.getGeneralizations();
+        for (Iterator<GeneralizableElementFacade> generalizationIterator = generalizations.iterator(); generalizationIterator.hasNext();)
+        {
+            final ClassifierFacade parent = (ClassifierFacade)generalizationIterator.next();
+            if (parent.isInterface())
+            {
+                operations.addAll(resolveInterfaceOperationsRecursively(parent));
+            }
+        }
+
+        return operations;
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAssociationEnds()
      */
-    protected java.util.Collection handleGetAssociationEnds()
+    @Override
+    protected List handleGetAssociationEnds()
     {
-        return UML14MetafacadeUtils.getCorePackage().getAParticipantAssociation().getAssociation(metaObject);
+        List associationEnds;
+        Collection participantAssociation =
+            UML14MetafacadeUtils.getCorePackage().getAParticipantAssociation().getAssociation(metaObject);
+
+        if (participantAssociation instanceof List)
+        {
+            associationEnds = (List)participantAssociation;
+        }
+        else
+        {
+            associationEnds = new ArrayList();
+            associationEnds.addAll(participantAssociation);
+        }
+
+        return associationEnds;
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isPrimitive()
      */
+    @Override
     protected boolean handleIsPrimitive()
     {
         // If this type has a wrapper then its a primitive,
         // otherwise it isn't
         return this.getWrapperMappings() != null &&
-        this.getWrapperMappings().getMappings().containsFrom(this.getFullyQualifiedName());
+            this.getWrapperMappings().getMappings().containsFrom(this.getFullyQualifiedName());
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isArrayType()
      */
+    @Override
     protected boolean handleIsArrayType()
     {
         return this.getFullyQualifiedName(true).endsWith(this.getArraySuffix());
@@ -113,6 +189,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getWrapperName()
      */
+    @Override
     protected String handleGetWrapperName()
     {
         String wrapperName = null;
@@ -168,107 +245,110 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isCollectionType()
      */
+    @Override
     protected boolean handleIsCollectionType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.COLLECTION_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.COLLECTION_TYPE_NAME);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isListType()
      */
+    @Override
     protected boolean handleIsListType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.LIST_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.LIST_TYPE_NAME);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isSetType()
      */
+    @Override
     protected boolean handleIsSetType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.SET_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.SET_TYPE_NAME);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isBooleanType()
      */
+    @Override
     protected boolean handleIsBooleanType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.BOOLEAN_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.BOOLEAN_TYPE_NAME);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isDateType()
      */
+    @Override
     protected boolean handleIsDateType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.DATE_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.DATE_TYPE_NAME);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isTimeType()
      */
+    @Override
     protected boolean handleIsTimeType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.TIME_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.TIME_TYPE_NAME);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isFileType()
      */
+    @Override
     protected boolean handleIsFileType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.FILE_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.FILE_TYPE_NAME);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isBlobType()
      */
+    @Override
     protected boolean handleIsBlobType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.BLOB_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.BLOB_TYPE_NAME);
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isClobType()
+     */
+    @Override
+    protected boolean handleIsClobType()
+    {
+        return UMLMetafacadeUtils.isType(this, UMLProfile.CLOB_TYPE_NAME);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isMapType()
      */
+    @Override
     public boolean handleIsMapType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.MAP_TYPE_NAME);
+        return UMLMetafacadeUtils.isType(this, UMLProfile.MAP_TYPE_NAME);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isStringType()
      */
+    @Override
     protected boolean handleIsStringType()
     {
-        return UMLMetafacadeUtils.isType(
-            this,
-            UMLProfile.STRING_TYPE_NAME);
+        // Allow mapping multiple model types to String type
+        return this.getFullyQualifiedName().equals("String")
+           ||  this.getFullyQualifiedName().equals("java.lang.String")
+           || UMLMetafacadeUtils.isType(this, UMLProfile.STRING_TYPE_NAME);
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes()
      */
-    protected java.util.Collection handleGetAttributes()
+    @Override
+    protected Collection<Attribute> handleGetAttributes()
     {
         final Collection attributes = new ArrayList(this.metaObject.getFeature());
         for (final Iterator iterator = attributes.iterator(); iterator.hasNext();)
@@ -284,17 +364,18 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAttributes(boolean)
      */
-    protected Collection handleGetAttributes(boolean follow)
+    @Override
+    protected Collection<AttributeFacade> handleGetAttributes(boolean follow)
     {
-        final Collection attributes = new ArrayList(this.getAttributes());
+        final Collection<AttributeFacade> attributes = new ArrayList<AttributeFacade>(this.getAttributes());
         for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
-            superClass = (ClassifierFacade)superClass.getGeneralization())
+             superClass = (ClassifierFacade)superClass.getGeneralization())
         {
-            for (final Iterator iterator = superClass.getAttributes().iterator(); iterator.hasNext();)
+            for (final Iterator<AttributeFacade> iterator = superClass.getAttributes().iterator(); iterator.hasNext();)
             {
                 final AttributeFacade superAttribute = (AttributeFacade)iterator.next();
                 boolean present = false;
-                for (final Iterator attributeIterator = this.getAttributes().iterator(); attributeIterator.hasNext();)
+                for (final Iterator<AttributeFacade> attributeIterator = this.getAttributes().iterator(); attributeIterator.hasNext();)
                 {
                     final AttributeFacade attribute = (AttributeFacade)attributeIterator.next();
                     if (attribute.getName().equals(superAttribute.getName()))
@@ -315,9 +396,10 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
      */
-    protected java.util.Collection handleGetProperties()
+    @Override
+    protected Collection handleGetProperties()
     {
-        final Collection properties = this.getAttributes();
+        final Collection properties = new ArrayList(this.getAttributes());
         properties.addAll(this.getNavigableConnectingEnds());
         return properties;
     }
@@ -325,6 +407,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAllProperties()
      */
+    @Override
     public Collection handleGetAllProperties()
     {
         return this.getProperties(true);
@@ -333,21 +416,21 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAllRequiredConstructorParameters()
      */
+    @Override
     public Collection handleGetAllRequiredConstructorParameters()
     {
         final Collection allRequiredConstructorParameters = new ArrayList();
+        allRequiredConstructorParameters.addAll(this.getRequiredConstructorParameters());
 
-        final Collection generalizations = this.getGeneralizations();
-        for (Iterator parents = generalizations.iterator(); parents.hasNext();)
+        final Collection<GeneralizableElementFacade> generalizations = this.getGeneralizations();
+        for (Iterator<GeneralizableElementFacade> parents = generalizations.iterator(); parents.hasNext();)
         {
-            final Object parent = parents.next();
+            final GeneralizableElementFacade parent = parents.next();
             if (parent instanceof ClassifierFacade)
             {
                 allRequiredConstructorParameters.addAll(((ClassifierFacade)parent).getAllRequiredConstructorParameters());
             }
         }
-
-        allRequiredConstructorParameters.addAll(this.getRequiredConstructorParameters());
 
         return allRequiredConstructorParameters;
     }
@@ -355,6 +438,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getRequiredConstructorParameters()
      */
+    @Override
     public Collection handleGetRequiredConstructorParameters()
     {
         final Collection requiredConstructorParameters = new ArrayList();
@@ -387,6 +471,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties(boolean)
      */
+    @Override
     protected Collection handleGetProperties(boolean follow)
     {
         final Collection properties = new ArrayList(this.getAttributes(follow));
@@ -394,13 +479,13 @@ public class ClassifierFacadeLogicImpl
         if (follow)
         {
             for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
-                superClass = (ClassifierFacade)superClass.getGeneralization())
+                 superClass = (ClassifierFacade)superClass.getGeneralization())
             {
-                for (final Iterator iterator = superClass.getNavigableConnectingEnds().iterator(); iterator.hasNext();)
+                for (final Iterator<ClassifierFacade> iterator = superClass.getNavigableConnectingEnds().iterator(); iterator.hasNext();)
                 {
                     final AssociationEndFacade superAssociationEnd = (AssociationEndFacade)iterator.next();
                     boolean present = false;
-                    for (final Iterator endIterator = this.getAssociationEnds().iterator(); endIterator.hasNext();)
+                    for (final Iterator<AssociationEndFacade> endIterator = this.getAssociationEnds().iterator(); endIterator.hasNext();)
                     {
                         final AssociationEndFacade associationEnd = (AssociationEndFacade)endIterator.next();
                         if (associationEnd.getName().equals(superAssociationEnd.getName()))
@@ -422,6 +507,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getOperationCallFromAttributes()
      */
+    @Override
     protected String handleGetOperationCallFromAttributes()
     {
         final StringBuffer call = new StringBuffer();
@@ -445,6 +531,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isAbstract()
      */
+    @Override
     protected boolean handleIsAbstract()
     {
         return this.metaObject.isAbstract();
@@ -453,7 +540,8 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getStaticAttributes()
      */
-    protected Collection handleGetStaticAttributes()
+    @Override
+    protected Collection<AttributeFacade> handleGetStaticAttributes()
     {
         return new FilteredCollection(this.getAttributes())
             {
@@ -465,31 +553,69 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#getImplementedInterfaceList()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getInterfaceAbstractions()
      */
-    protected String handleGetImplementedInterfaceList()
+    @Override
+    protected Collection<ClassifierFacade> handleGetInterfaceAbstractions()
     {
-        final StringBuffer list = new StringBuffer();
+        final Collection<ClassifierFacade> interfaceAbstractions = new LinkedHashSet<ClassifierFacade>();
         if (this.getAbstractions() != null)
         {
-            for (final Iterator iterator = this.getAbstractions().iterator(); iterator.hasNext();)
+            for (Iterator<ClassifierFacade> abstractionIterator = this.getAbstractions().iterator(); abstractionIterator.hasNext();)
             {
-                DependencyFacade abstraction = (DependencyFacade)iterator.next();
+                final DependencyFacade abstraction = (DependencyFacade)abstractionIterator.next();
                 final ModelElementFacade element = abstraction.getTargetElement();
+
+                if (element instanceof ClassifierFacade)
+                {
+                    final ClassifierFacade classifier = (ClassifierFacade)element;
+                    if (classifier.isInterface())
+                    {
+                        interfaceAbstractions.add(classifier);
+                    }
+                }
+            }
+        }
+
+        return interfaceAbstractions;
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getImplementedInterfaceList()
+     */
+    @Override
+    protected String handleGetImplementedInterfaceList()
+    {
+        final String interfaceList;
+
+        final Collection<ClassifierFacade> interfaces = this.getInterfaceAbstractions();
+        if (interfaces.isEmpty())
+        {
+            interfaceList = "";
+        }
+        else
+        {
+            final StringBuffer list = new StringBuffer();
+            for (final Iterator iterator = interfaces.iterator(); iterator.hasNext();)
+            {
+                final ModelElementFacade element = (ModelElementFacade)iterator.next();
                 list.append(element.getFullyQualifiedName());
                 if (iterator.hasNext())
                 {
                     list.append(", ");
                 }
             }
+            interfaceList = list.toString();
         }
-        return list.toString();
+
+        return interfaceList;
     }
 
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getInstanceAttributes()
      */
-    protected java.util.Collection handleGetInstanceAttributes()
+    @Override
+    protected Collection<AttributeFacade> handleGetInstanceAttributes()
     {
         return new FilteredCollection(this.getAttributes())
             {
@@ -503,7 +629,8 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getAbstractions()
      */
-    protected Collection handleGetAbstractions()
+    @Override
+    protected Collection<ClassifierFacade> handleGetAbstractions()
     {
         return new FilteredCollection(this.metaObject.getClientDependency())
             {
@@ -515,16 +642,18 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#isDatatype()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isDataType()
      */
+    @Override
     protected boolean handleIsDataType()
     {
         return DataType.class.isAssignableFrom(this.metaObject.getClass());
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#isDatatype()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isInterface()
      */
+    @Override
     protected boolean handleIsInterface()
     {
         return Interface.class.isAssignableFrom(this.metaObject.getClass());
@@ -533,9 +662,10 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getNonArray()
      */
-    protected Object handleGetNonArray()
+    @Override
+    protected ClassifierFacade handleGetNonArray()
     {
-        ClassifierFacade nonArrayType = this;
+        ClassifierFacade nonArrayType = (ClassifierFacade)this.THIS();
         if (this.getFullyQualifiedName().indexOf(this.getArraySuffix()) != -1)
         {
             nonArrayType =
@@ -551,9 +681,10 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getArray()
      */
-    protected Object handleGetArray()
+    @Override
+    protected ClassifierFacade handleGetArray()
     {
-        ClassifierFacade arrayType = this;
+        ClassifierFacade arrayType = (ClassifierFacade)this.THIS();
         String name = this.getFullyQualifiedName(true);
         if (name.indexOf(this.getArraySuffix()) == -1)
         {
@@ -564,24 +695,9 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#addAttribute(java.lang.String, java.lang.String,
-            *      java.lang.String)
-     */
-    protected void handleAddAttribute(
-        String name,
-        String fullyQualifiedType,
-        String visibility)
-    {
-        CorePackage corePackage = UML14MetafacadeUtils.getCorePackage();
-        Attribute attribute = corePackage.getAttribute().createAttribute();
-        attribute.setName(name);
-        attribute.setVisibility(UML14MetafacadeUtils.getVisibilityKind(visibility));
-        this.metaObject.getFeature().add(attribute);
-    }
-
-    /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isEnumeration()
      */
+    @Override
     protected boolean handleIsEnumeration()
     {
         return this.hasStereotype(UMLProfile.STEREOTYPE_ENUMERATION);
@@ -590,6 +706,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getJavaNullString()
      */
+    @Override
     protected String handleGetJavaNullString()
     {
         String javaNullString;
@@ -616,7 +733,8 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getStaticOperations()
      */
-    protected Collection handleGetStaticOperations()
+    @Override
+    protected Collection<OperationFacade> handleGetStaticOperations()
     {
         return new FilteredCollection(this.getOperations())
             {
@@ -630,7 +748,8 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getInstanceOperations()
      */
-    protected Collection handleGetInstanceOperations()
+    @Override
+    protected Collection<OperationFacade> handleGetInstanceOperations()
     {
         return new FilteredCollection(this.getOperations())
             {
@@ -642,12 +761,13 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.ClassifierFacade#findAttribute(java.lang.String)
+     * @see org.andromda.metafacades.uml.ClassifierFacade#findAttribute(String)
      */
+    @Override
     protected AttributeFacade handleFindAttribute(final String name)
     {
         return (AttributeFacade)CollectionUtils.find(
-            this.getAttributes(),
+            this.getAttributes(true),
             new Predicate()
             {
                 public boolean evaluate(Object object)
@@ -661,14 +781,16 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getArrayName()
      */
+    @Override
     protected String handleGetArrayName()
     {
         return this.getName() + this.getArraySuffix();
     }
 
     /**
-     * @see org.andromda.metafacades.uml14.ClassifierFacade#getFullyQualifiedArrayName()
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getFullyQualifiedArrayName()
      */
+    @Override
     protected String handleGetFullyQualifiedArrayName()
     {
         return this.getFullyQualifiedName() + this.getArraySuffix();
@@ -693,9 +815,6 @@ public class ClassifierFacadeLogicImpl
         // class name
         buffer.append(this.getName());
 
-        // class modifiers (visibility)
-        buffer.append(this.getVisibility());
-
         // generalizations
         for (final Iterator iterator = this.getAllGeneralizations().iterator(); iterator.hasNext();)
         {
@@ -709,7 +828,7 @@ public class ClassifierFacadeLogicImpl
             AttributeFacade attribute = (AttributeFacade)iterator.next();
             buffer.append(attribute.getName());
             buffer.append(attribute.getVisibility());
-            buffer.append(attribute.getType());
+            buffer.append(attribute.getType().getName());
         }
 
         // operations
@@ -718,13 +837,12 @@ public class ClassifierFacadeLogicImpl
             OperationFacade operation = (OperationFacade)iter.next();
             buffer.append(operation.getName());
             buffer.append(operation.getVisibility());
-            buffer.append(operation.getReturnType());
-            for (final Iterator iterator = operation.getParameters().iterator(); iterator.hasNext();)
+            buffer.append(operation.getReturnType().getName());
+            for (final Iterator iterator = operation.getArguments().iterator(); iterator.hasNext();)
             {
                 final ParameterFacade parameter = (ParameterFacade)iterator.next();
                 buffer.append(parameter.getName());
-                buffer.append(parameter.getVisibility());
-                buffer.append(parameter.getType());
+                buffer.append(parameter.getType().getName());
             }
         }
         final String signature = buffer.toString();
@@ -753,6 +871,7 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getSerialVersionUID()
      */
+    @Override
     protected Long handleGetSerialVersionUID()
     {
         Long serialVersionUID;
@@ -771,14 +890,16 @@ public class ClassifierFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getNavigableConnectingEnds()
      */
+    @Override
     protected Collection handleGetNavigableConnectingEnds()
     {
-        final Collection connectingEnds = this.getAssociationEnds();
+        // TODO Change model return type from <ClassifierFacade> to <AssociationEndFacade>
+        final ArrayList<AssociationEndFacade> connectingEnds = new ArrayList<AssociationEndFacade>(this.getAssociationEnds());
         CollectionUtils.transform(
             connectingEnds,
             new Transformer()
             {
-                public Object transform(final Object object)
+                public AssociationEndFacade transform(final Object object)
                 {
                     return ((AssociationEndFacade)object).getOtherEnd();
                 }
@@ -796,10 +917,90 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
+     * @see org.andromda.metafacades.uml.ClassifierFacade#getNavigableConnectingEnds(boolean)
+     */
+    @Override
+    protected Collection<AssociationEndFacade> handleGetNavigableConnectingEnds(boolean follow)
+    {
+        final Collection<AssociationEndFacade> connectionEnds = new ArrayList(this.getNavigableConnectingEnds());
+
+        for (ClassifierFacade superClass = (ClassifierFacade)getGeneralization(); superClass != null && follow;
+             superClass = (ClassifierFacade)superClass.getGeneralization())
+        {
+            for (final Iterator<ClassifierFacade> iterator = superClass.getNavigableConnectingEnds().iterator(); iterator.hasNext();)
+            {
+                final AssociationEndFacade superAssociationEnd = (AssociationEndFacade)iterator.next();
+                boolean present = false;
+                for (final Iterator<AssociationEndFacade> endIterator = this.getAssociationEnds().iterator(); endIterator.hasNext();)
+                {
+                    final AssociationEndFacade associationEnd = (AssociationEndFacade)endIterator.next();
+                    if (associationEnd.getName().equals(superAssociationEnd.getName()))
+                    {
+                        present = true;
+                        break;
+                    }
+                }
+                if (!present)
+                {
+                    connectionEnds.add(superAssociationEnd);
+                }
+            }
+        }
+        return connectionEnds;
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isLeaf()
      */
+    @Override
     protected boolean handleIsLeaf()
     {
         return this.metaObject.isLeaf();
+    }
+
+    /**
+     * @see org.andromda.metafacades.uml14.ClassifierFacadeLogic#handleIsAssociationClass()
+     */
+    protected boolean handleIsAssociationClass()
+    {
+        return AssociationClass.class.isAssignableFrom(this.metaObject.getClass());
+    }
+
+    protected Collection<ClassifierFacade> handleGetAssociatedClasses()
+    {
+        final Set<ClassifierFacade> associatedClasses = new LinkedHashSet<ClassifierFacade>();
+
+        final List<AssociationEndFacade> associationEnds = this.getAssociationEnds();
+        for (int i = 0; i < associationEnds.size(); i++)
+        {
+            final AssociationEndFacade associationEndFacade = (AssociationEndFacade)associationEnds.get(i);
+            associatedClasses.add(associationEndFacade.getOtherEnd().getType());
+        }
+
+        return associatedClasses;
+    }
+
+    protected Collection<ClassifierFacade> handleGetAllAssociatedClasses()
+    {
+        final Set<ClassifierFacade> associatedClasses = new LinkedHashSet<ClassifierFacade>();
+        associatedClasses.addAll(this.getAssociatedClasses());
+        for (Iterator<GeneralizableElementFacade> parentIterator = this.getGeneralizations().iterator(); parentIterator.hasNext();)
+        {
+            final ClassifierFacade parent = (ClassifierFacade)parentIterator.next();
+            associatedClasses.addAll(parent.getAllAssociatedClasses());
+        }
+
+        return associatedClasses;
+    }
+
+    protected ClassifierFacade handleGetSuperClass()
+    {
+        final GeneralizableElementFacade superClass = this.getGeneralization();
+        return (ClassifierFacade)(superClass instanceof ClassifierFacade ? superClass : null);
+    }
+
+    protected boolean handleIsEmbeddedValue()
+    {
+        return this.hasStereotype(UMLProfile.STEREOTYPE_EMBEDDED_VALUE);
     }
 }

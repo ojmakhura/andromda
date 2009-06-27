@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="$xmlEncoding"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <!-- ========================= Start of BEAN POSTPROCESSORS ======================== -->
+
+#set ($propertiesFile = "${stringUtils.substringBeforeLast($applicationContextClient, '.')}.properties")
+    <bean id="propertyPlaceholderConfigurer"
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath:${propertiesFile}</value>
+        </property>
+        <property name="systemPropertiesModeName">
+            <value>SYSTEM_PROPERTIES_MODE_OVERRIDE</value>
+        </property>
+    </bean>
+
+    <!-- ========================= End of BEAN POSTPROCESSORS ========================== -->
+
+
+#if ($adviceEnabled)
+    <!-- ========================= Start of INTERCEPTOR DEFINITIONS ==================== -->
+
+#set ($exceptionHandlingAdviceName = "$clientExceptionHandlingAdviceName")
+#if($stringUtils.isNotEmpty($springTypesPackage))
+#set ($exceptionHandlingAdviceName = "$springTypesPackage.$exceptionHandlingAdviceName")
+#end
+    <!-- Custom exception handling interceptor -->
+    <bean id="exceptionHandlingAdvice" class="$exceptionHandlingAdviceName" />
+
+    <!-- ========================= End of INTERCEPTOR DEFINITIONS ======================= -->
+
+
+#end
+    <!-- ========================= Start of SERVICE DEFINITIONS ========================= -->
+
+#foreach($service in $services)
+#if($service.remotable)
+#if($service.remotingTypeLingo)
+    <!-- $service.name Remote Service Local Proxy with inner $service.name Remote Service invoker -->
+    <bean id="$service.getBeanName(false)" class="org.logicblaze.lingo.jms.JmsProxyFactoryBean">
+        <property name="serviceInterface"><value>$service.fullyQualifiedName</value></property>
+        <property name="connectionFactory" ref="jmsFactory"/>
+        <property name="destination">
+            <bean class="org.activemq.message.ActiveMQQueue">
+                <constructor-arg index="0">
+                    <value>$service.fullyQualifiedName</value>
+                </constructor-arg>
+            </bean>
+        </property>
+        <!-- enable async one ways on the client -->
+        <property name="remoteInvocationFactory" ref="invocationFactory"/>
+    </bean>
+
+#else
+    <!-- $service.name Remote Service Local Proxy with inner $service.name Remote Service invoker -->
+    <bean id="$service.getBeanName(false)" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+#set ($clientRequestInterceptorRequired = $stringUtils.isNotBlank($clientHttpInvokerExecutor) || $remoteUsernameAuthenticationEnabled)
+#if($service.remotingTypeHttpInvoker)
+            <bean class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+#if($clientRequestInterceptorRequired)
+                <property name="httpInvokerRequestExecutor">
+                    <ref local="clientRequestInterceptor"/>
+                </property>
+#end
+#elseif($service.remotingTypeHessian)
+            <bean class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+#if($clientRequestInterceptorRequired)
+                <property name="proxyFactory">
+                    <ref local="clientRequestInterceptor"/>
+                </property>
+#end
+#elseif($service.remotingTypeBurlap)
+            <bean class="org.springframework.remoting.caucho.BurlapProxyFactoryBean">
+#if($clientRequestInterceptorRequired)
+                <property name="proxyFactory">
+                    <ref local="clientRequestInterceptor"/>
+                </property>
+#end
+#elseif($service.remotingTypeRmi)
+            <bean class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+#end
+                <property name="serviceUrl"><value>$service.remoteUrl</value></property>
+                <property name="serviceInterface"><value>$service.fullyQualifiedName</value></property>
+            </bean>
+        </property>
+        <property name="proxyInterfaces"><value>$service.fullyQualifiedName</value></property>
+#if ($adviceEnabled)
+        <property name="interceptorNames">
+            <list>
+                <value>exceptionHandlingAdvice</value>
+            </list>
+        </property>
+#end
+    </bean>
+
+#end
+#end
+#end
+#foreach ($manageable in $manageables)
+    <!-- $manageable.manageableServiceName Remote Service Local Proxy with inner $manageable.manageableServiceName Remote Service invoker -->
+    <bean id="$manageable.manageableServiceName" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target">
+#if($manageable.remotingTypeHttpInvoker)
+            <bean class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+#elseif($manageable.remotingTypeHessian)
+            <bean class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+#elseif($manageable.remotingTypeBurlap)
+            <bean class="org.springframework.remoting.caucho.BurlapProxyFactoryBean">
+#elseif($manageable.remotingTypeRmi)
+            <bean class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+#end
+                <property name="serviceUrl"><value>$manageable.remoteUrl</value></property>
+                <property name="serviceInterface"><value>$manageable.fullyQualifiedManageableServiceName</value></property>
+            </bean>
+        </property>
+        <property name="proxyInterfaces"><value>$manageable.fullyQualifiedManageableServiceName</value></property>
+#if ($adviceEnabled)
+        <property name="interceptorNames">
+            <list>
+                <value>exceptionHandlingAdvice</value>
+            </list>
+        </property>
+#end
+    </bean>
+
+#end
+#if($stringUtils.isNotBlank($clientHttpInvokerExecutor))
+    <bean id="clientRequestInterceptor" class="$clientHttpInvokerExecutor"/>
+
+#elseif ($remoteUsernameAuthenticationEnabled)
+    <bean id="clientRequestInterceptor" class="${springTypesPackage}.${remoteAuthenticatingHttpInvokerRequestExecutorName}">
+        <property name="username">
+            <value>${${configPropertyPrefix}username}</value>
+        </property>
+        <property name="password">
+            <value>${${configPropertyPrefix}password}</value>
+        </property>
+    </bean>
+
+#end
+#if($lingoRemotableServicesPresent)
+    <!-- Lingo invocation factory -->
+    <bean id="invocationFactory"
+        class="org.logicblaze.lingo.LingoRemoteInvocationFactory">
+        <constructor-arg>
+            <bean class="org.logicblaze.lingo.SimpleMetadataStrategy">
+                <!-- enable async one ways -->
+                <constructor-arg value="true"/>
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <!-- JMS connection factory for Lingo remoting -->
+    <bean id="jmsFactory" class="org.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${${configPropertyPrefix}remoteTcpScheme}://${${configPropertyPrefix}remoteServer}:${${configPropertyPrefix}remotePortJMS}"/>
+    </bean>
+
+#end
+#if($acegiServiceSecurity)
+    <bean id="${serviceRemoteContext}RemoteAuthenticationManagerService"
+        class="org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean">
+        <property name="serviceUrl">
+            <value>${${configPropertyPrefix}remoteHttpScheme}://${${configPropertyPrefix}remoteServer}:${${configPropertyPrefix}remotePort}/${${configPropertyPrefix}remoteContext}/RemoteAuthenticationManagerService</value>
+        </property>
+        <property name="serviceInterface">
+            <value>${acegiRemoteAuthenticationManagerServiceInterface}</value>
+        </property>
+    </bean>
+
+#end
+    <!-- ========================= End of SERVICE DEFINITIONS ========================= -->
+
+</beans>

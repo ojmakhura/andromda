@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<faqs title="Frequently Asked Questions">
+
+    <part id="general">
+        <title>General</title>
+
+        <faq id="what">
+            <question>What does bpm4struts stand for ?</question>
+            <answer>
+                <p>
+                     Bpm4Struts stands for: Business Modeling for Struts. It means you will be
+                     able to create your Struts web application by modeling business processes.
+                     Business processes in a Struts application typically involve displaying JSP pages and
+                     sending requests to the server by means of actions performed on those pages, such
+                     as button clicks or navigating using hyperlinks. These actions mostly result in code being executed
+                     on the server (in the action itself, or better yet: delegated to the business layer),
+                     it is this code which contains the business logic.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="tools">
+            <question>What tools can I use to model ?</question>
+            <answer>
+                <p>
+                    Currently only MagicDraw has been extensively tested, unfortunately this
+                    is commercial software and requires a licence to run. Support for a
+                    free tool such as Poseidon is underway.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="docs">
+            <question>Where is the online documentation ?</question>
+            <answer>
+                <p>
+                    There is the general documentation Bpm4Struts, there is a user-guide
+                    and there is the how-to which serves as a small tutorial describing an example application.
+                    All of this is hosted
+                    <a href="http://docs.andromda.org/andromda-bpm4struts-cartridge/index.html">here</a>.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="more-questions">
+            <question>I still have more questions! What now ?</question>
+            <answer>
+                <p>
+                    Subscribe to our forum, Go here:
+                    <a href="http://forum.andromda.org">AndroMDA forum</a>
+                </p>
+            </answer>
+        </faq>
+    </part>
+
+    <part id="using">
+        <title>Using bpm4struts</title>
+
+        <faq id="exceptions">
+            <question>When I try to run AndroMDA on my model I get an exception, what's going on ?</question>
+            <answer>
+                <p>
+                    You have to make sure your model complies with the constraints as documented
+                    in the user guide. Failing to do so will
+                    confuse the cartridge and might have unpredicatable behavior such as exceptions or
+                    undeployable Struts code.
+                </p>
+                <p>
+                    Here are some common exceptions with a description and their resolution
+                </p>
+                <p>
+                    <table>
+                        <tr>
+                            <th>Exception</th>
+                            <th>Description</th>
+                            <th>Resolution</th>
+                        </tr>
+                        <tr>
+                            <td>NullPointerException at StrutsActionLogicImpl.getPackageName(StrutsActionLogicImpl.java)</td>
+                            <td>The cartridge tried to resolve the package for an action by trying to look for the controller, the controller was not found.</td>
+                            <td>Make sure all activity graphs have a controller assigned to them.</td>
+                        </tr>
+                        <tr>
+                            <td>ClassCastException at StrutsActivityGraphLogic.getController(StrutsActivityGraphLogic.java)</td>
+                            <td>A controller was found but does not seem suited for bpm4struts.</td>
+                        </tr>
+                        <tr>
+                            <td>MethodInvocationException at class StrutsTriggerLogicImpl</td>
+                            <td>A method was called on one of the triggers, but some of the required information was not found, such as the name.</td>
+                            <td>Make sure all triggers on transitions going out of a jsp page (action states with the
+                                FrontEndView stereotype) have a suitable name, it may not be empty.</td>
+                        </tr>
+                    </table>
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="magicdraw-exceptions">
+            <question>
+                I am using MagicDraw, and I am getting NullPointerExceptions in .getForwardPath(),
+                although my UML model seem to be correct.
+            </question>
+            <answer>
+                <p>
+                    Did you make sure your action states all have names ? in magicdraw you really need to click
+                    'open specification...' in order to e   nter the name, if you typed the name in the diagram
+                    directly you have not entered the name, rather a label. So click 'open specification...'
+                    (right-click --&gt; context menu) on all your action states to make sure their names are not-empty.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="stereotypes">
+            <question>Do I really need to tag elements with stereotypes ?</question>
+            <answer>
+                <p>
+                    Yes, and the reason is very simple: the cartridge maps stereotypes to templates.
+                    This is a way of telling which files should be generated from what elements.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="tagged-values">
+            <question>Do I need to tag elements with tagged values ?</question>
+            <answer>
+                <p>
+                    No, but failing to do so will not enable some of the more interesting cartridge
+                    features. Using tagged values you can enable the validation of form
+                    input fields, for example. It depends on the context of the specific model
+                    element whether or not a tagged value would be needed.
+                    All tagged values have a default value, so if you don't
+                    add one it' value will be implied.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="quick-steps">
+            <question>What kind of work is involved in making a very simple bpm4struts model ?</question>
+            <answer>
+                <p>
+                    Let's get over the things to do for a single use-case with a single page:
+                    <ol>
+                        <li>create a use-case</li>
+                        <li>give this use-case the FrontEndApplication stereotype</li>
+                        <li>create an activity graph in this use-case</li>
+                        <li>add an initial state</li>
+                        <li>add an action state "Action1"</li>
+                        <li>add a transition from the initial state into this action state</li>
+                        <li>add another action state "Action2"</li>
+                        <li>add a transition from "Action1" into "Action2"</li>
+                        <li>add the FrontEndView stereotype to "Action2" (doing this will make
+                            it a JSP page)</li>
+                        <li>add a final state and give it the name of the use-case to forward
+                            to (case-insensitive)</li>
+                        <li>add a transition from "Action2" into this final state</li>
+                        <li>because this transition is going out of an action state with the
+                            FrontEndView stereotype it needs a trigger with a name and
+                            optionally with some parameters (this will be rendered as a
+                            submittable form)</li>
+                        <li>Create a controller class, "ActionController"</li>
+                        <li>"assign" this controller class to the activity graph created in
+                            step 3. (using MagicDraw you can do that easily)</li>
+                        <li>optionally you can add operations to this controller and have an
+                            action state defer to any of these operations</li>
+                    </ol>
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="inter-usecase-data">
+            <question>
+                The session-scoped forms are cleaned on each subsequent entry of that same
+                use-case, how can I transfer data between use-cases ?
+            </question>
+            <answer>
+                <p>
+                    Since the forms are stored in the session scope it is possible to have stale data
+                    in different instances of the same use-case. In order to avoid this we must make sure
+                    the data is removed from the form whenever we re-enter that use-case. But in doing so
+                    we make it more difficult to send data between use-cases, sometimes it is needed to
+                    send an ID or semething to the next use-case, how can we make sure the form cleaning does
+                    not dispose this data ?
+                </p>
+                <p>
+                    The solution is in fact very simple: do not use the forms when transporting values
+                    to another use-case. In fact it is a better idea to simple use
+                    <code>HttpServletRequest.setAttribute(String,Object)</code>, this will put the value
+                    as a request scope variable that is available in the target use-case.
+                </p>
+            </answer>
+        </faq>
+        <faq id="controller-generation">
+            <question>
+				I've noticed that sometimes my Controller implementation is generated and 
+				sometimes not, what's going on?
+            </question>
+            <answer>
+                <p>
+					Controllers are not generated (the implementation that is) until you
+				    give it at least one operation (since it would be pointless otherwise).
+                </p>
+            </answer>
+        </faq>
+    </part>
+
+    <part id="tuning">
+        <title>Tuning bpm4struts</title>
+
+        <faq id="changing">
+            <question>I am not happy with the generated code, can I change it ?</question>
+            <answer>
+                <p>
+                    Sure you can, openup the cartridge and go into the 'templates' directory.
+                    You will find a bunch of templates, how they map onto files can be found
+                    in the deployment-descriptor in the 'META-INF' subdirectory (next to 'templates').
+                    You can override cartridge resources, this is all explained
+                    <a href="../andromda-cartridges/index.html#mergeLocation">here</a>.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="precompilation">
+            <question>I want to precompile my JSP pages, can it be done ?</question>
+            <answer>
+                <p>
+                    Sure it can, just put the compiled JSPs in your WAR bundle under WEB-INF/classes.
+                </p>
+                <p>
+                    If you have set up your environment using the andromdapp:generate plugin you can go into
+                    the 'web' component and open the <code>project.properties</code> file.
+                    In this file make sure you have the following property set:
+                    <code>precompileJsps=true</code>. Doing so will enable precompilation.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="precompilation-error">
+            <question>I am precompiling my JSP pages, but I got an error ?</question>
+            <answer>
+                <p>
+                    It is possible AndroMDA generates servlets with a path that is too
+                    long for the Windows filesystem when it is read from the ear bundle.
+                    In that case it is sufficient to explode
+                    you ear or war when you deploy, this will cause the path to the file to be shortened.
+                    This problem manifests itself by means of a <code>java.lang.ClassNotFoundException</code>.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="authentication">
+            <question>
+                How can I define in the UML model that the form-based authentication
+                is used for bpm4struts applications ?
+            </question>
+            <answer>
+                <p>You don't specify that in the UML model directly</p>
+                <p>
+                    You should consider the bpm4struts cartridge just as an example ,... customization can be done in
+                    the templates .. so you would like to change one of them .. more particular the one called
+                    'StrutsXDocletMergeWebSecurity.vsl', you will understand it when you open it.
+                </p>
+                <p>
+                    Anyway, form based authentication is configured by default, but the security is
+                    disabled by default too .. so you need to enable it.
+                </p>
+                <p>
+                    You will need to open up <code>andromda.xml</code> and in the bpm4struts
+                    namespace give the 'securityRealm' the value of your security realm.
+                    <source language="xml">
+<![CDATA[
+    <property name="securityRealm">other</property>
+    <property name="pages">${app.root.dir}/${web.dir}/${jsp.src.dir}</property>
+    <property name="forms">${app.root.dir}/${web.dir}/${mda.build.dir}</property>
+    <property name="actions">${app.root.dir}/${web.dir}/${mda.build.dir}</property>
+    <property name="controllers">${app.root.dir}/${web.dir}/${mda.build.dir}</property>
+    <property name="controller-impls">${app.root.dir}/${web.dir}/${java.src.dir}</property>
+    <property name="messages">${app.root.dir}/${web.dir}/${properties.src.dir}</property>
+    <property name="configuration">${app.root.dir}/${web.dir}/${mda.build.dir}</property>
+]]>
+                    </source>
+                </p>
+                <p>
+                    Security is disabled by default because it requires you to configure your
+                    container too (i.e. users/roles).
+                </p>
+            </answer>
+        </faq>
+
+    </part>
+
+    <part id="other">
+        <title>Other technologies</title>
+
+        <faq id="webwork">
+            <question>I don't want a Struts application, I like Webwork better ... is bpm4struts for me ?</question>
+            <answer>
+                <p>
+                    Not really, at this point there is no cartridge for Webwork, but it can easily
+                    be written. Taking a look at how bpm4struts is designed will make it straightforward
+                    to implement the same thing for Webwork.
+                    This new cartridge could be called bpm4webwork ...
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="jsf">
+            <question>Can bpm4struts generate Java Server Faces too ?</question>
+            <answer>
+                <p>
+                    No, JSF is not Struts. For more information go here:
+                    <a href="http://jakarta.apache.org/struts/faqs/kickstart.html#jsf">Apache Struts JSF Faq</a>.
+                    If you'd like to use JSF instead, check out the <a href="../andromda-jsf/cartridge/index.html">JSF cartridge</a>.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="xmlc">
+            <question>
+                If you use JSP, TagLibs, it could be worth it to use the UML modeling as you cannot directly "run"
+                the JSP pages as they are within the web browser (especially if you put Java codes in your
+                JSP files ;-)). You always need to run the web container to see the flow, etc.
+                <br/>
+                But if you use XMLC (you just put "id" on the part you want to change in the runtime), you can have
+                the flow, look&amp;feel, sample data, etc. directly without needing to run the web container.
+                So you just build the HTML files, add the flow directly as they would work within the web
+                container. You can directly show the "story board" to your customer without any implementation and
+                any web container, just use web browser ;-) Very easy. In this case it's not worth it, IMO,
+                to use the flow modeling (activity diagram) in UML, as the story board
+                would be a lot more easier to understand for the customer.
+                <br/>
+                I agree that the class diagram (structure) is always good to use, also for the presentation layer,
+                as we can model the structure of the servlet part. But this would be already the PSM and not PIM anymore.
+            </question>
+            <answer>
+                <p>
+                    The bpm4struts cartridge for AndroMDA has mainly been created out of a general discomfort with
+                    working with JSP/Servlets or even Struts directly. The problem was that I would find myself
+                    spending too much time on details related to the underlying technology, rather than on the
+                    core business of the application.
+                </p>
+                <p>
+                    More concretely:
+                    <ol>
+                        <li>
+                            Client-side/server-side input validation:
+                            Changing the type of a field, or adding a new one, would require me to update code
+                            at several locations. Granted, XDoclet can solve this problem.
+                        </li>
+                        <li>
+                            Exception handling:
+                            It's a known problem, and I was not unaffected by it neither. Exceptions are
+                            underestimated and therefore mostly added too late, which can be hard to do.
+                            I would like to have a default behavior in pages: "whenever something goes wrong,
+                            go back the previous page and display the error message". If you change the page
+                            flow often you'll find yourself updating struts-config.xml all the times.
+                        </li>
+                        <li>
+                            Page flow transition (actions &lt;--&gt; pages):
+                            Error prone, although struts-config.xml is pretty clear and straightforward it is
+                            too easy to make a mistake. Repositioning transitions can be a nightmare if your
+                            pages rely on the parameters in your requests etc... you get the picture. Before
+                            you know it people are starting to put stuff in the 'session' (UGH).
+                        </li>
+                        <li>
+                            Security:
+                            I wanted a way to bundle resources together in web.xml, but I am too lazy to keep
+                            updating that file all the time.
+                        </li>
+                        <li>
+                            I18N Resources:
+                            Or you lock your application into a single language, or you take the time to use the i18n
+                            features available. But in doing so you'll need to maintain a bundle for each language,
+                            wouldn't it be nice if the file would be created for you (at least in one language) ?
+                            <p/>
+                            ... I guess there is more, but you get the picture ...
+                            <p/>
+                            Anyway, I chose Struts as a presentation layer, so subsequently I wrote an
+                            AndroMDA cartridge for Struts. There's no magic involved, the cartridge only
+                            takes over those tasks that are too boring and I was too lazy to do myself,
+                            this allows me to keep focus on what the application should be doing, not
+                            on how it should be doing it.
+                            <p/>
+                            If I understand correctly you build static pages using XMLC, for a POC. This is perhaps
+                            very interesting for short demos and presentations, but it is not the target of
+                            bpm4struts, as you briefly pointed out. I aimed for stable and production-ready
+                            dynamic web pages, I hope there will be enough users to give it a try,
+                            that way I am sure we'll get there eventually.
+                            <p/>
+                            Mind you, with
+                            <a href="http://www.omg.org/docs/ad/02-04-10.pdf">QVT</a> coming (soon?)
+                            we would have a standardized way of modeling our tiers,
+                            this would allow to generate different presentation layers using a single UML model. For
+                            now you would simply need to write a cartridge for WebWork/Swing/.Net/... and you
+                            could generate your code for that specific technology - still from the same UML.
+                            <p/>
+                            With bpm4struts you do not model for a specific technology, it is just that the cartridge
+                            outputs Struts code. You could easily share the model with a bpm4swing cartridge and have
+                            it generate Java Swing code.
+                            <p/>
+                            And you're right of course, everything has its own domain on which it is applicable,
+                            I am sure other technologies such as XMLC are better suited for specific tasks.
+                        </li>
+                    </ol>
+                </p>
+            </answer>
+        </faq>
+    </part>
+
+</faqs>
+

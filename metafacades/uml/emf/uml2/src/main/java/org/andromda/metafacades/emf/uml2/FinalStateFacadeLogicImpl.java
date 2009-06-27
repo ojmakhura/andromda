@@ -2,7 +2,8 @@ package org.andromda.metafacades.emf.uml2;
 
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.FinalStateFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.FinalStateFacade.
  *
  * @see org.andromda.metafacades.uml.FinalStateFacade
  */
@@ -10,8 +11,8 @@ public class FinalStateFacadeLogicImpl
     extends FinalStateFacadeLogic
 {
     public FinalStateFacadeLogicImpl(
-        Object metaObject,
-        String context)
+        final org.eclipse.uml2.FinalState metaObject,
+        final String context)
     {
         super(metaObject, context);
     }

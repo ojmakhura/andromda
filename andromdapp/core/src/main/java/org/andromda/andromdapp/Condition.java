@@ -127,7 +127,7 @@ public class Condition
      * The value of which the condition must be present.
      */
     private Boolean present;
-    
+
     /**
      * Sets whether or not the condition must be present.
      *
@@ -180,5 +180,13 @@ public class Condition
             }
         }
         return valid;
+    }
+
+    /**
+     * @see java.lang.Object#toString()
+     */
+    public String toString()
+    {
+        return super.toString() + "[id=" + this.id + ", equal=" + this.equal + ", notEqual=" + this.notEqual + "]";
     }
 }

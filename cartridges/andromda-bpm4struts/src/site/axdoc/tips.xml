@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - Tips</title>
+    </properties>
+
+    <body>
+
+        <section name="Tips for using AndroMDA bpm4struts">
+            <p>
+                This section provides you with some pointers that might prove helpful when using AndroMDA with
+                the bpm4struts cartridge.
+            </p>
+        </section>
+
+        <section name="Naming Conventions">
+            <p>
+                Give good names to all the elements you model, try to give names that uniquely identify the element
+                in its context. For example, instead of calling an action state 'login' you might consider
+                using 'enter name and password' instead. The same goes for controllers and use-cases. The better
+                names you give, the less ambiguity you will have in the long run.
+            </p>
+        </section>
+
+        <section name="Code Regeneration">
+            <p>
+                The power of AndroMDA is apparent when you will need to apply changes to your model and regenerate
+                the set of code files. Using bpm4struts these files comprise Java classes as well as properties
+                files and JSPs.
+            </p>
+            <p>
+                You will not want to lose your changes to the generated code, to ensure this the cartridges have
+                been designed never to overwrite the implementation classes and files. On the other hand you will
+                most probably want to see the most recent changes in the model reflected in the code.
+            </p>
+            <p>
+                For classes this is not a problem because the cartridges generating them will provide you with
+                an implementation class that will only be written when it does not yet exist. Subsequent changes
+                during generation will be reflected automatically in the abstract parent classes. The implementation
+                classes extending them will require a manual update.
+            </p>
+        </section>
+
+        <section name="The copy-over feature">
+            <p>
+                So what about JSPs ? The most efficient and effective way of maintaining manually edited changes
+                in JSP files seems to be to copy the generated JSPs into your source directory (and subsequently
+                adding it to your <code>Control Versioning System</code>), making your changes and copying them
+                over the generated ones prior to building the WAR bundle.
+            </p>
+            <p>
+                If you have generated your project build structure using
+                <a href="../../starting.html#My_first_AndroMDA_project">andromdapp:generate</a> you will have a section
+                in <code>/web/maven.xml</code> that is commented out, it is a <code>preGoal</code> to
+                <code>war:init</code>, just uncomment it in order to have files in <code>/web/src/jsp</code> copied
+                over the existing ones in the <code>.war</code> bundle.
+            </p>
+        </section>
+
+        <section name="JavaScript">
+            <p>
+                JavaScript can greatly improve a web application's look and feel, the bpm4struts cartridge
+                generates a few common routines that can be used in the pages. The files containing these routines
+                have a <code>.js</code> extension and can be found in the set of generated pages, typically
+                <code>/web/target/src/layout</code>.
+            </p>
+            <p>
+                Let us know if you think more JavaScript should be added, just supply us with the ones you would like
+                to see in there.
+            </p>
+        </section>
+
+        <section name="Dynamic Content">
+            <p>
+                The <a href="howto2.html#Action_States">Action States</a> page explained how you can take control
+                of the HTTP response to return anything you like back to the browser. Nice to know is that
+                you can also use this feature to send downloadable content so the browser will prompt you with
+                a download dialog instead of trying to render everything on screen.
+            </p>
+            <p>
+                Here's an example that will prompt for PDF download, notice how the preferred file name has
+                been specified:
+<source language="java">
+<!--
+byte[] exportBytes = getReportingService().getReport(reportId);
+
+response.setContentType("application/pdf");
+response.setContentLength(exportBytes.length);
+response.setHeader("Content-disposition",
+    "attachment; filename=InactiveArticlesReport.pdf");
+
+response.getOutputStream().write(exportBytes);
+-->
+</source>
+            </p>
+        </section>
+
+        <section name="Validation of numbers when using Strings">
+            <p>
+                Because Bpm4Struts will automatically provide validation for any modeled numeric type 
+                (i.e. a modeled <em>datatype::Integer</em> will be validated that the field is indeed a valid integer
+                value) it saves you a lot of trouble right?  Well, this is all great unless of course you
+                don't want the annoying <em>0</em> that Struts likes to provide as the default when no value as
+                been entered.
+            </p>
+            <p>
+                So how do you get the great default validation and yet avoid the default zero you ask?  
+                Very easy: just continue to model the parameters as a number 
+                (i.e. <em>datatype::Integer</em> for example), then within a customized Java mappings file
+                for the Bpm4Struts namespace just map this number type to a java.lang.String.
+                For example, here we add the mapping for <em>datatype::Integer</em>
+<source language="xml">
+<![CDATA[
+<mappings name="Java">
+    ...
+    <mapping>
+        <from>datatype::Integer</from>
+        <to>java.lang.String</to>
+    </mapping>
+    ...
+</mappings>
+]]>
+</source>
+                and then specify the mapping in the bpm4struts namespace, like so:
+<source language="xml">
+<![CDATA[
+<namespace name="bpm4struts">
+    <properties>
+         ...
+         <property name="languageMappingsUri">file:${maven.conf.dir}/mappings/JavaMappings.xml</property>
+         ...
+    </properties>
+</namespace>
+]]>
+</source>
+            </p>
+        </section>
+
+        <section name="Performance">
+            <p>
+                You might want to turn on the JSP precompilation feature, it will compile your JSPs into Java files
+                and compile those into Java classes. Since this is done during the build process the Web container
+                will not need to lose time compiling your JSP pages at runtime. Additionally you will find any
+                compilation errors that might occur. It has shown that performance increases by a factor 10 when
+                accessing the pages for the first time, in all other cases performance is the same.
+            </p>
+            <p>
+                To enable jsp precompilation simply go into your
+                <a href="../../starting.html#My_first_AndroMDA_project">andromdapp:generate</a> generated
+                project, open the <code>/web/project.properties</code> file and make sure the
+                <code>precompileJsps</code> property has been set to <code>true</code>.
+            </p>
+        </section>
+
+        <section name="Troubleshooting">
+            <subsection name="Precompilation">
+                <p>
+                    In some cases it is known precompiled applications to intermittently throw exceptions on Windows
+                    machines. This is a known issue and is related to the Windows operating system not allowing
+                    file names to be longer than 255 characters. When you precompile JSPs, and the resulting classes
+                    are stored deep into the EAR, into the WAR, into the
+                    <code>WEB-INF/classes</code> subdirectory. Windows
+                    might not be able to properly resolve them if the fully qualified path to the file is longer than
+                    255 characters, the path will silently be truncated and the Java VM will report it was unable to
+                    find the class.
+                </p>
+                <p>
+                    This problem cannot be solved, but a few workarounds exist:
+                    <ul>
+                        <li>Move the deployment directory closer to the root of the drive</li>
+                        <li>Shorten the name of the JSP page on which the loading fails</li>
+                        <li>Explode the contents of the EAR and the WAR, this can be done automatically for you
+                            if you set the <code>explodeOnDeploy</code> property to <code>true</code>
+                            in <code>/app/project.properties</code>. The next time you deploy using the maven
+                            <code>deploy</code> goal, a directory containing everything be deployed
+                            instead of a single EAR bundle.
+                        </li>
+                        <li>Move to a Unix-based system, such as Linux.</li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Compatibility">
+                <p>
+                    Although most applications are perfectly portable across
+                    different containers it might happen that some specific feature
+                    needs special attention.
+                </p>
+                <p>
+                    An example is WebSphere which requires the web.xml to contain
+                    an <code>id</code> attribute for most elements, Resin on the
+                    other hand can get into trouble this way. This example can be
+                    configured using the <code>generateWebXmlIds</code> namespace
+                    property.
+                </p>
+                <p>
+                    Bpm4Struts generates code that is compliant to the J2EE v1.4
+                    and Struts 1.2.x specifications. You will need Java 1.4
+                    or higher to be able to run the generated applications.
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

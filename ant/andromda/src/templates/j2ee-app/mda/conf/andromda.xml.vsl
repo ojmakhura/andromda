@@ -17,7 +17,7 @@
         </repository>
     </repositories>
     <mappingsSearchLocations>
-        <location>${basedir}/src/mappings</location>
+        <location patterns="**/*.xml">${basedir}/src/mappings</location>
     </mappingsSearchLocations>
     <namespaces>
         <namespace name="default">
@@ -61,6 +61,8 @@
                 <property name="hibernateJdbcBatchSize">0</property>
                 <property name="entities">${app.root.dir}/hibernate/ejb/target/src</property>
                 <property name="entity-impls">${app.root.dir}/hibernate/ejb/src/java</property>
+                <property name="entity-mappings">${app.root.dir}/hibernate/ejb/target/src</property>
+                <property name="user-types">${app.root.dir}/hibernate/ejb/target/src</property>
                 <property name="session-beans">${app.root.dir}/hibernate/ejb/target/src</property>
                 <property name="session-impls">${app.root.dir}/hibernate/ejb/src/java</property>
                 <property name="configuration">${app.root.dir}/hibernate/ejb/target/conf</property>

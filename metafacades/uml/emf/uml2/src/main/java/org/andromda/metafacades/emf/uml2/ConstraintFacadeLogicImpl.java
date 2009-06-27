@@ -9,7 +9,8 @@ import org.andromda.translation.ocl.ExpressionKinds;
 
 
 /**
- * MetafacadeLogic implementation for org.andromda.metafacades.uml.ConstraintFacade.
+ * MetafacadeLogic implementation for
+ * org.andromda.metafacades.uml.ConstraintFacade.
  *
  * @see org.andromda.metafacades.uml.ConstraintFacade
  */
@@ -17,8 +18,8 @@ public class ConstraintFacadeLogicImpl
     extends ConstraintFacadeLogic
 {
     public ConstraintFacadeLogicImpl(
-        org.eclipse.uml2.Constraint metaObject,
-        String context)
+        final org.eclipse.uml2.Constraint metaObject,
+        final String context)
     {
         super(metaObject, context);
     }
@@ -89,7 +90,7 @@ public class ConstraintFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ConstraintFacade#getTranslation(java.lang.String)
      */
-    protected java.lang.String handleGetTranslation(java.lang.String language)
+    protected java.lang.String handleGetTranslation(final java.lang.String language)
     {
         final Expression expression =
             ExpressionTranslator.instance().translate(

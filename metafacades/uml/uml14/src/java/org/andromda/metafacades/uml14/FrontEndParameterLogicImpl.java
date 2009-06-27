@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -13,6 +12,7 @@ import org.andromda.metafacades.uml.FrontEndControllerOperation;
 import org.andromda.metafacades.uml.FrontEndEvent;
 import org.andromda.metafacades.uml.FrontEndForward;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.collections.CollectionUtils;
@@ -21,15 +21,19 @@ import org.apache.commons.collections.Transformer;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.FrontEndParameter.
  *
  * @see org.andromda.metafacades.uml.FrontEndParameter
+ * @author Bob Fields
  */
 public class FrontEndParameterLogicImpl
     extends FrontEndParameterLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndParameterLogicImpl(
         Object metaObject,
         String context)
@@ -40,6 +44,7 @@ public class FrontEndParameterLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#isControllerOperationArgument()
      */
+    @Override
     protected boolean handleIsControllerOperationArgument()
     {
         return this.getControllerOperation() != null;
@@ -48,7 +53,8 @@ public class FrontEndParameterLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#getControllerOperation()
      */
-    protected Object handleGetControllerOperation()
+    @Override
+    protected OperationFacade handleGetControllerOperation()
     {
         return this.getOperation();
     }
@@ -56,6 +62,7 @@ public class FrontEndParameterLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#isContainedInFrontEndUseCase()
      */
+    @Override
     protected boolean handleIsContainedInFrontEndUseCase()
     {
         return this.getEvent() instanceof FrontEndEvent || this.getOperation() instanceof FrontEndControllerOperation;
@@ -64,6 +71,7 @@ public class FrontEndParameterLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#getView()
      */
+    @Override
     protected Object handleGetView()
     {
         Object view = null;
@@ -91,6 +99,7 @@ public class FrontEndParameterLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#isActionParameter()
      */
+    @Override
     protected boolean handleIsActionParameter()
     {
         final FrontEndAction action = this.getAction();
@@ -100,7 +109,8 @@ public class FrontEndParameterLogicImpl
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#getAction()
      */
-    protected Object handleGetAction()
+    @Override
+    protected FrontEndAction handleGetAction()
     {
         Object actionObject = null;
         final EventFacade event = this.getEvent();
@@ -112,12 +122,13 @@ public class FrontEndParameterLogicImpl
                 actionObject = transition;
             }
         }
-        return actionObject;
+        return (FrontEndAction)actionObject;
     }
 
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#isTable()
      */
+    @Override
     protected boolean handleIsTable()
     {
         boolean isTable = false;
@@ -127,23 +138,23 @@ public class FrontEndParameterLogicImpl
             isTable = type.isCollectionType() || type.isArrayType();
             if (isTable)
             {
+                final String tableTaggedValue = ObjectUtils.toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_IS_TABLE));
                 isTable =
-                    Boolean.valueOf(
-                        ObjectUtils.toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_IS_TABLE)))
-                           .booleanValue();
+                    StringUtils.isNotBlank(tableTaggedValue) ? Boolean.valueOf(tableTaggedValue.trim()).booleanValue() : true;
                 if (!isTable)
                 {
                     isTable = !this.getTableColumnNames().isEmpty();
                 }
             }
         }
-        return isTable;
+        return isTable && this.getOperation() == null;
     }
 
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumnNames()
      */
-    protected Collection handleGetTableColumnNames()
+    @Override
+    protected Collection<String> handleGetTableColumnNames()
     {
         final Collection tableColumnNames = new LinkedHashSet();
         final Collection taggedValues = this.findTaggedValues(UMLProfile.TAGGEDVALUE_PRESENTATION_TABLE_COLUMNS);
@@ -170,11 +181,12 @@ public class FrontEndParameterLogicImpl
         }
         return tableColumnNames;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumns()
      */
-    protected Collection handleGetTableColumns()
+    @Override
+    protected Collection<String> handleGetTableColumns()
     {
         final Collection tableColumns = new ArrayList(this.getNonArrayAttributes());
         final Collection tableColumnNames = this.getTableColumnNames();
@@ -190,7 +202,7 @@ public class FrontEndParameterLogicImpl
             });
         return tableColumns;
     }
-    
+
     /**
      * Gets all attributes for an array type that has a corresponding non-array
      * type.
@@ -205,19 +217,20 @@ public class FrontEndParameterLogicImpl
             final ClassifierFacade nonArrayType = type.getNonArray();
             if (nonArrayType != null)
             {
-                nonArrayAttributes.addAll(nonArrayType.getAttributes());
+                nonArrayAttributes.addAll(nonArrayType.getAttributes(true));
             }
         }
-        return nonArrayAttributes;        
+        return nonArrayAttributes;
     }
 
     /**
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableAttributeNames()
      */
-    protected Collection handleGetTableAttributeNames()
+    @Override
+    protected Collection<String> handleGetTableAttributeNames()
     {
         final Collection tableAttributeNames = new ArrayList(this.getNonArrayAttributes());
-        CollectionUtils.transform(tableAttributeNames, 
+        CollectionUtils.transform(tableAttributeNames,
             new Transformer()
             {
                 public Object transform(final Object object)

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
-
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -27,19 +27,18 @@ import org.apache.log4j.PatternLayout;
 
 /**
  * The TemplateEngine implementation for the FreeMarker template processor.
- *
+ * 
  * @author Chad Brandon
  * @author Olaf Muliawan
+ * @author Matthias Bohlen (usage of context classloader so that it works in Maven environments)
  * @see http://www.freemarker.org
  */
-public class FreeMarkerTemplateEngine
-    implements TemplateEngine
+public class FreeMarkerTemplateEngine implements TemplateEngine
 {
     /**
      * @see org.andromda.core.templateengine.TemplateEngine#init(java.lang.String)
      */
-    public void initialize(String namespace)
-        throws Exception
+    public void initialize(String namespace) throws Exception
     {
         this.initLogger(namespace);
     }
@@ -53,33 +52,25 @@ public class FreeMarkerTemplateEngine
      * @see org.andromda.core.templateengine.TemplateEngine#processTemplate(java.lang.String,
      *      java.util.Map, java.io.Writer)
      */
-    public void processTemplate(
-        String templateFile,
-        Map templateObjects,
-        Writer output)
-        throws Exception
+    public void processTemplate(String templateFile, Map templateObjects, Writer output) throws Exception
     {
-        ExceptionUtils.checkEmpty(
-            "templateFile",
-            templateFile);
-        ExceptionUtils.checkNull(
-            "output",
-            output);
+        ExceptionUtils.checkEmpty("templateFile", templateFile);
+        ExceptionUtils.checkNull("output", output);
 
         if (this.configuration == null)
         {
             this.configuration = new Configuration();
 
-            // - tell FreeMarker it should use the classpath when searching for templates
-            this.configuration.setClassForTemplateLoading(
-                org.andromda.core.AndroMDA.class,
-                "/");
+            // tell FreeMarker it should use the ContextClassLoader when
+            // searching for templates
+            this.configuration.setTemplateLoader(new ContextResourceLoader());
 
-            // - use Bean Wrapper, in order to get maximal reflection capabilities
+            // use Bean Wrapper, in order to get maximal reflection
+            // capabilities
             this.configuration.setObjectWrapper(ObjectWrapper.BEANS_WRAPPER);
         }
 
-        // - create the template
+        // create the template
         final Template template = this.configuration.getTemplate(templateFile);
 
         if (templateObjects == null)
@@ -88,9 +79,19 @@ public class FreeMarkerTemplateEngine
         }
 
         // - merge data model with template
-        template.process(
-            templateObjects,
-            output);
+        template.process(templateObjects, output);
+    }
+
+    /**
+     * Template loader which accesses the context classloader because otherwise
+     * templates will not be found properly in a multi-classloader environment.
+     */
+    private static class ContextResourceLoader extends freemarker.cache.URLTemplateLoader
+    {
+        protected URL getURL(String name)
+        {
+            return Thread.currentThread().getContextClassLoader().getResource(name);
+        }
     }
 
     /**
@@ -129,18 +130,17 @@ public class FreeMarkerTemplateEngine
     public void setMergeLocation(String mergeLocation)
     {
     }
-    
+
     /**
      * The name of the temporary string template.
      */
     private static final String STRING_TEMPLATE = "stringTemplate";
 
     /**
-     * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(java.lang.String, java.util.Map)
+     * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(java.lang.String,
+     *      java.util.Map)
      */
-    public String getEvaluatedExpression(
-        final String expression,
-        Map templateObjects)
+    public String getEvaluatedExpression(final String expression, Map templateObjects)
     {
         try
         {
@@ -155,9 +155,7 @@ public class FreeMarkerTemplateEngine
             final StringWriter output = new StringWriter();
 
             // - merge data model with template
-            template.process(
-                templateObjects,
-                output);
+            template.process(templateObjects, output);
 
             return output.toString();
         }
@@ -171,17 +169,16 @@ public class FreeMarkerTemplateEngine
 
     /**
      * Opens a log file for this plugin.
-     *
-     * @throws IOException if the file cannot be opened
+     * 
+     * @throws IOException
+     *             if the file cannot be opened
      */
-    private void initLogger(String pluginName)
-        throws IOException
+    private void initLogger(String pluginName) throws IOException
     {
         logger = AndroMDALogger.getNamespaceLogger(pluginName);
         logger.setAdditivity(false);
-        FileAppender appender =
-            new FileAppender(new PatternLayout("%-5p %d - %m%n"),
-                AndroMDALogger.getNamespaceLogFileName(pluginName), true);
+        FileAppender appender = new FileAppender(new PatternLayout("%-5p %d - %m%n"), AndroMDALogger
+                .getNamespaceLogFileName(pluginName), true);
         logger.addAppender(appender);
     }
 
@@ -193,7 +190,7 @@ public class FreeMarkerTemplateEngine
         Enumeration appenders = logger.getAllAppenders();
         while (appenders.hasMoreElements())
         {
-            Appender appender = (Appender)appenders.nextElement();
+            Appender appender = (Appender) appenders.nextElement();
             if (appender.getName() != null)
             {
                 appender.close();

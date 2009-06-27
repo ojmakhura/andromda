@@ -4,22 +4,29 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans>
-
+#if ($dataSourceEnabled || !$entities.empty)
     <!-- ========================= DATASOURCE DEFINITION ========================= -->
 
     <!-- JNDI DataSource for J2EE environments -->
-    <bean id="dataSource" class="$jndiDataSourceClass">
+    <bean id="${beanNamePrefix}dataSource" class="$jndiDataSourceClass">
         <property name="jndiName"><value>$dataSource</value></property>
+#if ($stringUtils.isNotBlank($jndiDataSourceCaching))
+        <property name="cache"><value>$jndiDataSourceCaching</value></property>
+        <property name="proxyInterface"><value>javax.sql.DataSource</value></property>
+#end
     </bean>
-    
+
     <!-- ====================== End of DATASOURCE DEFINITION ====================== -->
 
+#end
 #if ($stringUtils.isNotBlank($transactionManager))
     <!-- ===================== TRANSACTION MANAGER DEFINITION ========================= -->
 
-    <bean id="transactionManager" class="$transactionManager">
+    <bean id="${beanNamePrefix}transactionManager" class="$transactionManager">
 #if ($transactionManager.indexOf('HibernateTransactionManager') != -1)
         <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+#elseif ($transactionManager.indexOf('DataSourceTransactionManager') != -1)
+            <property name="dataSource"><ref bean="${beanNamePrefix}dataSource"/></property>
 #else
 #if ($stringUtils.isNotBlank($userTransactionName))
         <property name="userTransactionName">$springUtils.getSpringPropertyValue($userTransactionName)</property>

@@ -88,6 +88,7 @@ login.username=Username
 login.password=Password
 login.register.as.new.user=Register as new user
 login.error=You have either entered an invalid login/password or you do not have access or this system. <br/>Please try again.
+login.error.role=Your username/password combination is valid.<br/>However, it appears that you are missing a necessary role required to fully authenticate to this application.
 
 login.error=Login failed, please try again or register as a new user.
 
@@ -127,21 +128,17 @@ errors.equal={0} must equal {1}.
 #
 # logged in/logout messages
 #
-navigation.layout=Layout
 logout.action=logout
 
 #
-# Messages for layout options
+# Messages for preferences
 # 
-layout.options.sidebar=Side Bar
-layout.options.sidebar.left=Left
-layout.options.sidebar.right=Right
-layout.options.navigation.theme=Navigation Theme
-layout.options.menu=Menu Placement
-layout.options.menu.top=Top
-layout.options.menu.side=Side
-layout.options.title=Layout Options
-layout.options.apply=Apply
+menu.preferences=Preferences
+preferences.menu.theme=Menu Theme
+preferences.title=Preferences
+preferences.apply=Apply
+preferences.skin=Skin
+preferences.max.table.rows=Max Table Rows
 
 select.value.text=Select an option
 

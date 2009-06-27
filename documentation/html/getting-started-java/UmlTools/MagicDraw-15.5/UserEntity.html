@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create User Entity</title>
+</head>
+<body>
+    <h2>Create User Entity</h2>
+    <!------------------------- Intro Text ------------------------->
+    <p>
+        This page provides directions to create the <code>User</code> entity using MagicDraw 15.5.
+    </p>
+    <!------------------------- Main Text ------------------------->
+    <p>
+        We will create <code>User</code> in a package named <code>org.andromda.timetracker.domain</code>.
+    </p>
+   	<p>{mosimage}</p>
+    <ol>
+        <li>In the TimeTracker model create a package called <code>domain</code> under <code>
+            org.andromda.timetracker</code>.</li>
+        <li>In the Containment Tree on the left, right-click on the <code>domain</code> package
+            and select <em>New Diagram > Class Diagram</em>. The diagram is created and opened in a new window.
+            Type in <code>Domain Objects</code> as the name of this diagram and press Enter. </li>
+        <li>Add a new class to the diagram and name it <code>User</code>.</li>
+        <li>Add the stereotype called <code>Entity</code> (The one from AndroMDA Profile, starting with an 'E' and 
+        	not the one from UML2 Standard Profile, starting with an 'e') to <code>User</code>.</li>
+        <li>Add the 3 attributes to <code>User</code>.</li>
+        <li>Double click on the class to open the class specification.</li>
+        <li>Click on the <em>Tagged Values</em> tab and then click on the tagged value named
+            <code>@andromda.persistence.table</code>. This tagged value allows you to override
+            the default table name for the entity. Click the <em>Add Value</em> button. Enter
+            the value <code>USERS</code> in the right panel. Click <em>OK</em> to add this tagged value
+            to the <code>User</code> entity.
+        </li>
+        <blockquote>
+            <b>Note</b>: In our UML2 profile, each tag value has it own stereotype. Having such a stereotype
+            applied on an element will make AndroMDA consider this element tagged by the corresponding tag value.
+            If there is no specified value (but the stereotype is applied) AndroMDA will use the default value, defined 
+            in the profile. Keep this in mind, when removing a tag value: unapply the stereotype as well. 
+        </blockquote>    
+        <li>
+            Note that the tagged value shows up in the diagram and its owning stereotype <code>@andromda.persistence.table</code>.
+            You can make MagicDraw 15.5 hide the tagged values, but you can't select which stereotypes
+            you want to be displayed. If you want to hide the tag value, right-click
+            on the entity and choose <em>Presentation Options</em>, then deselect <em>Show Tagged
+            Values</em>. You may want to hide stereotypes as well: <code>Entity</code> stereotype has an icon
+            which will remain displayed.
+        </li>
+        <li>Make sure your class diagram matches the one shown on the right (depending on the choice you made just before).</li>
+        <li>Make sure that the MagicDraw containment tree matches the screen shot shown below.</li>
+        <li>Save your <code>timetracker</code> model by selecting <em>File > Save Project</em>.</li>
+        <li>Export it in EMF/UML2 format by selecting <em>File > Export > EMF UML2 XMI</em>.
+            Choose <code>C:/timetracker/mda/src/main/uml</code> as export directory and click <em>Open</em>.</li>
+    </ol>
+    <p>{mosimage}</p>
+    <p>
+        Now go back to the main tutorial page and continue from where you left off.
+    </p>
+    <!------------------------- End of Text ------------------------->
+</body>
+</html>

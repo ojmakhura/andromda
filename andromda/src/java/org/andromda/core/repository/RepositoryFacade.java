@@ -34,7 +34,7 @@ public interface RepositoryFacade
      * and can be retrieved from {@link #getModel()}.
      * </p>
      *
-     * @param modelUrls a list of modelUrls from which to load each URL of the model.
+     * @param uris a list of modelUrls from which to load each URL of the model.
      * @param moduleSearchPath a list of paths from which to search for module models (i.e. models that can be referenced from
      *                         within other models).
      */
@@ -92,10 +92,9 @@ public interface RepositoryFacade
      * contains all models <code>read</code> into the repository.  If the type is not specified, the default model access
      * facade will be used.
      *
-     * @param type the type of the model facade.
      * @return the model value (or <code>null</code> if no models exist in the repository).
      */
-    public ModelAccessFacade getModel(final Class type);
+    public ModelAccessFacade getModel();
 
     /**
      * Clears the repository of any model(s)

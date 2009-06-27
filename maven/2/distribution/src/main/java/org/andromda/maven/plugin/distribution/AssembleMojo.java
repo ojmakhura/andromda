@@ -442,17 +442,26 @@ public class AssembleMojo
     {
         if (this.rootProject == null)
         {
-            MavenProject root = null;
-            for (root = this.project.getParent(); root.getParent() != null; root = root.getParent())
+            final MavenProject firstParent = this.project.getParent();
+            File rootFile = this.project.getFile();
+            if (firstParent != null)
             {
-                ;
+                for (this.rootProject = firstParent, rootFile = new File(rootFile.getParentFile().getParentFile(), POM_FILE);
+                     this.rootProject.getParent() != null;
+                     this.rootProject = this.rootProject.getParent(), rootFile = new File(rootFile.getParentFile().getParentFile(), POM_FILE))
+                {
+                    ;
+                }
             }
-            if (root == null)
+            else
             {
-                throw new MojoExecutionException("No parent could be retrieved for project --> " +
-                    this.project.getId() + "', you must specify a parent project");
+                this.rootProject = this.project;
             }
-            this.rootProject = root;
+            // - if the project has no file defined, use the rootFile
+            if (this.rootProject.getFile() == null)
+            {
+                this.rootProject.setFile(rootFile);
+            }
         }
         return this.rootProject;
     }

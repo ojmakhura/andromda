@@ -20,6 +20,7 @@ import org.andromda.cartridges.testsuite.FileComparator;
  * Formats the cartridge test results into the correct format.
  *
  * @author Chad Brandon
+ * @author Bob Fields
  */
 public class CartridgeTestFormatter
     implements TestListener
@@ -38,6 +39,11 @@ public class CartridgeTestFormatter
      * The print writer for the report.
      */
     private PrintWriter reportWriter;
+
+    /**
+     * Ignore test failures, just show failure messages
+     */
+    private boolean testFailureIgnore = false;
 
     public CartridgeTestFormatter()
     {
@@ -217,7 +223,14 @@ public class CartridgeTestFormatter
             }
             catch (IOException exception)
             {
-                throw new RuntimeException(exception);
+                if (this.testFailureIgnore)
+                {
+                    this.reportWriter.println(exception);
+                }
+                else
+                {
+                    throw new RuntimeException(exception);
+                }
             }
         }
         return summary.toString();
@@ -238,5 +251,21 @@ public class CartridgeTestFormatter
             this.test = test;
             this.information = information;
         }
+    }
+
+    /**
+     * @return the testFailureIgnore
+     */
+    public boolean isTestFailureIgnore()
+    {
+        return this.testFailureIgnore;
+    }
+
+    /**
+     * @param testFailureIgnore the testFailureIgnore to set
+     */
+    public void setTestFailureIgnore(boolean testFailureIgnore)
+    {
+        this.testFailureIgnore = testFailureIgnore;
     }
 }

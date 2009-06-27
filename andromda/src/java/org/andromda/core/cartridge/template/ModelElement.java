@@ -17,6 +17,7 @@ import org.apache.commons.lang.StringUtils;
  * instance.
  *
  * @author Chad Brandon
+ * @author Bob Fields
  * @see ModelElements
  */
 public class ModelElement
@@ -47,14 +48,14 @@ public class ModelElement
     /**
      * Stores the types defined for this model element.
      */
-    private final Collection types = new ArrayList();
+    private final Collection<Type> types = new ArrayList<Type>();
 
     /**
      * Gets all types associated with this model element.
      *
      * @return the collection of types.
      */
-    public Collection getTypes()
+    public Collection<Type> getTypes()
     {
         return this.types;
     }
@@ -126,7 +127,7 @@ public class ModelElement
     /**
      * Sets the current metafacades that belong to this ModelElement instance.
      *
-     * @param metafacades the collection of metafacdes
+     * @param metafacades the collection of metafacades
      */
     public void setMetafacades(final Collection metafacades)
     {
@@ -147,8 +148,6 @@ public class ModelElement
 
     /**
      * Applies any filtering by any types specified within this model element.
-     *
-     * @param metafacades the metafacades to filter
      */
     private void applyTypeFiltering()
     {
@@ -175,7 +174,7 @@ public class ModelElement
     private boolean accept(final Object metafacade)
     {
         boolean accept = true;
-        for (final Iterator iterator = this.types.iterator(); iterator.hasNext() && accept;)
+        for (final Iterator<Type> iterator = this.types.iterator(); iterator.hasNext() && accept;)
         {
             final Type type = (Type)iterator.next();
             if (StringUtils.isNotBlank(type.getName()))
@@ -187,7 +186,7 @@ public class ModelElement
                     // if the type matches the name, continue
                     if (accept)
                     {
-                        for (final Iterator properties = type.getProperties().iterator(); properties.hasNext();)
+                        for (final Iterator<Type.Property> properties = type.getProperties().iterator(); properties.hasNext();)
                         {
                             final Type.Property property = (Type.Property)properties.next();
                             accept =
@@ -198,7 +197,7 @@ public class ModelElement
                             if (!accept)
                             {
                                 // break out of the loop on the first invalid
-                                // property since all propertie should be valid.
+                                // property since all properties should be valid.
                                 break;
                             }
                         }

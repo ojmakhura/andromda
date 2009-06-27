@@ -1,14 +1,20 @@
 package org.andromda.metafacades.uml14;
 
+import org.omg.uml.behavioralelements.statemachines.FinalState;
 
 /**
  * Metaclass facade implementation.
+ * @author Bob Fields
  */
 public class FinalStateFacadeLogicImpl
     extends FinalStateFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FinalStateFacadeLogicImpl(
-        org.omg.uml.behavioralelements.statemachines.FinalState metaObject,
+        FinalState metaObject,
         String context)
     {
         super(metaObject, context);

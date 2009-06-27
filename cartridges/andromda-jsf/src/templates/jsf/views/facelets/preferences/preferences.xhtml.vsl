@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:af="http://xmlns.oracle.com/adf/faces">
+
+<ui:composition template="/layout/layout.xhtml">
+    <f:loadBundle basename="$messageResources" var="messages"/>
+    <ui:define name="title">
+        <c:set var="title" value="#{messages['preferences.title']}" scope="request"/>
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="$preferencesBeanName">
+            <af:panelForm>
+                <af:selectOneChoice id="menuTheme" value="#{${preferencesBeanName}.menuTheme}" label="#{messages['preferences.menu.theme']}:">
+                    <f:selectItem itemLabel="Office" itemValue="ThemeOffice"/>
+                    <f:selectItem itemLabel="Mini Black" itemValue="ThemeMiniBlack"/>
+                    <f:selectItem itemLabel="IE" itemValue="ThemeIE"/>
+                    <f:selectItem itemLabel="Panel" itemValue="ThemePanel"/>
+                </af:selectOneChoice>
+                <af:selectOneChoice id="skin" value="#{${preferencesBeanName}.skin}" label="#{messages['preferences.skin']}:">
+                    <f:selectItem itemLabel="Simple" itemValue="simple"/>
+                    <f:selectItem itemLabel="Minimal" itemValue="minimal"/>
+                    <f:selectItem itemLabel="Default" itemValue="default"/>
+                </af:selectOneChoice>
+                <af:inputText id="maxTableRows" value="#{${preferencesBeanName}.maxTableRows}" label="#{messages['preferences.max.table.rows']}:" columns="1">
+                    <f:validateLongRange minimum="5" maximum="100"/>  
+                </af:inputText>
+                <f:facet name="footer">
+                    <af:panelButtonBar>
+                        <af:commandButton text="#{messages['preferences.apply']}" action="ok"/>
+                    </af:panelButtonBar>
+                </f:facet>
+            </af:panelForm>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+</html>

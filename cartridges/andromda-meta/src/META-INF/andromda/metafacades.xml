@@ -3,7 +3,7 @@
 <!-- contains andromda-meta's metafacade mappings -->
 <metafacades>
     <property reference="implementationOperationNamePattern"/>
-    <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeLogicImpl" contextRoot="true">
+    <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeLogicImpl">
         <mapping>
             <stereotype>METAFACADE</stereotype>
         </mapping>
@@ -11,23 +11,28 @@
     </metafacade>
     <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeOperationLogicImpl">
         <mapping>
-            <context>org.andromda.cartridges.meta.metafacades.Metafacade</context>
+            <property name="owner.metafacadeMetaType"/>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeAssociationEndLogicImpl">
         <mapping>
-            <context>org.andromda.cartridges.meta.metafacades.Metafacade</context>
+            <property name="type.metafacadeMetaType"/>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeAttributeLogicImpl">
         <mapping>
-            <context>org.andromda.cartridges.meta.metafacades.Metafacade</context>
+            <property name="owner.metafacadeMetaType"/>
         </mapping>
     </metafacade>
     <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeGeneralizationLogicImpl">
         <mapping>
-            <context>org.andromda.cartridges.meta.metafacades.Metafacade</context>
+            <property name="child.metafacadeMetaType"/>
         </mapping>
         <property reference="generalizationNamePattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.meta.metafacades.PSMmetaclassLogicImpl">
+        <mapping>
+            <stereotype>PSM_METACLASS</stereotype>
+        </mapping>
     </metafacade>
 </metafacades>

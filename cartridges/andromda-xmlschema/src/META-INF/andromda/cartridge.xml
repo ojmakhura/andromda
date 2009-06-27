@@ -1,5 +1,7 @@
 <cartridge>
 
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine"/>
+    
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <!-- cartridge-templateObject merge-point-->
 
@@ -18,7 +20,12 @@
         overwrite="true"
         outputToSingleFile="true">
         <modelElements variable="types">
-            <modelElement stereotype="XML_SCHEMA_TYPE"/>
+            <modelElement>
+                <type name="org.andromda.cartridges.xmlschema.metafacades.XSDComplexType"/>
+            </modelElement>
+            <modelElement>
+                <type name="org.andromda.cartridges.xmlschema.metafacades.XSDEnumerationType"/>
+            </modelElement>
         </modelElements>
     </template>
 

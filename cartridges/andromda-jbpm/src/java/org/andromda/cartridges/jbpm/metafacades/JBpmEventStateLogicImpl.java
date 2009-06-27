@@ -10,6 +10,7 @@ import java.util.Iterator;
  * MetafacadeLogic implementation for org.andromda.cartridges.jbpm.metafacades.JBpmEventState.
  *
  * @see org.andromda.cartridges.jbpm.metafacades.JBpmEventState
+ * @author Bob Fields
  */
 public class JBpmEventStateLogicImpl
     extends JBpmEventStateLogic
@@ -20,7 +21,7 @@ public class JBpmEventStateLogicImpl
         super (metaObject, context);
     }
 
-    protected java.util.List handleGetBeforeSignal()
+    protected java.util.List handleGetBeforeSignals()
     {
         final List beforeSignals = new ArrayList();
 
@@ -37,7 +38,7 @@ public class JBpmEventStateLogicImpl
         return beforeSignals;
     }
 
-    protected java.util.List handleGetAfterSignal()
+    protected java.util.List handleGetAfterSignals()
     {
         final List afterSignals = new ArrayList();
 
@@ -54,7 +55,7 @@ public class JBpmEventStateLogicImpl
         return afterSignals;
     }
 
-    protected java.util.List handleGetNodeEnter()
+    protected java.util.List handleGetNodeEnters()
     {
         final List nodeEnters = new ArrayList();
 
@@ -71,7 +72,7 @@ public class JBpmEventStateLogicImpl
         return nodeEnters;
     }
 
-    protected java.util.List handleGetNodeLeave()
+    protected java.util.List handleGetNodeLeaves()
     {
         final List nodeLeaves = new ArrayList();
 

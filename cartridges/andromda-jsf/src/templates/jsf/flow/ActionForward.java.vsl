@@ -4,12 +4,6 @@ package $action.packageName;
 
 import java.io.IOException;
 
-import javax.faces.FactoryFinder;
-import javax.faces.context.FacesContext;
-import javax.faces.context.FacesContextFactory;
-import javax.faces.lifecycle.Lifecycle;
-import javax.faces.lifecycle.LifecycleFactory;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,49 +25,23 @@ public class $action.actionClassName
         final HttpServletResponse response)
         throws ServletException, IOException
     {
-        // - we need to retrieve the faces context differently since we're outside of the
-        //   faces servlet
-        final LifecycleFactory lifecycleFactory =
-            (LifecycleFactory)FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-        final Lifecycle lifecycle = lifecycleFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-        final FacesContextFactory facesContextFactory =
-            (FacesContextFactory)FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
-        final FacesContext facesContext =
-            facesContextFactory.getFacesContext(
-                this.getServletContext(),
-                request,
-                response,
-                lifecycle);
-        final javax.faces.el.VariableResolver variableResolver = facesContext.getApplication().getVariableResolver();
+        // - we need to resolve the controller differently since we're outside of the faces servlet
+#set ($facesContextUtilsFullyQualifiedName = "FacesContextUtils")
+#if ($stringUtils.isNotBlank($managedBeansPackage))
+#set($facesContextUtilsFullyQualifiedName = "${managedBeansPackage}.${facesContextUtilsFullyQualifiedName}")
+#end
 #set ($controller = $action.controller)
-        $controller.fullyQualifiedImplementationName controller =
-            ($controller.fullyQualifiedImplementationName)variableResolver.resolveVariable(
-                facesContext,
+        $controller.fullyQualifiedName controller =
+            ($controller.fullyQualifiedName)${facesContextUtilsFullyQualifiedName}.resolveVariable(
+                request, response,
                 "$controller.beanName");
 #if ($action.useCase)
 #set ($useCase = $action.useCase)
 #else
 #set ($useCase = $action)
 #end
-#if (!$useCase.forwards.empty)
-        String forwardPath = ${useCase.forwardsClassName}.getPath(controller.${action.controllerAction}());
-        if (forwardPath == null)
-        {
-#if ($action.target)
-#set ($forwardPath  = "${action.target.path}.${facesServletExtension}")
-#else
-#if ($action.initialTargetView)
-#set ($forwardPath = "${action.initialTargetPath}.${facesServletExtension}")
-#else
-#set ($forwardPath = "$action.initialTargetPath")
-#end
-#end
-            forwardPath = "$forwardPath";        
-        }
-        response.sendRedirect(request.getContextPath() + forwardPath);
-#else
-        controller.${action.controllerAction}();
-#end
+        final String forwardPath = ${managedBeansPackage}.UseCaseForwards.getPath(controller.${action.controllerAction}());
+        response.sendRedirect(request.getContextPath() + forwardPath + (request.getQueryString() != null ? "?" + request.getQueryString() : ""));
     }
 
     /**

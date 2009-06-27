@@ -111,6 +111,12 @@ public class Schema2XMI
     private static final String COLUMN_TAGGEDVALUE = "v";
 
     /**
+     * The command line argument specifiying additional tagged values to add to
+     * each column attribute.
+     */
+    private static final String ATTRIBUTE_TAGGEDVALUES = "A";
+    
+    /**
      * Configure the CLI options.
      */
     static
@@ -201,6 +207,11 @@ public class Schema2XMI
             new Option(OUTPUT_MODEL, true, "Output location to which the result of the transformation will be written");
         option.setLongOpt("output");
         options.addOption(option);
+        
+        option = new Option(ATTRIBUTE_TAGGEDVALUES, true, "The tagged value(s) added to each attribute generated. Comma separated list (i.e. @tag1=val1,@tag2=val2)");
+        option.setLongOpt("attributeTaggedValues");
+        options.addOption(option);
+        
     }
 
     /**
@@ -271,6 +282,7 @@ public class Schema2XMI
                 transformer.setIdentifierStereotypes(commandLine.getOptionValue(IDENTIFIER_STEREOTYPES));
                 transformer.setTableTaggedValue(commandLine.getOptionValue(TABLE_TAGGEDVALUE));
                 transformer.setColumnTaggedValue(commandLine.getOptionValue(COLUMN_TAGGEDVALUE));
+                transformer.setAttributeTaggedValues(commandLine.getOptionValue(ATTRIBUTE_TAGGEDVALUES));
 
                 String outputLocation = commandLine.getOptionValue(OUTPUT_MODEL);
                 transformer.transform(inputModel, outputLocation);

@@ -128,7 +128,7 @@
 
         <!-- if 'and' is encountered in the expression then
              'and' will just be returned -->
-        <fragment name="and.*"
+        <fragment name="and\s+.*"
                   handlerMethod="handleLogicalExpression">
             <kind name="body">
                 and
@@ -137,7 +137,7 @@
 
         <!-- if 'or' is encountered in the expression then
              'or' will just be returned -->
-        <fragment name="or.*"
+        <fragment name="or\s+.*"
                   handlerMethod="handleLogicalExpression">
             <kind name="body">
                 or
@@ -168,7 +168,7 @@
         <fragment name="&lt;&gt;\s+.*"
                   handlerMethod="handleRelationalExpression">
             <kind name="body">
-                {0} not {1}
+                {0} &lt;&gt; {1}
             </kind>
         </fragment>
 

@@ -5,12 +5,19 @@
     <parent>
         <groupId>org.andromda</groupId>
         <artifactId>andromda</artifactId>
-        <version>4.0-M1-SNAPSHOT</version>
+        <version>3.4-SNAPSHOT</version>
     </parent>
     <groupId>org.andromda.samples</groupId>
     <artifactId>andromda-samples</artifactId>
     <packaging>pom</packaging>
     <name>AndroMDA Samples</name>
+    <dependencies>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-script-wrappers</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+    </dependencies>
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
@@ -24,7 +31,7 @@
         </resources>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+                <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromdapp-maven-plugin</artifactId>
                 <version>${pom.version}</version>
                 <executions>

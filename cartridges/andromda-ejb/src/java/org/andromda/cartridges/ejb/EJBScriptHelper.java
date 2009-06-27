@@ -18,7 +18,7 @@ public class EJBScriptHelper
 
     /**
      * Create a comma seperated list of attributes.
-     * <p/>
+     * <p>
      * This method can be used to generated e.g. argument lists for constructors, method calls etc.
      *
      * @param attributes   a collection of {@link Attribute} objects

@@ -11,12 +11,27 @@ package $service.packageName;
 $service.getDocumentation(" * ")
  */
 public interface $service.name
-#if($service.generalization)
+#if ($service.generalization)
     extends $service.generalization.fullyQualifiedName
+#if (!$service.interfaceAbstractions.empty)
+        , $service.implementedInterfaceList
+#end
+#else
+#if (!$service.interfaceAbstractions.empty)
+    extends ${service.implementedInterfaceList}
+#end
 #end
 {
 
-#foreach ($operation in $service.operations)
+##do generate operation declarations for all implemented service interfaces as well
+##when spring transactions are enabled
+##(workaround for spring MethodMapTransactionAttributeSource, which does no map inherited interface methods)    
+#if ($enableSpringTransactionsWhenEjbsEnabled.equalsIgnoreCase("true") || !$ejbsEnabled)
+#set ($serviceOperations = $service.implementationOperations)
+#else
+#set ($serviceOperations = $service.operations)
+#end
+#foreach ($operation in $serviceOperations)
     /**
 $operation.getDocumentation("     * ")
      */

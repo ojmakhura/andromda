@@ -5,7 +5,11 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 
 /**
@@ -29,6 +33,23 @@ public class StrutsManageableEntityLogicImpl
         String context)
     {
         super(metaObject, context);
+    }
+
+    protected boolean handleIsMultipartFormData()
+    {
+        boolean multipartFormPost = false;
+
+        final Collection formFields = this.getManageableAttributes();
+        for (final Iterator fieldIterator = formFields.iterator(); !multipartFormPost && fieldIterator.hasNext();)
+        {
+            final AttributeFacade field = (AttributeFacade)fieldIterator.next();
+            if (field.getType().isFileType())
+            {
+                multipartFormPost = true;
+            }
+        }
+
+        return multipartFormPost;
     }
 
     protected String handleGetFormBeanType()

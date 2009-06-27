@@ -1,9 +1,9 @@
 <project name="M2 M1 copy" default="copy-m2-m1">
 	
-  <condition property="repositories_present">
+  <condition property="repositories.present">
 	<and>
-		<available file="${maven1_repo}" type="dir"/>
-		<available file="${maven2_repo}" type="dir"/>
+		<available file="${maven1.repository}" type="dir"/>
+		<available file="${maven2.repository}" type="dir"/>
 	</and>
   </condition>
 	
@@ -11,33 +11,34 @@
 		
 	</target>
 	
-	<target name="fail" unless="repositories_present">
+	<target name="fail" unless="repositories.present">
 		<echo>
-  maven1_repo (${maven1_repo} and/or 
-  maven2_repo (${maven2_repo}) not set or does not exist.">			
+********* copy-m2-m1 ********************************************************
+**  maven1.repository (${maven1.repository} and/or 
+**  maven2.repository (${maven2.repository}) not set or does not exist.">			
+*****************************************************************************
 		</echo>
-		<fail/>
 	</target>
 	
 	<!-- Copy maven 2 artifacts to maven 1 repository-->
-	<target name="copy" if="repositories_present">
+	<target name="copy" if="repositories.present">
 		<echo>
   Copying M2 artifacts 
-			from ${maven2_repo}/org/andromda		
-			to ${maven1_repo}/andromda
+			from ${maven2.repository}/org/andromda		
+			to ${maven1.repository}/andromda
 		</echo>
-		<copy todir="${maven1_repo}/andromda/uml2" flatten="true" preservelastmodified="true">
-			<fileset dir="${maven2_repo}/org/andromda">
+		<copy todir="${maven1.repository}/andromda/uml2s" flatten="true" preservelastmodified="true">
+			<fileset dir="${maven2.repository}/org/andromda">
 				<include name="**/*.uml2"/>
 			</fileset>
 		</copy>
-		<copy todir="${maven1_repo}/andromda/jars" flatten="true" preservelastmodified="true">
-			<fileset dir="${maven2_repo}/org/andromda">
+		<copy todir="${maven1.repository}/andromda/jars" flatten="true" preservelastmodified="true">
+			<fileset dir="${maven2.repository}/org/andromda">
 				<include name="**/*.jar"/>
 			</fileset>
 		</copy>
-		<copy todir="${maven1_repo}/andromda/xml.zips" flatten="true" preservelastmodified="true">
-			<fileset dir="${maven2_repo}/org/andromda">
+		<copy todir="${maven1.repository}/andromda/xml.zips" flatten="true" preservelastmodified="true">
+			<fileset dir="${maven2.repository}/org/andromda/profiles/uml14">
 				<include name="**/*.xml.zip"/>
 			</fileset>
 		</copy>

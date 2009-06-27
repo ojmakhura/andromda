@@ -3,7 +3,6 @@ package org.andromda.metafacades.uml14;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -18,16 +17,20 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.Role.
  *
  * @see org.andromda.metafacades.uml.Role
+ * @author Bob Fields
  */
 public class RoleLogicImpl
     extends RoleLogic
 {
     // ---------------- constructor -------------------------------
+    /**
+     * @param metaObject
+     * @param context
+     */
     public RoleLogicImpl(
         Object metaObject,
         String context)
@@ -60,9 +63,10 @@ public class RoleLogicImpl
     /**
      * @see org.andromda.metafacades.uml.Role#isReferencesPresent()
      */
+    @Override
     protected boolean handleIsReferencesPresent()
     {
-        final Collection allSourceDependencies = new LinkedHashSet(this.getSourceDependencies());
+        final Collection<DependencyFacade> allSourceDependencies = new LinkedHashSet<DependencyFacade>(this.getSourceDependencies());
         for (
             GeneralizableElementFacade parent = this.getGeneralization(); parent != null;
             parent = parent.getGeneralization())
@@ -85,10 +89,10 @@ public class RoleLogicImpl
         // - if no references on any services, try the FrontEndUseCases
         if (!present)
         {
-            final Collection associationEnds = this.getAssociationEnds();
-            for (final Iterator iterator = associationEnds.iterator(); iterator.hasNext() && !present;)
+            final Collection<AssociationEndFacade> associationEnds = this.getAssociationEnds();
+            for (final Iterator<AssociationEndFacade> iterator = associationEnds.iterator(); iterator.hasNext() && !present;)
             {
-                final AssociationEndFacade associationEnd = (AssociationEndFacade)iterator.next();
+                final AssociationEndFacade associationEnd = iterator.next();
                 final ClassifierFacade classifier = associationEnd.getOtherEnd().getType();
                 present = classifier instanceof FrontEndUseCase;
             }

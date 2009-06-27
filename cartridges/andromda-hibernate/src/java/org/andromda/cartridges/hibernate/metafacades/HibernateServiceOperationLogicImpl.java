@@ -33,8 +33,7 @@ public class HibernateServiceOperationLogicImpl
         String transactionType = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_EJB_TRANSACTION_TYPE);
         if (StringUtils.isBlank(transactionType))
         {
-            transactionType =
-                transactionType = String.valueOf(this.getConfiguredProperty(SERVICE_OPERATION_TRANSACTION_TYPE));
+            transactionType = String.valueOf(this.getConfiguredProperty(SERVICE_OPERATION_TRANSACTION_TYPE));
         }
         return transactionType;
     }

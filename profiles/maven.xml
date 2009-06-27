@@ -1,0 +1,11 @@
+<project default="install">
+    
+    <goal name="install">
+        <attainGoal name="multiproject:install"/>
+    </goal>
+    
+    <goal name="clean">
+        <attainGoal name="multiproject:clean"/>
+    </goal>
+
+</project>

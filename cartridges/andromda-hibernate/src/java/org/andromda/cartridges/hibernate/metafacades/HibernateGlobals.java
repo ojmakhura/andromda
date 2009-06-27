@@ -5,13 +5,45 @@ package org.andromda.cartridges.hibernate.metafacades;
  * Stores Globals specific to the Hibernate cartridge.
  *
  * @author Chad Brandon
+ * @author Wouter Zoons
  */
 public class HibernateGlobals
 {
     /**
+     * Denotes whether or not subclasses require their own mapping file.
+     */
+    static public final String HIBERNATE_MAPPING_STRATEGY = "hibernateMappingStrategy";
+
+    /**
+     * A mapping file per subclass.
+     */
+    static public final String HIBERNATE_MAPPING_STRATEGY_SUBCLASS = "subclass";
+
+    /**
+     * A mapping file per hierarchy.
+     */
+    static public final String HIBERNATE_MAPPING_STRATEGY_HIERARCHY = "hierachy";
+
+    /**
+     * Indicates if "XML Persistence" code generation is enabled. Requires Hibernate 3.
+     */
+    static public final String HIBERNATE_XML_PERSISTENCE = "hibernateXMLPersistence";
+
+    /**
+     * Determines if the identifier attribute on an entity is generated as an attribute
+     * or as a separate element.
+     */
+    static final String HIBERNATE_XML_PERSISTENCE_ID_AS_ATTRIBUTE = "hibernateXMLPersistIDAsAttribute";
+
+    /**
      * Hibernate version to use.
      */
-    static final String HIBERNATE_VERSION = "hibernateVersion";
+    static public final String HIBERNATE_VERSION = "hibernateVersion";
+
+    /**
+     * The version for Hibernate 2.
+     */
+    public static final String HIBERNATE_VERSION_2 = "2";
 
     /**
      * The version for Hibernate 3.
@@ -79,6 +111,11 @@ public class HibernateGlobals
      * The namespace property storing default ehCache eternal parameter
      */
     static final String HIBERNATE_EHCACHE_OVERFLOW_TO_DISK = "ehCacheOverflowToDisk";
+
+    /**
+     * The namespace property storing whether distributed caching is turned on at all.
+     */
+    static final String HIBERNATE_ENTITYCACHE_DISTRIBUTED = "hibernateEnableDistributedCache";
 
     /**
      * The namespace property storing default dynamic-insert parameter
@@ -158,4 +195,21 @@ public class HibernateGlobals
      * {@link #SPECIFIC_COLLECTION_INTERFACES} is true.
      */
     static final String DEFAULT_COLLECTION_INTERFACE = "defaultCollectionInterface";
+
+    /**
+    * The default Hibernate dicriminator columnname
+    */
+    static final String ENTITY_DISCRIMINATOR_COLUMN = "defaultEntityDiscriminatorColumn";
+
+    /**
+    * The default Hibernate dicriminator columntype
+    */
+    static final String ENTITY_DISCRIMINATOR_TYPE = "defaultEntityDiscriminatorType";
+    
+    /**
+     * Optional definition of the package name where all Hibernate enumeration types are
+     * to be generated. This will overrride the default model package name where the
+     * enumeration class itself will still be placed.
+     */
+    static final String ENUM_TYPES_PACKAGE = "enumTypesPackage";
 }

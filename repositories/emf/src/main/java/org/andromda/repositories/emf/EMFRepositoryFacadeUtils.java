@@ -28,7 +28,7 @@ class EMFRepositoryFacadeUtils
      * @param uri the path from which to create the URI.
      * @return the URI
      */
-    static final URI createUri(String uri)
+    static URI createUri(String uri)
     {
         if (!uri.startsWith(ARCHIVE_FILE_PREFIX) && uri.startsWith(FILE_PREFIX))
         {

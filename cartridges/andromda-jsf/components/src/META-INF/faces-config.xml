@@ -10,11 +10,11 @@
         <description>
             This component renders client-side Javascript validation.
         </description>
-        <display-name>JSFValidatorScript</display-name>
+        <display-name>JSFValidator</display-name>
         <component-type>org.andromda.cartridges.jsf.component.JSFValidatorComponent</component-type>
         <component-class>org.andromda.cartridges.jsf.component.JSFValidatorComponent</component-class>
     </component>
-    
+
     <component>
       <component-type>org.andromda.cartridges.jsf.component.html.HtmlExtendedDataTable</component-type>
       <component-class>org.andromda.cartridges.jsf.component.html.HtmlExtendedDataTable</component-class>
@@ -27,7 +27,7 @@
         <component-type>org.andromda.cartridges.jsf.HtmlPopupFrame</component-type>
         <component-class>org.andromda.cartridges.jsf.component.html.HtmlPopupFrame</component-class>
     </component>
-    
+
     <component>
         <description>
             This component renders a binary file (PDF, etc) in the appropriate manner.
@@ -48,7 +48,7 @@
             <renderer-class>org.andromda.cartridges.jsf.renderkit.html.PopupRenderer</renderer-class>
         </renderer>
     </render-kit>
-    
+
     <render-kit>
         <renderer>
             <component-family>org.andromda.cartridges.jsf.BinaryFile</component-family>
@@ -69,7 +69,7 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
-    
+
     <!-- custom converters -->
 
     <converter>
@@ -90,6 +90,6 @@
     <converter>
         <converter-for-class>java.util.GregorianCalendar</converter-for-class>
         <converter-class>org.andromda.cartridges.jsf.converters.DateTimeConverter</converter-class>
-    </converter>    
+    </converter>
 
 </faces-config>
