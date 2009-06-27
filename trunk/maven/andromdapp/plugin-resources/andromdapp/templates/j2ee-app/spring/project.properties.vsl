@@ -1,8 +1,0 @@
-#set ($multiprojectType = "jar")
-#if ($ear)
-#set ($multiprojectType = "ejb")
-#end
-maven.multiproject.type=$multiprojectType
-
-# Output the schemas to the target directory
-hibernate.schema.output.dir=${maven.build.dir}
