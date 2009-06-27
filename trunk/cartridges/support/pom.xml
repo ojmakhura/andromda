@@ -12,6 +12,11 @@
     <description>Contains libraries used in support cartridges (i.e. end user libraries used by code generated from the cartridges)</description>
     <packaging>pom</packaging>
     <name>AndroMDA Cartridges Support</name>
+    <scm>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartriges/support</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartriges/support</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <modules>
         <module>webservice-client</module>
     </modules>

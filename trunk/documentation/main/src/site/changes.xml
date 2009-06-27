@@ -8,10 +8,19 @@
         <author email="carlos@andromda.org">Carlos Cuenca</author>
         <author email="matthias@andromda.org">Matthias Bohlen</author>
         <author email="joel@andromda.org">Joel Kozikowski</author>
+        <author email="michail@andromda.org">Michail Plushnikov</author>
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.3" date="not yet released" desc="First release candidate of version 3.3" description="First release candidate of version 3.3">
+        <release version="3.4" date="not yet released" desc="First release candidate of version 3.4" description="First release candidate of version 3.4">
+            <action dev="catforce" type="update">
+                Removed obsolete maven 1 files.                
+            </action>
+            <action dev="catforce" type="update">
+                Andromda now use Subversion (SVN) instead of CVS.
+            </action>
+        </release>
+        <release version="3.3" date="2008-04-20" desc="Version 3.3 final" description="Version 3.3 final">
             <action dev="draftdog" type="fix" issue="BPM-299">
                 Corrected possible collision in generated javascript validation routines.
             </action>

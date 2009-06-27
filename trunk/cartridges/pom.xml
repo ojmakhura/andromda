@@ -11,6 +11,11 @@
     <artifactId>andromda-cartridges</artifactId>
     <packaging>pom</packaging>
     <name>AndroMDA Cartridges</name>
+    <scm>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartriges</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartriges</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda</groupId>

@@ -18,10 +18,9 @@
         <url>http://jira.andromda.org/</url>
     </issueManagement>
     <scm>
-      <connection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</connection>
-      <developerConnection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
-      <tag>V3_x_HEAD</tag>
-      <url>http://andromda.cvs.sourceforge.net/</url>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <organization>
       <name>AndroMDA.org</name>
@@ -173,6 +172,16 @@
                 <role>Developer</role>
             </roles>
             <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <id>catforce</id>
+            <name>Michail Plushnikov</name>
+            <email>michail@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>1</timezone>
         </developer>
     </developers>
     <dependencyManagement>

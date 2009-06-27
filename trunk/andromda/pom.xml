@@ -15,10 +15,9 @@
         manufacturing of metafacades, etc.
     </description>
     <scm>
-        <connection>scm:cvs:pserver:anonymous:@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all/andromda</connection>
-        <developerConnection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
-        <tag>V3_x_HEAD</tag>
-        <url>http://andromda.cvs.sourceforge.net/</url>
+        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
         <dependency>

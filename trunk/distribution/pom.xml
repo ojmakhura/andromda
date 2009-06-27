@@ -11,6 +11,11 @@
     <packaging>pom</packaging>
     <name>AndroMDA Distribution</name>
     <description>Provides the assembly of the AndroMDA distribution</description>
+    <scm>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/distribution</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/distribution</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <!-- Add dependencies here to ensure they're built before the distribution itself -->
         <dependency>
@@ -54,7 +59,7 @@
                                 <exclude>distribution/**</exclude>
                                 <exclude>documentation/**</exclude>
                                 <!-- exclude doxia plugin until its included back in the build -->
-                                <exclude>maven/2/site/doxia/*</exclude>
+                                <exclude>maven/site/doxia/*</exclude>
                                 <exclude>samples/**</exclude>
                             </projectExcludes>
                             <artifactExcludes>
@@ -71,8 +76,7 @@
                                     <excludes>
                                         <exlude>conf/**</exlude>
                                         <exclude>**/target/**</exclude>
-                                        <exclude>**/CVS/**</exclude>
-                                        <exclude>**/.cvsignore</exclude>
+                                        <exclude>**/.svn/**</exclude>                                        
                                         <exclude>*</exclude>
                                         <exclude>**/*.log</exclude>
                                         <exclude>timetracker/**</exclude>
@@ -80,7 +84,7 @@
                                     <outputPath>samples/</outputPath>
                                 </location>
                                 <location>
-                                    <path>${pom.basedir}/../maven/2/andromdapp/target/plugin-install</path>
+                                    <path>${pom.basedir}/../maven/andromdapp/target/plugin-install</path>
                                     <includes>
                                         <include>**/*.xml</include>
                                     </includes>
@@ -105,8 +109,7 @@
                                     <path>${pom.basedir}/../</path>
                                     <excludes>
                                         <exclude>**/target/**</exclude>
-                                        <exclude>**/CVS/**</exclude>
-                                        <exclude>**/.cvsignore</exclude>
+                                        <exclude>**/.svn/**</exclude>                                        
                                         <exclude>**/*.log</exclude>
                                     </excludes>
                                 </location>

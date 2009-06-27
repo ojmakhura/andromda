@@ -9,6 +9,11 @@
     <packaging>jar</packaging>
     <name>AndroMDA Cartridge Test Suite</name>
     <description>Provides a Cartridge Test Suite, for testing cartridges throughout the cartridge lifecycle. Tests include verifying actual vs. expected output.</description>
+    <scm>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartriges/testsuite</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartriges/testsuite</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>commons-io</groupId>
