@@ -55,19 +55,19 @@
         </plugins>
     </reporting>
     <modules>
-        <module>2/initialize</module>
-        <module>2/andromda</module>
-        <module>2/andromdapp</module>
-        <module>2/model-archiver</module>
-        <module>2/bootstrap</module>
-        <module>2/bootstrap-install</module>
-        <module>2/sablecc</module>
-        <module>2/cartridge</module>
-        <module>2/translation-library</module>
-        <module>2/configuration</module>
-        <module>2/multi-source</module>
-        <module>2/distribution</module>
-        <module>2/site</module>
+        <module>initialize</module>
+        <module>andromda</module>
+        <module>andromdapp</module>
+        <module>model-archiver</module>
+        <module>bootstrap</module>
+        <module>bootstrap-install</module>
+        <module>sablecc</module>
+        <module>cartridge</module>
+        <module>translation-library</module>
+        <module>configuration</module>
+        <module>multi-source</module>
+        <module>distribution</module>
+        <module>site</module>
     </modules>
     <properties>
         <maven.version>2.0.10</maven.version>

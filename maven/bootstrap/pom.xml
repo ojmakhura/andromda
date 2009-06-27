@@ -196,14 +196,14 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <localArtifactDirectory>${basedir}/../../../lib</localArtifactDirectory>
+                    <localArtifactDirectory>${basedir}/../../lib</localArtifactDirectory>
                 </configuration>
             </plugin>
         </plugins>
         <resources>
             <resource>
                 <targetPath>META-INF/andromda/mappings</targetPath>
-                <directory>../../../etc/mappings</directory>
+                <directory>../../etc/mappings</directory>
                 <includes>
                     <include>**/*.xml</include>
                 </includes>

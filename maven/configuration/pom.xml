@@ -51,7 +51,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <installDirectory>${basedir}/../../../lib</installDirectory>
+                    <installDirectory>${basedir}/../../lib</installDirectory>
                 </configuration>
             </plugin>            
         </plugins>
