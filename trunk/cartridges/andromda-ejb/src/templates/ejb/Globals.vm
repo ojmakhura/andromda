@@ -1,7 +1,0 @@
-#set ($ejbInterface = "javax.ejb.EJBLocalObject")
-#set ($ejbHomeInterface = "javax.ejb.EJBLocalHome")
-#if ($service.ejbRemoteView)
-#set ($ejbInterface = "javax.ejb.EJBObject")
-#set ($ejbHomeInterface = "javax.ejb.EJBHome")
-#end
-#set ($ejbSecurityEnabled = $stringUtils.isNotBlank($securityRealm))

@@ -1,9 +1,0 @@
-#macro (formatCosts $costPosition)
-   <Row>
-    <Cell><Data ss:Type="Number">$costPosition.price</Data></Cell>
-    <Cell ss:Index="$costPosition.indentationLevel"><Data ss:Type="String">$costPosition.name</Data></Cell>
-   </Row>
-#foreach ($subpos in $costPosition.subPositions)
-#formatCosts(${subpos})
-#end
-#end

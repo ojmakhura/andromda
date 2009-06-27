@@ -1,1 +1,0 @@
-scomp -out andromda-cartridge.jar Cartridge.xsd
