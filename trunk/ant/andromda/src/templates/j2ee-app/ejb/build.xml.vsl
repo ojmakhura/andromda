@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="dist" name="ejb" basedir=".">
+
+    <property name="app.root.dir" value="${basedir}/.."/>
+
+    <property file="${basedir}/build.properties"/>
+    <property file="${app.root.dir}/build.properties"/>
+
+    <property name="common.jar.bundle.name" value="${application.id}-${ant.project.name}-common-${application.version}.jar"/>
+    <property name="server.jar.bundle.name" value="${application.id}-${ant.project.name}-server-${application.version}.jar"/>
+
+    <property name="xdoclet.gen.dir" value="target/xdoclet/ejb"/>
+    <property name="ejb.descriptor.dir" value="${xdoclet.gen.dir}/META-INF"/>
+
+    <fileset id="common.sources" dir="${basedir}/target/src">
+        <include name="**/*.java"/>
+        <exclude name="**/*Bean.java"/>
+    </fileset>
+    <fileset id="server.sources" dir="${basedir}/target/src">
+        <include name="**/*Bean.java"/>
+    </fileset>
+
+    <fileset id="common.classes" dir="${basedir}/target/classes">
+        <include name="**/*.class"/>
+        <exclude name="**/*Impl.class"/>
+    </fileset>
+   <fileset id="server.classes" dir="${basedir}/target/classes">
+        <include name="**/*Impl.class"/>
+    </fileset>
+
+    <path id="classpath">
+        <fileset dir="${app.root.dir}/lib">
+            <include name="xdoclet-*.jar"/>
+            <include name="xjavadoc-*.jar"/>
+            <include name="jboss-j2ee-*.jar"/>
+            <include name="commons-lang-*.jar"/>
+            <include name="commons-logging-*.jar"/>
+            <include name="commons-collections-*.jar"/>
+        </fileset>
+        <pathelement path="${basedir}/target/classes"/>
+        <pathelement location="${app.root.dir}/dist/${application.id}-common-${application.version}.jar"/>
+    </path>
+
+    <target name="clean" description="o Clean up the generated directories">
+        <delete dir="${basedir}/target"/>
+    </target>
+
+    <target name="xdoclet" description="o Run XDoclet EJB">
+        <mkdir dir="${basedir}/src/java"/>
+        <mkdir dir="${basedir}/target/src"/>
+        <mkdir dir="${basedir}/${xdoclet.gen.dir}"/>
+        <mkdir dir="${basedir}/${ejb.descriptor.dir}"/>
+        <taskdef name="ejbdoclet" classname="xdoclet.modules.ejb.EjbDocletTask" classpathref="classpath"/>
+        <ejbdoclet destdir="${basedir}/${xdoclet.gen.dir}" ejbspec="2.0" force="false">
+            <fileset refid="server.sources"/>
+            <utilobject kind="physical"/>
+            <deploymentdescriptor destdir="${ejb.descriptor.dir}"/>
+            <jboss
+				version="3.0"
+                xmlencoding="UTF-8"
+                typemapping="${datasource.jboss.mapping}"
+                datasource="${datasource.jndi}"
+                destdir="${ejb.descriptor.dir}"/>
+        </ejbdoclet>
+        <!--
+             XDoclet stores the *Bean classes into ejb-jar.xml
+             but the used andromda templates have created
+             subclasses *BeanImpl.  Replace
+             the names in the deployment descriptor so that
+             everyone is happy.
+         -->
+        <replace file="${basedir}/${ejb.descriptor.dir}/ejb-jar.xml"
+        	token="Bean&lt;/ejb-class&gt;" value="BeanImpl&lt;/ejb-class&gt;">
+        </replace>
+    </target>
+
+    <target name="compile" description="o Compile the code" depends="xdoclet">
+        <mkdir dir="${basedir}/target/classes"/>
+        <javac destdir="${basedir}/target/classes" classpathref="classpath"
+               deprecation="true" debug="true" optimize="false">
+            <src path="${basedir}/target/src"/>
+            <src path="${basedir}/src/java"/>
+            <src path="${basedir}/${xdoclet.gen.dir}"/>
+        </javac>
+    </target>
+
+    <target name="-manifest" description="o Prepares the manifest file">
+        <fileset id="manifest-deps" dir="${app.root.dir}/lib">
+            <include name="commons-beanutils-*.jar"/>
+            <include name="commons-collections-*.jar"/>
+            <include name="commons-lang-*.jar"/>
+        </fileset>
+        <pathconvert property="manifest-deps-raw" refid="manifest-deps" pathsep=" " dirsep="/"/>
+        <echo message="${manifest-deps-raw}" file="${basedir}/target/.tmp.mf"/>
+        <echo message="${app.root.dir}" file="${basedir}/target/.tmp.prop"/>
+        <replace token="\" value="/" file="${basedir}/target/.tmp.prop"/>
+        <replace token=".." value="lib" file="${basedir}/target/.tmp.prop"/>
+        <loadfile srcfile="${basedir}/target/.tmp.prop" property="libdir"/>
+        <replace token="${libdir}" file="${basedir}/target/.tmp.mf"/>
+    </target>
+
+    <target name="jar" description="o Create the JAR bundles" depends="compile,-manifest">
+        <mkdir dir="${basedir}/target"/>
+        <jar jarfile="${basedir}/target/${common.jar.bundle.name}">
+            <fileset refid="common.classes"/>
+        </jar>
+        <loadfile srcfile="${basedir}/target/.tmp.mf" property="manifest-deps"/>
+        <jar jarfile="${basedir}/target/${server.jar.bundle.name}">
+            <manifest>
+                <attribute name="Class-Path" value="${application.id}-common-${application.version}.jar ${common.jar.bundle.name} ${manifest-deps}"/>
+            </manifest>
+            <fileset refid="server.classes"/>
+            <fileset dir="${basedir}/${xdoclet.gen.dir}" includes="**/*.xml"/>
+        </jar>
+    </target>
+
+    <target name="dist" description="o Create a distribution" depends="jar">
+        <mkdir dir="${app.root.dir}/dist"/>
+        <copy todir="${app.root.dir}/dist">
+            <fileset dir="${basedir}/target">
+                <include name="${common.jar.bundle.name}"/>
+                <include name="${server.jar.bundle.name}"/>
+            </fileset>
+        </copy>
+    </target>
+
+</project>

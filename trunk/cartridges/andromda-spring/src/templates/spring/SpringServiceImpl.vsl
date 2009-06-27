@@ -1,0 +1,35 @@
+// license-header ${implementationLanguage} merge-point
+#set ($generatedFile = "${service.implementationPackagePath}/${service.implementationName}.${implementationLanguage}")
+/**
+ * This is only generated once! It will never be overwritten.
+ * You can (and have to!) safely modify it by hand.
+ */
+#if ($stringUtils.isNotBlank($service.implementationPackageName))
+package $service.implementationPackageName;
+#end
+
+/**
+ * @see $service.fullyQualifiedName
+ */
+public#if($service.abstract) abstract#end class $service.implementationName
+    extends $service.fullyQualifiedBaseName
+{
+
+#foreach ($operation in $service.implementationOperations)
+    /**
+     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     */
+#set ($abstract = $service.abstract && $operation.abstract)
+    protected#if ($abstract) abstract#end  $operation.implementationReturnTypeName $operation.implementationSignature
+#if ($abstract)
+        throws java.lang.Exception;        
+#else
+        throws java.lang.Exception
+    {
+        // ${toDoTag} implement protected  $operation.implementationReturnTypeName $operation.implementationSignature
+        throw new java.lang.UnsupportedOperationException("${service.fullyQualifiedName}.${operation.implementationSignature} Not implemented!");
+    }
+
+#end
+#end
+}

@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+    <properties>
+        <author email="naresh@andromda.org">Naresh Bhatia</author>
+        <title>Create the Application</title>
+    </properties>
+
+    <body>
+        <section name="Create TimeTracker Application">
+            <p>
+                In this section we will create a starter application using
+                the AndroMDA plugin. Later we will build on this application to
+                incrementally add time tracking features. Note that the completed
+                TimeTracker application is available in the
+                <a href="http://team.andromda.org/maven/andromda/distributions" target="_blank">
+                source and binary distributions</a> under /samples/time-tracker-java. We recommend
+                that you have the completed application available at hand in case there is a need
+                to troubleshoot your own version.
+            </p>
+
+            <p>
+                Couple of tips before we start:
+                <ul>
+                    <li>Please follow the instructions in this tutorial very carefully and
+                    precisely. DO NOT take any shortcuts. Doing so will only waste your time.
+                    There is a reason for every step in the tutorial. You will not find any
+                    fluff here!</li>
+
+                    <li>It is recommended that you use FireFox or Internet Explorer 7 to go through
+                    this tutorial. Internet Explorer 6 is not able to select text in the tutorial
+                    pages correctly, so it is difficult to copy code from here.</li>
+                </ul>
+            </p>
+
+            <p>
+                Ok, we are now ready to start. Create the starter application by following
+                the steps below.
+
+                <ol>
+                    <li>Open a Command Prompt and change directory to any directory where you would like
+                        to create the application folder. In this example, we have chosen the C:/ directory
+                        for this purpose. The application will be created in the directory C:/timetracker.</li>
+                    <li>Now execute the following command to generate the starter application. Answer the
+                        questions exactly as shown in the output that follows. You are allowed to enter your
+                        own name in response to the first question :-).
+                        <p>
+                            <code>maven andromdapp:generate</code>
+                        </p>
+                    </li>
+                </ol>
+            </p>
+
+            <pre class="console">
+ __  __
+|  \/  |__ _Apache__ ___
+| |\/| / _` \ V / -_) ' \  ~ intelligent projects ~
+|_|  |_\__,_|\_/\___|_||_|  v. 1.0.2
+
+Please enter your first and last name (i.e. Chad Brandon):
+Naresh Bhatia
+Please enter the name of your J2EE project (i.e. Animal Quiz):
+TimeTracker
+Please enter the id for your J2EE project (i.e. animalquiz):
+timetracker
+Please enter a version for your project (i.e. 1.0-SNAPSHOT):
+1.0-SNAPSHOT
+Please enter the base package name for your J2EE project (i.e. org.andromda.samples):
+org.andromda.timetracker
+Would you like an EAR or standalone WAR (enter 'ear' or 'war')?
+ear
+Please enter the type of transactional/persistence cartridge to use (enter 'hibernate', 'ejb', or 'spring'):
+spring
+Would you like to use the jBpm workflow engine, it uses Hibernate3 (enter 'yes' or 'no')?
+no
+Please enter the hibernate version number  (enter '2' for 2.1.x or '3' for 3.0.x):
+3
+Would you like a web application? (enter 'yes' or 'no'):
+yes
+Would you like your web tier to use JSF or Struts? (enter 'jsf' or 'struts'):
+struts
+Would you like to be able to expose your services as web services? (enter 'yes' or 'no'):
+no
+build:start:
+
+andromdapp:init:
+
+andromdapp:generate:
+    [echo] +---------------------------------------------------------------------+
+    [echo] |   G E N E R A T I N G   A n d r o M D A   J 2 E E   P R O J E C T   |
+    [echo] +---------------------------------------------------------------------+
+    [mkdir] Created dir: C:/timetracker
+    [copy] Copying 1 file to C:/timetracker
+andromdapp:init:
+
+andromdapp:generate-app-subproject:
+andromdapp:generate-module:
+    [mkdir] Created dir: C:/timetracker/app
+    [copy] Copying 2 files to C:/timetracker/app
+
+    [mkdir] Created dir: C:/timetracker/app/src/META-INF
+
+andromdapp:init:
+
+andromdapp:generate-spring-subproject:
+    [mkdir] Created dir: C:/timetracker/core
+andromdapp:init:
+
+andromdapp:generate-core-subproject:
+andromdapp:generate-module:
+
+    [mkdir] Created dir: C:/timetracker/core/src/java
+    [mkdir] Created dir: C:/timetracker/core/target/src
+
+
+andromdapp:init:
+
+andromdapp:generate-common-subproject:
+andromdapp:generate-module:
+    [mkdir] Created dir: C:/timetracker/common
+
+    [mkdir] Created dir: C:/timetracker/common/src/java
+    [mkdir] Created dir: C:/timetracker/common/target/src
+
+andromdapp:init:
+
+andromdapp:generate-mda-subproject:
+    [mkdir] Created dir: C:/timetracker/mda/src/uml
+    [copy] Copying 1 file to C:/timetracker/mda/src/uml
+    [mkdir] Created dir: C:/timetracker/mda/conf
+    [copy] Copying 1 file to C:/timetracker/mda
+    [mkdir] Created dir: C:/timetracker/mda/conf/mappings
+
+andromdapp:init:
+
+andromdapp:generate-web-subproject:
+andromdapp:generate-module:
+    [mkdir] Created dir: C:/timetracker/web
+
+    [mkdir] Created dir: C:/timetracker/web/src/java
+    [mkdir] Created dir: C:/timetracker/web/target/src
+
+    [echo] |
+    [echo] |  New J2EE project generated to: 'C://timetracker'
+    [echo] |
+    [echo] |  For more information on how to proceed from here read 'C://timetracker/readme.txt'
+    [echo] |
+BUILD SUCCESSFUL
+Total time: 5 minutes 47 seconds
+Finished at: Thu Jan 26 15:54:50 EST 2006
+            </pre>
+
+            <p>
+                Examine the various folders and files created by the <code>andromdapp</code> plugin. You
+                will notice files called <code>project.xml</code>, <code>maven.xml</code> and
+                <code>project.properties</code> in various folders under timetracker. These files make up
+                several Maven projects. In fact, the timetracker directory contains a hierarchy of Maven
+                projects as shown below.
+                <pre class="console">
+timetracker
+     |
+     |-- mda
+     |
+     |-- common
+     |
+     |-- core
+     |
+     |-- web
+     |
+     +-- app
+                </pre>
+                <ul>
+                    <li><strong>timetracker:</strong> This is the master project that controls the overall
+                    build process and common properties.</li>
+
+                    <li><strong>mda:</strong> The mda project is the most important sub-project of the
+                    application. It houses the TimeTracker UML model under the src/uml directory. The mda
+                    project is also where AndroMDA is configured to generate the files needed to assemble
+                    the application.</li>
+
+                    <li><strong>common:</strong> The common sub-project collects resources and classes
+                    that are shared among other sub-projects. These include value objects and embedded values.</li>
+
+                    <li><strong>core:</strong> The core sub-project collects resources and classes that
+                    use the Spring framework, optionally making use of Hibernate and/or EJBs under the hood.
+                    These include entity classes, data access objects, hibernate mapping files and services.</li>
+
+                    <li><strong>web:</strong> The web sub-project collects those resources and classes that
+                    make up the presentation layer.</li>
+
+                    <li><strong>app:</strong> The app sub-project collects those resources and classes that
+                    are required to build the .ear bundle.</li>
+                </ul>
+
+                You can find more details on the contents of the TimeTracker project in the readme.txt file
+                under the timetracker folder. This file also contains a description of useful Maven targets
+                for the project.
+            </p>
+        </section>
+
+        <section name="Configure TimeTracker Application">
+            <p>
+                We will make a minor configuration change to simplify the initial implementation of TimeTracker.
+                Instead of a Web based presentation layer that goes via EJBs to communicate with the service layer, we
+                will first create a console-based front-end that talks directly to the service layer. Follow the steps
+                below to disable EJBs.
+
+                <ol>
+                    <li>Edit the AndroMDA configuration file located at timetracker/mda/conf/andromda.xml.</li>
+                    <li>Under the <code>spring</code> namespace, comment out the properties called <code>dataSource</code>
+                        and <code>session-ejbs</code>.</li>
+                </ol>
+            </p>
+
+            <p>Here's is the relevant section of the modified andromda.xml file:</p>
+<source language="xml"><![CDATA[
+<namespace name="spring">
+    <properties>
+        <!-- <property name="dataSource">${dataSource}</property> -->
+        ...
+        <!-- <property name="session-ejbs">${maven.andromda.core.generated.dir}</property> -->
+    </properties>
+</namespace>
+]]></source>
+
+            <p>We will make one more modification to reduce the verbosity of the application output.
+                <ol>
+                    <li>Edit the file C:/timetracker/mda/project.properties.</li>
+                    <li>Change the value of the property <code>hibernate.db.showSql</code> from
+                    <code>true</code> to <code>false</code>.</li>
+                </ol>
+            </p>
+        </section>
+
+        <section name="Configure TimeTracker Database">
+            <p>
+                Now lets configure the project for the database you have chosen.
+            </p>
+
+            <subsection name="MySQL">
+                <p>
+                    Create a schema and user for the TimeTracker application by following the steps below.
+                    For the purpose of this tutorial we well assume a schema called <code>timetracker</code>
+                    and a user called <code>timetracker</code>, however you are free to use other names
+                    or schemas and users that already exist in your MySQL database.
+
+                    <ol>
+                        <li>Open MySQL Administrator. Login in as root.</li>
+                        <li>Click <code>Catalogs</code> in the left navigation bar.</li>
+                        <li>Right click in the lower left panel (called Schemata) and select <code>Create New Schema</code>.</li>
+                        <li>Enter the schema name as <code>timetracker</code> and click OK.</li>
+                        <li>Click <code>User Administration</code> in the left navigation bar.</li>
+                        <li>Click <code>New User</code> and add a new user called timetracker with password timetracker.</li>
+                        <li>Select the <code>Schema Privileges</code> tab and then click the timetracker schema.</li>
+                        <li>Click the <code>&lt;&lt;</code> button to assign all privileges to the timetracker user and
+                            click <code>Apply Changes</code>.</li>
+                        <li>You may now close MySQL Administrator if you wish.</li>
+                    </ol>
+                </p>
+
+                <p>Edit the file timetracker/project.properties and change the values of database properties to match your
+                environment. A sample project.properties file is shown below:</p>
+                    <pre class="console">
+# set this to true will deploy the ear exploded
+deployExploded=false
+
+# The datasource for the application
+dataSource.name=TimeTrackerDS
+dataSource=java:/${dataSource.name}
+
+# Properties for management of the database schema,
+# ignore if you setup/drop your schema manually
+dataSource.driver.jar=C:/Program Files/MySQL/mysql-connector-java-3.1.12/mysql-connector-java-3.1.12-bin.jar
+dataSource.driver.class=com.mysql.jdbc.Driver
+dataSource.url=jdbc:mysql://127.0.0.1:3306/timetracker
+dataSource.user=timetracker
+dataSource.password=timetracker
+dataSource.sql.init=core/target/schema-create.sql
+dataSource.sql.drop=core/target/schema-drop.sql
+dataSource.sql.load=core/target/db/create-dummy-load.sql
+# What schema related goals should do when an error occurs.
+dataSource.sql.onError=continue
+
+# Change this to generate to the correct MDA database mappings
+# For MySql use: MySQL
+# For Hypersonic use: HypersonicSql
+# For Oracle9i use: Oracle9i
+sql.mappings=MySQL
+
+# For MySql use: org.hibernate.dialect.MySQLDialect
+# For Hypersonic use: org.hibernate.dialect.HSQLDialect
+# For Oracle9i use: org.hibernate.dialect.Oracle9Dialect
+hibernate.db.dialect=org.hibernate.dialect.MySQLDialect
+                    </pre>
+            </subsection>
+
+            <subsection name="PostgreSQL">
+                <p>
+                    Create a user and database for the TimeTracker application by following the steps below.
+                    For the purpose of this tutorial we well assume a user called <code>timetracker</code>
+                    and a database called <code>timetracker</code>, however you are free to use other names
+                    or users and databases that already exist in your PostgreSQL installation.
+
+                    <ol>
+                        <li>Open pgAdmin III application.</li>
+                        <li>Double click on "PostgreSQL Datbase Server 8.1" to connect to the server. If prompted
+                            enter the password for user postgres.</li>
+                        <li>Right click on "Login Roles" in the left panel and select "New Login Role".</li>
+                        <li>Enter <code>timetracker</code> as the role name as well as the password.</li>
+                        <li>Check the box called "Can create database objects".</li>
+                        <li>Click OK to create the user.</li>
+                        <li>Right click on "Databases" in the left panel and select "New Database".</li>
+                        <li>Enter <code>timetracker</code> as the name of the database.</li>
+                        <li>Select <code>timetracker</code> as the owner.</li>
+                        <li>Click OK to create the database.</li>
+                        <li>You may now close the pgAdmin application if you wish.</li>
+                    </ol>
+                </p>
+
+                <p>Edit the file timetracker/project.properties and change the values of database properties to match your
+                environment. A sample project.properties file is shown below:</p>
+                    <pre class="console">
+# set this to true will deploy the ear exploded
+deployExploded=false
+
+# The datasource for the application
+dataSource.name=TimeTrackerDS
+dataSource=java:/${dataSource.name}
+
+# Properties for management of the database schema,
+# ignore if you setup/drop your schema manually
+dataSource.driver.jar=C:/Program Files/PostgreSQL/8.1/jdbc/postgresql-8.1-404.jdbc3.jar
+dataSource.driver.class=org.postgresql.Driver
+dataSource.url=jdbc:postgresql://localhost:5432/timetracker
+dataSource.user=timetracker
+dataSource.password=timetracker
+dataSource.sql.init=core/target/schema-create.sql
+dataSource.sql.drop=core/target/schema-drop.sql
+dataSource.sql.load=core/target/db/create-dummy-load.sql
+# What schema related goals should do when an error occurs.
+dataSource.sql.onError=continue
+
+# Change this to generate to the correct MDA database mappings
+# For MySql use: MySQL
+# For Hypersonic use: HypersonicSql
+# For Oracle9i use: Oracle9i
+sql.mappings=PostgreSQL
+
+# For MySql use: org.hibernate.dialect.MySQLDialect
+# For Hypersonic use: org.hibernate.dialect.HSQLDialect
+# For Oracle9i use: org.hibernate.dialect.Oracle9Dialect
+hibernate.db.dialect=org.hibernate.dialect.PostgreSQLDialect
+                    </pre>
+            </subsection>
+
+            <subsection name="Oracle">
+                <p>
+                    Create a user for the TimeTracker application by following the steps below.
+                    For the purpose of this tutorial we well assume a user called <code>timetracker</code>,
+                    however you are free to use other names or users that already exist in your Oracle database.
+                    Note that a schema called <code>timetracker</code> will be created automatically when
+                    the <code>timetracker</code> user starts creating database objects in your database instance.
+
+                    <ol>
+                        <li>Open Enterprise Manager Console. Login in as system.</li>
+                        <li>Expand your database instance in the left pane.</li>
+                        <li>Right click on the "Users" node under "Security" and select <code>Create...</code>.</li>
+                        <li>Enter <code>timetracker</code> as the username as well as the password.</li>
+                        <li>Select the "Role" tab and grant CONNECT and RESOURCE previlages to this user.</li>
+                        <li>Click Create to create the user.</li>
+                        <li>You may now close Enterprise Manager if you wish.</li>
+                    </ol>
+                </p>
+
+                <p>Edit the file timetracker/project.properties and change the values of database properties to match your
+                environment. A sample project.properties file is shown below:</p>
+                    <pre class="console">
+# set this to true will deploy the ear exploded
+deployExploded=false
+
+# The datasource for the application
+dataSource.name=TimeTrackerDS
+dataSource=java:/${dataSource.name}
+
+# Properties for management of the database schema,
+# ignore if you setup/drop your schema manually
+dataSource.driver.jar=C:/oracle/ora92/jdbc/lib/ojdbc14.jar
+dataSource.driver.class=oracle.jdbc.OracleDriver
+dataSource.url=jdbc:oracle:thin:@localhost:1521:nbdb1
+dataSource.user=timetracker
+dataSource.password=timetracker
+dataSource.sql.init=core/target/schema-create.sql
+dataSource.sql.drop=core/target/schema-drop.sql
+dataSource.sql.load=core/target/db/create-dummy-load.sql
+# What schema related goals should do when an error occurs.
+dataSource.sql.onError=continue
+
+# Change this to generate to the correct MDA database mappings
+# For MySql use: MySQL
+# For Hypersonic use: HypersonicSql
+# For Oracle9i use: Oracle9i
+sql.mappings=Oracle9i
+
+# For MySql use: org.hibernate.dialect.MySQLDialect
+# For Hypersonic use: org.hibernate.dialect.HSQLDialect
+# For Oracle9i use: org.hibernate.dialect.Oracle9Dialect
+hibernate.db.dialect=org.hibernate.dialect.Oracle9Dialect
+                    </pre>
+            </subsection>
+        </section>
+
+        <section name="Download Application Dependencies">
+            <p>
+                Do you remember that so far we have downloaded only one AndroMDA artifact?
+                It was the AndroMDA Application plugin. Well, its time to pull in the remaining artifacts. We
+                will do this implicitly by running the maven scripts generated above. These scripts specify
+                all dependencies the application has on AndroMDA. So if we execute them on our blank model,
+                all the necessary dependencies will be pulled into our Maven repository. Of course, since the
+                model is blank, no code will be generated. However getting the dependencies now is important
+                since we will need them very soon. Follow the steps below to download the required dependencies.
+                <ol>
+                    <li>Open a Command Prompt and change your directory to <code>C:/timetracker</code>.</li>
+                    <li>Execute the command <code>maven install</code>. You will see messages on your screen showing
+                        artifacts that are being downloaded. Make sure you get a <code>BUILD SUCCESSFUL</code>
+                        message when the Maven script ends.</li>
+                </ol>
+                <p>A partial run of maven is shown below:</p>
+                    <pre class="console">
+C:/timetracker>maven install
+ __  __
+|  \/  |__ _Apache__ ___
+| |\/| / _` \ V / -_) ' \  ~ intelligent projects ~
+|_|  |_\__,_|\_/\___|_||_|  v. 1.0.2
+
+build:start:
+
+install:
+multiproject:install:
+multiproject:projects-init:
+    [echo] Gathering project list
+Starting the reactor...
+...
++----------------------------------------
+| Executing multiproject:install-callback TimeTracker MDA
+| Memory: 4M/5M
++----------------------------------------
+Attempting to download andromda-profile-3.2.xml.zip.
+15K downloaded
+Attempting to download andromda-profile-datatype-3.2.xml.zip.
+18K downloaded
+Attempting to download andromda-profile-webservice-3.2.xml.zip.
+12K downloaded
+Attempting to download andromda-profile-service-3.2.xml.zip.
+13K downloaded
+...
+INFO  [App] BUILD SUCCESSFUL
+INFO  [App] Total time: 2 minutes 48 seconds
+INFO  [App] Finished at: Sat Jan 28 18:52:31 EST 2006
+INFO  [App]
+C:/timetracker>
+                    </pre>
+                Note that it takes a significant amount of time for maven to look up all the dependencies
+                in remote repositories and download them to your machine. However this process is not
+                required every time you build the project. Now that all the dependencies have been
+                downloaded, we will use the <code>-o</code> option of maven during future builds. This
+                option instructs maven to run in "offline" mode, using the libraries in the local
+                repository. Such builds will be much faster.
+            </p>
+        </section>
+
+        <section name="What's Next?">
+            <p>
+                Now that we have created the base application it is time to start modeling.
+                Click <a href="create-entity.html">here</a> to model your first entity.
+            </p>
+        </section>
+    </body>
+</document>

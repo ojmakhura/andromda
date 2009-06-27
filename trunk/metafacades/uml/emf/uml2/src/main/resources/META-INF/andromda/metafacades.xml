@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><!-- contains the default metafacade mappings -->
+<metafacades metaclassPattern="{0}.impl.{1}Impl">
+    <default class="org.andromda.metafacades.emf.uml2.ModelElementFacadeLogicImpl"/>
+
+    <!-- metafacades properties -->
+
+    <property reference="languageMappingsUri"/>
+    <property reference="wrapperMappingsUri"/>
+    <property reference="namespaceSeparator"/>
+    <property reference="undefinedName"/>
+    <property reference="arrayNameSuffix"/>
+    <property reference="maxSqlNameLength"/>
+    <property reference="schemaName"/>
+    <property reference="tableNamePrefix"/>
+    <property reference="columnNamePrefix"/>
+    <property reference="foreignKeySuffix"/>
+    <property reference="constraintSuffix"/>
+    <property reference="manageablePackageSuffix"/>
+    <property reference="sqlNameSeparator"/>
+    <property reference="classifierPropertyNameMask"/>
+    <property reference="enableMetafacadePropertyCaching"/>
+    <property reference="defaultResolveable"/>
+    <property reference="defaultPageSize"/>
+    <property reference="defaultMaximumListSize"/>
+    <property reference="enableTemplating"/>
+    <property reference="pluralizeAssociationEndNames"/>
+    <property reference="pluralizeAttributeNames"/>
+    <property reference="pluralizeParameterNames"/>
+
+    <!-- Base structural elements -->
+
+    <metafacade class="org.andromda.metafacades.emf.uml2.PackageFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.PackageImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ModelFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.internal.util.UML2ResourceImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ClassifierFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ClassifierImpl"/>
+        <property reference="classifierNameMask"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.EnumerationLiteralFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.EnumerationLiteralImpl"/>
+        <property reference="enumerationLiteralNameMask"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.EnumerationFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.EnumerationImpl"/>
+        <property reference="enumerationNameMask"/>
+        <property reference="typeSafeEnumsEnabled"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.EnumerationFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ClassImpl">
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
+        <property reference="enumerationNameMask"/>
+        <property reference="typeSafeEnumsEnabled"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.AssociationClassFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.AssociationClassImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.AssociationEndFacadeLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml2.AssociationEndImpl"/>
+        <property reference="defaultMultiplicity"/>
+        <property reference="pluralizeAssociationEndNames"/>
+        <property reference="enableTemplating"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.AssociationFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.AssociationImpl"/>
+        <property reference="relationNameSeparator"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.DependencyFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.DependencyImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.TaggedValueFacadeLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml2.TagDefinitionImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.OperationFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.OperationImpl"/>
+        <property reference="preconditionNamePattern"/>
+        <property reference="postconditionNamePattern"/>
+        <property reference="operationNameMask"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.AttributeFacadeLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml2.AttributeImpl"/>
+        <property reference="enumerationLiteralNameMask"/>
+        <property reference="defaultMultiplicity"/>
+        <property reference="pluralizeAttributeNames"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ParameterFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ParameterImpl"/>
+        <property reference="parameterNameMask"/>
+        <property reference="pluralizeParameterNames"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.GeneralizationFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.GeneralizationImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.StereotypeFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.StereotypeImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ConstraintFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ConstraintImpl"/>
+    </metafacade>
+
+    <!-- Behavioral element metafacades -->
+
+    <!-- This sub part of behavioral has been disabled, because it's not supported yet.
+
+   <metafacade class="org.andromda.metafacades.emf.uml2.ArgumentFacadeLogicImpl">
+   <mapping class="org.eclipse.uml2.impl.behavioralelements.commonbehavior.ArgumentImpl"/>
+   </metafacade>
+   <metafacade class="org.andromda.metafacades.emf.uml2.ObjectFlowStateFacadeLogicImpl">
+   <mapping class="org.eclipse.uml2.impl.behavioralelements.activitygraphs.ObjectFlowStateImpl"/>
+   </metafacade>
+   <metafacade class="org.andromda.metafacades.emf.uml2.SubactivityStateFacadeLogicImpl">
+   <mapping class="org.eclipse.uml2.impl.behavioralelements.activitygraphs.SubactivityStateImpl"/>
+   </metafacade> -->
+    <metafacade class="org.andromda.metafacades.emf.uml2.InstanceFacadeLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml2.ObjectInstanceImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.LinkFacadeLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml2.LinkInstanceImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.LinkEndFacadeLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml2.LinkEndImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.AttributeLinkFacadeLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml2.AttributeLinkImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ActionFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ActionImpl"/>
+    </metafacade>
+    <!-- There is no actionstate in uml2.0. Mapped into "normal" state -->
+    <metafacade class="org.andromda.metafacades.emf.uml2.ActionStateFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.StateImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ActivityGraphFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.StateMachineImpl"/>
+    </metafacade>
+    <!-- Adapted, because ActivityGraph is mapped to StateMachine -->
+    <metafacade class="org.andromda.metafacades.emf.uml2.PartitionFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.RegionImpl"/>
+    </metafacade>
+    <!-- Event are mapped to Activities (In UML2.0, the semantics of event doesn't allow to add parameters -->
+    <!-- A call Event is an activity which contain an CallOperationAction -->
+    <metafacade class="org.andromda.metafacades.emf.uml2.CallEventFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ActivityImpl">
+            <property name="operation"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.EventFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ActivityImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FinalStateFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.FinalStateImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.PseudostateFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.PseudostateImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.StateVertexFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.VertexImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.TransitionFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.TransitionImpl"/>
+    </metafacade>
+    <!-- Guard are mapped to Constraint -->
+    <metafacade class="org.andromda.metafacades.emf.uml2.GuardFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ConstraintImpl">
+            <property name="transition"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ActorFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ActorImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.UseCaseFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.UseCaseImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.IncludeFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.IncludeImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ExtendFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ExtendImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ExtensionPointFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ExtensionPointImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.RoleLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ActorImpl">
+            <property name="referencesPresent"/>
+        </mapping>
+        <property reference="roleNameMask"/>
+    </metafacade>
+
+    <!-- Value Object metafacades -->
+
+    <metafacade class="org.andromda.metafacades.emf.uml2.ValueObjectLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ClassImpl">
+            <stereotype>VALUE_OBJECT</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ValueObjectAssociationEndLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml2.AssociationEndImpl">
+            <property name="type.valueObjectMetaType"/>
+        </mapping>
+        <property reference="useArraysForMultiplicitiesOfTypeMany"/>
+    </metafacade>
+
+    <!--
+    Manageable metafacades:
+    these mappings need to be listed *before* the regular entities because
+    of the fact that we are using both ENTITY and MANAGEABLE stereotypes,
+    otherwise the ManageableEntity classes would be mapped to Entity instead
+    -->
+
+    <metafacade class="org.andromda.metafacades.emf.uml2.ManageableEntityLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ClassImpl">
+            <stereotype>MANAGEABLE</stereotype>
+            <stereotype>ENTITY</stereotype>
+            <property name="manageable"/>
+        </mapping>
+        <property reference="enableManageableEntities"/>
+        <property reference="manageableServiceAccessorPattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ManageableEntityAttributeLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml2.AttributeImpl">
+            <property name="owner.manageableEntityMetaType"/>
+        </mapping>
+        <property reference="manageableIdDisplayStrategy"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ManageableEntityAssociationEndLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml2.AssociationEndImpl">
+            <property name="type.manageableEntityMetaType"/>
+        </mapping>
+    </metafacade>
+
+    <!-- Entity metafacades -->
+
+    <metafacade class="org.andromda.metafacades.emf.uml2.EntityLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ClassImpl">
+            <stereotype>ENTITY</stereotype>
+        </mapping>
+        <property reference="allowDefaultIdentifiers"/>
+        <property reference="defaultIdentifierPattern"/>
+        <property reference="defaultIdentifierType"/>
+        <property reference="defaultIdentifierVisibility"/>
+        <property reference="relationNameSeparator"/>
+        <property reference="entityNameMask"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.EntityAssociationEndLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml2.AssociationEndImpl">
+            <property name="type.entityMetaType"/>
+        </mapping>
+        <property reference="sqlMappingsUri"/>
+        <property reference="jdbcMappingsUri"/>
+        <property reference="entityPropertyNameMask"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.EntityAttributeLogicImpl">
+        <mapping class="org.andromda.metafacades.emf.uml2.AttributeImpl">
+            <property name="owner.entityMetaType"/>
+        </mapping>
+        <property reference="sqlMappingsUri"/>
+        <property reference="jdbcMappingsUri"/>
+        <property reference="entityPropertyNameMask"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.EntityAssociationLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.AssociationImpl">
+            <property name="entityAssociation"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.EntityQueryOperationLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.OperationImpl">
+            <stereotype>FINDER_METHOD</stereotype>
+            <property name="owner.entityMetaType"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.EntityQueryOperationLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.OperationImpl">
+            <property name="owner.entityMetaType"/>
+            <property name="query"/>
+        </mapping>
+    </metafacade>
+
+    <!-- Service metafacades -->
+
+    <metafacade class="org.andromda.metafacades.emf.uml2.ServiceLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ClassImpl">
+            <stereotype>SERVICE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ServiceOperationLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.OperationImpl">
+            <property name="owner.serviceMetaType"/>
+        </mapping>
+    </metafacade>
+
+    <!--Facade about templates. -->
+
+    <metafacade class="org.andromda.metafacades.emf.uml2.BindingFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.TemplateBindingImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.TemplateArgumentFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.TemplateArgumentImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.TemplateParameterFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.TemplateParameterImpl"/>
+    </metafacade>
+
+    <!-- FrontEnd metafacades -->
+
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndPackageLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.PackageImpl">
+            <property name="frontEndUseCases"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndControllerLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ClassImpl">
+            <property name="useCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndControllerOperationLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.OperationImpl">
+            <property name="ownerIsController"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndUseCaseLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.UseCaseImpl">
+            <stereotype>FRONT_END_APPLICATION</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndUseCaseLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.UseCaseImpl">
+            <stereotype>FRONT_END_USE_CASE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndActivityGraphLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.StateMachineImpl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndViewLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.StateImpl">
+            <property name="frontEndView"/>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndActionStateLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.StateImpl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndEventLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ActivityImpl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndExceptionHandlerLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.TransitionImpl">
+            <property name="frontEndException"/>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndParameterLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ParameterImpl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndActionLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.TransitionImpl">
+            <property name="exitingInitialState"/>
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndActionLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.TransitionImpl">
+            <property name="exitingView"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndForwardLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.TransitionImpl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndFinalStateLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.FinalStateImpl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.FrontEndPseudostateLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.PseudostateImpl">
+            <property name="containedInFrontEndUseCase"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.TopicLogicImpl" contextRoot="true">
+        <mapping class="org.eclipse.uml2.impl.NodeImpl">
+            <stereotype>TOPIC</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.QueueLogicImpl" contextRoot="true">
+        <mapping class="org.eclipse.uml2.impl.NodeImpl">
+            <stereotype>QUEUE</stereotype>
+        </mapping>
+    </metafacade>
+    <!-- DO NOT UNCOMMENT these - it will mess up the cartridge metafacade mappings! -->
+     <!--metafacade class="org.andromda.metafacades.emf.uml2.ClassifierFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.PrimitiveTypeImpl"/>
+        <property reference="classifierNameMask"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ClassifierFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.DataTypeImpl"/>
+        <property reference="classifierNameMask"/>
+    </metafacade-->
+    <!-- metafacade class="org.andromda.metafacades.emf.uml2.ClassifierFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ClassImpl"/>
+        <property reference="classifierNameMask"/>
+    </metafacade-->
+    <!--metafacade class="org.andromda.metafacades.emf.uml2.ClassifierFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.InterfaceImpl"/>
+        <property reference="classifierNameMask"/>
+    </metafacade-->
+    <!--WebService cartridge throws a warning if these are not mapped, even if not used-->
+    <metafacade class="org.andromda.metafacades.emf.uml2.ModelElementFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.LiteralIntegerImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ModelElementFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.OpaqueExpressionImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ModelElementFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.LiteralUnlimitedNaturalImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ModelElementFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ElementImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.metafacades.emf.uml2.ModelElementFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.NamedElementImpl"/>
+    </metafacade >
+</metafacades>

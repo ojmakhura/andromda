@@ -1,0 +1,187 @@
+#set ($generatedFile = "${action.fullyQualifiedFormImplementationPath}.java")
+// license-header java merge-point
+package $action.packageName;
+
+/**
+$action.getDocumentation(" * ")
+ */
+public class $action.formImplementationName
+    implements java.io.Serializable#if ($stringUtils.isNotBlank($action.formImplementationInterfaceList)), $action.formImplementationInterfaceList#end
+
+{
+    public ${action.formImplementationName}()
+    {
+#foreach ($field in $action.formFields)
+#if (!$field.complex)
+#renderDateTimeFormatters($field "")
+#end
+#foreach ($attribute in $field.attributes)
+#renderDateTimeFormatters($attribute $field)
+#end
+#end
+        // - setup the default java.util.Date.toString() formatter
+        java.text.DateFormat dateFormatter = new java.text.SimpleDateFormat("EEE MMM dd hh:mm:ss zzz yyyy");
+        dateFormatter.setLenient(true);
+        this.dateTimeFormatters.put(null, dateFormatter);
+    }
+#foreach ($field in $action.formFields)
+
+#if ($field.pageableTable)
+#set ($fieldTypeName = "javax.faces.model.DataModel")
+#elseif ($field.type.collectionType)
+#set ($fieldTypeName = "java.util.List")
+#elseif ($field.type.fileType)
+#set ($fieldTypeName = "$fileTypeName")
+#else
+#set ($fieldTypeName = $field.type.fullyQualifiedName)
+#end
+    private $fieldTypeName $field.name#if ($field.defaultValuePresent) = $field.defaultValue#end;
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public $fieldTypeName ${field.getterName}()
+    {
+#if ($field.complex && !$field.type.enumeration)
+        if (this.$field.name == null)
+        {
+            this.$field.name = new ${field.type.fullyQualifiedName}();
+            this.${field.setterName}(this.$field.name);
+        }
+#end
+        return this.${field.name};
+    }
+
+    /**
+     * Keeps track of whether or not the value of $field.name has
+     * be populated at least once.
+     */
+    private boolean $field.formAttributeSetProperty = false;
+
+    /**
+     * Indicates whether or not the value for $field.name has been set at least
+     * once.
+     *
+     * @return true/false
+     */
+    public boolean is${stringUtils.capitalize($field.formAttributeSetProperty)}()
+    {
+        return this.$field.formAttributeSetProperty;
+    }
+
+    /**
+$field.getDocumentation("     * ")
+     */
+    public void ${field.setterName}($fieldTypeName $field.name)
+    {
+        this.$field.name = $field.name;
+        this.$field.formAttributeSetProperty = true;
+    }
+#renderBackingListImplSupport($field "")
+#if (!$field.type.enumeration)
+#foreach ($attribute in $field.attributes)
+#renderBackingListImplSupport($attribute $field)
+#end
+#end
+
+#end
+#if ($action.formResetRequired)
+
+    /**
+     * Resets any fields of the form that need to be reset.
+     */
+    public void reset()
+    {
+#foreach($field in $action.parameters)
+#if ($field.reset)
+        this.$field.name = $field.type.javaNullString;
+#elseif ($field.complex)
+#foreach ($attribute in $field.type.getAttributes(true))
+#if ($attribute.reset)
+        this.${field.name}.${attribute.setterName}($attribute.type.javaNullString);
+#end
+#end
+#end
+#end
+    }
+
+#end
+    /**
+     * Stores any date or time formatters for this form.
+     */
+    private final java.util.Map dateTimeFormatters = new java.util.HashMap();
+
+    /**
+     * Gets any date and time formatters (keyed by property name)
+     * for this form.
+     *
+     * @return the Map containing any date and time formatters.
+     */
+    public java.util.Map getDateTimeFormatters()
+    {
+        return this.dateTimeFormatters;
+    }
+
+    /**
+     * The current collection of messages stored within this form.
+     */
+    private java.util.Map $formMessagesProperty = new java.util.LinkedHashMap();
+
+    /**
+     * Adds a {@link javax.faces.application.FacesMessage} message to the current messages
+     * stored within this form.
+     *
+     * @param jsfMessage the faces message to add.
+     */
+    public void add${stringUtils.capitalize($formMessagesProperty)}(javax.faces.application.FacesMessage jsfMessage)
+    {
+        if (jsfMessage != null)
+        {
+            this.${formMessagesProperty}.put(jsfMessage.getDetail(), jsfMessage);
+        }
+    }
+
+    /**
+     * Gets the current {@link javax.faces.application.FacesMessage} message
+     * instances stored within this form.
+     *
+     * @return the current Faces messages.
+     */
+    public java.util.Collection get${stringUtils.capitalize($formMessagesProperty)}()
+    {
+        return this.${formMessagesProperty}.values();
+    }
+
+    /**
+     * Sets the current {@link javax.faces.application.FacesMessage} message
+     * instances stored within this form.
+     *
+     * @param messages a collection of the current Faces messages.
+     */
+    public void set${stringUtils.capitalize($formMessagesProperty)}(final java.util.Collection messages)
+    {
+        if (messages != null)
+        {
+            for (final java.util.Iterator iterator = messages.iterator(); iterator.hasNext();)
+            {
+                javax.faces.application.FacesMessage jsfMessage = (javax.faces.application.FacesMessage)iterator.next();
+                this.${formMessagesProperty}.put(jsfMessage.getDetail(), jsfMessage);
+            }
+        }
+    }
+
+    /**
+     * Clear the current {@link javax.faces.application.FacesMessage} message
+     * instances stored within this form.
+     *
+     */
+    public void clearJsfMessages()
+    {
+        this.${formMessagesProperty}.clear();
+    }
+
+    /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+    private static final long serialVersionUID = ${action.formSerialVersionUID}L;
+}

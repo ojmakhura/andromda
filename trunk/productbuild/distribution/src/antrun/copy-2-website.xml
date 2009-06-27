@@ -1,0 +1,51 @@
+<project name="Copy artifacts to website" default="copy-2-website">
+	
+  <condition property="repositories.present">
+	<and>
+		<available file="${maven1.repository}" type="dir"/>
+		<available file="${maven2.repository}" type="dir"/>
+	</and>
+  </condition>
+  <available property="website.present" file="${website.dir}" type="dir"/>
+	
+	<target name="copy-2-website" depends="fail1,fail2,copy">
+	</target>
+	
+	<target name="fail1" unless="repositories.present">
+		<echo>
+****** copy-2-website *******************************************************
+**  maven1.repository (${maven1.repository} and/or 
+**  maven2.repository (${maven2.repository}) not set or does not exist.">			
+*****************************************************************************
+		</echo>
+	</target>
+
+	<target name="fail2" unless="website.present">
+		<echo>
+****** copy-2-website *******************************************************
+**  website dir (${website.dir} not set or does not exist.">			
+*****************************************************************************
+		</echo>
+	</target>
+	
+	<!-- Copy maven 2 and maven1 artifacts to website -->
+	<target name="copy" >
+		<echo>
+  Copying M1 artifacts 
+			from ${maven1.repository}/andromda	
+			to ${website.dir}/maven
+		</echo>
+		<copy todir="${website.dir}/maven" preservelastmodified="true">
+			<fileset dir="${maven1.repository}/">
+				<include name="andromda/**/*"/>
+			</fileset>
+		</copy>
+		<echo>Copying M2 distribution</echo>
+		<copy todir="${website.dir}/maven2/org/andromda/distributions" preservelastmodified="true">
+			<fileset dir="${distribution.output.directory}">
+				<include name="*.zip"/>
+			</fileset>
+		</copy>
+		<echo message="Copy Done."/>
+	</target>
+</project>

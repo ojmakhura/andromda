@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+#parse("translations/query/Globals.vm")
+<translation name="EJB-QL">
+
+    <fragments>
+
+        <!-- replaced when an operation argument is encountered -->
+        <fragment name="argument">
+            <!-- the 'counter' will be replaced by an incrementing number
+                 each time it is retrieved -->
+            <kind name="body">
+                ?{counter}
+            </kind>
+        </fragment>
+
+        <!-- The beginning of each query, this is the fragment
+             inserted when first 'allInstances()' is encountered in the expression -->
+        <fragment name="(\s*${elementName}\s*\.)?\s*allInstances${emptyParentheses}->\s*select.*"
+                  handlerMethod="handleSelect">
+            <kind name="body">
+                SELECT DISTINCT OBJECT({0}) FROM $elementName {0}
+            </kind>
+        </fragment>
+
+        <!-- The beginning of a query that finds allInstances (independent allInstances() query) -->
+        <fragment name="(\s*${elementName}\s*\.)?\s*allInstances${emptyParentheses}(\s*->\s*${excludeSelect}\w+.*)?"
+                  handlerMethod="handleSelect">
+            <kind name="body">
+                SELECT DISTINCT OBJECT($lowerCaseElementName) FROM $elementName $lowerCaseElementName
+            </kind>
+        </fragment>
+
+        <!-- This is what is appended to the end of the allInstances fragment
+              when each 'includesAll(<expression>)' is encountered in the expression -->
+        <fragment name="\s*${excludeAllInstances}${navigableName}\s*->\s*select${nonEmptyParentheses}"
+                  handlerMethod="handleSubSelect">
+            <kind name="body">
+                , IN ({0}) AS {1}
+            </kind>
+        </fragment>
+
+        <!-- This is what is appended when '-> includes(<some expression>)' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*->\s*includes${nonEmptyParentheses}"
+                  handlerMethod="handleIncludes">
+            <kind name="body">
+                {0} MEMBER OF {1}
+            </kind>
+        </fragment>
+
+        <!-- Maps the '-> sortedBy(<some expression>)' to the correct handler method -->
+        <fragment name="sortedBy${nonEmptyParentheses}"
+                  handlerMethod="handleSortedBy"/>
+
+        <!-- this fragment is appended to the beginning of the in the translated query's sortedBy clause -->
+        <fragment name="sortedByClauseHead">
+            <kind name="body">
+                ORDER BY
+            </kind>
+        </fragment>
+
+        <!-- This is what is append when '-> isEmpty()' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*->\s*isEmpty${emptyParentheses}"
+                  handlerMethod="handleDotOperation">
+            <kind name="body">
+                {0} IS EMPTY
+            </kind>
+        </fragment>
+
+        <!-- This is what is appended when 'string.toLower()' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*\.\s*toLower${emptyParentheses}"
+                  handlerMethod="handleDotOperation">
+            <kind name="body">
+                LOWER({0})
+            </kind>
+        </fragment>
+
+        <!-- This is what is appended when 'string.toUpper()' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*\.\s*toUpper${emptyParentheses}"
+                  handlerMethod="handleDotOperation">
+            <kind name="body">
+                UPPER({0})
+            </kind>
+        </fragment>
+
+        <!-- This is what is appended when 'string.concat(string)' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*\.\s*concat${nonEmptyParentheses}"
+                  handlerMethod="handleDotOperation">
+            <kind name="body">
+                CONCAT({0}, {1})
+            </kind>
+        </fragment>
+
+        <!-- This is what is appended when 'string.substring(int,int)' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*\.\s*substring${nonEmptyParentheses}"
+                  handlerMethod="handleDotOperation">
+            <kind name="body">
+                SUBSTRING({0}, {1}, {2})
+            </kind>
+        </fragment>
+
+        <!-- This is what is appended when 'string.size()' is encountered in the expression -->
+        <fragment name="\s*${navigableName}\s*\.\s*size${emptyParentheses}"
+                  handlerMethod="handleDotOperation">
+            <kind name="body">
+                LENGTH({0})
+            </kind>
+        </fragment>
+
+        <!-- the '{0}' represents the first argument in the 'isLike(<expression>,<expression>)' operation -->
+        <fragment name="\s*StringUtils\s*.\s*isLike\s*\(.*,.*\)\s*"
+                  handlerMethod="handleIsLike">
+            <kind name="body">
+                LCASE({0}) LIKE {1}
+            </kind>
+        </fragment>
+
+
+        <!-- this fragment is appended to the end of the select clause in the translated query -->
+        <fragment name="selectClauseTail">
+            <kind name="body">
+                WHERE
+            </kind>
+        </fragment>
+
+        <!-- if 'and' is encountered in the expression then
+             'and' will just be returned -->
+        <fragment name="and\s+.*"
+                  handlerMethod="handleLogicalExpression">
+            <kind name="body">
+                AND
+            </kind>
+        </fragment>
+
+        <!-- if 'or' is encountered in the expression then
+             'or' will just be returned -->
+        <fragment name="or\s+.*"
+                  handlerMethod="handleLogicalExpression">
+            <kind name="body">
+                OR
+            </kind>
+        </fragment>
+
+        <fragment name="=.*"
+                  handlerMethod="handleRelationalExpression">
+            <kind name="body">
+                {0} = {1}
+            </kind>
+        </fragment>
+
+        <fragment name="&gt;\s+.*"
+                  handlerMethod="handleRelationalExpression">
+            <kind name="body">
+                {0} &gt; {1}
+            </kind>
+        </fragment>
+
+        <fragment name="&lt;\s+.*"
+                  handlerMethod="handleRelationalExpression">
+            <kind name="body">
+                {0} &lt; {1}
+            </kind>
+        </fragment>
+
+        <fragment name="&lt;&gt;\s+.*"
+                  handlerMethod="handleRelationalExpression">
+            <kind name="body">
+                {0} NOT {1}
+            </kind>
+        </fragment>
+
+        <fragment name="&gt;=\s+.*"
+                  handlerMethod="handleRelationalExpression">
+            <kind name="body">
+                {0} &gt;= {1}
+            </kind>
+        </fragment>
+
+        <fragment name="&lt;=\s+.*"
+                  handlerMethod="handleRelationalExpression">
+            <kind name="body">
+                {0} &lt;= {1}
+            </kind>
+        </fragment>
+
+    </fragments>
+
+    #parse("translations/query/Patterns.vm")
+
+</translation>

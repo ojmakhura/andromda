@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Getting started">
+    <skin>
+        <groupId>org.andromda.maven.plugins.site</groupId>
+        <artifactId>andromda-site-skin</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </skin>
+    <bannerLeft>
+        <name></name>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy hh:mm zzz"/>
+	<body>
+        <links>
+            <item name="Home" href="../../index.html"/>
+            <item name="MDA" href="http://www.omg.org/mda/"/>
+            <item name="MDA FAQs" href="http://www.klasse.nl/mda/mda-faq.html"/>
+            <item name="UML" href="http://www.cetus-links.org/oo_uml.html"/>
+            <item name="OCL" href="http://www.klasse.nl/ocl/index.html"/>
+            <item name="XMI" href="http://www.omg.org/technology/documents/formal/xmi.htm"/>
+        </links>
+        <menu name="Getting Started">
+            <item name="Introduction" href="/java/index.html"/>
+            <item name="Sample Application" href="/java/sample-application.html"/>
+            <item name="Environment Setup" href="/java/env-setup.html"/>
+            <item name="Starter App" href="/java/create-application.html"/>
+            <item name="Entities" href="/java/create-entity.html"/>
+            <item name="Value Objects" href="/java/create-value-object.html"/>
+            <item name="Services" href="/java/create-service.html"/>
+            <item name="Console App" href="/java/create-console-app.html"/>
+            <item name="Associations" href="/java/create-association.html"/>
+            <item name="Complete the Model" href="/java/complete-timetracker-model.html"/>
+            <item name="Enhance Console App" href="/java/enhance-console-app.html"/>
+        </menu>
+        <menu ref="reports"/>
+  	</body>
+</project>

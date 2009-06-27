@@ -1,0 +1,58 @@
+#set ($className = "MessagePhaseListener")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+/**
+ * Used to pass messages to the current faces context (this allows messages to live beyond
+ * a request, which is very useful when redirecting).
+ *
+ * @author Chad Brandon
+ */
+public class $className
+    implements javax.faces.event.PhaseListener
+{
+    /**
+     * @see javax.faces.event.PhaseListener#beforePhase(javax.faces.event.PhaseEvent)
+     */
+    public void beforePhase(javax.faces.event.PhaseEvent event)
+    {
+        final Object form = oracle.adf.view.faces.context.AdfFacesContext.getCurrentInstance().getProcessScope().get("$actionFormKey");
+        if (form != null)
+        {
+            try
+            {
+                final java.util.Collection messages = (java.util.Collection)org.apache.commons.beanutils.PropertyUtils.getProperty(form, "$formMessagesProperty");
+                if (messages != null)
+                {
+                    for (final java.util.Iterator iterator = messages.iterator(); iterator.hasNext();)
+                    {
+                        javax.faces.context.FacesContext.getCurrentInstance().addMessage(null, (javax.faces.application.FacesMessage)iterator.next());
+                    }
+                    final java.lang.reflect.Method method = form.getClass().getMethod("clearJsfMessages",null);
+                    method.invoke(form,null);
+                }
+            }
+            catch (final Exception exception)
+            {
+                exception.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * @see javax.faces.event.PhaseListener#afterPhase(javax.faces.event.PhaseEvent)
+     */
+    public void afterPhase(javax.faces.event.PhaseEvent event)
+    {
+        // - don't need this implemented
+    }
+
+    /**
+     * @see javax.faces.event.PhaseListener#getPhaseId()
+     */
+    public javax.faces.event.PhaseId getPhaseId()
+    {
+        return javax.faces.event.PhaseId.RENDER_RESPONSE;
+    }
+}

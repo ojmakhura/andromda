@@ -1,0 +1,55 @@
+<h:panelGrid columns="2" columnClasses="variableLabel,variableText">
+#foreach ($variable in $view.variables)
+#if (!$variable.table)
+#if ($variable.attributes.empty)
+    <h:outputText value="#{messages['$variable.messageKey']} :"/>
+#if ($variable.type.collectionType || $variable.type.arrayType)
+    <f:verbatim>
+        <c:forEach var="item" items="${${variable.name}}" varStatus="status">
+            ${item} <c:if test="${!status.last}">,</c:if>
+        </c:forEach>
+    </f:verbatim>
+#else
+    <h:outputText value="#{${variable.name}}">
+#if ($variable.type.dateType)
+        <a:convertDateTime pattern="$variable.format"/>
+#end
+    </h:outputText>
+#end
+#else
+#foreach ($attribute in $variable.attributes)
+    <h:outputText value="#{messages['$attribute.messageKey']} :"/>
+    <h:outputText value="#{${variable.name}.${attribute.name}}">
+#if ($attribute.type.dateType)
+        <a:convertDateTime pattern="$attribute.format"/>
+#end
+    </h:outputText>
+#end
+#foreach ($associationEnd in $variable.navigableAssociationEnds)
+#if ($associationEnd.many)
+    <c:forEach var="item" items="${${variable.name}.${associationEnd.name}}">
+        <c:set var="item" value="${item}" scope="request"/>
+#foreach ($itemAttribute in $associationEnd.type.getAttributes(true))
+        <h:outputText value="#{messages['$itemAttribute.messageKey']} :"/>
+        <h:outputText value="#{item.${itemAttribute.name}}">
+#if ($itemAttribute.type.dateType)
+            <a:convertDateTime pattern="$itemAttribute.format"/>
+#end
+        </h:outputText>
+#end
+    </c:forEach>
+#else
+#foreach ($itemAttribute in $associationEnd.type.getAttributes(true))
+    <h:outputText value="#{messages['$itemAttribute.messageKey']} :"/>
+    <h:outputText value="#{item.${itemAttribute.name}}">
+#if ($itemAttribute.type.dateType)
+        <a:convertDateTime pattern="$itemAttribute.format"/>
+#end
+    </h:outputText>
+#end
+#end
+#end
+#end
+#end
+#end
+</h:panelGrid>

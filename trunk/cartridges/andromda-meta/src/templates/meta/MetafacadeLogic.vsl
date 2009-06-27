@@ -1,0 +1,488 @@
+#set ($generatedFile = $metafacade.logicFile)
+// license-header java merge-point
+//
+// Attention: generated code (by MetafacadeLogic.vsl) - do not modify!
+//
+#if ($metafacade.logicPackageName)
+package $metafacade.logicPackageName;
+#end
+
+#if (!$metafacade.navigableConnectingEnds.empty || !$modelElement.getConstraints("inv").empty)
+import org.apache.log4j.Logger;
+#end
+
+## calculate metaclass and superMetafacade
+#if ($metafacade.metaclassDirectDependency)
+#set ($metaclassTypeName = $metafacade.metaclass.fullyQualifiedName)
+#else
+#if ($metafacade.constructorRequiresMetaclassCast)
+#set ($constructorRequiresMetaclassCast = true)
+#end
+#set ($metaclassTypeName = "Object")
+#end
+##
+#set ($superMetafacade = $metafacade.generalization)
+##
+/**
+$metafacade.getDocumentation(" * ")
+ * MetafacadeLogic for $metafacade.fullyQualifiedName
+ *
+ * @see $metafacade.fullyQualifiedName
+ */
+public abstract class $metafacade.logicName
+#if ($superMetafacade && !$metafacade.requiresInheritanceDelegatation)
+    extends $superMetafacade.fullyQualifiedLogicImplName
+#else
+    extends $fullyQualifiedMetafacadeRoot
+#end
+    implements $metafacade.fullyQualifiedName
+{
+
+    protected $metaclassTypeName metaObject;
+
+    /** Create Metafacade implementation instance using the MetafacadeFactory from the context
+     * @param metaObjectIn
+     * @param context
+     */
+    protected ${metafacade.logicName}($metaclassTypeName metaObjectIn, String context)
+    {
+#if ($metafacade.requiresInheritanceDelegatation)
+        super(metaObjectIn, getContext(context));
+#foreach ($link in $metafacade.generalizationLinks)
+        this.${link.name} =
+           ($link.parent.fullyQualifiedName)
+            org.andromda.core.metafacade.MetafacadeFactory.getInstance().createFacadeImpl(
+                    "$link.parent.fullyQualifiedName",
+                    metaObjectIn,
+                    getContext(context));
+#end
+#else
+#set ($metaObjectArgument = "metaObjectIn")
+#if ($constructorRequiresMetaclassCast)
+#set ($metaObjectArgument = "($metafacade.metaclass.fullyQualifiedName)metaObjectIn")
+#end
+        super($metaObjectArgument, getContext(context));
+#end
+        this.metaObject = metaObjectIn;
+    }
+
+#if (!$metafacade.navigableConnectingEnds.empty || !$modelElement.getConstraints("inv").empty)
+    /**
+     * The logger instance.
+     */
+    private static final Logger logger = Logger.getLogger(${metafacade.logicName}.class);
+
+#end
+    /**
+     * Gets the context for this metafacade logic instance.
+     * @param context String. Set to $metafacade.fullyQualifiedName if null
+     * @return context String
+     */
+    private static String getContext(String context)
+    {
+        if (context == null)
+        {
+            context = "$metafacade.fullyQualifiedName";
+        }
+        return context;
+    }
+
+#if ($metafacade.requiresInheritanceDelegatation)
+#foreach ($link in $metafacade.generalizationLinks)
+    private $link.parent.fullyQualifiedName $link.name;
+#set ($initializedCheck = "${link.name}Initialized")
+    private boolean $initializedCheck = false;
+
+    /**
+     * Gets the $link.parent.fullyQualifiedName parent instance.
+     * @return this.${link.name} $link.parent.fullyQualifiedName
+     */
+    $link.getterNameVisibility $link.parent.fullyQualifiedName ${link.getterName}()
+    {
+        if (!this.$initializedCheck)
+        {
+            ((org.andromda.core.metafacade.MetafacadeBase)this.${link.name}).setMetafacadeContext(this.getMetafacadeContext());
+            this.$initializedCheck = true;
+        }
+        return this.${link.name};
+    }
+
+#end
+#end
+##
+    /** Reset context only for non-root metafacades
+     * @param context
+     * @see org.andromda.core.metafacade.MetafacadeBase#resetMetafacadeContext(String context)
+     */
+    @Override
+    public void resetMetafacadeContext(String context)
+    {
+        if (!this.contextRoot) // reset context only for non-root metafacades
+        {
+            context = getContext(context);  // to have same value as in original constructor call
+            setMetafacadeContext (context);
+#if ($metafacade.requiresInheritanceDelegatation)
+#foreach ($link in $metafacade.generalizationLinks)
+#set ($initializedCheck = "${link.name}Initialized")
+            if (this.$initializedCheck)
+            {
+                ((org.andromda.core.metafacade.MetafacadeBase)this.${link.name}).resetMetafacadeContext(context);
+            }
+#end
+#end
+        }
+    }
+##
+
+    /**
+     * @return boolean true always
+     * @see $metafacade.fullyQualifiedName
+     */
+    public boolean is${metafacade.name}MetaType()
+    {
+        return true;
+    }
+    
+#if (!$metafacade.attributes.empty)
+    // --------------- attributes ---------------------
+
+#foreach ($attribute in $metafacade.attributes)
+##
+##    // $attribute.name $attribute.getterSetterTypeName $attribute.type.fullyQualifiedName $attribute.many $attribute
+#set ($memberTypeName = $attribute.getterSetterTypeName)
+#set ($memberType = $attribute.type)
+#set ($methodName = $attribute.getterName)
+#set ($memberName = "${attribute.name}${velocityCount}a")## postfix with counter to avoid collisions with other members
+#set ($typedArgumentList = "")
+#set ($handleMethodPreCondition = "${attribute.implementationOperationName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
+#set ($handleMethodPostCondition = "${attribute.implementationOperationName}${velocityCount}aPostCondition()")## postfix with counter to avoid collisions with other members
+   /**
+    * @see ${metafacade.fullyQualifiedName}#${methodName}()
+    * @return $memberTypeName
+    */
+    protected abstract $memberTypeName ${attribute.implementationOperationName}($typedArgumentList);
+
+    private void $handleMethodPreCondition
+    {
+#renderTranslation ($attribute "pre")
+    }
+
+    private void $handleMethodPostCondition
+    {
+#renderTranslation ($attribute "post")
+    }
+
+#if ($attribute.readOnly)
+    private $memberTypeName __$memberName;
+    private boolean __${memberName}Set = false;
+
+#end
+    /**
+$attribute.getDocumentation("     * ")
+     * @return ($memberTypeName)${attribute.implementationOperationName}($typedArgumentList)
+     */
+    public final $memberTypeName ${methodName}()
+    {
+#if ($attribute.readOnly)
+        $memberTypeName $memberName = this.__$memberName;
+        if (!this.__${memberName}Set)
+        {
+#set ($indent = "    ")
+#else
+        $memberTypeName $memberName = $memberType.javaNullString;
+#set ($indent = "")
+#end
+        ${indent}$handleMethodPreCondition;
+        ${indent}$memberName = ${attribute.implementationOperationName}($typedArgumentList);
+        ${indent}$handleMethodPostCondition;
+#if ($attribute.readOnly)
+            this.__$memberName = $memberName;
+            if (isMetafacadePropertyCachingEnabled())
+            {
+                this.__${memberName}Set = true;
+            }
+        }
+#end
+        return $memberName;
+    }
+
+#end
+#end
+#if (!$metafacade.operations.empty)
+    // ---------------- business methods ----------------------
+
+#foreach ($operation in $metafacade.operations)
+#set ($hasArguments = (!$operation.arguments.empty))
+#set ($memberTypeName = $operation.returnType.fullyQualifiedName)
+#set ($methodName = $operation.name)
+#set ($memberName = "${methodName}${velocityCount}o")## postfix with counter to avoid collisions with other members
+#set ($typedArgumentList = $operation.typedArgumentList)
+#set ($handleMethodPreCondition = "${operation.implementationName}${velocityCount}oPreCondition()")## postfix with counter to avoid collisions with other members
+#set ($handleMethodPostCondition = "${operation.implementationName}${velocityCount}oPostCondition()")## postfix with counter to avoid collisions with other members
+    protected abstract $memberTypeName ${operation.implementationName}($typedArgumentList);
+
+    private void $handleMethodPreCondition
+    {
+#renderTranslation ($operation "pre")
+    }
+
+    private void $handleMethodPostCondition
+    {
+#renderTranslation ($operation "post")
+    }
+
+    /**
+$operation.getDocumentation("     * ")
+#foreach ($parameter in $operation.parameters)
+#if (!$parameter.return)
+     * @param $parameter.name $parameter.type
+$parameter.getDocumentation("     * ")
+#end
+#end
+#if($operation.returnTypePresent)
+     * @return ${operation.implementationName}($operation.argumentNames)
+#end
+     */
+    $operation.visibility $memberTypeName ${methodName}($typedArgumentList)
+    {
+        $handleMethodPreCondition;
+#if($operation.returnTypePresent)
+        $memberTypeName returnValue = ${operation.implementationName}($operation.argumentNames);
+#else
+        ${operation.implementationName}($operation.argumentNames);
+#end
+        ${handleMethodPostCondition};
+#if($operation.returnTypePresent)
+        return returnValue;
+#end
+    }
+
+#end
+#end
+##
+#if (!$metafacade.associationEnds.empty)
+    // ------------- associations ------------------
+
+#foreach ($associationEnd in $metafacade.associationEnds)
+#set ($otherEnd = $associationEnd.otherEnd)
+#if ($otherEnd.navigable)
+##
+##    // $otherEnd.name $otherEnd.getterSetterTypeName $otherEnd.type.fullyQualifiedName $otherEnd.many $otherEnd
+#set ($memberTypeName = $otherEnd.getterSetterTypeName)
+#set ($memberType = $otherEnd.type)
+#set ($methodName = $otherEnd.getterName)
+#set ($memberName = "${methodName}${velocityCount}r")## postfix with counter to avoid collisions with other members
+#set ($typedArgumentList = "")
+#set ($handleMethodPreCondition = "${otherEnd.implementationOperationName}${velocityCount}rPreCondition()")## postfix with counter to avoid collisions with other members
+#set ($handleMethodPostCondition = "${otherEnd.implementationOperationName}${velocityCount}rPostCondition()")## postfix with counter to avoid collisions with other members
+##
+    private void $handleMethodPreCondition
+    {
+#renderTranslation ($associationEnd "pre")
+    }
+
+    private void $handleMethodPostCondition
+    {
+#renderTranslation ($associationEnd "post")
+    }
+
+#if ($otherEnd.readOnly)
+    private $memberTypeName __$memberName;
+    private boolean __${memberName}Set = false;
+
+#end
+    /** 
+$associationEnd.getDocumentation("     * ")
+     * @return ($memberTypeName)${otherEnd.implementationOperationName}($typedArgumentList)
+     */
+    public final $memberTypeName ${methodName}()
+    {
+#if ($otherEnd.readOnly)
+        $memberTypeName $memberName = this.__$memberName;
+        if (!this.__${memberName}Set)
+        {
+#set ($indent = "    ")
+#else
+#set ($indent = "")
+        $memberTypeName $memberName = $memberType.javaNullString;
+#end
+        ${indent}$handleMethodPreCondition;
+#if ($otherEnd.many)
+        ${indent}java.util.Collection result = this.shieldedElements(${otherEnd.implementationOperationName}($typedArgumentList));
+#else
+        ${indent}Object result = this.shieldedElement(${otherEnd.implementationOperationName}($typedArgumentList));
+#end
+        ${indent}try
+        ${indent}{
+        ${indent}    $memberName = ($memberTypeName)result;
+        ${indent}}
+        ${indent}catch (ClassCastException ex)
+        ${indent}{
+        ${indent}    // Bad things happen if the metafacade type mapping in metafacades.xml is wrong - Warn
+        ${indent}    ${metafacade.logicName}.logger.warn("incorrect metafacade cast for ${metafacade.logicName}.${methodName} $memberTypeName " + ${otherEnd.implementationOperationName}($typedArgumentList) + ": " + result);
+        ${indent}}
+        ${indent}$handleMethodPostCondition;
+#if ($otherEnd.readOnly)
+            this.__$memberName = $memberName;
+            if (isMetafacadePropertyCachingEnabled())
+            {
+                this.__${memberName}Set = true;
+            }
+        }
+#end
+        return $memberName;
+    }
+
+#if ($otherEnd.many)
+    // UML Specific type is returned in Collection, transformed by shieldedElements to AndroMDA Metafacade type
+    protected abstract#if($otherEnd.ordered) java.util.List#else java.util.Collection#end ${otherEnd.implementationOperationName}($typedArgumentList);
+#else
+    protected abstract Object ${otherEnd.implementationOperationName}($typedArgumentList);
+#end
+
+#end
+#end
+#end
+##
+#if ($metafacade.requiresInheritanceDelegatation)
+#foreach ($parent in $metafacade.allParents)
+    /**
+     * @return true
+     * @see $parent.fullyQualifiedName
+     */
+    public boolean is${parent.name}MetaType()
+    {
+        return true;
+    }
+    
+#end
+#foreach ($link in $metafacade.generalizationLinks)
+#set ($generalizationCount = $velocityCount)
+    // ----------- delegates to $link.parent.fullyQualifiedName ------------
+#foreach ($method in $metafacade.getMethodDataForPSM($link.parent))
+    /**
+ $method.documentation
+     * @see ${method.metafacadeName}#${method.name}(${method.typedArgumentList})
+     */
+    $method.buildMethodDeclaration(true)
+    {
+#if ($method.returnTypePresent)
+        return this.${link.getterName}().${method.buildMethodCall()};
+#else
+        this.${link.getterName}().${method.buildMethodCall()};
+#end
+    }
+
+#end
+#end
+#end
+#if ($metafacade.requiresInheritanceDelegatation)
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#initialize()
+     */
+    @Override
+    public void initialize()
+    {
+#foreach ($link in $metafacade.generalizationLinks)
+        this.${link.getterName}().initialize();
+#end
+    }
+
+    /**
+#if ($velocityCount>0)
+     * @return Object ${metafacade.generalizationLinks.get(0).getterName}().getValidationOwner()
+#end
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
+     */
+    @Override
+    public Object getValidationOwner()
+    {
+#foreach ($link in $metafacade.generalizationLinks)
+#if ($velocityCount == 1)
+        Object owner = this.${link.getterName}().getValidationOwner();
+#else
+        if (owner == null)
+        {
+            owner = this.${link.getterName}().getValidationOwner();
+        }
+#end
+#if ($velocityCount == $metafacade.generalizationCount)
+        return owner;
+#end
+#end
+    }
+
+    /**
+#if ($velocityCount>0)
+     * @return String ${metafacade.generalizationLinks.get(0).getterName}().getValidationName()
+#end
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationName()
+     */
+    @Override
+    public String getValidationName()
+    {
+#foreach ($link in $metafacade.generalizationLinks)
+#if ($velocityCount == 1)
+        String name = this.${link.getterName}().getValidationName();
+#else
+        if (name == null)
+        {
+            name = this.${link.getterName}().getValidationName();
+        }
+#end
+#if ($velocityCount == $metafacade.generalizationCount)
+        return name;
+#end
+#end
+    }
+
+#end
+    /**
+#foreach ($constraint in $modelElement.getConstraints("inv"))
+     * Constraint: $constraint.getDocumentation("     * ")
+     * #if($constraint.postcondition)postcondition #end #if($constraint.precondition)precondition #end $constraint.body
+#end
+     * @param validationMessages Collection
+     * @see org.andromda.core.metafacade.MetafacadeBase#validateInvariants(java.util.Collection validationMessages)
+     */
+    @Override
+    public void validateInvariants(java.util.Collection validationMessages)
+    {
+#if ($metafacade.requiresInheritanceDelegatation)
+#foreach ($link in $metafacade.generalizationLinks)
+        this.${link.getterName}().validateInvariants(validationMessages);
+#end
+#elseif ($superMetafacade)
+        super.validateInvariants(validationMessages);
+#end
+#renderTranslation ($metafacade "inv")
+    }
+## Only render toString() on top level ancestor Facade objects or delegates.
+#if (!$superMetafacade || $metafacade.requiresInheritanceDelegatation)
+    
+    /**
+     * The property that stores the name of the metafacade.
+     */
+    private static final String NAME_PROPERTY = "name";
+    
+    /**
+     * @see Object#toString()
+     */
+    @Override
+    public String toString()
+    {
+        final StringBuffer toString = new StringBuffer(this.getClass().getName());
+        toString.append("[");
+        try
+        {
+            toString.append(org.andromda.core.common.Introspector.instance().getProperty(this, NAME_PROPERTY));
+        }
+        catch (final Throwable throwable)
+        {
+            // - just ignore when the metafacade doesn't have a name property
+        }
+        toString.append("]");
+        return toString.toString();
+    }
+#end
+}

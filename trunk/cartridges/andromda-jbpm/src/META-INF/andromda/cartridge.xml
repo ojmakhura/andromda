@@ -1,0 +1,209 @@
+<cartridge>
+
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
+        <macrolibrary name="templates/jbpm/definitions/process-definition.xml.vm"/>
+        <!-- cartridge-macrolibrary merge-point-->
+    </templateEngine>
+
+    <!-- define the template objects that are made available to the template -->
+    <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
+    <!-- cartridge-templateObject merge-point-->
+
+    <!-- cartridge-property merge-point -->
+    <property reference="clientPackage"/>
+    <property reference="toDoTag"/>
+
+    <!-- cartridge-resource merge-point -->
+    <resource
+        path="resources/*.*"
+        outputPattern="{0}"
+        outlet="configuration"
+        overwrite="false"/>
+
+    <resource
+        path="resources/META-INF/*.*"
+        outputPattern="META-INF/{0}"
+        outlet="configuration"
+        overwrite="false"/>
+
+    <!-- process templates on model elements -->
+    <template
+        path="templates/jbpm/definitions/process-definition.xml.vsl"
+        outputPattern="$generatedFile"
+        outlet="definitions"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="processDefinition">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinition"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/helpers/ProcessHelper.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="helpers"
+        overwrite="true">
+        <modelElements variable="processDefinition">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinition"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/helpers/Client.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="clients"
+        overwrite="true"
+        generateEmptyFiles="false"
+        outputToSingleFile="true">
+        <modelElements variable="processDefinitions">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinition"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/handlers/GenericHandler.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="handlers"
+        overwrite="true">
+        <modelElements variable="handler">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmHandler"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/handlers/GenericHandlerImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="handler-impls"
+        overwrite="false">
+        <modelElements variable="handler">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmHandler"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/handlers/DecisionHandler.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="handlers"
+        overwrite="true">
+        <modelElements variable="decision">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate">
+                    <property name="decisionPoint"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/handlers/DecisionHandlerImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="handler-impls"
+        overwrite="false">
+        <modelElements variable="decision">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate">
+                    <property name="decisionPoint"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/handlers/AssignmentHandler.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="handlers"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="swimlane">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmSwimlane"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/handlers/AssignmentHandlerImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="handler-impls"
+        overwrite="false"
+        generateEmptyFiles="false">
+        <modelElements variable="swimlane">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmSwimlane"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/nodes/Node.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="nodes"
+        overwrite="true">
+        <modelElements variable="node">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmNode"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/nodes/Node.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="nodes"
+        overwrite="true">
+        <modelElements variable="node">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostate"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/nodes/Node.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="nodes"
+        overwrite="true">
+        <modelElements variable="node">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmEndState"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/nodes/Node.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="nodes"
+        overwrite="true">
+        <modelElements variable="node">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmState"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jbpm/nodes/NodeInterface.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="nodes"
+        overwrite="true">
+        <modelElements variable="processDefinition">
+            <modelElement>
+                <type name="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinition"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- cartridge-template merge-point -->
+
+</cartridge>

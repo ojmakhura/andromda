@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+  This is used to map the model types to Java types
+  for the generated code.
+-->
+<mappings name="AxisJavaMappings">
+    <extends>Java</extends>
+	<mapping>
+	  	<from>datatype::Date</from>
+        <from>datatype::DateTime</from>
+	  	<from>datatype::Timestamp</from>
+        <from>datatype::Time</from>
+	  	<to>java.util.Calendar</to>
+	</mapping>
+    <mapping>
+        <from>datatype::Integer</from>
+        <to>java.math.BigInteger</to>
+    </mapping>
+</mappings>

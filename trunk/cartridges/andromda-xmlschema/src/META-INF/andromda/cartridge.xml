@@ -1,0 +1,34 @@
+<cartridge>
+
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine"/>
+    
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <!-- cartridge-templateObject merge-point-->
+
+    <!-- The name of the namespace -->
+    <property reference="namespace"/>
+    <!-- encoding for xml documents -->
+    <property reference="xmlEncoding"/>
+    <!-- cartridge-property merge-point-->
+
+    <!-- cartridge-resource merge-point -->
+
+    <template
+        path="templates/xmlschema/XmlSchema.vsl"
+        outputPattern="xmlSchema.xsd"
+        outlet="schema"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="types">
+            <modelElement>
+                <type name="org.andromda.cartridges.xmlschema.metafacades.XSDComplexType"/>
+            </modelElement>
+            <modelElement>
+                <type name="org.andromda.cartridges.xmlschema.metafacades.XSDEnumerationType"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- cartridge-template merge-point -->
+
+</cartridge>

@@ -1,0 +1,65 @@
+#set ($generatedFile = "${service.packagePath}/${service.name}RemoteTest.java")
+// license-header java merge-point
+/**
+ * This is only generated once! It will never be overwritten.
+ * You can (and have to!) safely modify it by hand.
+ */
+#if ($stringUtils.isNotBlank($service.packageName))
+package $service.packageName;
+#end
+
+import org.springframework.test.AbstractDependencyInjectionSpringContextTests;
+
+import ${springTypesPackage}.${clientServiceLocatorName};
+import ${service.packageName}.${service.name};
+
+#if ($acegiServiceSecurity)
+import org.acegisecurity.AccessDeniedException;
+import org.acegisecurity.Authentication;
+import org.acegisecurity.context.SecurityContextHolder;
+import org.acegisecurity.providers.UsernamePasswordAuthenticationToken;
+
+#end
+
+/**
+* A unit test for exercising the methods of ${service.name}. This unit test
+* makes remote calls, testing the server code in its deployed environment.
+*/
+public class ${service.name}RemoteTest extends
+    AbstractDependencyInjectionSpringContextTests
+{
+#if ($acegiServiceSecurity)
+    private Authentication authentication;
+
+    protected void onSetUp() throws Exception
+    {
+        super.onSetUp();
+        // $toDoTag set the test user account to one recgonized by the server
+        authentication = new UsernamePasswordAuthenticationToken("joeuser", "12345");
+    }
+
+#end
+#foreach ($operation in $service.operations)
+    public void test${stringUtils.capitalise($operation.name)}()
+    {
+        $service.name testService = ${clientServiceLocatorName}.instance().get${service.name}();
+        assertNotNull(testService);
+
+        // $toDoTag Write test code for ${service.name}::${operation.name}() client.
+#if ($acegiServiceSecurity)
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+#end
+    }
+
+#end
+    protected String[] getConfigLocations()
+    {
+        // $toDoTag ${service.name}Test test configuration files (if any), should be listed inside the brackets...
+        return new String[] { };
+    }
+
+    public static void main(String[] args)
+    {
+        junit.textui.TestRunner.run(${service.name}RemoteTest.class);
+    }
+}

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo - Security</title>
+    </properties>
+
+    <body>
+        <section name="Security">
+            <p>
+                Adding security to your web application can be done very easily, although in a coarse-grain fashion:
+                you cannot tell the cartridge to allow a specific person access to some page, you would rather
+                express which groups of people have permission to access a specific use-case.
+            </p>
+            <p>
+                Again UML elegantly allows us to model this: just associate actors to your use-cases. When an actor
+                is associated to a use-case it means that all users represented by that actor are allowed to call
+                that use-case's actions: hyperlinks will be enabled and the server will allow access to the
+                resources in the use-case's package.
+            </p>
+            <p>
+                When a user is not permitted access to a specific use-case he will find that the hyperlinks to that
+                use-case are rendered in plain text, form buttons are grayed-out, and that the server will
+                not authorize any access to the resources of that use-case.
+            </p>
+            <p>
+                To facilitate the modeling of the user groups using actors, these actors are allowed to generalize
+                other actors, thereby explicitely inheriting the privileges of the parent actor.
+            </p>
+            <p>
+                <img src="howto/org/andromda/test/security.gif"/>
+            </p>
+            <p class="highlight">
+                Use-cases without any actors associated to them will always be accessible, the application
+                will authorize anyone who requests access to them.
+            </p>
+            <subsection name="Input validation">
+                <p>
+                    By default the cartridge generates client-side and server-side validation code. On the
+                    client side this is implemented using Javascript, rendered dynamically into the JSP
+                    pages by the <![CDATA[<html:javascript ... />]]> struts tag.
+                </p>
+                <p>
+                    The server-side code is perfectly equivalent to the validation on the client-side. Client-side
+                    validation is interesting because it can warn the user of errors without having to go to the server
+                    (which can take time and resources), server-side validation is a safety net that will guarantee
+                    input fields are present or properly formatted.
+                </p>
+                <p>
+                    Client-side and/or server-side validation can be enabled or disabled using the
+                    <code>clientValidation</code> and <code>serverValidation</code>
+                    <a href="namespace.html">namespace properties</a> respectively.
+                </p>
+                <p>
+                    Different types of validation exist and depending on how you model your application
+                    different validation routines will be activated. For example, numeric input fields
+                    will be checked, email addresses will be checked for valid format, URLs must be well-formed,
+                    input needs to be in a certain range, creditcard numbers must pass the
+                    <a href="http://www.beachnet.com/~hstiles/cardtype.html">Luhn</a> check, .. even regular expressions
+                    can be matched.
+                </p>
+                <p>
+                    Check the table at the bottom of the <a href="profile.html">Profile</a> page to learn
+                    what's possible. <em>Please note that more than one validator tagged value can be added to an
+                    event parameter.</em>
+                </p>
+                <p>
+                    Adding your own validator is simple, you can specify the validator's name so it will be checked
+                    if you just make sure your validator has been added to the <code>validator-rules.xml</code> file.
+                    To do this make use of the <![CDATA[<!-- validator-rules merge-point -->]]>
+                    <a href="../index.html#mergeMappingsUri">merge point</a>.
+                </p>
+            </subsection>
+        </section>
+        <section name="Nice to know">
+            <subsection name="web.xml">
+                <p>
+                    If you have enabled security the <code>web.xml</code> descriptor will contain sections
+                    describing the security on the level of each individual use-case, the use-case and actor
+                    relationships shown in the diagram above would yield output like this:
+<source language="xml"><!--
+<security-constraint>
+    <web-resource-collection>
+        <web-resource-name>Purchase Items resources</web-resource-name>
+        <description>
+            This collection bundles all pages and resources
+            as well as the actions called in the "Purchase Items" use-case
+        </description>
+        <url-pattern>/my/onlinestore/purchase/*</url-pattern>
+        <url-pattern>/PurchaseItems/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+        <role-name>admin</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+        <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+</security-constraint>
+
+<security-constraint>
+    <web-resource-collection>
+        <web-resource-name>Login resources</web-resource-name>
+        <description>
+            This collection bundles all pages and resources
+            as well as the actions called in the "Login" use-case
+        </description>
+        <url-pattern>/my/onlinestore/login/*</url-pattern>
+        <url-pattern>/Login/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+        <role-name>admin</role-name>
+        <role-name>guest</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+        <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+</security-constraint>
+--></source>
+                </p>
+                <p>
+                    And the section describing the roles:
+<source language="xml"><!--
+<security-role>
+    <role-name>admin</role-name>
+</security-role>
+<security-role>
+    <role-name>guest</role-name>
+</security-role>
+--></source>
+                </p>
+                <p class="highlight">
+                    Please note that you would usually not model the <code>Login</code> use-case, except in those
+                    cases you need very specific functionality that cannot be handled easily using the default
+                    JAAS framework.
+                </p>
+                <p>
+                    A login page will always be generated automatically, but this time it will be presented
+                    to you when you are trying to access one of the application's resources, this might be an action,
+                    an image, a JSP or anything else which it will try to locate within the application's path.
+<source language="xml"><!--
+<login-config>
+    <auth-method>FORM</auth-method>
+    <realm-name>other</realm-name>
+    <form-login-config>
+        <form-login-page>/login/login-form.jsp</form-login-page>
+        <form-error-page>/login/login-form.jsp?action=error</form-error-page>
+    </form-login-config>
+</login-config>
+--></source>
+                </p>
+            </subsection>
+            <subsection name="Screenshots">
+                <div class="screenshot">
+                    <table>
+                        <tr>
+                            <td><img src="howto/org/andromda/test/screenshots/thumb5.gif"/></td>
+                            <td>
+                                <a href="howto/org/andromda/test/screenshots/screen5.gif">(Larger View)</a>
+                                <p>
+                                    This screenshot is taken from the online-store sample, although security has not
+                                    been enabled by default you can always access the login page by simply
+                                    appending <code>/login/login-form.jsp</code> to the context-path, like
+                                    this: <a href="http://team.andromda.org:8080/OnlineStore/login/login-form.jsp">
+                                    http://team.andromda.org:8080/OnlineStore/login/login-form.jsp</a>.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                Next section: <a href="howto7.html">Calling back-end services</a>.
+            </p>
+        </section>
+    </body>
+</document>

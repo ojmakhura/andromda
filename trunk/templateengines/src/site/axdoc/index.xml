@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<document>
+
+    <properties>
+        <author email="chdbrandon@yahoo.com">Chad Brandon</author>
+        <title>AndroMDA Template Engines</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+
+        <section name="AndroMDA Template Engines">
+            <p class="std">
+			    <strong>Template Engines</strong> are pluggable 
+			     <a href="../andromda-core/apidocs/org/andromda/core/templateengine/TemplateEngine.html">TemplateEngine</a> 
+			     implementations.  These allow us to switch out the templating engine used 
+			     within cartridges.  In AndroMDA 2.x the template engine used was Velocity, 
+			     but now you can easily "plug in" your own TemplateEngine implementation 
+			     or choose from one of the available template engines listed on the left.
+            </p>
+        </section>
+
+    </body>
+</document>

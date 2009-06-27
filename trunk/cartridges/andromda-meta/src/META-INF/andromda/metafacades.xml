@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- contains andromda-meta's metafacade mappings -->
+<metafacades>
+    <property reference="implementationOperationNamePattern"/>
+    <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeLogicImpl">
+        <mapping>
+            <stereotype>METAFACADE</stereotype>
+        </mapping>
+        <property reference="metamodelVersionPackage"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeOperationLogicImpl">
+        <mapping>
+            <property name="owner.metafacadeMetaType"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeAssociationEndLogicImpl">
+        <mapping>
+            <property name="type.metafacadeMetaType"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeAttributeLogicImpl">
+        <mapping>
+            <property name="owner.metafacadeMetaType"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.meta.metafacades.MetafacadeGeneralizationLogicImpl">
+        <mapping>
+            <property name="child.metafacadeMetaType"/>
+        </mapping>
+        <property reference="generalizationNamePattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.meta.metafacades.PSMmetaclassLogicImpl">
+        <mapping>
+            <stereotype>PSM_METACLASS</stereotype>
+        </mapping>
+    </metafacade>
+</metafacades>

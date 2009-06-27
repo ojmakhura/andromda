@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+    <properties>
+        <author email="naresh@andromda.org">Naresh Bhatia</author>
+        <title>Enhance the Console Application</title>
+    </properties>
+
+    <body>
+        <section name="Enhance the Console Application">
+            <p>
+                In this section we will enhance the console application to create and read timecards using the
+                <code>TimeTrackingService</code>. We will need to add custom code to the business and data
+                access layers to make the application work.
+
+                <ol>
+                    <li>Download the enhanced console application from
+                    <a href="resources/sample-code/timetracker/TimeTrackerConsole.java">here</a>
+                    and replace the existing copy of <code>TimeTrackerConsole.java</code> at
+                    C:/timetracker/console/src/java/org/andromda/timetracker/console.</li>
+
+                    <li>Review the <code>main()</code> method in <code>TimeTrackerConsole.java</code>.
+<source language="java">
+public static void main(String[] args) {
+    // Get services
+    serviceLocator = ServiceLocator.instance();
+    peopleService = serviceLocator.getPeopleService();
+    timeTrackingService = serviceLocator.getTimeTrackingService();
+
+    // Create people
+    PersonVO naresh = createPerson("nbhatia", "Naresh", "Bhatia");
+    PersonVO louis = createPerson("lcoude", "Louis", "Coude");
+    PersonVO john = createPerson("jsmith", "John", "Smith");
+
+    // Create tasks
+    TaskVO research = createTask("Research");
+    TaskVO development = createTask("Development");
+
+    // Create timecards
+    TimecardVO timecard1 = createTimecard(naresh, john);
+    TimecardVO timecard2 = createTimecard(naresh, john);
+    TimecardVO timecard3 = createTimecard(louis, john);
+    TimecardVO timecard4 = createTimecard(louis, john);
+
+    // Fetch and show all objects created above
+    PersonVO[] people = peopleService.getAllPeople();
+    showPeople(people);
+    TaskVO[] tasks = timeTrackingService.getAllTasks();
+    showTasks(tasks);
+    TimecardSummaryVO[] timecards = timeTrackingService.getAllTimecardSummaries();
+    showTimecardSummaries(timecards);
+
+    // Fetch and show timecard1 details
+    System.out.println("Timecard " + timecard1.getId() + " Details:");
+    TimecardVO timecard1FromDB = timeTrackingService.getTimecard(timecard1.getId());
+    showTimecard(timecard1FromDB);
+}
+</source>
+                    As you can see we are now creating tasks and timecards in addition
+                    to people. The <code>createTask()</code> and <code>createTimecard()</code>
+                    methods call the <code>TimeTrackingService</code> to perform these
+                    functions. Following that we fetch all the people, tasks and timecards
+                    that exist in the database and display them.</li>
+
+                    <li>Make sure the console application compiles by executing the <code>ttconsole</code>
+                    target as follows: <code>maven -o ttconsole</code>. Of course, there is no
+                    hope of running this application successfully yet as much of the service
+                    layer has not been implemented. We will now try to make the application
+                    run successfully one step at a time.</li>
+                </ol>
+            </p>
+
+            <subsection name="Creating Tasks">
+                <p>TimeTrackerConsole's <code>createTask()</code> simply calls TimeTrackingService's
+                <code>createTask()</code> which is not yet implemented. So let us implement that method first. Open
+                <code>TimeTrackingServiceImpl.java</code> and fill in the <code>handleCreateTask()</code> method as follows:
+<source language="java">
+protected java.lang.Long handleCreateTask(org.andromda.timetracker.vo.TaskVO taskVO)
+    throws java.lang.Exception
+{
+    Task task = Task.Factory.newInstance();
+    getTaskDao().taskVOToEntity(taskVO, task, true);
+    getTaskDao().create(task);
+    return task.getId();
+}
+</source>
+                </p>
+
+                <p>Review the default implementation of <code>taskVOToEntity()</code> in
+                <code>TaskDaoBase.java</code>. This implementation should work just fine.</p>
+
+                <p>Now add the import statements shown below near the top of <code>TimeTrackingServiceImpl.java</code>
+                (below the package statement):
+<source language="java">
+package org.andromda.timetracker.service;
+
+import java.util.Collection;
+import org.andromda.timetracker.domain.*;
+import org.andromda.timetracker.vo.*;
+</source>
+                </p>
+
+                <p>We should be able to create tasks now. Compile core by executing the command
+                <code>maven -o core</code> and run the application using <code>maven -o run</code>.
+                Output from this run is shown below.
+                        <pre class="console">
+C:/timetracker>maven -o run
+    ...
+    [java] Person 1 created - nbhatia
+    [java] Person 2 created - lcoude
+    [java] Person 3 created - jsmith
+    [java] Task 1 created - Research
+    [java] Task 2 created - Development
+    [java] Exception in thread "main" java.lang.NullPointerException
+    [java]      at org.andromda.timetracker.console.TimeTrackerConsole.createTimecard(TimeTrackerConsole.java:94)
+    [java]      at org.andromda.timetracker.console.TimeTrackerConsole.main(TimeTrackerConsole.java:42)
+    [java] [ERROR] Java Result: 1
+                        </pre>
+                </p>
+
+                <p>
+                    Notice that tasks are being created successfully. You can verify this by querying your database.
+                    However, we get a <code>NullPointerException</code> in TimeTrackerConsole.java. After looking at
+                    code in this area it is clear that <code>timeTrackingService.getAllTasks()</code> is returning
+                    <code>null</code>. This is obviously the case because that method has not been implemented yet.
+                    Implement the method as shown below by calling <code>TaskDao.loadAll()</code>:
+
+<source language="java">
+protected org.andromda.timetracker.vo.TaskVO[] handleGetAllTasks()
+    throws java.lang.Exception
+{
+    Collection tasks = getTaskDao().loadAll(TaskDao.TRANSFORM_TASKVO);
+    return (TaskVO[])tasks.toArray(new TaskVO[tasks.size()]);
+}
+</source>
+                </p>
+
+                <p>Compile core by executing the command <code>maven -o core</code>.
+                Before we run the application again we must wipe the database and recreate the schema.
+                Execute the command <code>maven -o drop-schema create-schema</code> to
+                start with a clean database. Now run the application by executing <code>maven -o run</code>.
+                Output from this run is shown below.
+                        <pre class="console">
+C:/timetracker>maven -o run
+    ...
+    [java] Person 1 created - nbhatia
+    [java] Person 2 created - lcoude
+    [java] Person 3 created - jsmith
+    [java] Task 1 created - Research
+    [java] Task 2 created - Development
+    [java] Timecard null created with 3 allocations
+    [java] Timecard null created with 1 allocations
+    [java] Timecard null created with 1 allocations
+    [java] Timecard null created with 1 allocations
+    ...
+                        </pre>
+                </p>
+
+                <p>Much better! It seems that tasks are being retrieved correctly now. The next hurdle
+                to cross is the creation of timecards.</p>
+            </subsection>
+
+            <subsection name="Creating Timecards">
+                <p>Looking at the code in <code>TimeTrackerConsole.createTimecard()</code> it is
+                clear that <code>timeTrackingService.createTimecard()</code> is returning <code>null</code>.
+                The reason is that <code>createTimecard()</code> has not been implemented in
+                <code>TimeTrackingService</code>. So open <code>TimeTrackingServiceImpl.java</code>
+                under C:/timetracker/core/src/java/org/andromda/timetracker/service and
+                implement <code>handleCreateTimecard()</code> as follows:</p>
+
+<source language="java"><![CDATA[
+    protected java.lang.Long handleCreateTimecard(org.andromda.timetracker.vo.TimecardVO timecardVO)
+        throws java.lang.Exception
+    {
+        // Create new timecard from timecardVO
+        Timecard timecard = Timecard.Factory.newInstance();
+        getTimecardDao().timecardVOToEntity(timecardVO, timecard, true);
+
+        // Set submitter and approver associations
+        timecard.setSubmitter(getPersonDao().findByUsername(timecardVO.getSubmitterName()));
+        timecard.setApprover(getPersonDao().findByUsername(timecardVO.getApproverName()));
+
+        // Set allocations
+        TimeAllocationVO allocations[] = timecardVO.getAllocations();
+        for (int i=0; i<allocations.length; i++) {
+            // Create TimeAllocation from TimeAllocationVO
+            TimeAllocationVO allocationVO = allocations[i];
+            TimeAllocation allocation = TimeAllocation.Factory.newInstance();
+            getTimeAllocationDao().timeAllocationVOToEntity(allocationVO, allocation, true);
+
+            // Connect to timecard
+            timecard.addTimeAllocation(allocation);
+
+            // Connect to task
+            allocation.setTask(getTaskDao().load(allocationVO.getTaskId()));
+        }
+
+        // Create the timecard
+        getTimecardDao().create(timecard);
+        return timecard.getId();
+    }
+]]></source>
+
+                <p>Looking at <code>TimeAllocationDaoBase.java</code>, it is clear that
+                AndroMDA does not handle conversion of embedded values when converting
+                VOs to entities and vice-versa. We will need to write some custom code
+                in <code>TimeAllocationDaoImpl.java</code> to do that conversion. This
+                file is generated in the directory C:/timetracker/core/src/java/org/andromda/timetracker/domain.
+                Make the following modifications to the file:
+                <ol>
+                    <li>Add the following import statements after the package statement.
+<source language="java">
+package org.andromda.timetracker.domain;
+
+import org.andromda.timetracker.vo.TimeAllocationVO;
+import org.andromda.timetracker.vo.TimePeriodVO;
+</source>
+                    </li>
+
+                    <li>Implement the two <code>toTimeAllocationVO()</code> methods as follows:
+<source language="java">
+    public void toTimeAllocationVO(
+        org.andromda.timetracker.domain.TimeAllocation sourceEntity,
+        org.andromda.timetracker.vo.TimeAllocationVO targetVO)
+    {
+        super.toTimeAllocationVO(sourceEntity, targetVO);
+        TimePeriod timePeriod = sourceEntity.getTimePeriod();
+        targetVO.setTimePeriodVO(
+            new TimePeriodVO(timePeriod.getStartTime(), timePeriod.getEndTime()));
+        targetVO.setTaskId(sourceEntity.getTask().getId());
+    }
+
+    public org.andromda.timetracker.vo.TimeAllocationVO toTimeAllocationVO(final org.andromda.timetracker.domain.TimeAllocation entity)
+    {
+        TimeAllocationVO targetVO = new TimeAllocationVO();
+        toTimeAllocationVO(entity, targetVO);
+        return targetVO;
+    }
+</source>
+                    </li>
+
+                    <li>Implement the <code>timeAllocationVOToEntity()</code> method as follows:
+<source language="java">
+    public void timeAllocationVOToEntity(
+        org.andromda.timetracker.vo.TimeAllocationVO sourceVO,
+        org.andromda.timetracker.domain.TimeAllocation targetEntity,
+        boolean copyIfNull)
+    {
+        super.timeAllocationVOToEntity(sourceVO, targetEntity, copyIfNull);
+        TimePeriodVO timePeriodVO = sourceVO.getTimePeriodVO();
+        targetEntity.setTimePeriod(
+            TimePeriod.newInstance(timePeriodVO.getStartTime(), timePeriodVO.getEndTime()));
+    }
+</source>
+                    </li>
+                </ol>
+                </p>
+
+                <p>We need similar changes to the <code>TimecardDaoImpl</code> class:
+                <ol>
+                    <ul>
+                    <li>Add the following import statements after the package statement.
+<source language="java">
+package org.andromda.timetracker.domain;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import org.andromda.timetracker.ServiceLocator;
+import org.andromda.timetracker.vo.TimeAllocationVO;
+import org.andromda.timetracker.vo.TimecardSummaryVO;
+import org.andromda.timetracker.vo.TimecardVO;
+</source>
+                    </li>
+
+                    <li>Implement the two <code>toTimecardSummaryVO()</code> methods as follows:
+<source language="java">
+    public void toTimecardSummaryVO(
+        org.andromda.timetracker.domain.Timecard sourceEntity,
+        org.andromda.timetracker.vo.TimecardSummaryVO targetVO)
+    {
+        super.toTimecardSummaryVO(sourceEntity, targetVO);
+        targetVO.setSubmitterName(sourceEntity.getSubmitter().getUsername());
+        targetVO.setApproverName(sourceEntity.getApprover().getUsername());
+    }
+
+
+    public org.andromda.timetracker.vo.TimecardSummaryVO toTimecardSummaryVO(final org.andromda.timetracker.domain.Timecard entity)
+    {
+        TimecardSummaryVO targetVO = new TimecardSummaryVO();
+        toTimecardSummaryVO(entity, targetVO);
+        return targetVO;
+    }
+</source>
+                    </li>
+
+                    <li>Implement the two <code>toTimecardVO()</code> methods as follows:
+<source language="java">
+    public void toTimecardVO(
+        org.andromda.timetracker.domain.Timecard sourceEntity,
+        org.andromda.timetracker.vo.TimecardVO targetVO)
+    {
+        toTimecardSummaryVO(sourceEntity, targetVO);
+
+        // Create allocations
+        Collection allocations = new ArrayList(sourceEntity.getAllocations());
+        ((TimeAllocationDao)ServiceLocator.instance().getService("timeAllocationDao"))
+            .toTimeAllocationVOCollection(allocations);
+        targetVO.setAllocations((TimeAllocationVO[])allocations
+            .toArray(new TimeAllocationVO[allocations.size()]));
+    }
+
+    public org.andromda.timetracker.vo.TimecardVO toTimecardVO(final org.andromda.timetracker.domain.Timecard entity)
+    {
+        TimecardVO targetVO = new TimecardVO();
+        toTimecardVO(entity, targetVO);
+        return targetVO;
+    }
+</source>
+                    </li>
+                    </ul>
+                </ol>
+                </p>
+
+                <p>Finally we want to implement two methods in <code>TimeTrackingServiceImpl.java</code>
+                so that timecards can be retrieved for display. Here are the two methods:
+<source language="java">
+    protected org.andromda.timetracker.vo.TimecardVO handleGetTimecard(java.lang.Long id)
+        throws java.lang.Exception
+    {
+        return (TimecardVO)getTimecardDao().load(TimecardDao.TRANSFORM_TIMECARDVO, id);
+    }
+
+    protected org.andromda.timetracker.vo.TimecardSummaryVO[] handleGetAllTimecardSummaries()
+        throws java.lang.Exception
+    {
+        Collection timecards = getTimecardDao().loadAll(TimecardDao.TRANSFORM_TIMECARDSUMMARYVO);
+        return (TimecardSummaryVO[])timecards.toArray(new TimecardSummaryVO[timecards.size()]);
+    }
+</source>
+                </p>
+
+                <p>Compile the application by executing the command <code>maven -o clean install</code>.
+                Before we run the application again we must wipe the database and recreate the schema.
+                Execute the command <code>maven -o drop-schema create-schema</code> to
+                start with a clean database. Now run the application by executing <code>maven -o run</code>.
+                The application runs successfully all the way! Output from this run is shown below.
+                        <pre class="console">
+    [java] Person 1 created - nbhatia
+    [java] Person 2 created - lcoude
+    [java] Person 3 created - jsmith
+    [java] Task 1 created - Research
+    [java] Task 2 created - Development
+    [java] Timecard 1 created with 3 allocations
+    [java] Timecard 2 created with 1 allocations
+    [java] Timecard 3 created with 2 allocations
+    [java] Timecard 4 created with 2 allocations
+    [java] People:
+    [java] 1: nbhatia - Naresh Bhatia
+    [java] 2: lcoude - Louis Coude
+    [java] 3: jsmith - John Smith
+    [java]
+    [java] Tasks:
+    [java] 1: Research
+    [java] 2: Development
+    [java]
+    [java] Timecards:
+    [java] 1: status=DRAFT, begin date=2006-02-01 04:23:33.0, comments=On track!, submitter=nbhatia, approver=jsmith
+    [java] 2: status=DRAFT, begin date=2006-02-01 04:23:33.0, comments=On track!, submitter=nbhatia, approver=jsmith
+    [java] 3: status=DRAFT, begin date=2006-02-01 04:23:34.0, comments=On track!, submitter=lcoude, approver=jsmith
+    [java] 4: status=DRAFT, begin date=2006-02-01 04:23:34.0, comments=On track!, submitter=lcoude, approver=jsmith
+    [java]
+    [java] Timecard 1 Details:
+    [java] 1: status=DRAFT, begin date=2006-02-01 04:23:33.0, comments=On track!, submitter=nbhatia, approver=jsmith
+    [java]     1: start time=2006-02-03 04:23:33.0, end time=2006-02-04 04:23:33.0, task id=2
+    [java]     2: start time=2006-02-02 04:23:33.0, end time=2006-02-03 04:23:33.0, task id=1
+    [java]     3: start time=2006-02-01 04:23:33.0, end time=2006-02-02 04:23:33.0, task id=1
+                        </pre>
+                </p>
+            </subsection>
+        </section>
+
+        <section name="Where to go from here?">
+            <p>
+                In this guide we have made sure we have everything installed to start writing MDA projects using
+                AndroMDA, but that's just the start .. there are several different cartridges you can use, or maybe,
+                if you can't find one you like, you can write one yourself and contribute to the AndroMDA project.
+            </p>
+
+            <p>
+                Another thing you can try is to build a GUI front-end for the TimeTracker application. You can
+                refer to the <a href="../../../howto-guides.html" target="_blank">How-to Guides</a> to learn about the
+                Bpm4Struts cartridge which can be used to build Struts front-ends.
+            </p>
+
+            <p>
+                In any case you will need to learn about UML, MDA and modeling techniques and best practices. Perhaps
+                a good idea would be to take a look at the samples included in the binary distribution, each one of
+                them includes a model. Such a distribution is found here:
+                <a href="http://sourceforge.net/project/showfiles.php?group_id=73047" target="_blank">AndroMDA
+                project page</a>. Please note that the samples in the distribution still need to be built if you
+                want to see the generated sources or ant to deploy it
+                (just go into a sample and invoke <code>maven</code>, nothing more to it).
+            </p>
+        </section>
+    </body>
+</document>

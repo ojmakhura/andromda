@@ -1,0 +1,111 @@
+<?xml version="1.0"?><project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.andromda.bootstrap.translationlibraries</groupId>
+  <artifactId>andromda-ocl-translation-core</artifactId>
+  <name>AndroMDA OCL Translation Core</name>
+  <version>3.3</version>
+  <description>The AndroMDA OCL translation engine, providing the OCL translation support.</description>
+  <url>http://www.andromda.org/andromda-translation-libraries/andromda-ocl-translation-libraries/andromda-ocl-translation-core</url>
+  <issueManagement>
+    <system>jira</system>
+    <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10002</url>
+  </issueManagement>
+  <ciManagement>
+    <system>continuum</system>
+  </ciManagement>
+  <inceptionYear>2003</inceptionYear>
+  <mailingLists>
+    <mailingList>
+      <name>AndroMDA User List</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-user</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-user</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-user</archive>
+    </mailingList>
+    <mailingList>
+      <name>AndroMDA Developer List</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-devel</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-devel</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-devel</archive>
+    </mailingList>
+    <mailingList>
+      <name>AndroMDA CVS List</name>
+      <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-cvs</subscribe>
+      <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-cvs</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-cvs</archive>
+    </mailingList>
+  </mailingLists>
+  <licenses>
+    <license>
+      <name>The AndroMDA Project</name>
+      <url>licenses/LICENSE.txt</url>
+      <distribution>repo</distribution>
+      <comments>AndroMDA runs under a BSD license</comments>
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:cvs:pserver:anonymous:@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all/translation-libraries/andromda-ocl-translation-libraries/andromda-ocl-translation-core</connection>
+    <developerConnection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all/andromda-ocl-translation-libraries/andromda-ocl-translation-core</developerConnection>
+    <url>http://andromda.cvs.sourceforge.net/andromda-ocl-translation-libraries/andromda-ocl-translation-core</url>
+  </scm>
+  <organization>
+    <name>AndroMDA.org</name>
+    <url>http://www.andromda.org/</url>
+  </organization>
+  <repositories>
+    <repository>
+      <id>andromda</id>
+      <name>AndroMDA Repository</name>
+      <url>http://team.andromda.org/maven2</url>
+    </repository>
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <url>http://repo1.maven.org/maven2</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>andromda</id>
+      <name>AndroMDA Repository</name>
+      <url>http://team.andromda.org/maven2</url>
+    </pluginRepository>
+    <pluginRepository>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Maven Plugin Repository</name>
+      <url>http://repo1.maven.org/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <reporting>
+    <outputDirectory>target/site</outputDirectory>
+    <plugins>
+      <plugin>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>andromda-repository</id>
+      <name>AndroMDA Repository</name>
+      <url>file:/var/www/andromda/maven2</url>
+    </repository>
+    <site>
+      <id>website</id>
+      <url>file:/var/www/andromda/docs/andromda-translation-libraries/andromda-ocl-translation-libraries/andromda-ocl-translation-core</url>
+    </site>
+  </distributionManagement>
+</project>

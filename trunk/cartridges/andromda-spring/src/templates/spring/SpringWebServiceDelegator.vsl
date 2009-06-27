@@ -1,0 +1,107 @@
+// license-header java merge-point
+#if ($stringUtils.isNotBlank($service.implementationPackageName))
+package $service.implementationPackageName;
+#end
+#set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedWebServiceDelegatorName,'.','/')}.java")
+
+/**
+ * Web service delegator for {@link $service.fullyQualifiedName}.
+ *
+ * @see $service.fullyQualifiedName
+ */
+public class $service.webServiceDelegatorName
+{
+
+    /**
+     * Gets an instance of {@link $service.fullyQualifiedName}
+     */
+#set ($serviceGetter = "get${service.name}()")
+    private final ${service.fullyQualifiedName} $serviceGetter
+    {
+        return ${springTypesPackage}.ServiceLocator.instance().${serviceGetter};
+    }
+
+#foreach ($operation in $service.webServiceOperations)
+    /**
+     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     */
+    $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+#if ($operation.exceptionsPresent)
+        $operation.throwsClause
+#end
+    {
+        try
+        {
+#if (!$operation.returnTypePresent)
+            ${serviceGetter}.${operation.name}(${operation.argumentNames});
+#else
+            return ${serviceGetter}.${operation.name}(${operation.argumentNames});
+#end
+        }
+        catch (Exception exception)
+        {
+#foreach($exception in $operation.exceptions)
+            if (exception instanceof $exception.fullyQualifiedName)
+            {
+                throw ($exception.fullyQualifiedName)exception;
+            }
+#end
+            final Throwable cause = getRootCause(exception);
+#foreach($exception in $operation.exceptions)
+            if (cause instanceof $exception.fullyQualifiedName)
+            {
+                throw ($exception.fullyQualifiedName)cause;
+            }
+#end
+            throw new java.lang.RuntimeException(cause);
+        }
+    }
+
+#end
+    /**
+     * Finds the root cause of the parent exception
+     * by traveling up the exception tree.
+     */
+    private static Throwable getRootCause(Throwable throwable)
+    {
+        if (throwable != null)
+        {
+            // Reflectively get any exception causes.
+            try
+            {
+                Throwable targetException = null;
+
+                // java.lang.reflect.InvocationTargetException
+                String exceptionProperty = "targetException";
+                if (org.apache.commons.beanutils.PropertyUtils.isReadable(throwable, exceptionProperty))
+                {
+                    targetException = (Throwable)org.apache.commons.beanutils.PropertyUtils.getProperty(throwable, exceptionProperty);
+                }
+                else
+                {
+                    exceptionProperty = "causedByException";
+                    //javax.ejb.EJBException
+                    if (org.apache.commons.beanutils.PropertyUtils.isReadable(throwable, exceptionProperty))
+                    {
+                        targetException = (Throwable)org.apache.commons.beanutils.PropertyUtils.getProperty(throwable, exceptionProperty);
+                    }
+                }
+                if (targetException != null)
+                {
+                    throwable = targetException;
+                }
+            }
+            catch (Exception exception)
+            {
+                // just print the exception and continue
+                exception.printStackTrace();
+            }
+            if (throwable.getCause() != null)
+            {
+                throwable = throwable.getCause();
+                throwable = getRootCause(throwable);
+            }
+        }
+        return throwable;
+    }
+}

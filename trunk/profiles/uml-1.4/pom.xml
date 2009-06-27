@@ -1,0 +1,35 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda.profiles</groupId>
+        <artifactId>andromda-profiles</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </parent>
+    <groupId>org.andromda.profiles.uml14</groupId>
+    <artifactId>andromda-profiles-uml14</artifactId>
+    <name>AndroMDA UML 1.4 Profile</name>
+    <packaging>pom</packaging>
+	<description>
+        Contains the AndroMDA UML 1.4 profiles.
+    </description>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-model-archiver-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    <modules>
+        <module>common</module>
+        <module>datatype</module>
+        <module>messaging</module>
+        <module>meta</module>
+        <module>persistence</module>
+        <module>presentation</module>
+        <module>process</module>
+        <module>service</module>
+        <module>webservice</module>
+        <module>xml</module>
+    </modules>
+</project>

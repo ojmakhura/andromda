@@ -1,0 +1,15 @@
+<%@ include file="/$jspIncludes" %>
+
+<c:choose>
+    <c:when test="${!empty ${layoutOptionsBeanName}}">
+        <c:if test="${${layoutOptionsBeanName}.menuLayout == 'vbr'}">
+            <%@ include file="/includes/menu.jspf" %>
+        </c:if>
+    </c:when>
+#if ($menuLayout.startsWith("v"))
+    <c:otherwise>
+        <%@ include file="/includes/menu.jspf" %>
+    </c:otherwise>
+#end
+</c:choose>
+

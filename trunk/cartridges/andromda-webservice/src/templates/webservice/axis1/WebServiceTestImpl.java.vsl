@@ -1,0 +1,48 @@
+// license-header java merge-point
+/**
+ * This is only generated once! It will never be overwritten.
+ * You can (and have to!) safely modify it by hand.
+ */
+package $service.testPackageName;
+#set ($generatedFile = "${stringUtils.replace($service.fullyQualifiedTestImplementationName,'.','/')}.java")
+
+/**
+ * @see $service.fullyQualifiedTestName
+ */
+public class $service.testImplementationName
+    extends $service.testName
+{
+
+    /**
+     * Constructor for ${service.name}Test.
+     *
+     * @param testName name of the test.
+     */
+    public ${service.testImplementationName}(String testName)
+    {
+        super(testName);
+    }
+
+#foreach ($operation in $service.allowedOperations)
+    /**
+     * @see ${service.fullyQualifiedTestName}#${operation.testSignature}
+     */
+    public void $operation.testImplementationSignature
+        throws Exception
+    {
+#foreach ($argument in $operation.arguments)
+#set ($instanceDef = "$argument.testTypeName $argument.name")
+#if(!$argument.type.primitive)
+        $instanceDef = null;
+#elseif ($argument.testTypeName.equals("boolean"))
+        $instanceDef = false;
+#else
+        $instanceDef = ($argument.testTypeName)0;
+#end
+#end
+        this.getService().${operation.name}(${operation.argumentNames});
+        // ${toDoTag} implement ${service.fullyQualifiedTestName}.${operation.testImplementationSignature}
+    }
+
+#end
+}

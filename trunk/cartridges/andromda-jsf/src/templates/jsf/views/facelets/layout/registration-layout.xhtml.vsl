@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:af="http://xmlns.oracle.com/adf/faces"
+      xmlns:afh="http://xmlns.oracle.com/adf/faces/html">   
+       
+    <ui:insert name="head">
+        <ui:include src="head.xhtml"/>  
+    </ui:insert>
+
+    <body>
+        
+        <ui:insert name="title"/>
+        <af:panelPage title="#{title}">
+            <f:facet name="brandingApp">
+                <ui:insert name="header">
+                    <ui:include src="header.xhtml"/>
+                </ui:insert>
+            </f:facet>
+            <f:facet name="menu2">
+                <af:menuBar>
+                    <t:graphicImage url="/images/space.gif"/>
+                </af:menuBar>
+            </f:facet>
+            <f:facet name="appCopyright">
+                <ui:insert name="footer">
+                    <ui:include src="footer.xhtml"/>
+                </ui:insert>
+            </f:facet>
+            <div id="pageContent">
+                <ui:insert name="messages">
+                    <ui:include src="messages.xhtml"/>
+                </ui:insert>
+                <ui:insert name="content"/>
+            </div>
+        </af:panelPage>
+        
+    </body>   
+
+</html>

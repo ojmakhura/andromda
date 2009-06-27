@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo - UseCases</title>
+    </properties>
+
+    <body>
+        <section name="Use-Cases">
+            <p>
+               Before you start modeling your application front-end you will want to think about
+               how to split the application in different <em>use-cases</em>. Each use-case should define
+               a unique set of processing logic operations that are specific to your application.
+               Typical use-cases are: 'Login', 'Place order', 'Add new user'.
+               No two use-cases should have the same name.
+            </p>
+            <p>
+                For the sake of simplicity our application will consist of only a single use-case.
+                Adding other use-cases is very straightforward and should not present any problems.
+            </p>
+            <p>
+                Let's call our use-case <code>Purchase Items</code>. As you can see it is not a problem
+                to have spaces in the name. We will put it in a suitable package, and label it with the
+                <![CDATA[<<FrontEndUseCase>>]]> stereotype.
+            </p>
+            <p class="highlight">
+                It is mandatory to inform the cartridge which use-cases will be considered to be the
+                application's entry point, this use-case must be labeled with the
+                <![CDATA[<<FrontEndApplication>>]]> stereotype. One and only one use-case must be labeled this way.
+            </p>
+            <p>
+                <img src="howto/org/andromda/test/use-cases.gif"/>
+            </p>
+        </section>
+        <section name="Nice to know">
+            <p>
+                Use-cases split up the application in distinct parts, the generated code will reflect this by
+                emitting files related to a specific use-case in a single package.
+            </p>
+            <subsection name="struts-config.xml">
+                <p>
+                    Per use-case the generated <code>struts-config.xml</code> will contain a
+                    <code>global-forward</code>, like this:
+<source language="xml"><![CDATA[
+<global-forwards>
+    ...
+    <forward
+        name="purchase.items"
+        path="/PurchaseItems/PurchaseItems.do"
+        redirect="false" />
+    ...
+</global-forwards>
+]]></source>
+                </p>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                The next step is to specify in detail how our application's presentation layer
+                is going to behave, this is done by means of an <a href="howto2.html">activity graph</a>
+            </p>
+        </section>
+    </body>
+</document>

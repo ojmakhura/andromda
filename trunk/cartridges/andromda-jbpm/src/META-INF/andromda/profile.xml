@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<profile>
+    <elements>
+        <elementGroup name="Stereotypes">
+            <element name="BUSINESS_PROCESS">
+                <documentation>
+                    Instructs the jBpm cartridge to process the contents of this use-case.
+                </documentation>
+                <value>Business Process</value>
+                <appliedOnElement>use-case</appliedOnElement>
+            </element>
+            <element name="BEFORE_SIGNAL">
+                <documentation>
+                    Will specify that the event on which this stereotype has been modeled is of type
+                    <code>before-signal</code>.
+                </documentation>
+                <value>Before Signal</value>
+                <appliedOnElement>call-event</appliedOnElement>
+            </element>
+            <element name="AFTER_SIGNAL">
+                <documentation>
+                    Will specify that the event on which this stereotype has been modeled is of type
+                    <code>after-signal</code>.
+                </documentation>
+                <value>After Signal</value>
+                <appliedOnElement>call-event</appliedOnElement>
+            </element>
+            <element name="NODE_ENTER">
+                <documentation>
+                    Will specify that the event on which this stereotype has been modeled is of type
+                    <code>node-enter</code>.
+                </documentation>
+                <value>Node Enter</value>
+                <appliedOnElement>call-event</appliedOnElement>
+            </element>
+            <element name="NODE_LEAVE">
+                <documentation>
+                    Will specify that the event on which this stereotype has been modeled is of type
+                    <code>node-leave</code>.
+                </documentation>
+                <value>Node Leave</value>
+                <appliedOnElement>call-event</appliedOnElement>
+            </element>
+            <element name="TASK">
+                <documentation>
+                    Will specify that the event on which this stereotype is to be considered a task.
+                    The event on which this stereotype is placed usually is a <code>state</code> node
+                    (do not confuse with <code>action state</code>).
+                </documentation>
+                <value>Task</value>
+                <appliedOnElement>call-event</appliedOnElement>
+            </element>
+            <element name="TIMER">
+                <documentation>
+                    The underlying event will represent an action that will be executed on a timely basis.
+                    The usage of this stereotype is usually supported by means of a set of tagged values.
+                </documentation>
+                <value>Timer</value>
+                <appliedOnElement>call-event</appliedOnElement>
+            </element>
+        </elementGroup>
+        <elementGroup name="Tagged Values">
+            <element name="ASSIGNMENT_EXPRESSION">
+                <documentation>
+                    Specifies an assignment expression as a <a href="http://www.beanshell.org/">bean-shell script</a>.
+                </documentation>
+                <value>@andromda.process.jbpm.assignment.expression</value>
+                <appliedOnElement>swimlane</appliedOnElement>
+                <allowedValues>
+                    <value>Any valid bean-shell script</value>
+                </allowedValues>
+            </element>
+            <element name="TIMER_REPEAT">
+                <documentation>
+                    After a timer has been executed on the duedate, this tagged value specifies
+                    the duration between repeating timer executions until the node is left.
+                    If yes or true are specified then the value of duedate is used.
+                </documentation>
+                <value>@andromda.process.jbpm.timer.repeat</value>
+                <appliedOnElement><![CDATA[<<Timer>>]]></appliedOnElement>
+                <allowedValues>
+                    <value>yes</value>
+                    <value>true</value>
+                    <value>a duration as defined by jBpm</value>
+                </allowedValues>
+            </element>
+            <element name="TIMER_DUEDATE">
+                <documentation>
+                    The duration that specifies the time period between the creation of the timer and the
+                    execution of the timer. This can be expressed in business hours, minutes, etc...
+                </documentation>
+                <value>@andromda.process.jbpm.timer.duedate</value>
+                <appliedOnElement><![CDATA[<<Timer>>]]></appliedOnElement>
+                <allowedValues>
+                    <value>a duration as defined by jBpm</value>
+                </allowedValues>
+            </element>
+            <element name="TIMER_TRANSITION">
+                <documentation>
+                    The transition to take once the timer finishes.
+                </documentation>
+                <value>@andromda.process.jbpm.timer.transition</value>
+                <appliedOnElement><![CDATA[<<Timer>>]]></appliedOnElement>
+                <allowedValues>
+                    <value>the name of one of the transition going out of the state onto which this timer
+                        has been modeled</value>
+                </allowedValues>
+            </element>
+            <element name="TASK_BLOCKING">
+                <documentation>
+                    Denotes whether or not this task should be blocking.
+                </documentation>
+                <value>@andromda.process.jbpm.task.blocking</value>
+                <appliedOnElement><![CDATA[<<Task>>]]></appliedOnElement>
+                <allowedValues>
+                    <value default="true">true</value>
+                    <value>false</value>
+                </allowedValues>
+            </element>
+        </elementGroup>
+    </elements>
+</profile>

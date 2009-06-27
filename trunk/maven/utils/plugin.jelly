@@ -1,0 +1,47 @@
+<project xmlns:j="jelly:core"
+    xmlns:ant="jelly:ant">
+
+    <!--
+        use rootDir to specify the directory from which to start listing
+        !!! BE CAREFUL - THIS COMMAND WILL REMOVE CVS DIRECTORIES !!! 
+    -->
+    <goal name="andromda:utils:remove-cvs"
+        description="Recursively removes CVS directories">
+        <j:choose>
+            <j:when test="${empty rootDir}">
+                <ant:echo>Please specify the root directory using -DrootDir=someDir</ant:echo>
+            </j:when>
+            <j:otherwise>
+                <j:invokeStatic var="emptyDirs" className="org.andromda.maven.utils.CVSDirRemover" method="remove">
+                    <j:arg value="${rootDir}" type="java.lang.String"/>
+                </j:invokeStatic>
+                <j:forEach var="dir" items="${emptyDirs}">
+                    <ant:echo>Removed: ${dir}</ant:echo>
+                </j:forEach>
+            </j:otherwise>
+        </j:choose>
+    </goal>
+
+    <!--
+        use rootDir to specify the directory from which to start listing
+        CVS directories are ignored
+    -->
+    <goal name="andromda:utils:list-empty-dirs"
+        description="List all directories not containing any files, only the top-level empty directories are printed">
+        <j:choose>
+            <j:when test="${empty rootDir}">
+                <ant:echo>Please specify the root directory using -DrootDir=someDir</ant:echo>
+            </j:when>
+            <j:otherwise>
+                <j:new var="emptyDirsLister" />
+                <j:invokeStatic var="removedDirs" className="org.andromda.maven.utils.EmptyDirsLister" method="list">
+                    <j:arg value="${rootDir}" type="java.lang.String"/>
+                </j:invokeStatic>
+                <j:forEach var="dir" items="${removedDirs}">
+                    <ant:echo>${dir}</ant:echo>
+                </j:forEach>
+            </j:otherwise>
+        </j:choose>
+    </goal>
+
+</project>

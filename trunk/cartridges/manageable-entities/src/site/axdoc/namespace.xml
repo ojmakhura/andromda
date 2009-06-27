@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <title>Manageable Entity Namespace</title>
+    </properties>
+    <body>
+        <section name="Manageable Entity Namespace Properties">
+            <table>
+                <tr>
+                    <th>Property</th>
+                    <th>Description</th>
+                    <th>Required</th>
+                </tr>
+                <tr>
+                    <td>manageableServiceAccessorPattern</td>
+                    <td>how the service should be accessed from the backend</td>
+                    <td>Yes, use something like <code><manageableServiceAccessorPattern>${pom.package}.ManageableServiceLocator.instance().get{1}()</manageableServiceAccessorPattern></code></td>
+                </tr>
+                <tr>
+                    <td>defaultResolveable</td>
+                    <td>Whether or not possible associated entities need their keys listed</td>
+                    <td>No, default is <code>true</code></td>
+                </tr>
+                <tr>
+                    <td>defaultMaximumListSize</td>
+                    <td>The maximum number of entities to fetch from the data-source in a single call</td>
+                    <td>No, default is <code>250</code></td>
+                </tr>
+                <tr>
+                    <td>defaultPageSize</td>
+                    <td>The maximum number of records to show at the same time</td>
+                    <td>No, default is <code>20</code></td>
+                </tr>
+                <tr>
+                    <td>manageablePackageSuffix</td>
+                    <td>The package name in which to store the entity's crud related files and resources,
+                        will be appended the the entity's default package name</td>
+                    <td>No, default is <code>crud</code></td>
+                </tr>
+                <tr>
+                    <td>manageableIdDisplayStrategy</td>
+                    <td>Denotes the strategy for displaying entities' identifiers, values may be
+                        <code>auto</code>, <code>always</code> and <code>never</code>. the <code>auto</code>
+                        value means the identifier will be displayed when it has been explicitely modeled.</td>
+                    <td>No, default is <code>auto</code></td>
+                </tr>
+                <tr>
+                    <td>manageableFormName</td>
+                    <td>The name of the form bean stored in session scope, containing the most recently submitted
+                        parameters. It's recommended to take a unique name because this will allow you to manage
+                        entities in a different browser window without messing up the rest of the application.</td>
+                    <td>No, default is <code>manageableForm</code></td>
+                </tr>
+            </table>
+        </section>
+    </body>
+</document>
+
+
+
+
+

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!-- contains the hibernate cartridge metafacade mappings -->
+<metafacades>
+    <property reference="hibernateVersion"/>
+    <property reference="hibernateXMLPersistence"/>
+    <property reference="hibernateXMLPersistIDAsAttribute"/>
+    <property reference="entityNamePattern"/>
+    <property reference="entityImplementationNamePattern"/>
+    <property reference="defaultHibernateGeneratorClass"/>
+    <property reference="hibernateDefaultCascade"/>
+    <property reference="hibernateCompositionCascade"/>
+    <property reference="hibernateAggregationCascade"/>
+    <property reference="hibernateEntityCache"/>
+    <property reference="hibernateEnableDistributedCache"/>
+    <property reference="hibernateEntityDynamicInsert"/>
+    <property reference="hibernateEntityDynamicUpdate"/>
+    <property reference="hibernateProxy"/>
+    <property reference="hibernateQueryUseNamedParameters"/>
+    <property reference="hibernateInheritanceStrategy"/>
+    <property reference="hibernateUseQueryCache"/>
+    <property reference="ehCacheMaxElementsInMemory"/>
+    <property reference="ehCacheEternal"/>
+    <property reference="ehCacheTimeToIdleSeconds"/>
+    <property reference="ehCacheTimeToLiveSeconds"/>
+    <property reference="ehCacheOverflowToDisk"/>
+    <property reference="compositionDefinesEagerLoading"/>
+    <property reference="ejbJndiNamePrefix"/>
+    <property reference="ejbViewType"/>
+    <property reference="hibernateAssociationCollectionType"/>
+    <property reference="hibernateAssociationSortType"/>
+    <property reference="enumerationNamePattern"/>
+    <property reference="hibernateQueryUseSpecializedSetters"/>
+    <property reference="versionProperty"/>
+    <property reference="enumTypesPackage" />
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogicImpl" contextRoot="true">
+        <mapping>
+            <stereotype>ENTITY</stereotype>
+        </mapping>
+        <property reference="hibernateMappingStrategy"/>
+        <property reference="defaultEntityDiscriminatorColumn"/>
+        <property reference="defaultEntityDiscriminatorType"/>
+        <property reference="sequenceIdentifierSuffix"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEndLogicImpl">
+        <mapping>
+            <property name="type.hibernateEntityMetaType"/>
+        </mapping>
+        <property reference="hibernateAssociationEndOuterJoin"/>
+        <property reference="listTypeImplementation"/>
+        <property reference="setTypeImplementation"/>
+        <property reference="mapTypeImplementation"/>
+        <property reference="bagTypeImplementation"/>
+        <property reference="specificCollectionInterfaces"/>
+        <property reference="defaultCollectionInterface"/>
+        <property reference="associationEndCollectionIndexName"/>
+        <property reference="associationEndCollectionIndexType"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateAssociationLogicImpl">
+        <mapping>
+            <property name="associationEndA.hibernateAssociationEndMetaType"/>
+        </mapping>
+        <property reference="hibernateAssociationCache"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl" contextRoot="true">
+        <mapping>
+            <stereotype>FINDER_METHOD</stereotype>
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
+        </mapping>
+    </metafacade>
+    <metafacade
+        class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodLogicImpl"
+        contextRoot="true">
+        <mapping>
+            <property name="owner.hibernateEntityMetaType"/>
+            <property name="query"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperationLogicImpl">
+        <mapping>
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateService</context>
+        </mapping>
+        <property reference="serviceOperationTransactionType"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceOperationLogicImpl">
+        <mapping>
+            <property name="owner.interface"/>
+        </mapping>
+        <property reference="serviceOperationTransactionType"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgumentLogicImpl">
+        <mapping>
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod</context>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateServiceLogicImpl" contextRoot="true">
+        <mapping>
+            <stereotype>SERVICE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateTypeLogicImpl">
+        <property reference="hibernateTypeMappingsUri"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEnumerationLogicImpl">
+        <mapping>
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogicImpl">
+        <mapping>
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEntity</context>
+        </mapping>
+		<property reference="hibernateTypeMappingsUri"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValueLogicImpl" contextRoot="true">
+        <mapping>
+            <stereotype>EMBEDDED_VALUE</stereotype>
+        </mapping>
+        <property reference="embeddedValueImplementationNamePattern"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogicImpl">
+        <mapping>
+            <context>org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValue</context>
+        </mapping>
+        <property reference="sqlMappingsUri"/>
+        <property reference="jdbcMappingsUri"/>
+    </metafacade>
+</metafacades>

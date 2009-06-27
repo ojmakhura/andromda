@@ -1,0 +1,51 @@
+#set ($generatedFile = "${manageable.manageableServiceFullPath}.java")
+// license-header java merge-point
+##
+#set ($memberList = $manageable.listManageableMembers(true))
+#if (!$manageable.identifiers.empty)
+#set ($identifier = $manageable.manageableIdentifier)
+#end
+##
+package $manageable.manageablePackageName;
+
+public interface $manageable.manageableServiceName
+{
+#if ($manageable.create)
+    public $manageable.fullyQualifiedManageableValueObjectName create($memberList)
+        throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
+
+#end
+#if ($manageable.read)
+    public $manageable.fullyQualifiedManageableValueObjectName readById(${identifier.type.fullyQualifiedName} $identifier.name)
+        throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
+
+    public java.util.List read($memberList)
+        throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
+
+    public java.util.List readAll()
+        throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
+
+#foreach ($member in $manageable.manageableAttributes)
+#if ($member.manageableGetterAvailable)
+    public $member.type.fullyQualifiedName ${member.getterName}($identifier.type.fullyQualifiedName $identifier.name)
+        throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
+
+#end
+#end
+#if (!$manageable.manageableAssociationEnds.empty)
+    public java.util.Map readBackingLists()
+        throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
+
+#end
+#end
+#if ($manageable.update)
+    public $manageable.fullyQualifiedManageableValueObjectName update($memberList)
+        throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
+
+#end
+#if ($manageable.delete)
+    public void delete(${identifier.type.fullyQualifiedName}[] ids)
+        throws Exception#if ($ejbViewType.equalsIgnoreCase("remote")), java.rmi.RemoteException#end;
+
+#end
+}

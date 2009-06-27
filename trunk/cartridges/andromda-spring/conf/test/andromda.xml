@@ -1,0 +1,84 @@
+<andromda xmlns="http://andromda.org/core/configuration">
+  <properties>
+    <property name="failOnValidationErrors">false</property>
+    <!--property name="loggingConfigurationUri">file:${basedir}/../../log4j.xml</property-->
+  </properties>
+  <repositories>
+    <repository name="netBeansMDR">
+      <models>
+        <model>
+          <uri>${test.model.uri}</uri>
+          <moduleSearchLocations>
+            <location patterns="**/*.xml.zip">${basedir}/../../profiles/uml-1.4</location>
+            <location patterns="**/*.xml.zip">${pom.basedir}/../../profiles/uml-1.4</location>
+            <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
+          </moduleSearchLocations>
+        </model>
+      </models>
+    </repository>
+  </repositories>
+  <namespaces>
+    <namespace name="default">
+      <properties>
+        <property name="languageMappingsUri">Java</property>
+        <property name="wrapperMappingsUri">JavaWrapper</property>
+        <property name="enableTemplating">false</property>
+        <property name="enableAnnotations">false</property>
+        <property name="typeSafeEnumsEnabled">false</property>
+        <!--property name="enumerationLiteralNameMask">upperunderscore</property-->
+        <property name="pluralizeAssociationEndNames">true</property>
+        <property name="pluralizeAttributeNames">true</property>
+        <property name="pluralizeParameterNames">true</property>
+        <property name="toDoTag">@todo</property>
+      </properties>
+    </namespace>
+    <namespace name="spring">
+      <properties>
+        <property name="overwrite">true</property>
+        <property name="jdbcMappingsUri">JDBC</property>
+        <property name="sqlMappingsUri">Oracle9i</property>
+        <property name="value-objects">${test.output.dir}</property>
+        <property name="services">${test.output.dir}</property>
+        <property name="service-interfaces">${test.output.dir}</property>
+        <property name="service-impls">${test.output.dir}</property>
+        <property name="session-ejbs">${test.output.dir}</property>
+        <property name="daos">${test.output.dir}</property>
+        <property name="dao-impls">${test.output.dir}</property>
+        <property name="spring-configuration">${test.output.dir}</property>
+        <property name="client-config">${test.output.dir}</property>
+        <property name="client">${test.output.dir}</property>
+        <property name="osgi">${test.output.dir}</property>
+        <property name="securityRealm">SomeDomain</property>
+        <property name="dataSource">java:/DefaultDS</property>
+        <property name="username">auser</property>
+        <property name="password">apassword</property>
+        <property name="driver">a.driver.Class</property>
+        <property name="connectionUrl">a:connection:url</property>
+        <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
+        <property name="advice-impls">${test.output.dir}</property>
+        <property name="remoting-war-support">${test.output.dir}</property>
+        <property name="hibernateQueryUseNamedParameters">true</property>
+        <property name="open-session-in-view">${test.output.dir}</property>
+        <property name="userTransactionName">null</property>
+        <property name="transactionManagerName">java:/TransactionManager</property>
+        <property name="acegiServiceSecurity">true</property>
+        <property name="acegiAuthenticationManager">authenticationManager</property>
+        <property name="webServiceOutgoingAttachmentHandlerCallPattern">org.andromda.webservice.AttachmentHandler.sendAttachment(content, contentType, dime)</property>
+        <property name="webServiceIncomingAttachmentHandlerCallPattern">org.andromda.webservice.AttachmentHandler.getAttachments()</property>
+        <property name="serviceRemotingType">hessian</property>
+        <property name="serviceRemoteServer">1.2.3.4</property>
+        <property name="serviceRemotePort">1234</property>
+        <property name="serviceRemoteContext">spring-test</property>
+        <property name="configPropertyPrefix">server1.</property>
+        <property name="jmsProvider">JBossMQ</property>
+        <property name="jmsClientId">theJmsClientId</property>
+        <property name="jmsCacheLevelName">CACHE_SESSION</property>
+        <property name="jmsMaxIncomingMessagesPerReceive">100</property>
+        <property name="hibernateEnableCache">true</property>
+        <property name="jndiDataSourceCaching">false</property>
+        <property name="remoteServiceUsername">theUsername</property>
+        <property name="remoteServicePassword">thePassword</property>
+      </properties>
+    </namespace>
+  </namespaces>
+</andromda>

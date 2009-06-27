@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<namespace name="ejb">
+    <components>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
+        <component name="profile">
+            <path>META-INF/andromda/profile.xml</path>
+        </component>
+    </components>
+    <properties>
+        <!-- namespace-propertyGroup merge-point -->
+        <propertyGroup name="Outlet Properties">
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="entity-beans">
+                <documentation>
+                    The directory to which Entity EJBs are generated.
+                </documentation>
+            </property>
+            <property name="entity-impls">
+                <documentation>
+                    The location to which Entity EJB implementation files are generated.
+                </documentation>
+            </property>
+            <property name="session-beans">
+                <documentation>
+                    The directory to which Session Bean files are generated.
+                </documentation>
+            </property>
+            <property name="session-impls">
+                <documentation>
+                    The directory to which Session Bean implementation files are generated.
+                </documentation>
+            </property>
+            <property name="value-objects" required="false">
+                <documentation>
+                   The directory to which isomorphic value objects are generated.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Other Properties">
+            <property name="valueObjectPackage">
+                <default>{0}</default>
+            </property>
+            <property name="valueObjectName">
+                <default>{0}</default>
+            </property>
+            <property name="jndiNamePrefix" required="false">
+                <documentation>
+                    The prefix to give to the EJB JNDI names (this allows the same
+                    EJBs to be deployed multiple times in the same container)
+                </documentation>
+            </property>
+            <property name="transactionType">
+                <default>Required</default>
+                <documentation>
+                    The default value to use for transaction types.
+                    <ul>
+                        Permitted values are:
+                        <li>NotSupported</li>
+                        <li>Supports</li>
+                        <li>Required</li>
+                        <li>RequiresNew</li>
+                        <li>Mandatory</li>
+                        <li>Never</li>
+                    </ul>
+                    <strong>NOTE:</strong> Can be overridden on a per entity basis with the
+                    <a href="profile.html#@andromda_ejb_transaction_type">@andromda.ejb.transaction.type</a>
+                    tagged value.
+                </documentation>
+            </property>
+        </propertyGroup>
+    </properties>
+</namespace>

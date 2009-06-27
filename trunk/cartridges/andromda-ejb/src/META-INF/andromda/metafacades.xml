@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<metafacades>
+    <property reference="transactionType"/>
+    <metafacade class="org.andromda.cartridges.ejb.metafacades.ValueObjectFacadeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl">
+            <stereotype>VALUE_OBJECT</stereotype>
+        </mapping>
+        <property reference="valueObjectPackage"/>
+        <property reference="valueObjectName"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb.metafacades.ValueObjectFacadeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ClassImpl">
+            <stereotype>VALUE_OBJECT</stereotype>
+        </mapping>
+        <property reference="valueObjectPackage"/>
+        <property reference="valueObjectName"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBFinderMethodFacadeLogicImpl">
+        <mapping>
+            <stereotype>FINDER_METHOD</stereotype>
+            <property name="owner.eJBEntityFacadeMetaType"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBFinderMethodFacadeLogicImpl">
+        <mapping>
+            <property name="query"/>
+            <property name="owner.eJBEntityFacadeMetaType"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBOperationFacadeLogicImpl">
+        <mapping>
+            <property name="owner.eJBSessionFacadeMetaType"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBOperationFacadeLogicImpl">
+        <mapping>
+            <property name="owner.eJBEntityFacadeMetaType"/>
+        </mapping>
+    </metafacade>
+    <!-- Entity EJB Metafacades -->
+    <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBPrimaryKeyFacadeLogicImpl">
+        <mapping>
+            <stereotype>IDENTIFIER</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBEntityFacadeLogicImpl">
+        <mapping>
+            <stereotype>ENTITY</stereotype>
+        </mapping>
+        <property reference="sqlMappingsUri"/>
+        <property reference="jndiNamePrefix"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBAssociationFacadeLogicImpl"/>
+    <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBAssociationEndFacadeLogicImpl">
+        <mapping>
+            <property name="type.eJBEntityFacadeMetaType"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBEntityAttributeFacadeLogicImpl">
+        <mapping>
+            <property name="owner.eJBEntityFacadeMetaType"/>
+        </mapping>
+    </metafacade>
+    <!-- Session EJB Metafacades -->
+    <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBSessionFacadeLogicImpl">
+        <mapping>
+            <stereotype>SERVICE</stereotype>
+        </mapping>
+        <property reference="jndiNamePrefix"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.ejb.metafacades.EJBSessionAttributeFacadeLogicImpl">
+        <mapping>
+            <property name="owner.eJBSessionFacadeMetaType"/>
+        </mapping>
+    </metafacade>
+</metafacades>

@@ -1,0 +1,677 @@
+<cartridge>
+
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
+        <!-- library of macros used in template engine -->
+        <macrolibrary name="templates/bpm4struts/pages/page.jsp.vm"/>
+        <macrolibrary name="templates/bpm4struts/pages/crud/manageable.jsp.vm"/>
+        <macrolibrary name="templates/bpm4struts/actions/Action.java.vm"/>
+        <!-- shared (meaning across subdirectories) macros -->
+        <macrolibrary name="templates/bpm4struts/macros/populateCurrentFormOnError.vm"/>
+        <!-- cartridge-macrolibrary merge-point-->
+    </templateEngine>
+
+    <!-- define the template objects that are made available to the template -->
+    <templateObject name="bpmUtils" className="org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils"/>
+    <templateObject name="dateUtils" className="org.andromda.utils.DateUtilsHelper"/>
+    <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
+    <!-- cartridge-templateObject merge-point-->
+
+    <property reference="xhtml"/>
+    <property reference="securityRealm"/>
+    <property reference="clientValidation"/>
+    <property reference="serverValidation"/>
+    <property reference="welcomeFileName"/>
+    <property reference="maxBreadCrumbs" />
+    <property reference="dummyData"/>
+    <property reference="onlineHelp"/>
+    <property reference="hints"/>
+    <property reference="defaultDateFormat"/>
+    <property reference="defaultTimeFormat"/>
+    <property reference="warningMessagesKey"/>
+    <property reference="successMessagesKey"/>
+    <property reference="exceptionHandlerPattern"/>
+    <property reference="exceptionHandlerPackage"/>
+    <property reference="validatorPackage"/>
+    <property reference="servletPackage"/>
+    <property reference="errorMessagesKey"/>
+    <property reference="formName"/>
+    <property reference="manageableFormName"/>
+    <property reference="xmlEncoding"/>
+    <property reference="pageEncoding"/>
+    <property reference="generateWebXmlIds"/>
+    <property reference="manageableFieldMaxLength"/>
+    <property reference="manageableReferenceParameterPrefix"/>
+    <property reference="setPageVariablesInPageScope"/>
+    <property reference="preventDirectPageAccess"/>
+    <property reference="defaultTableExportTypes"/>
+    <property reference="renderPageVariables"/>
+    <property reference="toDoTag"/>
+    <property reference="virtualHost"/>
+
+    <!-- cartridge-property merge-point -->
+
+    <!-- copy resources -->
+    <resource
+        path="resources/*.*"
+        outputPattern="layout/{0}"
+        outlet="pages"
+        overwrite="true"/>
+
+    <resource
+        path="resources/calendar/*.*"
+        outputPattern="layout/calendar/{0}"
+        outlet="pages"
+        overwrite="true"/>
+
+    <resource
+        path="resources/WEB-INF/lib/*.jar"
+        outputPattern="lib/{0}"
+        outlet="configuration"
+        overwrite="true"/>
+
+    <!-- cartridge-resource merge-point -->
+
+    <!-- process templates on model elements -->
+    <template
+        path="templates/bpm4struts/actions/Action.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="actions"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsAction"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/actions/PatternMatchingExceptionHandler.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="actions"
+        overwrite="true"/>
+
+    <template
+        path="templates/bpm4struts/pages/action.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsAction">
+                    <property name="tableRowAction">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/forms/ActionForm.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsAction">
+                    <property name="actionFormFields"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/forms/ActionFormInterface.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="operation">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/controllers/ControllerImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controller-impls"
+        overwrite="false">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsController">
+                    <!-- if this property is not present it's no use generating the controller -->
+                    <property name="useCase"/>
+                    <!-- only useful generating if we have at least one operation -->
+                    <property name="operations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/controllers/Controller.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsController">
+                    <!-- if this property is not present it's no use generating the controller -->
+                    <property name="useCase"/>
+                    <!-- only useful generating if we have at least one operation -->
+                    <property name="operations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/controllers/ControllerFactory.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsController">
+                    <!-- if this property is not present it's no use generating the controller -->
+                    <property name="useCase"/>
+                    <!-- only useful generating if we have at least one operation -->
+                    <property name="operations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/controllers/SessionObject.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="sessionObject">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsSessionObject"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/page.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true">
+        <modelElements variable="jsp">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/error-page.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true">
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/page-javascript.jspf.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true">
+        <modelElements variable="jsp">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/page-variables.jspf.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="jsp">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/page-hidden-parameters.jspf.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsAction">
+                    <property name="tableLink">false</property>
+                    <property name="hiddenActionParameters"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/page-table.jspf.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true">
+        <modelElements variable="table">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter">
+                    <property name="table"/>
+                    <property name="jsp"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/form-validation.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="false"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/configuration/validator-rules.xml.vsl"
+        outputPattern="validator-rules.xml"
+        outlet="configuration"
+        overwrite="true"
+        generateEmptyFiles="false"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/actions/StrutsValidator.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="actions"
+        overwrite="true"/>
+
+    <template
+        path="templates/bpm4struts/pages/index.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="manageable"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/messages/application-resources.properties.vsl"
+        outputPattern="application-resources.properties"
+        outlet="messages"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
+            <!-- the crud entity messages are also generated in this bundle -->
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/messages/displaytag.properties.vsl"
+        outputPattern="displaytag.properties"
+        outlet="messages"
+        overwrite="true"
+        outputToSingleFile="true"/>
+
+    <template
+        path="templates/bpm4struts/configuration/web.xml.vsl"
+        outputPattern="web.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/actions/ActionServlet.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="actions"
+        overwrite="true"/>
+
+    <template
+        path="templates/bpm4struts/configuration/jboss-web.xml.vsl"
+        outputPattern="jboss-web.xml"
+        outlet="configuration"
+        overwrite="true"/>
+
+    <template
+        path="templates/bpm4struts/pages/login-form.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"/>
+
+    <template
+        path="templates/bpm4struts/pages/menu.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="manageable"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/main-layout.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"/>
+
+    <template
+        path="templates/bpm4struts/configuration/tiles-defs.xml.vsl"
+        outputPattern="tiles-defs.xml"
+        outlet="configuration"
+        overwrite="true"/>
+
+    <template
+        path="templates/bpm4struts/configuration/struts-config.xml.vsl"
+        outputPattern="struts-config.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity">
+                    <property name="manageable"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/configuration/menu-config.xml.vsl"
+        outputPattern="menu-config.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/configuration/validation.xml.vsl"
+        outputPattern="validation.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/default-application.css.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"/>
+
+    <template
+        path="templates/bpm4struts/pages/page.css.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="true">
+        <modelElements variable="page">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/messages.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        outputToSingleFile="true"/>
+
+    <template
+        path="templates/bpm4struts/server/users.properties.vsl"
+        outputPattern="users.properties"
+        outlet="server"
+        overwrite="true"
+        generateEmptyFiles="false"/>
+
+    <template
+        path="templates/bpm4struts/server/roles.properties.vsl"
+        outputPattern="roles.properties"
+        outlet="server"
+        overwrite="true"
+        generateEmptyFiles="true"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/calendar-js.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="false"/>
+
+    <template
+        path="templates/bpm4struts/pages/breadcrumbs.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="false"/>
+
+    <template
+        path="templates/bpm4struts/pages/taglib-imports.jspf.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="true"/>
+
+    <template
+        path="templates/bpm4struts/pages/page-help.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="jsp">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsJsp"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+<!--
+    <template
+        path="templates/bpm4struts/pages/usecase-help.jsp.vsl"
+        outputPattern="${pagePathPrefix}$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="useCase">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase"/>
+            </modelElement>
+        </modelElements>
+    </template>
+-->
+
+    <template
+        path="templates/bpm4struts/pages/application-help.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="false"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase">
+                    <property name="applicationUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/help-layout.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        generateEmptyFiles="false"/>
+
+    <template
+        path="templates/bpm4struts/decorators/TableDecorator.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="decorators"
+        overwrite="false"
+        generateEmptyFiles="false">
+        <modelElements variable="table">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter">
+                    <property name="tableDecoratorRequired"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!--
+            C R U D
+    -->
+
+    <template
+        path="templates/bpm4struts/actions/crud/CrudAction.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="actions"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/forms/crud/CrudForm.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/crud/manageable.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/crud/manageable-help.jsp.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true">
+        <modelElements variable="manageable">
+            <modelElement>
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/bpm4struts/pages/crud/default-manageable.css.vsl"
+        outputPattern="$generatedFile"
+        outlet="pages"
+        overwrite="true"
+        outputToSingleFile="true"
+        generateEmptyFiles="false">
+        <modelElements>
+            <modelElement variable="manageables">
+                <type name="org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- cartridge-template merge-point -->
+
+</cartridge>

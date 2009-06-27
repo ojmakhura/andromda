@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+    <properties>
+        <author email="naresh@andromda.org">Naresh Bhatia</author>
+        <title>Create Person Entity using MagicDraw</title>
+    </properties>
+
+    <body>
+
+        <section name="Create Person Entity using MagicDraw">
+            <p>
+                This page provides directions to create the Person entity using MagicDraw. The model is
+                shown below for your reference.
+            </p>
+
+            <p>
+                <div align="center">
+                    <img src="../../../images/magicdraw/PersonEntity.jpg"/>
+                </div>
+            </p>
+
+            <p>
+              <ol>
+                <li>Start MagicDraw.</li>
+                <li>Select File > Open Project... and traverse to
+                    C:/TimeTracker/mda/src/uml/TimeTrackerModel.xmi. Click Open to open this model.</li>
+                <li>If you get a warning message such as "Module andromda-profile-3.3.xml.zip
+                    is not found", just click OK. A file dialog will come up asking you to locate
+                    andromda-profile-3.3.xml.zip. To do this traverse to your Maven repository.
+                    The default location for this repository is
+                    C:/Documents and Settings/&lt;your username&gt;/.maven/repository. You will find
+                    andromda-profile-3.3.xml.zip under this repository at andromda/xml.zips.
+                    Select this file and click Open.</li>
+                <li>The TimeTracker model will now open showing the only class diagram present in this
+                    model. The title of this diagram is "DataTypes[datatype]". This diagram contains
+                    platform independent datatypes that should be used in your UML model.</li>
+                <li>In the Containment Tree on the left, right-click on the root element called Data
+                    and select New Element > Model. A new model will be created under the root element
+                    with an edit box to its side. Type in TimeTracker as the name of this model.
+                    MagicDraw has the concept of a hierarchy of models. Each model in the hierarchy can be
+                    broken out and stored as a separate file. This allows multiple developers to
+                    work on different parts of a master model.</li>
+                <li>Now right-click on the TimeTracker model you just created and select New Element > Package.
+                    A new package will be created under the TimeTracker model element with an edit box
+                    to its side. Type in <code>org.andromda.timetracker</code> as the name of the package. AndroMDA
+                    will map this package to a Java package with the same name. Note: Make sure the package name is
+                    exactly <code>org.andromda.timetracker</code>, with no leading or trailing spaces. We
+                    have found that some browsers introduce a leading space in the package name if you copy
+                    it from this page!</li>
+                <li>Now create a package called <code>domain</code> under <code>org.andromda.timetracker</code>.
+                    We will create our entities and supporting classes in this package. Note that AndroMDA
+                    does not require this package structure. We are doing it simply to separate our business
+                    domain classes from other classes such as value objects etc.</li>
+                <li>In the Containment Tree on the left, right-click on the <code>domain</code> package and select
+                    New Diagram > Class Diagram. A Class Diagram Specification dialog appears. Type in
+                    Domain Objects as the name of this diagram and click OK. The diagram is created and
+                    opened in a new window.</li>
+                <li>In the toolbar on the left of the class diagram click on the Class icon (6th icon
+                    from the top. Now click anywhere inside the diagram. A new class will be created.
+                    The class will be automatically selected as indicated by the 4 knobs around it.
+                    (If you somehow deselected the class, then select it again by clicking on it.)
+                    Now type the word "Person". This word will be entered as the name of the class.</li>
+                <li>Let's add some documentation for the <code>Person</code> class. It is always a good
+                    idea to document your model. Documentation added to model elements such as classes,
+                    attributes and methods is carried over to the code as comments. Double-click on
+                    the Person class to bring up the Class Specification dialog. Add the following
+                    sentence in the Documentation field and click OK:
+                    "This class represents any person whose time needs to be tracked."</li>
+                <li>Now add the stereotype <code>Entity</code> to class <code>Person</code>. To do this,
+                    right-click on the class and select Stereotype. In the next level menu, check Entity
+                    and click Apply. The <code>Person</code> class will now have the <code>Entity</code>
+                    stereotype.</li>
+                <li>Let's add <code>username</code> as an attribute of <code>Person</code>.
+                    Right-click on the Person class and select Insert New Attribute. A new attribute is
+                    inserted with the specification "-unnamed1". Write over this specification with
+                    this new one: "+username : String" (be sure to delete the minus sign in front of the name).
+                    Do not press Enter after typing this attribute (that will create another attribute).
+                    Instead click outside the class to finish entering the attribute. Note that
+                    attributes are always generated as private members of a class. However the visibilities
+                    of the associated getter and setter are determined by the visibility of the attribute
+                    specification. In this case we have specified public visibility (by using the plus sign)
+                    and hence the <code>username</code> getter and setter will be public.</li>
+                <li>Now add two more public attributes called <code>firstName</code> and <code>lastName</code>
+                    to the <code>Person</code> class. Make them <code>String</code> type.</li>
+                <li>Make sure your class diagram matches the one shown above exactly. (It is okay if your
+                    class shows an empty operation compartment. This can be hidden very easily).</li>
+                <li>Save your <code>TimeTracker</code> model by selecting File > Save Project.</li>
+              </ol>
+            </p>
+
+            <p>
+              Congratulations! You have now specified the <code>Person</code> entity of the <code>TimeTracker</code>
+              application. We are now ready to generate some code. Please go back to the main tutorial page and
+              continue from where you left off.
+            </p>
+        </section>
+
+    </body>
+</document>

@@ -1,0 +1,99 @@
+#set ($className = "AttachmentHandler")
+#if ($stringUtils.isNotBlank($webserviceTypesPackage))
+package $webserviceTypesPackage;
+#end
+
+/**
+ * This class is used for the handling attachments within service
+ * operations.  It can for example publish attachments to the response of the
+ * current Axis2 message using {@link #storeAttachment(java.lang.Object, java.lang.String)}.
+ *
+ * @author Chad Brandon
+ */
+public class $className
+{
+    /**
+     * Sends the given <code>contents</code> using the appropriate current message
+     * response using DIME.
+     *
+     * @param contents the contents of the attachment
+     * @param contentType the content type (i.e. mime type)
+     * @param dime whether or not DIME should be used (instead of MIME)
+     */
+    public static void saveAttachment(
+        final Object contents,
+        final String contentType,
+        boolean dime)
+    {
+        if (contents != null)
+        {
+            // the message context stores all the request/response specific stuff
+            final org.apache.axis2.context.MessageContext messageContext = getCurrentMessageContext();
+            messageContext.addAttachment(convertContents(contents, contentType));
+            if (dime)
+            {
+                // - tell axis to use DIME
+                // TODO: does axis2 even support DIME?
+            }
+        }
+    }
+
+    /**
+     * Attempts to convert the given <code>contents</code> to an appropriate
+     * type which AXIS can handle as an attachment.
+     * @param contents the contents.
+     * @param contentType the content type (i.e. mime type)
+     * @return the converted type or the <code>contents</code> instance, if conversion
+     *         wasn't needed.
+     */
+    private static javax.activation.DataHandler convertContents(Object contents, String contentType)
+    {
+        javax.activation.DataSource dataSource = null;
+        if (contents instanceof byte[])
+        {
+            dataSource = new javax.mail.util.ByteArrayDataSource((byte[])contents, contentType);
+        }
+        return dataSource != null ? new javax.activation.DataHandler(dataSource) : null;
+    }
+
+    /**
+     * Extracts the attachments from the current message request.
+     *
+     * @return List of attachments or an empty array if none exist.
+     */
+    public static javax.activation.DataHandler[] getAttachments()
+    {
+        final org.apache.axis2.context.MessageContext messageContext = getCurrentMessageContext();
+        if (messageContext.getAttachmentMap() == null)
+        {
+            throw new RuntimeException("You can not retreieve attachments when you do " +
+                "not have the activation.jar and mail.jars available");
+        }
+        final java.util.Set contentIds = messageContext.getAttachmentMap().getContentIDSet();
+        int attachmentCount = contentIds.size();
+        final javax.activation.DataHandler[] attachments = new javax.activation.DataHandler[attachmentCount];
+        int count = 0;
+        for (final java.util.Iterator iterator = contentIds.iterator(); iterator.hasNext(); count++)
+        {
+            attachments[count] = messageContext.getAttachment((String)iterator.next());
+        }
+        return attachments;
+    }
+
+    /**
+     * Attempts to retrieve the current message context and throws an exception if it
+     * could not be retrieved.
+     *
+     * @return the current message context.
+     */
+    private static org.apache.axis2.context.MessageContext getCurrentMessageContext()
+    {
+        final org.apache.axis2.context.MessageContext messageContext = org.apache.axis2.context.MessageContext.getCurrentMessageContext();
+        if (messageContext == null)
+        {
+            throw new RuntimeException("The current message context could not be retrieved, " +
+                "its possible you don't have this class in a classloader available to the axis2 libraries");
+        }
+        return messageContext;
+    }
+}

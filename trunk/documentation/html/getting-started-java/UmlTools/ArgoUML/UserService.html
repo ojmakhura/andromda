@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create UserService</title>
+</head>
+<body>
+    <h2>Create UserService</h2>
+    <!------------------------- Intro Text ------------------------->
+    <p>
+        This page provides directions to create the <code>UserService</code> using ArgoUML.
+        The model is shown below for your reference.
+    </p>
+    <!------------------------- Main Text ------------------------->
+    <table width="100%" border="0">
+        <tbody>
+            <tr>
+                <!-- img src="images/UserService.png" alt="UserService" / -->
+                <td align="center" style="width: 100%">
+                    {mosimage}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        {mosimage}
+        <!-- img src="images/ServicePackage.png" alt="Containment Tree" / -->
+    </p>
+    <p>
+        We will create <code>UserService</code> in a package named <code>org.andromda.timetracker.service</code>.
+        When finished, the containment tree in ArgoUML will look like the screen shot
+        on the right.
+    </p>
+    <ol>
+        <li>In the TimeTracker model create a package called <code>service</code> under <code>
+            org.andromda.timetracker</code>.</li>
+        <li>In the Containment Tree on the left, right-click on the <code>service</code> package
+            and select Create Diagram&rarr;New Class Diagram. Select the new unnamed diagram
+            and type in Services as its name on the property panel.  
+            The diagram is created and opened in a new window.</li>
+        <li>Add a new class to the diagram and name it <code>UserService</code>.</li>
+        <li>Add the stereotype called Service to <code>UserService</code>.</li>
+        <li>Let's add the <code>getAllUsers()</code> method to <code>UserService</code>. Double-click
+            on the operations compartment (the bottom one) of the <code>UserService</code> class 
+            to create a new operation.  A new operation is inserted with the specification 
+            "+newOperation() : void". Write over this specification with this new one: 
+            "+getAllUsers() : UserVO[]".</li>
+        <li>Similar to creating new attributes, you can also create new operations from
+            the property panel if that fits your work style better.  Click on the 
+            New Attribute Tool {mosimage}
+            <!-- img src="images/ToolNewAttribute.png" alt="New Attribute Tool" / -->
+            and fill in the name, visibility, and return type on the Operation property panel
+            for the newly created operation.  The property panel provides more explicit
+            guidance, but typing a specification on the diagram tends to be faster for
+            experienced users.</li>
+        <li>Make sure your class diagram matches the one shown above.</li>
+        <li>Make sure that the ArgoUML explorer pane matches the screen shot shown above.</li>
+        <li>Save the model by selecting File&rarr;Save Project (or just type keyboard
+            accelerator Ctrl/S).</li>
+    </ol>
+    <p>
+        We are now ready to generate code for the <code>UserService</code>. Please go back
+        to the main tutorial page and continue from where you left off.
+    </p>
+</body>
+</html>

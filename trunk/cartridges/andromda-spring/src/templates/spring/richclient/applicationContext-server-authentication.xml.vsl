@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <bean id="basicProcessingFilter" class="org.acegisecurity.ui.basicauth.BasicProcessingFilter">
+        <property name="authenticationManager"><ref bean="${acegiAuthenticationManager}"/></property>
+        <property name="authenticationEntryPoint"><ref bean="authenticationEntryPoint"/></property>
+    </bean>
+
+    <bean id="authenticationEntryPoint" class="org.acegisecurity.ui.basicauth.BasicProcessingFilterEntryPoint">
+        <property name="realmName"><value>${securityRealm}</value></property>
+    </bean>
+
+#if ($stringUtils.isNotBlank($acegiAuthenticationManagerImplClass))
+    <bean id="${acegiAuthenticationManager}" class="$acegiAuthenticationManagerImplClass">
+        <property name="providers">
+            <list>
+                <ref bean="${acegiDaoAuthenticationProviderBeanName}"/>
+            </list>
+        </property>
+    </bean>
+    
+#end
+#if ($stringUtils.isNotBlank($acegiDaoAuthenticationProviderImplClass))
+    <bean id="${acegiDaoAuthenticationProviderBeanName}" class="${acegiDaoAuthenticationProviderImplClass}">
+        <property name="userDetailsService">
+            <ref bean="${acegiAuthenticationDaoBeanName}"/>
+        </property>
+#if ($stringUtils.isNotBlank($acegiDaoUserCacheBeanName))
+        <property name="userCache">
+            <ref bean="${acegiDaoUserCacheBeanName}"/>
+        </property>
+#end
+#if ($stringUtils.isNotBlank($acegiPasswordEncoderBeanName))
+        <property name="passwordEncoder">
+            <ref bean="${acegiPasswordEncoderBeanName}"/>
+        </property>
+#end
+#if ($stringUtils.isNotBlank($acegiPasswordSaltSourceBeanNamee))
+        <property name="saltSource">
+            <ref bean="${acegiPasswordSaltSourceBeanName}"/>
+        </property>
+#end
+    </bean>
+    
+#end
+#if ($stringUtils.isNotBlank($acegiDaoUserCacheImplClass))
+    <bean id="userCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation">
+#if (${acegiUserCacheConfigLocation} == 'default')
+            <value>classpath:WEB-INF/ehcache-server-authentication.xml</value>
+#else
+            <value>${acegiUserCacheConfigLocation}</value>
+#end
+        </property>
+    </bean>
+    
+    <bean id="userCacheBackend" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+        <property name="cacheManager">
+           <ref local="userCacheManager"/>
+        </property>
+        <property name="cacheName">
+           <value>${acegiUserCacheName}</value>
+        </property>
+    </bean>
+
+    <bean id="${acegiDaoUserCacheBeanName}" class="${acegiDaoUserCacheImplClass}">
+        <property name="cache">
+            <ref local="userCacheBackend"/>
+        </property>
+    </bean>
+    
+#end
+#if ($stringUtils.isNotBlank($acegiPasswordEncoderImplClass))
+    <bean id="${acegiPasswordEncoderBeanName}" class="${acegiPasswordEncoderImplClass}">
+    </bean>
+
+#end
+    <!-- applicationContext server authentication merge-point -->    
+</beans>

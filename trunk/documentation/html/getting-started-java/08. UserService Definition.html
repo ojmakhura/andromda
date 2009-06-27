@@ -1,0 +1,387 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>UserService Definition</title>
+</head>
+<body>
+    <h2>UserService Definition</h2>
+    <!------------------------- Intro Text ------------------------->
+    <p>
+        As discussed under <a href="/index.php?option=com_content&task=view&id=117&Itemid=89">
+            Development Approach</a>, our first iteration will focus on getting the search
+        screen to work. Here's a mockup of this screen:
+    </p>
+    <!------------------------- Main Text ------------------------->
+    <table width="100%" border="0">
+        <tbody>
+            <tr>
+                <!-- img src="Images/SearchScreen_new.jpg" alt="Search Screen" / -->
+                <td align="center" style="width: 100%">
+                    {mosimage}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        To support this screen, the service layer needs to provide two functions:
+    </p>
+    <ol>
+        <li>Ability to get a list of all users in order to populate the search criteria drop-downs
+            (<em>Submitter</em> and <em>Approver</em>)</li>
+        <li>Ability to get a list of all timecards that match a specific search criteria.</li>
+    </ol>
+    <h3>UserVO Value Object</h3>
+    <p>
+        Let's zoom in on the first function, i.e. get a list of all users. Let's decide
+        that we will create a service called <code>UserService</code> that will provide
+        this functionality via the method specified below:
+    </p>
+    <pre>
+public interface UserService
+{
+    public UserVO[] getAllUsers();
+}
+    </pre>
+    <p>
+        {mosimage}
+        <!-- img src="Images/UserVO.jpg" alt="UserVO" / -->
+    </p>
+    <p>
+        <code>UserVO</code> is a value object associated with the <code>User</code> entity
+        (refer to <a href="/index.php?option=com_content&task=view&id=108&Itemid=89">Application
+            Architecture</a> for a discussion of entities and value objects). At a minimum,
+        the UserVO will need two attributes for the drop-downs to function properly: the
+        user's id and login name. However, to make <code>UserVO</code> a little more reusable,
+        let's add two more attributes to it: user's first name and last name. Based on this
+        discussion, the <code>UserVO</code> should be modeled as shown on the right.
+    </p>
+    <p>
+        Note that we have marked the <code>UserVO</code> class with a stereotype of <code>ValueObject</code>.
+        This tells AndroMDA that <code>UserVO</code> is a ValueObject as opposed to other
+        type of model elements such as Entity or EmbeddedValue. Stereotypes determine what
+        pattern of code AndroMDA will generate for a model element. More specifically, they
+        determine which AndroMDA code generation templates will be triggered.
+    </p>
+    <p>
+        Note that we have marked one attribute to be of type <code>Long</code> and three
+        attributes to be of type <code>String</code>. These types should not be confused
+        with the Java types <code>java.lang.Long</code> and <code>java.lang.String</code>.
+        In model driven architecture, the model is kept independent of technology and hence
+        all model elements are defined in terms of platform independent types. So <code>Long</code>
+        and <code>String</code> in this context are platform independent types. When we
+        run AndroMDA to generate code, it will translate platform independent types into
+        platform dependent types such as <code>java.lang.Long</code> and <code>java.lang.String</code>.
+        If we were to use the same model to generate a .NET application, AndroMDA will translate
+        <code>Long</code> into <code>long?</code>and <code>String</code> into <code>System.String</code>,
+        which are .NET equivalents of <code>java.lang.Long</code> and <code>java.lang.String</code>.
+        As you can see, a key advantage of the model driven approach is that your investment
+        in the business models is preserved even as technologies come and go.
+    </p>
+    <p>
+        In addition to <code>UserVO</code>, we have modeled a type called <code>UserVO[]</code>.
+        This type is required to represent the return value from our service method. Unfortunately,
+        in UML there is no standard way to define arrays of objects, so we adopt this technique
+        as a workaround. Note that some tools, such as MagicDraw, will accept <code>UserVO[]</code>
+        as a method parameter or return type and store it as the type <code>UserVO</code>
+        with a <em>type modifier</em> of '<code>[]</code>' - however this is non-standard
+        UML and therefore can not be retrieved using standard UML APIs. Be careful, not
+        to model your parameters and return types this way. Instead, model these elements
+        using the workaround described above.
+    </p>
+    <p>
+        Now let us enter <code>UserVO</code> in the empty model that was created by the
+        AndroMDA application plugin. If you remember, this model was created at <code>timetracker/mda/src/main/uml/timetracker.xmi</code>.
+        Please follow one of the links below to edit the model with the UML tool of your
+        choice.
+    </p>
+    <ul>
+        <li><a href="/index.php?option=com_content&amp;task=view&amp;id=187&amp;Itemid=42"
+            target="_blank">ArgoUML</a></li>
+        <li><a href="/index.php?option=com_content&amp;task=view&amp;id=140&amp;Itemid=42"
+            target="_blank">MagicDraw 9.x</a></li>
+        <li><a href="/index.php?option=com_content&amp;task=view&amp;id=151&amp;Itemid=42"
+            target="_blank">MagicDraw 15.5</a></li>
+        <li><a href="/index.php?option=com_content&amp;task=view&amp;id=159&amp;Itemid=42"
+            target="_blank">RSM 6</a></li>
+    </ul>
+    <p>
+        Now let's ask AndroMDA to generate code for <code>UserVO</code>:
+    </p>
+    <ol>
+        <li>Open a Command Prompt and change your directory to <code>C:/timetracker</code>.</li>
+        <li>Execute the command <code>mvn install</code>. Make sure you get a <code>BUILD SUCCESSFUL</code>
+            message.</li>
+        <li>Keep the Command Prompt open for future builds.</li>
+    </ol>
+    <p>
+        Open the folder <code>C:/timetracker/common/target/src/org/andromda/timetracker/vo</code>
+        in Windows Explorer. Note that the <code>UserVO</code> class is generated here.
+        Open the class and review its contents. The <code>ValueObject</code> stereotype
+        triggers the generation of only one artifact in the code, namely the Java class
+        representing the value object. Later we will see examples of stereotypes that trigger
+        the generation of multiple artifacts.
+    </p>
+    <p>
+        <strong>Eclipse Users:</strong> Note that AndroMDA has also generated <code>.project</code>
+        and <code>.classpath</code> files in the <code>C:/timetracker</code> folder. To
+        view your source in Eclipse, follow the steps below:
+    </p>
+    <ol>
+        <li>Start Eclipse.</li>
+        <li>Choose Import from the File menu.</li>
+        <li>Select "Existing Projects into Workspace" and click Next.</li>
+        <li>In the Import dialog box, click Browse.</li>
+        <li>Browse to <code>C:/timetracker</code> and click OK.</li>
+        <li>Click Finish. The <code>timetracker</code> project is now available in Eclipse.</li>
+        <li>Right click on <code>timetracker</code> in Package Explorer and choose properties.</li>
+        <li>Click on Java Compiler and then check "Enable project specific properties".</li>
+        <li>Since we will be using JDK 5.0 features, set the Compiler compliance level to 5.0
+            and click OK.</li>
+        <li>Eclipse will now ask "Build the project now?". Answer Yes.</li>
+    </ol>
+    <p>
+        This setup procedure is required only once. In future, when you regenerate code
+        (resulting in new <code>.project</code> and <code>.classpath</code> files), simply
+        right-click on the <code>timetracker</code> project in Package Explorer and choose
+        Refresh.
+    </p>
+    <h3>UserService</h3>
+    <p>
+        {mosimage}
+        <!-- img src="Images/UserService.jpg" alt="UserService" / -->
+    </p>
+    <p>
+        Now that the <code>UserVO</code> is defined, we can model the <code>UserService</code>.
+        Based on our discussion above, the model for the <code>UserService</code> is shown
+        on the right. Please follow one of the links below to edit the model with the UML
+        tool of your choice.
+    </p>
+    <ul>
+        <li><a href="/index.php?option=com_content&amp;task=view&amp;id=188&amp;Itemid=42"
+            target="_blank">ArgoUML</a></li>
+        <li><a href="/index.php?option=com_content&amp;task=view&amp;id=137&amp;Itemid=42"
+            target="_blank">MagicDraw 9.x</a></li>
+        <li><a href="/index.php?option=com_content&amp;task=view&amp;id=152&amp;Itemid=42"
+            target="_blank">MagicDraw 15.5</a></li>
+        <li><a href="/index.php?option=com_content&amp;task=view&amp;id=160&amp;Itemid=42"
+            target="_blank">RSM 6</a></li>
+    </ul>
+    <p>
+        Now let's ask AndroMDA to generate code for <code>UserService</code>:
+    </p>
+    <ol>
+        <li>Execute the command <code>mvn install</code> in the Command Prompt. Make sure you
+            get a <code>BUILD SUCCESSFUL</code> message.</li>
+    </ol>
+    <p>
+        Unlike the <code>ValueObject</code>, a <code>Service</code> generates a trio of
+        classes: an interface, an abstract base class and a concrete implementation. Here
+        are the 3 classes generated for <code>UserService</code>
+    </p>
+    <ol>
+        <li><strong>UserService.java:</strong> <code>UserService</code> is the interface that
+            specifies the service methods. Since this interface is needed by client applications
+            as well as the service implementation, it is generated in the target branch of the
+            <code>common</code> project.</li>
+        <li><strong>UserServiceBase.java:</strong> <code>UserServiceBase</code> implements the
+            methods specified by the <code>UserService</code> interface. These methods essentially
+            do some parameter checking and then delegate the actual business functionality to
+            "handle" methods. Handle methods are expected to be implemented manually in the
+            <code>UserServiceImpl</code> class. <code>UserServiceBase</code> also manages transactional
+            behavior of the application. Transactions are started on entry of service methods
+            and finished on exit from these methods. <code>UserServiceBase.java</code> is generated
+            in the target branch of the <code>core</code> project.</li>
+        <li><strong>UserServiceImpl.java:</strong> <code>UserServiceImpl</code> is a concrete
+            extension of the <code>UserServiceBase</code> class. This is where developers are
+            expected to code the main business logic for the service methods. UserServiceImpl.java
+            is generated in the source branch of the <code>core</code> project.</li>
+    </ol>
+    <h3>UserService Test</h3>
+    <p>
+        In the spirit of Test Driven Development (TDD), we will write a test for the <code>UserService</code>
+        even before it is implemented. The whole point of TDD is to write robust tests that
+        verify the complete functionality of the system under test -- if the tests pass,
+        you have good confidence that the system will function correctly; if not, then you
+        have some work cut out for you :-). Of course, once the tests are defined, you must
+        write implementation code to make them pass. The good part is that you need to write
+        just enough code to make the tests pass - no more, no less! For our simple <code>getAllUsers()</code>
+        method, we will write a simple test that gets all the users and verifies the returned
+        values against what is expected.
+    </p>
+    <blockquote>
+        TODO: The test described below is completely manual -- we have not yet incorporated
+        a framework to populate the database with known values during the build process
+        and then to verify against those values. The test framework we use (a combination
+        of TestNG and DBUnit) is fully capable of doing that, so we will incorporate an
+        automated test in a future version of this tutorial. For now, we will simply inspect
+        the test results visually.
+    </blockquote>
+    <p>
+        We will use <a href="http://testng.org">TestNG</a> for testing our service layer.
+        TestNG is a powerful testing framework, very similar to JUnit, but offers several
+        additional features, such as data-driven testing, to simplify the testing process.
+        In order to make our testing process efficient, we will not test the service layer
+        on JBoss. Instead, we will configure our tests to talk directly to the POJO services,
+        bypassing the EJB container completely. Here's what we need to enable testing:
+    </p>
+    <ol>
+        <li>Open the POM file at <code>C:\timetracker\pom.xml</code>.</li>
+        <li>Search for the word <code>junit</code>. Comment out the dependency section around
+            <code>junit</code> as shown below:
+            <pre>
+        &lt;!--
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;3.8.1&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        --&gt;
+    </pre>
+        </li>
+        <li>Just below the commented <code>junit</code> section, add the following dependencies
+            to enable TestNG. Remember, if you get confused, you can always compare your code
+            against the <a id="fm_file" href="/images/stories/tutorial_java/timetracker-completed.zip">
+                finished application</a>.
+            <pre>
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.testng&lt;/groupId&gt;
+            &lt;artifactId&gt;testng&lt;/artifactId&gt;
+            &lt;version&gt;4.7&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+            &lt;classifier&gt;jdk15&lt;/classifier&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;log4j&lt;/groupId&gt;
+            &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+            &lt;version&gt;1.2.12&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+        &lt;dependency&gt;
+            &lt;groupId&gt;mysql&lt;/groupId&gt;
+            &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+            &lt;version&gt;5.0.4&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+            </pre>
+        </li>
+        <li>Now search for <code>maven-resources-plugin</code>, which is the last plugin in
+            the <code>plugins</code> section. Add the following two plugins after the <code>maven-resources-plugin</code>.
+            <pre>
+                &lt;plugin&gt;
+                    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                    &lt;configuration&gt;
+                        &lt;source&gt;1.5&lt;/source&gt;
+                        &lt;target&gt;1.5&lt;/target&gt;
+                    &lt;/configuration&gt;
+                &lt;/plugin&gt;
+                &lt;plugin&gt;
+                   &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                   &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+                   &lt;version&gt;2.2&lt;/version&gt;
+                   &lt;configuration&gt;
+                     &lt;suiteXmlFiles&gt;
+                       &lt;suiteXmlFile&gt;src/test/resources/testng.xml&lt;/suiteXmlFile&gt;
+                     &lt;/suiteXmlFiles&gt;
+                   &lt;/configuration&gt;
+                &lt;/plugin&gt;
+            </pre>
+        </li>
+    </ol>
+    <p>
+        That's all the plumbing we need for using TestNG. Now copy the entire <code>test</code>
+        directory located under <code>C:\timetracker-completed\core\src</code> to the corresponding
+        location in your own TimeTracker directory. After copying, delete the file <code>core\src\test\java\org\andromda\timetracker\service\TimeTrackingServiceTest.java</code>
+        in your TimeTracker directory - we are not yet ready to compile this file.
+    </p>
+    <p>
+        Explore the <code>core\src\test</code> directory to get familiar with its contents.
+        Use the steps below to guide you along and to run the test:
+    </p>
+    <ol>
+        <li><code>UserServiceTest</code> is located under <code>test\java\org\andromda\timetracker\service</code>.
+            The test is pretty simple. The <code>initializeTestSuite()</code> method gets a
+            reference to the <code>UserService</code>. This reference is used by the <code>testGetAllUsers()</code>
+            method to get all users and log them. <code>UserServiceTest</code> is shown below
+            for your convenience:
+            <pre>
+public class UserServiceTest {
+    private Log logger = LogFactory.getLog(UserServiceTest.class);
+    private UserService userService;
+
+    @Configuration(beforeSuite=true)
+    public void initializeTestSuite() {
+
+        // Initialize ServiceLocator
+        logger.info("Initializing ServiceLocator");
+        ServiceLocator locator = ServiceLocator.instance();
+        locator.init("testBeanRefFactory.xml", "beanRefFactory");
+
+        // Initialize UserService
+        logger.info("Initializing UserService");
+        userService = locator.getUserService();
+    }
+
+    @Test
+    public void testGetAllUsers() {
+
+        logger.info("testGetAllUsers:");
+        UserVO[] users = userService.getAllUsers();
+
+        for (int i=0; i&lt;users.length; i++) {
+            logger.info(users[i].getUsername());
+        }
+    }
+}
+            </pre>
+        </li>
+        <li>The directory <code>test\resources</code> contains configuration files needed for
+            testing.
+            <ul>
+                <li><code>log4j.xml</code> controls the logging behavior</li>
+                <li><code>testBeanRefFactory.xml</code> enables the tests to directly talk to the services</li>
+                <li><code>testng.xml</code> controls the behavior of TestNG itself</li>
+            </ul>
+        </li>
+        <li>Open the file <code>testng.xml</code> and note that <code>UserServiceTest</code>
+            is commented out. This mechanism is used to temporarily disable tests that are breaking
+            the build. Since we would like to start testing now, just uncomment the test. </li>
+        <li>Execute the following command in the <code>C:\timetracker</code> directory to run
+            the test.<br />
+            <code>mvn -f core/pom.xml test</code><br />
+            Note that <code>mvn install</code> will also run the test, but it will do everything
+            starting from regeneration of code. Since we have not changed the model after the
+            last code generation, we are simply asking Maven to run the tests in the core sub-project.
+            You will find that the test fails with the following message:
+            <pre>
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+org.apache.maven.surefire.booter.SurefireExecutionException: null;
+nested exception is java.lang.NullPointerException: null
+java.lang.NullPointerException
+        ...
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] There are test failures.
+[INFO] ------------------------------------------------------------------------
+[INFO] For more information, run Maven with the -e switch
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 8 seconds
+[INFO] Finished at: Sun Aug 27 21:41:48 EDT 2006
+[INFO] Final Memory: 6M/11M
+[INFO] ------------------------------------------------------------------------
+            </pre>
+            The test failed because initializeTestSuite() could not initialize the UserService
+            correctly. The reason for this is that Spring could not find a bean called 'sessionFactory'
+            which it was expecting. This problem will be fixed when we implement entities in
+            the middle-tier. </li>
+    </ol>
+    <h3>What's Next?</h3>
+    <p>
+        We now have our work cut out for us. We need to implement the <code>getAllUsers()</code>
+        method so it returns a <code>UserVO[]</code> even if there are no users in the database.
+        Click the <em>Next</em> link below to start our implementation.
+    </p>
+</body>
+</html>

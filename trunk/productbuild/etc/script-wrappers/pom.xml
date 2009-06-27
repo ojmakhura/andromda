@@ -1,0 +1,27 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda</groupId>
+        <artifactId>andromda</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-script-wrappers</artifactId>
+    <packaging>jar</packaging>
+    <name>AndroMDA Script Wrappers</name>
+	<description>Provides implementations of "Script Wrapper" classes, these classes are injected into class files in order to provide the ability to write your business logic in an interpreted manner</description>
+    <dependencies>
+        <dependency>
+            <groupId>bsh</groupId>
+            <artifactId>bsh</artifactId>
+            <version>2.0b4</version>
+        </dependency>
+        <dependency>
+            <groupId>groovy</groupId>
+            <artifactId>groovy-all-1.0-jsr</artifactId>
+            <version>06</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+    </build>
+</project>

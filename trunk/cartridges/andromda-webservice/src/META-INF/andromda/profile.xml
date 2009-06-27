@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<profile>
+    <documentation>
+        Actors represent roles within your model.  To designate that a role has access
+        to a given web service you must draw a dependency from an Actor to the <![CDATA[<<WebService>>]]>.
+    </documentation>
+    <elements>
+        <elementGroup name="Stereotypes">
+            <element name="SERVICE">
+                <documentation>
+                    Creates a WSDD file for each model element with
+                    this stereotype.  Each method to be exposed, must be
+                    stereotyped with the <![CDATA[<<WebServiceOperation>>]]> stereotype.
+                </documentation>
+                <value>Service</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE">
+                <documentation>
+                    Creates a WSDD service fragment and exposes ALL methods of the element
+                    as a web service.
+                </documentation>
+                <value>WebService</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="WEB_SERVICE_OPERATION">
+                <documentation>
+                    This is used in conjunction with the <![CDATA[<<Service>>]]> stereotype.
+                    Adds the method to the list of allowed methods
+                    which will be exposed as a web service.  You <strong>MUST</strong>
+                    place this stereotype on an operation if you want it exposed
+                    as a web service (unless you add the <![CDATA[<<WebService>>]]> stereotype to your class).
+                </documentation>
+                <value>WebServiceOperation</value>
+                <appliedOnElement>Service operation</appliedOnElement>
+            </element>
+            <element name="VALUE_OBJECT">
+                <documentation>
+                    Allows the definition of complex types.  These types can be related
+                    to each other through associations and if the association multiplicity
+                    is greater than 1, then an array reference will be generated (instead
+                    of a Collection).
+                </documentation>
+                <value>ValueObject</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="ENUMERATION">
+                <documentation>
+                    Allows the definition of enumerated types.  These types <strong>MUST</strong>
+                  define their attributes as <em>frozen</em>.
+                </documentation>
+                <value>Enumeration</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="NULLABLE">
+                <documentation>
+                    Allows you to define whether or not operation parameters can be nullable
+                    or <em>nillable</em> (in WSDL terms).  If this is <strong>NOT</strong>
+                    defined on a parameter, then a null check will be generated for that
+                    parameter on the service operation.
+                </documentation>
+                <value>Nullable</value>
+                <appliedOnElement>Service operation parameter</appliedOnElement>
+            </element>
+            <element name="PACKAGE_MAP">
+                <documentation>
+                    Defines a package which is mapped to a Schema Namespace, so that an .xsd
+                    file is created for this package and imported by the wsdl files that 
+                    reference the schema
+                </documentation>
+                <value>packageMap</value>
+                <appliedOnElement>package</appliedOnElement>
+            </element>
+            <element name="XML_SCHEMA">
+                <documentation>
+                    Defines a package which is mapped to a Schema Namespace, so that an .xsd
+                    file is created for this package and imported by the wsdl files that 
+                    reference the schema
+                </documentation>
+                <value>XmlSchema</value>
+                <appliedOnElement>package</appliedOnElement>
+            </element>
+            <element name="XML_ATTRIBUTE">
+                <documentation>
+                    Attribute, parameter is rendered as an XML attribute instead of an element. Overrides global default.
+                </documentation>
+                <value>XmlAttribute</value>
+                <appliedOnElement>attribute, parameter</appliedOnElement>
+            </element>
+            <element name="XML_ELEMENT">
+                <documentation>
+                    Attribute, parameter is rendered as an XML element instead of an attribute. Overrides global default.
+                </documentation>
+                <value>XmlElement</value>
+                <appliedOnElement>attribute, parameter</appliedOnElement>
+            </element>
+            <element name="NO_XML">
+                <documentation>
+                    Do not render class, parameter, property with Xml Jaxb annotations. Overrides global default.
+                </documentation>
+                <value>NoXml</value>
+                <appliedOnElement>class, attribute, parameter</appliedOnElement>
+            </element>
+        </elementGroup>
+        <elementGroup name="Tagged Values">
+            <element name="WEB_SERVICE_STYLE">
+                <documentation>
+                    Defines the style of the web service to be generated (i.e. wrapped, document, rpc).
+                    Default=wrapped.
+                </documentation>
+                <value>andromda_webservice_style</value>
+                <appliedOnElement>Service and WebService</appliedOnElement>
+            </element>
+            <element name="WEB_SERVICE_PARAMETER_STYLE">
+                <documentation>
+                    Defines the parameter style of the web service to be generated (i.e. bare, wrapped).
+                    Default=wrapped.
+                </documentation>
+                <value>andromda_webservice_parameter_style</value>
+                <appliedOnElement>Service and WebService</appliedOnElement>
+            </element>
+            <element name="WEB_SERVICE_USE">
+                <documentation>
+                    The use of the service to be generated (i.e. literal, encoded).
+                    Default=literal.
+                </documentation>
+                <value>andromda_webservice_use</value>
+                <appliedOnElement>Service and WebService</appliedOnElement>
+            </element>
+            <element name="WEB_SERVICE_PROVIDER">
+                <documentation>
+                    The provider to use for the service, by default is <code>RPC</code>
+                    which will use a plain java object as the provider.  Another value
+                    that can be specified is <code>EJB</code>, if this is specified,
+                    then its expected that either the EJB or Hibernate cartridge
+                    is being used with this cartridge. Use <code>JAX-WS</code> for jaxws or cxf.
+                </documentation>
+                <value>andromda_webservice_provider</value>
+                <appliedOnElement>Service and WebService</appliedOnElement>
+            </element>
+            <element name="WEB_WSDL_SOAP_ADDRESS">
+                <documentation>
+                    The WSDL SOAP Address to use for the service, by default is 
+                    <code>$webserviceHost:$webservicePort/$webContext/services</code>
+                </documentation>
+                <value>andromda_webservice_wsdlSoapAddress</value>
+                <appliedOnElement>Service and WebService</appliedOnElement>
+            </element>
+            <element name="ROLE_NAME">
+                <documentation>
+                    Optionally allows you to define the name of the role (if it needs
+                    to be different than the name of the actor that defines the role).
+                </documentation>
+                <value>andromda_role_name</value>
+                <appliedOnElement>An actor with a dependency to a <![CDATA[<<WebService>>]]></appliedOnElement>
+            </element>
+            <element name="ATTRIBUTE_FORM_DEFAULT">
+                <documentation>
+                    XML attributeFormDefault value for package-info.java on XmlSchema stereotype.
+                    XmlNsForm=QUALIFIED, UNQUALIFIED, default=UNQUALIFIED
+                </documentation>
+                <value>andromda_xml_attributeFormDefault</value>
+                <appliedOnElement>package</appliedOnElement>
+            </element>
+            <element name="ELEMENT_FORM_DEFAULT">
+                <documentation>
+                    XML elementFormDefault value for package-info.java on XmlSchema stereotype.
+                    XmlNsForm=QUALIFIED, UNQUALIFIED, default=QUALIFIED
+                </documentation>
+                <value>andromda_xml_elementFormDefault</value>
+                <appliedOnElement>package</appliedOnElement>
+            </element>
+            <element name="XML_SCHEMA_VALIDATION">
+                <documentation>
+                    Validate the incoming web service XML against the service wsdl/xsd schema.
+                </documentation>
+                <value>andromda_schema_validation</value>
+                <appliedOnElement>service, operation</appliedOnElement>
+            </element>
+            <element name="XML_NAMESPACE">
+                <documentation>
+                    XML package namespace, overrides default reversed package name.
+                </documentation>
+                <value>andromda_xml_namespace</value>
+                <appliedOnElement>package, attribute, parameter</appliedOnElement>
+            </element>
+            <element name="XML_XMLNS">
+                <documentation>
+                    XML package namespace abbreviation, overrides default sequentially numbered nsX.
+                    Each must be unique.
+                </documentation>
+                <value>andromda_xml_xmlns</value>
+                <appliedOnElement>package</appliedOnElement>
+            </element>
+            <element name="XML_NAME">
+                <documentation>
+                    XML attribute/element name, overrides default attribute/parameter name.
+                </documentation>
+                <value>andromda_xml_name</value>
+                <appliedOnElement>attribute, parameter</appliedOnElement>
+            </element>
+            <element name="XML_ADAPTER">
+                <documentation>
+                    Supplies type value for @XmlAdapter Jaxb annotation for attribute or element.
+                    Overrides global default for date, time, dateTime, integer XML types
+                </documentation>
+                <value>andromda_xml_adapter</value>
+                <appliedOnElement>attribute, parameter</appliedOnElement>
+            </element>
+            <element name="XML_TRANSIENT">
+                <documentation>
+                    Prevents the mapping of a Java type to XML.
+                </documentation>
+                <value>andromda_xml_transient</value>
+                <appliedOnElement>attribute, parameter</appliedOnElement>
+            </element>
+            <element name="XML_TYPE">
+                <documentation>
+                    Overrides the default schema type for this property or parameter. 
+                    i.e. mapping between from UML type to XML 
+                </documentation>
+                <value>andromda_xml_type</value>
+                <appliedOnElement>attribute, parameter</appliedOnElement>
+            </element>
+            <element name="JAXB_SIMPLE_BINDING_MODE">
+                <documentation>
+                    Overrides the default Jaxb simpleBindingMode for this service in wsdl2java. 
+                    default=true. 
+                </documentation>
+                <value>andromda_jaxb_simpleBindingMode</value>
+                <appliedOnElement>webservice</appliedOnElement>
+            </element>
+            <element name="JAXB_XJC_ARGUMENTS">
+                <documentation>
+                    Overrides the default Jaxb XJC arguments for this service in wsdl2java.
+                </documentation>
+                <value>andromda_jaxb_xjcArguments</value>
+                <appliedOnElement>webservice</appliedOnElement>
+            </element>
+        </elementGroup>
+    </elements>
+</profile>

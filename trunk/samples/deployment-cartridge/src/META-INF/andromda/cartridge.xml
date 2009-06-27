@@ -1,0 +1,32 @@
+<cartridge>
+     <templateObject name="date" className="java.util.Date" /> 
+
+     <template
+        path="templates/deployment/DeploymentReport.vsl"
+        outputPattern="DeploymentReport.xml"
+        outlet="deploymentreport"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="nodes">
+                <type name="org.andromda.cartridges.deployment.metafacades.NodeFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+     <template
+        path="templates/deployment/AntProject.vsl"
+        outputPattern="build.xml"
+        outlet="antprojects"
+        overwrite="true"
+        outputToSingleFile="false"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="node">
+                <type name="org.andromda.cartridges.deployment.metafacades.NodeFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+</cartridge>

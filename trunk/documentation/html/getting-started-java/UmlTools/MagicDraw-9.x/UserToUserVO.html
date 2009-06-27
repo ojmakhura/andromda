@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create User to UserVO Dependency</title>
+</head>
+<body>
+    <h2>Create User to UserVO Dependency</h2>
+    <!------------------------- Intro Text ------------------------->
+    <p>
+        This page provides directions to create the dependency from <code>User</code> to
+        <code>UserVO</code> using MagicDraw. The model is shown below for your reference.
+    </p>
+    <!------------------------- Main Text ------------------------->
+    <table width="100%" border="0">
+        <tbody>
+            <tr>
+                <!-- img src="Images/UserToUserVODependency.jpg" alt="User To UserVO Dependency" / -->
+                <td align="center" style="width: 100%">
+                    {mosimage}</td>
+            </tr>
+        </tbody>
+    </table>
+    <ol>
+        <li>Open the Value Objects class diagram in the <code>vo</code> package.</li>
+        <li>From the Containment Tree on the left, drag the <code>User</code> class on to the
+            diagram. Warning: It is important to bring in the existing <code>User</code> class
+            from the <code>domain</code> package into this diagram. DO NOT create a new <code>User</code>
+            class in this diagram. Doing so will create a new class in the <code>vo</code> package
+            - this is not our intention. All we need is a reference to the existing <code>User</code>
+            class in the <code>domain</code> package.</li>
+        <li>Select the Dependency tool {mosimage}
+            <!-- img src="Images/MagicDrawDependencyTool.jpg" alt="Dependency Tool" / -->
+            from the toolbar. Now left-click the mouse on the <code>User</code> class, drag
+            it to the <code>UserVO</code> class and release the mouse. A dependency relationship
+            is added between the two classes. When clicking and releasing the mouse make sure
+            you are in the region of the class name and not over an attribute or a method, otherwise
+            you will be creating dependecies between attributes and/or methods!</li>
+        <li>Make sure your class diagram matches the one shown above exactly.</li>
+        <li>Save your <code>TimeTracker</code> model by selecting File > Save Project.</li>
+    </ol>
+    <p>
+        Please go back to the main tutorial page and continue from where you left off.
+    </p>
+</body>
+</html>

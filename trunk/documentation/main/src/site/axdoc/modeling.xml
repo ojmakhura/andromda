@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
+        <author email="chdbrandon@yahoo.com">Chad Brandon</author>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>Modeling for AndroMDA</title>
+    </properties>
+    <body>
+        <section name="Modeling for AndroMDA">
+            <title>Modeling</title>
+            <p> AndroMDA is an automatic tool with a medium amount of
+                intelligence built into it. Such a tool always has to rely upon 
+                some clearly defined preconditions; in the case of AndroMDA, 
+                these preconditions are
+                <b>modeling conventions</b>. This means
+                that a UML model for use with AndroMDA cannot be structured 
+                arbitrarily but has to adhere to a certain structure that can 
+                be interpreted by AndroMDA.
+            </p>
+            <p> On the other hand, not too many constraints should
+                be imposed on the modeler - after all, a model should represent 
+                the conceptual reality of the customer's requirements and the 
+                structure of the application domain.
+            </p>
+            <p> To sum up it all up, we've tried to keep the number of
+                rules low in order to keep your freedom of modeling high.
+                Keep in mind: modeling standards/requirements will 
+                ultimately be dependantant on the implementation(s) of the cartridge(s) 
+                you employ at build time.  Each cartridge has required properties and modeling
+                conventions that must be followed.  See
+                <a href="andromda-cartridges/index.html">Cartridges</a> for
+                more information. In general, there are rules to follow (seen below) when you start 
+                sketching a design model and you want AndroMDA to generate your 
+                components smoothly.
+            </p>
+            <subsection name="General Modeling Rules">
+                <p>
+                    <strong>Stereotypes drive code generation!</strong>:
+                    UML Stereotypes are a kind of "label" that you 
+                    attach to modeling elements in order to classify them.
+                </p>
+                <p class="highlight">
+                    Please note that AndroMDA can now also generate code from templates
+                    based on properties of any model element found in the XMI, so
+                    theoretically it is possible to generate code without even using
+                    stereotypes.
+                </p>
+                <p>
+                    <b>Example:</b> You tag a CustomerService class
+                    with a
+                    <code><![CDATA[<<Service>>]]></code> stereotype.
+                    AndroMDA sees this stereotype, looks into its internal 
+                    dictionary of available code generation components (called 
+                    "cartridges") and finds the EJB cartridge. In the EJB
+                    cartridge, two templates correspond to the
+                    <code><![CDATA[<<Service>>]]></code>
+                    stereotype: SessionBean.vsl and SessionBeanImpl.vsl. AndroMDA uses the
+                    internal representation of CustomerService loaded from the model, 
+                    calls the processing engine twice, and two output files are generated:
+                    CustomerServiceBean.java and CustomerServiceBeanImpl.java.
+                </p>
+                <p>
+                    A small model, containing an element tagged with the
+                    <code><![CDATA[<<Service>>]]></code> stereotype,
+                    can be seen in this picture:
+                </p>
+                <img src="images/CarRentalCustomers.gif" width="845" height="442"/>
+                <p> Even though modeling will depend primarily on how the
+                    cartridge is implemented. There are some standard ways of 
+                    modeling which <strong>MUST</strong> be followed to ensure
+                    the model is <em>syntantically and semantically
+                    complete</em>, meaning the cartridge performing generation 
+                    has enough information on which to generate from.
+                </p>
+                <p> These are listed here.
+                    <ul>
+                        <li>
+                            <strong>Names:</strong>
+                            the general rule for all the names is to capitalize the 
+                            first letter of each concatenated word (i.e 
+                            exampleOfCapitalizationOfConcatenatedWords). This applies 
+                            to all model element names (methods, operations, 
+                            attributes, associations, association ends, etc.).
+                        </li>
+                        <li>
+                            <strong> Specify the type of ALL attributes and operation
+                            parameters. </strong> Some tools with allow you to 
+                            specify an attribute or operation without making you 
+                            specify it's type, but make sure you specify this, as a 
+                            cartridge performing generation will expect this 
+                            information.
+                        </li>
+                        <li>
+                            <strong>Specify visibility where visibiliy counts.</strong> 
+                            Attributes on generated output are <strong>ALWAYS</strong>
+                            private, however, the accessor and mutator of each attribute will
+                            have the visibilty that you define in the model.  For example:
+                            if you define the <em>name</em> attribute on your <em>Person</em>
+                            element to have a visibility of <strong>public</strong>, 
+                            then the accessor and mutator for that element will be 
+                            <strong>public</strong> as well, if you define the <em>name</em> 
+                            attribute's visibility as <strong>private</strong>, then the 
+                            accessor and mutator for attribute will be generated with a
+                           <strong>private</strong> visibility.
+                        </li>
+                        <li>
+                            <strong>Specify the multiplicities of both ends of ALL associations</strong>. 
+                            Cartridges use and require all multiplicity information.
+                        </li>
+                        <li>
+                            <strong> Make sure names of association ends making up an
+                            association are UNIQUE within the association. </strong> 
+                            If more than one association end of the same association is 
+                            the same name, there will be conflicts from the generated 
+                            output.
+                        </li>
+                        <li>
+                            <strong> Do not leave unused elements <em>dangling</em> in your model.</strong>
+                            One of the biggest causes of syntatic incompleteness is 
+                            the existence in the model of partially defined elements that are 
+                            undetected by the modeler because they do not reside in any 
+                            model diagram. Its easy to make the mistake of deleting the 
+                            element from the diagram but then forgetting to delete it 
+                            from the model as well.
+                        </li>
+                        <li>
+                            <strong> If an element CANNOT exist without another element, define the
+                            association end of the owning element as <code>composite aggregation</code>. 
+                            </strong> An association between a <em>house</em> and a <em>room</em> is a good 
+                            example of <code>composite aggregation</code>.  Destruction of the <em>house</em> 
+                            implies destruction of all <em>rooms</em> that the <em>house</em> contains.  
+                            Therefore the association end of the <em>house</em> to a <em>room</em> would be 
+                            defined as <code>composite aggregation</code> (i.e. a black diamond).
+                        </li>
+                        <li>
+                            <strong>Specify ordering where ordering matters.</strong>
+                            When using multivalued attributes and association ends you 
+                            should be able to specify whether or not these are ordered in 
+                            the modeling tool. Make sure you specify this if ordering does matter 
+                            for these multivalued properties since cartridges need to 
+                            be able to take advantage of this specification. For 
+                            example, if an association end was defined as ordered, a 
+                            cartridge generating to Java may specify the type as a
+                            <code>java.util.Set</code> instead of a
+                            <code>java.util.Collection</code> (if it was left
+                            unspecified or defined as unordered).
+                        </li>
+                        <li>
+                            <strong>Do NOT add getter and setter operations for attributes.</strong> 
+                            The cartridge will generate any required accessor and mutator operations needed at 
+                            generation time.
+                        </li>
+                        <li>
+                            <strong>Do NOT add getter and setter methods for association ends.</strong> 
+                            The cartridge will generate any required accessor and mutator operations 
+                            needed at generation time.
+                        </li>
+                        <li>
+                            <strong>Define and use <code>Datatypes</code> for simple types.</strong> 
+                            Use UML <code>Datatypes</code> for simple types such as String,
+                            Collection, Set, etc. instead of using the language 
+                            specific types which the tool may implement by default 
+                            (i.e. java.lang.String). You want to keep the model as 
+                            language independant as possible. Cartridges use mapping 
+                            files at generation time to map Datatypes to specific 
+                            language types (i.e. for Java, these could be: Collection <![CDATA[-->]]>
+                            java.util.Collection, Blob <![CDATA[-->]]> java.sql.Blob, etc.)
+                        </li>
+                    </ul>
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="$xmlEncoding"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            /WEB-INF/${applicationContext}
+#if ($acegiServiceSecurity)
+            /WEB-INF/${applicationContextServerAuthentication}
+#end
+#if ($stringUtils.isNotBlank($dataSource))
+            /WEB-INF/${applicationContextDataSource}
+#else
+            /WEB-INF/${applicationContextLocalDataSource}
+#end
+#if (!$manageables.empty)
+            /WEB-INF/applicationContext-manageable.xml
+#end
+#if (!$queues.empty || !$topics.empty)
+            /WEB-INF/${applicationContextJms}
+#end
+            <!-- root-contextConfigLocations merge-point -->
+        </param-value>
+    </context-param>
+
+#if ($acegiServiceSecurity)
+    <filter>
+        <filter-name>${serviceRemoteContext}_HTTP_BASIC_Authorization_Filter</filter-name>
+        <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
+        <init-param>
+            <param-name>targetClass</param-name>
+            <param-value>org.acegisecurity.ui.basicauth.BasicProcessingFilter</param-value>
+         </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>${serviceRemoteContext}_HTTP_BASIC_Authorization_Filter</filter-name>
+        <url-pattern>${serviceRemoteUrlPattern}/*</url-pattern>
+    </filter-mapping>
+
+#end
+    <listener>
+      <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>${serviceRemoteContext}</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>
+                /WEB-INF/${applicationContextServer}
+                <!-- web-contextConfigLocations merge-point -->
+            </param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>${serviceRemoteContext}</servlet-name>
+        <url-pattern>${serviceRemoteUrlPattern}/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>

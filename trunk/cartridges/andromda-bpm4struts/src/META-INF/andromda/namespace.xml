@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<namespace name="bpm4struts">
+    <components>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
+        <component name="profile">
+            <path>META-INF/andromda/profile.xml</path>
+        </component>
+    </components>
+    <properties>
+        <!-- namespace-propertyGroup merge-point -->
+        <propertyGroup name="Outlets">
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="actions">
+                <documentation>
+                    The location to which Struts actions are generated.
+                </documentation>
+            </property>
+            <property name="forms">
+                <documentation>
+                    The location to which Struts action forms are generated.
+                </documentation>
+            </property>
+            <property name="configuration">
+                <documentation>
+                    The location to which Struts configuration files are generated. These are the files
+                    that typically appear in WEB-INF, such as validation-rules.xml and tiles-defs.xml.
+                </documentation>
+            </property>
+            <property name="controllers">
+                <documentation>
+                    The location to which abstract controllers are generated.
+                </documentation>
+            </property>
+            <property name="controller-impls">
+                <documentation>
+                    The location to which the controller implementation classes are generated.
+                </documentation>
+            </property>
+            <property name="messages">
+                <documentation>
+                    The location to which message resource bundles are generated.
+                </documentation>
+            </property>
+            <property name="pages">
+                <documentation>
+                    application JSP pages, login pages and stylesheets are outputted here
+                </documentation>
+            </property>
+            <property name="server" required="false">
+                <documentation>
+                    The location where to store application server specific configuration, such as users.properties
+                    and roles.properties (in case security has been enabled)
+                </documentation>
+            </property>
+            <property name="decorators" required="false">
+                <documentation>
+                    The location where the displaytag table decorators will be generated (if any).
+                    Files generated into this outlet will not be overwritten upon regeneration, they
+                    are meant to be edited by hand.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="JSP pages">
+            <documentation>
+                Properties that directly affect the code generated into the JSPs.
+            </documentation>
+            <property name="preventDirectPageAccess">
+                <default>false</default>
+                <documentation>
+                    By enabling this property the cartridge will make sure JSPs are not accessible directly by the
+                    client: only the server can access them this way. It is generally good practice to enable it
+                    since only Struts actions are called
+                    but for some reason behavior is different on different machines, so we allow this feature to be
+                    toggled. Set to <code>true</code> if you want to prevent direct access to pages.
+                </documentation>
+            </property>
+            <property name="renderPageVariables">
+                <default>false</default>
+                <documentation>
+                    By enabling this property the cartridge will generate a table containing the current set of
+                    page-variables, this table (if any) will be shown in the upper part of the JSP page.
+                    This feature is particularly useful for debugging purposes or when giving
+                    a demonstration or when showing a prototype.
+                </documentation>
+            </property>
+            <property name="defaultDateFormat">
+                <default>dd/MM/yyyy</default>
+                <documentation>
+                    The default date format to use in case it has not been explicitely
+                    specified, for event parameters.
+                    Take a look
+                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">here</a>
+                    to see how to properly construct date formats.
+                </documentation>
+            </property>
+            <property name="defaultTimeFormat">
+                <default>HH:mm</default>
+                <documentation>
+                    The default time format to use when it has not been explicitely
+                    specified for event parameters. Take a look
+                    <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/text/SimpleDateFormat.html">here</a>
+                    to see how to properly construct time formats.
+                </documentation>
+            </property>
+            <property name="strictDateTimeFormat">
+                <default>false</default>
+                <documentation>
+                    Specifies whether or not date and time formats are to be strictly matched.
+                    This property takes either true or false as values. If set to true all dates and times
+                    entered by the end-user will fail validation if they do not strictly adhere to their given format.
+                    Note that this strictness can always be overriden locally
+                    using the @andromda.struts.view.field.format tagged value.
+                </documentation>
+            </property>
+            <property name="defaultInputColumnCount" required="false">
+                <documentation>
+                    If specified denotes the default length of text input fields,
+                    the value specifies the <code>size</code> attribute of the corresponding
+                    <code>input</code> or <code>textarea</code> element.
+                    Not speciying any valid value will make the cartridge ignore it and resort
+                    to the default browser value by not rendering any <code>size</code> attribute.
+                </documentation>
+            </property>
+            <property name="defaultInputRowCount" required="false">
+                <documentation>
+                    If specified denotes the default number of rows of <code>textarea</code> elements.
+                    Not speciying any valid value will make the cartridge ignore it and resort
+                    to the default browser value by not rendering any <code>size</code> attribute.
+                </documentation>
+            </property>
+            <property name="defaultTableExportTypes">
+                <default>xml csv excel pdf</default>
+                <documentation>
+                    The types of files to which a table can be exported.
+                </documentation>
+            </property>
+            <property name="xhtml">
+                <default>false</default>
+                <documentation>
+                    Whether or not xhtml should be rendered, as opposed to regular HTML.
+                </documentation>
+            </property>
+            <property name="welcomeFileName">
+                <default>index.jsp</default>
+                <documentation>
+                    The name of the JSP that is the welcome file.
+                </documentation>
+            </property>
+            <property name="maxBreadCrumbs">
+                <default>5</default>
+                <documentation>
+                    An integer denoting the maximum number of breadcrumbs to appear on a
+                    page, specify zero to disable breadcrumbs
+                </documentation>
+            </property>
+            <property name="onlineHelp">
+                <default>true</default>
+                <documentation>
+                    Denotes whether or not to render online help pages.
+                </documentation>
+            </property>
+            <property name="hints">
+                <default>true</default>
+                <documentation>
+                    Whether or not hints should be rendered in the generated JSP pages.
+                </documentation>
+            </property>
+            <property name="setPageVariablesInPageScope">
+                <default>true</default>
+                <documentation>
+                    Whether or not form page variables are copied into page scope.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Manageable Entities">
+            <documentation>
+                Properties related to the generation of the web-tier part of the manageable entities
+                (also known as the CRUD feature).
+            </documentation>
+            <property name="manageableFormName">
+                <default>manageableForm</default>
+                <documentation>
+                    Defines the name of the <code>form</code> that is passed along during application execution
+                    when using the pages related to <i>manageable entities</i>.
+                </documentation>
+            </property>
+            <property name="manageableReferenceParameterPrefix">
+                <default>ref_</default>
+                <documentation>
+                    The prefix used for hidden form input fields when pre-filling an entity reference after switching,
+                    this property should only be changed if you have form fields whose name could conflict with
+                    these extra fields.
+                </documentation>
+            </property>
+            <property name="manageableFieldMaxLength">
+                <default>36</default>
+                <documentation>
+                    The maximum number of characters to allow in a managed entity's
+                    table (remainder is truncated using an ellipsis).
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Validation and Security">
+            <documentation>
+                These properties configure the validation of user input as well as the security.
+            </documentation>
+            <property name="securityRealm" required="false">
+                <documentation>
+                    The security realm to use when security is enabled.
+                </documentation>
+            </property>
+            <property name="clientValidation">
+                <default>true</default>
+                <documentation>
+                    Denotes whether or not the client (web browser) should validate user input.
+                </documentation>
+            </property>
+            <property name="serverValidation">
+                <default>true</default>
+                <documentation>
+                    Denotes whether or not the server should validate user input.
+                </documentation>
+            </property>
+            <property name="disableValidationForHiddenFormFields">
+                <default>false</default>
+                <documentation>
+                    This property only makes sense when using the
+                    <a href="#clientValidation">clientValidation</a> and/or
+                    <a href="#serverValidation">serverValidation</a> namespace properties,
+                    it instructs the cartridge to disable validation for form fields
+                    that are hidden from the end-user.
+                </documentation>
+            </property>
+            <property name="validatorPackage">
+                <default>org.andromda.presentation.bpm4struts</default>
+                <documentation>
+                    The package to which the validator (containing extra commons-validator
+                    handlers) will be generated.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Messages and i18n">
+            <documentation>
+                Properties related to the configuration of messages and internationalization in general.
+            </documentation>
+            <property name="normalizeMessages">
+                <default>false</default>
+                <documentation>
+                    Denotes the way application resource messages ought to be generated.
+                    When messages are normalized it means that elements with the same name
+                    will reuse the same label, even if they are located in entirely different
+                    use-cases or pages.
+                    This results in resource bundles that are not only smaller in size but
+                    also more straightforward to translate. The downside is that it will be
+                    less evident to customize labels for certain fields (which is rarely the
+                    case anyway).
+                    For backward compatibility reasons this flag is disabled by default.
+                </documentation>
+            </property>
+            <property name="successMessagesKey">
+                <default>org.andromda.bpm4struts.successmessages</default>
+                <documentation>
+                    The property used to identify success messages, all messages are stored in the default
+                    location for message used with Struts (in session scope, under Globals.MESSAGE_KEY), but
+                    this property distinguishes those mesage from the other ones. You would only need to change
+                    this value when you have messages already stored with this property and you want to avoid
+                    conflicts.
+                </documentation>
+            </property>
+            <property name="warningMessagesKey">
+                <default>org.andromda.bpm4struts.warningmessages</default>
+                <documentation>
+                    The property used to identify warning messages, all messages are stored in the default
+                    location for message used with Struts (in session scope, under Globals.MESSAGE_KEY), but
+                    this property distinguishes those mesage from the other ones. You would only need to change
+                    this value when you have messages already stored with this property and you want to avoid
+                    conflicts.
+                </documentation>
+            </property>
+            <property name="errorMessagesKey">
+                <default>org.andromda.bpm4struts.errormessages</default>
+                <documentation>
+                    The property used to identify error messages, all messages are stored in the default
+                    location for message used with Struts (in session scope, under Globals.MESSAGE_KEY), but
+                    this property distinguishes those mesage from the other ones. You would only need to change
+                    this value when you have messages already stored with this property and you want to avoid
+                    conflicts.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Other">
+            <documentation>
+                Other various properties that couldn't be classified into another category.
+            </documentation>
+            <property name="virtualHost" required="false">
+                <documentation>
+                    The name to use for the virtual host (if one is required).  For example application.myserver.com.
+                </documentation>
+            </property>
+            <property name="defaultActionRedirect">
+                <default>false</default>
+                <documentation>
+                    Whether or not redirection should occur on all action forwards.
+                </documentation>
+            </property>
+            <property name="actionPathPrefix" required="false">
+                <documentation>
+                    The pattern to use when rendering the action paths in <code>struts-config.xml</code>, use
+                    {0} for the package, <code>/${use-case}/${action}</code> is always appended.
+                    For use-case <code>"org.andromda.test.My UseCase"</code> the <code>"login"</code> action
+                    could be rendered using <code>/abc/{0}</code> which would result in
+                    <code>/abc/org/andromda/test/MyUseCase/Login</code>. Make sure to start the prefix
+                    using a forward slash character.
+                </documentation>
+            </property>
+            <property name="actionFormScope">
+                <default>session</default>
+                <documentation>
+                    The default scope in which the action's <code>form</code> attribute will be placed when the
+                    action is executing. Normally it doesn't make sense to change this value from the default,
+                    however you may occasionaly need to override this value using the
+                    <a href="profile.html#@andromda_struts_action_form_scope">@andromda.struts.action.form.scope</a>
+                    for a given action. The possible values are:
+                    <ul>
+                        <li>none - doesn't set the form attribute in any scope</li>
+                        <li>request - sets the form attribute in the request scope</li>
+                        <li>session - sets the form attribute in the session scope</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="servicePackageNamePattern">
+                <default>{0}</default>
+                <documentation>
+                    The name of the package in which to create the service files, <code>{0}</code>
+                    can be used to denote the package in which the service has been modeled.
+                </documentation>
+            </property>
+            <property name="serviceAccessorPattern" required="false">
+                <documentation>
+                    The pattern to use when calling the backend code for <![CDATA[<<Service>>]]> lookups.
+                    For calling services you would use following patterns:
+                    <ul>
+                        <li><strong>Spring</strong>: <code>${application.package}.ServiceLocator.instance().get{1}()</code></li>
+                        <li><strong>EJB</strong>: <code>${myPackage}.{1}Util.getHome().create()</code></li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="generateTableDecorators">
+                <default>false</default>
+                <documentation>
+                    Whether or not to generate decorators for all tables.
+                </documentation>
+            </property>
+            <property name="tableDecoratorSuffix">
+                <default>Decorator</default>
+                <documentation>
+                    The string to append to table decorator class names. The base name of the table
+                    equals the name of the parameter representing the table in the UML model, with the
+                    first character capitalized.
+                </documentation>
+            </property>
+            <property name="dummyData">
+                <default>true</default>
+                <documentation>
+                    Denotes whether or not to render dummy data in places like controllers.
+                </documentation>
+            </property>
+            <property name="exceptionHandlerPattern">
+                <default>(.*)(\\{\\s*([\\w|\\.+]*)\\s*\\})(.*)</default>
+                <documentation>
+                    Used to define the pattern used for retrieving message resource keys
+                    from exceptions.  This is useful when exceptions are thrown from the business
+                    tier and you want to map these to messages in your presentation.
+                    Normally you won't need to change this pattern, however you may want to
+                    if you want to enable it to handle exceptions you may have no control over
+                    (i.e. SQLExceptions).  Currently the default pattern supports an exception with
+                    an embedded <em>{some.resource.key}</em> type key.
+                </documentation>
+            </property>
+            <property name="exceptionHandlerPackage">
+                <default>org.andromda.presentation.bpm4struts</default>
+                <documentation>
+                    The package to which the exception handler that retrieves exception keys will
+                    be generated.
+                </documentation>
+            </property>
+            <property name="servletPackage">
+                <default>org.andromda.presentation.bpm4struts</default>
+                <documentation>
+                    The package to which the custom servlet (extending the default Struts ActionServlet)
+                    is generated.
+                </documentation>
+            </property>
+            <property name="formName">
+                <default>form</default>
+                <documentation>
+                    Defines the name of the <code>form</code> that is passed along during application execution.
+                    This attribute is passed along in the session (usually, can also be request if
+                    <a href="#actionFormScope">actionFormScope</a> has been changed or its corresponding tagged value
+                    changed).  You'll normally never need to modify this value.
+                </documentation>
+            </property>
+            <property name="xmlEncoding">
+                <default>UTF-8</default>
+                <documentation>
+                    Encoding for generated XML files.
+                </documentation>
+            </property>
+            <property name="pageEncoding">
+                <default>UTF-8</default>
+                <documentation>
+                    Encoding for the responses sent back by the server (the pages).
+                </documentation>
+            </property>
+            <property name="generateWebXmlIds">
+                <default>false</default>
+                <documentation>
+                    Indicates whether or not to generate <code>id</code>
+                    attributes in the elements of the web.xml
+                    descriptor. Some application servers such as WebSphere
+                    need them, other application servers such as Resin
+                    can't handle them.
+                </documentation>
+            </property>
+        </propertyGroup>
+    </properties>
+</namespace>

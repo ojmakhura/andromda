@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="$xmlEncoding"?>
+
+<!DOCTYPE beans
+    PUBLIC "-//SPRING//DTD BEAN//EN"
+           "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+#foreach ($service in $services)
+#if ($service.remotable)
+#set ($remotingEnabled = true)
+#end
+#end
+    <bean id="$beanRefFactoryId"
+         class="org.springframework.context.support.ClassPathXmlApplicationContext">
+        <constructor-arg>
+           <list>
+                <value>$stringUtils.replace($applicationContext, '/', '.')</value>
+#if ($stringUtils.isNotBlank($dataSource))
+                <value>$stringUtils.replace($applicationContextDataSource, '/', '.')</value>
+#elseif($stringUtils.isNotBlank($driver))
+                <value>$stringUtils.replace($applicationContextLocalDataSource, '/', '.')</value>
+#end
+#if (!$destinations.empty)
+                <value>$stringUtils.replace($applicationContextJms, '/', '.')</value>
+#end
+#if (!$manageables.empty)
+                <value>$stringUtils.replace($applicationContextManageable, '/', '.')</value>
+#end
+#if ($remotingEnabled && !$ejbsEnabled)
+                <value>${applicationContextServer}</value>
+#if ($acegiServiceSecurity)
+                <value>$stringUtils.replace($applicationContextServerAuthentication, '/', '.')</value>
+#end
+#end
+                <!-- beanRefFactory merge-point -->
+           </list>
+        </constructor-arg>
+    </bean>
+#if ($ejbsEnabled)
+
+    <bean id="$beanRefFactoryEjbId"
+         class="org.springframework.context.support.ClassPathXmlApplicationContext">
+        <constructor-arg>
+           <list>
+#if($ejbViewType.equalsIgnoreCase('both'))
+                <value>$stringUtils.replace($applicationContextLocalEjb, '/', '.')</value>
+#else
+#if ($remoteEjbsPresent)
+                <value>$stringUtils.replace($applicationContextRemoteEjb, '/', '.')</value>
+#end
+#if ($localEjbsPresent)
+                <value>$stringUtils.replace($applicationContextLocalEjb, '/', '.')</value>
+#end
+#end
+#if ($remotingEnabled && $ejbsEnabled)
+                <value>${applicationContextServer}</value>
+#end
+                <!-- beanRefFactoryEjb merge-point -->
+           </list>
+        </constructor-arg>
+    </bean>
+#end
+    <!-- beanRefFactoryEjbXml merge-point -->
+
+</beans>

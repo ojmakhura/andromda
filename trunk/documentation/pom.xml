@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda</groupId>
+        <artifactId>andromda</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </parent>
+    <groupId>org.andromda.documentation</groupId>
+    <artifactId>andromda-documentation</artifactId>
+    <packaging>pom</packaging>
+    <name>AndroMDA Documentation</name>
+    <description>The top level module for all AndroMDA documentation</description>
+    <modules>
+        <module>samples/time-tracker-java-maven2/timetracker</module>
+        <module>main</module>
+        <module>getting-started</module>
+    </modules>
+</project>

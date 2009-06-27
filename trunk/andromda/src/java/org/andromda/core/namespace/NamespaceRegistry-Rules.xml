@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!-- Digester rules used to configure a NamespaceRegistry instance by Apache Digester -->
+<digester-rules>
+
+    <pattern value="namespace">
+
+        <object-create-rule
+              classname="org.andromda.core.namespace.NamespaceRegistry" />
+
+        <set-properties-rule>
+             <alias attr-name="name" prop-name="name" />
+        </set-properties-rule>
+
+        <set-properties-rule>
+             <alias attr-name="shared" prop-name="shared" />
+        </set-properties-rule>
+
+        <pattern value="components/component">
+
+            <object-create-rule
+                  classname="org.andromda.core.namespace.Component" />
+
+            <set-properties-rule>
+                 <alias attr-name="name" prop-name="name" />
+            </set-properties-rule>
+
+            <pattern value="path">
+
+                <call-method-rule
+                    methodname="addPath"
+                    paramcount="1"
+                    paramtypes="java.lang.String"/>
+
+                <call-param-rule
+                    paramnumber="0" />
+
+            </pattern>
+
+            <set-next-rule methodname="registerComponent" />
+
+        </pattern>
+
+        <pattern value="properties/propertyGroup/property">
+
+            <object-create-rule
+                classname="org.andromda.core.namespace.PropertyDefinition" />
+
+            <set-properties-rule>
+                <alias attr-name="name" prop-name="name" />
+            </set-properties-rule>
+
+            <set-properties-rule>
+                <alias attr-name="required" prop-name="required" />
+            </set-properties-rule>
+
+            <pattern value="default">
+
+                <call-method-rule
+                    methodname="setDefaultValue"
+                    paramcount="1"
+                    paramtypes="java.lang.String"/>
+
+                <call-param-rule
+                    paramnumber="0" />
+
+            </pattern>
+
+            <set-next-rule methodname="addPropertyDefinition" />
+
+        </pattern>
+
+    </pattern>
+
+</digester-rules>

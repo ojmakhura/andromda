@@ -1,0 +1,338 @@
+#set ($generatedFile = "${manageable.manageableDaoBaseFullPath}.java")
+// license-header java merge-point
+##
+#set ($memberList = $manageable.listManageableMembers(true))
+#set ($memberListArguments = $manageable.listManageableMembers(false))
+#if (!$manageable.identifiers.empty)
+#set ($identifier = $manageable.manageableIdentifier)
+#end
+##
+package $manageable.manageablePackageName;
+
+#if ($manageable.read || $manageable.delete)
+import ${hibernateUtils.basePackage}.Session;
+import ${hibernateUtils.basePackage}.Criteria;
+import ${hibernateUtils.criterionPackage}.MatchMode;
+import ${hibernateUtils.criterionPackage}.Expression;
+
+#end
+public final class $manageable.manageableDaoBaseName
+    extends ${hibernateUtils.springHibernatePackage}.support.HibernateDaoSupport
+    implements $manageable.manageableDaoName
+{
+    private $manageable.fullyQualifiedDaoName dao;
+
+    public void setDao($manageable.fullyQualifiedDaoName dao)
+    {
+        this.dao = dao;
+    }
+
+    protected $manageable.fullyQualifiedDaoName getDao()
+    {
+        return this.dao;
+    }
+
+#foreach ($member in $manageable.manageableAssociationEnds)
+#set ($entity = $member.type)
+    private $entity.fullyQualifiedDaoName $member.daoName = null;
+
+    public void ${member.daoSetterName}($entity.fullyQualifiedDaoName $member.daoName)
+    {
+        this.$member.daoName = $member.daoName;
+    }
+
+    protected $entity.fullyQualifiedDaoName ${member.daoGetterName}()
+    {
+        return this.$member.daoName;
+    }
+
+#end
+#foreach ($associatedClass in $manageable.allAssociatedClasses)
+#if($associatedClass.manageable)
+    private java.util.Set find${associatedClass.name}ByIds(${associatedClass.manageableIdentifier.type.fullyQualifiedName}[] ids)
+    {
+        final Session session = this.getSession(false);
+        try
+        {
+            final Criteria criteria = session.createCriteria(${associatedClass.fullyQualifiedEntityImplementationName}.class);
+            criteria.add(Expression.in("$associatedClass.manageableIdentifier.name", ids));
+            return new java.util.HashSet(criteria.list());
+        }
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
+    }
+
+#end
+#end
+#if ($manageable.create)
+    public $manageable.fullyQualifiedEntityName create($memberList)
+    {
+        final ${manageable.fullyQualifiedEntityName} entity = new ${manageable.fullyQualifiedEntityImplementationName}();
+#foreach ($member in $manageable.manageableAttributes)
+        entity.${member.setterName}($member.name);
+#end
+#foreach ($member in $manageable.manageableAssociationEnds)
+#if ($member.many)
+#set ($memberEntityName = "${member.name}Entities")
+        final java.util.Set $memberEntityName = ($member.name != null && ${member.name}.length > 0)
+            ? this.find${member.type.name}ByIds($member.name)
+            : java.util.Collections.EMPTY_SET;
+#else
+#set ($memberEntityName = "${member.name}Entity")
+        $member.type.fullyQualifiedName $memberEntityName = null;
+        if ($member.name != null)
+        {
+            $memberEntityName = ($member.type.fullyQualifiedName)${member.daoGetterName}().load($member.name);
+        }
+#end
+
+        entity.${member.setterName}($memberEntityName);
+
+#if ($member.many2many)
+#if ($member.otherEnd.navigable)
+        // set the other ends of the many2many association too
+        for (final java.util.Iterator iterator = ${memberEntityName}.iterator(); iterator.hasNext();)
+        {
+            final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
+            element.${member.otherEnd.getterName}().add(entity);
+        }
+#else
+        // we ought to be setting the other end of the many2many association here
+        // but the navigability on the other end has been disabled, therefore doing
+        // the following would break compilation: element.${member.otherEnd.getterName}()
+        // the result is that only one end of this association will be set
+#end
+#end
+#end
+
+        return (${manageable.fullyQualifiedEntityName})this.getDao().create(entity);
+    }
+
+#end
+#if ($manageable.read)
+    public $manageable.fullyQualifiedEntityName readById($identifier.type.fullyQualifiedName $identifier.name)
+    {
+        return getDao().load($identifier.name);
+    }
+
+#if($manageableSearchMatchMode == 'anywhere')
+#set($matchMode = 'MatchMode.ANYWHERE')
+#else
+#set($matchMode = 'MatchMode.START')
+#end
+    public java.util.List read($memberList)
+    {
+        final Session session = getSession(false);
+
+        try
+        {
+            final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
+
+#foreach ($member in $manageable.manageableAttributes)
+#if ($member.type.primitive)
+#if ($member.type.fullyQualifiedName == 'boolean')
+            if ($member.name) criteria.add(Expression.eq("$member.name", java.lang.Boolean.TRUE));
+    #else## indented so that the next line would appear indented in the output
+            criteria.add(Expression.eq("$member.name", new ${member.type.wrapperName}($member.name)));
+#end
+#else
+            if ($member.name != null)
+#if ($member.type.stringType)
+                criteria.add(Expression.ilike("$member.name", $member.name, $matchMode));
+#elseif ($member.type.dateType)
+            {
+                // we check whether or not the user supplied time information within this particular date argument
+                // if he/she didn't we assume he/she wishes to search in the scope of the entire day
+                final java.util.Calendar calendar = new java.util.GregorianCalendar();
+                calendar.setTime($member.name);
+                if ( calendar.get(java.util.Calendar.HOUR) != 0
+                     || calendar.get(java.util.Calendar.MINUTE) != 0
+                     || calendar.get(java.util.Calendar.SECOND) != 0
+                     || calendar.get(java.util.Calendar.MILLISECOND) != 0 )
+                {
+                    criteria.add(Expression.eq("$member.name", $member.name));
+                }
+                else
+                {
+                    calendar.add(java.util.Calendar.DATE, 1);
+                    criteria.add(Expression.between("$member.name", $member.name, calendar.getTime()));
+                }
+            }
+#elseif ($member.type.fullyQualifiedName == 'java.lang.Boolean')
+            if (${member.name}.booleanValue()) criteria.add(Expression.eq("$member.name", java.lang.Boolean.TRUE));
+#else
+            criteria.add(Expression.eq("$member.name", $member.name));
+#end
+#end
+#end
+#foreach ($member in $manageable.manageableAssociationEnds)
+#if ($member.many)
+            if ($member.name != null && ${member.name}.length > 0) criteria.createCriteria("$member.name").add(Expression.in("$member.manageableIdentifier.name", $member.name));
+#else
+#if ($member.type.primitive)
+            criteria.add(Expression.eq("$member.name", new ${member.manageableIdentifier.type.wrapperName}($member.name)));
+#else
+            if ($member.name != null) criteria.createCriteria("$member.name").add(Expression.eq("$member.manageableIdentifier.name", $member.name));
+#end
+#end
+#end
+#if ($manageable.maximumListSize > 0)
+            criteria.setMaxResults($manageable.maximumListSize);
+
+#end
+            return criteria.list();
+        }
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
+    }
+
+    public java.util.List readAll()
+    {
+        final Session session = getSession(false);
+
+        try
+        {
+            final Criteria criteria = session.createCriteria(${manageable.fullyQualifiedEntityImplementationName}.class);
+#if ($manageable.maximumListSize > 0)
+            criteria.setMaxResults($manageable.maximumListSize);
+#end
+            return criteria.list();
+        }
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
+    }
+
+#foreach ($member in $manageable.manageableAttributes)
+#if ($member.manageableGetterAvailable)
+    public $member.type.fullyQualifiedName ${member.getterName}($identifier.type.fullyQualifiedName $identifier.name)
+    {
+        try
+        {
+            $member.type.fullyQualifiedName value = $member.type.javaNullString;
+
+            final ${hibernateUtils.basePackage}.Query queryObject = super.getSession(false).createQuery("select entity.${member.name} from $manageable.fullyQualifiedEntityName as entity where entity.${identifier.name} = :$identifier.name");
+#if ($identifier.type.primitive)
+            queryObject.setParameter("$identifier.name", new ${identifier.type.wrapperName}($identifier.name));
+#else
+            queryObject.setParameter("$identifier.name", $identifier.name);
+#end
+            final java.util.Iterator iterator = queryObject.iterate();
+            if (iterator.hasNext())
+            {
+                value = ($member.type.fullyQualifiedName)iterator.next();
+            }
+
+            return value;
+        }
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
+    }
+
+#end
+#end
+#if (!$manageable.manageableAssociationEnds.empty)
+    public java.util.Map readBackingLists()
+    {
+        final java.util.Map lists = new java.util.HashMap();
+        final Session session = this.getSession();
+
+        try
+        {
+#foreach ($member in $manageable.manageableAssociationEnds)
+#set ($identifier = $member.manageableIdentifier)
+            lists.put("${member.name}", session.createQuery("select item.$identifier.name, item.$member.type.displayAttribute.name from $member.type.fullyQualifiedEntityName item order by item.$member.type.displayAttribute.name").list());
+#end
+        }
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
+        return lists;
+    }
+
+#end
+#end
+#if ($manageable.update)
+    public $manageable.fullyQualifiedEntityName update($memberList)
+    {
+#set ($identifier = $manageable.manageableIdentifier)
+        final $manageable.fullyQualifiedEntityName entity =#if($manageable.fullyQualifiedName != $manageable.generalizationRoot.fullyQualifiedName) (${manageable.fullyQualifiedName})#end this.getDao().load($identifier.name);
+
+#foreach ($member in $manageable.manageableAttributes)
+#if (!$member.equals($identifier))## the identifier is already present since we loaded the entity
+        entity.${member.setterName}(${member.name});
+#end
+#end
+#foreach ($member in $manageable.manageableAssociationEnds)
+#if ($member.many)
+#set ($memberEntityName = "${member.name}Entities")
+        final java.util.Set $memberEntityName = ($member.name != null && ${member.name}.length > 0)
+            ? this.find${member.type.name}ByIds($member.name)
+            : java.util.Collections.EMPTY_SET;
+#else
+#set ($memberEntityName = "${member.name}Entity")
+        $member.type.fullyQualifiedName $memberEntityName = null;
+        if ($member.name != null)
+        {
+            $memberEntityName =#if($member.type.fullyQualifiedName != $member.type.generalizationRoot.fullyQualifiedName) (${member.type.fullyQualifiedName})#end ${member.daoGetterName}().load($member.name);
+        }
+#end
+
+        entity.${member.setterName}($memberEntityName);
+
+#if ($member.many2many)
+#if ($member.otherEnd.navigable)
+        // set the other ends of the many2many association too
+        for (final java.util.Iterator iterator = ${memberEntityName}.iterator(); iterator.hasNext();)
+        {
+            final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
+            element.${member.otherEnd.getterName}().add(entity);
+        }
+#else
+        // we ought to be setting the other end of the many2many association here
+        // but the navigability on the other end has been disabled, therefore doing
+        // the following would break compilation: element.${member.otherEnd.getterName}()
+        // the result is that only one end of this association will be set
+#end
+#end
+#end
+
+        this.getDao().update(entity);
+        return entity;
+    }
+
+#end
+#if ($manageable.delete && $manageable.identifiersPresent)
+    public void delete(${identifier.type.fullyQualifiedName}[] ids)
+    {
+        final Session session = getSession(false);
+        try
+        {
+#if ($hibernateUtils.version3)
+            final ${hibernateUtils.basePackage}.Query queryObject =
+                session.createQuery("delete $manageable.generalizationRoot.fullyQualifiedEntityImplementationName where $identifier.name in (:ids)");
+            queryObject.setParameterList("ids", ids);
+            queryObject.executeUpdate();
+#else
+            final Criteria criteria = session.createCriteria(${manageable.generalizationRoot.fullyQualifiedEntityImplementationName}.class);
+            criteria.add(Expression.in("$identifier.name", ids));
+            final java.util.List list = criteria.list();
+            getHibernateTemplate().deleteAll(list);
+#end
+        }
+        catch (${hibernateUtils.basePackage}.HibernateException ex)
+        {
+            throw super.convertHibernateAccessException(ex);
+        }
+    }
+
+#end
+}

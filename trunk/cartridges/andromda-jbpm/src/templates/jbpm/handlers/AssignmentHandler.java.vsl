@@ -1,0 +1,21 @@
+#if (!$swimlane.assignmentExpression)
+#set ($generatedFile = "${swimlane.assignmentHandlerFullPath}.java")
+#if ($stringUtils.isNotBlank($swimlane.assignmentHandlerPackageName))
+package $swimlane.assignmentHandlerPackageName;
+
+#end
+/**
+$swimlane.getDocumentation(" * ")
+ */
+public abstract class $swimlane.assignmentHandlerClassName implements org.jbpm.taskmgmt.def.AssignmentHandler
+{
+    public final void assign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+        handleAssign(assignable, executionContext);
+    }
+
+    protected abstract void handleAssign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception;
+}
+#end

@@ -1,0 +1,59 @@
+#if (!$processDefinitions.empty)
+#set ($generatedFile = "ProcessManager.java")
+#if ($stringUtils.isNotBlank($clientPackage))
+#set ($packagePath = $stringUtils.replace($clientPackage,'.','/'))
+#set ($generatedFile = "${packagePath}/${generatedFile}")
+#end
+#if ($stringUtils.isNotBlank($clientPackage))
+package ${clientPackage};
+
+#end
+public final class ProcessManager
+{
+    /**
+     * Constructs the jBpm session factory, this will initialize the environment.
+     */
+    private final static org.jbpm.db.JbpmSessionFactory SESSION_FACTORY =
+        org.jbpm.db.JbpmSessionFactory.buildJbpmSessionFactory();
+
+	/**
+	 * Injects the process definitions into the database, this should only be done once.
+	 */
+	public static void injectAllProcessDefinitions() throws java.lang.Exception
+	{
+#foreach ($processDefinition in $processDefinitions)
+		final org.jbpm.graph.def.ProcessDefinition $stringUtils.lowerCamelCaseName($processDefinition.name)Definition =
+		    org.jbpm.graph.def.ProcessDefinition.parseXmlResource("${processDefinition.descriptorFullPath}");
+#end
+
+	    final org.jbpm.db.JbpmSession session = SESSION_FACTORY.openJbpmSession();
+        final org.jbpm.db.GraphSession graphSession = session.getGraphSession();
+
+	    session.beginTransaction();
+#foreach ($processDefinition in $processDefinitions)
+	    graphSession.saveProcessDefinition($stringUtils.lowerCamelCaseName($processDefinition.name)Definition);
+#end
+        session.commitTransactionAndClose();
+	}
+
+    public static void createProcessSchema() throws java.lang.Exception
+    {
+        SESSION_FACTORY.getJbpmSchema().createSchema();
+    }
+
+    public static void dropProcessSchema() throws java.lang.Exception
+    {
+        SESSION_FACTORY.getJbpmSchema().dropSchema();
+    }
+
+    public static void cleanProcessSchema() throws java.lang.Exception
+    {
+        SESSION_FACTORY.getJbpmSchema().cleanSchema();
+    }
+
+    public static boolean isProcessSchemaAvailable() throws java.lang.Exception
+    {
+        return SESSION_FACTORY.getJbpmSchema().hasJbpmTables();
+    }
+}
+#end

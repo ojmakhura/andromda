@@ -1,0 +1,97 @@
+<andromda>
+    <properties>
+        <property name="modelValidation">true</property>
+        <property name="cartridgeFilter">${filter}</property>
+    </properties>
+    <server>
+        <host>localhost</host>
+        <port>4444</port>
+        <loadInterval>5000</loadInterval>
+        <maximumFailedLoadAttempts>50</maximumFailedLoadAttempts>
+    </server>
+    <repositories>
+        <repository name="test">
+            <models>
+                <model type="uml-1.4" lastModifiedCheck="true">
+                    <uri>file:model1Uri1.xmi</uri>
+                    <uri>file:model1Uri2.xmi</uri>
+                    <transformations>
+                        <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>
+                        <transformation><uri>file:transformation2.xsl</uri></transformation>
+                    </transformations>
+                    <moduleSearchLocations>
+                        <location patterns="*.xmi, *.xml.zip">/path/to/model/modules1</location>
+                        <location>/path/to/model/modules2</location>
+                    </moduleSearchLocations>
+                    <modelPackages processAll="false">
+                        <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+                        <modelPackage>org::andromda::cartridges::test</modelPackage>
+                    </modelPackages>
+                    <constraints enforceAll="true">
+                        <constraint enforce="false">org::andromda::uml::metafacades::Entity::*</constraint>
+                        <constraint enforce="false">org::andromda::uml::somepackage**</constraint>
+                        <constraint enforce="false">org::*::*::somepackage**</constraint>
+                        <constraint enforce="false">**com::package**</constraint>
+                        <constraint>org::andromda::uml::metafacades::Service</constraint>
+                    </constraints>
+                </model>
+                <model><uri>file:model2.xmi</uri></model>
+                <model>
+                    <uri>file:model3.xmi</uri>
+                    <modelPackages processAll="true">
+                        <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+                    </modelPackages>
+                </model>
+            </models>
+        </repository>
+    </repositories>
+    <mappingsSearchLocations>
+        <location patterns="*.xml">/path/to/mappings/location1</location>
+        <location patterns="*.xml">/path/to/mappings/location2</location>
+    </mappingsSearchLocations>
+    <namespaces>
+        <namespace name="default">
+            <properties>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="sqlMappingsUri">${sql.mappings}</property>
+                <property name="jdbcMappingsUri">JDBC</property>
+                <property name="maxSqlNameLength" ignore="true"/>
+                <property name="foreignKeySuffix">_FK</property>
+                <property name="ejbJndiNamePrefix">${pom.groupId}</property>
+                 <!-- these masking properties allow you to configure the way
+                      your model element names are generated -->
+                <property name="classifierNameMask">none</property>
+                <property name="operationNameMask">none</property>
+                <property name="roleNameMask">none</property>
+                <property name="enumerationNameMask">none</property>
+                <property name="enumerationLiteralNameMask">upperunderscore</property>
+                <property name="entityNameMask">none</property>
+                <property name="entityPropertyNameMask">none</property>
+                <property name="parameterNameMask">none</property>
+            </properties>
+        </namespace>
+        <namespace name="spring">
+            <properties>
+                <property name="dataSource">${dataSource}</property>
+                <property name="hibernateDialect">${hibernate.db.dialect}</property>
+                <property name="hibernateShowSql">${hibernate.db.showSql}</property>
+                <property name="hibernateUseQueryCache">false</property>
+                <property name="hibernateQueryUseNamedParameters">true</property>
+                <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
+                <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
+                <property name="springTypesPackage">${pom.package}</property>
+                <property name="daos">${maven.andromda.core.generated.dir}</property>
+                <property name="dao-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="spring-configuration">${maven.andromda.core.generated.dir}</property>
+                <property name="services">${maven.andromda.core.generated.dir}</property>
+                <property name="service-impls">${maven.andromda.core.manual.dir}</property>
+                <!-- to remove any dependency on EJB, comment the following property -->
+                <property name="session-ejbs">${maven.andromda.core.generated.dir}</property>
+                <!-- uncomment to enable EJB security -->
+                <!-- <securityRealm>${pom.groupId}</securityRealm> -->
+            </properties>
+        </namespace>
+    </namespaces>
+</andromda>

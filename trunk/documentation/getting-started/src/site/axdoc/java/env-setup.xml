@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+    <properties>
+        <author email="naresh@andromda.org">Naresh Bhatia</author>
+        <title>Environment Setup</title>
+    </properties>
+
+    <body>
+        <section name="Prepare the Development Environment">
+            <p>
+                To start developing with AndroMDA prepare your development environment by
+                following the steps shown below. We assume that you are working on a Windows platform.
+            </p>
+
+            <subsection name="Install Java">
+                <p>
+                    Install J2SE Development Kit 5.0 (JDK 5.0) from
+                    <a href="http://java.sun.com/j2se/1.5.0/download.jsp" target="_blank">here</a>.
+                    This is the preferred version of the JDK for AndroMDA. We also support
+                    JDK version 1.4. If you prefer this version, you can download it from
+                    <a href="http://java.sun.com/j2se/1.4.2/download.html" target="_blank">here</a>.
+                </p>
+
+                <p>
+                    Make sure that the <code>JAVA_HOME</code> environment variable is pointing to
+                    the directory where you installed the JDK. It is possible you have this
+                    variable set already, but just to make sure here's how to check.
+                </p>
+                <p>
+                    <ol>
+                        <li>
+                            Go to the control panel and double-click on <code>System</code>.
+                            If you are a Windows XP user it's possible you have to open
+                            <code>Performance and Maintenance</code> before you will see
+                            the <code>System</code> icon.
+                        </li>
+                        <li>
+                            Go to the <code>Advanced</code> tab and click on
+                            <code>Environment Variables</code>
+                        </li>
+                        <li>
+                            Make sure you have set the <code>JAVA_HOME</code> variable set
+                            and it is pointing to the directory where you installed the JDK.
+                            If not, add/edit the variable and set it to the correct value,
+                            e.g. C:\Program Files\Java\jdk1.5.0. You may add the variable
+                            to the list of user variables or system variables.
+                        </li>
+                    </ol>
+                </p>
+            </subsection>
+
+            <subsection name="Install Maven">
+                <p>
+                    <a href="http://maven.apache.org/" target="_blank">Maven</a> is a
+                    software project management and comprehension tool. Based on the
+                    concept of a project object model (POM), Maven can manage a project's
+                    build, reporting and documentation from a central piece of information.
+                    We will now install Maven and configure it to download dependencies
+                    from the AndroMDA server whenever it needs to.
+                    <ol>
+                        <li>
+                            Download Maven 1.0.2 from this site:
+                            <a href="http://maven.apache.org/start/download.html" target="_blank">
+                            http://maven.apache.org/start/download.html</a>. Note that later
+                            versions of Maven are not yet supported by AndroMDA.
+                        </li>
+                        <li>
+                            Install the downloaded binary. (We will assume you installed it in
+                            <code>C:\Program Files\Apache Software Foundation\Maven 1.0.2</code>)
+                        </li>
+                        <li>
+                            If the installation would complain that the JAVA_HOME environment
+                            is not set then make sure you have correctly set it and close
+                            Windows Explorer or <a href="http://www.ghisler.com" target="_blank">
+                            Total Commander</a>, whatever it is you are using and start it again.
+                        </li>
+                        <li>
+                            Go to your <code>home</code> directory. (If your login is
+                            <code>foo</code> this means here:
+                            <code>C:\Documents and Settings\foo</code>)
+                        </li>
+                        <li>
+                            Create a file there, called <code>build.properties</code> and
+                            add the following line in there. This line instructs Maven to
+                            look for artifacts at the AndroMDA site in addition to the ibiblio site.<br/>
+<code>maven.repo.remote=http://www.ibiblio.org/maven,http://team.andromda.org/maven</code><br/>
+                        </li>
+                    </ol>
+                </p>
+            </subsection>
+
+            <subsection name="Setup environment variables">
+                <p>
+                    We have seen earlier how to set environment variables such as
+                    <code>JAVA_HOME</code>, it is strongly recommended to set the
+                    following variables before continuing. We repeat <code>JAVA_HOME</code>
+                    here just for completeness.
+                </p>
+                <p>
+                    <table>
+                        <tr>
+                            <th>Property</th>
+                            <th>Value</th>
+                            <th>Required?</th>
+                        </tr>
+                        <tr>
+                            <td>JAVA_HOME</td>
+                            <td>Java installation directory, e.g. <code>C:\Program Files\Java/jdk1.5.0</code></td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>MAVEN_HOME</td>
+                            <td>Maven installation directory, e.g.
+                                <code>C:\Program Files\Apache Software Foundation\Maven 1.0.2</code>
+                                (this may have already been set by the Maven installer)</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>MAVEN_OPTS</td>
+                            <td>Parameters to pass to the Java VM when running Maven. Set this
+                                value to: <code>-XX:MaxPermSize=128m -Xmx512m</code>
+                                (required to build large maven projects such as AndroMDA itself)</td>
+                            <td>No</td>
+                        </tr>
+                        <tr>
+                            <td>PATH</td>
+                            <td>This makes sure the system will search for console commands in
+                                the directories listed here. If this property already exists you
+                                should simply add <code>%JAVA_HOME%\bin;%MAVEN_HOME%\bin</code>
+                            </td>
+                            <td>Yes</td>
+                        </tr>
+                    </table>
+                </p>
+            </subsection>
+
+            <subsection name="Install AndroMDA Application plugin">
+                <p>
+                    Next we will download and install the AndroMDA Application plugin
+                    to the MAVEN_HOME/plugins directory. This plugin allows creation of
+                    Java starter applications that use AndroMDA. This is the only AndroMDA
+                    artifact that we will install explicitly. All other artifacts, such
+                    as AndroMDA cartridges, will be automatically downloaded by the
+                    Maven scripts generated by the plugin.
+                </p>
+
+                <p>
+                    To install the Application plugin open a Command Prompt and
+                    Execute the following command. Make sure you get a "BUILD SUCCESSFUL"
+                    message at the end of the command output.
+                </p>
+
+                <p><code>maven plugin:download -DgroupId=andromda -DartifactId=maven-andromdapp-plugin -Dversion=3.3</code></p>
+
+                <p>
+                    Notice that you will now have <code>maven-andromdapp-plugin-3.3.jar</code>
+                    installed at MAVEN_HOME/plugins
+                    (<code>C:\Program Files\Apache Software Foundation\Maven 1.0.2\plugins</code>
+                    for this example).
+                </p>
+            </subsection>
+
+            <subsection name="Install a UML tool">
+                <p>
+                    Install a tool that will allow you to model your applications in UML and
+                    export these models into a format that AndroMDA can understand. AndroMDA
+                    currently supports UML 1.4 and XMI 1.2. Please follow one of the links
+                    below to install the UML tool of your choice. (We invite UML tool vendors
+                    and open-source projects to test their tools with AndroMDA and supply
+                    installation instructions for inclusion in this section.)
+                </p>
+
+                <p>
+                    <a href="resources/uml-tools/argouml/install.html" target="_blank">ArgoUML 0.20</a>
+                    <a href="resources/uml-tools/magicdraw/install.html" target="_blank">MagicDraw 9.5</a>
+                </p>
+            </subsection>
+
+            <subsection name="Install a database">
+                <p>
+                    Install a database that is supported by Hibernate. Click
+                    <a href="http://www.hibernate.org/260.html" target="_blank">here</a> to see
+                    the list of supported databases. For the purpose of this tutorial we will
+                    assume that you have installed one of the following databases. If you have
+                    installed another database then you will have to change the Hibernate
+                    configuration accordingly.
+                    <ul>
+                        <li><strong>MySQL 5.0:</strong> MySQL is an open source database. You can download it from
+                        <a href="http://dev.mysql.com/downloads/mysql/5.0.html" target="_blank">here</a>. We recommend
+                        downloading the full Windows installation - not just the "Essentials". In addition, download and install
+                        <a href="http://dev.mysql.com/downloads/administrator/1.1.html" target="_blank">MySQL Administrator</a>
+                        as well as <a href="http://dev.mysql.com/downloads/query-browser/1.1.html" target="_blank">MySQL Query Browser</a>.
+                        These are GUI based tools that will make your development much easier. Finally, download and unzip
+                        <a href="http://dev.mysql.com/downloads/connector/j/3.1.html" target="_blank">MySQL Connector/J</a>
+                        (the MySQL JDBC driver) in a convenient directory. For the purpose of this tutorial we will assume that
+                        you have installed the driver at <code>C:\Program Files\MySQL\mysql-connector-java-3.1.12</code>.</li>
+
+                        <li><strong>PostgreSQL 8.1:</strong> PostgreSQL is an open source database. You can download it from
+                        <a href="http://www.postgresql.org/ftp/binary/v8.1.2/win32/" target="_blank">here</a>. The Postgres
+                        installation contains a GUI based administrative tool called pgAdmin III. JDBC drivers are also
+                        included as part of the installation.</li>
+
+                        <li><strong>Oracle 9i:</strong> Oracle 9i is an commercial database sold by
+                        <a href="http://www.oracle.com" target="_blank">Oracle</a>. We assume that you
+                        have the necessary distribution media to install it. Oracle 9i includes a GUI
+                        based administrative tool called Enterprise Manager. JDBC drivers are also
+                        included as part of the installation.</li>
+                    </ul>
+                </p>
+            </subsection>
+
+            <subsection name="Install Eclipse (Optional)">
+                <p>
+                    Eclipse is a popular open source IDE that is useful in developing Java
+                    applications. AndroMDA does not require the use of Eclipse. However we
+                    do recommend using it for development as it helps increase your
+                    productivity. You can download Eclipse from
+                    <a href="http://www.eclipse.org/downloads/">here</a>. Double-click the downloaded
+                    file to start the installation.
+                </p>
+            </subsection>
+        </section>
+
+        <section name="What's Next?">
+            <p>
+                Now that the development environment is set up we are ready to create the TimeTracker application.
+                Click <a href="create-application.html">here</a> to get started.
+            </p>
+        </section>
+    </body>
+</document>

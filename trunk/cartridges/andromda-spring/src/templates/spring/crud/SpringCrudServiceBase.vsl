@@ -1,0 +1,219 @@
+#set ($generatedFile = "${manageable.manageableServiceBaseFullPath}.java")
+// license-header java merge-point
+##
+#set ($memberList = $manageable.listManageableMembers(true))
+#set ($memberListArguments = $manageable.listManageableMembers(false))
+#if (!$manageable.identifiers.empty)
+#set ($identifier = $manageable.manageableIdentifier)
+#end
+##
+package $manageable.manageablePackageName;
+
+public final class $manageable.manageableServiceBaseName
+    implements $manageable.manageableServiceName
+{
+    private $manageable.fullyQualifiedManageableDaoName dao;
+
+    public void setDao($manageable.fullyQualifiedManageableDaoName dao)
+    {
+        this.dao = dao;
+    }
+
+    protected $manageable.fullyQualifiedManageableDaoName getDao()
+    {
+        return this.dao;
+    }
+
+#if ($manageable.create)
+    public $manageable.fullyQualifiedManageableValueObjectName create($memberList)
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
+    {
+#foreach ($member in $manageable.manageableMembers)
+#if ($member.required && !$member.type.primitive && !($member.identifier && !$member.display))
+        if ($member.name == null)
+        {
+            throw new IllegalArgumentException(
+                "${manageable.fullyQualifiedManageableServiceName}.create(${memberList}) - '${member.name}' can not be null");
+        }
+
+#end
+#end
+        return toValueObject(dao.create($memberListArguments));
+    }
+
+#end
+#if ($manageable.read)
+    public $manageable.fullyQualifiedManageableValueObjectName readById(${identifier.type.fullyQualifiedName} $identifier.name)
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
+    {
+        return toValueObject(dao.readById($identifier.name));
+    }
+
+    public java.util.List read($memberList)
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
+    {
+        return toValueObjects(dao.read($memberListArguments));
+    }
+
+    public java.util.List readAll()
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
+    {
+        return toValueObjects(dao.readAll());
+    }
+
+#foreach ($member in $manageable.manageableAttributes)
+#if ($member.manageableGetterAvailable)
+    public $member.type.fullyQualifiedName ${member.getterName}($identifier.type.fullyQualifiedName $identifier.name)
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
+    {
+#if (!$member.type.primitive)
+        if ($identifier.name == null)
+        {
+            throw new IllegalArgumentException(
+                "${manageable.fullyQualifiedManageableServiceName}.${member.getterName}($identifier.type.fullyQualifiedName $identifier.name) - '${identifier.name}' can not be null");
+        }
+
+#end
+        return dao.${member.getterName}($identifier.name);
+    }
+
+#end
+#end
+#if (!$manageable.manageableAssociationEnds.empty)
+    public java.util.Map readBackingLists()
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
+    {
+        return getDao().readBackingLists();
+    }
+
+#end
+#end
+#if ($manageable.update)
+    public $manageable.fullyQualifiedManageableValueObjectName update($memberList)
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
+    {
+#foreach ($member in $manageable.manageableMembers)
+#if ($member.required && !$member.type.primitive)
+        if ($member.name == null)
+        {
+            throw new IllegalArgumentException(
+                "${manageable.fullyQualifiedManageableServiceName}.update($memberList) - '${member.name}' can not be null");
+        }
+
+#end
+#end
+        return toValueObject(dao.update($memberListArguments));
+    }
+
+#end
+#if ($manageable.delete)
+    public void delete(${identifier.type.fullyQualifiedName}[] ids)
+        throws Exception
+#if ($ejbViewType.equalsIgnoreCase("remote"))
+            , java.rmi.RemoteException
+#end
+    {
+        if (ids == null)
+        {
+            throw new IllegalArgumentException(
+                "${manageable.fullyQualifiedManageableServiceName}.delete(${identifier.type.fullyQualifiedName}[] ids) - 'ids' can not be null");
+        }
+
+        dao.delete(ids);
+    }
+
+#end
+
+    private static java.util.List toValueObjects(java.util.Collection entities)
+    {
+        final java.util.List list = new java.util.ArrayList();
+
+        for (java.util.Iterator iterator = entities.iterator(); iterator.hasNext();)
+        {
+            list.add(toValueObject(($manageable.fullyQualifiedEntityName)iterator.next()));
+        }
+
+        return list;
+    }
+
+    private static $manageable.fullyQualifiedManageableValueObjectName toValueObject($manageable.fullyQualifiedEntityName entity)
+    {
+        final $manageable.fullyQualifiedManageableValueObjectName valueObject = new ${manageable.fullyQualifiedManageableValueObjectName}();
+
+#foreach ($member in $manageable.manageableAttributes)
+#if ($member.needsFileUpload)
+// (binary fields are not returned because of reasons of performance) ## no newline
+#end
+        valueObject.${member.setterName}(entity.${member.getterName}());
+#end
+
+#foreach ($member in $manageable.manageableAssociationEnds)
+#if ($member.many)
+        final java.util.Collection ${member.name} = entity.${member.getterName}();
+        if (${member.name} == null || ${member.name}.isEmpty())
+        {
+            valueObject.${member.setterName}(null);
+#if ($member.type.displayAttribute.name != $member.type.manageableIdentifier.name)
+            valueObject.${member.setterName}Labels(null);
+#end
+        }
+        else
+        {
+            final ${member.type.manageableIdentifier.type.fullyQualifiedName}[] values = new ${member.type.manageableIdentifier.type.fullyQualifiedName}[${member.name}.size()];
+#if ($member.type.displayAttribute.name != $member.type.manageableIdentifier.name)
+            final ${member.type.displayAttribute.type.fullyQualifiedName}[] labels = new ${member.type.displayAttribute.type.fullyQualifiedName}[${member.name}.size()];
+#end
+            int counter = 0;
+            for (final java.util.Iterator iterator = ${member.name}.iterator(); iterator.hasNext();counter++)
+            {
+                final $member.type.fullyQualifiedName element = ($member.type.fullyQualifiedName)iterator.next();
+                values[counter] = element.${member.type.manageableIdentifier.getterName}();
+#if ($member.type.displayAttribute.name != $member.type.manageableIdentifier.name)
+                labels[counter] = element.${member.type.displayAttribute.getterName}();
+#end
+            }
+            valueObject.${member.setterName}(values);
+#if ($member.type.displayAttribute.name != $member.type.manageableIdentifier.name)
+            valueObject.${member.setterName}Labels(labels);
+#end
+        }
+#else
+#if ($member.type.manageableIdentifier)
+        final $member.type.fullyQualifiedName $member.name = entity.${member.getterName}();
+#if (!$member.type.primitive)
+        if ($member.name != null)
+#end
+        {
+            valueObject.${member.setterName}(${member.name}.${member.type.manageableIdentifier.getterName}());
+#if ($member.type.displayAttribute.name != $member.type.manageableIdentifier.name)
+            valueObject.${member.setterName}Label(${member.name}.${member.type.displayAttribute.getterName}());
+#end
+        }
+#end
+#end
+
+#end
+        return valueObject;
+    }
+}

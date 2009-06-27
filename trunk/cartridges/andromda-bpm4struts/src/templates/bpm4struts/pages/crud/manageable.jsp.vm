@@ -1,0 +1,155 @@
+##
+##
+##
+#macro ( renderHiddenAttribute $field $indent )
+${indent}<html:hidden name="$manageableFormName" property="$field.name"/>
+#end
+##
+##
+##
+#macro ( renderAttribute $field $indent )
+#set ($quote ='"')
+#if($field.fieldRowCount)#set($rowCount=" rows=$quote$field.fieldRowCount$quote")#else#set($rowCount='')#end
+#if($field.widgetType == "textarea" && $field.fieldColumnCount)#set($columnCount=" cols=$quote$field.fieldColumnCount$quote")#elseif($field.fieldColumnCount)#set($columnCount=" size=$quote$field.fieldColumnCount$quote")#else#set($columnCount='')#end
+#if ($field.type.fullyQualifiedName == 'boolean' || $field.type.fullyQualifiedName == 'java.lang.Boolean')
+${indent}<html:checkbox name="$manageableFormName" property="$field.name" styleClass="criteriaField" styleId="$field.name"/>
+#elseif ($field.type.enumeration)
+${indent}<html:select name="$manageableFormName" property="$field.name"$columnCount>
+${indent}    <option value=""><bean:message key="select.option.blank"/></option>
+#foreach ($literal in $field.type.literals)
+#if ($literal.type.stringType)#set ($quote = '')#else#set ($quote = '"')#end
+${indent}    <html:option value=${quote}${literal.enumerationValue}${quote}>$literal.name</html:option>
+#end
+${indent}</html:select>
+#elseif ($field.type.dateType)
+${indent}<html:text name="$manageableFormName" property="${field.name}AsString" styleClass="criteriaField"$columnCount styleId="$field.name"/>
+${indent}<html:img page="/layout/calendar/calendar.gif" styleId="${field.name}_trigger" styleClass="calendar"/>
+${indent}<script type="text/javascript">
+#if ($xhtml == "true")
+${indent}//<![CDATA[
+#else
+${indent}//<!--
+#end
+#set ($calendarFieldFormat = $dateUtils.formatJavaToPerl($field.dateFormat))
+${indent}    Calendar.setup({
+${indent}        inputField     :    "$field.name",
+${indent}        ifFormat       :    "$calendarFieldFormat",
+${indent}        daFormat       :    "$calendarFieldFormat",
+${indent}        showsTime      :    $dateUtils.containsTimeFormat($calendarFieldFormat),
+${indent}        button         :    "${field.name}_trigger",
+${indent}        singleClick    :    true
+${indent}    });
+#if ($xhtml == "true")
+${indent}//]]>
+#else
+${indent}//-->
+#end
+${indent}</script>
+#elseif ($field.needsFileUpload)
+${indent}<html:file name="$manageableFormName" property="$field.name" styleClass="criteriaField"$columnCount styleId="$field.name"/>
+#elseif ($field.widgetType == "textarea")
+${indent}<html:$field.widgetType name="$manageableFormName" property="$field.name" styleClass="criteriaField"$columnCount$rowCount styleId="$field.name"/>
+#else
+${indent}<html:$field.widgetType name="$manageableFormName" property="$field.name" styleClass="criteriaField"$columnCount styleId="$field.name"/>
+#end
+#end
+##
+##
+##
+#macro ( renderAssociationEnd $field $indent )
+${indent}<c:choose>
+#set ($list = "${manageableFormName}.${field.name}BackingList")
+#set ($test = "empty $list")
+${indent}    <c:when test="${${test}}">
+${indent}        <select name="$field.name" disabled="disabled"$columnCount/>
+${indent}    </c:when>
+${indent}    <c:otherwise>
+#if ($field.type.resolveable)
+${indent}        <select name="$field.name"$columnCount#if($field.many) multiple="multiple"#end>
+#if (!$field.many)
+${indent}            <option value=""><bean:message key="select.option.blank"/></option>
+#end
+${indent}            <c:forEach var="valueLabel" items="${${list}}">
+#set ($value = '${valueLabel[0]}')
+#set ($label = '${valueLabel[1]}')
+#if ($member.many)
+#set ($items = "${manageableFormName}.$field.name")
+                        <option value="$value"<collections:contains item="${valueLabel}" array="${${items}}"> selected="selected"</collections:contains>>$label</option>
+#else
+#set ($test = "valueLabel[0] eq ${manageableFormName}.$field.name")
+${indent}                <c:choose>
+${indent}                    <c:when test="${${test}}">
+${indent}                        <option value="$value" selected="selected">$label</option>
+${indent}                    </c:when>
+${indent}                    <c:otherwise>
+${indent}                        <option value="$value">$label</option>
+${indent}                    </c:otherwise>
+${indent}                </c:choose>
+#end
+${indent}            </c:forEach>
+${indent}        </select>
+#else
+${indent}        <html:text name="$manageableFormName" property="$field.name"$columnCount/>
+#end
+${indent}    </c:otherwise>
+${indent}</c:choose>
+#end
+##
+##
+##
+#macro ( renderAssociationLink $field $indent )
+#if ($field.type.manageable)## only render the link when the entity can be managed too
+#if ($stringUtils.isNotBlank($securityRealm) && !$field.type.users.empty)
+${indent}<logic:present role="#commaSeparatedNames($field.type.users)">
+#end
+#if ($field.required)
+${indent}    <nobr><html:link action="$field.type.actionPath"><bean:message key="$field.messageKey"/></html:link> <div class="important">*</div></nobr>
+#else
+${indent}    <html:link action="$field.type.actionPath"><bean:message key="$field.messageKey"/></html:link>
+#end
+#if ($stringUtils.isNotBlank($securityRealm) && !$field.type.users.empty)
+${indent}</logic:present>
+${indent}<logic:notPresent role="#commaSeparatedNames($field.type.users)">
+#if ($field.required)
+${indent}    <nobr><bean:message key="$field.messageKey"/> <div class="important">*</div></nobr>
+#else
+${indent}    <bean:message key="$field.messageKey"/>
+#end
+${indent}</logic:notPresent>
+#end
+#end
+#end
+##
+## renders Javascript code executed when copying a row into the criteria field
+##
+#macro ( renderJavascriptCopyRow $manageable )
+enableUpdate(true);## no newline
+setFields(## no newline
+#foreach($member in $manageable.manageableAttributes)
+#set($property = "row.${member.name}")## by default we take the property straight for the row value object
+#if ($member.type.enumeration)
+'<formatting:escape language="javascript">${${property}}</formatting:escape>',## no newline
+#elseif ($member.type.fullyQualifiedName == 'boolean' || $member.type.fullyQualifiedName == 'java.lang.Boolean')
+${${property}},## no newline
+#elseif ($member.type.dateType)
+#set($property = "${member.name}Formatted")## by default we take the property straight for the row value object
+'<formatting:escape language="javascript">${${property}}</formatting:escape>',## no newline
+#elseif ($member.needsFileUpload)## we can't fill a file-upload widget with the value from the row, so we do nothing here
+#else
+'<formatting:escape language="javascript">${${property}}</formatting:escape>',## no newline
+#end
+#end
+#foreach($member in $manageable.manageableAssociationEnds)
+#set($property = "row.${member.name}")## by default we take the property straight for the row value object
+'<formatting:escape language="javascript">${${property}}</formatting:escape>',## no newline
+#end
+this.form);## no newline
+#end
+##
+## convenient helper for converting collections into strings
+##
+#macro (commaSeparatedNames $items)
+#set($comma='')
+#foreach($item in $items)${comma}${item.name}#set($comma=',')#end
+#end
+##

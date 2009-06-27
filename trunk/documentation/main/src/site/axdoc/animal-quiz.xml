@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - The Animal Quiz sample application</title>
+    </properties>
+
+    <body>
+
+        <section name="The Animal Quiz sample application">
+            <p>
+            The animal quiz sample application is one of multiple samples showing what you can do
+            with AndroMDA. In order to get the sources for this sample you are required to download
+            an AndroMDA 3.x distribution.
+            </p>
+            <p>
+                This sample consists of a single use case generated using the following cartridges:
+                <table>
+                    <tr>
+                        <th>Tier</th>
+                        <th>Technology</th>
+                        <th>Cartridge</th>
+                    </tr>
+                    <tr>
+                        <td>Persistence (Hibernate Cartridge)</td>
+                        <td>Hibernate 2.x</td>
+                        <td>andromda-hibernate-cartridge</td>
+                    </tr>
+                    <tr>
+                        <td>Service/Business (Spring Cartridge)</td>
+                        <td>Spring 1.2.x</td>
+                        <td>andromda-spring-cartridge</td>
+                    </tr>
+                    <tr>
+                        <td>Web Services</td>
+                        <td>Axis 1.2 (wrapped style)</td>
+                        <td>andromda-webservice-cartridge</td>
+                    </tr>
+                    <tr>
+                        <td>Presentation</td>
+                        <td>Struts 1.2.4</td>
+                        <td>andromda-bpm4struts-cartridge</td>
+                    </tr>
+                </table>
+            </p>
+            <p>
+                Make sure to initialize your database by issuing <code>maven create-schema</code> at the command prompt.
+                This will execute
+                <code>core/target/create-schema.sql</code> which contains HSQLDB compatible DDL statements
+                that will setup the required tables for the application. Please note that you might need to
+                configure JBoss to allow TCP/IP connections to the embedded database. The schema can be dropped
+                by issuing <code>maven drop-schema</code> which executes
+                <code>app/target/drop-schema.sql</code>.
+            </p>
+            <p>
+                When playing the game the server will ask you to keep an animal in mind, it will keep guessing
+                until it has exhausted its list of guesses.
+            </p>
+            <p>
+                The server will either try to guess your animal or ask a question so it can narrow down the list
+                of possible animals. You will need to answer the question honestly (no cheating! :-) ).
+            </p>
+            <p>
+                There are two scenarios to a game-over. Either the server guesses your animal correctly or
+                it fails in doing so. In the latter case the server will ask for your animal.
+                It will propose you to enter the animal followed by a question that will distinguishes this animal
+                from the last one guessed, this way it is able to use this animal in future games..
+            </p>
+            <p>
+                This application has been generated from a UML model modeled using
+                <a href="http://www.magicdraw.com">MagicDraw 9.5</a>, you can find the model
+                <a href="resources/AnimalQuiz.xml.zip">here</a>, this file contains a zipped XMI 1.4.
+            </p>
+            <p>
+                A running instance of this sample has been put online for everyone to try out:
+                <a href="http://team.andromda.org/animal-quiz">http://team.andromda.org/animal-quiz</a>.
+            </p>
+        </section>
+
+    </body>
+</document>

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="$xmlEncoding"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <!-- ========================= JMS DEFINITIONS ========================= -->
+
+#if ($jbossMq)
+    <!-- JNDI Environment Template -->
+    <bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate">
+        <property name="environment">
+            <props>
+                <prop key="java.naming.factory.initial">$jmsInitialContextFactory</prop>
+                <prop key="java.naming.provider.url">$jmsProviderUrl</prop>
+                <prop key="java.naming.factory.url.pkgs">$jmsUrlPackagePrefixes</prop>
+            </props>
+        </property>
+    </bean>
+
+#end
+#foreach ($destination in $destinations)
+#if ($jbossMq)
+    <bean id="${destination.beanName}Destination"
+        class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiTemplate">
+            <ref bean="jndiTemplate"/>
+        </property>
+        <property name="jndiName">
+#if ($destination.topicMetaType)
+            <value>$jmsTopicNamePrefix$destination.name</value>
+#else
+            <value>$jmsQueueNamePrefix$destination.name</value>
+#end
+        </property>
+    </bean>
+#elseif ($activeMq)
+#if ($destination.topicMetaType)
+#set ($activeMqDestinationClass = "org.apache.activemq.command.ActiveMQTopic")
+#else
+#set ($activeMqDestinationClass = "org.apache.activemq.command.ActiveMQQueue")
+#end
+    <bean id="${destination.beanName}Destination" class="$activeMqDestinationClass" autowire="constructor">
+        <constructor-arg>
+#if ($destination.topicMetaType)
+            <value>$jmsTopicNamePrefix$destination.name</value>
+#else
+            <value>$jmsQueueNamePrefix$destination.name</value>
+#end
+        </constructor-arg>
+    </bean>
+#end
+
+#end
+#foreach ($operation in $incomingMessageOperations)
+#if (!$operation.arguments.empty)
+    <bean id="${operation.messageListenerBeanName}Listener" class="$jmsMessageListenerAdapterImplementation">
+        <property name="delegate">
+            <ref bean="$operation.owner.beanName"/>
+        </property>
+        <property name="defaultListenerMethod">
+            <value>$operation.name</value>
+        </property>
+#if ($operation.nullMessageConverterRequired)
+        <property name="messageConverter">
+            <null/>
+        </property>
+#end
+    </bean>
+
+#end
+    <bean id="${operation.messageListenerBeanName}ListenerContainer" class="$jmsMessageListenerContainerImplementation">
+        <property name="connectionFactory">
+            <bean class="org.springframework.jms.connection.SingleConnectionFactory">
+                <property name="targetConnectionFactory">
+#if ($jbossMq)
+                    <bean class="org.springframework.jndi.JndiObjectFactoryBean">
+                        <property name="jndiTemplate">
+                            <ref bean="jndiTemplate"/>
+                        </property>
+                        <property name="jndiName">
+                            <value>$jmsConnectionFactory</value>
+                        </property>
+#elseif ($activeMq)
+                    <bean class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+                        <property name="brokerURL">
+                            <value>$jmsProviderUrl</value>
+                        </property>
+#if ($stringUtils.isNotBlank($jmsClientId))
+                        <property name="clientID">
+                            <value>$stringUtils.lowerCamelCaseName($jmsClientId)$stringUtils.capitalize($operation.messageListenerBeanName)</value>
+                        </property>
+#end
+                        <property name="prefetchPolicy">
+                            <bean class="org.apache.activemq.ActiveMQPrefetchPolicy">
+                                <property name="durableTopicPrefetch">
+                                    <value>$jmsActiveMqDurableTopicPrefetch</value>
+                                </property>
+                                <property name="queuePrefetch">
+                                    <value>$jmsActiveMqQueuePrefetch</value>
+                                </property>
+                            </bean>
+                        </property>
+#end
+                        <property name="optimizeAcknowledge">
+                            <value>$operation.optimizeAcknowledge</value>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+        <property name="recoveryInterval">
+            <value>$jmsRecoveryInterval</value>
+        </property>
+        <property name="sessionTransacted">
+            <value>$jmsSessionTransacted</value>
+        </property>
+#if ($stringUtils.isNotBlank($jmsMaxIncomingMessagesPerReceive))
+        <property name="maxMessagesPerTask">
+            <value>$jmsMaxIncomingMessagesPerReceive</value>
+        </property>
+#end
+#if ($stringUtils.isNotBlank($jmsCacheLevelName))
+        <property name="cacheLevelName">
+            <value>$jmsCacheLevelName</value>
+        </property>
+#end
+#if ($jmsTransactionsEnabled)
+        <property name="transactionManager">
+            <ref bean="transactionManager"/>
+        </property>
+#end
+        <property name="messageListener">
+#if ($operation.arguments.empty)
+            <ref bean="$operation.messageListenerBeanName"/>
+#else
+            <ref bean="${operation.messageListenerBeanName}Listener"/>
+#end
+        </property>
+        <property name="destination">
+            <ref bean="${operation.incomingDestination.beanName}Destination"/>
+        </property>
+#if (!$activeMq && $stringUtils.isNotBlank($jmsClientId))
+        <property name="clientId">
+            <value>$stringUtils.lowerCamelCaseName($jmsClientId)$stringUtils.capitalize($operation.messageListenerBeanName)</value>
+        </property>
+#end
+#if ($operation.incomingDestination.topicMetaType)
+        <property name="subscriptionDurable">
+            <value>$jmsDurableSubscriptions</value>
+        </property>
+        <property name="durableSubscriptionName">
+            <value>$operation.messageListenerBeanName</value>
+        </property>
+        <property name="pubSubDomain">
+            <value>true</value>
+        </property>
+#end
+#if ($stringUtils.isNotBlank($jmsDurableSubscriptionName))
+        <property name="durableSubscriptionName">
+            <value>$jmsDurableSubscriptionName</value>
+        </property>
+#end
+#if ($stringUtils.isNotBlank($operation.sessionAcknowledgeMode))
+        <property name="sessionAcknowledgeModeName">
+            <value>$operation.sessionAcknowledgeMode</value>
+        </property>
+#end
+    </bean>
+
+#if ($operation.arguments.empty)
+    <bean id="$operation.messageListenerBeanName" class="$operation.fullyQualifiedMessageListenerName">
+        <property name="$operation.owner.beanName">
+            <ref bean="$operation.owner.beanName"/>
+        </property>
+    </bean>
+
+#end
+#end
+#foreach ($destination in $destinations)
+    <!-- JMS Destination Template -->
+    <bean id="$destination.templateBeanName" class="$jmsTemplateImplementation">
+        <property name="connectionFactory">
+#if ($jbossMq)
+            <bean class="org.springframework.jndi.JndiObjectFactoryBean">
+                <property name="jndiTemplate">
+                    <ref bean="jndiTemplate"/>
+                </property>
+                <property name="jndiName">
+                    <value>$jmsConnectionFactory</value>
+                </property>
+            </bean>
+#elseif ($activeMq)
+            <bean class="org.apache.activemq.pool.PooledConnectionFactory">
+                <property name="connectionFactory">
+                    <bean class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+                        <property name="brokerURL">
+                            <value>$jmsProviderUrl</value>
+                        </property>
+                    </bean>
+                </property>
+            </bean>
+#end
+        </property>
+        <property name="defaultDestination">
+            <ref bean="${destination.beanName}Destination"/>
+        </property>
+        <property name="receiveTimeout">
+            <value>$jmsReceiveTimeout</value>
+        </property>
+#if ($destination.topicMetaType)
+        <property name="pubSubDomain">
+            <value>true</value>
+        </property>
+#end
+        <property name="explicitQosEnabled">
+            <value>$jmsExplicitQosEnabled</value>
+        </property>
+    </bean>
+
+#end
+    <!-- ========================= End of JMS DEFINITIONS ========================= -->
+
+</beans>

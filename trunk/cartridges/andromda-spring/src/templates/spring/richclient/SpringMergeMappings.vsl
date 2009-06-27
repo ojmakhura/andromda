@@ -1,0 +1,27 @@
+#if ($stringUtils.isNotBlank($acegiAuthenticationDaoImplClass))
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    This is used to map merge patterns in files generated
+    by Spring to new patterns. To use merge points,
+    add new <mapping> entry with a <from> element
+    that matches the merge point tags in the template(s).
+-->
+<mappings name="SpringMerge">
+    <mapping>
+        <from><![CDATA[<!-- applicationContext server authentication merge-point -->]]></from>
+        <to>
+         <![CDATA[
+    <!-- These beans are configured in ${mergeMappingsUri} -->
+    <bean id="${acegiAuthenticationDaoBeanName}" class="$acegiAuthenticationDaoImplClass">
+      <!-- inject any required Spring beans here.  Here is an example:
+        <property name="userDao">
+            <ref bean="userDao"/>
+        </property>
+      -->
+    </bean>
+
+         ]]>
+      </to>
+    </mapping>
+</mappings>
+#end

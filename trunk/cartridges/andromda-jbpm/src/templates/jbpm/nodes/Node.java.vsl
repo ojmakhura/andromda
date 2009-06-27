@@ -1,0 +1,287 @@
+##
+##
+##
+#macro (renderTokenName $name)
+TOKEN_$stringUtils.separate($name,"_").toUpperCase()## no newline
+#end
+##
+##
+##
+#macro (renderTransitionName $name)
+TRANSITION_$stringUtils.separate($name,"_").toUpperCase()## no newline
+#end
+##
+##
+##
+#set ($hash = "#")
+#set ($generatedFile = "${node.nodeClassName}.java")
+#if ($stringUtils.isNotBlank($node.nodePackageName))
+#set ($generatedFile = "$stringUtils.replace($node.nodePackageName,'.','/')/$generatedFile")
+package $node.nodePackageName;
+
+#end
+#set ($nodeInterfaceName = $node.processDefinition.nodeInterfaceName)
+/**
+ * The node representing the $node.name state in the <em>$node.processDefinition.name</em> process.
+ */
+public final class $node.nodeClassName implements $nodeInterfaceName
+{
+    /**
+     * This is the token encapsulated by this node class. It represents the internal jBpm state of the corresponding
+     * process instance.
+     */
+    private org.jbpm.graph.exe.Token token = null;
+
+#if ($node.split)
+#foreach ($transition in $node.outgoings)
+    /**
+     * The name of one of the child tokens which is created once this node is entered, this particular
+     * token is associated with the branch that is created by following the transition called
+     * <em>$transition.name</em>.
+     */
+    public static final String #renderTokenName($transition.name) = "$transition.name";
+
+#end
+#end
+    /**
+     * Constructs a new node using the specific process instance token. This constructor is package private
+     * because it is not supposed to be instantiated by other regular classes.
+     *
+     * @param token the token for which this node is constructed
+     */
+    ${node.nodeClassName}(final org.jbpm.graph.exe.Token token)
+    {
+        this.token = token;
+    }
+
+    /**
+     * This node is associated with a specific process instance and this method return the root token
+     * for that instance.
+     *
+     * @return the token with which this node has been associated (constructed)
+     */
+    public org.jbpm.graph.exe.Token getToken()
+    {
+        return this.token;
+    }
+
+    /**
+     * Returns the identifier for the underlying process instance. This method is a conveniece method as it
+     * is perfectly equivalent to <code>new Long(getToken().getProcessInstance().getId())</code>.
+     *
+     * @return the identifier for the proces instance to which this node is associated
+     */
+    public Long getProcessInstanceId()
+    {
+        return new Long(this.token.getProcessInstance().getId());
+    }
+
+#foreach ($transition in $node.outgoings)
+#if ($transition.name || $transition.condition)
+    /**
+     * The name of one of the transitions exiting this node.
+#if (!$transition.name && $transition.condition)
+     * This particular transition does not have a name but it has a guard, the name used
+     * here is derived from that guard's body content.
+#if ($node.decisionPoint)
+     * <em>Modeling guards is indeed the proper way to distinguish between transitions exiting a decision point.</em>
+#end
+#end
+     */
+#if ($transition.name)
+    public static final String #renderTransitionName($transition.name) = "$transition.name";
+#else
+    public static final String #renderTransitionName($transition.condition) = "$transition.condition";
+#end
+
+#end
+#end
+#if ($node.finalState)
+    /**
+     * Ends the process instance.
+     */
+    public void endProcess()
+    {
+        this.token.end();
+        this.token.getProcessInstance().end();
+    }
+
+#elseif ($node.taskNode)
+#if (!$node.tasks.empty)
+    /**
+     * Returns true if all tasks for this node are ended.
+     *
+     * @return true if this node does not have any tasks that have not yet been finished, false otherwise
+     */
+    public boolean isTasksFinished()
+    {
+        return !this.token.getProcessInstance().getTaskMgmtInstance().hasUnfinishedTasks(this.token);
+    }
+
+#end
+#foreach ($task in $node.tasks)
+#set ($taskName = $stringUtils.upperCamelCaseName($task.name))
+    /**
+     * Starts this node's <em>$task.name</em> task.
+     */
+    public void start${taskName}()
+    {
+        final org.jbpm.taskmgmt.exe.TaskInstance task = this.get${taskName}Task();
+        if (task != null)
+        {
+            task.start();
+        }
+    }
+
+    /**
+     * Finishes this node's <em>$task.name</em> task.
+     */
+    public void finish${taskName}()
+    {
+        final org.jbpm.taskmgmt.exe.TaskInstance task = this.get${taskName}Task();
+        if (task != null)
+        {
+            task.end();
+        }
+    }
+
+    /**
+     * Checks whether or not this node's <em>$task.name</em> task has been finished.
+     *
+     * @return true if this node's $task.name has been finished, false otherwise
+     */
+    public boolean is${taskName}Finished()
+    {
+        final org.jbpm.taskmgmt.exe.TaskInstance task = this.get${taskName}Task();
+        return task == null || task.hasEnded();
+    }
+
+#set ($taskField = "task${taskName}")
+    private org.jbpm.taskmgmt.exe.TaskInstance $taskField = null;
+
+    /**
+     * Returns the first unfinished <em>${taskName}</em> task that can be found.
+     */
+    public org.jbpm.taskmgmt.exe.TaskInstance get${taskName}Task()
+    {
+        if (this.$taskField == null)
+        {
+            final java.util.Collection tasks = this.token.getProcessInstance().getTaskMgmtInstance().getTaskInstances();
+            for (final java.util.Iterator taskIterator = tasks.iterator(); taskIterator.hasNext() && this.$taskField == null;)
+            {
+                final org.jbpm.taskmgmt.exe.TaskInstance taskInstance = (org.jbpm.taskmgmt.exe.TaskInstance)taskIterator.next();
+                if ("$task.name".equals(taskInstance.getName()) && taskInstance.getEnd() == null)
+                {
+                    this.$taskField = taskInstance;
+                }
+            }
+        }
+        return this.$taskField;
+    }
+
+#end
+#end
+#if ($node.split)
+#foreach ($transition in $node.outgoings)
+    /**
+     * Returns the current node for the token found in the branch when following the outgoing
+     * <em>$transition.name</em> transition. Since this token is a child of the token encapsulated by <em>this
+     * node, and since this token can lead a life of its own it cannot be determined which node exactly
+     * will be returned, this depends on the set of possible nodes through which the node can navigate.
+     *
+     * @return the node for this specific child token, or <code>null</code> if this child token does not exist
+     */
+    public $nodeInterfaceName get$stringUtils.upperCamelCaseName($transition.name)Node()
+    {
+        $nodeInterfaceName childNode = null;
+
+        final org.jbpm.graph.exe.Token childToken = this.token.getChild(#renderTokenName($transition.name));
+        if (childToken != null)
+        {
+            childNode = ${stringUtils.upperCamelCaseName($node.processDefinition.name)}.createNode(childToken);
+        }
+
+        return childNode;
+    }
+
+#end
+#elseif ($node.decisionPoint)
+    /**
+     * Returns the node encapsuling the token that was the outcome of this node's decision. The decision was
+     * performed by the {@link $node.decisionHandlerClassName} decision handler. Since the outcome possibly
+     * leads into a different node each time we cannot determine the concrete type of the returned node, therefore
+     * this method returns the shared interface.
+     *
+     * @return the node for the token that was the outcome of this node's decision
+     */
+    public $nodeInterfaceName getDecidedNode()
+    {
+        return ${stringUtils.upperCamelCaseName($node.processDefinition.name)}.createNode(this.token);
+    }
+
+#else
+##
+## this node can be signalled
+##
+#foreach ($transition in $node.outgoings)
+#if ($node.outgoings.size() == 1)
+#if ($transition.name)
+#set ($signalMethodName = "signal$stringUtils.upperCamelCaseName($transition.name)")
+#else
+#set ($signalMethodName = "signal")
+#end
+#else
+#if ($transition.name)
+#set ($signalMethodName = "signal$stringUtils.upperCamelCaseName($transition.name)")
+#else
+#set ($signalMethodName = "signal$stringUtils.upperCamelCaseName($transition.target.name)")
+#end
+#end
+#set ($signalReturnType = $transition.target.nodeClassName)
+    /**
+     * Signals the process to leave this node
+#if ($transition.name)
+     * via the <em>$transition.name</em> transition
+     * and proceed to the next one. The transition taken is represented by the
+     * <code>#renderTransitionName($transition.name)</code> constant.
+#else
+     * and proceed to the next one.
+#end
+#if ($node.initialState)
+     * Calling this method will make the process leave the start state and enter the first node.
+#end
+     *
+     * @return the next node in the process
+#if ($transition.name)
+     *      after following the <em>$transition.name</em> transition
+     * @see ${hash}#renderTransitionName($transition.name)
+#end
+     */
+    public $signalReturnType ${signalMethodName}()
+    {
+        // signal this token to leave its node
+#if ($transition.name)
+        this.token.signal(#renderTransitionName($transition.name));
+#else
+        this.token.signal();
+#end
+
+        // simply return the next node instance
+        return new ${transition.target.nodeClassName}(this.token);
+    }
+
+#end
+#end
+    /**
+     * Overrides the default behavior of the <code>toString()</code> method in order
+     * to be able to display this node's name as well as the name of the encapsulated token.
+     */
+    public String toString()
+    {
+#set ($nodeName = "$node.nodeClassName")
+#if ($stringUtils.isNotBlank($node.nodePackageName))
+#set ($nodeName = "${node.nodePackageName}.${nodeName}")
+#end
+        return "${nodeName}[" + this.token.getName() + "]";
+    }
+}

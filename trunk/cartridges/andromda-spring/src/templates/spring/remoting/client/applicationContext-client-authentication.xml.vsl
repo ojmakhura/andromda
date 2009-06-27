@@ -1,0 +1,19 @@
+<beans>
+    <!-- Acegi Authentication Manager used to authenticate initial user credentials and gather granted authorities on the remote system -->
+    <bean id="${acegiAuthenticationManager}"
+        class="org.acegisecurity.providers.ProviderManager">
+        <property name="providers">
+            <list>
+                <ref bean="${serviceRemoteContext}RemoteAuthenticationProvider" />
+            </list>
+        </property>
+    </bean>
+
+    <bean id="${serviceRemoteContext}RemoteAuthenticationProvider"
+        class="org.acegisecurity.providers.rcp.RemoteAuthenticationProvider">
+        <property name="remoteAuthenticationManager" ref="${serviceRemoteContext}RemoteAuthenticationManagerService" />
+    </bean>
+
+    <!-- applicationContext client authentication merge-point -->
+
+</beans>

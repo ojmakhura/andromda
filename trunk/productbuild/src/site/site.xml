@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="AndroMDA Model Driven Architecture Framework" href="http://www.andromda.org/">
+    <skin>
+        <groupId>org.andromda.maven.plugins.site</groupId>
+        <artifactId>andromda-site-skin</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </skin>
+    <bannerLeft>
+        <name></name>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy hh:mm zzz"/>
+    <body>
+        <menu name="Overview">
+            <item name="What is AndroMDA?" href="/whatisit.html"/>
+            <item name="Getting Started - Java" href="/getting-started/java/index.html"/>
+            <item name="Getting Started - .NET" href="http://team.andromda.org/contrib/starting-dotnet.html"/>
+            <item name="Modeling" href="/modeling.html"/>
+            <item name="Samples" href="/samples.html"/>
+            <item name="Release History" href="/changes-report.html"/>
+        </menu>
+        <menu name="Usage">
+            <item name="Configuration" href="/configuration.html"/>
+            <item name="How-to Guides" href="/howto-guides.html"/>
+            <item name="Ant Task" href="/andromda-ant-support/andromda-ant-task/index.html"/>
+            <item name="Maven Plugins" href="/andromda-maven-plugins/index.html"/>
+            <item name="Mappings" href="/mappings.html"/>
+            <item name="Profiles" href="/profiles.html"/>
+            <item name="Schema2XMI" href="/andromda-schema2xmi/index.html"/>
+            <item name="UML Tools" href="/case-tools.html"/>
+            <item name="FAQ" href="/faq.html"/>
+        </menu>
+        <menu name="Components">
+            <item name="Core" href="/andromda-core/index.html"/>
+            <item name="Cartridges" href="/andromda-cartridges/index.html"/>
+            <item name="Translation Libraries" href="/andromda-translation-libraries/index.html"/>
+            <item name="Metafacades" href="/andromda-metafacades/index.html"/>
+            <item name="Repositories" href="/andromda-repositories/index.html"/>
+            <item name="Template Engines" href="/andromda-templateengines/index.html"/>
+        </menu>
+        <menu name="Downloads">
+            <item name="Releases" href="/releases.html"/>
+            <item name="Continuous Builds" href="http://team.andromda.org/maven2/org/andromda/distributions/"/>
+            <item name="Resources" href="/resources.html"/>
+        </menu>
+        <menu name="Community">
+            <item name="Support Forum" href="http://forum.andromda.org"/>
+            <item name="Mailing Lists" href="/mail-lists.html"/>
+            <item name="Contributions" href="http://team.andromda.org/contrib"/>
+            <item name="AndroMDA JIRA" href="http://jira.andromda.org"/>
+            <item name="AndroMDA Wiki" href="http://confluence.andromda.org"/>
+<!--
+            <item name="AndroMDA #IRC" href="/irc.html"/>
+-->
+            <item name="Support Us" href="/donations.html"/>
+            <item name="Pictures" href="/pictures.html"/>
+            <item name="Other Links" href="/otherlinks.html"/>
+        </menu>
+        <menu name="Developers">
+            <item name="Building AndroMDA" href="/building.html"/>
+            <item name="Coding / Patching" href="/coding-conventions.html"/>
+            <item name="JMI 1.4 API" href="/jmi-uml1.4/index.html"/>
+            <item name="EMF UML2 API" href="http://download.eclipse.org/tools/uml2/1.1.1/javadoc"/>
+            <item name="CVS Repository" href="/source-repository.html"/>
+            <item name="Debugging" href="/dev-debugging.html"/>
+        </menu>
+        <menu name="Professional services">
+            <item name="Consulting" href="/consulting.html"/>
+            <item name="Training"   href="/training.html"/>
+        </menu>
+        <menu ref="reports"/>
+    </body>
+</project>
+

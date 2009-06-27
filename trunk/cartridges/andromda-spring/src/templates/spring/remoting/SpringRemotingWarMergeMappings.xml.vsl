@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+    This file is used to merge the remoting support into the war that exposes any Spring
+    remotable services.
+-->
+<mappings name="SpringRemotingWarMerge">
+    <mapping>
+        <from><![CDATA[<!-- servlet merge-point -->]]></from>
+        <to>
+            <![CDATA[
+<servlet>
+    <servlet-name>${springTypesPackage}.${remoteDispatcherServletName}</servlet-name>
+    <servlet-class>${springTypesPackage}.${remoteDispatcherServletName}</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<!-- servlet merge-point -->
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- servlet-mapping merge-point -->]]></from>
+        <to>
+            <![CDATA[
+<servlet-mapping>
+    <servlet-name>${springTypesPackage}.${remoteDispatcherServletName}</servlet-name>
+    <url-pattern>$serviceRemoteUrlPattern/*</url-pattern>
+</servlet-mapping>
+<!-- servlet-mapping merge-point -->
+            ]]>
+        </to>
+    </mapping>
+    <mapping>
+        <from><![CDATA[<!-- security-constraint merge-point -->]]></from>
+        <to>
+            <![CDATA[
+#foreach ($service in $services)
+<security-constraint>
+    <web-resource-collection>
+        <web-resource-name>$service.name</web-resource-name>
+        <description>Secures the $service.name Spring remotable service.</description>
+        <url-pattern>$serviceRemoteUrlPattern/${service.name}/*</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+#foreach ($role in $service.allRoles)
+        <role-name>$role.name</role-name>
+#end
+    </auth-constraint>
+    <user-data-constraint>
+        <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+</security-constraint>
+#end
+<!-- security-constraint merge-point -->
+            ]]>
+        </to>
+    </mapping>
+</mappings>

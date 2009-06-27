@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <extend>../project.xml</extend>
+  	<artifactId>andromda-ocl-validation-library</artifactId>
+  	<name>Validation Translation-Library</name>
+  	<shortDescription>Validation Translation-Library</shortDescription>
+  	<description>
+  		Translates OCL into validation code for any platform.
+  	</description>
+	<package>org.andromda.translation.ocl.validation</package>
+  	<developers>
+    	<developer>
+      		<name>Wouter Zoons</name>
+      		<id>draftdog</id>
+      		<email>wouter@andromda.org</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>1</timezone>
+    	</developer>
+    	<developer>
+      		<name>Chad Brandon</name>
+      		<id>cwbrandon</id>
+      		<email>chad@andromda.org</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+    	</developer>
+    </developers>
+	<dependencies>
+    	<dependency>
+	      	<groupId>${pom.groupId}-bootstrap</groupId>
+	      	<artifactId>${pom.groupId}-translation-library-bootstrap-plugin</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	      	<type>plugin</type>
+	    </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-metafacades-uml</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-ocl-translation-core</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties/>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+     		<version>3.1</version>
+        </dependency>
+    	<dependency>
+    		<groupId>log4j</groupId>
+      		<artifactId>log4j</artifactId>
+     		<version>1.2.8</version>
+    	</dependency>
+	</dependencies>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
+        <!-- Unit test classes -->
+        <unitTest>
+            <includes>
+                <include>**/*Test.java</include>
+            </includes>
+            <resources>
+                <resource>
+                    <directory>src/test</directory>
+                    <includes>
+                        <include>**/*.xml</include>
+                        <include>**/*.properties</include>
+                    </includes>
+                </resource>
+            </resources>
+        </unitTest>
+        <resources>
+            <resource>
+                <directory>src/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src</directory>
+                <includes>
+                    <include>META-INF/**/*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+</project>

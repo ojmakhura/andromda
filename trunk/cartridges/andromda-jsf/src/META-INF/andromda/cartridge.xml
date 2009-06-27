@@ -1,0 +1,877 @@
+<cartridge>
+
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
+        <macrolibrary name="templates/jsf/controllers/Controller.java.vm"/>
+        <macrolibrary name="templates/jsf/views/renderActionFormInput.vm"/>
+        <macrolibrary name="templates/jsf/views/renderActionCommandLinkParameter.vm"/>
+        <macrolibrary name="templates/jsf/forms/formMacros.vm"/>
+        <macrolibrary name="templates/jsf/forms/formImplMacros.vm"/>
+        <macrolibrary name="templates/jsf/configuration/validation.xml.vm"/>
+        <macrolibrary name="templates/jsf/flow/ViewPopulator.java.vm"/>
+        <!-- cartridge-macrolibrary merge-point-->
+    </templateEngine>
+
+    <!-- define the template objects that are made available to the template -->
+    <templateObject name="stringUtils" className="org.andromda.core.common.StringUtilsHelper"/>
+    <templateObject name="jsfUtils" className="org.andromda.cartridges.jsf.JSFUtils">
+        <property reference="viewType"/>
+        <property reference="strictDateTimeFormat"/>
+    </templateObject>
+    <!-- cartridge-templateObject merge-point-->
+
+    <property reference="xmlEncoding"/>
+    <property reference="facesConfig"/>
+    <property reference="jspIncludes"/>
+    <property reference="messageResources"/>
+    <property reference="welcomeFileName"/>
+    <property reference="facesServletExtension"/>
+    <property reference="managedBeansPackage"/>
+    <property reference="preferencesClassName"/>
+    <property reference="preferencesBeanName"/>
+    <property reference="menuLayout"/>
+    <property reference="menuTheme"/>
+    <property reference="applicationName"/>
+    <property reference="formPopulatorName"/>
+    <property reference="messageResourceKeyPattern"/>
+    <property reference="converterPattern"/>
+    <property reference="actionFormKey"/>
+    <property reference="patternMatchingExceptionHandler"/>
+    <property reference="defaultDateFormat"/>
+    <property reference="defaultTimeFormat"/>
+    <property reference="dummyData"/>
+    <property reference="jsfComponentsPackage"/>
+    <property reference="clientValidation"/>
+    <property reference="fileTypeName"/>
+    <property reference="securityRealm"/>
+    <property reference="loginFileName"/>
+    <property reference="logoutFileName"/>
+    <property reference="virtualHost"/>
+    <property reference="defaultMultiSelectSize"/>
+    <property reference="enablePreferences"/>
+    <property reference="distributable"/>
+    <property reference="stateSavingMethod"/>
+    <property reference="sessionTimeout"/>
+    <property reference="toDoTag"/>
+    <property reference="enableFaceletsDevelopmentSupport"/>
+    <property reference="viewType"/>
+    <property reference="strictDateTimeFormat"/>
+    <property reference="libraries"/>
+    <property reference="adfContextAttributeName"/>
+    <property reference="skin"/>
+    <property reference="custom-resources"/>
+    <property reference="formSerialization"/>
+    <property reference="formMessagesProperty"/>
+    <property reference="useCaseForwardsClassName"/>
+    <property reference="maxTableRows"/>
+    <property reference="fileUploadMaxMemoryPerRequest"/>
+    <property reference="fileUploadMaxDiskSpacePerRequest"/>
+    <property reference="logoutRedirectPath"/>
+    <property reference="paginationResultClassName"/>
+    <!-- cartridge-property merge-point -->
+
+    <condition name="viewTypeIsJsp">$viewType.equalsIgnoreCase("jsp")</condition>
+    <condition name="viewTypeIsFacelets">$viewType.equalsIgnoreCase("facelets")</condition>
+    <condition name="outputCustomResources">$stringUtils.isNotBlank($custom-resources)</condition>
+    <condition name="faceletsDevelopmentSupportEnabled">
+        #if ($viewType.equalsIgnoreCase("facelets") &amp;&amp; $enableFaceletsDevelopmentSupport.equalsIgnoreCase("true"))true#end
+    </condition>
+    <condition name="outputLibraries">$stringUtils.isNotBlank($libraries)</condition>
+    <condition name="enablePreferences">$enablePreferences.equalsIgnoreCase("true")</condition>
+    <condition name="clientValidation">$clientValidation.equalsIgnoreCase("true")</condition>
+    <condition name="formSerialization">$formSerialization.equalsIgnoreCase("true")</condition>
+    <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>
+    <condition name="paginationSupportEnabled">$stringUtils.isNotBlank($paginationResultClassName)</condition>
+
+
+    <!-- condition merge-point-->
+
+    <!-- cartridge-resource merge-point -->
+    <resource
+        path="resources/views/skins/default/*"
+        outputPattern="skins/default/{0}"
+        outlet="views"
+        overwrite="true"/>
+
+    <resource
+        path="resources/views/skins/default/images/*"
+        outputPattern="skins/default/images/{0}"
+        outlet="views"
+        overwrite="true"/>
+
+    <resource
+        path="resources/views/js/*.*"
+        outputPattern="js/{0}"
+        outlet="views"
+        overwrite="true"/>
+
+    <resource
+        path="resources/views/images/*.*"
+        outputPattern="images/{0}"
+        outlet="views"
+        overwrite="true"/>
+
+    <resource
+        path="resources/WEB-INF/lib/*.jar"
+        outputPattern="WEB-INF/lib/{0}"
+        outlet="configuration"
+        overwrite="true"
+        lastModifiedCheck="true"/>
+
+    <resource
+        path="resources/lib/facelets/*.jar"
+        outputPattern="WEB-INF/lib/{0}"
+        outlet="libraries"
+        overwrite="true"
+        outputCondition="viewTypeIsFacelets"
+        lastModifiedCheck="true"/>
+
+    <resource
+        path="resources/lib/adf/*.jar"
+        outputPattern="WEB-INF/lib/{0}"
+        outlet="libraries"
+        overwrite="true"
+        lastModifiedCheck="true"/>
+
+    <resource
+        path="resources/lib/*.jar"
+        outputPattern="WEB-INF/lib/{0}"
+        outlet="libraries"
+        overwrite="true"
+        lastModifiedCheck="true"/>
+
+    <resource
+        path="resources/configuration/facelets/*.xml"
+        outputPattern="WEB-INF/{0}"
+        outlet="configuration"
+        overwrite="true"
+        outputCondition="viewTypeIsFacelets"
+        lastModifiedCheck="true"/>
+
+    <resource
+        path="resources/configuration/adf/*.xml"
+        outputPattern="WEB-INF/{0}"
+        outlet="configuration"
+        overwrite="true"
+        lastModifiedCheck="true"/>
+
+    <resource
+        path="resources/views/css/*"
+        outputPattern="css/{0}"
+        outlet="custom-resources"
+        overwrite="false"/>
+
+    <!-- process templates on model elements -->
+    <template
+        path="templates/jsf/configuration/web.xml.vsl"
+        outputPattern="WEB-INF/web.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
+            <modelElement variable="roles">
+                <type name="org.andromda.metafacades.uml.Role"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/configuration/jboss-web.xml.vsl"
+        outputPattern="WEB-INF/jboss-web.xml"
+        outlet="configuration"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/configuration/faces-config.xml.vsl"
+        outputPattern="WEB-INF/$facesConfig"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements>
+            <modelElement variable="controllers">
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+            <modelElement variable="enumerations">
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFEnumeration"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/configuration/adf-faces-config.xml.vsl"
+        outputPattern="WEB-INF/adf-faces-config.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true"/>
+
+    <template
+        path="templates/jsf/configuration/validator-rules.xml.vsl"
+        outputPattern="WEB-INF/validator-rules.xml"
+        outlet="configuration"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/configuration/validation.xml.vsl"
+        outputPattern="WEB-INF/validation.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/forms/Form.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="operation">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndControllerOperation">
+                    <property name="formFields"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/forms/FormImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="forms"
+        overwrite="true">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="formFields"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/controllers/ControllerImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="false">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                    <property name="operations.empty"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/controllers/ControllerImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controller-impls"
+        overwrite="false">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                    <property name="operations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/controllers/Controller.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="controller">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndController">
+                    <property name="useCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/controllers/SessionObject.java.vsl"
+        outputPattern="${sessionObject.fullPath}.java"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="sessionObject">
+            <modelElement>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFSessionObject"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/messages/messages.properties.vsl"
+        outputPattern="WEB-INF/classes/${messageResources}.properties"
+        outlet="messages"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="applicationUseCases">
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/flow/ActionForward.java.vsl"
+        outputPattern="$action.fullyQualifiedActionClassPath"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements>
+            <modelElement variable="action">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/flow/UseCaseForwards.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${useCaseForwardsClassName}.java"
+        outlet="managed-beans"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="useCases">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/flow/ViewPopulator.java.vsl"
+        outputPattern="${view.populatorPath}.java"
+        outlet="controllers"
+        overwrite="true">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="populatorRequired"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/converters/EnumerationConverter.java.vsl"
+        outputPattern="${enumeration.converterPath}.java"
+        outlet="controllers"
+        overwrite="false">
+        <modelElements variable="enumeration">
+            <modelElement>
+                <type name="org.andromda.cartridges.jsf.metafacades.JSFEnumeration"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/flow/LogOutServlet.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/LogOutServlet.java"
+        outlet="controllers"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false"
+        outputCondition="securityEnabled">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/preferences/Preferences.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/utils/Messages.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/utils/UserRoleFilter.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"
+        outputCondition="securityEnabled"
+        outputToSingleFile="true"
+        outputOnEmptyElements="true">
+        <modelElements>
+            <modelElement variable="roles">
+                <type name="org.andromda.metafacades.uml.Role"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/utils/MessagePhaseListener.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/utils/FormPopulator.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${formPopulatorName}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/utils/AdfFacesContextWrapper.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/utils/AdfFacesContextWrapper.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/utils/JsfUtils.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        outputCondition="formSerialization"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/utils/FacesContextUtils.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/exception/PatternMatchingExceptionHandler.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${patternMatchingExceptionHandler}.java"
+        outlet="managed-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/utils/PageableDataModel.java.vsl"
+        outputPattern="$stringUtils.replace($managedBeansPackage, '.', '/')/${className}.java"
+        outlet="managed-beans"
+        outputCondition="paginationSupportEnabled"
+        overwrite="true"/>
+
+    <template
+        path="templates/jsf/views/jsp/index.jsp.vsl"
+        outputPattern="$welcomeFileName"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/jsp/403.jsp.vsl"
+        outputPattern="403.jsp"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement variable="applicationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="entryUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- Facelets specific view rendering -->
+    <template
+        path="templates/jsf/views/facelets/layout/layout.xhtml.vsl"
+        outputPattern="layout/layout.xhtml"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"
+        outputCondition="viewTypeIsFacelets"/>
+
+    <template
+        path="templates/jsf/views/facelets/layout/registration-layout.xhtml.vsl"
+        outputPattern="layout/registration-layout.xhtml"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputCondition="viewTypeIsFacelets"
+        outputOnEmptyElements="false">
+        <modelElements>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="registrationUseCase">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/facelets/layout/header.xhtml.vsl"
+        outputPattern="layout/header.xhtml"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"
+        outputCondition="viewTypeIsFacelets"/>
+
+    <template
+        path="templates/jsf/views/facelets/layout/messages.xhtml.vsl"
+        outputPattern="layout/messages.xhtml"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"
+        outputCondition="viewTypeIsFacelets"/>
+
+    <template
+        path="templates/jsf/views/facelets/layout/head.xhtml.vsl"
+        outputPattern="layout/head.xhtml"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsFacelets"/>
+
+    <template
+        path="templates/jsf/views/facelets/layout/menu.xhtml.vsl"
+        outputPattern="layout/menu.xhtml"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputCondition="viewTypeIsFacelets">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="registrationUseCase">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/facelets/layout/footer.xhtml.vsl"
+        outputPattern="layout/footer.xhtml"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"
+        outputCondition="viewTypeIsFacelets"/>
+
+    <template
+        path="templates/jsf/views/facelets/view.xhtml.vsl"
+        outputPattern="${view.path}.xhtml"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsFacelets">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/facelets/view-popup.xhtml.vsl"
+        outputPattern="${view.path}.xhtml"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsFacelets">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="popup"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/facelets/view-action.xhtml.vsl"
+        outputPattern="${action.viewFragmentPath}.xhtml"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsFacelets">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="tableLink">false</property>
+                    <property name="input"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/facelets/view-table.xhtml.vsl"
+        outputPattern="${table.view.path}-${table.name}.xhtml"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsFacelets">
+        <modelElements>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="tables" variable="table"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/facelets/view-variables.xhtml.vsl"
+        outputPattern="${view.path}-vars.xhtml"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsFacelets">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="nonTableVariablesPresent"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/facelets/view-hidden-parameters.xhtml.vsl"
+        outputPattern="${action.viewFragmentPath}-hidden-params.xhtml"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsFacelets">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="tableLink">false</property>
+                    <property name="hiddenParameters"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/facelets/preferences/preferences.xhtml.vsl"
+        outputPattern="preferences/preferences.xhtml"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsFacelets"/>
+
+    <template
+        path="templates/jsf/views/facelets/login.xhtml.vsl"
+        outputPattern="${loginFileName}.xhtml"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputCondition="viewTypeIsFacelets">
+        <modelElements>
+            <modelElement variable="registrationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="registrationUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- JSP specific view rendering -->
+    <template
+        path="templates/jsf/views/jsp/includes/includes.jspf.vsl"
+        outputPattern="$jspIncludes"
+        outlet="views"
+        overwrite="true"
+        generateEmptyFiles="true"
+        outputCondition="viewTypeIsJsp"/>
+
+    <template
+        path="templates/jsf/views/jsp/includes/head.jspf.vsl"
+        outputPattern="includes/head.jspf"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsJsp"/>
+
+    <template
+        path="templates/jsf/views/jsp/includes/messages.jspf.vsl"
+        outputPattern="includes/messages.jspf"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsJsp"/>
+
+    <template
+        path="templates/jsf/views/jsp/includes/footer.jspf.vsl"
+        outputPattern="includes/footer.jspf"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsJsp"/>
+
+    <template
+        path="templates/jsf/views/jsp/includes/header.jsp.vsl"
+        outputPattern="includes/header.jsp"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputCondition="viewTypeIsJsp"/>
+
+    <template
+        path="templates/jsf/views/jsp/preferences/preferences.jsp.vsl"
+        outputPattern="preferences/preferences.jsp"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsJsp"/>
+
+    <template
+        path="templates/jsf/views/jsp/includes/menu.jspf.vsl"
+        outputPattern="includes/menu.jspf"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputCondition="viewTypeIsJsp">
+        <modelElements>
+            <modelElement variable="useCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="registrationUseCase">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/jsp/view.jsp.vsl"
+        outputPattern="${view.path}.jsp"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsJsp">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="popup">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/jsp/view-popup.jsp.vsl"
+        outputPattern="${view.path}.jsp"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsJsp">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="popup"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/jsp/includes/view-action.jspf.vsl"
+        outputPattern="${action.viewFragmentPath}.jspf"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsJsp">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="tableLink">false</property>
+                    <property name="input"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/jsp/includes/view-table.jspf.vsl"
+        outputPattern="${table.view.path}-${table.name}.jspf"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsJsp">
+        <modelElements>
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="tables" variable="table"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/jsp/includes/view-hidden-parameters.jspf.vsl"
+        outputPattern="${action.viewFragmentPath}-hidden-params.jspf"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsJsp">
+        <modelElements variable="action">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndAction">
+                    <property name="tableLink">false</property>
+                    <property name="hiddenParameters"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/jsp/includes/view-variables.jspf.vsl"
+        outputPattern="${view.path}-vars.jspf"
+        outlet="views"
+        overwrite="true"
+        outputCondition="viewTypeIsJsp">
+        <modelElements variable="view">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.FrontEndView">
+                    <property name="nonTableVariablesPresent"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/jsf/views/jsp/login.jsp.vsl"
+        outputPattern="${loginFileName}.jsp"
+        outlet="views"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputCondition="viewTypeIsJsp">
+        <modelElements>
+            <modelElement variable="registrationUseCases">
+                <type name="org.andromda.metafacades.uml.FrontEndUseCase">
+                    <property name="registrationUseCase"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- cartridge-template merge-point -->
+
+</cartridge>

@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>$applicationPackage</groupId>
+        <artifactId>$applicationId</artifactId>
+        <version>$applicationVersion</version>
+    </parent>
+    <artifactId>${applicationId}-common</artifactId>
+    <packaging>jar</packaging>
+    <name>${applicationName} Common</name>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${applicationId}-mda</artifactId>
+            <version>${pom.version}</version>
+            <type>pom</type>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <!-- To change from default src/main/java and src/test/java - doesn't work for maven 2.0.9, need to add test dependencies>
+        <sourceDirectory>src</sourceDirectory>
+        <testSourceDirectory>src-test</testSourceDirectory -->
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-multi-source-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId> 
+                <artifactId>maven-jar-plugin</artifactId> 
+                <configuration>
+                  <excludes>
+                    <exclude>**/*.ref</exclude>
+                  </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId> 
+                <artifactId>maven-source-plugin</artifactId> 
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+    	<title>AndroMDApp Maven Plug-in Goals</title>
+  	</properties>
+  	<body>
+  	    <section name="Goals">
+			<table>
+			    <tr>
+			        <th>Goal</th>
+			        <th>Description</th>    
+			    </tr>
+			    <tr>
+				    <td nowrap="nowrap">
+				        andromdapp:generate
+				    </td>
+				    <td>
+				        <p>
+					        Generates an AndroMDA Powered Maven J2EE application (standalone
+                            WAR or EAR). When you run this goal, you will be prompted to 
+					        enter some application values before your application 
+					        will be generated.
+					    </p>
+				    </td>
+				</tr>
+			</table>
+		</section>
+  	</body>
+</document>

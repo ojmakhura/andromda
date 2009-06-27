@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="${applicationName}" default="1.mda" basedir=".">
+    <description>
+       Put your description of the project here.
+    </description>
+  <!-- set global properties for this build -->
+  <property environment="env"/>	
+  <property file="build.properties"/>
+
+  <property name="andromda.lib.dir" value="${andromda.dist.dir}/andromda/org/andromda"/>
+  <property name="andromda.dependency.dir" value="${andromda.dist.dir}/lib"/>
+  <path id="andromda.classpath">
+    <fileset dir="${andromda.lib.dir}">
+        <include name="andromda-core/*/andromda-core-*.jar"/> 
+        <include name="andromda-utils/*/andromda-utils-*.jar"/>
+        <include name="ant/andromda-ant-task/*/andromda-ant-task-*.jar"/> 
+        <include name="metafacades/andromda-metafacades-emf-uml2/*/andromda-metafacades-emf-uml2-*.jar"/>
+        <include name="metafacades/andromda-metafacades-uml/*/andromda-metafacades-uml-*.jar"/>
+        <include name="metafacades/andromda-metafacades-uml14/*/andromda-metafacades-uml14-*.jar"/>
+        <include name="repositories/andromda-repository-emf/*/andromda-repository-emf-*.jar"/>
+        <include name="repositories/andromda-repository-mdr/*/andromda-repository-mdr*.jar"/>
+        <include name="repositories/andromda-repository-mdr-uml14/*/andromda-repository-mdr-uml14*.jar"/>
+        <include name="repositories/andromda-repository-emf-uml2/*/andromda-repository-emf-uml2-*.jar"/>
+        <include name="translationlibraries/andromda-ocl-query-library/*/andromda-ocl-query-library-*.jar"/>
+        <include name="translationlibraries/andromda-ocl-translation-core/*/andromda-ocl-translation-core-*.jar"/>
+        <include name="translationlibraries/andromda-ocl-translation-testsuite/*/andromda-ocl-translation-testsuite-*.jar"/>
+        <include name="translationlibraries/andromda-ocl-validation-library/*/andromda-ocl-validation-library-*.jar"/>
+        <include name="templateengines/andromda-templateengine-velocity/*/andromda-templateengine-velocity-*.jar"/> 
+        <include name="cartridges/andromda-spring-cartridge/*/andromda-spring-cartridge-*.jar"/>
+        <include name="cartridges/andromda-java-cartridge/*/andromda-java-cartridge-*.jar"/>
+        <include name="cartridges/andromda-hibernate-cartridge/*/andromda-hibernate-cartridge-*.jar"/>
+    </fileset>
+    <fileset dir="${andromda.dependency.dir}">        
+        <include name="commons-beanutils/commons-beanutils/*/commons-beanutils-*.jar"/>
+        <include name="commons-collections/commons-collections/*/commons-collections-*.jar"/>
+        <include name="commons-digester/commons-digester/*/commons-digester-*.jar"/>
+        <include name="commons-lang/commons-lang/*/commons-lang-*.jar"/>
+        <include name="commons-logging/commons-logging/*/commons-logging-*.jar"/>
+        <include name="log4j/log4j/*/log4j-*.jar"/> 
+        <include name="velocity/velocity/*/velocity-*.jar"/>
+        <include name="xerces/xercesImpl/*/xercesImpl-*.jar"/>
+        <include name="xml-apis/xml-apis/*/xml-apis-*.jar"/>
+        <include name="jmi/jmi/*/jmi-*.jar"/>
+        <include name="jmi/jmiuml/*/jmiuml-*.jar"/>
+        <include name="jmi/mof/*/mof-*.jar"/>
+        <include name="org/netbeans/mdr/jmiutils/*/jmiutils-*.jar"/>
+        <include name="org/netbeans/mdr/mdrapi/*/mdrapi-*.jar"/>
+        <include name="org/netbeans/mdr/nbmdr/*/nbmdr-*.jar"/>
+        <include name="org/netbeans/mdr/openide-util/*/openide-util-*.jar"/>
+        <include name="org/eclipse/**/*.jar"/>
+    </fileset>
+  </path>
+
+  <target name="init">
+     <!-- Checks to insure the properties file has been reviewed -->
+     <condition property="not.reviewed">
+       <equals arg1="false" arg2="${properties.reviewed}"/>
+     </condition>
+     <fail if="not.reviewed">
+        "build.properties" file has not yet been reviewed. Please insure settings are correct, then
+        set "properties.reviewed" property to "true."
+     </fail>
+  </target>
+	
+  <target name="1.mda" description="Generates code from the UML model" depends="init, clean">
+    <taskdef name="andromda" classname="org.andromda.ant.task.AndroMDAGenTask" classpathref="andromda.classpath"/>
+    <andromda configurationUri="file:${basedir}/mda/config/andromda.xml"/>
+  </target>
+
+  <target name="2a.schema-create-db" description="Creates the database, then installs the generated schema files on the database">
+        <sql driver="${dataSource.driver.class}"
+                 url="${dataSource.url.prefix}/"
+                 userid="${dataSource.user}"
+                 password="${dataSource.password}"
+                 onerror="${dataSource.sql.onError}">
+            <classpath>
+                <pathelement location="${dataSource.driver.jar}"/>
+            </classpath>
+            CREATE DATABASE ${dataSource.database.name};
+        </sql>
+        <antcall target="schema-install"/>
+        <antcall target="deploy-datasource"/>
+  </target>
+
+  <target name="2b.schema-update" description="Updates the database after a change." depends="schema-generate">
+      <antcall target="schema-drop"/>
+      <antcall target="schema-install"/>
+  </target>
+
+  <target name="3.deploy-local" description="Deploy the server .war to a local application server" depends="init,make-jars">
+  	  <copy file="server/target/${application.id}.war" todir="${jboss.default.deploy.dir}"/>
+  </target>
+	
+  <target name="schema-generate" unless="schema-is-generated">
+        <!-- Generates the schema files for the database -->
+        <path id="hibernate.classpath">
+           <fileset dir="${andromda.dependency.dir}">        
+              <include name="org/hibernate/hibernate/*/hibernate-*.jar"/>
+              <include name="commons-logging/commons-logging/*/commons-logging-*.jar"/>
+              <include name="dom4j/dom4j/*/dom4j-*.jar"/>
+              <include name="commons-collections/commons-collections/*/commons-collections-*.jar"/>
+           </fileset>
+           <fileset dir="${jboss.installation.path}/server/default/lib">
+               <include name="jboss-j2ee.jar"/>
+           </fileset>
+        </path>
+        <mkdir dir="${source.server.codeGen.dir.sql}"/>
+        <fileset id="hibernate.mapping.files" dir="${source.server.codeGen.dir.java}">
+            <include name="**/*.hbm.xml"/>
+        </fileset>
+        <pathconvert refid="hibernate.mapping.files" property="hibernate.mappings" pathsep=" "/>
+        <java classname="org.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <arg value="--output=${dataSource.sql.init}"/>
+            <arg value="--text"/>
+            <arg value="--quiet"/>
+            <arg value="--delimiter=;"/>
+            <arg value="--format"/>
+            <arg line="${hibernate.mappings}"/>
+            <jvmarg value="-Dhibernate.dialect=${hibernate.db.dialect}"/>
+            <classpath refid="hibernate.classpath" />
+        </java>
+        <replaceregexp file="${dataSource.sql.init}"
+                       match="^(alter table .* drop constraint|alter table .* drop foreign key|drop table)"
+                       replace="-- for safety, skipping over: \1"
+                       flags="i"
+                       byline="true"/>
+        <java classname="org.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <arg value="--output=${dataSource.sql.drop}"/>
+            <arg value="--text"/>
+            <arg value="--quiet"/>
+            <arg value="--drop"/>
+            <arg value="--delimiter=;"/>
+            <arg value="--format"/>
+            <arg line="${hibernate.mappings}"/>
+            <jvmarg value="-Dhibernate.dialect=${hibernate.db.dialect}"/>
+            <classpath refid="hibernate.classpath" />
+        </java>
+        <property name="schema-is-generated" value="true"/>
+  </target>
+
+  <target name="schema-install" depends="schema-generate">
+        <!-- Installs the generated schema files on the database -->
+        <sql driver="${dataSource.driver.class}"
+                 src="${dataSource.sql.init}"
+                 url="${dataSource.url.prefix}/${dataSource.database.name}"
+                 userid="${dataSource.user}"
+                 password="${dataSource.password}"
+                 onerror="${dataSource.sql.onError}">
+            <classpath>
+                <pathelement location="${dataSource.driver.jar}"/>
+            </classpath>
+        </sql>
+  </target>
+
+  <target name="schema-drop" depends="schema-generate">
+        <!-- Drops the generated schema files on the database -->
+        <sql driver="${dataSource.driver.class}"
+                 src="${dataSource.sql.drop}"
+                 url="${dataSource.url.prefix}/${dataSource.database.name}"
+                 userid="${dataSource.user}"
+                 password="${dataSource.password}"
+                 onerror="${dataSource.sql.onError}">
+            <classpath>
+                <pathelement location="${dataSource.driver.jar}"/>
+            </classpath>
+        </sql>
+  </target>
+
+  <target name="clean" depends="init">
+     <!-- Delete all generated code -->
+     <delete dir="${source.client.codeGen.dir}" includeemptydirs="true"/>
+     <delete dir="${source.common.codeGen.dir}" includeemptydirs="true"/>
+     <delete dir="${source.server.codeGen.dir}" includeemptydirs="true"/>
+     <delete dir="server/target" includeemptydirs="true"/>
+     <delete dir="client/target" includeemptydirs="true"/>
+     <delete dir="common/target" includeemptydirs="true"/>
+  </target>
+
+  <target name="nuke" depends="clean" >
+     <!-- Delete ALL code (including hand coded source!). Use with CAUTION!! -->
+     <input
+       message="All source code, including hand coded implementation code will be deleted!  Continue (y/n)?"
+       validargs="y,n"
+       addproperty="do.nuke"
+     />
+     <condition property="do.abort">
+       <equals arg1="n" arg2="${do.nuke}"/>
+     </condition>
+     <fail if="do.abort">Nuke aborted by user.</fail>
+  	 <delete dir="${source.client.impl.dir}" includeemptydirs="true"/>
+     <delete dir="${source.client.testCode.dir}" includeemptydirs="true"/>
+     <delete dir="${source.common.impl.dir}" includeemptydirs="true"/>
+     <delete dir="${source.server.impl.dir}" includeemptydirs="true"/>
+     <delete dir="${source.server.testCode.dir}" includeemptydirs="true"/>
+     <!-- Put back directories that are in Eclipse source path in case AndroMDA does NOT make them -->
+  	 <mkdir dir="${source.client.impl.dir.java}"/>
+  	 <mkdir dir="${source.client.testCode.dir.config}"/>
+     <mkdir dir="${source.common.impl.dir.java}"/>
+     <mkdir dir="${source.server.impl.dir.java}"/>
+     <mkdir dir="${source.server.testCode.dir.java}"/>
+  </target>
+
+  <fileset id="deployment-libraries" dir="${andromda.dependency.dir}">
+   <!-- These files are the library .JARs that will be added to the server .WAR or .EAR files.
+        You can add or remove any files you wish here (for example, if your JBoss
+        environment already has Spring or Hibernate .JAR files available globally,
+        they can be removed from here). Any libraries your services need should
+        also be added here. -->
+      <include name="**/spring*.jar"/>
+      <include name="**/hibernate-3*.jar"/>
+      <include name="**/antlr*.jar"/>
+      <include name="**/ehcache*.jar"/>
+      <include name="**/commons-beanutils*.jar"/>
+      <include name="**/commons-logging*.jar"/>
+#if ($enableAcegi == 'yes')      
+      <include name="**/acegi*.jar"/>
+#end      
+  </fileset>
+	
+  <target name="make-server-war" unless="server-war-built">
+     <!-- Creates the server .war -->
+     <mkdir dir="server/target"/>
+     <property name="jars-temp" location="server/target/jars-temp"/>
+     <delete dir="${jars-temp}" failonerror="true"/>
+     <copy todir="${jars-temp}" failonerror="true" flatten="true">
+        <fileset refid="deployment-libraries"/>
+     </copy>
+     <war destfile="server/target/${application.id}.war" duplicate="fail" webxml="server/target/config/dist/WEB-INF/web.xml">
+        <lib dir="${jars-temp}"/>
+        <classes dir="server/target/classes/dist"/>
+        <classes dir="common/target/classes/dist"/>
+        <webinf dir="server/target/config/dist/WEB-INF">
+           <exclude name="web.xml"/>
+        </webinf>
+     </war>
+     <delete dir="${jars-temp}" failonerror="true"/>
+     <property name="server-war-built" value="true"/>
+  </target>
+	
+  <target name="make-client-jar">
+     <!-- Creates the client side .jar -->
+     <mkdir dir="client/target"/>
+     <jar destfile="client/target/${application.id}-client.jar">
+         <zipfileset dir="client/target/classes/dist"/>
+         <zipfileset dir="common/target/classes/dist"/>
+         <zipfileset dir="client/target/config/dist"/>
+     </jar>
+  </target>
+
+  <target name="make-jars" depends="init,make-server-war,make-client-jar">
+    <!-- Creates all distribution .jar files -->
+  </target>
+  
+  <target name="deploy-datasource">
+  	  <filter token="dataSourceName" value="${dataSource.name}"/>
+	  <filter token="dataSourceURL" value="${dataSource.url.prefix}/${dataSource.database.name}"/>
+	  <filter token="dataSourceDriverClass" value="${dataSource.driver.class}"/>
+	  <filter token="dataSourceUserName" value="${dataSource.user}"/>
+	  <filter token="dataSourcePassword" value="${dataSource.password}"/>
+  	  <copy file="datasource-template.xml.txt" tofile="${jboss.default.deploy.dir}/${applicationId}-ds.xml" filtering="true" overwrite="true"/>
+  </target>
+	
+</project>

@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo - Activity Graphs</title>
+    </properties>
+
+    <body>
+        <section name="Activity Graphs">
+            <p>
+               These graphs allow you to express the way you want your application to behave, this is expressed
+               by means of states and transitions. An activity graph therefore is, by definition, a
+               <em>state machine</em>.
+            </p>
+            <p>
+                Your activity graph should be modeled as a child element of the use-case. In case your modeling
+                tool does not support that you can add a tagged value to the use-case, making it point to the
+                activity graph, like this: <code>@andromda.presentation.usecase.activity=My Activity Graph</code>
+            </p>
+            <p>
+                On this page you will see how to use the different states, and how to express the flow from one
+                state into another.
+            </p>
+            <p class="highlight">
+                Custom code (methods) can be executed from an action state, you will learn about that in
+                <a href="howto4.html">one of the later sections</a>.
+            </p>
+            <subsection name="Initial States">
+                <p>
+                    Each use-case needs an <code>initial state</code>, an initial state is displayed as
+                    a solid black disc. It denotes the starting point of the use-case, it can have no incoming
+                    transitions and only one outgoing transition. Only a single initial state is allowed
+                    per activity graph.
+                </p>
+                <p>
+                    Since our example features only one use-case it will therefore
+                    contain exactly one initial state.
+                </p>
+                <p>
+                    <img src="howto/org/andromda/test/initial-states.gif"/>
+                </p>
+            </subsection>
+            <subsection name="Action States">
+                <p>
+                    An action state represents a certain state in which the application can be recorded,
+                    an action state is displayed as a rectangle with rounded corners. In bpm4struts you will
+                    use action states for both server-side states (the controller: struts actions)
+                    as client-side states (the view: JSP, VTL, ...).
+                </p>
+                <p class="highlight">
+                    Make sure the actual name property of each action state is unique in the activity graph.
+                    Additionally, make sure the name is properly entered: sometimes people enter the action state's
+                    <em>label</em> in the activity diagram instead of the real name of the element.
+                </p>
+                <p>
+                    Client-side action states are tagged with the <![CDATA[<<FrontEndView>>]]> stereotype,
+                    they represent a JSP and may have multiple outgoing transitions (one per call
+                    to the server).
+                </p>
+                <p>
+                    Server-side action states do not need any stereotype but can only have a single outgoing
+                    transition.
+                </p>
+                <p>
+                    <img src="howto/org/andromda/test/action-states.gif"/>
+                </p>
+                <p>
+                    Most of the time you'll want exactly a single outgoing transition for your server-side
+                    action states, but in a few cases it is required to take full control of the process flow, meaning
+                    you don't want to have the application forward to the next resource. In this case simply don't
+                    model an outgoing transition, the Struts action class will return <code>null</code>. Don't forget
+                    to write to the HTTP response yourself, you can do this is you defer to a controller operation in
+                    your action state.
+                </p>
+                <p class="highlight">
+                    You'll want to make use of this feature when you want
+                    an action returning a dynamically generated report such as a PDF.
+                </p>
+            </subsection>
+            <subsection name="Transitions">
+                <p>
+                    Transitions are used to interconnect the different states in the activity graph, they make up
+                    the actual process logic.
+                </p>
+                <p>
+                    A few tagged values exist for transitions coming out of <![CDATA[<<FrontEndView>>]]> action states,
+                    please see this page to learn more about them:
+                    <a href="profile.html#Tagged_Values">profile.html</a>.
+                </p>
+                <p>
+                    Using these tagged values a transition may be marked to carry a message to the (indirectly)
+                    targetted <![CDATA[<<FrontEndView>>]]> action state:
+                </p>
+                <p>
+                    <ul>
+                        <li><code>@andromda.struts.action.success.message</code>: Write a message that will be
+                            displayed in a green box. This message will be stored into the default
+                            resource bundle.</li>
+                        <li><code>@andromda.struts.action.warning.message</code>: Write a message that will be
+                            displayed in a yellow box. This message will be stored into the default
+                            resource bundle.</li>
+                    </ul>
+                </p>
+                <p>
+                    It is possible to model exceptions to the process logic, in doing so you express how the system
+                    should behave in case something goes wrong. You just need to add the
+                    <![CDATA[<<FrontEndException>>]]> stereotype to the transition and you're good. Additionally
+                    you can add a tagged value to such a transition in order to refine the exception handling:
+                    <code>@andromda.struts.exception.type</code> needs the fully qualified classname of the exception
+                    to be handled by this transition, others will be ignored; the default value if not specified is
+                    <code>java.lang.Exception</code> meaning all exceptions will be handled.
+                </p>
+                <p class="highlight">
+                    The default exception handling strategy is to return to the source page on which
+                    the exception has been triggered.
+                </p>
+            </subsection>
+            <subsection name="Event Parameters">
+                <p>
+                    Event parameters are parameters modeled on transitions exiting client-side action states
+                    (the ones with the <![CDATA[<<FrontEndView>>]]> stereotype). Whenever you model such a transition
+                    it represents a call to the server from a webpage, usually by submitting a form. The parameters
+                    you model will represent the form fields.
+                </p>
+                <p>
+                    Please note that you will need to add the parameters to the transition's <code>trigger</code>,
+                    this trigger should be of type 'signal', but don't worry about that if your UML tool does
+                    not support setting the type of the trigger.
+                </p>
+                <p>
+                    <img src="howto/org/andromda/test/event-parameters.gif"/>
+                </p>
+                <p>
+                    Different tagged values exist to control the generation of the type of the event parameter.
+                </p>
+                <div class="indented">
+                    <table>
+                        <tr><td>
+                            <strong>Selectable parameters</strong>
+                        </td></tr>
+                        <tr><td>
+                            <p>
+                                Event parameters can be made selectable so that the user can select one or more values
+                                from a list and send them to the server. In order to achieve this we need to make the
+                                distinction between two types of data: the complete list and the selected value(s).
+                            </p>
+                            <p>
+                                The event parameter you model should represent the one that is sent to the server,
+                                this typically is a String but could also be a Collection, List, int, etc...
+                                Add the following tagged value to this parameter:
+                                <code>@andromda.presentation.web.view.field.type=select</code>.
+                            </p>
+                            <p class="highlight">
+                                A collection-type parameter (Collection, List, Set, ...) will result in the rendering
+                                of a list where multiple selections are possible.
+                            </p>
+                            <p>
+                                Adding this tagged value will allow us to populate this list prior to showing it to
+                                the user.
+                            </p>
+                            <p>
+                                Any action that is entering the page on which this parameter is an event parameter
+                                will have the possiblity to populate the list. In order to do this you would simply
+                                defer to a controller operation which has as argument a parameter with the exact same
+                                name and type as the event parameter, defer to this operation somewhere <em>before</em>
+                                entering the <![CDATA[<<FrontEndView>>]]> action state. This will result in
+                                the controller having the possiblity to set the values and labels for the
+                                selectable field.
+<source language="java"><!--
+public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm form, ...
+{
+    Object[] values = {"1","2","3","4"};
+    Object[] labels = {"one","two","three","four"};
+
+    form.setNumberValueList(values);
+    form.setNumberLabelList(labels);
+}
+--></source>
+                            </p>
+                            <p>
+                                Notice how the <code>form</code> allows setting the values and labels to back up
+                                the selectable event parameter. In this case the event parameter had been named
+                                <code>'number'</code>. Most of the time the data that will go into the list is coming
+                                from the back-end, in this example the list contents never change.
+                            </p>
+                            <p>
+                                There is another method available for selectable event parameters that is equivalent
+                                to the above but is easier to use when the labels and values are encapsulated
+                                in value objects:
+<source language="java"><!--
+public void preloadCounterList(ActionMapping mapping, PreloadCounterListForm form, ...
+{
+    // the next list contains value objects
+    Collection numberValueObjects = getNumbers();
+
+    // use the 'id' property as the value, and use the 'text' property as the label
+    form.setNumberBackingList(numberValueObjects, "id", "text");
+}
+--></source>
+                            </p>
+                            <p class="highlight">
+                                Setting the labels is optional, in case they are missing the application will
+                                assume the values instead.
+                            </p>
+                        </td></tr>
+                        <tr><td>
+                            <strong>Password fields</strong>
+                        </td></tr>
+                        <tr><td>
+                            <p>
+                                Simply add the <code>@andromda.presentation.web.view.field.type=password</code> tagged value to the
+                                event parameter. This will render a regular text input field in which the characters
+                                are masked behind asterisks.
+                            </p>
+                        </td></tr>
+                        <tr><td>
+                            <strong>Multi-line text</strong>
+                        </td></tr>
+                        <tr><td>
+                            <p>
+                                Simply add the <code>@andromda.presentation.web.view.field.type=textarea</code> tagged value to the
+                                event parameter. The generated input field will allow more than a single row.
+                            </p>
+                        </td></tr>
+                        <tr><td>
+                            <strong>Options</strong>
+                        </td></tr>
+                        <tr><td>
+                            <p>
+                                Simply add the <code>@andromda.presentation.web.view.field.type=radio</code> tagged value to the
+                                event parameter. This will render a set of radiobuttons from which the user may choose
+                                one. By default 3 radiobuttons are rendered, but this number can be changed by using the
+                                <code>@andromda.struts.view.field.radio</code> tagged value, which either takes
+                                a positive integer value or a comma-separated list of values from which to select.
+<source><![CDATA[
+@andromda.struts.view.field.radio=7
+@andromda.struts.view.field.radio=cd,dvd,book,hardware
+]]></source>
+                            </p>
+                            <p>
+                                Getting the selected option's value from the form will return the selection index
+                                encapsulated by a class of this field's type. There is also a convenient method
+                                present on the form that is able to convert this index to the modeled selection value.
+                            </p>
+                            <p>
+                                In the example above one would have:
+                                <ul>
+                                    <li>0: cd</li>
+                                    <li>1: dvd</li>
+                                    <li>2: book</li>
+                                    <li>3: hardware</li>
+                                </ul>
+                            </p>
+                        </td></tr>
+                        <tr><td>
+                            <strong>File upload</strong>
+                        </td></tr>
+                        <tr><td>
+                            <p>The parameter must be a <code>File</code> type.</p>
+                        </td></tr>
+                        <tr><td>
+                            <strong>Checkboxes</strong>
+                        </td></tr>
+                        <tr><td>
+                            <p>The parameter must be a <code>boolean</code> type.</p>
+                        </td></tr>
+                        <tr><td>
+                            <strong>List of checkboxes</strong>
+                        </td></tr>
+                        <tr><td>
+                            <p>
+                                Simply add the <code>@andromda.presentation.web.view.field.type=multibox</code> tagged value to
+                                the event parameter. An additional tagged value must be set:
+                                <code>@andromda.struts.view.field.multibox</code>, the value must match a variable
+                                which holds a collection or array.
+                            </p>
+                            <p class="highlight">
+                                Using this tagged value only makes sense when used in a table, go
+                                <a href="howto8.html">here</a> to learn about tables. Each row in the table
+                                will be matched against to content of the multibox variable, if it is present the
+                                checkbox will be checked.
+                            </p>
+                        </td></tr>
+                    </table>
+                </div>
+            </subsection>
+            <subsection name="Page Variables">
+                <p>
+                    Page variables are modeled the same way event parameters are, the only difference is that
+                    you model them on transitions <em>entering</em> a <![CDATA[<<FrontEndView>>]]> action state.
+                    In doing so the modeled parameters will be available in the generated JSP page.
+                </p>
+                <p>
+                    <img src="howto/org/andromda/test/page-variables.gif"/>
+                </p>
+                <p>
+                    Page variables can be rendered in tabular format, this is an advanced feature which
+                    is explained in more depth on this page:
+                    <a href="howto8.html">Tables</a>.
+                </p>
+            </subsection>
+            <subsection name="Decision Points">
+                <p>
+                    In some cases action states and transitions just aren't enough, a good example is when you
+                    want to fork the flow based on a specific decision. Suppose you want to follow the first
+                    transition if the user login credentials are valid, and follow the second transition if they
+                    are invalid.
+                </p>
+                <p>
+                    In order to do this we must need to be able to call an operation with a return value, on which
+                    the decision is based. We will see how to do this later, click here
+                    to proceed there now: <a href="howto4.html">Custom Code</a>.
+                </p>
+                <p>
+                    Finally we must tag the transition indicating when it must be followed, in UML this is done
+                    by means of <em>guards</em>. Not to make things overly complex it is not necessary to model
+                    the OCL for the guard (very few tools properly support this), so instead it will be sufficient
+                    to model the name of the guard, it must match the return value of the method call
+                    (matching is done using <code>String.valueOf(returnValue)</code>).
+                </p>
+                <p>
+                    Some modeling tools do not properly show the name of the guard in the activity diagram, in that
+                    case you might consider copying the name also in the guard's body, this will be ignored by the
+                    cartridge and might show it on screen for clarity.
+                </p>
+                <p>
+                    <img src="howto/org/andromda/test/decision-points.gif"/>
+                </p>
+            </subsection>
+            <subsection name="Final States">
+                <p>
+                    You may have as many final states as you want in an activity graph. In bpm4struts a final state
+                    represents the end of the use-case and the flow into the next use-case. Final states are
+                    displayed as bulls-eyes in activity diagrams.
+                </p>
+                <p>
+                    There are two ways of modeling a final state: either you give it the name of the next use-case
+                    (which can be the same as the current use-case), either you do not name it and you use a hyperlink
+                    to the next use-case (this is not supported in all UML tools).
+                </p>
+                <p>
+                    <img src="howto/org/andromda/test/final-states.gif"/>
+                </p>
+            </subsection>
+            <subsection name="Sending parameters across use-cases">
+                <p>
+                    Sometimes it can happen that you would like to send parameters from one use-case into another
+                    use-case. This is easy with the bpm4struts cartridge: just model the parameters on an action
+                    leading into a final state and the parameters will automagically be available in the target
+                    use-case.
+                </p>
+                <p>
+                    <h4>This is the first use-case</h4>
+                    <img src="howto/org/andromda/test/inter-usecase-source.gif"/>
+                </p>
+                <p>
+                    <h4>This is the second use-case</h4>
+                    <img src="howto/org/andromda/test/inter-usecase-target.gif"/>
+                </p>
+                <p class="highlight">
+                    Respect the fact that use-cases are supposed to be loosely coupled: do not assume incoming
+                    parameters to always be present and check for <code>null</code>, this will improve your
+                    application's robustness.
+                </p>
+            </subsection>
+        </section>
+        <section name="Nice to know">
+            <subsection name="JSP pages">
+                <p>
+                    Each action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype will result in the generation
+                    of a JSP page. If you have properly modeled your use-case then these pages will contain
+                    already everything to have a working application: forms, buttons,
+                    hyperlinks, a menu, breadcrumbs, an online help, client validation, server calls, security ...
+                </p>
+                <p>
+                    The generated JSP pages comply to the JSP 2.0 specification, as found in J2EE 1.4.
+                </p>
+            </subsection>
+            <subsection name="Struts Actions/Forms">
+                <p>
+                    For each transition modeled exiting either an initial state or an action state with the
+                    <![CDATA[<<FrontEndView>>]]> stereotype the cartridge will generate a Struts Action class
+                    and a Struts Form class. The parameters modeled on the transition's signal event
+                    will make up the fields that go into the form.
+                </p>
+                <p>
+                    The generated <code>struts-config.xml</code> descriptor will contain a <code>form-bean</code>
+                    entry per generated Form. Here's an example:
+<source language="xml"><![CDATA[
+<form-beans>
+    ...
+    <form-bean
+        name="purchaseItemsEnterUserDetailsPurchaseForm"
+        type="my.onlinestore.purchase.EnterUserDetailsPurchaseForm" />
+    ...
+</form-beans>
+]]></source>
+                </p>
+                <p>
+                     Each action will have a corresponding
+                    <code>action-mapping</code> entry, like this:
+<source language="xml"><![CDATA[
+<action-mappings>
+    ...
+    <action
+        path="/PurchaseItems/EnterUserDetailsPurchase"
+        type="my.onlinestore.purchase.EnterUserDetailsPurchase"
+        name="purchaseItemsEnterUserDetailsPurchaseForm"
+        scope="request"
+        input="/my/onlinestore/purchase/enter-user-details.jsp"
+        unknown="false"
+        validate="true">
+        <exception
+            type="java.lang.Exception"
+            key="purchase.items.enter.user.details.exception"
+            path="/my/onlinestore/purchase/enter-user-details.jsp"
+            scope="request" />
+        <forward
+            name="purchase.items"
+            path="/PurchaseItems/PurchaseItems.do"
+            redirect="false" />
+    </action>
+    ...
+</action-mappings>
+]]></source>
+                </p>
+                <p>
+                    A Struts action class and associated form is generated per sequence of transitions between two
+                    <![CDATA[<<FrontEndView>>]]> action states. The form fields are determined by the parameters
+                    modeled on the transitions, for maximum usability some parameters from neighbouring actions
+                    might also be included, but we'll not get into this just yet.
+                </p>
+                <p>
+                    The action class has a <code>private</code> method for each different state it encounters, those
+                    methods might delegate control to a controller operation, this is explained
+                    <a href="howto3.html">here</a>. A code fragment taken from the online-store sample is shown below,
+                    it contains a single action state deferring control to the <code>loadItems</code> controller
+                    operation. Please notice exception handling is taken care of. Such methods start with an underscore
+                    not to cause naming conflicts with existing Struts
+                    <a href="http://struts.apache.org/api/org/apache/struts/action/Action.html">Action</a> methods.
+<source language="java"><![CDATA[
+private ActionForward _loadItemsForSale(
+        ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response)
+    throws Exception
+{
+    ActionForward forward = null;
+
+    final org.apache.struts.action.ActionMessages errors = this.getExceptionHandlerErrors(request);
+    try
+    {
+        if (this.errorsNotPresent(request))
+        {
+            PurchaseControllerFactory.getPurchaseControllerInstance().loadItems(
+                mapping, (EnterNameAndPasswordProceedForm)form, request, response);
+        }
+        if (this.errorsNotPresent(request))
+        {
+            forward = _promptUserWithItemList(mapping, form, request, response);
+        }
+    }
+    catch (Exception ex)
+    {
+        final String messageKey = PatternMatchingExceptionHandler.instance().handleException(ex);
+        errors.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(messageKey));
+    }
+    finally
+    {
+    }
+    if (!errors.isEmpty())
+    {
+        forward = mapping.getInputForward();
+    }
+    return forward;
+}
+]]></source>
+                </p>
+                <p class="highlight">
+                    Action classes and action forms, and <code>struts-config.xml</code> too for that matter, are never
+                    manually edited when using AndroMDA.
+                </p>
+            </subsection>
+            <subsection name="Screenshots">
+                <p>
+                    The screenshots shown here are taken from the
+                    <a href="samples.html#online-store">Online-Store</a> sample, which is part of the AndroMDA
+                    distribution, for more information on the samples please go
+                    <a href="../../samples.html">here</a>.
+                </p>
+                <div class="screenshot">
+                    <table>
+                        <tr>
+                            <td><img src="howto/org/andromda/test/screenshots/thumb1.gif"/></td>
+                            <td>
+                                <a href="howto/org/andromda/test/screenshots/screen1.gif">(Larger View)</a>
+                                <p>
+                                    This screenshot shows a typical custom login screen,
+                                    note how the passwords are masked using asterisks.
+                                    The password confirmation is also automatically rendered into the page using
+                                    JavaScript (server-side validation will also be performed). The tooltip is shown
+                                    when hovering over an input field, in this case the password field. Also notice the
+                                    online-help link at the bottom of the screen.
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="howto/org/andromda/test/screenshots/thumb2.gif"/></td>
+                            <td>
+                                <a href="howto/org/andromda/test/screenshots/screen2.gif">(Larger View)</a>
+                                <p>
+                                    Another screen showing some different types of input fields, depending
+                                    on the type of the
+                                    expected input (integer, date, email, creditcard, url, ...) a specific validation
+                                    will be performed to make sure the user does not needlessly call the server. This
+                                    validation makes use of the Struts validation framework.
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="howto/org/andromda/test/screenshots/thumb3.gif"/></td>
+                            <td>
+                                <a href="howto/org/andromda/test/screenshots/screen3.gif">(Larger View)</a>
+                                <p>
+                                    This screen is what you see when you click on the online-help link: a list of
+                                    actions, input fields and corresponding documentation. What you see here is
+                                    (like everything else in this how-to) 100% generated by the cartridge,
+                                    information can be added on the corresponding element in the UML model.
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="howto/org/andromda/test/screenshots/thumb4.gif"/></td>
+                            <td>
+                                <a href="howto/org/andromda/test/screenshots/screen4.gif">(Larger View)</a>
+                                <p>
+                                    Did you notice the little calendar icon next to the date input field ? If you click
+                                    it you will get a popup like this from which the date can be selected. Depending
+                                    on the desired input format it will be formatted correctly.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                Use-cases usually execute custom code, later we will see how to do that, first you will
+                need to understand how to assign a controller to a use-case, this is explained in the
+                <a href="howto3.html">next</a> section.
+            </p>
+        </section>
+    </body>
+</document>

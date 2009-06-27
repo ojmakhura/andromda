@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Development Approach</title>
+</head>
+<body>
+    <h2>Development Approach</h2>
+    <!------------------------- Intro Text ------------------------->
+    <p>
+        In this section, we will give you a high-level overview of our development approach.
+        In general, we will follow an agile, iterative process to build TimeTracker. An
+        alternate approach would entail using the waterfall methodology, in which the entire
+        application is designed first, then coded, tested, and finally deployed, thus leaving
+        integration and testing to the very end. Consequently, the waterfall approach is
+        inherently more risky and is increasingly losing favor. Unlike the waterfall method,
+        the iterative approach allows us to quickly see the results of our efforts, and
+        make necessary course corrections as early as possible.
+    </p>
+    <!------------------------- Main Text ------------------------->
+    <p>
+        In the spirit of agile development, we will build TimeTracker in several iterations.
+        In the first iteration, we will design and build the search functionality. This
+        will include a complete vertical slice of the application starting from the front-end
+        screen all the way to the database. In subsequent iterations, we will implement
+        the functionality to create, submit, and approve timecards.
+    </p>
+    <p>
+        Another important aspect of the agile approach is test-driven development, which
+        suggests that you write a test before you write the production code to fulfill that
+        test. The test defines the requirements of your application and forces you to write
+        only the code that is necessary, thus reducing unguided effort. In addition, you
+        now have a suite of tests that can be used for regression testing your application.
+        As an example, consider the search screen from our prototype. To support this screen,
+        the service layer needs to provide only two functions:
+    </p>
+    <ol>
+        <li>Ability to get a list of all users in order to populate the search criteria drop-downs</li>
+        <li>Ability to get a list of all timecards that match a specific search criteria.</li>
+    </ol>
+    <p>
+        We will first tackle the requirement of getting all users from the service layer
+        as follows:</p>
+    <ol>
+        <li>Model enough of the application to write the "get all users" test.</li>
+        <li>Generate the entities and service interfaces from the model.</li>
+        <li>Write a unit test to test the service method. The first attempt to run this test
+            will obviously fail because the service hasn't been implemented yet.</li>
+        <li>Implement "get all users" logic in the service layer.</li>
+        <li>Retest to make sure the test passes.</li>
+        <li>Implement the drop-downs in the front-end, which will be populated using the service
+            method just created.</li>
+    </ol>
+    <p>
+        The same process will be then repeated to implement the second function above --
+        "get timecards for the specified search criteria".</p>
+    <h3>What's Next?</h3>
+    <p>
+        Now that we understand the basic development process, click the <em>Next</em> link
+        below to create a starter application.
+    </p>
+</body>
+</html>

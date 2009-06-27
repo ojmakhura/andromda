@@ -1,0 +1,174 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda</groupId>
+        <artifactId>andromda</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-distribution</artifactId>
+    <packaging>pom</packaging>
+    <name>AndroMDA Distribution</name>
+    <description>Provides the assembly of the AndroMDA distribution</description>
+    <dependencies>
+        <!-- Add dependencies here to ensure they're built before the distribution itself -->
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>andromda-schema2xmi</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.maven.plugins.site</groupId>
+            <artifactId>andromda-site-plugins</artifactId>
+            <version>${pom.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>andromda-script-wrappers</artifactId>
+            <version>${pom.version}</version>
+            <type>pom</type>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-distribution-plugin</artifactId>
+                <version>${pom.version}</version>
+                <executions>
+                    <execution>
+                        <id>binary</id>
+                        <goals>
+                            <goal>assemble</goal>
+                        </goals>
+                        <configuration>
+                            <name>andromda-bin-${pom.version}</name>
+                            <artifactDirectory>andromda</artifactDirectory>
+                            <dependencyDirectory>lib</dependencyDirectory>
+                            <projectIncludes>
+                                <include>**/pom.xml</include>
+                            </projectIncludes>
+                            <projectExcludes>
+                                <exclude>distribution/**</exclude>
+                                <exclude>documentation/**</exclude>
+                                <!-- exclude doxia plugin until its included back in the build -->
+                                <exclude>maven/2/site/doxia/*</exclude>
+                                <exclude>samples/**</exclude>
+                            </projectExcludes>
+                            <artifactExcludes>
+                                <artifact>
+                                    <groupId>org\.andromda\.samples.*</groupId>
+                                </artifact>
+                                <artifact>
+                                    <groupId>org\.andromda\.bootstrap.*</groupId>
+                                </artifact>
+                            </artifactExcludes>
+                            <locations>
+                                <location>
+                                    <path>${pom.basedir}/../samples</path>
+                                    <excludes>
+                                        <exlude>conf/**</exlude>
+                                        <exclude>**/target/**</exclude>
+                                        <exclude>**/CVS/**</exclude>
+                                        <exclude>**/.cvsignore</exclude>
+                                        <exclude>*</exclude>
+                                        <exclude>**/*.log</exclude>
+                                        <exclude>timetracker/**</exclude>
+                                    </excludes>
+                                    <outputPath>samples/</outputPath>
+                                </location>
+                                <location>
+                                    <path>${pom.basedir}/../maven/2/andromdapp/target/plugin-install</path>
+                                    <includes>
+                                        <include>**/*.xml</include>
+                                    </includes>
+                                    <outputPath>andromda/</outputPath>
+                                </location>
+                                <location>
+                                    <path>${pom.basedir}/../ant/andromda/src/ant/build.xml.vsl</path>
+                                    <outputPath>andromda/org/andromda/ant/build.xml</outputPath>
+                                </location>
+                            </locations>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>source</id>
+                        <goals>
+                            <goal>assemble</goal>
+                        </goals>
+                        <configuration>
+                            <name>andromda-src-${pom.version}</name>
+                            <locations>
+                                <location>
+                                    <path>${pom.basedir}/../</path>
+                                    <excludes>
+                                        <exclude>**/target/**</exclude>
+                                        <exclude>**/CVS/**</exclude>
+                                        <exclude>**/.cvsignore</exclude>
+                                        <exclude>**/*.log</exclude>
+                                    </excludes>
+                                </location>
+                            </locations>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <profiles>
+        <profile>
+            <activation>
+                    <!-- set the property 'maven1Repository': do something like this in ~/.m2/settings.xml
+                    <profiles>
+                        <profile>
+                            <id>andromda</id>
+                            <properties>
+                                <maven1Repository>/var/maven/repository</maven1Repository>
+                                <websiteDir>/var/www/andromda</websiteDir>
+                            </properties>
+                            <activation>
+                                <activeByDefault>true</activeByDefault>
+                            </activation>
+                        </profile>
+                    </profiles>
+                    -->
+                <property>
+                    <name>maven1Repository</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>install</phase>
+                                <configuration>
+                                    <tasks>
+                                        <ant dir="src/antrun" antfile="copy-m2-m1.xml">
+                                            <property name="maven1.repository" value="${maven1Repository}"/>
+                                            <property name="maven2.repository" value="${settings.localRepository}"/>
+                                        </ant>
+                                        <echo message="Copy and install of m2 to m1 artifacts done."/>
+                                        <ant dir="src/antrun" antfile="copy-2-website.xml">
+                                            <property name="website.dir" value="${websiteDir}"/>
+                                            <property name="maven1.repository" value="${maven1Repository}"/>
+                                            <property name="maven2.repository" value="${settings.localRepository}"/>
+                                            <property name="distribution.output.directory" value="${project.build.directory}"/>
+                                        </ant>
+                                        <echo message="Copy and install of website done."/>
+                                    </tasks>
+                                </configuration>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

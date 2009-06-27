@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
+        <author email="cwbrandon@users.sourceforge.net">Chad Brandon</author>
+        <title>The Car Rental System sample application</title>
+    </properties>
+
+    <body>
+
+        <section name="The Car Rental System sample application">
+            <p>
+                The car rental system application is one of multiple samples showing what you can do
+                with AndroMDA. In order to get the sources for this sample you are required to download
+                an AndroMDA 3.x distribution.
+            </p>
+            <p>
+                The model has been designed using the Poseidon case tool.  You will find
+                the model inside this <a href="resources/CarRentalSystem.xml.zip">file</a>. 
+                Open and view this model with Magic Draw's community edition, which can 
+                be downloaded from <a href="http://www.nomagic.com">No Magic's web site</a>.
+                Although Poseidon CE is free, not everybody has installed it. Therefore, we have
+                used Poseidon PE to generate an HTML/JPEG representation of the car rental system sample model
+                browsable as <a href="../umldoc/index.html">HTML</a>.
+            </p>
+            <subsection name="The Model">
+                <p>
+                    The model consists
+                    of a package with use cases, explaining what the main actors (users)
+                    of the application might be and what they can do with the system.
+                    The main actors are an administrator who creates things
+                    like cars and types of cars, a customer who reserves cars for certain
+                    dates, and a call center who can reserve cars as well as record
+                    car accidents. Last, but not least, there are car loan and
+                    reception desks who do what their names imply. :-)
+                    Each use case has an activity diagram attached to it which explains
+                    the message flow of that particular use case.
+                </p>
+                <p>
+                    The rest of the model contains all the design level packages with the
+                    class diagrams inside. The design level packages are
+                    <code>admins</code>,
+                    <code>contracts</code>,
+                    <code>customers</code> and
+                    <code>inventory</code>.
+                </p>
+            </subsection>
+            <subsection name="The Implementation">
+                <p>
+                     This sample was generated using the following cartridges:
+                    <table>
+                        <tr>
+                            <th>Tier</th>
+                            <th>Technology</th>
+                            <th>Cartridge</th>
+                        </tr>
+                        <tr>
+                            <td>Persistence (Entity Beans) and Business (Stateless Session EJBs)</td>
+                            <td>EJB 2.0 (Stateless Session and Entity EJBs)</td>
+                            <td>andromda-ejb-cartridge</td>
+                        </tr>
+                        <tr>
+                            <td>Presentation</td>
+                            <td>Struts 1.2.4</td>
+                            <td>andromda-bpm4struts-cartridge</td>
+                        </tr>
+                    </table>
+                </p>
+            </subsection>
+            <subsection name="Building and Deploying">
+                <p>
+                    To build the car rental system, just cd to the andromda distribution's 
+                    <em>samples/car-rental-system</em> directory and type <em>maven</em>, 
+                    this will build both EJB and Hibernate versions of the application.  
+                    You will find the deployable ear file located in 
+                    <em>samples/car-rental-system/app/target</em>. 
+                </p>
+                <p>
+                    This ear files can be deployed within a JBoss application server instance 
+                    (like any typical J2EE application) by dropping
+                    the ear files within your <em>$JBOSS_HOME/server/default/deploy</em> directory.  
+                </p>
+                <p class="highlight">
+                    Because the application uses the HypersonicSql Database bundled with JBoss,
+                    you'll need to make sure you have JBoss running before attempting to deploy
+                    the application.
+                </p>           
+            </subsection>
+            <subsection name="Using">
+            <p>
+                Once the car rental system has been successfully deployed within JBoss (i.e.
+                no exceptions), point your browser
+                to <a href="http://localhost:8080/car-rental-system">http://localhost:8080/car-rental-system</a>.
+            </p>
+            <p>
+                You may now begin to explore the application:
+                <ol>
+                    <li>
+                        Login as an administrator
+                    </li>
+                    <li>
+                        Create things such as car types, cars and customers
+                    </li>
+                    <li>
+                        Logout
+                    </li>
+                    <li>
+                        Login as a customer and reserve the cars created from
+                        step 2 car(s) for certain date(s).
+                    </li>
+                    <li>
+                        Finally, you may start a JDBC browser to have a look at the 
+                        database tables with their beautiful CMR relationships in 
+                        the disguise of foreign keys
+                    </li>
+                </ol>
+            </p>
+            <p class="highlight">
+                When you log in as administrator for the first time, the system will prompt
+                you for a new username and password.  Please memorize these for the next
+                time you log in.
+            </p>
+            </subsection>
+        </section>
+
+    </body>
+</document>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<namespace name="java">
+    <components>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="profile">
+            <path>META-INF/andromda/profile.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
+    </components>
+    <properties>
+        <!-- namespace-propertyGroup merge-point -->
+        <propertyGroup name="Outlets">
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="services" required="false">
+                <documentation>
+                    The directory to which POJO service interfaces are generated.
+                </documentation>
+            </property>
+            <property name="service-impls" required="false">
+                <documentation>
+                    The directory to which POJO service implementation classes are generated
+                </documentation>
+            </property>
+            <property name="value-objects" required="false">
+                <documentation>
+                    The directory to which value objects are generated.
+                </documentation>
+            </property>
+            <property name="exceptions" required="false">
+                <documentation>
+                    The directory to which exceptions are generated.
+                </documentation>
+            </property>
+            <property name="enumerations" required="false">
+                <documentation>
+                    The directory to which enumerations are generated.
+                </documentation>
+            </property>
+            <property name="interfaces" required="false">
+                <documentation>
+                    The directory to which interfaces are generated.
+                </documentation>
+            </property>
+            <property name="interface-impls" required="false">
+                <documentation>
+                    The directory to which default interfaces implementations are generated.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Other">
+            <property name="generateRefFiles" required="false">
+                <default>true</default>
+                <documentation>
+                    Generates File.ref files if overwrite=false for a template output. Ref files contain
+                    what would have been generated to the original file if overwrite=true or if the file did
+                    not already exist. Can be used to replace or merge with the exiting file.
+                </documentation>
+            </property>
+            <property name="overwriteAll" required="false">
+                <default>false</default>
+                <documentation>
+                    Overwrite all files when generating output. Default=false. Use for project testing where 
+                    all output will overwritten.
+                </documentation>
+            </property>
+            <property name="serializable">
+                <default>true</default>
+                <documentation>
+                    Indicates whether or not generated objects must support distributed environments.
+                    Adds SerialVersionUID to class, generated from combination of class/methods/parameters/types.
+                </documentation>
+            </property>
+            <property name="enablePropertyConstructors">
+                <default>true</default>
+                <documentation>
+                    Whether or not constructors taking all properties will
+                    be generated or not (on the value object for example).
+                </documentation>
+            </property>
+            <property name="interfaceImplementationNamePattern">
+                <default>Default{0}</default>
+                <documentation>
+                    The pattern used to create the default interface implementation name, where <em>{0}</em>
+                    represents the name of the interface.
+                </documentation>
+            </property>
+            <property name="useArraysForMultiplicitiesOfTypeMany">
+                <default>false</default>
+                <documentation>
+                    Indicates whether or not to use Array [] instead of List for * multiplicity on ValueObject AssociationEnds.
+                </documentation>
+            </property>
+            <property name="XMLBindingAnnotations">
+                <default>false</default>
+                <documentation>
+                    Add XML to Java (Jaxb2) binding annotations to Value Object package/classes/methods.
+                </documentation>
+            </property>
+            <property name="enableTemplating">
+                <default>true</default>
+                <documentation>
+                    Indicates whether or not templated (strongly typed) Lists will be generated.
+                </documentation>
+            </property>
+            <property name="enableAnnotations">
+                <default>true</default>
+                <documentation>
+                    Indicates whether JDK5 annotations will be generated, i.e. @Override, @Deprecated.
+                </documentation>
+            </property>
+            <property name="xmlAttributes">
+                <default>true</default>
+                <documentation>
+                    If using XMLBindingAnnotations, annotate simple types as attributes instead of elements.
+                </documentation>
+            </property>
+            <property name="cxfVersion">
+                <default>2.2</default>
+                <documentation>
+                    If using XMLBindingAnnotations, output @XmlSeeAlso for Jaxb 2.1 support. Used in conjunction with
+                    webservices cartridge CXF implementation.
+                </documentation>
+            </property>
+            <property name="generateEqualPropertiesMethod">
+                <default>false</default>
+                <documentation>
+                    When set to 'true' the cartridge will generate an equalProperties(..) method which can be used
+                    to compare a value object's properties to that of another instance's.
+                </documentation>
+            </property>
+            <property name="generateIsBooleanGetters">
+                <default>true</default>
+                <documentation>
+                    When set to 'true' the cartridge will generate an IsAttribute(..) method for each Boolean/boolean
+                    attribute in addition to the normal getAttribute method. Jaxb/Jax-ws only generates IsAttribute() methods
+                    for webservice client objects, this is needed for valueobject method compatibility. Set to false if you
+                    don't want additional unused deprecated methods.
+                </documentation>
+            </property>
+            <property name="generateChainedSetters">
+                <default>false</default>
+                <documentation>
+                    When set to 'true' the setAttribute method returns 'this' instead of void, allowing setter methods to be
+                    chained together after the constructor for improved readability and reduced lines of code. For example: 
+                    Type variable = new Type().setAttribute1(value1).setAttribute2(value2); etc
+                </documentation>
+            </property>
+            <property name="XMLDateAdapter">
+                <default></default>
+                <documentation>
+                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Date&lt;.
+                    Handles parse/print of customized String formats. Outputs java.util.Date or java.util.Calendar
+                    instead of XMLGregorianCalendar.
+                </documentation>
+            </property>
+            <property name="XMLDateTimeAdapter">
+                <default></default>
+                <documentation>
+                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Date&lt;.
+                    Handles parse/print of customized String formats. Outputs java.util.Date or java.util.Calendar
+                    instead of XMLGregorianCalendar.
+                </documentation>
+            </property>
+            <property name="XMLTimeAdapter">
+                <default></default>
+                <documentation>
+                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Date&lt;.
+                    Handles parse/print of customized String formats. Outputs java.util.Date or java.util.Calendar
+                    instead of XMLGregorianCalendar.
+                </documentation>
+            </property>
+            <property name="XMLIntegerAdapter">
+                <default></default>
+                <documentation>
+                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Integer&lt;.
+                    Handles parse/print of customized String formats. Outputs Integer instead of BigInteger.
+                </documentation>
+            </property>
+            <property name="XMLDecimalAdapter">
+                <default></default>
+                <documentation>
+                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Decimal&lt;.
+                    Handles parse/print of customized String formats. Outputs Decimal instead of BigDecimal.
+                </documentation>
+            </property>
+        </propertyGroup>
+    </properties>
+</namespace>

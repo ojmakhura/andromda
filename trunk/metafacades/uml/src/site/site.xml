@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="AndroMDA Metafacades">
+    <skin>
+        <groupId>org.andromda.maven.plugins.site</groupId>
+        <artifactId>andromda-site-skin</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </skin>
+    <bannerLeft>
+        <name></name>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy hh:mm zzz"/>
+	<body>
+    	<links>
+      		<item name="UML Metafacades" href="/index.html"/>
+    	</links>
+    	<menu name="Available Metafacades">
+			<item name="Common UML Metafacades" href="/andromda-metafacades-uml/index.html"/>
+			<item name="UML 1.4 Metafacades" href="/andromda-metafacades-uml14/index.html"/>
+            <item name="EMF UML2 Metafacades" href="/andromda-metafacades-emf-uml2/index.html"/>
+    	</menu>
+        <menu ref="reports"/>
+  	</body>
+</project>

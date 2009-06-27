@@ -1,0 +1,26 @@
+<andromdapp overwrite="true">
+    <properties>
+        <property name="andromdappType">j2ee</property>
+        <property name="author">AndroMDA Team</property>
+        <property name="modelType">uml1.4</property>
+        <property name="applicationParentDirectory">$${project.basedir}</property>
+        <property name="applicationId">animal-quiz</property>
+        <property name="applicationName">AndroMDA Animal Quiz Sample</property>
+        <property name="applicationVersion">$${pom.version}</property>
+        <property name="applicationPackage">org.andromda.samples.animalquiz</property>
+        <property name="applicationType">ear</property>
+        <property name="transactionPersistenceType">spring</property>
+        <property name="workflow">no</property>
+        <property name="springVersion">2</property>
+        <property name="implementationLanguage">java</property>
+        <property name="web">yes</property>
+        <property name="webType">struts</property>
+        <property name="webservice">yes</property>
+        <property name="soapStack">axis</property>
+        <property name="axisVersion">2</property>
+        <property name="model">jar:file:${project.basedir}/src/main/uml/AnimalQuiz.xml.zip!/AnimalQuiz.xml</property>
+        <property name="configurationUri">${project.basedir}/src/main/config/andromda.xml</property>
+        <property name="databaseType">hypersonic</property>
+        <property name="distributionManagementRepositoryUrl">$${project.distributionManagement.repository.url}</property>
+    </properties>
+</andromdapp>

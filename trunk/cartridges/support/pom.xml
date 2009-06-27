@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda</groupId>
+        <artifactId>andromda</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </parent>
+    <groupId>org.andromda.cartridges.support</groupId>
+    <artifactId>andromda-cartridges-support</artifactId>
+    <description>Contains libraries used in support cartridges (i.e. end user libraries used by code generated from the cartridges)</description>
+    <packaging>pom</packaging>
+    <name>AndroMDA Cartridges Support</name>
+    <modules>
+        <module>webservice-client</module>
+    </modules>
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.5</source>
+                        <target>1.5</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

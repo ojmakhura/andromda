@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="dist" name="app" basedir=".">
+
+    <property name="app.root.dir" value="${basedir}/.."/>
+
+    <property file="${basedir}/build.properties"/>
+    <property file="${app.root.dir}/build.properties"/>
+
+    <property name="jar.bundle.name" value="${application.id}-${ant.project.name}-${application.version}.ear"/>
+    <property name="deployment.descriptor.path" value="${basedir}/target/META-INF/application.xml"/>
+
+    <filter token="bundle.name" value="${ant.project.name}.ear"/>
+    <filter token="application.id" value="${application.id}"/>
+    <filter token="application.name" value="${application.name}"/>
+    <filter token="application.version" value="${application.version}"/>
+
+    <copy todir="${basedir}/target/META-INF" overwrite="true" filtering="true">
+        <fileset dir="${basedir}/src/META-INF">
+            <include name="*.xml"/>
+        </fileset>
+    </copy>
+
+    <target name="clean" description="o Clean up the generated directories">
+        <delete dir="${basedir}/target"/>
+    </target>
+
+    <target name="ear">
+        <mkdir dir="${basedir}/target"/>
+#if ($persistenceType == "hibernate")
+        <property file="${app.root.dir}/hibernate/build.properties"/>
+        <ear destfile="${basedir}/target/${jar.bundle.name}" appxml="${deployment.descriptor.path}">
+            <fileset dir="${app.root.dir}/web/target" includes="*.war"/>
+            <fileset dir="${app.root.dir}/hibernate/db/target" includes="*.sar"/>
+            <fileset dir="${app.root.dir}/hibernate/ejb/target" includes="*.jar"/>
+            <fileset dir="${app.root.dir}/common/target" includes="*.jar"/>
+            <fileset dir="${app.root.dir}/lib">
+                <include name="commons-collections-*.jar"/>
+                <include name="commons-beanutils-*.jar"/>
+                <include name="hibernate-*.jar"/>
+                <include name="cglib-*.jar"/>
+                <include name="dom4j-*.jar"/>
+                <include name="odmg-*.jar"/>
+                <include name="ehcache-*.jar"/>
+                <include name="asm-*.jar"/>
+                <include name="commons-logging-*.jar"/>
+                <include name="commons-lang-*.jar"/>
+            </fileset>
+            <fileset dir="${basedir}/target" includes="META-INF/*.xml" excludes="META-INF/application.xml"/>
+        </ear>
+#else
+        <property file="${app.root.dir}/ejb/build.properties"/>
+        <ear destfile="${basedir}/target/${jar.bundle.name}" appxml="${deployment.descriptor.path}">
+            <fileset dir="${app.root.dir}/dist">
+                <include name="*.war"/>
+                <include name="*.jar"/>
+            </fileset>
+        </ear>
+#end
+    </target>
+
+    <target name="dist" description="o Create a distribution" depends="ear">
+        <mkdir dir="${app.root.dir}/dist"/>
+        <copy todir="${app.root.dir}/dist">
+            <fileset dir="${basedir}/target">
+                <include name="${jar.bundle.name}"/>
+            </fileset>
+        </copy>
+    </target>
+
+</project>

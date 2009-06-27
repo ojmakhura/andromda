@@ -1,0 +1,36 @@
+#set ($generatedFile = "${page.cssFileName}")
+## constants
+#set ($hash = "#")
+## start template
+#foreach ($action in $page.actions)
+## only real forms need styles
+#if (!$action.useCaseStart && !$action.hyperlink && !$action.tableLink)
+${hash}${action.styleId}.action {}
+${hash}${action.styleId}.action #form_submit {}
+#if ($action.resettable)
+${hash}${action.styleId}.action #form_reset {}
+#end
+
+#foreach ($field in $action.actionParameters)
+${hash}${action.styleId}.action .${field.name} {}
+${hash}${action.styleId}.action .${field.name} .label {}
+${hash}${action.styleId}.action .${field.name} .field {}
+#end
+
+#end
+#end
+#foreach ($variable in $page.pageVariables)
+#if ($variable.table)
+${hash}${variable.name}.table {}
+${hash}${variable.name}.table th {}
+${hash}${variable.name}.table td div {}
+
+#foreach ($columnName in $variable.tableColumnNames)
+${hash}${variable.name}.table th.${columnName} {}
+${hash}${variable.name}.table td div.${columnName} {}
+
+#end
+
+#end
+#end
+

@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =========================================================================
+     This schema defines the andromdapp.xml configuration file.
+     CODING CONVENTION: NO TABS, INDENT 4 SPACES
+     ========================================================================= -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="andromdapp">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="documentation" minOccurs="0"/>
+                <xs:element ref="resourceLocations"/>
+                <xs:element ref="directories" minOccurs="0"/>
+                <xs:element ref="conditionalOutput" minOccurs="0"/>
+                <xs:element ref="mappings" minOccurs="0"/>
+                <xs:element ref="instructions" minOccurs="0"/>
+                <xs:element ref="templateEngine"/>
+                <xs:element ref="templateObject" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="prompts"/>
+            </xs:sequence>
+            <xs:attribute name="type" type="xs:string" use="required"/>
+            <xs:attribute name="root" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines the root of the application (that is where the name of the directory
+                        in which the application will be created)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="condition">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="setProperty" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specifies the identifier for a property in the template context, if unspecified the condition is assumed
+                        to apply to the response of prompt its nested within.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="equal" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specifies that the condition must be equal to the value defined by this attribute.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="notEqual" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specifies that the condition must NOT be equal to the value defined by this attribute.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="conditions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="condition" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueConditionId">
+            <xs:selector xpath="condition"/>
+            <xs:field xpath="@id"/>
+        </xs:unique>
+    </xs:element>
+    <xs:element name="conditionalOutput">
+        <xs:annotation>
+            <xs:documentation>
+                Defines the output that should be conditionally written.  If conditions
+                are specified, then those conditions must be met before the file will be written.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="conditions" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="condition" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="id" type="xs:string">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Specifies the identifier for a property in the template context, if unspecified the condition is assumed
+                                                to apply to the response of prompt its nested within.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="equal" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Specifies that the condition must be equal to the value defined by this attribute.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="notEqual" type="xs:string" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Specifies that the condition must NOT be equal to the value defined by this attribute.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="present" type="xs:boolean" use="optional">
+                                        <xs:annotation>
+                                            <xs:documentation>
+                                                Specifies whether or not the condition id must not already be present in the template context.
+                                            </xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element ref="output" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                        <xs:attribute name="type" type="conditionsType" use="optional" default="and">
+                            <xs:annotation>
+                                <xs:documentation>
+                                    Represents the type of conditions and/or.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="conditionsType">
+        <xs:annotation>
+            <xs:documentation> Stores the possible component names </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="and">
+                <xs:annotation>
+                    <xs:documentation>
+                        When the condition should be "anded" together".
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="or">
+                <xs:annotation>
+                    <xs:documentation>
+                       When the condition should be "ored" together.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+       </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="directories">
+        <xs:annotation>
+            <xs:documentation>
+                Defines the empty directories to create along with the resources found in the locations defined within resourceLocations.
+                For example, if you wanted a 'src/main/java; directory generated into your project's core directory, you'd give the directory
+                element a value of 'core/src/main/java'.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="directory" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="directory" type="xs:string"/>
+    <xs:element name="exclusion">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="patterns" type="xs:string" use="optional"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="documentation" type="xs:anyType"/>
+    <xs:element name="from" type="xs:string"/>
+    <xs:element name="instructions" type="xs:string">
+        <xs:annotation>
+            <xs:documentation>
+                Defines the location of the instructions on using the new application after the application
+                has been generated (i.e. a readme.txt file for example).
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="location" type="xs:string"/>
+    <xs:element name="mapping">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="from" maxOccurs="unbounded"/>
+                <xs:element ref="to"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="mappings">
+        <xs:annotation>
+            <xs:documentation>
+                Mappings are used to map output patterns to new output patterns.  They can be used to map
+                a non velocity file that is copied into your andromdapp bundle to a file with the same name
+                with a velocity extension (in order to allow processing by the template engine) for example.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mapping" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="output">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="patterns" type="xs:string" use="optional"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="macrolibrary">
+        <xs:annotation>
+            <xs:documentation>
+                Defines a macro library for use with the template engine.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="preconditions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="condition" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="type" type="conditionsType" use="optional" default="and">
+                <xs:annotation>
+                    <xs:documentation>
+                        Represents the type of conditions and/or.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="prompt">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="text" minOccurs="1" />
+                <xs:element ref="shortText" minOccurs="1" />
+                <xs:element ref="preconditions" minOccurs="0" />
+                <xs:element ref="responses" minOccurs="0" />
+                <xs:element ref="conditions" minOccurs="0" />
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Serves as the identifier of the prompt.  The result of the response to the prompt from the user
+                        is stored in as a variable in the template context with this this as the name of the variable.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="required" type="xs:boolean" use="optional" default="true">
+                <xs:annotation>
+                    <xs:documentation>
+                        Indicates whether or not this prompt requires input.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="setResponseAsTrue" type="xs:boolean" use="optional" default="false">
+                <xs:annotation>
+                    <xs:documentation>
+                        Whether or not the response should be set as a property in the template context with
+                        a boolean value of <code>true</code>.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="promptGroup">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="documentation" minOccurs="0"/>
+                <xs:element ref="prompt" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="prompts">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="promptGroup" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniquePromptGroupName">
+            <xs:selector xpath="promptGroup"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+        <xs:unique name="uniquePromptId">
+            <xs:selector xpath="prompt"/>
+            <xs:field xpath="@id"/>
+        </xs:unique>
+    </xs:element>
+    <xs:element name="resourceLocations">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="location" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="response" type="xs:string"/>
+    <xs:element name="responses">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="response" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="type" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines the type (i.e. 'java.lang.Boolean') the response shall be when its added to the template context.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="setProperty">
+        <xs:annotation>
+            <xs:documentation>
+                Allows you to set the value of a property in the template context.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="id" type="xs:string" use="required">
+                        <xs:annotation>
+                            <xs:documentation>
+                                The identifier of the property in the template context.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                    <xs:attribute name="type" type="xs:string" use="optional">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Defines the type (i.e. 'java.lang.Boolean') the response shall be when its added to the template context.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:attribute>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="templateEngine">
+        <xs:annotation>
+            <xs:documentation>
+                Used to configure the template engine instance; this is the engine
+                that actually processes your templates (such as Velocity, Freemarker, etc).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="macrolibrary" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="exclusion" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="className" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The implementation class name of the TemplateEngine (must have a default constructor)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="extensions" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        Defines the extensions of files that the template engine will process. (i.e. you'd
+                        typically define it as "vsl" if you were using Velocity as your templating engine).
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="templateObject">
+        <xs:annotation>
+            <xs:documentation>
+                Used to add a helper object to the template context.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+             <xs:attribute name="name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name under which the object is made available to the template context.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="className" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        The implementation class name of the template object (must have a default constructor)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="text" type="xs:string"/>
+    <xs:element name="shortText" type="xs:string"/>
+    <xs:element name="to" type="xs:string"/>
+</xs:schema>

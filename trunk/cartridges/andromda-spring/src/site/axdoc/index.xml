@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+  <properties>
+    <title>AndroMDA - Spring - Introduction</title>
+    <author email="chad@andromda.org">Chad Brandon</author>
+  </properties>
+  <body>
+    <section name="AndroMDA Spring Cartridge">
+        <p>
+            A cartridge based on the <a href="http://www.springframework.org">Spring Framework</a>.
+            This cartridge can work either without an EJB container (i.e. standalone Tomcat for example)
+            or within an EJB container (using EJB itself) simply by modifying a few namespace properties.
+        </p>
+        <p class="highlight">
+            Please NOTE that this cartridge <strong>MUST</strong> be used in conjunction with the
+            <a href="../andromda-hibernate-cartridge/index.html">Hibernate Cartridge</a>
+            in order to take advantage of Hibernate persistence.
+        </p>
+    </section>
+  </body>
+</document>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- JBoss Server DataSource -->
+<datasources>
+    <local-tx-datasource>
+        <jndi-name>${dataSource.name}</jndi-name>
+        <connection-url>${jdbc.url}</connection-url>
+        <driver-class>${jdbc.driver}</driver-class>
+        <user-name>${jdbc.username}</user-name>
+        <password>${jdbc.password}</password>
+        <!-- <check-valid-connection-sql>select 1 from dual</check-valid-connection-sql> -->
+        <!-- Checks for error codes and messages for fatal errors
+        <exception-sorter-class-name>${jdbc.exception.sorter}</exception-sorter-class-name>
+        -->
+    </local-tx-datasource>
+</datasources>

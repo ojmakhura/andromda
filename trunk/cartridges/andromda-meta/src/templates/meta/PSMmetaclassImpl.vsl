@@ -1,0 +1,122 @@
+// license-header java merge-point
+/**
+ * This is only generated once by PSMmetaclassImpl.vsl! It will never be overwritten.
+ * You can (and have to!) safely modify it by hand.
+ */
+#if ($stringUtils.isNotBlank($class.packageName))
+package $class.packageName;
+#end
+
+/**
+ * @see $class.fullyQualifiedName
+ */
+public#if($class.implMustBeAbstract) abstract#end class ${class.name}Impl
+    extends $class.fullyQualifiedName
+{
+##
+##  default constructor
+##
+#if ($class.requiredConstructorParameters.size() > 0 || $class.allRequiredConstructorParameters.size() > $class.requiredConstructorParameters.size())
+    /**
+     * Public default constructor for ${class.name}Impl
+     */
+    public ${class.name}Impl()
+    {
+        super();
+    }
+
+#end
+##
+##  constructor taking only required properties
+##
+#if ($class.allProperties.size() > $class.allRequiredConstructorParameters.size())
+    /**
+     * Public constructor for ${class.name}Impl with $class.allRequiredConstructorParameters.size() required properties.
+#foreach ($property in $class.allRequiredConstructorParameters)
+     * @param ${property.name}In ${property.getterSetterTypeName} $property.getDocumentation("")
+#end
+     */
+    public ${class.name}Impl(## no newline
+#set ($comma = "")
+#foreach ($property in $class.allRequiredConstructorParameters)
+${comma}${property.getterSetterTypeName} ${property.name}## no newline
+#set ($comma = ", ")
+#end
+)
+    {
+       super(## no newline
+#set ($comma = "")
+#foreach ($property in $class.allRequiredConstructorParameters)
+${comma}${property.name}## no newline
+#set ($comma = ", ")
+#end
+);
+    }
+
+#end
+##
+##  constructor taking all properties
+##
+    /**
+     * Public constructor for ${class.name}Impl with all properties.
+#foreach ($property in $class.allProperties)
+     * @param ${property.name}In ${property.getterSetterTypeName} $property.getDocumentation("")
+#end
+     */
+    public ${class.name}Impl(## no newline
+#set ($comma = "")
+#foreach ($property in $class.allProperties)
+${comma}${property.getterSetterTypeName} ${property.name}## no newline
+#set ($comma = ", ")
+#end
+)
+    {
+        super(## no newline
+#set ($comma = "")
+#foreach ($property in $class.allProperties)
+${comma}${property.name}## no newline
+#set ($comma = ", ")
+#end
+);
+    }
+
+    /**
+     * Copy-constructor from other ${class.name}
+     *
+     * @param otherBean, cannot be <code>null</code>
+     * @throws NullPointerException if the argument is <code>null</code>
+     */
+    public ${class.name}Impl(${class.name} otherBean)
+    {
+        this(## no newline
+#set ($comma = "")
+#foreach ($property in $class.allProperties)
+${comma}otherBean.${property.getterName}()## no newline
+#set ($comma = ", ")
+#end
+);
+    }
+
+##
+## generate implementations for operations
+#foreach ($operation in $class.operations)
+#if (!$operation.abstract)
+#set ($returnType = $operation.returnType)
+#set ($signature = $operation.signature)
+    /**
+     * @see ${class.fullyQualifiedName}#${operation.getSignature(false)}
+     */
+#if ($operation.exceptionsPresent)
+    $operation.visibility $returnType.fullyQualifiedName $signature
+        throws $operation.exceptionList
+#else
+    $operation.visibility $returnType.fullyQualifiedName $signature
+#end
+    {
+        // ${toDoTag} implement $operation.visibility $returnType.fullyQualifiedName $signature
+        throw new UnsupportedOperationException("${class.fullyQualifiedName}.${signature} Not implemented!");
+    }
+
+#end
+#end
+}

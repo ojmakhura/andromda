@@ -1,0 +1,348 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.andromda</groupId>
+    <artifactId>andromda</artifactId>
+    <packaging>pom</packaging>
+    <version>3.4-SNAPSHOT</version>
+    <name>AndroMDA: The Open Source MDA Tool</name>
+    <description>
+         AndroMDA (pronounced: andromeda) is an open source code generation framework that follows the Model Driven Architecture
+        (MDA) paradigm. It takes model(s) from CASE-tool(s) and generates fully deployable applications and other components.
+    </description>
+    <inceptionYear>2003</inceptionYear>
+    <url>http://www.andromda.org</url>
+    <issueManagement>
+        <system>jira</system>
+        <url>http://jira.andromda.org/</url>
+    </issueManagement>
+    <scm>
+      <connection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</connection>
+      <developerConnection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
+      <tag>V3_x_HEAD</tag>
+      <url>http://andromda.cvs.sourceforge.net/</url>
+    </scm>
+    <organization>
+      <name>AndroMDA.org</name>
+      <url>http://www.andromda.org/</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>The AndroMDA Project</name>
+            <url>licenses/LICENSE.txt</url>
+            <distribution>repo</distribution>
+            <comments>AndroMDA runs under a BSD license</comments>
+        </license>
+    </licenses>
+    <ciManagement>
+        <system>continuum</system>
+        <!--notifiers>
+            <notifier>
+                <type>mail</type>
+                <configuration>
+                    <address>committers@andromda.org</address>
+                </configuration>
+            </notifier>
+        </notifiers-->
+    </ciManagement>
+    <mailingLists>
+        <mailingList>
+            <name>AndroMDA User List</name>
+            <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-user</subscribe>
+            <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-user</unsubscribe>
+            <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-user</archive>
+        </mailingList>
+        <mailingList>
+            <name>AndroMDA Developer List</name>
+            <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-devel</subscribe>
+            <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-devel</unsubscribe>
+            <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-devel</archive>
+        </mailingList>
+        <mailingList>
+            <name>AndroMDA CVS List</name>
+            <subscribe>https://lists.sourceforge.net/lists/listinfo/andromda-cvs</subscribe>
+            <unsubscribe>https://lists.sourceforge.net/lists/listinfo/andromda-cvs</unsubscribe>
+            <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-cvs</archive>
+        </mailingList>
+    </mailingLists>
+    <developers>
+        <developer>
+            <id>mattes3</id>
+            <name>Matthias Bohlen</name>
+            <email>matthias@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+                <role>Project Admin</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <id>cwbrandon</id>
+            <name>Chad Brandon</name>
+            <email>chad@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+                <role>Release Manager</role>
+                <role>Project Admin</role>
+            </roles>
+            <timezone>-6</timezone>
+        </developer>
+        <developer>
+            <id>draftdog</id>
+            <name>Wouter Zoons</name>
+            <email>wouter@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+                <role>Project Admin</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <id>amartinwest</id>
+            <name>Martin West</name>
+            <email>martin@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>0</timezone>
+        </developer>
+        <developer>
+            <id>carloslcuenca</id>
+            <name>Carlos Cuenca</name>
+            <email>carlos@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <id>freter</id>
+            <name>Peter Friese</name>
+            <email>peter@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <name>Naresh Bhatia</name>
+            <id>nbhatia</id>
+            <email>naresh@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <id>stjerman</id>
+            <name>Steve Jerman</name>
+            <email>steve@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>6</timezone>
+        </developer>
+        <developer>
+            <id>joelkoz</id>
+            <name>Joel Kozikowski</name>
+            <email>joel@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+        <developer>
+            <id>bobfields</id>
+            <name>Bob Fields</name>
+            <email>bob@andromda.org</email>
+            <organization>AndroMDA</organization>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>-5</timezone>
+        </developer>
+    </developers>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.7.0</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.2</version>
+            </dependency> 
+            <dependency>
+                <groupId>commons-digester</groupId>
+                <artifactId>commons-digester</artifactId>
+                <version>1.7</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.4</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>1.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>3.8.2</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.14</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <sourceDirectory>src/java</sourceDirectory>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.5</source>
+                        <target>1.5</target>
+                        <showDeprecation>true</showDeprecation>
+                        <showWarnings>true</showWarnings>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+		<plugins>
+			<!-- This antrun configuration is a hack until the issue with plugins that create archives is fixed
+			(i.e a plugin that has '<extensions>true</extensions>' set).  Before this project can be built,
+			the command "mvn -N antrun:run' must be executed in order to install these plugins here below (since these
+			plugins must exist before the build even starts) -->
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+                <inherited>false</inherited>
+				<configuration>
+					<tasks>
+                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-cartridge-plugin/andromda-cartridge-plugin.jar"
+                            tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-cartridge-plugin/${pom.version}/andromda-cartridge-plugin-${pom.version}.jar"/>
+                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar"
+                            tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-model-archiver-plugin/${pom.version}/andromda-model-archiver-plugin-${pom.version}.jar"/>
+                        <copy file="${basedir}/lib/org/andromda/maven/plugins/site/andromda-doxia-module-xdoc/andromda-doxia-module-xdoc.jar"
+                            tofile="${settings.localRepository}/org/andromda/maven/plugins/site/andromda-doxia-module-xdoc/${pom.version}/andromda-doxia-module-xdoc-${pom.version}.jar"/>
+					</tasks>
+				</configuration>
+			</plugin>
+            <plugin>
+                <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
+                <inherited>true</inherited>
+                <groupId>org.apache.maven.plugins</groupId> 
+                <artifactId>maven-source-plugin</artifactId> 
+                <executions> 
+                    <execution> 
+                        <id>attach-sources</id> 
+                        <phase>verify</phase> 
+                        <goals> 
+                            <goal>jar</goal> 
+                        </goals> 
+                    </execution> 
+                </executions> 
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>2.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.andromda.maven.plugins.site</groupId>
+                        <artifactId>andromda-doxia-module-xdoc</artifactId>
+                        <version>${pom.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <locales>en</locales>
+                    <outputEncoding>UTF-8</outputEncoding>
+                </configuration>
+            </plugin>
+		</plugins>
+    </build>
+    <modules>
+        <module>andromda</module>
+        <module>andromdapp</module>
+        <module>cartridges</module>
+        <module>metafacades</module>
+        <module>utils</module>
+        <module>repositories</module>
+        <module>templateengines</module>
+        <module>translation-libraries</module>
+        <module>ant</module>
+        <module>profiles</module>
+        <module>maven</module>
+        <module>samples</module>
+        <module>etc/web/taglibs</module>
+        <module>etc/schema2xmi</module>
+        <module>etc/script-wrappers</module>
+        <module>documentation</module>
+        <!--temporary until uml2+uml22 coexistence solved-->
+        <module>repositories/emf/uml22</module>
+        <module>metafacades/uml/emf/uml22</module>
+        <module>distribution</module>
+    </modules>
+    <repositories>
+        <repository>
+            <id>andromda</id>
+            <name>AndroMDA Repository</name>
+            <url>http://team.andromda.org/maven2</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>andromda</id>
+            <name>AndroMDA Repository</name>
+            <url>http://team.andromda.org/maven2</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <prerequisites>
+        <maven>2.0.4</maven>
+    </prerequisites>
+    <distributionManagement>
+        <repository>
+            <id>andromda-repository</id>
+            <name>AndroMDA Repository</name>
+            <url>file:/var/www/andromda/maven2</url>
+            <uniqueVersion>false</uniqueVersion>
+        </repository>
+        <site>
+            <id>website</id>
+            <url>file:/var/www/andromda/docs</url>
+        </site>
+    </distributionManagement>
+</project>

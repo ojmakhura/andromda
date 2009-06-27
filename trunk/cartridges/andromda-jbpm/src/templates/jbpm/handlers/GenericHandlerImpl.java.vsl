@@ -1,0 +1,27 @@
+#set ($generatedFile = "${handler.handlerFullPath}Impl.java")
+#if ($stringUtils.isNotBlank($handler.handlerPackageName))
+package $handler.handlerPackageName;
+
+#end
+/**
+ * @see {@link $handler.handlerClassName}
+ */
+public class ${handler.handlerClassName}Impl extends ${handler.handlerClassName}
+{
+#if ($handler.actionHandler)
+    protected final void handleExecute(org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+        // ${toDoTag} implement code for handleExecute
+    }
+
+#end
+#if ($handler.assignmentHandler)
+    protected final void handleAssign(org.jbpm.taskmgmt.exe.Assignable assignable, org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+        // ${toDoTag} implement code for handleAssign
+    }
+
+#end
+}

@@ -1,0 +1,71 @@
+#set ($generatedFile = "${manageable.manageableValueObjectFullPath}.java")
+##
+##  START TEMPLATE
+##
+// license-header java merge-point
+package $manageable.manageablePackageName;
+
+public class $manageable.manageableValueObjectClassName
+#if ($manageable.generalization)
+    extends $manageable.generalization.fullyQualifiedManageableValueObjectName
+#else
+    implements java.io.Serializable
+#end
+{
+#foreach ($member in $manageable.manageableAttributes)
+#if ($manageable.attributes.contains($member))## only process attributes defined in this class
+    private $member.type.fullyQualifiedName $member.name;
+
+    $member.visibility $member.type.fullyQualifiedName ${member.getterName}()
+    {
+        return this.$member.name;
+    }
+
+    $member.visibility void ${member.setterName}($member.type.fullyQualifiedName $member.name)
+    {
+        this.$member.name = $member.name;
+    }
+
+#end
+#end
+#foreach ($member in $manageable.manageableAssociationEnds)
+#if (!$manageable.generalization.manageableAssociationEnds.contains($member))## do not process associations defined in an ancestor
+#set ($fieldType = $member.type.identifiers.iterator().next().type.fullyQualifiedName)
+#if ($member.many)
+#set ($fieldType = "${fieldType}[]")
+#end
+    private $fieldType $member.name;
+
+    $member.visibility $fieldType ${member.getterName}()
+    {
+        return this.$member.name;
+    }
+
+    $member.visibility void ${member.setterName}($fieldType $member.name)
+    {
+        this.$member.name = $member.name;
+    }
+
+#if ($member.type.displayAttribute.name != $member.type.identifiers.iterator().next().name)
+#set ($fieldType = $member.type.displayAttribute.type.fullyQualifiedName)
+#set ($labelSuffix = "Label")
+#if ($member.many)
+#set ($fieldType = "${fieldType}[]")
+#set ($labelSuffix = "${labelSuffix}s")
+#end
+    private $fieldType ${member.name}${labelSuffix};
+
+    $member.visibility $fieldType ${member.getterName}${labelSuffix}()
+    {
+        return this.${member.name}${labelSuffix};
+    }
+
+    $member.visibility void ${member.setterName}${labelSuffix}($fieldType ${member.name}${labelSuffix})
+    {
+        this.${member.name}${labelSuffix} = ${member.name}${labelSuffix};
+    }
+
+#end
+#end
+#end
+}

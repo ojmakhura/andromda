@@ -1,0 +1,55 @@
+<namespace name="test">
+    <components>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component> 
+        <component name="profile">
+            <path>META-INF/andromda/profile.xml</path>
+        </component>  
+        <component name="translation-library">
+            <path>META-INF/andromda/translation-library.xml</path>
+        </component>
+        <component name="repository">
+            <path>META-INF/andromda/some-repository.xml</path>
+        </component>
+    </components>
+    <properties>
+        <propertyGroup name="The First Group of Properties">
+            <documentation>
+                This is some documentation about the first group of properties.
+            </documentation>
+            <property name="definitionOne">
+                <default>3</default>
+                <documentation>
+                    The first property definition.
+                </documentation>
+            </property>
+            <property name="definitionTwo">
+                <default>two</default>
+                <documentation>
+                    The second <code>property</code> definition.
+                </documentation>            
+            </property>
+        </propertyGroup>
+        <propertyGroup name="The Second Group of Properties">
+            <documentation>
+                This is some documentation about the second group of properties
+            </documentation>
+            <property name="definitionThree">
+                <default>3</default>
+                <documentation>
+                    The first property definition.
+                </documentation>
+            </property>
+            <property name="definitionFour">
+                <default>two</default>
+                <documentation>
+                    The second property definition.
+                </documentation>            
+            </property>
+        </propertyGroup>
+    </properties>
+</namespace>

@@ -1,0 +1,67 @@
+<andromda>
+    <properties>
+        <property name="failOnValidationErrors">true</property>
+    </properties>
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>${andromda.cartridge.howto.model.uri}</uri>
+                    <moduleSearchLocations>
+                        <location patterns="**/*.xml.zip">${basedir}/../../profiles/uml-1.4</location>
+                        <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
+                    </moduleSearchLocations>
+                </model>
+            </models>            
+        </repository>
+    </repositories>
+    <namespaces>
+        <namespace name="default">
+            <properties>
+                <property name="overwrite">true</property>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="jdbcMappingsUri">JDBC</property>
+                <property name="sqlMappingsUri">HypersonicSql</property>
+            </properties>
+        </namespace>
+        <namespace name="spring">
+            <properties>
+                <property name="services">${howto.output.dir}</property>
+                <property name="service-interfaces">${howto.output.dir}</property>
+                <property name="service-impls">${howto.output.dir}</property>
+                <property name="service-locator">${howto.output.dir}</property>
+                <property name="session-ejbs">${howto.output.dir}</property>
+                <property name="daos">${howto.output.dir}</property>
+                <property name="dao-impls">${howto.output.dir}</property>
+                <property name="spring-configuration">${howto.output.dir}</property>
+                <property name="securityRealm">SomeDomain</property>
+                <property name="dataSource">java:/DefaultDS</property>
+                <property name="hibernateDialect">net.sf.hibernate.dialect.HSQLDialect</property>
+                <property name="hibernateUseQueryCache">false</property>
+                <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
+                <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
+                <property name="advice-impls">${howto.output.dir}</property>
+                <property name="hibernateQueryUseNamedParameters">true</property>
+                <property name="open-session-in-view">${howto.output.dir}</property>
+            </properties>
+        </namespace>
+        <namespace name="hibernate">
+            <properties>
+                <property name="hibernateTypeMappingsUri">Hibernate</property>
+                <property name="defaultHibernateGeneratorClass">native</property>
+                <property name="entities">${howto.output.dir}</property>
+                <property name="entity-impls">${howto.output.dir}</property>
+                <property name="entity-mappings">${howto.output.dir}</property>
+                <property name="user-types">${howto.output.dir}</property>
+            </properties>
+        </namespace>
+        <namespace name="java">
+            <properties>
+                <property name="exceptions">${howto.output.dir}</property>
+                <property name="value-objects">${howto.output.dir}</property>
+            </properties>
+        </namespace>
+    </namespaces>
+</andromda>

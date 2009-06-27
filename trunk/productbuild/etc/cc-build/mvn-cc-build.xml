@@ -1,0 +1,15 @@
+<project name="maven2-build" default="default">
+	
+	<property name="project.dir" value="${basedir}/../.."/>
+	
+	<target name="default">
+		<exec dir="${project.dir}" executable="mvn" >
+			<arg value="clean"/>
+        </exec> 
+		<exec dir="${project.dir}" executable="mvn" >
+			<arg value="install"/>
+        </exec> 
+	</target>
+	
+	
+</project>

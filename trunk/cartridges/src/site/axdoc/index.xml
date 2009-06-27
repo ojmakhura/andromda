@@ -1,0 +1,876 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <author email="chdbrandon@yahoo.com">Chad Brandon</author>
+    <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
+    <title>AndroMDA Cartridges</title>
+  </properties>
+
+  <body>
+
+    <section name="AndroMDA Cartridges">
+      <p>
+            The <strong>primary plugin</strong> of the AndroMDA framework, <em>cartridges</em>
+            provide the ability to process model elements that have specified <code>stereotypes</code>
+            (i.e. <code><![CDATA[<<Entity>>]]></code>, <code><![CDATA[<<Enumeration>>]]></code>, etc.) or
+            model elements that meet certain conditions inferred by the model (all Actors that have a dependency
+            to a <![CDATA[<<Service>>]]> for example). Cartridges process these model elements using template
+            files defined within the cartridge <a href="descriptor-schema.html">descriptor</a>.
+      </p>
+      <p>
+          This page describes the internal structure of an AndroMDA cartridge.
+          After reading it, you will probably find it very easy to write your
+          own cartridge or customize an existing cartridge for your needs.
+      </p>
+
+      <h2>Using a cartridge</h2>
+      <p>
+          If you want to use existing cartridge(s) for generation
+          (i.e. the <a href="andromda-bpm4struts-cartridge/index.html">BPM4Struts Cartridge</a>,
+          etc.), simply place the cartridges on your classpath; using the
+          <a href="../andromda-maven-plugins/andromda-maven-plugin/index.html">AndroMDA Maven Plugin</a>
+          this is VERY simple, you just add the AndroMDA maven plugin and cartridge(s)
+          as dependencies to your project.xml file and then run the plugin goal
+          <em>andromda:run</em>, that's it!
+          <source language="xml"><![CDATA[
+<dependencies>
+    ...
+    <dependency>
+        <groupId>${pom.groupId}</groupId>
+        <artifactId>maven-andromda-plugin</artifactId>
+        <version>3.0</version>
+        <type>plugin</type>
+    </dependency>
+    <dependency>
+        <groupId>${pom.groupId}</groupId>
+        <artifactId>andromda-bpm4struts-cartridge</artifactId>
+        <version>3.0</version>
+    </dependency>
+    <dependency>
+        <groupId>${pom.groupId}</groupId>
+        <artifactId>andromda-hibernate-cartridge</artifactId>
+        <version>3.0</version>
+    </dependency>
+    ...
+</dependencies>
+]]></source>
+        </p>
+        <a name="mergeLocation"/>
+        <h3>Overriding cartridge resources</h3>
+        <p>
+            Sometimes you may want to override some of the resources a cartridge uses without touching
+            the internals of the cartridge: i.e. you want to add some more stuff to a JSP-page
+            that the <a href="andromda-bpm4struts-cartridge/index.html">BPM4Struts Cartridge</a>
+            generates. Easy to do: just specify a <strong>mergeLocation</strong> when declaring the cartridge-dependency
+            and put the replacement-files in that directory (if you generated your project using the Maven
+            <a href="../andromda-maven-plugins/andromdapp-maven-plugin/index.html">andromdapp:generate</a> plugin you will need to do that in
+            <code>&lt;your-project&gt;/mda/conf/andromda.xml</code>):
+        </p>
+        <source language="xml"><![CDATA[
+ ...
+ <namespace name="bpm4struts">
+     <properties>
+         ...
+         <property name="mergeLocation">${maven.src.dir}/cartridge/custom</property>
+         ...
+     </properties>
+ </namespace>
+ ...
+]]></source>
+        <p>
+            This way the cartridge will try to load resources (templates, images, etc.) from
+            <code>${maven.src.dir}/cartridge/custom</code> prior to loading them from the cartridge-jar.
+        </p>
+        <p class="highlight">
+           When loading resources from the merge location you will need to respect the same directory structure
+           as in the cartridge jar. This means that when the cartridge contains <code>templates/SomeTemplate.vsl</code>
+           and your merge location is <code>${maven.src.dir}/cartridge/custom</code> you will need to copy your new template in
+           <code>${maven.src.dir}/cartridge/custom/templates/SomeTemplate.vsl</code>, like this you can override all cartridge resources.
+        </p>
+      <a name="mergeMappingsUri"/>
+      <h3>Merging cartridge resources</h3>
+      <p>
+        Sometimes you may want to merge (or replace) things in a cartridge: this can be done in templates, within
+        the cartridge.xml, or even within the metafacades.xml. For example within the BPM4Struts cartridge,
+        the web.xml (or struts-config.xml) may not contain everything you need (i.e. you may need to add a new <![CDATA[<servlet/>]]>
+        and <![CDATA[<servlet-mapping/>]]>, some <![CDATA[<context-param/>]]>, or even <![CDATA[<error-page/>]]> definitions).
+      </p>
+      <p>
+        This is easy to do: just specify a <strong>mergeMappingsUri</strong> namepace property when declaring the
+        cartridge-dependency and create a new mappings file in which to map what you want merged.
+      </p>
+      <source language="xml">
+<![CDATA[...
+ <namespace name="bpm4struts">
+     ...
+     <property name="mergeMappingsUri">file:${maven.conf.dir}/mappings/Bpm4StrutsMergeMappings.xml</property>
+     ...
+ </namespace>
+...]]>   </source>
+      <p>
+        For example, this fragment below (from a mappings file) says we want to replace anything found
+        matching <em><![CDATA[<!-- error-page merge-point -->]]></em> (defined in the <![CDATA[<to/>]]>
+        definition) with the <em><![CDATA[<error-page/>]]></em> fragments (found in the from
+        <![CDATA[<from/>]]> definition):
+     </p>
+     <source language="xml">
+&lt;mappings name="Bpm4StrutsMergeMappings"&gt;
+    ...
+    &lt;mapping&gt;
+        &lt;from&gt;&lt;![CDATA[&lt;!-- error-page merge-point --&gt;]]&gt;&lt;/from&gt;
+        &lt;to&gt;
+&lt;![CDATA[
+&lt;error-page&gt;
+    &lt;error-code&gt;404&lt;/error-code&gt;
+    &lt;location&gt;/index.jsp&lt;/location&gt;
+&lt;/error-page&gt;
+&lt;error-page&gt;
+    &lt;error-code&gt;408&lt;/error-code&gt;
+    &lt;location&gt;/index.jsp&lt;/location&gt;
+&lt;/error-page&gt;
+&lt;error-page&gt;
+    &lt;error-code&gt;400&lt;/error-code&gt;
+    &lt;location&gt;/index.jsp&lt;/location&gt;
+&lt;/error-page&gt;
+]]&gt;
+        &lt;/to&gt;
+    &lt;/mapping&gt;
+    ...
+&lt;/mappings&gt;
+     </source>
+     <a name="mergingFileContents"/>
+     <p>
+        In addition to the ability of merging literal strings into merge-points (the contents of the <![CDATA[<to/>]]> element).  It's
+        also possible to merge the entire contents of one or more files into a merge-point.  For example, this fragment below (from a mappings file)
+        says we want to replace anything matching <em># custom-messages merge-point</em> with the combined contents of the files
+        <em>../../../web/conf/resources/custom-resources1.properties</em> and <em>../../../web/conf/resources/custom-resources2.properties</em>
+        (please take note of the nested <strong><![CDATA[<path/>]]></strong> elements, these tell AndroMDA to treat the contents of
+        the <em>to</em> element as the concatinated contents of the files defined by the paths).
+        <source language="xml">
+&lt;mappings name="Bpm4StrutsMergeMappings"&gt;
+    ...
+    &lt;mapping&gt;
+        &lt;from&gt;&lt;![CDATA[# custom-messages merge-point]]&gt;&lt;/from&gt;
+        &lt;to&gt;
+            &lt;path&gt;../../../web/conf/resources/custom-resources1.properties&lt;/path&gt;
+            &lt;path&gt;../../../web/conf/resources/custom-resources2.properties&lt;/path&gt;
+        &lt;/to&gt;
+    &lt;/mapping&gt;
+    ...
+&lt;/mappings&gt;
+        </source>
+     </p>
+     <p class="highlight">
+        If you wanted to add resources (i.e. a new template, image, static file, etc) to a cartridge without modifying the contents
+        of the cartridge, you could use the <a href="#mergeMappingsUri">mergeMappingsUri</a> in combination with the
+        <a href="#mergeLocation">mergeLocation</a>.  You would use the <a href="#mergeMappingsUri">mergeMappingsUri</a> to define
+        the new template in a cartridge, and use the mergeLocation to specify the actual template.
+     </p>
+     <h2>Inside a cartridge</h2>
+     <p>
+          An AndroMDA cartridge is a resource (directory or jar file) on the classpath that consists of several items:
+     </p>
+     <table>
+         <tr>
+             <th>File</th>
+             <th>Contents</th>
+             <th>Required</th>
+        </tr>
+        <tr>
+            <td>
+                <code>/META-INF/andromda/namespace.xml</code>
+            </td>
+            <td>
+                Because the cartridge ia a <em><a href="../namespace.html">namespace component</a></em> it
+                <strong>MUST</strong> be registered within a <a href="../namespace.html">namespace descriptor</a>.
+                This descriptor is what allows the cartridge's namespace to be <em>"discovered"</em> on the classpath.
+                This namespace descriptor also registers the cartridge component within the AndroMDA core.
+            </td>
+            <td>
+                Yes
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>/**/*.class</code>
+            </td>
+            <td>
+                There could be a couple uses for this directory, placing cartridge specific
+                <a href="../andromda-metafacades/index.html">metafacade</a> classes, and/or
+                other support classes (such as <em>templateObjects</em>
+            </td>
+            <td>
+                No
+            </td>
+        </tr>
+        <tr>
+            <td nowrap="nowrap">
+                <code>/META-INF/andromda/cartridge.xml</code>
+            </td>
+            <td>
+                Declarative cartridge descriptor (see below).
+            </td>
+            <td>
+                Yes
+            </td>
+        </tr>
+        <tr>
+            <td nowrap="nowrap">
+                <code>/META-INF/andromda/metafacades.xml</code>
+            </td>
+            <td>
+                Metafacades descriptor. This is used to specify
+                <a href="../andromda-metafacades/index.html">metafacades</a> for the underlying metamodel (UML 1.4, etc.).
+            </td>
+            <td>
+                No
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <code>/templates/**/*.vsl</code> (or any template extension depending on your
+                cartridge <a href="../andromda-templateengines/index.html">template engine</a>).
+            </td>
+          <td>
+              Templates that tell the cartridge how to format the generated code.
+          </td>
+          <td>Yes</td>
+        </tr>
+      </table>
+      <p>
+          All items except the descriptor and the templates are optional. If
+          you want to see a complete cartridge, have a look inside the
+          <em>andromda-bpm4struts-cartridge</em> cartridge.
+      </p>
+
+      <h2>The cartridge descriptor</h2>
+
+      <p>
+        The AndroMDA core uses this descriptor to discover the capabilities of a cartridge: the
+        supported metafacades, stereotypes, outlets, templates, property references, etc.
+        The cartridge descriptor <strong>must</strong> reside in the <code>META-INF/andromda</code>
+        subdirectory and <strong>must</strong> be named <code>cartridge.xml</code>.
+      </p>
+
+      <p>
+        Let's have a look at part of a typical cartridge descriptor:
+      </p>
+      <source language="xml"><![CDATA[
+<cartridge>
+
+    <templateEngine>
+        <!-- library of macros used in template engine -->
+        <macrolibrary name="templates/EJB.vm" />
+    </templateEngine>
+
+    <!-- define the template objects that are made availble to the template -->
+    <templateObject name="str" className="org.andromda.utils.StringUtilsHelper"/>
+    <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper">
+        <property reference="viewType"/>
+    </templateObject>
+
+    <resource
+        path="templates/*.properties"
+        outlet="entity-beans"
+        overwrite="true">
+    </resource>
+
+    <template
+        path="templates/EntityBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outlet="entity-beans"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/EntityLocalIntf.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="entity-beans"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/EntityHome.vsl"
+        outputPattern="{0}/{1}LocalHome.java"
+        outlet="entity-beans"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/EntityBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outlet="entity-impls"
+        overwrite="false">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    ...
+
+</cartridge>
+      ]]></source>
+      <p>
+          Note the usage
+          of the <code>"{0}/"</code> pattern. This will cause the target
+          java file to be generated into <code>"com/mycompany/test"</code>
+          if it was in the package <code>"com.mycompany.test"</code>.
+      </p>
+
+      <h3><![CDATA[<cartridge/>]]></h3>
+      <p>
+        The <code><![CDATA[<cartridge/>]]></code> element is the root of
+        the cartridge descriptor and also gives a name to the cartridge.
+      </p>
+      <table>
+          <tr>
+              <th>Attribute</th>
+              <th>Description</th>
+              <th>Required?</th>
+          </tr>
+          <tr>
+              <td>name</td>
+              <td>
+                  Specifies the name of the cartridge.
+              </td>
+              <td >Yes</td>
+          </tr>
+      </table>
+      <h3><![CDATA[<property/>]]></h3>
+      <p>
+        The <code><![CDATA[<property/>]]></code> element is used to specify
+        property references for a cartridge.  The values of these references are defined
+        within the <a href="../configuration.html">AndroMDA Configuration</a> namespace elements.
+        For example, if you have the property reference <code>securityEnabled</code> defined
+        (i.e. <strong><![CDATA[<property reference="securityEnabled"/>]]></strong>),
+        then the framework will expect the client to define a namespace property
+        named <code>securityEnabled</code> when this cartridge is run. This property
+        (and it's value) will then be made available to the template during processing.
+      </p>
+      <table>
+          <tr>
+              <th>Attribute</th>
+              <th>Description</th>
+              <th>Required?</th>
+          </tr>
+          <tr>
+              <td>reference</td>
+              <td>
+                  Specifies the name of the reference.  This is the name of a property that must be defined in
+                  the <a href="../namespace.html">namespace descriptor</a> and is the name of a variable
+                  that will be made available to the template during processing.
+              </td>
+              <td >Yes</td>
+          </tr>
+      </table>
+      <h3><![CDATA[<templateObject/>]]></h3>
+      <p>
+        The <code><![CDATA[<templateObject/>]]></code> element is used to specify
+        helper objects within your cartridge.  These must have a default constructor
+        and must be a class available to your cartridge (either internally or externally).
+      </p>
+      <p>
+          You can also define property references within your template objects.
+          In order to do this, you'll need to make sure you have a java bean setter matching each
+          reference name.  For example:
+          <source language="xml">
+<![CDATA[<templateObject name="hibernateUtils" className="org.andromda.cartridges.hibernate.HibernateUtils">
+    <property reference="hibernateVersion"/>
+</templateObject>]]>
+          </source>
+      </p>
+      <table>
+          <tr>
+              <th>Attribute</th>
+              <th>Description</th>
+              <th>Required?</th>
+          </tr>
+          <tr>
+              <td>name</td>
+              <td>
+                  Specifies the name of the template object.  This is the variable name under which the
+                  template object will be made available to your template.
+              </td>
+              <td >Yes</td>
+          </tr>
+          <tr>
+              <td>className</td>
+              <td>
+                  The fully qualified class name of the template object.
+              </td>
+              <td>Yes</td>
+          </tr>
+      </table>
+      <a name="template"/>
+      <h3><![CDATA[<template/>]]></h3>
+        <p>
+          The <code><![CDATA[<template/>]]></code> element is used to describe
+          the template that will be used to generate source code.
+        </p>
+        <table>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+            <th>Required?</th>
+          </tr>
+          <tr>
+            <td>
+                path
+            </td>
+            <td>
+                Specifies the path (relative to the cartridge root)
+                for a template (*.vsl) file to use for code generation.
+            </td>
+            <td>
+                Yes
+            </td>
+          </tr>
+          <tr>
+            <td>
+                outputPattern
+            </td>
+            <td>
+                Specifies a pattern in
+                 <a href="http://java.sun.com/j2se/1.4/docs/api/java/text/MessageFormat.html">
+                   java.text.MessageFormat</a> syntax.
+                 You can use this pattern to tell AndroMDA how to construct
+                 output file names. The pattern can consist of any ordinary
+                 printable characters as well as some predefined placeholders
+                 for things that AndroMDA already knows about: <br />
+                 <code>{0}</code> stands for the package directory of the class.<br />
+                 <code>{1}</code> stands for the class name.<br />
+                 See example above.
+            </td>
+            <td>
+                Yes
+            </td>
+          </tr>
+          <tr>
+            <td>
+                outlet
+            </td>
+            <td>
+                 Specifies the logical name of the outlet
+                 where the cartridge will write the output files
+                 caused by this template.
+            </td>
+            <td>
+                Yes
+            </td>
+          </tr>
+          <tr>
+            <td>
+                overwrite
+            </td>
+            <td>
+                Specifies whether the files already specified by the
+                <code>outlet</code> attribute should be overwritten
+                when AndroMDA runs the next time.
+            </td>
+            <td>
+                Yes
+            </td>
+          </tr>
+          <tr>
+            <td>
+                generateEmptyFiles
+            </td>
+            <td>
+                Specifies whether files should be generated even if the template did not produce
+                any output. This can be used by the cartridge developer to decide if a certain file should be generated
+                based on the information in the model. <em>Note:</em> If this property is set to "false", the
+                template produces no output, <code>overwrite</code> is set to "true", and an existing file is found
+                (probably generated by a previous run), then this file is removed.
+            </td>
+            <td>
+                No, default is <code>false</code>.
+             </td>
+          </tr>
+          <tr>
+              <a name="outputToSingleFile"/>
+              <td>
+                  outputToSingleFile
+              </td>
+              <td>
+                  Specifies whether you want to output all aggregated
+                  model elements to a single file.  This is useful for example
+                  if you wanted to generated a SQL script that had tables for
+                  all entities in your model.  This also allows you to group
+                  more than one type of model element into multiple collection variables
+                  which are then made available to your templates.
+              </td>
+              <td>
+                  No, default is <code>false</code>.
+              </td>
+          </tr>
+          <tr>
+            <a name="outputOnEmptyElements"/>
+              <td>
+                  outputOnEmptyElements
+              </td>
+              <td>
+                  This attribute only makes sense when
+                  <a href="#outputToSingleFile">outputToSingleFile</a>
+                  is set to <code>true</code>.
+                  Indicates that when there are no elements aggregated
+                  (i.e. an <em>empty</em> collection),
+                  whether or not the file should still be output.
+              </td>
+              <td>
+                  No, default is <code>true</code>.
+              </td>
+          </tr>
+        </table>
+        <a name="modelElements"/>
+        <h3><![CDATA[<modelElements/>]]></h3>
+        <p>
+            The <code><![CDATA[<modelElements/>]]></code> element is nested directly within
+            the <a href="#template"><code><![CDATA[<template/>]]></code></a> element, it is used to
+            instruct each <a href="#template"><code><![CDATA[<template/>]]></code></a> on which model
+            elements it should process.  The <code><![CDATA[<modelElements/>]]></code> ecloses the
+            <a href="#modelElement"><code><![CDATA[<modelElement/>]]></code></a>.
+        </p>
+        <table>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+            <th>Required?</th>
+          </tr>
+          <tr>
+            <td>
+                variable
+            </td>
+            <td>
+                The variable which is made available to the template (i.e. a value of <em>entity</em>
+                would make <em>$entity</em> available in a velocity template).
+            </td>
+            <td>
+                No
+            </td>
+          </tr>
+        </table>
+        <a name="modelElement"/>
+        <h3><![CDATA[<modelElement/>]]></h3>
+        <p>
+            The <code><![CDATA[<modelElement/>]]></code> is nested directly within
+            the <a href="#modelElements"><code><![CDATA[<modelElements/>]]></code></a>, it is used to
+            within the <a href="#modelElements"><code><![CDATA[<modelElements/>]]></code></a> to instruct each
+            <a href="#template"><code><![CDATA[<template/>]]></code></a> on which model
+            elements it should process.  For example, using this element you can specify both stereotypes and
+            or metafacade types (and optionally the metafacade's properties).
+        </p>
+        <table>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+            <th>Required?</th>
+          </tr>
+          <tr>
+            <a name="stereotype"/>
+            <td>
+                stereotype
+            </td>
+            <td>
+                Defines the name of the stereotype the model element must have in order to be made
+                available to a template.
+            </td>
+            <td>
+                No, because a nested <a href="#type"><![CDATA[<type/>]]></a> may be used instead.
+            </td>
+          </tr>
+          <tr>
+            <td>
+                variable
+            </td>
+            <td>
+                The variable which is made available to the template.  This would only make sense to use
+                if you set the <a href="#outputToSingleFile">outputToSingleFile</a> attribute to <em>true</em>, normally
+                the <em>variable</em> from the <code><![CDATA[<modelElements/>]]></code> attribute is sufficient for
+                your templates.  In combination with the <a href="#outputToSingleFile">outputToSingleFile</a> attribute
+                this would allow you to group model elements together and make them available to the template as collections.
+                The below example makes all model elements stereotyped with <![CDATA[<<Entity>>]]> and <![CDATA[<<Service>>]]>
+                as <em>$entityEjbs</em> and <em>$sessionEjbs</em> respectively (if you're using velocity for your
+                templating language).  If you take a look at the enclosing <code><![CDATA[<modelElements/>]]></code>, you'll notice
+                the <em>ejbs</em> as the <em>variable</em> value, this will make <strong>ALL</strong>
+                entities and services available as <code>$ejbs</code> in a velocity template (since
+                <a href="#outputToSingleFile">outputToSingleFile</a> is set to <em>true</em>).
+                <source language="xml"><![CDATA[
+...
+<template
+    path="templates/ejb-jar.xml.vsl"
+    outputPattern="ejb-jar.xml"
+    outlet="ejb-jar-descriptor"
+    overwrite="true"
+    outputToSingleFile="true">
+    <modelElements variable="ejbs">
+        <modelElement stereotype="Entity" variable="entityEjbs"/>
+        <modelElement stereotype="Service" variable="sessionEjbs"/>
+    </modelElements>
+</template>
+...
+             ]]></source>
+            </td>
+            <td>
+                No
+            </td>
+          </tr>
+        </table>
+       <a name="type"/>
+       <h3><![CDATA[<type/>]]></h3>
+        <p>
+            The <code><![CDATA[<type/>]]></code> element is nested directly within
+            a <a href="#modelElement"><code><![CDATA[<modelElement/>]]></code></a>, it is used to
+            specify in what <a href="../andromda-metafacades/index.html">metafacade</a> <em>type</em>
+            the meta model element <strong>MUST</strong> be wrapped in order
+            to be made available to a <a href="#template"><code><![CDATA[<template/>]]></code></a>.
+            For example, this could make each metafacade of type
+            <code>org.andromda.cartridges.webservice.metafacades.WebService</code> available to a template:
+<source language="xml"><![CDATA[
+...
+<template
+    path="templates/webservice/wsdl/wrapped-wsdl.vsl"
+    outputPattern="{0}/{1}.wsdl"
+    outlet="wsdls"
+    overwrite="true">
+    <modelElements variable="service">
+        <modelElement>
+            <type name="org.andromda.cartridges.webservice.metafacades.WebService"/>
+        </modelElement>
+    </modelElements>
+</template>
+...
+]]></source>
+        </p>
+        <table>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+            <th>Required?</th>
+          </tr>
+          <tr>
+            <td>
+                name
+            </td>
+            <td>
+                The name of the metafacade type. (i.e. <em>org.andromda.core.uml.ClassifierFacade</em>,
+               <em>org.andromda.cartridges.webservice.metafacades.WebService</em>, etc).
+            </td>
+            <td>
+                No, the <a href="#stereotype"><em>stereotype</em></a> attribute could be used
+                instead.
+            </td>
+          </tr>
+        </table>
+       <a name="typeProperty"/>
+       <h3><![CDATA[<property/>]]></h3>
+       <p>
+            There are <strong>optional</strong> nested <code><![CDATA[<property/>]]></code> elements
+            that may be placed directly within a <a href="#type"><code><![CDATA[<type/>]]></code></a>.  These properties
+            are used for two purposes: 
+            <ol>
+                <li>
+                    They are used to specify what <em>valid</em> properties the <a href="../andromda-metafacades/index.html">metafacade</a>
+                    <em>type</em> must have (meaning non-null in case of a non-collection property or having at least one value
+                    in case of a collection property) or be equal to, in order for the model element to be made available to a
+                    <a href="#template"><code><![CDATA[<template/>]]></code></a>
+               </li>
+               <li>
+                   They're used to define additional elements that should be processed by a template.
+               </li>
+           </ol>
+           Here's an example of the first and most common use, the following would make each model element with a metafacade of 
+           type <em>org.andromda.core.uml.ClassifierFacade</em> with the property <em>enumeration</em> equal to <code>true</code> available to a template:
+<source language="xml"><![CDATA[
+...
+<modelElements variable="enumeration">
+    <modelElement>
+        <type name="org.andromda.metafacades.uml.ClassifierFacade">
+            <property name="enumeration">true</property>
+        </type>
+    </modelElement>
+</modelElements>
+...
+]]></source>
+            Here's example of the second use (note that the property still must be valid in order to be made available to the template, in the
+            case of this example that would mean the <em>navigableConnectingEnds</em> collection has at least one or more elements).  
+            The following would process a template for each <em>associationEnd</em> in the collection of <em>navigableConnectingEnds</em>
+            on the entity.   It will also make the <em>entity</em> variable (in addition to the <em>associationEnd</em> variable) available
+            to each processed template.  This is useful in cases where you have a property on your metafacade that is something other than
+            one or more metafacade instances; doing something like this allows you to process those related objects within a template.
+<source language="xml"><![CDATA[
+...
+<modelElements variable="entity">
+    <modelElement>
+        <type name="org.andromda.metafacades.uml.Entity">
+            <property name="navigibleConnectingEnds" variable="associationEnd"/>
+        </type>
+    </modelElement>
+</modelElements>
+...
+]]></source>
+        </p>
+        <p class="highlight">
+            Another VERY useful application of these properties, is to determine when and when not to
+            output a file (for example you may only want to output a WSDL for a web service that has <strong>at least</strong>
+            one exposed operation), so in that case you'd map a nested property checking for the exposed operations like
+            the example directly below:
+<source language="xml"><![CDATA[
+...
+<modelElements variable="services">
+    <modelElement>
+        <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+            <property name="exposedOperations"/>
+        </type>
+    </modelElement>
+</modelElements>
+...
+]]></source>
+        </p>
+        <p class="highlight">
+            Its important to note that you are NOT required to specify a property's value when using the nested
+            <code><![CDATA[<property/>]]></code>, if you do not specify the <em>value</em> attribute, then the
+            properties needs to be <em>valid</em>, meaning the follwing things: it's non-null, it has
+            one or more elements if its a collection type property, or has a value of <code>true</code>
+            if a boolean type.
+        </p>
+        <br/>
+        <table>
+            <tr>
+                <th>Attribute</th>
+                <th>Description</th>
+                <th>Required?</th>
+            </tr>
+            <tr>
+                <td>
+                    name
+                </td>
+                <td>
+                    The name of the property to check the exitence of (there must be a valid java bean accessor on the metafacade).
+                </td>
+                <td>
+                    Yes
+                </td>
+            </tr>
+        </table>
+        <h3><![CDATA[<resource/>]]></h3>
+        <p>
+          The <code><![CDATA[<resource/>]]></code> element is used to process files inside the
+          cartridge without passing them through any template engine. They will simply be copied.
+        </p>
+        <table>
+          <tr>
+            <th>Attribute</th>
+            <th>Description</th>
+            <th>Required?</th>
+          </tr>
+          <tr>
+            <td>
+                path
+            </td>
+            <td>
+                Specifies the path (relative to the cartridge root)
+                for a resource file to be copied to an outlet. You can use the asterisk wildcard
+                to match multiple characters at once, similar to Ant filesets.
+                The matching will start relatively to the root of the cartridge, similar to the values
+                used in the path attribute of the <![CDATA[<template/>]]> tag.
+            </td>
+            <td>
+                Yes
+            </td>
+          </tr>
+          <tr>
+            <td>
+                outputPattern
+            </td>
+            <td>
+                Specifies a pattern in
+                 <a href="http://java.sun.com/j2se/1.4/docs/api/java/text/MessageFormat.html">
+                   java.text.MessageFormat</a> syntax.
+                 You can use this pattern to tell AndroMDA how to construct
+                 the resource output file names. The pattern can consist of any ordinary
+                 printable characters as well as some predefined placeholders
+                 for things that AndroMDA already knows about: <br/>
+                 <code>{0}</code> stands for the name of the resource
+                 file contained within your cartridge.<br/>
+                 See example below.
+            </td>
+            <td>
+                Yes.
+            </td>
+          </tr>
+          <tr>
+            <td>
+                outlet
+            </td>
+            <td>
+                 Specifies the logical name of the outlet where the cartridge will copy this resource.
+            </td>
+            <td>
+                Yes
+            </td>
+          </tr>
+          <tr>
+            <td>
+                overwrite
+            </td>
+            <td>
+                Specifies whether the files already specified by the
+                <code>outlet</code> attribute should be overwritten
+                when AndroMDA runs the next time.
+            </td>
+            <td>
+                Yes
+            </td>
+          </tr>
+          <tr>
+              <td>
+                  required
+              </td>
+              <td>
+                  Specifies whether or not the resource is required during
+                  processing, if set to false, AndroMDA will ignore the
+                  fact that no outlet property has been defined in a namespace
+                  when running AndroMDA.  Otherwise if its true, warnings
+                  will be issued notifying a cartridge user that they must
+                  define a property matching the outlet name.
+              </td>
+              <td>
+                  No, default is <code>true</code>
+              </td>
+          </tr>
+        </table>
+        <p>
+            This example would copy all <code>.jar</code> files to the
+            location defined by the <em>resource</em> outlet within
+            the <code>lib</code> directory.
+        </p>
+        <source language="xml">
+<![CDATA[
+<resource
+    path="**/*.jar"
+    outputPattern="lib/{0}"
+    outlet="resources"
+    overwrite="false"/>
+     ]]></source>
+    </section>
+  </body>
+</document>

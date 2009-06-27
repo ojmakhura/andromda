@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<metafacades>
+    <property reference="namespacePrefix"/>
+    <property reference="qualifiedNameLocalPartPattern"/>
+    <property reference="namespacePattern"/>
+    <property reference="reverseNamespace"/>
+    <property reference="defaultProvider"/>
+    <property reference="defaultStyle"/>
+    <property reference="defaultUse"/>
+    <property reference="rpcClassNamePattern"/>
+    <property reference="wsdlOperationSortMode"/>
+    <property reference="testPackageNamePattern"/>
+    <property reference="testNamePattern"/>
+    <property reference="testImplementationNamePattern"/>
+    <property reference="arrayNamePrefix"/>
+    <property reference="schemaTypeMappingsUri"/>
+    <property reference="ejbJndiNamePrefix"/>
+    <property reference="ejbInterfacePattern"/>
+    <property reference="ejbHomeInterfacePattern"/>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.UmlClass$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+        <mapping class="org.omg.uml.foundation.core.DataType$Impl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.ClassImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeLogicImpl">
+        <mapping class="org.eclipse.uml2.impl.DataTypeImpl"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLEnumerationTypeLogicImpl">
+        <mapping>
+            <stereotype>ENUMERATION</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeAssociationEndLogicImpl"/>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WSDLTypeAttributeLogicImpl">
+        <mapping>
+            <property name="owner.wSDLTypeMetaType"/>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+        <mapping>
+            <stereotype>WEBSERVICE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceLogicImpl">
+        <mapping>
+            <stereotype>SERVICE</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl">
+        <mapping>
+            <stereotype>WEBSERVICE_OPERATION</stereotype>
+        </mapping>
+        <property reference="testImplementationOperationNamePrefix"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl">
+        <mapping>
+            <property name="owner.webServiceMetaType"/>
+        </mapping>
+        <property reference="testImplementationOperationNamePrefix"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceOperationLogicImpl">
+        <mapping>
+            <property name="owner.interface"/>
+        </mapping>
+        <property reference="testImplementationOperationNamePrefix"/>
+    </metafacade>
+    <metafacade class="org.andromda.cartridges.webservice.metafacades.WebServiceParameterLogicImpl">
+        <mapping>
+            <property name="operation.webServiceOperationMetaType"/>
+        </mapping>
+    </metafacade>
+</metafacades>

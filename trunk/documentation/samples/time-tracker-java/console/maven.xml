@@ -1,0 +1,20 @@
+<project default="install"
+         xmlns:ant="jelly:ant"
+         xmlns:maven="jelly:maven"
+         xmlns:j="jelly:core"
+         xmlns:util="jelly:util"
+         xmlns:i="jelly:interaction">
+
+    <goal name="run">
+        <ant:path id="classpath">
+            <ant:pathelement location="${maven.build.dest}"/>
+            <ant:pathelement location="${dataSource.driver.jar}"/>
+            <ant:path refid="maven.dependency.classpath"/>
+        </ant:path>
+        <ant:java
+            classname="org.andromda.timetracker.console.TimeTrackerConsole"
+            classpathref="classpath"
+            fork="true"/>
+    </goal>
+
+</project>

@@ -1,0 +1,14 @@
+#set ($generatedFile = "${stringUtils.substringBeforeLast($applicationContextClient, '.')}.properties")
+${configPropertyPrefix}remoteHttpScheme=$remoteHttpServiceScheme
+${configPropertyPrefix}remoteRmiScheme=$remoteRmiServiceScheme
+${configPropertyPrefix}remoteTcpScheme=$remoteTcpServiceScheme
+${configPropertyPrefix}remoteServer=$serviceRemoteServer
+${configPropertyPrefix}remotePort=$serviceRemotePort
+${configPropertyPrefix}remoteContext=${serviceRemoteContext}${serviceRemoteUrlPattern}
+#if($lingoRemotableServicesPresent)
+${configPropertyPrefix}remotePortJMS=$serviceRemotePortJMS
+#end
+#if ($remoteUsernameAuthenticationEnabled)
+${configPropertyPrefix}username=$remoteServiceUsername
+${configPropertyPrefix}password=$remoteServicePassword
+#end

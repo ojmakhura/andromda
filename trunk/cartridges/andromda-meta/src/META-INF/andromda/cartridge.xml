@@ -1,0 +1,84 @@
+<cartridge>
+    
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
+        <macrolibrary name="templates/meta/RenderTranslation.vm"/>
+        <!-- cartridge-macrolibrary merge-point-->
+    </templateEngine>
+
+    <!-- define the template objects that are made available to the template -->
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
+    <templateObject name="metaUtils" className="org.andromda.cartridges.meta.MetaCartridgeUtils"/>
+    
+    <property reference="fullyQualifiedMetafacadeRoot"/>
+    <property reference="toDoTag"/>
+    <!--property reference="enableTemplating"/>
+    <property reference="typeSafeEnumsEnabled"/>
+    <property reference="pluralizeAssociationEndNames"/>
+    <property reference="pluralizeAttributeNames"/>
+    <property reference="pluralizeParameterNames"/-->
+
+    <!-- the template definitions -->
+    <template
+        path="templates/meta/MetafacadeLogic.vsl"
+        outputPattern="$generatedFile"
+        outlet="facade-logics"
+        overwrite="true">
+        <modelElements variable="metafacade">
+            <modelElement>
+                <type name="org.andromda.cartridges.meta.metafacades.Metafacade"/>                
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/meta/MetafacadeLogicImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="facade-logic-impls"
+        overwrite="false">
+        <modelElements variable="metafacade">
+            <modelElement>
+                <type name="org.andromda.cartridges.meta.metafacades.Metafacade"/>                
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/meta/Metafacade.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="facades"
+        overwrite="true">
+        <modelElements variable="metafacade">
+            <modelElement>
+                <type name="org.andromda.cartridges.meta.metafacades.Metafacade"/>                
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/meta/PSMmetaclass.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="facades"
+        overwrite="true">
+        <modelElements variable="class">
+            <modelElement>
+                <type name="org.andromda.cartridges.meta.metafacades.PSMmetaclass"/>                
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/meta/PSMmetaclassImpl.vsl"
+        outputPattern="{0}/{1}Impl.java"
+        outlet="facade-logic-impls"
+        overwrite="false">
+        <modelElements variable="class">
+            <modelElement>
+                <type name="org.andromda.cartridges.meta.metafacades.PSMmetaclass">
+					<property name="operationsPresent"/>
+				</type>                
+            </modelElement>
+        </modelElements>
+    </template>
+
+</cartridge>

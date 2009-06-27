@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+    <properties>
+        <author email="naresh@andromda.org">Naresh Bhatia</author>
+        <title>Create Timecard Entity using MagicDraw</title>
+    </properties>
+
+    <body>
+
+        <section name="Create Timecard Entity using MagicDraw">
+            <p>
+                This page provides directions to create the Timecard entity using MagicDraw along with
+                its associations to the Person entity. The model is shown below for your reference.
+            </p>
+
+            <p>
+                <div align="center">
+                    <img src="../../../images/magicdraw/TimecardEntity.jpg"/>
+                </div>
+            </p>
+
+            <p>
+              <ol>
+                <li>In the TimeTracker model open the Domain Objects diagram. This diagram already
+                contains the <code>Person</code> class.</li>
+
+                <li>Now add the <code>Timecard</code> class to the diagram and set its stereotype
+                to Entity.</li>
+
+                <li>Next we need to add the <code>status</code> attribute to <code>Timecard</code>.
+                However note that <code>status</code> is of type <code>TimecardStatus</code> which
+                is an enumeration. We must define <code>TimecardStatus</code> first. So create a
+                class called <code>TimecardStatus</code>. Give it a stereotype of
+                <code>Enumeration</code>. Add four attributes to it representing the
+                enumeration values. Now that we have defined <code>TimecardStatus</code>, we
+                can add the <code>status</code> attribute to <code>Timecard</code> as shown above.</li>
+
+                <li>Next add the <code>begDate</code> and <code>comments</code> attributes to <code>Timecard</code>.</li>
+
+                <li>Now we must add the association between <code>Timecard</code> and <code>Person</code>.
+                To do this, click on the Association icon in the toolbar (13th icon from top). Click on the
+                <code>Timecard</code> class, drag your mouse to the <code>Person</code> class and release the
+                mouse. A new association will be created.</li>
+
+                <li>Right-click on the <code>Timecard</code> end and uncheck Navigable. This will make the
+                association one-way from <code>Timecard</code> to <code>Person</code>.</li>
+
+                <li>Right-click on the <code>Person</code> end of the association and select the
+                multiplicity of 1. Similarly set the multiplicity of the <code>Timecard</code> end to
+                many (*).</li>
+
+                <li>Right-click on the <code>Person</code> end of the association and select
+                Edit Name. Type the following specification for this association end: "+submitter". The
+                <code>Timecard</code> end does not have to be named because it is not navigable.
+                This completes the submitter association from <code>Timecard</code> to <code>Person</code>.</li>
+
+                <li>Similarly add an <code>approver</code> association from <code>Timecard</code> to
+                <code>Person</code>. Move the associations up or down as appropriate so they do not overlap
+                each other.</li>
+
+                <li>Make sure your class diagram matches the one shown above.</li>
+
+                <li>Save the model by selecting File > Save Project.</li>
+              </ol>
+            </p>
+
+            <p>
+              We are now ready to generate code for <code>Timecard</code>. Please go back to the main
+              tutorial page and continue from where you left off.
+            </p>
+        </section>
+
+    </body>
+</document>

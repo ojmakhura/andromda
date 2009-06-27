@@ -1,0 +1,19 @@
+#set ($generatedFile = "${decision.decisionHandlerFullPath}.java")
+#if ($stringUtils.isNotBlank($decision.decisionHandlerPackageName))
+package $decision.decisionHandlerPackageName;
+
+#end
+/**
+$decision.getDocumentation(" * ")
+ */
+public abstract class $decision.decisionHandlerClassName implements org.jbpm.graph.node.DecisionHandler
+{
+    public final java.lang.String decide(org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception
+    {
+        return handleDecide(executionContext);
+    }
+
+    protected abstract java.lang.String handleDecide(org.jbpm.graph.exe.ExecutionContext executionContext)
+        throws java.lang.Exception;
+}

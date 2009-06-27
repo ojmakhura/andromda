@@ -1,0 +1,43 @@
+#parse("templates/hibernate/ejb/HibernateSessionEJBGlobals.vm")
+// license-header java merge-point
+#if ($stringUtils.isNotBlank($service.packageName))
+package $service.packageName;
+#end
+
+/**
+ * @see $service.fullyQualifiedName
+ */
+public class ${service.name}BeanImpl
+    extends ${service.name}Bean
+    implements javax.ejb.SessionBean
+{
+#foreach ($operation in $service.operations)
+##
+##  Add one additional parameter to the list of parameters:
+##  a reference to the open Hibernate session.
+##
+#set ($parameterList = $operation.typedArgumentList)
+#if ($stringUtils.isBlank($parameterList))
+#set ($parameters = "${hibernateUtils.hibernatePackage}.Session session")
+#else
+#set ($parameters = "${hibernateUtils.hibernatePackage}.Session session, ${parameterList}")
+#end
+#set ($returnType = $operation.returnType.fullyQualifiedName)
+#if ($operation.exceptionsPresent)
+    protected $returnType handle${stringUtils.capitalize(${operation.name})} ($parameters)
+        throws $operation.exceptionList
+    {
+#else
+    protected $returnType handle${stringUtils.capitalize(${operation.name})} ($parameters)
+    {
+#end
+        // ${toDoTag} implement $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
+#if ($operation.returnTypePresent)
+        return $operation.returnType.javaNullString;
+#else
+        throw new java.lang.UnsupportedOperationException("${service.fullyQualifiedName}.${operation.signature} Not implemented!");
+#end
+    }
+
+#end
+}

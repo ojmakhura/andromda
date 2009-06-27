@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cruisecontrol>
+    <project name="thecla-andromda-all">
+        <bootstrappers>
+            <currentbuildstatusbootstrapper file="/var/andromda-build/logs/andromda-all/currentbuildstatus.txt"/>
+        </bootstrappers>
+        <modificationset>
+            <cvs localWorkingCopy="/var/andromda-build/andromda-all" cvsroot=":ext:amartinwest@cvs.sourceforge.net:/cvsroot/andromda"/>
+        </modificationset>
+        <labelincrementer defaultLabel="stockholm-build.1"/>
+        <!-- 3 hours -->
+        <!--schedule interval="10"-->
+        <schedule interval="10800">
+            <maven goal="scm:update-project|clean|-e dist|-e docs|deploy-distribution" projectfile="/var/andromda-build/andromda-all/project.xml" mavenscript="/opt/maven/bin/maven"/>
+        </schedule>
+        <log dir="/var/andromda-build/logs/andromda-all">
+            <merge dir="/var/andromda-build/andromda-all/andromda/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-ejb/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-bpm4struts/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-hibernate/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-java/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-meta/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-spring/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-webservice/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/cartridges/andromda-xmlschema/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/metafacades/uml/uml14/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/repositories/mdr/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/templateengines/velocity/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/translation-libraries/ocl/core/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/translation-libraries/ocl/testsuite/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/translation-libraries/ocl/andromda-query/target/test-reports"/>
+            <merge dir="/var/andromda-build/andromda-all/translation-libraries/ocl/andromda-validation/target/test-reports"/>
+        </log>
+        <publishers>
+            <currentbuildstatuspublisher file="/var/andromda-build/logs/andromda-all/currentbuildstatus.txt"/>
+            <htmlemail logdir="/var/andromda-build/logs/andromda-all"
+                mailhost="localhost"
+                buildresultsurl="http://thecla.homeftp.net:8080/cruisecontrol/buildresults/andromda-all"
+                spamwhilebroken="true"
+                subjectprefix="[BUILD]"
+                returnaddress="committers@andromda.org"
+                defaultsuffix="@users.sourceforge.net"
+                xslfile="/var/andromda-build/andromda-all/etc/cc-build/xsl/andromda.xsl">
+                <map address="matthias@andromda.org" alias="mattes3"/>
+                <map address="chad@andromda.org" alias="cwbrandon"/>
+                <map address="wouter@andromda.org" alias="draftdog"/>
+                <map address="martin@andromda.org" alias="amartinwest"/>
+                <map address="carlos@andromda.org" alias="carloslcuenca"/>
+                <failure address="committers@andromda.org"/>
+                <always address="chad.brandon@gmail.com"/>
+                <always address="westam@dsl.pipex.com"/>
+                <always address="wouter.zoons@coditel.net"/>
+            </htmlemail>
+        </publishers>
+    </project>
+</cruisecontrol>

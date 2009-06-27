@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="dist" name="hibernate-db" basedir=".">
+
+    <property name="app.root.dir" value="${basedir}/../.."/>
+
+    <property file="${basedir}/build.properties"/>
+    <property file="${app.root.dir}/build.properties"/>
+
+    <property name="jar.bundle.name" value="${application.id}-${ant.project.name}-${application.version}.sar"/>
+
+    <fileset id="classes" dir="${basedir}/target/classes" includes="**/*.class"/>
+    <fileset id="java-sources" dir="${basedir}/src/java" includes="**/*.java"/>
+
+    <path id="classpath">
+        <fileset dir="${app.root.dir}/lib">
+            <include name="log4j-*.jar"/>
+            <include name="xdoclet-*.jar"/>
+            <include name="xjavadoc-*.jar"/>
+            <include name="hibernate-*.jar"/>
+            <include name="commons-collections-*.jar"/>
+            <include name="commons-logging-*.jar"/>
+            <include name="commons-io-*.jar"/>
+        </fileset>
+        <pathelement path="${app.root.dir}/dist/${application.id}-common-${application.version}.jar"/>
+        <pathelement path="${app.root.dir}/dist/${application.id}-hibernate-ejb-server-${application.version}.jar"/>
+        <pathelement path="${app.root.dir}/dist/${application.id}-hibernate-ejb-common-${application.version}.jar"/>
+    </path>
+
+    <filter token="datasource.jndi" value="${datasource.jndi}"/>
+    <filter token="datasource.dialect" value="${hibernate.db.dialect}"/>
+
+    <target name="clean">
+        <delete dir="${basedir}/target"/>
+    </target>
+
+    <target name="xdoclet">
+        <mkdir dir="${basedir}/target/xdoclet"/>
+        <taskdef name="jmxdoclet" classname="xdoclet.modules.jmx.JMXDocletTask" classpathref="classpath"/>
+        <jmxdoclet destdir="${basedir}/target/xdoclet">
+            <fileset dir="${basedir}/src/java" includes="**/*.java"/>
+            <jbossxmbean/>
+            <mbeaninterface/>
+        </jmxdoclet>
+    </target>
+
+    <target name="compile" depends="xdoclet">
+        <mkdir dir="${basedir}/target/classes"/>
+        <javac destdir="${basedir}/target/classes" classpathref="classpath"
+            deprecation="true" debug="true" optimize="false">
+            <src path="${basedir}/src/java"/>
+            <src path="${basedir}/target/xdoclet"/>
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${basedir}/target"/>
+        <copy todir="${basedir}/target" file="${basedir}/src/xml/hibernate.cfg.xml" filtering="true" overwrite="true"/>
+        <jar jarfile="${basedir}/target/${jar.bundle.name}">
+            <fileset dir="${basedir}/target/classes"/>
+            <fileset dir="${basedir}/target" includes="hibernate.cfg.xml"/>
+            <fileset dir="${basedir}/src" includes="META-INF/*.xml"/>
+            <fileset dir="${basedir}/target/sql"/>
+        </jar>
+    </target>
+
+    <target name="dist" depends="jar">
+        <mkdir dir="${app.root.dir}/dist"/>
+        <copy todir="${app.root.dir}/dist">
+            <fileset dir="${basedir}/target">
+                <include name="${jar.bundle.name}"/>
+            </fileset>
+        </copy>
+    </target>
+
+</project>

@@ -1,0 +1,40 @@
+// license-header java merge-point
+#if ($stringUtils.isNotBlank($service.packageName))
+package $service.packageName;
+#end
+
+import javax.ejb.SessionContext;
+
+/**
+ * @see ${service.fullyQualifiedName}Bean
+ */
+public class ${service.name}BeanImpl 
+    extends ${service.name}Bean 
+{
+#foreach ($operation in $service.operations)
+#set ($returnType = $operation.returnType.fullyQualifiedName)
+#set ($signature = $operation.signature)
+#set ($visibility = $operation.visibility)
+## Public static methods are exposed on the home
+## interface instead of the component interface and must
+## be prepended with "ejbHome"
+#if ($visibility == "public" && $operation.static)
+#set ($signature = "ejbHome${stringUtils.capitalize($signature)}")
+#end
+    /**
+     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     */
+    $visibility $returnType $signature
+#if ($operation.exceptionsPresent)
+        throws $operation.exceptionList
+#end
+    {
+        //TODO: put your implementation here.
+#if ($operation.returnTypePresent)
+        // Dummy return value, just that the file compiles
+        return $operation.returnType.javaNullString;
+#end
+    }
+
+#end
+}

@@ -1,0 +1,64 @@
+#set ($className = "UserRoleFilter")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * This filter populates user role constants into the request scope.
+ */
+public class $className
+    implements Filter
+{
+    /**
+     * Initialize the filter
+     *
+     * @param config the configuration
+
+     */
+    public void init(FilterConfig config)
+    {
+    }
+    
+    /**
+     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest,
+     *      javax.servlet.ServletResponse, javax.servlet.FilterChain)
+     */
+    public void doFilter(
+        ServletRequest request,
+        ServletResponse response,
+        FilterChain chain)
+        throws IOException, ServletException
+    {
+        final HttpServletRequest httpRequest = (HttpServletRequest)request;
+#foreach ($role in $roles)
+#set ($userIsInRoleName = "userIs${stringUtils.upperCamelCaseName($role.name.toLowerCase())}")
+#set ($specializedRoles = $role.generalizedByActors)
+        final boolean $userIsInRoleName = httpRequest.isUserInRole("$role.name")
+#foreach ($specializedRole in $role.generalizedByActors)
+            || httpRequest.isUserInRole("$specializedRole.name")
+#end
+        ;
+        httpRequest.setAttribute("$userIsInRoleName",  Boolean.valueOf($userIsInRoleName));  
+#end
+        chain.doFilter(
+            request,
+            response);
+    }
+
+    /**
+     * @see javax.servlet.Filter#destroy()
+     */
+    public void destroy()
+    {
+    }
+}

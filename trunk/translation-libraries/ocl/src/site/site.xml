@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="AndroMDA Translation-Libraries">
+    <skin>
+        <groupId>org.andromda.maven.plugins.site</groupId>
+        <artifactId>andromda-site-skin</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </skin>
+    <bannerLeft>
+        <name></name>
+    </bannerLeft>
+    <publishDate format="dd MMM yyyy hh:mm zzz"/>
+	<body>
+    	<links>
+    	    <item name="OCL Translation-Libraries" href="/index.html"/>
+    	</links>
+    	<menu name="Translation-Libraries">
+			<item name="Query" href="andromda-ocl-query-library/index.html"/>
+			<item name="Validation" href="andromda-ocl-validation-library/index.html"/>
+    	</menu>
+    	<menu ref="reports"/>
+  	</body>
+</project>

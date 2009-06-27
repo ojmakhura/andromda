@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="$xmlEncoding"?>
+
+<!DOCTYPE beans
+    PUBLIC "-//SPRING//DTD BEAN//EN"
+           "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+    <import resource="../dist/WEB-INF/$applicationContext"/>
+    <import resource="../dist/WEB-INF/$applicationContextLocalDataSource"/>
+    <!-- serverTestBeanRefFactory import merge-point -->
+
+#set ($testPropertiesFile = "${stringUtils.substringBeforeLast($serverTestBeanRefFactory, '.')}.properties")    
+    <bean id="overrideConfigurer" class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+        <property name="location">
+            <value>$testPropertiesFile</value>
+        </property>
+    </bean>
+
+#if ($acegiServiceSecurity)
+    <bean id="${acegiAuthenticationManager}" class="org.acegisecurity.MockAuthenticationManager"/>
+
+#end
+    <bean id="$beanRefFactoryId" class="org.andromda.utils.ThisBeanFactory"/>
+
+    <!-- serverTestBeanRefFactory merge-point -->
+
+</beans>

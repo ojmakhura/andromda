@@ -1,0 +1,684 @@
+<project default="clean-dist"
+         xmlns:maven="jelly:maven"
+         xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+         xmlns:util="jelly:util"
+         xmlns:i="jelly:interaction"
+         xmlns:artifact="artifact">
+
+    <!-- ==================================================================
+               Installs all component libraries into the local repository
+         ================================================================== -->
+    <goal name="install-components" prereqs="initialize">
+        <j:set var="maven.multiproject.includes" value="${component.install.includes}"/>
+        <attainGoal name="multiproject:install"/>
+    </goal>
+
+    <!-- ==================================================================
+               Installs all sample libraries into the local repository
+         ================================================================== -->
+    <goal name="install-samples" prereqs="initialize">
+        <j:set var="maven.multiproject.includes" value="${sample.install.includes}"/>
+        <attainGoal name="multiproject:install"/>
+    </goal>
+
+    <!-- ==================================================================
+               Installs all libraries into the local repository
+         ================================================================== -->
+    <goal name="install" prereqs="initialize">
+        <j:set var="maven.multiproject.includes" value="${component.install.includes},${sample.install.includes}"/>
+        <attainGoal name="multiproject:install"/>
+    </goal>
+
+    <!-- ==================================================================
+               Deploys all libraries into the remote repository
+         ================================================================== -->
+    <goal name="deploy" prereqs="initialize">
+        <j:set var="maven.multiproject.includes" value="${component.install.includes}"/>
+        <attainGoal name="multiproject:deploy"/>
+    </goal>
+
+    <!-- ==================================================================
+               Transfer distribution to team server.
+         ================================================================== -->
+    <goal name="xfr-dist" prereqs="initialize">
+        <j:set var="maven.multiproject.includes" value="${component.install.includes}"/>
+        <attainGoal name="multiproject:deploy"/>
+    </goal>
+
+    <!-- ==================================================================
+               Deploys all libraries into the remote repository while
+               skipping all tests (speeds up deployment).
+         ================================================================== -->
+    <goal name="deploy-no-tests" prereqs="initialize">
+        <j:set var="maven.multiproject.includes" value="${component.install.includes}"/>
+        <j:set var="maven.test.skip" value="true" scope="parent"/>
+        <attainGoal name="multiproject:deploy"/>
+    </goal>
+
+    <!-- ==================================================================
+               Clean
+         ================================================================== -->
+    <goal name="clean">
+        <!-- get rid of all the log files and any exception recorder files -->
+        <ant:delete includeEmptyDirs="true">
+            <ant:fileset dir=".">
+                <ant:include name="**/target/**"/>
+                <ant:include name="**/*.log*"/>
+                <ant:include name="**/*.exc"/>
+                <ant:exclude name="*.log"/>
+            </ant:fileset>
+        </ant:delete>
+    </goal>
+
+    <!-- ==================================================================
+               Get the docs built by the cron job	       
+         ================================================================== -->
+	<goal name="get-cron-docs" >
+		<j:set var="docsTargetDir" value="${andromda.cron.docs}/andromda-all/documentation/target"/>
+		<available property="cronDocsAvailable" type="dir"
+			file="${docsTargetDir}"/>
+		<j:if test="${cronDocsAvailable} == 'true'">
+			<ant:copy todir="${binaryDistDir}">
+				<ant:fileset dir="${docsTargetDir}">
+					<ant:include name="*.zip"/>
+				</ant:fileset>
+			</ant:copy>
+			<!-- include it in the binary dist -->
+			<j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
+			<ant:zip zipfile="${zipFile}">
+				<ant:zipfileset dir="${binaryDistDir}" prefix="${distName}"/>
+			</ant:zip>
+		</j:if>
+	</goal>
+
+    <!-- ==================================================================
+               Builds ALL documentation and includes it in the binary dist
+         ================================================================== -->
+    <goal name="docs" prereqs="dist-init,initialize">
+        <maven:maven descriptor="${basedir}/documentation/project.xml" goals="build"/>
+        <ant:copy todir="${binaryDistDir}">
+            <ant:fileset dir="documentation/target">
+                <ant:include name="*.zip"/>
+            </ant:fileset>
+        </ant:copy>
+        <!-- include it in the binary dist -->
+        <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
+        <ant:zip zipfile="${zipFile}">
+            <ant:zipfileset dir="${binaryDistDir}" prefix="${distName}"/>
+        </ant:zip>
+    </goal>
+
+    <!-- ======================= DISTRIBUTION GOALS ======================= -->
+    <!-- ==================================================================
+             Creates the AndroMDA distributions
+         ================================================================== -->
+    <goal name="dist">
+        <attainGoal name="dist-src"/>
+        <attainGoal name="dist-bin"/>
+    </goal>
+
+    <!-- ==================================================================
+             Cleans and creates the AndroMDA distributions
+         ================================================================== -->
+    <goal name="clean-dist">
+        <attainGoal name="clean"/>
+        <attainGoal name="dist"/>
+    </goal>
+
+    <!-- ==================================================================
+             Creates the AndroMDA binary distribution
+         ================================================================== -->
+    <goal name="dist-bin" prereqs="dist-init">
+        <ant:delete dir="${binaryDistDir}"/>
+        <attainGoal name="install"/>
+        <ant:mkdir dir="${binaryDistLibDir}"/>
+        <!-- first add the components -->
+        <maven:reactor basedir="${basedir}" banner="Gathering Components: "
+            includes="${component.install.includes}" postProcessing="true" ignoreFailures="false"/>
+        <j:forEach var="reactorProject" items="${reactorProjects}">
+            <ant:echo>Adding Component: '${reactorProject}'</ant:echo>
+            <j:set var="fromDir" value="${reactorProject.file.parent}/target"/>
+            <j:set var="type" value="${reactorProject.context.getVariable('maven.multiproject.type')}"/>
+            <j:if test="${type == null || type == ''}">
+                <j:set var="type" value="jar"/>
+            </j:if>
+            <available property="fromDirectoryAvailable" type="dir" file="${fromDir}"/>
+            <j:if test="${fromDirectoryAvailable == 'true'}">
+                <j:choose>
+                    <!-- we handle the andromda-ant module a little different
+                        (we don't want it bundled maven style) -->
+                    <j:when test="${reactorProject.artifactId.equals('andromda-ant')}">
+                        <j:set var="toDir" value="${binaryDistDir}/ant"/>
+                        <ant:copy todir="${toDir}">
+                            <ant:fileset dir="${fromDir}">
+                                <ant:include name="*.jar"/>
+                                <ant:include name="*.xml"/>
+                                <ant:include name="*.txt"/>
+                            </ant:fileset>
+                        </ant:copy>
+                    </j:when>
+                    <j:otherwise>
+                        <j:set var="toDir" value="${binaryDistDir}/${reactorProject.groupId}/${type}s"/>
+                        <ant:copy todir="${toDir}">
+                            <ant:fileset dir="${fromDir}">
+                                <ant:include name="*.jar"/>
+                            </ant:fileset>
+                        </ant:copy>
+                        <!-- copy any models -->
+                        <j:set var="modelType" value="xml.zip"/>
+                        <j:set var="toDir" value="${binaryDistDir}/${reactorProject.groupId}/${modelType}s"/>
+                        <ant:copy todir="${toDir}">
+                            <ant:fileset dir="${fromDir}">
+                                <ant:include name="*.${modelType}"/>
+                            </ant:fileset>
+                        </ant:copy>
+                        <j:set var="modelType" value="uml2"/>
+                        <j:set var="toDir" value="${binaryDistDir}/${reactorProject.groupId}/${modelType}s"/>
+                        <ant:copy todir="${toDir}">
+                            <ant:fileset dir="${fromDir}">
+                                <ant:include name="*.${modelType}"/>
+                            </ant:fileset>
+                        </ant:copy>
+                    </j:otherwise>
+                </j:choose>
+                <ant:copy todir="${toDir}/../..">
+                    <ant:fileset dir="${fromDir}/..">
+                        <ant:include name="LICENSE"/>
+                    </ant:fileset>
+                </ant:copy>
+                <!-- don't copy the dependencies for the maven plugin -->
+                <j:if test="${reactorProject.artifactId.indexOf('maven') eq '-1'}">
+                    <j:forEach var="lib" items="${reactorProject.artifacts}">
+                        <!-- don't copy 'andromda' or 'jelly' dependencies -->
+                        <j:set var="dep" value="${lib.dependency}"/>
+                        <j:set var="groupId" value="${lib.dependency.groupId}"/>
+                        <j:if test="${groupId.indexOf('andromda') eq '-1' and groupId.indexOf('jelly') eq '-1'}">
+                            <ant:copy todir="${binaryDistLibDir}/${dep.artifactDirectory}">
+                                <ant:fileset dir="${maven.repo.local}/${dep.artifactDirectory}">
+                                    <ant:include name="${dep.type}s/${dep.artifactId}-${dep.version}.${dep.extension}"/>
+                                </ant:fileset>
+                            </ant:copy>
+                        </j:if>
+                    </j:forEach>
+                </j:if>
+            </j:if>
+        </j:forEach>
+        <!-- now add the samples -->
+        <maven:reactor basedir="${basedir}" banner="Gathering Samples: "
+            includes="${sample.dist.includes}" postProcessing="true" ignoreFailures="false"/>
+        <j:forEach var="project" items="${reactorProjects}" varStatus="counter">
+            <j:set var="fromDir" value="${project.file.parentFile}"/>
+            <j:set var="toDir" value="${binaryDistDir}/${fromDir.parentFile.name}/${project.artifactId}"/>
+            <ant:copy todir="${toDir}">
+                <ant:fileset dir="${fromDir}">
+                    <ant:exclude name="**/*.log*"/>
+                    <ant:exclude name="**/target/**"/>
+                </ant:fileset>
+            </ant:copy>
+            <j:set var="toDir" value="${binaryDistDir}/${fromDir.parentFile.name}"/>
+            <j:set var="fromDir" value="${project.file.parentFile.parent}"/>
+            <ant:copy todir="${toDir}">
+                <ant:fileset dir="${fromDir}">
+                    <ant:include name="*.html"/>
+                    <ant:include name="*.properties"/>
+                </ant:fileset>
+            </ant:copy>
+        </j:forEach>
+        <!-- copy all dependencies for samples -->
+        <maven:reactor basedir="${basedir}"
+            includes="${sample.install.includes}" postProcessing="true" ignoreFailures="false"/>
+        <j:forEach var="project" items="${reactorProjects}">
+            <j:forEach var="lib" items="${project.artifacts}">
+                <j:set var="dep" value="${lib.dependency}"/>
+                <!-- don't copy andromda dependencies -->
+                <j:if test="${lib.dependency.groupId.indexOf('andromda') == '-1'}">
+                    <ant:copy todir="${binaryDistLibDir}/${dep.artifactDirectory}">
+                        <ant:fileset dir="${maven.repo.local}/${dep.artifactDirectory}">
+                            <ant:include name="${dep.type}s/${dep.artifactId}-${dep.version}.${dep.extension}"/>
+                        </ant:fileset>
+                    </ant:copy>
+                </j:if>
+            </j:forEach>
+        </j:forEach>
+        <!-- create the distribution maven files we need for the samples -->
+        <j:set var="templatesDir" value="${basedir}/samples/templates"/>
+        <!-- create the distribution project.xml -->
+        <j:set var="distPom" value="${templatesDir}/distribution-pom.jelly"/>
+        <j:file name="${toDir}/project.xml" trim="false">
+            <j:import file="${distPom}" inherit="true"/>
+        </j:file>
+        <!-- Copy over the maven.xml files that will be in the dist (they are copied
+             over the source distribution ones) -->
+        <ant:copy todir="${toDir}" overwrite="true">
+            <ant:fileset dir="${templatesDir}">
+                <ant:exclude name="*.jelly"/>
+                <ant:exclude name="*.txt"/>
+            </ant:fileset>
+        </ant:copy>
+        <!-- zip it all up -->
+        <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
+        <ant:zip zipfile="${zipFile}">
+            <ant:zipfileset dir="${binaryDistDir}" prefix="${distName}"/>
+        </ant:zip>
+        <!-- add all libs to the source distribution as well -->
+        <j:set var="distName" value="${pom.groupId}-src-${pom.currentVersion}"/>
+        <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
+        <ant:zip zipfile="${zipFile}" update="true">
+            <ant:zipfileset dir="${binaryDistLibDir}" prefix="${distName}/lib"/>
+        </ant:zip>
+    </goal>
+
+    <!-- ==================================================================
+             Performs the distribution initialization
+         ================================================================== -->
+    <goal name="dist-init">
+        <j:set var="distName" value="${pom.groupId}-bin-${pom.currentVersion}"/>
+        <j:set var="binaryDistDir" value="${distribution.dir}/${distName}"/>
+        <j:set var="binaryDistLibDir" value="${binaryDistDir}/lib"/>
+    </goal>
+
+    <!-- ==================================================================
+             Creates the AndroMDA source distribution
+         ================================================================== -->
+    <goal name="dist-src">
+        <j:set var="distName" value="${pom.groupId}-src-${pom.currentVersion}"/>
+        <ant:mkdir dir="${distribution.dir}"/>
+        <!-- zip everything into the source archive -->
+        <j:set var="zipFile" value="${distribution.dir}/${distName}.zip"/>
+        <ant:zip zipfile="${zipFile}">
+            <ant:zipfileset dir="${basedir}" prefix="${distName}">
+                <ant:exclude name="**/*.log*"/>
+                <ant:exclude name="**/target/**"/>
+                <ant:exclude name="**/*.bak*"/>
+                <ant:exclude name="**/*.mdr"/>
+                <ant:exclude name="**/.*"/>
+                <ant:exclude name="**/.*/**"/>
+            </ant:zipfileset>
+        </ant:zip>
+    </goal>
+
+    <!-- ==================================================================
+             Performs any initialization required for the build
+         ================================================================== -->
+    <goal name="initialize" prereqs="init-bootstrap">
+        <!-- if we have any artifacts in the lib directory (other than the
+             bootstrap artifacts) install them into the local repository -->
+        <ant:copy todir="${maven.repo.local}">
+            <ant:fileset dir="${lib.dir}">
+                <ant:exclude name="**/*.txt"/>
+                <!-- don't copy the bootstraps over since they are handeled
+                     seperately -->
+                <ant:exclude name="**/*bootstrap/**"/>
+            </ant:fileset>
+        </ant:copy>
+    </goal>
+
+    <!-- ======================== BOOTSTRAP GOALS ======================== -->
+    <!-- The version of bootstrap artifacts -->
+    <j:set var="bootstrapVersion" value="bootstrap"/>
+
+    <!-- ==================================================================
+             Initializes the bootstrap artifacts (copies them to
+             the local repository and renames each artifact version
+             to the current version of the app)
+         ================================================================== -->
+    <goal name="init-bootstrap">
+        <ant:fileScanner var="bootstrapArtifacts">
+            <ant:fileset dir="${lib.dir}">
+                <ant:patternset>
+                    <ant:include name="*bootstrap/**/*"/>
+                </ant:patternset>
+            </ant:fileset>
+        </ant:fileScanner>
+        <j:forEach var="file" items="${bootstrapArtifacts.iterator()}">
+            <j:set var="versionIndex" value="${file.name.lastIndexOf(bootstrapVersion)}"/>
+            <j:if test="${versionIndex ne '-1'}">
+                <j:set var="artifactNoVersion" value="${file.name.substring(0,versionIndex)}"/>
+                <j:set var="artifactDir" value="${file.parentFile.parentFile.name}"/>
+                <j:set var="types" value="${file.parentFile.name}"/>
+                <j:set var="artifactTypesPath" value="${maven.repo.local}/${artifactDir}/${types}"/>
+                <ant:copy file="${file}" tofile="${artifactTypesPath}/${artifactNoVersion}${pom.currentVersion}.jar"/>
+            </j:if>
+        </j:forEach>
+    </goal>
+
+    <!-- =================================================================
+             Install all bootstrap artifacts to the local repository
+             IMPORTANT: Since bootstrap dependencies depend on each other,
+             we need to install them ALL at the end at once (instead of
+             one at a time).
+         ================================================================= -->
+    <goal name="bootstrap-install" prereqs="clean,initialize">
+        <attainGoal name="preprocess-bootstrap-modules"/>
+        <echo>+-------------------------------------------------------------------+</echo>
+        <echo>|  I N S T A L L I N G     B O O T S T R A P     A R T I F A C T S  |</echo>
+        <echo>+-------------------------------------------------------------------+</echo>
+        <j:forEach var="bootstrapProject" items="${bootstrapProjects}" begin="0" varStatus="index">
+            <j:set var="artifactId" value="${bootstrapProject.artifactId}"/>
+            <j:set var="groupId" value="${bootstrapProject.groupId}"/>
+            <j:if test="${groupId.indexOf(bootstrapVersion) == '-1'}">
+                <j:set var="bootstrapGroupId" value="${groupId}-${bootstrapVersion}"/>
+                <j:set var="dummy" value="${bootstrapProject.setGroupId(bootstrapGroupId)}"/>
+            </j:if>
+            <j:set var="bootstrapArtifactId" value="${artifactId}-${bootstrapVersion}"/>
+            <j:set var="dummy" value="${bootstrapProject.setArtifactId(bootstrapArtifactId)}"/>
+            <j:set var="artifactDirectory" value="${bootstrapProject.file.parent}/target"/>
+            <j:set var="artifactName" value="${artifactId}-${bootstrapProject.currentVersion}.jar"/>
+            <util:file var="artifactFile" name="${artifactDirectory}/${artifactName}"/>
+            <j:set var="dummy" value="${bootstrapProject.setCurrentVersion(bootstrapVersion)}"/>
+            <j:set var="newArtifactFile" value="${artifactId}-${bootstrapProject.currentVersion}.jar"/>
+            <ant:copy file="${artifactFile}" tofile="${lib.dir}/${bootstrapProject.groupId}/${bootstrapTypes.get(index)}s/${newArtifactFile}"/>
+        </j:forEach>
+    </goal>
+
+    <!-- =================================================================
+             Performs preprocessing on the bootstrap modules, basically
+             executes them and loads the modules and their types into lists.
+         ================================================================= -->
+    <goal name="preprocess-bootstrap-modules">
+        <!-- set bootstrap mode to true -->
+        <j:set var="maven.andromda.bootstrap.mode" value="true" scope="parent"/>
+        <util:tokenize var="bootstrapModules" delim=",">${bootstrap.modules}</util:tokenize>
+        <j:set var="listType" value="java.util.ArrayList"/>
+        <j:useList var="bootstrapProjects" class="${listType}"/>
+        <j:useList var="bootstrapTypes" class="${listType}"/>
+        <j:forEach var="bootstrapModule" items="${bootstrapModules}">
+            <util:tokenize var="moduleAndType" delim=":">${bootstrapModule}</util:tokenize>
+            <j:set var="module" value="${moduleAndType.get(0)}"/>
+            <j:set var="type" value="${moduleAndType.get(1)}"/>
+            <maven:reactor basedir="${basedir}" includes="${module}"
+                goals="clean:clean,jar:jar" ignoreFailures="false"
+                postProcessing="true" banner="Processing Bootstrap Artifact:"/>
+            <!-- load up the bootstrapLists -->
+            <j:forEach var="reactorProject" items="${reactorProjects}">
+                <!-- add the reactor project to the list of bootstrap projects -->
+                <j:set var="dummy" value="${bootstrapProjects.add(reactorProject)}"/>
+                <!-- add the bootstrap type to the list of bootsrap project types -->
+                <j:set var="dummy" value="${bootstrapTypes.add(type)}"/>
+            </j:forEach>
+        </j:forEach>
+    </goal>
+
+    <!-- =================================================================
+             Copy the distribution to the server.
+         ================================================================= -->
+    <goal name="deploy-distribution">
+ 	   <j:set var="andromda_distribution_mode" value="${andromda.distribution.mode}"/>
+	   <j:if test="${andromda_distribution_mode != 'local'}">
+	      <j:if test="${andromda_distribution_mode != 'remote'}">
+                <ant:fail>
+                   andromda.distribution.mode(${andromda.distribution.mode}) must be local or remote.
+                </ant:fail>
+	      </j:if>
+	   </j:if>
+	   <j:if test="${andromda_distribution_mode == 'remote'}">
+ 	       <j:set var="rsync_target_prefix" value="${andromda.distribution.username}@${andromda.distribution.server}:"/>
+	   </j:if>
+	   <j:if test="${andromda_distribution_mode == 'local'}">
+ 	       <j:set var="rsync_target_prefix" value=""/>
+	   </j:if>
+       <ant:echo>
+           user = ${andromda.distribution.username}
+           server = ${andromda.distribution.server}
+           andromda.distribution.mode = ${andromda.distribution.mode}
+           CC_TEST  = ${CC_TEST}
+           rsync_target_prefix = ${rsync_target_prefix}
+       </ant:echo>
+       <attainGoal name="deploy-repository"/>
+       <attainGoal name="deploy-build"/>
+    </goal>
+
+    <!-- =================================================================
+             Copy the documentation to the server from cron job.
+         ================================================================= -->
+    <goal name="deploy-docs-cron">
+ 	   <j:set var="andromda_distribution_mode" value="${andromda.distribution.mode}"/>
+	   <j:if test="${andromda_distribution_mode != 'local'}">
+	      <j:if test="${andromda_distribution_mode != 'remote'}">
+                <ant:fail>
+                   andromda.distribution.mode(${andromda.distribution.mode}) must be local or remote.
+                </ant:fail>
+	      </j:if>
+	   </j:if>
+	   <j:if test="${andromda_distribution_mode == 'remote'}">
+ 	       <j:set var="rsync_target_prefix" value="${andromda.distribution.username}@${andromda.distribution.server}:"/>
+	   </j:if>
+	   <j:if test="${andromda_distribution_mode == 'local'}">
+ 	       <j:set var="rsync_target_prefix" value=""/>
+	   </j:if>
+       <ant:echo>
+           user = ${andromda.distribution.username}
+           server = ${andromda.distribution.server}
+           andromda.distribution.mode = ${andromda.distribution.mode}
+           CC_TEST  = ${CC_TEST}
+           rsync_target_prefix = ${rsync_target_prefix}
+       </ant:echo>
+       <attainGoal name="deploy-docs"/>
+    </goal>
+
+    <!-- =================================================================
+             Copy the documentation to the server.
+         ================================================================= -->
+    <goal name="deploy-docs">
+        <!-- rsync the docs first, they should go quite quick unless there are
+             major changes -->
+        <!-- Add -n to test, just lists out the files that would be xfr'ed -->
+        <j:set var="rsync_arg1" value="-uaz"/>
+        <j:set var="rsync_src" value="${basedir}/documentation/target/docs"/>
+        <j:set var="rsync_target" value="${rsync_target_prefix}${andromda.server.directory}"/>
+        <ant:echo message="rsync ${rsync_arg1} ${rsync_src} ${rsync_target}"/>
+        <j:if test="${CC_TEST != 'true'}">
+        <ant:exec executable="rsync">
+            <ant:arg line="${rsync_arg1} ${rsync_src} ${rsync_target}"/>
+        </ant:exec>
+        </j:if>
+    </goal>
+
+    <!-- =================================================================
+             Copy the repository artifacts to the server.
+         ================================================================= -->
+    <goal name="deploy-repository">
+        <!-- rsync the local maven andromda repository
+             until we figure out were deploy is sending stuff -->
+        <j:set var="rsync_arg1" value="-Cvuaz"/>
+        <j:set var="rsync_src" value="${maven.home.local}/repository/andromda"/>
+        <j:set var="rsync_target" value="${rsync_target_prefix}${andromda.server.repository.directory}"/>
+        <ant:echo message="rsync ${rsync_arg1} ${rsync_src} ${rsync_target}"/>
+        <j:if test="${CC_TEST != 'true'}">
+        <ant:exec executable="rsync">
+            <ant:arg line="${rsync_arg1} ${rsync_src} ${rsync_target}"/>
+        </ant:exec>
+        </j:if>
+    </goal>
+
+    <!-- =================================================================
+             Copy the build artifacts to the server.
+         ================================================================= -->
+    <goal name="deploy-build">
+        <!-- Add -n to test, just lists out the files that would be xfr'ed -->
+        <j:set var="rsync_arg1" value="-vCuoprz"/>
+        <j:set var="rsync_arg2" value="--include='/distributions/*.zip'"/>
+        <j:set var="rsync_arg3" value="--exclude='/distributions/*'"/>
+        <j:set var="rsync_src" value="${distribution.dir}"/>
+        <j:set var="rsync_target" value="${rsync_target_prefix}${andromda.server.distribution.directory}"/>
+        <ant:echo message="rsync ${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_src} ${rsync_target}"/>
+        <j:if test="${CC_TEST != 'true'}">
+        <!-- NB if you specify as individual args someone mangles the arg
+            and you get stat errors -->
+        <ant:exec executable="rsync">
+            <ant:arg line="${rsync_arg1} ${rsync_arg2} ${rsync_arg3} ${rsync_src} ${rsync_target}"/>
+        </ant:exec>
+        </j:if>
+    </goal>
+
+    <!--
+
+        This goal processes each .xml.zip it can find and performs a token replacement
+        on the content of the XMI file contained inside.
+
+        This goal takes two arguments, the latter one is optional and if you do not
+        specify the other two this script will prompt you for them.
+
+            - xmiToken = the token to replace
+            - xmiValue = the value by which to replace the tokens found
+            - directory = the directory from which to start (default is ${basedir})
+
+        At the command line do something like this:
+
+            maven update-xmi -DxmiToken=oldVersion -DxmiValue=newVersion
+
+    -->
+    <goal name="update-xmi">
+        <j:while test="${empty(xmiToken)}">
+            <i:ask question="Which token do you want to replace ?" answer="xmiToken"/>
+        </j:while>
+        <j:while test="${empty(xmiValue)}">
+            <i:ask question="Which value should replace the '${xmiToken}' token ?" answer="xmiValue"/>
+        </j:while>
+        <j:if test="${empty(directory)}">
+            <ant:echo>Setting working directory to default location: ${basedir}</ant:echo>
+            <j:set var="directory" value="${basedir}"/>
+        </j:if>
+        <util:tokenize var="xmiExtensions" delim=",">${xmi.model.extensions}</util:tokenize>
+        <ant:fileScanner var="models">
+            <ant:fileset dir="${directory}">
+                <j:forEach var="xmiExtension" items="${xmiExtensions}">
+                    <ant:include name="**/*.${xmiExtension}"/>
+                </j:forEach>
+            </ant:fileset>
+        </ant:fileScanner>
+        <j:forEach var="model" items="${models.iterator()}">
+            <!-- set a few properties for this model -->
+            <j:set var="workingDir" value="${model.parent}"/>
+            <j:choose>
+                <j:when test="${model.name.endsWith('.zip')}">
+                    <j:set var="xmiName" value="${model.name.replaceAll('.zip','')}"/>
+                    <!-- unzip the model to have access to the XMI inside it -->
+                    <ant:unzip src="${model}" dest="${workingDir}"/>
+                    <!-- replace the occurrences in the XMI file -->
+                    <ant:replace dir="${workingDir}" token="${xmiToken}" value="${xmiValue}">
+                        <ant:include name="${xmiName}"/>
+                    </ant:replace>
+                    <!-- zip it up again, only updating the XMI inside the zip, this allows us not to touch
+                         the file when nothing is changed, and it will not remove any other files present
+                         in the zip -->
+                    <ant:zip destfile="${model}" update="true">
+                        <ant:fileset dir="${workingDir}">
+                            <ant:include name="${xmiName}"/>
+                        </ant:fileset>
+                    </ant:zip>
+                    <!-- delete the XMI file, it is not needed anymore -->
+                    <ant:delete file="${workingDir}/${xmiName}"/>
+                </j:when>
+                <j:otherwise>
+                    <!-- replace the occurrences in the XMI file -->
+                    <ant:replace dir="${workingDir}" token="${xmiToken}" value="${xmiValue}">
+                        <ant:include name="${model.name}"/>
+                    </ant:replace>
+                </j:otherwise>
+            </j:choose>
+        </j:forEach>
+    </goal>
+
+    <!--
+            This goal takes an argument:
+
+                - newVersion = the new version to set into models and references
+    -->
+    <goal name="updateProjectVersion">
+        <j:set var="oldVersion" value="${pom.currentVersion}"/>
+        <j:if test="${oldVersion ne newVersion}">
+            <!-- change the currentVersion property in the root project.xml -->
+            <ant:echo>Updating project to next release: replacing ${oldVersion} with ${newVersion}</ant:echo>
+            <ant:echo>Updating the project's root project.xml file ...</ant:echo>
+            <!-- store the previous version in this variable -->
+            <!-- do the physical replacement in the root project.xml -->
+            <ant:replace
+                file="${basedir}/project.xml"
+                token="&lt;currentVersion&gt;${oldVersion}&lt;/currentVersion&gt;"
+                value="&lt;currentVersion&gt;${newVersion}&lt;/currentVersion&gt;"/>
+            <!-- set the new version in the POM -->
+            <j:set var="dummy" value="${pom.setCurrentVersion(newVersion)}"/>
+            <!-- update all models to take this version change into account -->
+            <ant:echo>Updating all model XMI files ...</ant:echo>
+            <ant:property name="xmiToken" value="${oldVersion}"/>
+            <ant:property name="xmiValue" value="${newVersion}"/>
+            <attainGoal name="update-xmi"/>
+            <!-- replace all occurrences of this version in the documentation and in documentation/changes.xml -->
+            <ant:echo>Updating all references to this version found in the documentation ...</ant:echo>
+            <ant:replace dir="${basedir}" token="${oldVersion}" value="${newVersion}" includes="**/xdocs/**/*.xml" excludes="**/target/**/*.*"/>
+            <ant:echo>Finished updating the project version from ${oldVersion} to ${newVersion}</ant:echo>
+        </j:if>
+    </goal>
+
+    <!--
+
+        Releases a distribution for the next version, doing so will:
+
+            1) update the codebase for this new version
+            //2) build a new distribution
+            3) build the new bootstraps
+            //4) build the docs
+            //5) make sure the distribution (bin + src) can be unpacked
+            //6) make sure the samples can be built
+            7) commit all changes from (1)
+            8) tag this commit from (7)
+            9) create a branch for this release in CVs (so fixes can still be applied to it without touching HEAD)
+
+    -->
+    <goal name="release">
+        <j:while test="${empty(newVersion)}">
+            <i:ask question="The current AndroMDA version is ${pom.currentVersion}, please enter the next version:" answer="newVersion"/>
+        </j:while>
+        <j:while test="${empty(cvsBranch)}">
+            <i:ask question="Do you which to create a CVS branch for this release (use only for stable releases): [yes/no]" answer="cvsBranch"/>
+        </j:while>
+
+        <attainGoal name="updateProjectVersion"/>
+        <attainGoal name="bootstrap-install"/>
+<!--        <attainGoal name="clean"/>
+        <attainGoal name="install"/>
+        <attainGoal name="docs"/>
+        <ant:echo>Making sure distributions can be unpacked</ant:echo>
+        <ant:unzip src="${basedir}/target/distributions/${pom.groupId}-bin-${newVersion}.zip" dest="${basedir}/target/test"/>
+        <ant:unzip src="${basedir}/target/distributions/${pom.groupId}-src-${newVersion}.zip" dest="${basedir}/target/test"/>
+
+        <ant:echo>Making sure samples can be built</ant:echo>
+        <maven:maven descriptor="${basedir}/target/test/${pom.groupId}-bin-${newVersion}/samples/project.xml"/>
+-->
+
+        <ant:echo>Committing changes for ${newVersion}</ant:echo>
+        <ant:cvs command='commit -m "Changes for ${newVersion}"' compressionLevel="9" failOnError="true"/>
+        <ant:echo>Constructing tag label</ant:echo>
+        <j:set var="cvsTag" value="V${newVersion}"/>
+        <j:invoke var="cvsTag" on="${cvsTag}" method="replaceAll"><j:arg value="-"/><j:arg value=""/></j:invoke>
+        <j:invoke var="cvsTag" on="${cvsTag}" method="replaceAll"><j:arg value="\."/><j:arg value="_"/></j:invoke>
+        <ant:echo>Tagging last commit</ant:echo>
+        <ant:cvs command="tag ${cvsTag}" compressionLevel="9" failOnError="true"/>
+
+        <!-- only branch for non-SNAPSHOT releases -->
+        <j:if test="${cvsBranch eq 'yes'}">
+            <ant:echo>Branching release so the next version is on HEAD</ant:echo>
+            <ant:cvs command="tag -b ${cvsTag}x" compressionLevel="9" failOnError="true"/>
+        </j:if>
+    </goal>
+	
+	<goal name="zip-expected">
+		<j:set var="cartridgeDirectory" value="${basedir}/cartridges/${cartridgeName}"/>
+		<j:set var="actualDirectory" value="target/cartridge-test/actual"/>
+		<available file="${cartridgeDirectory}/${actual}" property="cartridgePresent"/>
+		<echo message="available:'${cartridgePresent}'"/>
+		<j:if test="${cartridgeName == null || cartridgeName == '' }">
+			<fail message="Need to run maven zip-cartridge -DcartridgeName=cartridgeName"/>
+		</j:if>
+		<j:if test="${cartridgePresent ne 'true' }">
+			<fail message="${cartridgeDirectory}/${actualDirectory} not found"/>
+		</j:if>
+		<zip destfile="${cartridgeDirectory}/src/test/expected/cartridge-output.zip">
+		    <zipfileset dir="${cartridgeDirectory}/${actualDirectory}"/>
+  		</zip>	
+	</goal>
+
+
+</project>

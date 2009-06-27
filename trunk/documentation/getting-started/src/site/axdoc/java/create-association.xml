@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<document>
+    <properties>
+        <author email="naresh@andromda.org">Naresh Bhatia</author>
+        <title>Create Associations</title>
+    </properties>
+    <body>
+        <section name="Create Associations">
+            <p>
+                In this section we will learn how to create associations between entities. We will
+                start out by modeling a <code>Timecard</code> entity and then creating two
+                associations between <code>Timecard</code> and <code>Person</code>. The completed
+                model will be as shown below.
+            </p>
+
+            <p>
+                <div align="center">
+                    <img src="images/magicdraw/TimecardEntity.jpg"/>
+                </div>
+            </p>
+
+            <p>
+                The <code>Timecard</code> has three attributes:
+                <ol>
+                    <li><strong>status:</strong> an enumeration with 4 values as shown</li>
+                    <li><strong>begDate:</strong> the beginning date of the timecard, which should fall at the start of a week</li>
+                    <li><strong>comments:</strong> comments added by the submitter and/or the approver of the timecard</li>
+                </ol>
+            </p>
+
+            <p>
+                The <code>Timecard</code> has two associations with <code>Person</code>:
+                <ol>
+                    <li><strong>submitter:</strong> the person who has submitted the timecard</li>
+                    <li><strong>approver:</strong> the person who will approve the timecard</li>
+                </ol>
+            </p>
+
+            <p>
+                The arrows on the two associations indicate that both associations are navigable from
+                <code>Timecard</code> to <code>Person</code>, i.e. the timecard keeps references to its
+                submitter and approver. Note that two-way navigability is indicated by not having arrows
+                at either end of the association. The "1" and "*" at each end of the association indicate
+                their multiplicity. The top association means one person can submit many (indicated by "*")
+                timecards. Similarly the bottom association means one person can approve many timecards.
+            </p>
+
+            <p>
+                We are now ready to add these additional elements to our TimeTracker model. To do this,
+                click the link below for your UML modeling tool.
+            </p>
+
+            <p>
+                <a href="resources/uml-tools/argouml/create-timecard-entity.html" target="_blank">ArgoUML</a>
+                <a href="resources/uml-tools/magicdraw/create-timecard-entity.html" target="_blank">MagicDraw</a>
+            </p>
+        </section>
+
+        <section name="Generate Code">
+            <p> Follow the steps below to generate code.
+                <ol>
+                    <li>Open a Command Prompt and change your directory to <code>C:/timetracker</code>.</li>
+                    <li>Execute the command <code>maven -o clean install</code>. Make sure you get a
+                    <code>BUILD SUCCESSFUL</code> message.</li>
+                </ol>
+            </p>
+
+            <p>
+                Open the folder C:/timetracker/core/target/src/org/andromda/timetracker/domain in Windows Explorer.
+                You will see 7 new files in there all related to the timecard entity. Review these files. Note that
+                the <code>Timecard</code> class contains two references to the <code>Person</code> class, but the
+                <code>Person</code> class contains no references to the <code>Timecard</code> class. This is because
+                both associations between these classes are one-way from <code>Timecard</code> to <code>Person</code>.
+            </p>
+        </section>
+
+        <section name="What's Next?">
+            <p>
+                At this point we have covered most of the important modeling concepts. In the next section we
+                will add the remaining functionality to the TimeTracker model. Click <a href="complete-timetracker-model.html">here</a>
+                to get started.
+            </p>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,77 @@
+#if ($stringUtils.isNotBlank($acegiAuthenticationDaoImplClass))
+#set ($generatedFile = "${stringUtils.replace($acegiAuthenticationDaoImplClass,'.','/')}.java")
+#set ($packageName = "${springUtils.getPackageName($acegiAuthenticationDaoImplClass)}")
+#set ($className = "${springUtils.getClassName($acegiAuthenticationDaoImplClass)}")
+package $packageName;
+
+import org.springframework.dao.DataAccessException;
+
+import org.acegisecurity.GrantedAuthority;
+import org.acegisecurity.GrantedAuthorityImpl;
+import org.acegisecurity.userdetails.UserDetails;
+import org.acegisecurity.userdetails.UserDetailsService;
+import org.acegisecurity.userdetails.UsernameNotFoundException;
+
+/**
+* This class implements the "user look-up" service needed by the Acegi Security Framework
+* for application supplied user management.
+*/
+public class $className 
+    implements UserDetailsService
+{
+
+    // $toDoTag Follow steps to integrate Acegi user management
+    // 1. Write code to implement loadUserByUsername (below)
+    //
+    // 2. If you need the services of other Spring beans (like a user Dao), supply
+    //    getters/setters after loadUserByUsername() (see below)
+    //
+    // 3. Modify mda/src/custom/merge-mappings/SpringMergeMappings.xml to inject
+    //    this object with supporting Spring beans
+    //
+    // 4. Remove the comment in mda/config/andromda.xml that is around the
+    //    "mergeMappingsUri" namespace property to activate "merge mappings"
+    //    of the Spring cartridge
+
+    public UserDetails loadUserByUsername(String username)
+        throws UsernameNotFoundException, DataAccessException
+    {
+        // $toDoTag implement loadUserByUsername()
+        throw new java.lang.UnsupportedOperationException("com.lighthousepmg.kore.kUsers.services.UserManagementService.handleAddRole(java.lang.String userID, java.lang.String roleToAdd) Not implemented!");
+
+        /* Usually, your implementation will look up a "user" from your database,
+           then END with something like this:
+        org.acegisecurity.userdetails.User acegiUser =
+            new org.acegisecurity.userdetails.User(
+               user.getUserId(),
+               user.getPassword(),
+               (user.isActive() && user.isSuspended() == false),
+               user.isActive(),
+               user.isActive(),
+               user.isSuspended() == false,
+               auth);
+
+        return acegiUser;
+        */
+    }
+
+// $toDoTag specify user Dao object(s) used by the authentication Dao here
+
+/* If you do inject any Spring beans, be sure to update the SpringMergeMappings.xml file
+   to supply the Spring beans you want. A typical example is here:
+
+    private UserDao userDao;
+
+    public UserDao getUserDao()
+    {
+        return userDao;
+    }
+
+    public void setUserDao(UserDao userDao)
+    {
+        this.userDao = userDao;
+    }
+*/
+
+}
+#end

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="chad@andromda.org">Chad Brandon</author>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA Developer Coding / Patching Conventions</title>
+    </properties>
+
+    <body>
+
+        <section name="Foreword">
+            <p>
+                This document describes a list of coding conventions that are required for
+                code submissions to AndroMDA. By default, coding conventions for
+                most Open Source Projects should follow the existing coding conventions in
+                the file that you are working on. For example, if the bracket is on the
+                line after the if statement, then you should write all your code to have
+                that convention.
+            </p>
+            <p>
+                <ul>
+                    <li><a href="#AndroMDA_Developer_Coding_Conventions">Coding conventions</a></li>
+                    <li><a href="#Submitting_Patches">How to submit a patch</a></li>
+                </ul>
+            </p>
+        </section>
+
+        <section name="AndroMDA Developer Coding Conventions">
+            <p>
+                Below is a list of coding conventions that are specific to AndroMDA. 
+                Anything else not specifically mentioned here should follow the official 
+                <a href="http://java.sun.com/docs/codeconv/html/CodeConvTOC.doc.html">Sun Java Coding Conventions</a>.
+            </p>
+            <subsection name="General Coding Conventions">
+                <p>
+                    The following applies to any code, whether it be templates, java files, XML files, etc.
+                </p>
+                <ul>
+                    <li>
+                        <p>
+                            <strong>Indentations:</strong> 4 spaces. <strong>NO tabs</strong>. Period.
+                            We understand that a lot of you like to use tabs, but the fact of the
+                            matter is that in a distributed development environment, when the cvs
+                            commit messages get sent to a mailing list, they are almost impossible
+                            to read if you use tabs.
+                        </p>
+                        <p>
+                            Another requirement is to set the right margin to 120 characters, so lines break
+                            if they exceed this limit. A shorter limit is not acceptable since it will break
+                            lines sooner and will disrupt the look and feel of the code.
+                        </p>
+                    </li>
+                 </ul>
+            </subsection>
+            <subsection name="Java Coding Conventions">
+                <ul>
+                    <li>
+                        <p>
+                            <strong>Brackets:</strong> All brackets (class, method, if, try, etc)
+                            must begin and end on a new line. Example :
+                        </p>
+                      <source language="java">
+public class SomeClass
+{
+    public void someMethod()
+    {
+        if (xxx)
+        {
+        }
+    }
+}
+                        </source>
+                    </li>
+                    <li>
+                        <p>
+                            <strong>Whitespace:</strong> Do not add extra whitespace
+                            around parenthesis (i.e. "if ( this.isComposition() )") or casts
+                            ("(ClassifierFacade) element"), instead they should be written
+                            written like the following:
+                        </p>
+                        <source language="java">
+if (this.isComposition()) 
+{
+}
+                        </source>
+                        <source language="java">
+ClassifierFacade classifier = (ClassifierFacade)element;
+                        </source>
+                    </li>
+                    <li>
+                        <p>
+                            <strong>Iterators:</strong> Looping using an iterator, do these in for-loops
+                            instead of while loops (because this allows the iterator itself to be scoped
+                            into that block). Example:
+                       </p>
+                       <source language="java">
+for (final Iterator stereotypeIterator = stereotypes.iterator(); stereotypeIterator.hasNext();)
+{
+    final ModelElement stereotype = (ModelElement)stereotypeIterator.next();
+    stereoTypeNames.add(stereotype.getName());
+}                        
+                        </source>
+                    </li>
+                    <li>
+                        <p>
+                            <strong>Comments:</strong> Javadoc SHOULD exist on all your class members
+                            (methods + class variables), including the private ones. Also, if you are
+                            working on existing code and there currently isn't a javadoc for that
+                            method/class/variable or whatever, then you should contribute and add it.
+                            This will improve the project as a whole.  Also add code comments when
+                            you think it's necessary (like assumptions), especially when the code
+                            is not obvious.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                           <strong>Author References:</strong> If you contribute to a file (code or documentation),
+                           add yourself to the top of the file (below the existing authors). For java files
+                           the preferred Javadoc format is:
+                        </p>
+                        <source>
+@author FirstName LastName
+                        </source>
+                    </li>
+                    <li>
+                        <p>
+                            <strong>Exiting Methods:</strong> There should be only a single
+                            point of exit out of a method (i.e. a single return statement).
+                        </p>
+                        <source language="java">
+public int getEntityCount()
+{
+    // don't do this:
+    /*
+        if (condition)
+        {
+           return 6;
+        }
+        return 0;
+    */
+
+    // but do this:
+    int entityCount = 0;
+
+    if (condition)
+    {
+        entityCount = 6;
+    }
+
+    return entityCount;
+}
+                       </source>
+                    </li>
+                    <li>
+                        <p>
+                            <strong>Variable Names:</strong> <em>attr</em> should be written
+                            as <code>attribute</code>, <em>collIdents</em> should be
+                            <code>identifiers</code> (the type is Collection, don't specify that
+                            in the name), <strong>the code should read as plain English</strong>.
+                        </p>
+                    </li>
+                    <li>
+                        <strong>Instance Variables:</strong> Instance variables should not have any
+                        prefix and must be referenced using the <em>this</em> object. Example :
+                        <source language="java">
+public class SomeClass
+{
+    private String someString;
+    ...
+    public void someMethod()
+    {
+        logger.debug("Value = " + this.someString);
+    }
+}
+                       </source>
+                    </li>
+                    <li>
+                        <strong>Parameter:</strong> Method parameter names should not have any
+                        prefix indicating the type (<code>strClassName</code> for a <code>String</code>).
+                        When more than one parameter is present in the list we write each one of them on a new line
+                        and indent. Where possible we make the parameter <code>final</code>. For example :
+                        <source language="java">
+public void someMethod(
+    final String className,
+    final int count)
+{
+}                        
+                        </source>
+                    </li>
+                    <li>
+                        <p>
+                            <strong>Strings:</strong> Avoid hardcoding values, Strings as well as
+                            numbers, etc should go into a properties file or a class holding constants.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <strong>Imports:</strong> Use fully qualified import names when importing classes,
+                            this makes it easier for users not familiar with the code base to see where classes
+                            are coming from.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <strong>Switch/case:</strong> Switch/case constructs look like this (please respect the
+                            indentation). When ever a <code>break</code> keyword would be missing it should be
+                            replaced by a comment indicating the <code>fall-through</code>. If the default action
+                            is to not perform anything then please put this in a comment so people know it's on purpose.
+                            <source language="java">
+switch(myValue)
+{
+    case 1 :
+        doSomething();
+        break;
+    case 2 :
+        doSomething2();
+        break;
+    case 3 :    // fall-through
+    case 4 :
+        doSomethingElse();
+        break;
+    default :
+        // do nothing
+}
+                            </source>
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            <strong>Logging:</strong> Do <strong>NOT</strong> use System.out.println()
+                            for debugging purposes in your code, instead use a log4j logger.
+                        </p>
+                        <source language="java">
+try
+{
+   ...
+}
+catch (Exception ex)
+{
+    logger.error("Some error has occurred" + ex);
+}
+                        </source>
+                    </li>
+                    <li>
+                        <p>
+                            <strong>Exception Recording:</strong> Do <strong>NOT</strong> use ex.printStackTrace()
+                            for debugging purposes in your code, instead use the provided ExceptionRecorder class.
+                        </p>
+                        <source language="java">
+try
+{
+   ...
+}
+catch (Exception ex)
+{
+    logger.error("Some error has occurred" + ex);
+    ExceptionRecorder.instance().record( ex );
+}
+                        </source>
+						<p>
+							This will create a .exc file with the stacktrace and additional
+							debugging and environment information:
+<pre>
+------- AndroMDA Exception Recording -------
+Version ........: 3.0-RC2-20050420181638
+Error ..........: Error performing ModelProcessor.process with model(s) --> 'jar:file:/home/martin/ews30andromda/workspace/andromda-all/cartridges/andromda-webservice/src/test/uml/WebServiceCartridgeTestModel.xml.zip!/WebServiceCartridgeTestModel.xml'
+Build ..........: 2005-04-20 18:16:38
+Build System ...: Linux-2.6.11-suspend2
+Build JDK ......: Sun Microsystems Inc.-1.4.2_07-b05
+Build Builder ..: martin
+Run System .....: Linux2.6.11-suspend2
+Run JDK ........: Sun Microsystems Inc.1.4.2_07-b05
+Main Exception .: Error performing MDRepositoryFacade.readModel
+Root Exception .: java.lang.OutOfMemoryError
+java.lang.OutOfMemoryError
+	
+</pre>							
+						</p>
+                    </li>
+                </ul>
+            </subsection>
+            <subsection name="Template Coding Conventions">
+                <ul>
+                    <li>
+                        <p>
+                           <strong>Referencing properties:</strong> In Velocity (etc) try to do
+                           <code>$variable.property</code> instead of <code>$variable.getProperty()</code>,
+                           the two calls are equivalent but the former better matches our metamodels
+                           (and is less code to write).
+                        </p>
+                    </li>
+                </ul>
+            </subsection>
+            <subsection name="Committing Code into CVS">
+                <ul>
+                    <li>
+                        <p>
+                           As always, make sure to have a clear comment supporting your change in CVS,
+                           if something goes wrong others might help to track down the problem by
+                           reading the history.
+                        </p>
+                    </li>
+                    <li>
+                        <p>
+                            If you fixed, added, updated or removed a feature then update
+                            <code>/documentation/changes.xml</code>.
+                            Take a look at previous changes for examples.
+                        </p>
+                    </li>
+                </ul>
+            </subsection>
+        </section>
+        <section name="Submitting Patches">
+            <p>
+                As always, use <a href="http://jira.andromda.org/">JIRA</a> to submit feature requests
+                and patches.
+            </p>
+            <p>
+                If you have modified your local version by adding a new feature and would like to see in the main
+                distribution, then file a new issue in JIRA and attach the patch to it (please do not send it to
+                the mailing list).
+            </p>
+            <p>
+                If you want to see your patch quickly applied by committers, you should be able to provide
+                the following items:
+            </p>
+            <ol>
+                <li>A patch file (this can be very easily created if you're using eclipse) against the latest CVS version. 
+                    No, a zip file with all modified sources is *not* okay.</li>
+                <li>If appropriate, include one or more JUnit tests related to the new feature.
+                    Also, be sure to run all of the existing testcases to verify that you are not breaking existing
+                    code.</li>
+                <li>Where applicable, update the documentation (namespace/modeling docs, samples, ...).</li>
+            </ol>
+            <p>
+                If all of these requirements are met and you are respecting the coding conventions,
+                then it is very likely your patch will be accepted soon.
+            </p>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,339 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <!-- These settings apply specifically to the andromda code generation process. To generate code without
+    compiling or testing or packaging, run mvn install from /mda instead of from the root directory. -->
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>$applicationPackage</groupId>
+        <artifactId>$applicationId</artifactId>
+        <version>$applicationVersion</version>
+    </parent>
+    <artifactId>${applicationId}-mda</artifactId>
+    <packaging>pom</packaging>
+    <name>${applicationName} MDA</name>
+    <dependencies>
+#if ($modelType.equals("uml1.4"))
+        <dependency>
+            <groupId>org.andromda.profiles.uml14</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <version>${andromda.version}</version>
+            <type>xml.zip</type>
+            <scope>runtime</scope>
+        </dependency>
+#elseif ($modelType.equals("uml2"))
+        <dependency>
+            <groupId>org.andromda.profiles.uml2</groupId>
+            <artifactId>andromda-profile</artifactId>
+            <version>${andromda.version}</version>
+            <type>xml.zip</type>
+            <scope>runtime</scope>
+        </dependency>
+#elseif ($modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
+        <dependency>
+            <groupId>org.andromda.profiles.emf.uml2</groupId>
+            <artifactId>andromda-profile-common</artifactId>
+            <version>${andromda.version}</version>
+            <type>uml2</type>
+            <scope>runtime</scope>
+        </dependency>
+#elseif ($modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
+        <dependency>
+            <groupId>org.andromda.profiles.emf.uml22</groupId>
+            <artifactId>andromda-common</artifactId>
+            <version>${andromda.version}</version>
+            <type>profile.uml</type>
+            <scope>runtime</scope>
+        </dependency>
+#end
+#if ($jbossSeam)
+#if ($modelType.equals("uml1.4"))
+        <dependency>
+            <groupId>org.andromda.profiles.uml14</groupId>
+            <artifactId>andromda-profile-seam</artifactId>
+            <version>1.1-SNAPSHOT</version>
+            <type>xml.zip</type>
+            <scope>runtime</scope>
+        </dependency>
+#elseif ($modelType.equals("uml2"))
+        <dependency>
+            <groupId>org.andromda.profiles.uml2</groupId>
+            <artifactId>andromda-profile-seam</artifactId>
+            <version>1.1-SNAPSHOT</version>
+            <type>xml.zip</type>
+            <scope>runtime</scope>
+        </dependency>
+#elseif ($modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
+        <dependency>
+            <groupId>org.andromda.profiles.emf.uml2</groupId>
+            <artifactId>andromda-profile-seam</artifactId>
+            <version>1.1-SNAPSHOT</version>
+            <type>uml2</type>
+            <scope>runtime</scope>
+        </dependency>
+#elseif ($modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
+        <dependency>
+            <groupId>org.andromda.profiles.emf.uml22</groupId>
+            <artifactId>andromda-seam</artifactId>
+            <version>1.1-SNAPSHOT</version>
+            <type>profile.uml</type>
+            <scope>runtime</scope>
+        </dependency>
+#end
+#end
+#if ($ejb)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-ejb-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#elseif ($ejb3)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-ejb3-cartridge</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+#elseif ($spring)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-spring-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#end
+#if ($hibernate || $spring)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-hibernate-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#end
+#if ($workflow)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-jbpm-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#end
+#if ($webservice && !$jsr181Webservice)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-webservice-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#end
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-java-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#if ($struts)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-bpm4struts-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#elseif ($jsf)
+#if ($jsf1)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-jsf-cartridge</artifactId>
+            <version>${andromda.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+#elseif ($jsf2)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-jsf2-cartridge</artifactId>
+            <version>1.1-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+#end
+#end
+#if ($jbossSeam)
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-jsf-cartridge-components</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda.cartridges</groupId>
+            <artifactId>andromda-seam-cartridge</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+#end
+#if ($spring)
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+#end
+#if (!$transactionPersistenceType.equals("none"))
+        <dependency>
+            <groupId>org.andromda.translationlibraries</groupId>
+            <artifactId>andromda-ocl-query-library</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+#end
+    </dependencies>
+    <build>
+        <sourceDirectory>${project.basedir}/src/main/uml</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromda-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+#if ($stringUtils.isNotBlank($configurationUri))
+                <configuration>
+                    <configurationUri>$configurationUri</configurationUri>
+                </configuration>
+#else
+                <configuration>
+                    <configurationUri>${pom.basedir}/src/main/config/andromda.xml</configurationUri>
+                </configuration>
+#end
+            </plugin>
+            <!-- This will overwrite top level .project and .classpath each time.
+                 The maven Eclipse plugin in mda/pom.xml does a better job anyway. See mda/eclipse.bat.
+                 Uncomment if creating a single Eclipse project every MDA run. -->
+            <plugin>
+                <groupId>org.andromda.maven.plugins</groupId>
+                <artifactId>andromdapp-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>eclipse</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <excludes>
+                        <exclude>app/pom.xml</exclude>
+                    </excludes>
+#if ($ejb3)
+                    <classpathMerge>
+                        <![CDATA[
+                        <classpathentry kind="var" path="M2_REPO/org/testng/testng/4.7/testng-4.7-jdk15.jar"/>
+                        ]]>
+                    </classpathMerge>
+#end
+                </configuration>
+            </plugin>
+#if ($web)
+            <!-- Beautifier 1.1.9 bug: 'Collections' import is not pulled out of code properly - compilation failure.
+                 Comment out if creating web or webservice projects.
+#end
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-beautifier-plugin</artifactId>
+                <version>1.0-SNAPSHOT</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>beautify-imports</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <inputDirectory>${pom.basedir}/..</inputDirectory>
+                </configuration>
+            </plugin>
+#if ($web)
+            --> 
+#end
+        </plugins>
+    </build>
+    <properties>
+        <!-- Maven 2.0.9 bug: ${build.sourceDirectory} repeats twice in configuration variable. Use ${pom.basedir}/src/main/uml -->
+#if ($stringUtils.isNotEmpty($model))
+        <model.uri>$model</model.uri>
+#else
+#if ($modelType.equals("uml1.4"))
+		<model.uri>file:${pom.basedir}/src/main/uml/${applicationId}.xmi</model.uri>
+#elseif ($modelType.equals("emf-uml2"))
+		<model.uri>file:${pom.basedir}/src/main/uml/${applicationId}.uml2</model.uri>
+#elseif ($modelType.equals("emf-uml22"))
+        <model.uri>file:${pom.basedir}/src/main/uml/${applicationId}.uml</model.uri>
+#elseif ($modelType.equals("uml2"))
+		<model.uri>file:${pom.basedir}/src/main/uml/${applicationId}.uml2</model.uri>
+#elseif ($modelType.equals("rsm6") || $modelType.equals("rsm7"))
+        <model.uri>file:${pom.basedir}/src/main/uml/${applicationId}.emx</model.uri>
+#end
+#end
+        <filter></filter>
+        <validation>true</validation>
+        <conf.dir>${pom.basedir}/src/main/config</conf.dir>
+        <!-- cartridge output locations -->
+        <core.generated.dir>${pom.basedir}/../core/target/src</core.generated.dir>
+        <core.manual.dir>${pom.basedir}/../core/src/main/java</core.manual.dir>
+        <core.manual.java.dir>${pom.basedir}/../core/src/main/java</core.manual.java.dir>
+#if ($groovy)
+        <core.manual.groovy.dir>${pom.basedir}/../core/src/main/groovy</core.manual.groovy.dir>
+#end
+#if ($ejb3)
+        <core.manual.test.resources>${pom.basedir}/../core/src/test/resources</core.manual.test.resources>
+        <core.generated.test.dir>${pom.basedir}/../core/target/src</core.generated.test.dir>
+        <core.manual.test.dir>${pom.basedir}/../core/src/test/java</core.manual.test.dir>
+#end
+        <web.generated.dir>${pom.basedir}/../web/target/src</web.generated.dir>
+        <web.generated.web.dir>${pom.basedir}/../web</web.generated.web.dir>
+        <web.manual.dir>${pom.basedir}/../web/src/main</web.manual.dir>
+        <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir>
+#if ($workflow)
+        <workflow.generated.dir>${pom.basedir}/../workflow/target/src</workflow.generated.dir>
+        <workflow.manual.dir>${pom.basedir}/../workflow/src/main</workflow.manual.dir>
+#end
+#if ($webservice && !$jsr181Webservice)
+#if ($war)
+        <webservice.generated.dir>${web.generated.dir}</webservice.generated.dir>
+#else
+        <webservice.generated.dir>${pom.basedir}/../webservice/target/src</webservice.generated.dir>
+#end
+        <webservice.manual.dir>${pom.basedir}/../webservice/src/main/java</webservice.manual.dir>
+        <webservice.manual.java.dir>${pom.basedir}/../webservice/src/main/java</webservice.manual.java.dir> 
+#if ($axisVersion.equals("1"))
+        <webservice.generated.wsdl.dir>${webservice.generated.dir}/WEB-INF/classes</webservice.generated.wsdl.dir>
+#end
+        <webservice.host>${pom.basedir}localhost</webservice.host>
+        <webservice.port>${pom.basedir}8080</webservice.port>
+#end
+        <common.generated.dir>${pom.basedir}/../common/target/src</common.generated.dir>
+        <common.manual.dir>${pom.basedir}/../common/src</common.manual.dir>      
+#if ($ejb3)
+        <application.config.dir>${pom.basedir}/../app/src/main/config</application.config.dir>
+        <application.metainf.dir>${pom.basedir}/../app/src/main/application/META-INF</application.metainf.dir>
+#end
+#if ($jbossSeam)
+        <application.generated.dir>${pom.basedir}/../app/target/src</application.generated.dir>
+#end
+#if ($hibernate || $spring)
+        <!-- hibernate configuration -->
+#if ($hibernate)
+#if ($hibernateVersion == "2")
+        <hibernate.transaction.manager.lookup>net.sf.hibernate.transaction.JBossTransactionManagerLookup</hibernate.transaction.manager.lookup>
+#else
+        <hibernate.transaction.manager.lookup>org.hibernate.transaction.JBossTransactionManagerLookup</hibernate.transaction.manager.lookup>
+#end
+#end
+        <!-- default strategy to use when using inhertiance -->
+        <hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>
+        <hibernate.db.showSql>true</hibernate.db.showSql>
+        <!-- hibernate generator class to use for identifiers -->
+        <hibernate.generatorClass>native</hibernate.generatorClass>
+#end
+    </properties>
+</project>

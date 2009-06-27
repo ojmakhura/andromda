@@ -1,0 +1,1473 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<namespace name="spring">
+    <components>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
+        <component name="profile">
+            <path>META-INF/andromda/profile.xml</path>
+        </component>
+    </components>
+    <properties>
+        <!-- namespace-propertyGroup merge-point -->
+        <propertyGroup name="Outlets">
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="value-objects" required="false">
+                <documentation>
+                    When using the CRUD feature (manageable entities) this outlet will be used to emit
+                    the value objects to (returned by the services to the client).
+                </documentation>
+            </property>
+            <property name="criteria" required="false">
+                <documentation>
+                    The location to which search criteria classes are being generated. If you do not specify this
+                    outlet criteria classes will be generated to the <code>daos</code> outlet.
+                </documentation>
+            </property>
+            <property name="services">
+                <documentation>
+                    The location to which all service classes (including the service locator(s))
+                    will be generated.
+                </documentation>
+            </property>
+            <property name="service-impls">
+                <documentation>
+                    The location to which all service implementation classes will be generated.
+                </documentation>
+            </property>
+            <property name="service-interfaces">
+                <documentation>
+                    The location to which all service interfaces and common API classes such
+                    as default service exceptions will be generated.
+                </documentation>
+            </property>
+            <property name="daos" required="false">
+                <documentation>
+                    The location to which Spring DAOs, and any support classes.
+                    <p>
+                        Please <strong>NOTE</strong>
+                        that the dao implementation classes will also be generated to this location when
+                        <strong>no operations</strong> are present on the entity with <em>classifier scope</em>.
+                    </p>
+                </documentation>
+            </property>
+            <property name="dao-impls" required="false">
+                <documentation>
+                    The location to which Spring DAO implementation
+                    classes will be generated (if there are any classifier scoped business
+                    operations modeled on any entity).
+                    <p>
+                        Please <strong>NOTE</strong>
+                        that the dao implementation classes will be generated to the <em>daos</em> outlet when
+                        <strong>no operations</strong> are present on the entity with <em>classifier scope</em>.
+                    </p>
+                </documentation>
+            </property>
+            <property name="spring-configuration">
+                <documentation>
+                    The location to which the Spring applicationContext.xml
+                    will be generated.
+                </documentation>
+            </property>
+            <property name="open-session-in-view" required="false">
+                <documentation>
+                    The location to which the AndroMDA OpenSessionInViewFilter will be generated
+                    (allows the Hibernate <em>open-session-in-view</em> pattern when you want to
+                    expose your enties directly to your presentation tier - allows lazy-loading to
+                    occur that level).
+                </documentation>
+            </property>
+            <property name="session-ejbs" required="false">
+                <documentation>
+                    The outlet to which EJB support is generated. If undefined, EJB support will
+                    not be generated. Note: the EJB interfaces can be seperated from beans with <em>session-ejb-interfaces</em>.
+                </documentation>
+            </property>
+            <property name="session-ejb-interfaces" required="false">
+                <documentation>
+                    The outlet to which EJB interfaces are generated (home and remote).
+                    If undefined, EJB interfaces will be generated into <em>session-ejbs</em> outlet.
+                </documentation>
+            </property>
+            <property name="advice-impls" required="false">
+                <documentation>
+                    The location to which any advice implementation classes will be generated.  Currently
+                    this is useful when using the cartridge's remoting support.
+                </documentation>
+            </property>
+            <property name="client" required="false">
+                <documentation>
+                    The location where client side code is generated if using Spring remoting.
+                </documentation>
+            </property>
+            <property name="client-config" required="false">
+                <documentation>
+                    The location where client side configuration files are generated if using Spring remoting.
+                </documentation>
+            </property>
+            <property name="client-test" required="false">
+                <documentation>
+                    The location where client side test implementation code will be generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
+            <property name="server" required="false">
+                <documentation>
+                    The location where server side code is generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
+            <property name="server-impl" required="false">
+                <documentation>
+                    The location where server side implementation code will be generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
+            <property name="server-config" required="false">
+                <documentation>
+                    The location where server side configuration code is generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
+            <property name="server-test" required="false">
+                <documentation>
+                    The location where server side test implementation code will be generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
+            <property name="server-test-config" required="false">
+                <documentation>
+                    The location where server side test configuration files will be generated if using a Rich Client environment
+                    (i.e. the richClient namespace entry is "true").
+                </documentation>
+            </property>
+            <property name="merge-mappings" required="false">
+                <documentation>
+                    The location where AndroMDA merge mapping stub files should be generated.
+                </documentation>
+            </property>
+            <property name="remoting-war-support" required="false">
+                <documentation>
+                    The location where any remoting support files to be bundled in the war
+                    used to expose the remote services will be generated.
+                </documentation>
+            </property>
+            <property name="osgi" required="false">
+                <documentation>
+                    The location to which OSGi related files (e.g. the Spring applicationContext-osgi-export.xml)
+                    will be generated.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Other">
+            <property name="springVersion">
+                <default>2.0</default>
+                <documentation>
+                    The version of Spring to use/support when generating. Neccessary when api changes make
+                    some classes and/or methods deprecated.
+                    <ul>
+                        Permitted values are:
+                        <li>2.0</li>
+                        <li>2.5</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="webServiceOutgoingAttachmentHandlerCallPattern" required="false">
+                <documentation>
+                    The pattern to use when constructing the call to the attachment handler (used for sending
+                    outgoing attachments when your service also represents a web service), for example:
+                    <ul>
+                        <li><strong>Axis</strong>: <code>org.andromda.webservice.AxisAttachmentHandler.saveAttachment(content, contentType, dime)</code></li>
+                    </ul>
+                    Attachments are good for sending large amounts of data over over the wire as it doesn't embed the data
+                    directly in the XML.
+                    <strong>NOTE:</strong> the handler call must have three parameters named <em>content</em>, <em>contentType</em> and <em>dime</em>.
+                </documentation>
+            </property>
+            <property name="webServiceIncomingAttachmentHandlerCallPattern" required="false">
+                <documentation>
+                    The pattern to use when constructing the call to the attachment handler (used for retrieving
+                    incoming attachments when your service also represents a web service), for example:
+                    <ul>
+                        <li><strong>Axis</strong>: <code>org.andromda.webservice.AxisAttachmentHandler.getAttachments()</code></li>
+                    </ul>
+                    Attachments are good for sending large amounts of data over over the wire as it doesn't embed the data
+                    directly in the XML.
+                </documentation>
+            </property>
+            <property name="daoInheritanceEnabled">
+                <default>true</default>
+                <documentation>
+                    Whether or not the DAOs should make up an inheritance tree in the same way as their respective
+                    entities. This is enabled by default but you might want to disable it if you prefer not to have
+                    top-level DAO operations visible in child DAO classes, this is usually the case when using JDK5
+                    generics, which can be enabled using the <code>enableTemplating</code> namespace property.
+                </documentation>
+            </property>
+            <property name="enableDaoPropertiesCreateMethod">
+                <default>true</default>
+                <documentation>
+                    Whether or not the create methods on the DAOs taking properties
+                    from the entity shall be generated.
+                </documentation>
+            </property>
+            <property name="messageBundlePath">
+                <default>messages</default>
+                <documentation>
+                    The path of the file representing the message bundle.
+                </documentation>
+            </property>
+            <property name="messageSourceBeanName">
+                <default>messageSource</default>
+                <documentation>
+                    The name of the bean that stores the message source.
+                </documentation>
+            </property>
+            <property name="daoNamePattern">
+                <default>{0}Dao</default>
+                <documentation>
+                    The pattern to use when constructing the DAO name. <em>{0}</em> is used to represent
+                    the entity name in the model, so if you specified a value of <code>{0}Dao</code> all
+                    the entities generated would have a suffix of "Dao".
+                </documentation>
+            </property>
+            <property name="daoBaseNamePattern">
+                <default>{0}DaoBase</default>
+                <documentation>
+                    The pattern to use when constructing the base DAO's name.
+                    <em>{0}</em> is used to represent the entity name
+                    in the model, so if you specified a value of
+                    <code>{0}DaoBase</code> all the entities generated
+                    would have a suffix of "DaoBase".
+                </documentation>
+            </property>
+            <property name="daoImplementationNamePattern">
+                <default>{0}DaoImpl</default>
+                <documentation>
+                    The pattern to use when constructing the DAO's
+                    implementation name. <em>{0}</em> is used to represent
+                    the entity name in the model, so if you specified a value of
+                    <code>{0}DaoImpl</code> all the entities generated
+                    would have a suffix of "DaoImpl".
+                </documentation>
+            </property>
+            <property name="ejbJndiNamePrefix" required="false">
+                <documentation>
+                    The prefix to give to the Session EJB JNDI names (this allows
+                    the same Session EJB to be deployed multiple times in the same
+                    container)
+                </documentation>
+            </property>
+            <property name="enableSpringTransactionsWhenEjbsEnabled">
+                <default>true</default>
+                <documentation>
+                    Whether or not to enable Spring transaction support when EJBs are enabled.  If this is set to false
+                    then only EJB transaction support is generated.
+                </documentation>
+            </property>
+            <property name="ejbTransactionsEnabled">
+                <default>true</default>
+                <documentation>
+                    Whether or not EJB transactions should be enabled.  This is sometimes useful to turn off
+                    when you're using EJB wrapped spring services but want to turn off EJB transaction management
+                    so that Spring alone handles the transactions (note that this property only make sense when EJBs are enabled).
+                </documentation>
+            </property>
+            <property name="ejbRemoteProxyFactoryBean">
+                <default>org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean</default>
+                <documentation>
+                    Full class name for proxy factory bean used in application context for
+                    remote EJB access <code>applicationContextRemoteEjb</code>.
+                </documentation>
+            </property>
+            <property name="ejbLocalProxyFactoryBean">
+                <default>org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean</default>
+                <documentation>
+                    Full class name for proxy factory bean used in application context for
+                    local EJB access <code>applicationContextLocalEjb</code>.
+                </documentation>
+            </property>
+            <property name="ejbRemoteProviderUrl">
+                <default>localhost:1099</default>
+                <documentation>
+                    The provider URL for remote EJB access.
+                </documentation>
+            </property>
+            <property name="ejbRemoteInitialContextFactory">
+                <default>org.jnp.interfaces.NamingContextFactory</default>
+                <documentation>
+                    The initial context factory class for remote EJB access.
+                </documentation>
+            </property>
+            <property name="ejbRemoteUrlPackagePrefixes">
+                <default>org.jboss.naming:org.jnp.interfaces</default>
+                <documentation>
+                    The URL package prefixes for remote EJB access.
+                </documentation>
+            </property>
+            <property name="ejbPackageNamePattern">
+                <default>{0}.ejb</default>
+                <documentation>
+                    If EJBs are being used, this specifies the pattern to be
+                    used when constructing the EJB package name
+                    (this allows a Spring Service to be wrapped by a Session EJB
+                    and avoids name conflicts).  The <em>{0}</em> character
+                    represents the service package name.  This could be something like
+                    <em>{0}.ejb</em> which would create the Spring Session EJBs in the
+                    package ending in the <em>ejb</em> package.
+                </documentation>
+            </property>
+            <property name="implementationPackageNamePattern">
+                <default>{0}</default>
+                <documentation>
+                    This specifies the pattern to be used for the package name of
+                    the spring service implementation class. You can use this to place the
+                    implementation class in a different package than the interface
+                    (e.g. in a OSGi runtime). The default <em>{0}</em> character
+                    represents the service package name.
+                </documentation>
+            </property>
+            <property name="defaultServiceExceptionNamePattern">
+                <default>{0}Exception</default>
+                <documentation>
+                    The pattern to use when constructing the default service exception name.
+                    <strong>NOTE:</strong> This propety is only applicable when defaultServiceExceptions
+                    is <code>true</code>.
+                </documentation>
+            </property>
+            <property name="defaultServiceExceptions">
+                <default>true</default>
+                <documentation>
+                    Whether or not to generate a default exception for each service.  This exception
+                    will handle unexpected exceptions occuring within the implemented operations.
+                </documentation>
+            </property>
+            <property name="serviceInterceptors" required="false">
+                <documentation>
+                    Sets a list of default additional interceptors to be applied to service ProxyBeanFactory
+                    declarations. They will be listed after the serviceSecurityInterceptor,
+                    serviceTransactionInterceptor and hibernateInterceptor if present.
+                </documentation>
+            </property>
+            <property name="externalPrincipalStoreClass" required="false">
+                <documentation>
+                    If this is present, it will be assumed that an external principal store class will be used
+                    and non will be generated.
+                </documentation>
+            </property>
+            <property name="externalPrincipalStoreGetter" required="false">
+                <default>get()</default>
+                <documentation>
+                    If externalPrincipalStoreClass is defined, externalPrincipalStoreGetter defines the
+                    method call on that class that will retrieve the principal.
+                </documentation>
+            </property>
+            <property name="externalPrincipalStoreGetterType" required="false">
+                <default>java.security.Principal</default>
+                <documentation>
+                    If externalPrincipalStoreClass is defined, externalPrincipalStoreGetterType defines the
+                    type returned by the externalPrincipalStoreGetter method.
+                </documentation>
+            </property>
+            <property name="entityNamePattern">
+                <default>{0}</default>
+                <documentation>
+                    The pattern to use when constructing an entity name.
+                    <em>{0}</em> is used to represent the entity name
+                    in the model, so if you specified a value of
+                    <code>{0}Entity</code> all the entities generated
+                    would have a suffix of "Entity".
+                </documentation>
+            </property>
+            <property name="serviceOperationTransactionType">
+                <default>PROPAGATION_REQUIRED</default>
+                <documentation>
+                    The default transaction type used for service operations (when not
+                    wrapping your services with EJBs).
+                    <strong>NOTE:</strong> Can be overridden on a per entity basis with the
+                    <a href="profile.html#@andromda_spring_transaction_type">@andromda.spring.transaction.type</a>
+                    tagged value.
+                </documentation>
+            </property>
+            <property name="ejbServiceOperationTransactionType">
+                <default>Required</default>
+                <documentation>
+                    The default transaction type definition used if EJB service operations.
+                    <ul>
+                        Permitted values are:
+                        <li>NotSupported</li>
+                        <li>Supports</li>
+                        <li>Required</li>
+                        <li>RequiresNew</li>
+                        <li>Mandatory</li>
+                        <li>Never</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="ejbViewType">
+                <default>local</default>
+                <documentation>
+                    If EJBs are being used, this specifies the view type
+                    for the EJB interfaces.  Can be either <code>local</code>,
+                    <code>remote</code> or <code>both</code>.
+                </documentation>
+            </property>
+            <property name="ejbSessionBeanBaseInterfaceLocal">
+                <default>javax.ejb.EJBLocalObject</default>
+                <documentation>
+                    Name of session bean local base interface for ejb wrapper.
+                </documentation>
+            </property>
+            <property name="ejbSessionBeanBaseInterfaceRemote">
+                <default>javax.ejb.EJBObject</default>
+                <documentation>
+                    Name of session bean remote base interface for ejb wrapper.
+                </documentation>
+            </property>
+            <property name="ejbSessionBeanBaseClass">
+                <default>org.springframework.ejb.support.AbstractStatelessSessionBean</default>
+                <documentation>
+                    Full name of session bean base class for ejb wrapper.
+                </documentation>
+            </property>
+            <property name="implementationOperationNamePattern">
+                <default>handle{0}</default>
+                <documentation>
+                    The pattern used to the create the implementation operation name
+                    (i.e. the operations that actually perform the handling of the logic),
+                    where <em>{0}</em> represents the operation name
+                </documentation>
+            </property>
+            <property name="driver" required="false">
+                <documentation>
+                    JDBC Driver to make a database connection.
+                </documentation>
+            </property>
+            <property name="username" required="false">
+                <documentation>
+                    The database user login name.
+                </documentation>
+            </property>
+            <property name="password" required="false">
+                <documentation>
+                    The database user password.
+                </documentation>
+            </property>
+            <property name="connectionUrl" required="false">
+                <documentation>
+                    URL for the JDBC Driver to make the connection to the database.
+                </documentation>
+            </property>
+            <property name="dataSource" required="false">
+                <documentation>
+                    JNDI name of data source to use. (would be used instead
+                    of the connection properties, driver, username, password, etc).
+                </documentation>
+            </property>
+            <property name="applicationContext">
+                <default>applicationContext.xml</default>
+                <documentation>
+                    The name given to the Spring application context file.
+                </documentation>
+            </property>
+            <property name="applicationContextManageable">
+                <default>applicationContext-manageable.xml</default>
+                <documentation>
+                    The name given to the Spring CRUD application context file.
+                </documentation>
+            </property>
+            <property name="applicationContextDataSource">
+                <default>applicationContext-dataSource.xml</default>
+                <documentation>
+                    The name given to the Spring datasource application context file
+                </documentation>
+            </property>
+            <property name="applicationContextLocalDataSource" required="false">
+                <default>applicationContext-localDataSource.xml</default>
+                <documentation>
+                    The name given to the Spring local datasource application context file
+                </documentation>
+            </property>
+            <property name="applicationContextServer">
+                <default>applicationContext-export-remoteServices.xml</default>
+                <documentation>
+                    The name given to the server side Spring configuration file used to
+                    export services for remote invocation.
+                </documentation>
+            </property>
+            <property name="applicationContextClient">
+                <default>applicationContext-import-remoteServices.xml</default>
+                <documentation>
+                    The name given to the client side Spring configuration file used to
+                    import services invoked remotely.
+                </documentation>
+            </property>
+            <property name="applicationContextRemoteEjb">
+                <default>applicationContext-remoteEjb.xml</default>
+                <documentation>
+                    The name/path of the application context resource
+                    file that contains the bean proxy definitions for accessing the
+                    ejb service wrappers (if generated with ejbViewType='remote' or 'both') via remote ejb interfaces
+                    (i.e. some/path/applicationContext-remoteejb.xml).
+                </documentation>
+            </property>
+            <property name="applicationContextLocalEjb" required="false">
+                <default>applicationContext-localEjb.xml</default>
+                <documentation>
+                    The name/path of the application context resource
+                    file that contains the bean proxy definitions for accessing the
+                    ejb service wrappers (if generated with ejbViewType='local' or 'both') via local ejb interfaces
+                    (i.e. some/path/applicationContext-localejb.xml)
+                </documentation>
+            </property>
+            <property name="applicationContextOsgiExport" required="false">
+                <default>applicationContext-osgi-export.xml</default>
+                <documentation>
+                    The name/path of the application context resource
+                    file that contains the spring osgi export definitions for all defined
+                    services.
+                </documentation>
+            </property>
+            <property name="applicationContextOsgiImport" required="false">
+                <default>applicationContext-osgi-import.xml</default>
+                <documentation>
+                    The name/path of the application context resource
+                    file that contains the spring osgi import definitions for all defined
+                    services.
+                </documentation>
+            </property>
+            <property name="beanRefFactory">
+                <default>beanRefFactory.xml</default>
+                <documentation>
+                    The name/path of the bean ref factory resource file (i.e. some/path/beanRefFactory.xml)
+                </documentation>
+            </property>
+            <property name="beanRefFactoryId">
+                <default>beanRefFactory</default>
+                <documentation>
+                    The ID for the Spring bean reference factory (used to load the bean factory).
+                </documentation>
+            </property>
+            <property name="beanRefFactoryEjbId">
+                <default>beanRefFactoryEjb</default>
+                <documentation>
+                    The ID for the Spring bean reference factory that holds the EJB references.
+                </documentation>
+            </property>
+            <property name="beanNamePrefix">
+                <default></default>
+                <documentation>
+                    The name prefix for all spring bean ids.
+                </documentation>
+            </property>
+            <property name="transactionManager">
+                <default>org.springframework.transaction.jta.JtaTransactionManager</default>
+                <documentation>
+                    The transaction manager implementation used by Spring.
+                </documentation>
+            </property>
+            <property name="dataSourceEnabled">
+                <default>true</default>
+                <documentation>
+                    Whether or not a data source will be defined.  By default the data source configuration is
+                    always generated, however if this is set to false and no entities have been
+                    modeled, a data source will not be generated.
+                </documentation>
+            </property>
+            <property name="localTransactionManager">
+                <default>org.springframework.orm.hibernate.HibernateTransactionManager</default>
+                <documentation>
+                    The transaction manager implementation used by Spring for the local datasource (applicationContextLocalDataSource).
+                </documentation>
+            </property>
+            <property name="userTransactionName" required="false">
+                <documentation>
+                    The (JNDI-) user transaction manager of the J2EE container if using JTA transactions (via spring).
+                </documentation>
+            </property>
+            <property name="transactionManagerName" required="false">
+                <documentation>
+                    The (JNDI-) transaction manager of the J2EE container if using JTA transactions (via spring).
+                </documentation>
+            </property>
+            <property name="sessionFactory">
+                <default>org.springframework.orm.hibernate.LocalSessionFactoryBean</default>
+                <documentation>
+                    Factory bean that creates a local Hibernate SessionFactory instance within Spring.
+                </documentation>
+            </property>
+            <property name="springTypesPackage">
+                <default>org.andromda.spring</default>
+                <documentation>
+                    The package to which extra types are generated (i.e. ServiceLocator).
+                </documentation>
+            </property>
+            <property name="springCommonTypesPackage" required="false">
+                <default>org.andromda.spring</default>
+                <documentation>
+                    Optional definition of the package name where all common visible (to the client)
+                    extra types are to be generated (e.g. PaginationResult).
+                </documentation>
+            </property>
+            <property name="springPresentationTypesPackage">
+                <default>org.andromda.spring.presentation</default>
+                <documentation>
+                    The package to which extra presentation types are generated (i.e. OpenSessionInViewFilter).
+                </documentation>
+            </property>
+            <property name="serviceLocatorName">
+                <default>ServiceLocator</default>
+                <documentation>
+                    The name to give the service locator class.
+                </documentation>
+            </property>
+            <property name="serviceLocatorDefaultFactoryId" required="false">
+                <documentation>
+                    The default beanReafFactoryId to be used in the ServiceLocator. By default the beanRefFactoryId
+                    is used (if EJB is not activated). If EJB is activated the beanRefFactoryEjbId is used.
+                    With the serviceLocatorDefaultFactoryId this behaviour can be explicit overridden.
+                </documentation>
+            </property>
+            <property name="manageableServiceLocatorName">
+                <default>ManageableServiceLocator</default>
+                <documentation>
+                    The name to give the CRUD service locator class.
+                </documentation>
+            </property>
+            <property name="clientServiceLocatorName">
+                <default>RemoteServiceLocator</default>
+                <documentation>
+                    The name to give the service locator class used by remote clients.
+                </documentation>
+            </property>
+            <property name="clientServiceLocatorClassloaderSwitching">
+                <default>off</default>
+                <documentation>
+                    Whether the client service locator should switch the thread context class loader during
+                    retrieval of the client application context xml file.
+                </documentation>
+            </property>
+            <property name="clientExceptionHandlingAdviceName">
+                <default>ClientExceptionHandlingAdvice</default>
+                <documentation>
+                    The name for the client side exception handling advice
+                </documentation>
+            </property>
+            <property name="criteriaSearchBaseName">
+                <default>CriteriaSearch</default>
+                <documentation>
+                    The base name for the hibernate criteria search utility classes.
+                </documentation>
+            </property>
+            <property name="principalStoreName">
+                <default>PrincipalStore</default>
+                <documentation>
+                    The name of the principal store class.
+                </documentation>
+            </property>
+            <property name="openSessionInViewFilterName">
+                <default>AndroMDAOpenSessionInViewFilter</default>
+                <documentation>
+                    The name of the OpenSessionInViewFilter (when using the open-session-in-view
+                    pattern).
+                </documentation>
+            </property>
+            <property name="securityRealm" required="false">
+                <documentation>
+                    The name of the security realm (i.e. animal-quiz, other, etc).
+                    <strong>NOTE:</strong>This enables EJB security if specified.
+                </documentation>
+            </property>
+            <property name="jndiDataSourceClass">
+                <default>org.springframework.jndi.JndiObjectFactoryBean</default>
+                <documentation>
+                    The name of the class to use when using a JNDI data source for data access.
+                </documentation>
+            </property>
+            <property name="jndiDataSourceCaching" required="false">
+                <documentation>
+                    Enables to turn off the caching of the jndi datasource (value <code>false</code>) if using the default
+                    data source class <code>org.springframework.jndi.JndiObjectFactoryBean</code>.
+                    Usefull for allowing hot redeployment of JNDI objects. If not specified,
+                    no additional code is generated with default behaviour <strong>cache enabled</strong>.
+                </documentation>
+            </property>
+            <property name="jdbcDataSourceClass">
+                <default>org.springframework.jdbc.datasource.DriverManagerDataSource</default>
+                <documentation>
+                    The name of the class to use when using a JDBC data source for data access.
+                </documentation>
+            </property>
+            <property name="jdbcDataSourceDestroyMethod" required="false">
+                <documentation>
+                    The name of the method to use for destroying the JDBC datasource.
+                </documentation>
+            </property>
+            <property name="parameterRequiredCheck">
+                <default>true</default>
+                <documentation>
+                    Whether or not parameters should be checked if they're required (on DAOs and services)
+                </documentation>
+            </property>
+            <property name="xmlEncoding">
+                <default>UTF-8</default>
+                <documentation>
+                    The encoding for xml documents
+                </documentation>
+            </property>
+            <property name="crudValueObjectSuffix">
+                <default>ValueObject</default>
+                <documentation>
+                    The suffix to append to the names of generated value objects used in CRUD (manageable entities).
+                </documentation>
+            </property>
+            <property name="implementationLanguage">
+                <default>java</default>
+                <documentation>
+                    Indicates the programming language being used in classes generated to be completed by hand (service and dao implementation,for example).
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="JMS">
+            <documentation>
+                The properties for configuring JMS support generation.  JMS support is only available whtn using Spring 2.x.
+            </documentation>
+            <property name="jmsProviderUrl">
+                <default>localhost:1099</default>
+                <documentation>
+                    The provider URL for remote JMS access (if you're using ActiveMQ as your provider, you'll typically
+                    want to set the URL as something like 'reliable:tcp://localhost:61616'; changing the port as necessary of course).
+                </documentation>
+            </property>
+            <property name="jmsInitialContextFactory">
+                <default>org.jnp.interfaces.NamingContextFactory</default>
+                <documentation>
+                    The initial context factory class for JMS access.
+                </documentation>
+            </property>
+            <property name="jmsUrlPackagePrefixes">
+                <default>org.jnp.interfaces:org.jboss.naming</default>
+                <documentation>
+                    The URL package prefixes for remote JMS access.
+                </documentation>
+            </property>
+            <property name="jmsConnectionFactory">
+                <default>UIL2ConnectionFactory</default>
+                <documentation>
+                    The default JMS queue connection factory.
+                </documentation>
+            </property>
+            <property name="applicationContextJms">
+                <default>applicationContext-jms.xml</default>
+                <documentation>
+                    The name/path of the application context resource
+                    file that contains the bean proxy definitions for accessing the
+                    JMS related services (i.e. Queues).
+                </documentation>
+            </property>
+            <property name="jmsTopicNamePrefix">
+                <default>topic/</default>
+                <documentation>
+                    The prefix for topics names (i.e. a prefix of "topic/" would result in a topic named "Events"
+                    as "topic/Events").  Applies to the JNDI name (in case of JBossMQ), or physical name (in case of ActiveMQ).
+                </documentation>
+            </property>
+            <property name="jmsQueueNamePrefix">
+                <default>queue/</default>
+                <documentation>
+                    The prefix for queue names (i.e. a prefix of "queue/" would result in a topic named "Events"
+                    as "queue/Events").  Applies to the JNDI name (in case of JBossMQ), or physical name (in case of ActiveMQ).
+                </documentation>
+            </property>
+            <property name="jmsTemplateImplementation">
+                <default>org.springframework.jms.core.JmsTemplate</default>
+                <documentation>
+                    The implementation to use for the Spring JmsTemplate.  <code>org.springframework.jms.core.JmsTemplate102</code> is used
+                    for JMS <em>1.0.2</em> providers and <code>org.springframework.jms.core.JmsTemplate</code> is used for <em>1.1</em> providers.
+                </documentation>
+            </property>
+            <property name="jmsReceiveTimeout">
+                <default>30000</default>
+                <documentation>
+                    The timeout at which the transmission of the JMS message will timeout.
+                </documentation>
+            </property>
+            <property name="jmsDestinationTemplatePattern">
+                <default>{0}JmsTemplate</default>
+                <documentation>
+                    The pattern used to create the JMS template used for accessing a destination (topic/queue).
+                </documentation>
+            </property>
+            <property name="jmsProvider">
+                <default>JBossMQ</default>
+                <documentation>
+                    The JMS provider implementation (valid values are "JBossMQ" and "ActiveMQ")
+                </documentation>
+            </property>
+            <property name="jmsMessageListenerAdapterImplementation">
+                <default>org.springframework.jms.listener.adapter.MessageListenerAdapter</default>
+                <documentation>
+                    The Spring message listener adaptor implementation.
+                    See <a href="http://static.springframework.org/spring/docs/2.0.x/api/org/springframework/jms/listener/adapter/MessageListenerAdapter.html">API docs</a>.
+                </documentation>
+            </property>
+            <property name="jmsMessageListenerContainerImplementation">
+                <default>org.springframework.jms.listener.DefaultMessageListenerContainer</default>
+                <documentation>
+                    The Spring message listener container implementation.
+                    See <a href="http://static.springframework.org/spring/docs/2.0.x/api/org/springframework/jms/listener/DefaultMessageListenerContainer.html">API docs</a>.
+                </documentation>
+            </property>
+            <property name="jmsExplicitQosEnabled">
+                <default>true</default>
+                <documentation>
+                    If "true", then the values of deliveryMode, priority, and timeToLive will be used when sending a message.
+                </documentation>
+            </property>
+            <property name="jmsClientId" required="false">
+                <documentation>
+                    Set the client identifier base name for JMS connections.
+                </documentation>
+            </property>
+            <property name="jmsDurableSubscriptions">
+                <default>true</default>
+                <documentation>
+                    Whether or not subscriptions should be durable by default.  Only makes sense when listening to a topic (pub-sub domain).
+                </documentation>
+            </property>
+            <property name="jmsDurableSubscriptionName" required="false">
+                <documentation>
+                    The name used to identify the durable subscription. To be applied in case of a topic (pub-sub domain) with subscription durability activated.
+                    The durable subscription name needs to be unique within this client's JMS client id. Default is the class name of the specified message listener.
+                </documentation>
+            </property>
+            <property name="jmsTransactionsEnabled" required="false">
+                <default>true</default>
+                <documentation>
+                    Whether or not JMS destinations should be transacted.
+                </documentation>
+            </property>
+            <property name="jmsCacheLevelName" required="false">
+                <default></default>
+                <documentation>
+                    Sets the cache level name.
+                    See <a href="http://static.springframework.org/spring/docs/2.0.x/api/org/springframework/jms/listener/DefaultMessageListenerContainer.html#setCacheLevelName(java.lang.String)">setCacheLevelName(java.lang.String)</a>
+                </documentation>
+            </property>
+            <property name="jmsMaxIncomingMessagesPerReceive" required="false">
+                <default></default>
+                <documentation>
+                    Sets the maxmium number of incoming messages to process at a time per receive.
+                </documentation>
+            </property>
+            <property name="jmsRecoveryInterval">
+                <default>5000</default>
+                <documentation>
+                    The interval of recovery attempts in <strong>milliseconds</strong>.
+                </documentation>
+            </property>
+            <property name="jmsSessionTransacted">
+                <default>true</default>
+                <documentation>
+                    Set the transaction mode that is used when creating a JMS Session.
+                    See <a href="http://static.springframework.org/spring/docs/2.0.x/api/org/springframework/jms/support/JmsAccessor.html#">setSessionTransacted(boolean)</a>
+                </documentation>
+            </property>
+            <property name="jmsActiveMqDurableTopicPrefetch">
+                <default>100</default>
+                <documentation>
+                    Sets the default durable topic prefetch policy for ActiveMQ.
+                </documentation>
+            </property>
+            <property name="jmsActiveMqQueuePrefetch">
+                <default>1000</default>
+                <documentation>
+                    Sets the default queue prefetch policy for ActiveMQ.
+                </documentation>
+            </property>
+            <property name="manageableSearchMatchMode">
+                <default>start</default>
+                <documentation>
+                    Specifies the match mode to be used in CRUD searches.
+                    <ul>
+                        Valid values are (<code>string</code>):
+                        <li>start</li> Start of the word
+                        <li>anywhere</li> Anywhere in the word
+                    </ul>
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Hibernate">
+            <documentation>
+                The properties for configuring <a href="http://www.hibernate.org">Hibernate</a> support generation.
+            </documentation>
+            <property name="hibernateVersion">
+                <default>2</default>
+                <documentation>
+                    The version of Hibernate to use when generating.
+                    <ul>
+                        Allowable values are:
+                        <li>2</li>
+                        <li>3</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="hibernateMappingStrategy">
+                <default>hierarchy</default>
+                <documentation>
+                    Denotes whether or not subclasses should be mapped into the same <code>.hbm.xml</code> file or
+                    in a separate one.
+                    <ul>
+                        <li>Set this value to <code>subclass</code> when you want to have a mapping file per entity</li>
+                        <li>The default is <code>hierarchy</code> which will render a mapping file per subclass</li>
+                    </ul>
+                    This information is important for the Spring cartridge because it needs to know which entities
+                    require a mapping file and which don't.
+                </documentation>
+            </property>
+            <property name="hibernateXMLPersistence">
+                <default>false</default>
+                <documentation>
+                    Set to <i>TRUE</i> to enable Hibernate's
+                    <a href="http://www.hibernate.org/hib_docs/v3/reference/en/html/xml.html">XML persistence support</a>
+                    using dom4J. "hibernateVersion" must be set to "3"
+                </documentation>
+            </property>
+            <property name="hibernateQueryUseNamedParameters">
+                <default>false</default>
+                <documentation>
+                    Whether or not named parameters (i.e. ':someParameter') or unnamed
+                    (i.e. '?') parameters should be used in the HQL queries embedded
+                    within the model.
+                    <strong>NOTE:</strong> Does not apply to queries written in OCL.
+                </documentation>
+            </property>
+            <property name="hibernateInheritanceStrategy">
+                <default>subclass</default>
+                <documentation>
+                    Defines the hibernate inheritance strategy (unless
+                    overridden on an entity level by the
+                    <a href="profile.html#@andromda.hibernate.inheritance">@andromda.hibernate.inheritance</a>
+                    tagged value, can be the following possible values:
+                    <ul>
+                        <li>class - table per hierarchy.</li>
+                        <li>subclass - table per class in hierarchy.</li>
+                        <li>concrete - Table per class.</li>
+                        <li>
+                            interface - Root class is defined as an interface and the
+                            attributes remapped to the subclasses.  This is useful in
+                            the concrete case because it has limitations in the associations.
+                        </li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="serviceHibernateInterceptorEnabled">
+                <default>true</default>
+                <documentation>
+                    Whether or not the hibernate interceptor should be enabled
+                    on services.
+                </documentation>
+            </property>
+            <property name="hibernatePoolSize" required="false">
+                <documentation>
+                    Hibernate connection pool size.
+                </documentation>
+            </property>
+            <property name="hibernateTransactionManagerStrategy" required="false">
+                <documentation>
+                    Strategy for obtaining the JTA TransactionManager
+                </documentation>
+            </property>
+            <property name="hibernateUserTransactionName" required="false">
+                <documentation>
+                    The JNDI name of the JTA UserTransaction object
+                </documentation>
+            </property>
+            <property name="hibernateTransactionManagerLookup" required="false">
+                <documentation>
+                    The fully qualified class name of the Hibernate TransactionFactory implementation
+                </documentation>
+            </property>
+            <property name="hibernateTransactionFactoryClass" required="false">
+                <documentation>
+                    The name of the hibernate transaction factory class to use.
+                </documentation>
+            </property>
+            <property name="hibernateUseOuterJoin" required="false">
+                <documentation>
+                    Whether or not to use outer joins.
+                </documentation>
+            </property>
+            <property name="hibernateShowSql" required="false">
+                <documentation>
+                    Whether or not to log SQL statements (true/false).  By default
+                    this is off (within Hibernate).
+                </documentation>
+            </property>
+            <property name="hibernateJndiName" required="false">
+                <documentation>
+                    JNDI name bound to the SessionFactory.
+                </documentation>
+            </property>
+            <property name="hibernateDialect" required="false">
+                <documentation>
+                    SQL dialect of the database being used.
+                </documentation>
+            </property>
+            <property name="hibernateDefaultSchema" required="false">
+                <documentation>
+                    Qualify unqualified tablenames with the given
+                    schema/tablespace in generated SQL.
+                </documentation>
+            </property>
+            <property name="hibernateMaxFetchDepth" required="false">
+                <documentation>
+                    Sets a maximum "depth" for the outer join fetch tree. eg. recommended values between 0 and 3
+                </documentation>
+            </property>
+            <property name="hibernateJdbcFetchSize" required="false">
+                <documentation>
+                    A non-zero value determines the JDBC fetch size.
+                </documentation>
+            </property>
+            <property name="hibernateDefaultBatchFetchSize">
+                <default>16</default>
+                <documentation>
+                    hibernate.default_batch_fetch_size
+                    Set a default size for Hibernate batch fetching of associations. Recommended values: 4, 8, 16
+                </documentation>
+            </property>
+
+            <property name="hibernateJdbcBatchSize" required="false">
+                <documentation>
+                    A nonzero value enables use of JDBC2 batch updates by Hibernate. ex: recommended values between 5 and 30
+                </documentation>
+            </property>
+            <property name="hibernateJdbcUseScrollableResultSet" required="false">
+                <documentation>
+                    Whether or not to enable use of JDBC2 scrollable resultsets by Hibernate.
+                    This property is only necessary when using user supplied connections.
+                    Hibernate uses connection metadata otherwise.
+                </documentation>
+            </property>
+            <property name="hibernateJdbcUseStreamsForBinary" required="false">
+                <documentation>
+                    Whether or not to use streams when writing / reading binary or serializable types to/from JDBC
+                </documentation>
+            </property>
+            <property name="hibernateHbm2DDLAuto" required="false">
+                <documentation>
+                    Automatically export schema DDL to the database when the SessionFactory
+                    is created. With create-drop, the database schema will be dropped when
+                    the SessionFactory is closed explicitely. Permitted values are:
+                    <ol>
+                        <li>update</li>
+                        <li>create</li>
+                        <li>create-drop</li>
+                    </ol>
+                </documentation>
+            </property>
+            <property name="hibernateQuerySubstitutions" required="false">
+                <documentation>
+                    Allows you to define new Hibernate query tokens. For example:
+                    giving this a value of <em>true=1, false=0</em>
+                    would cause the tokens true and false to be translated to integer
+                    literals in the generated SQL.
+                </documentation>
+            </property>
+            <property name="hibernateEnableCache">
+                <default>false</default>
+                <documentation>
+                    Enable/disable hibernate's second level cache features when using Hibernate.
+                     <ul>
+                        <li>true</li>
+                        <li>false</li>
+                     </ul>
+                </documentation>
+            </property>
+            <property name="hibernateCacheProvider">
+                <default>net.sf.hibernate.cache.EhCacheProvider</default>
+                <documentation>
+                     Defines the Hibernate cache provider implementation class.
+                </documentation>
+            </property>
+            <property name="hibernateQueryCacheFactory">
+                <default>net.sf.hibernate.cache.StandardQueryCacheFactory</default>
+                <documentation>
+                    Defines Hibernate query cache factory implementation class
+                </documentation>
+            </property>
+            <property name="hibernateConnectionReleaseMode" required="false">
+                <documentation>
+                    Specify when Hibernate should release JDBC connections. By default, a JDBC connection
+                    is held until the session is explicitly closed or disconnected. For an application server JTA datasource,
+                    you should use after_statement to aggressively release connections after every JDBC call.
+                    For a non-JTA connection, it often makes sense to release the connection at the end of each
+                    transaction, by using after_transaction. auto will choose after_statement for the JTA and
+                    CMT transaction strategies and after_transaction for the JDBC transaction strategy.
+                    <ul>
+                        Valid values are:
+                        <li>on_close</li> - default
+                        <li>after_transaction</li>
+                        <li>after_statement</li>
+                        <li>auto</li>
+                    </ul>
+                </documentation>
+            </property>
+            <property name="javaTypeConversionIgnoreList" required="false">
+                <documentation>
+                   A list of one or more fully qualified java types that should be ignored whenever a type conversion
+                   needs to be done. Currently, there is an issue with ValueObjects generated with the Java Axis
+                   mappings that causes Spring cartidge to generate DAO "entity to value object" type conversions
+                   incorrectly for all date types.  By listing those date types here, the Spring cartridge will not
+                   attempt to auto-generate conversions for date/time related attributes.
+                </documentation>
+            </property>
+            <property name="hibernateInterceptorFlushMode" required="false">
+                <documentation>
+                    Specifies the FLUSH_MODE for the Hibernate Interceptor (<code>org.springframework.orm.hibernate.HibernateInterceptor</code>).
+                    FLUSH_MODE determines the moment where all the generated SQL from a transaction should be flushed to the database.
+                    <ul>
+                        Valid values are (<code>integer</code>):
+                        <li>0</li> FLUSH_NEVER
+                        <li>1</li> FLUSH_AUTO - default
+                        <li>2</li> FLUSH_EAGER
+                        <li>3</li> FLUSH_COMMIT
+                    </ul>
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Acegi Security">
+            <documentation>
+                Configures the declaritive role based security <strong>without EJB</strong>, which uses the
+                <a href="http://acegisecurity.sourceforge.net">Acegi Security System for Spring</a>.
+            </documentation>
+            <property name="acegiServiceSecurity">
+                <default>false</default>
+                <documentation>
+                    Whether or not acegi security framework should be used for role based recurity handling for spring services.
+                </documentation>
+            </property>
+            <property name="acegiServiceSecurityInterceptor">
+                <default>org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor</default>
+                <documentation>
+                    The name of the class to use for the acegi security interception.
+                </documentation>
+            </property>
+            <property name="acegiServiceAccessDecisionManager">
+                <default>org.acegisecurity.vote.AffirmativeBased</default>
+                <documentation>
+                    The name of the class to use for the acegi security access decision manager.
+                </documentation>
+            </property>
+            <property name="acegiServiceDecisionVoter">
+                <default>org.acegisecurity.vote.RoleVoter</default>
+                <documentation>
+                    The name of the class to use for the acegi security access decision voter.
+                </documentation>
+            </property>
+            <property name="acegiRemoteAuthenticationManagerServiceInterface">
+                <default>org.acegisecurity.providers.rcp.RemoteAuthenticationManager</default>
+                <documentation>
+                    The name of the class to use for the acegi security remote authentication manager
+                    (in the client remote context).
+                </documentation>
+            </property>
+            <property name="acegiRolePrefix">
+                <default>ROLE_</default>
+                <documentation>
+                    The prefix for all roles defined in the model. This configures the <code>acegiServiceDecisionVoter</code>s <code>rolePrefix</code>
+                    attribute. As proposed by Acegi for our default voter <code>org.acegisecurity.vote.RoleVoter</code>, the default value is <code>ROLE_</code>.
+                    It can be overwritten with an empty string if no prefix is wanted/neccessary at all.
+                    Please <strong>NOTE</strong> that AndroMDA will add this prefix to all role/actor names,
+                    which do not already have it defined in the model.
+                </documentation>
+            </property>
+            <property name="acegiAuthenticationManager" required="false">
+                <documentation>
+                    The bean name of the acegi authentication manager (defined in a seperate applicationContext outside of the generated one).
+                </documentation>
+            </property>
+            <property name="acegiRunAsManager" required="false">
+                <documentation>
+                    The bean name of the acegi run as manager (defined in a seperate applicationContext outside of the generated one).
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Rich Client">
+            <documentation>
+                Configures code generation when developing in a Rich Client environment.
+            </documentation>
+            <property name="richClient" required="false">
+                <default>false</default>
+                <documentation>
+                    Set to "true" if the cartridge is generating code for a rich client environment.
+                </documentation>
+            </property>
+            <property name="configPropertyPrefix" required="false">
+                <default></default>
+                <documentation>
+                    A prefix to use for properties stored in configuration files. A typical setting
+                    for this is the application ID plus the "." character. Empty by default.
+                </documentation>
+            </property>
+            <property name="applicationContextServerAuthentication" required="false">
+                <default>applicationContext-server-authentication.xml</default>
+                <documentation>
+                    The name of the bean definition file used for server side
+                    declarations of user authentication beans when AcegiSecurity is
+                    being used (i.e. acegiServiceSecurity is true).
+                </documentation>
+            </property>
+            <property name="applicationContextClientAuthentication" required="false">
+                <default>applicationContext-client-authentication.xml</default>
+                <documentation>
+                    The name of the bean definition file used for client side
+                    declarations of user authentication beans when AcegiSecurity is
+                    being used (i.e. acegiServiceSecurity is true).
+                </documentation>
+            </property>
+            <property name="serverTestBeanRefFactory">
+                <default>applicationContext-test.xml</default>
+                <documentation>
+                    The name of the bean ref factory resource file used for unit testing
+                    the server code (i.e. application-test.xml)
+                </documentation>
+            </property>
+            <property name="serverTestContextDataSource">
+                <default>applicationContext-test-dataSource.xml</default>
+                <documentation>
+                    The name of the configuration file for the data source of
+                    the server test code (i.e. application-test-dataSource.xml)
+                </documentation>
+            </property>
+            <property name="serverTestContextAuthentication" required="false">
+                <default>applicationContext-test-authentication.xml</default>
+                <documentation>
+                    The name of the bean definition file used for server side
+                    declarations of user authentication beans when AcegiSecurity is
+                    being used and unit tests are being performed.
+                </documentation>
+            </property>
+            <property name="clientHttpInvokerExecutor" required="false">
+                <documentation>
+                   The name of the class to use if a specialized HttpInvokerExecutor is
+                   desired on the client side when HttpInvoker is used as the remote
+                   service protocol.  One common use it to use org.acegisecurity.context.httpinvoker.AuthenticationSimpleHttpInvokerRequestExecutor
+                   when remote services are protected with Basic Authentication using Acegi security. Another use
+                   is to set this to org.springframework.remoting.httpinvoker.CommonsHttpInvokerRequestExecutor if
+                   you want to use Jakarta Commons HttpClient to execute requests.
+                </documentation>
+            </property>
+            <property name="acegiAuthenticationManagerImplClass" required="false">
+                <documentation>
+                    The class of the authentication manager bean named with the aceciAuthenticationManager
+                    namespace property.  If defined, an implementation definition will be added to the server side
+                    Spring configuration file named with the applicationContextServerAuthentication namespace
+                    property.
+                </documentation>
+            </property>
+            <property name="acegiDaoAuthenticationProviderBeanName" required="false">
+                <default>daoAuthenticationProvider</default>
+                <documentation>
+                    The bean name of the acegi authentication Dao Provider used by the server side
+                    authentication manager implemented with the acegiAuthenticationManagerImplClass namespace
+                    property.
+                </documentation>
+            </property>
+            <property name="acegiDaoAuthenticationProviderImplClass" required="false">
+                <documentation>
+                    The class of the Dao Authentication Provider bean named with the acegiDaoAuthenticationProviderBeanName
+                    namespace property.  If defined, an implementation definition will be added to the server side
+                    Spring configuration file named with the applicationContextServerAuthentication namespace
+                    property.
+                </documentation>
+            </property>
+            <property name="acegiAuthenticationDaoBeanName" required="false">
+                <documentation>
+                    The bean name of the acegi authentication Dao used by the default server side
+                    authentication implementation generated for rich client projects.
+                </documentation>
+            </property>
+            <property name="acegiAuthenticationDaoImplClass" required="false">
+                <documentation>
+                    The complete package name and class name of the class that
+                    implements user authentication. This property should be set
+                    if you want to manage user authentication yourself and
+                    you want AndroMDA to generate stub classes to get the
+                    process started.
+                </documentation>
+            </property>
+            <property name="acegiDaoUserCacheBeanName" required="false">
+                <documentation>
+                    The name of the bean that implements a cache for user information. If
+                    defined, it activate user caching in the Dao provider by setting
+                    the "userCache" property of the Dao provider defined with the
+                    acegiDaoAuthenticationProviderClass namespace property.
+                </documentation>
+            </property>
+            <property name="acegiDaoUserCacheImplClass" required="false">
+                <documentation>
+                    The name of the class used to implement user caching in the Dao
+                    provider.  If defined, a user cache implementation will be added to the server side
+                    Spring configuration file named with the applicationContextServerAuthentication namespace
+                    property. If defined, you must also define the acegiUserCacheConfigLocation namespace
+                    property.
+                </documentation>
+            </property>
+            <property name="acegiUserCacheConfigLocation" required="false">
+                <documentation>
+                    The location of the EhCache configuration file used by
+                    the acegiDaoUserCacheImplClass. This name is used as the
+                    "configLocation" property in the configuration of the implementation
+                    of the acegiDaoUserCacheImplClass namespace property. You should
+                    also define the acegiUserCacheName namespace property so it
+                    matches the cache name of the cache to use that is defined in the
+                    EhCache configuration file.  If "default" is used for
+                    this property, a "default implementation" will be generated in
+                    the server configuration outlet. The file will be named
+                    ehcache-server-authentication.xml.
+                </documentation>
+            </property>
+            <property name="acegiUserCacheName" required="false">
+                <documentation>
+                    The name of the cache configuration to use for caching user
+                    authentication information.  This cache configuration should be
+                    found in the EhCache configuration file defined with
+                    the acegiUserCacheConfigLocation namespace property.
+                </documentation>
+            </property>
+            <property name="acegiPasswordEncoderBeanName" required="false">
+                <documentation>
+                    The name of the bean that implements a password encoder for
+                    user information. If defined, it activates user password encoding
+                    in the Dao provider by setting the "passwordEncoder" property
+                    of the Dao provider defined with the acegiDaoAuthenticationProviderClass
+                    namespace property.
+                </documentation>
+            </property>
+            <property name="acegiPasswordEncoderImplClass" required="false">
+                <documentation>
+                    The name of the class used to implement user password encoder in the Dao
+                    provider.  If defined, a password encoder implementation will be added to the server side
+                    Spring configuration file named with the applicationContextServerAuthentication namespace
+                    property.
+                </documentation>
+            </property>
+            <property name="acegiPasswordSaltSourceBeanName" required="false">
+                <documentation>
+                    The name of the bean that implements a password encoder salt source for
+                    user information. If defined, it enhances user password encoding
+                    in the Dao provider by setting the "saltSource" property
+                    of the Dao provider defined with the acegiDaoAuthenticationProviderClass
+                    namespace property.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Remoting">
+            <documentation>
+                Properties related to Spring remote services
+            </documentation>
+            <property name="serviceRemotingType">
+                <default>none</default>
+                <documentation>
+                    Determines the type of remoting to be used for Spring services. Can any one of
+                    <ul>
+                        <li>none</li>
+                        <li>rmi</li>
+                        <li>httpinvoker</li>
+                        <li>burlap</li>
+                        <li>hessian</li>
+                        <li>lingo</li>
+                    </ul>
+                    Please note that in order to use <a href="http://lingo.codehaus.org/">Lingo remoting</a>, you need
+                    to use Spring 2.0.
+                </documentation>
+            </property>
+            <property name="serviceRemotePort">
+                <default>8080</default>
+                <documentation>
+                    The port the exported services get published on.
+                </documentation>
+            </property>
+            <property name="serviceRemotePortJMS">
+                <default>61616</default>
+                <documentation>
+                    This port will be used if you export services using
+                    <a href="http://lingo.codehaus.org/">Lingo remoting</a>.
+                </documentation>
+            </property>
+            <property name="serviceRemoteContext" required="false">
+                <documentation>
+                    The context the exported services get published on.
+                </documentation>
+            </property>
+            <property name="serviceRemoteUrlPattern" required="false">
+                <default>/remoting</default>
+                <documentation>
+                    The url pattern associated to exported services. i.e. "/services".
+                </documentation>
+            </property>
+            <property name="serviceRemoteServer">
+                <default>localhost</default>
+                <documentation>
+                    The remote server the Spring services get published on.
+                </documentation>
+            </property>
+            <property name="remoteHttpServiceScheme" required="false">
+                <default>http</default>
+                <documentation>
+                    The scheme for any HTTP remotable services (i.e. http or https).
+                </documentation>
+            </property>
+            <property name="remoteRmiServiceScheme" required="false">
+                <default>rmi</default>
+                <documentation>
+                    The scheme for any RMI remotable services.
+                </documentation>
+            </property>
+            <property name="remoteTcpServiceScheme" required="false">
+                <default>tcp</default>
+                <documentation>
+                    The scheme for any TCP remotable services.
+                </documentation>
+            </property>
+            <property name="remoteDispatcherServletName">
+                <default>RemoteDispatcherServlet</default>
+                <documentation>
+                    The name to give the remote dispatcher servlet.
+                </documentation>
+            </property>
+            <property name="remoteWebApplicationContextName">
+                <default>RemoteWebApplicationContext</default>
+                <documentation>
+                    The name to give the remote web application context class.
+                </documentation>
+            </property>
+            <property name="remoteServiceUsername" required="false">
+                <documentation>
+                    The optional username to use for authenticating to the
+                    remotable services.
+                </documentation>
+            </property>
+            <property name="remoteServicePassword" required="false">
+                <documentation>
+                    The optional password to use for authenticating to the
+                    remotable services.
+                </documentation>
+            </property>
+            <property name="remoteAuthenticatingHttpInvokerRequestExecutorName" required="false">
+                <default>AuthenticatingHttpInvokerRequestExecutor</default>
+                <documentation>
+                    The name to give the AuthenticatingHttpInvokerRequestExecutor class.
+                </documentation>
+            </property>
+        </propertyGroup>
+    </properties>
+</namespace>

@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<profile>
+    <elements>
+        <elementGroup name="Stereotypes">
+            <element name="CRITERIA">
+                <documentation>
+                    Specifies this class's attributes are to be used in criteria queries.
+                </documentation>
+                <value>Criteria</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="ENTITY">
+                <documentation>
+                    Denotes this class is to be treated as a persistable entity.
+                </documentation>
+                <value>Entity</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="SERVICE">
+                <documentation>
+                    Denotes this class represents a service that is implemented using the facade pattern.
+                </documentation>
+                <value>Service</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="FINDER_METHOD">
+                <documentation>
+                    Denotes this operation to perform a query on the underlying collection of entities, rather
+                    than execute business logic.
+                </documentation>
+                <value>FinderMethod</value>
+                <appliedOnElement>Entity operation</appliedOnElement>
+            </element>
+            <element name="IDENTIFIER">
+                <documentation>
+                    Explicitly specifies this attribute to make up the entity's identifier (primary key)
+                </documentation>
+                <value>Identifier</value>
+                <appliedOnElement>Entity attribute</appliedOnElement>
+            </element>
+            <element name="UNIQUE">
+                <documentation>
+                    Denotes an attribute to be unique among all possible instances of the underlying entity.
+                </documentation>
+                <value>Unique</value>
+                <appliedOnElement>Entity attribute</appliedOnElement>
+            </element>
+            <element name="VALUE_OBJECT">
+                <documentation>
+                    Denotes a class to be a simple class that is only holding values and providing accessors to them.
+                </documentation>
+                <value>ValueObject</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="EXCEPTION">
+                <documentation>
+                    This class will instruct the generation of an exception class.
+                </documentation>
+                <value>Exception</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="APPLICATION_EXCEPTION">
+                <documentation>
+                    This class will instruct the generation of a checked exception class.
+                </documentation>
+                <value>ApplicationException</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="UNEXPECTED_EXCEPTION">
+                <documentation>
+                    This class will instruct the generation of an unchecked exception class.
+                </documentation>
+                <value>UnexpectedException</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="EXCEPTION_REF">
+                <documentation>
+                    Indicates that the target is an exception which is thrown by the method.
+                </documentation>
+                <value>ExceptionRef</value>
+                <appliedOnElement>dependency</appliedOnElement>
+            </element>
+            <element name="ENUMERATION">
+                <documentation>
+                    This class will instruct the generation of a type-safe enumeration class.
+                </documentation>
+                <value>Enumeration</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE">
+                <documentation>
+                    Denotes a class to represent a collection of web service operations, similar behavior
+                    as a <em>normal</em> Service.
+                </documentation>
+                <value>WebService</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="WEBSERVICE_OPERATION">
+                <documentation>
+                    Denotes an operation to be exposed as a web service.
+                </documentation>
+                <value>WebServiceOperation</value>
+                <appliedOnElement>WebService operation</appliedOnElement>
+            </element>
+            <element name="NULLABLE">
+                <documentation>
+                    Indicates a service operation argument may be left unspecified (eg. Java <code>null</code>).
+                </documentation>
+                <value>Nullable</value>
+                <appliedOnElement>Service operation parameter</appliedOnElement>
+            </element>
+            <element name="TRANSIENT">
+                <documentation>
+                    Indicates the attribute or association end should not be persisted/serialized.
+                </documentation>
+                <value>Transient</value>
+                <appliedOnElement>Attribute or AssociationEnd</appliedOnElement>
+            </element>
+            <element name="MANAGEABLE">
+                <documentation>
+                    Only makes sense when there already is an Entity stereotype.
+                    Add this one to manage this entity through all 3 tiers.
+                </documentation>
+                <value>Manageable</value>
+                <appliedOnElement>class</appliedOnElement>
+            </element>
+            <element name="EMBEDDED_VALUE">
+                <documentation></documentation>
+                <value>EmbeddedValue</value>
+            </element>
+            <element name="FRONT_END_EXCEPTION">
+                <documentation>
+                    Modeled on a transition within a <em>front-end</em> process, it designates an exception occuring while processing an action.
+                </documentation>
+                <value>FrontEndException</value>
+                <appliedOnElement>Transition</appliedOnElement>
+            </element>
+            <element name="FRONT_END_VIEW">
+                <documentation>
+                    This stereotype is modeled on an action state to denote it is representing a view on a front end (such as a JSP page).
+                </documentation>
+                <value>FrontEndView</value>
+                <appliedOnElement>action state</appliedOnElement>
+            </element>
+            <element name="FRONT_END_USE_CASE">
+                <documentation>
+                    A use-case that participates in the front-end (or presentation-tier) processes.
+                </documentation>
+                <value>FrontEndUseCase</value>
+                <appliedOnElement>use-case</appliedOnElement>
+            </element>
+            <element name="FRONT_END_APPLICATION">
+                <documentation>
+                    The use-case flagged with this stereotype will be the application's starting point,
+                    you can only use this stereotype in combination with the <![CDATA[<<FrontEndUseCase>>]]> stereotype.
+                </documentation>
+                <value>FrontEndApplication</value>
+                <appliedOnElement>use-case</appliedOnElement>
+            </element>
+            <element name="QUEUE">
+                <documentation>
+                    The node flagged with this stereotype represents a Queue message destination
+                    (i.e. JMS, etc).
+                </documentation>
+                <value>Queue</value>
+                <appliedOnElement>Node</appliedOnElement>
+            </element>
+            <element name="TOPIC">
+                <documentation>
+                    The node flagged with this stereotype represents a Topic message destination
+                    (i.e. JMS, etc).
+                </documentation>
+                <value>Topic</value>
+                <appliedOnElement>Node</appliedOnElement>
+            </element>
+            <element name="DOC_ONLY">
+                <documentation>
+                    Modeled component is for documentation only. Do not generate code.
+                </documentation>
+                <value>DocOnly</value>
+                <appliedOnElement>Class, Operation, Attribute, Package</appliedOnElement>
+            </element>
+            <element name="FUTURE">
+                <documentation>
+                    Modeled component will be developed in the Future. Do not generate code.
+                </documentation>
+                <value>Future</value>
+                <appliedOnElement>Class, Operation, Attribute, Package</appliedOnElement>
+            </element>
+            <element name="IGNORE">
+                <documentation>
+                    Modeled component should be ignored. Do not generate code.
+                </documentation>
+                <value>Ignore</value>
+                <appliedOnElement>Class, Operation, Attribute, Package</appliedOnElement>
+            </element>
+            <element name="ANALYSIS">
+                <documentation>
+                    Modeled component is part of an RUP analysis package. Do not generate code.
+                </documentation>
+                <value>analysis</value>
+                <appliedOnElement>Package</appliedOnElement>
+            </element>
+            <element name="PERSPECTIVE">
+                <documentation>
+                    Modeled component is part of an RUP perspective package. Do not generate code.
+                </documentation>
+                <value>perspective</value>
+                <appliedOnElement>Package</appliedOnElement>
+            </element>
+        </elementGroup>
+        <elementGroup name="Tagged Values">
+            <element name="DOCUMENTATION">
+                <documentation></documentation>
+                <value>documentation</value>
+            </element>
+            <element name="MODEL_HYPERLINK">
+                <documentation>Represents a hyperlink within a model</documentation>
+                <value>hyperlinkModel</value>
+            </element>
+            <element name="EXTERNAL_HYPERLINK">
+                <documentation>Represents an external hyperlink (i.e. to an external website for example).</documentation>
+                <value>hyperlinkTextActive</value>
+            </element>
+            <element name="PERSISTENCE_SCHEMA">
+                <documentation>
+                    The name of the persistence schema that contains the table.
+                </documentation>
+                <value>andromda_persistence_schema</value>
+                <appliedOnElement>Any <![CDATA[<<Entity>>]]> stereotyped class</appliedOnElement>
+                <allowedValues>
+                     <value>A string representing the name of the database schema where the entity will be persisted</value>
+                </allowedValues>
+            </element>
+            <element name="PERSISTENCE_TABLE">
+                <documentation>
+                    The name of the table corresponding to this entity in the persistent store.
+                </documentation>
+                <value>andromda_persistence_table</value>
+            </element>
+            <element name="PERSISTENCE_COLUMN">
+                <documentation>
+                    The name of the column corresponding to this property in the persistent store.
+                </documentation>
+                <value>andromda_persistence_column</value>
+            </element>
+            <element name="PERSISTENCE_COLUMN_LENGTH">
+                <documentation></documentation>
+                <value>andromda_persistence_column_length</value>
+            </element>
+            <element name="PERSISTENCE_COLUMN_INDEX">
+                <documentation></documentation>
+                <value>andromda_persistence_column_index</value>
+            </element>
+            <element name="COLUMN_UNIQUE_GROUP">
+                <documentation>The name of the unique constrain group that this unique attribute belongs</documentation>
+                <value>andromda_persistence_column_uniqueGroup</value>
+            </element>
+            <element name="PERSISTENCE_FOREIGN_IDENTIFIER">
+                <documentation></documentation>
+                <value>andromda_persistence_foreign_identifier</value>
+            </element>
+            <element name="PERSISTENCE_ASSIGNED_IDENTIFIER">
+                <documentation></documentation>
+                <value>andromda_persistence_assigned_identifier</value>
+            </element>
+            <element name="PERSISTENCE_FOREIGN_KEY_CONSTRAINT_NAME">
+                <documentation>
+                    The name of the foreign key corresponding to this relation in the persistent store.
+                </documentation>
+                <value>andromda_persistence_foreignkey_constraint</value>
+            </element>
+            <element name="PERSISTENCE_IMMUTABLE">
+                <documentation>
+                    Denotes this entity's property can only be set at construction time.
+                </documentation>
+                <value>andromda_persistence_immutable</value>
+            </element>
+			<element name="PERSISTENCE_ENUMERATION_MEMBER_VARIABLE">
+			    <documentation>
+			        Specifies whether the enumeration attribute is
+			        defined as a member variable rather than a literal.
+			        This should only be set if the attribute is NOT a
+			        literal.
+			    </documentation>
+			    <value>
+			        andromda_persistence_enumeration_member_variable
+			    </value>
+			    <appliedOnElement>
+			        Enumeration Attribute
+			    </appliedOnElement>
+			    <allowedValues>
+			        <value>true</value>
+			        <value>false</value>
+			    </allowedValues>
+			</element>
+			<element name="PERSISTENCE_ENUMERATION_LITERAL_PARAMETERS">
+			    <documentation>
+			        Specifies the enumeration literal parameters which are
+			        passed to the appropriate constructor when created.
+			        The parameters are comma separated.
+			    </documentation>
+			    <value>
+			        andromda_persistence_enumeration_literal_parameters
+			    </value>
+			    <appliedOnElement>
+			        Enumeration Literal
+			    </appliedOnElement>
+			</element>
+			<element name="PERSISTENCE_ASSOCIATION_END_PRIMARY">
+			    <documentation>
+                  Indicates whether or not the association end is considered "primary" used for things like indicating which side of a one-to-one
+                  association should get the foreign key.
+			    </documentation>
+			    <value>
+			        andromda_persistence_associationEnd_primary
+			    </value>
+			    <appliedOnElement>
+			        AssociationEnd
+			    </appliedOnElement>
+			</element>
+            <element name="ASSOCIATION_END_UNIQUE_GROUP">
+                <documentation>The name of the unique constrain group that this unique association end belongs</documentation>
+                <value>andromda_persistence_associationEnd_uniqueGroup</value>
+            </element>
+            <element name="PRESENTATION_CONTROLLER_USECASE">
+                <documentation>
+                    The value should correspond to the use-case holding the activity graph
+                    which has this controller as its context. This is used when deferring operations to
+                    the controller. Please note that if your CASE tool supports setting the context of an
+                    activity graph you will not need to explicitly set this tagged value. This feature
+                    has been provided to support tool such as Poseidon that have only limited UML support.
+                    If you are a MagicDraw user you will not need to use this tagged value, instead
+                    assign the controller by right clicking on it and selecting "Assign...".
+                </documentation>
+                <value>andromda_presentation_controller_usecase</value>
+            </element>
+            <element name="PRESENTATION_USECASE_ACTIVITY">
+                <documentation>
+                    For tools that do not allow the placement of activity graphs inside of a use-case
+                    you can use this tagged value to point to an activity graph, this will link them and
+                    denotes that the graphs specifies this use-case.
+                </documentation>
+                <value>andromda_presentation_usecase_activity</value>
+            </element>
+            <element name="PRESENTATION_TABLE_COLUMNS">
+                <documentation>
+                    The collection will be displayed in scrollable tabular format.
+                    Each column in this table will be mapped to a property of the object
+                    type contained in the collection. So you will need to make sure all objects
+                    have accessor methods for the property you list in this tagged value.
+                    Properties are separated using a comma ','. More than one value maybe be assigned to
+                    this tag, all properties will correctly be resolved.
+                </documentation>
+                <value>andromda_presentation_view_table_columns</value>
+                <appliedOnElement>
+                    A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value>Comma-separated list of column names</value>
+                </allowedValues>
+            </element>
+            <element name="PRESENTATION_IS_TABLE">
+                <documentation>
+                    A flag indicating whether or not a parameter should be considered a table.  This must be
+                    set to true when you wish to display a list of simple types (such as strings) within a table.
+                </documentation>
+                <value>andromda_presentation_view_table</value>
+                <appliedOnElement>
+                    A collection type parameter going into an action state carrying the <![CDATA[<<FrontEndView>>]]> stereotype
+                </appliedOnElement>
+                <allowedValues>
+                    <value>true</value>
+                    <value default="true">false</value>
+                </allowedValues>
+            </element>
+            <element name="WEBSERVICE_STYLE">
+                <documentation></documentation>
+                <value>andromda_webservice_style</value>
+            </element>
+            <element name="WEBSERVICE_USE">
+                <documentation></documentation>
+                <value>andromda_webservice_use</value>
+            </element>
+            <element name="WEBSERVICE_PROVIDER">
+                <documentation></documentation>
+                <value>andromda_webservice_provider</value>
+            </element>
+            <element name="ROLE_NAME">
+                <documentation></documentation>
+                <value>andromda_role_name</value>
+            </element>
+            <element name="SERIALVERSION_UID">
+                <documentation></documentation>
+                <value>andromda_serialVersionUID</value>
+            </element>
+            <element name="MANAGEABLE_DISPLAY_NAME">
+                <documentation>
+                    The column representing this entity,by default the first <![CDATA[<<Unique>>]]> attribute found
+                    is taken but you might want to specify another column yourself. This value is used when one entity
+                    has a foreign key to another one and you want to select the value of this foreign key
+                    from a combobox and you would like to see a more meaningful label for each option, if no
+                    <![CDATA[<<Unique>>]]> attribute is found the identifier is used, which isn't very helpful.
+                </documentation>
+                <value>andromda_manageable_table_displayname</value>
+                <appliedOnElement>A class with the <![CDATA[<<Manageable>>]]> stereotype</appliedOnElement>
+                <allowedValues>
+                    <value>any column name present in this entity</value>
+                    <value default="true">the name of the identifier column</value>
+                </allowedValues>
+            </element>
+        </elementGroup>
+        <elementGroup name="Data Types">
+            <element name="OBJECT_TYPE">
+                <documentation></documentation>
+                <value>datatype::Object</value>
+            </element>
+            <element name="COLLECTION_TYPE">
+                <documentation></documentation>
+                <value>datatype::Collection</value>
+            </element>
+            <element name="LIST_TYPE">
+                <documentation></documentation>
+                <value>datatype::List</value>
+            </element>
+            <element name="SET_TYPE">
+                <documentation></documentation>
+                <value>datatype::Set</value>
+            </element>
+            <element name="ORDERED_SET_TYPE">
+                <documentation></documentation>
+                <value>datatype::OrderedSet</value>
+            </element>
+            <element name="DATE_TYPE">
+                <documentation></documentation>
+                <value>datatype::Date</value>
+            </element>
+            <element name="TIME_TYPE">
+                <documentation></documentation>
+                <value>datatype::Time</value>
+            </element>
+            <element name="DATETIME_TYPE">
+                <documentation></documentation>
+                <value>datatype::DateTime</value>
+            </element>
+            <element name="BOOLEAN_TYPE">
+                <documentation></documentation>
+                <value>datatype::boolean</value>
+            </element>
+            <element name="FILE_TYPE">
+                <documentation></documentation>
+                <value>datatype::File</value>
+            </element>
+            <element name="BLOB_TYPE">
+                <documentation></documentation>
+                <value>datatype::Blob</value>
+            </element>
+            <element name="CLOB_TYPE">
+                <documentation></documentation>
+                <value>datatype::Clob</value>
+            </element>
+            <element name="MAP_TYPE">
+                <documentation></documentation>
+                <value>datatype::Map</value>
+            </element>
+            <element name="STRING_TYPE">
+                <documentation></documentation>
+                <value>datatype::String</value>
+            </element>
+            <element name="VOID_TYPE">
+                <documentation></documentation>
+                <value>datatype::void</value>
+            </element>
+        </elementGroup>
+    </elements>
+</profile>

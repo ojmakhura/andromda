@@ -1,0 +1,8 @@
+#if (!$manageables.empty)
+#set ($generatedFile = "layout/default-manageable.css")
+#criteria {}
+
+#entitySwitcher { display: inline; margin-left: 20px; }
+
+#content { padding-top: 30px; }
+#end

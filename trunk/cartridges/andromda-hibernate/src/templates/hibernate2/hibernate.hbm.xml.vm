@@ -1,0 +1,143 @@
+##
+##  This macro will render any properties and associations.
+##  $entity can be of type HibernateEntity or HibernateEmbeddedValue
+##
+#macro (renderPropertiesAndAssociations $entity $paramSqlPrefix $indent)
+#foreach ($attribute in $entity.attributes)
+#if (!$attribute.identifier && !$attribute.transient)
+#set ($fullyQualifiedPropertyType = $attribute.type.fullyQualifiedHibernateType)
+#if ($attribute.type.enumeration)
+#set ($fullyQualifiedPropertyType = $attribute.type.fullyQualifiedHibernateEnumerationType)
+#end
+#if ($attribute.containsEmbeddedObject)
+${indent}<component name="$attribute.name" class="${attribute.type.packageName}.${attribute.type.implementationName}">
+## render the properties of the embedded type
+#set ($sqlPrefix = $attribute.concatColumnName($paramSqlPrefix, $attribute.columnName))
+#renderPropertiesAndAssociations($attribute.type $sqlPrefix "${indent}    ")
+${indent}</component>
+#elseif($attribute.formula)
+${indent}<property name="$attribute.name" type="$fullyQualifiedPropertyType" formula="$attribute.formula" />
+#else
+${indent}<property name="$attribute.name" type="$fullyQualifiedPropertyType"#if(!$attribute.insertEnabled) insert="false"#end#if(!$attribute.updateEnabled) update="false"#end>
+${indent}    <column name="$attribute.concatColumnName($paramSqlPrefix, $attribute.columnName)" not-null="$attribute.required" unique="$attribute.unique"#if($attribute.uniqueGroup) unique-key="$attribute.uniqueGroup"#end sql-type="$attribute.sqlType"#if($attribute.columnIndex) index="$attribute.columnIndex"#end/>
+${indent}</property>
+#end
+#end
+#end
+#foreach ($sourceEnd in $entity.associationEnds)
+#set ($otherEnd = $sourceEnd.otherEnd)
+#if ($otherEnd.navigable && !$otherEnd.transient)
+#if ($sourceEnd.one2One)
+#if($sourceEnd.one2OnePrimary || (!$sourceEnd.navigable && !$entity.foreignHibernateGeneratorClass))
+#if ($otherEnd.type.foreignHibernateGeneratorClass)
+${indent}<one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end/>
+#else
+${indent}<many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" foreign-key="$otherEnd.foreignKeyConstraintName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if($otherEnd.columnIndex) index="$otherEnd.columnIndex"#end>
+${indent}    <column name="$otherEnd.columnName" not-null="$otherEnd.required" sql-type="$otherEnd.sqlType" unique="true"/>
+${indent}</many-to-one>
+#end
+#else
+#if ($entity.foreignHibernateGeneratorClass)
+${indent}<one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" foreign-key="$otherEnd.foreignKeyConstraintName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end constrained="true"/>
+#else
+${indent}<one-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin" property-ref="$sourceEnd.name"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end/>
+#end
+#end
+#end
+#if ($sourceEnd.one2Many)
+#if ($otherEnd.set || $otherEnd.map)
+${indent}<$otherEnd.collectionType name="$otherEnd.name" order-by="$otherEnd.orderByColumns" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end#if ($stringUtils.isNotBlank($otherEnd.sortType)) sort="$otherEnd.sortType"#end>
+#elseif ($otherEnd.bag)
+${indent}<$otherEnd.collectionType name="$otherEnd.name" order-by="$otherEnd.orderByColumns" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
+#elseif ($otherEnd.list)
+${indent}<$otherEnd.collectionType name="$otherEnd.name" lazy="$otherEnd.lazy" outer-join="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
+#end
+#if(($hibernateEnableCache.equalsIgnoreCase("true")) && ($hibernateEnableAssociationsCache.equalsIgnoreCase("true")))
+${indent}    <cache usage="$sourceEnd.association.hibernateCacheType" />
+#end
+${indent}    <key foreign-key="$sourceEnd.foreignKeyConstraintName">
+#if (!$entity.compositeIdentifier)
+${indent}        <column name="$sourceEnd.columnName" sql-type="$sourceEnd.sqlType"/>
+#else
+#foreach ($identifier in $entity.identifiers)
+${indent}        <column name="$identifier.columnName" sql-type="$identifier.sqlType"/>
+#end
+#foreach ($sourceEnd in $entity.identifierAssociationEnds)
+#foreach ($identifier in ${sourceEnd.otherEnd.type.identifiers})
+                <column name="$identifier.columnName" sql-type="$identifier.sqlType"/>
+#end
+#end
+#end
+${indent}    </key>
+#if ($otherEnd.indexedCollection)
+${indent}    <index column="$otherEnd.collectionIndexName"#if($otherEnd.map) type="$otherEnd.collectionIndexType"#end/>
+#end
+${indent}    <one-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName"/>
+${indent}</$otherEnd.collectionType>
+#elseif ($sourceEnd.many2One)
+${indent}<many-to-one name="$otherEnd.name" class="$otherEnd.type.fullyQualifiedEntityImplementationName" outer-join="$otherEnd.outerJoin"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end foreign-key="$otherEnd.foreignKeyConstraintName"#if($otherEnd.columnIndex) index="$otherEnd.columnIndex"#end>
+#if (!$otherEnd.type.compositeIdentifier)
+${indent}    <column name="$otherEnd.columnName" not-null="$otherEnd.required" sql-type="$otherEnd.sqlType"/>
+#else
+#foreach ($identifier in ${sourceEnd.otherEnd.type.identifiers})
+                <column name="$identifier.columnName" sql-type="$identifier.sqlType"/>
+#end
+#foreach ($identyAssociationEnd in ${otherEnd.type.identifierAssociationEnds})
+#foreach ($identifier in ${identyAssociationEnd.otherEnd.type.identifiers})
+                <column name="$identifier.columnName" sql-type="$identifier.sqlType"/>
+#end
+#end
+#end
+${indent}</many-to-one>
+#elseif ($sourceEnd.many2Many)
+#if ($otherEnd.set || $otherEnd.map)
+${indent}<$otherEnd.collectionType name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$sourceEnd.orderByColumns"#if($otherEnd.lazy) lazy="true" outer-join="false"#else lazy="false" outer-join="$otherEnd.outerJoin"#end inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end#if ($stringUtils.isNotBlank($otherEnd.sortType)) sort="$otherEnd.sortType"#end>
+#elseif ($otherEnd.bag)
+${indent}<$otherEnd.collectionType name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$sourceEnd.orderByColumns"#if($otherEnd.lazy) lazy="true" outer-join="false"#else lazy="false" outer-join="$otherEnd.outerJoin"#end inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
+#elseif ($otherEnd.list)
+${indent}<$otherEnd.collectionType name="$otherEnd.name" table="$otherEnd.association.tableName"#if($otherEnd.lazy) lazy="true" outer-join="false"#else lazy="false" outer-join="false"#end inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
+#end
+${indent}    <key foreign-key="$sourceEnd.foreignKeyConstraintName">
+${indent}        <column name="$sourceEnd.columnName" sql-type="$sourceEnd.sqlType"/>
+${indent}    </key>
+#if ($otherEnd.list || $otherEnd.map )
+${indent}    <index column="$otherEnd.collectionIndexName"/>
+#end            
+${indent}    <many-to-many class="$otherEnd.type.fullyQualifiedEntityImplementationName" foreign-key="$otherEnd.foreignKeyConstraintName">
+${indent}        <column name="$otherEnd.columnName" sql-type="$otherEnd.sqlType"#if($otherEnd.columnIndex) index="$otherEnd.columnIndex"#end/>
+${indent}    </many-to-many>
+${indent}</$otherEnd.collectionType>
+#end
+#end
+#end
+#end
+##
+##  This macro will render any sub mappings elements for the given $entity.
+##
+#macro (renderSubClass $entity $indent)
+## Should only get get invoked for inheritance class or subclass.
+${indent}<$entity.mappingClassName#if($mapSubclassesInSeparateFile) extends="$entity.generalization.fullyQualifiedEntityImplementationName"#end name="$entity.fullyQualifiedEntityImplementationName"#if($entity.tableRequired) table="$entity.tableName"#else discriminator-value="$entity.hibernateDiscriminatorValue"#end#if($entity.lazy) lazy="true"#end#if($entity.hibernateProxy) proxy="$entity.fullyQualifiedEntityImplementationName"#end dynamic-insert="$entity.dynamicInsert" dynamic-update="$entity.dynamicUpdate"#if ($stringUtils.isNotBlank($entity.schema)) schema="$entity.schema"#end>
+#if($entity.subclassKeyColumn)
+${indent}    <key foreign-key="${entity.tableName}IFKC">
+#if (!$entity.generalization.compositeIdentifier)
+${indent}        <column name="$entity.subclassKeyColumn" sql-type="$identifier.sqlType"/>
+#else
+#foreach ($identifier in $entity.identifiers)
+${indent}        <column name="$identifier.columnName" sql-type="$identifier.sqlType"/>
+#end
+#foreach ($sourceEnd in $entity.identifierAssociationEnds)
+#foreach ($identifier in ${sourceEnd.otherEnd.type.identifiers})
+                <column name="$identifier.columnName" sql-type="$identifier.sqlType"/>
+#end
+#end
+#end
+${indent}    </key>
+#end
+#renderPropertiesAndAssociations($entity "" "${indent}    ")
+#if (!$mapSubclassesInSeparateFile)
+#foreach ($subentity in $entity.specializations)
+#renderSubClass($subentity "${indent}    ")
+#end
+#end
+${indent}</$entity.mappingClassName>
+#end

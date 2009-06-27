@@ -1,0 +1,78 @@
+<andromda xmlns="http://andromda.org/core/configuration">
+  <properties>
+    <!--property name="modelValidation">false</property>
+    <property name="xmlValidation">false</property-->
+    <property name="failOnValidationErrors">false</property>
+    <!--property name="loggingConfigurationUri">file:${pom.basedir}/../../log4j.xml</property-->
+  </properties>
+  <repositories>
+    <repository name="netBeansMDR">
+      <models>
+        <model>
+          <uri>jar:file:${test.src.dir}/uml/HibernateCartridgeTestModel.xml.zip!/HibernateCartridgeTestModel.xml</uri>
+          <moduleSearchLocations>
+            <location patterns="**/*.xml.zip">${basedir}/../../profiles/uml-1.4</location>
+            <location patterns="**/*.xml.zip">${pom.basedir}/../../profiles/uml-1.4</location>
+            <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
+          </moduleSearchLocations>
+    <!--repository name="emf-uml22">
+      <models>
+         <model type="emf-uml22">
+           <uri>file:${test.src.dir}/uml/HibernateCartridgeTestModel.uml</uri-->
+        </model>
+      </models>
+    </repository>
+  </repositories>
+  <namespaces>
+    <namespace name="default">
+      <properties>
+        <property name="languageMappingsUri">Java</property>
+        <property name="wrapperMappingsUri">JavaWrapper</property>
+        <property name="enableTemplating">false</property>
+        <property name="enableAnnotations">false</property>
+        <property name="typeSafeEnumsEnabled">false</property>
+        <!--property name="enumerationLiteralNameMask">upperunderscore</property-->
+        <property name="pluralizeAssociationEndNames">true</property>
+        <property name="pluralizeAttributeNames">true</property>
+        <property name="pluralizeParameterNames">true</property>
+        <property name="toDoTag">@todo</property>
+      </properties>
+    </namespace>
+    <namespace name="hibernate">
+      <properties>
+        <property name="schemaName">TestSchema</property>
+        <property name="overwrite">true</property>
+        <property name="hibernateVersion">3</property>
+        <property name="hibernateEnableCache">true</property>
+        <property name="hibernateEnableAssociationsCache">true</property>
+        <property name="hibernateEnableDistributedCache">true</property>
+        <property name="hibernateDistributedCacheMulticastAddress">230.1.2.3</property>
+        <property name="hibernateDistributedCacheMulticastPort">1234</property>
+        <property name="hibernateDistributedCacheSocketTimeout">12000</property>
+        <property name="enableTemplating">true</property>
+        <property name="jdbcMappingsUri">JDBC</property>
+        <property name="sqlMappingsUri">Oracle9i</property>
+        <property name="hibernateTypeMappingsUri">Hibernate</property>
+        <property name="entities">${test.output.dir}</property>
+        <property name="entity-impls">${test.output.dir}</property>
+        <property name="entity-mappings">${test.output.dir}</property>
+        <property name="user-types">${test.output.dir}</property>
+        <property name="session-beans">${test.output.dir}</property>
+        <property name="session-impls">${test.output.dir}</property>
+        <property name="session-ejbs">${test.output.dir}</property>
+        <property name="configuration">${test.output.dir}</property>
+        <property name="cache">${test.output.dir}</property>
+        <property name="dataSource">TestDataSource</property>
+        <property name="hibernateDialect">TestDialect</property>
+        <property name="hibernateShowSql">true</property>
+        <property name="hibernateJdbcBatchSize">12</property>
+        <property name="securityRealm">SomeDomain</property>
+        <property name="hibernateDefaultCascade">save-update</property>
+        <property name="hibernateAggregationCascade">all</property>
+        <property name="mergeMappingsUri">file:${test.src.dir}//mappings/MergeMappings.xml</property>
+        <property name="specificCollectionInterfaces">true</property>
+        <property name="versionProperty">version</property>
+      </properties>
+    </namespace>
+  </namespaces>
+</andromda>

@@ -1,0 +1,171 @@
+<cartridge>
+
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine"/>
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="javaUtils" className="org.andromda.cartridges.java.JavaUtils"/>
+    <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
+    <!-- cartridge-templateObject merge-point-->  
+
+    <property reference="generateRefFiles"/>
+    <property reference="overwriteAll"/>
+    <property reference="serializable"/>
+    <property reference="enablePropertyConstructors"/>
+    <property reference="toDoTag"/>
+    <property reference="enableTemplating"/>
+    <property reference="enableAnnotations"/>
+    <property reference="XMLBindingAnnotations"/>
+    <property reference="xmlAttributes"/>
+    <property reference="generateEqualPropertiesMethod"/>
+    <property reference="generateIsBooleanGetters"/>
+    <property reference="generateChainedSetters"/>
+    <property reference="XMLDateAdapter"/>
+    <property reference="XMLDateTimeAdapter"/>
+    <property reference="XMLTimeAdapter"/>
+    <property reference="XMLIntegerAdapter"/>
+    <property reference="XMLDecimalAdapter"/>
+    <property reference="cxfVersion"/>
+    <!-- cartridge-property merge-point-->
+
+    <condition name="generateRefFiles">$generateRefFiles.equalsIgnoreCase("true")</condition>
+    <condition name="overwriteAll">$overwriteAll.equalsIgnoreCase("true")</condition>
+    <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
+    <condition name="serializable">$serializable.equalsIgnoreCase("true")</condition>
+    <condition name="enableAnnotations">$enableAnnotations.equalsIgnoreCase("true")</condition>
+    <condition name="XMLBindingAnnotations">$XMLBindingAnnotations.equalsIgnoreCase("true")</condition>
+    <condition name="xmlAttributes">$xmlAttributes.equalsIgnoreCase("true")</condition>
+    <condition name="generateEqualPropertiesMethod">$generateEqualPropertiesMethod.equalsIgnoreCase("true")</condition>
+    <condition name="generateIsBooleanGetters">$generateIsBooleanGetters.equalsIgnoreCase("true")</condition>
+    <condition name="generateChainedSetters">$generateChainedSetters.equalsIgnoreCase("true")</condition>
+    <!-- condition merge-point-->
+
+    <!-- cartridge-resource merge-point -->
+
+    <template
+        path="templates/java/Service.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="services"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Service"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/java/ServiceImpl.vsl"
+        outputPattern="{0}/{1}Impl.java"
+        outlet="service-impls"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Service"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/java/ServiceImpl.vsl"
+        outputPattern="{0}/{1}Impl.java.ref"
+        outlet="service-impls"
+        overwrite="true"
+        outputCondition="generateRefFiles">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Service"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/java/ValueObject.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="value-objects"
+        overwrite="true">
+        <modelElements variable="class">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ValueObject"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/java/ApplicationException.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="exceptions"
+        overwrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="EXCEPTION"/>
+            <modelElement stereotype="APPLICATION_EXCEPTION"/>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/java/UnexpectedException.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="exceptions"
+        overwrite="true">
+        <modelElements variable="class">
+            <modelElement stereotype="UNEXPECTED_EXCEPTION"/>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/java/Enumeration.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="enumerations"
+        overwrite="true">
+        <modelElements variable="enumeration">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.EnumerationFacade">
+                    <property name="typeSafe">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/java/TypeSafeEnumeration.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="enumerations"
+        overwrite="true">
+        <modelElements variable="enumeration">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.EnumerationFacade">
+                    <property name="typeSafe"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/java/Interface.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="interfaces"
+        overwrite="true">
+        <modelElements variable="interface">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ClassifierFacade">
+                    <property name="interface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/java/InterfaceImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="interface-impls"
+        overwrite="true">
+        <modelElements variable="interface">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.ClassifierFacade">
+                    <property name="interface"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- cartridge-template merge-point -->
+
+</cartridge>

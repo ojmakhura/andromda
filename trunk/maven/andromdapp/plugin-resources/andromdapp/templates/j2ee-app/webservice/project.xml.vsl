@@ -1,0 +1,18 @@
+<project>
+    <extend>../project.xml</extend>
+    <name>${projectName} WebService</name>
+    <artifactId>${pom.groupId}-webservice</artifactId>
+    <shortDescription>${pom.name} WebService Component</shortDescription>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>${pom.groupId}-core</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>ejb</type>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+    </build>
+    <properties/>
+</project>

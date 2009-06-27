@@ -1,0 +1,25 @@
+<project default="jar:install"
+         xmlns:ant="jelly:ant"
+         xmlns:j="jelly:core">
+         
+    <!-- ==================================================================
+             Cleans the cartridge
+         ================================================================== -->        
+    <goal name="clean">
+        <attainGoal name="clean:clean"/>
+    </goal>
+
+    <!-- ==================================================================
+             Generate the PDF documentation
+         ================================================================== -->
+    <postGoal name="xdoc">
+        <!-- we want to generate a pdf from the documentation -->
+<!--
+        <attainGoal name="fo:fo"/>
+        <attainGoal name="pdf:pdf"/>
+-->
+    </postGoal>
+    
+</project>
+
+

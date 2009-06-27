@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<artifactId>andromda-metafacades-uml</artifactId>
+  	<name>UML Common Metafacades</name>
+  	<shortDescription>UML Common  Metafacade Library</shortDescription>
+  	<description>
+  		The common UML metafacades.  This is the set of core UML metafacades
+  		used to provide access UML meta models. 
+  	</description>
+  	<repository>
+    	<connection>scm:cvs:${repository.connection.mode}:${repository.connection.user}@andromda.cvs.sourceforge.net:/cvsroot:andromda/metafacades/uml/common</connection>
+    	<url>http://andromda.cvs.sourceforge.net/andromda/metafacades/uml/common</url>
+  	</repository>
+	<dependencies>
+    	<dependency>
+	      	<groupId>andromda-bootstrap</groupId>
+	      	<artifactId>maven-andromda-bootstrap-plugin</artifactId>
+	      	<version>${pom.currentVersion}</version>
+	      	<type>plugin</type>
+	    </dependency>
+    </dependencies>
+  	<build>
+		<resources>
+	      	<resource>
+		        <directory>src/java</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
+	      	</resource>
+	      	<resource>
+		        <directory>src</directory>
+	        	<includes>
+	        		<include>META-INF/**/*</include>
+	        	</includes>
+                <excludes>
+                    <exclude>META-INF/andromda**/*</exclude>
+                </excludes>
+	      	</resource>
+	  		<resource>
+				<directory>target/src</directory>
+	        	<excludes>
+	        		<exclude>**/*.java</exclude>
+	        	</excludes>
+	  		</resource>
+    	</resources>
+  	</build>
+</project>

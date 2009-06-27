@@ -1,0 +1,12 @@
+#if ($stringUtils.isNotBlank($securityRealm) || $stringUtils.isNotBlank($virtualHost))
+<?xml version="1.0" encoding="$xmlEncoding" ?>
+
+<jboss-web>
+#if ($stringUtils.isNotBlank($securityRealm))
+    <security-domain flushOnSessionInvalidation="true">java:/jaas/${securityRealm}</security-domain>
+#end
+#if ($stringUtils.isNotBlank($virtualHost))
+    <virtual-host>$virtualHost</virtual-host>
+#end
+</jboss-web>
+#end

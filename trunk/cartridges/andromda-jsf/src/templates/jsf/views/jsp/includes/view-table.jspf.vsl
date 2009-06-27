@@ -1,0 +1,91 @@
+##
+## This macro renders the <f:param> elements for a command link
+##
+#macro (renderTableCommandLinkParameters)
+#foreach ($parameter in $action.parameters)
+#if ($table.tableColumnNames.contains($parameter.name) || $table.tableAttributeNames.contains($parameter.name))
+#set ($parameterValue = "row.${parameter.name}")
+#else
+#set ($parameterValue = "$parameter.name")       
+#end
+                    <f:param name="$parameter.name" value="#{${parameterValue}}"/>  
+#end
+#end
+<h:form>
+#set ($targetColumns = $table.targettedTableColumnNames)
+    <af:table allDetailsEnabled="true" var="row" bandingInterval="1" banding="row" value="#{${table.name}}" rows="#{${preferencesBeanName}.maxTableRows}" width="90%">
+#if (!$table.tableColumns.empty)
+#foreach ($column in $table.tableColumns)
+#if($column.name)
+#set($columnName = $column.name)
+#else
+#set($columnName = $column)
+#end
+        <af:column sortable="true" sortProperty="$columnName">
+            <f:facet name="header">
+                <h:outputText value="#{messages['$table.getTableColumnMessageKey($columnName)']}"/>
+            </f:facet>
+#set ($tableColumnActions = $table.getTableColumnActions($columnName))
+#if (!$tableColumnActions.empty)
+#set ($action = $tableColumnActions.iterator().next())
+            <af:commandLink action="#{${action.controller.beanName}.${action.triggerName}}">
+                <h:outputText value="#{row.${columnName}}">
+#if ($column.type.dateType)
+                    <a:convertDateTime pattern="$defaultDateFormat"/>
+#end
+                </h:outputText>
+#renderTableCommandLinkParameters()
+            </af:commandLink>
+#else
+            <h:outputText value="#{row.${columnName}}">
+#if ($column.type.dateType)
+                <a:convertDateTime pattern="$defaultDateFormat"/>
+#end
+            </h:outputText>
+#end
+        </af:column>
+#end
+#else
+        <af:column>
+            <f:facet name="header">
+                <t:graphicImage url="/images/space.gif"/>
+            </f:facet>
+            <h:outputText value="#{row}">
+#if ($column.type.dateType)
+                <a:convertDateTime pattern="$defaultDateFormat"/>
+#end
+            </h:outputText>
+        </af:column>
+#end
+## - render any table hyperlink actions
+#foreach ($action in $table.tableHyperlinkActions)
+#if (!$action.tableLinkColumnName)
+        <af:column>
+            <f:facet name="header">
+                <h:panelGroup styleClass="actionColumn"><t:graphicImage url="/images/space.gif"/></h:panelGroup>
+            </f:facet>
+            <h:panelGroup styleClass="actionColumn">
+                <af:commandLink text="#{messages['$action.trigger.messageKey']}" action="#{${action.controller.beanName}.${action.triggerName}}">
+#renderTableCommandLinkParameters()
+                </af:commandLink>
+            </h:panelGroup>
+        </af:column>
+#end
+#end
+## - render any table button actions
+#foreach ($action in $table.tableFormActions)
+#if (!$action.tableLinkColumnName)
+        <af:column>
+            <f:facet name="header">
+                <h:panelGroup styleClass="actionColumn"><t:graphicImage url="/images/space.gif"/></h:panelGroup>
+            </f:facet>
+            <h:panelGroup styleClass="actionColumn">
+                <af:commandButton text="#{messages['$action.trigger.messageKey']}" action="#{${action.controller.beanName}.${action.triggerName}}">
+#renderTableCommandLinkParameters()
+                </af:commandButton>
+            </h:panelGroup>
+        </af:column>
+#end
+#end
+    </af:table>
+</h:form>

@@ -1,0 +1,64 @@
+<andromda xmlns="http://andromda.org/core/configuration">
+  <properties>
+    <property name="failOnValidationErrors">false</property>
+  </properties>
+  <repositories>
+    <repository name="netBeansMDR">
+      <models>
+        <model>
+          <uri>${test.model.uri}</uri>
+          <moduleSearchLocations>
+            <location patterns="**/*.xml.zip">${basedir}/../../profiles/uml-1.4</location>
+            <location patterns="**/*.xml.zip">${pom.basedir}/../../profiles/uml-1.4</location>
+            <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
+          </moduleSearchLocations>
+        </model>
+      </models>
+    </repository>
+  </repositories>
+  <namespaces>
+    <namespace name="default">
+      <properties>
+        <property name="overwrite">true</property>
+        <property name="languageMappingsUri">Java</property>
+        <property name="wrapperMappingsUri">JavaWrapper</property>
+        <property name="enableTemplating">false</property>
+        <property name="enableAnnotations">false</property>
+        <property name="typeSafeEnumsEnabled">false</property>
+        <property name="enumerationLiteralNameMask">upperunderscore</property>
+        <property name="pluralizeAssociationEndNames">true</property>
+        <property name="pluralizeAttributeNames">true</property>
+        <property name="pluralizeParameterNames">true</property>
+        <property name="toDoTag">@todo</property>
+      </properties>
+    </namespace>
+    <namespace name="webservice">
+      <properties>
+        <property name="overwrite">true</property>
+        <property name="schemaTypeMappingsUri">XmlSchema</property>
+        <property name="applicationName">TestApplication</property>
+        <property name="wsdlSoapAddress">http://localhost:8080</property>
+        <property name="ejbInterfacePattern">{0}.ejb.{1}</property>
+        <property name="ejbHomeInterfacePattern">{0}.ejb.{1}Home</property>
+        <property name="wsdls">${test.output.dir}</property>
+        <property name="configuration">${test.output.dir}</property>
+        <property name="webservice-types">${test.output.dir}</property>
+        <property name="java-types">${test.output.dir}</property>
+        <property name="webservice-impl">${test.output.dir}</property>
+        <property name="service-impls">${test.output.dir}</property>
+        <property name="axis-tests">${test.output.dir}</property>
+        <property name="axis-test-impls">${test.output.dir}</property>
+        <property name="wss4j-configuration">${test.output.dir}</property>
+        <property name="signedRequest">true</property>
+        <property name="cryptoKeyStore">somekeystore.jks</property>
+        <property name="cryptoKeyStoreType">jks</property>
+        <property name="cryptoKeyStoreAlias">SomeAlias</property>
+        <property name="cryptoAliasPassword">SomePassword</property>
+        <property name="cryptoKeyStorePassword">SomePassword</property>
+        <property name="defaultProvider">EJB</property>
+        <property name="securityRealm">SomeRealm</property>
+        <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
+      </properties>
+    </namespace>
+  </namespaces>
+</andromda>

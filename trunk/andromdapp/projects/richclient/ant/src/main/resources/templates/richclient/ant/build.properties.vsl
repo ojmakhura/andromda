@@ -1,0 +1,122 @@
+# REVIEW EACH SETTING HERE AND VERIFY IT MATCHES YOUR ENVIRONMENT!
+# When you are done, set "properties.reviewed" to "true"
+
+# ======== These items you need to change ===============================================================
+
+# User name and password when connecting to database
+dataSource.user=your_user_name_here
+dataSource.password=your_password_here
+
+# The directory where the AndroMDA binary distribution is stored
+andromda.dist.dir=/usr/local/dist/andromda-bin-$andromdaVersion
+
+# Set this to "true" when finished reviewing this file
+properties.reviewed=false
+
+
+# ======== These items you MAY want to change ===========================================================
+
+application.id=${applicationId}
+application.version=${applicationVersion}
+
+
+# The prefix used to formulate JNDI entries for declared resources
+jndi.prefix=${application.id}-${application.version}
+
+
+# The jboss installation path for local deployment/testing
+jboss.installation.path=${env.JBOSS_HOME}
+
+# The path to the deployment directory for local testing
+jboss.default.deploy.dir=${jboss.installation.path}/server/default/deploy
+
+
+# The type of database being used
+# For MySql use: MySQL
+# For Hypersonic use: HypersonicSql
+# For Oracle9i use: Oracle9i
+sql.mappings=MySQL
+
+# The type of database being used - Hibernate specific
+# For MySql use: org.hibernate.dialect.MySQLDialect
+# For Hypersonic use: org.hibernate.dialect.HSQLDialect
+# For Oracle9i use: org.hibernate.dialect.Oracle9Dialect
+hibernate.db.dialect=org.hibernate.dialect.MySQLDialect
+
+# The name of the datasource server side
+dataSource.name=${jndi.prefix}/ds/${applicationId}DS
+dataSource=java:${dataSource.name}
+
+# JDBC settings to the database
+dataSource.driver.jar=${jboss.installation.path}/server/default/lib/mysql-connector-java-3.1.10-bin.jar
+dataSource.driver.class=com.mysql.jdbc.Driver
+dataSource.database.name=${application.id}
+dataSource.url.prefix=jdbc:mysql://localhost:3306
+
+# Do you want Hibernate to output SQL as it executes it?
+hibernate.db.showSql=false
+
+
+# The remoting mechanism to use
+remote.type=httpinvoker
+remote.server=127.0.0.1
+remote.port=8080
+
+# ======== These items are probably set to good defaults, but you may want to review ====================
+
+andromda.version=$andromdaVersion
+
+application.package=${applicationPackage}.${application.id}
+
+andromda.model.uri=file:${basedir}/mda/src/uml/${applicationId}-model.xmi
+
+source.client.base.dir=client/src
+source.client.impl.dir=${source.client.base.dir}/main
+source.client.impl.dir.java=${source.client.impl.dir}/java
+source.client.codeGen.dir=${source.client.base.dir}/generated
+source.client.codeGen.dir.java=${source.client.codeGen.dir}/java
+source.client.codeGen.dir.config=${source.client.codeGen.dir}/config
+source.client.testCode.dir=${source.client.base.dir}/test
+source.client.testCode.dir.java=${source.client.testCode.dir}/java
+source.client.testCode.dir.config=${source.client.testCode.dir}/config
+
+source.common.base.dir=common/src
+source.common.impl.dir=${source.common.base.dir}/main
+source.common.impl.dir.java=${source.common.impl.dir}/java
+source.common.codeGen.dir=${source.common.base.dir}/generated
+source.common.codeGen.dir.java=${source.common.codeGen.dir}/java
+source.common.codeGen.dir.config=${source.common.codeGen.dir}/config
+
+source.server.base.dir=server/src
+source.server.impl.dir=${source.server.base.dir}/main
+source.server.impl.dir.java=${source.server.impl.dir}/java
+source.server.codeGen.dir=${source.server.base.dir}/generated
+source.server.codeGen.dir.java=${source.server.codeGen.dir}/java
+source.server.codeGen.dir.config=${source.server.codeGen.dir}/config
+source.server.codeGen.dir.sql=${source.server.codeGen.dir}/sql
+source.server.testCode.dir=${source.server.base.dir}/test
+source.server.testCode.dir.java=${source.server.testCode.dir}/java
+source.server.testCode.dir.config=${source.server.testCode.dir}/config
+
+andromda.cartridgeFilter=
+
+
+# Names of the schema script files to be created...
+dataSource.sql.init=${source.server.codeGen.dir.sql}/schema-create.sql
+dataSource.sql.drop=${source.server.codeGen.dir.sql}/schema-drop.sql
+
+# If an Ant schema processing goal gets an error, what should it do?
+dataSource.sql.onError=abort
+
+
+# The default strategy to use when using inhertiance
+hibernate.inheritance.strategy=subclass
+
+# The hibernate generator class to use for identifiers
+hibernate.generatorClass=native
+
+hibernate.customTypes.package=${application.package}.utils
+
+spring.types.package=${application.package}.utils
+
+andromda.mappings.dir=${basedir}/mda/src/mappings

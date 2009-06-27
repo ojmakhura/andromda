@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Create Timecard Entity</title>
+</head>
+<body>
+    <h2>Create Timecard Entity</h2>
+    <!------------------------- Intro Text ------------------------->
+    <p>
+        This page provides directions to create the <code>Timecard</code> entity using ArgoUML.
+        The model is shown below for your reference.
+    </p>
+    <!------------------------- Main Text ------------------------->
+    <table width="100%" border="0">
+        <tbody>
+            <tr>
+                <!-- img src="images/Timecard.png" alt="Timecard" / -->
+                <td align="center" style="width: 100%">
+                    {mosimage}</td>
+            </tr>
+        </tbody>
+    </table>
+    <p>
+        Follow the steps below to create the <code>Timecard</code> entity along with the
+        two associations.
+    </p>
+    <ol>
+        <li>Select the diagram called "Domain Objects" and create a class called <code>Timecard</code>
+            in it. Make sure the class is created in the <code>org.andromda.timetracker.domain</code>
+            package by inspecting the tree in the explorer pane.</li>
+        <li>Set the stereotype of the <code>Timecard</code> class to Entity.</li>
+        <li>Add the 3 attributes as shown above.</li>
+        <li>Add the <code>findByCriteria()</code> operation as shown above. By default the operation
+            is created with instance scope. Click "static" in the Modifiers section of the
+            property panel to change it to instance scope.  You can confirm the change by
+            checking that the operation name is now underlined on the diagram.</li>
+        <li>Select the association tool {mosimage}
+            <!-- img src="images/ToolUniAssociation.png" alt="Uni Association Tool" / -->
+            from the toolbar. Create an association from <code>Timecard</code> to <code>User</code>.</li>
+        <li>Double-click on the 2nd association end in the Connections field and confirm
+            that is the correct end by checking that the type is <code>User</code>.  Give it
+            the name <code>submitter</code>.  Set the multiplicity to 1.</li>
+        <li>Click Other End tool {mosimage}
+            <!-- img src="images/ToolOtherEnd.png" alt="Other Association End Tool" / -->
+            to select the other end of the association.  Give this end a multiplicity of
+            0..1.  It doesn't need a name because it's not navigable and won't be used by code.</li>
+        <li>Similarly add an association from <code>Timecard</code> to <code>User</code>. 
+            Give the first (from) end a multiplicity of 0..* and the second (to) end
+            the name <code>approver</code> and a multiplicity of 0..1. Move the associations 
+            up or down as appropriate so they and their labels do not overlap each other.</li>
+        <li>Save the model by selecting File&rarr;Save Project.</li>
+    </ol>
+    <p>
+        Now go back to the main tutorial page and continue from where you left off.
+    </p>
+</body>
+</html>

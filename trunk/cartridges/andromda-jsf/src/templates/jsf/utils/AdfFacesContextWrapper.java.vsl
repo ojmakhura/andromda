@@ -1,0 +1,27 @@
+#set ($className = "AdfFacesContextWrapper")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+/**
+ * This wrapper just allows us to store the current AdfFacesContext instance
+ * in the session since the AdfFacesContext is not serializable.
+ * 
+ * @author Chad Brandon
+ */
+public class $className
+    implements java.io.Serializable
+{    
+    private transient oracle.adf.view.faces.context.AdfFacesContext currentInstance = null;
+    
+    public oracle.adf.view.faces.context.AdfFacesContext getCurrentInstance()
+    {
+        if (this.currentInstance == null)
+        {
+            this.currentInstance = oracle.adf.view.faces.context.AdfFacesContext.getCurrentInstance();
+        }
+        return this.currentInstance;
+    }
+    
+    private static final long serialVersionUID = 1L;
+}

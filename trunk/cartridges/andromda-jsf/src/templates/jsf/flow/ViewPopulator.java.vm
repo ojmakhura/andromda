@@ -1,0 +1,24 @@
+##
+##  A macro that renders population of the backing list view variables
+##
+#macro(renderBackingValuePopulation $variable $ownerParameter)
+#if ($variable.backingListName)
+#if ($variable.selectable)
+#set ($variableName = $variable.backingListName)
+#else
+#set ($variableName = $variable.backingValueName)
+#end
+#else
+#if ($variable.isSelectable($ownerParameter))
+#set ($variableName = $variable.getBackingListName($ownerParameter))
+#else
+#set ($variableName = $variable.getBackingValueName($ownerParameter))
+#end
+#end
+#set ($readableVariable = "${variableName}Readable")
+            final boolean $readableVariable = org.apache.commons.beanutils.PropertyUtils.isReadable(form, "$variableName");
+            if ($readableVariable)
+            {
+                request.setAttribute("$variableName", org.apache.commons.beanutils.PropertyUtils.getProperty(form, "$variableName"));
+            }
+#end

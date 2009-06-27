@@ -1,0 +1,98 @@
+<andromdapp type="richclient" root="${applicationParentDirectory}/${applicationId}">
+    <documentation>
+        <![CDATA[
+        <p>This wizard creates an AndroMDA powered Spring application that can be accessed by a rich client. An empty model is provided for your convenience.</p>
+        <p>Please note that this wizard does <b>not</b> create a rich client - you'll have to do this yourself.</p>
+        <p>You can select amongst the following additional features:</p>
+        <li><b>Security</b>: If desired, you can enabled ACEGI support for your project.</li>
+        ]]>
+    </documentation>
+    <resourceLocations>
+        <location>templates/richclient/ant</location>
+    </resourceLocations>
+    <directories>
+       <directory>client/src/generated/config</directory>
+       <directory>client/src/generated/java</directory>
+       <directory>client/src/main/java</directory>
+       <directory>client/src/test/config</directory>
+       <directory>client/src/test/java</directory>
+       <directory>common/src/generated/java</directory>
+       <directory>common/src/main/java</directory>
+       <directory>server/src/generated/java</directory>
+       <directory>server/src/generated/config</directory>
+       <directory>server/src/main/java</directory>
+       <directory>server/src/test/config</directory>
+       <directory>server/src/test/java</directory>
+       <directory>mda/src/custom</directory>
+       <directory>mda/src/custom/merge-mappings</directory>
+       <directory>mda/src/custom/templates</directory>
+       <directory>mda/src/custom/templates/java</directory>
+       <directory>mda/src/custom/templates/hibernate</directory>
+       <directory>mda/src/custom/templates/spring</directory>
+       <directory>mda/src/custom/templates/spring/hibernate</directory>
+       <directory>mda/src/custom/templates/spring/richclient</directory>
+    </directories>
+    <mappings>
+        <mapping>
+            <from>empty-model-uml14.xmi</from>
+            <to>${applicationId}-model.xmi.vsl</to>
+        </mapping>
+    </mappings>
+    <instructions>readme.txt</instructions>
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine" extensions="vsl"/>
+    <prompts>
+        <promptGroup name="Basic Project Information">
+            <documentation>
+                Provides the basic project information.
+            </documentation>
+            <prompt id="author">
+                <text>Your first and last last name [e.g. Arthur Dent]</text>
+                <shortText>Author</shortText>
+            </prompt>
+            <prompt id="applicationParentDirectory">
+                <text>Parent dir of project directory [e.g. /myWorkspace]</text>
+                <shortText>Application location</shortText>
+            </prompt>
+            <prompt id="applicationName">
+                <text>Application name [e.g. My Test Project]</text>
+                <shortText>Application name</shortText>
+            </prompt>
+            <prompt id="applicationId">
+                <text>Application id [e.g. testProject]</text>
+                <shortText>Application ID</shortText>
+            </prompt>
+            <prompt id="applicationVersion">
+                <text>Application version [e.g. 1.0]</text>
+                <shortText>Version</shortText>
+            </prompt>
+            <prompt id="applicationPackage">
+                <text>Base package for generated code [e.g. com.mycompany]</text>
+                <shortText>Root package</shortText>
+            </prompt>
+        </promptGroup>
+        <promptGroup name="Security">
+            <documentation>
+                Provides the choice of components with the application.
+            </documentation>
+            <prompt id="enableAcegi">
+                <text>Do you want to enable Acegi Security [yes/no]?</text>
+                <shortText>Enable Acegi Security</shortText>
+                <responses>
+                    <response>yes</response>
+                    <response>no</response>
+                </responses>
+            </prompt>
+            <prompt id="acegiImplementAuth">
+                <text>Will this application manage its own user list [yes/no]?</text>
+                <shortText>Add authentication support</shortText>
+                <preconditions>
+                    <condition id="enableAcegi" equal="yes"/>
+                </preconditions>
+                <responses>
+                    <response>yes</response>
+                    <response>no</response>
+                </responses>
+            </prompt>
+        </promptGroup>
+    </prompts>
+</andromdapp>

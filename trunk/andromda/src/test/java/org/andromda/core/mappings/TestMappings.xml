@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<mappings name="TestMappings">
+    <extends>TestMappingsParent.xml</extends>
+    <documentation>
+        Some documentation <em>about the</em> TestMappings.
+    </documentation>
+    <mapping>
+        <documentation>
+            Some documentation <em>about the</em> typeTwo
+        </documentation>
+        <from>datatype::typeTwo</from>
+        <to>Overridden</to>
+    </mapping>
+    <mapping>
+        <from>datatype::typeFour</from>
+        <to>Type_Four</to>
+    </mapping>
+</mappings>

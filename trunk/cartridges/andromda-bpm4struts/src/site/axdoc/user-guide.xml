@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - User Guide</title>
+        <gennews>no</gennews>
+    </properties>
+
+    <body>
+
+        <section name="Abstract">
+            <p class="abstract">
+                This page is a user guide to the bpm4struts cartridge, here you will find information on specific
+                modeling features. If you are looking for a place describing what you need to do with your
+                UML tool in order to model an application for bpm4struts you should read on.
+            </p>
+        </section>
+
+        <section name="Model elements">
+            <p>
+                With model elements we mean the collection of all those elements that allow us to express ourselves
+                and formally describe process flow. We will use these elements to model our Struts application.
+                What follows is a list of elements and a description on how they map onto Struts specific objects.
+            </p>
+            <h3>Classes</h3>
+            <p>
+                In bpm4struts classes are only used to model controllers, a controller is the component that
+                contains the logic to perform business operations. Most of the time, in J2EE applications, you
+                will want to delegate your call from the controller to a service running in the back-end.
+            </p>
+            <p>
+                A class is assigned to be the context of an activity graph and it contains operations that are
+                referenced by CallEvents. A CallEvent is an event that you can model in the activity graph but
+                that allows you to create a link with the controller class. You will see what this means in
+                more detail when taking a look at the sample application.
+            </p>
+            <h3>Actors</h3>
+            <p>
+                An actor represents a user in the system, typically you will model an actor for each different
+                type of user that exists in your application, this might be a 'Manager', 'Administrator',
+                'Guest', etc...
+            </p>
+            <p>
+                Actors may generalize eachother, making it possible to combine several roles into a single one.
+            </p>
+            <p>
+                Modeling actors will activate security in the generated application, an actor is only
+                authorized to request those pages and actions belonging to the use-case he has been associated with.
+            </p>
+            <h3>Use-Cases</h3>
+            <p>
+                Each unit of processing logic is combined into a single use-case. Typical use-cases are: 'Login',
+                'Place order', 'Add new user'. No two use-cases should have the same name.
+            </p>
+            <p>
+                Put your use-case in a dedicated namespace (such as a package in Java) so there is no confusion
+                on what is supposed to be happening inside.
+            </p>
+            <h3>Activity Graphs</h3>
+            <p>
+                Each use-case is described in more detail using an activity graph. Such a graph allows you to
+                model the process flow from one state into another. By doing so you will determine when the
+                user is presented a page and when he will be calling actions.
+            </p>
+            <p>
+                In an activity graph you will model: one initial state, action states, one or
+                more final states, transitions.
+            </p>
+            <h3>Transitions</h3>
+            <p>
+                Transitions are the 'arrows' that denote a flow from the source state to the target state.
+                Every state in an activity graph has at least one outgoing transition, except for the final state,
+                no outgoing transitions are allowed on a final state.
+            </p>
+            <p>
+                Optionally a transition may carry a trigger, a trigger indicates that something happened at the
+                source that triggered the application into following the path represented by the transition.
+                In bpm4struts you will use a trigger when you want to model an action such as a button-click
+                on a page, because this will trigger a specific call to an action on the server.
+            </p>
+            <p>
+                In addition, triggers are also interesting because they can have parameters, so each time the
+                client and server exchange information you will want to use the trigger to specify the parameter
+                to transport in the request.
+            </p>
+            <p>
+                It is also possible for a transition to carry a guard, but this is only valid when the transition
+                is coming out of a decision point (see below). The decision point represent a specific question
+                such as 'is this a new user ?' and the guards represent possible answers to that question.
+            </p>
+            <p>
+                Sometimes you will want to specify the application should handle specific exceptions,
+                you can do this also using transitions. More specifically by putting them on an action state
+                and targetting a page. Such transitions should be tagged with the FrontEndException stereotype.
+            </p>
+            <p>
+                To make it easier for the modeler using bpm4struts we implemented the convention that in case
+                no exception handler is specified a default one will be implied. This means that if an action
+                throws a java.lang.Exception it will be handled and the message will be forwarded to the
+                page which triggered the action, so you will simply return back to the page. This default
+                exception handler will not be implied if there is at least one exception handler
+                explicitely specified.
+            </p>
+            <h3>Initial States</h3>
+            <p>
+                Only a single initial state is allowed per activity graph, for bpm4struts it is enough for it to be
+                there, you do not need to give it a name, but you may.
+            </p>
+            <h3>Action States</h3>
+            <p>
+                An action state is an atomic state of the application's use-case, you typically have many
+                of them in a single use-case.
+            </p>
+            <p>
+                A special type of action state is the one that has been marked using the FrontEndView
+                stereotype, because this will tell the cartridge to render a JSP page by analyzing the
+                context in which the action state is used.
+            </p>
+            <p>
+                All other action states will be considered to be living on the server. Optionally those ones
+                may carry deferrable events, these events can call the operations from the controller class. The
+                cartridge will render methods for these calls into the actions.
+            </p>
+            <p>
+                <h3>Final State</h3>
+            </p>
+            <p>
+                A final state in an activity graph represents the end of the use-case. Because a typical web
+                application not simply stops showing pages you will need to indicate to which use-case to go next.
+            </p>
+            <p>
+                You can do that by using the name of the use-case (which is unique in the scope of the application)
+                and entering it as the name of the final state. The cartridge will pick it
+                up and make the necessary links.
+            </p>
+            <p>
+                Alternatively, if your CASE tool supports it (such as is the case with MagicDraw), you may put a
+                hyperlink on the final state and make it point to the use-case. 
+            </p>
+            <p>
+                <h3>Swimlanes</h3>
+            </p>
+            <p>
+                This feature is completely optional, but I recommend using it on your diagrams for clarity. Divide
+                your activity graph into partitions using swimlanes, you will have one for
+                the server and one for the client.
+            </p>
+            <p>
+                This way you can immediately see where you are in the use-case but also in the
+                implementation. See the samples for more details.
+            </p>
+        </section>
+
+        <section name="Action Types: Hyperlinks vs. Forms">
+            <p>
+                In a typical web application one can distinguish two different types of actions: hyperlinks and
+                buttons. The difference between them is that with buttons you may additionally have a form with
+                input fields sent to the server. This means that the user can decide at run-time what will
+                exactly be sent. Hyperlinks are static in the sense that they cannot be changed by the
+                client through the page.
+            </p>
+            <p>
+                This distinction can be specified by bpm4struts also, and depending on the parameters that
+                are being sent to the server more hyperlinks will be rendered.
+            </p>
+            <p>
+                In short, for each event parameter tagged as a 'select' parameter (and thus having a
+                list to back it up) the cartridge will loop of the backinglist, all other parameters are
+                sent as they are found.
+            </p>
+            <p>
+                Example: you have a list of items and you want a link for each item in the list, simply
+                create an event parameter 'item' and tag it as 'select' (which will always create a list
+                to backup the 'item'). If the action is a hyperlink action the JSP will be rendered as desired.
+            </p>
+            <p>
+                To illustrate the difference, please take a look at the folowing images. They represent pages
+                generated from exactly the same UML model, the only difference is that one of them contains
+                an action that has been marked as being of type 'hyperlink' ... this will instruct the
+                cartridge not to render input widget, but an hyperlink with parameters instead.
+            </p>
+        </section>
+
+        <section name="Field Types">
+            <p>
+                If you wish to display input fields using a special widget you can do so using the
+                @andromda.presentation.web.view.field.type tagged value. Depending on that value the
+                parameter will be treated differently.
+            </p>
+            <p>
+                <table cellpadding="5" rules="all">
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>text</td>
+                        <td>renders a textfield, this is the default widget</td>
+                    </tr>
+                    <tr>
+                        <td>textarea</td>
+                        <td>renders a widget that allows a block of text in multiple lines to be entered</td>
+                    </tr>
+                    <tr>
+                        <td>select</td>
+                        <td>This will render a listbox or combobox. If the parameter is a collection or array you will
+                            have the possiblity to select multiple values, otherwise you will have a combobox where
+                            only one value at a time can be selected</td>
+                    </tr>
+                    <tr>
+                        <td>checkbox</td>
+                        <td>renders a checkbox, if the field is a boolean value this widget will be rendered
+                            by default</td>
+                    </tr>
+                    <tr>
+                        <td>radio</td>
+                        <td>renders radiobuttons, by default there are 3 of them; use the
+                            <code>@andromda.struts.view.field.radio</code> tagged value, it denotes the number of choices
+                            for this parameter: the value you enter for that tagged value will determine the number of
+                            radiobuttons that will be rendered.
+                            Alternatively you can use a comma-separated list of property values instead of an
+                            integer</td>
+                    </tr>
+                    <tr>
+                        <td>password</td>
+                        <td>renders a password field, each character typed will be rendered as an asterisk</td>
+                    </tr>
+                    <tr>
+                        <td>hidden</td>
+                        <td>does not render any widget, but the parameter will nevertheless be included in the request</td>
+                    </tr>
+                </table>
+            </p>
+        </section>
+
+    </body>
+</document>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo - Controllers</title>
+    </properties>
+
+    <body>
+        <section name="Controllers">
+            <p>
+                Modeling activity graphs allows you to clearly express the way your application flows from one
+                state into another. This already helps a great deal in the code generation process, but all this
+                effort only makes sense when you are actually able to insert your own code fragments
+                into this process. UML elegantly allows this.
+            </p>
+            <p>
+                Per use-case you will need to model a class in which you will put all the operations that can be
+                called from within that use-case's activity.
+            </p>
+            <p>
+                You will need to associate this class to the use-case somehow, the cartridge can't just guess which
+                use-case it corresponds to. Therefore we have two options, depending on the maturity of the UML
+                tool you are using:
+            </p>
+            <p>
+                <ul>
+                    <li>Assign this class as the context of the activity graph (MagicDraw supports this),
+                        this is a standard UML feature that, unfortunately, is often overlooked by CASE tools vendors.
+                    </li>
+                    <li>Add a tagged value to the controller, pointing to the use-case, like this:
+                        <code>@andromda.presentation.controller.usecase=My UseCase</code> (the value is the name
+                        of the use-case).
+                    </li>
+                </ul>
+            </p>
+            <p>
+                Either one of these options will do, we recommend using the former because that way you won't need
+                to update the tagged value whenever you decide to change the name of the use-case (which can be a pain).
+            </p>
+            <p>
+                <img src="howto/org/andromda/test/controllers.gif"/>
+            </p>
+            <subsection name="Operation parameters">
+                <p>
+                    So what exactly happens with the parameters you model inside the controller operations ? Well,
+                    by specifying the name and type of a parameter you can gain access to an event parameter or
+                    page-variable defined in another part of the application. Just make sure the name and type
+                    perfectly match.
+                </p>
+                <p>
+                    In the next example you see how a controller operation is called before entering the
+                    <![CDATA[<<FrontEndView>>]]> action state. This operation has a single argument
+                    <code>data : List</code> which exactly matches the page variable on the outgoing
+                    transition. Doing this will allow you to control this page variables in the implementation
+                    of the controller operation.
+                </p>
+                <p class="highlight">
+                    Please note that it is possible your CASE tool is not showing the operation parameters
+                    in the diagram, as in the image below.
+                </p>
+                <p>
+                    <img src="howto/org/andromda/test/deferring-param.gif"/>
+                </p>
+                <p>
+                    <img src="howto/org/andromda/test/deferring-param-ctrl.gif"/>
+                </p>
+                <p>
+                    Not only page-variables can be controlled like this, it would also work for any existing
+                    event parameters (not shown in the image), as long as you include them as a controller operation
+                    argument you will have access.
+                </p>
+                <p>
+                    What might look strange at first is the fact that you don't need a return value: don't forget
+                    you are not modeling Java code, you're modeling the behavior of the state machine, so let the
+                    cartridge determine the code to generate. Basically you just need to remember to include a
+                    parameter for each form field you wish to use. (Return values are only needed when using controller
+                    operations in a decision process as we have seen <a href="howto2.html#Decision_Points">here</a>.
+                </p>
+                <p>
+                    It is not needed to add tagged values on controller operation parameters, any tagged
+                    values will be fetched from the actual page-variables or event parameters.
+                </p>
+            </subsection>
+        </section>
+        <section name="Next">
+            <p>
+                Now that we know how to define custom code operations we need to learn how
+                to call them from within your activity graph, <a href="howto4.html">read on</a>.
+            </p>
+        </section>
+    </body>
+</document>

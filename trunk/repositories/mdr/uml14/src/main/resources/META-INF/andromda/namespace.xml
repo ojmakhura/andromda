@@ -1,0 +1,23 @@
+<namespace name="netBeansMDR">
+    <components>
+        <component name="repository">
+            <path>META-INF/andromda/repository.xml</path>
+        </component>
+    </components>
+    <properties>
+        <propertyGroup name="Repository Properties">
+            <property name="metamodelLocation">
+                <default>/M2_DiagramInterchangeModel.xml</default>
+            </property>
+            <property name="metamodelPackage">
+                <default>UML</default>
+            </property>
+            <property name="xmiReaderFactory">
+                <default>org.netbeans.lib.jmi.xmi.ReaderFactory</default>
+            </property>
+            <property name="modelAccessFacade">
+                <default>org.andromda.metafacades.uml14.UMLModelAccessFacade</default>
+            </property>
+        </propertyGroup>
+    </properties>
+</namespace>

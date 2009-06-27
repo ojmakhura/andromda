@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="mda" name="mda" basedir=".">
+
+    <property name="app.root.dir" value="${basedir}/.."/>
+
+    <property file="${basedir}/build.properties"/>
+    <property file="${app.root.dir}/build.properties"/>
+
+    <mkdir dir="${app.root.dir}/lib"/>
+
+    <path id="classpath">
+        <fileset id="libraries" dir="${app.root.dir}/lib">
+            <include name="commons-lang-*.jar"/>
+            <include name="commons-logging-*.jar"/>
+            <include name="commons-digester-*.jar"/>
+            <include name="commons-collections-*.jar"/>
+            <include name="commons-beanutils-*.jar"/>
+            <include name="log4j-*.jar"/>
+            <include name="velocity-*.jar"/>
+            <include name="jmi-*.jar"/>
+            <include name="jmiuml-*.jar"/>
+            <include name="jmiutils-*.jar"/>
+            <include name="mof-*.jar"/>
+            <include name="mdrapi-*.jar"/>
+            <include name="nbmdr-*.jar"/>
+            <include name="openide-*.jar"/>
+            <include name="emf-*.jar"/>
+            <include name="eclipse-uml2*.jar"/>
+            <include name="andromda-*.jar"/>
+            <exclude name="*freemarker*.jar"/>
+            <include name="andromda-profile-*.xml.zip"/>
+            <exclude name="andromda-meta-cartridge*"/>
+            <exclude name="andromda-spring-cartridge*"/>
+            <exclude name="andromda-xmlschema-cartridge*"/>
+#if ($persistenceType == 'hibernate')
+            <exclude name="andromda-ejb-cartridge*"/>
+#else
+            <exclude name="andromda-hibernate-cartridge*"/>
+#end
+        </fileset>
+    </path>
+
+    <target name="mda">
+        <taskdef name="andromda" classname="org.andromda.ant.task.AndroMDAGenTask" classpathref="classpath"/>
+        <andromda configurationUri="${andromda.configuration.uri}"/>
+    </target>
+
+</project>

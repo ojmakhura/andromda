@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+    <extend>../project.xml</extend>
+    <artifactId>andromda-bpm4struts-cartridge</artifactId>
+    <name>AndroMDA BPM4Struts Cartridge</name>
+    <shortDescription>Business Process Modeling For Struts</shortDescription>
+    <description>
+		The Bpm4Struts cartridge is used to generate Struts applications
+        from UML models using both static and dynamic model elements.
+        Generated applications have default security and internationalization
+        implementations and can be deployed as they are.
+    </description>
+    <issueTrackingUrl>${issue.tracking.location}/BrowseProject.jspa?id=10000&amp;decorator=none</issueTrackingUrl>
+    <developers>
+        <developer>
+            <name>Wouter Zoons</name>
+            <id>draftdog</id>
+            <email>wouter@andromda.org</email>
+            <roles>
+                <role>Developer</role>
+                <role>Documentation</role>
+            </roles>
+            <timezone>1</timezone>
+        </developer>
+        <developer>
+            <name>Chad Brandon</name>
+            <id>cwbrandon</id>
+            <email>chad@andromda.org</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>-7</timezone>
+        </developer>
+    </developers>
+    <contributors>
+        <contributor>
+            <name>Carlos Cuenca</name>
+            <email>carlos@andromda.org</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </contributor>
+    </contributors>
+    <dependencies>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>maven-andromda-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-java-cartridge</artifactId>
+            <version>${pom.currentVersion}</version>
+            <properties>
+                <value-objects>${basedir}/target/src</value-objects>
+            </properties>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-cartridge-plugin</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>plugin</type>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-metafacades-uml</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-metafacades-uml14</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-meta-cartridge</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-ocl-validation-library</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-breadcrumbs-taglib</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-formatting-taglib</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-collections-taglib</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+     		<version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
+    </build>
+</project>

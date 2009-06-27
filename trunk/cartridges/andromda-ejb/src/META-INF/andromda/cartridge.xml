@@ -1,0 +1,169 @@
+<cartridge>
+
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine"/>
+    
+    <!-- define the template objects that are made availble to the template -->
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
+    <!-- cartridge-templateObject merge-point-->
+
+    <property reference="toDoTag"/>
+    <!-- cartridge-property merge-point-->
+
+    <!-- cartridge-resource merge-point -->
+
+    <template
+        path="templates/ejb/ValueObject.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="value-objects"
+        overwrite="true">
+        <modelElements variable="class">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.ValueObjectFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb/EntityBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outlet="entity-beans"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb/EntityLocal.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="entity-beans"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb/EntityHome.vsl"
+        outputPattern="{0}/{1}LocalHome.java"
+        outlet="entity-beans"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb/EntityBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outlet="entity-impls"
+        overwrite="false">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBEntityFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+<!--
+     The following definitions map services to session beans.
+     The templates map a service to a session bean
+     and the template itself decides to generate a stateless or stateful
+     session bean, based on the fact that the UML class contains attributes or not.
+     (Matthias Bohlen)
+-->
+
+    <template
+        path="templates/ejb/SessionBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outlet="session-beans"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb/SessionLocal.vsl"
+        outputPattern="{0}/{1}Local.java"
+        outlet="session-beans"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade">
+                    <property name="viewType">local</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb/SessionRemote.vsl"
+        outputPattern="{0}/{1}.java"
+        outlet="session-beans"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade">
+                    <property name="viewType">remote</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb/SessionLocalHome.vsl"
+        outputPattern="{0}/{1}LocalHome.java"
+        outlet="session-beans"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade">
+                    <property name="viewType">local</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb/SessionRemoteHome.vsl"
+        outputPattern="{0}/{1}Home.java"
+        outlet="session-beans"
+        overwrite="true"
+        generateEmptyFiles="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade">
+                    <property name="viewType">remote</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/ejb/SessionBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outlet="session-impls"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.ejb.metafacades.EJBSessionFacade"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- cartridge-template merge-point -->
+
+</cartridge>

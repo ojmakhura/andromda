@@ -1,0 +1,48 @@
+<%@ include file="/taglib-imports.jspf" %>
+
+<h2><bean:message key="search.results"/></h2>
+
+<div class="timecard">
+    <display:table name="${form.timecardSummaries}" id="row"
+        requestURIcontext="false"
+        requestURI="${pageContext.request.requestURI}"
+        export="false" sort="list"
+        class="half_width">
+        <display:column media="html"
+            headerClass="id" paramId="id"
+            sortProperty="id" sortable="true"
+            titleKey="id">
+            <div class="id">
+                <c:set var="value" value="${row.id}"/>
+                <html:link action="/SearchTimecards/SearchTimecardsDetails?id=${row.id}">${row.id}</html:link>
+                <input type="hidden" name="id" value="${value}" id="timecardSummariesId${row_rowNum}"/>
+            </div>
+        </display:column>
+        <display:column media="html"
+            headerClass="submitterName" paramId="submitterName"
+            sortProperty="submitterName" sortable="true"
+            titleKey="submitter"
+            property="submitterName" />
+        <display:column media="html"
+            headerClass="approverName" paramId="approverName"
+            sortProperty="approverName" sortable="true"
+            titleKey="approver"
+            property="approverName" />
+        <display:column media="html"
+            headerClass="status" paramId="status"
+            sortProperty="status" sortable="true"
+            titleKey="status"
+            property="status" />
+        <fmt:formatDate var="value" value="${row.startDate}" pattern="MM/dd/yyyy"/>
+        <display:column media="html"
+            headerClass="startDate" paramId="startDate"
+            sortProperty="startDate" sortable="true"
+            titleKey="start.date">
+            <div class="startDate">${value}</div>
+        </display:column>
+        <display:column media="html">
+            <c:set var="link">'<html:rewrite action="/SearchTimecards/SearchTimecardsDetails"/>?id='+getDiv('timecardSummariesId${row_rowNum}').value</c:set>
+            <nobr><html:link href="javascript:document.location=${link};" styleClass="buttonLink"><bean:message key="details"/></html:link></nobr>
+        </display:column>
+    </display:table>
+</div>

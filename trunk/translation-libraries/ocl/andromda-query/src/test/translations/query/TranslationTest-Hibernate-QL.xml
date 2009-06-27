@@ -1,0 +1,324 @@
+<?xml version="1.0"?>
+
+<translation-test>
+
+    <translation name="query.Hibernate-QL"/>
+
+    <expression>
+        <from>
+            context org::andromda::translation::query::LegalAgreement::findByLegalPartyName(legalPartyName:String):Collection(LegalAgreement)
+            body findByLegalPartyNameBody: allInstances() -> select ( la |
+            la.legalAgreementParties->includesAll(la.legalAgreementParties->select( lap |
+            StringUtils.isLike(lap.legalParty.legalPartyName,
+            legalPartyName))))
+        </from>
+        <to>
+            from org.andromda.translation.query.LegalAgreement as la
+            join fetch la.legalAgreementParties as lap
+            where lower(lap.legalParty.legalPartyName) like :legalPartyName
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+              context org::andromda::translation::query::Project::findByNameAndNumber(name:String,number:String) : Collection(Project)
+            body findByNameAndNumberBody: allInstances()->select(
+            p | StringUtils.isLike(p.projectName, name)
+            and StringUtils.isLike(p.projectNumber, number) )
+        </from>
+        <to>
+            from org.andromda.translation.query.Project as p
+            where lower(p.projectName) like :name and lower(p.projectNumber) like :number
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            context org::andromda::translation::query::Project::findByProjectTypeStatusAfterWentCurrentDate(
+                type:String, status:String, wentCurrentDate:Date):Collection (Project) body findByProjectType :
+                allInstances() -> select (
+                    project |
+                        project.type = type
+                and project.status = status
+                and project.wentCurrentDate >= wentCurrentDate )
+        </from>
+        <to>
+            from org.andromda.translation.query.Project as project
+            where project.type = :type
+            and project.status = :status
+            and project.wentCurrentDate >= :wentCurrentDate
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            context org::andromda::translation::query::LegalAgreement::findByTypeAndStatuses(agreementStatusPks:Collection(String),anAgreementTypePk:String): Collection(LegalAgreement)
+            body findByStatusesBody:
+                allInstances() -> select(
+                    la |
+                agreementStatusPks -> includes(la.agreementStatus.agreementStatusPk)
+                or agreementStatusPks -> isEmpty()
+                and la.agreementTypePk = anAgreementTypePk )
+        </from>
+        <to>
+            from org.andromda.translation.query.LegalAgreement as la
+            where la.agreementStatus.agreementStatusPk in (:agreementStatusPks) or size(:agreementStatusPks) = 0
+            and la.agreementTypePk = :anAgreementTypePk
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            context org::andromda::translation::query::LegalAgreement::findAll():Collection(LegalAgreement)
+            body : LegalAgreement.allInstances()
+        </from>
+        <to>
+            from org.andromda.translation.query.LegalAgreement as legalAgreement
+        </to>
+    </expression>
+
+     <expression>
+        <from>
+            context org::andromda::translation::query::LegalAgreement::findByTitlePartyTypeStatusPersonProject(
+                aDocumentTitle:String,
+                aLegalPartyName:String,
+                anAgreementTypePk:String,
+                anAgreementStatusPk:String,
+                aPersonPk:Long,
+                aProjectPk:Long):Collection(LegalAgreement)
+            body :
+            allInstances()->select(
+                legalAgreement |
+                    StringUtils.isLike(legalAgreement.documentTitle, aDocumentTitle)
+                    and legalAgreement.legalAgreementParties -> includesAll(
+                        legalAgreement.legalAgreementParties ->
+                            select( legalAgreementParty |
+                                StringUtils.isLike(legalAgreementParty.legalParty.legalPartyName, aLegalPartyName)))
+                    and StringUtils.isLike(legalAgreement.agreementType.agreementTypePk, anAgreementTypePk)
+                    and StringUtils.isLike(legalAgreement.agreementStatus.agreementStatusPk, anAgreementStatusPk)
+                    and legalAgreement.person.personPk = aPersonPk
+                    and legalAgreement.project.projectPk = aProjectPk)
+        </from>
+        <to>
+            from org.andromda.translation.query.LegalAgreement as legalAgreement
+                join fetch legalAgreement.legalAgreementParties as legalAgreementParty
+            where lower(legalAgreement.documentTitle) like :aDocumentTitle
+            and lower(legalAgreementParty.legalParty.legalPartyName) like :aLegalPartyName
+            and lower(legalAgreement.agreementType.agreementTypePk) like :anAgreementTypePk
+            and lower(legalAgreement.agreementStatus.agreementStatusPk) like :anAgreementStatusPk
+            and legalAgreement.person.personPk = :aPersonPk
+            and legalAgreement.project.projectPk = :aProjectPk
+        </to>
+    </expression>
+
+     <expression>
+        <from>
+            context org::andromda::translation::query::LegalAgreement::findByLegalArgreementPks(legalAgreementPks:String):Collection(LegalAgreement)
+            body : allInstances() -> select( legalAgreement | legalAgreementPks -> includes(legalAgreement.legalAgreementPk))
+        </from>
+        <to>
+            from org.andromda.translation.query.LegalAgreement as legalAgreement
+            where legalAgreement.legalAgreementPk in (:legalAgreementPks)
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findInvalidByPerson(personId:Long,date:Date):Collection(MedicalCertificate)
+            body findInvalidByPerson :
+                allInstances() -> select( certificate |
+                   certificate.person.id = personId
+                   and (certificate.validityStart > date or certificate.validityEnd < date)
+                   or (certificate.validityStart = certificate.validityEnd))
+                   -> sortedBy(certificate.person.id)
+                   -> sortedBy(certificate.validityStart)
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            from org.andromda.translation.query.MedicalCertificate as certificate
+            where certificate.person.id = :personId
+            and (certificate.validityStart > :date or certificate.validityEnd < :date)
+            or (certificate.validityStart = certificate.validityEnd)
+            order by certificate.person.id, certificate.validityStart
+            ]]>
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            context org::andromda::translation::query::LegalAgreement::findAll():Collection(LegalAgreement)
+            body : LegalAgreement.allInstances() -> sortedBy(documentTitle) -> sortedBy(expiredDate)
+        </from>
+        <to>
+            from org.andromda.translation.query.LegalAgreement as legalAgreement order by documentTitle, expiredDate
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findInvalidByPerson(personId:Long,date:Date):Collection(MedicalCertificate)
+            body findInvalidByPerson :
+                allInstances() -> select( certificate |
+                   certificate.person.id = personId
+                   and (certificate.validityStart > date or certificate.validityEnd < date)
+                   and certificate.notes -> size() >= 1)
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            from org.andromda.translation.query.MedicalCertificate as certificate
+            where certificate.person.id = :personId
+            and (certificate.validityStart > :date or certificate.validityEnd < :date)
+            and size(certificate.notes) >= 1
+            ]]>
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findByCode(code:String):Collection(MedicalCertificate)
+            body :
+                allInstances() -> select( certificate |
+                   certificate.code.toLower() = code )
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            from org.andromda.translation.query.MedicalCertificate as certificate
+            where lower(certificate.code) = :code
+            ]]>
+        </to>
+    </expression>
+
+     <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findByCode(code:String):Collection(MedicalCertificate)
+            body :
+                allInstances() -> select( certificate |
+                   certificate.code.toUpper() = code
+                   and certificate.code.size() > 0 )
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            from org.andromda.translation.query.MedicalCertificate as certificate
+            where upper(certificate.code) = :code
+            and length(certificate.code) > 0
+            ]]>
+        </to>
+    </expression>
+
+     <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findByConcatinatedCodeAndType(code:String,type:String):Collection(MedicalCertificate)
+            body :
+                allInstances() -> select( certificate |
+                   code.concat(type) = certificate.code
+                   and certificate.code.substring(1,3) = 'test')
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            from org.andromda.translation.query.MedicalCertificate as certificate
+            where :code || :type = certificate.code
+            and substr(certificate.code, 1, 3) = 'test'
+            ]]>
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            context PersonRoleContext::findByPersonNamespacesRolesAndContexts(
+                personId:String,
+                namespaces:Collection(String),
+                roles:Collection(String),
+                contexts:Collection(String)):PersonRoleContext
+            body : allInstances() -> select (
+                roleContext |
+                roleContext.personRole.person.id = personId
+                and namespaces -> includes(roleContext.contextRole.ctx.namespace.name)
+                and roles -> includes(roleContext.personRole.role.name)
+                and (roleContext.personRole.role.allContexts = true or contexts -> includes(roleContext.contextRole.ctx.identifier)))
+        </from>
+        <to>
+            from org.andromda.translation.query.PersonRoleContext as roleContext
+            where roleContext.personRole.person.id = :personId
+            and roleContext.contextRole.ctx.namespace.name in (:namespaces)
+            and roleContext.personRole.role.name in (:roles)
+            and (roleContext.personRole.role.allContexts = true
+            or roleContext.contextRole.ctx.identifier in (:contexts))
+        </to>
+    </expression>
+
+    <expression>
+        <from>
+            context PersonRole::findByPersonNamespacesRolesAndContexts(
+                personId:String,
+                namespaces:Collection(String),
+                roles:Collection(String),
+                contexts:Collection(String)):Collection(PersonRole)
+            body : allInstances() -> select (
+                personRole |
+                personRole.person.id = personId and namespaces -> includes(personRole.role.namespace.name)
+                and roles -> includes(personRole.role.name)
+                and (personRole.allContexts = true
+                or personRole.roleContexts -> includesAll(
+                    personRole.roleContexts -> select(
+                        roleContext | contexts -> includes( roleContext.contextRole.ctx.identifier )))))
+        </from>
+        <to>
+            from org.andromda.translation.query.PersonRole as personRole join fetch personRole.roleContexts as roleContext
+            where personRole.person.id = :personId
+            and personRole.role.namespace.name in (:namespaces)
+            and personRole.role.name in (:roles)
+            and (personRole.allContexts = true
+            or roleContext.contextRole.ctx.identifier in (:contexts))
+        </to>
+    </expression>
+    
+    <expression>
+        <from>
+            <![CDATA[
+                context Activity::findForFollowUp(startDate : Date, endDate : String, status: String) : Collection(Activity) 
+                   body : allInstances()->select ( activity |
+                          activity.activityCase.actionRequired >= startDate and
+                          activity.activityCase.actionRequired <= endDate and
+                          activity.status <> status ) 
+          ]]>          
+        </from>
+        <to>
+            <![CDATA[
+            from org.andromda.translation.query.Activity as activity 
+            where activity.activityCase.actionRequired >= :startDate 
+            and activity.activityCase.actionRequired <= :endDate 
+            and activity.status <> :status
+            ]]>          
+        </to>
+    </expression>
+
+    <!--
+    <expression>
+        <from>
+            <![CDATA[
+            context MedicalCertificate::findBySmallestValidateStartDate():Collection(MedicalCertificate)
+            body :
+                allInstances() -> select( certificate | certificate.validityStart -> iterate
+                    certificate.validityStart.min(certificate.validityStart))
+            ]]>
+        </from>
+        <to>
+            <![CDATA[
+            from org.andromda.translation.query.MedicalCertificate as certificate
+            where min(certificate.validityStart)
+            ]]>
+        </to>
+    </expression>
+    -->
+
+</translation-test>

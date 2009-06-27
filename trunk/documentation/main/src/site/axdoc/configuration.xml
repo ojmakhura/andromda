@@ -1,0 +1,1091 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+    <properties>
+        <author email="chad@andromda.org">Chad Brandon</author>
+        <title>AndroMDA Configuration</title>
+    </properties>
+    <body>
+        <section name="AndroMDA Configuration">
+            <p>
+                AndroMDA is configured through a single XML file.  This page documents the attributes and element that
+                make up that configuration.  Lets first take a look at the contents of a typical configuration file (and then
+                after that we'll go into more detail describing each element and attributes that belong that element).
+            </p>
+            <p class="highlight">
+                Each configuration file must adhere to this <a href="configuration/schema.html">XML Schema</a>.
+            </p>
+            <subsection name="Example">
+                <a name="andromda-example"/>
+                <p>
+                    This example configuration, tells AndroMDA to load
+                    model(s) from <em>jar:file:/path/to/my/model1.zuml!/model.xmi</em>
+                    and <em>jar:file:/path/to/my/model2.zuml!/model.xmi</em>
+                    and generate code using the spring, hibernate, webservice, java and bpm4struts cartridges. Notice
+                    how we configure each cartridge through the
+                    <a href="#namespace"><code><![CDATA[<namespace>]]></code></a> elements.
+                </p>
+                <source language="xml">
+<![CDATA[<andromda>
+    <properties>
+        <property name="modelValidation">true</property>
+        <property name="cartridgeFilter">${filter}</property>
+    </properties>
+    <server>
+        <host>localhost</host>
+        <port>4446</port>
+    </server>
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>jar:file:/path/to/my/model.zuml!/modelUri1.xmi</uri>
+                    <moduleSearchLocations>
+                        <location patterns="*.xml.zip,*.xmi">/path/to/modules</location>
+                    </moduleSearchLocations>
+                </model>
+                <model>
+                    <uri>file:/path/to/my/model2Uri1.xmi</uri>
+                    <uri>file:/path/to/my/model2Uri2.xmi</uri>
+                    <transformations>
+                        <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>
+                        <transformation><uri>file:transformation2.xsl</uri></transformation>
+                    </transformations>
+                </model>
+            </models>
+        </repository>
+    </repositories>
+    <mappingsSearchLocations>
+        <location patterns="*.xml">/path/to/mappings</location>
+    </mappingsSearchLocations>
+    <namespaces>
+        <namespace name="default">
+            <properties>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="sqlMappingsUri">${sql.mappings}</property>
+                <property name="jdbcMappingsUri">JDBC</property>
+                <property name="maxSqlNameLength">30</property>
+                <property name="foreignKeySuffix">_FK</property>
+                <property name="ejbJndiNamePrefix">${application.id}</property>
+            </properties>
+        </namespace>
+        <namespace name="spring">
+            <properties>
+                <property name="dataSource">${dataSource}</property>
+                <property name="hibernateDialect">${hibernate.db.dialect}</property>
+                <property name="hibernateShowSql">${hibernate.db.showSql}</property>
+                <property name="hibernateUseQueryCache">false</property>
+                <property name="hibernateQueryUseNamedParameters">true</property>
+                <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
+                <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
+                <property name="springTypesPackage">${application.package}</property>
+                <property name="daos">${maven.andromda.core.generated.dir}</property>
+                <property name="dao-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="spring-configuration">${maven.andromda.core.generated.dir}</property>
+                <property name="services">${maven.andromda.core.generated.dir}</property>
+                <property name="service-impls">${maven.andromda.core.manual.dir}</property>
+                <!-- to remove any dependency on EJB, comment the following property -->
+                <property name="session-ejbs">${maven.andromda.core.generated.dir}</property>
+                <!-- uncomment to enable EJB security -->
+                <!-- <securityRealm>${application.id}</securityRealm> -->
+            </properties>
+        </namespace>
+        <namespace name="hibernate">
+            <properties>
+                <property name="hibernateTypeMappingsUri">Hibernate</property>
+                <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
+                <property name="defaultHibernateGeneratorClass">${hibernate.generatorClass}</property>
+                <property name="hibernateDefaultCascade">none</property>
+                <property name="entities">${maven.andromda.core.generated.dir}</property>
+                <property name="entity-impls">${maven.andromda.core.manual.dir}</property>
+                <property name="entity-mappings">${maven.andromda.core.generated.dir}</property>
+                <property name="user-types">${maven.andromda.core.generated.dir}</property>
+                <property name="customTypesPackage">${application.package}</property>
+                <property name="compositionDefinesEagerLoading">true</property>
+            </properties>
+        </namespace>
+        <namespace name="webservice">
+            <properties>
+                <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
+                <property name="languageMappingsUri">AxisJavaMappings</property>
+                <property name="defaultProvider">RPC</property>
+                <property name="applicationName">${application.id}</property>
+                <property name="wsdlSoapAddress">${wsdl.soap.address}</property>
+                <property name="wsdls">${maven.andromda.webservice.generated.dir}/wsdl</property>
+                <property name="rpcClassNamePattern">{0}.{1}WSDelegator</property>
+                <property name="axis-configuration">${maven.andromda.webservice.generated.dir}/axis</property>
+            </properties>
+        </namespace>
+        <namespace name="java">
+            <properties>
+                <property name="languageMappingsUri">AxisJavaMappings</property>
+                <property name="useArraysForMultiplicitiesOfTypeMany">true</property>
+                <property name="enumerations">${maven.andromda.common.generated.dir}</property>
+                <property name="exceptions">${maven.andromda.common.generated.dir}</property>
+                <property name="value-objects">${maven.andromda.common.generated.dir}</property>
+            </properties>
+        </namespace>
+        <namespace name="bpm4struts">
+            <properties>
+                <property name="forms">${maven.andromda.web.generated.dir}</property>
+                <property name="pages">${maven.andromda.web.generated.dir}</property>
+                <property name="actions">${maven.andromda.web.generated.dir}</property>
+                <property name="controllers">${maven.andromda.web.generated.dir}</property>
+                <property name="controller-impls">${maven.andromda.web.manual.java.dir}</property>
+                <property name="decorators">${maven.andromda.web.manual.java.dir}</property>
+                <property name="messages">${maven.andromda.web.generated.dir}/WEB-INF/classes</property>
+                <property name="configuration">${maven.andromda.web.generated.dir}/WEB-INF</property>
+                <property name="security">false</property>
+                <property name="securityRealm">other</property>
+                <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
+                <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
+            </properties>
+        </namespace>
+    </namespaces>
+</andromda>]]>
+                </source>
+            </subsection>
+            <subusection name="">
+                <h2>
+                    <a name="andromda"><![CDATA[<andromda>]]></a>
+                </h2>
+                <p>
+                    The andromda element is the root of the configuration file.
+                </p>
+            </subusection>
+            <subsection name="">
+                <h2>
+                    <a name="andromdaProperties"><![CDATA[<properties>]]></a>
+                </h2>
+                <p>
+                    The properties element allows you to set properties that gobally configure
+                    AndroMDA.  Here's an example of how the <em><![CDATA[<properties>]]></em>
+                    element is structured.
+                    <source language="xml">
+<![CDATA[<andromda>
+    <properties>
+        <property name="modelValidation">true</property>
+        <property name="cartridgeFilter">${filter}</property>
+    </properties>
+    ...
+</andromda>]]>
+                    </source>
+                </p>
+                <p>
+                     Here we list the available global properties and what affect they have
+                     on the AndroMDA generation process.
+                </p>
+                <table>
+                    <tr>
+                        <td>
+                            <strong>Property</strong>
+                        </td>
+                        <td>
+                            <strong>Description</strong>
+                        </td>
+                        <td>
+                            <strong>Required</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a name="modelValidation">modelValidation</a>
+                        </td>
+                        <td>
+                            Specifies whether or not models loaded by AndroMDA will be
+                            validated.  By default models <strong>WILL</strong> be validated,
+                            however sometimes its nice to turn off validation for performance
+                            reasons (i.e. you have very large model(s) being processed).
+                        </td>
+                        <td>
+                            No, defaults to
+                            <code>true</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a name="xmlValidation">xmlValidation</a>
+                        </td>
+                        <td>
+                            Specifies whether or not XML resources loaded by AndroMDA will be
+                            validated (such as XML plugin descriptors).  Sometimes underlying
+                            XML parsers don't support XML Schema validation and in that case,
+                            we want to be able to turn it off.
+                        </td>
+                        <td>
+                            No, defaults to
+                            <code>true</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a name="outputEncoding">outputEncoding</a>
+                        </td>
+                        <td>
+                            Sets the encoding for all resulting model processing output.
+                        </td>
+                        <td>
+                            No, defaults to the platform default encoding.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a name="failOnModelValidationErrors">failOnModelValidationErrors</a>
+                        </td>
+                        <td>
+                            Specifies whether or not model processing should fail when <strong>ANY</strong>
+                            model validation errors are present.
+                        </td>
+                        <td>
+                            No, defaults to <code>true</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a name="cartridgeFilter">cartridgeFilter</a>
+                        </td>
+                        <td>
+                            A comma seperated list of cartridge names (i.e. namespaces) that
+                            should be processed by AndroMDA.  If this is not defined, then
+                            <strong>ANY</strong> discovered cartridges will be processed.
+                            This is useful when you want to restrict the cartridges that will
+                            process the model, in order to speed up the development cycle.
+                            <p class="highlight">
+                                You can also prefix the list of cartridges using the tilde '~' character,
+                                that way the cartridges that are *not* listed will be processed (negation).
+                            </p>
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a name="loggingConfigurationUri">loggingConfigurationUri</a>
+                        </td>
+                        <td>
+                            Specifies the location of an external logging configuration file.  This is useful if you want
+                            to override the default logging behavior of AndroMDA.
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                </table>
+            </subsection>
+            <subsection name="">
+                <h2>
+                    <a name="server"><![CDATA[<server>]]></a>
+                </h2>
+                <p>
+                    The <em>optional</em> <![CDATA[<server>]]> element provides information
+                    about the AndroMDA server.  The AndroMDA server can be used to initialize
+                    AndroMDA and to provide the pre-loading of models.  What this means is
+                    that initialization, model loading, and model validation does not occur
+                    each time you run AndroMDA, but only when your model changes
+                    (significantly lowering total model processing time).
+                    <source language="xml">
+
+<![CDATA[<andromda>
+    ...
+    <server>
+        <host>localhost</host>
+        <port>4446</port>
+        <loadInterval>1000</loadInterval>
+        <maximumFailedLoadAttempts>10</maximumFailedLoadAttempts>
+    </server>
+    ...
+</andromda>]]>
+                    </source>
+                </p>
+                <subsection name="">
+                    <h2>
+                        <a name="host"><![CDATA[<host>]]></a>
+                    </h2>
+                    <p>
+                        The contents of the <em>required</em> <![CDATA[<host>]]> element defines the
+                        host of the AndroMDA <a href="#andromda">server</a> instance.  This is used by the
+                        server's client to connect to the host on which the server instance is running.
+                        <source language="xml">
+
+<![CDATA[<server>
+    <host>localhost</host>
+    ...
+</server>]]>
+                        </source>
+                    </p>
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="port"><![CDATA[<port>]]></a>
+                    </h2>
+                    <p>
+                        The contents of the <em>required</em> <![CDATA[<port>]]> element defines the
+                        port of the AndroMDA <a href="#andromda">server</a> instance.  This is used by the
+                        server to indicate what port the server will run on and and the server's client
+                        to know on what port it needs to connect.
+                        <source language="xml">
+
+<![CDATA[<server>
+    <host>localhost</host>
+    <port>4446</port>
+</server>]]>
+                        </source>
+                    </p>
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="loadInterval"><![CDATA[<loadInterval>]]></a>
+                    </h2>
+                    <p>
+                        The contents of this <em>optional</em> element defines the interval (in milliseconds)
+                        at which the model should be re-loaded into AndroMDA's repository (loading only
+                        occurs if model is out-of-date). By default this value is set to <em>1000</em> (or 1 second).
+                        <source language="xml">
+
+<![CDATA[<server>
+    ...
+    <port>4446</port>
+    <loadInterval>1000</loadInterval>
+</server>]]>
+                        </source>
+                    </p>
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="maximumFailedLoadAttempts"><![CDATA[<maximumFailedLoadAttempts>]]></a>
+                    </h2>
+                    <p>
+                        The contents of this <em>optional</em> element defines the maximum number of
+                        failed model loading attempts that may occur before a failure is reported by AndroMDA.
+                        By default this value is set to <em>10</em>.
+                        <source language="xml">
+
+<![CDATA[<server>
+    ...
+    <loadInterval>1000</loadInterval>
+    <maximumFailedLoadAttempts>10</maximumFailedLoadAttempts>
+</server>]]>
+                        </source>
+                    </p>
+                </subsection>
+            </subsection>
+            <subsection name="">
+                <h2>
+                    <a name="repositories"><![CDATA[<repositories>]]></a>
+                </h2>
+                <p>
+                    <![CDATA[<repositories>]]> aggregates all <em>repository</em> elements and is used to 
+                    to tell AndroMDA what repository(s) to use when processing a model.  Here's an example of what the
+                    <em><![CDATA[<repositories>]]></em> element might contain.
+                    <source language="xml">
+<![CDATA[<andromda>
+    ...
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model lastModifiedCheck="true">
+                    <uri>file:/path/to/models/model1.xmi</uri>
+                    <moduleSearchLocations>
+                        <location patterns="*.xmi, *.xml.zip">/path/to/modules</location>
+                        <location>/path/to/more/modules</location>
+                    </moduleSearchLocations>
+                    <modelPackages>
+                        <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+                        <modelPackage>org::andromda::cartridges::test</modelPackage>
+                    </modelPackages>
+                </model>
+                <model><uri>file:/path/to/models/model2.xmi</uri></model>
+            </models>
+        <repository>
+        <repository name="EMF">
+            ...
+        </repository>
+        ...
+    </repositories>
+    ...
+</andromda>]]>
+                    </source>
+                </p>
+            </subsection>
+            <subsection name="">
+                <h2>
+                    <a name="repository"><![CDATA[<repository>]]></a>
+                </h2>
+                <p>
+                    The <strong>required</strong> <code><![CDATA[<repository/>]]></code>
+                    element is used to tell AndroMDA what repository to use when processing one or 
+                    more models.
+                    <source language="xml">
+<![CDATA[<repositories>
+    <repository name="netBeansMDR">
+        ...
+    </repository>
+    ...
+</repositories>]]>
+                    </source>
+                </p>
+                <table>
+                    <tr>
+                        <td>
+                            <strong>Attribute</strong>
+                        </td>
+                        <td>
+                            <strong>Description</strong>
+                        </td>
+                        <td>
+                            <strong>Required</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            name
+                        </td>
+                        <td>
+                            This is the name of an available repository, repositories are namespace
+                            components discovered and made available by placing them on the classpath.
+                        </td>
+                        <td>
+                            Yes
+                        </td>
+                    </tr>
+                </table>
+            </subsection>
+            <subsection name="">
+                <h2>
+                    <a name="models"><![CDATA[<models>]]></a>
+                </h2>
+                <p>
+                    The <![CDATA[<models>]]> element that is used to provide the information necessary
+                    for AndroMDA to process one or more model(s).  Here's an example of what the
+                    <em><![CDATA[<models>]]></em> element might contain.
+                    <source language="xml">
+<![CDATA[
+    ...
+    <models>
+        <model lastModifiedCheck="true">
+            <uri>file:/path/to/models/model1.xmi</uri>
+            <moduleSearchLocations>
+                <location patterns="*.xmi, *.xml.zip">/path/to/modules</location>
+                <location>/path/to/more/modules</location>
+            </moduleSearchLocations>
+            <modelPackages>
+                <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+                <modelPackage>org::andromda::cartridges::test</modelPackage>
+            </modelPackages>
+        </model>
+        <model><uri>file:/path/to/models/model2.xmi</uri></model>
+    </models>
+    ...
+]]>
+                    </source>
+                </p>
+            </subsection>
+            <subsection name="">
+                <h2>
+                    <a name="model"><![CDATA[<model>]]></a>
+                </h2>
+                <p>
+                    The <strong>required</strong> <code><![CDATA[<model/>]]></code>
+                    element is used to tell AndroMDA what model it needs to process
+                    <source language="xml">
+<![CDATA[<models>
+    <model>
+        ...
+    </model>
+</models>]]>
+                    </source>
+                </p>
+                <table>
+                    <tr>
+                        <td>
+                            <strong>Attribute</strong>
+                        </td>
+                        <td>
+                            <strong>Description</strong>
+                        </td>
+                        <td>
+                            <strong>Required</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            lastModifiedCheck
+                        </td>
+                        <td>
+                            This turns on or off the ability
+                            to check the last modified date on files in order to
+                            determine whether or not they need to be re-rendered or
+                            not. The value of this attribute can be "true" or "false".
+                            By default, it is <em>false</em>, meaning that AndroMDA will
+                            run regardless of what the last modifed date may be. When
+                            set to <em>true</em>, this helps to accelerate the build because
+                            AndroMDA will not re-process models that have not changed.
+                        </td>
+                        <td>
+                            No, defaults to <code>false</code>.
+                        </td>
+                    </tr>
+                </table>
+                <subsection name="">
+                    <h2>
+                        <a name="uri"><![CDATA[<uri>]]></a>
+                    </h2>
+                    <p>
+                        The contents of the required <em>uri</em> element is used to
+                        define the URI of one or more files that make up the model.
+                        <source language="xml">
+<![CDATA[<model>
+    <uri>file:/path/to/models/model1Uri1.xmi</uri>
+    <uri>file:/path/to/models/model1Uri2.xmi</uri>
+    ...
+</model>]]>
+                        </source>
+                    </p>
+                </subsection>
+                <subsection name="">
+                <h2>
+                    <a name="transformations"><![CDATA[<transformations>]]></a>
+                </h2>
+                <p>
+                    The <![CDATA[<transformations>]]> in an <em>optional</em> element of the <a href="#model">model</a> aggregating the XSL transformations that will be
+                    applied to the model before model processing begins (they are applied in the order in which they are listed).
+                    Here's an example of what the <em><![CDATA[<transformations>]]></em> element might contain.
+                    <source language="xml">
+<![CDATA[<andromda>
+    ...
+    <model>
+        ...
+        <transformations>
+            <transformation output="path/to/some/directory/transformed-model.xmi"><uri>file:transformation1.xsl</uri></transformation>
+            <transformation><uri>file:transformation2.xsl</uri></transformation>
+       </transformations>
+        ...
+    </model>
+    ...
+</andromda>]]>
+                    </source>
+                </p>
+            </subsection>
+            <subsection>
+                <table>
+                    <h2>
+                        <a name="transformation"><![CDATA[<transformation>]]></a>
+                    </h2>
+                    <p>
+                        The <code><![CDATA[<transformation/>]]></code> is a <em>required</em>
+                        element used to tell AndroMDA to apply an XSL transformation to the model(s) <em>before</em>
+                        modeling processing occurs.  Note, that as many
+                        transformations can be specified as you like, the transformations will be applied
+                        in the order that they are specified in your andromda.xml.  Also note that any imports
+                        are assumed to be relative to the transformation itself.
+                    </p>
+                    <tr>
+                        <td>
+                            <strong>Attribute</strong>
+                        </td>
+                        <td>
+                            <strong>Description</strong>
+                        </td>
+                        <td>
+                            <strong>Required</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            output
+                        </td>
+                        <td>
+                            The location to which the result of the output will be written.
+                            This is useful for debugging purposes, or if you need to "fix"
+                            your model with a transformation.
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                 </table>
+                <subsection name="">
+                    <h2>
+                        <a name="uri"><![CDATA[<uri>]]></a>
+                    </h2>
+                    <p>
+                        The contents of the required <em>uri</em> element is used to
+                        define the location of the transformation.
+                        <source language="xml">
+<![CDATA[<transformation>
+    <uri>file:/path/to/transformations/transformation2.xsl</uri>
+</transformation>]]>
+                            </source>
+                        </p>
+                    </subsection>
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="moduleSearchLocations"><![CDATA[<moduleSearchLocations>]]></a>
+                    </h2>
+                    <p>
+                        The moduleSearchLocations element defines the locations of one or more
+                        external modules or profiles (i.e. HREFs) that a model may reference.
+                        <source language="xml">
+<![CDATA[<model>
+    ...
+    <moduleSearchLocations>
+        <location patterns="*.xmi, *.xml.zip">/path/to/modules</location>
+        <location>/other/path/to/modules</location>
+    </moduleSearchLocations>
+</model>]]>
+                        </source>
+                    </p>
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="modelPackages"><![CDATA[<modelPackages>]]></a>
+                    </h2>
+                    <p>
+                            Groups the nested modelPackage elements that define which packages
+                            should and should not be processed by AndroMDA within the given model.
+                            <source language="xml">
+<![CDATA[<model>
+    ...
+    <modelPackages processAll="false">
+        <modelPackage process="true">some::package::to::process</location>
+    </modelPackages>
+    ...
+</model>]]>
+                        </source>
+                    </p>
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>Attribute</strong>
+                            </td>
+                            <td>
+                                <strong>Description</strong>
+                            </td>
+                            <td>
+                                <strong>Required</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a name="processAll">processAll</a>
+                            </td>
+                            <td>
+                                Specifies whether or not to process/generate from all packages
+                                in the model, used in combination with the
+                                <a href="#modelPackage">
+                                    <code><![CDATA[<modelPackage>]]></code>
+                                </a> element.
+                            </td>
+                            <td>
+                                No, defaults to
+                                <code>true</code>.
+                            </td>
+                        </tr>
+                    </table>
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="modelPackage"><![CDATA[<modelPackage>]]></a>
+                    </h2>
+                    <table>
+                        <p>
+                            The <em>optional</em> <code><![CDATA[<modelPackage>]]></code> is used in
+                            conjunction with the <code><a href="#processAll">processAll</a></code>
+                            attribute of the <code><a href="#modelPackages"><![CDATA[<modelPackages>]]></a></code>
+                            element.  By default all packages are processed. Therefore it is recommended to
+                            turn off the packages which should be not processed.  In other words,
+                            if you don't want to generate code from a certain package of a model,
+                            then you can create a modelPackage for that package, set the <em>process</em> attribute
+                            to <code>false</code>, and any model elements in that package will not be processed.
+                        </p>
+                        <p class="highlight">
+                            Note that you can use wild card matching within the modelPackage element.  For example:
+                        </p>
+                        <source language="xml">
+<![CDATA[<modelPackages>
+    ...
+    <modelPackage process="false">my::package::bar::*</modelPackage>                                
+    <modelPackage process="false">my::package::bar**</modelPackage>
+    ...
+</modelPackages>]]>                                
+                        </source>
+                        <tr>
+                            <td>
+                                <strong>Attribute</strong>
+                            </td>
+                            <td>
+                                <strong>Description</strong>
+                            </td>
+                            <td>
+                                <strong>Required</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                process
+                            </td>
+                            <td>
+                                True or false depending on whether or not the package
+                                should be processed.
+                            </td>
+                            <td>
+                                No. Defaults to
+                                <code>true</code>.
+                            </td>
+                        </tr>
+                        <subsection name="Example">
+                            <p>
+                                The below example demonstrates the correct use of the <![CDATA[<modelPackage>]]>
+                                element:
+                            </p>
+                            <source language="xml">
+<![CDATA[<modelPackages>
+  ...
+    <modelPackage>my::package::foo</modelPackage>
+    <modelPackage process="false">my::package::bar</modelPackage>
+  ...
+</modelPackages>]]></source>
+                                <p>
+                                    The above is equivalent to:
+                                </p>
+                                <source language="xml">
+<![CDATA[<modelPackages>
+  ...
+    <modelPackage process="false">my::package::bar</modelPackage>
+  ...
+</modelPackages>]]>
+                            </source>
+                        </subsection>
+                    </table>
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="constraints"><![CDATA[<constraints>]]></a>
+                    </h2>
+                    <p>
+                        Groups the nested constraint elements that define which validation constraints
+                        should and should not be enforced by AndroMDA within the given model.  This is useful
+                        when you want to turn on/off different constraints.
+                            <source language="xml">
+<![CDATA[<model>
+    ...
+    <constraints enforceAll="true">
+        <constraint enforce="false">some::package::to::ignore::constraints::SomeClass::some constraint name</constraint>
+    </constraints>
+    ...
+</model>]]>
+                        </source>
+                    </p>
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>Attribute</strong>
+                            </td>
+                            <td>
+                                <strong>Description</strong>
+                            </td>
+                            <td>
+                                <strong>Required</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a name="enforceAll">enforceAll</a>
+                            </td>
+                            <td>
+                                Specifies whether or not to enforce constraints within
+                                the model, used in combination with the
+                                <a href="#constraint">
+                                    <code><![CDATA[<constraint>]]></code>
+                                </a> element.
+                            </td>
+                            <td>
+                                No, defaults to
+                                <code>true</code>.
+                            </td>
+                        </tr>
+                    </table>
+                </subsection>
+                <subsection name="">
+                    <h2>
+                        <a name="constraint"><![CDATA[<constraint>]]></a>
+                    </h2>
+                    <table>
+                        <p>
+                            The <em>optional</em> <code><![CDATA[<constraint>]]></code> is used in
+                            conjunction with the <code><a href="#enforceAll">enforceAll</a></code>
+                            attribute of the <code><a href="#constraints"><![CDATA[<constraints>]]></a></code>
+                            element.  By default all constraints are enforced (unless model validation is completely turned
+                            off). Therefore it is recommended to turn off the constraints which should be not enforced.  
+                            In other words, if you don't want to enforce a constraint applied to a certain context element,
+                            then you can create a constraint element for that context element and constraint name, 
+                            and set the <em>enforce</em> attribute to <code>false</code>, and any constraint(s) matching
+                            that name will not be enforced.
+                        </p>
+                        <p class="highlight">
+                            Note that you can use wild card matching within the constraint element.  For example:
+                        </p>
+                        <source language="xml">
+<![CDATA[<constraints>
+    ...
+    <constraint enforce="false">my::package::bar::SomeClass::*</constraint>                                
+    <constraint enforce="false">my::package::bar**</constraint>
+    <constraint enforce="false">my::package::bar::SomeClass::a constraint**</constraint>
+    ...
+</constraints>]]>                                
+                        </source>
+                        <tr>
+                            <td>
+                                <strong>Attribute</strong>
+                            </td>
+                            <td>
+                                <strong>Description</strong>
+                            </td>
+                            <td>
+                                <strong>Required</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                enforce
+                            </td>
+                            <td>
+                                True or false depending on whether or not the constraint
+                                should be enforced.
+                            </td>
+                            <td>
+                                No. Defaults to <code>true</code>.
+                            </td>
+                        </tr>
+                        <subsection name="Example">
+                            <p>
+                                The below example demonstrates the correct use of the <![CDATA[<constraint>]]>
+                                element:
+                            </p>
+                            <source language="xml">
+<![CDATA[<constraints>
+    ...
+    <constraint>my::package::foo</constraint>
+    <constraint enforce="false">my::package::bar**</constraint>
+    ...
+</constraints>]]></source>
+                                <p>
+                                    The above is equivalent to:
+                                </p>
+                                <source language="xml">
+<![CDATA[<constraints enforceAll="false">
+    ...
+    <constraint enforce="true">my::package::foo</constraint>
+    ...
+</constraints>]]>
+                            </source>
+                        </subsection>
+                    </table>
+                </subsection>
+            </subsection>
+            <subsection name="">
+                <h2>
+                    <a name="mappingsSearchLocations"><![CDATA[<mappingsSearchLocations>]]></a>
+                </h2>
+                <p>
+                    The <a href="#andromda"> <code><![CDATA[<andromda>]]></code>
+                    </a> element takes an optional <code><![CDATA[<mappingsSearchLocations>]]></code> element in order
+                    to define the location of AndroMDA mapping files.  This allows us to use the <code>logical</code> names for the
+                    location of mapping files (instead of the complete path).
+                </p>
+                <p class="highlight">
+                    Please Note: The logical name is the value of the <em>name</em> attribute within an the actual mappings
+                    file on the <em><![CDATA[<mappings/>]]></em> element.
+                </p>
+                <source language="xml">
+<![CDATA[<andromda>
+    ...
+    <mappingsSearchLoations>
+        <location patterns="*.xml">/path/to/mappings</location>
+    </mappingsSearchLocations>
+    ...
+</andromda>]]>
+                </source>
+                <h3>Example</h3>
+                <p>
+                    We want to define the location of the mapping files so that we can
+                    reference the logical name of mapping, files therefore we create a
+                    <code><![CDATA[<mappingsSearchLocations>]]></code> element pointing to
+                    the locations that contain our AndroMDA mapping files.
+                    Note that now we are able to use logical names such as <code>JDBC</code>
+                    and <code>HypersonicSql</code> instead of the complete paths.
+                </p>
+
+                <source language="xml">
+<![CDATA[<andromda>
+    <model><uri>jar:file:/path/to/my/model.zuml!/model.xmi</uri><model>
+    <mappingsSearchLocations>
+        <location patterns="*.xml">/path/to/mappings</location>
+        <location>/path/to/more/mappings</location>
+    </mappingsSearchLocations>
+    ...
+    <namespace name="hibernate">
+        <property name="jdbcMappingsUri">JDBC</property>
+        <property name="sqlMappingsUri">HypersonicSql</property>
+        ...
+    </namespace>
+    ...
+</andromda>]]>
+                </source>
+            </subsection>
+            <subsection name="">
+                <h2>
+                    <a name="namespaces"><![CDATA[<namespaces>]]></a>
+                </h2>
+                <p>
+                    The <a href="#andromda"> <code><![CDATA[<andromda>]]></code>
+                    </a> element takes a nested <code><![CDATA[<namespaces>]]></code> element in order to customize
+                    the properties of one or more namespaces (i.e. plugins).
+                            <source language="xml">
+<![CDATA[<andromda>
+   ...
+    <namespaces>
+       ...
+    </namespaces>
+    ...
+</andromda>]]>
+                            </source>
+                </p>
+            </subsection>
+            <subsection name="">
+                <h2>
+                    <a name="namespace"><![CDATA[<namespace>]]></a>
+                </h2>
+                <p>
+                    The <code><![CDATA[<namespace>]]></code> element is used to do two things:
+                    <ol>
+                        <li>Activate a cartridge (if a cartridge resides within the given namespace)</li>
+                        <li>
+                            Customize the properties of a plugin (cartridge, translation-library, etc).
+                            These properties can be used to define the location to which generated files are written,
+                            what mapping files to use for different language typee (i.e. JavaMappings.xml, DotNetMappings.xml, etc.),
+                            and any other aspect that a property might be used to configure.
+                         </li>
+                    </ol>
+                    This example here activates the webservice cartridge, and configures it:
+                    <source language="xml">
+<![CDATA[<namespaces>
+    <namespace name="webservice">
+        <properties>
+            <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
+            <property name="languageMappingsUri">AxisJavaMappings</property>
+            <property name="defaultProvider">RPC</property>
+            <property name="applicationName">${application.id}</property>
+            <property name="wsdlSoapAddress">${wsdl.soap.address}</property>
+            <property name="wsdls">${maven.andromda.webservice.generated.dir}/wsdl</property>
+            <property name="rpcClassNamePattern">{0}.{1}WSDelegator</property>
+            <property name="axis-configuration">${maven.andromda.webservice.generated.dir}/axis</property>
+        </properties>
+    </namespace>
+    ...
+</namespace>]]>
+                    </source>
+                </p>
+                <p class="highlight">
+                    A special <em>default</em> namespace exists which is different than a regular namespace, properties
+                    that you place in this namespace are available to *ALL* namespace components.  For example: you'd want to 
+                    define a property in this namespace when you want a property to apply to all cartridges.
+                    <source language="xml">
+<![CDATA[
+<namespaces>
+    <namespace name="default">
+        <properties>
+            <property name="languageMappingsUri">Java</property>
+            <property name="wrapperMappingsUri">JavaWrapper</property>
+            <property name="sqlMappingsUri">${sql.mappings}</property>
+            <property name="jdbcMappingsUri">JDBC</property>
+            <property name="maxSqlNameLength">30</property>
+            <property name="foreignKeySuffix">_FK</property>
+            <property name="ejbJndiNamePrefix">${application.id}</property>
+        </properties>
+    </namespace>
+    ...
+</namespaces>
+]]>
+                    </source>
+                </p>
+            </subsection>
+            <subsection name="">
+                <h2>
+                    <a name="properties"><![CDATA[<properties>]]></a>
+                </h2>
+                <p>
+                    The properties is used to group the properties that
+                    configure the options within a namespace/plugin.
+                    <source language="xml">
+<![CDATA[<namespace name="webservice">
+    <properties>
+        ...
+    </properties>
+</namespace>]]>
+                    </source>
+                </p>
+            </subsection>
+            <subsection name="">
+                <h2>
+                    <a name="property"><![CDATA[<property>]]></a>
+                </h2>
+                <p>
+                    The <em>optional</em> propertiy is used to configure an option within a namespace/plugin.
+                    For example this property here sets the <em>schemaTypeMappingsUri</em>
+                    with a value of 'AxisWSDLMappings'.
+                    <source language="xml">
+<![CDATA[<properties>
+    ...
+    <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
+    ...
+</properties>]]>
+                    </source>
+                    <h3>Attributes</h3>
+                    <table>
+                        <tr>
+                            <td>
+                                <strong>Attribute</strong>
+                            </td>
+                            <td>
+                                <strong>Description</strong>
+                            </td>
+                            <td>
+                                <strong>Required</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                name
+                            </td>
+                            <td>
+                                The name of the property to configure
+                            </td>
+                            <td>
+                                Yes
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                ignore
+                            </td>
+                            <td>
+                                A flag indicating whether or not the property should be ignored.
+                            </td>
+                            <td>
+                                No, unless for some reason you want AndroMDA to ignore the fact
+                                that the property isn't defined.  This is useful in cases where a property
+                                might be marked as <em>required</em> for a namespace, however in your case 
+                                its not needed.
+                            </td>
+                        </tr>
+                    </table>
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

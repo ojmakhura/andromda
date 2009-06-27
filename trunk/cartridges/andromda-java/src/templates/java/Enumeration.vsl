@@ -1,0 +1,340 @@
+#if ($umlUtils.shouldOutput($enumeration))
+// license-header java merge-point
+//
+/** 
+ * @author GENERATED CODE! Do not modify by hand!
+ * 
+ * TEMPLATE:     Enumeration.vsl in andromda-java-cartridge
+ * MODEL CLASS:  $enumeration.validationName
+ * METAFACADE:   org.andromda.metafacades.uml.Enumeration
+#foreach ($stereotype in $enumeration.stereotypes)
+ * STEREOTYPE:  ${stereotype}
+#end
+ */
+## -- start -- set the map and list types as template parameters if required
+#set ($valuesTemplateType = "")
+#set ($literalsTemplateType = "")
+#set ($namesTemplateType = "")
+#set ($valueListTemplateType = "")
+#if ($enableTemplating)
+#set ($valueListTemplateType = "<$enumeration.name>")
+#if ($stringUtils.isNotBlank($enumeration.literalType.fullyQualifiedName))
+#if ($enumeration.literalType.primitive)
+#set ($valuesTemplateType = "<${enumeration.literalType.wrapperName}, ${enumeration.name}>")
+#set ($literalsTemplateType = "<${enumeration.literalType.wrapperName}>")
+#else
+#set ($valuesTemplateType = "<${enumeration.literalType.fullyQualifiedName}, ${enumeration.name}>")
+#set ($literalsTemplateType = "<${enumeration.literalType.fullyQualifiedName}>")
+#end
+#set ($namesTemplateType = "<String>")
+#end
+#set ($cast = "")
+#else
+#set ($cast = "($enumeration.name)")
+#end
+##  -- end --
+#if ($stringUtils.isNotBlank($enumeration.packageName))
+package $enumeration.packageName;
+#end
+
+#if ($XMLBindingAnnotations)
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
+import javax.xml.bind.annotation.XmlType;
+#end
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+#if ($serializable)
+import java.io.Serializable;
+#end
+
+/**
+$enumeration.getDocumentation(" * ")
+ */
+#if ($XMLBindingAnnotations)
+@XmlEnum
+@XmlType(name="$enumeration.name")
+#end
+public class $enumeration.name
+#if($enumeration.generalization)
+    extends ${enumeration.generalization.fullyQualifiedName}
+#elseif ($serializable)
+    implements Serializable, Comparable${valueListTemplateType}
+#end
+{
+##special handling of byte and short as enumeration value type:
+##the java compiler will always promote these types to int
+##so we have to cast these values to prevent compile errors
+#set($intCast = "")
+#if($enumeration.literalType.primitive && ($enumeration.literalType.fullyQualifiedName.equals("byte") || $enumeration.literalType.fullyQualifiedName.equals("short")))
+#set($intCast = "(${enumeration.literalType.fullyQualifiedName})")
+#end
+#set ($literalTypeName = "String")
+#if ($stringUtils.isNotBlank($enumeration.literalType.fullyQualifiedName))
+#set ($literalTypeName = $enumeration.literalType.fullyQualifiedName)
+#end
+#set ($nbLiterals = ${enumeration.literals.size()})
+#set ($i = 0)
+#foreach ($literal in $enumeration.literals)
+#set ($i = $i + 1)
+#if ($i == $nbLiterals)
+#set ($separator = ";")
+#else
+#set ($separator = ",")
+#end
+#if ($stringUtils.isNotBlank($literal.documentation))
+$literal.getDocumentation("     * ")
+#end
+#if ($XMLBindingAnnotations)
+    @XmlEnumValue("$literal.name")
+#end
+    public static final $enumeration.name $literal.name = new ${enumeration.name}(${intCast}${literal.enumerationValue});
+
+#end
+#if ($serializable)
+    /**
+     * The serial version UID of this class. Needed for serialization.
+     */
+    private static final long serialVersionUID = ${enumeration.serialVersionUID}L;
+
+#end
+    private $enumeration.literalType.fullyQualifiedName value;
+
+    /**
+     * The default constructor allowing
+     * super classes to access it. Used to access value list.
+     */
+    protected ${enumeration.name}()
+    {
+        this.value =#if($enumeration.literalType.primitive) 0#else null#end;
+
+    }
+
+    /**
+     * The default ${enumeration.name} constructor allowing
+     * super classes to access it.
+     * @param valueIn $literalTypeName input value
+     */
+    protected ${enumeration.name}($literalTypeName valueIn)
+    {
+        this.value = valueIn;
+    }
+
+    /**
+     * @see Object#toString()
+     */
+#if ($enableAnnotations)
+    @Override
+#end
+    public String toString()
+    {
+        return String.valueOf(this.value);
+    }
+
+    /**
+     * Creates an instance of $enumeration.name from <code>value</code>.
+     *
+     * @param value the value to create the $enumeration.name from.
+     * @return static Enumeration with corresponding value
+     */
+## UML2 fromSignature can return signature with no method ()
+#if ($enumeration.fromOperationSignature.equals("from"))
+    public static $enumeration.name ${enumeration.fromOperationSignature}($literalTypeName value)
+#else
+    public static $enumeration.name ${enumeration.fromOperationSignature}
+#end
+    {
+#set ($value = "value")
+#if($enumeration.literalType.primitive)
+#set ($value = "new ${enumeration.literalType.wrapperName}(value)")
+#end
+        final $enumeration.name typeValue = ${cast}VALUES.get($value);
+        if (typeValue == null)
+        {
+            throw new IllegalArgumentException("invalid value '" + value + "', possible values are: " + ${enumeration.name}.literals);
+        }
+        return typeValue;
+    }
+
+    /**
+     * Returns a enumeration literal String <code>value</code>.
+     * Required by JAXB2 enumeration implementation
+     *
+     * @return $literalTypeName with corresponding value
+     */
+    public $literalTypeName value() {
+        return this.getValue();
+    }
+
+    /**
+     * Returns an instance of $enumeration.name from String <code>value</code>.
+     * Required by JAXB2 enumeration implementation
+     *
+     * @param value the value to create the $enumeration.name from.
+     * @return static Enumeration with corresponding value
+     */
+    public static $enumeration.name fromValue(String value) 
+    {
+        for (int i=0; i<${enumeration.name}.names().size(); i++) 
+        {
+            String enumName = (String)${enumeration.name}.names().get(i);
+            if (enumName.equals(value)) 
+            {
+                return ($enumeration.name)valueList.get(i);
+            }
+        }
+        throw new IllegalArgumentException(value.toString());
+    }
+
+    /**
+     * Gets the underlying value of this type safe enumeration.
+     *
+     * @return the underlying value.
+     */
+    public $enumeration.literalType.fullyQualifiedName getValue()
+    {
+        return this.value;
+    }
+
+    /**
+     * @param that Object to compare to
+     * @return comparison to Object value: 0 -> equal, -1 -> less, +1 -> more
+     * @see Comparable#compareTo(Object)
+     */
+    public int compareTo(#if($enableTemplating)${enumeration.name}#else#**#Object#end that)
+    {
+        if (that==null || !(that instanceof $enumeration.name))
+        {
+            return -1;
+        }
+#if($enumeration.literalType.primitive)
+        return this.getValue() < (${cast}that).getValue() ? -1 :
+            (this.getValue() == (${cast}that).getValue() ? 0 : 1);
+#else
+        return (this == that) ? 0 : this.getValue().compareTo((${cast}that).getValue());
+#end
+    }
+
+    /**
+     * Returns an unmodifiable list containing the literals that are known by this enumeration.
+     *
+     * @return A List containing the actual literals defined by this enumeration, this list
+     *         can not be modified.
+     */
+    public static List${literalsTemplateType} literals()
+    {
+        return ${enumeration.name}.literals;
+    }
+
+    /**
+     * Returns an unmodifiable list containing the names of the literals that are known
+     * by this enumeration.
+     *
+     * @return A List containing the actual names of the literals defined by this
+     *         enumeration, this list can not be modified.
+     */
+    public static List${namesTemplateType} names()
+    {
+        return ${enumeration.name}.names;
+    }
+    
+    /**
+     * Returns an unmodifiable list containing the actual enumeration instance values.
+     *
+     * @return A List containing the actual enumeration instance values.
+     */
+    public static List${valueListTemplateType} values()
+    {
+        return ${enumeration.name}.valueList;
+    }
+
+    /**
+     * @see Object#equals(Object)
+     */
+#if ($enableAnnotations)
+    @Override
+#end
+    public boolean equals(Object object)
+    {
+        if (object==null)
+        {
+            return false;
+        }
+#if ($enumeration.literalType.primitive)
+        return (this == object)
+            || (object instanceof $enumeration.name
+            && (($enumeration.name)object).getValue() == this.getValue());
+#else
+        return (this == object)
+            || (object instanceof $enumeration.name && (($enumeration.name)object).getValue().equals(
+                this.getValue()));
+#end
+    }
+
+    /**
+     * @see Object#hashCode()
+     */
+#if ($enableAnnotations)
+    @Override
+#end
+    public int hashCode()
+    {
+#if ($enumeration.literalType.primitive)
+        return this.getValue();
+#else
+        if (this.getValue()==null)
+        {
+            return 0;
+        }
+        return this.getValue().hashCode();
+#end
+    }
+
+    /**
+     * This method allows the deserialization of an instance of this enumeration type to return the actual instance
+     * that will be the singleton for the JVM in which the current thread is running.
+     * <p>
+     * Doing this will allow users to safely use the equality operator <code>==</code> for enumerations because
+     * a regular deserialized object is always a newly constructed instance and will therefore never be
+     * an existing reference; it is this <code>readResolve()</code> method which will intercept the deserialization
+     * process in order to return the proper singleton reference.
+     * <p>
+     * This method is documented here:
+     * <a href="http://java.sun.com/javase/6/docs/platform/serialization/spec/input.html">Java
+     * Object Serialization Specification</a>
+     */
+    protected Object readResolve() throws java.io.ObjectStreamException
+    {
+        // ObjectStreamException is not actually thrown from this implementation - compiler warning (ignore)
+        return ${enumeration.name}.${enumeration.fromOperationName}(this.getValue());
+    }
+
+    private static final Map${valuesTemplateType} VALUES = new LinkedHashMap${valuesTemplateType}($enumeration.literals.size(), 1);
+    private static List${literalsTemplateType} literals = new ArrayList${literalsTemplateType}($enumeration.literals.size());
+    private static List${namesTemplateType} names = new ArrayList${namesTemplateType}($enumeration.literals.size());
+    private static List${valueListTemplateType} valueList = new ArrayList${valueListTemplateType}($enumeration.literals.size());
+
+    /**
+     * Initializes the values.
+     */
+    static
+    {
+#foreach ($literal in $enumeration.literals)
+#set ($value = "${literal.name}.value")
+#if($literal.type.primitive)
+#set ($value = "new ${literal.type.wrapperName}(${literal.name}.value)")
+#end
+        VALUES.put($value, $literal.name);
+        ${enumeration.name}.valueList.add($literal.name);
+        ${enumeration.name}.literals.add($value);
+        ${enumeration.name}.names.add("$literal.name");
+#end
+        ${enumeration.name}.valueList = Collections.unmodifiableList(valueList);
+        ${enumeration.name}.literals = Collections.unmodifiableList(literals);
+        ${enumeration.name}.names = Collections.unmodifiableList(names);
+    }
+}
+#end

@@ -1,0 +1,43 @@
+#set ($generatedFile = "${manageable.manageableDaoFullPath}.java")
+// license-header java merge-point
+##
+#set ($memberList = $manageable.listManageableMembers(true))
+#if (!$manageable.identifiers.empty)
+#set ($identifier = $manageable.manageableIdentifier)
+#end
+##
+package $manageable.manageablePackageName;
+
+public interface $manageable.manageableDaoName
+{
+#if ($manageable.create)
+    public $manageable.fullyQualifiedEntityName create($memberList);
+
+#end
+#if ($manageable.read)
+    public $manageable.fullyQualifiedEntityName readById($identifier.type.fullyQualifiedName $identifier.name);
+
+    public java.util.List read($memberList);
+
+    public java.util.List readAll();
+
+#foreach ($member in $manageable.manageableAttributes)
+#if ($member.manageableGetterAvailable)
+    public $member.type.fullyQualifiedName ${member.getterName}($identifier.type.fullyQualifiedName $identifier.name);
+
+#end
+#end
+#if (!$manageable.manageableAssociationEnds.empty)
+    public java.util.Map readBackingLists();
+
+#end
+#end
+#if ($manageable.update)
+    public $manageable.fullyQualifiedEntityName update($memberList);
+
+#end
+#if ($manageable.delete)
+    public void delete(${identifier.type.fullyQualifiedName}[] ids);
+
+#end
+}

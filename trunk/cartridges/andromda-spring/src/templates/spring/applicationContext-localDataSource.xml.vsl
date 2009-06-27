@@ -1,0 +1,34 @@
+#if ($stringUtils.isNotBlank($driver))
+<?xml version="1.0" encoding="$xmlEncoding"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+    <!-- ========================= DATASOURCE DEFINITION ========================= -->
+
+    <!-- Local DataSource that works in any environment -->
+    <bean id="${beanNamePrefix}dataSource" class="$jdbcDataSourceClass"#if ($stringUtils.isNotBlank($jdbcDataSourceDestroyMethod)) destroy-method="$jdbcDataSourceDestroyMethod"#end>
+        <property name="driverClassName"><value>$driver</value></property>
+        <property name="username"><value>$username</value></property>
+        <property name="password"><value>$password</value></property>
+        <property name="url"><value>$connectionUrl</value></property>
+    </bean>
+
+    <!-- ====================== End of DATASOURCE DEFINITION ====================== -->
+
+#if ($stringUtils.isNotBlank($localTransactionManager))
+    <!-- ===================== TRANSACTION MANAGER DEFINITION ========================= -->
+
+    <!-- (local) Transaction Manager -->
+    <bean id="${beanNamePrefix}transactionManager" class="$localTransactionManager">
+#if ($localTransactionManager.indexOf('HibernateTransactionManager') != -1)
+        <property name="sessionFactory"><ref bean="${beanNamePrefix}sessionFactory"/></property>
+#end
+    </bean>
+
+    <!-- ===================== TRANSACTION MANAGER DEFINITION ========================= -->
+#end
+
+</beans>
+#end

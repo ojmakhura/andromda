@@ -1,0 +1,57 @@
+#set ($generatedFile = "$stringUtils.replace($managedBeansPackage, '.', '/')/${preferencesClassName}.java")
+#if ($stringUtils.isNotEmpty($managedBeansPackage))
+package $managedBeansPackage;
+#end
+
+/**
+ * Provides dynamically changeable preferences for changing the application 
+ * display.
+ */
+public class $preferencesClassName
+    implements java.io.Serializable
+{   
+    private String menuTheme;
+    
+    /**
+     * The theme to use for the JSCookMenu.
+     */
+    public String getMenuTheme()
+    {
+        return this.menuTheme;
+    }
+    
+    public void setMenuTheme(final String menuTheme)
+    {
+        this.menuTheme = menuTheme;
+    }
+    
+    /**
+     * The skin to apply.
+     */
+    private String skin;
+    
+    public String getSkin()
+    {
+        return this.skin;
+    }
+    
+    public void setSkin(final String skin)
+    {
+        this.skin = skin;
+    }
+    
+    /**
+     * The maximum rows displayed in a table.
+     */
+    private String maxTableRows;
+    
+    public void setMaxTableRows(final String maxTableRows)
+    {
+        this.maxTableRows = maxTableRows;
+    }
+    
+    public String getMaxTableRows()
+    {
+        return this.maxTableRows;
+    }
+}

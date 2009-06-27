@@ -1,0 +1,45 @@
+<profile>
+    <documentation>
+        This is some documentation about the profile.
+    </documentation>
+    <elements>
+        <elementGroup name="Stereotypes">
+            <documentation>
+                This is some documentation about the stereotypes group.
+            </documentation>
+            <element name="ENTITY">
+                <documentation>
+                    This is some documentation about the Entity stereotype
+                </documentation>
+                <value>Entity</value>
+                <appliedOnElement>ModelElement</appliedOnElement>
+            </element>
+        </elementGroup>
+        <elementGroup name="Tagged Values">
+            <documentation>
+                This is some documentation about the tagged values group.
+            </documentation>
+            <element name="ANDROMDA_TAGGED_VALUE">
+                <documentation>
+                    Some documentation about the andromda tagged value.
+                </documentation>
+                <value>@andromda.tagged.value</value>
+                <appliedOnElement>SomeElement</appliedOnElement>
+                <allowedValues>
+                    <value>1</value>
+                    <value>2</value>
+                    <value default="true">3</value>
+                </allowedValues>
+            </element>
+        </elementGroup>
+        <elementGroup name="Data Types">
+            <documentation>
+                Some documentation about the datatypes.
+            </documentation>
+            <element name="STRING_TYPE">
+                <documentation>Some documentation about the string type</documentation>
+                <value>datatype::String</value>
+            </element>
+        </elementGroup>
+    </elements>
+</profile>

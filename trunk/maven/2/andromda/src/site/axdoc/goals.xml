@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+	<properties>
+    	<title>AndroMDA Maven Plug-in Goals</title>
+  	</properties>
+  	<body>
+		<section name="Goals">
+		    <table>
+		        <tr>
+		            <th>Goal</th>
+		            <th>Description</th>
+		        </tr>
+			    <tr>
+				    <td nowrap="nowrap">
+				        andromda:run
+				    </td>
+				    <td>
+				        <p>
+					        Runs the AndroMDA processor with AndroMDA plugins (i.e. cartridges
+					        and translation-libraries) found on your CLASSPATH. AndroMDA is
+                            configured through the value of the the
+                            <a href="properties.html#maven_andromda_configuration_uri">maven.andromda.configuration.uri</a>
+                            property.
+                        </p>
+				    </td>
+			    </tr>
+			    <tr>
+				    <td nowrap="nowrap">
+				        andromda:schema2xmi
+				    </td>
+				    <td>
+				        <p>
+					        Runs AndroMDA's 
+					        <a href="/andromda-schema2xmi/index.html">Schema2XMI</a>
+					        to provide XMI generation from a database schema. See
+					        <a href="properties.html#schema2xmi">Plugin Settings</a> for more 
+					        information on how to configure this goal.
+					    </p>
+				    </td>
+			    </tr>
+			    <tr>
+				    <td nowrap="nowrap">
+				        andromda:start-server
+				    </td>
+				    <td>
+				        <p>
+					        Starts the AndroMDA server instance. When this is
+                            running, modeling processing will occur on the server.
+                            This dramatically helps to improve initialization
+                            and loading time when running AndroMDA because these things
+                            are taken care of in advance (before the model is actually
+                            processed). The server is configured through
+                            <a href="/configuration.html">AndroMDA configuration file</a>.
+                        </p>
+				    </td>
+			    </tr>
+			    <tr>
+				    <td nowrap="nowrap">
+				        andromda:stop-server
+				    </td>
+				    <td>
+				        <p>
+					        Stops the AndroMDA server instance (if it's currently running). The server
+                            information is configured through 
+                            <a href="/configuration.html">AndroMDA configuration file</a>.
+                        </p>
+				    </td>
+			    </tr>
+			</table>
+		</section>
+  	</body>
+</document>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  	<extend>../project.xml</extend>
+  	<artifactId>andromda-repository-emf</artifactId>
+  	<name>EMF Repository</name>
+  	<shortDescription>AndroMDA EMF Repository</shortDescription>
+  	<description>
+  		This abstract EMF repository module should be extended by those repository implementations wishing to load EMF based models.
+  	</description>
+  	<package>org.andromda.repositories.emf</package>
+	<dependencies>
+        <dependency>
+            <groupId>andromda</groupId>
+            <artifactId>andromda-metafacades-emf-uml2</artifactId>
+            <version>${pom.currentVersion}</version>
+        </dependency>
+		<dependency>
+			<groupId>emf</groupId>
+			<artifactId>emf-common</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>emf</groupId>
+			<artifactId>emf-ecore.xmi</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>emf</groupId>
+			<artifactId>emf-ecore</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+	    <dependency>
+	      	<groupId>commons-lang</groupId>
+	      	<artifactId>commons-lang</artifactId>
+	      	<version>2.3</version>
+	    </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.12</version>
+        </dependency>
+	</dependencies>	
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+</project>

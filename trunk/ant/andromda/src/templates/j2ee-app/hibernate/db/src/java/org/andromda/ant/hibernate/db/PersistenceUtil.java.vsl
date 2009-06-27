@@ -1,0 +1,123 @@
+package org.andromda.ant.hibernate.db;
+
+import net.sf.hibernate.HibernateException;
+import net.sf.hibernate.Session;
+import net.sf.hibernate.SessionFactory;
+import net.sf.hibernate.Transaction;
+import net.sf.hibernate.cfg.Configuration;
+
+import org.apache.commons.io.CopyUtils;
+import org.apache.log4j.Logger;
+
+import java.io.*;
+import java.sql.Connection;
+import java.sql.Statement;
+
+/**
+ * @jmx.mbean description="Allows users to reset the physical data model"
+ */
+public class PersistenceUtil implements PersistenceUtilMBean
+{
+    /**
+     * @jmx.managed-operation description="Sets up an empty data model, expecting there will be no collisions with an existing model."
+     */
+    public void createSchema() throws Exception
+    {
+        executeSqlScript("hibernate-schema-initialize.sql");
+    }
+
+    /**
+     * @jmx.managed-operation description="Completely removes the data model from the data-source."
+     */
+    public void dropSchema() throws Exception
+    {
+        executeSqlScript("hibernate-schema-remove.sql");
+    }
+
+    /**
+     * @jmx.managed-operation description="Drops the existing model and recreates it."
+     */
+    public void resetDataModel() throws Exception
+    {
+        dropSchema();
+        createSchema();
+    }
+
+    private byte[] readResourceBytes(String resourceName) throws Exception
+    {
+        InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceName);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+
+        CopyUtils.copy(in, out);
+
+        out.close();
+        in.close();
+
+        return out.toByteArray();
+    }
+
+    private void executeSqlScript(String location) throws Exception
+    {
+        final SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        Session session = sessionFactory.openSession();
+
+        final InputStream instream = Thread.currentThread().getContextClassLoader().getResourceAsStream(location);
+        final BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
+
+        Connection connection = session.connection();
+        connection.setAutoCommit(false);
+
+        try
+        {
+            String line = reader.readLine();
+            while (line != null)
+            {
+                line = line.trim();
+                if ("".equals(line) || line.startsWith("--"))
+                {
+                    // do nothing
+                }
+                else
+                {
+                    Logger.getLogger(PersistenceUtil.class).debug("Executing SQL, line "+ line);
+                    final Statement statement = connection.createStatement();
+                    statement.execute(line);
+                    statement.close();
+                }
+                line = reader.readLine();
+            }
+            connection.commit();
+        }
+        catch (Exception e)
+        {
+            Logger.getLogger(PersistenceUtil.class).error("Error executing SQL script: " + location, e);
+            connection.rollback();
+            connection = null;
+            throw e;
+        }
+        finally
+        {
+            try
+            {
+                if (connection != null)
+                {
+                    connection.close();
+                }
+                if (instream != null)
+                {
+                    instream.close();
+                }
+                if (session != null)
+                {
+                    session.flush();
+                    session.close();
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("Unable to release resources: " + exception);
+            }
+        }
+    }
+
+}

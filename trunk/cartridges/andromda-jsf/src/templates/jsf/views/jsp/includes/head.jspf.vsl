@@ -1,0 +1,10 @@
+<afh:head>
+    <meta HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=UTF-8"/>
+    <title><fmt:message key="application.name"/><c:if test="${!empty title}"> ~ ${title}</c:if></title>
+#if ($outputCustomResources)
+    <link rel="stylesheet" type="text/css" href="${facesContext.externalContext.request.contextPath}/css/custom.css"/>
+#end
+    <script type="text/javascript" language="Javascript1.1" src="${pageContext.request.contextPath}/js/common.js"></script>
+    <script type="text/javascript" language="Javascript1.1" src="${pageContext.request.contextPath}/js/key-events.js"></script>
+    <script type="text/javascript" language="Javascript1.1" src="${facesContext.externalContext.request.contextPath}/js/shortlinks.js"></script>
+</afh:head>

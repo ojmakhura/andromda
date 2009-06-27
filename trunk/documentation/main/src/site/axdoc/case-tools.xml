@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>CASE tools that have been tested for AndroMDA compatibility</title>
+    </properties>
+
+    <body>
+        <section name="CASE tools that have been tested for AndroMDA compatibility">
+            <subsection name="AndroMDA compatibility">
+                <p>
+                    On this page you'll find a list of UML tools that have been tested for
+                    AndroMDA compatibility. This list is not complete and will probably grow in 
+                    time: as more tools are tested, they'll be added here.
+                </p>
+            </subsection>
+            <subsection name="Searching for a more complete list of UML tools?">
+                <p>
+                    If you are searching for a more complete list of UML tools, you may
+                    consider the following sites. Although they do not contain any valuable
+                    information whether or not a tool can be used with AndroMDA.
+                </p>
+                <p>
+                    <ul>
+                        <li>
+                            <a href="http://www.objectsbydesign.com/tools/umltools_byCompany.html">
+                            http://www.objectsbydesign.com/tools/umltools_byCompany.html</a>
+                        </li>
+                        <li>
+                            <a href="http://www.jeckle.de/umltools.htm">
+                            http://www.jeckle.de/umltools.htm</a>
+                        </li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Features that a tool should support to be used with AndroMDA">
+                <p>
+                    <ul>
+                        <li>XMI</li>
+                        <li>The XMI file should contain an UML 1.4 metamodel</li>
+                        <li>Class Diagrams</li>
+                        <li>Activity Graphs (if you are using the
+                            <a href="andromda-cartridges/andromda-bpm4struts-cartridge/index.html">bpm4struts cartridge</a>)
+                        </li>
+                        <li>UML tagged values</li>
+                        <li>UML constraints</li>
+                    </ul>
+                </p>
+            </subsection>
+        </section>
+        <section name="FAQ">
+            <p>Q:
+                <b>What do the images mean ?</b>
+            </p>
+            <p>A: Each image has a specific meaning:
+                <ul>
+                    <li style="list-style: url(style/images/flash.gif) outside;">Recommended tool</li>
+                    <li style="list-style: url(style/images/check.gif) outside;">Complete feature support</li>
+                    <li style="list-style: url(style/images/warning.gif) outside;">Problematic feature, AndroMDA support unavailable</li>
+                    <li style="list-style: url(style/images/forbidden.gif) outside;">Feature not supported</li>
+                </ul>
+            </p>
+            <p>Q:
+                <b>What do you mean by stating a tool is 'complex' ?</b>
+            </p>
+            <p>A: Basically this means for example that it took me more than 20 minutes to figure out how to
+                add a custom stereotype to a model element.</p>
+            <p>Q:
+                <b>What does UML compliancy mean ?</b>
+            </p>
+            <p>A: This indicates the supported UML version, taken from the tool vendor's web site.</p>
+        </section>
+        <section name="Tools currently tested">
+            <p>
+                The following is a list compiled by
+                <a href="http://www.daniel-s-haischt.biz/">Daniel S. Haischt</a>,
+                he has tested a set of CASE tools that are available on the market and wrote down their level of
+                compatibility with AndroMDA.
+            </p>
+            <p>
+                <table>
+                    <tr>
+                        <th></th>
+                        <th>Version</th>
+                        <th>XMI</th>
+                        <th>UML</th>
+                        <th>Stereotypes</th>
+                        <th>Tagged Values</th>
+                        <th>Constraints</th>
+                        <th>Integration</th>
+                        <th>Platform Neutral</th>
+                        <th>Price</th>
+                        <th>Note</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.magicdraw.com/">MagicDraw UML</a>
+                            <img src="style/images/flash.gif"/>
+                            <img src="style/images/flash.gif"/>
+                        </td>
+                        <td>7.x / 8.x / 9.x / 11.5+ / 12.x / 14.x</td>
+                        <td>1.0 / 1.1 / 1.2 / 2.0(EMF)</td>
+                        <td>1.4 / 2.0</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td>Excellent support.</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">US $149 (many different licenses available)</td>
+                        <td>Excellent support, this is the tool of preference to use with AndroMDA, there is also
+                            a free community edition with limited support. Integrates with
+                            Sun ONE Studio, Borland CaliberRM 6.0, 6.5, BEA WebLogic Workshop 8.1.2,
+                            IntelliJ IDEA 4.X, NetBeans 3.6, Eclipse 3.X, IBM's Web Sphere Application Developer 5.X,
+                            Borland's JBuilder 8.0, 9.0, X, 2005, Built-in CVS interface for storing project files.
+                            Please note that AndroMDA can <strong>not</strong> currently load XMI 1.0 without 
+                            "preprocessing" the XMI to make it compliant with <a href="http://mdr.netbeans.org">MDR</a>.
+                            This means you should save your XMI to 1.1 or 1.2 (since Magic Draw allows 1.0, 1.1 and 1.2).
+							UML 2.0 models from MagicDraw 11.5 are supported through the use of EMF (the
+							Eclipse Modeling Framework). This means, you need to export your
+							MagicDraw Model in EMF XMI format, first. For this to work, use
+							AndroMDA 3.2 or higher.
+                         </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.gentleware.com/">Poseidon UML</a>
+                            <img src="style/images/flash.gif"/>
+                        </td>
+                        <td>1.6+ / 2.x / 3.0</td>
+                        <td>1.2</td>
+                        <td>1.4 / 2.0</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td>Integration plugins are available at an extra cost</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">US $249 or more</td>
+                        <td>Good support. Just as with MagicDraw, there is also
+                            a free community edition with limited support.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.sparxsystems.com.au/">Sparx Enterprise Architect</a>
+                        </td>
+                        <td>4.1</td>
+                        <td>XMI 1.2, XMI 1.1 XMI 1.0 &amp; others / UML 1.3 metamodel
+                            <img src="style/images/warning.gif"/>
+                        </td>
+                        <td>2.0</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td>Eclipse
+                            <br/>Visual Studio
+                        </td>
+                        <td style="text-align: center;">Windows / Linux</td>
+                        <td style="text-align: center;">starts at US $125</td>
+                        <td>You can assign multiple stereotypes to a single model element. The XMI 1.2 export
+                            will support the UML 1.4 metamodel, so you will have to use the XMI 1.2 export for
+                            AndroMDA. It is very important to use the most recent EA build together with
+                            AndroMDA to get support for multiple stereotypes etc.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.mid.de/">MID Innovator</a>
+                        </td>
+                        <td>8.1.04</td>
+                        <td>N/A</td>
+                        <td>1.4</td>
+                        <td style="text-align: center;">?/?</td>
+                        <td style="text-align: center;">?</td>
+                        <td style="text-align: center;">Natural language</td>
+                        <td style="text-align: center;">?</td>
+                        <td style="text-align: center;">Windows</td>
+                        <td style="text-align: center;">?</td>
+                        <td>This tool is way too complex: it took too long to figure out how to add constraints,
+                            add tagged values, add stereotypes, export a model to XMI</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://jude.esm.jp/">Jude UML</a>
+                        </td>
+                        <td>1.4.1</td>
+                        <td>N/A</td>
+                        <td>1.4</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">?</td>
+                        <td style="text-align: center;">?</td>
+                        <td style="text-align: center;">?</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">Free</td>
+                        <td>Compatibility note: XMI export function is missing. Therefore it is not possible to use the
+                            tool together with AndroMDA.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.artisansw.com/">ARTiSAN Real-time Studio</a>
+                        </td>
+                        <td>4.4.24 / 5.0</td>
+                        <td>XMI 1.3 / UML 1.3 metamodel
+                            <img src="style/images/warning.gif"/>
+                        </td>
+                        <td>1.4 / 2.0</td>
+                        <td style="text-align: center;">One per element</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">Natural language</td>
+                        <td style="text-align: center;">?</td>
+                        <td style="text-align: center;">Windows</td>
+                        <td style="text-align: center;">US $2495</td>
+                        <td>IDE is too complex. For example it takes very long to figure out how to add custom
+                            stereotypes or tagged values.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.silverrun.com/">Silverrun Modelsphere</a>
+                        </td>
+                        <td>2.2</td>
+                        <td>XMI 1.0 / UML 1.1 metamodel
+                            <img src="style/images/warning.gif"/>
+                        </td>
+                        <td>?</td>
+                        <td style="text-align: center;">One per element</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td style="text-align: center;">Natural language</td>
+                        <td style="text-align: center;">?</td>
+                        <td style="text-align: center;">Windows / Linux / Solaris</td>
+                        <td style="text-align: center;">US $189</td>
+                        <td>Only exports class structures to XMI.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.metamill.com/">Metamill</a>
+                        </td>
+                        <td>4.0</td>
+                        <td>XMI 1.2 / UML 2.0 metamodel
+                            <img src="style/images/warning.gif"/>
+                        </td>
+                        <td>2.0</td>
+                        <td style="text-align: center;">One per element</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">Natural language</td>
+                        <td></td>
+                        <td style="text-align: center;">Windows</td>
+                        <td style="text-align: center;">US $125</td>
+                        <td>The 2.0 metamodel is a problem for AndroMDA, because it's not possible to find a
+                            2.0 metamodel that could be used within the MDR explorer.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://argouml.tigris.org/">ArgoUML</a>
+                        </td>
+                        <td>0.22.0</td>
+                        <td>1.0, 1.1, 1.2</td>
+                        <td>1.3, 1.4</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td></td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">Free</td>
+                        <td>Versions before 0.20 do not support UML 1.4, so are not usable with AndroMDA.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.embarcadero.com/">Embarcadero Describe</a>
+                        </td>
+                        <td>6.1.6</td>
+                        <td>XMI 2.0 / UML 1.4 metamodel</td>
+                        <td>1.4</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">Natural language</td>
+                        <td>Eclipse 2.x</td>
+                        <td style="text-align: center;">Windows</td>
+                        <td style="text-align: center;">UK Pounds 1,645.00</td>
+                        <td>It is not possible to directly export a model to XMI. Instead the whole project is
+                            stored as XMI. Unfortunately the project files a cluttered over several physical files
+                            (*.etd and *.etup). Does not work with AndroMDA out-of-the-box.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.aonix.com/">Ameos by Aonix</a>
+                        </td>
+                        <td>9.1</td>
+                        <td>XMI 1.1 / UML 1.4 metamodel</td>
+                        <td>1.4</td>
+                        <td style="text-align: center;">One per element</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">Natural language</td>
+                        <td></td>
+                        <td style="text-align: center;">Windows / Linux / Solaris</td>
+                        <td style="text-align: center;">US $995</td>
+                        <td>Works out of the box, but getting familiar with the IDE may take some time.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.ideogramic.com/">Ideogramic UML</a>
+                        </td>
+                        <td>3.0 beta 4</td>
+                        <td>XMI 1.0 / UML 1.3 metamodel</td>
+                        <td>1.4</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td></td>
+                        <td style="text-align: center;">Windows / Linux</td>
+                        <td style="text-align: center;">US $1160</td>
+                        <td>Does not work with AndroMDA</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.objecteering.com/">Objecteering UML</a>
+                        </td>
+                        <td>5.3.0</td>
+                        <td>XMI 1.1 / UML 1.4 metamodel</td>
+                        <td>1.4</td>
+                        <td style="text-align: center;">One per element</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">Natural language</td>
+                        <td>Eclipse 2.0</td>
+                        <td style="text-align: center;">Windows / Linux / Solaris</td>
+                        <td style="text-align: center;">US $859</td>
+                        <td>Complex user interface.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.ilogix.com/">Rhapsody</a>
+                        </td>
+                        <td>5.2</td>
+                        <td>XMI 1.0 / UML 1.3 metamodel</td>
+                        <td>2.0</td>
+                        <td style="text-align: center;">One per element</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/warning.gif"/>
+                        </td>
+                        <td></td>
+                        <td style="text-align: center;">Windows / Linux / Solaris</td>
+                        <td style="text-align: center;">?</td>
+                        <td>It seems that tagged values are not exported to XMI. The following error message
+                            will occur during the model transformation process:
+                            "unknown package: Foundation.Core.ModelElement.name"</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.sybase.com/">Sybase Power Designer</a>
+                        </td>
+                        <td>10.1</td>
+                        <td>XMI 1.1 / UML 1.3 metamodel
+                            <img src="style/images/warning.gif"/>
+                        </td>
+                        <td>1.4</td>
+                        <td style="text-align: center;">One per element</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">?</td>
+                        <td></td>
+                        <td style="text-align: center;">Windows</td>
+                        <td>US $5990</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.visualuml.com/">Visual UML</a>
+                        </td>
+                        <td>1.4 Dev Edition</td>
+                        <td>XMI 1.1 / UML 1.3 metamodel
+                            <img src="style/images/warning.gif"/>
+                        </td>
+                        <td>1.4</td>
+                        <td style="text-align: center;">One per element</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">Natural language</td>
+                        <td>Visual Studio</td>
+                        <td style="text-align: center;">Windows</td>
+                        <td style="text-align: center;">US $495</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.visual-paradigm.com/">Visual Paradigm SDE</a>
+                        </td>
+                        <td>20040414</td>
+                        <td>XMI 1.1 / UML 1.4 metamodel
+                            <img src="style/images/warning.gif"/>
+                        </td>
+                        <td>1.4</td>
+                        <td style="text-align: center;">One per element</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td style="text-align: center;">?</td>
+                        <td>Eclipse
+                            <br/>Visual Studio
+                            <br/>NetBeans
+                            <br/>IntelliJ
+                            <br/>JDeveloper
+                            <br/>WebLogic Workshop
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">US $299</td>
+                        <td>It is not possible to display classes without their containment packages if they relate
+                            to another package.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.omondo.com/">EclipseUML Studio</a>
+                        </td>
+                        <td>1.1.0.20041125</td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td>Eclipse 3.x (1.1.0.20041125)
+                            <br/>Eclipse 2.x (1.0.0.20040614)
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">EUR 1.990,00</td>
+                        <td>EclipseUML Studio stores information of your UML model as Javadoc annotations
+                            directly in the Java source code. Thus this flavour of EclipseUML can't
+                            be used with AndroMDA because XMI based UML models are not supported.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.omondo.com/">EclipseUML Free</a>
+                        </td>
+                        <td>2.0.0.20041026</td>
+                        <td>XMI 1.1 / UML 1.3 metamodel
+                            <img src="style/images/warning.gif"/>
+                        </td>
+                        <td>1.3</td>
+                        <td style="text-align: center;">One per element</td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td>Eclipse 3.x (2.0.0.20041026)
+                            <br/>Eclipse 2.x (1.2.1.20031103)
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">Free</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://www.m1global.org/">Model-driven Development Environment Studio</a>
+                        </td>
+                        <td>3.2.3</td>
+                        <td>XMI 1.0 / UML 1.3 metamodel
+                            <img src="style/images/warning.gif"/>
+                        </td>
+                        <td>1.3</td>
+                        <td style="text-align: center;">One per element</td>
+                        <td style="text-align: center;"></td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td>Eclipse 3.x
+                            <br/>Eclipse 2.x
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">Free</td>
+                        <td>At this time only Class diagrams and Use Case diagrams are supported.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://wwwcs.upb.de/cs/fujaba/">Fujaba Tool Suite</a>
+                        </td>
+                        <td>4.2.0</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td>N/A</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td>N/A</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">Free</td>
+                        <td>At the time of this writing, FUJABA stores its model in a proprietary file format.
+                            Thus, it doesn not support XMI based models. Class diagrams,
+                            activity graphs and state charts are supported. One additional obstacle is the fact 
+                            that is impossible to assign stereotypes to an association.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="http://wwwcs.upb.de/cs/fujaba/downloads/packages/Fujaba4Eclipse/">Fujaba for Eclipse</a>
+                        </td>
+                        <td>0.1.0</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td>N/A</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="style/images/forbidden.gif"/>
+                        </td>
+                        <td>N/A</td>
+                        <td style="text-align: center;">
+                            <img src="style/images/check.gif"/>
+                        </td>
+                        <td style="text-align: center;">Free</td>
+                        <td>At the time of this writing, FUJABA stores its model in a proprietary file format.
+                            Thus, it does not support XMI based models. Class diagrams,
+                            activity graphs and state charts are supported. One additional obstacle is the fact
+                            that is impossible to assign stereotypes to an association.</td>
+                    </tr>
+                </table>
+            </p>
+        </section>
+    </body>
+</document>

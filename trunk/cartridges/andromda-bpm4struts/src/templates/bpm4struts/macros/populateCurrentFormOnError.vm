@@ -1,0 +1,79 @@
+##
+## A shared macro that performs population of the previous form with 
+## the request parameters
+##
+## We populate the current form with only request parameters (we don't want the new
+## form set within the request, because we'll lose things like select lists, and any other
+## collections on the form)
+##
+#macro (populateCurrentFormOnError)
+            // we populate the current form with only the request parameters
+            Object currentForm = request.getSession().getAttribute("$action.useCase.formKey");
+            // if we can't get the 'form' from the session, try from the request
+            if (currentForm == null)
+            {
+                currentForm = request.getAttribute("$action.useCase.formKey");
+            }
+            if (currentForm != null)
+            {
+                final java.util.Map parameters = new java.util.HashMap();
+                for (final java.util.Enumeration names = request.getParameterNames(); names.hasMoreElements();)
+                {
+                    final String name = String.valueOf(names.nextElement());
+                    final String[] values = request.getParameterValues(name);
+
+                    if (values.length == 1)
+                    {
+                        parameters.put(name, values[0]);
+                    }
+                    else
+                    {
+                        parameters.put(name, values);
+                    }
+                }
+##
+## Checkbox fields need to be reset since the request will not contain parameters for unchecked
+## checkboxes.
+##
+#set ($actionParameters = $action.actionParameters)
+#set ($formHasCheckboxes = false)
+#foreach ($field in $actionParameters)
+#if ($field.checkbox)
+#set ($formHasCheckboxes = true)
+#end
+#end
+#if ($formHasCheckboxes)
+
+                // reset all checkbox fields
+                final java.util.Map resetMethods = new java.util.HashMap();
+                final Class currentFormClass = currentForm.getClass();
+                try
+                {
+#foreach ($field in $actionParameters)
+#if ($field.checkbox)
+                    resetMethods.put("${field.resetName}", currentFormClass.getMethod("${field.resetName}", null));
+#end
+#end
+                    for (final java.util.Iterator iterator = resetMethods.keySet().iterator(); iterator.hasNext();)
+                    {
+                        final java.lang.reflect.Method method =
+                            (java.lang.reflect.Method)resetMethods.get((String)iterator.next());
+                        method.invoke(currentForm, null);
+                    }
+                }
+                catch (java.lang.Exception reflectionException)
+                {
+                     // ignore if we have a reflection exception (the form doesn't contain desired checkbox fields)
+                }
+
+#end
+                try
+                {
+                    org.apache.commons.beanutils.BeanUtils.populate(currentForm, parameters);
+                }
+                catch (java.lang.Exception populateException)
+                {
+                    // ignore if we have an exception here (we just don't populate).
+                }
+            }
+#end

@@ -1,0 +1,100 @@
+<document> 
+	<properties>
+    	<title>Metafacades Descriptor Schema</title> 
+    </properties>
+  	<body> 
+  		<section name="Metafacades Descriptor Schema">
+			<p>
+  				Each Metafacades descriptor (andromda-metafacades.xml) must comply with the following XSD Schema: 
+  			</p>
+			<source language="xml">
+<![CDATA[
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <!-- Used for mapping contexts.  An example for a context is: An entity is a
+         context for its attributes. So, the metaclass "Attribute" would be mapped to
+         the class for "EntityAttributeFacade" if the Attribute belongs to an entity.
+         If the Attribute belongs to any other Classifier, it would be mapped
+         to a simple "AttributeFacade" and therefore would NOT need the context -->
+    <xs:element name="context" type="xs:string"/>
+    <!-- specifies the default metafacade (if a metafacade is not explicitly
+         defined for an element this will be used instead) -->
+    <xs:element name="default">
+        <xs:complexType>
+            <xs:attribute name="class" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metafacade">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mapping" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="class" type="xs:string" use="required"/>
+            <!-- You should set the context root to 'true' when the metafacade
+                 mapping will be used as a context for other mappings -->
+            <xs:attribute name="contextRoot" type="xs:boolean" use="optional" default="false"/>
+        </xs:complexType>
+        <xs:unique name="uniqueMetafacadePropertyName">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+    </xs:element>
+    <xs:element name="mapping">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="stereotype" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="context" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="property" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType mixed="true">
+                        <xs:attribute name="name" type="xs:string" use="required"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <!-- defines the class to which this mapping shall apply (can be a
+                 metafacade or a metaclass) -->
+            <xs:attribute name="class" type="xs:string" use="required"/>
+        </xs:complexType>
+        <xs:unique name="uniqueMetafacadePropertyReference">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@reference"/>
+        </xs:unique>
+    </xs:element>
+    <xs:element name="metafacades">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="default" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="metafacade" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <!-- Specifies the pattern of the classes based on the metaclass interface names,
+                 for example '{0}Impl' might be the value, where '{0}' represents the metaclass
+                 interface name -->
+            <xs:attribute name="metaclassPattern" type="xs:string" use="optional">
+                <xs:annotation>
+                    <xs:documentation>
+                        Specifies the pattern of the metaclass implementation classes based on the name of the metaclass 
+                        interface, for example <em>{0}.{1}Impl</em> might be the value, where <em>{0}</em> represents 
+                        the metaclass interface package and <em>{1}</em> the name of the metafacade.  At least 
+                        one set of registered metafacades must have this attribute defined.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+        <xs:unique name="uniquePropertyReference">
+            <xs:selector xpath="property"/>
+            <xs:field xpath="@reference"/>
+        </xs:unique>
+    </xs:element>
+    <!-- property references are properties you wish to configure on a metafacade,
+         through bean properties -->
+    <xs:element name="property">
+        <xs:complexType>
+            <xs:attribute name="reference" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="stereotype" type="xs:string"/>
+</xs:schema>]]>
+	  		</source>
+  		</section>  	
+  	</body> 
+</document>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--xtools2_universal_type_manager-->
+<?com.ibm.xtools.emf.core.signature <signature id="com.ibm.xtools.uml.msl.profile" version="7.0.0"><feature description="" name="com.ibm.xtools.ruml.feature" url="" version="7.0.0"/></signature>?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Standard="http://www.eclipse.org/uml2/schemas/Standard/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Standard/1 pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w">
+  <uml:Profile xmi:id="_9_0_2_12ab03bf_1120852932765_76536_0" name="andromda-webservice" metamodelReference="_0metamodelReferenceandromda-webservice">
+    <eAnnotations xmi:id="_RcYASB-lEd6lZ_21UMRSKg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <contents xmi:type="ecore:EPackage" xmi:id="_RcYASR-lEd6lZ_21UMRSKg" name="andromdawebservice" nsURI="http:///schemas/andromdawebservice/_RbxZUR-lEd6lZ_21UMRSKg/0" nsPrefix="andromdawebservice">
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_RcYASh-lEd6lZ_21UMRSKg" name="WebServiceStyle">
+          <eAnnotations xmi:id="_RcYASx-lEd6lZ_21UMRSKg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337599234_576105_6"/>
+          <eLiterals xmi:id="_RcYATB-lEd6lZ_21UMRSKg" name="default"/>
+          <eLiterals xmi:id="_RcYATR-lEd6lZ_21UMRSKg" name="wrapped" value="1"/>
+          <eLiterals xmi:id="_RcYATh-lEd6lZ_21UMRSKg" name="document" value="2"/>
+          <eLiterals xmi:id="_RcYATx-lEd6lZ_21UMRSKg" name="rpc" value="3"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_RcYAUB-lEd6lZ_21UMRSKg" name="WebServiceProvider">
+          <eAnnotations xmi:id="_RcYAUR-lEd6lZ_21UMRSKg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337599234_816697_9"/>
+          <eLiterals xmi:id="_RcYAUh-lEd6lZ_21UMRSKg" name="default"/>
+          <eLiterals xmi:id="_RcYAUx-lEd6lZ_21UMRSKg" name="RPC" value="1"/>
+          <eLiterals xmi:id="_RcYAVB-lEd6lZ_21UMRSKg" name="EJB" value="2"/>
+          <eLiterals xmi:id="_RcYAVR-lEd6lZ_21UMRSKg" name="JAX-WS" value="3"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_RcYAVh-lEd6lZ_21UMRSKg" name="WebServiceUse">
+          <eAnnotations xmi:id="_RcYAVx-lEd6lZ_21UMRSKg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337599234_508718_16"/>
+          <eLiterals xmi:id="_RcYAWB-lEd6lZ_21UMRSKg" name="default"/>
+          <eLiterals xmi:id="_RcYAWR-lEd6lZ_21UMRSKg" name="literal" value="1"/>
+          <eLiterals xmi:id="_RcYAWh-lEd6lZ_21UMRSKg" name="encoded" value="2"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_RcYAWx-lEd6lZ_21UMRSKg" name="WebServiceParameterStyle">
+          <eAnnotations xmi:id="_RcYAXB-lEd6lZ_21UMRSKg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_2e90116_1229442786298_883324_88"/>
+          <eLiterals xmi:id="_RcYAXR-lEd6lZ_21UMRSKg" name="default"/>
+          <eLiterals xmi:id="_RcYAXh-lEd6lZ_21UMRSKg" name="wrapped" value="1"/>
+          <eLiterals xmi:id="_RcYAXx-lEd6lZ_21UMRSKg" name="bare" value="2"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EEnum" xmi:id="_RcYAYB-lEd6lZ_21UMRSKg" name="TernaryBoolean">
+          <eAnnotations xmi:id="_RcYAYR-lEd6lZ_21UMRSKg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_2090114_1235189840952_369943_0"/>
+          <eLiterals xmi:id="_RcYAYh-lEd6lZ_21UMRSKg" name="default"/>
+          <eLiterals xmi:id="_RcYAYx-lEd6lZ_21UMRSKg" name="false" value="1"/>
+          <eLiterals xmi:id="_RcYAZB-lEd6lZ_21UMRSKg" name="true" value="2"/>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_RcYAZR-lEd6lZ_21UMRSKg" name="WebService">
+          <eAnnotations xmi:id="_RcYAZh-lEd6lZ_21UMRSKg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337599234_292426_17"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RcYAZx-lEd6lZ_21UMRSKg" name="andromda_webservice_use" ordered="false" lowerBound="1" eType="_RcYAVh-lEd6lZ_21UMRSKg" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RcYAaB-lEd6lZ_21UMRSKg" name="andromda_webservice_provider" ordered="false" lowerBound="1" eType="_RcYAUB-lEd6lZ_21UMRSKg" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RcYAaR-lEd6lZ_21UMRSKg" name="andromda_webservice_style" ordered="false" lowerBound="1" eType="_RcYASh-lEd6lZ_21UMRSKg" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RcYAah-lEd6lZ_21UMRSKg" name="andromda_schema_validation" ordered="false" lowerBound="1" eType="_RcYAYB-lEd6lZ_21UMRSKg" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RcYAax-lEd6lZ_21UMRSKg" name="andromda_webservice_wsdlSoapAddress" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RcYAbB-lEd6lZ_21UMRSKg" name="andromda_jaxb_simpleBindingMode" ordered="false" lowerBound="1" eType="_RcYAYB-lEd6lZ_21UMRSKg" defaultValueLiteral="default"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RcYAbR-lEd6lZ_21UMRSKg" name="andromda_jaxb_xjcArguments" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RcYAbh-lEd6lZ_21UMRSKg" name="andromda_serialVersionUID" ordered="false">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_RcYAbx-lEd6lZ_21UMRSKg" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_RcYAcB-lEd6lZ_21UMRSKg" name="WebServiceOperation">
+          <eAnnotations xmi:id="_RcYAcR-lEd6lZ_21UMRSKg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_0_1fe00f9_1119337599234_736026_12"/>
+          <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_RcYAch-lEd6lZ_21UMRSKg" name="andromda_webservice_parameter_style" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+          </eStructuralFeatures>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_RcYAcx-lEd6lZ_21UMRSKg" name="base_Operation" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Operation"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+        <eClassifiers xmi:type="ecore:EClass" xmi:id="_RcYAdB-lEd6lZ_21UMRSKg" name="WebFault">
+          <eAnnotations xmi:id="_RcYAdR-lEd6lZ_21UMRSKg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_9_5_1_2e90116_1229364633835_405645_0"/>
+          <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_RcYAdh-lEd6lZ_21UMRSKg" name="base_Class" ordered="false" lowerBound="1">
+            <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.1.0/UML#//Class"/>
+          </eStructuralFeatures>
+        </eClassifiers>
+      </contents>
+    </eAnnotations>
+    <packageImport xmi:id="_0metamodelReferenceandromda-webservice">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_0primitiveTypesandromda-webservice">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packageImport xmi:id="_0javaPrimitiveTypesandromda-webservice">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_0_1fe00f9_1119337599234_576105_6" name="WebServiceStyle">
+      <ownedComment xmi:id="_9_0_1fe00f9_1119337613781_777701_21" annotatedElement="_9_0_1fe00f9_1119337599234_576105_6">
+        <body>Represents the style of the web service.</body>
+      </ownedComment>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229975836527_451671_2" name="default"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_488961_3" name="wrapped"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_630370_4" name="document"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_330336_5" name="rpc"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_0_1fe00f9_1119337599234_816697_9" name="WebServiceProvider">
+      <ownedComment xmi:id="_9_0_1fe00f9_1119337613781_322428_22" annotatedElement="_9_0_1fe00f9_1119337599234_816697_9">
+        <body>Represents the provider of the web service.</body>
+      </ownedComment>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229975832824_536077_1" name="default"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_319948_7" name="RPC"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_791334_8" name="EJB"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229443036177_166066_92" name="JAX-WS"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_0_1fe00f9_1119337599234_508718_16" name="WebServiceUse">
+      <ownedComment xmi:id="_9_0_1fe00f9_1119337613781_966802_26" annotatedElement="_9_0_1fe00f9_1119337599234_508718_16">
+        <body>Represents the use of the web service.</body>
+      </ownedComment>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229975840386_222959_3" name="default"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_412593_14" name="literal"/>
+      <ownedLiteral xmi:id="_9_0_1fe00f9_1119337599234_434482_15" name="encoded"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_2e90116_1229442786298_883324_88" name="WebServiceParameterStyle">
+      <ownedComment xmi:id="_9_5_1_2e90116_1229443043614_396006_96" annotatedElement="_9_5_1_2e90116_1229442786298_883324_88">
+        <body>Defines if parameter style overrides the global defaultParameterStyle.</body>
+      </ownedComment>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229975825667_67637_0" name="default"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229442795283_652949_89" name="wrapped"/>
+      <ownedLiteral xmi:id="_9_5_1_2e90116_1229442800470_568833_90" name="bare"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Enumeration" xmi:id="_9_5_1_2090114_1235189840952_369943_0" name="TernaryBoolean">
+      <ownedLiteral xmi:id="_9_5_1_2090114_1235189850741_866785_1" name="default"/>
+      <ownedLiteral xmi:id="_9_5_1_2090114_1235189856621_713255_2" name="false"/>
+      <ownedLiteral xmi:id="_9_5_1_2090114_1235189863330_559206_3" name="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689272563_872228_348" name="" memberEnd="_12_1_2e90116_1238689272563_279373_350 _12_1_2e90116_1238689272563_806221_349">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689272563_279373_350" name="extension_WebService" visibility="private" type="_9_0_1fe00f9_1119337599234_292426_17" aggregation="composite" association="_12_1_2e90116_1238689272563_872228_348">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689272563_579009_352" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689272563_100776_351" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689272563_21803_354" name="" memberEnd="_12_1_2e90116_1238689272563_687679_355 _12_1_2e90116_1238689272563_45968_356">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689272563_45968_356" name="extension_WebServiceOperation" visibility="private" type="_9_0_1fe00f9_1119337599234_736026_12" aggregation="composite" association="_12_1_2e90116_1238689272563_21803_354">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689272563_910470_358" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689272563_412744_357" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Extension" xmi:id="_12_1_2e90116_1238689272578_816955_361" name="" memberEnd="_12_1_2e90116_1238689272578_248401_363 _12_1_2e90116_1238689272578_864789_362">
+      <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_12_1_2e90116_1238689272578_248401_363" name="extension_WebFault" visibility="private" type="_9_5_1_2e90116_1229364633835_405645_0" aggregation="composite" association="_12_1_2e90116_1238689272578_816955_361">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689272578_839523_365" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689272578_251773_364" name=""/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_0_1fe00f9_1119337599234_292426_17" name="WebService">
+      <ownedComment xmi:id="_9_0_1fe00f9_1119337613781_48742_27" annotatedElement="_9_0_1fe00f9_1119337599234_292426_17">
+        <body>Represents a web service, this is usually used in combination with the &lt;&lt;Service>> stereotype because of the fact the service stereotype indicates a service implementation (like Spring, or Session EJBs must be generated). However, WebService can be standalone without an EJB implementation.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_9_0_1fe00f9_1119337599234_534435_10" name="andromda_webservice_use" visibility="private" type="_9_0_1fe00f9_1119337599234_508718_16">
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337613781_608117_23" annotatedElement="_9_0_1fe00f9_1119337599234_534435_10">
+          <body>Denotes the use of the web service: can be 'literal' or 'encoded'. Default=literal.</body>
+        </ownedComment>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689272563_606122_353" name="" instance="_9_5_1_2e90116_1229975840386_222959_3"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_9_0_1fe00f9_1119337599234_782725_11" name="andromda_webservice_provider" visibility="private" type="_9_0_1fe00f9_1119337599234_816697_9">
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337613781_758228_24" annotatedElement="_9_0_1fe00f9_1119337599234_782725_11">
+          <body>Denotes the provider for the web service: can be 'EJB' or 'RPC' or 'JAX-WS'. Default=default. Not applicable for JAX-WS.</body>
+        </ownedComment>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689272563_378268_346" name="" instance="_9_5_1_2e90116_1229975832824_536077_1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_9_0_1fe00f9_1119337599234_448866_13" name="andromda_webservice_style" visibility="private" type="_9_0_1fe00f9_1119337599234_576105_6">
+        <ownedComment xmi:id="_9_0_1fe00f9_1119337613781_36841_25" annotatedElement="_9_0_1fe00f9_1119337599234_448866_13">
+          <body>The style of the web service, can be 'rpc', 'document', or 'wrapped''. Default=document.</body>
+        </ownedComment>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689272563_749791_347" name="" instance="_9_5_1_2e90116_1229975836527_451671_2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_9_5_1_2e90116_1229377882176_428562_0" name="andromda_schema_validation" visibility="private" type="_9_5_1_2090114_1235189840952_369943_0">
+        <ownedComment xmi:id="_9_5_1_2e90116_1229377997318_361624_1" annotatedElement="_9_5_1_2e90116_1229377882176_428562_0">
+          <body>Validate incoming/outgoing XML against the declared schema. Default=false allows minor service revisions to use the same service version when optional attributes are added to the new minor revision. JAX-WS and CXF services only - sets options in Spring ApplicationContext.xml.</body>
+        </ownedComment>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689272578_339128_359" name="" instance="_9_5_1_2090114_1235189850741_866785_1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_9_5_1_2e90116_1229442640625_526670_86" name="andromda_webservice_wsdlSoapAddress" visibility="private">
+        <ownedComment xmi:id="_9_5_1_2e90116_1229443043614_844549_93" annotatedElement="_9_5_1_2e90116_1229442640625_526670_86">
+          <body>Overrides the global wsdlSoapAddress setting for this WebService class.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_9_5_1_2e90116_1229442883628_896777_91" name="andromda_jaxb_simpleBindingMode" visibility="private" type="_9_5_1_2090114_1235189840952_369943_0">
+        <ownedComment xmi:id="_9_5_1_2e90116_1229443043614_783527_94" annotatedElement="_9_5_1_2e90116_1229442883628_896777_91">
+          <body>If Jaxb2 SimpleBindingMode should be used when generating Java objects from the WSDL web service definition using the wsdl2java utility. Default=true.</body>
+        </ownedComment>
+        <defaultValue xmi:type="uml:InstanceValue" xmi:id="_12_1_2e90116_1238689272578_550155_360" name="" instance="_9_5_1_2090114_1235189850741_866785_1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_9_5_1_2e90116_1229443069302_564948_97" name="andromda_jaxb_xjcArguments" visibility="private">
+        <ownedComment xmi:id="_9_5_1_2e90116_1229443270664_372394_98" annotatedElement="_9_5_1_2e90116_1229443069302_564948_97">
+          <body>Override global default XJC arguments used when creating Jaxb XML bindings from the webservice definition through the wsdl2java utility. Default is -Xcommons-lang,-Xcommons-lang:ToStringStyle=DEFAULT_STYLE,-Xdefault-value,-Xvalue-constructor,-Xcollection-setter-injector,-simple-preserve. This creates toString method using apache commons-lang, creates ValueObject constructor, get/set on Collection types, and allows preserving methods and some code across multiple code generation invocations.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_9_5_1_2e90116_1238680689748_661759_0" name="andromda_serialVersionUID" visibility="private">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_12_1_2e90116_1238689272531_858081_341" name="" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_12_1_2e90116_1238689272531_210008_340" name=""/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_12_1_2e90116_1238689272563_806221_349" name="base_Class" visibility="private" association="_12_1_2e90116_1238689272563_872228_348">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_12_1_2e90116_1238689272531_905722_339" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_0_1fe00f9_1119337599234_736026_12" name="WebServiceOperation">
+      <ownedComment xmi:id="_9_0_1fe00f9_1119337613781_982331_28" annotatedElement="_9_0_1fe00f9_1119337599234_736026_12">
+        <body>Indicates a web service operation: this allows us to expose only certain operations on a given &lt;&lt;Service>> whereas the &lt;&lt;WebService>> stereotype exposed service and all its operations as a webservice.  
+
+For example, a service sometimes may contain other operations that will not be exposed externally as a web service, if an operation is stereotyped with this, then only those operations will be exposed.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_9_5_1_2e90116_1229442717751_114819_87" name="andromda_webservice_parameter_style" visibility="private">
+        <ownedComment xmi:id="_9_5_1_2e90116_1229443043614_925839_95" annotatedElement="_9_5_1_2e90116_1229442717751_114819_87">
+          <body>Overrides defaultParameterStyle setting for this WebServiceOperation.</body>
+        </ownedComment>
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_12_1_2e90116_1238689272563_687679_355" name="base_Operation" visibility="private" association="_12_1_2e90116_1238689272563_21803_354">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Operation"/>
+      </ownedAttribute>
+      <icon xmi:id="_12_1_2e90116_1238689272531_660897_342" content="" location="" format=""/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Stereotype" xmi:id="_9_5_1_2e90116_1229364633835_405645_0" name="WebFault">
+      <ownedComment xmi:id="_9_5_1_2e90116_1229364767680_987219_1" annotatedElement="_9_5_1_2e90116_1229364633835_405645_0">
+        <body>Designates and Exception class as a JAX-WS WebFault, which creates a faultBean class referenced by the service containing a fault exception and cause in the same package as the Service, plus the original WebFault exception class.</body>
+      </ownedComment>
+      <ownedAttribute xmi:id="_12_1_2e90116_1238689272578_864789_362" name="base_Class" visibility="private" association="_12_1_2e90116_1238689272578_816955_361">
+        <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+      </ownedAttribute>
+      <icon xmi:id="_12_1_2e90116_1238689272531_967498_343" content="" location="" format=""/>
+    </packagedElement>
+    <profileApplication xmi:id="_0profileApplicationandromda-webservice">
+      <eAnnotations xmi:id="_RchAPR-lEd6lZ_21UMRSKg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Profile>
+  <Standard:ModelLibrary xmi:id="_RchAPh-lEd6lZ_21UMRSKg" base_Package="_9_0_2_12ab03bf_1120852932765_76536_0"/>
+</xmi:XMI>

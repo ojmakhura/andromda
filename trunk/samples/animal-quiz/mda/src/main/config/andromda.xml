@@ -1,0 +1,144 @@
+<andromda>
+    <properties>
+        <property name="modelValidation">${validation}</property>
+        <property name="cartridgeFilter">${filter}</property>
+    </properties>
+    <server>
+        <host>localhost</host>
+        <port>4447</port>
+    </server>
+    <repositories>
+        <repository name="netBeansMDR">
+            <models>
+                <model>
+                    <uri>${model.uri}</uri>
+                    <moduleSearchLocations>
+                        <location>${maven.repo.local}/andromda/xml.zips</location>
+                        <location patterns="**/*.xml.zip,**/*.xml">${settings.localRepository}/org/andromda/profiles/uml14</location>
+                        <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
+                    </moduleSearchLocations>
+                </model>
+            </models>
+        </repository>
+    </repositories>
+    <namespaces>
+        <namespace name="default">
+            <properties>
+                <property name="languageMappingsUri">Java</property>
+                <property name="wrapperMappingsUri">JavaWrapper</property>
+                <property name="sqlMappingsUri">${sql.mappings}</property>
+                <property name="jdbcMappingsUri">JDBC</property>
+                <property name="maxSqlNameLength">30</property>
+                <property name="foreignKeySuffix">_FK</property>
+                <property name="ejbJndiNamePrefix">${application.id}-${pom.version}</property>
+                 <!-- these masking properties allow you to configure the way
+                      your model element names are generated -->
+                <property name="classifierNameMask">none</property>
+                <property name="operationNameMask">none</property>
+                <property name="roleNameMask">none</property>
+                <property name="enumerationNameMask">none</property>
+                <property name="enumerationLiteralNameMask">upperunderscore</property>
+                <property name="entityNameMask">none</property>
+                <property name="entityPropertyNameMask">none</property>
+                <property name="parameterNameMask">none</property>
+                <property name="hibernateVersion">3</property>
+            </properties>
+        </namespace>
+        <namespace name="spring">
+            <properties>
+                <property name="dataSource">${dataSource}</property>
+                <property name="username">${jdbc.username}</property>
+                <property name="password">${jdbc.password}</property>
+                <property name="driver">${jdbc.driver}</property>
+                <property name="connectionUrl">${jdbc.url}</property>
+                <property name="hibernateDialect">${hibernate.dialect}</property>
+                <property name="hibernateShowSql">${hibernate.db.showSql}</property>
+                <property name="hibernateQueryUseNamedParameters">true</property>
+                <property name="hibernateEnableCache">false</property>
+                <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
+                <property name="localTransactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
+                <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
+                <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
+                <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
+                <property name="springTypesPackage">${application.package}</property>
+                <property name="daos">${core.generated.dir}</property>
+                <property name="dao-impls">${core.manual.java.dir}</property>
+                <property name="spring-configuration">${core.generated.dir}</property>
+                <property name="services">${core.generated.dir}</property>
+                <property name="service-impls">${core.manual.java.dir}</property>
+                <property name="service-interfaces">${common.generated.dir}</property>
+                <property name="criteria">${common.generated.dir}</property>
+                <property name="value-objects">${common.generated.dir}</property>
+                <property name="enableSpringTransactionsWhenEjbsEnabled">true</property>
+                <!-- to remove any dependency on EJB, comment the following property -->
+                <property name="session-ejbs">${core.generated.dir}</property>
+                <!-- uncomment to enable EJB security
+                <property name="securityRealm">${application.id}</property>
+                 -->
+                <property name="javaTypeConversionIgnoreList">java.util.Date,java.sql.Timestamp,java.sql.Date</property>
+            </properties>
+        </namespace>
+        <namespace name="hibernate">
+            <properties>
+                <property name="hibernateEnableCache">false</property>
+                <property name="hibernateEnableAssociationsCache">false</property>
+                <property name="hibernateTypeMappingsUri">Hibernate</property>
+                <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
+                <property name="defaultHibernateGeneratorClass">${hibernate.generatorClass}</property>
+                <property name="hibernateAggregationCascade">delete</property>
+                <property name="hibernateDefaultCascade">none</property>
+                <property name="entities">${core.generated.dir}</property>
+                <property name="entity-impls">${core.manual.java.dir}</property>
+                <property name="entity-mappings">${core.generated.dir}</property>
+                <property name="user-types">${core.generated.dir}</property>
+                <property name="customTypesPackage">${application.package}</property>
+                <property name="compositionDefinesEagerLoading">true</property>
+                <property name="cache">${core.generated.dir}</property>
+            </properties>
+        </namespace>
+        <namespace name="webservice">
+            <properties>
+                <property name="soapStack">axis</property>
+                <property name="axisVersion">2</property>
+                <property name="schemaTypeMappingsUri">AxisWSDLMappings</property>
+                <property name="languageMappingsUri">AxisJavaMappings</property>
+                <property name="defaultProvider">RPC</property>
+                <property name="applicationName">${application.id}</property>
+                <property name="wsdlSoapAddress">http://${webservice.host}:${webservice.port}/${application.id}-ws/services</property>
+                <property name="webserviceTypesPackage">${application.package}</property>
+                <property name="rpcClassNamePattern">{0}.{1}WSDelegator</property>
+                <property name="wsdls">${webservice.generated.dir}</property>
+                <property name="configuration">${webservice.generated.dir}</property>
+                <property name="webservice-types">${core.generated.dir}</property>
+            </properties>
+        </namespace>
+        <namespace name="java">
+            <properties>
+                <property name="languageMappingsUri">AxisJavaMappings</property>
+                <property name="useArraysForMultiplicitiesOfTypeMany">true</property>
+                <property name="enumerations">${common.generated.dir}</property>
+                <property name="exceptions">${common.generated.dir}</property>
+                <property name="value-objects">${common.generated.dir}</property>
+                <property name="interfaces">${common.generated.dir}</property>
+            </properties>
+        </namespace>
+        <namespace name="bpm4struts">
+            <properties>
+                <property name="forms">${web.generated.dir}</property>
+                <property name="pages">${web.generated.dir}</property>
+                <property name="actions">${web.generated.dir}</property>
+                <property name="controllers">${web.generated.dir}</property>
+                <property name="controller-impls">${web.manual.java.dir}</property>
+                <property name="decorators">${web.manual.java.dir}</property>
+                <property name="messages">${web.generated.dir}/WEB-INF/classes</property>
+                <property name="configuration">${web.generated.dir}/WEB-INF</property>
+                <!-- uncomment to enable web tier security
+                <property name="securityRealm">${application.id}</property>
+                 -->
+                <property name="serviceAccessorPattern">${application.package}.ServiceLocator.instance().get{1}()</property>
+                <property name="mergeMappingsUri">file:${conf.dir}/mappings/WebMergeMappings.xml</property>
+                <property name="manageableServiceAccessorPattern">${application.package}.ManageableServiceLocator.instance().get{1}()</property>
+            </properties>
+        </namespace>
+    </namespaces>
+</andromda>

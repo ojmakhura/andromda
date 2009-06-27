@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - Bpm4Struts - HowTo - Other Content</title>
+    </properties>
+
+    <body>
+        <section name="Other Content">
+            <p>
+                It is not uncommon for web applications to show dynamically changing images or PDF reports on screen.
+                In order to achieve this you would need to be able to write to the HTTP response yourself and
+                avoid Struts trying to forward to a resource.
+            </p>
+            <p>
+                This can be done easily, just don't model any outgoing transitions on an action state which
+                is deferring to a controller operation. It is this controller operation which will need to take
+                care of the HTTP response.
+            </p>
+            <p>
+                <img src="howto/org/andromda/test/other-content.gif"/>
+            </p>
+            <p>
+                Notice how the action state without any outgoing transitions is deferring to a controller operation.
+                The code you execute in this operation could look like this:
+            </p>
+<source language="java"><!--
+public void renderUserPicture(ActionMapping mapping, ..., HttpServletResponse response) throws Exception
+{
+    final byte[] imageBytes = getUserService().getPicture(form.getUserId());
+
+    response.setContentType("image/jpeg");
+    response.setContentLength(imageBytes.length);
+    response.getOutputStream().write(imageBytes);
+}
+--></source>
+            <p>
+                Calling this action will not forward to any resource anymore, but it will return a different
+                content which is controlled by you. The most interesting way of calling this action is by doing
+                something like this:
+            </p>
+<source language="xml"><!--
+...
+    <html:img action="/MyUseCase/ShowUserDetailsShowUserPicture" ... />
+...
+--></source>
+            <p class="highlight">
+                Directly calling the action from a link will result in the HTTP response being rendered in the browser
+                window, you will probably want to edit the JSP and use a tag as shown above to have a more
+                aesthetically pleasing result.
+            </p>
+        </section>
+        <section name="Next">
+            <p>
+                Next up is the <a href="howto10.html">Internationalization</a> section.
+            </p>
+        </section>
+    </body>
+</document>

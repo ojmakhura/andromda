@@ -1,0 +1,5 @@
+## The complete service name with the ejb package included
+#set ($completeEjbClassName = "$service.fullyQualifiedName")
+#set ($ejbJndiName = "${service.ejbJndiName}")
+#set ($ejbHomeInterfaceName = "${service.ejbHomeInterface}")
+#set ($ejbRemoteInterfaceName = "${service.ejbInterface}")

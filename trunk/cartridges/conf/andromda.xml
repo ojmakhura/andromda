@@ -1,0 +1,55 @@
+<andromda xmlns="http://andromda.org/core/configuration">
+  <properties>
+    <property name="cartridgeFilter">meta</property>
+  </properties>
+  <repositories>
+    <repository name="netBeansMDR">
+      <models>
+        <model>
+          <uri>${model.uri}</uri>
+          <moduleSearchLocations>
+            <location patterns="**/*.xml.zip">${pom.basedir}/src/uml</location>
+            <location patterns="**/3.4-SNAPSHOT/*-3.4-SNAPSHOT.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
+            <location patterns="**/3.4-SNAPSHOT/*-3.4-SNAPSHOT.xml.zip">${settings.localRepository}/org/andromda/metafacades</location>
+            <location patterns="**/3.4-SNAPSHOT/*-3.4-SNAPSHOT.xml">${settings.localRepository}/org/andromda/profiles/uml14</location>
+            <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
+            <location patterns="**/*.xml.zip">${pom.basedir}/../../metafacades/uml/common/src/uml</location>
+            <location patterns="**/*.xml.zip">${pom.basedir}/../../metafacades/uml14/uml/src/uml</location>
+            <location patterns="**/*.xml.zip">${pom.basedir}/../../profiles/uml-1.4</location>
+            <location>${maven.repo.local}/andromda/xml.zips</location>
+  <!-- repository name="emf-uml2">
+      <models>
+        <model type="emf-uml2">
+            <uri>${model.uri}</uri>
+            <moduleSearchLocations>
+                <location>${maven.repo.local}/andromda/xml.zips</location>
+                <location patterns="**/*.uml2">${settings.localRepository}/org/andromda/profiles/emf/uml2</location>
+                <location patterns="**/*.uml2">${settings.localRepository}/org/andromda/metafacades</location-->
+          </moduleSearchLocations>
+          <modelPackages>
+            <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
+          </modelPackages>
+        </model>
+      </models>
+    </repository>
+  </repositories>
+  <namespaces>
+    <namespace name="meta">
+      <properties>
+        <property name="languageMappingsUri">Java</property>
+        <property name="wrapperMappingsUri">JavaWrapper</property>
+        <property name="facades">${maven.build.src}</property>
+        <property name="facade-logics">${maven.build.src}</property>
+        <property name="facade-logic-impls">${java.src.dir}</property>
+        <property name="enableTemplating">true</property>
+        <property name="enableAnnotations">true</property>
+        <property name="typeSafeEnumsEnabled">true</property>
+        <property name="enumerationLiteralNameMask">upperunderscore</property>
+        <property name="pluralizeAssociationEndNames">true</property>
+        <property name="pluralizeAttributeNames">true</property>
+        <property name="pluralizeParameterNames">true</property>
+        <property name="toDoTag">TODO</property>
+      </properties>
+    </namespace>
+  </namespaces>
+</andromda>

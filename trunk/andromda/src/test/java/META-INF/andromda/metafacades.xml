@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<metafacades metaclassPattern="{0}Impl">
+    <default class="org.andromda.core.metafacade.Metafacade1Impl"/>
+    <property reference="definitionOne"/>
+    <property reference="definitionTwo"/>
+    <metafacade class="org.andromda.core.metafacade.Metafacade1Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject1">
+            <stereotype>FINDER_METHOD</stereotype>
+        </mapping>
+        <property reference="metafacadeProperteryOne"/>
+        <property reference="metafacadeProperteryTwo"/>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade1Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject1">
+            <stereotype>QUERY_METHOD</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade2Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject2">
+            <stereotype>ENUMERATION</stereotype>
+            <context>org.andromda.core.metafacade.Metafacade3</context>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade11Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject12">
+            <stereotype>APPLICATION_EXCEPTION</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject2">
+            <stereotype>APPLICATION_EXCEPTION</stereotype>
+            <stereotype>UNEXPECTED_EXCEPTION</stereotype>
+            <context>org.andromda.core.metafacade.Metafacade3</context>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade3Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject2">
+            <stereotype>APPLICATION_EXCEPTION</stereotype>
+            <stereotype>UNEXPECTED_EXCEPTION</stereotype>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade3Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject7"/>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject5"/>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade5Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject5">
+            <property name="property">false</property>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject4"/>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade6Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject4">
+            <property name="mappingProperty">true</property>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade5Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject3">
+            <property name="property">false</property>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject2">
+            <context>org.andromda.core.metafacade.Metafacade1</context>
+        </mapping>
+    </metafacade>
+    <metafacade class="org.andromda.core.metafacade.Metafacade4Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject6">
+            <context>org.andromda.core.metafacade.Metafacade5</context>
+            <property name="mappingProperty"/>
+        </mapping>
+    </metafacade>
+    <!-- test with two properties (where the second is invalid) -->
+    <metafacade class="org.andromda.core.metafacade.Metafacade7Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject6">
+            <property name="propertyOne"/>
+            <property name="propertyTwo"/>
+        </mapping>
+    </metafacade>
+    <!-- test with two properties (where both are valid) -->
+    <metafacade class="org.andromda.core.metafacade.Metafacade8Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject9">
+            <property name="propertyOne"/>
+            <property name="propertyTwo">SomeValue</property>
+        </mapping>
+    </metafacade>
+    <!-- test with two mappings using two different properties mapping to 
+         the same metafacade -->
+    <metafacade class="org.andromda.core.metafacade.Metafacade9Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject10">
+            <property name="propertyOne"/>
+        </mapping>
+    </metafacade>    
+    <metafacade class="org.andromda.core.metafacade.Metafacade9Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject10">
+            <property name="propertyTwo"/>
+        </mapping>
+    </metafacade> 
+    <!-- test with two mappings using two multually exclusive properties mapping to 
+         the same metafacade -->
+    <metafacade class="org.andromda.core.metafacade.Metafacade10Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject11">
+            <property name="propertyTwo"/>
+        </mapping>
+    </metafacade>   
+    <metafacade class="org.andromda.core.metafacade.Metafacade10Impl">
+        <mapping class="org.andromda.core.metafacade.MappingObject11">
+            <property name="propertyOne"/>
+        </mapping>
+    </metafacade>      
+</metafacades>

@@ -1,0 +1,114 @@
+<project default="install"
+         xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+         xmlns:maven="jelly:maven">
+           
+    <!-- ==================================================================
+             Installs all libraries in the local repository                                                    
+         ================================================================== -->
+    <goal name="install">
+        <attainGoal name="multiproject:install"/>	
+    </goal> 
+    
+    <!-- ==================================================================
+             Cleans all cartridges                                                   
+         ================================================================== -->
+    <goal name="clean">
+        <attainGoal name="multiproject:clean"/>
+    </goal>
+           
+    <preGoal name="java:compile"> 
+        <attainGoal name="generate-source"/>
+    </preGoal>
+    
+    <preGoal name="site:run-reports">
+        <j:set var="docsBuild" value="true"/>
+        <attainGoal name="generate-source"/>
+        <attainGoal name="generate-howto-artifacts"/>
+    </preGoal>
+    
+    <!-- ==================================================================
+         Generates the source required to build the cartridges.                                                   
+         ================================================================== -->
+    <goal name="generate-source">
+   
+        <ant:available 
+            file="${maven.build.src}"
+            type="dir" 
+            property="buildSrcAvailable"/> 	
+        
+        <j:if test="${buildSrcAvailable}">
+            <ant:uptodate property="generationRequired" 
+                          targetfile="${metafacade.model.file}" >
+                <ant:srcfiles dir="${maven.build.src}" includes="**/*"/>
+            </ant:uptodate>
+            <!-- add the paths of the generated source to the
+                 maven compile path -->
+            <ant:path
+                id="metafacade.generated.src"
+                location="${maven.build.src}"/>
+            <maven:addPath
+                id="maven.compile.src.set"
+                refid="metafacade.generated.src"/>     
+        </j:if>	
+
+        <!-- keep the generation from executing more than once -->
+        <j:if test="${generationRequired or buildSrcAvailable eq null}">
+            <ant:available 
+                file="${maven.src.dir}/uml"
+                type="dir" 
+                property="hasModel"/>
+
+            <j:if test="${!empty(hasModel)}">
+                <j:choose>
+                    <j:when test="${maven.andromda.bootstrap.mode}">
+                        <attainGoal name="andromda:run-bootstrap"/>
+                    </j:when>
+                    <j:otherwise>
+                        <attainGoal name="andromda:run"/>						
+                    </j:otherwise>
+                </j:choose>
+                <!-- add the paths of the generated source to the
+                     maven compile path -->
+                <ant:path
+                    id="metafacade.generated.src"
+                    location="${maven.build.src}"/>
+                <maven:addPath
+                    id="maven.compile.src.set"
+                    refid="metafacade.generated.src"/>     		         	
+            </j:if>
+        </j:if>
+    </goal>
+
+    <!-- ==================================================================
+         Generates the howto artifacts for the documentation
+         ================================================================== -->
+    <goal name="generate-howto-artifacts">
+        <j:if test="${context.getVariable('andromda.cartridge.howto.model.uri') != null and docsBuild ne null}">
+            <j:choose>
+                <j:when test="${maven.andromda.bootstrap.mode}">
+                    <attainGoal name="cartridge:generate-howto-artifacts-bootstrap"/>
+                </j:when>
+                <j:otherwise>
+                    <attainGoal name="cartridge:generate-howto-artifacts"/>						
+                </j:otherwise>
+            </j:choose>
+        </j:if>
+    </goal>
+
+    <postGoal name="test:test">
+        <!-- only process the cartridge tests if we have a test cartridge model defined AND
+             the docs are NOT being built -->
+        <j:if test="${context.getVariable('test.model.uri') != null and docsBuild eq null}">
+            <j:choose>
+                <j:when test="${maven.andromda.bootstrap.mode}">
+                    <attainGoal name="cartridge:test-bootstrap"/>
+                </j:when>
+                <j:otherwise>
+                    <attainGoal name="cartridge:test"/>						
+                </j:otherwise>
+            </j:choose>
+        </j:if>
+    </postGoal>
+    
+</project>

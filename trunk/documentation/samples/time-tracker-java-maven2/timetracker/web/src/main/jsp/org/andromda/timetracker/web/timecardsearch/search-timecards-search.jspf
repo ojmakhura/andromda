@@ -1,0 +1,84 @@
+<%@ include file="/taglib-imports.jspf" %>
+
+<h2><bean:message key="search.criteria"/></h2>
+
+<html:form action="/SearchTimecards/SearchTimecardsSearch" method="post">
+
+    <h3><bean:message key="submitter"/></h3>
+    <c:set var="value" value="${form.submitter}"/>
+    <c:choose>
+       <c:when test="${!empty form.submitterBackingList}">
+          <html:select name="form" property="submitter" styleId="searchSubmitter">
+              <html:optionsCollection name="form" property="submitterBackingList" label="label" value="value"/>
+          </html:select>
+       </c:when>
+       <c:otherwise>
+           <html:select name="form" property="submitter" styleId="searchSubmitter"/>
+       </c:otherwise>
+    </c:choose>
+
+    <h3><bean:message key="approver"/></h3>
+    <c:set var="value" value="${form.approver}"/>
+    <c:choose>
+       <c:when test="${!empty form.approverBackingList}">
+          <html:select name="form" property="approver" styleId="searchApprover">
+              <html:optionsCollection name="form" property="approverBackingList" label="label" value="value"/>
+          </html:select>
+       </c:when>
+       <c:otherwise>
+           <html:select name="form" property="approver" styleId="searchApprover"/>
+       </c:otherwise>
+    </c:choose>
+
+    <h3><bean:message key="status"/></h3>
+    <c:set var="value" value="${form.status}"/>
+    <c:choose>
+       <c:when test="${!empty form.statusBackingList}">
+          <html:select name="form" property="status" styleId="searchStatus">
+              <html:optionsCollection name="form" property="statusBackingList" label="label" value="value"/>
+          </html:select>
+       </c:when>
+       <c:otherwise>
+           <html:select name="form" property="status" styleId="searchStatus"/>
+       </c:otherwise>
+    </c:choose>
+
+    <h3><bean:message key="start.date.minimum"/></h3>
+    <c:set var="value" value="${form.startDateMinimum}"/>
+    <input type="text" name="startDateMinimum" size="12" value="${value}" id="searchStartDateMinimum"/>
+    <html:img page="/layout/calendar/calendar.gif" styleId="search_startDateMinimum_trigger" styleClass="calendar"/>
+    <script type="text/javascript">
+    //<!--
+       Calendar.setup({
+           inputField     :    "searchStartDateMinimum",
+           ifFormat       :    "%m/%d/%Y",
+           daFormat       :    "%m/%d/%Y",
+           showsTime      :    false,
+           button         :    "search_startDateMinimum_trigger",
+           singleClick    :    true
+       });
+    //-->
+    </script>
+
+    <h3><bean:message key="start.date.maximum"/></h3>
+    <c:set var="value" value="${form.startDateMaximum}"/>
+    <input type="text" name="startDateMaximum" size="12" value="${value}" id="searchStartDateMaximum"/>
+    <html:img page="/layout/calendar/calendar.gif" styleId="search_startDateMaximum_trigger" styleClass="calendar"/>
+    <script type="text/javascript">
+    //<!--
+       Calendar.setup({
+           inputField     :    "searchStartDateMaximum",
+           ifFormat       :    "%m/%d/%Y",
+           daFormat       :    "%m/%d/%Y",
+           showsTime      :    false,
+           button         :    "search_startDateMaximum_trigger",
+           singleClick    :    true
+       });
+    //-->
+    </script>
+
+    <br /><br />
+    <html:link href="javascript:document.searchTimecardsSearchTimecardsSearchForm.submit()" styleClass="button">
+        <bean:message key="search"/>
+    </html:link>
+</html:form>

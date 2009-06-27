@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="mbohlen@mbohlen.de">Matthias Bohlen</author>
+        <author email="chdbrandon@yahoo.com">Chad Brandon</author>
+        <title>Building AndroMDA</title>
+    </properties>
+
+    <body>
+
+        <section name="Building AndroMDA">
+            <p>
+                Building AndroMDA from the source is quite easy, just follow these steps:
+                <ol>
+                    <li>
+                        Make sure you have
+                        <a href="http://maven.apache.org">Maven</a>installed correctly
+                        and MAVEN_HOME/bin is in your PATH (so that Windows finds "maven.bat" and *nix
+                        finds "maven").
+                    </li>
+                    <li>
+                        Unpack
+                        <code>andromda-src-*.zip</code>into a directory of your choice.
+                    </li>
+                    <li>
+                        "MAVEN_OPTS=-XX:MaxPermSize=128m -Xmx512m" must be set in your environment variables.
+                    </li>
+                    <li>
+                        Change to the directory where you unpacked the contents, and then type:
+                        <code>maven</code>
+                    </li>
+                </ol>
+            </p>
+            <p>
+                That's it! The contents will be
+                installed into both your local maven repository (for maven users) and
+                the target/distributions (for those still using Ant).
+            </p>
+            <p class="highlight">
+                The same rules apply if you want to build from CVS version. Just checkout the
+                <code>andromda-all</code>module from
+                <a href="http://sourceforge.net/cvs/?group_id=73047">AndroMDA CVS</a>, and
+                proceed as before.
+            </p>
+        </section>
+        <section name="Maven goals">
+            <p>
+                Different goals can be called in order to build the sources, it is even possible to call goals
+                in the different sub-projects, that's because we are using the Maven
+                <a href="http://maven.apache.org/reference/plugins/multiproject/">Multi-Project plugin</a>.
+            </p>
+            <p>
+                <ul>
+                    <li>Using the <code>-o</code> command line parameter will tell Maven not to download any
+                        dependencies, this will speed up the build process.</li>
+                    <li>It's possible to disable the tests by using <code>-Dmaven.test.skip=true</code>.</li>
+                </ul>
+            </p>
+            <subsection name="Global goals">
+                <p>
+                    These goals can be executed in the root of the AndroMDA source tree.
+                </p>
+                <p>
+                    <ul class="textList">
+                        <li><code>maven</code><br/>
+                            Calls the default goal: <code>clean-dist</code> (see below).
+                        </li>
+                        <li><code>maven clean-dist</code><br/>
+                            Cleans everything and then builds the binary distribution.
+                        </li>
+                        <li><code>maven docs</code><br/>
+                            Builds the documentation and includes it in the binary distribution.
+                        </li>
+                        <li><code>maven dist</code><br/>
+                            Builds the binary distribution.
+                        </li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Expert Goals">
+                <p>
+                    Execute these goals in the root of the AndroMDA source tree.
+                </p>
+                <p>
+                    <ul class="textList">
+                        <li><code>maven install-components</code><br/>
+                            Builds and installs all AndroMDA components into the local Maven repository.
+                        </li>
+                        <li><code>maven install-samples</code><br/>
+                            Builds and installs all AndroMDA samples into the local Maven repository.
+                        </li>
+                        <li><code>maven install</code><br/>
+                            Builds and installs all AndroMDA components and samples into the local Maven repository.
+                        </li>
+                        <li><code>maven deploy</code><br/>
+                            Deploys all libraries into the remote Maven repository.
+                        </li>
+                        <li><code>maven xfr-dist</code><br/>
+                            Transfers distribution to team server (same as <code>maven deploy</code>).
+                        </li>
+                        <li><code>maven deploy-no-tests</code><br/>
+                            Deploys all libraries into the remote repository while
+                            skipping all tests (speeds up deployment).
+                        </li>
+                        <li><code>maven clean</code><br/>
+                            Cleans everything: deletes <code>/target</code> directories, <code>*.log*</code> files
+                            and files with the <code>.exc</code> extension.
+                        </li>
+                        <li><code>maven dist-bin</code><br/>
+                            Builds the binary distribution.
+                        </li>
+                        <li><code>maven dist-src</code><br/>
+                            Builds the source distribution.
+                        </li>
+                        <li><code>maven bootstrap-install</code><br/>
+                            Installs all bootstrap artifacts to the local repository.
+                        </li>
+                        <li><code>maven deploy-distribution</code><br/>
+                            Copies the distribution to the server.
+                        </li>
+                        <li><code>maven deploy-docs</code><br/>
+                            Copies the documentation to the server.
+                        </li>
+                        <li><code>maven deploy-repository</code><br/>
+                            Copies the repository artifacts to the server.
+                        </li>
+                        <li><code>maven deploy-build</code><br/>
+                            Copies all artifacts to the server.
+                        </li>
+                        <li><code>maven update-xmi -DxmiToken=oldVersion -DxmiValue=newVersion</code><br/>
+                            Processes all XMI models by search and replacing for all occurrences of
+                            <code>oldVersion</code> and replacing it with <code>newVersion</code>. This goal is to be
+                            used when releasing a new version.
+                        </li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Plugin goals">
+                <p>
+                    Execute the goals where the AndroMDA plugins are located, ie.
+                    <code>/maven/andromda</code>, <code>/maven/andromdapp</code>, <code>/maven/cartridge</code> ...
+                </p>
+                <p>
+                    <ul class="textList">
+                        <li><code>maven plugin:install</code><br/>
+                            Builds and installs the current plugin, you will need to do this in order
+                            to make it available to Maven.
+                        </li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Cartridge goals">
+                <p>
+                    The following goals can be called in each cartridge subdirectory.
+                </p>
+                <p>
+                    <ul class="textList">
+                        <li><code>maven jar:install</code><br/>
+                            Build and install the current cartridge.
+                        </li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Metafacade goals">
+                <p>
+                    Execute these goals to build the generic metafacades, you will need to execute them
+                    in <code>/metafacades/uml</code>.
+                </p>
+                <p>
+                    <ul class="textList">
+                        <li><code>maven install</code><br/>
+                            Builds and installs the generic metafacades.
+                        </li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Documentation goals">
+                <p>
+                    The following goals can be called in each cartridge subdirectory, or in
+                    <code>/documentation</code>.
+                </p>
+                <p>
+                    <ul class="textList">
+                        <li><code>maven xdoc</code><br/>
+                            Generates the HTML pages from the XDOC files for the current component only.
+                        </li>
+                    </ul>
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,341 @@
+<cartridge>
+
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine"/>
+
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="escapeUtils" className="org.apache.commons.lang.StringEscapeUtils"/>
+    <templateObject name="webServiceUtils" className="org.andromda.cartridges.webservice.WebServiceUtils"/>
+    <!-- cartridge-templateObject merge-point-->
+
+    <property reference="applicationName"/>
+    <property reference="wsdlSoapAddress"/>
+    <property reference="securityRealm"/>
+    <property reference="testServiceLocatorName"/>
+    <property reference="testServiceLocatorPackage"/>
+    <property reference="servicesPath"/>
+    <property reference="ejbJndiUrl"/>
+    <property reference="ejbNamingContextFactory"/>
+    <property reference="sessionTimeout"/>
+    <property reference="webserviceTypesPackage"/>
+    <property reference="wsdlSoapNamespace"/>
+    <property reference="xmlSchemaNamespace"/>
+    <property reference="wsdlNamespace"/>
+    <property reference="documentStyleTransportNamespace"/>
+    <property reference="xmlEncoding"/>
+    <property reference="signedRequest"/>
+    <property reference="encryptedRequest"/>
+    <property reference="encryptedResponse"/>
+    <property reference="signedResponse"/>
+    <property reference="cryptoKeyStore"/>
+    <property reference="cryptoKeyStoreType"/>
+    <property reference="cryptoKeyStoreAlias"/>
+    <property reference="cryptoAliasPassword"/>
+    <property reference="cryptoKeyStorePassword"/>
+    <property reference="attachmentsDirectory"/>
+    <property reference="toDoTag"/>
+    <property reference="axisVersion"/>
+    <property reference="soapStack"/>
+    <property reference="axis2WrappedMessageReceiver"/>
+    <property reference="axis2DefaultMessageReceiver"/>
+    <property reference="axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans"/>
+    <property reference="springVersion"/>
+    <property reference="extensionInheritanceDisabled"/>
+    <!-- cartridge-property merge-point -->
+
+    <condition name="xfire">$soapStack.equalsIgnoreCase("xfire")</condition>
+    <condition name="axis">$soapStack.equalsIgnoreCase("axis")</condition>
+    <condition name="axis1">#if ($soapStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("1"))true#end</condition>
+    <condition name="axis2">#if ($soapStack.equalsIgnoreCase("axis") &amp;&amp; $axisVersion.equals("2"))true#end</condition>
+    <condition name="securityEnabled">$stringUtils.isNotBlank($securityRealm)</condition>
+    <condition name="spring2">$springVersion.equals("2")</condition>
+    <condition name="extensionInheritanceDisabled">$extensionInheritanceDisabled</condition>
+    <condition name="axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans">$axis2GeneratedWrappedMessageReceiverRendersFaultsAsBeans</condition>
+    <!-- condition merge-point-->
+
+    <!-- cartridge-resource merge-point -->
+    <resource
+        path="resources/webservice/axis2/modules/*.mar"
+        outputPattern="WEB-INF/modules/{0}"
+        outlet="configuration"
+        overwrite="true"
+        lastModifiedCheck="true"
+        outputCondition="axis2"/>
+
+    <resource
+        path="resources/webservice/axis2/services/*.aar"
+        outputPattern="WEB-INF/services/{0}"
+        outlet="configuration"
+        overwrite="true"
+        lastModifiedCheck="true"
+        outputCondition="axis2"/>
+
+    <resource
+        path="resources/webservice/axis2/views/webapp/**/*"
+        outputPattern="{0}"
+        outlet="configuration"
+        overwrite="true"
+        outputCondition="axis2"/>
+
+    <resource
+        path="resources/webservice/axis1/views/**/*"
+        outputPattern="{0}"
+        outlet="configuration"
+        overwrite="true"
+        outputCondition="axis1"/>
+
+    <resource
+        path="resources/webservice/xfire/views/**/*"
+        outputPattern="{0}"
+        outlet="configuration"
+        overwrite="true"
+        outputCondition="xfire"/>
+
+    <template
+        path="templates/webservice/configuration/web.xml.vsl"
+        outputPattern="WEB-INF/web.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/jboss/jboss-web.xml.vsl"
+        outputPattern="WEB-INF/jboss-web.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputCondition="securityEnabled"/>
+
+    <!-- XFire support -->
+
+    <template
+        path="templates/webservice/wsdl/wrapped-wsdl.vsl"
+        outputPattern="{0}/{1}.wsdl"
+        outlet="wsdls"
+        overwrite="true"
+        outputCondition="xfire">
+        <modelElements>
+            <modelElement variable="service">
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/xfire/services.xml.vsl"
+        outputPattern="WEB-INF/classes/META-INF/xfire/services.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false"
+        outputCondition="xfire">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- Axis 2.x support -->
+
+    <template
+        path="templates/webservice/wsdl/wrapped-wsdl.vsl"
+        outputPattern="WEB-INF/services/webservices/META-INF/${service.fullyQualifiedName}.wsdl"
+        outlet="wsdls"
+        overwrite="true"
+        outputCondition="axis2">
+        <modelElements>
+            <modelElement variable="service">
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/axis2/axis2.xml.vsl"
+        outputPattern="WEB-INF/conf/axis2.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputCondition="axis2">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/axis2/TypeMappings.java.vsl"
+        outputPattern="$stringUtils.replace($webserviceTypesPackage, '.', '/')/${className}.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputCondition="axis2"/>
+
+    <template
+        path="templates/webservice/axis2/WrappedMessageReceiver.java.vsl"
+        outputPattern="$stringUtils.replace($webserviceTypesPackage, '.', '/')/${className}.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputCondition="axis2"/>
+
+    <template
+        path="templates/webservice/axis2/services.xml.vsl"
+        outputPattern="WEB-INF/services/webservices/META-INF/services.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false"
+        outputCondition="axis2">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- Axis 1.x support -->
+
+    <template
+        path="templates/webservice/wsdl/wrapped-wsdl.vsl"
+        outputPattern="{0}/{1}.wsdl"
+        outlet="wsdls"
+        overwrite="true"
+        outputCondition="axis1">
+        <modelElements>
+            <modelElement variable="service">
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/axis1/server-config.wsdd.vsl"
+        outputPattern="WEB-INF/server-config.wsdd"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false"
+        outputCondition="axis1">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/axis1/wss4j/crypto.properties.vsl"
+        outputPattern="wss4j/crypto.properties"
+        outlet="wss4j-configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false"
+        outputCondition="axis1">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/axis1/WebServiceTest.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="axis-tests"
+        overwrite="true"
+        outputCondition="axis1">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/axis1/WebServiceTestServiceLocator.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="axis-tests"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false"
+        outputCondition="axis1">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/axis1/WebServiceTestImpl.java.vsl"
+        outputPattern="$generatedFile"
+        outlet="axis-test-impls"
+        overwrite="false"
+        outputCondition="axis1">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.cartridges.webservice.metafacades.WebService">
+                    <property name="allowedOperations"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/webservice/axis1/AttachmentHandler.java.vsl"
+        outputPattern="$stringUtils.replace($webserviceTypesPackage, '.', '/')/${className}.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputCondition="axis1"/>
+
+    <template
+        path="templates/webservice/axis2/AttachmentHandler.java.vsl"
+        outputPattern="$stringUtils.replace($webserviceTypesPackage, '.', '/')/${className}.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputCondition="axis2"/>
+
+    <template
+        path="templates/webservice/axis1/ArraySerializer.java.vsl"
+        outputPattern="$stringUtils.replace($webserviceTypesPackage, '.', '/')/${className}.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputCondition="axis1"/>
+
+    <template
+        path="templates/webservice/axis1/ArraySerializerFactory.java.vsl"
+        outputPattern="$stringUtils.replace($webserviceTypesPackage, '.', '/')/${className}.java"
+        outlet="webservice-types"
+        overwrite="true"
+        outputCondition="axis1"/>
+
+    <!-- cartridge-template merge-point -->
+
+</cartridge>

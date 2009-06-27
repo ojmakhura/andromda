@@ -1,0 +1,441 @@
+<cartridge>
+
+    <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine">
+        <macrolibrary name="templates/hibernate/hibernate.java.vm"/>
+        <macrolibrary name="templates/hibernate2/hibernate.hbm.xml.vm"/>
+        <macrolibrary name="templates/hibernate3/hibernate.hbm.xml.vm"/>
+        <!-- cartridge-macrolibrary merge-point-->
+    </templateEngine>
+
+    <!-- define the template objects that are made available to the template -->
+    <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
+    <templateObject name="hibernateUtils" className="org.andromda.cartridges.hibernate.HibernateUtils">
+        <property reference="hibernateVersion"/>
+        <property reference="hibernateXMLPersistence"/>
+        <property reference="hibernateMappingStrategy"/>
+    </templateObject>
+    <!-- cartridge-templateObject merge-point-->
+
+    <property reference="securityRealm"/>
+    <property reference="customTypesPackage"/>
+    <!-- contains the package for the Hibernate user types -->
+    <property reference="userTypesPackage"/>
+    <!-- optional hibernate enum types package -->
+    <property reference="enumTypesPackage" />
+    <!-- the name to give the service locator class -->
+    <property reference="serviceLocatorName"/>
+    <property reference="driver"/>
+    <property reference="username"/>
+    <property reference="password"/>
+    <property reference="connectionUrl"/>
+    <property reference="dataSource"/>
+    <property reference="schemaName"/>
+    <property reference="hibernateDefaultCascade"/>
+    <property reference="hibernatePoolSize"/>
+    <property reference="hibernateTransactionFactoryClass"/>
+    <property reference="hibernateConnectionReleaseMode"/>
+    <property reference="hibernateTransactionManagerStrategy"/>
+    <property reference="hibernateUserTransactionName"/>
+    <property reference="hibernateTransactionManagerLookup"/>
+    <property reference="hibernateUseOuterJoin"/>
+    <property reference="hibernateShowSql"/>
+    <property reference="hibernateJndiName"/>
+    <property reference="hibernateDialect"/>
+    <property reference="hibernateMaxFetchDepth"/>
+    <property reference="hibernateJdbcFetchSize"/>
+    <property reference="hibernateJdbcBatchSize"/>
+    <property reference="hibernateJdbcUseScrollableResultSet"/>
+    <property reference="hibernateJdbcUseStreamsForBinary"/>
+    <property reference="hibernateHbm2DDLAuto"/>
+    <property reference="hibernateQuerySubstitutions"/>
+    <property reference="hibernateEnableCache"/>
+    <property reference="hibernateEnableAssociationsCache"/>
+    <property reference="hibernateEhCacheDiskStore"/>
+    <property reference="hibernateEnableDistributedCache"/>
+    <property reference="hibernateDistributedCacheMulticastAddress"/>
+    <property reference="hibernateDistributedCacheMulticastPort"/>
+    <property reference="hibernateDistributedCacheSocketTimeout"/>
+    <property reference="hibernateCacheProvider"/>
+    <property reference="hibernateQueryCacheFactory"/>
+    <property reference="xmlEncoding"/>
+    <property reference="generateEntityEqualsAndHashCode"/>
+    <property reference="hibernateProxy"/>
+    <property reference="toDoTag"/>
+	<property reference="typeSafeEnumsEnabled"/>
+    <property reference="enableTemplating"/>
+    <!-- These 3 properties are only relevant for Hibernate 3 -->
+    <property reference="hibernateQueryFactory"/>
+    <property reference="hibernateOneToManyNotFoundAction"/>
+    <property reference="generateDatabaseDependentCode"/>
+
+    <!-- cartridge-property merge-point-->
+
+    <condition name="mapSubclassesInSeparateFile">$hibernateUtils.mapSubclassesInSeparateFile</condition>
+	<condition name="typeSafeEnumsEnabled">$typeSafeEnumsEnabled.equalsIgnoreCase("true")</condition>
+	<condition name="generateDatabaseDependentCode">$generateDatabaseDependentCode.equalsIgnoreCase("true")</condition>
+    <condition name="enableTemplating">$enableTemplating.equalsIgnoreCase("true")</condition>
+    <!-- condition merge-point-->
+
+    <!-- cartridge-resource merge-point -->
+
+    <!-- hibernate 2 templates -->
+    <template
+        path="templates/hibernate2/ejb/HibernateEntityFactory.vsl"
+        outputPattern="{0}/{1}Factory.java"
+        outlet="session-beans"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="version">2</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate2/hibernate.cfg.xml.vsl"
+        outputPattern="hibernate.cfg.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="entities">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="requiresMapping"/>
+                    <property name="version">2</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate2/hibernate.hbm.xml.vsl"
+        outputPattern="$generatedFile"
+        outlet="entity-mappings"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="requiresMapping"/>
+                    <property name="version">2</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate2/HibernateEnumeration.vsl"
+        outputPattern="$generatedFile"
+        outlet="user-types"
+        overwrite="true">
+        <modelElements variable="enumeration">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.EnumerationFacade">
+                    <property name="version">2</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- hibernate 3 templates -->
+    <template
+        path="templates/hibernate3/ejb/HibernateEntityFactory.vsl"
+        outputPattern="{0}/{1}Factory.java"
+        outlet="session-beans"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="version">3</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate3/hibernate.cfg.xml.vsl"
+        outputPattern="hibernate.cfg.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="entities">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="requiresMapping"/>
+                    <property name="version">3</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate3/hibernate.hbm.xml.vsl"
+        outputPattern="$generatedFile"
+        outlet="entity-mappings"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="requiresMapping"/>
+                    <property name="version">3</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate3/HibernateEnumeration.vsl"
+        outputPattern="$generatedFile"
+        outlet="user-types"
+        overwrite="true">
+        <modelElements variable="enumeration">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.EnumerationFacade">
+                    <property name="version">3</property>
+					<property name="typeSafe">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+	<template
+        path="templates/hibernate3/hibernate.cfg.xml.vsl"
+        outputPattern="hibernate.cfg.xml"
+        outlet="configuration"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="entities">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="requiresMapping"/>
+                    <property name="version">3</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+	<template
+        path="templates/hibernate3/usertypes/HibernateEnumType.vsl"
+        outputPattern="$generatedFile"
+        outlet="user-types"
+        overwrite="true"
+		outputToSingleFile="true"
+		outputOnEmptyElements="false">
+		<modelElements variable="enumeration">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.EnumerationFacade">
+                    <property name="version">3</property>
+					<property name="typeSafe">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- common templates -->
+    <template
+        path="templates/hibernate/HibernateEntityPK.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                <property name="compositeIdentifier">true</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/HibernateEmbeddedValue.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true">
+        <modelElements variable="embeddedValue">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValue"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/HibernateEmbeddedValueImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="entity-impls"
+        overwrite="false">
+        <modelElements variable="embeddedValue">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValue"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/HibernateEntity.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/HibernateEntityImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="entities"
+        overwrite="true">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="businessOperationsPresent">false</property>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/HibernateEntityImpl.vsl"
+        outputPattern="$generatedFile"
+        outlet="entity-impls"
+        overwrite="false">
+        <modelElements variable="entity">
+            <modelElement>
+                <type name="org.andromda.cartridges.hibernate.metafacades.HibernateEntity">
+                    <property name="businessOperationsPresent"/>
+                </type>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/usertypes/HibernateByteBlobType.vsl"
+        outputPattern="$generatedFile"
+        outlet="user-types"
+        overwrite="true"/>
+
+    <template
+        path="templates/hibernate/usertypes/HibernateStringClobType.vsl"
+        outputPattern="$generatedFile"
+        outlet="user-types"
+        overwrite="true"/>
+
+    <template
+        path="templates/hibernate/ejb/ejb-jar.xml.vsl"
+        outputPattern="META-INF/ejb-jar.xml"
+        outlet="session-beans"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Service"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ejb/jboss.xml.vsl"
+        outputPattern="META-INF/jboss.xml"
+        outlet="session-beans"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Service"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ejb/HibernateSessionEJBLocator.vsl"
+        outputPattern="$generatedFile"
+        outlet="session-beans"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="services">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Service"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ejb/HibernateSessionBean.vsl"
+        outputPattern="{0}/{1}Bean.java"
+        outlet="session-beans"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Service"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ejb/HibernateSessionBeanImpl.vsl"
+        outputPattern="{0}/{1}BeanImpl.java"
+        outlet="session-impls"
+        overwrite="false">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Service"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ejb/HibernateSession.vsl"
+        outputPattern="$generatedFile"
+        outlet="session-beans"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Service"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ejb/HibernateSessionHome.vsl"
+        outputPattern="$generatedFile"
+        outlet="session-beans"
+        overwrite="true">
+        <modelElements variable="service">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Service"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <template
+        path="templates/hibernate/ejb/HibernateUtils.vsl"
+        outputPattern="$generatedFile"
+        outlet="session-beans"
+        overwrite="true"/>
+
+    <template
+        path="templates/hibernate/ehcache.xml.vsl"
+        outputPattern="ehcache.xml"
+        outlet="cache"
+        overwrite="true"
+        outputToSingleFile="true"
+        outputOnEmptyElements="false">
+        <modelElements variable="entities">
+            <modelElement>
+                <type name="org.andromda.metafacades.uml.Entity"/>
+            </modelElement>
+        </modelElements>
+    </template>
+
+    <!-- cartridge-template merge-point -->
+
+</cartridge>

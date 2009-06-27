@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config>
+    <application>
+        <default-render-kit-id>
+            oracle.adf.core
+        </default-render-kit-id>
+    </application>
+    <lifecycle>
+        <phase-listener>${managedBeansPackage}.MessagePhaseListener</phase-listener>
+    </lifecycle>
+#if(!$applicationUseCases.empty)
+#set($applicationUseCase = $applicationUseCases.iterator().next())
+#end
+#set ($useCases = $applicationUseCase.allUseCases)
+    <!-- forms -->
+#foreach ($useCase in $useCases)
+#foreach ($action in $useCase.actions)
+#if (!$action.formFields.empty)
+    <managed-bean>
+        <managed-bean-name>$action.formBeanName</managed-bean-name>
+        <managed-bean-class>$action.fullyQualifiedFormImplementationName</managed-bean-class>
+        <managed-bean-scope>$action.formScope</managed-bean-scope>
+    </managed-bean>
+#end
+#end
+#end
+    <!-- controllers -->
+#foreach ($controller in $controllers)
+    <managed-bean>
+        <managed-bean-name>$controller.beanName</managed-bean-name>
+        <managed-bean-class>$controller.fullyQualifiedImplementationName</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+#end
+    <!-- global navigational-rules -->
+#foreach ($useCase in $useCases)
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>$useCase.forwardName</from-outcome>
+            <to-view-id>${useCase.path}.${jsfUtils.viewExtension}</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+#end
+#foreach ($useCase in $useCases)
+#foreach ($rule in $useCase.navigationRules)
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>$rule.fromOutcome</from-outcome>
+            <to-view-id>${rule.path}.${jsfUtils.viewExtension}</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+#end
+#end
+#if ($enablePreferences)
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>preferences</from-outcome>
+            <to-view-id>/preferences/preferences.${jsfUtils.viewExtension}</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+#end
+#if ($stringUtils.isNotBlank($securityRealm))
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>logout</from-outcome>
+            <to-view-id>/logout.${jsfUtils.viewExtension}</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+#end
+#if ($enablePreferences)
+
+    <managed-bean>
+        <managed-bean-name>$preferencesBeanName</managed-bean-name>
+        <managed-bean-class>${managedBeansPackage}.${preferencesClassName}</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>skin</property-name>
+            <value>$skin</value>
+        </managed-property>
+        <managed-property>
+            <property-name>menuTheme</property-name>
+            <value>$menuTheme</value>
+        </managed-property>
+#if ($stringUtils.isNotBlank($maxTableRows))
+        <managed-property>
+            <property-name>maxTableRows</property-name>
+            <value>$maxTableRows</value>
+        </managed-property>
+#end
+    </managed-bean>
+#end
+
+#foreach ($enumeration in $enumerations)
+    <converter>
+        <converter-for-class>$enumeration.fullyQualifiedName</converter-for-class>
+        <converter-class>$enumeration.fullyQualifiedConverterName</converter-class>
+    </converter>
+#end
+
+    <!-- faces-config merge-point -->
+</faces-config>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:AndroMDAProfileCommon_1="http:///AndroMDAProfileCommon_1_ww1wNGp0EdutkrH8jZWcfw.profile.uml2" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.1.0/UML" xsi:schemaLocation="http:///AndroMDAProfileCommon_1_ww1wNGp0EdutkrH8jZWcfw.profile.uml2 pathmap://m2repository/org/andromda/profiles/emf/uml22/andromda-profile-common/3.4-SNAPSHOT/andromda-profile-common-3.4-SNAPSHOT.uml#_ww1wNWp0EdutkrH8jZWcfw">
+  <uml:Model xmi:id="_V12I-Z04Ed2D6p7FOUlErg" name="Test Model">
+    <packageImport xmi:id="_V12I-p04Ed2D6p7FOUlErg">
+      <importedPackage xmi:type="uml:Model" href="pathmap://m2repository/org/andromda/profiles/emf/uml22/andromda-profile-datatype/3.4-SNAPSHOT/andromda-profile-datatype-3.4-SNAPSHOT.uml#_pz6eYUfBEdqb94g3JcKzWw"/>
+    </packageImport>
+    <packageImport xmi:id="_V12I-504Ed2D6p7FOUlErg">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_V12I_J04Ed2D6p7FOUlErg" name="testPackage">
+      <packagedElement xmi:type="uml:Class" xmi:id="_V12I_Z04Ed2D6p7FOUlErg" name="SubClass1">
+        <generalization xmi:id="_V12I_p04Ed2D6p7FOUlErg" general="_V12JB504Ed2D6p7FOUlErg"/>
+        <ownedAttribute xmi:id="_V12I_504Ed2D6p7FOUlErg" name="owner">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://m2repository/org/andromda/profiles/emf/uml22/andromda-profile-datatype/3.4-SNAPSHOT/andromda-profile-datatype-3.4-SNAPSHOT.uml#_pz6edkfBEdqb94g3JcKzWw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_V12JAJ04Ed2D6p7FOUlErg" name="subclass2" type="_V12JA504Ed2D6p7FOUlErg" association="_V12JCp04Ed2D6p7FOUlErg">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_V12JAZ04Ed2D6p7FOUlErg" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_V12JAp04Ed2D6p7FOUlErg"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_V12JA504Ed2D6p7FOUlErg" name="SubClass2">
+        <generalization xmi:id="_V12JBJ04Ed2D6p7FOUlErg" general="_V12JB504Ed2D6p7FOUlErg"/>
+        <ownedAttribute xmi:id="_V12JBZ04Ed2D6p7FOUlErg" name="counter">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://m2repository/org/andromda/profiles/emf/uml22/andromda-profile-datatype/3.4-SNAPSHOT/andromda-profile-datatype-3.4-SNAPSHOT.uml#_6uy6MEgFEdqasKDILfY-3Q"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_V12JBp04Ed2D6p7FOUlErg" name="subclass1" type="_V12I_Z04Ed2D6p7FOUlErg" association="_V12JCp04Ed2D6p7FOUlErg"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_V12JB504Ed2D6p7FOUlErg" name="Top">
+        <ownedAttribute xmi:id="_V12JCJ04Ed2D6p7FOUlErg" name="Name">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://m2repository/org/andromda/profiles/emf/uml22/andromda-profile-datatype/3.4-SNAPSHOT/andromda-profile-datatype-3.4-SNAPSHOT.uml#_pz6edkfBEdqb94g3JcKzWw"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_V12JCZ04Ed2D6p7FOUlErg" name="Id">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://m2repository/org/andromda/profiles/emf/uml22/andromda-profile-datatype/3.4-SNAPSHOT/andromda-profile-datatype-3.4-SNAPSHOT.uml#_pz6edkfBEdqb94g3JcKzWw"/>
+        </ownedAttribute>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_V12JCp04Ed2D6p7FOUlErg" name="related" memberEnd="_V12JAJ04Ed2D6p7FOUlErg _V12JBp04Ed2D6p7FOUlErg"/>
+    </packagedElement>
+    <profileApplication xmi:id="_V12JC504Ed2D6p7FOUlErg">
+      <eAnnotations xmi:id="_V12JDJ04Ed2D6p7FOUlErg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Standard.profile.uml#_yzU58YinEdqtvbnfB2L_5w"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+    <profileApplication xmi:id="_V12JDZ04Ed2D6p7FOUlErg">
+      <eAnnotations xmi:id="_V12JDp04Ed2D6p7FOUlErg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://m2repository/org/andromda/profiles/emf/uml22/andromda-profile-common/3.4-SNAPSHOT/andromda-profile-common-3.4-SNAPSHOT.uml#_ww1wNWp0EdutkrH8jZWcfw"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://m2repository/org/andromda/profiles/emf/uml22/andromda-profile-common/3.4-SNAPSHOT/andromda-profile-common-3.4-SNAPSHOT.uml#_jl5ObWprEdummsSofer0Pg"/>
+    </profileApplication>
+  </uml:Model>
+  <AndroMDAProfileCommon_1:AndroMDAProfileCommon__ValueObject xmi:id="_V12JD504Ed2D6p7FOUlErg" base_Class="_V12I_Z04Ed2D6p7FOUlErg"/>
+  <AndroMDAProfileCommon_1:AndroMDAProfileCommon__ValueObject xmi:id="_V12JEJ04Ed2D6p7FOUlErg" base_Class="_V12JA504Ed2D6p7FOUlErg"/>
+  <AndroMDAProfileCommon_1:AndroMDAProfileCommon__ValueObject xmi:id="_V12JEZ04Ed2D6p7FOUlErg" base_Class="_V12JB504Ed2D6p7FOUlErg"/>
+</xmi:XMI>

@@ -1,0 +1,142 @@
+<document>
+    <properties>
+        <author email="chad@andromda.org">Chad Brandon</author>
+        <title>AndroMDA Profile Schema</title>
+    </properties>
+      <body>
+          <section name="AndroMDA Profile Schema">
+          <p>
+              The AndroMDA Profile must comply with the following XSD Schema:
+          </p>
+<source language="xml"><![CDATA[
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="allowedValues">
+        <xs:annotation>
+            <xs:documentation>
+                The values that are allowed for a given profile element.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="value" minOccurs="1" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Defines an allowed value.  The default flag can only be
+                            set on one of the values.
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="default" type="xs:boolean" use="optional"/>
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="appliedOnElement" type="xs:anyType">
+        <xs:annotation>
+            <xs:documentation>
+                The model element on which the profile element can be applied.
+            </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="documentation" type="xs:anyType"/>
+    <xs:element name="element">
+        <xs:annotation>
+            <xs:documentation>
+                Represents a <em>profile element</em>.  This are used to define profile element
+                names and values.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="documentation" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Defines any documentation about this element.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="value" type="xs:string" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            The actual value of the profile element, such as <em>Entity</em>.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="appliedOnElement" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="allowedValues" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The logical name of the profile element.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="elementGroup">
+        <xs:annotation>
+            <xs:documentation>
+                Groups profile elements logical by some common aspect (such as 'Stereotypes'
+                for example).
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="documentation" minOccurs="0" maxOccurs="1">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Any documentation about this <em>group</em> of elements.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="element" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of this element group such as "Stereotypes".
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="elements">
+        <xs:annotation>
+            <xs:documentation>
+                Groups all elements for this profile.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="elementGroup" minOccurs="1" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueElementGroupName">
+            <xs:selector xpath="elementGroup"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+        <xs:unique name="uniqueElementName">
+            <xs:selector xpath="elementGroup/element"/>
+            <xs:field xpath="@name"/>
+        </xs:unique>
+    </xs:element>
+    <xs:element name="profile">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="documentation" minOccurs="0" maxOccurs="1"/>
+                <xs:element ref="elements" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
+]]>
+              </source>
+          </section>
+      </body>
+</document>

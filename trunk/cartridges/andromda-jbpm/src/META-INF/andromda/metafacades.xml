@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!-- contains the jbpm cartridge metafacade mappings -->
+<metafacades>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmProcessDefinitionLogicImpl">
+        <mapping>
+            <stereotype>BUSINESS_PROCESS</stereotype>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmSwimlaneLogicImpl">
+        <mapping>
+            <property name="containedInBusinessProcess"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl">
+            <property name="containedInBusinessProcess"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmNodeLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl">
+            <property name="containedInBusinessProcess"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmStateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.State$Impl">
+            <property name="containedInBusinessProcess"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmActionLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
+            <property name="containedInBusinessProcess"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmTransitionLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+            <property name="containedInBusinessProcess"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmEndStateLogicImpl">
+        <mapping class="org.omg.uml.behavioralelements.statemachines.FinalState$Impl">
+            <property name="containedInBusinessProcess"/>
+        </mapping>
+    </metafacade>
+
+    <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmHandlerLogicImpl">
+        <mapping>
+            <property name="containedInBusinessProcess"/>
+            <property name="actionHandler"/>
+        </mapping>
+    </metafacade>
+
+</metafacades>

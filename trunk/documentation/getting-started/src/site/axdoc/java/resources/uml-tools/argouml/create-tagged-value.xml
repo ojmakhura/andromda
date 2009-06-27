@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+    <properties>
+        <author email="tfmorris@tigris.org">Tom Morris</author>
+        <title>Create Tagged Values using ArgoUML</title>
+    </properties>
+
+    <body>
+
+        <section name="Create Tagged Values using ArgoUML">
+            <p>
+                This page provides directions to create a tagged value on a model
+                element. The model shown below is used as an example. It contains
+                a tagged value on association end called <code>allocations</code>.
+                The tag name is <code>andromda-hibernate-cascade</code> and the
+                tag value is the string <code>all-delete-orphan</code>.
+            </p>
+
+            <p>
+                <div align="center">
+                    <img src="../../../images/argouml/DomainObjects.png"/>
+                </div>
+            </p>
+
+            <p>Here is the procedure to add the tag value:
+                <ol>
+                    <li>Select the association between the classes <code>Timecard</code>
+                    and <code>TimeAllocation</code>.  Go to the Properties tab of the 
+                    property panel and double click on the <code>allocations</code>
+                    association end in the Connections: list.  The property panel with
+                    refresh with the information from the association end.</li>
+
+                    <li>Select the Tagged Values tab.</li>
+
+                    <li>In the Tag column, select the <code>@andromda-hibernate-cascade</code>
+                    tag.</li>
+
+                    <li>In the Value column on the same line, type the string
+                    <code>all-delete-orphan</code> and press Enter.</li>
+                </ol>
+            </p>
+        </section>
+
+    </body>
+</document>

@@ -1,0 +1,241 @@
+<project xmlns:j="jelly:core"
+         xmlns:ant="jelly:ant"
+         xmlns:maven="jelly:maven"
+         xmlns:i="jelly:interaction">
+
+    <!-- ===================================================================
+         Call AndroMDA to generate code from the model
+         =================================================================== -->
+    <goal name="andromda:run${bootstrap}"
+          description="Runs AndroMDA with plugins defined as dependencies with your POM">
+
+        <j:choose>
+            <j:when test="${bootstrapMode}">
+                <ant:echo>+---------------------------------------------------------------------------+</ant:echo>
+                <ant:echo>|    R u n n i n g   A n d r o M D A   I n   B O O T S T R A P   M o d e    |</ant:echo>
+                <ant:echo>+---------------------------------------------------------------------------+</ant:echo>
+            </j:when>
+            <j:otherwise>
+                <ant:echo>+--------------------------------------------+</ant:echo>
+                <ant:echo>|      R u n n i n g    A n d r o M D A      |</ant:echo>
+                <ant:echo>+--------------------------------------------+</ant:echo>
+            </j:otherwise>
+        </j:choose>
+        <attainGoal name="andromda:parameter-check${bootstrap}"/>
+                     
+        <j:set var="runWithoutAnt" value="${maven.andromda.run.without.ant}"/>
+        <j:choose>
+            <j:when test="${runWithoutAnt}">         
+                <attainGoal name="andromda:prepare-runner${bootstrap}"/>  
+                <j:set var="message" value="${runner.run()}"/>    
+                <j:if test="${message != null}">
+                    <ant:fail>${message}</ant:fail>
+                </j:if>
+            </j:when>
+            <j:otherwise>               
+                <j:new var="utils" className="org.andromda.maven.AndroMDAMavenUtils"/>
+                <attainGoal name="andromda:init${bootstrap}"/>
+                <attainGoal name="andromda:add-model-dependencies${bootstrap}"/>
+                <j:set var="dummy" value="${utils.setContext(context)}"/>
+                    
+                <ant:taskdef
+                    name="andromda"
+                    classname="org.andromda.maven.AndroMDAMavenRunner">
+                    <ant:classpath>
+                        <ant:path refid="maven.andromda.classpath"/>
+                    </ant:classpath>
+                </ant:taskdef>
+                
+                <ant:andromda configurationUri="${maven.andromda.configuration.uri}" mappingsSearchLocation="${plugin.resources}/andromda/mappings">
+                    <j:forEach var="propertyName" items="${utils.propertyNames}">
+                        <ant:property name="${propertyName}" value="${context.getVariable(propertyName)}"/>
+                    </j:forEach>                        
+                </ant:andromda>                      
+            </j:otherwise>
+        </j:choose>
+
+    </goal>
+    
+    <goal name="andromda:parameter-check${bootstrap}">
+        <maven:param-check value="${context.getVariable('maven.andromda.configuration.uri')}" fail="true">
+Please define the location of your AndroMDA configuration by setting a value for property "maven.andromda.configuration.uri".
+        </maven:param-check>
+    </goal>
+    
+    <goal name="andromda:start-server${bootstrap}"
+          description="Starts the AndroMDA server instance">       
+        <j:choose>
+            <j:when test="${bootstrapMode}">
+                <ant:echo>+---------------------------------------------------------------------------+</ant:echo>
+                <ant:echo>|    S t a r t i n g   A n d r o M D A   B o o t s t r a p   S e r v e r    |</ant:echo>
+                <ant:echo>+---------------------------------------------------------------------------+</ant:echo>
+            </j:when>
+            <j:otherwise>
+                <ant:echo>+--------------------------------------------------------+</ant:echo>
+                <ant:echo>|    S t a r t i n g    A n d r o M D A   S e r v e r    |</ant:echo>
+                <ant:echo>+--------------------------------------------------------+</ant:echo>
+            </j:otherwise>
+        </j:choose>   
+        <attainGoal name="andromda:prepare-runner${bootstrap}"/>   
+        <j:set var="dummy" value="${runner.startServer()}"/>                   
+    </goal>
+    
+    <goal name="andromda:stop-server${bootstrap}"
+          description="Stops the AndroMDA server instance">
+        <attainGoal name="andromda:prepare-runner${bootstrap}"/>   
+        <j:set var="dummy" value="${runner.stopServer()}"/>       
+    </goal>
+     
+     <goal name="andromda:prepare-runner${bootstrap}">
+        <attainGoal name="andromda:parameter-check${bootstrap}"/>    
+        <j:set var="configurationUri" value="${maven.andromda.configuration.uri}"/>
+        <j:new var="runner" className="org.andromda.maven.AndroMDARunner"/>
+        <j:set var="dummy" value="${runner.setContext(context)}"/>
+        <j:set var="mappingsSearchLocation" value="${plugin.resources}/andromda/mappings"/>
+        <j:set var="dummy" value="${runner.setMappingsSearchLocation(mappingsSearchLocation)}"/>
+        <j:set var="dummy" value="${runner.setConfigurationUri(configurationUri)}"/>        
+     </goal>
+
+    <!-- ================================================================
+           Adds model dependencies (since they aren't added by Maven)
+         ================================================================ -->
+    <goal name="andromda:add-model-dependencies${bootstrap}"
+          description="Internal goal used by the plugin">
+        <j:forEach var="artifact" items="${pom.artifacts}" varStatus="index">
+            <j:set var="dep" value="${artifact.dependency}"/>
+            <j:if test="${dep.type == 'xml.zip'}">
+                <j:set var="depPath"
+                       value="${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}"/>
+                <ant:path
+                    id="maven.andromda.model.path${index}"
+                    location="${depPath}"/>
+                <maven:addPath
+                    id="maven.andromda.classpath"
+                    refid="maven.andromda.model.path${index}"/>
+            </j:if>
+        </j:forEach>
+    </goal>
+
+    <!-- ================================================================
+           Provides any initialization.
+         ================================================================ -->
+    <goal name="andromda:init${bootstrap}"
+          description="private internal goal">
+        <j:set var="currentPlugin" value="${maven.andromda.currentPlugin}"/>
+        <ant:path id="maven.andromda.classpath">
+            <j:if test="${currentPlugin != null}">
+                <ant:pathelement path="${currentPlugin.dependencyClasspath}"/>
+            </j:if>
+            <ant:pathelement path="${plugin.dependencyClasspath}"/>
+            <ant:path refid="maven.dependency.classpath"/>
+        </ant:path>
+    </goal>
+
+    <!-- ================================================================
+           Runs AndroMDA's Schema2XMI on a given schema.
+         ================================================================ -->
+    <goal name="andromda:schema2xmi${bootstrap}"
+          description="Runs AndroMDA's Schema2XMI on a given schema">
+        <j:set var="schemaUser" value="${maven.andromda.schema2xmi.user}"/>
+          <j:while test="${empty(schemaUser)}">
+            <i:ask
+                question="Please enter the schema user name:"
+                answer="schemaUser"/>
+        </j:while>
+        <j:set var="schemaPassword" value="${maven.andromda.schema2xmi.password}"/>
+          <j:while test="${empty(schemaPassword)}">
+            <i:ask
+                question="Please enter the schema user password:"
+                answer="schemaPassword"/>
+        </j:while>
+        <j:set var="connectionUrl" value="${maven.andromda.schema2xmi.connectionUrl}"/>
+          <j:while test="${empty(connectionUrl)}">
+            <i:ask
+                question="Please enter the connection URL:"
+                answer="connectionUrl"/>
+        </j:while>
+        <j:set var="driverClass" value="${maven.andromda.schema2xmi.driverClass}"/>
+          <j:while test="${empty(driverClass)}">
+            <i:ask
+                question="Please enter the driver class:"
+                answer="driverClass"/>
+        </j:while>
+        <j:set var="mappingsUri" value="${maven.andromda.schema2xmi.mappingsUri}"/>
+          <j:while test="${empty(mappingsUri)}">
+            <i:ask
+                question="Please enter the URI to your mappings file:"
+                answer="mappingsUri"/>
+        </j:while>
+
+        <attainGoal name="andromda:init${bootstrap}"/>
+        <!-- add any model dependencies -->
+        <attainGoal name="andromda:add-model-dependencies${bootstrap}"/>
+
+        <ant:java classname="org.andromda.schema2xmi.Schema2XMI"
+                    fork="true">
+              <ant:classpath>
+                   <ant:path refid="maven.andromda.classpath"/>
+              </ant:classpath>
+              <ant:arg value="-x"/>
+              <ant:arg value="${maven.andromda.schema2xmi.xmiVersion}"/>
+              <j:set var="inputModel" value="${maven.andromda.schema2xmi.inputModel}"/>
+              <j:if test="${inputModel != null and inputModel != ''}">
+                  <ant:arg value="-i"/>
+                  <ant:arg value="${inputModel}"/>
+              </j:if>
+              <ant:arg value="-u"/>
+              <ant:arg value="${schemaUser}"/>
+              <ant:arg value="-p"/>
+              <ant:arg value="${schemaPassword}"/>
+              <ant:arg value="-c"/>
+              <ant:arg value="${connectionUrl}"/>
+              <ant:arg value="-d"/>
+              <ant:arg value="${driverClass}"/>
+              <ant:arg value="-m"/>
+              <ant:arg value="${mappingsUri}"/>
+              <ant:arg value="-o"/>
+              <ant:arg value="${maven.andromda.schema2xmi.outputModel}"/>
+              <j:set var="schema" value="${maven.andromda.schema2xmi.schema}"/>
+              <j:if test="${schema != null and schema != ''}">
+                  <ant:arg value="-s"/>
+                  <ant:arg value="${schema}"/>
+              </j:if>
+              <j:set var="tablePattern" value="${maven.andromda.schema2xmi.tablePattern}"/>
+              <j:if test="${tablePattern != null and tablePattern != ''}">
+                  <ant:arg value="-t"/>
+                  <ant:arg value="${tablePattern}"/>
+              </j:if>
+              <j:set var="columnPattern" value="${maven.andromda.schema2xmi.columnPattern}"/>
+              <j:if test="${columnPattern != null and columnPattern != ''}">
+                  <ant:arg value="-a"/>
+                  <ant:arg value="${columnPattern}"/>
+              </j:if>
+              <j:set var="package" value="${maven.andromda.schema2xmi.package}"/>
+              <j:if test="${package != null and package != ''}">
+                  <ant:arg value="-P"/>
+                  <ant:arg value="${package}"/>
+              </j:if>
+              <j:set var="classStereotype" value="${maven.andromda.schema2xmi.classStereotype}"/>
+              <j:if test="${classStereotype != null and classStereotype != ''}">
+                  <ant:arg value="-C"/>
+                  <ant:arg value="${classStereotype}"/>
+              </j:if>
+              <j:set var="identifierStereotype" value="${maven.andromda.schema2xmi.identifierStereotype}"/>
+              <j:if test="${identifierStereotype != null and identifierStereotype != ''}">
+                  <ant:arg value="-I"/>
+                  <ant:arg value="${identifierStereotype}"/>
+              </j:if>
+              <j:set var="tableTaggedValue" value="${maven.andromda.schema2xmi.tableTaggedValue}"/>
+              <j:if test="${tableTaggedValue != null and tableTaggedValue != ''}">
+                  <ant:arg value="-V"/>
+                  <ant:arg value="${tableTaggedValue}"/>
+              </j:if>
+              <j:set var="columnTaggedValue" value="${maven.andromda.schema2xmi.columnTaggedValue}"/>
+              <j:if test="${columnTaggedValue != null and columnTaggedValue != ''}">
+                  <ant:arg value="-v"/>
+                  <ant:arg value="${columnTaggedValue}"/>
+              </j:if>
+          </ant:java>
+    </goal>
+
+</project>

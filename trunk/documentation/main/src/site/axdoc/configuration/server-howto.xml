@@ -1,0 +1,99 @@
+<document>
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA Server Howto</title>
+    </properties>
+    <body>
+  		<section name="AndroMDA Server Howto">
+			<p>
+                In order to get the best performance out of AndroMDA some improvements have
+                been implemented that will significantly speed-up the generation process,
+                one of these improvements is the AndroMDA server.
+  			</p>
+            <p>
+                The server has been designed to (re)load the UML model in the background thereby
+                minimizing the resources needed to keep track of the latest changes. There are
+                at least two advantages:
+            </p>
+            <p>
+                <ol>
+                    <li>Since the model is kept in memory all the time, the initialization routines
+                        required to load it need only to be executed once. Especially in the
+                        case where you're regenerating multiple times per day the performance gain
+                        is tremendous.</li>
+                    <li>Changes to the model are loaded in the background, in a seperate process,
+                        and this is done automatically when the server detects the model has been
+                        changed. That way the new model will already have been reloaded by the
+                        time you want to generate code from it.</li>
+                </ol>
+            </p>
+            <subsection name="Configuration">
+                <p>
+                    In order to properly launch the server you'll need to configure it
+                    in the <code>andromda.xml</code> configuration file. Assuming you have
+                    generated your project using <code>andromdapp:generate</code> this file
+                    will be located in <code>/mda/conf/andromda.xml</code>.
+                </p>
+                <p>
+                    Since AndroMDA 3.2 the server will be configured by default, to fine-tune
+                    please see <a href="../configuration.html">Configuring AndroMDA</a>.
+                </p>
+                <p>
+                    Just make sure the server is listening on a port which isn't in use.
+                    Typically the configuration will look like this:
+<source language="xml"><![CDATA[
+    <server>
+        <host>localhost</host>
+        <port>4446</port>
+    </server>
+]]></source>
+                </p>
+            </subsection>
+            <subsection name="Starting/Stopping the server">
+                <p>
+                    So you know how to configure the server, but you're wondering how to launch it.
+                    It's very easy if you have generated your project using
+                    <code>andromdapp:generate</code>, just type <code>maven start-andromda-server</code>
+                    in the root of your project. Mind you, this will block the console so you'll need
+                    to open another one to call your project's maven goals. Call
+                    <code>maven stop-andromda-server</code> to stop the server process.
+                </p>
+                <p>
+                    Starting and stopping the server has been included in the Maven
+                    <code>andromda</code> plugin, please see the corresponding
+                    <a href="../../andromda-maven-plugins/andromda-maven-plugin/goals.html">goals documentation</a>.
+                </p>
+            </subsection>
+            <subsection name="Example">
+                <p>
+                    Here is a step-by-step example on how to make sure things are properly working,
+                    we'll assume you have generated your project using at least AndroMDA version 3.2
+                    as described in the
+                    <a href="../starting.html#My_first_AndroMDA_project">Getting Started</a> page.
+                </p>
+                <p>
+                    <ol>
+                        <li>Open a console and go to the root of your project</li>
+                        <li>Open another console and go to the root of your project</li>
+                        <li>In the first console type <code>maven start-andromda-server</code></li>
+                        <li>Watch the server initializing and loading the model</li>
+                        <li>In the second console type <code>maven mda</code> to generate code
+                            from the model (most of the time you'll want to build the entire
+                            project by simply typing <code>maven</code>, in this example
+                            we're performing the code generation part only)</li>
+                        <li>Open the UML model with your favorite UML editor, apply a change and
+                            save it</li>
+                        <li>Watch the server instance in the first console reloading the model</li>
+                        <li>Regenerate the code</li>
+                        <li>You can keep doing this until you are done modeling...</li>
+                    </ol>
+                </p>
+                <p class="highlight">
+                    Don't forget Maven allows the <code>-o</code> flag which will instruct it not
+                    to download any dependencies, you should use it once you are certain all
+                    dependencies have been downloaded into your local Maven repository.
+                </p>
+            </subsection>
+  		</section>
+    </body>
+</document>

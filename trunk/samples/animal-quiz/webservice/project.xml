@@ -1,0 +1,18 @@
+<project>
+    <extend>../project.xml</extend>
+    <name>Animal Quiz WebService</name>
+    <artifactId>animal-quiz-webservice</artifactId>
+    <shortDescription>${pom.name} WebService Component</shortDescription>
+    <dependencies>
+        <dependency>
+            <groupId>${pom.groupId}</groupId>
+            <artifactId>animal-quiz-core</artifactId>
+            <version>${pom.currentVersion}</version>
+            <type>ejb</type>
+        </dependency>
+    </dependencies>
+    <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
+    </build>
+    <properties/>
+</project>

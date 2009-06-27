@@ -1,0 +1,19 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.andromda.templateengines</groupId>
+        <artifactId>andromda-templateengines</artifactId>
+        <version>3.4-SNAPSHOT</version>
+    </parent>
+    <artifactId>andromda-templateengine-freemarker</artifactId>
+    <packaging>jar</packaging>
+    <name>AndroMDA FreeMarker Template Engine</name>
+    <description>The template engine that supports the FreeMarker scripting language.</description>
+	<dependencies>
+    	<dependency> 
+    		<groupId>freemarker</groupId>
+      		<artifactId>freemarker</artifactId>
+     		<version>2.3.1</version>
+    	</dependency> 	
+    </dependencies>
+</project>

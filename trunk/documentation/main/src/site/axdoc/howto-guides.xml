@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+
+    <properties>
+        <author email="wouter@andromda.org">Wouter Zoons</author>
+        <title>AndroMDA - How-to Guides</title>
+    </properties>
+
+    <body>
+        <section name="How-to Guides">
+            <p>
+                A few guides have been written to make it easier to get started using AndroMDA
+                on your projects, on this page you will find the links to those guides.
+            </p>
+            <p>
+                <ul class="textList">
+                    <li>
+                        <a href="contrib/birds-eye-view.html">A bird's eye view of AndroMDA</a><br/>
+                        <strong>A step-by-step user guide for people new to AndroMDA</strong><br/>
+                        This user guide is a user contribution and aims at an audience which is familiar with Java
+                        (and preferably J2EE), but new to AndroMDA or MDA in general.
+                    </li>
+                    <li>
+                        <a href="starting.html#My_first_AndroMDA_project">Project Generator</a><br/>
+                        <strong>This getting started guide is *highly* recommended newbie material.</strong><br/>
+                        Explains how to set up a new project template in which you use AndroMDA to generate
+                        code from your UML model. The project templates have been specifically designed
+                        for J2EE applications.
+                    </li>
+                    <li>
+                        <a href="andromda-cartridges/andromda-bpm4struts-cartridge/howto.html">Bpm4Struts Cartridge</a><br/>
+                        <strong>This howto will teach you how to model your presentation layer.</strong><br/>
+                        Bpm4Struts is a cartridge that is able to generate Struts code from activity
+                        graphs and use-cases. This guide briefly explains the way you should approach
+                        and eventually model your application's architecture.
+                    </li>
+                    <li>
+                        <a href="andromda-cartridges/andromda-spring-cartridge/howto.html">Spring Cartridge</a><br/>
+                        <strong>This howto will teach you how to model your persistence and application layer,
+                            also recommended for people using the EJB and/or Hibernate cartridges.
+                        </strong><br/>
+                        The Spring cartridge is used to generate your application's back end, it generates Spring
+                        services (optionally wrapped by Session EJBs) using Hibernate POJOs for persistence.
+                    </li>
+                    <li>
+                        <a href="andromda-cartridges/andromda-manageable-entities/index.html">Manageable Entities</a><br/>
+                        <strong>Generate all your CRUD features in a matter of minutes</strong><br/>
+                        Explains what is needed to generate CRUD pages, services and DAOs. This feature generates
+                        an administration console for your entities that works out-of-the-box, and that will perfectly 
+                        integrate with the existing application.
+                    </li>
+                    <li>
+                        <a href="configuration/server-howto.html">AndroMDA Server</a><br/>
+                        <strong>Significantly speedup the code generation process</strong><br/>
+                        In this short howto you'll learn what the AndroMDA server can do for you and how to configure
+                        and start it.
+                    </li>
+                </ul>
+            </p>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<namespace name="deployment">
+    <components>
+        <component name="cartridge">
+            <path>META-INF/andromda/cartridge.xml</path>
+        </component>
+        <component name="metafacades">
+            <path>META-INF/andromda/metafacades.xml</path>
+        </component>
+        <component name="profile">
+            <path>META-INF/andromda/profile.xml</path>
+        </component>
+    </components>
+    <properties>
+        <!-- namespace-propertyGroup merge-point -->
+        <propertyGroup name="Outlets">
+            <documentation>
+                Defines the locations to which output is generated.
+            </documentation>
+            <property name="deploymentreport">
+                <documentation>
+                    The location to which the deployment report
+                    will be generated.
+                </documentation>
+            </property>
+            <property name="antprojects">
+                <documentation>
+                    The location to which the ant build file
+                    will be generated.
+                </documentation>
+            </property>
+        </propertyGroup>
+        <propertyGroup name="Other">
+            <property name="someProperty">
+                <default>someDefaultValue</default>
+                <documentation>
+                    Some property...
+                </documentation>
+            </property>
+        </propertyGroup>
+    </properties>
+</namespace>

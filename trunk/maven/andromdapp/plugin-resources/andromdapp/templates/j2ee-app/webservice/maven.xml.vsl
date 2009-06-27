@@ -1,0 +1,21 @@
+<project default="war:install"
+         xmlns:ant="jelly:ant"
+         xmlns:j="jelly:core">
+         
+    <ant:available
+        file="${maven.src.dir}/resources"
+        type="dir"
+        property="resourcesAvailable"/>
+
+#set ($condition = '${resourcesAvailable == true}')
+    <j:if test="${condition}">
+        <preGoal name="war:init">   
+            <ant:copy todir="${maven.war.webapp.dir}" overwrite="true" verbose="true">
+                <ant:fileset dir="${maven.src.dir}/resources">
+                    <exclude name="**/*.java"/>
+                </ant:fileset>
+            </ant:copy>
+        </preGoal> 
+    </j:if>
+
+</project>

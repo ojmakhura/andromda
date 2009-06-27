@@ -1,0 +1,49 @@
+##
+##   This macro generates the method-permission fragments for each operation
+##
+#macro (renderEjbJarMethodPermission $operation)
+        <method-permission>
+            <description><![CDATA[$operation.signature security constraint]]></description>
+#if (!$ejbSecurityEnabled || $operation.roles.empty)
+            <unchecked/>
+#else
+#foreach ($role in $operation.roles)
+            <role-name>$role.name</role-name>
+#end
+#end
+            <method>
+                <description><![CDATA[$operation.getDocumentation("", -1, false)]]></description>
+                <ejb-name>$service.name</ejb-name>
+#set ($interface = "Local")
+#if ($service.ejbRemoteView)
+#set ($interface = "Remote")
+#end
+                <method-intf>$interface</method-intf>
+                <method-name>$operation.name</method-name>
+#if (!$operation.arguments.empty)
+                <method-params>
+#foreach ($argument in $operation.arguments)
+                    <method-param>$springUtils.removeGenerics($argument.type.fullyQualifiedName)</method-param>
+#end
+                </method-params>
+#end
+            </method>
+        </method-permission>
+#end
+##
+##   This macro generates the method-permission fragments for each operation
+##
+#macro (renderEjbJarContainerTransaction $operation)
+        <container-transaction>
+            <method>
+                <ejb-name>$service.name</ejb-name>
+                <method-name>$operation.name</method-name>
+                <method-params>
+#foreach ($argument in $operation.arguments)
+                    <method-param>$springUtils.removeGenerics($argument.type.fullyQualifiedName)</method-param>
+#end
+                </method-params>
+            </method>
+            <trans-attribute>$operation.ejbTransactionType</trans-attribute>
+        </container-transaction>
+#end

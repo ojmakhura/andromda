@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+  This is used to map SQL Types to
+  model datatypes for Schema2XMI
+-->
+<mappings name="DatatypeMappings">
+    <mapping>
+        <from>DECIMAL</from>
+        <to>datatype::Decimal</to>
+    </mapping>
+    <mapping>
+        <from>VARCHAR</from>
+        <to>datatype::String</to>
+    </mapping>
+    <mapping>
+        <from>TIMESTAMP</from>
+        <to>datatype::Timestamp</to>
+    </mapping>
+    <mapping>
+        <from>BLOB</from>
+        <to>datatype::Blob</to>
+    </mapping>
+</mappings>

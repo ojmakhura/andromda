@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<document>
+    <properties>
+        <author email="tfmorris@tigris.org">Tom Morris</author>
+        <title>Create Timecard Entity using ArgoUML</title>
+    </properties>
+
+    <body>
+
+        <section name="Create Timecard Entity using ArgoUML">
+            <p>
+                This page provides directions to create the Timecard entity using ArgoUML along with
+                its associations to the Person entity. The model is shown below for your reference.
+            </p>
+
+            <p>
+                <div align="center">
+                    <img src="../../../images/argouml/TimecardEntity.png"/>
+                </div>
+            </p>
+
+            <p>
+              <ol>
+                <li>In the TimeTracker model open the Domain Objects diagram. This diagram already
+                contains the <code>Person</code> class.</li>
+
+                <li>Now add the <code>Timecard</code> class to the diagram and set its stereotype
+                to Entity.</li>
+
+                <li>Next we need to add the <code>status</code> attribute to <code>Timecard</code>.
+                However note that <code>status</code> is of type <code>TimecardStatus</code> which
+                is an enumeration. We must define <code>TimecardStatus</code> first. So create a
+                class called <code>TimecardStatus</code>. Give it a stereotype of
+                <code>Enumeration</code>. Add four attributes to it representing the
+                enumeration values. We give each attribute an initial value which is
+                a string with its name in uppercase (ie DRAFT, SUBMITTED, APPROVED, and REJECTED)
+                These values can't be entered directly on the diagram, so type them
+                into the Initial Value field on the property panel for each attribute.
+                Now that we have defined <code>TimecardStatus</code>, we
+                can add the <code>status</code> attribute to <code>Timecard</code> as shown above.</li>
+
+                <li>Next add the <code>begDate</code> and <code>comments</code> attributes to <code>Timecard</code>.</li>
+
+                <li>Now we must add the association between <code>Timecard</code> and <code>Person</code>.
+                To do this, use the Association tool in the toolbar (5th icon from the left). Click on the
+                the downward pointing triangle just to its right to activate the pulldown menu and select
+                the directional association tool with the arrowhead in place of the default straight line
+                (bidirectional) tool.  Click on the
+                <code>Timecard</code> class, drag your mouse to the <code>Person</code> class and release the
+                mouse. A new association will be created.</li>
+
+                <li>Right-click on the <code>Timecard</code> end and uncheck Navigable. This will make the
+                association one-way from <code>Timecard</code> to <code>Person</code>.</li>
+
+                <li>Right-click on the <code>Timecard</code> end of the association and select
+                Multiplicity -&gt; 0..*.  We'll leave the other end at the default multiplicity of 1.</li>
+
+                <li>Double click just below the <code>Person</code> end of the association and
+                type the name <code>submitter</code>. The
+                <code>Timecard</code> end does not have to be named because it is not navigable.
+                This completes the submitter association from <code>Timecard</code> to <code>Person</code>.</li>
+
+                <li>Similarly add an <code>approver</code> association from <code>Timecard</code> to
+                <code>Person</code>. Move the associations up or down as appropriate so they do not overlap
+                each other.</li>
+
+                <li>Make sure your class diagram matches the one shown above.</li>
+
+                <li>Save the model by selecting File > Save Project.</li>
+              </ol>
+            </p>
+
+            <p>
+              We are now ready to generate code for <code>Timecard</code>. Please go back to the main
+              tutorial page and continue from where you left off.
+            </p>
+        </section>
+
+    </body>
+</document>
