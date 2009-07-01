@@ -1029,7 +1029,7 @@ public class UmlUtilities
         final String separator,
         final boolean modelName)
     {
-        if (metaObject==null || StringUtils.isEmpty(separator))
+        if (metaObject==null || StringUtils.isBlank(separator))
         {
             return null;
         }
@@ -1085,7 +1085,7 @@ public class UmlUtilities
         final String separator,
         final boolean modelName)
     {
-        if (metaObject==null || StringUtils.isEmpty(separator))
+        if (metaObject==null || StringUtils.isBlank(separator))
         {
             return null;
         }
@@ -1128,7 +1128,7 @@ public class UmlUtilities
         final ResourceSet rs,
         final String name)
     {
-        if (rs==null || StringUtils.isEmpty(name))
+        if (rs==null || StringUtils.isBlank(name))
         {
             return null;
         }
@@ -1169,7 +1169,7 @@ public class UmlUtilities
         final String separator,
         final boolean modelName)
     {
-        if (resourceSet==null || StringUtils.isEmpty(fullyQualifiedName) || StringUtils.isEmpty(separator))
+        if (resourceSet==null || StringUtils.isBlank(fullyQualifiedName) || StringUtils.isBlank(separator))
         {
             return null;
         }
@@ -1272,7 +1272,7 @@ public class UmlUtilities
         String requestedName,
         String tagValueName)
     {
-        if (StringUtils.isEmpty(requestedName) || StringUtils.isEmpty(tagValueName))
+        if (StringUtils.isBlank(requestedName) || StringUtils.isBlank(tagValueName))
         {
             return false;
         }

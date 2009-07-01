@@ -324,6 +324,10 @@ public class ManageableEntityLogicImpl
         return new ArrayList<ClassifierFacade>(referencingManageables);
     }
 
+    /**
+     * Returns the value of the 'andromda_manageable_table_displayname' or the first unique attribute, or the identifier column.
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetDisplayAttribute()
+     */
     @Override
     protected AttributeFacade handleGetDisplayAttribute()
     {
@@ -340,6 +344,8 @@ public class ManageableEntityLogicImpl
             attributeIterator.hasNext() && displayAttribute == null;)
         {
             final EntityAttribute attribute = (EntityAttribute)attributeIterator.next();
+            // TODO: UML2 migrated models automatically mark all * attributes as unique. Different display attributes are selected from UML14 and UML2 migrated models.
+            // This selects the first attribute that is unique as the display value.
             if (attribute.isUnique())
             {
                 displayAttribute = attribute;
