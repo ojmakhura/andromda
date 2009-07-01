@@ -622,7 +622,8 @@ public class OperationFacadeLogicImpl
         // isMultiValued()
         // RJF3 True if either the operation is many or the return parameter is many
         boolean returnMany = this.getReturnParameter().getUpper() > 1 || 
-            this.getReturnParameter().getUpper() == LiteralUnlimitedNatural.UNLIMITED;
+            this.getReturnParameter().getUpper() == LiteralUnlimitedNatural.UNLIMITED
+            || this.getReturnParameter().getType().getName().endsWith("[]");
         return returnMany || this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED;
     }
 

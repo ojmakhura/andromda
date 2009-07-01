@@ -349,6 +349,8 @@ public class ModelElementFacadeLogicImpl
                 final ModelElementFacade modelElement =
                     ((TemplateParameterFacade)parameterIterator.next()).getParameter();
 
+                // TODO: UML14 returns ParameterFacade, UML2 returns ModelElementFacade, so types are wrong from fullyQualifiedName
+                // Mapping from UML2 should return ParameterFacade, with a getType method.
                 if (modelElement instanceof ParameterFacade)
                 {
                     buffer.append(((ParameterFacade)modelElement).getType().getFullyQualifiedName());
@@ -595,17 +597,18 @@ public class ModelElementFacadeLogicImpl
                 final Comment comment = (Comment)commentIterator.next();
                 String commentString = StringUtils.trimToEmpty(comment.getBody());
 
-                if (StringUtils.isEmpty(commentString))
+                // Comment.toString returns org.eclipse.uml2.uml.internal.impl.CommentImpl@95c90f4 (body: )
+                /*if (StringUtils.isBlank(commentString))
                 {
                     commentString = StringUtils.trimToEmpty(comment.toString());
-                }
+                }*/
                 documentation.append(StringUtils.trimToEmpty(commentString));
                 documentation.append(SystemUtils.LINE_SEPARATOR);
             }
         }
 
         // if there still isn't anything, try a tagged value
-        if (StringUtils.isEmpty(documentation.toString()))
+        if (StringUtils.isBlank(documentation.toString()))
         {
             documentation.append(
                 StringUtils.trimToEmpty((String)this.findTaggedValue(UMLProfile.TAGGEDVALUE_DOCUMENTATION)));

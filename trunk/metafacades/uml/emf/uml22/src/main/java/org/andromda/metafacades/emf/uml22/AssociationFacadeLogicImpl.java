@@ -58,7 +58,7 @@ public class AssociationFacadeLogicImpl
         String name = super.handleGetName();
 
         // if the name isn't defined, use the relation name
-        if (StringUtils.isEmpty(name)) {
+        if (StringUtils.isBlank(name)) {
             name = this.getRelationName();
         }
         return name;

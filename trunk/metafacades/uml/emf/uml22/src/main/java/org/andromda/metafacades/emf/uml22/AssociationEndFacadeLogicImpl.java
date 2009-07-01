@@ -146,7 +146,7 @@ public class AssociationEndFacadeLogicImpl
         String name = super.handleGetName();
 
         // if name is empty, then get the name from the type
-        if (StringUtils.isEmpty(name))
+        if (StringUtils.isBlank(name))
         {
             final ClassifierFacade type = this.getType();
             if (type != null)
@@ -232,7 +232,8 @@ public class AssociationEndFacadeLogicImpl
     {
         // Because of MD11.5 (their multiplicity are String), we cannot use
         // isMultiValued()
-        return this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED;
+        return this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED
+               || this.getType().getName().endsWith("[]");
     }
 
     /**

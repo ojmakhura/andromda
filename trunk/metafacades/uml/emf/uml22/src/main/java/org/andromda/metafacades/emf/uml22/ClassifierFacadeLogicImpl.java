@@ -700,6 +700,8 @@ public class ClassifierFacadeLogicImpl
     protected Collection handleGetProperties(final boolean follow)
     {
         final List properties = new ArrayList();
+        properties.addAll(this.getAttributes(false));
+        properties.addAll(this.getNavigableConnectingEnds(false));
         if (follow && !this.getGeneralizations().isEmpty())
         {
             for (Iterator<GeneralizableElementFacade> iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
@@ -711,8 +713,6 @@ public class ClassifierFacadeLogicImpl
                 }
             }
         }
-        properties.addAll(this.getAttributes(false));
-        properties.addAll(this.getNavigableConnectingEnds(false));
         return properties;
     }
 

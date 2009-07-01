@@ -84,19 +84,19 @@ public class FrontEndForwardLogicImpl
         }
 
         // - name
-        if (StringUtils.isEmpty(forwardName))
+        if (StringUtils.isBlank(forwardName))
         {
             forwardName = super.handleGetName();
         }
 
         // - target
-        if (StringUtils.isEmpty(forwardName))
+        if (StringUtils.isBlank(forwardName))
         {
             forwardName = this.getTarget().getName();
         }
 
         // - else
-        if (StringUtils.isEmpty(forwardName))
+        if (StringUtils.isBlank(forwardName))
         {
             forwardName = "unknown";
         }
