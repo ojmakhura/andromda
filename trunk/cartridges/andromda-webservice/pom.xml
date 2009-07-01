@@ -44,6 +44,10 @@
                 <artifactId>andromda-cartridge-plugin</artifactId>    
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-beautifier-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
             </plugin>
@@ -67,6 +71,10 @@
                     <maxmemory>512</maxmemory>
                     <sourcepath>${basedir}/src/java;${basedir}/target/src</sourcepath>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
