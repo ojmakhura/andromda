@@ -10,7 +10,8 @@
         <!--property name="loggingConfigurationUri">file:${applicationParentDirectory}/${applicationId}/mda/log4j.xml</property-->
     </properties>
     <!-- Server will load and validate model in the background automatically when anything changes. 
-    To start server from mda directory: mvn andromda:start-server>
+    To start server from mda directory: mvn andromda:start-server.
+    Leave commented, or else AndroMDA will try to connect each time.>
     <server>
         <host>localhost</host>
         <port>4447</port>
@@ -119,6 +120,11 @@
                 <property name="persistenceContainerName">jboss</property>
                 <!-- Override default @todo to set to Eclipse default>
                 <property name="toDoTag">TODO</property -->
+                <!-- Automatically makes English names plural (generally adds s if missing). 
+                default=true, set to false if using non-English models or Jaxb/CXF 2.0 or JAXB simpleBindingMode=false.>
+                <property name="pluralizeAssociationEndNames">true</property>
+                <property name="pluralizeAttributeNames">true</property>
+                <property name="pluralizeParameterNames">true</property -->
             </properties>
         </namespace>
 #if ($ejb)
@@ -384,6 +390,8 @@
                 <property name="languageMappingsUri">AxisJavaMappings</property>
                 <property name="useArraysForMultiplicitiesOfTypeMany">true</property>
 #end
+                <property name="XMLBindingAnnotations">false</property>
+                <property name="generateEqualPropertiesMethod">true</property>
 #if ($ejb3)
                 <!-- Comment out the enumerations outlet for the java cartridge to avoid conflict
                      with the ejb3 cartridge.
