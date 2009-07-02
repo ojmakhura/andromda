@@ -13,6 +13,7 @@ import org.andromda.core.common.ClassUtils;
 import org.andromda.maven.plugin.andromdapp.SchemaManagement;
 import org.andromda.maven.plugin.andromdapp.SchemaManagementException;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.codehaus.plexus.util.DirectoryScanner;
 
@@ -128,7 +129,7 @@ public abstract class HibernateSchemaManagement
         final String name)
     {
         final String value = ObjectUtils.toString(properties.get(name));
-        if (value == null || value.trim().length() == 0)
+        if (StringUtils.isBlank(value))
         {
             throw new SchemaManagementException("The '" + name + "' must be specified");
         }

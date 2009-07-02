@@ -26,13 +26,14 @@ public class ResourceFinder
         ExceptionUtils.checkEmpty("resource", resource);
         try
         {
-            final Collection resources = new ArrayList();
-            for (final Enumeration enumeration = ClassUtils.getClassLoader().getResources(resource);
+            final Collection<URL> resources = new ArrayList<URL>();
+            for (final Enumeration<URL> enumeration = ClassUtils.getClassLoader().getResources(resource);
                  enumeration.hasMoreElements();)
             {
                 resources.add(enumeration.nextElement());
             }
-            return (URL[])resources.toArray(new URL[0]);
+
+            return resources.toArray(new URL[resources.size()]);
         }
         catch (final Exception exception)
         {

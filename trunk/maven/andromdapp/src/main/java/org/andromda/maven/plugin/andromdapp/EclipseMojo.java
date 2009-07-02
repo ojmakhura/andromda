@@ -17,6 +17,7 @@ import org.andromda.maven.plugin.andromdapp.eclipse.ProjectWriter;
 import org.andromda.maven.plugin.andromdapp.eclipse.Variable;
 import org.andromda.maven.plugin.andromdapp.utils.ProjectUtils;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.factory.ArtifactFactory;
 import org.apache.maven.artifact.metadata.ArtifactMetadataSource;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -286,7 +287,7 @@ public class EclipseMojo
             final Set compileSourceRoots = new LinkedHashSet(project.getCompileSourceRoots());
             compileSourceRoots.addAll(this.getExtraSourceDirectories(project));
             final String testSourceDirectory = project.getBuild().getTestSourceDirectory();
-            if (testSourceDirectory != null && testSourceDirectory.trim().length() > 0)
+            if (StringUtils.isNotBlank(testSourceDirectory))
             {
                 compileSourceRoots.add(testSourceDirectory);
             }

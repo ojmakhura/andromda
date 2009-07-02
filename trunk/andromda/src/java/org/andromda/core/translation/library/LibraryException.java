@@ -10,7 +10,7 @@ public class LibraryException
     /**
      * Constructs an instance of LibraryException.
      *
-     * @param parent
+     * @param parent the parent exception
      */
     public LibraryException(Throwable parent)
     {
@@ -20,7 +20,7 @@ public class LibraryException
     /**
      * Constructs an instance of LibraryException.
      *
-     * @param message
+     * @param message the exception message
      */
     public LibraryException(String message)
     {
@@ -30,8 +30,8 @@ public class LibraryException
     /**
      * Constructs an instance of LibraryException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent exception
      */
     public LibraryException(
         String message,

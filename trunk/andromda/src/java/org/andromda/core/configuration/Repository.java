@@ -43,7 +43,7 @@ public class Repository
     /**
      * The models loaded by this repository.
      */
-    private final Collection models = new ArrayList();
+    private final Collection<Model> models = new ArrayList<Model>();
 
     /**
      * Adds a model that this repository will load.
@@ -63,6 +63,6 @@ public class Repository
      */
     public Model[] getModels()
     {
-        return (Model[])this.models.toArray(new Model[0]);
+        return this.models.toArray(new Model[0]);
     }
 }

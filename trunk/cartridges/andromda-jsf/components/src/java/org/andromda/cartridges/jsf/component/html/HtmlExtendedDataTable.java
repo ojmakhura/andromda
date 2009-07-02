@@ -133,7 +133,7 @@ public class HtmlExtendedDataTable
             for (int ctr = 0; ctr < properties.length; ctr++)
             {
                 final String property = properties[ctr];
-                if (property != null && property.trim().length() > 0)
+                if (StringUtils.isNotBlank(property))
                 {
                     final Object value1 = this.getProperty(
                             object1,

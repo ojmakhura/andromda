@@ -4,6 +4,7 @@ import org.andromda.core.common.ClassUtils;
 import org.andromda.core.common.Converter;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -44,7 +45,7 @@ public class AndroMDAppUtils
         final String type)
     {
         Object object = value;
-        if (type != null && type.trim().length() > 0)
+        if (StringUtils.isNotBlank(type))
         {
             try
             {

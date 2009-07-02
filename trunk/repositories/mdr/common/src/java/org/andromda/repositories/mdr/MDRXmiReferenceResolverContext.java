@@ -133,7 +133,7 @@ public class MDRXmiReferenceResolverContext
             for (int ctr = 0; ctr < moduleSearchPaths.length; ctr++)
             {
                 final String moduleSearchPath = moduleSearchPaths[ctr];
-                if (moduleSearchPath != null && moduleSearchPath.length() > 0)
+                if (StringUtils.isNotEmpty(moduleSearchPath))
                 {
                     if (moduleSearchPath.endsWith(moduleName))
                     {
@@ -164,7 +164,7 @@ public class MDRXmiReferenceResolverContext
                         moduleUrl = "jar:" + moduleUrl + "!/" + moduleName.substring(0, moduleName.length() - 4);
                     }
                     // - we've found a module
-                    if (moduleUrl!= null && moduleUrl.length() > 0)
+                    if (StringUtils.isNotEmpty(moduleUrl))
                     {
                         break;
                     }

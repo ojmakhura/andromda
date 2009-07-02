@@ -10,6 +10,7 @@ import javax.faces.render.Renderer;
 import javax.servlet.http.HttpServletResponse;
 
 import org.andromda.cartridges.jsf.component.BinaryFile;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -62,7 +63,7 @@ public class BinaryFileRenderer
             // - for IE we need to set the content type, content length and buffer size and
             //   then the flush the response right away because it seems as if there is any lag time
             //   IE just displays a blank page. With mozilla based clients reports display correctly regardless.
-            if (contentType != null && contentType.length() > 0)
+            if (StringUtils.isNotEmpty(contentType))
             {
                 response.setContentType(contentType);
             }
@@ -73,13 +74,11 @@ public class BinaryFileRenderer
             if (value instanceof byte[])
             {
                 byte[] file = (byte[])value;
-                if (file != null)
-                {
-                    response.setBufferSize(file.length);
-                    response.setContentLength(file.length);
-                    response.flushBuffer();
-                    stream.write(file);
-                }
+
+                response.setBufferSize(file.length);
+                response.setContentLength(file.length);
+                response.flushBuffer();
+                stream.write(file);                
             }
             else if (value instanceof InputStream)
             {

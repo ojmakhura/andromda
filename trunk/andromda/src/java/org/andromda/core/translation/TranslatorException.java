@@ -10,7 +10,7 @@ public class TranslatorException
     /**
      * Constructs an instance of TranslatorException.
      *
-     * @param parent
+     * @param parent the parent exception
      */
     public TranslatorException(Throwable parent)
     {
@@ -20,7 +20,7 @@ public class TranslatorException
     /**
      * Constructs an instance of TranslatorException.
      *
-     * @param message
+     * @param message the parent exception
      */
     public TranslatorException(String message)
     {
@@ -30,8 +30,8 @@ public class TranslatorException
     /**
      * Constructs an instance of TranslatorException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent exception
      */
     public TranslatorException(
         String message,

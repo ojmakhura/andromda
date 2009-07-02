@@ -43,7 +43,7 @@ public class AndroMDALogger
                 url = new URL(configuration);
                 InputStream stream = url.openStream();
                 stream.close();
-                stream = null;
+                
                 configure(url);
                 logger.info("Logging configured from external source --> '" + configuration + "'");
             }

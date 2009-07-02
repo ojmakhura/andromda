@@ -10,7 +10,7 @@ public class ResourceFinderException
     /**
      * Constructs an instance of ResourceFinderException.
      *
-     * @param parent
+     * @param parent the parent throwable
      */
     public ResourceFinderException(Throwable parent)
     {
@@ -20,7 +20,7 @@ public class ResourceFinderException
     /**
      * Constructs an instance of ResourceFinderException.
      *
-     * @param message
+     * @param message the exception message
      */
     public ResourceFinderException(String message)
     {
@@ -30,8 +30,8 @@ public class ResourceFinderException
     /**
      * Constructs an instance of ResourceFinderException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent throwable
      */
     public ResourceFinderException(
         String message,

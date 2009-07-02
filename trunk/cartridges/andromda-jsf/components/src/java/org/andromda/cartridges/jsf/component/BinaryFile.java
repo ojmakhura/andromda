@@ -9,6 +9,7 @@ import javax.faces.el.ValueBinding;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 
 
 public class BinaryFile
@@ -126,7 +127,7 @@ public class BinaryFile
             if (this.contentType == null)
             {
                 final String fileName = this.getFileName();
-                if (fileName != null && fileName.trim().length() > 0)
+                if (StringUtils.isNotBlank(fileName))
                 {
                     int lastDotIndex = fileName.lastIndexOf('.');
                     if (lastDotIndex != -1)

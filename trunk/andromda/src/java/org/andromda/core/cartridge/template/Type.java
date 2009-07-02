@@ -45,14 +45,14 @@ public class Type
     /**
      * The properties that must be valid for this type.
      */
-    private final Map properties = new LinkedHashMap();
+    private final Map<String, Property> properties = new LinkedHashMap<String, Property>();
 
     /**
      * Gets the properties defined for this type.
      * 
      * @return Returns the properties.
      */
-    public Collection getProperties()
+    public Collection<Property> getProperties()
     {
         return properties.values();
     }

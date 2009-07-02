@@ -144,7 +144,7 @@ public class MetafacadeMappingsTest
             {
                 public boolean evaluate(Object object)
                 {
-                    return ((String)object).equals("metafacadeProperteryOne");
+                    return object.equals("metafacadeProperteryOne");
                 }
             }));
         assertNotNull(CollectionUtils.find(propertyReferences, 
@@ -152,7 +152,7 @@ public class MetafacadeMappingsTest
             {
                 public boolean evaluate(Object object)
                 {
-                    return ((String)object).equals("metafacadeProperteryTwo");
+                    return object.equals("metafacadeProperteryTwo");
                 }
             }));
 

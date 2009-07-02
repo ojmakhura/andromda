@@ -71,7 +71,7 @@ public class AttributeFacadeLogicImpl
         String defaultValue = this.metaObject.getDefault();
         // Put single or double quotes around default in case modeler forgot to do it. Most templates
         // declare Type attribute = $attribute.defaultValue, requiring quotes around the value
-        if (defaultValue!=null && defaultValue.length()>0 && !this.isMany())
+        if (StringUtils.isNotEmpty(defaultValue) && !this.isMany())
         {
             String typeName = this.metaObject.getType().getName();
             if (typeName.equals("String") && defaultValue.indexOf('"')<0)

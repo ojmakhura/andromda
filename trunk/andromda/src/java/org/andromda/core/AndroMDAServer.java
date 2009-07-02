@@ -41,8 +41,7 @@ public class AndroMDAServer
     /**
      * Starts the AndroMDA server instance listening for requests.
      *
-     * @param configuration the Configuration instance used to configure the
-     *        server.
+     * @param configuration the Configuration instance used to configure the server.
      */
     public void start(final Configuration configuration)
     {
@@ -64,7 +63,7 @@ public class AndroMDAServer
 
     /**
      * Stops the AndroMDA server instance.
-     * @param configuration 
+     * @param configuration the Configuration instance used to configure the server.
      */
     public void stop(final Configuration configuration)
     {

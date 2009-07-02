@@ -4,14 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.andromda.core.common.ResourceUtils;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -128,7 +124,7 @@ public class Model
     /**
      * The URL to the model.
      */
-    private List uris = new ArrayList();
+    private List<URL> uris = new ArrayList<URL>();
 
     /**
      * Caches the urisAsStrings value (so we don't need
@@ -190,7 +186,7 @@ public class Model
     /**
      * Stores the transformations for this Configuration instance.
      */
-    private final Collection transformations = new ArrayList();
+    private final Collection<Transformation> transformations = new ArrayList<Transformation>();
 
     /**
      * Adds a transformation to this configuration instance.
@@ -209,13 +205,13 @@ public class Model
      */
     public Transformation[] getTransformations()
     {
-        return (Transformation[])this.transformations.toArray(new Transformation[0]);
+        return this.transformations.toArray(new Transformation[0]);
     }
 
     /**
      * The locations in which to search for module.
      */
-    private final Collection moduleSearchLocations = new ArrayList();
+    private final Collection<Location> moduleSearchLocations = new ArrayList<Location>();
 
     /**
      * Adds a module search location (these are the locations
@@ -281,7 +277,7 @@ public class Model
      */
     public Location[] getModuleSearchLocations()
     {
-        return (Location[])this.moduleSearchLocations.toArray(new Location[0]);
+        return this.moduleSearchLocations.toArray(new Location[0]);
     }
 
     /**
@@ -333,17 +329,14 @@ public class Model
     {
         if (this.moduleSearchLocationResources == null)
         {
-            final Collection allResources = new ArrayList();
+            final Collection<URL> allResources = new ArrayList<URL>();
             final Location[] locations = this.getModuleSearchLocations();
-            for (int ctr = 0; ctr < locations.length; ctr++)
+            for (final Location location : locations)
             {
-                final URL[] resources = locations[ctr].getResources();
-                for (int fileCtr = 0; fileCtr < resources.length; fileCtr++)
-                {
-                    allResources.add(resources[fileCtr]);
-                }
+                final URL[] resources = location.getResources();
+                allResources.addAll(Arrays.asList(resources));
             }
-            this.moduleSearchLocationResources = (URL[])allResources.toArray(new URL[0]);
+            this.moduleSearchLocationResources = allResources.toArray(new URL[allResources.size()]);
         }
         return this.moduleSearchLocationResources;
     }
@@ -357,9 +350,8 @@ public class Model
     public long getLastModified()
     {
         long lastModifiedTime = 0;
-        for (final Iterator iterator = this.uris.iterator(); iterator.hasNext();)
+        for (final URL url : uris)
         {
-            final URL url = (URL)iterator.next();
             final long modifiedTime = ResourceUtils.getLastModifiedTime(url);
             if (modifiedTime > lastModifiedTime)
             {
@@ -376,7 +368,7 @@ public class Model
     {
         String toString = super.toString();
         final String key = this.getKey();
-        if (key != null && key.trim().length() > 0)
+        if (StringUtils.isNotBlank(key))
         {
             toString = key;
         }
@@ -387,7 +379,7 @@ public class Model
      * Stores the last modified times for each model at the time
      * {@link #isChanged()} is called.
      */
-    private static final Map modelModifiedTimes = new HashMap();
+    private static final Map<String, Map<String, Long>> modelModifiedTimes = new HashMap<String, Map<String, Long>>();
 
     /**
      * The unique key that identifies this model.
@@ -403,13 +395,13 @@ public class Model
      */
     private String getKey()
     {
-        if (this.key == null || this.key.trim().length() == 0)
+        if (StringUtils.isBlank(this.key))
         {
             final StringBuffer buffer = new StringBuffer();
-            for (final Iterator iterator = this.uris.iterator(); iterator.hasNext();)
+            for (final Iterator<URL> iterator = this.uris.iterator(); iterator.hasNext();)
             {
-                final URL uri = (URL)iterator.next();
-                buffer.append(new File(uri.getFile()));
+                final URL uri = iterator.next();
+                buffer.append(uri.getFile());
                 if (iterator.hasNext())
                 {
                     buffer.append(", ");
@@ -456,27 +448,26 @@ public class Model
         boolean changed = this.getUris().length > 0;
         if (changed)
         {
-            final Object modelKey = this.getKey();
-            Map lastModifiedTimes = (Map)modelModifiedTimes.get(modelKey);
+            final String modelKey = this.getKey();
+            Map<String, Long> lastModifiedTimes = modelModifiedTimes.get(modelKey);
 
             // - load up the last modified times (from the model and all its modules)
             //   if they haven't been loaded yet
             if (lastModifiedTimes != null)
             {
-                final long modelLastModified = ((Long)lastModifiedTimes.get(modelKey)).longValue();
+                final long modelLastModified = lastModifiedTimes.get(modelKey);
                 changed = this.getLastModified() > modelLastModified;
                 if (!changed)
                 {
                     // - check to see if any of the modules have changed if the model hasn't changed
                     final URL[] resources = this.getModuleSearchLocationResources();
-                    for (int ctr = 0; ctr < resources.length; ctr++)
+                    for (final URL resource : resources)
                     {
-                        final URL resource = resources[ctr];
-                        final Long lastModified = (Long)lastModifiedTimes.get(resource);
+                        final Long lastModified = lastModifiedTimes.get(resource.getFile());
                         if (lastModified != null)
                         {
                             // - when we find the first modified module, break out
-                            if (ResourceUtils.getLastModifiedTime(resource) > lastModified.longValue())
+                            if (ResourceUtils.getLastModifiedTime(resource) > lastModified)
                             {
                                 changed = true;
                                 break;
@@ -501,30 +492,30 @@ public class Model
      */
     private void loadLastModifiedTimes()
     {
-        final Object modelKey = this.getKey();
-        Map lastModifiedTimes = (Map)modelModifiedTimes.get(modelKey);
+        final String modelKey = this.getKey();
+        Map<String, Long> lastModifiedTimes = modelModifiedTimes.get(modelKey);
         if (lastModifiedTimes == null)
         {
-            lastModifiedTimes = new HashMap();
+            lastModifiedTimes = new HashMap<String, Long>();
         }
         else
         {
             lastModifiedTimes.clear();
         }
         final URL[] resources = this.getModuleSearchLocationResources();
-        for (int ctr = 0; ctr < resources.length; ctr++)
+        for (final URL resource : resources)
         {
-            final URL resource = resources[ctr];
             lastModifiedTimes.put(
-                resource,
-                new Long(ResourceUtils.getLastModifiedTime(resource)));
+                resource.getFile(),
+                    ResourceUtils.getLastModifiedTime(resource));
         }
 
         // - add the model key last so it overwrites any invalid ones
         //   we might have picked up from adding the module search location files.
         lastModifiedTimes.put(
-            modelKey,
-            new Long(this.getLastModified()));
+                modelKey,
+                this.getLastModified());
+
         modelModifiedTimes.put(
             modelKey,
             lastModifiedTimes);

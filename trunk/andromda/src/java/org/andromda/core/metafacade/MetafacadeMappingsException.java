@@ -10,7 +10,7 @@ public class MetafacadeMappingsException
     /**
      * Constructs an instance of MetafacadeMappingsException.
      *
-     * @param parent
+     * @param parent the parent throwable
      */
     public MetafacadeMappingsException(Throwable parent)
     {
@@ -20,7 +20,7 @@ public class MetafacadeMappingsException
     /**
      * Constructs an instance of MetafacadeMappingsException.
      *
-     * @param message
+     * @param message the exception message
      */
     public MetafacadeMappingsException(String message)
     {
@@ -30,8 +30,8 @@ public class MetafacadeMappingsException
     /**
      * Constructs an instance of MetafacadeMappingsException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent throwable
      */
     public MetafacadeMappingsException(
         String message,

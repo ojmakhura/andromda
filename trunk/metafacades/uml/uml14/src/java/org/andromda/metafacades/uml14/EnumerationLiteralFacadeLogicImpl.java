@@ -73,7 +73,7 @@ public class EnumerationLiteralFacadeLogicImpl
      */
     protected String handleGetEnumerationValue() {
         String value = this.getValue();
-        if (value!=null && value.length()>0 && value.indexOf('"')<0)
+        if (StringUtils.isNotEmpty(value) && value.indexOf('"')<0)
         {
             value = "\"" + value + "\"";
         }

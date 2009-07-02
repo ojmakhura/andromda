@@ -15,6 +15,7 @@ import org.andromda.timetracker.vo.UserVO;
 import org.andromda.timetracker.vo.UserVOComparator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionMapping;
 
 /**
@@ -54,7 +55,7 @@ public class SearchControllerImpl extends SearchController
 
         // Populate timecard summaries
         TimecardStatus status = null;
-        if (form.getStatus() != null && form.getStatus().length() > 0) {
+        if (StringUtils.isNotEmpty(form.getStatus())) {
             status = TimecardStatus.fromString(form.getStatus());
         }
         TimecardSearchCriteriaVO criteria = new TimecardSearchCriteriaVO(

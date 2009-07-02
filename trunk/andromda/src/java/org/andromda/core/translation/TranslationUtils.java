@@ -135,7 +135,7 @@ public class TranslationUtils
      * Removes any extra whitepace --> does not remove the spaces between the words. Only removes tabs and newline
      * characters. This is to allow everything to be on one line while keeping the spaces between words.
      *
-     * @param string
+     * @param string the string
      * @return String the string with the removed extra spaces.
      */
     public static String removeExtraWhitespace(final String string)

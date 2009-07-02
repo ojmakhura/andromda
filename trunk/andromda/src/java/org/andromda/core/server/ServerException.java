@@ -13,7 +13,7 @@ public class ServerException
     /**
      * Constructor for ServerServerException.
      *
-     * @param message
+     * @param message the exception message
      */
     public ServerException(String message)
     {
@@ -23,8 +23,8 @@ public class ServerException
     /**
      * Constructor for ServerServerException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent throwable
      */
     public ServerException(
         String message,
@@ -36,7 +36,7 @@ public class ServerException
     /**
      * Constructor for ServerServerException.
      *
-     * @param parent
+     * @param parent the parent throwable
      */
     public ServerException(Throwable parent)
     {

@@ -34,7 +34,7 @@ public abstract class BasePlugin
     /**
      * The template objects made available to templates of this BasePlugin.
      */
-    private final Collection templateObjects = new ArrayList();
+    private final Collection<TemplateObject> templateObjects = new ArrayList<TemplateObject>();
 
     /**
      * @see org.andromda.core.common.Plugin#initialize()
@@ -56,9 +56,7 @@ public abstract class BasePlugin
             this.getTemplateEngine().setMergeLocation(this.getMergeLocation().getFile());
         }
         this.getTemplateEngine().initialize(this.getNamespace());
-        for (final Iterator iterator = this.templateObjects.iterator(); iterator.hasNext();)
-        {
-            final TemplateObject templateObject = (TemplateObject)iterator.next();
+        for (final TemplateObject templateObject : this.templateObjects) {
             templateObject.setResource(this.getResource());
             templateObject.setNamespace(this.getNamespace());
         }
@@ -114,7 +112,7 @@ public abstract class BasePlugin
     /**
      * @see org.andromda.core.common.Plugin#getTemplateObjects()
      */
-    public Collection getTemplateObjects()
+    public Collection<TemplateObject> getTemplateObjects()
     {
         return this.templateObjects;
     }
@@ -176,11 +174,11 @@ public abstract class BasePlugin
      *
      * @param templateContext the context of the template to populate.
      */
-    protected void populateTemplateContext(Map templateContext)
+    protected void populateTemplateContext(Map<String, Object> templateContext)
     {
         if (templateContext == null)
         {
-            templateContext = new LinkedHashMap();
+            templateContext = new LinkedHashMap<String, Object>();
         }
         this.addTemplateObjectsToContext(templateContext);
         this.addPropertyReferencesToContext(templateContext);
@@ -192,15 +190,14 @@ public abstract class BasePlugin
      *
      * @param templateContext the template context
      */
-    private void addTemplateObjectsToContext(final Map templateContext)
+    private void addTemplateObjectsToContext(final Map<String, Object> templateContext)
     {
         // add all the TemplateObject objects to the template context
-        final Collection templateObjects = this.getTemplateObjects();
+        final Collection<TemplateObject> templateObjects = this.getTemplateObjects();
         if (templateObjects != null && !templateObjects.isEmpty())
         {
-            for (final Iterator iterator = templateObjects.iterator(); iterator.hasNext();)
+            for (TemplateObject templateObject : templateObjects)
             {
-                final TemplateObject templateObject = (TemplateObject)iterator.next();
                 templateContext.put(
                     templateObject.getName(),
                     templateObject.getObject());
@@ -220,14 +217,12 @@ public abstract class BasePlugin
         if (propertyReferences != null && propertyReferences.length > 0)
         {
             final Namespaces namespaces = Namespaces.instance();
-            for (int ctr = 0; ctr < propertyReferences.length; ctr++)
-            {
-                final String reference = propertyReferences[ctr];
+            for (final String reference : propertyReferences) {
                 templateContext.put(
-                    reference,
-                    namespaces.getPropertyValue(
-                        this.getNamespace(),
-                        reference));
+                        reference,
+                        namespaces.getPropertyValue(
+                                this.getNamespace(),
+                                reference));
             }
         }
     }
@@ -235,12 +230,12 @@ public abstract class BasePlugin
     /**
      * Stores the contents of the plugin.
      */
-    private List contents = null;
+    private List<String> contents = null;
 
     /**
      * @see org.andromda.core.common.Plugin#getContents()
      */
-    public List getContents()
+    public List<String> getContents()
     {
         if (this.contents == null)
         {
@@ -249,7 +244,7 @@ public abstract class BasePlugin
                 this.contents = ResourceUtils.getClassPathArchiveContents(this.getResource());
                 if (this.getMergeLocation() != null)
                 {
-                    final Collection mergeContents = ResourceUtils.getDirectoryContents(
+                    final Collection<String> mergeContents = ResourceUtils.getDirectoryContents(
                             this.getMergeLocation(),
                             0);
                     if (mergeContents != null && !mergeContents.isEmpty())

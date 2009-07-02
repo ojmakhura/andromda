@@ -76,7 +76,7 @@ public class Template
     {
         File file;
 
-        if (outputPattern == null || outputPattern.trim().length() == 0)
+        if (StringUtils.isBlank(outputPattern))
         {
             outputPattern = this.getOutputPattern();
         }

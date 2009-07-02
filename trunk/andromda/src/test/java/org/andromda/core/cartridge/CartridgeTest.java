@@ -46,9 +46,9 @@ public class CartridgeTest
         throws Exception
     {
         NamespaceComponents.instance().discover();
-        Collection cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
+        Collection<Cartridge> cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
         assertNotNull(cartridges);
-        this.cartridge = (Cartridge)cartridges.iterator().next();
+        this.cartridge = cartridges.iterator().next();
         Profile.instance().setNamespace(this.cartridge.getNamespace());
         this.cartridge.initialize();
     }
@@ -71,15 +71,15 @@ public class CartridgeTest
 
     public void testGetResources()
     {
-        Collection resources = this.cartridge.getResources();
+        Collection<Resource> resources = this.cartridge.getResources();
         assertNotNull(resources);
         assertEquals(
             3,
             resources.size());
 
         // first template
-        final Iterator templateIterator = resources.iterator();
-        Resource resource = (Resource)templateIterator.next();
+        final Iterator<Resource> templateIterator = resources.iterator();
+        Resource resource = templateIterator.next();
         assertTrue(resource.isLastModifiedCheck());
         
         Template template = (Template)templateIterator.next();
@@ -97,12 +97,12 @@ public class CartridgeTest
         assertEquals(
             "entity",
             template.getSupportedModeElements().getVariable());
-        Collection modelElements = template.getSupportedModeElements().getModelElements();
+        Collection<ModelElement> modelElements = template.getSupportedModeElements().getModelElements();
         assertNotNull(modelElements);
         assertEquals(
             1,
             modelElements.size());
-        ModelElement element = (ModelElement)modelElements.iterator().next();
+        ModelElement element = modelElements.iterator().next();
         assertEquals(
             "Entity",
             element.getStereotype());
@@ -131,14 +131,14 @@ public class CartridgeTest
         assertEquals(
             1,
             modelElements.size());
-        element = (ModelElement)modelElements.iterator().next();
+        element = modelElements.iterator().next();
         assertNull(element.getVariable());
         assertNull(element.getStereotype());
         
-        final Collection types = element.getTypes();
+        final Collection<Type> types = element.getTypes();
         assertNotNull(types);
         assertEquals(1, types.size());
-        final Type type = (Type)types.iterator().next();
+        final Type type = types.iterator().next();
         final Collection properties = type.getProperties();
         assertEquals(2, properties.size());
         final Iterator propertyIterator = properties.iterator();
@@ -149,11 +149,11 @@ public class CartridgeTest
         assertEquals("propertyThree", property2.getName());
         assertEquals("Contents", property2.getValue());
         
-        final Map conditions = cartridge.getConditions();
+        final Map<String, String> conditions = cartridge.getConditions();
         assertEquals(1, conditions.size());
-        final String expressionName = (String)conditions.keySet().iterator().next();
+        final String expressionName = conditions.keySet().iterator().next();
         assertEquals("viewTypeIsJsp", expressionName);
-        final String expressionValue = (String)conditions.get(expressionName);
+        final String expressionValue = conditions.get(expressionName);
         assertEquals("$viewType.equalsIgnoreCase('jsp')", expressionValue);
     }
 
@@ -190,12 +190,13 @@ public class CartridgeTest
 
     public void testGetContents()
     {
-        Collection contents = this.cartridge.getContents();
+        Collection<String> contents = this.cartridge.getContents();
         assertNotNull(contents);
 
+        //    TODO wrong Test, new Integer() are always not same!
         // make sure there's more than 0 contents listed
-        TestCase.assertNotSame(
-            new Integer(0),
-            new Integer(contents.size()));
+//        assertNotSame(
+//            new Integer(0),
+//            new Integer(contents.size()));
     }
 }

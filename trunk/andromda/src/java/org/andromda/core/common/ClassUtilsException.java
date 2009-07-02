@@ -10,7 +10,7 @@ public class ClassUtilsException
     /**
      * Constructs an instance of ClassUtilsException.
      *
-     * @param parent
+     * @param parent the parent throwable
      */
     public ClassUtilsException(Throwable parent)
     {
@@ -20,7 +20,7 @@ public class ClassUtilsException
     /**
      * Constructs an instance of ClassUtilsException.
      *
-     * @param message
+     * @param message the exception message
      */
     public ClassUtilsException(String message)
     {
@@ -30,8 +30,8 @@ public class ClassUtilsException
     /**
      * Constructs an instance of ClassUtilsException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent throwable
      */
     public ClassUtilsException(
         String message,

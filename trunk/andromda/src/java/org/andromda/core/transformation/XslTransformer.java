@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Collection;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -55,13 +56,13 @@ public class XslTransformer
                 if (xsltTransformations != null && xsltTransformations.length > 0)
                 {
                     Source modelSource = new StreamSource(modelUrl.openStream());
-                    final List xslts = Arrays.asList(xsltTransformations);
+                    final Collection<Transformation> xslts = Arrays.asList(xsltTransformations);
                     final TransformerFactory factory = TransformerFactory.newInstance();
                     final TransformerURIResolver resolver = new TransformerURIResolver();
                     factory.setURIResolver(resolver);
-                    for (final Iterator xsltIterator = xslts.iterator(); xsltIterator.hasNext();)
+                    for (final Iterator<Transformation> xsltIterator = xslts.iterator(); xsltIterator.hasNext();)
                     {
-                        final Transformation transformation = (Transformation)xsltIterator.next();
+                        final Transformation transformation = xsltIterator.next();
                         final URL xslt = new URL(transformation.getUri());
                         resolver.setLocation(xslt);
                         if (xslt != null)
@@ -90,7 +91,6 @@ public class XslTransformer
                                 outputStream.write(outputResult);
                                 outputStream.flush();
                                 outputStream.close();
-                                outputStream = null;
                             }
                             if (xsltIterator.hasNext())
                             {

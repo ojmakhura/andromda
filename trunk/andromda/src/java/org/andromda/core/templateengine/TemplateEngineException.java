@@ -10,7 +10,7 @@ public class TemplateEngineException
     /**
      * Constructs an instance of TemplateEngineException.
      *
-     * @param parent
+     * @param parent the parent exception
      */
     public TemplateEngineException(Throwable parent)
     {
@@ -20,7 +20,7 @@ public class TemplateEngineException
     /**
      * Constructs an instance of TemplateEngineException.
      *
-     * @param message
+     * @param message the exception message
      */
     public TemplateEngineException(String message)
     {
@@ -30,8 +30,8 @@ public class TemplateEngineException
     /**
      * Constructs an instance of TemplateEngineException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent exception
      */
     public TemplateEngineException(
         String message,

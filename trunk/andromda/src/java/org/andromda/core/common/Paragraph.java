@@ -68,7 +68,7 @@ public class Paragraph
         }
     }
 
-    private final ArrayList lines = new ArrayList();
+    private final Collection<String> lines = new ArrayList<String>();
 
     /**
      * <p/>
@@ -76,9 +76,9 @@ public class Paragraph
      *
      * @return Collection the lines as collection of Strings
      */
-    public Collection getLines()
+    public Collection<String> getLines()
     {
-        if (currentLine.length() > 0)
+        if (currentLine.length()>0)
         {
             nextLine();
         }
@@ -91,9 +91,9 @@ public class Paragraph
     public String toString()
     {
         final StringBuffer buffer = new StringBuffer();
-        for (final Iterator iterator = this.getLines().iterator(); iterator.hasNext();)
+        for (final String line : this.getLines())
         {
-            buffer.append((String)iterator.next());
+            buffer.append(line);
             buffer.append("\n");
         }
         return buffer.toString();

@@ -10,7 +10,7 @@ public class ExpressionException
     /**
      * Constructs an instance of ExpressionException.
      *
-     * @param parent
+     * @param parent the parent exception
      */
     public ExpressionException(Throwable parent)
     {
@@ -20,7 +20,7 @@ public class ExpressionException
     /**
      * Constructs an instance of ExpressionException.
      *
-     * @param message
+     * @param message the exception message
      */
     public ExpressionException(String message)
     {
@@ -30,8 +30,8 @@ public class ExpressionException
     /**
      * Constructs an instance of ExpressionException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent exception
      */
     public ExpressionException(
         String message,

@@ -5,6 +5,7 @@ import java.io.File;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -40,7 +41,7 @@ public abstract class AppManagementMojo
     protected String getPackaging() throws MojoExecutionException
     {
         final String packaging = this.project.getPackaging();
-        if (packaging == null || packaging.trim().length() == 0)
+        if (StringUtils.isBlank(packaging))
         {
             throw new MojoExecutionException(
                 "This project must have the packaging defined, when attempting to deploy exploded");

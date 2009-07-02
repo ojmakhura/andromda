@@ -62,7 +62,7 @@ public class TranslationTestDiscoverer
      */
     public void discoverTests(final String directory)
     {
-        if (directory == null || directory.trim().length() == 0)
+        if (StringUtils.isBlank(directory))
         {
             throw new TranslationTestDiscovererException("The 'directory' " +
                 " was not specified, please specify this value with the location from which to" +

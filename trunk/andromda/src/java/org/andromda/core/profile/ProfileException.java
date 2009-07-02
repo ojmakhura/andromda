@@ -20,7 +20,7 @@ public class ProfileException
     /**
      * Constructor for ProfileException.
      *
-     * @param message
+     * @param message the exception message
      */
     public ProfileException(String message)
     {
@@ -30,8 +30,8 @@ public class ProfileException
     /**
      * Constructor for ProfileException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent throwable
      */
     public ProfileException(
         String message,
@@ -43,10 +43,10 @@ public class ProfileException
     /**
      * Constructor for ProfileException.
      *
-     * @param message
+     * @param parent the parent throwable
      */
-    public ProfileException(Throwable message)
+    public ProfileException(Throwable parent)
     {
-        super(message);
+        super(parent);
     }
 }

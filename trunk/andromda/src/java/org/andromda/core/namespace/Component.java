@@ -42,7 +42,7 @@ public class Component
     /**
      * The path to the compoment's descriptor.
      */
-    private final Collection paths = new LinkedHashSet();
+    private final Collection<String> paths = new LinkedHashSet<String>();
 
     /**
      * Gets the component's descriptor paths (these are the paths
@@ -52,7 +52,7 @@ public class Component
      */
     public String[] getPaths()
     {
-        return (String[])paths.toArray(new String[0]);
+        return paths.toArray(new String[paths.size()]);
     }
 
     /**

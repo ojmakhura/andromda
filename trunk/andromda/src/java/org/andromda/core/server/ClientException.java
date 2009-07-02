@@ -21,7 +21,7 @@ public class ClientException
     /**
      * Constructor for ClientClientException.
      *
-     * @param message
+     * @param message the exception message
      */
     public ClientException(String message)
     {
@@ -31,8 +31,8 @@ public class ClientException
     /**
      * Constructor for ClientClientException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent throwable
      */
     public ClientException(
         String message,
@@ -44,7 +44,7 @@ public class ClientException
     /**
      * Constructor for ClientClientException.
      *
-     * @param parent
+     * @param parent the parent throwable
      */
     public ClientException(Throwable parent)
     {

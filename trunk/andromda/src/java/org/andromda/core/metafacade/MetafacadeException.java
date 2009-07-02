@@ -10,7 +10,7 @@ public class MetafacadeException
     /**
      * Constructs an instance of MetafacadeException.
      *
-     * @param parent
+     * @param parent the parent throwable
      */
     public MetafacadeException(Throwable parent)
     {
@@ -20,7 +20,7 @@ public class MetafacadeException
     /**
      * Constructs an instance of MetafacadeException.
      *
-     * @param message
+     * @param message the exception message
      */
     public MetafacadeException(String message)
     {
@@ -30,8 +30,8 @@ public class MetafacadeException
     /**
      * Constructs an instance of MetafacadeException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent throwable
      */
     public MetafacadeException(
         String message,

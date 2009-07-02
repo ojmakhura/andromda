@@ -174,9 +174,8 @@ public class ModelElement
     private boolean accept(final Object metafacade)
     {
         boolean accept = true;
-        for (final Iterator<Type> iterator = this.types.iterator(); iterator.hasNext() && accept;)
+        for (Type type : this.types)
         {
-            final Type type = (Type)iterator.next();
             if (StringUtils.isNotBlank(type.getName()))
             {
                 try
@@ -186,9 +185,8 @@ public class ModelElement
                     // if the type matches the name, continue
                     if (accept)
                     {
-                        for (final Iterator<Type.Property> properties = type.getProperties().iterator(); properties.hasNext();)
+                        for (Type.Property property : type.getProperties())
                         {
-                            final Type.Property property = (Type.Property)properties.next();
                             accept =
                                 Introspector.instance().containsValidProperty(
                                     metafacade,

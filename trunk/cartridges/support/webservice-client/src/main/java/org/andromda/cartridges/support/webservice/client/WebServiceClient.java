@@ -26,6 +26,7 @@ import org.apache.axis2.client.ServiceClient;
 import org.apache.axis2.client.async.Callback;
 import org.apache.axis2.transport.http.HTTPConstants;
 import org.apache.axis2.transport.http.HttpTransportProperties.Authenticator;
+import org.apache.commons.lang.StringUtils;
 import org.xml.sax.InputSource;
 
 
@@ -119,7 +120,7 @@ public class WebServiceClient
             this.serviceClass = serviceClass;
             this.wsdlUrl = wsdlUrl;
             final WSDLReader reader = WSDLFactory.newInstance().newWSDLReader();
-            if (username != null && username.trim().length() > 0)
+            if (StringUtils.isNotBlank(username))
             {
                 final Authenticator authenticator = new Authenticator();
                 final List<String> authorizationSchemes = new ArrayList<String>();
@@ -149,7 +150,7 @@ public class WebServiceClient
                 }
             }
             String portAddress;
-            if (endpointAddress != null && endpointAddress.trim().length() > 0)
+            if (StringUtils.isNotBlank(endpointAddress))
             {
                 portAddress = endpointAddress;
             }

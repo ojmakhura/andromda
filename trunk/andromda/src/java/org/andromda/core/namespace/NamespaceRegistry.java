@@ -1,10 +1,7 @@
 package org.andromda.core.namespace;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -72,7 +69,7 @@ public class NamespaceRegistry
      * within this namespace registry and the paths from which
      * they can be initialized.
      */
-    private final Map components = new LinkedHashMap();
+    private final Map<String, String[]> components = new LinkedHashMap<String, String[]>();
 
     /**
      * Registers the component with the
@@ -97,7 +94,7 @@ public class NamespaceRegistry
      */
     public String[] getRegisteredComponents()
     {
-        return (String[])this.components.keySet().toArray(new String[0]);
+        return this.components.keySet().toArray(new String[this.components.size()]);
     }
 
     /**
@@ -108,13 +105,13 @@ public class NamespaceRegistry
      */
     public String[] getPaths(final String name)
     {
-        return (String[])this.components.get(name);
+        return this.components.get(name);
     }
 
     /**
      * Stores the property definitions.
      */
-    private final Map definitions = new LinkedHashMap();
+    private final Map<String, PropertyDefinition> definitions = new LinkedHashMap<String, PropertyDefinition>();
 
     /**
      * Attempts to retrieve the property definition for the given
@@ -124,7 +121,7 @@ public class NamespaceRegistry
      */
     public PropertyDefinition getPropertyDefinition(final String name)
     {
-        return (PropertyDefinition)this.definitions.get(name);
+        return this.definitions.get(name);
     }
 
     /**
@@ -134,9 +131,8 @@ public class NamespaceRegistry
      */
     public void addPropertyDefinitions(final PropertyDefinition[] propertyDefinitions)
     {
-        for (int ctr = 0; ctr < propertyDefinitions.length; ctr++)
-        {
-            this.addPropertyDefinition(propertyDefinitions[ctr]);
+        for (PropertyDefinition propertyDefinition : propertyDefinitions) {
+            this.addPropertyDefinition(propertyDefinition);
         }
     }
     
@@ -167,7 +163,7 @@ public class NamespaceRegistry
      */
     public PropertyDefinition[] getPropertyDefinitions()
     {
-        return (PropertyDefinition[])this.definitions.values().toArray(new PropertyDefinition[0]);
+        return this.definitions.values().toArray(new PropertyDefinition[this.definitions.size()]);
     }
 
     /**
@@ -188,7 +184,7 @@ public class NamespaceRegistry
     /**
      * The root of this namespace which stores all resources.
      */
-    private List resourceRoots = new ArrayList();
+    private Collection<URL> resourceRoots = new ArrayList<URL>();
 
     /**
      * Gets the resource root of this namespace.
@@ -197,7 +193,7 @@ public class NamespaceRegistry
      */
     public URL[] getResourceRoots()
     {
-        return (URL[])this.resourceRoots.toArray(new URL[0]);
+        return this.resourceRoots.toArray(new URL[this.resourceRoots.size()]);
     }
 
     /**

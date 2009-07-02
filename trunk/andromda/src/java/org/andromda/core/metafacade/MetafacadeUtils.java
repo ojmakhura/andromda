@@ -31,7 +31,7 @@ final class MetafacadeUtils
         final MetafacadeMapping mapping)
     {
         boolean valid = false;
-        final Collection propertyGroups = mapping.getMappingPropertyGroups();
+        final Collection<MetafacadeMapping.PropertyGroup> propertyGroups = mapping.getMappingPropertyGroups();
         if (propertyGroups != null && !propertyGroups.isEmpty())
         {
             try
@@ -43,14 +43,10 @@ final class MetafacadeUtils
                         "'");
                 }
                 final Introspector introspector = Introspector.instance();
-                for (final Iterator tterator = propertyGroups.iterator(); tterator.hasNext();)
+                for (final MetafacadeMapping.PropertyGroup propertyGroup : propertyGroups)
                 {
-                    final MetafacadeMapping.PropertyGroup propertyGroup =
-                        (MetafacadeMapping.PropertyGroup)tterator.next();
-                    for (final Iterator propertyIterator = propertyGroup.getProperties().iterator();
-                        propertyIterator.hasNext();)
+                    for (final MetafacadeMapping.Property property : propertyGroup.getProperties())
                     {
-                        final MetafacadeMapping.Property property = (MetafacadeMapping.Property)propertyIterator.next();
                         valid = introspector.containsValidProperty(
                                 metafacade,
                                 property.getName(),
@@ -122,7 +118,7 @@ final class MetafacadeUtils
                 "', and context '" + context + "'");
         }
         final Constructor constructor = metafacadeClass.getDeclaredConstructors()[0];
-        return (MetafacadeBase)constructor.newInstance(new Object[] {mappingObject, context});
+        return (MetafacadeBase)constructor.newInstance(mappingObject, context);
     }
 
     /**
@@ -141,9 +137,9 @@ final class MetafacadeUtils
         String className = null;
         for (final Iterator<Class> iterator = interfaces.iterator(); iterator.hasNext() && className == null;)
         {
-            final String metafacadeInterface = ((Class)iterator.next()).getName();
+            final String metafacadeInterface = iterator.next().getName();
             final Class metafacadeImplClass = metafacadeImpls.getMetafacadeImplClass(metafacadeInterface);
-            className = (String)mappingInstances.get(metafacadeImplClass);
+            className = mappingInstances.get(metafacadeImplClass);
         }
         if (className == null)
         {

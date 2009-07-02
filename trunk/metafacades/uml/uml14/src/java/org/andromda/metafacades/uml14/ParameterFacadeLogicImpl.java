@@ -116,7 +116,7 @@ public class ParameterFacadeLogicImpl
         }
         // Put single or double quotes around default in case modeler forgot to do it. Most templates
         // declare Type parameter = $parameter.defaultValue, requiring quotes around the value
-        if (defaultValue!=null && defaultValue.length()>0)
+        if (StringUtils.isNotEmpty(defaultValue))
         {
             String typeName = this.metaObject.getType().getName();
             if (typeName.equals("String") && defaultValue.indexOf('"')<0)

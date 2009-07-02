@@ -179,7 +179,7 @@ public class StringUtilsHelper
 
         for (int i = 0; i < parts.length - 1; i++)
         {
-            if (parts[i].trim().length() > 0)
+            if (StringUtils.isNotBlank(parts[i]))
             {
                 buffer.append(parts[i]).append(separator);
             }

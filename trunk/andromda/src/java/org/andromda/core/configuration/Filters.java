@@ -42,7 +42,7 @@ public class Filters
     /**
      * Stores the filters as they're added.
      */
-    private final Collection filters = new ArrayList();
+    private final Collection<Filter> filters = new ArrayList<Filter>();
 
     /**
      * Adds the filter to the underlying filters store.
@@ -72,7 +72,7 @@ public class Filters
      */
     public Filter[] getFilters()
     {
-        return (Filter[])this.filters.toArray(new Filter[0]);
+        return this.filters.toArray(new Filter[0]);
     }
 
     private final MetafacadeFactory factory = MetafacadeFactory.getInstance();
@@ -88,9 +88,8 @@ public class Filters
     public boolean isApply(final String value)
     {
         boolean shouldApply = this.applyAll;
-        for (final Iterator iterator = this.filters.iterator(); iterator.hasNext();)
+        for (Filter filter : this.filters)
         {
-            final Filter filter = (Filter)iterator.next();
             if (this.match(value, filter.getValue()))
             {
                 shouldApply = filter.isApply() && (filter.getNamespaceList().isEmpty() ||

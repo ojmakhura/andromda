@@ -10,7 +10,7 @@ public class XmlObjectFactoryException
     /**
      * Constructs an instance of XmlObjectFactoryException.
      *
-     * @param parent
+     * @param parent the parent throwable
      */
     public XmlObjectFactoryException(Throwable parent)
     {
@@ -20,7 +20,7 @@ public class XmlObjectFactoryException
     /**
      * Constructs an instance of XmlObjectFactoryException.
      *
-     * @param message
+     * @param message the exception message
      */
     public XmlObjectFactoryException(String message)
     {
@@ -30,8 +30,8 @@ public class XmlObjectFactoryException
     /**
      * Constructs an instance of XmlObjectFactoryException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent throwable
      */
     public XmlObjectFactoryException(
         String message,

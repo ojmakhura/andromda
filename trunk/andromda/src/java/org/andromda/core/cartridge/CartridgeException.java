@@ -20,7 +20,7 @@ public class CartridgeException
     /**
      * Constructor for CartridgeException.
      *
-     * @param message
+     * @param message the exception message
      */
     public CartridgeException(String message)
     {
@@ -30,8 +30,8 @@ public class CartridgeException
     /**
      * Constructor for CartridgeException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent exception
      */
     public CartridgeException(
         String message,
@@ -43,7 +43,7 @@ public class CartridgeException
     /**
      * Constructor for CartridgeException.
      *
-     * @param parent
+     * @param parent the parent exception
      */
     public CartridgeException(Throwable parent)
     {

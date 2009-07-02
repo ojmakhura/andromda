@@ -21,6 +21,7 @@ import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -272,7 +273,7 @@ public class FrontEndUseCaseLogicImpl
             {
                 FrontEndParameter variable = (FrontEndParameter)variableIterator.next();
                 final String name = variable.getName();
-                if (name != null && name.trim().length() > 0)
+                if (StringUtils.isNotBlank(name))
                 {
                     final FrontEndParameter existingVariable = (FrontEndParameter)pageVariableMap.get(name);
                     if (existingVariable != null)

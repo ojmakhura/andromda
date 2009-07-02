@@ -78,26 +78,20 @@ public class Merger
             final Collection<Mappings> mappingInstances = this.getMergeMappings(namespace);
             for (final Mappings mergeMappings : mappingInstances)
             {
-                final Collection mappings = mergeMappings.getMappings();
+                final Collection<Mapping> mappings = mergeMappings.getMappings();
                 if ((mappings != null) && !mappings.isEmpty())
                 {
-                    for (final Iterator mappingsIterator = mappings.iterator(); mappingsIterator.hasNext();)
+                    for (final Mapping mapping : mappings)
                     {
-                        final Mapping mapping = (Mapping)mappingsIterator.next();
-                        final Collection froms = mapping.getFroms();
-
-                        if (froms != null && !froms.isEmpty())
-                        {
-                            for (final Iterator fromsIterator = froms.iterator(); fromsIterator.hasNext();)
-                            {
-                                final String from = StringUtils.trimToEmpty((String)fromsIterator.next());
-                                if (StringUtils.isNotEmpty(from) && string.contains(from))
-                                {
-                                    final String to = mapping.getTo() != null ? mapping.getTo().trim() : "";
-                                    string = StringUtils.replace(string, from, to);
-                                }
+                        final Collection<String> froms = mapping.getFroms();
+                        for (String from : froms) {
+                            from = StringUtils.trimToEmpty(from);
+                            if (StringUtils.isNotEmpty(from) && string.contains(from)) {
+                                final String to = StringUtils.trimToEmpty(mapping.getTo());
+                                string = StringUtils.replace(string, from, to);
                             }
                         }
+
                     }
                 }
             }
@@ -131,10 +125,10 @@ public class Merger
                 writer.write(ctr);
             }
             inputReader.close();
-            inputReader = null;
+
             final String string = writer.toString();
             writer.close();
-            writer = null;
+
             return this.getMergedString(string, namespace);
         }
         catch (final Exception exception)

@@ -15,13 +15,14 @@ import org.apache.commons.lang.StringUtils;
  * the grouping of model elements by criteria defined within the nested {@link ModelElement}instances.
  *
  * @author Chad Brandon
+ * @author Michail Plushnikov
  * @see Template
  * @see ModelElement
  */
 public class ModelElements
 {
     private String variable;
-    private final Collection modelElements = new ArrayList();
+    private final Collection<ModelElement> modelElements = new ArrayList<ModelElement>();
 
     /**
      * The variable name to make the model element available to the template engine. For example if you have the
@@ -65,9 +66,9 @@ public class ModelElements
     public Set getAllMetafacades()
     {
         final Set allMetafacades = new LinkedHashSet();
-        for (final Iterator iterator = this.modelElements.iterator(); iterator.hasNext();)
+        for (ModelElement modelElement : modelElements)
         {
-            allMetafacades.addAll(((ModelElement)iterator.next()).getMetafacades());
+            allMetafacades.addAll(modelElement.getMetafacades());
         }
         return allMetafacades;
     }
@@ -77,7 +78,7 @@ public class ModelElements
      *
      * @return Collection of all {@link ModelElement}instances.
      */
-    public Collection getModelElements()
+    public Collection<ModelElement> getModelElements()
     {
         return this.modelElements;
     }

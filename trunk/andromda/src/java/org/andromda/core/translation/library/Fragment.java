@@ -27,7 +27,7 @@ public class Fragment
     /**
      * The possible kinds available to this Fragment
      */
-    private Map kinds = new LinkedHashMap();
+    private Map<String, String> kinds = new LinkedHashMap<String, String>();
 
     /**
      * It doesn't make any sense to instatiate this object explicitly. It intended to be instantiated as part of a
@@ -65,7 +65,7 @@ public class Fragment
      *
      * @return Map the Kinds keyed by name.
      */
-    public Map getKinds()
+    public Map<String, String> getKinds()
     {
         return this.kinds;
     }
@@ -81,7 +81,7 @@ public class Fragment
         // clean the name first
         name = StringUtils.trimToEmpty(name);
         ExceptionUtils.checkEmpty("name", name);
-        String kind = StringUtils.trimToEmpty((String)kinds.get(name));
+        String kind = StringUtils.trimToEmpty(kinds.get(name));
         if (kind == null)
         {
             throw new LibraryException(

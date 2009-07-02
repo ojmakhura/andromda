@@ -25,12 +25,15 @@ import org.andromda.core.configuration.Model;
 import org.andromda.core.configuration.Namespace;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
+import org.andromda.core.configuration.Repository;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.andromda.core.metafacade.ModelValidationMessage;
 import org.andromda.core.namespace.NamespaceComponents;
 import org.andromda.core.repository.Repositories;
 import org.apache.commons.collections.comparators.ComparatorChain;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -43,6 +46,7 @@ import org.apache.log4j.Logger;
  *
  * @author Chad Brandon
  * @author Bob Fields
+ * @author Michail Plushnikov
  */
 public class ModelProcessor
 {
@@ -79,8 +83,8 @@ public class ModelProcessor
     public ModelValidationMessage[] process(final Configuration configuration)
     {
         this.configure(configuration);
-        final List messages = this.process(configuration.getRepositories());
-        return messages != null ? (ModelValidationMessage[])messages.toArray(new ModelValidationMessage[0])
+        final List<ModelValidationMessage> messages = this.process(configuration.getRepositories());
+        return messages != null ? messages.toArray(new ModelValidationMessage[0])
                                 : new ModelValidationMessage[0];
     }
 
@@ -98,11 +102,9 @@ public class ModelProcessor
             configuration.initialize();
             this.reset();
             final Property[] properties = configuration.getProperties();
-            final int propertyNumber = properties.length;
             final Introspector introspector = Introspector.instance();
-            for (int ctr = 0; ctr < propertyNumber; ctr++)
+            for (Property property : properties)
             {
-                final Property property = properties[ctr];
                 try
                 {
                     introspector.setProperty(
@@ -127,14 +129,12 @@ public class ModelProcessor
      *
      * @return any model validation messages that may have been collected during model loading/validation.
      */
-    private List process(final org.andromda.core.configuration.Repository[] repositories)
+    private List<ModelValidationMessage> process(final org.andromda.core.configuration.Repository[] repositories)
     {
-        List messages = null;
+        List<ModelValidationMessage> messages = null;
         final long startTime = System.currentTimeMillis();
-        final int repositoryNumber = repositories.length;
-        for (int ctr = 0; ctr < repositoryNumber; ctr++)
+        for (Repository repository : repositories)
         {
-            final org.andromda.core.configuration.Repository repository = repositories[ctr];
             if (repository != null)
             {
                 final String repositoryName = repository.getName();
@@ -156,7 +156,11 @@ public class ModelProcessor
                 }
             }
         }
-        return messages == null ? Collections.EMPTY_LIST : messages;
+        if(messages == null)
+        {
+            messages = Collections.emptyList();
+        }
+        return messages;
     }
 
     /**
@@ -182,11 +186,11 @@ public class ModelProcessor
      * @return any model validation messages that may have been collected during validation/loading of
      *         the <code>models</code>.
      */
-    private List processModels(
+    private List<ModelValidationMessage> processModels(
         final String repositoryName,
         final Model[] models)
     {
-        List messages = null;
+        List<ModelValidationMessage> messages = null;
         String cartridgeName = null;
         try
         {
@@ -195,9 +199,8 @@ public class ModelProcessor
             final ResourceWriter writer = ResourceWriter.instance();
 
             // - get the time from the model that has the latest modified time
-            for (int ctr = 0; ctr < models.length; ctr++)
+            for (Model model : models)
             {
-                final Model model = models[ctr];
                 writer.resetHistory(model.getUris()[0]);
                 lastModifiedCheck = model.isLastModifiedCheck() && lastModifiedCheck;
 
@@ -210,23 +213,22 @@ public class ModelProcessor
 
             if (!lastModifiedCheck || writer.isHistoryBefore(lastModified))
             {
-                final Collection cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
+                final Collection<Cartridge> cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
                 if (cartridges.isEmpty())
                 {
                     AndroMDALogger.warn("WARNING! No cartridges found, check your classpath!");
                 }
                 
-                final Map cartridgesByNamespace = this.loadCartridgesByNamespace(cartridges);
+                final Map<String, Cartridge> cartridgesByNamespace = this.loadCartridgesByNamespace(cartridges);
                 
                 // - we want to process by namespace so that the order within the configuration is kept
-                final Collection namespaces = this.namespaces.getNamespaces();
+                final Collection<Namespace> namespaces = this.namespaces.getNamespaces();
 
                 // - pre-load the models
                 messages = this.loadIfNecessary(models);
-                for (final Iterator iterator = namespaces.iterator(); iterator.hasNext();)
+                for (Namespace namespace : namespaces)
                 {
-                    final Namespace namespace = (Namespace)iterator.next();
-                    final Cartridge cartridge = (Cartridge)cartridgesByNamespace.get(namespace.getName());
+                    final Cartridge cartridge = cartridgesByNamespace.get(namespace.getName());
                     if (cartridge != null)
                     {
                         cartridgeName = cartridge.getNamespace();
@@ -237,9 +239,8 @@ public class ModelProcessor
                             cartridge.initialize();
     
                             // - process each model with the cartridge
-                            for (int ctr = 0; ctr < models.length; ctr++)
+                            for (Model model : models)
                             {
-                                final Model model = models[ctr];
                                 AndroMDALogger.info("Processing cartridge " + cartridge.getNamespace() + " on model " + model);
    
                                 // - set the namespace on the metafacades instance so we know the 
@@ -274,7 +275,11 @@ public class ModelProcessor
                 cartridgeName);
             throw new ModelProcessorException(messsage, throwable);
         }
-        return messages == null ? Collections.EMPTY_LIST : messages;
+        if(messages == null)
+        {
+            messages = Collections.emptyList();
+        }
+        return messages;
     }
     
     /**
@@ -283,12 +288,11 @@ public class ModelProcessor
      * @param cartridges the cartridges loaded.
      * @return the loaded cartridge map.
      */
-    private Map loadCartridgesByNamespace(final Collection cartridges)
+    private Map<String, Cartridge> loadCartridgesByNamespace(final Collection<Cartridge> cartridges)
     {
-        final Map cartridgesByNamespace = new LinkedHashMap();
-        for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
+        final Map<String, Cartridge> cartridgesByNamespace = new LinkedHashMap<String, Cartridge>();
+        for (Cartridge cartridge : cartridges)
         {
-            final Cartridge cartridge = (Cartridge)iterator.next();
             cartridgesByNamespace.put(cartridge.getNamespace(), cartridge);
         }
         return cartridgesByNamespace;
@@ -339,9 +343,9 @@ public class ModelProcessor
      * @param model the model to be loaded.
      * @return List validation messages
      */
-    protected final List loadModelIfNecessary(final Model model)
+    protected final List<ModelValidationMessage> loadModelIfNecessary(final Model model)
     {
-        final List validationMessages = new ArrayList();
+        final List<ModelValidationMessage> validationMessages = new ArrayList<ModelValidationMessage>();
         final long startTime = System.currentTimeMillis();
         if (this.repositories.loadModel(model))
         {
@@ -350,7 +354,7 @@ public class ModelProcessor
                 startTime);
 
             // - validate the model since loading has successfully occurred
-            final org.andromda.core.configuration.Repository repository = model.getRepository();
+            final Repository repository = model.getRepository();
             final String repositoryName = repository != null ? repository.getName() : null;
             validationMessages.addAll(this.validateModel(
                     repositoryName,
@@ -365,20 +369,21 @@ public class ModelProcessor
      * (also logs any validation failures).
      *
      * @param repositoryName the name of the repository storing the model to validate.
+     * @param model the model to validate
      * @return any {@link ModelValidationMessage} instances that may have been collected
      *         during validation.
      */
-    private List validateModel(
+    private List<ModelValidationMessage> validateModel(
         final String repositoryName,
         final Model model)
     {
         final Filters constraints = (model != null ? model.getConstraints() : null);
-        final List validationMessages = new ArrayList();
+        final List<ModelValidationMessage> validationMessages = new ArrayList<ModelValidationMessage>();
         if (ModelProcessor.modelValidation && model != null)
         {
             final long startTime = System.currentTimeMillis();
             AndroMDALogger.info("- validating model -");
-            final Collection cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
+            final Collection<Cartridge> cartridges = ComponentContainer.instance().findComponentsOfType(Cartridge.class);
             final ModelAccessFacade modelAccessFacade =
                 this.repositories.getImplementation(repositoryName).getModel();
 
@@ -387,9 +392,8 @@ public class ModelProcessor
             this.factory.setModel(
                 modelAccessFacade,
                 model.getType());
-            for (final Iterator iterator = cartridges.iterator(); iterator.hasNext();)
+            for (Cartridge cartridge : cartridges)
             {
-                final Cartridge cartridge = (Cartridge)iterator.next();
                 final String cartridgeName = cartridge.getNamespace();
                 if (this.shouldProcess(cartridgeName))
                 {
@@ -398,7 +402,7 @@ public class ModelProcessor
                     this.factory.validateAllMetafacades();
                 }
             }
-            final List messages = this.factory.getValidationMessages();
+            final List<ModelValidationMessage> messages = this.factory.getValidationMessages();
             this.filterAndSortValidationMessages(
                 messages,
                 constraints);
@@ -441,7 +445,7 @@ public class ModelProcessor
     /**
      * Prints any model validation errors stored within the <code>factory</code>.
      */
-    private void printValidationMessages(final List messages)
+    private void printValidationMessages(final List<ModelValidationMessage> messages)
     {
         // - log all error messages
         if (messages != null && !messages.isEmpty())
@@ -453,11 +457,11 @@ public class ModelProcessor
                 header.append("S");
             }
             AndroMDALogger.error(header);
-            final Iterator iterator = messages.iterator();
-            for (int ctr = 1; iterator.hasNext(); ctr++)
+            int ctr = 1;
+            for (ModelValidationMessage message : messages)
             {
-                final ModelValidationMessage message = (ModelValidationMessage)iterator.next();
                 AndroMDALogger.error(ctr + ") " + message);
+                ctr++;
             }
             AndroMDALogger.reset();
             if (this.failOnValidationErrors)
@@ -501,15 +505,13 @@ public class ModelProcessor
      * @param repositories the repositories from which to load the model(s).
      * @return messages
      */
-    final List loadIfNecessary(final org.andromda.core.configuration.Repository[] repositories)
+    final List<ModelValidationMessage> loadIfNecessary(final org.andromda.core.configuration.Repository[] repositories)
     {
-        final List messages = new ArrayList();
-        if (repositories != null && repositories.length > 0)
+        final List<ModelValidationMessage> messages = new ArrayList<ModelValidationMessage>();
+        if (repositories != null)
         {
-            final int repositoryNumber = repositories.length;
-            for (int repositoryCtr = 0; repositoryCtr < repositoryNumber; repositoryCtr++)
+            for (Repository repository : repositories)
             {
-                final org.andromda.core.configuration.Repository repository = repositories[repositoryCtr];
                 if (repository != null)
                 {
                     messages.addAll(this.loadIfNecessary(repository.getModels()));
@@ -525,15 +527,14 @@ public class ModelProcessor
      * @param models that will be loaded (if necessary).
      * @return any validation messages collected during loading.
      */
-    private List loadIfNecessary(final Model[] models)
+    private List<ModelValidationMessage> loadIfNecessary(final Model[] models)
     {
-        final List messages = new ArrayList();
+        final List<ModelValidationMessage> messages = new ArrayList<ModelValidationMessage>();
         if (models != null && models.length > 0)
         {
-            final int modelNumber = models.length;
-            for (int modelCtr = 0; modelCtr < modelNumber; modelCtr++)
+            for (Model model : models)
             {
-                messages.addAll(this.loadModelIfNecessary(models[modelCtr]));
+                messages.addAll(this.loadModelIfNecessary(model));
             }
         }
         return messages;
@@ -715,16 +716,15 @@ public class ModelProcessor
      */
     private Model[] filterInvalidModels(final Model[] models)
     {
-        final Collection validModels = new ArrayList(Arrays.asList(models));
-        for (final Iterator iterator = validModels.iterator(); iterator.hasNext();)
-        {
-            final Model model = (Model)iterator.next();
-            if (!(model != null && model.getUris() != null && model.getUris().length > 0))
-            {
-                iterator.remove();
+        final Collection<Model> validModels = new ArrayList<Model>(Arrays.asList(models));
+        CollectionUtils.filter(validModels, new Predicate() {
+            public boolean evaluate(Object o) {
+                final Model model = (Model)o;
+                return (model != null && model.getUris() != null && model.getUris().length > 0);
             }
-        }
-        return (Model[])validModels.toArray(new Model[0]);
+        });
+
+        return validModels.toArray(new Model[validModels.size()]);
     }
 
     /**
@@ -778,20 +778,18 @@ public class ModelProcessor
      * @param constraints any constraint filters to apply to the validation messages.
      */
     protected void filterAndSortValidationMessages(
-        final List messages,
+        final List<ModelValidationMessage> messages,
         final Filters constraints)
     {
         if (constraints != null)
         {
             // - perform constraint filtering (if any applies)
-            for (final Iterator iterator = messages.iterator(); iterator.hasNext();)
-            {
-                final ModelValidationMessage message = (ModelValidationMessage)iterator.next();
-                if (message != null && !constraints.isApply(message.getName()))
-                {
-                    iterator.remove();
+            CollectionUtils.filter(messages, new Predicate() {
+                public boolean evaluate(Object o) {
+                    ModelValidationMessage message = (ModelValidationMessage)o;
+                    return constraints.isApply(message.getName());
                 }
-            }
+            });
         }
 
         if (messages != null && !messages.isEmpty())
@@ -809,7 +807,7 @@ public class ModelProcessor
      * Used to sort validation messages by <code>metafacadeClass</code>.
      */
     private final static class ValidationMessageTypeComparator
-        implements Comparator
+        implements Comparator<ModelValidationMessage>
     {
         private final Collator collator = Collator.getInstance();
 
@@ -819,14 +817,12 @@ public class ModelProcessor
         }
 
         public int compare(
-            final Object objectA,
-            final Object objectB)
-        {
-            final ModelValidationMessage a = (ModelValidationMessage)objectA;
-            final ModelValidationMessage b = (ModelValidationMessage)objectB;
+            final ModelValidationMessage objectA,
+            final ModelValidationMessage objectB)
+        {            
             return collator.compare(
-                a.getMetafacadeClass().getName(),
-                b.getMetafacadeClass().getName());
+                objectA.getMetafacadeClass().getName(),
+                objectB.getMetafacadeClass().getName());
         }
     }
 
@@ -834,7 +830,7 @@ public class ModelProcessor
      * Used to sort validation messages by <code>modelElementName</code>.
      */
     private final static class ValidationMessageNameComparator
-        implements Comparator
+        implements Comparator<ModelValidationMessage>
     {
         private final Collator collator = Collator.getInstance();
 
@@ -844,14 +840,12 @@ public class ModelProcessor
         }
 
         public int compare(
-            final Object objectA,
-            final Object objectB)
+            final ModelValidationMessage objectA,
+            final ModelValidationMessage objectB)
         {
-            final ModelValidationMessage a = (ModelValidationMessage)objectA;
-            final ModelValidationMessage b = (ModelValidationMessage)objectB;
             return collator.compare(
-                StringUtils.trimToEmpty(a.getMetafacadeName()),
-                StringUtils.trimToEmpty(b.getMetafacadeName()));
+                StringUtils.trimToEmpty(objectA.getMetafacadeName()),
+                StringUtils.trimToEmpty(objectB.getMetafacadeName()));
         }
     }
 }

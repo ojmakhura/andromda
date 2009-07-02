@@ -6,6 +6,8 @@ import java.net.URL;
 
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Collection;
+import java.util.ArrayList;
 
 import org.andromda.core.common.ResourceUtils;
 
@@ -88,23 +90,20 @@ public class Location
             else
             {
                 String[] patterns = this.patterns != null ? this.patterns.split(PATTERN_DELIMITER) : new String[0];
-                final List paths = ResourceUtils.getDirectoryContents(
+                final List<String> paths = ResourceUtils.getDirectoryContents(
                         url,
                         true,
                         patterns);
-                for (final ListIterator iterator = paths.listIterator(); iterator.hasNext();)
+                final Collection<URL> urls = new ArrayList<URL>();
+                for (String path : paths)
                 {
-                    final URL resource = ResourceUtils.toURL((String)iterator.next());
+                    final URL resource = ResourceUtils.toURL(path);
                     if (resource != null)
                     {
-                        iterator.set(resource);
-                    }
-                    else
-                    {
-                        iterator.remove();
+                        urls.add(resource);
                     }
                 }
-                resources = (URL[])paths.toArray(new URL[0]);
+                resources = urls.toArray(new URL[0]);
             }
         }
         else

@@ -348,9 +348,9 @@ public class AndroMDAppType
                             boolean hasNewPath = false;
                             for (final Iterator<Mapping> mappingIterator = this.mappings.iterator(); mappingIterator.hasNext();)
                             {
-                                final Mapping mapping = (Mapping)mappingIterator.next();
+                                final Mapping mapping = mappingIterator.next();
                                 String newPath = mapping.getMatch(path);
-                                if (newPath != null && newPath.length() > 0)
+                                if (StringUtils.isNotEmpty(newPath))
                                 {
                                     final URL absolutePath = ResourceUtils.getResource(path);
                                     if (absolutePath != null)
@@ -470,7 +470,7 @@ public class AndroMDAppType
             // - write the "instructions can be found" information
             this.printLine();
             this.printText(MARGIN + "New application generated to --> '" + rootDirectory.toURI().toURL() + "'");
-            if (this.instructions != null && this.instructions.trim().length() > 0)
+            if (StringUtils.isNotBlank(this.instructions))
             {
                 File instructions = new File(
                         rootDirectory.getAbsolutePath(),
@@ -537,7 +537,7 @@ public class AndroMDAppType
                             {
                                 final Condition condition = (Condition)conditionIterator.next();
                                 final String id = condition.getId();
-                                if (id != null && id.trim().length() > 0)
+                                if (StringUtils.isNotBlank(id))
                                 {
                                     final boolean result = condition.evaluate(this.templateContext.get(id));
                                     writable = Boolean.valueOf(result);
@@ -683,7 +683,7 @@ public class AndroMDAppType
                 {
                     rootName = this.readLine();
                 }
-                while (rootName == null || rootName.trim().length() == 0);
+                while (StringUtils.isBlank(rootName));
                 applicationRoot = this.verifyRootDirectory(new File(rootName));
             }
         }
@@ -745,7 +745,7 @@ public class AndroMDAppType
     private String readLine()
     {
         final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        String inputString = null;
+        String inputString;
         try
         {
             inputString = input.readLine();
@@ -754,7 +754,7 @@ public class AndroMDAppType
         {
             inputString = null;
         }
-        return inputString == null || inputString.trim().length() == 0 ? null : inputString;
+        return StringUtils.trimToNull(inputString);
     }
 
     /**

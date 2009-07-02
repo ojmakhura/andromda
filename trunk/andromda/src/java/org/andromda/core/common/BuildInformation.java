@@ -83,7 +83,7 @@ public class BuildInformation
             InputStream stream = versionUri.openStream();
             properties.load(stream);
             stream.close();
-            stream = null;
+
             this.buildDate = properties.getProperty(datePropertyName);
             this.buildSystem = properties.getProperty(systemPropertyName);
             this.buildJdk = properties.getProperty(jdkPropertyName);

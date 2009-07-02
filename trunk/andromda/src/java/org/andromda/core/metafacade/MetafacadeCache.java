@@ -47,7 +47,7 @@ public final class MetafacadeCache
     /**
      * The cache for already created metafacades.
      */
-    private final Map metafacadeCache = new HashMap();
+    private final Map<Object, Map<Class, Map<String, MetafacadeBase>>> metafacadeCache = new HashMap<Object, Map<Class, Map<String, MetafacadeBase>>>();
 
     /**
      * <p/>
@@ -67,13 +67,13 @@ public final class MetafacadeCache
         final Class metafacadeClass)
     {
         MetafacadeBase metafacade = null;
-        final Map namespaceMetafacadeCache = (Map)this.metafacadeCache.get(mappingObject);
+        final Map<Class, Map<String, MetafacadeBase>> namespaceMetafacadeCache = this.metafacadeCache.get(mappingObject);
         if (namespaceMetafacadeCache != null)
         {
-            final Map metafacadeCache = (Map)namespaceMetafacadeCache.get(metafacadeClass);
+            final Map<String, MetafacadeBase> metafacadeCache = namespaceMetafacadeCache.get(metafacadeClass);
             if (metafacadeCache != null)
             {
-                metafacade = (MetafacadeBase)metafacadeCache.get(this.namespace);
+                metafacade = metafacadeCache.get(this.namespace);
             }
         }
         return metafacade;
@@ -90,16 +90,16 @@ public final class MetafacadeCache
         final Object mappingObject,
         final MetafacadeBase metafacade)
     {
-        Map namespaceMetafacadeCache = (Map)this.metafacadeCache.get(mappingObject);
+        Map<Class, Map<String, MetafacadeBase>> namespaceMetafacadeCache = this.metafacadeCache.get(mappingObject);
         if (namespaceMetafacadeCache == null)
         {
-            namespaceMetafacadeCache = new HashMap();
+            namespaceMetafacadeCache = new HashMap<Class, Map<String, MetafacadeBase>>();
             this.metafacadeCache.put(mappingObject, namespaceMetafacadeCache);
         }
-        Map metafacadeCache = (Map)namespaceMetafacadeCache.get(metafacade.getClass());
+        Map<String, MetafacadeBase> metafacadeCache = namespaceMetafacadeCache.get(metafacade.getClass());
         if (metafacadeCache == null)
         {
-            metafacadeCache = new HashMap();
+            metafacadeCache = new HashMap<String, MetafacadeBase>();
             namespaceMetafacadeCache.put(
                 metafacade.getClass(),
                 metafacadeCache);

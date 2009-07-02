@@ -63,7 +63,7 @@ public class Filter
         this.apply = process;
     }
 
-    private Collection namespaces = new ArrayList();
+    private Collection<String> namespaces = new ArrayList<String>();
 
     /**
      * Sets the comma separated list of namespaces to which the filter applies.
@@ -81,7 +81,7 @@ public class Filter
      *
      * @return the list of namespaces.
      */
-    public Collection getNamespaceList()
+    public Collection<String> getNamespaceList()
     {
         return this.namespaces;
     }

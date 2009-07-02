@@ -923,7 +923,7 @@ public class JSFParameterLogicImpl
     protected boolean handleIsEqualValidator()
     {
         final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS(), null);
-        return equal != null && equal.trim().length() > 0;
+        return StringUtils.isNotBlank(equal);
     }
 
     /**
