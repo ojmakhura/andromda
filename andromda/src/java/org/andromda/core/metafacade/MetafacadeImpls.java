@@ -84,45 +84,35 @@ public class MetafacadeImpls
         ExceptionUtils.checkNull(
             "modelTypes",
             metafacadeModelNamespaces);
-        final List modelNamespaces = new ArrayList(Arrays.asList(metafacadeModelNamespaces));
-        final int numberOfModelTypes = metafacadeModelNamespaces.length;
-        for (int ctr = 0; ctr < numberOfModelTypes; ctr++)
+        final List<String> modelNamespaces = new ArrayList<String>(Arrays.asList(metafacadeModelNamespaces));
+        for (final String modelNamespace : metafacadeModelNamespaces)
         {
-            final String modelNamespace = metafacadeModelNamespaces[ctr];
-            if (modelNamespace != null)
-            {
+            if (modelNamespace != null) {
                 // - remove the current model type so that we don't keep out the namespace
                 //   that stores the metafacade model
                 modelNamespaces.remove(modelNamespace);
 
-                MetafacadeClasses metafacadeClasses = (MetafacadeClasses)this.metafacadeClasses.get(modelNamespace);
-                if (metafacadeClasses == null)
-                {
+                MetafacadeClasses metafacadeClasses = this.metafacadeClasses.get(modelNamespace);
+                if (metafacadeClasses == null) {
                     metafacadeClasses = new MetafacadeClasses();
                     this.metafacadeClasses.put(
-                        modelNamespace,
-                        metafacadeClasses);
+                            modelNamespace,
+                            metafacadeClasses);
                 }
                 metafacadeClasses.clear();
-                try
-                {
+                try {
                     final Namespaces namespacesConfiguration = Namespaces.instance();
-                    for (final Iterator iterator = namespacesConfiguration.getNamespaceRegistries().iterator();
-                        iterator.hasNext();)
-                    {
-                        final NamespaceRegistry namespaceRegistry = (NamespaceRegistry)iterator.next();
+                    for (final NamespaceRegistry namespaceRegistry : namespacesConfiguration.getNamespaceRegistries()) {
                         final String namespaceRegistryName = namespaceRegistry.getName();
-                        if (!modelNamespaces.contains(namespaceRegistryName))
-                        {
+                        if (!modelNamespaces.contains(namespaceRegistryName)) {
                             this.registerMetafacadeClasses(
-                                metafacadeClasses,
-                                namespacesConfiguration,
-                                namespaceRegistry);
+                                    metafacadeClasses,
+                                    namespacesConfiguration,
+                                    namespaceRegistry);
                         }
                     }
                 }
-                catch (final Throwable throwable)
-                {
+                catch (final Throwable throwable) {
                     throw new MetafacadeImplsException(throwable);
                 }
 
@@ -152,50 +142,41 @@ public class MetafacadeImpls
             final URL[] namespaceRoots = namespaceRegistry.getResourceRoots();
             if (namespaceRoots != null && namespaceRoots.length > 0)
             {
-                final int numberOfNamespaceRoots = namespaceRoots.length;
-                for (int ctr = 0; ctr < numberOfNamespaceRoots; ctr++)
+                for (final URL namespaceRoot : namespaceRoots)
                 {
-                    final URL namespaceRoot = namespaceRoots[ctr];
-                    final Collection contents = ResourceUtils.getDirectoryContents(
+                    final Collection<String> contents = ResourceUtils.getDirectoryContents(
                             namespaceRoot,
                             false,
                             null);
-                    for (final Iterator contentsIterator = contents.iterator(); contentsIterator.hasNext();)
-                    {
-                        final String path = ((String)contentsIterator.next());
-                        if (path.endsWith(METAFACADE_IMPLEMENTATION_SUFFIX))
-                        {
+                    for (final String path : contents) {
+                        if (path.endsWith(METAFACADE_IMPLEMENTATION_SUFFIX)) {
                             final String typeName =
-                                StringUtils.replace(
-                                    ResourceUtils.normalizePath(path).replace(
-                                        '/',
-                                        '.'),
-                                    ClassUtils.CLASS_EXTENSION,
-                                    "");
+                                    StringUtils.replace(
+                                            ResourceUtils.normalizePath(path).replace(
+                                                    '/',
+                                                    '.'),
+                                            ClassUtils.CLASS_EXTENSION,
+                                            "");
                             Class implementationClass = null;
-                            try
-                            {
+                            try {
                                 implementationClass = ClassUtils.loadClass(typeName);
                             }
-                            catch (final Exception exception)
-                            {
+                            catch (final Exception exception) {
                                 // - ignore
                             }
                             if (implementationClass != null &&
-                                MetafacadeBase.class.isAssignableFrom(implementationClass))
-                            {
-                                final List allInterfaces = ClassUtils.getInterfaces(implementationClass);
-                                if (!allInterfaces.isEmpty())
-                                {
-                                    final Class interfaceClass = (Class)allInterfaces.iterator().next();
+                                    MetafacadeBase.class.isAssignableFrom(implementationClass)) {
+                                final List<Class> allInterfaces = ClassUtils.getInterfaces(implementationClass);
+                                if (!allInterfaces.isEmpty()) {
+                                    final Class interfaceClass = allInterfaces.iterator().next();
                                     final String implementationClassName = implementationClass.getName();
                                     final String interfaceClassName = interfaceClass.getName();
                                     metafacadeClasses.metafacadesByImpls.put(
-                                        implementationClassName,
-                                        interfaceClassName);
+                                            implementationClassName,
+                                            interfaceClassName);
                                     metafacadeClasses.implsByMetafacades.put(
-                                        interfaceClassName,
-                                        implementationClassName);
+                                            interfaceClassName,
+                                            implementationClassName);
                                 }
                             }
                         }
@@ -213,7 +194,7 @@ public class MetafacadeImpls
      */
     private MetafacadeClasses getMetafacadeClasses()
     {
-        final MetafacadeClasses classes = (MetafacadeClasses)this.metafacadeClasses.get(this.metafacadeModelNamespace);
+        final MetafacadeClasses classes = this.metafacadeClasses.get(this.metafacadeModelNamespace);
         if (classes == null)
         {
             throw new MetafacadeImplsException("Namespace '" + this.metafacadeModelNamespace + "' is not a registered metafacade model facade namespace");
@@ -279,10 +260,10 @@ public class MetafacadeImpls
             ExceptionUtils.checkEmpty(
                 "metafacadeImplClass",
                 metafacadeImplClass);
-            Class metafacadeClass = null;
+            Class metafacadeClass;
             try
             {
-                final String metafacadeClassName = (String)this.metafacadesByImpls.get(metafacadeImplClass);
+                final String metafacadeClassName = this.metafacadesByImpls.get(metafacadeImplClass);
                 if (StringUtils.isEmpty(metafacadeClassName))
                 {
                     throw new MetafacadeImplsException("Can not find a metafacade interface for --> '" +
@@ -310,10 +291,10 @@ public class MetafacadeImpls
             ExceptionUtils.checkEmpty(
                 "metafacadeClass",
                 metafacadeClass);
-            Class metafacadeImplementationClass = null;
+            Class metafacadeImplementationClass;
             try
             {
-                final String metafacadeImplementationClassName = (String)this.implsByMetafacades.get(metafacadeClass);
+                final String metafacadeImplementationClassName = this.implsByMetafacades.get(metafacadeClass);
                 if (StringUtils.isEmpty(metafacadeImplementationClassName))
                 {
                     throw new MetafacadeImplsException("Can not find a metafacade implementation class for --> '" +

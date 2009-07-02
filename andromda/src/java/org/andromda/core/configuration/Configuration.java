@@ -79,7 +79,7 @@ public class Configuration
     /**
      * Stores the repositories for this Configuration instance.
      */
-    private final Collection repositories = new ArrayList();
+    private final Collection<Repository> repositories = new ArrayList<Repository>();
 
     /**
      * Adds the repository to this configuration.
@@ -98,13 +98,13 @@ public class Configuration
      */
     public Repository[] getRepositories()
     {
-        return (Repository[])this.repositories.toArray(new Repository[0]);
+        return this.repositories.toArray(new Repository[this.repositories.size()]);
     }
 
     /**
      * Stores the configuration namespaces.
      */
-    private final Collection namespaces = new ArrayList();
+    private final Collection<Namespace> namespaces = new ArrayList<Namespace>();
 
     /**
      * Adds a namespace to this configuration.
@@ -123,14 +123,14 @@ public class Configuration
      */
     public Namespace[] getNamespaces()
     {
-        return (Namespace[])this.namespaces.toArray(new Namespace[0]);
+        return this.namespaces.toArray(new Namespace[this.namespaces.size()]);
     }
 
     /**
      * Stores the properties for this configuration (these
      * gobally configure AndroMDA).
      */
-    private final Collection properties = new ArrayList();
+    private final Collection<Property> properties = new ArrayList<Property>();
 
     /**
      * Adds a property to this configuration instance.
@@ -149,7 +149,7 @@ public class Configuration
      */
     public Property[] getProperties()
     {
-        return (Property[])this.properties.toArray(new Property[0]);
+        return this.properties.toArray(new Property[this.properties.size()]);
     }
 
     /**
@@ -182,7 +182,7 @@ public class Configuration
     /**
      * The locations in which to search for mappings.
      */
-    private final Collection mappingsSearchLocations = new ArrayList();
+    private final Collection<Location> mappingsSearchLocations = new ArrayList<Location>();
 
     /**
      * Adds a mappings search location (these are the locations
@@ -223,7 +223,7 @@ public class Configuration
      */
     public Location[] getMappingsSearchLocations()
     {
-        return (Location[])this.mappingsSearchLocations.toArray(new Location[0]);
+        return this.mappingsSearchLocations.toArray(new Location[this.mappingsSearchLocations.size()]);
     }
 
     /**
@@ -279,24 +279,22 @@ public class Configuration
     {
         if (this.mappingsSearchLocations != null)
         {
-            final Collection mappingsLocations = new ArrayList();
+            final Collection<URL> mappingsLocations = new ArrayList<URL>();
             final Location[] locations = this.getMappingsSearchLocations();
-            for (int ctr = 0; ctr < locations.length; ctr++)
+            for (final Location location : locations)
             {
-                mappingsLocations.addAll(Arrays.asList(locations[ctr].getResources()));
+                mappingsLocations.addAll(Arrays.asList(location.getResources()));
             }
 
             // clear out any old cached mappings
             Mappings.clearLogicalMappings();
 
-            for (final Iterator iterator = mappingsLocations.iterator(); iterator.hasNext();)
+            for (final URL mappingsUri : mappingsLocations)
             {
-                try
-                {
-                    Mappings.addLogicalMappings((URL)iterator.next());
+                try {
+                    Mappings.addLogicalMappings(mappingsUri);
                 }
-                catch (final Throwable throwable)
-                {
+                catch (final Throwable throwable) {
                     // - ignore the exception (probably means its a file
                     //   other than a mapping and in that case we don't care)
                 }

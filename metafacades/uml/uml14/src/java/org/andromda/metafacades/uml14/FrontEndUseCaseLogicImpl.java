@@ -24,6 +24,7 @@ import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.FrontEndUseCase.
@@ -307,7 +308,7 @@ public class FrontEndUseCaseLogicImpl
             {
                 FrontEndParameter variable = variableIterator.next();
                 final String name = variable.getName();
-                if (name != null && name.trim().length() > 0)
+                if (StringUtils.isNotBlank(name))
                 {
                     final FrontEndParameter existingVariable = (FrontEndParameter)pageVariableMap.get(name);
                     if (existingVariable != null)

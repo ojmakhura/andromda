@@ -12,6 +12,7 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.profile.Profile;
 import org.apache.commons.collections.keyvalue.MultiKey;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 
@@ -31,7 +32,7 @@ public class MetafacadeFactory
     /**
      * Caches the registered properties used within metafacades.
      */
-    private final Map metafacadeNamespaces = new LinkedHashMap();
+    private final Map<String, Map<String, Map<String, Object>>> metafacadeNamespaces = new LinkedHashMap<String, Map<String, Map<String, Object>>>();
 
     /**
      * The shared instance of this factory.
@@ -257,9 +258,9 @@ public class MetafacadeFactory
      */
     public void validateAllMetafacades()
     {
-        for (final Iterator<MetafacadeBase> iterator = this.getAllMetafacades().iterator(); iterator.hasNext();)
+        for (final MetafacadeBase metafacadeBase : this.getAllMetafacades())
         {
-            ((MetafacadeBase)iterator.next()).validate(this.validationMessages);
+            metafacadeBase.validate(this.validationMessages);
         }
     }
 
@@ -450,10 +451,10 @@ public class MetafacadeFactory
         final Collection<MetafacadeBase> metafacades = new ArrayList<MetafacadeBase>();
         if (mappingObjects != null && !mappingObjects.isEmpty())
         {
-            for (final Iterator iterator = mappingObjects.iterator(); iterator.hasNext();)
+            for (final Object mappingObject : mappingObjects)
             {
                 metafacades.add(this.createMetafacade(
-                        iterator.next(),
+                        mappingObject,
                         contextName,
                         null));
             }
@@ -554,18 +555,18 @@ public class MetafacadeFactory
         ExceptionUtils.checkEmpty(
             "name",
             name);
-        Map metafacadeNamespace = (Map)this.metafacadeNamespaces.get(namespace);
+        Map<String, Map<String, Object>> metafacadeNamespace = this.metafacadeNamespaces.get(namespace);
         if (metafacadeNamespace == null)
         {
-            metafacadeNamespace = new LinkedHashMap();
+            metafacadeNamespace = new LinkedHashMap<String, Map<String, Object>>();
             this.metafacadeNamespaces.put(
                 namespace,
                 metafacadeNamespace);
         }
-        Map propertyNamespace = (Map)metafacadeNamespace.get(metafacadeName);
+        Map<String, Object> propertyNamespace = metafacadeNamespace.get(metafacadeName);
         if (propertyNamespace == null)
         {
-            propertyNamespace = new LinkedHashMap();
+            propertyNamespace = new LinkedHashMap<String, Object>();
             metafacadeNamespace.put(
                 metafacadeName,
                 propertyNamespace);
@@ -601,15 +602,15 @@ public class MetafacadeFactory
      * @param metafacade the metafacade
      * @return the metafacade's namespace
      */
-    private Map<String, Map> getMetafacadePropertyNamespace(final MetafacadeBase metafacade)
+    private Map<String, Object> getMetafacadePropertyNamespace(final MetafacadeBase metafacade)
     {
-        Map<String, Map> metafacadeNamespace = null;
+        Map<String, Object> metafacadeNamespace = null;
         if (metafacade != null)
         {
-            Map<String, Map> namespace = (Map<String, Map>)this.metafacadeNamespaces.get(this.getNamespace());
+            Map<String, Map<String, Object>> namespace = this.metafacadeNamespaces.get(this.getNamespace());
             if (namespace != null)
             {
-                metafacadeNamespace = (Map<String, Map>)namespace.get(metafacade.getName());
+                metafacadeNamespace = namespace.get(metafacade.getName());
             }
         }
         return metafacadeNamespace;
@@ -627,7 +628,7 @@ public class MetafacadeFactory
         final MetafacadeBase metafacade,
         final String name)
     {
-        final Map<String, Map> propertyNamespace = this.getMetafacadePropertyNamespace(metafacade);
+        final Map<String, Object> propertyNamespace = this.getMetafacadePropertyNamespace(metafacade);
         return propertyNamespace != null && propertyNamespace.containsKey(name);
     }
 
@@ -643,7 +644,7 @@ public class MetafacadeFactory
         final MetafacadeBase metafacade,
         final String name)
     {
-        final Map propertyNamespace = this.getMetafacadePropertyNamespace(metafacade); //final Map<String, Map>
+        final Map<String, Object> propertyNamespace = this.getMetafacadePropertyNamespace(metafacade); //final Map<String, Map>
         return propertyNamespace != null ? propertyNamespace.get(name) : null;
     }
 
@@ -678,7 +679,7 @@ public class MetafacadeFactory
      * The validation messages that have been collected during the
      * execution of this factory.
      */
-    private final Collection validationMessages = new LinkedHashSet();
+    private final Collection<ModelValidationMessage> validationMessages = new LinkedHashSet<ModelValidationMessage>();
 
     /**
      * Gets the list of all validation messages collection during model processing.
@@ -686,9 +687,9 @@ public class MetafacadeFactory
      * @return Returns the validationMessages.
      * @see #validateAllMetafacades()
      */
-    public List getValidationMessages()
+    public List<ModelValidationMessage> getValidationMessages()
     {
-        return new ArrayList(this.validationMessages);
+        return new ArrayList<ModelValidationMessage>(this.validationMessages);
     }
 
     /**
@@ -715,7 +716,7 @@ public class MetafacadeFactory
         Collection<MetafacadeBase> metafacades = null;
         if (this.getModel() != null)
         {
-            metafacades = (Collection<MetafacadeBase>)allMetafacades.get(namespace);
+            metafacades = allMetafacades.get(namespace);
             if (metafacades == null)
             {
                 metafacades = this.createMetafacades(this.getModel().getModelElements());
@@ -756,12 +757,12 @@ public class MetafacadeFactory
         Collection<MetafacadeBase> metafacades = null;
         if (this.getModel() != null)
         {
-            Map<String, Collection<MetafacadeBase>> stereotypeMetafacades = (Map<String, Collection<MetafacadeBase>>)this.metafacadesByStereotype.get(namespace);
+            Map<String, Collection<MetafacadeBase>> stereotypeMetafacades = this.metafacadesByStereotype.get(namespace);
             if (stereotypeMetafacades == null)
             {
-                stereotypeMetafacades = new LinkedHashMap();
+                stereotypeMetafacades = new LinkedHashMap<String, Collection<MetafacadeBase>>();
             }
-            metafacades = (Collection<MetafacadeBase>)stereotypeMetafacades.get(stereotype);
+            metafacades = stereotypeMetafacades.get(stereotype);
             if (metafacades == null)
             {
                 metafacades = this.createMetafacades(this.getModel().findByStereotype(stereotype));
@@ -774,7 +775,7 @@ public class MetafacadeFactory
             }
             if (metafacades != null)
             {
-                metafacades = new ArrayList(metafacades);
+                metafacades = new ArrayList<MetafacadeBase>(metafacades);
             }
         }
         return metafacades;
@@ -804,7 +805,7 @@ public class MetafacadeFactory
         // - only register them if they already aren't registered
         if (this.metafacadeNamespaces.isEmpty())
         {
-            if (this.metafacadeModelNamespace != null && this.metafacadeModelNamespace.trim().length() > 0)
+            if (StringUtils.isNotBlank(this.metafacadeModelNamespace))
             {
                 final MetafacadeMappings modelMappings = this.getModelMetafacadeMappings();
                 if (modelMappings != null)

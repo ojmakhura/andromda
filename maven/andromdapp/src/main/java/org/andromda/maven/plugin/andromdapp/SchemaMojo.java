@@ -35,6 +35,7 @@ import org.andromda.maven.plugin.andromdapp.hibernate.HibernateDropSchema;
 import org.andromda.maven.plugin.andromdapp.hibernate.HibernateUpdateSchema;
 import org.andromda.maven.plugin.andromdapp.hibernate.HibernateValidateSchema;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.artifact.factory.ArtifactFactory;
@@ -484,7 +485,7 @@ public class SchemaMojo
         final String sqlPath)
         throws Exception
     {
-        if (sqlPath != null && sqlPath.length() > 0)
+        if (StringUtils.isNotEmpty(sqlPath))
         {
             final URL sqlUrl = ResourceUtils.toURL(sqlPath);
             if (sqlUrl != null)

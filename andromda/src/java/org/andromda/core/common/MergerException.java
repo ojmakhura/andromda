@@ -12,7 +12,7 @@ public class MergerException
     /**
      * Constructs an instance of MergerException.
      *
-     * @param parent
+     * @param parent the parent throwable
      */
     public MergerException(Throwable parent)
     {
@@ -22,7 +22,7 @@ public class MergerException
     /**
      * Constructs an instance of MergerException.
      *
-     * @param message
+     * @param message the exception message
      */
     public MergerException(String message)
     {
@@ -32,8 +32,8 @@ public class MergerException
     /**
      * Constructs an instance of MergerException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent throwable
      */
     public MergerException(
         String message,

@@ -17,6 +17,7 @@ import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ResourceFinder;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -130,7 +131,7 @@ public class AndroMDApp
      */
     public void addConfigurationUri(final String configurationUri)
     {
-        if (configurationUri != null && configurationUri.trim().length() > 0)
+        if (StringUtils.isNotBlank(configurationUri))
         {
             final XmlObjectFactory factory = XmlObjectFactory.getInstance(Configuration.class);
             final URL configurationUrl = ResourceUtils.toURL(configurationUri);
@@ -149,7 +150,7 @@ public class AndroMDApp
      */
     public void addConfiguration(final String configuration)
     {
-        if (configuration != null && configuration.trim().length() > 0)
+        if (StringUtils.isNotBlank(configuration))
         {
             final XmlObjectFactory factory = XmlObjectFactory.getInstance(Configuration.class);
             this.configurations.add(factory.getObject(configuration));
@@ -293,7 +294,7 @@ public class AndroMDApp
     private String readLine()
     {
         final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        String inputString = null;
+        String inputString;
         try
         {
             inputString = input.readLine();
@@ -302,6 +303,6 @@ public class AndroMDApp
         {
             inputString = null;
         }
-        return inputString == null || inputString.trim().length() == 0 ? null : inputString;
+        return StringUtils.trimToNull(inputString);
     }
 }

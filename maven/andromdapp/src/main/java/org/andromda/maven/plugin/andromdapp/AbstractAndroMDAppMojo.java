@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.resources.PropertyUtils;
@@ -147,7 +148,7 @@ public abstract class AbstractAndroMDAppMojo
     protected String getConfigurationContents() throws MojoExecutionException, IOException
     {
         String contents = null;
-        if (this.configurationUri != null && this.configurationUri.trim().length() > 0)
+        if (StringUtils.isNotBlank(this.configurationUri))
         {
             final URL configuration = ResourceUtils.toURL(this.configurationUri);
             if (configuration == null)

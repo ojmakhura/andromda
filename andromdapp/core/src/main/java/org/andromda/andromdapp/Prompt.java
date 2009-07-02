@@ -1,5 +1,7 @@
 package org.andromda.andromdapp;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -95,24 +97,22 @@ public class Prompt
      */
     public void setText(String text)
     {
-        this.text = text != null ? text.trim() : null;
+        this.text = StringUtils.trim(text);
     }
 
     /**
      * Stores the possible responses of the prompt.
      */
-    private List responses = new ArrayList();
+    private List<String> responses = new ArrayList<String>();
 
     /**
      * Adds a reponse to the possible responses.
      *
      * @param response the response to add.
-     * @param type the full qualified type of the response (if undefined
-     *        the type is left as a string).
      */
     public void addResponse(final String response)
     {
-        if (response != null && response.trim().length() > 0)
+        if (StringUtils.isNotBlank(response))
         {
             this.responses.add(response.trim());
         }
@@ -128,7 +128,7 @@ public class Prompt
     public boolean isValidResponse(final String response)
     {
         return this.responses.contains(response) ||
-        (this.responses.isEmpty() && (!this.isRequired() || (response != null && response.trim().length() > 0)));
+        (this.responses.isEmpty() && (!this.isRequired() || (StringUtils.isNotBlank(response))));
     }
 
     /**

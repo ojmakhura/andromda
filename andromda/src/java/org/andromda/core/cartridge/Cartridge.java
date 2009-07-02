@@ -25,6 +25,7 @@ import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 
@@ -35,6 +36,7 @@ import org.apache.log4j.Logger;
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen </a>
  * @author Chad Brandon
  * @author Bob Fields
+ * @author Michail Plushnikov
  */
 public class Cartridge
     extends BasePlugin
@@ -56,9 +58,8 @@ public class Cartridge
         final Collection<Resource> resources = this.getResources();
         if (resources != null && !resources.isEmpty())
         {
-            for (final Iterator<Resource> iterator = resources.iterator(); iterator.hasNext();)
+            for (Resource resource : resources)
             {
-                final Resource resource = (Resource)iterator.next();
                 if (resource instanceof Template)
                 {
                     this.processTemplate(
@@ -91,10 +92,8 @@ public class Cartridge
         // - handle the templates WITH model elements
         if (templateModelElements != null && !templateModelElements.isEmpty())
         {
-            for (final Iterator iterator = templateModelElements.getModelElements().iterator(); iterator.hasNext();)
+            for (ModelElement templateModelElement : templateModelElements.getModelElements())
             {
-                final ModelElement templateModelElement = (ModelElement)iterator.next();
-
                 // - if the template model element has a stereotype
                 //   defined, then we filter the metafacades based
                 //   on that stereotype, otherwise we get all metafacades
@@ -151,26 +150,25 @@ public class Cartridge
                 if (template.isOutputToSingleFile() &&
                     (template.isOutputOnEmptyElements() || !allMetafacades.isEmpty()))
                 {
-                    final Map templateContext = new LinkedHashMap();
+                    final Map<String, Object> templateContext = new LinkedHashMap<String, Object>();
 
                     // - first place all relevant model elements by the
                     //   <modelElements/> variable name. If the variable
                     //   isn't defined (which is possible), ignore.
                     final String modelElementsVariable = modelElements.getVariable();
-                    if (modelElementsVariable != null && modelElementsVariable.trim().length() > 0)
+                    if (StringUtils.isNotBlank(modelElementsVariable))
                     {
                         templateContext.put(
-                            modelElements.getVariable(),
+                            modelElementsVariable,
                             allMetafacades);
                     }
 
                     // - now place the collections of elements by the given variable names. 
                     //   (skip if the variable is NOT defined)
-                    for (final Iterator iterator = modelElements.getModelElements().iterator(); iterator.hasNext();)
+                    for (final ModelElement modelElement : modelElements.getModelElements())
                     {
-                        final ModelElement modelElement = (ModelElement)iterator.next();
                         final String modelElementVariable = modelElement.getVariable();
-                        if (modelElementVariable != null && modelElementVariable.trim().length() > 0)
+                        if (StringUtils.isNotBlank(modelElementVariable))
                         {
                             // - if a modelElement has the same variable defined
                             //   more than one time, then get the existing
@@ -202,26 +200,24 @@ public class Cartridge
                     //   we just place the model element with the default
                     //   variable defined on the <modelElements/> into the
                     //   template.
-                    for (final Iterator iterator = allMetafacades.iterator(); iterator.hasNext();)
+                    for (Object metafacade : allMetafacades)
                     {
-                        final Map templateContext = new LinkedHashMap();
-                        final Object metafacade = iterator.next();
+                        final Map<String, Object> templateContext = new LinkedHashMap<String, Object>();
                         final ModelAccessFacade model = factory.getModel();
-                        for (final Iterator elements = modelElements.getModelElements().iterator(); elements.hasNext();)
+                        for (final ModelElement modelElement : modelElements.getModelElements())
                         {
-                            final ModelElement modelElement = (ModelElement)elements.next();
                             String variable = modelElement.getVariable();
 
                             // - if the variable isn't defined on the <modelElement/>, try
                             //   the <modelElements/>
-                            if (variable == null || variable.trim().length() == 0)
+                            if (StringUtils.isBlank(variable))
                             {
                                 variable = modelElements.getVariable();
                             }
 
                             // - only add the metafacade to the template context if the variable
                             //   is defined (which is possible)
-                            if (variable != null && variable.trim().length() > 0)
+                            if (StringUtils.isNotBlank(variable))
                             {
                                 templateContext.put(
                                     variable,
@@ -267,18 +263,16 @@ public class Cartridge
     private boolean processPropertyTemplates(
         final Template template,
         final Object metafacade,
-        final Map templateContext,
+        final Map<String, Object> templateContext,
         final ModelElement modelElement)
     {
         boolean propertyTemplatesEvaluated = false;
-        for (final Iterator types = modelElement.getTypes().iterator(); types.hasNext();)
+        for (final Type type : modelElement.getTypes())
         {
-            final Type type = (Type)types.next();
-            for (final Iterator properties = type.getProperties().iterator(); properties.hasNext();)
+            for (final Type.Property property : type.getProperties())
             {
-                final Type.Property property = (Type.Property)properties.next();
                 final String variable = property.getVariable();
-                propertyTemplatesEvaluated = variable != null && variable.trim().length() > 0;
+                propertyTemplatesEvaluated = StringUtils.isNotBlank(variable);
                 if (propertyTemplatesEvaluated)
                 {
                     final Object value = Introspector.instance().getProperty(
@@ -286,11 +280,11 @@ public class Cartridge
                             property.getName());
                     if (value instanceof Collection)
                     {
-                        for (final Iterator values = ((Collection)value).iterator(); values.hasNext();)
+                        for (Object entry : (Collection) value)
                         {
                             templateContext.put(
                                 variable,
-                                values.next());
+                                entry);
                             this.processWithTemplate(
                                 template,
                                 templateContext,
@@ -327,7 +321,7 @@ public class Cartridge
         ExceptionUtils.checkNull(
             "template",
             template);
-        final Map templateContext = new LinkedHashMap();
+        final Map<String, Object> templateContext = new LinkedHashMap<String, Object>();
         this.processWithTemplate(
             template,
             templateContext,
@@ -353,7 +347,7 @@ public class Cartridge
      */
     private void processWithTemplate(
         final Template template,
-        final Map templateContext,
+        final Map<String, Object> templateContext,
         final String metafacadeName,
         final String metafacadePackage)
     {
@@ -412,7 +406,7 @@ public class Cartridge
     
                             // - check to see if generateEmptyFiles is true and if
                             //   outString is not blank
-                            if ((outputString != null && outputString.trim().length() > 0) ||
+                            if ((StringUtils.isNotBlank(outputString)) ||
                                 template.isGenerateEmptyFiles())
                             {
                                 ResourceWriter.instance().writeStringToFile(
@@ -467,14 +461,13 @@ public class Cartridge
             // - if the resourceUrl is null, the path is probably a regular
             //   outputCondition pattern so we'll see if we can match it against
             //   the contents of the plugin and write any contents that do match
-            final List contents = this.getContents();
+            final List<String> contents = this.getContents();
             if (contents != null)
             {
                 AndroMDALogger.setSuffix(this.getNamespace());
-                for (final Iterator iterator = contents.iterator(); iterator.hasNext();)
+                for (final String content : contents)
                 {
-                    final String content = (String)iterator.next();
-                    if (content != null && content.trim().length() > 0)
+                    if (StringUtils.isNotBlank(content))
                     {
                         if (PathMatcher.wildcardMatch(
                                 content,
@@ -526,7 +519,7 @@ public class Cartridge
         {
             // - make sure we don't have any back slashes
             final String resourceUri = ResourceUtils.normalizePath(resourceUrl.toString());
-            String uriSuffix = resource.getPath().replaceAll(PATH_PATTERN, "");;
+            String uriSuffix = resource.getPath().replaceAll(PATH_PATTERN, "");
             if (resourceUri.indexOf(uriSuffix) != -1)
             {
                 uriSuffix = resourceUri.substring(resourceUri.indexOf(uriSuffix) + uriSuffix.length(), resourceUri.length());
@@ -539,7 +532,7 @@ public class Cartridge
                         resourceUri.length());
             }
 
-            final Map templateContext = new LinkedHashMap();
+            final Map<String, Object> templateContext = new LinkedHashMap<String, Object>();
             this.populateTemplateContext(templateContext);
             
             // - if we have an outputCondition defined make sure it evaluates to true before continuing
@@ -628,7 +621,7 @@ public class Cartridge
      *
      * @param templateContext the context of the template to populate.
      */
-    protected void populateTemplateContext(Map templateContext)
+    protected void populateTemplateContext(Map<String, Object> templateContext)
     {
         super.populateTemplateContext(templateContext);
         templateContext.putAll(this.getEvaluatedConditions(templateContext));
@@ -637,8 +630,12 @@ public class Cartridge
     /**
      * Stores the global conditions from cartridge.xml condition expressions
      */
-    //TODO Evaluate String condition as Boolean BEFORE adding to conditions Map. Currently values can be either Boolean or String - confusing.
-    private final Map conditions = new LinkedHashMap();
+    private final Map<String, String> conditions = new LinkedHashMap<String, String>();
+
+    /**
+     * Stores the evaluated conditions from cartridge.xml condition expressions
+     */
+    private final Map<String, Boolean> evaluatedConditions = new LinkedHashMap<String, Boolean>();
     
     /**
      * Adds the outputCondition given the <code>name</code> and <code>value</code>
@@ -649,14 +646,14 @@ public class Cartridge
      */
     public void addCondition(final String name, final String value)
     {
-        this.conditions.put(name, value != null ? value.trim() : "");
+        this.conditions.put(name, value);
     }
     
     /**
      * Gets the current outputConditions defined within this cartridge
      * @return this.conditions
      */
-    public Map getConditions()
+    public Map<String, String> getConditions()
     {
         return this.conditions;
     }
@@ -667,44 +664,44 @@ public class Cartridge
     private boolean conditionsEvaluated = false;
     
     /**
-     * Evaluates all conditions and stores the results in the <code>conditions</code>
+     * Evaluates all conditions and stores the results in the <code>evaluatedConditions</code>
      * and returns that Map
      * 
      * @param templateContext the template context used to evaluate the conditions.
-     * @param the map containing the evaluated conditions.
+     * @return the map containing the evaluated conditions.
      */
-    private Map getEvaluatedConditions(final Map templateContext)
+    private Map<String, Boolean> getEvaluatedConditions(final Map<String, Object> templateContext)
     {
         if (!this.conditionsEvaluated)
         {
-            for (final Iterator iterator = this.conditions.keySet().iterator(); iterator.hasNext();)
+            for (final Map.Entry<String, String> entry : conditions.entrySet())
             {
-                final String name = (String)iterator.next();
-                final String value = (String)this.conditions.get(name);
-                String evaluationResult = value != null ? value.trim() : null;
-                if (evaluationResult != null && evaluationResult.trim().length() > 0)
+                final String value = entry.getValue();
+                if (StringUtils.isNotBlank(value))
                 {
-                    evaluationResult = this.getTemplateEngine().getEvaluatedExpression(
-                        evaluationResult,
+                    final String evaluationResult = this.getTemplateEngine().getEvaluatedExpression(
+                        value,
                         templateContext);
+                    final String name = entry.getKey();
+                    this.evaluatedConditions.put(name, BooleanUtils.toBoolean(evaluationResult));
                 }
-                this.conditions.put(name, Boolean.valueOf(BooleanUtils.toBoolean(evaluationResult)));
             }
             this.conditionsEvaluated = true;
         }
-        return this.conditions;
+        return this.evaluatedConditions;
     }
     
     /**
      * Gets the evaluated outputCondition result of a global outputCondition.
      * 
-     * @param templateContext the current template context to pass the template engine if 
+     * @param outputCondition the outputCondition to evaluate.
+     * @param templateContext the current template context to pass the template engine if
      *        evaluation has yet to occur.
      * @return the evaluated outputCondition results.
      */
-    private Boolean getGlobalConditionResult(final String outputCondition, final Map templateContext) 
+    private Boolean getGlobalConditionResult(final String outputCondition, final Map<String, Object> templateContext)
     {
-        return (Boolean)this.getEvaluatedConditions(templateContext).get(outputCondition);
+        return this.getEvaluatedConditions(templateContext).get(outputCondition);
     }
     
     /**
@@ -715,10 +712,10 @@ public class Cartridge
      * @param templateContext the template context containing the variables to use.
      * @return true/false
      */
-    private boolean isValidOutputCondition(final String outputCondition, final Map templateContext)
+    private boolean isValidOutputCondition(final String outputCondition, final Map<String, Object> templateContext)
     {
         boolean validOutputCondition = true;
-        if (outputCondition != null && outputCondition.trim().length() > 0)
+        if (StringUtils.isNotBlank(outputCondition))
         {
             Boolean result = this.getGlobalConditionResult(outputCondition, templateContext);
             if (result == null)
@@ -726,9 +723,9 @@ public class Cartridge
                 final String outputConditionResult = this.getTemplateEngine().getEvaluatedExpression(
                     outputCondition,
                     templateContext);
-                result = Boolean.valueOf(BooleanUtils.toBoolean(outputConditionResult != null ? outputConditionResult.trim() : null));
+                result = outputConditionResult != null ? BooleanUtils.toBoolean(outputConditionResult.trim()) : null;
             }
-            validOutputCondition = result != null ? result.booleanValue() : false;
+            validOutputCondition = BooleanUtils.toBoolean(result);
         }
         return validOutputCondition;
     }
@@ -742,5 +739,6 @@ public class Cartridge
     {
         super.shutdown();
         this.conditions.clear();
+        this.evaluatedConditions.clear();
     }
 }

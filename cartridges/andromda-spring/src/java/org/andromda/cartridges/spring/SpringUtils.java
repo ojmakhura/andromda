@@ -311,7 +311,7 @@ public class SpringUtils
     public String getClassName(String fullyQualifiedName)
     {
        String className;
-       if (fullyQualifiedName != null && fullyQualifiedName.length() > 0)
+       if (StringUtils.isNotEmpty(fullyQualifiedName))
        {
            int lastDot = fullyQualifiedName.lastIndexOf('.');
            if (lastDot >= 0)
@@ -334,7 +334,7 @@ public class SpringUtils
     public String getPackageName(String fullyQualifiedName)
     {
        String packageName;
-       if (fullyQualifiedName != null && fullyQualifiedName.length() > 0)
+       if (StringUtils.isNotEmpty(fullyQualifiedName))
        {
            int lastDot = fullyQualifiedName.lastIndexOf('.');
            if (lastDot >= 0)

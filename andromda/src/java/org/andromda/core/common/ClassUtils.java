@@ -224,10 +224,10 @@ public class ClassUtils
      * @param className the root interface className
      * @return a list containing all interfaces ordered from the root down.
      */
-    public static List getInterfaces(final String className)
+    public static List<Class> getInterfaces(final String className)
     {
-        final List interfaces = new ArrayList();
-        if (className != null && className.trim().length() > 0)
+        final List<Class> interfaces = new ArrayList<Class>();
+        if (StringUtils.isNotBlank(className))
         {
             interfaces.addAll(getInterfaces(ClassUtils.loadClass(className.trim())));
         }
@@ -241,9 +241,9 @@ public class ClassUtils
      * @param clazz the root interface class
      * @return a list containing all interfaces ordered from the root down.
      */
-    public static List getInterfaces(final Class clazz)
+    public static List<Class> getInterfaces(final Class clazz)
     {
-        final List interfaces = new ArrayList();
+        final List<Class> interfaces = new ArrayList<Class>();
         if (clazz != null)
         {
             interfaces.addAll(ClassUtils.getAllInterfaces(clazz));

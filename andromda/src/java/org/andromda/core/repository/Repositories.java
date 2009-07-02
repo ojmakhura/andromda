@@ -48,7 +48,7 @@ public class Repositories
     /**
      * Stores all the repository implementations keyed by name.
      */
-    private final Map repositories = new LinkedHashMap();
+    private final Map<String, RepositoryFacade> repositories = new LinkedHashMap<String, RepositoryFacade>();
 
     /**
      * Discovers and initializes all repositories within this class.
@@ -59,19 +59,16 @@ public class Repositories
         if (this.repositories.isEmpty())
         {
             final Namespaces namespaces = Namespaces.instance();
-            final Collection repositories = ComponentContainer.instance().findComponentsOfType(Repository.class);
-            for (final Iterator iterator = repositories.iterator(); iterator.hasNext();)
+            final Collection<Repository> repositories = ComponentContainer.instance().findComponentsOfType(Repository.class);
+            for (final Repository repository : repositories)
             {
-                final Repository repository = (Repository)iterator.next();
                 final RepositoryFacade repositoryImplementation = repository.getImplementation();
                 final String namespace = repository.getNamespace();
                 final PropertyDefinition[] properties = namespaces.getPropertyDefinitions(namespace);
-                if (properties != null && properties.length > 0)
+                if (properties != null)
                 {
-                    final int numberOfProperties = properties.length;
-                    for (int ctr = 0; ctr < numberOfProperties; ctr++)
+                    for (final PropertyDefinition property : properties)
                     {
-                        final PropertyDefinition property = properties[ctr];
                         final String propertyName = property.getName();
                         if (Introspector.instance().isWritable(repositoryImplementation, propertyName))
                         {
@@ -100,7 +97,7 @@ public class Repositories
      */
     public RepositoryFacade getImplementation(final String name)
     {
-        final RepositoryFacade implementation = (RepositoryFacade)this.repositories.get(name);
+        final RepositoryFacade implementation = this.repositories.get(name);
         if (implementation == null)
         {
             String message;
@@ -163,9 +160,8 @@ public class Repositories
             }
 
             // - now load the models into the repository
-            for (int ctr = 0; ctr < uriNumber; ctr++)
+            for (final String uri : uris)
             {
-                final String uri = uris[ctr];
                 AndroMDALogger.info("loading model --> '" + uri + "'");
             }
             final RepositoryFacade repositoryImplementation = this.getImplementation(repositoryName);
@@ -178,11 +174,9 @@ public class Repositories
             repositoryImplementation.getModel().setPackageFilter(model.getPackages());
             try
             {
-                for (int ctr = 0; ctr < uriNumber; ctr++)
+                for (final InputStream stream : streams)
                 {
-                    InputStream stream = streams[ctr];
                     stream.close();
-                    stream = null;
                 }
             }
             catch (final IOException exception)
@@ -199,12 +193,9 @@ public class Repositories
     public void clear()
     {
         // - clear out any repositories
-        if (!this.repositories.isEmpty())
+        for (final RepositoryFacade repositoryFacade : this.repositories.values())
         {
-            for (final Iterator iterator = this.repositories.values().iterator(); iterator.hasNext();)
-            {
-                ((RepositoryFacade)iterator.next()).clear();
-            }
+            repositoryFacade.clear();
         }
     }
 }

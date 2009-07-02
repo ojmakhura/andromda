@@ -35,6 +35,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.profiles.DefaultProfileManager;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectBuilder;
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.plexus.archiver.jar.JarArchiver;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.FileUtils;
@@ -363,7 +364,7 @@ public class AssembleMojo
                             final File file = location.getFile(path);
                             File destination = null;
                             final String outputPath = location.getOuputPath();
-                            if (outputPath != null && outputPath.trim().length() > 0)
+                            if (StringUtils.isNotBlank(outputPath))
                             {
                                 final File outputPathFile = new File(
                                         this.getDistributionDirectory(),

@@ -179,7 +179,6 @@ public class XmlObjectFactory
                     {
                         InputStream stream = this.schemaUri.openStream();
                         stream.close();
-                        stream = null;
                     }
                 }
                 catch (final IOException exception)
@@ -281,7 +280,7 @@ public class XmlObjectFactory
         ExceptionUtils.checkNull(
             "objectXml",
             objectXml);
-        Object object = null;
+        Object object;
         try
         {
             this.digester.setEntityResolver(new XmlObjectEntityResolver(resource));

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.net.URL;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -495,14 +496,14 @@ public class ParameterChecks
 
             if (StringUtils.isNotBlank(value))
             {
-                if (datePattern != null && datePattern.length() > 0)
+                if (StringUtils.isNotEmpty(datePattern))
                 {
                     result = GenericTypeValidator.formatDate(
                             value,
                             datePattern,
                             false);
                 }
-                else if (datePatternStrict != null && datePatternStrict.length() > 0)
+                else if (StringUtils.isNotEmpty(datePatternStrict))
                 {
                     result = GenericTypeValidator.formatDate(
                             value,
@@ -945,9 +946,9 @@ public class ParameterChecks
             {
                 try
                 {
-                    if (timePattern != null && timePattern.length() > 0)
+                    if (StringUtils.isNotEmpty(timePattern))
                     {
-                        final java.text.DateFormat timeFormatter = new java.text.SimpleDateFormat(timePattern);
+                        final DateFormat timeFormatter = new SimpleDateFormat(timePattern);
                         timeFormatter.parse(value);
                     }
                     else

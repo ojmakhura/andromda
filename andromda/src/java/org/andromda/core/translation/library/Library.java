@@ -19,7 +19,7 @@ import org.andromda.core.translation.Translator;
 public class Library
     extends BasePlugin
 {
-    private final Map libraryTranslations = new LinkedHashMap();
+    private final Map<String, LibraryTranslation> libraryTranslations = new LinkedHashMap<String, LibraryTranslation>();
 
     /**
      * The default Library constructor.
@@ -48,7 +48,7 @@ public class Library
      *
      * @return Map
      */
-    public Map getLibraryTranslations()
+    public Map<String, LibraryTranslation> getLibraryTranslations()
     {
         return this.libraryTranslations;
     }
@@ -62,7 +62,7 @@ public class Library
     public LibraryTranslation getLibraryTranslation(final String name)
     {
         ExceptionUtils.checkEmpty("name", name);
-        return (LibraryTranslation)this.libraryTranslations.get(name);
+        return this.libraryTranslations.get(name);
     }
 
     /**
@@ -87,7 +87,7 @@ public class Library
     /**
      * @see org.andromda.core.common.BasePlugin#populateTemplateContext(java.util.Map)
      */
-    public void populateTemplateContext(final Map templateContext)
+    public void populateTemplateContext(final Map<String, Object> templateContext)
     {
         super.populateTemplateContext(templateContext);
     }

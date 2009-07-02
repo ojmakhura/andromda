@@ -117,7 +117,7 @@ public class ModelValidationMessage
                         // remove package if we have an owner
                         validationName = validationName.replaceAll(".*" + seperator, "");
                     }
-                    if (name.length() > 0)
+                    if (name.length()>0)
                     {
                         name.insert(0, seperator);
                     }

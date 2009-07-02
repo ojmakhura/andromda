@@ -119,7 +119,7 @@ public class CartridgeArchiverMojo
                     if (artifact != null)
                     {
                         final String path = cartridgeArtifact.getPath();
-                        if (path == null || path.trim().length() == 0)
+                        if (StringUtils.isBlank(path))
                         {
                             throw new MojoFailureException("Please specify the 'path' for the cartridge artifact [" +
                                 cartridgeArtifact.getGroupId() + ":" + cartridgeArtifact.getArtifactId() + ":" +

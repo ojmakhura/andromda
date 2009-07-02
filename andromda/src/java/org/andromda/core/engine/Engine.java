@@ -3,6 +3,9 @@ package org.andromda.core.engine;
 import org.andromda.core.configuration.Configuration;
 import org.andromda.core.metafacade.ModelValidationMessage;
 
+import java.util.List;
+import java.util.Collection;
+
 
 /**
  * The <em>engine</em> of AndroMDA. Handles the configuration of AndroMDA and
@@ -62,9 +65,11 @@ public class Engine
         ModelValidationMessage[] messages = null;
         if (configuration != null)
         {
+            final Collection<ModelValidationMessage> messagesList = 
+                    this.modelProcessor.loadIfNecessary(configuration.getRepositories());
             messages =
-                (ModelValidationMessage[])this.modelProcessor.loadIfNecessary(configuration.getRepositories()).toArray(
-                    new ModelValidationMessage[0]);
+                messagesList.toArray(
+                    new ModelValidationMessage[messagesList.size()]);
         }
         return messages == null ? new ModelValidationMessage[0] : messages;
     }

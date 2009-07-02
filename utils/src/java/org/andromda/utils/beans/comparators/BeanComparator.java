@@ -46,7 +46,6 @@ public class BeanComparator
             InputStream stream = comparatorsUri.openStream();
             comparators.load(stream);
             stream.close();
-            stream = null;
         }
         catch (final Throwable throwable)
         {
@@ -170,7 +169,7 @@ public class BeanComparator
      * Gets the property specified by propertyName from the bean.
      * Checks each nested parent to see if its null and if it is
      * returns null.
-     * @param persistentObject
+     * @param bean
      * @param propertyName
      * @return
      */
@@ -243,7 +242,7 @@ public class BeanComparator
             if (this.comparator == null)
             {
                 final String comparatorName = findComparatorName(type);
-                if (comparatorName != null && comparatorName.length() > 0)
+                if (StringUtils.isNotEmpty(comparatorName))
                 {
                     this.comparator = (Comparator)ClassUtils.loadClass(comparatorName).newInstance();
                 }
@@ -263,7 +262,7 @@ public class BeanComparator
     private String findComparatorName(final Class type)
     {
         String comparatorName = comparators.getProperty(type.getName());
-        if ((comparatorName == null || comparatorName.length() == 0) && type.getSuperclass() != null)
+        if (StringUtils.isEmpty(comparatorName) && type.getSuperclass() != null)
         {
             comparatorName = findComparatorName(type.getSuperclass());
         }

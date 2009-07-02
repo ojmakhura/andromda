@@ -77,11 +77,11 @@ public class IntrospectorTest
     {
         private boolean abcProperty = true;
         private boolean booleanProperty = true;
-        private Integer integerProperty = new Integer(1);
+        private Integer integerProperty = 1;
         private String stringProperty = "TestBean";
         private int intProperty = 5;
         private long longProperty = 1111111111;
-        private byte byteProperty = 01;
+        private byte byteProperty = 1;
         private NestedBean nestedBean = new NestedBean();
         private String aPropertyName;
         public boolean isABCProperty()
@@ -161,11 +161,11 @@ public class IntrospectorTest
     private static final class NestedBean
     {
         private boolean booleanProperty = false;
-        private Integer integerProperty = new Integer(10);
+        private Integer integerProperty = 10;
         private String stringProperty = "NestedBean";
         private int intProperty = 54;
         private long longProperty = 222222;
-        private byte byteProperty = 02;
+        private byte byteProperty = 2;
         private NestedNestedBean nestedNestedBean = new NestedNestedBean();
         private Collection emptyCollectionProperty = new ArrayList();
         private Collection nonEmptyCollectionProperty = new ArrayList();

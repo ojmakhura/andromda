@@ -100,7 +100,7 @@ public class MetafacadeBase implements Comparable
      *
      * @param validationMessages any messages generated during validation.
      */
-    public final void validate(final Collection<org.andromda.core.metafacade.ModelValidationMessage> validationMessages)
+    public final void validate(final Collection<ModelValidationMessage> validationMessages)
     {
         this.validateInvariants(validationMessages);
     }
@@ -113,7 +113,7 @@ public class MetafacadeBase implements Comparable
      * By default this method is empty. </p>
      * @param messages Collection of org.andromda.core.metafacade.ModelValidationMessage
      */
-    public void validateInvariants(final Collection<org.andromda.core.metafacade.ModelValidationMessage> messages)
+    public void validateInvariants(final Collection<ModelValidationMessage> messages)
     {
         // By default this does nothing
     }
@@ -412,7 +412,7 @@ public class MetafacadeBase implements Comparable
                 (String)this.getConfiguredProperty(MetafacadeProperties.ENABLE_METAFACADE_PROPERTY_CACHING);
             this.metafacadePropertyCachingEnabled = Boolean.valueOf(enableCache);
         }
-        return this.metafacadePropertyCachingEnabled.booleanValue();
+        return this.metafacadePropertyCachingEnabled;
     }
     
     /**

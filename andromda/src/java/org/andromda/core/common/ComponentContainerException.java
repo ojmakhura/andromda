@@ -10,7 +10,7 @@ public class ComponentContainerException
     /**
      * Constructs an instance of ComponentContainerException.
      *
-     * @param parent
+     * @param parent the parent throwable
      */
     public ComponentContainerException(Throwable parent)
     {
@@ -20,7 +20,7 @@ public class ComponentContainerException
     /**
      * Constructs an instance of ComponentContainerException.
      *
-     * @param message
+     * @param message the exception message
      */
     public ComponentContainerException(String message)
     {
@@ -30,8 +30,8 @@ public class ComponentContainerException
     /**
      * Constructs an instance of ComponentContainerException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent throwable
      */
     public ComponentContainerException(
         String message,

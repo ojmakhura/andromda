@@ -12,7 +12,7 @@ public class PluginException
     /**
      * Constructor for PluginException.
      *
-     * @param message
+     * @param message the exception message
      */
     public PluginException(String message)
     {
@@ -22,8 +22,8 @@ public class PluginException
     /**
      * Constructor for PluginException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent throwable
      */
     public PluginException(
         String message,
@@ -35,10 +35,10 @@ public class PluginException
     /**
      * Constructor for PluginException.
      *
-     * @param message
+     * @param parent the parent throwable
      */
-    public PluginException(Throwable message)
+    public PluginException(Throwable parent)
     {
-        super(message);
+        super(parent);
     }
 }

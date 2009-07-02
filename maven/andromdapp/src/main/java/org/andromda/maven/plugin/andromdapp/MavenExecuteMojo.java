@@ -17,6 +17,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectBuilder;
 import org.apache.maven.project.ProjectBuildingException;
+import org.apache.commons.lang.StringUtils;
 import org.codehaus.plexus.util.DirectoryScanner;
 
 
@@ -109,7 +110,7 @@ public class MavenExecuteMojo
                         if (this.project != null)
                         {
                             final String defaultGoal = this.project.getDefaultGoal();
-                            if (defaultGoal != null && defaultGoal.trim().length() > 0)
+                            if (StringUtils.isNotBlank(defaultGoal))
                             {
                                 goals.add(defaultGoal);
                             }

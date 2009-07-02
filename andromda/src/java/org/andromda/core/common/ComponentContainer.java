@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.apache.log4j.Logger;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -97,8 +98,8 @@ public class ComponentContainer
         final Class type)
     {
         Object component;
-        implementation = implementation != null ? implementation.trim() : "";
-        if (implementation.length() == 0)
+        implementation = StringUtils.trimToEmpty(implementation);
+        if (implementation.isEmpty())
         {
             component = this.newDefaultComponent(type);
         }
@@ -151,7 +152,7 @@ public class ComponentContainer
         try
         {
             final String implementation = this.getDefaultImplementation(type);
-            if (implementation.trim().length() == 0)
+            if (StringUtils.isBlank(implementation))
             {
                 throw new ComponentContainerException(
                     "Default configuration file '" + this.getComponentDefaultConfigurationPath(type) +
@@ -244,7 +245,7 @@ public class ComponentContainer
                 if (component == null)
                 {
                     final String defaultImplementation = this.getDefaultImplementation(type);
-                    if (defaultImplementation.trim().length() > 0)
+                    if (StringUtils.isNotBlank(defaultImplementation))
                     {
                         component =
                             this.registerDefaultComponent(
@@ -278,7 +279,7 @@ public class ComponentContainer
     private String getDefaultImplementation(final Class type)
     {
         final String contents = ResourceUtils.getContents(this.getComponentDefaultConfigurationPath(type));
-        return contents != null ? contents.trim() : "";
+        return StringUtils.trimToEmpty(contents);
     }
 
     /**

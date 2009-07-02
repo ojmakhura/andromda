@@ -48,7 +48,7 @@ public class JSFAttributeLogicImpl
             }
         }
         final String name = this.getName();
-        if (name != null && name.trim().length() > 0)
+        if (StringUtils.isNotBlank(name))
         {
             messageKey.append(StringUtilsHelper.toResourceMessageKey(name));
         }
@@ -237,7 +237,7 @@ public class JSFAttributeLogicImpl
             propertyName.append('.');
         }
         final String name = this.getName();
-        if (name != null && name.trim().length() > 0)
+        if (StringUtils.isNotBlank(name))
         {
             propertyName.append(name);
         }
@@ -615,7 +615,7 @@ public class JSFAttributeLogicImpl
     protected boolean handleIsEqualValidator()
     {
         final String equal = JSFUtils.getEqual((ModelElementFacade)this.THIS(), null);
-        return equal != null && equal.trim().length() > 0;
+        return StringUtils.isNotBlank(equal);
     }
 
     /**

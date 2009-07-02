@@ -10,7 +10,7 @@ public class NamespaceComponentsException
     /**
      * Constructs an instance of NamespaceComponentsException.
      *
-     * @param parent
+     * @param parent the parent throwable
      */
     public NamespaceComponentsException(Throwable parent)
     {
@@ -20,7 +20,7 @@ public class NamespaceComponentsException
     /**
      * Constructs an instance of NamespaceComponentsException.
      *
-     * @param message
+     * @param message the exception message
      */
     public NamespaceComponentsException(String message)
     {
@@ -30,8 +30,8 @@ public class NamespaceComponentsException
     /**
      * Constructs an instance of NamespaceComponentsException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent throwable
      */
     public NamespaceComponentsException(
         String message,

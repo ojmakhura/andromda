@@ -68,7 +68,7 @@ public class MetafacadeMapping
     protected String getMappingClassName()
     {
         // - if we have a mappingClassName defined, we use it
-        if (this.mappingClassName == null || this.mappingClassName.trim().length() == 0)
+        if (StringUtils.isBlank(this.mappingClassName))
         {
             // - attempt to get the inherited mapping since it doesn't exist on this class
             this.mappingClassName = MetafacadeUtils.getInheritedMappingClassName(this);
@@ -83,7 +83,7 @@ public class MetafacadeMapping
      */
     final boolean isMappingClassNamePresent()
     {
-        return this.mappingClassName != null && this.mappingClassName.trim().length() > 0;
+        return StringUtils.isNotBlank(this.mappingClassName);
     }
 
     /**
@@ -149,7 +149,7 @@ public class MetafacadeMapping
     {
         for (final ListIterator<String> iterator = this.stereotypes.listIterator(); iterator.hasNext();)
         {
-            iterator.set(Profile.instance().get((String)iterator.next()));
+            iterator.set(Profile.instance().get(iterator.next()));
         }
         return this.stereotypes;
     }
@@ -419,7 +419,7 @@ public class MetafacadeMapping
             char seperator = ':';
             for (final Iterator<Property> iterator = this.getProperties().iterator(); iterator.hasNext();)
             {
-                final Property property = (Property)iterator.next();
+                final Property property = iterator.next();
                 toString.append(property.getName());
                 if (StringUtils.isNotEmpty(property.getValue()))
                 {

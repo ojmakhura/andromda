@@ -10,7 +10,7 @@ public class MappingsException
     /**
      * Constructs an instance of MappingsException.
      *
-     * @param parent
+     * @param parent the parent exception
      */
     public MappingsException(Throwable parent)
     {
@@ -20,7 +20,7 @@ public class MappingsException
     /**
      * Constructs an instance of MappingsException.
      *
-     * @param message
+     * @param message the exception message
      */
     public MappingsException(String message)
     {
@@ -30,8 +30,8 @@ public class MappingsException
     /**
      * Constructs an instance of MappingsException.
      *
-     * @param message
-     * @param parent
+     * @param message the exception message
+     * @param parent the parent exception
      */
     public MappingsException(
         String message,

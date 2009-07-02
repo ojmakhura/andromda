@@ -93,7 +93,7 @@ public class Resource
             {
                 arguments[ctr] = StringUtils.trimToEmpty(String.valueOf(arguments[ctr]));
             }
-            if (outputPattern == null || outputPattern.trim().length() == 0)
+            if (StringUtils.isBlank(outputPattern))
             {
                 outputPattern = this.getOutputPattern();
             }
@@ -138,7 +138,7 @@ public class Resource
                 false);
         if (property != null)
         {
-            this.overwrite = Boolean.valueOf(property.getValue()).booleanValue();
+            this.overwrite = Boolean.valueOf(property.getValue());
         }
         return this.overwrite;
     }

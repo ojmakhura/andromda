@@ -6,7 +6,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Map;import java.util.Arrays;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.common.XmlObjectFactory;
@@ -56,7 +56,7 @@ public class LibraryTranslation
     /**
      * Sets the name.
      *
-     * @param name
+     * @param name the name
      */
     public void setName(final String name)
     {
@@ -81,7 +81,7 @@ public class LibraryTranslation
     /**
      * Sets the path to the template.
      *
-     * @param template
+     * @param template the path to the template
      */
     public void setTemplate(final String template)
     {
@@ -228,7 +228,7 @@ public class LibraryTranslation
                         {
                             location += " " + throwable.getMessage();
                         }
-                        logger.error(this.getTranslator().getClass() + " " + throwable + " invoking " + this.getTranslator() + " METHOD " + method + " WITH " + args + location + " fragment " + name);
+                        logger.error(this.getTranslator().getClass() + " " + throwable + " invoking " + this.getTranslator() + " METHOD " + method + " WITH " + Arrays.toString(args) + location + " fragment " + name);
                         throw new LibraryException(throwable);
                     }
                 }
@@ -284,7 +284,7 @@ public class LibraryTranslation
      *                        translation template.
      * @return Translation the Translation created from the processing the translation template.
      */
-    public Translation processTranslation(Map templateContext)
+    public Translation processTranslation(Map<String, Object> templateContext)
     {
         logger.debug(
             "processing translation template --> '" + this.getTemplate() + "'" + "' with templateContext --> '" +
@@ -293,7 +293,7 @@ public class LibraryTranslation
         {
             if (templateContext == null)
             {
-                templateContext = new LinkedHashMap();
+                templateContext = new LinkedHashMap<String, Object>();
             }
             this.getLibrary().populateTemplateContext(templateContext);
 

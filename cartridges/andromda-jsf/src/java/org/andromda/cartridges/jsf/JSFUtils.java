@@ -310,7 +310,7 @@ public class JSFUtils
         int limit)
     {
         String token = null;
-        if (string != null && string.length() > 0)
+        if (StringUtils.isNotEmpty(string))
         {
             final String[] tokens = string.split(
                     "[\\s]+",

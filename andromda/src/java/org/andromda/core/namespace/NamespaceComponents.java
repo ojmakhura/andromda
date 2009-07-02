@@ -81,48 +81,43 @@ public class NamespaceComponents
         final ComponentContainer container = ComponentContainer.instance();
 
         // - discover all registries and sort them by name
-        final Map registryMap = this.discoverAllRegistries();
-        final List registries = new ArrayList(registryMap.keySet());
+        final Map<NamespaceRegistry, URL> registryMap = this.discoverAllRegistries();
+        final List<NamespaceRegistry> registries = new ArrayList<NamespaceRegistry>(registryMap.keySet());
         Collections.sort(
             registries,
             new NamespaceRegistryComparator());
-        for (final Iterator iterator = registries.iterator(); iterator.hasNext();)
+        for (NamespaceRegistry registry : registries)
         {
-            NamespaceRegistry registry = (NamespaceRegistry)iterator.next();
-            final URL resource = (URL)registryMap.get(registry);
+            final URL resource = registryMap.get(registry);
             final String registryName = registry.getName();
 
             // - only register if we haven't yet registered the namespace resource
-            if (!this.registeredNamespaceResources.contains(resource))
-            {
+            if (!this.registeredNamespaceResources.contains(resource)) {
                 final Namespaces namespaces = Namespaces.instance();
                 final String namespace = registry.isShared() ? Namespaces.DEFAULT : registry.getName();
 
                 // - first merge on the namespace registry descriptor (if needed)
                 final Merger merger = Merger.instance();
                 boolean requiresMerge = merger.requiresMerge(namespace);
-                if (requiresMerge)
-                {
+                if (requiresMerge) {
                     registry =
-                        (NamespaceRegistry)registryFactory.getObject(
-                            merger.getMergedString(
-                                ResourceUtils.getContents(resource),
-                                namespace), resource);
+                            (NamespaceRegistry) registryFactory.getObject(
+                                    merger.getMergedString(
+                                            ResourceUtils.getContents(resource),
+                                            namespace), resource);
                 }
 
                 // - add the resource root
                 registry.addResourceRoot(this.getNamespaceResourceRoot(resource));
-                
+
                 // - only log the fact we've found the namespace registry, if we haven't done it yet
-                if (!this.registeredRegistries.contains(registryName))
-                {
+                if (!this.registeredRegistries.contains(registryName)) {
                     AndroMDALogger.info("found namespace --> '" + registryName + "'");
                     this.registeredRegistries.add(registryName);
                 }
 
                 final NamespaceRegistry existingRegistry = namespaces.getRegistry(registryName);
-                if (existingRegistry != null)
-                {
+                if (existingRegistry != null) {
                     // - if we already have an existing registry with the same name, copy
                     //   over any resources.
                     registry.copy(existingRegistry);
@@ -131,54 +126,48 @@ public class NamespaceComponents
                 // - add the registry to the namespaces instance
                 namespaces.addRegistry(registry);
                 final String[] components = registry.getRegisteredComponents();
-                final int componentNumber = components.length;
-                for (int componentCtr = 0; componentCtr < componentNumber; componentCtr++)
+                for (final String componentName : components)
                 {
-                    final String componentName = components[componentCtr];
                     final Component component = this.getComponent(componentName);
-                    if (component == null)
-                    {
+                    if (component == null) {
                         throw new NamespaceComponentsException("'" + componentName +
-                            "' is not a valid namespace component");
+                                "' is not a valid namespace component");
                     }
 
                     // - add any paths defined within the registry
                     component.addPaths(registry.getPaths(component.getName()));
                     if (!container.isRegisteredByNamespace(
                             registryName,
-                            component.getType()))
-                    {
+                            component.getType())) {
                         AndroMDALogger.info("  +  registering component '" + componentName + "'");
                         final XmlObjectFactory componentFactory = XmlObjectFactory.getInstance(component.getType());
                         final URL componentResource =
-                            this.getNamespaceResource(
-                                registry.getResourceRoots(),
-                                component.getPaths());
-                        if (componentResource == null)
-                        {
+                                this.getNamespaceResource(
+                                        registry.getResourceRoots(),
+                                        component.getPaths());
+                        if (componentResource == null) {
                             throw new NamespaceComponentsException("'" + componentName +
-                                "' is not a valid component within namespace '" + namespace + "' (the " +
-                                componentName + "'s descriptor can not be found)");
+                                    "' is not a valid component within namespace '" + namespace + "' (the " +
+                                    componentName + "'s descriptor can not be found)");
                         }
                         NamespaceComponent namespaceComponent =
-                            (NamespaceComponent)componentFactory.getObject(componentResource);
+                                (NamespaceComponent) componentFactory.getObject(componentResource);
 
                         // - now perform a merge of the descriptor (if we require one)
-                        if (requiresMerge)
-                        {
+                        if (requiresMerge) {
                             namespaceComponent =
-                                (NamespaceComponent)componentFactory.getObject(
-                                    merger.getMergedString(
-                                        ResourceUtils.getContents(componentResource),
-                                        namespace));
+                                    (NamespaceComponent) componentFactory.getObject(
+                                            merger.getMergedString(
+                                                    ResourceUtils.getContents(componentResource),
+                                                    namespace));
                         }
 
                         namespaceComponent.setNamespace(registryName);
                         namespaceComponent.setResource(componentResource);
                         container.registerComponentByNamespace(
-                            registryName,
-                            component.getType(),
-                            namespaceComponent);
+                                registryName,
+                                component.getType(),
+                                namespaceComponent);
                     }
                 }
             }
@@ -195,21 +184,19 @@ public class NamespaceComponents
      *
      * @return the registries in a Map
      */
-    private Map discoverAllRegistries()
+    private Map<NamespaceRegistry, URL> discoverAllRegistries()
     {
-        final Map registries = new HashMap();
+        final Map<NamespaceRegistry, URL> registries = new HashMap<NamespaceRegistry, URL>();
         final URL[] resources = ResourceFinder.findResources(this.getPath());
         final XmlObjectFactory registryFactory = XmlObjectFactory.getInstance(NamespaceRegistry.class);
-        if (resources != null && resources.length > 0)
+        if (resources != null)
         {
-            final int numberOfResources = resources.length;
-            for (int ctr = 0; ctr < numberOfResources; ctr++)
+            for (final URL resource : resources)
             {
-                final URL resource = resources[ctr];
-                final NamespaceRegistry registry = (NamespaceRegistry)registryFactory.getObject(resource);
+                final NamespaceRegistry registry = (NamespaceRegistry) registryFactory.getObject(resource);
                 registries.put(
-                    registry,
-                    resource);
+                        registry,
+                        resource);
             }
         }
         return registries;
@@ -218,12 +205,12 @@ public class NamespaceComponents
     /**
      * Keeps track of the namespaces resources that have been already registered.
      */
-    private Collection registeredNamespaceResources = new ArrayList();
+    private Collection<URL> registeredNamespaceResources = new ArrayList<URL>();
 
     /**
      * Keeps track of the namespace registries that have been registered.
      */
-    private Collection registeredRegistries = new ArrayList();
+    private Collection<String> registeredRegistries = new ArrayList<String>();
 
     /**
      * Attempts to retrieve a resource relative to the given
@@ -241,40 +228,27 @@ public class NamespaceComponents
         URL namespaceResource = null;
         if (resourceRoots != null)
         {
-            final int numberOfResourceRoots = resourceRoots.length;
-            for (int ctr = 0; ctr < numberOfResourceRoots; ctr++)
+            for (final URL resource : resourceRoots)
             {
-                final URL resource = resourceRoots[ctr];
-                final int pathNumber = paths.length;
-                for (int ctr2 = 0; ctr2 < pathNumber; ctr2++)
+                for (final String path : paths)
                 {
-                    final String path = paths[ctr2];
-                    InputStream stream = null;
-                    try
-                    {
+                    try {
                         namespaceResource = new URL(ResourceUtils.normalizePath(resource + path));
-                        stream = namespaceResource.openStream();
+                        InputStream stream = namespaceResource.openStream();
                         stream.close();
                     }
-                    catch (final Throwable throwable)
-                    {
+                    catch (final Throwable throwable) {
                         namespaceResource = null;
-                    }
-                    finally
-                    {
-                        stream = null;
                     }
 
                     // - break if we've found one
-                    if (namespaceResource != null)
-                    {
+                    if (namespaceResource != null) {
                         break;
                     }
                 }
 
                 // - break if we've found one
-                if (namespaceResource != null)
-                {
+                if (namespaceResource != null) {
                     break;
                 }
             }
@@ -329,7 +303,7 @@ public class NamespaceComponents
     /**
      * Stores the actual component definitions for this namespace registry.
      */
-    private final Map components = new LinkedHashMap();
+    private final Map<String, Component> components = new LinkedHashMap<String, Component>();
 
     /**
      * Adds a new component to this namespace registry.
@@ -372,7 +346,7 @@ public class NamespaceComponents
      * Used to sort namespace registries by name.
      */
     private final static class NamespaceRegistryComparator
-        implements Comparator
+        implements Comparator<NamespaceRegistry>
     {
         private final Collator collator = Collator.getInstance();
 
@@ -382,14 +356,12 @@ public class NamespaceComponents
         }
 
         public int compare(
-            final Object objectA,
-            final Object objectB)
+            final NamespaceRegistry objectA,
+            final NamespaceRegistry objectB)
         {
-            final NamespaceRegistry a = (NamespaceRegistry)objectA;
-            final NamespaceRegistry b = (NamespaceRegistry)objectB;
             return collator.compare(
-                a.getName(),
-                b.getName());
+                objectA.getName(),
+                objectB.getName());
         }
     }
 }

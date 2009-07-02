@@ -255,7 +255,7 @@ public class MDRepositoryFacade
             (org.netbeans.api.xmi.XMIReaderFactory)this.xmiReaderFactoryInstances.get(this.xmiReaderFactory);
         if (factory == null)
         {
-            if (this.xmiReaderFactory == null || this.xmiReaderFactory.trim().length() == 0)
+            if (StringUtils.isBlank(this.xmiReaderFactory))
             {
                 throw new RepositoryFacadeException("No 'xmiReaderFactory' has been set");
             }

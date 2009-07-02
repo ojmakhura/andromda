@@ -95,7 +95,7 @@ public final class Introspector
                     }
                     else if (propertyValue instanceof Boolean)
                     {
-                        valid = Boolean.valueOf(valueAsString).booleanValue();
+                        valid = Boolean.valueOf(valueAsString);
                     }
                 }
             }
@@ -143,7 +143,7 @@ public final class Introspector
         String name,
         final Object value)
     {
-        if (object != null && name != null && name.length() > 0)
+        if (object != null && name != null && !name.isEmpty())
         {
             final int dotIndex = name.indexOf(NESTED_DELIMITER);
             if (dotIndex >= name.length())
@@ -224,7 +224,7 @@ public final class Introspector
         final String name)
     {
         Object property = null;
-        if (object != null && name != null && name.length() > 0)
+        if (object != null && name != null && !name.isEmpty())
         {
             int dotIndex = name.indexOf(NESTED_DELIMITER);
             if (dotIndex == -1)
@@ -488,7 +488,7 @@ public final class Introspector
             this.evaluatingObjects.put(
                 object,
                 name);
-            if (object != null || name != null || name.length() > 0)
+            if (object != null || (StringUtils.isNotEmpty(name)))
             {
                 final Method method = this.getReadMethod(
                         object,
@@ -540,10 +540,10 @@ public final class Introspector
         final String name,
         Object value)
     {
-        if (object != null || name != null || name.length() > 0)
+        if (object != null || (StringUtils.isNotEmpty(name)))
         {
-            Class expectedType = null;
-            if (value != null && object != null)
+            Class expectedType;
+            if (value != null)
             {
                 final PropertyDescriptor descriptor = this.getPropertyDescriptor(
                         object.getClass(),

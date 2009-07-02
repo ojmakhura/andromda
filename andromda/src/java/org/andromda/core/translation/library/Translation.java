@@ -20,9 +20,9 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 public class Translation
 {
     private String name;
-    private final Map fragments = new LinkedHashMap();
-    private final Collection ignorePatterns = new ArrayList();
-    private Collection validatePatterns;    // (wouter) TODO: Chad, this field is only updated, never queried, can we remove it ? 
+    private final Map<String, Fragment> fragments = new LinkedHashMap<String, Fragment>();
+    private final Collection<String> ignorePatterns = new ArrayList<String>();
+    private Collection<String> validatePatterns;    // (wouter) TODO: Chad, this field is only updated, never queried, can we remove it ?
 
     /**
      * The library translation to which this translation belongs.
@@ -65,16 +65,13 @@ public class Translation
     protected Fragment getFragment(final String name)
     {
         Fragment fragment = null;
-        Iterator names = fragments.keySet().iterator();
-
         // search through the names and the first name that matches
         // one of the names return the value of that name.
-        while (names.hasNext())
+        for (String nextName : fragments.keySet())
         {
-            String nextName = (String)names.next();
             if (name.matches(nextName))
             {
-                fragment = (Fragment)fragments.get(nextName);
+                fragment = fragments.get(nextName);
             }
         }
 
@@ -97,7 +94,7 @@ public class Translation
     /**
      * Adds a new Translation fragment to the Translation.
      *
-     * @param fragment
+     * @param fragment new Translation fragment
      */
     public void addFragment(final Fragment fragment)
     {
@@ -160,14 +157,11 @@ public class Translation
     {
         boolean isIgnorePattern = false;
         pattern = StringUtils.trimToEmpty(pattern);
-        Iterator ignorePatterns = this.ignorePatterns.iterator();
-
         // search through the ignorePatterns and see if one
         // of them matches the passed in pattern.
-        while (ignorePatterns.hasNext())
+        for (String nextIgnorePattern : this.ignorePatterns)
         {
-            String nextIgnorePattern = StringUtils.trimToEmpty((String)ignorePatterns.next());
-            isIgnorePattern = pattern.matches(nextIgnorePattern);
+            isIgnorePattern = pattern.matches(StringUtils.trimToEmpty(nextIgnorePattern));
             if (isIgnorePattern)
             {
                 break;

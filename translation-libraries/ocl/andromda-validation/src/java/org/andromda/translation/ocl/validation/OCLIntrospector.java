@@ -116,7 +116,7 @@ public final class OCLIntrospector
     {
         Object property = null;
 
-        if (element != null && methodName != null && methodName.length() > 0)
+        if (element != null && methodName != null && !methodName.isEmpty())
         {
             Class[] argumentTypes = getObjectTypes(arguments);
 

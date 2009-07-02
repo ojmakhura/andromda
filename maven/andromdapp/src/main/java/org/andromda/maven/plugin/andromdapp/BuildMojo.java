@@ -346,7 +346,7 @@ public class BuildMojo
     private String readLine()
     {
         final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        String inputString = null;
+        String inputString;
         try
         {
             inputString = input.readLine();
@@ -355,7 +355,7 @@ public class BuildMojo
         {
             inputString = null;
         }
-        return inputString == null || inputString.trim().length() == 0 ? null : inputString;
+        return StringUtils.trimToNull(inputString);
     }
 
     /**

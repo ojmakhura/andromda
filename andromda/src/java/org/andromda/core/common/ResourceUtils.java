@@ -107,7 +107,6 @@ public class ResourceUtils
                     contents.append(line).append(LINE_SEPARATOR);
                 }
                 resourceInput.close();
-                resourceInput = null;
             }
         }
         catch (final Throwable throwable)
@@ -177,7 +176,7 @@ public class ResourceUtils
      */
     public static String unescapeFilePath(String filePath)
     {
-        if (filePath != null && filePath.length() > 0)
+        if (StringUtils.isNotEmpty(filePath))
         {
             filePath = filePath.replaceAll(
                     PATH_WHITESPACE_CHARACTER,
@@ -255,9 +254,8 @@ public class ResourceUtils
             final File[] files = directory.listFiles();
             if (files != null)
             {
-                for (int ctr = 0; ctr < files.length; ctr++)
+                for (File file : files)
                 {
-                    File file = files[ctr];
                     if (!file.isDirectory())
                     {
                         fileList.add(file.toString());
@@ -265,9 +263,9 @@ public class ResourceUtils
                     else if (includeSubdirectories)
                     {
                         loadFiles(
-                            file,
-                            fileList,
-                            includeSubdirectories);
+                                file,
+                                fileList,
+                                includeSubdirectories);
                     }
                 }
             }
@@ -440,8 +438,9 @@ public class ResourceUtils
                 // - we need to set the urlConnection to null and explicitly
                 //   call garbage collection, otherwise the JVM won't let go
                 //   of the URL resource
-                uriConnection = null;
-                System.gc();
+//                uriConnection = null;
+//                System.gc();
+                uriConnection.getInputStream().close();
             }
         }
         catch (final Exception exception)
@@ -647,7 +646,6 @@ public class ResourceUtils
                 stream.write(ctr);
             }
             inputReader.close();
-            inputReader = null;
         }
         else
         {
@@ -657,11 +655,9 @@ public class ResourceUtils
                 stream.write(ctr);
             }
             inputStream.close();
-            inputStream = null;
         }
         stream.flush();
         stream.close();
-        stream = null;
     }
 
 
@@ -736,7 +732,7 @@ public class ResourceUtils
         {
             for (final ListIterator<String> iterator = contents.listIterator(); iterator.hasNext();)
             {
-                String path = iterator.next().toString();
+                String path = iterator.next();
                 if (!matchesAtLeastOnePattern(
                         path,
                         patterns))
@@ -764,7 +760,7 @@ public class ResourceUtils
             contents = ResourceUtils.getClassPathArchiveContents(url);
             for (final ListIterator<String> iterator = contents.listIterator(); iterator.hasNext();)
             {
-                final String relativePath = iterator.next().toString();
+                final String relativePath = iterator.next();
                 final String fullPath = archivePath + relativePath;
                 if (!fullPath.startsWith(urlAsString) || fullPath.equals(urlAsString + FORWARD_SLASH))
                 {

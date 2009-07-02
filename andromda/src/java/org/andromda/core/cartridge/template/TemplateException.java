@@ -12,7 +12,7 @@ public class TemplateException
     /**
      * Constructs an instance of TemplateException.
      *
-     * @param parent
+     * @param parent the parent exception
      */
     public TemplateException(Throwable parent)
     {
@@ -33,7 +33,7 @@ public class TemplateException
      * Constructs an instance of TemplateException.
      *
      * @param message the exception message
-     * @param parent      the parent exception
+     * @param parent  the parent exception
      */
     public TemplateException(
         String message,

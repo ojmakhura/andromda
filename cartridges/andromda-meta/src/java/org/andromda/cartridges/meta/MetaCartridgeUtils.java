@@ -9,6 +9,7 @@ import java.util.List;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.ConstraintFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -78,7 +79,7 @@ public class MetaCartridgeUtils
             final ModelElementFacade contextElement = constraint.getContextElement();
             final String contextElementName =
                 contextElement != null ? contextElement.getFullyQualifiedName(true) : null;
-            if (contextElementName != null && contextElementName.trim().length() > 0)
+            if (StringUtils.isNotBlank(contextElementName))
             {
                 name.append(contextElementName.trim());
                 name.append(MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR);

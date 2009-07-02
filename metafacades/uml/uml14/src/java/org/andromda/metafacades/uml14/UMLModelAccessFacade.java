@@ -138,7 +138,7 @@ public class UMLModelAccessFacade
                 {
                     for (final Iterator<ModelElement> iterator = underlyingElements.iterator(); iterator.hasNext();)
                     {
-                        ModelElement element = (ModelElement)iterator.next();
+                        ModelElement element = iterator.next();
                         Collection<String> stereotypeNames = this.getStereotypeNames(element);
                         if (stereotypeNames != null && stereotypeNames.contains(stereotype))
                         {

@@ -26,7 +26,7 @@ public class Mapping
     /**
      * Stores the from elements.
      */
-    private final Collection froms = new LinkedHashSet();
+    private final Collection<String> froms = new LinkedHashSet<String>();
 
     /**
      * Adds the <code>from</code> type to the mapping.
@@ -44,7 +44,7 @@ public class Mapping
      *
      * @return Collection
      */
-    public Collection getFroms()
+    public Collection<String> getFroms()
     {
         return froms;
     }
@@ -65,11 +65,11 @@ public class Mapping
         {
             try
             {
-                for (final Iterator iterator = this.paths.iterator(); iterator.hasNext();)
+                for (final String path : paths)
                 {
                     to.append(
                         ResourceUtils.getContents(
-                            new FileReader(this.mappings.getCompletePath((String)iterator.next()))));
+                            new FileReader(this.mappings.getCompletePath(path))));
                 }
             }
             catch (final FileNotFoundException exception)
@@ -83,7 +83,7 @@ public class Mapping
     /**
      * Stores any paths used by this mapping.
      */
-    private final List paths = new ArrayList();
+    private final List<String> paths = new ArrayList<String>();
 
     /**
      * Adds the path to the listof paths.
@@ -135,9 +135,9 @@ public class Mapping
     {
         final StringBuffer buffer = new StringBuffer(512); // 512 should be enough for resizing not to occur
 
-        for (Iterator fromIterator = this.froms.iterator(); fromIterator.hasNext();)
+        for (Iterator<String> fromIterator = this.froms.iterator(); fromIterator.hasNext();)
         {
-            final String from = (String)fromIterator.next();
+            final String from = fromIterator.next();
             buffer.append(from);
 
             if (fromIterator.hasNext())

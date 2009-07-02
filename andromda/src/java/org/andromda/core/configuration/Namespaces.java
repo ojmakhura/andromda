@@ -107,7 +107,7 @@ public class Namespaces
      */
     public Namespace getNamespace(final String namespaceName)
     {
-        return (Namespace)namespaces.get(namespaceName);
+        return namespaces.get(namespaceName);
     }
 
     /**
@@ -208,7 +208,7 @@ public class Namespaces
             propertyName);
 
         Collection<Property> property = null;
-        final Namespace namespace = (Namespace)this.namespaces.get(namespaceName);
+        final Namespace namespace = this.namespaces.get(namespaceName);
         if (namespace != null)
         {
             property = namespace.getProperties(propertyName);
@@ -223,7 +223,7 @@ public class Namespaces
             {
                 logger.debug("no namespace with name '" + namespaceName + "' found, looking for '" + Namespaces.DEFAULT + "'");
             }*/
-            defaultNamespace = (Namespace)this.namespaces.get(Namespaces.DEFAULT);
+            defaultNamespace = this.namespaces.get(Namespaces.DEFAULT);
             if (defaultNamespace != null)
             {
                 property = defaultNamespace.getProperties(propertyName);
@@ -446,7 +446,7 @@ public class Namespaces
      */
     public NamespaceRegistry getRegistry(final String namespace)
     {
-        return (NamespaceRegistry)this.registries.get(namespace);
+        return this.registries.get(namespace);
     }
 
     /**

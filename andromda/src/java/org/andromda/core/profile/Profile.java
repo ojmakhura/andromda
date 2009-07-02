@@ -12,6 +12,7 @@ import org.andromda.core.configuration.NamespaceProperties;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
 import org.andromda.core.namespace.BaseNamespaceComponent;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -47,7 +48,7 @@ public class Profile
     /**
      * Stores the elements for the profile (by name).
      */
-    private final Map elements = new LinkedHashMap();
+    private final Map<String, String> elements = new LinkedHashMap<String, String>();
 
     /**
      * Adds a new element to this namespace registry.
@@ -72,26 +73,26 @@ public class Profile
      */
     public String get(String name)
     {
-        name = name != null ? name.trim() : null;
+        name = StringUtils.trim(name);
         // - attempt to get the profile value from the profile defined
         //   by the profile mappings uri first
-        String value = (String)this.elements.get(name);
+        String value = this.elements.get(name);
 
         // - if we can't get any profile value from an the override profile
         //   mapping, then we resort to the ones defined in the namespace
-        if (value == null || value.trim().length() == 0)
+        if (StringUtils.isBlank(value))
         {
-            Map namespaceElements = this.getNamespaceElements(this.getNamespace());
+            Map<String, String> namespaceElements = this.getNamespaceElements(this.getNamespace());
             if (namespaceElements != null)
             {
-                value = (String)namespaceElements.get(name);
+                value = namespaceElements.get(name);
             }
             if (value == null)
             {
                 namespaceElements = this.getNamespaceElements(Namespaces.DEFAULT);
                 if (namespaceElements != null)
                 {
-                    value = (String)namespaceElements.get(name);
+                    value = namespaceElements.get(name);
                 }
             }
         }
@@ -103,11 +104,9 @@ public class Profile
      */
     public void initialize()
     {
-        final Collection profiles = ComponentContainer.instance().findComponentsOfType(Profile.class);
-        for (final Iterator iterator = profiles.iterator(); iterator.hasNext();)
+        final Collection<Profile> profiles = ComponentContainer.instance().findComponentsOfType(Profile.class);
+        for (final Profile profile : profiles)
         {
-            final Profile profile = (Profile)iterator.next();
-
             String namespace = profile.getNamespace();
             if (Namespaces.instance().isShared(namespace))
             {
@@ -148,21 +147,21 @@ public class Profile
     /**
      * Stores all elements.
      */
-    private final Map allElements = new LinkedHashMap();
+    private final Map<String, Map<String, String>> allElements = new LinkedHashMap<String, Map<String, String>>();
 
     /**
      * Adds the elements to the internal elements map.
+     * @param profile Profile
      */
     private void addElements(final Profile profile)
     {
-        final Collection elements = profile != null ? profile.elements.keySet() : null;
-        if (elements != null && profile != null)
+        final Collection<String> elements = profile != null ? profile.elements.keySet() : null;
+        if (elements != null)
         {
             final String namespace = profile.getNamespace();
-            final Map namespaceElements = this.getNamespaceElements(namespace);
-            for (final Iterator iterator = elements.iterator(); iterator.hasNext();)
+            final Map<String, String> namespaceElements = this.getNamespaceElements(namespace);
+            for (final String name : elements)
             {
-                final String name = (String)iterator.next();
                 namespaceElements.put(
                     name,
                     profile.elements.get(name));
@@ -182,7 +181,7 @@ public class Profile
         final String name,
         final String value)
     {
-        final Map namespaceElements = this.getNamespaceElements(namespace);
+        final Map<String, String> namespaceElements = this.getNamespaceElements(namespace);
         namespaceElements.put(
             name,
             value);
@@ -194,12 +193,12 @@ public class Profile
      * @param namespace the namespace for which to retrieve the namespace elements
      * @return the namespace element map
      */
-    private Map getNamespaceElements(final String namespace)
+    private Map<String, String> getNamespaceElements(final String namespace)
     {
-        Map namespaceElements = (Map)this.allElements.get(namespace);
+        Map<String, String> namespaceElements = this.allElements.get(namespace);
         if (namespaceElements == null)
         {
-            namespaceElements = new LinkedHashMap();
+            namespaceElements = new LinkedHashMap<String, String>();
             this.allElements.put(
                 namespace,
                 namespaceElements);

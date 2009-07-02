@@ -36,12 +36,12 @@ public class Mappings
      * Contains the set of Mapping objects keyed by the 'type' element defined
      * within the from type mapping XML file.
      */
-    private final Map mappings = new LinkedHashMap();
+    private final Map<String, Mapping> mappings = new LinkedHashMap<String, Mapping>();
 
     /**
      * A static mapping containing all logical mappings currently available.
      */
-    private static final Map logicalMappings = new LinkedHashMap();
+    private static final Map<String, Mappings> logicalMappings = new LinkedHashMap<String, Mappings>();
 
     /**
      * Holds the resource path from which this Mappings object was loaded.
@@ -63,7 +63,7 @@ public class Mappings
             mappingsUri);
         try
         {
-            Mappings mappings = (Mappings)logicalMappings.get(mappingsUri);
+            Mappings mappings = logicalMappings.get(mappingsUri);
             if (mappings == null)
             {
                 try
@@ -127,7 +127,7 @@ public class Mappings
         // parent) and set the child mappings to the parent's
         if (mappings != null && StringUtils.isNotBlank(mappings.extendsUri))
         {
-            Mappings parentMappings = (Mappings)logicalMappings.get(mappings.extendsUri);
+            Mappings parentMappings = logicalMappings.get(mappings.extendsUri);
             if (parentMappings == null)
             {
                 try
@@ -226,8 +226,8 @@ public class Mappings
         // reorder the logical mappings so that they can safely be loaded
         // (top-level mappings first)
 
-        final Map unprocessedMappings = new HashMap(logicalMappings);
-        final Map processedMappings = new LinkedHashMap(); // these will be in the good order
+        final Map<String, Mappings> unprocessedMappings = new HashMap<String, Mappings>(logicalMappings);
+        final Map<String, Mappings> processedMappings = new LinkedHashMap<String, Mappings>(); // these will be in the good order
 
         // keep looping until there are no more unprocessed mappings
         // if nothing more can be processed but there are unprocessed mappings left
@@ -239,11 +239,11 @@ public class Mappings
             processed = false;
 
             // we only process mappings if they have parents that have already been processed
-            for (final Iterator iterator = unprocessedMappings.entrySet().iterator(); iterator.hasNext();)
+            for (final Iterator<Map.Entry<String, Mappings>> iterator = unprocessedMappings.entrySet().iterator(); iterator.hasNext();)
             {
-                final Map.Entry logicalMapping = (Map.Entry)iterator.next();
-                final String name = (String)logicalMapping.getKey();
-                final Mappings mappings = (Mappings)logicalMapping.getValue();
+                final Map.Entry<String, Mappings> logicalMapping = iterator.next();
+                final String name = logicalMapping.getKey();
+                final Mappings mappings = logicalMapping.getValue();
 
                 if (mappings.extendsUri == null)
                 {
@@ -258,7 +258,7 @@ public class Mappings
                 }
                 else if (processedMappings.containsKey(mappings.extendsUri))
                 {
-                    final Mappings parentMappings = (Mappings)processedMappings.get(mappings.extendsUri);
+                    final Mappings parentMappings = processedMappings.get(mappings.extendsUri);
                     if (parentMappings != null)
                     {
                         mergeWithoutOverriding(parentMappings, mappings);
@@ -318,7 +318,7 @@ public class Mappings
     /**
      * Sets the name name.
      *
-     * @param name
+     * @param name a new name
      */
     public void setName(final String name)
     {
@@ -352,15 +352,15 @@ public class Mappings
         ExceptionUtils.checkNull(
             "mapping",
             mapping);
-        final Collection fromTypes = mapping.getFroms();
+        final Collection<String> fromTypes = mapping.getFroms();
         ExceptionUtils.checkNull(
             "mapping.fromTypes",
             fromTypes);
-        for (final Iterator typeIterator = fromTypes.iterator(); typeIterator.hasNext();)
+        for (final String fromType : fromTypes)
         {
             mapping.setMappings(this);
             this.mappings.put(
-                typeIterator.next(),
+                fromType,
                 mapping);
         }
     }
@@ -388,7 +388,7 @@ public class Mappings
      */
     private static void mergeWithoutOverriding(Mappings sourceMappings, Mappings targetMappings)
     {
-        final Map allMappings = new LinkedHashMap(targetMappings.mappings.size() + sourceMappings.mappings.size());
+        final Map<String, Mapping> allMappings = new LinkedHashMap<String, Mapping>(targetMappings.mappings.size() + sourceMappings.mappings.size());
         allMappings.putAll(sourceMappings.mappings);
         allMappings.putAll(targetMappings.mappings);
         targetMappings.mappings.clear();
@@ -468,7 +468,7 @@ public class Mappings
      *
      * @return a collection containing <strong>all </strong> Mapping instances.
      */
-    public Collection getMappings()
+    public Collection<Mapping> getMappings()
     {
         return this.mappings.values();
     }
@@ -481,13 +481,13 @@ public class Mappings
      */
     public Mapping getMapping(final String from)
     {
-        return (Mapping)this.mappings.get(StringUtils.trimToEmpty(from));
+        return this.mappings.get(StringUtils.trimToEmpty(from));
     }
 
     /**
      * Caches the complete path.
      */
-    private final Map completePaths = new LinkedHashMap();
+    private final Map<String, String> completePaths = new LinkedHashMap<String, String>();
 
     /**
      * Constructs the complete path from the given <code>relativePath</code>
@@ -498,7 +498,7 @@ public class Mappings
      */
     final String getCompletePath(final String relativePath)
     {
-        String completePath = (String)this.completePaths.get(relativePath);
+        String completePath = this.completePaths.get(relativePath);
         if (completePath == null)
         {
             final StringBuffer path = new StringBuffer();

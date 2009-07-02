@@ -100,7 +100,7 @@ public class Namespace
      *
      * @return all namespaces.
      */
-    public Collection getProperties()
+    public Collection<Collection<Property>> getProperties()
     {
         return this.properties.values();
     }
