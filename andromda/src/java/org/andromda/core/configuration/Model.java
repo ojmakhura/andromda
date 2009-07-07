@@ -1,6 +1,5 @@
 package org.andromda.core.configuration;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
@@ -295,10 +294,10 @@ public class Model
     {
         if (this.moduleSearchLocationPaths == null)
         {
-            final Collection paths = new ArrayList();
-            for (final Iterator iterator = this.moduleSearchLocations.iterator(); iterator.hasNext();)
+            final Collection<String> paths = new ArrayList<String>();
+            for (final Iterator<Location> iterator = this.moduleSearchLocations.iterator(); iterator.hasNext();)
             {
-                final Location location = (Location)iterator.next();
+                final Location location = iterator.next();
                 final URL[] resources = location.getResources();
                 final int resourceNumber = resources.length;
                 for (int ctr = 0; ctr < resourceNumber; ctr++)
