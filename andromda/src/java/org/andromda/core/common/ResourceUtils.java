@@ -132,9 +132,9 @@ public class ResourceUtils
             final ZipFile archive = getArchive(resource);
             if (archive != null)
             {
-                for (final Enumeration entries = archive.entries(); entries.hasMoreElements();)
+                for (final Enumeration<ZipEntry> entries = archive.entries(); entries.hasMoreElements();)
                 {
-                    final ZipEntry entry = (ZipEntry)entries.nextElement();
+                    final ZipEntry entry = entries.nextElement();
                     contents.add(entry.getName());
                 }
             }
