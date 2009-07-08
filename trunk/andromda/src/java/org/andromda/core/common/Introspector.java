@@ -143,7 +143,7 @@ public final class Introspector
         String name,
         final Object value)
     {
-        if (object != null && name != null && !name.isEmpty())
+        if (object != null && StringUtils.isNotBlank(name))
         {
             final int dotIndex = name.indexOf(NESTED_DELIMITER);
             if (dotIndex >= name.length())
@@ -224,7 +224,7 @@ public final class Introspector
         final String name)
     {
         Object property = null;
-        if (object != null && name != null && !name.isEmpty())
+        if (object != null && StringUtils.isNotBlank(name))
         {
             int dotIndex = name.indexOf(NESTED_DELIMITER);
             if (dotIndex == -1)
