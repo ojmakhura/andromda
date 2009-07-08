@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringUtils;
 
@@ -98,14 +99,13 @@ public class ComponentContainer
         final Class type)
     {
         Object component;
-        implementation = StringUtils.trimToEmpty(implementation);
-        if (implementation.isEmpty())
+        if (StringUtils.isBlank(implementation))
         {
             component = this.newDefaultComponent(type);
         }
         else
         {
-            component = ClassUtils.newInstance(implementation);
+            component = ClassUtils.newInstance(StringUtils.trimToEmpty(implementation));
         }
         return component;
     }

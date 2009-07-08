@@ -21,6 +21,9 @@ public final class OCLIntrospector
     /**
      * Invokes the given <code>feature</code> on the <code>element</code>. Its expected that the feature is either an
      * operation or a property.
+     * @param element 
+     * @param feature 
+     * @return invoke(element, feature, null)
      */
     public static final Object invoke(
         final Object element,
@@ -45,7 +48,7 @@ public final class OCLIntrospector
         }
         catch (final OCLIntrospectorException throwable)
         {
-            // Dont catch our own exceptions.
+            // Don't catch our own exceptions.
             // Otherwise get Exception/Cause chain which
             // can hide the original exception.
             throw throwable;
@@ -68,6 +71,10 @@ public final class OCLIntrospector
     /**
      * Invokes the given <code>feature</code> on the specified <code>element</code> taking the given
      * <code>arguments</code>. If <code>arguments</code> is null its expected that the feature is an empty operation.
+     * @param element 
+     * @param feature 
+     * @param arguments 
+     * @return invokeMethod(element, feature, arguments)
      */
     public static Object invoke(
         final Object element,
@@ -116,7 +123,7 @@ public final class OCLIntrospector
     {
         Object property = null;
 
-        if (element != null && methodName != null && !methodName.isEmpty())
+        if (element != null && StringUtils.isNotBlank(methodName))
         {
             Class[] argumentTypes = getObjectTypes(arguments);
 
