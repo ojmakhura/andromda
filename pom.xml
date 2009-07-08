@@ -237,21 +237,20 @@
     <build>
         <defaultGoal>install</defaultGoal>
         <sourceDirectory>src/java</sourceDirectory>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.5</source>
-                        <target>1.5</target>
-                        <showDeprecation>true</showDeprecation>
-                        <showWarnings>true</showWarnings>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-		<plugins>
+ 		<plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <fork>true</fork>
+                    <!--compilerVersion>1.5</compilerVersion>
+                    <compilerArgument>-Xlint</compilerArgument-->
+                </configuration>
+            </plugin>
 			<!-- This antrun configuration is a hack until the issue with plugins that create archives is fixed
 			(i.e a plugin that has '<extensions>true</extensions>' set).  Before this project can be built,
 			the command "mvn -N antrun:run' must be executed in order to install these plugins here below (since these
