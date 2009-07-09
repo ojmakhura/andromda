@@ -117,7 +117,7 @@ public abstract class $service.baseName
     {
 #if ($requiredCheckEnabled)
 #foreach ($argument in $operation.arguments)
-#if ($argument.required && !$argument.type.primitive)
+#if ($argument.required && !$argument.type.primitive && !$attribute.static)
 #if (!$argument.type.stringType)
         if ($argument.name == null)
         {
@@ -133,7 +133,7 @@ public abstract class $service.baseName
 #end
 #if (!$argument.type.enumeration && !$argument.type.entityMetaType)
 #foreach ($attribute in $argument.type.getAttributes(true))
-#if ($attribute.required && !$attribute.type.primitive)
+#if ($attribute.required && !$attribute.type.primitive && !$attribute.static)
 #if (!$attribute.type.stringType)
         if (${argument.name}.get${stringUtils.capitalize($attribute.name)}() == null)
         {
