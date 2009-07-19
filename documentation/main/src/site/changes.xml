@@ -14,6 +14,15 @@
     </properties>
     <body>
         <release version="3.4" date="not yet released" desc="First release candidate of version 3.4" description="First release candidate of version 3.4">
+            <action dev="catforce" type="add" issue="JAVA-32">
+                Add generation of "abstract" class modifier to exception-templates.
+            </action>
+            <action dev="bobfields" type="fix" issue="JAVA-37">
+                Fixed wrong java comment type in velocity template, thanks to a patch from Matthias Hanns.
+            </action>
+            <action dev="bobfields" type="fix" issue="JAVA-32">
+                Fixed wrong java comment type in velocity template, thanks to a patch from Johann Wilfling.
+            </action>
             <action dev="catforce" type="update">
                 Removed obsolete maven 1 files.                
             </action>

@@ -32,7 +32,7 @@ $class.getDocumentation(" * ")
     @WebFault( name="${class.name}", faultBean="$faultDetails", targetNamespace="http://$javaUtils.reversePackage($class.packageName)")
 #end
 #end
-public class ${class.name}
+public#if($class.abstract) abstract#end class ${class.name}
 #if($class.generalization)
     extends ${class.generalization.fullyQualifiedName}
 #else
