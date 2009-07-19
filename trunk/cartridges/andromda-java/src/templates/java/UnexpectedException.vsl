@@ -21,7 +21,7 @@ $class.getDocumentation(" * ")
     @XmlType(name="testApplicationException")
     @WebFault( name="${class.name}", faultBean="$class.fullyQualifiedName", targetNamespace="http://$javaUtils.reversePackage($class.packageName)")
 #end
-public class ${class.name}
+public#if($class.abstract) abstract#end class ${class.name}
 #if($class.generalization)
     extends ${class.generalization.fullyQualifiedName}
 #else
