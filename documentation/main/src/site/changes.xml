@@ -14,6 +14,12 @@
     </properties>
     <body>
         <release version="3.4" date="not yet released" desc="First release candidate of version 3.4" description="First release candidate of version 3.4">
+            <action dev="catforce" type="update">
+                Fix groupIds for itext and bsh: ('itext' has been relocated to com.lowagie:itext and 'bsh' has been relocated to org.beanshell:bsh)
+            </action>
+            <action dev="bobfields" type="add" issue="JAVA-16">
+                Add generation of attributes to exception-templates.
+            </action>
             <action dev="catforce" type="add" issue="JAVA-32">
                 Add generation of "abstract" class modifier to exception-templates.
             </action>
