@@ -13,22 +13,10 @@
     <description>
         The AndroMDA Maven site plugins
     </description>
-    <inceptionYear>2006</inceptionYear>
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-plugin-api</artifactId>
-            <version>${maven.version}</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
-    <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-    </build>
-    <modules>
-        <module>doxia</module>
-        <module>plugin/site</module>
-        <module>plugin/cartridge</module>
+    <inceptionYear>2006</inceptionYear>    
+    <modules>        
+        <module>site</module>
+        <module>cartridge</module>        
         <module>skin</module>
     </modules>
 </project>
