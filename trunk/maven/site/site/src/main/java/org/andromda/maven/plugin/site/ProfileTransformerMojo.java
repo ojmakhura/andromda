@@ -68,7 +68,7 @@ public class ProfileTransformerMojo
     /**
      * Path to the project profile document output
      * 
-     * @parameter expression="${basedir}/src/site/axdoc/profile.xml"
+     * @parameter expression="${basedir}/src/site/xdoc/profile.xml"
      */
     private String profileOutputPath;
 

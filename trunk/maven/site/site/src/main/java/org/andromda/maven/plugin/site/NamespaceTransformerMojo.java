@@ -56,7 +56,7 @@ public class NamespaceTransformerMojo
     /**
      * Path to the project namespace document output
      * 
-     * @parameter expression="${basedir}/src/site/axdoc/namespace.xml"
+     * @parameter expression="${basedir}/src/site/xdoc/namespace.xml"
      */
     private String namespaceOutputPath;
 
