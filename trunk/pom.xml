@@ -235,22 +235,22 @@
         </dependencies>
     </dependencyManagement>
     <build>
-        <defaultGoal>install</defaultGoal>
-        <sourceDirectory>src/java</sourceDirectory>
- 		<plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
-                    <fork>true</fork>
-                    <!--compilerVersion>1.5</compilerVersion>
-                    <compilerArgument>-Xlint</compilerArgument-->
-                </configuration>
-            </plugin>
+      <defaultGoal>install</defaultGoal>
+      <sourceDirectory>src/java</sourceDirectory>
+ 			<plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                <source>1.5</source>
+                <target>1.5</target>
+                <showDeprecation>true</showDeprecation>
+                <showWarnings>true</showWarnings>
+                <fork>true</fork>
+                <!--compilerVersion>1.5</compilerVersion>
+                <compilerArgument>-Xlint</compilerArgument-->
+            </configuration>
+        </plugin>
 			<!-- This antrun configuration is a hack until the issue with plugins that create archives is fixed
 			(i.e a plugin that has '<extensions>true</extensions>' set).  Before this project can be built,
 			the command "mvn -N antrun:run' must be executed in order to install these plugins here below (since these
@@ -286,21 +286,13 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>2.0-beta-5</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.andromda.maven.plugins.site</groupId>
-                        <artifactId>andromda-doxia-module-xdoc</artifactId>
-                        <version>${pom.version}</version>
-                    </dependency>
-                </dependencies>
+                <artifactId>maven-site-plugin</artifactId>                
                 <configuration>
                     <locales>en</locales>
                     <outputEncoding>UTF-8</outputEncoding>
                 </configuration>
             </plugin>
-		</plugins>
+			</plugins>
     </build>
     <modules>
         <module>andromda</module>
@@ -313,16 +305,16 @@
         <module>translation-libraries</module>
         <module>ant</module>
         <module>profiles</module>
-        <module>maven</module>
-        <module>samples</module>
+        <module>maven</module>        
+        <module>samples</module>        
         <module>etc/web/taglibs</module>
         <module>etc/schema2xmi</module>
         <module>etc/script-wrappers</module>
         <module>documentation</module>
         <!--temporary until uml2+uml22 coexistence solved-->
         <module>repositories/emf/uml22</module>
-        <module>metafacades/uml/emf/uml22</module>
-        <module>distribution</module>
+        <module>metafacades/uml/emf/uml22</module>        
+        <module>distribution</module>        
     </modules>
     <repositories>
         <repository>
