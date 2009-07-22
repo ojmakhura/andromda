@@ -42,7 +42,7 @@
                         <p>
                             <strong>Indentations:</strong> 4 spaces. <strong>NO tabs</strong>. Period.
                             We understand that a lot of you like to use tabs, but the fact of the
-                            matter is that in a distributed development environment, when the cvs
+                            matter is that in a distributed development environment, when the svn
                             commit messages get sent to a mailing list, they are almost impossible
                             to read if you use tabs.
                         </p>
@@ -327,7 +327,7 @@ java.lang.OutOfMemoryError
                 the following items:
             </p>
             <ol>
-                <li>A patch file (this can be very easily created if you're using eclipse) against the latest CVS version. 
+                <li>A patch file (this can be very easily created if you're using eclipse) against the latest SVN version. 
                     No, a zip file with all modified sources is *not* okay.</li>
                 <li>If appropriate, include one or more JUnit tests related to the new feature.
                     Also, be sure to run all of the existing testcases to verify that you are not breaking existing
