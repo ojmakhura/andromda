@@ -201,8 +201,8 @@ public class CopyDocumentationMojo
             final File[] files = mappingSourceDir.listFiles();
             for (int i = 0; i < files.length; i++)
             {
-                // Ignore CVS dir/files
-                if (!files[i].getName().equalsIgnoreCase("cvs"))
+                // Ignore SVN dir/files
+                if (!files[i].getName().equalsIgnoreCase(".svn"))
                 {
                     this.copyFile(
                             files[i], 
@@ -246,7 +246,7 @@ public class CopyDocumentationMojo
             {
                 final String[] filteredReports = 
                 {
-                        "cvs",
+                        ".svn",
                         "integration.html",
                         "dependencies.html",
                         "dependency-convergence.html",
