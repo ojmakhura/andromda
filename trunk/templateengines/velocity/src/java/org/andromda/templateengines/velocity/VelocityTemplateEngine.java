@@ -88,17 +88,17 @@ public class VelocityTemplateEngine
      * Stores a collection of templates that have already been
      * discovered by the velocity engine
      */
-    private final Map discoveredTemplates = new HashMap();
+    private final Map<String, Template> discoveredTemplates = new HashMap<String, Template>();
 
     /**
      * Stores the merged template files that are deleted at shutdown.
      */
-    private final Collection mergedTemplateFiles = new ArrayList();
+    private final Collection<File> mergedTemplateFiles = new ArrayList<File>();
 
     /**
      * @param namespace 
      * @throws Exception 
-     * @see org.andromda.core.templateengine.TemplateEngine#init(java.lang.String)
+     * @see org.andromda.core.templateengine.TemplateEngine#initialize(String)
      */
     public void initialize(final String namespace)
         throws Exception
@@ -202,7 +202,7 @@ public class VelocityTemplateEngine
      */
     public void processTemplate(
         final String templateFile,
-        final Map templateObjects,
+        final Map<String, Object> templateObjects,
         final Writer output)
         throws Exception
     {
@@ -219,7 +219,7 @@ public class VelocityTemplateEngine
         this.velocityContext = new VelocityContext();
         this.loadVelocityContext(templateObjects);
 
-        Template template = (Template)this.discoveredTemplates.get(templateFile);
+        Template template = this.discoveredTemplates.get(templateFile);
         if (template == null)
         {
             template = this.velocityEngine.getTemplate(templateFile);
@@ -247,14 +247,12 @@ public class VelocityTemplateEngine
      * 
      * @param a Map containing objects to add to the template context.
      */
-    private final void loadVelocityContext(final Map templateObjects)
+    private void loadVelocityContext(final Map<String, Object> templateObjects)
     {
         if (templateObjects != null && !templateObjects.isEmpty())
         {    
             // copy the templateObjects to the velocityContext
-            for (final Iterator namesIterator = templateObjects.keySet().iterator(); namesIterator.hasNext();)
-            {
-                final String name = (String)namesIterator.next();
+            for (final String name : templateObjects.keySet()) {
                 final Object value = templateObjects.get(name);
                 this.velocityContext.put(name, value);
             }
@@ -292,7 +290,7 @@ public class VelocityTemplateEngine
     /**
      * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(java.lang.String, java.util.Map)
      */
-    public String getEvaluatedExpression(final String expression, final Map templateObjects)
+    public String getEvaluatedExpression(final String expression, final Map<String, Object> templateObjects)
     {
         String evaluatedExpression = null;
         if (StringUtils.isNotEmpty(expression) && templateObjects != null && !templateObjects.isEmpty())
@@ -372,7 +370,7 @@ public class VelocityTemplateEngine
      *
      * @throws IOException if the file cannot be opened
      */
-    private final void initLogger(final String pluginName)
+    private void initLogger(final String pluginName)
         throws IOException
     {
         logger = AndroMDALogger.getNamespaceLogger(pluginName);

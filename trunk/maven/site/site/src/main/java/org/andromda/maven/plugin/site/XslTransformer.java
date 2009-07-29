@@ -76,7 +76,7 @@ public class XslTransformer
     {
         try
         {
-            this.transform(xmlDocument, new File(transformation).toURL(), outputLocation);
+            this.transform(xmlDocument, new File(transformation).toURI().toURL(), outputLocation);
         }
         catch (final Exception exception)
         {
@@ -208,12 +208,12 @@ public class XslTransformer
                 final String xmlResourceName = xmlResource.replaceAll(
                         ".*(\\+|/)",
                         "");
-                URL uri = null;
+                
                 InputStream inputStream = null;
-                uri = new File(StringUtils.replace(
+                URL uri = new File(StringUtils.replace(
                             xmlResource,
                             xmlResourceName,
-                            path)).toURL();
+                            path)).toURI().toURL();
                 if (uri != null)
                 {
                     inputStream = uri.openStream();

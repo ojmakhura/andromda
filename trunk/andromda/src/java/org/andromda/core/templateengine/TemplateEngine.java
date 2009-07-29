@@ -38,7 +38,7 @@ public interface TemplateEngine
      */
     public void processTemplate(
         String templateFile,
-        Map templateObjects,
+        Map<String, Object> templateObjects,
         Writer output)
         throws Exception;
 
@@ -84,5 +84,5 @@ public interface TemplateEngine
      *        null.
      * @return the result of the evaluated expression as a String.
      */
-    public String getEvaluatedExpression(String expression, Map templateObjects);
+    public String getEvaluatedExpression(String expression, Map<String, Object> templateObjects);
 }
