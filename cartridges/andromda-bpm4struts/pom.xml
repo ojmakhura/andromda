@@ -17,9 +17,9 @@
         <url>http://galaxy.andromda.org/jira/BrowseProject.jspa?id=10000</url>
     </issueManagement>
     <scm>
-        <connection>scm:svn:http://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-bpm4struts</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk</developerConnection>
-          <url>http://andromda.svn.sourceforge.net/</url>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-bpm4struts</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/cartridges/andromda-bpm4struts</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <dependencies>
         <dependency>
@@ -79,10 +79,6 @@
                         </artifact>
                     </artifacts>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-beautifier-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>

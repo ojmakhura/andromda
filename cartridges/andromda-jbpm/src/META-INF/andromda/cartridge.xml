@@ -9,6 +9,8 @@
     <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
     <!-- cartridge-templateObject merge-point-->
 
+    <templatePostProcessor className="org.andromda.utils.beautifier.plugin.BeautifierPostProcessor"/>
+
     <!-- cartridge-property merge-point -->
     <property reference="clientPackage"/>
     <property reference="toDoTag"/>

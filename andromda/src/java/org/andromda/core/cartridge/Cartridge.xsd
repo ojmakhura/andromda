@@ -9,6 +9,7 @@
             <xs:sequence>
                 <xs:element ref="templateEngine" minOccurs="0" maxOccurs="1"/>
                 <xs:element ref="templateObject" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element ref="templatePostProcessor" minOccurs="0" maxOccurs="unbounded"/>
                 <xs:element ref="property" minOccurs="0" maxOccurs="unbounded">
                     <xs:annotation>
                         <xs:documentation>
@@ -311,6 +312,23 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="templatePostProcessor">
+        <xs:annotation>
+            <xs:documentation>
+                Used to configure some postProcessors to be executed after file generation.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:attribute name="className" type="xs:string" use="required">
+                <xs:annotation>
+                    <xs:documentation>
+                        The class of the PostProcessor implementation (must have a default constructor)
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>            
         </xs:complexType>
     </xs:element>
 </xs:schema>

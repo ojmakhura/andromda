@@ -299,10 +299,10 @@ public class EclipseMojo
     /**
      * The artifact id for the multi source plugin.
      */
-    private static final String MULTI_SOURCE_PLUGIN_ARTIFACT_ID = "andromda-multi-source-plugin";
+    private static final String MULTI_SOURCE_PLUGIN_ARTIFACT_ID = "build-helper-maven-plugin";
 
     /**
-     * Retrieves any additional source directories which are defined within the andromda-multi-source-plugin.
+     * Retrieves any additional source directories which are defined within the build-helper-maven-plugin.
      *
      * @param project the maven project from which to retrieve the extra source directories.
      * @return the list of extra source directories.

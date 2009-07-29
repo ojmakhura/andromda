@@ -7,7 +7,7 @@
         <!-- cartridge-macrolibrary merge-point-->
     </templateEngine>
 
-    <templateObject name="stringUtils" className="org.andromda.core.common.StringUtilsHelper"/>
+    <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
     <templateObject name="springUtils" className="org.andromda.cartridges.spring.SpringUtils">
         <property reference="richClient"/>
     </templateObject>
@@ -20,8 +20,9 @@
     <templateObject name="converter" className="org.andromda.utils.JavaTypeConverter">
         <property reference="javaTypeConversionIgnoreList"/>
     </templateObject>
-
     <!-- cartridge-templateObject merge-point-->
+
+    <templatePostProcessor className="org.andromda.utils.beautifier.plugin.BeautifierPostProcessor"/>
 
     <property reference="driver"/>
     <property reference="username"/>

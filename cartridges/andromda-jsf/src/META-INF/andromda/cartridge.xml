@@ -12,12 +12,14 @@
     </templateEngine>
 
     <!-- define the template objects that are made available to the template -->
-    <templateObject name="stringUtils" className="org.andromda.core.common.StringUtilsHelper"/>
+    <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
     <templateObject name="jsfUtils" className="org.andromda.cartridges.jsf.JSFUtils">
         <property reference="viewType"/>
         <property reference="strictDateTimeFormat"/>
     </templateObject>
     <!-- cartridge-templateObject merge-point-->
+
+    <templatePostProcessor className="org.andromda.utils.beautifier.plugin.BeautifierPostProcessor"/>
 
     <property reference="xmlEncoding"/>
     <property reference="facesConfig"/>

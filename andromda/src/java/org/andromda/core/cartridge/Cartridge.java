@@ -5,7 +5,6 @@ import java.io.StringWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -14,13 +13,7 @@ import org.andromda.core.cartridge.template.ModelElement;
 import org.andromda.core.cartridge.template.ModelElements;
 import org.andromda.core.cartridge.template.Template;
 import org.andromda.core.cartridge.template.Type;
-import org.andromda.core.common.AndroMDALogger;
-import org.andromda.core.common.BasePlugin;
-import org.andromda.core.common.ExceptionUtils;
-import org.andromda.core.common.Introspector;
-import org.andromda.core.common.PathMatcher;
-import org.andromda.core.common.ResourceUtils;
-import org.andromda.core.common.ResourceWriter;
+import org.andromda.core.common.*;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
@@ -401,7 +394,7 @@ public class Cartridge
                         //   those that have overwrite set to 'true'
                         if (!outputFile.exists() || template.isOverwrite())
                         {
-                            final String outputString = output.toString();
+                            String outputString = output.toString();
                             AndroMDALogger.setSuffix(this.getNamespace());
     
                             // - check to see if generateEmptyFiles is true and if
@@ -409,6 +402,17 @@ public class Cartridge
                             if ((StringUtils.isNotBlank(outputString)) ||
                                 template.isGenerateEmptyFiles())
                             {
+                                for (PostProcessor postProcessor : getTemplatePostProcessor())
+                                {
+                                    if(postProcessor.acceptFile(outputFile))
+                                    {
+                                        final String lResult = postProcessor.postProcess(outputString);
+                                        if(StringUtils.isNotEmpty(lResult)) {
+                                            outputString = lResult;
+                                        }
+                                    }
+                                }
+
                                 ResourceWriter.instance().writeStringToFile(
                                     outputString,
                                     outputFile,
@@ -636,6 +640,11 @@ public class Cartridge
      * Stores the evaluated conditions from cartridge.xml condition expressions
      */
     private final Map<String, Boolean> evaluatedConditions = new LinkedHashMap<String, Boolean>();
+
+    /**
+     * Stores the postProcessor from cartridge.xml configuration
+     */
+    private final Collection<PostProcessor> templatePostProcessor = new ArrayList<PostProcessor>();
     
     /**
      * Adds the outputCondition given the <code>name</code> and <code>value</code>
@@ -731,6 +740,25 @@ public class Cartridge
     }
 
     /**
+     * Gets the current postProcessors defined within this cartridge
+     * @return this.postProcessors
+     */
+    public Collection<PostProcessor> getTemplatePostProcessor()
+    {
+        return this.templatePostProcessor;
+    }
+
+    /**
+     * Adds new postProcessor to the cartrige
+     * @param postProcessor new postProcessor
+     */
+    public void addTemplatePostProcessor(final TemplateObject postProcessor)
+    {
+        final PostProcessor lPostProcessor = (PostProcessor) postProcessor.getObject();
+        this.templatePostProcessor.add(lPostProcessor);
+    }
+
+    /**
      * Override to provide cartridge specific shutdown (
      *
      * @see org.andromda.core.common.Plugin#shutdown()
@@ -740,5 +768,6 @@ public class Cartridge
         super.shutdown();
         this.conditions.clear();
         this.evaluatedConditions.clear();
+        this.templatePostProcessor.clear();
     }
 }

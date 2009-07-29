@@ -79,6 +79,20 @@
             <set-next-rule methodname="addTemplateObject" />
 
         </pattern>
+
+        <!-- add the TemplateObjects to the Cartridge -->
+        <pattern value="templatePostProcessor">
+
+            <object-create-rule
+                  classname="org.andromda.core.common.TemplateObject" />
+
+            <set-properties-rule>
+                 <alias attr-name="className" prop-name="className" />
+            </set-properties-rule>
+
+            <set-next-rule methodname="addTemplatePostProcessor" />
+
+        </pattern>
         
         <!-- add the conditions to the Cartridge -->
         <pattern value="condition">

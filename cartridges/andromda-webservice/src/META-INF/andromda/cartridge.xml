@@ -7,6 +7,8 @@
     <templateObject name="webServiceUtils" className="org.andromda.cartridges.webservice.WebServiceUtils"/>
     <!-- cartridge-templateObject merge-point-->
 
+    <templatePostProcessor className="org.andromda.utils.beautifier.plugin.BeautifierPostProcessor"/>
+
     <property reference="applicationName"/>
     <property reference="wsdlSoapAddress"/>
     <property reference="securityRealm"/>
