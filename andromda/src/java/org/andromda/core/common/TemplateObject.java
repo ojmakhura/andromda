@@ -47,7 +47,7 @@ public class TemplateObject
     /**
      * Caches the template objects.
      */
-    private final Map objectCache = new HashMap();
+    private final Map<String, Object> objectCache = new HashMap<String, Object>();
 
     /**
      * Returns the actuall object instance described by this
@@ -89,9 +89,7 @@ public class TemplateObject
      */
     protected void setProperties(final Object templateObject)
     {
-        for (final Iterator iterator = propertyReferences.iterator(); iterator.hasNext();)
-        {
-            final String reference = (String)iterator.next();
+        for (final String reference : propertyReferences) {
             String value = Namespaces.instance().getPropertyValue(
                     this.getNamespace(),
                     reference);
@@ -148,7 +146,7 @@ public class TemplateObject
     /**
      * The property references that configure this template object.
      */
-    private final Collection propertyReferences = new ArrayList();
+    private final Collection<String> propertyReferences = new ArrayList<String>();
 
     /**
      * Adds a templateObject property reference (used to customize templateObjects). Property references are used to

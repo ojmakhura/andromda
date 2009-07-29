@@ -29,7 +29,7 @@ public abstract class BasePlugin
     /**
      * Property references made available to the plugin
      */
-    private final Collection propertyReferences = new ArrayList();
+    private final Collection<String> propertyReferences = new ArrayList<String>();
 
     /**
      * The template objects made available to templates of this BasePlugin.
@@ -153,7 +153,7 @@ public abstract class BasePlugin
      */
     public String[] getPropertyReferences()
     {
-        return (String[])this.propertyReferences.toArray(new String[0]);
+        return this.propertyReferences.toArray(new String[this.propertyReferences.size()]);
     }
 
     /**

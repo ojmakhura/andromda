@@ -52,7 +52,7 @@ public class FreeMarkerTemplateEngine implements TemplateEngine
      * @see org.andromda.core.templateengine.TemplateEngine#processTemplate(java.lang.String,
      *      java.util.Map, java.io.Writer)
      */
-    public void processTemplate(String templateFile, Map templateObjects, Writer output) throws Exception
+    public void processTemplate(String templateFile, Map<String, Object> templateObjects, Writer output) throws Exception
     {
         ExceptionUtils.checkEmpty("templateFile", templateFile);
         ExceptionUtils.checkNull("output", output);
@@ -75,7 +75,7 @@ public class FreeMarkerTemplateEngine implements TemplateEngine
 
         if (templateObjects == null)
         {
-            templateObjects = new HashMap();
+            templateObjects = new HashMap<String, Object>();
         }
 
         // - merge data model with template
@@ -140,7 +140,7 @@ public class FreeMarkerTemplateEngine implements TemplateEngine
      * @see org.andromda.core.templateengine.TemplateEngine#getEvaluatedExpression(java.lang.String,
      *      java.util.Map)
      */
-    public String getEvaluatedExpression(final String expression, Map templateObjects)
+    public String getEvaluatedExpression(final String expression, Map<String, Object> templateObjects)
     {
         try
         {
@@ -149,7 +149,7 @@ public class FreeMarkerTemplateEngine implements TemplateEngine
 
             if (templateObjects == null)
             {
-                templateObjects = new HashMap();
+                templateObjects = new HashMap<String, Object>();
             }
 
             final StringWriter output = new StringWriter();

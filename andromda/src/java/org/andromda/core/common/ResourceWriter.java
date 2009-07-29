@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.io.FileUtils;
 
 
 /**
@@ -167,7 +168,7 @@ public class ResourceWriter
         ExceptionUtils.checkEmpty(
             "fileLocation",
             fileLocation);
-        final File file = new File(fileLocation);
+
         ResourceUtils.makeDirectories(fileLocation);
         final Merger merger = Merger.instance();
         if (merger.requiresMerge(namespace))
@@ -176,24 +177,10 @@ public class ResourceWriter
                     string,
                     namespace);
         }
-        final OutputStream stream = new BufferedOutputStream(new FileOutputStream(file));
-        byte[] output;
-        if (StringUtils.isNotBlank(this.encoding))
-        {
-            output = string.getBytes(this.encoding);
-        }
-        else
-        {
-            output = string.getBytes();
-        }
-        final InputStream inputStream = new BufferedInputStream(new ByteArrayInputStream(output));
-        for (int ctr = inputStream.read(); ctr != -1; ctr = inputStream.read())
-        {
-            stream.write(ctr);
-        }
-        inputStream.close();
-        stream.flush();
-        stream.close();
+
+        final File file = new File(fileLocation);
+        FileUtils.writeStringToFile(file, string, this.encoding);
+
         if (recordHistory)
         {
             this.recordHistory(file);
@@ -229,7 +216,7 @@ public class ResourceWriter
      */
     public void setEncoding(String encoding)
     {
-        this.encoding = encoding;
+        this.encoding = StringUtils.trimToNull(encoding);
     }
 
     private StringBuffer history = new StringBuffer();
