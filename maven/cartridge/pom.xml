@@ -22,12 +22,13 @@
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
-            <version>${pom.version}</version>            
+            <version>${pom.version}</version>
+            <scope>compile</scope><!--reset scope to compile-->            
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
             <artifactId>andromda-cartridge-testsuite</artifactId>
-            <version>${pom.version}</version>
+            <version>${pom.version}</version>            
         </dependency>
         <dependency>
             <groupId>org.andromda.maven.plugins</groupId>
@@ -80,6 +81,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>            
+            <scope>compile</scope><!--reset scope to compile-->
         </dependency>  
     </dependencies>
     <build>
