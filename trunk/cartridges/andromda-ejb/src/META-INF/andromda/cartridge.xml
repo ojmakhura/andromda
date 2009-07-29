@@ -7,6 +7,8 @@
     <templateObject name="transform" className="org.andromda.cartridges.ejb.EJBScriptHelper"/>
     <!-- cartridge-templateObject merge-point-->
 
+    <templatePostProcessor className="org.andromda.utils.beautifier.plugin.BeautifierPostProcessor"/>
+
     <property reference="toDoTag"/>
     <!-- cartridge-property merge-point-->
 

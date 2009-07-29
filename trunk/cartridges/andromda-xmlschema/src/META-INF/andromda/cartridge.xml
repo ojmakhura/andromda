@@ -5,6 +5,8 @@
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <!-- cartridge-templateObject merge-point-->
 
+    <templatePostProcessor className="org.andromda.utils.beautifier.plugin.BeautifierPostProcessor"/>
+
     <!-- The name of the namespace -->
     <property reference="namespace"/>
     <!-- encoding for xml documents -->

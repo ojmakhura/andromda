@@ -20,7 +20,6 @@
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
             <version>${pom.version}</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -83,7 +82,7 @@
                             <report>changelog</report>
                             <report>file-activity</report>
                             <report>dev-activity</report>
-                            </reports>
+                        </reports>
                     </reportSet>
                 </reportSets>
             </plugin>

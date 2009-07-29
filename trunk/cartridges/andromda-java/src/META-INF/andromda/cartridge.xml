@@ -1,10 +1,13 @@
+<?xml version="1.0"?>
 <cartridge>
 
     <templateEngine className="org.andromda.templateengines.velocity.VelocityTemplateEngine"/>
     <templateObject name="stringUtils" className="org.apache.commons.lang.StringUtils"/>
     <templateObject name="javaUtils" className="org.andromda.cartridges.java.JavaUtils"/>
     <templateObject name="umlUtils" className="org.andromda.metafacades.uml.UMLMetafacadeUtils"/>
-    <!-- cartridge-templateObject merge-point-->  
+    <!-- cartridge-templateObject merge-point-->
+
+    <templatePostProcessor className="org.andromda.utils.beautifier.plugin.BeautifierPostProcessor"/>
 
     <property reference="generateRefFiles"/>
     <property reference="overwriteAll"/>

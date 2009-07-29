@@ -80,17 +80,14 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-resources-plugin</artifactId>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
@@ -142,44 +139,44 @@
     	<dependency> 
     		<groupId>org.netbeans.mdr</groupId>
       		<artifactId>jmiutils</artifactId>
-     		<version>20050711</version>
-            <scope>runtime</scope>
+     			<version>20050711</version>
+          <scope>runtime</scope>
     	</dependency>  
     	<dependency> 
     		<groupId>org.netbeans.mdr</groupId>
       		<artifactId>mdrapi</artifactId>
-     		<version>20050711</version>
-            <scope>runtime</scope>
+     			<version>20050711</version>
+          <scope>runtime</scope>
     	</dependency>  
      	<dependency> 
     		<groupId>org.netbeans.mdr</groupId>
       		<artifactId>nbmdr</artifactId>
-     		<version>20050711</version>
-            <scope>runtime</scope>
+     			<version>20050711</version>
+          <scope>runtime</scope>
     	</dependency>     	
      	<dependency> 
     		<groupId>org.netbeans.mdr</groupId>
       		<artifactId>openide-util</artifactId>
-     		<version>20050711</version>
-            <scope>runtime</scope>
+     			<version>20050711</version>
+          <scope>runtime</scope>
     	</dependency> 
     	<dependency> 
     		<groupId>jmi</groupId>
       		<artifactId>jmiuml</artifactId>
-     		<version>1.4di</version>
-            <scope>runtime</scope>
+     			<version>1.4di</version>
+          <scope>runtime</scope>
     	</dependency>   
     	<dependency> 
     		<groupId>jmi</groupId>
       		<artifactId>mof</artifactId>
-     		<version>20030918</version>
-            <scope>runtime</scope>
+     			<version>20030918</version>
+          <scope>runtime</scope>
     	</dependency>  
     	<dependency> 
     		<groupId>jmi</groupId>
       		<artifactId>jmi</artifactId>
-     		<version>20030918</version>
-            <scope>runtime</scope>
+     			<version>20030918</version>
+          <scope>runtime</scope>
     	</dependency>  
     </dependencies>
     <build>

@@ -58,10 +58,6 @@
                 </dependencies>    
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-beautifier-plugin</artifactId>
-            </plugin>
-            <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
             </plugin>
@@ -152,7 +148,7 @@
                             <report>changelog</report>
                             <report>file-activity</report>
                             <report>dev-activity</report>
-                            </reports>
+                        </reports>
                     </reportSet>
                 </reportSets>
             </plugin>

@@ -36,7 +36,7 @@ public class BeanComparator
     {
         try
         {
-            final String comparatorsFile = "Comparators.properties";
+            final String comparatorsFile = "/Comparators.properties";
             final URL comparatorsUri = BeanComparator.class.getResource(comparatorsFile);
             if (comparatorsUri == null)
             {

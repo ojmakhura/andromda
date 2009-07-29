@@ -257,15 +257,13 @@
 			plugins must exist before the build even starts) -->
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
-                <inherited>false</inherited>
+        <inherited>false</inherited>
 				<configuration>
 					<tasks>
-                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-cartridge-plugin/andromda-cartridge-plugin.jar"
-                            tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-cartridge-plugin/${pom.version}/andromda-cartridge-plugin-${pom.version}.jar"/>
-                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar"
-                            tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-model-archiver-plugin/${pom.version}/andromda-model-archiver-plugin-${pom.version}.jar"/>
-                        <copy file="${basedir}/lib/org/andromda/maven/plugins/site/andromda-doxia-module-xdoc/andromda-doxia-module-xdoc.jar"
-                            tofile="${settings.localRepository}/org/andromda/maven/plugins/site/andromda-doxia-module-xdoc/${pom.version}/andromda-doxia-module-xdoc-${pom.version}.jar"/>
+                <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-cartridge-plugin/andromda-cartridge-plugin.jar"
+                    tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-cartridge-plugin/${pom.version}/andromda-cartridge-plugin-${pom.version}.jar"/>
+                <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar"
+                    tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-model-archiver-plugin/${pom.version}/andromda-model-archiver-plugin-${pom.version}.jar"/>                        
 					</tasks>
 				</configuration>
 			</plugin>

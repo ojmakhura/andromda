@@ -84,21 +84,6 @@
                     </configuration>
                 </plugin>
                 <plugin>
-	                <groupId>org.apache.maven.plugins</groupId>
-	                <artifactId>maven-beautifier-plugin</artifactId>
-	                <version>1.0</version>
-	                <executions>
-	                    <execution>
-	                        <goals>
-	                            <goal>beautify-imports</goal>
-	                        </goals>
-	                    </execution>
-	                </executions>
-	                <configuration>
-	                    <inputDirectory>${pom.basedir}/target/src</inputDirectory>
-	                </configuration>
-	            </plugin>
-                <plugin>
                     <extensions>true</extensions>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-model-archiver-plugin</artifactId>

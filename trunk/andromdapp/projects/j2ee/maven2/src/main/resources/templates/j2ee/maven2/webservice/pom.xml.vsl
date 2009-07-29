@@ -16,8 +16,8 @@
         <testSourceDirectory>src-test</testSourceDirectory -->
         <plugins>
             <plugin>
-                <groupId>org.andromda.maven.plugins</groupId>
-                <artifactId>andromda-multi-source-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
