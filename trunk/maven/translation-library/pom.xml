@@ -64,6 +64,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>compile</scope><!--reset scope to compile-->
         </dependency>  
     </dependencies>
     <build>
