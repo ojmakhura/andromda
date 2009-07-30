@@ -158,15 +158,15 @@ public class JavaImportBeautifierImpl extends JavaBeautifier {
                 result = format(pSource, tempFile);
             }
         } catch (Exception e) {
-            if(sLogger.isEnabledFor(Level.WARN)) {
-                sLogger.warn("Error during beautification. Content:\r\n" + pSource.substring(0, Math.min(160, pSource.length())) + "...", e);
+            if(sLogger.isDebugEnabled()) {
+                sLogger.debug("Error during beautification. Content:\r\n" + pSource.substring(0, Math.min(160, pSource.length())) + "...", e);
             }
-            sLogger.error("Error during beautification. Source will not be beautified!");
+            sLogger.warn("Error during beautification. Source will not be beautified!");
         } catch (Error e) {
-            if(sLogger.isEnabledFor(Level.WARN)) {
-                sLogger.warn("Error during beautification. Content:\r\n" + pSource.substring(0, Math.min(160, pSource.length())) + "...", e);
+            if(sLogger.isDebugEnabled()) {
+                sLogger.debug("Error during beautification. Content:\r\n" + pSource.substring(0, Math.min(160, pSource.length())) + "...", e);
             }
-            sLogger.error("Error during beautification. Source will not be beautified!");
+            sLogger.warn("Error during beautification. Source will not be beautified!");
         } finally {
             if (null != tempFile) {
                 tempFile.delete();
