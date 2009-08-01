@@ -10,6 +10,11 @@
     <name>AndroMDA Configuration Mojo</name>
     <description>An abstract Mojo that another Mojo should extend when it needs to deal with with the AndroMDA configuration</description>
     <inceptionYear>2005</inceptionYear>
+    <scm>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/configuration</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/configuration</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda</groupId>

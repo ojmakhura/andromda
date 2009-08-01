@@ -10,6 +10,11 @@
     <name>AndroMDA Bootstrap Plugin</name>
     <description>A plugin used to run AndroMDA in "bootstrap" mode</description>
     <inceptionYear>2005</inceptionYear>
+    <scm>
+      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/bootstrap</connection>
+      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/bootstrap</developerConnection>
+      <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda.bootstrap</groupId>
