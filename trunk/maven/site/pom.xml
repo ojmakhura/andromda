@@ -14,6 +14,11 @@
         The AndroMDA Maven site plugins
     </description>
     <inceptionYear>2006</inceptionYear>    
+    <scm>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/site</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/site</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <modules>        
         <module>site</module>
         <module>cartridge</module>        

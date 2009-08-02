@@ -8,6 +8,11 @@
     <artifactId>andromda-ocl-translation-testsuite</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA OCL Translation-Library Test Suite</name>
+    <scm>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl/testsuite</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/ocl/testsuite</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
