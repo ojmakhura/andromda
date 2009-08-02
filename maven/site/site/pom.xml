@@ -13,6 +13,11 @@
         A plugin that enhances the maven site plugin to suit AndroMDA's modifications.
         It creates the namespace and profile documentation, copy and unpack site artifacts.
     </description>
+    <scm>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/site/site</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/site/site</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>

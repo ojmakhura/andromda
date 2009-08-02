@@ -8,6 +8,11 @@
     <artifactId>andromda-ocl-translation-libraries</artifactId>
     <packaging>pom</packaging>
     <name>AndroMDA OCL Translation Libraries</name>
+    <scm>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/translation-libraries/ocl</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <build>
         <pluginManagement>
             <plugins>

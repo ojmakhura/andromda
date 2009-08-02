@@ -12,6 +12,11 @@
         A plugin for generating Java source from SableCC grammar files.
     </description>
     <inceptionYear>2005</inceptionYear>
+    <scm>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/sablecc</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/sablecc</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda</groupId>

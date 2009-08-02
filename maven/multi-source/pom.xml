@@ -13,6 +13,11 @@
         (since the default maven compiler plugin doesn't allow it).
     </description>
     <inceptionYear>2005</inceptionYear>
+    <scm>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/multi-source</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/multi-source</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda</groupId>

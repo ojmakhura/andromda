@@ -12,6 +12,11 @@
         A plugin for creating the AndroMDA distribution.
     </description>
     <inceptionYear>2005</inceptionYear>
+    <scm>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/distribution</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven/distribution</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda</groupId>
