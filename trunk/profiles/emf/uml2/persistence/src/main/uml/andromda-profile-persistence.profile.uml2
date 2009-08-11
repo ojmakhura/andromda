@@ -206,6 +206,9 @@
         <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_x07q5mp0EdutkrH8jZWcfw" name="andromda_persistence_orderBy" ordered="false" defaultValueLiteral="">
           <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
         </eStructuralFeatures>
+        <eStructuralFeatures xmi:type="ecore:EAttribute" xmi:id="_x07q5zp0EdutkrH8jZWcfw" name="andromda_persistence_associationEnd_uniqueGroup" ordered="false" defaultValueLiteral="">
+          <eType xmi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        </eStructuralFeatures>
       </eClassifiers>
       <eClassifiers xmi:type="ecore:EEnum" xmi:id="_x07q52p0EdutkrH8jZWcfw" name="AndroMDAProfilePersistence__EjbCacheStrategy">
         <eLiterals xmi:id="_x07q6Gp0EdutkrH8jZWcfw" name="default">
@@ -2559,6 +2562,15 @@ Applies to cartridges: EJB3</body>
     </ownedAttribute>
     <ownedAttribute xmi:id="_xBOVk2p0EdutkrH8jZWcfw" name="base$Property" association="_xBOVkGp0EdutkrH8jZWcfw">
       <type xmi:type="uml:Class" href="pathmap://UML2_METAMODELS/UML2.metamodel.uml2#_m9C1la86EdiEh75YJ_3n8g"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_jmC5gzprEdummsSofer0Pg" name="andromda_persistence_associationEnd_uniqueGroup" visibility="private">
+      <ownedComment xmi:id="_jmC5gxprEdummsSofer0Pg">
+      <body>The name of the unique group that this unique association end belongs to.
+      </body>
+      </ownedComment>
+      <type xmi:type="uml:PrimitiveType" href="pathmap://UML2_LIBRARIES/UML2PrimitiveTypes.library.uml2#_IXlH8a86EdieaYgxtVWN8Q"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jmC5g2prEdummsSofer1Pg" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jmC5hGprEdummsSofer5Pg"/>
     </ownedAttribute>
   </ownedMember>
   <ownedMember xmi:type="uml:Stereotype" xmi:id="_jmC5hWprEdummsSofer0Pg" name="PersistentElement">
