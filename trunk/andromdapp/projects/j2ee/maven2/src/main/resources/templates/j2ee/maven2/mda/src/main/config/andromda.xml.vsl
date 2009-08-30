@@ -500,6 +500,8 @@
 #end
                 <property name="mergeMappingsUri">file:${conf.dir}/mappings/WebMergeMappings.xml</property>
                 <property name="dummyData">true</property>
+                <property name="enableFaceletsDevelopmentSupport">true</property>
+                <property name="enableMyFacesDevelopmentSupport">true</property>
             </properties>
         </namespace>
 #end
