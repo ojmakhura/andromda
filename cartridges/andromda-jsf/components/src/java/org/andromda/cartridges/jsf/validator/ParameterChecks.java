@@ -486,7 +486,7 @@ public class ParameterChecks
         Field field)
     {
         // - only validate if the object is not already a date or calendar
-        if (!(object instanceof java.util.Date) && ! (object instanceof java.util.Calendar))
+        if (!(object instanceof java.util.Date) && !(object instanceof java.util.Calendar))
         {
             Date result = null;
             String value = ObjectUtils.toString(object);
@@ -937,7 +937,7 @@ public class ParameterChecks
         Field field)
     {
         // - only validate if the object is not already a date
-        if (!(object instanceof java.util.Date) || !(object instanceof java.util.Calendar))
+        if (!(object instanceof java.util.Date) && !(object instanceof java.util.Calendar))
         {
             final String value = ObjectUtils.toString(object);
             final String timePattern = field.getVarValue("timePattern");
@@ -958,6 +958,7 @@ public class ParameterChecks
                 }
                 catch (Exception exception)
                 {
+                    exception.printStackTrace();
                     errors.add(ValidatorMessages.getMessage(
                             action,
                             field,
