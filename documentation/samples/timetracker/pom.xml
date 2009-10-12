@@ -654,6 +654,7 @@
     </prerequisites>
     <distributionManagement>
         <repository>
+			<id>andromda</id>
             <url>file:/var/www/andromda/maven2</url>
             <uniqueVersion>false</uniqueVersion>
         </repository>
