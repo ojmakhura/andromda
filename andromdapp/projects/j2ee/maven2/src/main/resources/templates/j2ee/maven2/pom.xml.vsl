@@ -1608,6 +1608,7 @@
 #if ($distributionManagementRepositoryUrl.length() > 0)
     <distributionManagement>
         <repository>
+			<id>$distributionManagementRepositoryId</id>
             <url>$distributionManagementRepositoryUrl</url>
             <uniqueVersion>false</uniqueVersion>
         </repository>

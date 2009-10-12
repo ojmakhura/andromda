@@ -20,5 +20,6 @@
         <property name="configurationUri">${project.basedir}/src/main/config/andromda.xml</property>
         <property name="databaseType">hypersonic</property>
         <property name="distributionManagementRepositoryUrl">$${project.distributionManagement.repository.url}</property>
+		<property name="distributionManagementRepositoryId">$${project.distributionManagement.repository.id}</property>
     </properties>
 </andromdapp>
