@@ -10,6 +10,11 @@
     <packaging>pom</packaging>
     <name>AndroMDA Ant Support</name>
     <description>The collection of AndroMDA libraries supporting Ant.</description>
+    <scm>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/ant</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/ant</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.andromda</groupId>

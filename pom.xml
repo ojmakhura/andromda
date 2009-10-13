@@ -35,7 +35,8 @@
         </license>
     </licenses>
     <ciManagement>
-        <system>continuum</system>
+        <system>cruisecontrol</system>
+        <url>http://andromda.it.su.se/cruisecontrol</url>
         <!--notifiers>
             <notifier>
                 <type>mail</type>
@@ -237,7 +238,7 @@
     <build>
       <defaultGoal>install</defaultGoal>
       <sourceDirectory>src/java</sourceDirectory>
- 			<plugins>
+      <plugins>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
@@ -257,13 +258,13 @@
 			plugins must exist before the build even starts) -->
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
-        <inherited>false</inherited>
+                <inherited>false</inherited>
 				<configuration>
 					<tasks>
-                <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-cartridge-plugin/andromda-cartridge-plugin.jar"
-                    tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-cartridge-plugin/${pom.version}/andromda-cartridge-plugin-${pom.version}.jar"/>
-                <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar"
-                    tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-model-archiver-plugin/${pom.version}/andromda-model-archiver-plugin-${pom.version}.jar"/>                        
+                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-cartridge-plugin/andromda-cartridge-plugin.jar"
+                            tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-cartridge-plugin/${pom.version}/andromda-cartridge-plugin-${pom.version}.jar"/>
+                        <copy file="${basedir}/lib/org/andromda/maven/plugins/andromda-model-archiver-plugin/andromda-model-archiver-plugin.jar"
+                            tofile="${settings.localRepository}/org/andromda/maven/plugins/andromda-model-archiver-plugin/${pom.version}/andromda-model-archiver-plugin-${pom.version}.jar"/>
 					</tasks>
 				</configuration>
 			</plugin>
@@ -284,17 +285,293 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>                
+                <artifactId>maven-site-plugin</artifactId>
                 <configuration>
                     <locales>en</locales>
                     <outputEncoding>UTF-8</outputEncoding>
                 </configuration>
             </plugin>
-			</plugins>
+        
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>         
+          <descriptors>
+            <descriptor>src/assemble/bin.xml</descriptor>
+          </descriptors>         
+          <!--
+              <descriptorRefs>
+                <descriptorRef>
+                  jar-with-dependencies
+                </descriptorRef>
+              </descriptorRefs>
+          -->
+        </configuration>
+      </plugin>
+    </plugins>
+
     </build>
+    <!-- Comment to disable project reporting using default maven plugins -->
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <reportSets>
+                  <reportSet>
+                    <reports>
+                      <report>dependencies</report>
+                      <report>dependency-convergence</report>
+                      <report>dependency-management</report>
+                      <report>index </report>
+                      <report>plugin-management</report>
+                      <report>summary</report>
+                      <report>project-team</report>
+                      <report>mailing-list</report>
+                      <report>cim</report>
+                      <report>issue-tracking</report>
+                      <report>license</report>
+                      <report>scm</report>
+                    </reports>
+                  </reportSet>
+                </reportSets>
+            </plugin> 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>non-aggregate</id>
+                            <configuration>
+                                <show>package</show>
+                                <minmemory>128m</minmemory>
+                                <maxmemory>1g</maxmemory>
+                                <links>
+                                    <link>http://java.sun.com/javase/6/docs/api/</link>
+                                    <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
+                                    <link>http://jakarta.apache.org/commons/collections/apidocs</link>
+                                    <link>http://jakarta.apache.org/commons/logging/apidocs/</link> 
+                                    <link>http://www.junit.org/junit/javadoc/</link>
+                                    <link>http://logging.apache.org/log4j/docs/api/</link>
+                                    <link>http://jakarta.apache.org/regexp/apidocs/</link> 
+                                </links>
+                            </configuration>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                    <!-- Fails with Goal: initialize already exists in the plugin descriptor for prefix: andromda-initialize.
+                    See http://jira.codehaus.org/browse/MJAVADOC-224 -->
+                    <!--reportSet>
+                        <id>aggregate</id>
+                            <configuration>
+                                <aggregate>true</aggregate>
+                                <show>package</show>
+                                <minmemory>128m</minmemory>
+                                <maxmemory>1g</maxmemory>
+                                <links>
+                                    <link>http://java.sun.com/javase/6/docs/api/</link>
+                                    <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
+                                    <link>http://jakarta.apache.org/commons/collections/apidocs</link>
+                                    <link>http://jakarta.apache.org/commons/logging/apidocs/</link> 
+                                    <link>http://www.junit.org/junit/javadoc/</link>
+                                    <link>http://logging.apache.org/log4j/docs/api/</link>
+                                    <link>http://jakarta.apache.org/regexp/apidocs/</link> 
+                                </links>
+                            </configuration>
+                        <reports>
+                            <report>aggregate</report>
+                        </reports>
+                    </reportSet-->
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <!--version>2.4.1</version-->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <targetJdk>1.5</targetJdk>
+                    <linkXref>true</linkXref>
+                    <rulesets>
+                        <ruleset>/rulesets/basic.xml</ruleset>
+                        <ruleset>/rulesets/braces.xml</ruleset>
+                        <ruleset>/rulesets/clone.xml</ruleset>
+                        <ruleset>/rulesets/codesize.xml</ruleset>
+                        <ruleset>/rulesets/controversial.xml</ruleset>
+                        <ruleset>/rulesets/coupling.xml</ruleset>
+                        <ruleset>/rulesets/design.xml</ruleset>
+                        <ruleset>/rulesets/finalizers.xml</ruleset>
+                        <ruleset>/rulesets/logging-java.xml</ruleset>
+                        <ruleset>/rulesets/j2ee.xml</ruleset>
+                        <ruleset>/rulesets/javabeans.xml</ruleset>
+                        <ruleset>/rulesets/junit.xml</ruleset>
+                        <ruleset>/rulesets/naming.xml</ruleset>
+                        <ruleset>/rulesets/optimizations.xml</ruleset>
+                        <ruleset>/rulesets/strictexception.xml</ruleset>
+                        <ruleset>/rulesets/strings.xml</ruleset>
+                        <ruleset>/rulesets/sunsecure.xml</ruleset>
+                        <ruleset>/rulesets/typeresolution.xml</ruleset>
+                        <ruleset>/rulesets/unusedcode.xml</ruleset>
+                    </rulesets>
+                </configuration>
+            </plugin>
+            <!-- Generates way too many exceptions -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <!-- Use maven coding conventions described at http://maven.apache.org/developers/conventions/code.html -->
+                    <configLocation>config/maven_checks.xml</configLocation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                    <effort>Max</effort>
+                    <!--xmlOutputDirectory>directory location of findbugs xdoc xml report</xmlOutputDirectory>
+                    <threshold>High|Normal|Low|Exp|Ignore</threshold>
+                    <effort>Min|Default|Max</effort>
+                    <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+                    <includeFilterFile>findbugs-include.xml</includeFilterFile>
+                    <visitors>FindDeadLocalStores,UnreadFields</visitors>
+                    <omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
+                    <onlyAnalyze>org.codehaus.mojo.findbugs.*</onlyAnalyze>
+                    <pluginList>/libs/fb-contrib/fb-contrib-2.8.0.jar</pluginList>
+                    <debug>true|false</debug>
+                    <relaxed>true|false</relaxed>
+                    <findbugsXmlOutput>true|false</findbugsXmlOutput>
+                    <findbugsXmlOutputDirectory>location of legacy xml format report</findbugsXmlOutputDirectory-->
+                </configuration>
+            </plugin>
+            <!-- Either extract the report from a bug tracking system, or create a report called changes.xml file -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>changes-report</report>
+                            <report>jira-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+                <configuration>
+                    <tags>
+                        <tag>TODO</tag>
+                        <tag>@todo</tag>
+                        <tag>FIXME</tag>
+                        <tag>XXX</tag>
+                    </tags>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>All Reports</id>
+                        <configuration>
+                            <type>range</type>
+                            <range>120</range>
+                            <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+                        </configuration>
+                        <reports>
+                            <report>changelog</report>
+                            <report>file-activity</report>
+                            <report>dev-activity</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>changes-report</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-docck-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>clirr-maven-plugin</artifactId>
+                <version>2.2.2</version>
+                <inherited>true</inherited>
+                <configuration>
+                    <minSeverity>info</minSeverity>
+                    <comparisonVersion>3.3</comparisonVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>javancss-maven-plugin</artifactId>
+                <!--version>2.0-beta-2</version-->
+                <inherited>true</inherited>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <!--version>1.2.1</version-->
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                    <effort>Max</effort>
+                    <!--xmlOutputDirectory>directory location of findbugs xdoc xml report</xmlOutputDirectory>
+                    <threshold>High|Normal|Low|Exp|Ignore</threshold>
+                    <effort>Min|Default|Max</effort>
+                    <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+                    <includeFilterFile>findbugs-include.xml</includeFilterFile>
+                    <visitors>FindDeadLocalStores,UnreadFields</visitors>
+                    <omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
+                    <onlyAnalyze>org.codehaus.mojo.findbugs.*</onlyAnalyze>
+                    <pluginList>/libs/fb-contrib/fb-contrib-2.8.0.jar</pluginList>
+                    <debug>true|false</debug>
+                    <relaxed>true|false</relaxed>
+                    <findbugsXmlOutput>true|false</findbugsXmlOutput>
+                    <findbugsXmlOutputDirectory>location of legacy xml format report</findbugsXmlOutputDirectory-->
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-doap-plugin</artifactId>
+                <!--version>1.0</version-->
+                <configuration>
+                   <doapOptions>
+                       <programmingLanguage>java</programmingLanguage>
+                       <category>build-management</category>
+                   </doapOptions>
+                   <asfExtOptions>
+                       <included>false</included>
+                   </asfExtOptions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
     <modules>
         <module>andromda</module>
-        <module>andromdapp</module>        
+        <module>andromdapp</module>
         <module>cartridges</module>
         <module>metafacades</module>
         <module>utils</module>
@@ -303,16 +580,17 @@
         <module>translation-libraries</module>
         <module>ant</module>
         <module>profiles</module>
-        <module>maven</module>        
-        <module>samples</module>        
+        <module>maven</module>
+        <module>samples</module>
         <module>etc/web/taglibs</module>
         <module>etc/schema2xmi</module>
         <module>etc/script-wrappers</module>
         <module>documentation</module>
         <!--temporary until uml2+uml22 coexistence solved-->
         <module>repositories/emf/uml22</module>
-        <module>metafacades/uml/emf/uml22</module>        
-        <module>distribution</module>        
+        <module>metafacades/uml/emf/uml22</module>
+        <!--      <module>distribution</module>
+        -->
     </modules>
     <repositories>
         <repository>
@@ -329,7 +607,7 @@
         </pluginRepository>
     </pluginRepositories>
     <prerequisites>
-        <maven>2.0.4</maven>
+        <maven>2.0.10</maven>
     </prerequisites>
     <distributionManagement>
         <repository>
