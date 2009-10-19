@@ -16,6 +16,10 @@ public interface $interface.name
 #end
 {
 
+#if (!$interface.attributes.empty)
+    // Interface Attributes
+
+#end
 #foreach($attribute in $interface.attributes)
 #if ($attribute.visibility == "public")
 #if ($attribute.static)
@@ -34,13 +38,19 @@ $attribute.getDocumentation("     * ")
     /**
 $attribute.getDocumentation("     * ")
      * @param $attribute.name $attribute.getterSetterTypeName
-#if($generateChainedSetters)     * @return ${interface.name} this#end
+#if($generateChainedSetters)
+     * @return ${interface.name} this
+#end
      */
     public#if($generateChainedSetters) ${interface.name}#else void#end ${attribute.setterName}($attribute.getterSetterTypeName $attribute.name);
 #end
 #end
 
 #end
+#end
+#if (!$interface.navigableConnectingEnds.empty)
+    // Interface AssociationEnds
+
 #end
 #foreach ($associationEnd in $interface.associationEnds)
 #set ($target = $associationEnd.otherEnd)
@@ -55,10 +65,17 @@ $target.getDocumentation("     * ")
     /**
      * Set the $target.name
      * @param $target.name $target.getterSetterTypeName
+#if($generateChainedSetters)
+     * @return ${interface.name} this
+#end
      */
     public#if($generateChainedSetters) ${interface.name}#else void#end ${target.setterName}($target.getterSetterTypeName $target.name);
 
 #end
+#end
+#if (!$interface.operations.empty)
+    // Interface Operations
+
 #end
 #foreach ($operation in $interface.operations)
 #if ($operation.visibility == "public")
@@ -68,7 +85,12 @@ $operation.getDocumentation("     * ")
 #foreach ($argument in $operation.arguments)
      * @param $argument.name $argument.getDocumentation("")
 #end
+#if ($operation.returnTypePresent)
      * @return $returnType
+#end
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.name $exception.getDocumentation("")
+#end
      */
 #if ($operation.exceptionsPresent)
     public $returnType $operation.signature
