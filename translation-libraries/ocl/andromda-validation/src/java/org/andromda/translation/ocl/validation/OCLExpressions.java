@@ -108,7 +108,27 @@ public final class OCLExpressions
         if (equal)
         {
             final Comparable comparable = (Comparable)first;
-            equal = comparable.equals(new Long(second));
+            if (comparable instanceof Integer)
+            {
+                equal = comparable.compareTo(Integer.valueOf((int)second)) > 0;
+            }
+            else
+            {
+                equal = comparable.equals(Long.valueOf(second));
+            }
+        }
+        return equal;
+    }
+
+    public static boolean equal(
+        final Object first,
+        final int second)
+    {
+        boolean equal = first instanceof Comparable;
+        if (equal)
+        {
+            final Comparable comparable = (Comparable)first;
+            equal = comparable.equals(new Integer(second));
         }
         return equal;
     }
@@ -355,11 +375,18 @@ public final class OCLExpressions
         boolean lessOrEqual = first instanceof Comparable;
         if (lessOrEqual)
         {
-            lessOrEqual = lessOrEqual((Comparable)first, new Long(second));
+            if (first instanceof Integer)
+            {
+                lessOrEqual = lessOrEqual((Comparable)first, Integer.valueOf((int)second));
+            }
+            else
+            {
+                lessOrEqual = lessOrEqual((Comparable)first, Long.valueOf(second));
+            }
         }
         return lessOrEqual;
     }
-    
+
     public static boolean lessOrEqual(
         final Object first,
         final int second)
@@ -391,7 +418,14 @@ public final class OCLExpressions
         boolean lessOrEqual = second instanceof Comparable;
         if (lessOrEqual)
         {
-            lessOrEqual = lessOrEqual(new Long(first), (Comparable)second);
+            if (second instanceof Integer)
+            {
+                lessOrEqual = lessOrEqual(Integer.valueOf((int)first), (Comparable)second);
+            }
+            else
+            {
+                lessOrEqual = lessOrEqual(Long.valueOf(first), (Comparable)second);
+            }
         }
         return lessOrEqual;
     }
@@ -435,7 +469,34 @@ public final class OCLExpressions
         if (greater)
         {
             final Comparable comparable = (Comparable)first;
-            greater = comparable.compareTo(new Long(second)) > 0;
+            if (comparable instanceof Integer)
+            {
+                greater = comparable.compareTo(Integer.valueOf((int)second)) > 0;
+            }
+            else
+            {
+                greater = comparable.compareTo(Long.valueOf(second)) > 0;
+            }
+        }
+        return greater;
+    }
+
+    public static boolean greater(
+        final Object first,
+        final int second)
+    {
+        boolean greater = first instanceof Comparable;
+        if (greater)
+        {
+            final Comparable comparable = (Comparable)first;
+            if (comparable instanceof Integer)
+            {
+                greater = comparable.compareTo(Integer.valueOf(second)) > 0;
+            }
+            else
+            {
+                greater = comparable.compareTo(Long.valueOf(second)) > 0;
+            }
         }
         return greater;
     }
@@ -489,7 +550,14 @@ public final class OCLExpressions
         boolean greaterOrEqual = first instanceof Comparable;
         if (greaterOrEqual)
         {
-            greaterOrEqual = greaterOrEqual((Comparable)first, new Long(second));
+            if (first instanceof Integer)
+            {
+                greaterOrEqual = greaterOrEqual((Comparable)first, new Integer((int)second));
+            }
+            else
+            {
+                greaterOrEqual = greaterOrEqual((Comparable)first, new Long(second));
+            }
         }
         return greaterOrEqual;
     }
@@ -525,7 +593,14 @@ public final class OCLExpressions
         boolean greaterOrEqual = second instanceof Comparable;
         if (greaterOrEqual)
         {
-            greaterOrEqual = greaterOrEqual(new Long(first), (Comparable)second);
+            if (second instanceof Integer)
+            {
+                greaterOrEqual = greaterOrEqual(new Integer((int)first), (Integer)second);
+            }
+            else
+            {
+                greaterOrEqual = greaterOrEqual(new Long(first), (Comparable)second);
+            }
         }
         return greaterOrEqual;
     }
