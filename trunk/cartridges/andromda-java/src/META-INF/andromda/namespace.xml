@@ -138,9 +138,10 @@
             <property name="generateIsBooleanGetters">
                 <default>true</default>
                 <documentation>
-                    When set to 'true' the cartridge will generate an IsAttribute(..) method for each Boolean/boolean
-                    attribute in addition to the normal getAttribute method. Jaxb/Jax-ws only generates IsAttribute() methods
-                    for webservice client objects, this is needed for valueobject method compatibility. Set to false if you
+                    When set to 'true' the cartridge will generate an IsAttribute(..) method for each primitive boolean
+                    attribute in addition to the normal getAttribute method, or getAttribute for each primitive boolean.
+                    Jaxb/Jax-ws defaults everything to primitive boolean for webservice client objects, 
+                    this is needed for ValueObject method compatibility. Set to false if you
                     don't want additional unused deprecated methods.
                 </documentation>
             </property>
