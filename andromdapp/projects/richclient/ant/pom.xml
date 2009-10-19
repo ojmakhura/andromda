@@ -160,4 +160,16 @@
             </resource>
         </resources>
     </build>
+    <!-- Skip findbugs reporting, because no source files: Throws 'No classes found to analyze' exception and stops -->
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+         </plugins>
+    </reporting>
 </project>
