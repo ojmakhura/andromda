@@ -40,15 +40,14 @@
     <classpathentry kind="src" path="maven/bootstrap-install/src/main/java"/>
     <classpathentry kind="src" path="maven/cartridge/src/main/java"/>
     <classpathentry kind="src" path="maven/configuration/src/main/java"/>
+    <classpathentry kind="src" path="maven/distribution/src/main/java"/>
     <classpathentry kind="src" path="maven/initialize/src/main/java"/>
     <classpathentry kind="src" path="maven/model-archiver/src/main/java"/>
     <classpathentry kind="src" path="maven/multi-source/src/main/java"/>
-    <classpathentry kind="src" path="maven/site/plugin/cartridge/src/main/java"/>
     <classpathentry kind="src" path="maven/sablecc/src/main/java"/>
-    <classpathentry kind="src" path="maven/site/doxia/src/main/java"/>
-    <classpathentry kind="src" path="maven/site/plugin/site/src/main/java"/>
+    <classpathentry kind="src" path="maven/site/cartridge/src/main/java"/>
+    <classpathentry kind="src" path="maven/site/site/src/main/java"/>
     <classpathentry kind="src" path="maven/translation-library/src/main/java"/>
-    <classpathentry kind="src" path="maven/distribution/src/main/java"/>
 	<classpathentry kind="src" path="metafacades/uml/common/src/java"/>
 	<classpathentry kind="src" path="metafacades/uml/common/target/src"/>
 	<classpathentry kind="src" path="metafacades/uml/common/src/test/java"/>
@@ -76,6 +75,7 @@
 	<classpathentry kind="src" path="translation-libraries/ocl/testsuite/src/java"/>
 	<classpathentry kind="src" path="utils/src/java"/>
     <classpathentry kind="src" path="utils/src/test/java"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7.jar" sourcepath="/M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/ant/ant/1.6.5/ant-1.6.5.jar" sourcepath="/M2_REPO/ant/ant/1.6.5/ant-1.6.5-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/bsh/bsh/2.0b4/bsh-2.0b4.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar" sourcepath="M2_REPO/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0-sources.jar"/>
@@ -94,6 +94,7 @@
 	<classpathentry exported="true" kind="var" path="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/freemarker/freemarker/2.3.1/freemarker-2.3.1.jar" sourcepath="/M2_REPO/freemarker/freemarker/2.3.1/freemarker-2.3.1-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/groovy/groovy-all-1.0-jsr/06/groovy-all-1.0-jsr-06.jar"/>
+    <classpathentry exported="true" kind="var" path="M2_REPO/jalopy/jalopy/1.5-RC3P1/jalopy-1.5-RC3P1.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar" sourcepath="/M2_REPO/javax/servlet/servlet-api/2.4/servlet-api-2.4-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/jboss/javassist/2.6/javassist-2.6.jar" sourcepath="/M2_REPO/jboss/javassist/2.6/javassist-2.6-sources.jar"/>
