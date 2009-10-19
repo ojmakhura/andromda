@@ -7,7 +7,6 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-
 import org.andromda.core.common.ResourceUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -78,6 +77,14 @@ public abstract class AbstractAndroMDAppMojo
      * @parameter expression="${maven.test.failure.ignore}" default-value="false"
      */
     protected boolean testFailureIgnore;
+
+    /**
+     * Whether or not processing should be skipped (this is if you want to completely skip code generation, i.e. if 
+     * code is already generated and you are creating the site from already generated source code).
+     * 
+     * @parameter expression="${andromdapp.run.skip}"
+     */
+    protected boolean skipProcessing = false;
 
     /**
      * Collects and returns all properties as a Properties instance.
