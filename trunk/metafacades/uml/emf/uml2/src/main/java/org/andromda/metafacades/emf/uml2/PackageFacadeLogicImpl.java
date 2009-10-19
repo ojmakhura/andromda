@@ -94,4 +94,11 @@ public class PackageFacadeLogicImpl
             this.metaObject.getOwnedMembers(),
             UmlUtilities.ELEMENT_TRANSFORMER);
     }
+
+    //@Override
+    protected String handleGetTablePrefix()
+    {
+        // TODO Auto-generated method stub
+        return "";
+    }
 }
