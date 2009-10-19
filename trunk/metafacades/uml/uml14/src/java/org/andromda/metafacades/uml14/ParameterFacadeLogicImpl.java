@@ -320,24 +320,29 @@ public class ParameterFacadeLogicImpl
     /**
      * Get the UML upper multiplicity
      * Not implemented for UML1.4
-     * @return 1 always
+     * @return -1 (UnlimitedNatural) is isMany, otherwise 1
      * @see org.andromda.metafacades.uml.ParameterFacade#getUpper()
      */
     protected int handleGetUpper()
     {
-        //throw new UnsupportedOperationException("'upper' is not a UML1.4 feature");
+        if (this.isMany())
+        {
+            return -1;
+        }
         return 1;
      }
 
     /**
      * Get the UML lower multiplicity
-     * Not implemented for UML1.4
-     * @return 0 always
+     * @return 1 if primitive, 0 otherwise
      * @see org.andromda.metafacades.uml.ParameterFacade#getLower()
      */
     protected int handleGetLower()
     {
-        //throw new UnsupportedOperationException("'lower' is not a UML1.4 feature");
+        if (this.getType().isPrimitive())
+        {
+            return 1;
+        }
         return 0;
     }
 }
