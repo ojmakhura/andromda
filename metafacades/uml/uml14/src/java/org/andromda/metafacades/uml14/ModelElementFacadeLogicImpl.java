@@ -178,10 +178,10 @@ public class ModelElementFacadeLogicImpl
     }
 
     /**
-     * Gets the appropriate namespace property for retrieve the namespace scope operation (dependng on the given
+     * Gets the appropriate namespace property for retrieving the namespace scope operation (depending on the given
      * <code>modelName</code> flag.
      *
-     * @param modelName whether or not the scope operation for the model should be retrieved as oppposed to the mapped
+     * @param modelName whether or not the scope operation for the model should be retrieved as opposed to the mapped
      *                  scope operator.
      * @return the scope operator.
      */
