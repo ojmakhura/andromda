@@ -50,7 +50,7 @@ public class DecisionServiceImpl
         lastNoDecision.setNoSuccessor(newQuestion);
         this.getAnimalDao().create(newAnimal);
         this.getQuestionDao().create(newQuestion);
-        this.getAnimalDao().update(lastNoDecision);
+        this.getDecisionItemDao().update(lastNoDecision);
     }
 
 }
