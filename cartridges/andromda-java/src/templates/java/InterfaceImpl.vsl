@@ -16,9 +16,7 @@ public#if ($interface.abstractInterfaceImplementation) abstract#end class $class
 {
 
 #if ($serializable && !$interface.abstractInterfaceImplementation)
-    /**
-     * The serial version UID of this class. Needed for serialization.
-     */
+    /** The serial version UID of this class. Needed for serialization. */
     private static final long serialVersionUID = ${interface.serialVersionUID}L;
 
 #end
@@ -36,11 +34,17 @@ public#if ($interface.abstractInterfaceImplementation) abstract#end class $class
     }
     
 ## - always generate setter on impl (so that the value can be populated
-#if (!$attribute.readOnly)
     /**
+#if (!$attribute.readOnly)
      * @see $interface.fullyQualifiedName#${attribute.setterName}($attribute.getterSetterTypeName)
-     */
+#else
+$attribute.getDocumentation("     * ")
+     * @param ${attribute.name}In $returnType
+#if($generateChainedSetters)
+     * @return this ${class.name}
 #end
+#end
+     */
     public#if($generateChainedSetters) $className#else void#end ${attribute.setterName}($attribute.getterSetterTypeName ${attribute.name}In)
     {
         this.${attribute.name} = ${attribute.name}In;
@@ -64,11 +68,17 @@ public#if ($interface.abstractInterfaceImplementation) abstract#end class $class
     }
 
 ## - always generate setter on impl (so that the value can be populated)
-#if (!$associationEnd.readOnly)
     /**
+#if (!$associationEnd.readOnly)
      * @see $interface.fullyQualifiedName#${associationEnd.setterName}($associationEnd.getterSetterTypeName)
-     */
+#else
+$associationEnd.getDocumentation("     * ")
+     * @param ${associationEnd.name}In $associationEnd.getterSetterTypeName
+#if($generateChainedSetters)
+     * @return this ${class.name}
 #end
+#end
+     */
     public#if($generateChainedSetters) $className#else void#end ${associationEnd.setterName}($associationEnd.getterSetterTypeName ${associationEnd.name}In)
     {
         this.${associationEnd.name} = ${associationEnd.name}In;
