@@ -95,8 +95,8 @@ public class ClassifierFacadeLogicImpl
     @Override
     protected boolean handleIsPrimitive()
     {
-        // If this type has a wrapper then its a primitive,
-        // otherwise it isn't
+        // If this type has a wrapper then it's primitive, otherwise it isn't.
+        // Note: attribute/parameter convert primitive <-> wrapped based on lower multiplicity (optionality)
         return this.getWrapperMappings() != null &&
         this.getWrapperMappings().getMappings().containsFrom(this.getFullyQualifiedName());
     }
@@ -662,6 +662,62 @@ public class ClassifierFacadeLogicImpl
         return UMLMetafacadeUtils.isType(
             this,
             UMLProfile.TIME_TYPE_NAME);
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not this classifier represents a time type.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isDoubleType()
+     */
+    //@Override
+    protected boolean handleIsDoubleType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.DOUBLE_TYPE_NAME);
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not this classifier represents a float type.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isFloatType()
+     */
+    //@Override
+    protected boolean handleIsFloatType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.FLOAT_TYPE_NAME);
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not this classifier represents an integer type.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isIntegerType()
+     */
+    //@Override
+    protected boolean handleIsIntegerType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.INTEGER_TYPE_NAME);
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not this classifier represents a long type.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isLongType()
+     */
+    //@Override
+    protected boolean handleIsLongType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.LONG_TYPE_NAME);
     }
 
     /**
