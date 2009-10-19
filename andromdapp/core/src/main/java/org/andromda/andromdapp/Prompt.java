@@ -1,10 +1,9 @@
 package org.andromda.andromdapp;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -109,6 +108,8 @@ public class Prompt
      * Adds a reponse to the possible responses.
      *
      * @param response the response to add.
+     * @param type the full qualified type of the response (if undefined
+     *        the type is left as a string).
      */
     public void addResponse(final String response)
     {
