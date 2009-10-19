@@ -291,10 +291,12 @@ public class Configuration
 
             for (final URL mappingsUri : mappingsLocations)
             {
-                try {
+                try
+                {
                     Mappings.addLogicalMappings(mappingsUri);
                 }
-                catch (final Throwable throwable) {
+                catch (final Throwable throwable)
+                {
                     // - ignore the exception (probably means its a file
                     //   other than a mapping and in that case we don't care)
                 }
