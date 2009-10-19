@@ -593,12 +593,35 @@ public class OperationFacadeLogicImpl
             if (BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                name += "<" + this.getReturnType().getFullyQualifiedName() + ">";
+                String type = this.getReturnType().getFullyQualifiedName();
+                if (this.getReturnType().isPrimitive())
+                {
+                    // Can't template primitive values, Objects only. Convert to wrapped.
+                    type = StringUtils.capitalize(type);
+                    // TODO Map from primitive to wrapped types
+                    if (type.equals("Int")) {type = "Integer";}
+                }
+                name += "<" + type + ">";
             }
         }
         if (name == null && this.getReturnType() != null)
         {
             name = this.getReturnType().getFullyQualifiedName();
+            // Special case: lower bound overrides primitive/wrapped type declaration
+            // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
+            if (this.getReturnType().isBooleanType())
+            {
+                if (this.getReturnType().isPrimitive() && (this.getLower() < 1))
+                {
+                    // Type is optional, should not be primitive
+                    name = StringUtils.capitalize(name);
+                }
+                else if (!this.getReturnType().isPrimitive() && this.getLower() > 0)
+                {
+                    // Type is required, should not be wrapped
+                    name = StringUtils.uncapitalize(name);
+                }
+            }
         }
         return name;
     }
@@ -712,12 +735,18 @@ public class OperationFacadeLogicImpl
         return (ParameterFacade)this.shieldedElement(this.metaObject.getReturnResult());
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.OperationFacadeLogic#handleIsOverriding()
+     */
     @Override
     protected boolean handleIsOverriding()
     {
         return this.getOverriddenOperation() != null;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.OperationFacadeLogic#handleGetOverriddenOperation()
+     */
     @Override
     protected OperationFacade handleGetOverriddenOperation()
     {
