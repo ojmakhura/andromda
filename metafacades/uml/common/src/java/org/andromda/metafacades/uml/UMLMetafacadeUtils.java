@@ -156,10 +156,6 @@ public class UMLMetafacadeUtils
                         UMLProfile.SET_TYPE_NAME.lastIndexOf(':')), 
                     UMLProfile.SET_IMPL_TYPE_NAME.substring(
                         UMLProfile.SET_IMPL_TYPE_NAME.lastIndexOf(':')));
-                for (String key : implCollection.keySet())
-                {
-                    System.out.println("UMLMetafacadeUtils implCollection: key" + "=" + implCollection.get(key));
-                }
             }
         }
         String collectionImpl = input;
