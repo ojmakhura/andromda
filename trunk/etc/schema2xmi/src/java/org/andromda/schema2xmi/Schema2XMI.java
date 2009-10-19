@@ -185,13 +185,13 @@ public class Schema2XMI
         options.addOption(option);
 
         option =
-            new Option(CLASS_STEREOTYPES, true, "Comma seperated list of stereotype names to add to the created class");
+            new Option(CLASS_STEREOTYPES, true, "Comma separated list of stereotype names to add to the created class");
         option.setLongOpt("classStereotypes");
         options.addOption(option);
 
         option =
             new Option(
-                IDENTIFIER_STEREOTYPES, true, "Comma seperated list of stereotype names to add to any class identifiers");
+                IDENTIFIER_STEREOTYPES, true, "Comma separated list of stereotype names to add to any class identifiers");
         option.setLongOpt("identifierStereotypes");
         options.addOption(option);
 
