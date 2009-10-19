@@ -15,7 +15,7 @@
 package $class.packageName;
 #end
 
-#if ($serializable)
+#if ($serializable && !$class.generalization)
 import java.io.Serializable;
 #end
 #set ($XMLOutput=$XMLBindingAnnotations&&!$class.hasStereotype("NoXml"))
@@ -35,7 +35,21 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
+#if ($stringUtils.isBlank($class.getDocumentation("", 9999, false)))
+ * $toDoTag: Model Documentation for class $class.name
+#else
 $class.getDocumentation(" * ")
+#end
+#set ($templating=false)
+#set ($genericTemplate="")
+#if($enableTemplating && !$class.templateParameters.empty)
+#set ($templating=true)
+#set ($genericTemplate=$umlUtils.getGenericTemplate($class, $enableTemplating))
+ * Class template parameters<type1, type2, etc>
+#foreach ($param in $class.templateParameters)
+ * @param <$param.parameter.name> $param.parameter.getterSetterTypeName
+#end
+#end
  */
 #if ($XMLOutput)
 @XmlRootElement
@@ -71,7 +85,7 @@ $class.getDocumentation(" * ")
 #end
 #end
 #end
-public#if($class.abstract) abstract#end class $class.name
+public#if($class.leaf) final#end #if($class.abstract) abstract#end class $umlUtils.getClassDeclaration($class, $enableTemplating)
 #if($class.generalization)
 ## Class should only extend another ValueObject, which already declares Serializable and Comparable
     extends $class.generalization.fullyQualifiedName
@@ -86,11 +100,56 @@ public#if($class.abstract) abstract#end class $class.name
     /** The serial version UID of this class. Needed for serialization. */
     private static final long serialVersionUID = ${class.serialVersionUID}L;
 
+#if($templating)
+#if (!$class.templateParameters.empty)
+    // Class template parameters
+
+#end
+#foreach ($param in $class.templateParameters)
+#set ($parameter = $param.parameter)
+#set ($returnType = $parameter.getterSetterTypeName)
+## TODO UML2 maps to ParameterableElement, not Parameter. No methods getterSetterTypeName, get/setterName in UML2, 
+## returns JavaClassLogicImpl with parameter name, not type
+##    // $parameter $parameter.type $parameter.getterSetterTypeName $param
+    protected $returnType $parameter.name#if ($parameter.defaultValuePresent) = ${parameter.defaultValue}#end;
+
+    /**
+     * Get the $parameter.name Template Parameter
+     * @return $parameter.name $returnType
+     */
+    public $returnType ${parameter.getterName}()
+    {
+#if ($parameter.many && !$parameter.type.name.endsWith("[]"))
+        if (this.${parameter.name} == null) 
+        {
+            this.${parameter.name} = new java.util.ArrayList#if($enableTemplating)<${parameter.type.fullyQualifiedName}>#end();
+        }
+#end
+        return this.$parameter.name;
+    }
+
+    /**
+     * Set the $parameter.name Template Parameter
+     * @param ${parameter.name}In $returnType
+     */
+    public void ${parameter.setterName}($returnType ${parameter.name}In)
+    {
+        this.${parameter.name} = ${parameter.name}In;
+    }
+
+#end
+#end
 #end
 #if (!$class.attributes.empty)
     // Class attributes
-#end
 #foreach ($attribute in $class.attributes)
+#if ($stringUtils.isBlank($attribute.getDocumentation("", 9999, false)))
+    /** $toDoTag: Model Documentation for attribute $attribute.name */
+#else
+    /**
+$attribute.getDocumentation("     * ")
+     */
+#end
 #if ($XMLOutput)
 #set ($type=$stringUtils.substring($attribute.type.fullyQualifiedName, 0, 9))
 ## Primitive types and type wrappers will have empty package name
@@ -138,17 +197,19 @@ public#if($class.abstract) abstract#end class $class.name
 #set ($returnType = $attribute.getterSetterTypeName)
     protected $returnType $attribute.name#if ($attribute.defaultValuePresent) = ${attribute.defaultValue}#end;
 #end
-#if (!$class.navigableConnectingEnds.empty)
-    // Class associationEnds
+
 #end
+#if (!$class.navigableConnectingEnds.empty)
+	// Class associationEnds
 #foreach ($connectingEnd in $class.navigableConnectingEnds)
 #if ($XMLOutput)
-    @XmlElement(name="$connectingEnd.name"#if(!$connectingEnd.packageName.equals($class.packageName)), namespace="http://$javaUtils.reversePackage($connectingEnd.packageName)/"#end##No newline
+    @XmlElement(name="$connectingEnd.name"#if(!$connectingEnd.type.packageName.equals($class.packageName)), namespace="http://$javaUtils.reversePackage($connectingEnd.type.packageName)/"#end##No newline
 #if ($connectingEnd.required), required=true#end)
 #end
     protected $connectingEnd.getterSetterTypeName $connectingEnd.name;
 #end
 
+#end
 ##
 ##  default constructor
 ##
@@ -171,7 +232,7 @@ public#if($class.abstract) abstract#end class $class.name
     /** 
      * Constructor taking only required properties 
 #foreach ($property in $class.allRequiredConstructorParameters)
-     * @param ${property.name}In $property.getterSetterTypeName#if ($stringUtils.isNotBlank(${property.documentation})) ${property.documentation}#end
+     * @param ${property.name}In $property.getterSetterTypeName#if ($stringUtils.isNotBlank(${property.getDocumentation("")})) ${property.getDocumentation("")}#end
 
 #end
      */
@@ -179,7 +240,7 @@ public#if($class.abstract) abstract#end class $class.name
 #set ($comma = "")
 #foreach ($property in $class.allRequiredConstructorParameters)
 ##set ($propertyType = ${conversionUtils.getFullName(${property.getterSetterTypeName})})
-${comma}${property.getterSetterTypeName} ${property.name}In## no newline
+${comma}final ${property.getterSetterTypeName} ${property.name}In## no newline
 #set ($comma = ", ")
 #end
 )
@@ -215,7 +276,7 @@ ${comma}${property.name}In## no newline
 #set ($comma = "")
 #foreach ($property in $class.allProperties)
 #set ($propertyType = $property.getterSetterTypeName)
-${comma}$propertyType ${property.name}In## no newline
+${comma}final $propertyType ${property.name}In## no newline
 #set ($comma = ", ")
 #end
 )
@@ -244,7 +305,7 @@ ${comma}${property.name}In## no newline
      * @param otherBean Cannot be <code>null</code>
      * @throws NullPointerException if the argument is <code>null</code>
      */
-    public ${class.name}($class.name otherBean)
+    public ${class.name}(final $class.name${genericTemplate} otherBean)
     {
         super();
 #foreach ($property in $class.allProperties)
@@ -257,7 +318,7 @@ ${comma}${property.name}In## no newline
      * @param otherBean Cannot be <code>null</code>
      * @return this
      */
-    public#if($generateChainedSetters) $class.name#else void#end copy($class.name otherBean)
+    public#if($generateChainedSetters) $class.name${genericTemplate}#else void#end copy(final $class.name${genericTemplate} otherBean)
     {
         if (otherBean != null)
         {
@@ -275,9 +336,12 @@ ${comma}${property.name}In## no newline
 
 #foreach ($attribute in $class.attributes)
 #set ($returnType = $attribute.getterSetterTypeName)
-
     /**
+#if ($stringUtils.isBlank($attribute.getDocumentation("", 9999, false)))
+     * $toDoTag: Model Documentation for attribute $attribute.name
+#else
 $attribute.getDocumentation("     * ")
+#end
      * Get the $attribute.name Attribute
      * @return $attribute.name $returnType
      */
@@ -292,14 +356,14 @@ $attribute.getDocumentation("     * ")
         return this.$attribute.name;
     }
 
-#if ($attribute.booleanType && $generateIsBooleanGetters)
+#if ($attribute.type.booleanType && $generateIsBooleanGetters)
     /**
 $attribute.getDocumentation("     * ")
-     * Duplicates getBoolean method, for use as Jaxb2 compatible object
+     * Duplicates#if ($attribute.lower > 0) isBoolean#else getBoolean#end method, for use as Jaxb2 compatible object
      * Get the $attribute.name Attribute
      * @return $attribute.name $returnType
-     */
-    public $returnType get$stringUtils.capitalize(${attribute.name})()
+    @Deprecated
+    public $returnType#if ($attribute.lower > 0) get#else is#end$stringUtils.capitalize(${attribute.name})()
     {
         return this.$attribute.name;
     }
@@ -316,7 +380,7 @@ $attribute.getDocumentation("     * ")
 #end
      */
 ## XMLOutput does not allow return values from the setter method
-    public#if($generateChainedSetters&&!$XMLOutput) ${class.name}#else void#end ${attribute.setterName}($returnType ${attribute.name}In)
+    public#if($generateChainedSetters&&!$XMLOutput) ${class.name}#else void#end ${attribute.setterName}(final $returnType ${attribute.name}In)
     {
         this.${attribute.name} = ${attribute.name}In;
 #if($generateChainedSetters&&!$XMLOutput)
@@ -328,8 +392,12 @@ $attribute.getDocumentation("     * ")
 #end
 ## Generate the relation methods.
 #foreach ($connectingEnd in $class.navigableConnectingEnds)
-
     /**
+#if ($stringUtils.isBlank($connectingEnd.getDocumentation("", 9999, false)))
+     * $toDoTag: Model Documentation for association $connectingEnd.name
+#else
+$connectingEnd.getDocumentation("     * ")
+#end
      * Get the $connectingEnd.name Association
 #if ($connectingEnd.many)
      * This accessor method returns a reference to the live list,
@@ -337,7 +405,6 @@ $attribute.getDocumentation("     * ")
      * returned list will be present inside the object.
 #end
      * @return this.${connectingEnd.name} $connectingEnd.getterSetterTypeName
-$connectingEnd.getDocumentation("     * ")
      */
     public $connectingEnd.getterSetterTypeName ${connectingEnd.getterName}()
     {
@@ -360,7 +427,7 @@ $connectingEnd.getDocumentation("     * ")
      * @return this ${class.name}
 #end
      */
-    public#if($generateChainedSetters) ${class.name}#else void#end ${connectingEnd.setterName}($connectingEnd.getterSetterTypeName ${connectingEnd.name}In)
+    public#if($generateChainedSetters) $umlUtils.getClassDeclaration($class, $enableTemplating)#else void#end ${connectingEnd.setterName}($connectingEnd.getterSetterTypeName ${connectingEnd.name}In)
     {
         this.${connectingEnd.name} = ${connectingEnd.name}In;
 #if($generateChainedSetters)
@@ -375,16 +442,19 @@ $connectingEnd.getDocumentation("     * ")
      * @see Object#equals(Object)
      */
 #if ($enableAnnotations)
+#if ($templating)
+    @SuppressWarnings("unchecked")
+#end
     @Override
 #end
-    public boolean equals(Object object) 
+    public boolean equals(final Object object)
     {
-        if (object==null || !(object instanceof ${class.fullyQualifiedName}))
+        if (object==null || !(object instanceof $umlUtils.getFQNameWithoutTemplate($class)))
         {
              return false;
         }
 #if (!$class.allProperties.empty)
-        ${class.fullyQualifiedName} rhs = (${class.fullyQualifiedName}) object;
+        $class.fullyQualifiedName rhs = ($class.fullyQualifiedName) object;
 #end
         return new EqualsBuilder().appendSuper(super.equals(object))
 #foreach($attr in $class.allProperties)
@@ -396,19 +466,24 @@ $connectingEnd.getDocumentation("     * ")
     /**
      * @param object to compare this object against
      * @return int if equal
-     * @see Comparable#compareTo(Object)
+     * @see Comparable#compareTo(final Object)
      */
-#if ($enableAnnotations && $class.generalization)
+#if ($enableAnnotations)
+#if ($templating)
+    @SuppressWarnings("unchecked")
+#end
+#if ($class.generalization)
     @Override
 #end
-    public int compareTo(Object object)
+#end
+    public int compareTo(final Object object)
     {
-        if (object==null || !(object instanceof ${class.fullyQualifiedName}))
+        if (object==null || !(object instanceof $umlUtils.getFQNameWithoutTemplate($class)))
         {
             return -1;
         }
 #if (!$class.allProperties.empty)
-        ${class.fullyQualifiedName} myClass = (${class.fullyQualifiedName}) object;
+        $class.fullyQualifiedName myClass = ($class.fullyQualifiedName) object;
 #end
         return new CompareToBuilder()
 #foreach($attr in $class.allProperties)
@@ -482,10 +557,15 @@ $connectingEnd.getDocumentation("     * ")
      *      sub-type of this class and all properties as found on this class have equal values when queried on that
      *      argument instance; in all other cases this method will return {@code false}
      */
-#if ($enableAnnotations && $class.generalization)
+#if ($enableAnnotations)
+#if ($templating)
+    @SuppressWarnings("unchecked")
+#end
+#if ($class.generalization)
     @Override
 #end
-    public boolean equalProperties(Object thatObject)
+#end
+    public boolean equalProperties(final Object thatObject)
     {
         if (thatObject == null || !this.getClass().isAssignableFrom(thatObject.getClass()))
         {
@@ -524,7 +604,7 @@ $connectingEnd.getDocumentation("     * ")
      * @return this method will return {@code true} in case both objects are equal as explained above;
      *      in all other cases this method will return {@code false}
      */
-    protected static boolean equal(Object first, Object second)
+    protected static boolean equal(final Object first, final Object second)
     {
         final boolean equal;
 
