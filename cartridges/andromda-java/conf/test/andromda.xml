@@ -3,18 +3,14 @@
     <property name="failOnValidationErrors">false</property>
   </properties>
   <repositories>
-    <!--repository name="emf-uml22">
-            <models>
-                <model type="emf-uml22">
-                    <uri>file:${basedir}/src/test/uml2/JavaCartridgeTestModel.uml</uri>
-                    <moduleSearchLocations>
-                        <location patterns="*.uml,*.epx,*.emx">${pom.basedir}/src/test/uml2</location>
-                        <location patterns="**/*.uml">${basedir}/../../profiles/emf/uml22</location>
-                        <location patterns="**/*.uml">${pom.basedir}/../../profiles/emf/uml22</location>
-                    </moduleSearchLocations>
-                </model>
-            </models>
-        </repository-->
+    <!--repository name="emf-uml2">
+      <models>
+        <model type="emf-uml2">
+          <uri>file:${basedir}/src/test/uml2/JavaCartridgeTestModel.uml2</uri>
+          <moduleSearchLocations>
+            <location patterns="*.uml2,*.epx,*.emx">${pom.basedir}/src/test/uml2</location>
+            <location patterns="**/*.uml2">${basedir}/../../profiles/emf/uml2</location>
+            <location patterns="**/*.uml2">${pom.basedir}/../../profiles/emf/uml2</location-->
     <repository name="netBeansMDR">
       <models>
         <model>
@@ -53,7 +49,8 @@
         <property name="XMLDateTimeAdapter"></property>
         <property name="XMLTimeAdapter"></property>
         <property name="XMLIntegerAdapter"></property>
-        <property name="XMLLongAdapter"></property-->
+        <property name="XMLLongAdapter"></property>
+        <property name="XMLBooleanAdapter"></property-->
         <property name="persistenceContainerName">jboss</property>
         <!--Override default @todo to set to Eclipse default>
         <property name="toDoTag">TODO</property-->
@@ -62,9 +59,9 @@
     <namespace name="java">
       <properties>
         <property name="overwrite">true</property>
-        <!--ValueObjects have JAXB2 XmlAttribute/XmlElement annotations. Default false -->
+        <!--ValueObjects have JAXB2 XmlAttribute/XmlElement annotations. Default false-->
         <property name="XMLBindingAnnotations">true</property>
-        <!-- Return reference to 'this' from set() methods, to chain .set() methods when creating object. Default false.
+        <!--Return reference to 'this' from set() methods, to chain .set() methods when creating object. Default false.
         <property name="generateChainedSetters">true</property-->
         <property name="useArraysForMultiplicitiesOfTypeMany">false</property>
         <property name="generateEqualPropertiesMethod">true</property>
@@ -76,6 +73,8 @@
         <property name="interfaces">${test.output.dir}</property>
         <property name="interface-impls">${test.output.dir}</property>
         <property name="mergeMappingsUri">file:${test.src.dir}/mappings/MergeMappings.xml</property>
+        <property name="useArraysForMultiplicitiesOfTypeMany">false</property>
+        <property name="generateEqualPropertiesMethod">true</property>
       </properties>
     </namespace>
   </namespaces>
