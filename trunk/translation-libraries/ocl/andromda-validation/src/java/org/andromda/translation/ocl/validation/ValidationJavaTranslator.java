@@ -317,12 +317,12 @@ public class ValidationJavaTranslator
     }
 
     /**
-     * Renders a variable declaration. Missing types will imply the java.lang.Object type.
+     * Renders a variable declaration. Missing types will imply the Object type.
      */
     public void caseAVariableDeclaration(AVariableDeclaration node)
     {
         if (node.getTypeDeclaration() == null)
-            write("java.lang.Object");
+            write("Object");
         else
             node.getTypeDeclaration().apply(this);
 
@@ -551,7 +551,7 @@ public class ValidationJavaTranslator
     }
 
     /**
-     * @see org.andromda.translation.ocl.BaseTranslator#isOperationArgument(java.lang.String)
+     * @see org.andromda.translation.ocl.BaseTranslator#isOperationArgument(String)
      */
     protected boolean isOperationArgument(String argument)
     {
