@@ -551,7 +551,8 @@ public class MetafacadeMappings
         MetafacadeMapping found = null;
         for (final MetafacadeMapping mapping : this.mappings)
         {
-            if (condition.evaluate(mapping)) {
+            if (condition.evaluate(mapping))
+            {
                 found = mapping;
                 break;
             }
@@ -587,7 +588,8 @@ public class MetafacadeMappings
                 {
                     final MetafacadeMapping contextMapping =
                             this.mappingsByMetafacadeClass.get(metafacadeClass);
-                    if (contextMapping != null) {
+                    if (contextMapping != null)
+                    {
                         // add all property references
                         mapping.addPropertyReferences(contextMapping.getPropertyReferences());
                     }
@@ -622,7 +624,6 @@ public class MetafacadeMappings
             {
                 contexts.add(anInterface.getName());
             }
-
             this.contextHierarchyCache.put(
                 context,
                 contexts);
@@ -826,7 +827,8 @@ public class MetafacadeMappings
         for (final MetafacadeMappings mappings : metafacades)
         {
             final String namespace = mappings.getNamespace();
-            if (MetafacadeUtils.isMetafacadeModelPresent(namespace)) {
+            if (MetafacadeUtils.isMetafacadeModelPresent(namespace))
+            {
                 modelTypeNamespaces.add(namespace);
             }
         }
@@ -855,12 +857,14 @@ public class MetafacadeMappings
             final Collection<String> propertyReferences = new ArrayList<String>(this.propertyReferences);
 
             // - if we have namespace mappings, add them
-            if (metafacadeMappings != null) {
+            if (metafacadeMappings != null)
+            {
                 mappings.addAll(metafacadeMappings.mappings);
                 propertyReferences.addAll(metafacadeMappings.propertyReferences);
             }
 
-            for (final MetafacadeMapping mapping : mappings) {
+            for (final MetafacadeMapping mapping : mappings)
+            {
                 final String metafacadeInterface =
                         this.metafacadeClasses.getMetafacadeClass(mapping.getMetafacadeClass().getName()).getName();
 
@@ -868,7 +872,8 @@ public class MetafacadeMappings
                 // descriptor for each interface
                 // in the hierarchy
                 final Class[] interfaces = this.getInterfacesReversed(metafacadeInterface);
-                for (final Class anInterface : interfaces) {
+                for (final Class anInterface : interfaces)
+                {
                     this.registerProperties(
                             mappingsNamespace,
                             propertyReferences,
@@ -940,7 +945,8 @@ public class MetafacadeMappings
         {
             for (final MetafacadeMapping mapping : mappings.mappings)
             {
-                if (mapping.isMappingClassNamePresent()) {
+                if (mapping.isMappingClassNamePresent())
+                {
                     MetafacadeMappings.allMetafacadeMappingInstances.put(
                             mapping.getMetafacadeClass(),
                             mapping.getMappingClassName());
@@ -954,14 +960,16 @@ public class MetafacadeMappings
             final Namespaces namespaces = Namespaces.instance();
             for (final String modelNamespace : metafacadeModelNamespaces)
             {
-                if (modelNamespace != null) {
+                if (modelNamespace != null)
+                {
                     // - remove the current model type so that we don't keep out the namespace
                     //   that stores the metafacade model
                     modelNamespaces.remove(modelNamespace);
 
                     MetafacadeMappings modelMetafacadeMappings =
                             this.modelMetafacadeMappings.get(modelNamespace);
-                    if (modelMetafacadeMappings == null) {
+                    if (modelMetafacadeMappings == null)
+                    {
                         modelMetafacadeMappings = MetafacadeMappings.newInstance();
 
                         // - set the namespace
@@ -971,23 +979,29 @@ public class MetafacadeMappings
                                 modelMetafacadeMappings);
                     }
 
-                    for (final MetafacadeMappings mappings : metafacades) {
+                    for (final MetafacadeMappings mappings : metafacades)
+                    {
                         final String namespace = mappings.getNamespace();
 
-                        if (!modelNamespaces.contains(namespace)) {
+                        if (!modelNamespaces.contains(namespace))
+                        {
                             // - if we have 'shared' mappings or only a single set available, they are copied
                             //   to this mappings instance.
-                            if (namespaces.isShared(namespace) || metafacades.size() == 1) {
+                            if (namespaces.isShared(namespace) || metafacades.size() == 1)
+                            {
                                 // - copy over any 'shared' mappings to this root instance
                                 modelMetafacadeMappings.copyMappings(mappings);
 
                                 // - set the metaclass pattern from the 'shared' or single
                                 //   instance of metafacades
                                 final String metaclassPattern = mappings.metaclassPattern;
-                                if (StringUtils.isNotBlank(metaclassPattern)) {
+                                if (StringUtils.isNotBlank(metaclassPattern))
+                                {
                                     modelMetafacadeMappings.setMetaclassPattern(mappings.metaclassPattern);
                                 }
-                            } else {
+                            }
+                            else
+                            {
                                 // add all others as namespace mappings
                                 modelMetafacadeMappings.addNamespaceMappings(
                                         namespace,
@@ -998,12 +1012,14 @@ public class MetafacadeMappings
 
                     // - add the metafacade model namespace back
                     modelNamespaces.add(modelNamespace);
-                    if (StringUtils.isBlank(modelMetafacadeMappings.getNamespace())) {
+                    if (StringUtils.isBlank(modelMetafacadeMappings.getNamespace()))
+                    {
                         throw new MetafacadeMappingsException(
                                 "No shared metafacades found, please check your classpath, at least " +
                                         "one set of metafacades must be marked as 'shared'");
                     }
-                    if (StringUtils.isBlank(modelMetafacadeMappings.metaclassPattern)) {
+                    if (StringUtils.isBlank(modelMetafacadeMappings.metaclassPattern))
+                    {
                         throw new MetafacadeMappingsException("At least one set of metafacades marked as shared " +
                                 "must have the 'metaclassPattern' attribute defined");
                     }
@@ -1136,8 +1152,10 @@ public class MetafacadeMappings
             final String value = Namespaces.instance().getPropertyValue(
                     namespace,
                     reference);
-            if (value != null) {
-                if (this.getLogger().isDebugEnabled()) {
+            if (value != null)
+            {
+                if (this.getLogger().isDebugEnabled())
+                {
                     this.getLogger().debug(
                             "setting context property '" + reference + "' with value '" + value + "' for namespace '" +
                                     namespace + "' on metafacade '" + metafacadeName + "'");
