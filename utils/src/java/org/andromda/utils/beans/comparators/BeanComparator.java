@@ -34,6 +34,7 @@ public class BeanComparator
 
     static
     {
+        InputStream stream = null;
         try
         {
             final String comparatorsFile = "/Comparators.properties";
@@ -43,13 +44,17 @@ public class BeanComparator
                 throw new BeanComparatorException("The comparators resource '" + comparatorsFile +
                     " could not be loaded");
             }
-            InputStream stream = comparatorsUri.openStream();
+            stream = comparatorsUri.openStream();
             comparators.load(stream);
-            stream.close();
         }
         catch (final Throwable throwable)
         {
             throw new RuntimeException(throwable);
+        }
+        finally
+        {
+            if (stream != null) try {stream.close();} catch (Exception ex) {}
+            stream = null;
         }
     }
 
