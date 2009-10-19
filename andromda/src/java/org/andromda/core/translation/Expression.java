@@ -41,7 +41,7 @@ public class Expression
     }
 
     /**
-     * Appends a space charater to the current translated expression String Buffer.
+     * Appends a space character to the current translated expression String Buffer.
      */
     public void appendSpaceToTranslatedExpression()
     {
@@ -49,7 +49,7 @@ public class Expression
     }
 
     /**
-     * Replaces the regular expressoin <code>pattern</code> with the replacement within the translated expression
+     * Replaces the regular expression <code>pattern</code> with the replacement within the translated expression
      * buffer.
      *
      * @param pattern     the regular expression pattern to replace
