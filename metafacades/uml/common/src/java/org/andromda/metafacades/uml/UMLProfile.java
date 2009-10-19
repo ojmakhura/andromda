@@ -400,27 +400,75 @@ public class UMLProfile
 
     /**
      * Used to identify collection types in the model, any other type that will be identified as a collection must
-     * specialize this type. NonUnique / NonOrdered Collection
+     * specialize this type. NonUnique / NonOrdered Collection. Default=Collection
      */
     public static final String COLLECTION_TYPE_NAME = profile.get("COLLECTION_TYPE");
 
     /**
      * Used to identify a list type in the model, any other type that will be identified as a list must specialize this
-     * type. NonUnique / Ordered Collection
+     * type. NonUnique / Ordered Collection. Default=List
      */
     public static final String LIST_TYPE_NAME = profile.get("LIST_TYPE");
 
     /**
      * Used to identify a set type in the model, any other type that will be identified as a set must specialize this
-     * type. Unique / NonOrdered Collection
+     * type. Unique / NonOrdered Collection. Default=Set
      */
     public static final String SET_TYPE_NAME = profile.get("SET_TYPE");
 
     /**
      * Used to identify an ordered set type in the model, any other type that will be identified as an ordered set must specialize this
-     * type. Unique / Ordered Collection
+     * type. Unique / Ordered Collection. Default=SortedSet
      */
     public static final String ORDERED_SET_TYPE_NAME = profile.get("ORDERED_SET_TYPE");
+
+    /**
+     * Used to identify a map type in the model, any other type that will be identified as a map type must specialize
+     * this type. Default=Map
+     */
+    public static final String MAP_TYPE_NAME = profile.get("MAP_TYPE");
+
+    /**
+     * Used to identify a map type in the model, any other type that will be identified as a map type must specialize
+     * this type. Default=SortedMap
+     */
+    public static final String ORDERED_MAP_TYPE_NAME = profile.get("ORDERED_MAP_TYPE");
+
+    /**
+     * Used to identify collection types in the model, any other type that will be identified as a collection must
+     * specialize this type. NonUnique / NonOrdered Collection. Default=LinkedList
+     */
+    public static final String COLLECTION_IMPL_TYPE_NAME = profile.get("COLLECTION_IMPL_TYPE");
+
+    /**
+     * Used to identify a list type in the model, any other type that will be identified as a list must specialize this
+     * type. NonUnique / Ordered Collection. Default=ArrayList
+     */
+    public static final String LIST_IMPL_TYPE_NAME = profile.get("LIST_IMPL_TYPE");
+
+    /**
+     * Used to identify a set type in the model, any other type that will be identified as a set must specialize this
+     * type. Unique / NonOrdered Collection. Default=HashSet
+     */
+    public static final String SET_IMPL_TYPE_NAME = profile.get("SET_IMPL_TYPE");
+
+    /**
+     * Used to identify an ordered set type in the model, any other type that will be identified as an ordered set must specialize this
+     * type. Unique / Ordered Collection. Default=SortedSet
+     */
+    public static final String ORDERED_SET_IMPL_TYPE_NAME = profile.get("ORDERED_SET_IMPL_TYPE");
+
+    /**
+     * Used to identify a map type in the model, any other type that will be identified as a map type must specialize
+     * this type. Default=HashMap
+     */
+    public static final String MAP_IMPL_TYPE_NAME = profile.get("MAP_IMPL_TYPE");
+
+    /**
+     * Used to identify a map type in the model, any other type that will be identified as a map type must specialize
+     * this type. Default=SortedMap
+     */
+    public static final String ORDERED_MAP_IMPL_TYPE_NAME = profile.get("ORDERED_MAP_IMPL_TYPE");
 
     /**
      * Used to identify date types in the model, any other type that will be identified as a date must specialize this
@@ -464,12 +512,6 @@ public class UMLProfile
     public static final String CLOB_TYPE_NAME = profile.get("CLOB_TYPE");
 
     /**
-     * Used to identify a map type in the model, any other type that will be identified as a map type must specialize
-     * this type.
-     */
-    public static final String MAP_TYPE_NAME = profile.get("MAP_TYPE");
-
-    /**
      * Used to identify a string type in the model, any other type that will be identified as a string type must
      * specialize this type.
      */
@@ -480,4 +522,28 @@ public class UMLProfile
      * specialize this type.
      */
     public static final String VOID_TYPE_NAME = profile.get("VOID_TYPE");
+
+    /**
+     * Used to identify a double type in the model, any other type that will be identified as a double type must
+     * specialize this type.
+     */
+    public static final String DOUBLE_TYPE_NAME = profile.get("DOUBLE_TYPE_NAME");
+
+    /**
+     * Used to identify a float type in the model, any other type that will be identified as a float type must
+     * specialize this type.
+     */
+    public static final String FLOAT_TYPE_NAME = profile.get("FLOAT_TYPE_NAME");
+
+    /**
+     * Used to identify a integer type in the model, any other type that will be identified as a integer type must
+     * specialize this type.
+     */
+    public static final String INTEGER_TYPE_NAME = profile.get("INTEGER_TYPE_NAME");
+
+    /**
+     * Used to identify a long type in the model, any other type that will be identified as a long type must
+     * specialize this type.
+     */
+    public static final String LONG_TYPE_NAME = profile.get("LONG_TYPE_NAME");
 }
