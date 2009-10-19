@@ -675,23 +675,29 @@ public class OperationFacadeLogicImpl
 
     /**
      * Get the UML upper multiplicity
-     * Not implemented for UML1.4
+     * @return -1 (UnlimitedNatural) is isMany, otherwise 1
      */
     @Override
     protected int handleGetUpper()
     {
-        //throw new UnsupportedOperationException("'upper' is not a UML1.4 feature");
+        if (this.isMany())
+        {
+            return -1;
+        }
         return 1;
      }
 
     /**
      * Get the UML lower multiplicity
-     * Not implemented for UML1.4
+     * @return 1 if primitive, otherwise 0
      */
     @Override
     protected int handleGetLower()
     {
-        //throw new UnsupportedOperationException("'lower' is not a UML1.4 feature");
+        if (this.getReturnType().isPrimitive())
+        {
+            return 1;
+        }
         return 0;
     }
 
