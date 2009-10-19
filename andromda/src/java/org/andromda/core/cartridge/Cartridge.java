@@ -13,7 +13,15 @@ import org.andromda.core.cartridge.template.ModelElement;
 import org.andromda.core.cartridge.template.ModelElements;
 import org.andromda.core.cartridge.template.Template;
 import org.andromda.core.cartridge.template.Type;
-import org.andromda.core.common.*;
+import org.andromda.core.common.AndroMDALogger;
+import org.andromda.core.common.BasePlugin;
+import org.andromda.core.common.ExceptionUtils;
+import org.andromda.core.common.Introspector;
+import org.andromda.core.common.PathMatcher;
+import org.andromda.core.common.PostProcessor;
+import org.andromda.core.common.ResourceUtils;
+import org.andromda.core.common.ResourceWriter;
+import org.andromda.core.common.TemplateObject;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
@@ -749,7 +757,7 @@ public class Cartridge
     }
 
     /**
-     * Adds new postProcessor to the cartrige
+     * Adds new postProcessor to the cartridge
      * @param postProcessor new postProcessor
      */
     public void addTemplatePostProcessor(final TemplateObject postProcessor)
