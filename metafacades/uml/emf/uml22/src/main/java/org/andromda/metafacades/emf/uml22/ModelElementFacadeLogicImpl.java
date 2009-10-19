@@ -351,6 +351,7 @@ public class ModelElementFacadeLogicImpl
 
                 // TODO: UML14 returns ParameterFacade, UML2 returns ModelElementFacade, so types are wrong from fullyQualifiedName
                 // Mapping from UML2 should return ParameterFacade, with a getType method.
+                // Add TemplateParameterFacade.getType method - need to access this in vsl templates.
                 if (modelElement instanceof ParameterFacade)
                 {
                     buffer.append(((ParameterFacade)modelElement).getType().getFullyQualifiedName());
