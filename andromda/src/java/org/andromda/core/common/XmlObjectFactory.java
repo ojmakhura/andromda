@@ -280,7 +280,7 @@ public class XmlObjectFactory
         ExceptionUtils.checkNull(
             "objectXml",
             objectXml);
-        Object object;
+        Object object = null;
         try
         {
             this.digester.setEntityResolver(new XmlObjectEntityResolver(resource));
