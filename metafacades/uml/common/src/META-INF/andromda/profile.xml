@@ -430,7 +430,39 @@
             </element>
             <element name="ORDERED_SET_TYPE">
                 <documentation></documentation>
-                <value>datatype::OrderedSet</value>
+                <value>datatype::SortedSet</value>
+            </element>
+            <element name="MAP_TYPE">
+                <documentation></documentation>
+                <value>datatype::Map</value>
+            </element>
+            <element name="ORDERED_MAP_TYPE">
+                <documentation></documentation>
+                <value>datatype::SortedMap</value>
+            </element>
+            <element name="COLLECTION_IMPL_TYPE">
+                <documentation></documentation>
+                <value>datatype::ArrayList</value>
+            </element>
+            <element name="LIST_IMPL_TYPE">
+                <documentation></documentation>
+                <value>datatype::ArrayList</value>
+            </element>
+            <element name="SET_IMPL_TYPE">
+                <documentation></documentation>
+                <value>datatype::HashSet</value>
+            </element>
+            <element name="ORDERED_SET_IMPL_TYPE">
+                <documentation></documentation>
+                <value>datatype::TreeSet</value>
+            </element>
+            <element name="MAP_IMPL_TYPE">
+                <documentation></documentation>
+                <value>datatype::HashMap</value>
+            </element>
+            <element name="ORDERED_MAP_IMPL_TYPE">
+                <documentation></documentation>
+                <value>datatype::SortedMap</value>
             </element>
             <element name="DATE_TYPE">
                 <documentation></documentation>
@@ -460,9 +492,21 @@
                 <documentation></documentation>
                 <value>datatype::Clob</value>
             </element>
-            <element name="MAP_TYPE">
+            <element name="DOUBLE_TYPE">
                 <documentation></documentation>
-                <value>datatype::Map</value>
+                <value>datatype::Double</value>
+            </element>
+            <element name="FLOAT_TYPE">
+                <documentation></documentation>
+                <value>datatype::Float</value>
+            </element>
+            <element name="INTEGER_TYPE">
+                <documentation></documentation>
+                <value>datatype::Integer</value>
+            </element>
+            <element name="LONG_TYPE">
+                <documentation></documentation>
+                <value>datatype::Long</value>
             </element>
             <element name="STRING_TYPE">
                 <documentation></documentation>
