@@ -118,12 +118,19 @@ public class TranslationLibraryTestMojo
     protected ArtifactRepository localRepository;
 
     /**
+     * Set this to 'true' to bypass cartridge tests entirely. Its use is NOT RECOMMENDED, but quite convenient on occasion.
+     *
+     * @parameter expression="${andromda.translation.test.skip}" default-value="false"
+     */
+    protected boolean skipTranslation;
+
+    /**
      * @see org.apache.maven.plugin.Mojo#execute()
      */
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-        if (!this.skip)
+        if (!this.skip && !this.skipTests && !this.skipTranslation)
         {
             try
             {
