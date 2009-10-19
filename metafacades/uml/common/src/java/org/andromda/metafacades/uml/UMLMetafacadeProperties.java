@@ -35,6 +35,11 @@ public class UMLMetafacadeProperties
     public static final String COLUMN_NAME_PREFIX = "columnNamePrefix";
 
     /**
+     * Stores the property defining the suffix for entity table column names.
+     */
+    public static final String COLUMN_NAME_SUFFIX = "columnNameSuffix";
+
+    /**
      * Stores the property containing the URI to the SQL mappings file.
      */
     public static final String SQL_MAPPINGS_URI = "sqlMappingsUri";
