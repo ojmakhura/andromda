@@ -47,6 +47,10 @@
         <priority value="INFO" />
     </category>
 
+    <category name="org.andromda.utils.beautifier.core.JavaImportBeautifierImpl">
+        <priority value="ERROR" />
+    </category>
+
     <!-- =========================
           Setup the Root category 
          ========================= -->

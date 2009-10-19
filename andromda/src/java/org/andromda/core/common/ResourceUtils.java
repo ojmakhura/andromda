@@ -22,6 +22,7 @@ import java.util.ListIterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
 
@@ -629,6 +630,8 @@ public class ResourceUtils
         ExceptionUtils.checkEmpty(
             "fileLocation",
             fileLocation);
+
+        //IOUtils.copy(url.openStream(), file, encoding);
         final File file = new File(fileLocation);
         final File parent = file.getParentFile();
         if (parent != null)
