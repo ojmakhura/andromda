@@ -30,6 +30,11 @@ public class AndroMDAppMojo
     public void execute()
         throws MojoExecutionException
     {
+        if (this.skipProcessing)
+        {
+            getLog().info("andromdapp:generate skipProcessing");
+            return;
+        }
         try
         {
             AndroMDApp andromdapp = new AndroMDApp();
