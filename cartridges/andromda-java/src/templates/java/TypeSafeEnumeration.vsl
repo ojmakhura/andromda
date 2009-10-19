@@ -6,12 +6,21 @@
 // Model Class:  $enumeration.validationName
 // Metafacade:   org.andromda.metafacades.uml.Enumeration
 #foreach ($stereotype in $enumeration.stereotypes)
-// Stereotype:  ${stereotype}
+// Stereotype:  ${stereotype.name}
 #end
 //
 ## -- start -- set the map and list types as template parameters if required
 #set ($valuesTemplateType = "")
 #set ($literalsTemplateType = "")
+#set ($literalTypeName = "String")
+## This only applies to enumerations modeled as Class <<Enumeration>>. Standard enum literals are always Strings.
+#if ($stringUtils.isNotBlank($enumeration.literalType.fullyQualifiedName))
+#set ($literalTypeName = $enumeration.literalType.fullyQualifiedName)
+#if ($enumeration.literalType.primitive && $enableTemplating)
+#set ($valuesTemplateType = "<${enumeration.literalType.wrapperName}, ${enumeration.name}>")
+#set ($literalsTemplateType = "<${enumeration.literalType.wrapperName}>")
+#end
+#end
 #set ($namesTemplateType = "<String>")
 #set ($valueListTemplateType = "")
 #if ($enableTemplating)
@@ -51,9 +60,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-#if ($serializable)
-import java.io.Serializable;
-#end
 
 /**
 $enumeration.getDocumentation(" * ")
@@ -73,21 +79,17 @@ public enum $enumeration.name
 #else
 #set ($separator = ",")
 #end
-#set ($quote='"')
-#set ($arguments = "($quote${literal.name}$quote)")
 #if ($stringUtils.isNotBlank($literal.documentation))
     /** 
 $literal.getDocumentation("     * ")
      */
 #else
-    /** 
-     * TODO: Missing Documentation for $literal.name
-     */
+    /** $toDoTag: Missing Documentation for Enumeration Literal $literal.name */
 #end
 #if ($XMLBindingAnnotations)
     @XmlEnumValue("$literal.name")
 #end
-    $literal.name$arguments$separator
+    ${literal.name}($literal.enumerationValue)$separator
 #end
 
 #set ($nbMembers = ${enumeration.memberVariables.size()})
@@ -115,10 +117,6 @@ $member.getDocumentation("     * ")
     private static final long serialVersionUID = ${enumeration.serialVersionUID}L;
 
 #end
-#set ($literalTypeName = "String")
-#if ($stringUtils.isNotBlank($enumeration.literalType.fullyQualifiedName))
-#set ($literalTypeName = $enumeration.literalType.fullyQualifiedName)
-#end
     private final $literalTypeName value;
 
     /**
@@ -143,8 +141,8 @@ $member.getDocumentation("     * ")
         ${memberVariable.setterName}(${memberVariable.name});
 #end
     }
-#end
 
+#end
     /**
      * @see Object#toString()
      */
@@ -249,10 +247,19 @@ $member.getDocumentation("     * ")
     static
     {
 #foreach ($literal in $enumeration.literals)
-#set ($value = "${literal.name}.value")
-#if($literal.type.primitive)
-#set ($value = "new ${literal.type.wrapperName}(${literal.name}.value)")
+#if ($stringUtils.isBlank($literal.enumerationValue))
+#set ($literalValue = "${literal.name}")
+#else
+#set ($literalValue = "${literal.enumerationValue}")
 #end
+#if ($literal.type.primitive)
+#set ($value = "new ${enumeration.literalType.wrapperName}(${literal.name}.value)")
+#else
+#set ($value = "${literal.name}.value")
+#end
+##if($literal.type.primitive)
+##set ($value = "new ${literal.type.wrapperName}(${literal.name}.value)")
+##end
         VALUES.put($value, $literal.name);
         ${enumeration.name}.valueList.add($literal.name);
         ${enumeration.name}.literals.add($value);
