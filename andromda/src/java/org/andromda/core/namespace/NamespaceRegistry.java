@@ -1,8 +1,10 @@
 package org.andromda.core.namespace;
 
 import java.net.URL;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Represents a namespace registry.  This is where
@@ -131,7 +133,8 @@ public class NamespaceRegistry
      */
     public void addPropertyDefinitions(final PropertyDefinition[] propertyDefinitions)
     {
-        for (PropertyDefinition propertyDefinition : propertyDefinitions) {
+        for (PropertyDefinition propertyDefinition : propertyDefinitions)
+        {
             this.addPropertyDefinition(propertyDefinition);
         }
     }
