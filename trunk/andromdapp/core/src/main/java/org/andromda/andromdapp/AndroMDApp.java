@@ -294,7 +294,7 @@ public class AndroMDApp
     private String readLine()
     {
         final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        String inputString;
+        String inputString = null;
         try
         {
             inputString = input.readLine();
