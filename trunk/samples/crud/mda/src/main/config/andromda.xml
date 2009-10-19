@@ -20,6 +20,10 @@
     <namespaces>
         <namespace name="default">
             <properties>
+                <!-- Use enums, strongly typed collections with templates, and @annotation markups>
+                <property name="enableTemplating">true</property>
+                <property name="enableAnnotations">true</property>
+                <property name="typeSafeEnumsEnabled">true</property -->
                 <property name="languageMappingsUri">Java</property>
                 <property name="wrapperMappingsUri">JavaWrapper</property>
                 <property name="sqlMappingsUri">${sql.mappings}</property>
