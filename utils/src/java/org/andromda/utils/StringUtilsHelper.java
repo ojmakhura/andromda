@@ -1,15 +1,14 @@
 package org.andromda.utils;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
-import org.apache.log4j.Logger;
-import org.andromda.utils.inflector.EnglishInflector;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.andromda.utils.inflector.EnglishInflector;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -331,7 +330,7 @@ public class StringUtilsHelper
     }
 
     /**
-     * Formats the argument string without any indentiation, the text will be
+     * Formats the argument string without any indentation, the text will be
      * wrapped at the default column.
      *
      * @see #format(String, String)
