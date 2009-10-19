@@ -62,13 +62,16 @@ public class EntityAssociationEndLogicImpl
             final String columnNamePrefix =
                 this.isConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)
                 ? ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)) : null;
+            final String columnNameSuffix =
+                this.isConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_SUFFIX)
+                ? ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_SUFFIX)) : "";
             columnName =
                 EntityMetafacadeUtils.getSqlNameFromTaggedValue(
                     columnNamePrefix,
                     this,
                     UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
                     ((Entity)this.getType()).getMaxSqlNameLength(),
-                    this.getForeignKeySuffix(),
+                    columnNameSuffix + this.getForeignKeySuffix(),
                     this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
         }
         return columnName;
