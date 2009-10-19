@@ -350,6 +350,35 @@ public class AssociationEndFacadeLogicImpl
     }
 
     /**
+     * Returns the upper range of the multiplicity for the passed in attribute
+     *
+     * @return int the upper range of the multiplicity or 1 if it isn't defined.
+     */
+    private int getMultiplicityRangeUpper()
+    {
+        Integer upper = null;
+        final Multiplicity multiplicity = metaObject.getMultiplicity();
+        if (multiplicity != null)
+        {
+            final Collection<MultiplicityRange> ranges = multiplicity.getRange();
+            if (ranges != null && !ranges.isEmpty())
+            {
+                final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
+                while (rangeIt.hasNext())
+                {
+                    final MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
+                    upper = new Integer(multiplicityRange.getUpper());
+                }
+            }
+        }
+        if (upper == null)
+        {
+            upper = Integer.valueOf(1);
+        }
+        return upper.intValue();
+    }
+
+    /**
      * Returns the lower range of the multiplicity for the passed in associationEnd
      *
      * @return int the lower range of the multiplicity or 1 if it isn't defined.
@@ -390,7 +419,7 @@ public class AssociationEndFacadeLogicImpl
      * Gets the default multiplicity for this attribute (the
      * multiplicity if none is defined).
      *
-     * @return the defautl multiplicity as a String.
+     * @return the default multiplicity as a String.
      */
     private String getDefaultMultiplicity()
     {
@@ -404,8 +433,7 @@ public class AssociationEndFacadeLogicImpl
     @Override
     protected int handleGetUpper()
     {
-        //throw new UnsupportedOperationException("'upper' is not a UML1.4 feature");
-        return 1;
+        return this.getMultiplicityRangeUpper();
      }
 
     /**
