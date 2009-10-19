@@ -8,7 +8,7 @@
  * MODEL CLASS:  $enumeration.validationName
  * METAFACADE:   org.andromda.metafacades.uml.Enumeration
 #foreach ($stereotype in $enumeration.stereotypes)
- * STEREOTYPE:  ${stereotype}
+ * STEREOTYPE:  ${stereotype.name}
 #end
  */
 ## -- start -- set the map and list types as template parameters if required
