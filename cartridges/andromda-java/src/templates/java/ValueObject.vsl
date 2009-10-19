@@ -200,7 +200,7 @@ $attribute.getDocumentation("     * ")
 
 #end
 #if (!$class.navigableConnectingEnds.empty)
-	// Class associationEnds
+    // Class associationEnds
 #foreach ($connectingEnd in $class.navigableConnectingEnds)
 #if ($XMLOutput)
     @XmlElement(name="$connectingEnd.name"#if(!$connectingEnd.type.packageName.equals($class.packageName)), namespace="http://$javaUtils.reversePackage($connectingEnd.type.packageName)/"#end##No newline
@@ -362,6 +362,7 @@ $attribute.getDocumentation("     * ")
      * Duplicates#if ($attribute.lower > 0) isBoolean#else getBoolean#end method, for use as Jaxb2 compatible object
      * Get the $attribute.name Attribute
      * @return $attribute.name $returnType
+     */
     @Deprecated
     public $returnType#if ($attribute.lower > 0) get#else is#end$stringUtils.capitalize(${attribute.name})()
     {
