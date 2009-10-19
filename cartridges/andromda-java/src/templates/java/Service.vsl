@@ -23,6 +23,15 @@ public interface $service.name
 #foreach ($operation in $service.operations)
     /**
 $operation.getDocumentation("     * ")
+#foreach ($argument in $operation.arguments)
+     * @param $argument.name $argument.getDocumentation("")
+#end
+#if ($operation.returnTypePresent)
+     * @return $operation.returnType.fullyQualifiedName
+#end
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.name $exception.getDocumentation("")
+#end
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
