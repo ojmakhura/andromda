@@ -3,8 +3,8 @@ package org.andromda.metafacades.uml14;
 import java.util.Collections;
 import java.util.List;
 import org.andromda.metafacades.uml.OperationFacade;
-import org.omg.uml.foundation.core.Operation;
 import org.omg.uml.behavioralelements.statemachines.CallEvent;
+import org.omg.uml.foundation.core.Operation;
 
 /**
  * MetafacadeLogic implementation.
