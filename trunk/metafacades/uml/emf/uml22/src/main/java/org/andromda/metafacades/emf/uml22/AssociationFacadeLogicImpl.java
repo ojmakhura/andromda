@@ -54,11 +54,13 @@ public class AssociationFacadeLogicImpl
      * @see org.andromda.metafacades.emf.uml22.ModelElementFacadeLogic#handleGetName()
      */
     @Override
-    public String handleGetName() {
+    public String handleGetName()
+    {
         String name = super.handleGetName();
 
         // if the name isn't defined, use the relation name
-        if (StringUtils.isBlank(name)) {
+        if (StringUtils.isBlank(name))
+        {
             name = this.getRelationName();
         }
         return name;
