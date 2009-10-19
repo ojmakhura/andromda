@@ -200,9 +200,19 @@ public class XmiZipArchiverMojo
         try
         {
             // - the directory which to extract the model file
+            final File buildDirectory = new File(this.workDirectory);
+            if (!buildDirectory.exists())
+            {
+                buildDirectory.mkdirs();
+            }
+            else
+            {
+                // old files in directory are not automatically deleted.
+                FileUtils.forceDelete(buildDirectory.getAbsolutePath() + "/*.xml.zip");
+                FileUtils.forceDelete(buildDirectory.getAbsolutePath() + "/models");
+            }
             final File modelExtractDirectory = new File(this.workDirectory, "models/xmi");
             modelExtractDirectory.mkdirs();
-            final File buildDirectory = new File(this.workDirectory);
 
             final File modelSourceDir = modelSourceDirectory;
             final String[] replacementExtensions =
