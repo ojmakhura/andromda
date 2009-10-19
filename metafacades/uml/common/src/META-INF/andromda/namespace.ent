@@ -136,7 +136,7 @@
             </documentation>
         </property>
         <property name="enableTemplating">
-            <default>false</default>
+            <default>true</default>
             <documentation>
                 Determines whether or not to enable templating, enabling this feature will produce
                 fully qualified names with their template parameters. Also, class names that are
@@ -200,6 +200,13 @@
                 The prefix to give all persistent entity table column names.  For example
                 if you had an column named 'Name' and you defined the columnNamePrefix
                 as 'My_', then the column name would be 'My_Name'.
+            </documentation>
+        </property>
+        <property name="columnNameSuffix" required="false">
+            <documentation>
+                The suffix to give all persistent entity table column names.  For example
+                if you had an column named 'Name' and you defined the columnNameSuffix
+                as '_Table', then the column name would be 'Name_Table'.
             </documentation>
         </property>
         <property name="foreignKeySuffix">
@@ -354,7 +361,7 @@
             </documentation>
         </property>
         <property name="toDoTag">
-            <default>@todo</default>
+            <default>TODO</default>
             <documentation>
                The tag to use that prefixes all comments in generated source code that requires
                manual modifications.  Eclipse users may want to set this to "TODO", which is 
@@ -362,7 +369,7 @@
             </documentation>
         </property>
         <property name="typeSafeEnumsEnabled">
-        <default>false</default>
+        <default>true</default>
         <documentation>
             Indicates whether enumerations must be generated using a Java 5 type-safe enum or a 
 	        traditional enumeration-pattern class. Note that there are 2 prerequisites for this
