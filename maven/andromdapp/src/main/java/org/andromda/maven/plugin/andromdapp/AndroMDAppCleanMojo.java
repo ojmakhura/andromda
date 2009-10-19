@@ -23,6 +23,11 @@ public class AndroMDAppCleanMojo
     public void execute()
         throws MojoExecutionException
     {
+        if (this.skipProcessing)
+        {
+            getLog().info("andromdapp:clean skipProcessing");
+            return;
+        }
         try
         {
             final AndroMDApp andromdapp = new AndroMDApp();
