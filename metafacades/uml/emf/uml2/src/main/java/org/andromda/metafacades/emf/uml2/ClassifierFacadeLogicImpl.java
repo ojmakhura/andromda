@@ -1,10 +1,20 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
+import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.OperationFacade;
@@ -14,7 +24,6 @@ import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
 import org.andromda.metafacades.uml.UMLProfile;
-import org.andromda.metafacades.uml.GeneralizableElementFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
@@ -26,16 +35,6 @@ import org.eclipse.uml2.DataType;
 import org.eclipse.uml2.Enumeration;
 import org.eclipse.uml2.Interface;
 import org.eclipse.uml2.PrimitiveType;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
-
 
 /**
  * MetafacadeLogic implementation for
@@ -568,6 +567,62 @@ public class ClassifierFacadeLogicImpl
         return UMLMetafacadeUtils.isType(
             this,
             UMLProfile.TIME_TYPE_NAME);
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not this classifier represents a time type.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isDoubleType()
+     */
+    //@Override
+    protected boolean handleIsDoubleType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.DOUBLE_TYPE_NAME);
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not this classifier represents a float type.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isFloatType()
+     */
+    //@Override
+    protected boolean handleIsFloatType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.FLOAT_TYPE_NAME);
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not this classifier represents an integer type.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isIntegerType()
+     */
+    //@Override
+    protected boolean handleIsIntegerType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.INTEGER_TYPE_NAME);
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not this classifier represents a long type.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isLongType()
+     */
+    //@Override
+    protected boolean handleIsLongType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.LONG_TYPE_NAME);
     }
 
     /**
