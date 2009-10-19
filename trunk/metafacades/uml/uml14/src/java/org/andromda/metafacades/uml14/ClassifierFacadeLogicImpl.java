@@ -288,6 +288,62 @@ public class ClassifierFacadeLogicImpl
     }
 
     /**
+     * <p>
+     * Indicates whether or not this classifier represents a time type.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isDoubleType()
+     */
+    //@Override
+    protected boolean handleIsDoubleType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.DOUBLE_TYPE_NAME);
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not this classifier represents a float type.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isFloatType()
+     */
+    //@Override
+    protected boolean handleIsFloatType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.FLOAT_TYPE_NAME);
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not this classifier represents an integer type.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isIntegerType()
+     */
+    //@Override
+    protected boolean handleIsIntegerType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.INTEGER_TYPE_NAME);
+    }
+
+    /**
+     * <p>
+     * Indicates whether or not this classifier represents a long type.
+     * </p>
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isLongType()
+     */
+    //@Override
+    protected boolean handleIsLongType()
+    {
+        return UMLMetafacadeUtils.isType(
+            this,
+            UMLProfile.LONG_TYPE_NAME);
+    }
+
+    /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#isTimeType()
      */
     @Override
