@@ -542,8 +542,8 @@ public final class Introspector
     {
         if (object != null || (StringUtils.isNotEmpty(name)))
         {
-            Class expectedType;
-            if (value != null)
+            Class expectedType = null;
+            if (value != null && object != null)
             {
                 final PropertyDescriptor descriptor = this.getPropertyDescriptor(
                         object.getClass(),
