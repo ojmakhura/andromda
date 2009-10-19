@@ -92,14 +92,16 @@ public class NamespaceComponents
             final String registryName = registry.getName();
 
             // - only register if we haven't yet registered the namespace resource
-            if (!this.registeredNamespaceResources.contains(resource)) {
+            if (!this.registeredNamespaceResources.contains(resource))
+            {
                 final Namespaces namespaces = Namespaces.instance();
                 final String namespace = registry.isShared() ? Namespaces.DEFAULT : registry.getName();
 
                 // - first merge on the namespace registry descriptor (if needed)
                 final Merger merger = Merger.instance();
                 boolean requiresMerge = merger.requiresMerge(namespace);
-                if (requiresMerge) {
+                if (requiresMerge)
+                {
                     registry =
                             (NamespaceRegistry) registryFactory.getObject(
                                     merger.getMergedString(
@@ -111,13 +113,15 @@ public class NamespaceComponents
                 registry.addResourceRoot(this.getNamespaceResourceRoot(resource));
 
                 // - only log the fact we've found the namespace registry, if we haven't done it yet
-                if (!this.registeredRegistries.contains(registryName)) {
+                if (!this.registeredRegistries.contains(registryName))
+                {
                     AndroMDALogger.info("found namespace --> '" + registryName + "'");
                     this.registeredRegistries.add(registryName);
                 }
 
                 final NamespaceRegistry existingRegistry = namespaces.getRegistry(registryName);
-                if (existingRegistry != null) {
+                if (existingRegistry != null)
+                {
                     // - if we already have an existing registry with the same name, copy
                     //   over any resources.
                     registry.copy(existingRegistry);
@@ -129,7 +133,8 @@ public class NamespaceComponents
                 for (final String componentName : components)
                 {
                     final Component component = this.getComponent(componentName);
-                    if (component == null) {
+                    if (component == null)
+                    {
                         throw new NamespaceComponentsException("'" + componentName +
                                 "' is not a valid namespace component");
                     }
@@ -138,14 +143,16 @@ public class NamespaceComponents
                     component.addPaths(registry.getPaths(component.getName()));
                     if (!container.isRegisteredByNamespace(
                             registryName,
-                            component.getType())) {
+                            component.getType()))
+                    {
                         AndroMDALogger.info("  +  registering component '" + componentName + "'");
                         final XmlObjectFactory componentFactory = XmlObjectFactory.getInstance(component.getType());
                         final URL componentResource =
                                 this.getNamespaceResource(
                                         registry.getResourceRoots(),
                                         component.getPaths());
-                        if (componentResource == null) {
+                        if (componentResource == null)
+                        {
                             throw new NamespaceComponentsException("'" + componentName +
                                     "' is not a valid component within namespace '" + namespace + "' (the " +
                                     componentName + "'s descriptor can not be found)");
@@ -154,7 +161,8 @@ public class NamespaceComponents
                                 (NamespaceComponent) componentFactory.getObject(componentResource);
 
                         // - now perform a merge of the descriptor (if we require one)
-                        if (requiresMerge) {
+                        if (requiresMerge)
+                        {
                             namespaceComponent =
                                     (NamespaceComponent) componentFactory.getObject(
                                             merger.getMergedString(
@@ -232,23 +240,32 @@ public class NamespaceComponents
             {
                 for (final String path : paths)
                 {
-                    try {
+                    InputStream stream = null;
+                    try 
+                    {
                         namespaceResource = new URL(ResourceUtils.normalizePath(resource + path));
-                        InputStream stream = namespaceResource.openStream();
-                        stream.close();
+                        stream = namespaceResource.openStream();
                     }
-                    catch (final Throwable throwable) {
+                    catch (final Throwable throwable)
+                    {
                         namespaceResource = null;
+                    }
+                    finally
+                    {
+                        if (stream != null) try {stream.close();} catch (Exception ex) {}
+                        stream = null;
                     }
 
                     // - break if we've found one
-                    if (namespaceResource != null) {
+                    if (namespaceResource != null)
+                    {
                         break;
                     }
                 }
 
                 // - break if we've found one
-                if (namespaceResource != null) {
+                if (namespaceResource != null)
+                {
                     break;
                 }
             }
@@ -303,7 +320,7 @@ public class NamespaceComponents
     /**
      * Stores the actual component definitions for this namespace registry.
      */
-    private final Map<String, Component> components = new LinkedHashMap<String, Component>();
+    private final Map components = new LinkedHashMap();
 
     /**
      * Adds a new component to this namespace registry.
