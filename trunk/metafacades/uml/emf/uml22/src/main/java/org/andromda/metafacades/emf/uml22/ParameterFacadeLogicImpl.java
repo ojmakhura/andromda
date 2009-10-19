@@ -177,7 +177,7 @@ public class ParameterFacadeLogicImpl
     @Override
     protected String handleGetGetterName()
     {
-        return UMLMetafacadeUtils.getGetterPrefix(this.getType()) + StringUtils.capitalize(this.getName());
+        return UMLMetafacadeUtils.getGetterPrefix(this.getType(), this.getLower()) + StringUtils.capitalize(this.getName());
     }
 
     /**
@@ -307,12 +307,33 @@ public class ParameterFacadeLogicImpl
             if (BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                name += "<" + this.getType().getFullyQualifiedName() + ">";
+                String type = this.getType().getFullyQualifiedName();
+                if (this.getType().isPrimitive())
+                {
+                    // Can't template primitive values, Objects only. Convert to wrapped.
+                    type = StringUtils.capitalize(type);
+                }
+                name += "<" + type + ">";
             }
         }
         if (name == null && this.getType() != null)
         {
             name = this.getType().getFullyQualifiedName();
+            // Special case: lower bound overrides primitive/wrapped type declaration
+            // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
+            if (this.getType().isBooleanType())
+            {
+                if (this.getType().isPrimitive() && this.getLower() < 1)
+                {
+                    // Type is optional, should not be primitive
+                    name = StringUtils.capitalize(name);
+                }
+                else if (!this.getType().isPrimitive() && this.getLower() > 0)
+                {
+                    // Type is required, should not be wrapped
+                    name = StringUtils.uncapitalize(name);
+                }
+            }
         }
         return name;
     }
