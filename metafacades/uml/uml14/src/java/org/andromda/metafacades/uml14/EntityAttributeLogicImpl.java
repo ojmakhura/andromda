@@ -57,9 +57,13 @@ public class EntityAttributeLogicImpl
         final String columnNamePrefix =
             this.isConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)
             ? ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_PREFIX)) : null;
+        final String columnNameSuffix =
+            this.isConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_SUFFIX)
+            ? ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.COLUMN_NAME_SUFFIX)) : null;
         return EntityMetafacadeUtils.getSqlNameFromTaggedValue(
             columnNamePrefix, this, UMLProfile.TAGGEDVALUE_PERSISTENCE_COLUMN,
-            maxSqlNameLength,this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
+            maxSqlNameLength, columnNameSuffix, 
+            this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
     /**
