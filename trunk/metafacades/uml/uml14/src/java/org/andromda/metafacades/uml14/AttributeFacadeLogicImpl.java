@@ -210,9 +210,9 @@ public class AttributeFacadeLogicImpl
     }
 
     /**
-     * Returns the lower range of the multiplicity for the passed in associationEnd
+     * Returns the lower range of the multiplicity for the passed in attribute
      *
-     * @return int the lower range of the multiplicity or 1 if it isn't defined.
+     * @return int the lower range of the multiplicity or the default multiplicity or 1 if it isn't defined.
      */
     private int getMultiplicityRangeLower()
     {
@@ -244,6 +244,35 @@ public class AttributeFacadeLogicImpl
             }
         }
         return lower.intValue();
+    }
+
+    /**
+     * Returns the upper range of the multiplicity for the passed in attribute
+     *
+     * @return int the upper range of the multiplicity or 1 if it isn't defined.
+     */
+    private int getMultiplicityRangeUpper()
+    {
+        Integer upper = null;
+        final Multiplicity multiplicity = metaObject.getMultiplicity();
+        if (multiplicity != null)
+        {
+            final Collection<MultiplicityRange> ranges = multiplicity.getRange();
+            if (ranges != null && !ranges.isEmpty())
+            {
+                final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
+                while (rangeIt.hasNext())
+                {
+                    final MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
+                    upper = new Integer(multiplicityRange.getUpper());
+                }
+            }
+        }
+        if (upper == null)
+        {
+            upper = Integer.valueOf(1);
+        }
+        return upper.intValue();
     }
 
     /**
@@ -464,23 +493,19 @@ public class AttributeFacadeLogicImpl
 
     /**
      * Get the UML upper multiplicity
-     * Not implemented for UML1.4
      */
     @Override
     protected int handleGetUpper()
     {
-        //throw new UnsupportedOperationException("'upper' is not a UML1.4 feature");
-        return 1;
+        return this.getMultiplicityRangeUpper();
      }
 
     /**
      * Get the UML lower multiplicity
-     * Not implemented for UML1.4
      */
     @Override
     protected int handleGetLower()
     {
-        //throw new UnsupportedOperationException("'lower' is not a UML1.4 feature");
-        return 0;
+        return this.getMultiplicityRangeLower();
     }
 }
