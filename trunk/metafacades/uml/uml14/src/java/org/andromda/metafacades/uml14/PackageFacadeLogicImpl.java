@@ -90,4 +90,11 @@ public class PackageFacadeLogicImpl
     {
         return metaObject.getOwnedElement();
     }
+
+    //@Override
+    protected String handleGetTablePrefix()
+    {
+        // TODO Auto-generated method stub
+        return "";
+    }
 }
