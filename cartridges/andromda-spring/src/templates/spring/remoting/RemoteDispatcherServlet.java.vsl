@@ -46,7 +46,6 @@ public class $className
         return ${remoteWebApplicationContextName}.class;
     }
 
-    @Override
     public boolean isPublishEvents()
     {
         return false;
