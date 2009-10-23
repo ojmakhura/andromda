@@ -46,6 +46,9 @@ public class $className
         return ${remoteWebApplicationContextName}.class;
     }
 
+    /**
+     * Not required for Spring 2.5.x
+     */
     public boolean isPublishEvents()
     {
         return false;
