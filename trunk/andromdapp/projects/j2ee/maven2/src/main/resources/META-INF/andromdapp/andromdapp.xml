@@ -399,6 +399,9 @@ rsm6 or rsm7 for .emx files)</text>
                     <condition equal="yes">
                         <setProperty id="ajaxLibrary">icefaces</setProperty>
                     </condition>
+                    <condition equal="no">
+                        <setProperty id="ajaxLibrary">trinidad</setProperty>
+                    </condition>
                 </conditions>
             </prompt>
             <prompt id="jbossSeam" setResponseAsTrue="false">
