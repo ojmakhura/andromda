@@ -483,6 +483,9 @@
                 <property name="ajaxLibrary">icefaces</property>
                 <property name="portletClass">com.icesoft.faces.webapp.http.portlet.MainPortlet</property>
                 <property name="fileTypeName">com.icesoft.faces.component.inputfile.InputFile</property>
+#elseif ($ajaxLibrary.equals("trinidad"))
+                <property name="ajaxLibrary">trinidad</property>
+                <property name="useAutocompleteLookup">true</property>
 #else
                 <property name="libraries">${web.generated.dir}</property>
 #end
