@@ -30,7 +30,11 @@ public class $manageable.manageableValueObjectClassName
 #end
 #foreach ($member in $manageable.manageableAssociationEnds)
 #if (!$manageable.generalization.manageableAssociationEnds.contains($member))## do not process associations defined in an ancestor
+#if ($member.type.compositeIdentifier)
+#set ($fieldType = "java.lang.Object")
+#else
 #set ($fieldType = $member.type.identifiers.iterator().next().type.fullyQualifiedName)
+#end
 #if ($member.many)
 #set ($fieldType = "${fieldType}[]")
 #end
