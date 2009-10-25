@@ -220,30 +220,50 @@ public class ManageableEntityLogicImpl
             final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEnds.get(i);
             final Entity entity = (Entity)associationEnd.getType();
 
-            final Iterator identifierIterator = entity.getIdentifiers().iterator();
-            if (identifierIterator.hasNext())
+            if(entity.isCompositeIdentifier())
             {
-                final AttributeFacade identifier = (AttributeFacade)identifierIterator.next();
-                if (identifier != null)
+                if (buffer.length() > 0)
                 {
-                    if (buffer.length() > 0)
+                    buffer.append(", ");
+                }
+                if (withTypes)
+                {
+                    buffer.append("java.lang.Object");
+                    if (associationEnd.isMany())
                     {
-                        buffer.append(", ");
+                        buffer.append("[]");
                     }
-
-                    final ClassifierFacade type = identifier.getType();
-                    if (type != null)
+                    buffer.append(' ');
+                }
+                buffer.append(associationEnd.getName());
+            } 
+            else 
+            {
+                final Iterator identifierIterator = entity.getIdentifiers().iterator();
+                if (identifierIterator.hasNext())
+                {
+                    final AttributeFacade identifier = (AttributeFacade)identifierIterator.next();
+                    if (identifier != null)
                     {
-                        if (withTypes)
+                        if (buffer.length() > 0)
                         {
-                            buffer.append(type.getFullyQualifiedName());
-                            if (associationEnd.isMany())
-                            {
-                                buffer.append("[]");
-                            }
-                            buffer.append(' ');
+                            buffer.append(", ");
                         }
-                        buffer.append(associationEnd.getName());
+    
+                        final ClassifierFacade type = identifier.getType();
+                        if (type != null)
+                        {
+                            if (withTypes)
+                            {
+                                buffer.append(type.getFullyQualifiedName());
+                                if (associationEnd.isMany())
+                                {
+                                    buffer.append("[]");
+                                }
+                                buffer.append(' ');
+                            }
+                            buffer.append(associationEnd.getName());
+                        }
                     }
                 }
             }

@@ -199,6 +199,9 @@ public final class $manageable.manageableServiceBaseName
 #end
         }
 #else
+#if ($member.type.compositeIdentifier)
+        valueObject.${member.setterName}(entity.${member.getterName}() == null? null: entity.${member.getterName}().${member.getterName}Pk());
+#else
 #if ($member.type.manageableIdentifier)
         final $member.type.fullyQualifiedName $member.name = entity.${member.getterName}();
 #if (!$member.type.primitive)
@@ -210,6 +213,7 @@ public final class $manageable.manageableServiceBaseName
             valueObject.${member.setterName}Label(${member.name}.${member.type.displayAttribute.getterName}());
 #end
         }
+#end
 #end
 #end
 

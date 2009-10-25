@@ -84,7 +84,7 @@ public final class $manageable.manageableDaoBaseName
         $member.type.fullyQualifiedName $memberEntityName = null;
         if ($member.name != null)
         {
-            $memberEntityName = ($member.type.fullyQualifiedName)${member.daoGetterName}().load($member.name);
+            $memberEntityName = ($member.type.fullyQualifiedName)${member.daoGetterName}().load(#if($member.type.compositeIdentifier)(${member.type.fullyQualifiedName}PK)#end$member.name);
         }
 #end
 
@@ -282,7 +282,7 @@ public final class $manageable.manageableDaoBaseName
         $member.type.fullyQualifiedName $memberEntityName = null;
         if ($member.name != null)
         {
-            $memberEntityName =#if($member.type.fullyQualifiedName != $member.type.generalizationRoot.fullyQualifiedName) (${member.type.fullyQualifiedName})#end ${member.daoGetterName}().load($member.name);
+            $memberEntityName =#if($member.type.fullyQualifiedName != $member.type.generalizationRoot.fullyQualifiedName) (${member.type.fullyQualifiedName})#end ${member.daoGetterName}().load(#if($member.type.compositeIdentifier)(${member.type.fullyQualifiedName}PK)#end$member.name);
         }
 #end
 
