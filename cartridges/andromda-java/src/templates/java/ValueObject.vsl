@@ -356,7 +356,7 @@ $attribute.getDocumentation("     * ")
         return this.$attribute.name;
     }
 
-#if ($attribute.type.booleanType && $generateIsBooleanGetters)
+#if ($attribute.type.booleanType && $attribute.type.primitive && $generateIsBooleanGetters)
     /**
 $attribute.getDocumentation("     * ")
      * Duplicates#if ($attribute.lower > 0) isBoolean#else getBoolean#end method, for use as Jaxb2 compatible object
