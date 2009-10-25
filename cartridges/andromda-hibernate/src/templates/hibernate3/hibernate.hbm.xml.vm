@@ -110,8 +110,13 @@ ${indent}    <column name="$otherEnd.columnName" not-null="$otherEnd.required"#i
 #end
 ${indent}</many-to-one>
 #elseif ($sourceEnd.many2Many)
+#if($stringUtils.isNotBlank($sourceEnd.type.schema) && $sourceEnd.type.schema.equals($otherEnd.type.schema))
+#set($associationSchema = $sourceEnd.type.schema)
+#else
+#set($associationSchema = "")
+#end
 #if ($otherEnd.set || $otherEnd.map)
-${indent}<$otherEnd.collectionType name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$sourceEnd.orderByColumns" lazy="$otherEnd.lazy" fetch="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end#if ($stringUtils.isNotBlank($otherEnd.sortType)) sort="$otherEnd.sortType"#end>
+${indent}<$otherEnd.collectionType name="$otherEnd.name" table="$otherEnd.association.tableName"#if($stringUtils.isNotBlank($entity.schema)) schema="$associationSchema"#end order-by="$sourceEnd.orderByColumns" lazy="$otherEnd.lazy" fetch="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end#if ($stringUtils.isNotBlank($otherEnd.sortType)) sort="$otherEnd.sortType"#end>
 #elseif ($otherEnd.bag)
 ${indent}<$otherEnd.collectionType name="$otherEnd.name" table="$otherEnd.association.tableName" order-by="$sourceEnd.orderByColumns" lazy="$otherEnd.lazy" fetch="$otherEnd.outerJoin" inverse="$otherEnd.hibernateInverse"#if ($otherEnd.hibernateCascade) cascade="$otherEnd.hibernateCascade"#end#if ($otherEnd.whereClause) where="$otherEnd.whereClause"#end>
 #elseif ($otherEnd.list)
