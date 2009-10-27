@@ -28,6 +28,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.PatternLayout;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
+import org.apache.velocity.tools.generic.EscapeTool;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeServices;
 import org.apache.velocity.runtime.log.LogSystem;
@@ -70,7 +71,7 @@ public class VelocityTemplateEngine
      * Stores additional properties specified within the plugin within the file META-INF/'plugin
      * name'-velocity.properties
      */
-    private Properties properties = null;
+    private Properties properties;
 
     /**
      * The current namespace this template engine is running within.
@@ -78,11 +79,14 @@ public class VelocityTemplateEngine
     private String namespace;
 
     /**
-     * the VelocityEngine instance to use
+     * The VelocityEngine instance to use
      */
     private VelocityEngine velocityEngine;
+    /**
+     * The VelocityContext instance to use
+     */
     private VelocityContext velocityContext;
-    private final List macroLibraries = new ArrayList();
+    private final List<String> macroLibraries = new ArrayList<String>();
 
     /**
      * Stores a collection of templates that have already been
@@ -130,11 +134,11 @@ public class VelocityTemplateEngine
             new VelocityLoggingReceiver());
 
         // Let this template engine know about the macro libraries.
-        for (final Iterator iterator = getMacroLibraries().iterator(); iterator.hasNext();)
+        for (String macroLibrary : getMacroLibraries())
         {
             engineProperties.addProperty(
-                VelocityEngine.VM_LIBRARY,
-                iterator.next());
+                    VelocityEngine.VM_LIBRARY,
+                    macroLibrary);
         }
 
         this.velocityEngine = new VelocityEngine();
@@ -245,7 +249,7 @@ public class VelocityTemplateEngine
      * Loads the internal {@link #velocityContext} from the 
      * given Map of template objects.
      * 
-     * @param a Map containing objects to add to the template context.
+     * @param templateObjects Map containing objects to add to the template context.
      */
     private void loadVelocityContext(final Map<String, Object> templateObjects)
     {
@@ -257,6 +261,9 @@ public class VelocityTemplateEngine
                 this.velocityContext.put(name, value);
             }
         }
+
+        // add velocity tools (Escape tool)
+        this.velocityContext.put("esc", new EscapeTool());
     }
 
     /**
@@ -293,13 +300,15 @@ public class VelocityTemplateEngine
     public String getEvaluatedExpression(final String expression, final Map<String, Object> templateObjects)
     {
         String evaluatedExpression = null;
-        if (StringUtils.isNotEmpty(expression) && templateObjects != null && !templateObjects.isEmpty())
+        if (StringUtils.isNotEmpty(expression))
         {
+            // reuse last created context, need it for processing $generateFilename
             if (this.velocityContext == null)
             {
                 this.velocityContext = new VelocityContext();
                 this.loadVelocityContext(templateObjects);
             }
+            
             try
             {
                 final StringWriter writer = new StringWriter();
@@ -317,7 +326,7 @@ public class VelocityTemplateEngine
     /**
      * @see org.andromda.core.templateengine.TemplateEngine#getMacroLibraries()
      */
-    public List getMacroLibraries()
+    public List<String> getMacroLibraries()
     {
         return this.macroLibraries;
     }
@@ -354,7 +363,7 @@ public class VelocityTemplateEngine
      * purposes and so therefore are no longer needed after
      * the engine is shutdown).
      */
-    private final void deleteMergedTemplatesLocation()
+    private void deleteMergedTemplatesLocation()
     {
         File directory = new File(TEMPORARY_TEMPLATE_LOCATION);
         if (directory.getParentFile().isDirectory())

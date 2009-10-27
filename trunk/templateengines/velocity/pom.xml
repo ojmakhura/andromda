@@ -16,9 +16,14 @@
     </scm>
     <dependencies>
     	<dependency> 
-    		<groupId>velocity</groupId>
+    		<groupId>org.apache.velocity</groupId>
       		<artifactId>velocity</artifactId>
-     			<version>1.4</version>          
+     		<version>1.6.2</version>          
+    	</dependency>
+    	<dependency> 
+    		<groupId>velocity-tools</groupId>
+      		<artifactId>velocity-tools</artifactId>
+     		<version>1.4</version>          
     	</dependency> 	
     </dependencies>
     <build>
@@ -37,11 +42,7 @@
                 <configuration>
                     <installDirectory>${basedir}/../../lib</installDirectory>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-            </plugin>           
+            </plugin>                      
         </plugins>
     </build>
 </project>

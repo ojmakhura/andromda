@@ -1,13 +1,14 @@
 package org.andromda.templateengines.velocity;
 
-import junit.framework.TestCase;
-
 import org.andromda.core.configuration.Namespace;
 import org.andromda.core.configuration.NamespaceProperties;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
+import org.andromda.core.templateengine.TemplateEngineException;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 import java.io.StringWriter;
 import java.net.URL;
@@ -20,17 +21,13 @@ import java.util.Map;
  *
  * @author <a href="http://www.mbohlen.de">Matthias Bohlen</a>
  * @author Chad Brandon
+ * @author Michail Plushnikov
  */
 public class VelocityTemplateEngineTest
-    extends TestCase
 {
-    public VelocityTemplateEngineTest(String arg0)
-    {
-        super(arg0);
-    }
-
+    @Test
     public void testDirectVelocity()
-        throws Exception
+            throws Exception
     {
         StringWriter writer = new StringWriter();
 
@@ -44,22 +41,21 @@ public class VelocityTemplateEngineTest
 
         assertTrue(engine.evaluate(velocityContext, writer, "mylogtag", "$test1$test2"));
         assertEquals(
-            "@test1@@test2@",
-            writer.getBuffer().toString());
+                "@test1@@test2@",
+                writer.getBuffer().toString());
     }
-    
+
     /**
-     * Tests the dynamic template merging.
-     * 
+     * Creates an instance of templatengine
+     * @param packagePath
+     * @return instance of tempalte engine
      * @throws Exception
      */
-    public void testTemplateMerging()
-        throws Exception
+    private VelocityTemplateEngine createEngine(String packagePath) throws Exception
     {
-        final String packagePath = this.getClass().getPackage().getName().replace('.', '/');
         Property mergeMappings = new Property();
         URL mergeMappingsUri = VelocityTemplateEngineTest.class.getResource(
-            "/" + packagePath + "/merge-mappings.xml");
+                "/" + packagePath + "/merge-mappings.xml");
         assertNotNull(mergeMappingsUri);
         mergeMappings.setName(NamespaceProperties.MERGE_MAPPINGS_URI);
         mergeMappings.setValue(mergeMappingsUri.toString());
@@ -70,13 +66,67 @@ public class VelocityTemplateEngineTest
         Namespaces.instance().addNamespace(namespace);
         final VelocityTemplateEngine engine = new VelocityTemplateEngine();
         engine.initialize(namespaceName);
+        return engine;
+    }
+
+    /**
+     * Tests the dynamic template merging.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testTemplateMerging()
+            throws Exception
+    {
+        final String packagePath = this.getClass().getPackage().getName().replace('.', '/');
+
         StringWriter writer = new StringWriter();
         String path = packagePath + "/merge-test.vsl";
-        
-        
-        final Map context = new HashMap();
+
+        final Map<String, Object> context = new HashMap<String, Object>();
         context.put("contextObject", "aValue");
+
+        final VelocityTemplateEngine engine = createEngine(packagePath);
         engine.processTemplate(path, context, writer);
         assertEquals("<test>merged value aValue</test>", writer.toString());
+    }
+
+    @Test
+    public void testVelocityEscapeToolHash()
+            throws Exception
+    {
+        final String packagePath = this.getClass().getPackage().getName().replace('.', '/');
+        final VelocityTemplateEngine engine = createEngine(packagePath);                                
+        assertEquals("Test#Test", engine.getEvaluatedExpression("Test${esc.hash}Test", null));
+    }
+
+    @Test
+    public void testVelocityEscapeToolJavadoc()
+            throws Exception
+    {
+        final String packagePath = this.getClass().getPackage().getName().replace('.', '/');
+        final VelocityTemplateEngine engine = createEngine(packagePath);        
+        assertEquals("@see package.name.Clasname#methodname(package.name.class var)",
+                engine.getEvaluatedExpression("@see package.name.Clasname${esc.hash}methodname(package.name.class var)",
+                        null));
+    }
+
+    @Test(expected= TemplateEngineException.class)
+    public void testVelocityNonEscapeToolJavadoc()
+            throws Exception
+    {
+        final String packagePath = this.getClass().getPackage().getName().replace('.', '/');
+        final VelocityTemplateEngine engine = createEngine(packagePath);
+        assertEquals("@see package.name.Clasname#methodname(package.name.class var)",
+                engine.getEvaluatedExpression("@see package.name.Clasname#methodname(package.name.class var)", null));
+    }
+
+    @Test
+    public void testVelocityEscapeToolDollar()
+            throws Exception
+    {
+        final String packagePath = this.getClass().getPackage().getName().replace('.', '/');
+        final VelocityTemplateEngine engine = createEngine(packagePath);
+        assertEquals("Test$Test", engine.getEvaluatedExpression("Test${esc.dollar}Test", null));
     }
 }
