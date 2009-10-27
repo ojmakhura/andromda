@@ -106,12 +106,12 @@ public class FreeMarkerTemplateEngine implements TemplateEngine
     /**
      * Stores the macro libraries the template.
      */
-    private List macroLibraries = new ArrayList();
+    private List<String> macroLibraries = new ArrayList<String>();
 
     /**
      * @see org.andromda.core.templateengine.TemplateEngine#getMacroLibraries()
      */
-    public List getMacroLibraries()
+    public List<String> getMacroLibraries()
     {
         return this.macroLibraries;
     }

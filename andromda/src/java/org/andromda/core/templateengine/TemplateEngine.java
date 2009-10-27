@@ -53,7 +53,7 @@ public interface TemplateEngine
      *
      * @return List the list of macros
      */
-    public List getMacroLibraries();
+    public List<String> getMacroLibraries();
 
     /**
      * Adds a a macro library for use within this template engine.
