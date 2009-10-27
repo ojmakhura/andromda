@@ -11,7 +11,7 @@ public class $enumeration.converterName
     implements javax.faces.convert.Converter
 {
     /**
-     * @see javax.faces.convert.Converter#getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, Object)
+     * @see javax.faces.convert.Converter${esc.hash}getAsString(javax.faces.context.FacesContext, javax.faces.component.UIComponent, Object)
      */
     public String getAsString(
         javax.faces.context.FacesContext context,
@@ -23,7 +23,7 @@ public class $enumeration.converterName
     }
 
     /**
-     * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, String)
+     * @see javax.faces.convert.Converter${esc.hash}getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, String)
      */
     public Object getAsObject(
         javax.faces.context.FacesContext context,

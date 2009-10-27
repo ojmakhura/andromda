@@ -112,7 +112,7 @@ public abstract class $metafacade.logicName
 ##
     /** Reset context only for non-root metafacades
      * @param context
-     * @see org.andromda.core.metafacade.MetafacadeBase#resetMetafacadeContext(String context)
+     * @see org.andromda.core.metafacade.MetafacadeBase${esc.hash}resetMetafacadeContext(String context)
      */
     @Override
     public void resetMetafacadeContext(String context)
@@ -157,7 +157,7 @@ public abstract class $metafacade.logicName
 #set ($handleMethodPreCondition = "${attribute.implementationOperationName}${velocityCount}aPreCondition()")## postfix with counter to avoid collisions with other members
 #set ($handleMethodPostCondition = "${attribute.implementationOperationName}${velocityCount}aPostCondition()")## postfix with counter to avoid collisions with other members
    /**
-    * @see ${metafacade.fullyQualifiedName}#${methodName}()
+    * @see ${metafacade.fullyQualifiedName}${esc.hash}${methodName}()
     * @return $memberTypeName
     */
     protected abstract $memberTypeName ${attribute.implementationOperationName}($typedArgumentList);
@@ -362,7 +362,7 @@ $associationEnd.getDocumentation("     * ")
 #foreach ($method in $metafacade.getMethodDataForPSM($link.parent))
     /**
  $method.documentation
-     * @see ${method.metafacadeName}#${method.name}(${method.typedArgumentList})
+     * @see ${method.metafacadeName}${esc.hash}${method.name}(${method.typedArgumentList})
      */
     $method.buildMethodDeclaration(true)
     {
@@ -378,7 +378,7 @@ $associationEnd.getDocumentation("     * ")
 #end
 #if ($metafacade.requiresInheritanceDelegatation)
     /**
-     * @see org.andromda.core.metafacade.MetafacadeBase#initialize()
+     * @see org.andromda.core.metafacade.MetafacadeBase${esc.hash}initialize()
      */
     @Override
     public void initialize()
@@ -392,7 +392,7 @@ $associationEnd.getDocumentation("     * ")
 #if ($velocityCount>0)
      * @return Object ${metafacade.generalizationLinks.get(0).getterName}().getValidationOwner()
 #end
-     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
+     * @see org.andromda.core.metafacade.MetafacadeBase${esc.hash}getValidationOwner()
      */
     @Override
     public Object getValidationOwner()
@@ -416,7 +416,7 @@ $associationEnd.getDocumentation("     * ")
 #if ($velocityCount>0)
      * @return String ${metafacade.generalizationLinks.get(0).getterName}().getValidationName()
 #end
-     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationName()
+     * @see org.andromda.core.metafacade.MetafacadeBase${esc.hash}getValidationName()
      */
     @Override
     public String getValidationName()
@@ -443,7 +443,7 @@ $associationEnd.getDocumentation("     * ")
      * #if($constraint.postcondition)postcondition #end #if($constraint.precondition)precondition #end $constraint.body
 #end
      * @param validationMessages Collection
-     * @see org.andromda.core.metafacade.MetafacadeBase#validateInvariants(java.util.Collection validationMessages)
+     * @see org.andromda.core.metafacade.MetafacadeBase${esc.hash}validateInvariants(java.util.Collection validationMessages)
      */
     @Override
     public void validateInvariants(java.util.Collection validationMessages)
@@ -466,7 +466,7 @@ $associationEnd.getDocumentation("     * ")
     private static final String NAME_PROPERTY = "name";
     
     /**
-     * @see Object#toString()
+     * @see Object${esc.hash}toString()
      */
     @Override
     public String toString()

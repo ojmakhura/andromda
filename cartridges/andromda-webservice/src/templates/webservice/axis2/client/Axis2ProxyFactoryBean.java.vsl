@@ -33,7 +33,7 @@ public class Axis2ProxyFactoryBean
     }
 
     /**
-     * @see org.springframework.beans.factory.FactoryBean#getObject()
+     * @see org.springframework.beans.factory.FactoryBean${esc.hash}getObject()
      */
     public Object getObject()
     {
@@ -41,7 +41,7 @@ public class Axis2ProxyFactoryBean
     }
 
     /**
-     * @see org.springframework.beans.factory.FactoryBean#getObjectType()
+     * @see org.springframework.beans.factory.FactoryBean${esc.hash}getObjectType()
      */
     public Class getObjectType()
     {
@@ -49,7 +49,7 @@ public class Axis2ProxyFactoryBean
     }
 
     /**
-     * @see org.springframework.beans.factory.FactoryBean#isSingleton()
+     * @see org.springframework.beans.factory.FactoryBean${esc.hash}isSingleton()
      */
     public boolean isSingleton()
     {

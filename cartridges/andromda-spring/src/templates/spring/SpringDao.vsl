@@ -129,13 +129,13 @@ public interface $entity.daoName
 #end
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
-     * Loads an instance of $entity.fullyQualifiedEntityName from the persistent store.
+     * Loads an instance of ${entity.fullyQualifiedEntityName} from the persistent store.
      */
     public $rootEntityType load(${identifierTypeName} ${identifierName});
 
     /**
      * <p>
-     * Does the same thing as {@link #load(${identifierTypeName})} with an
+     * Does the same thing as {@link ${esc.hash}load(${identifierTypeName})} with an
      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
      * defined in this class then the result <strong>WILL BE</strong> passed through an operation which can
@@ -157,7 +157,7 @@ public interface $entity.daoName
 
     /**
      * <p>
-     * Does the same thing as {@link #loadAll()} with an
+     * Does the same thing as {@link ${esc.hash}loadAll()} with an
      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
      * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -172,7 +172,7 @@ public interface $entity.daoName
 
     /**
      * <p>
-     * Does the same thing as {@link #loadAll()} with an
+     * Does the same thing as {@link ${esc.hash}loadAll()} with an
      * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
      * page retrieved.
@@ -186,7 +186,7 @@ public interface $entity.daoName
 
     /**
      * <p>
-     * Does the same thing as {@link #loadAll(int)} with an
+     * Does the same thing as {@link ${esc.hash}loadAll(int)} with an
      * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
      * page retrieved.
@@ -208,13 +208,13 @@ public interface $entity.daoName
 
 #if ($hibernateUtils.xmlPersistenceActive)
     /**
-     * Creates an instance of $entity.fullyQualifiedEntityName using XML defined in <code>$argumentName</code>
+     * Creates an instance of ${entity.fullyQualifiedEntityName} using XML defined in <code>$argumentName</code>
      * and adds it to the persistent store.
      */
     public $rootEntityType create(org.dom4j.Element $argumentName);
 
     /**
-     * Creates an instance of $entity.fullyQualifiedEntityName using XML defined in <code>$argumentName</code>
+     * Creates an instance of ${entity.fullyQualifiedEntityName} using XML defined in <code>$argumentName</code>
      * and adds it to the persistent store.
      */
     public Object create(int transform, org.dom4j.Element $argumentName);
@@ -222,7 +222,7 @@ public interface $entity.daoName
 #end
     /**
      * <p>
-     * Does the same thing as {@link #create($entity.fullyQualifiedEntityName)} with an
+     * Does the same thing as {@link ${esc.hash}create(${entity.fullyQualifiedEntityName})} with an
      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
      * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -233,7 +233,7 @@ public interface $entity.daoName
     public Object create(int transform, $entity.fullyQualifiedEntityName $argumentName);
 
     /**
-     * Creates a new instance of $entity.fullyQualifiedEntityName and adds
+     * Creates a new instance of ${entity.fullyQualifiedEntityName} and adds
      * from the passed in <code>entities</code> collection
      *
      * @param entities the collection of $entity.fullyQualifiedEntityName
@@ -245,7 +245,7 @@ public interface $entity.daoName
 
     /**
      * <p>
-     * Does the same thing as {@link #create($entity.fullyQualifiedEntityName)} with an
+     * Does the same thing as {@link ${esc.hash}create($entity.fullyQualifiedEntityName)} with an
      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
      * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -273,7 +273,7 @@ public interface $entity.daoName
 
     /**
      * <p>
-     * Does the same thing as {@link #create($entity.getAttributeTypeList(true,false))} with an
+     * Does the same thing as {@link ${esc.hash}create($entity.getAttributeTypeList(true,false))} with an
      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
      * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -306,7 +306,7 @@ public interface $entity.daoName
 
     /**
      * <p>
-     * Does the same thing as {@link #create($entity.getRequiredAttributeTypeList(true,false))} with an
+     * Does the same thing as {@link ${esc.hash}create($entity.getRequiredAttributeTypeList(true,false))} with an
      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
      * defined here then the result <strong>WILL BE</strong> passed through an operation which can optionally
@@ -379,9 +379,9 @@ $operation.getDocumentation("     * ")
 #if(!$operation.criteriaFinder)
     /**
      * <p>
-     * Does the same thing as {@link #${operation.getSignature(false)}} with an
+     * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
      * additional argument called <code>queryString</code>. This <code>queryString</code>
-     * argument allows you to override the query string defined in {@link #${operation.getSignature(false)}}.
+     * argument allows you to override the query string defined in {@link ${esc.hash}${operation.getSignature(false)}}.
      * </p>
      */
 #if ($operation.exceptionsPresent)
@@ -397,7 +397,7 @@ $operation.getDocumentation("     * ")
 #end
     /**
      * <p>
-     * Does the same thing as {@link #${operation.getSignature(false)}} with an
+     * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
      * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
      * page retrieved.
@@ -412,7 +412,7 @@ $operation.getDocumentation("     * ")
 
     /**
      * <p>
-     * Does the same thing as {@link #${operation.name}(String#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
+     * Does the same thing as {@link ${esc.hash}${operation.name}(String#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
      * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
      * page retrieved.
@@ -433,7 +433,7 @@ $operation.getDocumentation("     * ")
 #end
     /**
      * <p>
-     * Does the same thing as {@link #${operation.getSignature(false)}} with an
+     * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      * finder results will <strong>NOT</strong> be transformed during retrieval.
      * If this flag is any of the other constants defined here
@@ -452,7 +452,7 @@ $operation.getDocumentation("     * ")
 #if ($operation.returnType.collectionType)
     /**
      * <p>
-     * Does the same thing as {@link #${operation.name}(int#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
+     * Does the same thing as {@link ${esc.hash}${operation.name}(int#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
      * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
      * page retrieved.
@@ -468,9 +468,9 @@ $operation.getDocumentation("     * ")
 #end
     /**
      * <p>
-     * Does the same thing as {@link #${operation.name}(int#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
+     * Does the same thing as {@link ${esc.hash}${operation.name}(int#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
      * additional argument called <code>queryString</code>. This <code>queryString</code>
-     * argument allows you to override the query string defined in {@link #${operation.name}(int#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)}.
+     * argument allows you to override the query string defined in {@link ${esc.hash}${operation.name}(int#if(!$operation.arguments.empty), ${operation.typedArgumentList}#end)}.
      * </p>
      */
 #if ($operation.exceptionsPresent)
@@ -483,7 +483,7 @@ $operation.getDocumentation("     * ")
 #if ($operation.returnType.collectionType)
     /**
      * <p>
-     * Does the same thing as {@link #${operation.name}(int, String#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
+     * Does the same thing as {@link ${esc.hash}${operation.name}(int, String#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
      * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
      * page retrieved.
@@ -505,7 +505,7 @@ $operation.getDocumentation("     * ")
 #end
     /**
      * <p>
-     * Does the same thing as {@link #${operation.getSignature(false)}} with an
+     * Does the same thing as {@link ${esc.hash}${operation.getSignature(false)}} with an
      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      * finder results will <strong>NOT</strong> be transformed during retrieval.
      * If this flag is any of the other constants defined here
@@ -524,7 +524,7 @@ $operation.getDocumentation("     * ")
 #if ($operation.returnType.collectionType)
     /**
      * <p>
-     * Does the same thing as {@link #${operation.name}(int, String#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
+     * Does the same thing as {@link ${esc.hash}${operation.name}(int, String#if(!$operation.arguments.empty), ${operation.argumentTypeNames}#end)} with an
      * additional two arguments called <code>pageNumber</code> and <code>pageSize</code>. The <code>pageNumber</code>
      * argument allows you to specify the page number when you are paging the results and the pageSize allows you to specify the size of the
      * page retrieved.
@@ -557,7 +557,7 @@ $operation.getDocumentation("     * ")
 #set ($fullyQualifiedSearchClassName = $springUtils.getFullyQualifiedClassName($springTypesPackage, "Search"))
 
     /**
-     * Does the same thing as {@link #search(int, $fullyQualifiedSearchClassName) but with an
+     * Does the same thing as {@link ${esc.hash}search(int, $fullyQualifiedSearchClassName) but with an
      * additional two flags called <code>pageNumber</code> and <code>pageSize</code>. These flags allow you to
      * limit your data to a specified page number and size.
      *
@@ -570,7 +570,7 @@ $operation.getDocumentation("     * ")
     public $fullyQualifiedPagingResultName search(final int transform, final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search);
 
     /**
-     * Does the same thing as {@link #search($fullyQualifiedSearchClassName) but with an
+     * Does the same thing as {@link ${esc.hash}search($fullyQualifiedSearchClassName) but with an
      * additional two flags called <code>pageNumber</code> and <code>pageSize</code>. These flags allow you to
      * limit your data to a specified page number and size.
      *
@@ -582,7 +582,7 @@ $operation.getDocumentation("     * ")
     public $fullyQualifiedPagingResultName search(final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search);
 
     /**
-     * Does the same thing as {@link #search($fullyQualifiedSearchClassName)} but with an
+     * Does the same thing as {@link ${esc.hash}search($fullyQualifiedSearchClassName)} but with an
      * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
      * finder results will <strong>NOT</strong> be transformed during retrieval.
      * If this flag is any of the other constants defined here
@@ -608,13 +608,13 @@ $operation.getDocumentation("     * ")
      * Allows transformation of entities into value objects
      * (or something else for that matter), when the <code>transform</code>
      * flag is set to one of the constants defined in <code>$entity.fullyQualifiedDaoName</code>, please note
-     * that the {@link #$entity.daoNoTransformationConstantName} constant denotes no transformation, so the entity itself
+     * that the {@link ${esc.hash}$entity.daoNoTransformationConstantName} constant denotes no transformation, so the entity itself
      * will be returned.
 #if (!$entity.valueObjectReferences.empty)
      * <p>
      * This method will return instances of these types:
      * <ul>
-     *   <li>{@link $entity.fullyQualifiedName} - {@link #$entity.daoNoTransformationConstantName}</li>
+     *   <li>{@link $entity.fullyQualifiedName} - {@link ${esc.hash}$entity.daoNoTransformationConstantName}</li>
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
 #set ($targetElement = $valueObjectRef.targetElement)
      *   <li>{@link $targetElement.fullyQualifiedName} - {@link ${valueObjectRef.transformationConstantName}}</li>
@@ -622,25 +622,25 @@ $operation.getDocumentation("     * ")
      * </ul>
 #end
      *
-     * If the integer argument value is unknown {@link #${entity.daoNoTransformationConstantName}} is assumed.
+     * If the integer argument value is unknown {@link ${esc.hash}${entity.daoNoTransformationConstantName}} is assumed.
      *
      * @param transform one of the constants declared in {@link $entity.fullyQualifiedDaoName}
      * @param entity an entity that was found
      * @return the transformed entity (i.e. new value object, etc)
-     * @see #transformEntities(int,java.util.Collection)
+     * @see ${esc.hash}transformEntities(int,java.util.Collection)
      */
     public java.lang.Object transformEntity(final int transform, final $entity.fullyQualifiedName entity);
 
     /**
      * Transforms a collection of entities using the
-     * {@link #transformEntity(int,$entity.fullyQualifiedName)}
+     * {@link ${esc.hash}transformEntity(int,$entity.fullyQualifiedName)}
      * method. This method does not instantiate a new collection.
      * <p>
      * This method is to be used internally only.
      *
      * @param transform one of the constants declared in <code>$entity.fullyQualifiedDaoName</code>
      * @param entities the collection of entities to transform
-     * @see #transformEntity(int,$entity.fullyQualifiedName)
+     * @see ${esc.hash}transformEntity(int,$entity.fullyQualifiedName)
      */
     public void transformEntities(final int transform, final java.util.Collection#if($enableTemplating)<?>#end entities);
 

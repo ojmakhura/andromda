@@ -144,7 +144,7 @@ public final class $manageable.formBeanClassName
 
 #end
     /**
-     * @see org.apache.struts.validator.ValidatorForm#reset(org.apache.struts.action.ActionMapping,javax.servlet.http.HttpServletRequest)
+     * @see org.apache.struts.validator.ValidatorForm${esc.hash}reset(org.apache.struts.action.ActionMapping,javax.servlet.http.HttpServletRequest)
      */
     public void reset(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
     {

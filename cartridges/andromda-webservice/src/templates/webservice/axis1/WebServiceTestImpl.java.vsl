@@ -25,7 +25,7 @@ public class $service.testImplementationName
 
 #foreach ($operation in $service.allowedOperations)
     /**
-     * @see ${service.fullyQualifiedTestName}#${operation.testSignature}
+     * @see ${service.fullyQualifiedTestName}${esc.hash}${operation.testSignature}
      */
     public void $operation.testImplementationSignature
         throws Exception

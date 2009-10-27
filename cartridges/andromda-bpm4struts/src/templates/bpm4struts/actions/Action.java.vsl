@@ -162,9 +162,9 @@ $decisionTransition.getDocumentation("     * ")
 
 #set ($defaultOutcome = false)## keeps track of the last transition
 #foreach ($outcome in $decisionTransition.target.outgoings)
-#if ($outcome.guardName!='$outcome.guardName')
+#if ($outcome.guardName)
 #set ($defaultOutcome = $outcome)
-        if (value.equals("$outcome.guardName"))
+        if (value.equals("${outcome.guardName}"))
         {
 #saveMessages($outcome "            ")
             return #processTransition($outcome)

@@ -22,7 +22,7 @@ public class ${service.name}BeanImpl
 #set ($signature = "ejbHome${stringUtils.capitalize($signature)}")
 #end
     /**
-     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     * @see ${service.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
     $visibility $returnType $signature
 #if ($operation.exceptionsPresent)

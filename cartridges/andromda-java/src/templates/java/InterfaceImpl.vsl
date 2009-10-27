@@ -26,7 +26,7 @@ public#if ($interface.abstractInterfaceImplementation) abstract#end class $class
     private $attribute.getterSetterTypeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
     
     /**
-     * @see $interface.fullyQualifiedName#${attribute.getterName}()
+     * @see ${interface.fullyQualifiedName}${esc.hash}${attribute.getterName}()
      */
     public $attribute.getterSetterTypeName ${attribute.getterName}()
     {
@@ -36,7 +36,7 @@ public#if ($interface.abstractInterfaceImplementation) abstract#end class $class
 ## - always generate setter on impl (so that the value can be populated
     /**
 #if (!$attribute.readOnly)
-     * @see $interface.fullyQualifiedName#${attribute.setterName}($attribute.getterSetterTypeName)
+     * @see ${interface.fullyQualifiedName}${esc.hash}${attribute.setterName}($attribute.getterSetterTypeName)
 #else
 $attribute.getDocumentation("     * ")
      * @param ${attribute.name}In $returnType
@@ -60,7 +60,7 @@ $attribute.getDocumentation("     * ")
     private $associationEnd.getterSetterTypeName $associationEnd.name;
     
     /**
-     * @see $interface.fullyQualifiedName#${associationEnd.getterName}()
+     * @see ${interface.fullyQualifiedName}${esc.hash}${associationEnd.getterName}()
      */
     public $associationEnd.getterSetterTypeName ${associationEnd.getterName}()
     {
@@ -70,7 +70,7 @@ $attribute.getDocumentation("     * ")
 ## - always generate setter on impl (so that the value can be populated)
     /**
 #if (!$associationEnd.readOnly)
-     * @see $interface.fullyQualifiedName#${associationEnd.setterName}($associationEnd.getterSetterTypeName)
+     * @see ${interface.fullyQualifiedName}${esc.hash}${associationEnd.setterName}($associationEnd.getterSetterTypeName)
 #else
 $associationEnd.getDocumentation("     * ")
      * @param ${associationEnd.name}In $associationEnd.getterSetterTypeName
@@ -92,7 +92,7 @@ $associationEnd.getDocumentation("     * ")
 #set ($returnType = $operation.returnType)
 #if ($operation.visibility == "public")
     /**
-     * @see ${interface.fullyQualifiedName}#${operation.getSignature(false)}
+     * @see ${interface.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
 #if ($operation.exceptionsPresent)
     public abstract $returnType.fullyQualifiedName $operation.signature

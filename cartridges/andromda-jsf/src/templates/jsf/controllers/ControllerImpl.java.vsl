@@ -11,7 +11,7 @@ public class $controller.implementationName
 
 #foreach ($operation in $controller.operations)
     /**
-     * @see $controller.fullyQualifiedName#$operation.signature
+     * @see $controller.fullyQualifiedName${esc.hash}$operation.signature
      */
     $operation.implementationFormSignature
     {

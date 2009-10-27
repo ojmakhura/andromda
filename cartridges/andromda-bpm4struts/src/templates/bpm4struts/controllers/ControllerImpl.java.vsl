@@ -32,7 +32,7 @@ public class ${controllerClassName}Impl extends ${controllerClassName}
 #set ($returnType = "void")
 #end
     /**
-     * @see ${controllerPackageName}.${controllerClassName}#${operation.name}(org.apache.struts.action.ActionMapping, $operation.interfaceType, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see ${controllerPackageName}.${controllerClassName}${esc.hash}${operation.name}(org.apache.struts.action.ActionMapping, $operation.interfaceType, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     $visibility final $returnType ${operation.name}(ActionMapping mapping, $operation.interfaceType form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {

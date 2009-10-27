@@ -9,7 +9,7 @@ package $operation.packageName;
  *
 $operation.getDocumentation(" * ")
  *
- * @see ${operation.owner.fullyQualifiedName}#${operation.signature}
+ * @see ${operation.owner.fullyQualifiedName}${esc.hash}${operation.signature}
  */
 public interface $operation.formName
 {

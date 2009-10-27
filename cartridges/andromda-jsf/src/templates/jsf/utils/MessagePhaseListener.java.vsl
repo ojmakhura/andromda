@@ -13,7 +13,7 @@ public class $className
     implements javax.faces.event.PhaseListener
 {
     /**
-     * @see javax.faces.event.PhaseListener#beforePhase(javax.faces.event.PhaseEvent)
+     * @see javax.faces.event.PhaseListener${esc.hash}beforePhase(javax.faces.event.PhaseEvent)
      */
     public void beforePhase(javax.faces.event.PhaseEvent event)
     {
@@ -41,7 +41,7 @@ public class $className
     }
 
     /**
-     * @see javax.faces.event.PhaseListener#afterPhase(javax.faces.event.PhaseEvent)
+     * @see javax.faces.event.PhaseListener${esc.hash}afterPhase(javax.faces.event.PhaseEvent)
      */
     public void afterPhase(javax.faces.event.PhaseEvent event)
     {
@@ -49,7 +49,7 @@ public class $className
     }
 
     /**
-     * @see javax.faces.event.PhaseListener#getPhaseId()
+     * @see javax.faces.event.PhaseListener${esc.hash}getPhaseId()
      */
     public javax.faces.event.PhaseId getPhaseId()
     {

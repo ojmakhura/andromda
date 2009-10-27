@@ -38,7 +38,7 @@ public class $metafacade.logicImplName
 #set ($returnTypeName = $attribute.type.fullyQualifiedName)
     /**
 $attribute.getDocumentation("     * ")
-     * @see ${metafacade.fullyQualifiedName}#${attribute.getterName}()
+     * @see ${metafacade.fullyQualifiedName}${esc.hash}${attribute.getterName}()
      */
     protected $returnTypeName ${attribute.implementationOperationName}()
     {
@@ -55,7 +55,7 @@ $attribute.getDocumentation("     * ")
 #set ($returnTypeName = $operation.returnType.fullyQualifiedName)
     /**
 $operation.getDocumentation("     * ")
-     * @see ${metafacade.fullyQualifiedName}#${operation.getSignature(false)}
+     * @see ${metafacade.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
 #if ($defaultException)
     $operation.visibility $returnTypeName ${operation.implementationName}($operation.typedArgumentList)
@@ -84,7 +84,7 @@ $operation.getDocumentation("     * ")
 #end
     /**
 $associationEnd.getDocumentation("     * ")
-     * @see ${metafacade.fullyQualifiedName}#${associationEnd.otherEnd.getterName}()
+     * @see ${metafacade.fullyQualifiedName}${esc.hash}${associationEnd.otherEnd.getterName}()
      */
     protected $returnTypeName ${associationEnd.otherEnd.implementationOperationName}()
     {

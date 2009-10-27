@@ -144,7 +144,7 @@ $member.getDocumentation("     * ")
 
 #end
     /**
-     * @see Object#toString()
+     * @see Object${esc.hash}toString()
      */
 #if ($enableAnnotations)
     @Override

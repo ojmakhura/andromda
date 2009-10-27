@@ -23,7 +23,7 @@ public#if ($embeddedValue.abstract) abstract#end class $embeddedValue.implementa
     
 #foreach ($operation in $embeddedValue.operations)
     /**
-     * @see ${embeddedValue.fullyQualifiedName}#${operation.getSignature(false)}
+     * @see ${embeddedValue.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.signature
 #if ($operation.exceptionsPresent)

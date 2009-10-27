@@ -440,7 +440,7 @@ $connectingEnd.getDocumentation("     * ")
     /**
      * @param object to compare this object against
      * @return boolean if equal
-     * @see Object#equals(Object)
+     * @see Object${esc.hash}equals(Object)
      */
 #if ($enableAnnotations)
 #if ($templating)
@@ -467,7 +467,7 @@ $connectingEnd.getDocumentation("     * ")
     /**
      * @param object to compare this object against
      * @return int if equal
-     * @see Comparable#compareTo(final Object)
+     * @see Comparable${esc.hash}compareTo(final Object)
      */
 #if ($enableAnnotations)
 #if ($templating)
@@ -495,7 +495,7 @@ $connectingEnd.getDocumentation("     * ")
 
     /**
      * @return int hashCode value
-     * @see Object#hashCode()
+     * @see Object${esc.hash}hashCode()
      */
 #if ($enableAnnotations)
     @Override
@@ -523,7 +523,7 @@ $connectingEnd.getDocumentation("     * ")
 
     /**
      * @return String representation of object
-     * @see Object#toString()
+     * @see Object${esc.hash}toString()
      */
 #if ($enableAnnotations)
     @Override

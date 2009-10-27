@@ -31,7 +31,7 @@ public class $entity.daoImplementationName
 #set ($returnObject = "returnValue")
 #set ($signature = $operation.implementationSignature)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${operation.getSignature(false)}
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${operation.getSignature(false)}
      */
     protected $returnType.fullyQualifiedName $signature
 #if ($operation.exceptionsPresent)
@@ -49,7 +49,7 @@ public class $entity.daoImplementationName
 #end
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName, $valueObjectRef.targetElement.fullyQualifiedName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName, $valueObjectRef.targetElement.fullyQualifiedName)
      */
     public void ${valueObjectRef.transformationMethodName}(
         $entity.fullyQualifiedEntityName source,
@@ -72,7 +72,7 @@ public class $entity.daoImplementationName
 
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
      */
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(final $entity.fullyQualifiedName entity)
     {
@@ -103,7 +103,7 @@ public class $entity.daoImplementationName
 
     
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName)
      */
     public $entity.fullyQualifiedEntityName ${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName $stringUtils.uncapitalize($valueObjectRef.name))
     {
@@ -115,7 +115,7 @@ public class $entity.daoImplementationName
 
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName, $entity.fullyQualifiedEntityName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName, $entity.fullyQualifiedEntityName)
      */
     public void ${valueObjectRef.transformationToEntityMethodName}(
         $valueObjectRef.targetElement.fullyQualifiedName source,

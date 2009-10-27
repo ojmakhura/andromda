@@ -104,7 +104,7 @@ ${comma}otherBean.${property.getterName}()## no newline
 #set ($returnType = $operation.returnType)
 #set ($signature = $operation.signature)
     /**
-     * @see ${class.fullyQualifiedName}#${operation.getSignature(false)}
+     * @see ${class.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $returnType.fullyQualifiedName $signature

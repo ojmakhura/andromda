@@ -20,7 +20,7 @@ public class $openSessionInViewFilterName
     extends ${hibernateUtils.springHibernatePackage}.support.OpenSessionInViewFilter
 {
    /**
-    * @see ${hibernateUtils.springHibernatePackage}.support.OpenSessionInViewFilter#lookupSessionFactory()
+    * @see ${hibernateUtils.springHibernatePackage}.support.OpenSessionInViewFilter${esc.hash}lookupSessionFactory()
     */
    protected ${hibernateUtils.basePackage}.SessionFactory lookupSessionFactory()
    {

@@ -49,7 +49,7 @@ public class $className
     private static Log log = LogFactory.getLog(${className}.class);
 
     /**
-     * @see org.apache.axis2.receivers.AbstractInOutSyncMessageReceiver#invokeBusinessLogic(org.apache.axis2.context.MessageContext, org.apache.axis2.context.MessageContext)
+     * @see org.apache.axis2.receivers.AbstractInOutSyncMessageReceiver${esc.hash}invokeBusinessLogic(org.apache.axis2.context.MessageContext, org.apache.axis2.context.MessageContext)
      */
     @SuppressWarnings("unchecked")
     public void invokeBusinessLogic(

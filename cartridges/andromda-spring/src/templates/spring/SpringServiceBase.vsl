@@ -108,7 +108,7 @@ public abstract class $service.baseName
 #end
 #foreach ($operation in $service.implementationOperations)
     /**
-     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     * @see ${service.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
     $operation.visibility $operation.returnType.fullyQualifiedName $operation.getSignature("final")
 #if ($operation.exceptionsPresent)
