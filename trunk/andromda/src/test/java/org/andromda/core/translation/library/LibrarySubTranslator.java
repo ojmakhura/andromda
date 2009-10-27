@@ -6,7 +6,7 @@ package org.andromda.core.translation.library;
  *
  * @author Chad Brandon
  */
-public class TestSubTranslator
-    extends TestTranslator
+public class LibrarySubTranslator
+    extends LibraryTranslator
 {
 }

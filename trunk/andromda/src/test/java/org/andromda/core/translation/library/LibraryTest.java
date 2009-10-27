@@ -72,7 +72,7 @@ public class LibraryTest
             translationOne.getVariable());
         assertNotNull(translationOne.getTranslator());
         assertEquals(
-            "org.andromda.core.translation.library.TestTranslator",
+            "org.andromda.core.translation.library.LibraryTranslator",
             translationOne.getTranslator().getClass().getName());
         LibraryTranslation translationTwo = (LibraryTranslation)libraryTranslations.get("TranslationTwo");
         assertNotNull(translationTwo);
@@ -80,7 +80,7 @@ public class LibraryTest
         assertNull(translationTwo.getVariable());
         assertNotNull(translationTwo.getTranslator());
         assertEquals(
-            "org.andromda.core.translation.library.TestSubTranslator",
+            "org.andromda.core.translation.library.LibrarySubTranslator",
             translationTwo.getTranslator().getClass().getName());
     }
 

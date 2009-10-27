@@ -44,7 +44,7 @@ public class MockTemplateEngine
     /**
      * @see org.andromda.core.templateengine.TemplateEngine#getMacroLibraries()
      */
-    public List getMacroLibraries()
+    public List<String> getMacroLibraries()
     {
         return null;
     }
