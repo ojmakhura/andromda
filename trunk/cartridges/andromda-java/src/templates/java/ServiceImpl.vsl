@@ -24,7 +24,7 @@ public class ${service.name}Impl
 #set ($returnType = $operation.returnType)
 #set ($returnObject = "returnValue")
     /**
-     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     * @see ${service.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $returnType.fullyQualifiedName $operation.signature

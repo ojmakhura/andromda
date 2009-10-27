@@ -164,7 +164,7 @@ $operation.getDocumentation("     * ")
      *
      * @param session the session to which the messages will be saved.
      * @param message the message key to lookup the actual message to display
-     * @see #saveWarningMessage(javax.servlet.http.HttpServletRequest, String, String[])
+     * @see ${esc.hash}saveWarningMessage(javax.servlet.http.HttpServletRequest, String, String[])
      */
     protected final void saveWarningMessage(javax.servlet.http.HttpServletRequest request, String message)
     {
@@ -201,7 +201,7 @@ $operation.getDocumentation("     * ")
      *
      * @param request the request from which the session will be taken into which the messages will be saved.
      * @param message the message key to lookup the actual message to display
-     * @see #saveSuccessMessage(javax.servlet.http.HttpServletRequest, String, String[])
+     * @see ${esc.hash}saveSuccessMessage(javax.servlet.http.HttpServletRequest, String, String[])
      */
     protected final void saveSuccessMessage(javax.servlet.http.HttpServletRequest request, String message)
     {
@@ -215,7 +215,7 @@ $operation.getDocumentation("     * ")
      *
      * @param request the request from which the session will be taken into which the messages will be saved.
      * @param message the message key to lookup the actual message to display
-     * @see #saveSuccessMessage(javax.servlet.http.HttpServletRequest, String, String[])
+     * @see ${esc.hash}saveSuccessMessage(javax.servlet.http.HttpServletRequest, String, String[])
      */
     protected final void saveErrorMessage(javax.servlet.http.HttpServletRequest request, String message, String[] arguments)
     {
@@ -239,7 +239,7 @@ $operation.getDocumentation("     * ")
      *
      * @param request the request from which the session will be taken into which the messages will be saved.
      * @param message the message key to lookup the actual message to display
-     * @see #saveSuccessMessage(javax.servlet.http.HttpServletRequest, String, String[])
+     * @see ${esc.hash}saveSuccessMessage(javax.servlet.http.HttpServletRequest, String, String[])
      */
     protected final void saveErrorMessage(javax.servlet.http.HttpServletRequest request, String message)
     {

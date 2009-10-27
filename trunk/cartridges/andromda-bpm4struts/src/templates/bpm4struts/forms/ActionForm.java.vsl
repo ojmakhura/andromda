@@ -2,7 +2,6 @@
 ##
 ##  CONSTANTS
 ##
-#set ($hash = "#")
 #set ($fields = $action.actionFormFields)
 #set ($actionParameters = $action.actionParameters)
 #set ($formBeanClassName = $action.formBeanClassName)
@@ -121,7 +120,7 @@ $field.getDocumentation("     * ")
      * Returns this collection as an array, if the collection itself would be <code>null</code> this method
      * will also return <code>null</code>.
      *
-     * @see ${action.formBeanType}${hash}${field.getterName}
+     * @see ${action.formBeanType}${esc.hash}${field.getterName}
      */
     public Object[] ${field.getterName}AsArray()
     {
@@ -170,11 +169,11 @@ $field.getDocumentation("     * ")
     /**
      * Returns the Date instance representing the <code>$field.name</code> field.
      *
-     * @see ${action.formBeanType}${hash}${field.getterName}
+     * @see ${action.formBeanType}${esc.hash}${field.getterName}
 #if ($field.date)
-     * @see ${action.formBeanType}${hash}${dateFormatter}
+     * @see ${action.formBeanType}${esc.hash}${dateFormatter}
 #else
-     * @see ${action.formBeanType}${hash}${timeFormatter}
+     * @see ${action.formBeanType}${esc.hash}${timeFormatter}
 #end
      */
     public $fieldType ${field.getterName}As${asType}()
@@ -226,8 +225,8 @@ $field.getDocumentation("     * ")
      * The conversion from Date to String (and vice-versa) is done by means of a date formatter, which
      * can be accessed here: <code>${field.getterName}${asType}Formatter()</code>.
      *
-     * @see ${action.formBeanType}${hash}${field.getterName}As${asType}
-     * @see ${action.formBeanType}${hash}${field.getterName}${asType}Formatter
+     * @see ${action.formBeanType}${esc.hash}${field.getterName}As${asType}
+     * @see ${action.formBeanType}${esc.hash}${field.getterName}${asType}Formatter
      */
     public String ${field.getterName}()
     {
@@ -241,8 +240,8 @@ $field.getDocumentation("     * ")
     /**
      * Returns the date formatter used for the <code>$field.name</code> property.
      *
-     * @see ${action.formBeanType}${hash}${field.getterName}
-     * @see ${action.formBeanType}${hash}${field.getterName}As${asType}
+     * @see ${action.formBeanType}${esc.hash}${field.getterName}
+     * @see ${action.formBeanType}${esc.hash}${field.getterName}As${asType}
      */
     public static java.text.DateFormat ${field.getterName}${asType}Formatter()
     {
@@ -421,7 +420,7 @@ $field.getDocumentation("     * ")
 
 #end
     /**
-     * @see org.apache.struts.validator.ValidatorForm#reset(org.apache.struts.action.ActionMapping,javax.servlet.http.HttpServletRequest)
+     * @see org.apache.struts.validator.ValidatorForm${esc.hash}reset(org.apache.struts.action.ActionMapping,javax.servlet.http.HttpServletRequest)
      */
     public void reset(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
     {
@@ -480,7 +479,7 @@ $field.getDocumentation("     * ")
     /**
      * Override to provide population of current form with request parameters when validation fails.
      *
-     * @see org.apache.struts.action.ActionForm#validate(org.apache.struts.action.ActionMapping, javax.servlet.http.HttpServletRequest)
+     * @see org.apache.struts.action.ActionForm${esc.hash}validate(org.apache.struts.action.ActionMapping, javax.servlet.http.HttpServletRequest)
      */
     public org.apache.struts.action.ActionErrors validate(org.apache.struts.action.ActionMapping mapping, javax.servlet.http.HttpServletRequest request)
     {

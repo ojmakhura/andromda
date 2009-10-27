@@ -36,7 +36,7 @@ public final class $enumeration.enumerationName
      * Default constructor.  Hibernate needs the default constructor
      * to retrieve an instance of the enum from a JDBC resultset.
      * The instance will be converted to the correct enum instance
-     * in {@link #nullSafeGet(java.sql.ResultSet, java.lang.String[], java.lang.Object)}.
+     * in {@link ${esc.hash}nullSafeGet(java.sql.ResultSet, java.lang.String[], java.lang.Object)}.
      */
     public ${enumeration.enumerationName}()
     {
@@ -44,7 +44,7 @@ public final class $enumeration.enumerationName
     }
 
     /**
-     *  @see ${hibernateUtils.hibernateUserTypePackage}.UserType#sqlTypes()
+     *  @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}sqlTypes()
      */
     public int[] sqlTypes()
     {
@@ -52,7 +52,7 @@ public final class $enumeration.enumerationName
     }
 
     /**
-     *  @see ${hibernateUtils.hibernateUserTypePackage}.UserType#deepCopy(java.lang.Object)
+     *  @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}deepCopy(java.lang.Object)
      */
     public Object deepCopy(Object value) throws HibernateException
     {
@@ -61,7 +61,7 @@ public final class $enumeration.enumerationName
     }
 
     /**
-     *  @see ${hibernateUtils.hibernateUserTypePackage}.UserType#isMutable()
+     *  @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}isMutable()
      */
     public boolean isMutable()
     {
@@ -70,7 +70,7 @@ public final class $enumeration.enumerationName
     }
 
     /**
-     *  @see ${hibernateUtils.hibernateUserTypePackage}.UserType#equals(java.lang.Object, java.lang.Object)
+     *  @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}equals(java.lang.Object, java.lang.Object)
      */
     public boolean equals(Object x, Object y) throws HibernateException
     {
@@ -78,7 +78,7 @@ public final class $enumeration.enumerationName
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#returnedClass()
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}returnedClass()
      */
     public Class returnedClass()
     {
@@ -86,7 +86,7 @@ public final class $enumeration.enumerationName
     }
 
     /**
-     *  @see ${hibernateUtils.hibernateUserTypePackage}.UserType#nullSafeGet(java.sql.ResultSet, java.lang.String[], java.lang.Object)
+     *  @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, java.lang.String[], java.lang.Object)
      */
     public Object nullSafeGet(ResultSet resultSet, String[] values, Object owner) throws HibernateException, SQLException
     {
@@ -102,7 +102,7 @@ public final class $enumeration.enumerationName
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#nullSafeSet(java.sql.PreparedStatement, java.lang.Object, int)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, java.lang.Object, int)
      */
     public void nullSafeSet(PreparedStatement statement, Object value, int index) throws HibernateException, SQLException
     {

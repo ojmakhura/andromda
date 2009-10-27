@@ -28,7 +28,7 @@ public#if ($entity.abstract) abstract#end class $entity.entityImplementationName
 
 #foreach ($operation in $entity.businessOperations)
     /**
-     * @see ${entity.fullyQualifiedEntityName}#${operation.getSignature(false)}
+     * @see ${entity.fullyQualifiedEntityName}${esc.hash}${operation.getSignature(false)}
      */
 #set ($abstract = $entity.abstract && $operation.abstract)
     $operation.visibility#if ($abstract) abstract#end $operation.returnType.fullyQualifiedName $operation.signature#if ($abstract && !$operation.exceptionsPresent);#end

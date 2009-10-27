@@ -12,7 +12,7 @@ package $operation.interfacePackageName;
  *
 $operation.getDocumentation(" * ")
  *
- * @see ${operation.controller.fullyQualifiedName}#${operation.name}
+ * @see ${operation.controller.fullyQualifiedName}${esc.hash}${operation.name}
  */
 public interface $operation.interfaceName
 {
@@ -117,7 +117,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.setterName}(java.util.Map)
+     * @see ${esc.hash}${field.setterName}(java.util.Map)
      */
     public void ${field.setterName}Value(String key, Object value);
 
@@ -202,7 +202,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.setterName}${accessSuffix}(java.util.List)
+     * @see ${esc.hash}${field.setterName}${accessSuffix}(java.util.List)
      */
     public void ${field.setterName}${accessSuffix}AsArray(${fieldType}[] $fieldName${accessSuffix});
 
@@ -266,7 +266,7 @@ $field.getDocumentation("     * ")
      * @see #${field.getterName}()
      * @see #get${valueListMethod}()
      * @see #get${labelListMethod}()
-     * @see #set${labelListMethod}(java.util.Collection,String,String)
+     * @see ${esc.hash}set${labelListMethod}(java.util.Collection,String,String)
      */
     public $listType get${backingListMethod}();
 

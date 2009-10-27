@@ -124,7 +124,7 @@ $literal.getDocumentation("     * ")
     }
 
     /**
-     * @see Object#toString()
+     * @see Object${esc.hash}toString()
      */
 #if ($enableAnnotations)
     @Override
@@ -202,7 +202,7 @@ $literal.getDocumentation("     * ")
     /**
      * @param that Object to compare to
      * @return comparison to Object value: 0 -> equal, -1 -> less, +1 -> more
-     * @see Comparable#compareTo(Object)
+     * @see Comparable${esc.hash}compareTo(Object)
      */
     public int compareTo(#if($enableTemplating)${enumeration.name}#else#**#Object#end that)
     {
@@ -252,7 +252,7 @@ $literal.getDocumentation("     * ")
     }
 
     /**
-     * @see Object#equals(Object)
+     * @see Object${esc.hash}equals(Object)
      */
 #if ($enableAnnotations)
     @Override
@@ -275,7 +275,7 @@ $literal.getDocumentation("     * ")
     }
 
     /**
-     * @see Object#hashCode()
+     * @see Object${esc.hash}hashCode()
      */
 #if ($enableAnnotations)
     @Override

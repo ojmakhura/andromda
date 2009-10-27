@@ -107,9 +107,9 @@ public abstract class $service.testName
 
 #foreach ($operation in $service.allowedOperations)
     /**
-     * Tests: {@link ${service.fullyQualifiedName}#${operation.signature}}
+     * Tests: {@link ${service.fullyQualifiedName}${esc.hash}${operation.signature}}
      *
-     * @see ${service.fullyQualifiedName}#${operation.signature}
+     * @see ${service.fullyQualifiedName}${esc.hash}${operation.signature}
      */
     public void $operation.testSignature
         throws java.lang.Exception

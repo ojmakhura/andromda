@@ -20,14 +20,14 @@ public class $view.populator
     implements Filter
 {
     /**
-     * @see javax.servlet.Filter#setFilterConfig(FilterConfig)
+     * @see javax.servlet.Filter${esc.hash}setFilterConfig(FilterConfig)
      */
     public void init(FilterConfig config)
     {
     }
 
     /**
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest,
+     * @see javax.servlet.Filter${esc.hash}doFilter(javax.servlet.ServletRequest,
      *      javax.servlet.ServletResponse, javax.servlet.FilterChain)
      */
     public void doFilter(
@@ -161,7 +161,7 @@ public class $view.populator
     
 #end
     /**
-     * @see javax.servlet.Filter#destroy()
+     * @see javax.servlet.Filter${esc.hash}destroy()
      */
     public void destroy()
     {

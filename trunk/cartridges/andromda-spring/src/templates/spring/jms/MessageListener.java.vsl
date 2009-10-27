@@ -16,7 +16,7 @@ public class $operation.messageListenerName
     implements javax.jms.MessageListener
 {
     /**
-     * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
+     * @see javax.jms.MessageListener${esc.hash}onMessage(javax.jms.Message)
      */
     public void onMessage(javax.jms.Message message)
     {

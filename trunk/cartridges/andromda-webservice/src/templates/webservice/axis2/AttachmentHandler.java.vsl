@@ -6,7 +6,7 @@ package $webserviceTypesPackage;
 /**
  * This class is used for the handling attachments within service
  * operations.  It can for example publish attachments to the response of the
- * current Axis2 message using {@link #storeAttachment(java.lang.Object, java.lang.String)}.
+ * current Axis2 message using {@link ${esc.hash}storeAttachment(java.lang.Object, java.lang.String)}.
  *
  * @author Chad Brandon
  */

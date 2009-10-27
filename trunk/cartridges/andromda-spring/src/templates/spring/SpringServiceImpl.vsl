@@ -17,7 +17,7 @@ public#if($service.abstract) abstract#end class $service.implementationName
 
 #foreach ($operation in $service.implementationOperations)
     /**
-     * @see ${service.fullyQualifiedName}#${operation.getSignature(false)}
+     * @see ${service.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
 #set ($abstract = $service.abstract && $operation.abstract)
     protected#if ($abstract) abstract#end  $operation.implementationReturnTypeName $operation.implementationSignature

@@ -37,7 +37,7 @@ public#if($service.abstract) abstract#end class $service.ejbImplementationName
      * call this to instantiate the Spring
      * Business Object.
      *
-     * @see org.springframework.ejb.support.AbstractStatelessSessionBean#onEjbCreate()
+     * @see org.springframework.ejb.support.AbstractStatelessSessionBean${esc.hash}onEjbCreate()
      */
     protected void onEjbCreate()
     {
@@ -48,7 +48,7 @@ public#if($service.abstract) abstract#end class $service.ejbImplementationName
             getBeanFactory().getBean("${service.beanName}");
     }
 
-#set ($seeComment = "@see javax.ejb.SessionBean#setSessionContext(javax.ejb.SessionContext)")
+#set ($seeComment = "@see javax.ejb.SessionBean${esc.hash}setSessionContext(javax.ejb.SessionContext)")
     /**
      * Override default BeanFactoryLocator implementation to
      * provide singleton loading of the application context Bean factory.

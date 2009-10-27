@@ -30,7 +30,7 @@ public class $className
     implements UserType
 {
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#sqlTypes()
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}sqlTypes()
      */
     public int[] sqlTypes()
     {
@@ -41,7 +41,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#returnedClass()
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}returnedClass()
      */
     public Class#if($enableTemplating)<?>#end returnedClass()
     {
@@ -49,7 +49,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#equals(java.lang.Object, java.lang.Object)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}equals(java.lang.Object, java.lang.Object)
      */
     public boolean equals(Object x, Object y)
     {
@@ -60,7 +60,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#nullSafeGet(java.sql.ResultSet, java.lang.String[], java.lang.Object)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeGet(java.sql.ResultSet, java.lang.String[], java.lang.Object)
      */
     public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner) throws HibernateException, SQLException
     {
@@ -97,7 +97,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#nullSafeSet(java.sql.PreparedStatement, java.lang.Object, int)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}nullSafeSet(java.sql.PreparedStatement, java.lang.Object, int)
      */
     public void nullSafeSet(PreparedStatement statement, Object value, int index) throws SQLException
     {
@@ -121,7 +121,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#deepCopy(java.lang.Object)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}deepCopy(java.lang.Object)
      */
     public Object deepCopy(Object value)
     {
@@ -136,7 +136,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#isMutable()
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}isMutable()
      */
     public boolean isMutable()
     {
@@ -145,7 +145,7 @@ public class $className
 #if ($hibernateUtils.version3)
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#replace(Object, Object, Object)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}replace(Object, Object, Object)
      */
     public Object replace(Object original, Object target, Object owner)
     {
@@ -153,7 +153,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#assemble(java.io.Serializable, Object)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}assemble(java.io.Serializable, Object)
      */
     public Object assemble(java.io.Serializable cached, Object owner)
     {
@@ -161,7 +161,7 @@ public class $className
     }
 
     /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#disassemble(Object)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}disassemble(Object)
      */
      public java.io.Serializable disassemble(Object value)
      {
@@ -169,7 +169,7 @@ public class $className
      }
 
      /**
-     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType#hashCode(Object)
+     * @see ${hibernateUtils.hibernateUserTypePackage}.UserType${esc.hash}hashCode(Object)
      */
      public int hashCode(Object x)
      {

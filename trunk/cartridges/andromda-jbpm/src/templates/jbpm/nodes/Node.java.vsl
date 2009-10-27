@@ -254,7 +254,7 @@ public final class $node.nodeClassName implements $nodeInterfaceName
      * @return the next node in the process
 #if ($transition.name)
      *      after following the <em>$transition.name</em> transition
-     * @see ${hash}#renderTransitionName($transition.name)
+     * @see ${hash}${esc.hash}renderTransitionName($transition.name)
 #end
      */
     public $signalReturnType ${signalMethodName}()

@@ -138,7 +138,7 @@ public class $className
     }
 
     /**
-     * @see com.lighthousepmg.messaging.service.CriteriaSearch#executeAsList()
+     * @see com.lighthousepmg.messaging.service.CriteriaSearch${esc.hash}executeAsList()
      */
 #if ($enableTemplating)
     @Override
@@ -301,7 +301,7 @@ public class $className
         }
 
         /**
-         * @see org.apache.commons.beanutils.Converter#convert(java.lang.Class, java.lang.Object)
+         * @see org.apache.commons.beanutils.Converter${esc.hash}convert(java.lang.Class, java.lang.Object)
          */
         public Object convert(
             Class type,
@@ -337,7 +337,7 @@ public class $className
         }
 
         /**
-         * @see org.apache.commons.beanutils.Converter#convert(java.lang.Class, java.lang.Object)
+         * @see org.apache.commons.beanutils.Converter${esc.hash}convert(java.lang.Class, java.lang.Object)
          */
         public Object convert(
             Class type,

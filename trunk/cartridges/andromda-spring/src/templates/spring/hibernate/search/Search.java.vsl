@@ -208,8 +208,8 @@ public class $className
      * Adds an "order by" clause for the search.
      *
      * @param propertyName the property name to order by.
-     * @param order the order.  Use: {@link SearchParameter#ORDER_ASC},
-     *        {@link SearchParameter#ORDER_DESC}, or {@link SearchParameter#ORDER_UNSET}.
+     * @param order the order.  Use: {@link SearchParameter${esc.hash}ORDER_ASC},
+     *        {@link SearchParameter${esc.hash}ORDER_DESC}, or {@link SearchParameter${esc.hash}ORDER_UNSET}.
      *
      * @return the current search instance.
      */

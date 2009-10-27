@@ -132,7 +132,7 @@ $operation.getDocumentation("     * ")
      * but since it extends the <code>$entity.generalization.fullyQualifiedEntityImplementationName</code> class
      * it will simply delegate the call up there.
      *
-     * @see $entity.generalization.fullyQualifiedEntityName#equals(Object)
+     * @see ${entity.generalization.fullyQualifiedEntityName}${esc.hash}equals(Object)
 #else
      * and is not extending any other entity,
      * so this method will only return <code>true</code> if the argument reference and <code>this</code>
@@ -144,7 +144,7 @@ $operation.getDocumentation("     * ")
      * equal the identifiers of the argument entity. The <code>equals</code> method of the parent entity
      * will also need to return <code>true</code>. Returns <code>false</code> otherwise.
      *
-     * @see $entity.generalization.fullyQualifiedEntityName#equals(Object)
+     * @see ${entity.generalization.fullyQualifiedEntityName}${esc.hash}equals(Object)
 #else
      * Returns <code>true</code> if the argument is an $entity.entityName instance and all identifiers for this entity
      * equal the identifiers of the argument entity. Returns <code>false</code> otherwise.
@@ -160,7 +160,7 @@ $operation.getDocumentation("     * ")
      * but since it extends the <code>$entity.generalization.fullyQualifiedEntityImplementationName</code> class
      * it will simply delegate the call up there.
      *
-     * @see $entity.generalization.fullyQualifiedEntityName#hashCode()
+     * @see ${entity.generalization.fullyQualifiedEntityName}${esc.hash}hashCode()
 #else
      * and is not extending any other entity,
      * so this method will only take the identifiers of this entity into account when calculating the hash code.
@@ -169,7 +169,7 @@ $operation.getDocumentation("     * ")
 #if ($entity.generalization)
      * Returns a hash code based on this entity's identifiers and the hash code of the parent entity.
      *
-     * @see $entity.generalization.fullyQualifiedEntityName#hashCode()
+     * @see ${entity.generalization.fullyQualifiedEntityName}${esc.hash}hashCode()
 #else
      * Returns a hash code based on this entity's identifiers.
 #end

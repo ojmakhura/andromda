@@ -23,7 +23,7 @@ public abstract class ${entity.name}BeanImpl
 #set ($signature = "ejbHome${stringUtils.capitalize($signature)}")
 #end
     /**
-     * @see ${entity.fullyQualifiedName}#${operation.getSignature(false)}
+     * @see ${entity.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
      */
     $visibility $returnType $signature
 #if ($operation.exceptionsPresent)

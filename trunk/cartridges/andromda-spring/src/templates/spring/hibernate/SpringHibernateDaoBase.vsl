@@ -90,7 +90,7 @@ public abstract class $entity.daoBaseName
 #set ($identifier = $entity.identifiers.iterator().next())
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
-     * @see ${entity.fullyQualifiedDaoName}#load(int, ${identifierTypeName})
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}load(int, ${identifierTypeName})
      */
     public java.lang.Object load(final int transform, final ${identifierTypeName} ${identifierName})
     {
@@ -133,7 +133,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#load(${identifierTypeName})
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}load(${identifierTypeName})
      */
     public $rootEntityType load(${identifierTypeName} ${identifierName})
     {
@@ -141,7 +141,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#loadAll()
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}loadAll()
      */
 #if ($enableTemplating)
     @java.lang.SuppressWarnings({"unchecked"})
@@ -152,7 +152,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#loadAll(int)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}loadAll(int)
      */
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform)
     {
@@ -160,7 +160,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#loadAll(int, int)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}loadAll(int, int)
      */
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int pageNumber, final int pageSize)
     {
@@ -168,7 +168,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#loadAll(int, int, int)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}loadAll(int, int, int)
      */
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform, final int pageNumber, final int pageSize)
     {
@@ -203,7 +203,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create($entity.fullyQualifiedEntityName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create($entity.fullyQualifiedEntityName)
      */
     public $rootEntityType create($entity.fullyQualifiedEntityName $argumentName)
     {
@@ -213,7 +213,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #if ($hibernateUtils.xmlPersistenceActive)
 #set ($identifier = $entity.identifiers.iterator().next())
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create(org.dom4j.Element)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create(org.dom4j.Element)
      */
     public $rootEntityType create(org.dom4j.Element $argumentName)
     {
@@ -221,7 +221,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create(int transform, org.dom4j.Element)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create(int transform, org.dom4j.Element)
      */
 #if ($enableTemplating)
     @java.lang.SuppressWarnings({"unchecked"})
@@ -249,7 +249,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #end
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create(int transform, $entity.fullyQualifiedEntityName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create(int transform, $entity.fullyQualifiedEntityName)
      */
     public java.lang.Object create(final int transform, final $entity.fullyQualifiedName $argumentName)
     {
@@ -277,7 +277,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create($entityCollectionType)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create($entityCollectionType)
      */
 #if ($enableTemplating)
     @java.lang.SuppressWarnings({"unchecked"})
@@ -288,7 +288,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create(int, $entityCollectionType)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create(int, $entityCollectionType)
      */
     public java.util.Collection#if($enableTemplating)<?>#end create(final int transform, final $entityCollectionType entities)
     {
@@ -317,7 +317,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
 #if (!$attributes.empty)
     /**
-     * @see ${rootDaoType}#create(${entity.getAttributeTypeList(true, false)})
+     * @see ${rootDaoType}${esc.hash}create(${entity.getAttributeTypeList(true, false)})
      */
     public $rootEntityType create(
 #foreach($attribute in $attributes)
@@ -329,7 +329,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${rootDaoType}#create(int, ${entity.getAttributeTypeList(true, false)})
+     * @see ${rootDaoType}${esc.hash}create(int, ${entity.getAttributeTypeList(true, false)})
      */
     public java.lang.Object create(
         final int transform,
@@ -349,7 +349,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($requiredProperties = $entity.getRequiredProperties(true,false))
 #if (!$requiredProperties.empty && $entity.getRequiredAttributes(true,false).size() != $requiredProperties.size())
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create(${entity.getRequiredPropertyTypeList(true, false)})
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create(${entity.getRequiredPropertyTypeList(true, false)})
      */
     public $rootEntityType create(
 #foreach($property in $requiredProperties)
@@ -361,7 +361,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#create(int, ${entity.getRequiredPropertyTypeList(true, false)})
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create(int, ${entity.getRequiredPropertyTypeList(true, false)})
      */
     public java.lang.Object create(
         final int transform,
@@ -381,7 +381,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #end
 #end
     /**
-     * @see ${entity.fullyQualifiedDaoName}#update($entity.fullyQualifiedEntityName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}update($entity.fullyQualifiedEntityName)
      */
     public void update($entity.fullyQualifiedEntityName $argumentName)
     {
@@ -395,7 +395,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #if ($hibernateUtils.xmlPersistenceActive)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#update(org.dom4j.Element)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}update(org.dom4j.Element)
      */
     public void update(final org.dom4j.Element $argumentName)
     {
@@ -419,7 +419,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #end
     /**
-     * @see ${rootDaoType}#update($entityCollectionType)
+     * @see ${rootDaoType}${esc.hash}update($entityCollectionType)
      */
     public void update(final $entityCollectionType entities)
     {
@@ -444,7 +444,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#remove($entity.fullyQualifiedEntityName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}remove($entity.fullyQualifiedEntityName)
      */
     public void remove($entity.fullyQualifiedEntityName $argumentName)
     {
@@ -458,7 +458,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #if ($hibernateUtils.xmlPersistenceActive)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#remove(org.dom4j.Element)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}remove(org.dom4j.Element)
      */
     public void remove(final org.dom4j.Element $argumentName)
     {
@@ -482,7 +482,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #end
     /**
-     * @see ${entity.fullyQualifiedDaoName}#remove(${identifierTypeName})
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}remove(${identifierTypeName})
      */
     public void remove(${identifierTypeName} ${identifierName})
     {
@@ -508,7 +508,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${rootDaoType}#remove($entityCollectionType)
+     * @see ${rootDaoType}${esc.hash}remove($entityCollectionType)
      */
     public void remove($entityCollectionType entities)
     {
@@ -532,7 +532,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #foreach ($finder in $queryOperations)
 #set ($returnType = "${finder.returnType.fullyQualifiedName}#if($enableTemplating && $finder.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
     /**
-     * @see ${entity.fullyQualifiedDaoName}#$finder.getSignature(false)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}$finder.getSignature(false)
      */
 #if ($enableTemplating && $finder.returnType.collectionType)
     @java.lang.SuppressWarnings({"unchecked"})
@@ -551,7 +551,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #if ($finder.returnType.collectionType || !$finder.criteriaFinder)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${finder.name}(int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
 #if ($finder.returnType.collectionType)
 #if($enableTemplating)
@@ -576,7 +576,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($returnType = "${finder.returnType.fullyQualifiedName}#if($enableTemplating && $finder.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
 #if(!$finder.criteriaFinder)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${finder.name}(java.lang.String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(java.lang.String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
 #if ($enableTemplating && $finder.returnType.collectionType)
     @java.lang.SuppressWarnings({"unchecked"})
@@ -595,7 +595,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #if ($finder.returnType.collectionType)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${finder.name}(int, int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(int, int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
 #if ($enableTemplating)
     @java.lang.SuppressWarnings({"unchecked"})
@@ -609,7 +609,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${finder.name}(String, int, int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(String, int, int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
 #if ($enableTemplating)
     @java.lang.SuppressWarnings({"unchecked"})
@@ -626,7 +626,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($returnType = "${finder.returnType.fullyQualifiedName}<?>")
 #end
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${finder.name}(int, String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(int, String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
     $finder.visibility $returnType ${finder.name}(final int transform, final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
@@ -637,7 +637,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${finder.name}(int, int, int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(int, int, int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
     $finder.visibility $returnType ${finder.name}(final int transform, final int pageNumber, final int pageSize#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
@@ -651,7 +651,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($returnType = "java.lang.Object")
 #end
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${finder.name}(int, java.lang.String#if ($finder.returnType.collectionType), int, int#end#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(int, java.lang.String#if ($finder.returnType.collectionType), int, int#end#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
 #if ($enableTemplating)
     @java.lang.SuppressWarnings("unchecked")
@@ -739,7 +739,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($returnType = "java.lang.Object")
 #end
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${finder.name}(int, java.lang.String#if ($finder.returnType.collectionType), int, int#end#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(int, java.lang.String#if ($finder.returnType.collectionType), int, int#end#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
      */
 #if ($enableTemplating)
     @java.lang.SuppressWarnings("unchecked")
@@ -820,7 +820,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($returnType = $operation.returnType)
 #set ($signature = $operation.signature)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${operation.getSignature(false)}
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${operation.getSignature(false)}
      */
     $operation.visibility $returnType.fullyQualifiedName#if($enableTemplating && $returnType.collectionType)<?>#end ${operation.name}(${operation.getTypedArgumentList('final')})
 #if ($operation.exceptionsPresent)
@@ -869,7 +869,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #end
     /**
-     * @see ${entity.fullyQualifiedDaoName}#transformEntity(int, $entity.fullyQualifiedName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}transformEntity(int, $entity.fullyQualifiedName)
      */
     public java.lang.Object transformEntity(final int transform, final $entity.fullyQualifiedName entity)
     {
@@ -898,7 +898,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#transformEntities(int, java.util.Collection#if($enableTemplating)<?>#end)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}transformEntities(int, java.util.Collection#if($enableTemplating)<?>#end)
      */
     public void transformEntities(final int transform, final java.util.Collection#if($enableTemplating)<?>#end entities)
     {
@@ -916,7 +916,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#toEntities(java.util.Collection)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}toEntities(java.util.Collection)
      */
     public void toEntities(final java.util.Collection#if($enableTemplating)<?>#end results)
     {
@@ -970,7 +970,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection)
      */
     public final void ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities)
     {
@@ -981,7 +981,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToArrayMethodName}(java.util.Collection)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToArrayMethodName}(java.util.Collection)
      */
 #if ($enableTemplating)
     @java.lang.SuppressWarnings("unchecked")
@@ -1002,7 +1002,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
      * Default implementation for transforming the results of a report query into a value object. This
      * implementation exists for convenience reasons only. It needs only be overridden in the
      * {@link $entity.daoImplementationName} class if you intend to use reporting queries.
-     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
      */
     protected $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(java.lang.Object[] row)
     {
@@ -1033,7 +1033,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         };
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection)
      */
     public final void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end instances)
     {
@@ -1062,7 +1062,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName, $valueObjectRef.targetElement.fullyQualifiedName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName, $valueObjectRef.targetElement.fullyQualifiedName)
      */
     public void ${valueObjectRef.transformationMethodName}(
         $entity.fullyQualifiedEntityName source,
@@ -1085,7 +1085,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
      */
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(final $entity.fullyQualifiedName entity)
     {
@@ -1099,7 +1099,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName, $entity.fullyQualifiedEntityName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName, $entity.fullyQualifiedEntityName)
      */
     public void ${valueObjectRef.transformationToEntityMethodName}(
         $valueObjectRef.targetElement.fullyQualifiedName source,
@@ -1153,7 +1153,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($fullyQualifiedSearchClassName = $springUtils.getFullyQualifiedClassName($springTypesPackage, "Search"))
 #set ($fullyQualifiedPropertySearchClassName = $springUtils.getFullyQualifiedClassName($springTypesPackage, "PropertySearch"))
     /**
-     * @see ${entity.fullyQualifiedDaoName}#search(int, int, int, $fullyQualifiedSearchClassName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}search(int, int, int, $fullyQualifiedSearchClassName)
      */
 #if ($enableTemplating)
     @java.lang.SuppressWarnings("unchecked")
@@ -1177,7 +1177,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#search(int, int, $fullyQualifiedSearchClassName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}search(int, int, $fullyQualifiedSearchClassName)
      */
     public $fullyQualifiedPagingResultName search(final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search)
     {
@@ -1185,7 +1185,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#search(int, $fullyQualifiedSearchClassName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}search(int, $fullyQualifiedSearchClassName)
      */
     public java.util.Set#if($enableTemplating)<?>#end search(final int transform, final $fullyQualifiedSearchClassName search)
     {
@@ -1204,7 +1204,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}#search($fullyQualifiedSearchClassName)
+     * @see ${entity.fullyQualifiedDaoName}${esc.hash}search($fullyQualifiedSearchClassName)
      */
 #if ($enableTemplating)
     @java.lang.SuppressWarnings("unchecked")
