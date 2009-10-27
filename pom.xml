@@ -225,7 +225,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>3.8.2</version>
+                <version>4.7</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -290,23 +290,7 @@
                     <locales>en</locales>
                     <outputEncoding>UTF-8</outputEncoding>
                 </configuration>
-            </plugin>
-        
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>         
-          <descriptors>
-            <descriptor>src/assemble/bin.xml</descriptor>
-          </descriptors>         
-          <!--
-              <descriptorRefs>
-                <descriptorRef>
-                  jar-with-dependencies
-                </descriptorRef>
-              </descriptorRefs>
-          -->
-        </configuration>
-      </plugin>
+            </plugin>      
     </plugins>
 
     </build>
@@ -335,15 +319,17 @@
                   </reportSet>
                 </reportSets>
             </plugin> 
+            <!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.6</version>
                 <reportSets>
                     <reportSet>
                         <id>non-aggregate</id>
                             <configuration>
                                 <show>package</show>
-                                <minmemory>128m</minmemory>
+                                <minmemory>256m</minmemory>
                                 <maxmemory>1g</maxmemory>
                                 <links>
                                     <link>http://java.sun.com/javase/6/docs/api/</link>
@@ -359,6 +345,7 @@
                             <report>javadoc</report>
                         </reports>
                     </reportSet>
+                   -->
                     <!-- Fails with Goal: initialize already exists in the plugin descriptor for prefix: andromda-initialize.
                     See http://jira.codehaus.org/browse/MJAVADOC-224 -->
                     <!--reportSet>
@@ -382,8 +369,8 @@
                             <report>aggregate</report>
                         </reports>
                     </reportSet-->
-                </reportSets>
-            </plugin>
+           <!--     </reportSets>
+            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
@@ -472,13 +459,32 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>taglist-maven-plugin</artifactId>
-                <configuration>
-                    <tags>
-                        <tag>TODO</tag>
-                        <tag>@todo</tag>
-                        <tag>FIXME</tag>
-                        <tag>XXX</tag>
-                    </tags>
+                <configuration>                    
+                     <tagListOptions>
+                        <tagClasses>
+                          <tagClass>
+                            <displayName>Todo Work</displayName>
+                            <tags>
+                              <tag>
+                                <matchString>todo</matchString>
+                                <matchType>ignoreCase</matchType>
+                              </tag>
+                              <tag>
+                                <matchString>FIXME</matchString>
+                                <matchType>exact</matchType>
+                              </tag>
+                              <tag>
+                                <matchString>XXX</matchString>
+                                <matchType>exact</matchType>
+                              </tag>
+                              <tag>
+                                <matchString>@deprecated</matchString>
+                                <matchType>exact</matchType>
+                              </tag>
+                            </tags>
+                          </tagClass>
+                        </tagClasses>
+                     </tagListOptions>
                 </configuration>
             </plugin>
             <plugin>
@@ -530,28 +536,6 @@
                 <artifactId>javancss-maven-plugin</artifactId>
                 <!--version>2.0-beta-2</version-->
                 <inherited>true</inherited>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <!--version>1.2.1</version-->
-                <configuration>
-                    <xmlOutput>true</xmlOutput>
-                    <effort>Max</effort>
-                    <!--xmlOutputDirectory>directory location of findbugs xdoc xml report</xmlOutputDirectory>
-                    <threshold>High|Normal|Low|Exp|Ignore</threshold>
-                    <effort>Min|Default|Max</effort>
-                    <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
-                    <includeFilterFile>findbugs-include.xml</includeFilterFile>
-                    <visitors>FindDeadLocalStores,UnreadFields</visitors>
-                    <omitVisitors>FindDeadLocalStores,UnreadFields</omitVisitors>
-                    <onlyAnalyze>org.codehaus.mojo.findbugs.*</onlyAnalyze>
-                    <pluginList>/libs/fb-contrib/fb-contrib-2.8.0.jar</pluginList>
-                    <debug>true|false</debug>
-                    <relaxed>true|false</relaxed>
-                    <findbugsXmlOutput>true|false</findbugsXmlOutput>
-                    <findbugsXmlOutputDirectory>location of legacy xml format report</findbugsXmlOutputDirectory-->
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

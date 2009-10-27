@@ -9,7 +9,7 @@ import org.andromda.core.translation.Translator;
  *
  * @author Chad Brandon
  */
-public class TestTranslator
+public class LibraryTranslator
     implements Translator
 {
     /**
