@@ -16,23 +16,4 @@
       <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/documentation/getting-started</developerConnection>
       <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changes-plugin</artifactId>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>changes-report</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-        </plugins>
-    </reporting>
 </project>
