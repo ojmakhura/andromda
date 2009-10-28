@@ -5,8 +5,20 @@
     </properties>
     <body>
         <release version="3.4" date="not yet released" desc="First release candidate of version 3.4" description="First release candidate of version 3.4">
+			<action dev="catforce" type="update">
+                Set 'sourceEncoding' propertie to UTF-8 to fix the warning: "[WARNING] File encoding has not been set, using platform encoding [...], i.e. build is platform dependent!"
+            </action>
+			<action dev="catforce" type="update">
+                Update version of JUnit to 4.7
+            </action>
+			<action dev="catforce" type="update">
+                Update version of velocity to 1.6.2, add dependency to velocity-tools for velocity-template-engine
+            </action>
             <action dev="catforce" type="update">
                 Fix groupIds for itext and bsh: ('itext' has been relocated to com.lowagie:itext and 'bsh' has been relocated to org.beanshell:bsh)
+            </action>
+			<action dev="bobfields" type="fix" issue="JAVA-39">
+                Fix generating Enum classes in Java-cartrige
             </action>
             <action dev="bobfields" type="add" issue="JAVA-16">
                 Add generation of attributes to exception-templates.
@@ -20,7 +32,7 @@
             <action dev="bobfields" type="fix" issue="JAVA-32">
                 Fixed wrong java comment type in velocity template, thanks to a patch from Johann Wilfling.
             </action>
-            <action dev="catforce" type="update">
+            <action dev="catforce" type="remove">
                 Removed obsolete maven 1 files.                
             </action>
             <action dev="catforce" type="update">
