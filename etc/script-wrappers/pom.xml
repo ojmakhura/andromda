@@ -9,6 +9,11 @@
     <packaging>jar</packaging>
     <name>AndroMDA Script Wrappers</name>
 	<description>Provides implementations of "Script Wrapper" classes, these classes are injected into class files in order to provide the ability to write your business logic in an interpreted manner</description>
+	<scm>
+        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/etc/script-wrappers</connection>
+        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/etc/script-wrappers</developerConnection>
+        <url>http://andromda.svn.sourceforge.net/</url>
+    </scm>
     <dependencies>
         <dependency>
             <groupId>org.beanshell</groupId>
