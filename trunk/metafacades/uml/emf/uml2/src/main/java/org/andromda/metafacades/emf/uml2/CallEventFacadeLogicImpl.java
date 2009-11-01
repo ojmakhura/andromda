@@ -27,7 +27,7 @@ public class CallEventFacadeLogicImpl extends CallEventFacadeLogic
     /**
      * @see org.andromda.metafacades.uml.CallEventFacade#getOperation()
      */
-    protected java.lang.Object handleGetOperation()
+    protected Object handleGetOperation()
     {
         final List operations = this.getOperations();
         return operations.isEmpty() ? null : operations.iterator().next();

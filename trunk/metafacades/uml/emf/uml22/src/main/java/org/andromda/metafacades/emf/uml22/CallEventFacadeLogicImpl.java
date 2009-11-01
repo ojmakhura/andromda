@@ -12,8 +12,8 @@ import org.eclipse.uml2.uml.Operation;
 
 /**
  * MetafacadeLogic implementation for
- * org.andromda.metafacades.uml.CallEventFacade. UML1.4 Event are mapped to UML2
- * Activity (because UML2 Event doesn't contain parameter)
+ * org.andromda.metafacades.uml.CallEventFacade. UML1.4 Event is mapped to UML2
+ * Activity (because UML2 Event doesn't contain parameters)
  * 
  * @see org.andromda.metafacades.uml.CallEventFacade
  */
