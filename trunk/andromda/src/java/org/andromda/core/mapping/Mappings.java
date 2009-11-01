@@ -454,6 +454,24 @@ public class Mappings
     }
 
     /**
+     * Returns true if the mapping contains the <code>to</code> value
+     *
+     * @param to the value of the to mapping.
+     * @return true if it contains <code>to</code>, false otherwise.
+     */
+    public boolean containsTo(final String to)
+    {
+        for (Mapping mapping : this.getMappings())
+        {
+            if (mapping.getTo().trim().equals(to))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns the resource URI from which this Mappings object was loaded.
      *
      * @return URL of the resource.
