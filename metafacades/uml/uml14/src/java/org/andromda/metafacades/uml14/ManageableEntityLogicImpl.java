@@ -228,7 +228,7 @@ public class ManageableEntityLogicImpl
                 }
                 if (withTypes)
                 {
-                    buffer.append("java.lang.Object");
+                    buffer.append("Object");
                     if (associationEnd.isMany())
                     {
                         buffer.append("[]");
