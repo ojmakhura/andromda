@@ -133,29 +133,29 @@ public class UMLMetafacadeUtils
                 //implCollection.put("Map", "HashMap");
                 //implCollection.put("SortedMap", "TreeMap");
                 implCollection.put(UMLProfile.COLLECTION_TYPE_NAME.substring(
-                        UMLProfile.COLLECTION_TYPE_NAME.lastIndexOf(':')), 
+                        UMLProfile.COLLECTION_TYPE_NAME.lastIndexOf(':')+1), 
                     UMLProfile.COLLECTION_IMPL_TYPE_NAME.substring(
-                        UMLProfile.COLLECTION_IMPL_TYPE_NAME.lastIndexOf(':')));
+                        UMLProfile.COLLECTION_IMPL_TYPE_NAME.lastIndexOf(':')+1));
                 implCollection.put(UMLProfile.LIST_TYPE_NAME.substring(
-                        UMLProfile.LIST_TYPE_NAME.lastIndexOf(':')), 
+                        UMLProfile.LIST_TYPE_NAME.lastIndexOf(':')+1), 
                     UMLProfile.LIST_IMPL_TYPE_NAME.substring(
-                        UMLProfile.LIST_IMPL_TYPE_NAME.lastIndexOf(':')));
+                        UMLProfile.LIST_IMPL_TYPE_NAME.lastIndexOf(':')+1));
                 implCollection.put(UMLProfile.MAP_TYPE_NAME.substring(
-                        UMLProfile.MAP_TYPE_NAME.lastIndexOf(':')), 
+                        UMLProfile.MAP_TYPE_NAME.lastIndexOf(':')+1), 
                     UMLProfile.MAP_IMPL_TYPE_NAME.substring(
-                        UMLProfile.MAP_IMPL_TYPE_NAME.lastIndexOf(':')));
+                        UMLProfile.MAP_IMPL_TYPE_NAME.lastIndexOf(':')+1));
                 implCollection.put(UMLProfile.ORDERED_MAP_TYPE_NAME.substring(
-                        UMLProfile.ORDERED_MAP_TYPE_NAME.lastIndexOf(':')), 
+                        UMLProfile.ORDERED_MAP_TYPE_NAME.lastIndexOf(':')+1), 
                     UMLProfile.ORDERED_MAP_IMPL_TYPE_NAME.substring(
-                        UMLProfile.ORDERED_MAP_IMPL_TYPE_NAME.lastIndexOf(':')));
+                        UMLProfile.ORDERED_MAP_IMPL_TYPE_NAME.lastIndexOf(':')+1));
                 implCollection.put(UMLProfile.ORDERED_SET_TYPE_NAME.substring(
-                        UMLProfile.ORDERED_SET_TYPE_NAME.lastIndexOf(':')), 
+                        UMLProfile.ORDERED_SET_TYPE_NAME.lastIndexOf(':')+1), 
                     UMLProfile.ORDERED_SET_IMPL_TYPE_NAME.substring(
-                        UMLProfile.ORDERED_SET_IMPL_TYPE_NAME.lastIndexOf(':')));
+                        UMLProfile.ORDERED_SET_IMPL_TYPE_NAME.lastIndexOf(':')+1));
                 implCollection.put(UMLProfile.SET_TYPE_NAME.substring(
-                        UMLProfile.SET_TYPE_NAME.lastIndexOf(':')), 
+                        UMLProfile.SET_TYPE_NAME.lastIndexOf(':')+1), 
                     UMLProfile.SET_IMPL_TYPE_NAME.substring(
-                        UMLProfile.SET_IMPL_TYPE_NAME.lastIndexOf(':')));
+                        UMLProfile.SET_IMPL_TYPE_NAME.lastIndexOf(':')+1));
             }
         }
         String collectionImpl = input;
@@ -177,16 +177,23 @@ public class UMLMetafacadeUtils
             }
             if (collectionType.indexOf('.') > 0)
             {
-                collectionType = collectionType.substring(collectionType.lastIndexOf('.')+1);
                 pkg = collectionType.substring(0, collectionType.lastIndexOf('.')+1);
+                collectionType = collectionType.substring(collectionType.lastIndexOf('.')+1);
             }
             else
             {
-                pkg = "";
+                pkg = "java.util.";
+                logger.info("UMLMetafacadeUtils pkg not found for " + collectionType);
             }
             String implType = implCollection.get(collectionType);
-            if (implType != null)
+            if (implType == null)
             {
+                logger.info("UMLMetafacadeUtils colectionImpl not found for " + collectionType);
+                collectionImpl = pkg + "ArrayList" + genericType;
+            }
+            else
+            {
+                //logger.info("UMLMetafacadeUtils translated from " + collectionType + " to " + implType);
                 collectionImpl = pkg + implType + genericType;
             }
         }
