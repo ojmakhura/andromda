@@ -1,22 +1,29 @@
-<?xml version="1.0"?><project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.andromda.bootstrap</groupId>
   <artifactId>andromda-core</artifactId>
+  <version>3.4-SNAPSHOT</version>
   <name>AndroMDA Core</name>
-  <version>3.3</version>
   <description>The Core refers to the "engine" of the framework. The core
         takes care of making all the components of AndroMDA work together. This
         includes plugin discovery (i.e. cartridges, translation-libraries),
         manufacturing of metafacades, etc.</description>
   <url>http://www.andromda.org/andromda-core</url>
-  <issueManagement>
-    <system>jira</system>
-    <url>http://jira.andromda.org/</url>
-  </issueManagement>
-  <ciManagement>
-    <system>continuum</system>
-  </ciManagement>
   <inceptionYear>2003</inceptionYear>
+  <organization>
+    <name>AndroMDA.org</name>
+    <url>http://www.andromda.org/</url>
+  </organization>
+  <licenses>
+    <license>
+      <name>The AndroMDA Project</name>
+      <url>licenses/LICENSE.txt</url>
+      <distribution>repo</distribution>
+      <comments>AndroMDA runs under a BSD license</comments>
+    </license>
+  </licenses>
   <mailingLists>
     <mailingList>
       <name>AndroMDA User List</name>
@@ -37,29 +44,47 @@
       <archive>http://sourceforge.net/mailarchive/forum.php?forum=andromda-cvs</archive>
     </mailingList>
   </mailingLists>
-  <licenses>
-    <license>
-      <name>The AndroMDA Project</name>
-      <url>licenses/LICENSE.txt</url>
-      <distribution>repo</distribution>
-      <comments>AndroMDA runs under a BSD license</comments>
-    </license>
-  </licenses>
+  <issueManagement>
+    <system>jira</system>
+    <url>http://jira.andromda.org/</url>
+  </issueManagement>
   <scm>
-    <connection>scm:cvs:pserver:anonymous:@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all/andromda</connection>
-    <developerConnection>scm:cvs:ext:${cvs_username}@andromda.cvs.sourceforge.net:/cvsroot/andromda:andromda-all</developerConnection>
-    <tag>V3_x_HEAD</tag>
-    <url>http://andromda.cvs.sourceforge.net/</url>
+    <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda</connection>
+    <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda</developerConnection>
+    <url>http://andromda.svn.sourceforge.net/</url>
   </scm>
-  <organization>
-    <name>AndroMDA.org</name>
-    <url>http://www.andromda.org/</url>
-  </organization>
+  <ciManagement>
+    <system>cruisecontrol</system>
+    <url>http://andromda.it.su.se/cruisecontrol</url>
+  </ciManagement>
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>andromda-repository</id>
+      <name>AndroMDA Repository</name>
+      <url>file:/var/www/andromda/maven2</url>
+    </repository>
+    <site>
+      <id>website</id>
+      <url>file:/var/www/andromda/docs/andromda-core</url>
+    </site>
+  </distributionManagement>
   <repositories>
     <repository>
       <id>andromda</id>
       <name>AndroMDA Repository</name>
       <url>http://team.andromda.org/maven2</url>
+    </repository>
+    <repository>
+      <snapshots />
+      <id>jboss</id>
+      <name>JBoss Repository</name>
+      <url>http://repository.jboss.org/maven2</url>
+    </repository>
+    <repository>
+      <snapshots />
+      <id>Download</id>
+      <url>http://download.java.net/maven/2/</url>
     </repository>
     <repository>
       <snapshots>
@@ -77,6 +102,10 @@
       <url>http://team.andromda.org/maven2</url>
     </pluginRepository>
     <pluginRepository>
+      <id>Codehaus repository</id>
+      <url>http://repository.codehaus.org/</url>
+    </pluginRepository>
+    <pluginRepository>
       <releases>
         <updatePolicy>never</updatePolicy>
       </releases>
@@ -89,31 +118,176 @@
     </pluginRepository>
   </pluginRepositories>
   <reporting>
-    <outputDirectory>target/site</outputDirectory>
+    <excludeDefaults>false</excludeDefaults>
+    <outputDirectory>C:\Windows\1Workspaces\A34\andromda-all\andromda\target/site</outputDirectory>
     <plugins>
       <plugin>
         <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.1.2</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>dependencies</report>
+              <report>dependency-convergence</report>
+              <report>dependency-management</report>
+              <report>index</report>
+              <report>plugin-management</report>
+              <report>summary</report>
+              <report>project-team</report>
+              <report>mailing-list</report>
+              <report>cim</report>
+              <report>issue-tracking</report>
+              <report>license</report>
+              <report>scm</report>
+            </reports>
+          </reportSet>
+        </reportSets>
       </plugin>
       <plugin>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.6</version>
+        <reportSets>
+          <reportSet>
+            <id>non-aggregate</id>
+            <configuration>
+              <show>package</show>
+              <minmemory>128m</minmemory>
+              <maxmemory>1g</maxmemory>
+              <links>
+                <link>http://java.sun.com/javase/6/docs/api/</link>
+                <link>http://java.sun.com/j2ee/1.4/docs/api/</link>
+                <link>http://download.eclipse.org/modeling/mdt/uml2/javadoc/2.2.2/</link>
+                <link>http://jakarta.apache.org/commons/collections/apidocs</link>
+                <link>http://jakarta.apache.org/commons/logging/apidocs/</link>
+                <link>http://www.junit.org/junit/javadoc/</link>
+                <link>http://logging.apache.org/log4j/docs/api/</link>
+                <link>http://jakarta.apache.org/regexp/apidocs/</link>
+                <link>http://jakarta.apache.org/velocity/api/</link>
+                <link>http://galaxy.andromda.org/docs/jmi-uml1.4/</link>
+              </links>
+            </configuration>
+            <reports>
+              <report>javadoc</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.4.3</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jxr-plugin</artifactId>
+        <version>2.1</version>
+      </plugin>
+      <plugin>
+        <artifactId>maven-pmd-plugin</artifactId>
         <configuration>
-          <minmemory>128m</minmemory>
-          <maxmemory>512</maxmemory>
-          <sourcepath>/home/carlos/workspace/andromda-all/andromda/src/java</sourcepath>
+          <targetJdk>1.5</targetJdk>
+          <linkXref>true</linkXref>
+          <rulesets>
+            <ruleset>/rulesets/basic.xml</ruleset>
+            <ruleset>/rulesets/braces.xml</ruleset>
+            <ruleset>/rulesets/clone.xml</ruleset>
+            <ruleset>/rulesets/codesize.xml</ruleset>
+            <ruleset>/rulesets/controversial.xml</ruleset>
+            <ruleset>/rulesets/coupling.xml</ruleset>
+            <ruleset>/rulesets/design.xml</ruleset>
+            <ruleset>/rulesets/finalizers.xml</ruleset>
+            <ruleset>/rulesets/logging-java.xml</ruleset>
+            <ruleset>/rulesets/j2ee.xml</ruleset>
+            <ruleset>/rulesets/javabeans.xml</ruleset>
+            <ruleset>/rulesets/junit.xml</ruleset>
+            <ruleset>/rulesets/naming.xml</ruleset>
+            <ruleset>/rulesets/optimizations.xml</ruleset>
+            <ruleset>/rulesets/strictexception.xml</ruleset>
+            <ruleset>/rulesets/strings.xml</ruleset>
+            <ruleset>/rulesets/sunsecure.xml</ruleset>
+            <ruleset>/rulesets/typeresolution.xml</ruleset>
+            <ruleset>/rulesets/unusedcode.xml</ruleset>
+          </rulesets>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <configLocation>config/maven_checks.xml</configLocation>
         </configuration>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jdepend-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
         <artifactId>findbugs-maven-plugin</artifactId>
+        <version>2.0.1</version>
+        <configuration>
+          <xmlOutput>true</xmlOutput>
+          <effort>Default</effort>
+          <threshold>Normal</threshold>
+          <failOnError>false</failOnError>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-changes-plugin</artifactId>
+        <version>2.1</version>
+        <configuration>
+          <columnNames>Key,Type,Summary,Assignee,Status,Resolution,Priority,Component</columnNames>
+          <sortColumnNames>Key</sortColumnNames>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+              <report>jira-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <tagListOptions>
+            <tagClasses>
+              <tagClass>
+                <displayName>Todo Work</displayName>
+                <tags>
+                  <tag>
+                    <matchString>todo</matchString>
+                    <matchType>ignoreCase</matchType>
+                  </tag>
+                  <tag>
+                    <matchString>FIXME</matchString>
+                    <matchType>exact</matchType>
+                  </tag>
+                  <tag>
+                    <matchString>XXX</matchString>
+                    <matchType>exact</matchType>
+                  </tag>
+                  <tag>
+                    <matchString>@deprecated</matchString>
+                    <matchType>exact</matchType>
+                  </tag>
+                </tags>
+              </tagClass>
+            </tagClasses>
+          </tagListOptions>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-changelog-plugin</artifactId>
+        <version>2.1</version>
         <reportSets>
           <reportSet>
             <id>All Reports</id>
             <configuration>
               <type>range</type>
-              <range>90</range>
+              <range>120</range>
+              <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
             </configuration>
             <reports>
               <report>changelog</report>
@@ -123,18 +297,117 @@
           </reportSet>
         </reportSets>
       </plugin>
+      <plugin>
+        <artifactId>maven-changes-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <artifactId>maven-docck-plugin</artifactId>
+        <version>1.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>clirr-maven-plugin</artifactId>
+        <version>2.2.2</version>
+        <inherited>true</inherited>
+        <configuration>
+          <minSeverity>info</minSeverity>
+          <comparisonVersion>3.3</comparisonVersion>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>javancss-maven-plugin</artifactId>
+        <version>2.0-beta-2</version>
+        <inherited>true</inherited>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <version>2.0.1</version>
+        <configuration>
+          <xmlOutput>true</xmlOutput>
+          <effort>Default</effort>
+          <threshold>Normal</threshold>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <configuration>
+          <formats>
+            <format>html</format>
+            <format>xml</format>
+          </formats>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>dashboard-maven-plugin</artifactId>
+        <version>1.0.0-beta-1</version>
+      </plugin>
     </plugins>
   </reporting>
-  <distributionManagement>
-    <repository>
-      <uniqueVersion>false</uniqueVersion>
-      <id>andromda-repository</id>
-      <name>AndroMDA Repository</name>
-      <url>file:/var/www/andromda/maven2</url>
-    </repository>
-    <site>
-      <id>website</id>
-      <url>file:/var/www/andromda/docs/andromda-core</url>
-    </site>
-  </distributionManagement>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>commons-beanutils</groupId>
+        <artifactId>commons-beanutils</artifactId>
+        <version>1.8.1</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-collections</groupId>
+        <artifactId>commons-collections</artifactId>
+        <version>3.2.1</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-digester</groupId>
+        <artifactId>commons-digester</artifactId>
+        <version>2.0</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>1.4</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>2.4</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>1.1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-validator</groupId>
+        <artifactId>commons-validator</artifactId>
+        <version>1.3.1</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.7</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.14</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <properties>
+    <downloadSources>true</downloadSources>
+    <createChecksum>true</createChecksum>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <andromda.version>3.4-SNAPSHOT</andromda.version>
+  </properties>
 </project>
