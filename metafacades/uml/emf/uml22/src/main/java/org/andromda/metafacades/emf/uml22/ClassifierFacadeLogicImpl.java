@@ -88,17 +88,28 @@ public class ClassifierFacadeLogicImpl
     /**
      * <p>
      * Indicates whether or not this classifier represents a primitive
-     * type.
+     * type. If this type has a wrapper then it's primitive, otherwise it isn't.
      * </p>
      * @see org.andromda.metafacades.uml.ClassifierFacade#isPrimitive()
      */
     @Override
     protected boolean handleIsPrimitive()
     {
-        // If this type has a wrapper then it's primitive, otherwise it isn't.
-        // Note: attribute/parameter convert primitive <-> wrapped based on lower multiplicity (optionality)
         return this.getWrapperMappings() != null &&
         this.getWrapperMappings().getMappings().containsFrom(this.getFullyQualifiedName());
+    }
+
+    /**
+     * Indicates whether or not this classifier represents a wrapped primitive type.
+     * @see org.andromda.metafacades.uml.ClassifierFacade#isWrappedPrimitive()
+     */
+    //@Override
+    protected boolean handleIsWrappedPrimitive()
+    {
+        // Try both the fully qualified name and the ClassName
+        return this.getWrapperMappings() != null &&
+        ( this.getWrapperMappings().getMappings().containsTo(this.getFullyQualifiedName())
+          || this.getWrapperMappings().getMappings().containsTo(this.getName()));
     }
 
     /**
