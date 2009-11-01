@@ -20,10 +20,17 @@
                         "$metaUtils.getFullyQualifiedConstraintName($constraint)",
                         "$escapeUtils.escapeJava($constraintDocumentation)"));
         }
+## getCause returns Throwable, not Exception, so we have to catch Throwable
         catch (Throwable th)
         {
             Throwable cause = th.getCause();
-            while (cause != null) {th = cause;}
+## MethodInvocationException references itself for the cause.
+            int depth = 0; // Some throwables have infinite recursion
+            while (cause != null && depth < 7)
+            {
+                th = cause;
+                depth++;
+            }
             logger.error("Error validating constraint '$metaUtils.getFullyQualifiedConstraintName($constraint)' ON " 
                 + this.THIS().toString() + ": " + th.getMessage(), th);
         }
