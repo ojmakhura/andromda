@@ -16,37 +16,37 @@
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmPseudostateLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Pseudostate$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmNodeLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.activitygraphs.ActionState$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmStateLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.State$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmActionLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.CallEvent$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmTransitionLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.Transition$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
 
     <metafacade class="org.andromda.cartridges.jbpm.metafacades.JBpmEndStateLogicImpl">
-        <mapping class="org.omg.uml.behavioralelements.statemachines.FinalState$Impl">
+        <mapping>
             <property name="containedInBusinessProcess"/>
         </mapping>
     </metafacade>
