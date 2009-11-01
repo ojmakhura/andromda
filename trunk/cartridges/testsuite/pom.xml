@@ -1,10 +1,11 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.andromda.cartridges</groupId>
-        <artifactId>andromda-cartridges</artifactId>
+        <groupId>org.andromda</groupId>
+        <artifactId>andromda</artifactId>
         <version>3.4-SNAPSHOT</version>
     </parent>
+    <groupId>org.andromda.cartridges</groupId>
     <artifactId>andromda-cartridge-testsuite</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA Cartridge Test Suite</name>
@@ -20,9 +21,28 @@
             <artifactId>commons-io</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-utils</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>compile</scope><!--reset scope to compile-->
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
         </dependency>
     </dependencies>
+    <build>
+        <sourceDirectory>${basedir}/src/java</sourceDirectory>
+        <testSourceDirectory>${basedir}/target/cartridge-test/actual</testSourceDirectory>
+        <testOutputDirectory>${basedir}/target/cartridge-test/classes</testOutputDirectory>
+    </build>
 </project>
