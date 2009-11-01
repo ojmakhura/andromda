@@ -11,11 +11,11 @@ package $class.packageName;
 #set ($webFault=$class.hasStereotype("WebFault"))
 #if ($webFault)
 ## Assume the only Exception AssociationEnd class is the faultBean
-#if ($class.associationEnds.size()>0)
-#set ($faultDetails=$class.associationEnds.get(0).otherEnd.getterSetterTypeName)
-#else
+#if ($class.associationEnds.empty)
 ## Create a new FaultBean class at the same time as processing this Exception
 #set ($faultDetails="Object")
+#else
+#set ($faultDetails=$class.associationEnds.get(0).otherEnd.getterSetterTypeName)
 #end
 #end
 
