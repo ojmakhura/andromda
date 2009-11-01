@@ -35,13 +35,12 @@
 #end
 #set ($namesTemplateType = "<String>")
 #end
-#if(!$enableTemplating)
-#set ($cast = "($enumeration.name)")
 #else
-#set ($cast = "")
-#set ($valuesTemplateType = "<String, ${enumeration.name}>")
-#set ($literalsTemplateType = "<String>")
-#end
+##set ($cast = "")
+#set ($valuesTemplateType = "")
+#set ($literalsTemplateType = "")
+##else
+##set ($cast = "($enumeration.name)")
 #end
 #set ($hasMemberVariables = !(${enumeration.memberVariables.empty()}))
 #set ($members = "")
@@ -84,7 +83,7 @@ public enum $enumeration.name
 $literal.getDocumentation("     * ")
      */
 #else
-    /** $toDoTag: Missing Documentation for Enumeration Literal $literal.name */
+    /** $toDoTag: Model Documentation for Enumeration Literal $literal.name value $literal.enumerationValue */
 #end
 #if ($XMLBindingAnnotations)
     @XmlEnumValue("$literal.name")
@@ -117,15 +116,15 @@ $member.getDocumentation("     * ")
     private static final long serialVersionUID = ${enumeration.serialVersionUID}L;
 
 #end
-    private final $literalTypeName value;
+    private final $literalTypeName enumValue;
 
     /**
      * The constructor with enumeration literal value allowing
      * super classes to access it.
      */
-    private ${enumeration.name}($literalTypeName valueIn)
+    private ${enumeration.name}($literalTypeName value)
     {
-        this.value = valueIn;
+        this.enumValue = value;
     }
 
 #if (!$enumeration.memberVariables.empty)
@@ -133,26 +132,28 @@ $member.getDocumentation("     * ")
     /**
      * $enumeration.name constructor with list of member variables
      */
-    private ${enumeration.name}($literalTypeName valueIn#foreach ($memberVariable in $enumeration.memberVariables)
+    private ${enumeration.name}($literalTypeName value#foreach ($memberVariable in $enumeration.memberVariables)
         , ${memberVariable.type.fullyQualifiedName} ${memberVariable.name}#end)
     {
-        this.value = valueIn;
+        this.enumValue = value;
 #foreach ($memberVariable in $enumeration.memberVariables)
         ${memberVariable.setterName}(${memberVariable.name});
 #end
     }
 
 #end
-    /**
+    /*
+     * Do not override this method directly. Use an alternate name 
+     * if providing a different toString implementation
      * @see Object${esc.hash}toString()
-     */
 #if ($enableAnnotations)
     @Override
 #end
     public String toString()
     {
-        return String.valueOf(this.value);
+        return String.valueOf(this.enumValue);
     }
+     */
 
 #foreach ($member in $enumeration.memberVariables)
 #if ($stringUtils.isNotBlank($member.documentation))
@@ -178,29 +179,43 @@ $member.getDocumentation("     * ")
     }
 
     /**
-     * Returns a enumeration literal String <code>value</code>.
+     * Returns an enumeration literal $literalTypeName <code>value</code>.
      * Required by JAXB2 enumeration implementation
      *
      * @return $literalTypeName with corresponding value
      */
-    public $literalTypeName value() {
-        return name();
+    public $literalTypeName value()
+    {
+        return this.enumValue;
     }
 
     /**
-     * Returns an instance of $enumeration.name from String <code>value</code>.
+     * Returns an instance of $enumeration.name from $literalTypeName <code>value</code>.
      * Required by JAXB2 enumeration implementation
      *
      * @param value the value to create the $enumeration.name from.
      * @return static Enumeration with corresponding value
      */
-    public static $enumeration.name fromValue(String value) {
-        for (${enumeration.name} enumName: ${enumeration.name}.values()) {
-            if (enumName.getValue().equals(value)) {
+    public static $enumeration.name fromValue($literalTypeName value)
+    {
+        for (${enumeration.name} enumName: ${enumeration.name}.values())
+        {
+#if ($enumeration.literalType.primitive)
+            if (enumName.getValue() == value)
+#set ($exceptionString = "String.valueOf(value)")
+#else
+            if (enumName.getValue().equals(value))
+#if ($enumeration.literalType.stringType)
+#set ($exceptionString = "value")
+#else
+#set ($exceptionString = "value.toString()")
+#end
+#end
+            {
                 return enumName;
             }
         }
-        throw new IllegalArgumentException(value.toString());
+        throw new IllegalArgumentException("${enumeration.name}.fromValue(" + $exceptionString + ')');
     }
 
     /**
@@ -210,7 +225,7 @@ $member.getDocumentation("     * ")
      */
     public $literalTypeName getValue()
     {
-        return this.name();
+        return this.enumValue;
     }
 
     /**
@@ -236,7 +251,7 @@ $member.getDocumentation("     * ")
         return ${enumeration.name}.names;
     }
 
-    private static final Map${valuesTemplateType} VALUES = new LinkedHashMap${valuesTemplateType}($enumeration.literals.size(), 1);
+    private static Map${valuesTemplateType} values = new LinkedHashMap${valuesTemplateType}($enumeration.literals.size(), 1);
     private static List${literalsTemplateType} literals = new ArrayList${literalsTemplateType}($enumeration.literals.size());
     private static List${namesTemplateType} names = new ArrayList${namesTemplateType}($enumeration.literals.size());
     private static List${valueListTemplateType} valueList = new ArrayList${valueListTemplateType}($enumeration.literals.size());
@@ -246,28 +261,43 @@ $member.getDocumentation("     * ")
      */
     static
     {
+        synchronized (${enumeration.name}.values)
+        {
 #foreach ($literal in $enumeration.literals)
-#if ($stringUtils.isBlank($literal.enumerationValue))
-#set ($literalValue = "${literal.name}")
-#else
-#set ($literalValue = "${literal.enumerationValue}")
-#end
 #if ($literal.type.primitive)
-#set ($value = "new ${enumeration.literalType.wrapperName}(${literal.name}.value)")
+#set ($value = "${enumeration.literalType.wrapperName}.valueOf(${literal.name}.enumValue)")
 #else
-#set ($value = "${literal.name}.value")
+#set ($value = "${literal.name}.enumValue")
 #end
-##if($literal.type.primitive)
-##set ($value = "new ${literal.type.wrapperName}(${literal.name}.value)")
-##end
-        VALUES.put($value, $literal.name);
-        ${enumeration.name}.valueList.add($literal.name);
-        ${enumeration.name}.literals.add($value);
-        ${enumeration.name}.names.add("$literal.name");
+            ${enumeration.name}.values.put($value, $literal.name);
 #end
-        ${enumeration.name}.valueList = Collections.unmodifiableList(valueList);
-        ${enumeration.name}.literals = Collections.unmodifiableList(literals);
-        ${enumeration.name}.names = Collections.unmodifiableList(names);
+        }
+        synchronized (${enumeration.name}.valueList)
+        {
+#foreach ($literal in $enumeration.literals)
+            ${enumeration.name}.valueList.add($literal.name);
+#end
+            ${enumeration.name}.valueList = Collections.unmodifiableList(valueList);
+        }
+        synchronized (${enumeration.name}.literals)
+        {
+#foreach ($literal in $enumeration.literals)
+#if ($literal.type.primitive)
+#set ($value = "${enumeration.literalType.wrapperName}.valueOf(${literal.name}.enumValue)")
+#else
+#set ($value = "${literal.name}.enumValue")
+#end
+            ${enumeration.name}.literals.add($value);
+#end
+            ${enumeration.name}.literals = Collections.unmodifiableList(literals);
+        }
+        synchronized (${enumeration.name}.names)
+        {
+#foreach ($literal in $enumeration.literals)
+            ${enumeration.name}.names.add("$literal.name");
+#end
+            ${enumeration.name}.names = Collections.unmodifiableList(names);
+        }
     }
 }
 #end
