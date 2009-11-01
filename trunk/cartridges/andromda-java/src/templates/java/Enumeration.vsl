@@ -312,7 +312,7 @@ $literal.getDocumentation("     * ")
         return ${enumeration.name}.${enumeration.fromOperationName}(this.getValue());
     }
 
-    private static final Map${valuesTemplateType} VALUES = new LinkedHashMap${valuesTemplateType}($enumeration.literals.size(), 1);
+    private static Map${valuesTemplateType} VALUES = new LinkedHashMap${valuesTemplateType}($enumeration.literals.size(), 1);
     private static List${literalsTemplateType} literals = new ArrayList${literalsTemplateType}($enumeration.literals.size());
     private static List${namesTemplateType} names = new ArrayList${namesTemplateType}($enumeration.literals.size());
     private static List${valueListTemplateType} valueList = new ArrayList${valueListTemplateType}($enumeration.literals.size());
