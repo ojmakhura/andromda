@@ -13,7 +13,6 @@ TRANSITION_$stringUtils.separate($name,"_").toUpperCase()## no newline
 ##
 ##
 ##
-#set ($hash = "#")
 #set ($generatedFile = "${node.nodeClassName}.java")
 #if ($stringUtils.isNotBlank($node.nodePackageName))
 #set ($generatedFile = "$stringUtils.replace($node.nodePackageName,'.','/')/$generatedFile")
@@ -254,7 +253,8 @@ public final class $node.nodeClassName implements $nodeInterfaceName
      * @return the next node in the process
 #if ($transition.name)
      *      after following the <em>$transition.name</em> transition
-     * @see ${hash}${esc.hash}renderTransitionName($transition.name)
+     * @see ${esc.hash}#renderTransitionName($transition.name)
+
 #end
      */
     public $signalReturnType ${signalMethodName}()
