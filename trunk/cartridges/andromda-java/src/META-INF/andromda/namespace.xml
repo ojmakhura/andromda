@@ -191,6 +191,13 @@
                     Handles parse/print of customized String formats. Outputs Decimal instead of BigDecimal.
                 </documentation>
             </property>
+            <property name="XMLBooleanAdapter">
+                <default></default>
+                <documentation>
+                    Class which extends Jaxb2 javax.xml.bind.annotation.adapters.XmlAdapter&gt;String, Decimal&lt;.
+                    Handles parse/print of customized String formats. Outputs Boolean instead of boolean.
+                </documentation>
+            </property>
         </propertyGroup>
     </properties>
 </namespace>
