@@ -39,9 +39,9 @@ public#if ($interface.abstractInterfaceImplementation) abstract#end class $class
      * @see ${interface.fullyQualifiedName}${esc.hash}${attribute.setterName}($attribute.getterSetterTypeName)
 #else
 $attribute.getDocumentation("     * ")
-     * @param ${attribute.name}In $returnType
+     * @param ${attribute.name}In $attribute.getterSetterTypeName
 #if($generateChainedSetters)
-     * @return this ${class.name}
+     * @return this $className
 #end
 #end
      */
