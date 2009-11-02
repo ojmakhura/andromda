@@ -18,9 +18,6 @@
         <url>http://jira.andromda.org/</url>
     </issueManagement>
     <scm>
-      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk</connection>
-      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk</developerConnection>
-      <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <organization>
       <name>AndroMDA.org</name>
@@ -613,8 +610,8 @@
         <downloadSources>true</downloadSources>
         <createChecksum>true</createChecksum>
         <!--uniqueVersion>true</uniqueVersion-->
-        <!-- Build lib\ bootstrap artifacts. If false, deploy lib\ bootstrap artifacts to local repository -->
-        <bootstrap.artifacts>true</bootstrap.artifacts>
+        <!-- Build lib\ bootstrap artifacts. If false, deploy lib\ bootstrap artifacts to local repository>
+        <bootstrap.artifacts>true</bootstrap.artifacts-->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>    
     </properties>
 </project>
