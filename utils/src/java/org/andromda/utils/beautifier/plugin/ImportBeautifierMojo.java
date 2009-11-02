@@ -16,17 +16,16 @@ package org.andromda.utils.beautifier.plugin;
  * limitations under the License.
  */
 
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.commons.io.FileUtils;
-import org.andromda.utils.beautifier.core.JavaBeautifier;
-import org.andromda.utils.beautifier.core.JavaImportBeautifierImpl;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Collection;
+import org.andromda.utils.beautifier.core.JavaBeautifier;
+import org.andromda.utils.beautifier.core.JavaImportBeautifierImpl;
+import org.apache.commons.io.FileUtils;
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
 
 /**
  * Runs hybridlabs beautifier.
