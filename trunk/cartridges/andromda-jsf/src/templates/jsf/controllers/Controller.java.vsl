@@ -78,7 +78,8 @@ $operation.getDocumentation("     * ")
             {
                 contextWrapper.getCurrentInstance().getProcessScope().put("$action.formKey", currentForm);
                 final String message = ${managedBeansPackage}.Messages.get(
-                    ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable), null);
+                    ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().handleException(throwable),
+                    ${managedBeansPackage}.${patternMatchingExceptionHandler}.instance().getMessageArguments(throwable));
                 this.addErrorMessage(message);
             }
         }

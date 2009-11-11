@@ -75,6 +75,29 @@ public#if($class.abstract) abstract#end class ${class.name}
         super(message, findRootCause(throwable));
     }
 
+    private Object[] messageArguments;
+
+    /**
+     * Gets the message arguments that can be used by message resources (in
+     * something like the presentation tier)
+     *
+     * @return
+     */
+    public Object[] getMessageArguments()
+    {
+        return messageArguments;
+    }
+
+    /**
+     * Sets the message arguments that can be used by message resources (in
+     * something like the presentation tier)
+     *
+     * @param messageArguments
+     */
+    public void setMessageArguments(Object[] messageArguments)
+    {
+        this.messageArguments = messageArguments;
+    }
 #parse("templates/java/ExceptionUtils.vm")
 
 }

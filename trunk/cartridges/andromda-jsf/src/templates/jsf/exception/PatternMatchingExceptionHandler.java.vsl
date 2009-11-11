@@ -54,6 +54,32 @@ public class $patternMatchingExceptionHandler
     }
 
     /**
+     * The property on the exception which could possibly contain any arguments on the matched exception.
+     */
+    private static final String MESSAGE_ARGUMENTS = "messageArguments";
+
+    /**
+     * Attempts to retrieve any arguments from the exception from a property named "messageArguments"
+     * on the exception.
+     *
+     * @param exception the Exception containing the message to retrieve
+     * @return the retrieved message arguments (if any) from the exception.
+     */
+    public Object[] getMessageArguments(final Throwable throwable) throws Throwable
+    {
+        Object[] arguments = null;
+        final java.lang.Throwable cause =  this.findRootCause(throwable);
+        if (cause != null && cause.getMessage() != null)
+        {
+            if (org.apache.commons.beanutils.PropertyUtils.isReadable(cause, MESSAGE_ARGUMENTS))
+            {
+                arguments = (Object[])org.apache.commons.beanutils.PropertyUtils.getProperty(cause, MESSAGE_ARGUMENTS);
+            }
+        }
+        return arguments;
+    }
+
+    /**
      * Finds the root cause of the parent exception
      * by traveling up the exception hierachy.
      */
