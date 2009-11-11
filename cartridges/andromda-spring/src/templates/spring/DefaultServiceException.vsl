@@ -17,8 +17,8 @@ import org.apache.commons.beanutils.PropertyUtils;
 public class $service.defaultExceptionName
     extends java.lang.RuntimeException
 {
-    /** 
-     * The serial version UID of this class. Needed for serialization. 
+    /**
+     * The serial version UID of this class. Needed for serialization.
      */
     private static final long serialVersionUID = ${service.serialVersionUID}L;
 
@@ -105,5 +105,29 @@ public class $service.defaultExceptionName
             }
         }
         return th;
+    }
+
+    private Object[] messageArguments;
+
+    /**
+     * Gets the message arguments that can be used by message resources (in
+     * something like the presentation tier)
+     *
+     * @return
+     */
+    public Object[] getMessageArguments()
+    {
+        return messageArguments;
+    }
+
+    /**
+     * Sets the message arguments that can be used by message resources (in
+     * something like the presentation tier)
+     *
+     * @param messageArguments
+     */
+    public void setMessageArguments(Object[] messageArguments)
+    {
+        this.messageArguments = messageArguments;
     }
 }
