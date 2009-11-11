@@ -87,13 +87,7 @@
                             <goal>maven</goal>
                         </goals>
                     </execution>
-                    <execution>
-                        <id>clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>maven</goal>
-                        </goals>
-                    </execution>
+                    
                     <execution>
                         <id>clean-animal-quiz-structure</id>
                         <phase>clean</phase>
