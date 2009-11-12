@@ -287,6 +287,16 @@
     <link rel="stylesheet" type="text/css" href="${relativePath}/css/maven-base.css" media="all"></link>
     <link rel="stylesheet" type="text/css" href="${relativePath}/css/maven-andromda.css" media="screen" title="default"></link>
     <link rel="stylesheet" type="text/css" href="${relativePath}/css/printer.css" media="print"></link>
+	<link rel="stylesheet" type="text/css" href="${relativePath}/css/prettify.css" />
+	<script type="text/javascript" src="${relativePath}/js/prettify.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/dojo/1.3/dojo/dojo.xd.js"></script>
+	<script type="text/javascript">		
+		dojo.addOnLoad(function(){ 
+			// attempt to highlight all <pre> blocks on a page:
+			dojo.query("pre").addClass("prettyprint");
+			prettyPrint();			
+		});
+	</script>
     <meta http-equiv="Content-Type" content="text/html; charset=${outputEncoding}"/>
     <meta name="Description" content="AndroMDA is an open source code generation framework that follows the Model Driven Architecture (MDA) paradigm."></meta>
     <meta name="keywords" content="MDA, Model Driven Architecture, cartridge, cartridges, PIM, PSM, Platform Independent Model, Platform Specific Model, Project Generator, J2EE, Java, OCL, UML, XMI, JMI, MagicDraw, Poseidon, Free, Open-Source, open source, open, source, sourceforge, sourceforge.net, schema2xmi, Schema2XMI, Translation Library, MDR, metadata, repository, templates, templating, template engine, velocity, maven, ant, animal quiz, online store, Matthias Bohlen, Chad Brandon, Wouter Zoons, Carlos Cuenca, Martin West, application server, jboss"></meta>
