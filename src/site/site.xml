@@ -10,9 +10,17 @@
     </bannerLeft>
     <publishDate format="dd MMM yyyy hh:mm zzz"/>
     <body>
+        <links>
+            <item name="Home" href="/index.html"/>
+            <item name="MDA" href="http://www.omg.org/mda/"/>
+            <item name="MDA FAQs" href="http://www.klasse.nl/mda/mda-faq.html"/>
+            <item name="UML" href="http://www.cetus-links.org/oo_uml.html"/>
+            <item name="OCL" href="http://www.klasse.nl/ocl/index.html"/>
+            <item name="XMI" href="http://www.omg.org/technology/documents/formal/xmi.htm"/>
+        </links>
         <menu name="Overview">
             <item name="What is AndroMDA?" href="/whatisit.html"/>
-            <item name="Getting Started - Java" href="/getting-started/java/index.html"/>
+            <item name="Getting Started - Java" href="andromda-documentation/andromda-getting-started-java/java/index.html"/>
             <item name="Getting Started - .NET" href="http://team.andromda.org/contrib/starting-dotnet.html"/>
             <item name="Modeling" href="/modeling.html"/>
             <item name="Samples" href="/samples.html"/>
