@@ -122,7 +122,7 @@
             <property name="hibernateAssociationCache">
                 <default>read-write</default>
                 <documentation>
-                    Defines the default strategy for associations between Entities caching. Can be overwrited with the corresponding tagged value. Possible values are:
+                    Defines the default strategy for associations between Entities caching. Can be overwritten with the corresponding tagged value. Possible values are:
                     <ul>
                        <li>read-write</li>
                        <li>nonstrict-read-write</li>
@@ -575,7 +575,7 @@
                 </documentation>
             </property>
             <property name="defaultEntityDiscriminatorType">
-                <default>string</default>
+                <default>STRING</default>
                 <documentation>
                     The default type of the <code>discriminator-column</code> of the hibernate entity XML mapping.
                 </documentation>
