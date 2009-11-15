@@ -29,6 +29,10 @@
             <artifactId>andromda-metafacades-uml</artifactId>
             <version>${pom.version}</version>
         </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>        
+        </dependency> 
     </dependencies>
     <build>
         <filters>

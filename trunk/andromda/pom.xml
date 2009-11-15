@@ -37,43 +37,39 @@
             <artifactId>commons-io</artifactId>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
             <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-            <version>2.7.0</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>xerces</groupId>
-            <artifactId>xercesImpl</artifactId>
-            <version>2.8.1</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>jalopy</groupId>
-	        	<artifactId>jalopy</artifactId>
-	        	<version>1.5-RC3P1</version>
-	        	<scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>antlr</groupId>
-	        	<artifactId>antlr</artifactId>
-	        	<version>2.7.7</version>
-	        	<scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
             <scope>runtime</scope>
         </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>        
+        <dependency>
+            <groupId>xalan</groupId>
+            <artifactId>xalan</artifactId>            
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>            
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>jalopy</groupId>
+	        <artifactId>jalopy</artifactId>
+	        <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>antlr</groupId>
+	        <artifactId>antlr</artifactId>	        	
+	        <scope>runtime</scope>
+        </dependency>        
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

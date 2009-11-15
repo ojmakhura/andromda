@@ -4,8 +4,7 @@
         <groupId>org.andromda.andromdapp.projects</groupId>
         <artifactId>andromda-andromdapp-projects</artifactId>
         <version>3.4-SNAPSHOT</version>
-    </parent>
-    <groupId>org.andromda.andromdapp.projects</groupId>
+    </parent>    
     <artifactId>andromda-andromdapp-project-richclient-ant</artifactId>
     <packaging>jar</packaging>
     <name>AndroMDA Rich Client Ant Project</name>
@@ -19,120 +18,7 @@
       <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromdapp/projects/richclient/ant</developerConnection>
       <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
-    <inceptionYear>2005</inceptionYear>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-mock</artifactId>
-            <version>1.2.9</version>
-            <exclusions>
-                 <exclusion>
-                     <groupId>javax.transaction</groupId>
-                     <artifactId>jta</artifactId>
-                 </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aop</artifactId>
-            <version>1.2.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-hibernate</artifactId>
-            <version>1.2.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
-            <version>1.2.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>1.2.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-remoting</artifactId>
-            <version>1.2.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>1.2.9</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>1.2.9</version>
-        </dependency>
-        <dependency>
-            <groupId>ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <version>1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>aopalliance</groupId> 
-            <artifactId>aopalliance</artifactId> 
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.acegisecurity</groupId>
-            <artifactId>acegi-security</artifactId>
-            <version>1.0.1</version>
-            <exclusions>    
-                <exclusion>
-                   <groupId>org.springframework</groupId>
-                   <artifactId>spring-context</artifactId>
-                </exclusion>
-                <exclusion>
-                   <groupId>org.springframework</groupId>
-                   <artifactId>spring-web</artifactId>
-                </exclusion>
-                <exclusion>
-                   <groupId>org.springframework</groupId>
-                   <artifactId>spring-jdbc</artifactId>
-                </exclusion>
-               <exclusion>
-                   <groupId>org.springframework</groupId>
-                   <artifactId>spring-support</artifactId>
-               </exclusion>
-               <exclusion>
-                   <groupId>org.springframework</groupId>
-                   <artifactId>spring-mock</artifactId>
-               </exclusion>
-               <exclusion>
-                   <groupId>ehcache</groupId>
-                   <artifactId>ehcache</artifactId>
-               </exclusion>
-               <exclusion>
-                   <groupId>cas</groupId>
-                   <artifactId>casclient</artifactId>
-               </exclusion>
-               <exclusion>
-                   <groupId>commons-logging</groupId>
-                   <artifactId>commons-logging</artifactId>
-               </exclusion>
-               <exclusion>
-                   <groupId>commons-codec</groupId>
-                   <artifactId>commons-codec</artifactId>
-               </exclusion>
-               <exclusion>
-                   <groupId>aspectj</groupId>
-                   <artifactId>aspectjrt</artifactId>
-               </exclusion>
-               <exclusion>
-                   <groupId>javax.servlet</groupId>
-                   <artifactId>jsp-api</artifactId>
-               </exclusion>
-               <exclusion>
-                   <groupId>hsqldb</groupId>
-                   <artifactId>hsqldb</artifactId>
-               </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
+    <inceptionYear>2005</inceptionYear>    
     <build>
         <resources>
             <resource>

@@ -18,6 +18,17 @@
       <url>http://andromda.svn.sourceforge.net/</url>
     </scm>
     <inceptionYear>2005</inceptionYear>
+    <dependencies>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${pom.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>                
+        </dependency>
+    </dependencies>
     <build>
         <resources>
             <resource>

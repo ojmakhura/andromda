@@ -233,14 +233,67 @@
                 <artifactId>log4j</artifactId>
                 <version>1.2.14</version>
             </dependency>
-        </dependencies>
+            
+            <dependency>
+                <groupId>xalan</groupId>
+                <artifactId>xalan</artifactId>
+                <version>2.7.0</version>                
+            </dependency>
+            <dependency>
+                <groupId>xerces</groupId>
+                <artifactId>xercesImpl</artifactId>
+                <version>2.8.1</version>                
+            </dependency>
+            <dependency>
+                <groupId>jalopy</groupId>
+	        	<artifactId>jalopy</artifactId>
+	        	<version>1.5-RC3P1</version>	        	    
+            </dependency>
+            <dependency>
+                <groupId>antlr</groupId>
+	        	<artifactId>antlr</artifactId>
+	        	<version>2.7.7</version>	        	
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ant</groupId>
+                <artifactId>ant</artifactId>
+                <version>1.7.1</version>
+            </dependency>
+            
+            <dependency> 
+    		    <groupId>freemarker</groupId>
+      		    <artifactId>freemarker</artifactId>
+     		    <version>2.3.1</version>
+    	    </dependency> 
+    	    <dependency> 
+        		<groupId>org.apache.velocity</groupId>
+          		<artifactId>velocity</artifactId>
+         		<version>1.6.2</version>          
+        	</dependency>
+        	<dependency> 
+        		<groupId>velocity-tools</groupId>
+          		<artifactId>velocity-tools</artifactId>
+         		<version>1.4</version>          
+        	</dependency> 	
+        	
+        	<dependency>
+                <groupId>jboss</groupId>
+                <artifactId>javassist</artifactId>
+                <version>2.6</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-plugin-api</artifactId>
+                <version>2.2.1</version>
+            </dependency>
+         </dependencies>            
     </dependencyManagement>
     <build>
       <defaultGoal>install</defaultGoal>
       <sourceDirectory>src/java</sourceDirectory>
       <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
+        <plugin>            
             <artifactId>maven-compiler-plugin</artifactId>
             <version>2.0.2</version>
             <configuration>
@@ -279,8 +332,7 @@
 			</plugin>
             <plugin>
                 <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->
-                <inherited>true</inherited>
-                <groupId>org.apache.maven.plugins</groupId> 
+                <inherited>true</inherited>                
                 <artifactId>maven-source-plugin</artifactId> 
                 <version>2.1.1</version>
                 <configuration>
@@ -291,13 +343,12 @@
                         <id>attach-sources</id> 
                         <phase>verify</phase> 
                         <goals> 
-                            <goal>jar</goal> 
+                            <goal>jar-no-fork</goal> 
                         </goals> 
                     </execution> 
                 </executions> 
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-site-plugin</artifactId>
                 <version>2.0.1</version>
                 <configuration>
@@ -310,33 +361,9 @@
     <!-- Comment to disable project reporting using default maven plugins -->
     <reporting>
         <plugins>
-            <!--plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.1.2</version>
-                <reportSets>
-                  <reportSet>
-                    <reports>
-                      <report>dependencies</report>
-                      <report>dependency-convergence</report>
-                      <report>dependency-management</report>
-                      <report>index</report>
-                      <report>plugin-management</report>
-                      <report>summary</report>
-                      <report>project-team</report>
-                      <report>mailing-list</report>
-                      <report>cim</report>
-                      <report>issue-tracking</report>
-                      <report>license</report>
-                      <report>scm</report>
-                    </reports>
-                  </reportSet>
-                </reportSets>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.6</version>
+                <version>2.5</version>
                 <reportSets>
                     <reportSet>
                         <id>non-aggregate</id>
@@ -363,18 +390,15 @@
                     </reportSet>
                 </reportSets>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <version>2.4.3</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-jxr-plugin</artifactId>
                 <version>2.1</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
                     <targetJdk>1.5</targetJdk>
@@ -402,8 +426,7 @@
                     </rulesets>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.3</version>
                 <configuration>
@@ -413,27 +436,15 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jdepend-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.0.1</version>
-                <configuration>
-                    <xmlOutput>true</xmlOutput>
-                    <effort>Default</effort>
-                    <threshold>Normal</threshold>
-                    <failOnError>false</failOnError>
-                </configuration>
-            </plugin-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            </plugin>            
+            <plugin>                
                 <artifactId>maven-changes-plugin</artifactId>
                 <version>2.1</version>
                 <reportSets>
                     <reportSet>
                         <reports>
                             <report>changes-report</report>
-                            <report>jira-report</report>
+                            <!--<report>jira-report</report>-->
                         </reports>
                     </reportSet>
                 </reportSets>
@@ -441,7 +452,7 @@
                     <columnNames>Key,Type,Summary,Assignee,Status,Resolution,Priority,Component</columnNames>
                     <sortColumnNames>Key</sortColumnNames>
                 </configuration>
-            </plugin>
+            </plugin>            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>taglist-maven-plugin</artifactId>
@@ -474,8 +485,7 @@
                      </tagListOptions>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <!--<plugin>                
                 <artifactId>maven-changelog-plugin</artifactId>
                 <version>2.1</version>
                 <reportSets>
@@ -494,11 +504,11 @@
                     </reportSet>
                 </reportSets>
             </plugin>
-            <!--plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            -->
+            <plugin>                
                 <artifactId>maven-docck-plugin</artifactId>
                 <version>1.0</version>
-            </plugin-->
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>clirr-maven-plugin</artifactId>
@@ -540,8 +550,7 @@
                 <artifactId>dashboard-maven-plugin</artifactId>
                 <version>1.0.0-beta-1</version>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-doap-plugin</artifactId>
                 <version>1.0</version>
                 <configuration>

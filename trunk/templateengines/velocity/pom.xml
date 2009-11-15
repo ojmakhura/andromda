@@ -17,14 +17,20 @@
     <dependencies>
     	<dependency> 
     		<groupId>org.apache.velocity</groupId>
-      		<artifactId>velocity</artifactId>
-     		<version>1.6.2</version>          
+      		<artifactId>velocity</artifactId>     		        
     	</dependency>
     	<dependency> 
     		<groupId>velocity-tools</groupId>
-      		<artifactId>velocity-tools</artifactId>
-     		<version>1.4</version>          
-    	</dependency> 	
+      		<artifactId>velocity-tools</artifactId>     		
+    	</dependency>
+    	<dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>        
+        </dependency>     	
     </dependencies>
     <build>
         <plugins>
