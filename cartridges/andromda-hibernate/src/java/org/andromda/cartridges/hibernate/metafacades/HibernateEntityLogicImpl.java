@@ -7,6 +7,7 @@ import java.util.List;
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.cartridges.hibernate.HibernateUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAttribute;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
@@ -228,9 +229,9 @@ public class HibernateEntityLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
      */
-    public List getProperties()
+    public Collection<AttributeFacade> getProperties()
     {
-        List properties = this.getAttributes();
+        Collection<AttributeFacade> properties = this.getAttributes();
         List connectingEnds = this.getAssociationEnds();
         CollectionUtils.transform(
             connectingEnds,
