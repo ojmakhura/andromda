@@ -7,12 +7,7 @@
     </parent>
     <artifactId>andromda-utils</artifactId>
     <packaging>jar</packaging>
-    <name>AndroMDA Utils</name>
-    <scm>
-      <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/utils</connection>
-      <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/utils</developerConnection>
-      <url>http://andromda.svn.sourceforge.net/</url>
-    </scm>
+    <name>AndroMDA Utils</name>    
     <dependencies>
     	<dependency>
 	      	<groupId>${pom.groupId}</groupId>
