@@ -13,12 +13,7 @@
         takes care of making all the components of AndroMDA work together. This
         includes plugin discovery (i.e. cartridges, translation-libraries),
         manufacturing of metafacades, etc.
-    </description>
-    <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/andromda</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/</url>
-    </scm>
+    </description>    
     <dependencies>
         <dependency>
             <groupId>commons-collections</groupId>

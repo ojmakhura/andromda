@@ -485,7 +485,7 @@
                      </tagListOptions>
                 </configuration>
             </plugin>
-            <!--<plugin>                
+            <plugin>                
                 <artifactId>maven-changelog-plugin</artifactId>
                 <version>2.1</version>
                 <reportSets>
@@ -503,8 +503,7 @@
                         </reports>
                     </reportSet>
                 </reportSets>
-            </plugin>
-            -->
+            </plugin>            
             <plugin>                
                 <artifactId>maven-docck-plugin</artifactId>
                 <version>1.0</version>
@@ -566,7 +565,7 @@
         </plugins>
     </reporting>
     <modules>
-        <module>andromda</module>
+        <module>andromda-core</module>
         <module>andromdapp</module>
         <module>maven</module>
         <module>cartridges</module>
