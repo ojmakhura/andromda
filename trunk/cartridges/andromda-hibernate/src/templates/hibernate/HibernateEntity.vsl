@@ -40,9 +40,9 @@ public abstract class $entity.entityName
         return this.$versionProperty;
     }
 
-    private void set$versionPropertyCapitalized (int $versionProperty)
+    private void set$versionPropertyCapitalized (int ${versionProperty}In)
     {
-        this.$versionProperty = $versionProperty;
+        this.$versionProperty = ${versionProperty}In;
     }
 
 #end
@@ -63,7 +63,7 @@ public abstract class $entity.entityName
 #end
 #foreach ($attribute in $entity.attributes)
 #if (!$entity.compositeIdentifier || ($entity.compositeIdentifier && !$attribute.identifier))
-#set ($typeName = $attribute.type.fullyQualifiedName)
+#set ($typeName = $attribute.getterSetterTypeName)
 #if ($attribute.containsEmbeddedObject)
 #set ($typeName = $attribute.type.fullyQualifiedEntityName)
 #end
@@ -71,15 +71,20 @@ public abstract class $entity.entityName
 
     /**
 $attribute.getDocumentation("     * ")
+     * @return this.${attribute.name} $typeName
      */
     $attribute.visibility $typeName ${attribute.getterName}()
     {
         return this.${attribute.name};
     }
 
-    $attribute.visibility void ${attribute.setterName}(${typeName} $attribute.name)
+    /**
+$attribute.getDocumentation("     * ")
+     * @param ${attribute.name}In ${typeName}
+     */
+    $attribute.visibility void ${attribute.setterName}(${typeName} ${attribute.name}In)
     {
-        this.${attribute.name} = $attribute.name;
+        this.${attribute.name} = ${attribute.name}In;
     }
 
 #end
@@ -96,30 +101,36 @@ $attribute.getDocumentation("     * ")
 
     /**
 $target.getDocumentation("     * ")
+     * @return this.${target.name} $target.getterSetterTypeName
      */
     public $target.getterSetterTypeName ${target.getterName}()
     {
         return this.${target.name};
     }
 
-    public void ${target.setterName}($target.getterSetterTypeName ${target.name})
+    /**
+$target.getDocumentation("     * ")
+     * @param ${target.name}In $target.getterSetterTypeName
+     */
+    public void ${target.setterName}($target.getterSetterTypeName ${target.name}In)
     {
-        this.${target.name} = ${target.name};
+        this.${target.name} = ${target.name}In;
     }
 
 #end
 #end
 #foreach ($operation in $entity.businessOperations)
-#set ($returnType = $operation.returnType)
-#set ($signature = $operation.signature)
     /**
 $operation.getDocumentation("     * ")
+#if ($operation.exceptionsPresent)
+    * @throws $operation.exceptionList
+#end
      */
 #if ($operation.exceptionsPresent)
-    $operation.visibility abstract $returnType.fullyQualifiedName $signature
+    $operation.visibility abstract $operation.returnType.fullyQualifiedName $operation.signature
         throws $operation.exceptionList;
 #else
-    $operation.visibility abstract $returnType.fullyQualifiedName $signature;
+    $operation.visibility abstract $operation.returnType.fullyQualifiedName $operation.signature;
 #end
 
 #end
@@ -192,10 +203,23 @@ $operation.getDocumentation("     * ")
             return new ${entity.fullyQualifiedEntityImplementationName}();
         }
 
-#if ($entity.allRequiredConstructorParameters.size() > $entity.identifiers.size() && $entity.allRequiredConstructorParameters.size() < $entity.allProperties.size())
+## Allow for the possibility that identifiers might be seen as required if default multiplicity is set to 1
+#set ($requiredSize = $entity.allRequiredConstructorParameters.size())
+#set ($allSize = $entity.allProperties.size())
+#if (!$entity.usingForeignIdentifier)
+## allRequiredProperties includes identifiers, which is never required. subtract 1 from allProperties.size()
+#foreach ($identifier in $entity.identifiers)
+#if ($identifier.required)
+#set ($requiredSize = $requiredSize - 1)
+#end
+#set ($allSize = $allSize - 1)
+#end
+#end
+## $entity.allRequiredConstructorParameters.size() < $entity.allProperties.size() gives the wrong answer
+#if ($requiredSize < $allSize && $requiredSize > 0)
         /**
          * Constructs a new instance of {@link ${entity.fullyQualifiedName}}, taking all required and/or
-         * read-only properties as arguments.
+         * read-only properties as arguments, except for identifiers.
          */
         public static $entity.fullyQualifiedName newInstance(## no newline
 #set ($comma = "")
