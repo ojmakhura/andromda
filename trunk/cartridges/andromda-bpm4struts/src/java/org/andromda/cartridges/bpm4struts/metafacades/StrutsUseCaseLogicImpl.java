@@ -9,18 +9,18 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.metafacades.uml.ActivityGraphFacade;
+import org.andromda.metafacades.uml.FinalStateFacade;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
 import org.andromda.metafacades.uml.Role;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
+
 
 
 /**
@@ -31,9 +31,13 @@ import org.apache.commons.lang.StringUtils;
 public class StrutsUseCaseLogicImpl
     extends StrutsUseCaseLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsUseCaseLogicImpl(
-        java.lang.Object metaObject,
-        java.lang.String context)
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -56,7 +60,7 @@ public class StrutsUseCaseLogicImpl
     protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
 
         final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
         buffer.append((value == null) ? "No use-case documentation has been specified" : value);
@@ -98,6 +102,7 @@ public class StrutsUseCaseLogicImpl
     }
 
     /**
+     * @return isCyclic
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase#isCyclic()
      */
     protected boolean handleIsCyclic()
@@ -106,7 +111,7 @@ public class StrutsUseCaseLogicImpl
         final ActivityGraphFacade graph = getActivityGraph();
         if (graph != null)
         {
-            final Collection finalStates = graph.getFinalStates();
+            final Collection<FinalStateFacade> finalStates = graph.getFinalStates();
             for (final Iterator finalStateIterator = finalStates.iterator();
                  finalStateIterator.hasNext() && !selfTargetting;)
             {
@@ -123,7 +128,7 @@ public class StrutsUseCaseLogicImpl
     protected String handleGetActionRoles()
     {
         final Collection users = this.getRoles();
-        final StringBuffer rolesBuffer = new StringBuffer();
+        final StringBuilder rolesBuffer = new StringBuilder();
         boolean first = true;
         for (final Iterator userIterator = users.iterator(); userIterator.hasNext();)
         {
@@ -141,7 +146,11 @@ public class StrutsUseCaseLogicImpl
         return rolesBuffer.toString();
     }
 
-    public Collection getOperations()
+    /**
+     * Collections.EMPTY_LIST
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCaseLogic#getOperations()
+     */
+    public List getOperations()
     {
         return Collections.EMPTY_LIST;
     }
@@ -344,7 +353,7 @@ public class StrutsUseCaseLogicImpl
     {
         UseCaseNode useCaseNode = null;
 
-        final List nodeList = Collections.list(root.breadthFirstEnumeration());
+        final List<UseCaseNode> nodeList = Collections.list(root.breadthFirstEnumeration());
         for (final Iterator nodeIterator = nodeList.iterator(); nodeIterator.hasNext() && useCaseNode == null;)
         {
             UseCaseNode node = (UseCaseNode)nodeIterator.next();
@@ -356,14 +365,28 @@ public class StrutsUseCaseLogicImpl
         return useCaseNode;
     }
 
+    /**
+     *
+     */
     public final static class UseCaseNode
         extends DefaultMutableTreeNode
     {
+    	/**
+    	 * Automatically generated variable: serialVersionUID
+    	 */
+    	private static final long serialVersionUID = -4839356733341754931L;
+
+        /**
+         * @param useCase
+         */
         public UseCaseNode(StrutsUseCase useCase)
         {
             super(useCase);
         }
 
+        /**
+         * @return getUserObject()
+         */
         public StrutsUseCase getUseCase()
         {
             return (StrutsUseCase)getUserObject();
@@ -444,7 +467,7 @@ public class StrutsUseCaseLogicImpl
                                 // belong to more than one action (therefore it cannot return the correct value
                                 // in .getExceptionKey())
                                 messages.put(action.getMessageKey() + '.' + exception.getExceptionKey(),
-                                    "{0} (" + exception.getExceptionType() + ")");
+                                    "{0} (" + exception.getExceptionType() + ')');
                             }
                         }
                     }
@@ -571,7 +594,7 @@ public class StrutsUseCaseLogicImpl
 
     protected String handleGetOnlineHelpPagePath()
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
 
         if (StringUtils.isNotBlank(this.getPackagePath()))
         {
@@ -587,7 +610,7 @@ public class StrutsUseCaseLogicImpl
 
     protected String handleGetOnlineHelpActionPath()
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
 
         if (StringUtils.isNotBlank(this.getPackagePath()))
         {
@@ -602,6 +625,7 @@ public class StrutsUseCaseLogicImpl
     }
 
     /**
+     * @return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_FORM_KEY
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsUseCase#getFormKey()
      */
     protected String handleGetFormKey()

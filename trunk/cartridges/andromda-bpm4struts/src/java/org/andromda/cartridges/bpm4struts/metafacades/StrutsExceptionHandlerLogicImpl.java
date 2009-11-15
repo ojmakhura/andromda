@@ -1,9 +1,10 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.utils.StringUtilsHelper;
+
 
 
 /**
@@ -14,6 +15,10 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class StrutsExceptionHandlerLogicImpl
     extends StrutsExceptionHandlerLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsExceptionHandlerLogicImpl(
         Object metaObject,
         String context)
@@ -27,9 +32,10 @@ public class StrutsExceptionHandlerLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler#getExceptionKey()()
+     * @return exceptionKey
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler#getExceptionKey()
      */
-    protected java.lang.String handleGetExceptionKey()
+    protected String handleGetExceptionKey()
     {
         final String type = getExceptionType();
         final int dotIndex = type.lastIndexOf('.');
@@ -40,9 +46,10 @@ public class StrutsExceptionHandlerLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler#getExceptionType()()
+     * @return exceptionType
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler#getExceptionType()
      */
-    protected java.lang.String handleGetExceptionType()
+    protected String handleGetExceptionType()
     {
         final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_EXCEPTION_TYPE);
         String type = value == null ? null : value.toString();
@@ -54,9 +61,10 @@ public class StrutsExceptionHandlerLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler#getExceptionPath()()
+     * @return getTarget().getFullPath() + ".jsp"
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsExceptionHandler#getExceptionPath()
      */
-    protected java.lang.String handleGetExceptionPath()
+    protected String handleGetExceptionPath()
     {
         final StateVertexFacade target = getTarget();
         if (target instanceof StrutsJsp)

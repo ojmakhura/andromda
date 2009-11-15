@@ -6,6 +6,7 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 
 
+
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.bpm4struts.metafacades.StrutsAttribute.
  *
@@ -15,6 +16,10 @@ public class StrutsAttributeLogicImpl
     extends StrutsAttributeLogic
 {
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsAttributeLogicImpl(Object metaObject,
                                     String context)
     {
@@ -22,9 +27,10 @@ public class StrutsAttributeLogicImpl
     }
 
     /**
+     * @return dateFormat
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAttribute#getDateFormat()
      */
-    protected java.lang.String handleGetDateFormat()
+    protected String handleGetDateFormat()
     {
         String dateFormat = null;
 
@@ -46,7 +52,7 @@ public class StrutsAttributeLogicImpl
 
     protected String handleGetDummyValue(int seed)
     {
-        String dummyValue;
+        String dummyValue = null;
 
         final ClassifierFacade type = this.getType();
 
@@ -68,7 +74,7 @@ public class StrutsAttributeLogicImpl
         }
         else
         {
-            dummyValue = "\"" + this.getName() + '-' + seed + "\"";
+            dummyValue = '\"' + this.getName() + '-' + seed + '\"';
         }
 
         return dummyValue;

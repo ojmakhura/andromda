@@ -5,12 +5,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.StateMachineFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
+
 
 
 /**
@@ -21,9 +21,13 @@ import org.andromda.utils.StringUtilsHelper;
 public class StrutsPseudostateLogicImpl
     extends StrutsPseudostateLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsPseudostateLogicImpl(
-        java.lang.Object metaObject,
-        java.lang.String context)
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -34,9 +38,10 @@ public class StrutsPseudostateLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostate#getActionMethodName()()
+     * @return actionMethodName
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsPseudostate#getActionMethodName()
      */
-    protected java.lang.String handleGetActionMethodName()
+    protected String handleGetActionMethodName()
     {
         final String methodName = getName();
         return (methodName == null) ?
@@ -44,7 +49,7 @@ public class StrutsPseudostateLogicImpl
     }
 
     /**
-     * Overrideen since StrutsAction does not extend FrontEndAction
+     * Overridden since StrutsAction does not extend FrontEndAction
      *
      * @see org.andromda.metafacades.uml.FrontEndPseudostate#getContainerActions()
      */

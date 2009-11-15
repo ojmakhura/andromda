@@ -14,6 +14,7 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 import org.apache.commons.lang.StringUtils;
 
 
+
 /**
  * MetafacadeLogic implementation.
  *
@@ -28,8 +29,8 @@ public class StrutsFinalStateLogicImpl
      * @param context
      */
     public StrutsFinalStateLogicImpl(
-        java.lang.Object metaObject,
-        java.lang.String context)
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -65,7 +66,7 @@ public class StrutsFinalStateLogicImpl
             if (taggedValue == null)
             {
                 String name = getName();
-                if (name != null && (name.startsWith("/") || name.startsWith("http://")))
+                if (name != null && ((name.charAt(0) == '/') || name.startsWith("http://")))
                 {
                     fullPath = name;
                 }
@@ -83,7 +84,7 @@ public class StrutsFinalStateLogicImpl
     }
 
     /**
-     * Overridden for now (@todo need to figure out why it doesn't work correctly when using
+     * Overridden for now (//TODO need to figure out why it doesn't work correctly when using
      * the one from the FrontEndFinalState).
      *
      * @see org.andromda.metafacades.uml.FrontEndFinalState#getTargetUseCase()
@@ -124,20 +125,22 @@ public class StrutsFinalStateLogicImpl
 
     /**
      * Need to override default handling in StateVertexFacade.handleGetActions()
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalStateLogic#getActions()
+     * @return handleGetActions()
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalStateLogicImpl#handleGetActions()
      */
-    public List getActions()
+    public List<FrontEndAction> getActions()
     {
         return handleGetActions();
     }
     
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalStateLogic#getActions()
+     * @return getIncomings()getActions()
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsFinalStateLogicImpl#handleGetActions()
      */
     // TODO StateVertexFacade.handleGetActions calls getOutgoings. Why?
     // Changed from previous handleGetActions because that could never be called by FacadeLogic which delegates to StateVertexFacade.
     //@Override
-    protected List handleGetActions()
+    protected List<FrontEndAction> handleGetActions()
     {
         Set<FrontEndAction> actions = new LinkedHashSet<FrontEndAction>();
         Collection<TransitionFacade> incomings = this.getIncomings();

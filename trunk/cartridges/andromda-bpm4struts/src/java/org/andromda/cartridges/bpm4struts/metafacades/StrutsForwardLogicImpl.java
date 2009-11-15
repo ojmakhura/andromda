@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
@@ -15,8 +16,6 @@ import org.andromda.metafacades.uml.PseudostateFacade;
 import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
-
-
 /**
  * MetafacadeLogic implementation.
  *
@@ -26,9 +25,13 @@ import org.apache.commons.lang.StringUtils;
 public class StrutsForwardLogicImpl
     extends StrutsForwardLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsForwardLogicImpl(
-        java.lang.Object metaObject,
-        java.lang.String context)
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -44,12 +47,12 @@ public class StrutsForwardLogicImpl
         return this.isEnteringView();
     }
 
-    protected java.lang.String handleGetForwardName()
+    protected String handleGetForwardName()
     {
         return StringUtilsHelper.toResourceMessageKey(this.resolveName());
     }
 
-    protected java.lang.String handleGetForwardPath()
+    protected String handleGetForwardPath()
     {
         String forwardPath = null;
 
@@ -170,7 +173,7 @@ public class StrutsForwardLogicImpl
      *
      * @see org.andromda.metafacades.uml.FrontEndForward#getActions()
      */
-    public java.util.List getActions()
+    public List getActions()
     {
         final Set actions = new LinkedHashSet();
         this.findActions(actions, new LinkedHashSet());

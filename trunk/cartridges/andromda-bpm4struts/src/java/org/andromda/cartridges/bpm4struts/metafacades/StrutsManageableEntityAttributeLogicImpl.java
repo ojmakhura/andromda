@@ -3,8 +3,9 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.ClassifierFacade;
+import org.andromda.utils.StringUtilsHelper;
+
 
 
 /**
@@ -15,6 +16,10 @@ import org.andromda.metafacades.uml.ClassifierFacade;
 public class StrutsManageableEntityAttributeLogicImpl
     extends StrutsManageableEntityAttributeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsManageableEntityAttributeLogicImpl(
         Object metaObject,
         String context)
@@ -23,9 +28,10 @@ public class StrutsManageableEntityAttributeLogicImpl
     }
 
     /**
+     * @return messageKey
      * @see StrutsManageableEntityAttribute#getMessageKey()
      */
-    protected java.lang.String handleGetMessageKey()
+    protected String handleGetMessageKey()
     {
         String titleKey = "";
 
@@ -39,9 +45,10 @@ public class StrutsManageableEntityAttributeLogicImpl
     }
 
     /**
+     * @return messageValue
      * @see StrutsManageableEntityAttribute#getMessageValue()
      */
-    protected java.lang.String handleGetMessageValue()
+    protected String handleGetMessageValue()
     {
         return StringUtilsHelper.toPhrase(getName());
     }
@@ -66,7 +73,7 @@ public class StrutsManageableEntityAttributeLogicImpl
         return dateFormat;
     }
 
-    protected java.lang.String handleGetDateFormat()
+    protected String handleGetDateFormat()
     {
         String dateFormat = this.internalGetDateFormat();
 
@@ -125,7 +132,7 @@ public class StrutsManageableEntityAttributeLogicImpl
             {
                 columnCount = Integer.valueOf(columnCountObject.toString());
             }
-            catch (NumberFormatException e)
+            catch (NumberFormatException ignore)
             {
                 // do nothing, we want columnCount to be null in case of an invalid value
             }
@@ -150,7 +157,7 @@ public class StrutsManageableEntityAttributeLogicImpl
             {
                 rowCount = Integer.valueOf(rowCountObject.toString());
             }
-            catch (NumberFormatException e)
+            catch (NumberFormatException ignore)
             {
                 // do nothing, we want rowCount to be null in case of an invalid value
             }

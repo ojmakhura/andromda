@@ -15,7 +15,9 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.FrontEndEvent;
+import org.andromda.metafacades.uml.FrontEndExceptionHandler;
 import org.andromda.metafacades.uml.FrontEndForward;
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
@@ -29,6 +31,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+
 
 
 /**
@@ -60,6 +63,10 @@ public class StrutsActionLogicImpl
      */
     private Collection transitions = null;
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsActionLogicImpl(Object metaObject,
                                  String context)
     {
@@ -68,7 +75,7 @@ public class StrutsActionLogicImpl
 
     /**
      * Initializes all action states, action forwards, decision transitions and transitions in one shot, so that they
-     * can be queried more effiencently later on.
+     * can be queried more efficiently later on.
      */
     private void initializeCollections()
     {
@@ -147,13 +154,12 @@ public class StrutsActionLogicImpl
     {
         boolean multipartFormPost = false;
 
-        final Collection formFields = this.getActionFormFields();
-        for (final Iterator fieldIterator = formFields.iterator(); !multipartFormPost && fieldIterator.hasNext();)
+        for (StrutsParameter field : this.getActionFormFields())
         {
-            final StrutsParameter field = (StrutsParameter)fieldIterator.next();
             if (field.isFile())
             {
                 multipartFormPost = true;
+                break;
             }
         }
 
@@ -206,8 +212,9 @@ public class StrutsActionLogicImpl
             final StrutsJsp page = this.getInput();
             if (page != null)
             {
-                final List tables = page.getTables();
-                for (int i = 0; i < tables.size() && tableLinkParameter == null; i++)
+                final List<FrontEndParameter> tables = page.getTables();
+                int size = tables.size();
+                for (int i = 0; i < size && tableLinkParameter == null; i++)
                 {
                     StrutsParameter table = (StrutsParameter) tables.get(i);
                     if (tableLinkName.equals(table.getName()))
@@ -229,12 +236,14 @@ public class StrutsActionLogicImpl
         if (table != null)
         {
             final Map tableNonColumnActionParametersMap = new LinkedHashMap(4);
-            final Collection columnNames = table.getTableColumnNames();
-            final List formActions = table.getTableFormActions();
-            for (int i = 0; i < formActions.size(); i++)
+            final Collection<String> columnNames = table.getTableColumnNames();
+            final List<StrutsAction> formActions = table.getTableFormActions();
+            int formSize = formActions.size();
+            for (int i = 0; i < formSize; i++)
             {
                 final StrutsAction action = (StrutsAction) formActions.get(i);
-                for (int j = 0; j < action.getActionParameters().size(); j++)
+                int size = action.getActionParameters().size();
+                for (int j = 0; j < size; j++)
                 {
                     final StrutsParameter parameter = (StrutsParameter) action.getActionParameters().get(j);
                     if (!columnNames.contains(parameter.getName()))
@@ -295,7 +304,7 @@ public class StrutsActionLogicImpl
         return getPackagePath() + '/' + Bpm4StrutsUtils.toWebFileName(getActionClassName()) + ".gif";
     }
 
-    protected java.lang.String handleGetActionPath()
+    protected String handleGetActionPath()
     {
         return getActionPathRoot() + '/' + getActionClassName();
     }
@@ -307,7 +316,7 @@ public class StrutsActionLogicImpl
         final FrontEndUseCase useCase = this.getUseCase();
         if (useCase != null)
         {
-            final StringBuffer buffer = new StringBuffer();
+            final StringBuilder buffer = new StringBuilder();
 
             final String actionPathPrefix = Bpm4StrutsGlobals.PROPERTY_ACTION_PATH_PREFIX;
             String prefix = this.isConfiguredProperty(actionPathPrefix) ? ObjectUtils
@@ -334,12 +343,13 @@ public class StrutsActionLogicImpl
     }
 
     /**
+     * @return getRoleUsers()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getActionRoles()
      */
-    protected java.lang.String handleGetActionRoles()
+    protected String handleGetActionRoles()
     {
         final Collection users = getRoleUsers();
-        final StringBuffer roles = new StringBuffer();
+        final StringBuilder roles = new StringBuilder();
         for (final Iterator userIterator = users.iterator(); userIterator.hasNext();)
         {
             roles.append(((ModelElementFacade) userIterator.next()).getName());
@@ -354,7 +364,7 @@ public class StrutsActionLogicImpl
     /**
      * Returns a collection containing StrutsUser instances representing the roles
      * authorized to call this action. If this action starts the use-case that use-case's users
-     * are returned, otherwise it will return the users associated to the use-cases targetted by this
+     * are returned, otherwise it will return the users associated to the use-cases targeted by this
      * action (which may be none at all)
      */
     private Collection getRoleUsers()
@@ -459,6 +469,7 @@ public class StrutsActionLogicImpl
     /**
      * Overrides the method defined in the facade parent of StrutsAction, this is done because actions (transitions) are
      * not directly contained in a UML namespace.
+     * @return useCase.getPackageName()
      */
     public String getPackageName()
     {
@@ -473,6 +484,7 @@ public class StrutsActionLogicImpl
     }
 
     /**
+     * @return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_RESETTABLE
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isResettable()
      */
     protected boolean handleIsResettable()
@@ -513,6 +525,7 @@ public class StrutsActionLogicImpl
     /**
      * We override this method here to make sure the actions end-up in the same package as their use-case. A transition
      * (this class' parent type) does not have a real package as we need it here.
+     * @return this.getUseCase() / useCase.getPackagePath()
      */
     public String getPackagePath()
     {
@@ -606,7 +619,7 @@ public class StrutsActionLogicImpl
     protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
 
         final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
         buffer.append((value == null) ? "No action documentation has been specified" : value);
@@ -633,23 +646,24 @@ public class StrutsActionLogicImpl
         return new ArrayList(actionStates);
     }
 
-    protected List handleGetActionExceptions()
+    protected List<FrontEndExceptionHandler> handleGetActionExceptions()
     {
-        final Collection exceptions = new LinkedHashSet();
-        final Collection actionStates = getActionStates();
-        for (final Iterator iterator = actionStates.iterator(); iterator.hasNext();)
+        final Collection<FrontEndExceptionHandler> exceptions = new LinkedHashSet();
+        final Collection<StrutsActionState> actionStates = getActionStates();
+        for (final Iterator<StrutsActionState> iterator = actionStates.iterator(); iterator.hasNext();)
         {
             StrutsActionState actionState = (StrutsActionState) iterator.next();
             exceptions.addAll(actionState.getExceptions());
         }
 
-        return new ArrayList(exceptions);
+        return new ArrayList<FrontEndExceptionHandler>(exceptions);
     }
 
     /**
+     * @return PseudostateFacade or STEREOTYPE_FRONT_END_VIEW
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getInput()
      */
-    protected java.lang.Object handleGetInput()
+    protected Object handleGetInput()
     {
         Object input = null;
         final ModelElementFacade source = getSource();
@@ -734,7 +748,7 @@ public class StrutsActionLogicImpl
             }
         }
 
-        // add page variables for all pages/final-states targetted
+        // add page variables for all pages/final-states targeted
         // also add the fields of the target page's actions (for preloading)
         final Collection forwards = getActionForwards();
         for (final Iterator iterator = forwards.iterator(); iterator.hasNext();)
@@ -792,15 +806,17 @@ public class StrutsActionLogicImpl
         final StrutsController controller = getController();
         if (controller != null)
         {
-            final List actionStates = getActionStates();
-            for (int i = 0; i < actionStates.size(); i++)
+            final List<StrutsActionState> actionStates = getActionStates();
+            int size = actionStates.size();
+            for (int i = 0; i < size; i++)
             {
                 final StrutsActionState actionState = (StrutsActionState) actionStates.get(i);
                 deferredOperations.addAll(actionState.getControllerCalls());
             }
 
             final List transitions = getDecisionTransitions();
-            for (int i = 0; i < transitions.size(); i++)
+            size = transitions.size();
+            for (int i = 0; i < size; i++)
             {
                 final StrutsForward forward = (StrutsForward) transitions.get(i);
                 final FrontEndEvent trigger = forward.getDecisionTrigger();
@@ -833,14 +849,16 @@ public class StrutsActionLogicImpl
             final Map parameterMap = new HashMap();
 
             final List transitions = getActionForwards();
-            for (int i = 0; i < transitions.size(); i++)
+            int size = transitions.size();
+            for (int i = 0; i < size; i++)
             {
                 final StrutsForward forward = (StrutsForward) transitions.get(i);
                 // only return those parameters that belong to both this action and the argument final state
                 if (finalState.equals(forward.getTarget()))
                 {
                     final List forwardParameters = forward.getForwardParameters();
-                    for (int j = 0; j < forwardParameters.size(); j++)
+                    int paramSize = forwardParameters.size();
+                    for (int j = 0; j < paramSize; j++)
                     {
                         final ModelElementFacade parameter = (ModelElementFacade) forwardParameters.get(j);
                         parameterMap.put(parameter.getName(), parameter);
@@ -854,6 +872,7 @@ public class StrutsActionLogicImpl
     }
 
     /**
+     * @return getActionForwards().getTarget()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getTargetPages()
      */
     protected List handleGetTargetPages()
@@ -874,6 +893,7 @@ public class StrutsActionLogicImpl
     }
 
     /**
+     * @return new ArrayList(transitions)
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsActionLogic#getTransitions()
      */
     protected List handleGetTransitions()
@@ -886,6 +906,7 @@ public class StrutsActionLogicImpl
     }
 
     /**
+     * @return getActionTrigger().getName() lowerCamelCaseName
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getStyleId()
      */
     protected String handleGetStyleId()
@@ -902,6 +923,7 @@ public class StrutsActionLogicImpl
     }
 
     /**
+     * @return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_REDIRECT
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isRedirect()
      */
     protected boolean handleIsRedirect()
@@ -916,6 +938,7 @@ public class StrutsActionLogicImpl
     }
 
     /**
+     * @return getActionParameters().isShouldReset()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getResettableActionParameters()
      */
     protected List handleGetResettableActionParameters()
@@ -945,6 +968,7 @@ public class StrutsActionLogicImpl
     private static final String FORM_SCOPE_NONE = "none";
 
     /**
+     * @return Bpm4StrutsProfile.TAGGEDVALUE_ACTION_FORM_SCOPE
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#getFormScope()
      */
     protected String handleGetFormScope()
@@ -960,22 +984,25 @@ public class StrutsActionLogicImpl
     }
 
     /**
+     * @return getFormScope().equalsIgnoreCase(FORM_SCOPE_SESSION)
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isFormScopeSession()
      */
     protected boolean handleIsFormScopeSession()
     {
-        return this.getFormScope().equalsIgnoreCase(FORM_SCOPE_SESSION);
+        return FORM_SCOPE_SESSION.equalsIgnoreCase(this.getFormScope());
     }
 
     /**
+     * @return getFormScope().equalsIgnoreCase(FORM_SCOPE_REQUEST)
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isFormScopeRequest()
      */
     protected boolean handleIsFormScopeRequest()
     {
-        return this.getFormScope().equalsIgnoreCase(FORM_SCOPE_REQUEST);
+        return FORM_SCOPE_REQUEST.equalsIgnoreCase(this.getFormScope());
     }
 
     /**
+     * @return getFormScope().equalsIgnoreCase(FORM_SCOPE_NONE)
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsAction#isFormScopeNone()
      */
     protected boolean handleIsFormScopeNone()

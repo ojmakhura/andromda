@@ -1,8 +1,9 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.utils.StringUtilsHelper;
 import org.andromda.metafacades.uml.TransitionFacade;
+import org.andromda.utils.StringUtilsHelper;
+
 
 
 /**
@@ -13,54 +14,63 @@ import org.andromda.metafacades.uml.TransitionFacade;
 public class StrutsTriggerLogicImpl
     extends StrutsTriggerLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsTriggerLogicImpl(
-        java.lang.Object metaObject,
-        java.lang.String context)
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getNotAllowedTitleKey()()
+     * @return getTitleKey() + ".notallowed"
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getNotAllowedTitleKey()
      */
-    protected java.lang.String handleGetNotAllowedTitleKey()
+    protected String handleGetNotAllowedTitleKey()
     {
         return getTitleKey() + ".notallowed";
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getTitleKey()()
+     * @return getTriggerKey() + ".title"
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getTitleKey()
      */
-    protected java.lang.String handleGetTitleKey()
+    protected String handleGetTitleKey()
     {
         return getTriggerKey() + ".title";
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getResetTitleKey()()
+     * @return getTitleKey() + ".reset"
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getResetTitleKey()
      */
-    protected java.lang.String handleGetResetTitleKey()
+    protected String handleGetResetTitleKey()
     {
         return getTitleKey() + ".reset";
     }
 
-    protected java.lang.String handleGetResetMessageKey()
+    protected String handleGetResetMessageKey()
     {
         return getResetTitleKey() + ".message";
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getResetNotAllowedTitleKey()()
+     * @return getResetTitleKey() + ".not.allowed"
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getResetNotAllowedTitleKey()
      */
-    protected java.lang.String handleGetResetNotAllowedTitleKey()
+    protected String handleGetResetNotAllowedTitleKey()
     {
         return getResetTitleKey() + ".not.allowed";
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getTriggerKey()()
+     * @return triggerKey
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsTrigger#getTriggerKey()
      */
-    protected java.lang.String handleGetTriggerKey()
+    protected String handleGetTriggerKey()
     {
         String triggerKey = StringUtilsHelper.toResourceMessageKey(getName());
 
@@ -80,32 +90,32 @@ public class StrutsTriggerLogicImpl
         return triggerKey;
     }
 
-    protected java.lang.String handleGetTriggerValue()
+    protected String handleGetTriggerValue()
     {
         return StringUtilsHelper.toPhrase(getName());
     }
 
-    protected java.lang.String handleGetTitleValue()
+    protected String handleGetTitleValue()
     {
         return getTriggerValue();
     }
 
-    protected java.lang.String handleGetResetTitleValue()
+    protected String handleGetResetTitleValue()
     {
         return "Reset";
     }
 
-    protected java.lang.String handleGetResetMessageValue()
+    protected String handleGetResetMessageValue()
     {
         return "Reset";
     }
 
-    protected java.lang.String handleGetResetNotAllowedTitleValue()
+    protected String handleGetResetNotAllowedTitleValue()
     {
         return "You are not allowed to reset";
     }
 
-    protected java.lang.String handleGetNotAllowedTitleValue()
+    protected String handleGetNotAllowedTitleValue()
     {
         return "You are not allowed to call this action";
     }

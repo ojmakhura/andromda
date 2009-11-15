@@ -5,11 +5,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.ParameterFacade;
+
 
 
 /**
@@ -20,17 +20,22 @@ import org.andromda.metafacades.uml.ParameterFacade;
 public class StrutsControllerLogicImpl
     extends StrutsControllerLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsControllerLogicImpl(
-        java.lang.Object metaObject,
-        java.lang.String context)
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * @return '/' + getPackageName().replace('.', '/') + '/' + getName()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getFullPath()
      */
-    protected java.lang.String handleGetFullPath()
+    protected String handleGetFullPath()
     {
         return '/' + getPackageName().replace('.', '/') + '/' + getName();
     }
@@ -52,6 +57,7 @@ public class StrutsControllerLogicImpl
     }
 
     /**
+     * @return getSourceDependencies().getTargetElement() StrutsSessionObject
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getSessionObjects()
      */
     protected List handleGetSessionObjects()
@@ -71,6 +77,7 @@ public class StrutsControllerLogicImpl
     }
 
     /**
+     * @return getOperations().getArguments()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsController#getAllArguments()
      */
     protected List handleGetAllArguments()

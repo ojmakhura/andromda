@@ -1,15 +1,15 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
-import org.andromda.utils.StringUtilsHelper;
-import org.andromda.metafacades.uml.UMLMetafacadeProperties;
-import org.andromda.metafacades.uml.AttributeFacade;
-import org.apache.commons.lang.StringUtils;
-
 import java.util.Collection;
 import java.util.Iterator;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
+import org.andromda.metafacades.uml.AttributeFacade;
+import org.andromda.metafacades.uml.ManageableEntityAttribute;
+import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang.StringUtils;
 
 
 /**
@@ -28,6 +28,10 @@ public class StrutsManageableEntityLogicImpl
         return (String)this.getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR);
     }
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsManageableEntityLogicImpl(
         Object metaObject,
         String context)
@@ -39,7 +43,7 @@ public class StrutsManageableEntityLogicImpl
     {
         boolean multipartFormPost = false;
 
-        final Collection formFields = this.getManageableAttributes();
+        final Collection<ManageableEntityAttribute> formFields = this.getManageableAttributes();
         for (final Iterator fieldIterator = formFields.iterator(); !multipartFormPost && fieldIterator.hasNext();)
         {
             final AttributeFacade field = (AttributeFacade)fieldIterator.next();
@@ -67,37 +71,37 @@ public class StrutsManageableEntityLogicImpl
         return StringUtils.replace(this.getFormBeanType(), this.getNamespaceProperty(), "/");
     }
 
-    protected java.lang.String handleGetMessageKey()
+    protected String handleGetMessageKey()
     {
         return StringUtilsHelper.toResourceMessageKey(this.getName());
     }
 
-    protected java.lang.String handleGetMessageValue()
+    protected String handleGetMessageValue()
     {
         return StringUtilsHelper.toPhrase(this.getName());
     }
 
-    protected java.lang.String handleGetPageTitleKey()
+    protected String handleGetPageTitleKey()
     {
         return StringUtilsHelper.toResourceMessageKey(this.getName()) + ".page.title";
     }
 
-    protected java.lang.String handleGetPageTitleValue()
+    protected String handleGetPageTitleValue()
     {
         return StringUtilsHelper.toPhrase(getName());
     }
 
-    protected java.lang.String handleGetListName()
+    protected String handleGetListName()
     {
         return "manageableList";
     }
 
-    protected java.lang.String handleGetListGetterName()
+    protected String handleGetListGetterName()
     {
         return "getManageableList";
     }
 
-    protected java.lang.String handleGetListSetterName()
+    protected String handleGetListSetterName()
     {
         return "setManageableList";
     }
@@ -112,42 +116,42 @@ public class StrutsManageableEntityLogicImpl
         return '/' + this.getManageablePackagePath() + '/' + this.getPageName();
     }
 
-    protected java.lang.String handleGetActionPath()
+    protected String handleGetActionPath()
     {
         return '/' + this.getName() + "/Manage";
     }
 
-    protected java.lang.String handleGetActionParameter()
+    protected String handleGetActionParameter()
     {
         return "crud";
     }
 
-    protected java.lang.String handleGetFormBeanName()
+    protected String handleGetFormBeanName()
     {
         return "manage" + this.getName() + Bpm4StrutsGlobals.FORM_SUFFIX;
     }
 
-    protected java.lang.String handleGetActionType()
+    protected String handleGetActionType()
     {
         return this.getManageablePackageName() + this.getNamespaceProperty() + this.getActionClassName();
     }
 
-    protected java.lang.String handleGetExceptionKey()
+    protected String handleGetExceptionKey()
     {
         return StringUtilsHelper.toResourceMessageKey(this.getName()) + ".exception";
     }
 
-    protected java.lang.String handleGetExceptionPath()
+    protected String handleGetExceptionPath()
     {
         return this.getPageFullPath();
     }
 
-    protected java.lang.String handleGetActionFullPath()
+    protected String handleGetActionFullPath()
     {
         return '/' + StringUtils.replace(this.getActionType(), this.getNamespaceProperty(), "/");
     }
 
-    protected java.lang.String handleGetActionClassName()
+    protected String handleGetActionClassName()
     {
         return "Manage" + getName();
     }

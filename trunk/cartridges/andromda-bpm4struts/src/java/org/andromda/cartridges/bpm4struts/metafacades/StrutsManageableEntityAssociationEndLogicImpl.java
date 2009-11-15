@@ -1,10 +1,10 @@
 package org.andromda.cartridges.bpm4struts.metafacades;
 
-import org.andromda.utils.StringUtilsHelper;
+import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.Entity;
-import org.andromda.metafacades.uml.ManageableEntity;
-import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
+import org.andromda.utils.StringUtilsHelper;
+
 
 
 /**
@@ -15,6 +15,10 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 public class StrutsManageableEntityAssociationEndLogicImpl
     extends StrutsManageableEntityAssociationEndLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsManageableEntityAssociationEndLogicImpl(
         Object metaObject,
         String context)
@@ -23,22 +27,15 @@ public class StrutsManageableEntityAssociationEndLogicImpl
     }
 
     /**
+     * @return messageKey
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEnd#getMessageKey()
      */
-    protected java.lang.String handleGetMessageKey()
+    protected String handleGetMessageKey()
     {
-        final StringBuffer messageKeyBuffer = new StringBuffer();
+        final StringBuilder messageKeyBuffer = new StringBuilder();
 
         final ClassifierFacade ownerType = this.getOtherEnd().getType();
-        if (ownerType instanceof ManageableEntity)
-        {
-            messageKeyBuffer.append(ownerType.getName());
-        }
-        else
-        {
-            messageKeyBuffer.append(ownerType.getName());
-        }
-
+        messageKeyBuffer.append(ownerType.getName());
         messageKeyBuffer.append('.');
         messageKeyBuffer.append(this.getName());
 
@@ -46,9 +43,10 @@ public class StrutsManageableEntityAssociationEndLogicImpl
     }
 
     /**
+     * @return messageValue
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsManageableEntityAssociationEnd#getMessageValue()
      */
-    protected java.lang.String handleGetMessageValue()
+    protected String handleGetMessageValue()
     {
         String messageValue = null;
 
