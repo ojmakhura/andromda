@@ -34,31 +34,28 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        
+        </dependency>        
         <dependency>
             <groupId>jalopy</groupId>
 	        <artifactId>jalopy</artifactId>
-	        <version>1.5-RC3P1</version>
         </dependency>
         <dependency>
             <groupId>antlr</groupId>
-	        <artifactId>antlr</artifactId>
-	        <version>2.7.7</version>
+	        <artifactId>antlr</artifactId>	        
         </dependency>
         <dependency>
             <groupId>org.apache.ant</groupId>
-            <artifactId>ant</artifactId>
-            <version>1.7.0</version>
+            <artifactId>ant</artifactId>            
         </dependency>
         <dependency>
           <groupId>org.apache.maven</groupId>
           <artifactId>maven-plugin-api</artifactId>
-          <version>2.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>

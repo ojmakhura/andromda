@@ -25,6 +25,10 @@
             <version>${pom.version}</version>
         </dependency>
         <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>        
+        </dependency> 
+        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
         </dependency>     
@@ -36,7 +40,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <scope>compile</scope><!--reset scope to compile-->
+            <scope>compile</scope>
         </dependency> 
     </dependencies>
     <build>

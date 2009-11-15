@@ -1,8 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <!-- Version 4.0.0 is for Maven2. Maven 2.0.1 or later works with these generated pom.xml files -->
+    <modelVersion>4.0.0</modelVersion>    
     <groupId>$applicationPackage</groupId>
     <artifactId>$applicationId</artifactId>
     <packaging>pom</packaging>
@@ -900,13 +899,11 @@
                     <artifactId>andromdapp-maven-plugin</artifactId>
                     <version>${andromda.version}</version>
                 </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
+                <plugin>                    
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>2.4</version>
                 </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
+                <plugin>                    
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
                         <source>1.5</source>
@@ -914,8 +911,7 @@
                     </configuration>
                 </plugin>
 #if ($ejb3)
-                <plugin>
-                   <groupId>org.apache.maven.plugins</groupId>
+                <plugin>                   
                    <artifactId>maven-surefire-plugin</artifactId>
                    <version>2.4.3</version>
                    <configuration>
@@ -933,8 +929,7 @@
                 </plugin>
 #end
                 <!-- Comment to run Eclipse plugin for top leval project only, as part of mda install. See mda/eclipse.bat -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
+                <plugin>                    
                     <artifactId>maven-eclipse-plugin</artifactId>
                     <version>2.7</version>
                     <inherited>true</inherited>
@@ -944,8 +939,7 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository --> 
-                    <groupId>org.apache.maven.plugins</groupId> 
+                    <!-- Automatically attach sources to build artifact as artifact-version-sources.jar and deploy to local repository -->                     
                     <artifactId>maven-source-plugin</artifactId> 
                     <version>2.1.1</version>
                     <executions>
@@ -953,7 +947,7 @@
                             <id>attach-sources</id>
                             <phase>verify</phase>
                             <goals>
-                                <goal>jar</goal>
+                                <goal>jar-no-fork</goal>
                             </goals>
                         </execution>
                     </executions>
@@ -961,8 +955,7 @@
             </plugins>
         </pluginManagement>
         <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
+          <plugin>            
             <artifactId>maven-scm-plugin</artifactId>
             <version>1.1</version>
             <configuration>
@@ -1004,6 +997,7 @@
         <createChecksum>true</createChecksum>
         <updateReleaseInfo>true</updateReleaseInfo>
         <uniqueVersion>false</uniqueVersion>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Globally change these versions in all projects -->
         <commons-beanutils.version>1.7.0</commons-beanutils.version>
         <commons-collections.version>3.2</commons-collections.version>
@@ -1461,23 +1455,20 @@
                                 </locations>
                             </configuration>
                         </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
+                        <plugin>                            
                             <artifactId>maven-compiler-plugin</artifactId>
                             <configuration>
                                 <source>1.5</source>
                                 <target>1.5</target>
                             </configuration>
                         </plugin>
-                      <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
+                      <plugin>                        
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>2.4.1</version>
                         <configuration>
                         </configuration>
                       </plugin>
-                      <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
+                      <plugin>                        
                         <artifactId>maven-site-plugin</artifactId>
                         <version>2.0-beta-7</version>
                         <dependencies>
@@ -1619,8 +1610,7 @@
     <!-- Comment to disable project reporting using default maven plugins -->
     <reporting>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <reportSets>
                   <reportSet>
@@ -1641,8 +1631,7 @@
                   </reportSet>
                 </reportSets>
             </plugin> 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <minmemory>128m</minmemory>
@@ -1654,24 +1643,20 @@
                     </links>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-surefire-report-plugin</artifactId>
                 <!--version>2.4.1</version-->
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-jxr-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
                     <targetJdk>1.5</targetJdk>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>
             <plugin>
@@ -1699,8 +1684,7 @@
                     <findbugsXmlOutputDirectory>location of legacy xml format report</findbugsXmlOutputDirectory-->
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-changes-plugin</artifactId>
                 <reportSets>
                     <reportSet>
@@ -1724,8 +1708,7 @@
                 </configuration>
             </plugin>
             <!-- Uncomment after configuring SCM connection>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-changelog-plugin</artifactId>
                 <reportSets>
                     <reportSet>
@@ -1742,8 +1725,7 @@
                     </reportSet>
                 </reportSets>
             </plugin-->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
+          <plugin>            
             <artifactId>maven-changes-plugin</artifactId>
             <reportSets>
               <reportSet>
@@ -1753,8 +1735,7 @@
               </reportSet>
             </reportSets>
           </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
+          <plugin>            
             <artifactId>maven-docck-plugin</artifactId>
             <!--executions>
               <execution>
@@ -1821,8 +1802,7 @@
                     <findbugsXmlOutputDirectory>location of legacy xml format report</findbugsXmlOutputDirectory-->
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
+            <plugin>                
                 <artifactId>maven-doap-plugin</artifactId>
                 <version>1.0</version>
                 <configuration>
@@ -1836,5 +1816,5 @@
                 </configuration>
             </plugin>
         </plugins>
-    </reporting>
+    </reporting>    
 </project>

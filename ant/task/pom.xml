@@ -18,4 +18,19 @@
         <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/ant/task</developerConnection>
         <url>http://andromda.svn.sourceforge.net/</url>
     </scm>    
+    <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>                
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>            
+        </dependency>
+        <dependency>
+            <groupId>org.andromda</groupId>
+            <artifactId>andromda-core</artifactId>
+            <version>${pom.version}</version>
+        </dependency>        
+    </dependencies>
 </project>
