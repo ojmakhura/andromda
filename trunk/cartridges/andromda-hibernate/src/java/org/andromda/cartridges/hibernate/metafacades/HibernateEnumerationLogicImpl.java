@@ -1,5 +1,6 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
+import org.andromda.utils.JavaTypeConverter;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -13,6 +14,10 @@ public class HibernateEnumerationLogicImpl
     extends HibernateEnumerationLogic
 {
     // ---------------- constructor -------------------------------
+    /**
+     * @param metaObject
+     * @param context
+     */
     public HibernateEnumerationLogicImpl(
         Object metaObject,
         String context)
@@ -35,14 +40,16 @@ public class HibernateEnumerationLogicImpl
         return String.valueOf(this.getConfiguredProperty(ENUMERATION_NAME_PATTERN));
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration#getFullyQualifiedHibernateType()
      */
-    protected java.lang.String handleGetFullyQualifiedHibernateType()
+    protected String handleGetFullyQualifiedHibernateType()
     {
-        return super.getFullyQualifiedName();
+        return new JavaTypeConverter().getJavaLangTypeName(super.getFullyQualifiedName());
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration#getEnumerationName()
      */
@@ -53,6 +60,7 @@ public class HibernateEnumerationLogicImpl
             super.getName());
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration#getFullyQualifiedHibernateEnumerationType()
      */
@@ -76,6 +84,7 @@ public class HibernateEnumerationLogicImpl
     	}
     }
     
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEnumeration#getVersion()
      */

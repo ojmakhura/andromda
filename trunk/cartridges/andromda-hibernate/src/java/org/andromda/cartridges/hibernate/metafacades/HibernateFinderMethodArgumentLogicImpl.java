@@ -13,6 +13,10 @@ public class HibernateFinderMethodArgumentLogicImpl
     extends HibernateFinderMethodArgumentLogic
 {
     // ---------------- constructor -------------------------------
+    /**
+     * @param metaObject
+     * @param context
+     */
     public HibernateFinderMethodArgumentLogicImpl(
         Object metaObject,
         String context)
@@ -26,10 +30,11 @@ public class HibernateFinderMethodArgumentLogicImpl
      */
     private static final String USE_SPECIALIZED_SETTERS = "hibernateQueryUseSpecializedSetters";
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodArgument#getQueryArgumentNameSetter()
      */
-    protected java.lang.String handleGetQueryArgumentNameSetter()
+    protected String handleGetQueryArgumentNameSetter()
     {
         StringBuffer setterName = new StringBuffer();
         boolean specializedSetters =

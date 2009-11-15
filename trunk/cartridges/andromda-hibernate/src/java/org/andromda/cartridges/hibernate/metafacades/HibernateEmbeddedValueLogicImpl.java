@@ -1,11 +1,10 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
 import java.text.MessageFormat;
-
+import java.util.Collection;
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * MetafacadeLogic implementation for
@@ -18,6 +17,10 @@ public class HibernateEmbeddedValueLogicImpl
     extends HibernateEmbeddedValueLogic
 {
     // ---------------- constructor -------------------------------
+    /**
+     * @param metaObject
+     * @param context
+     */
     public HibernateEmbeddedValueLogicImpl(
         Object metaObject,
         String context)
@@ -25,6 +28,7 @@ public class HibernateEmbeddedValueLogicImpl
         super(metaObject, context);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValue#isImmutable()
      */
@@ -39,10 +43,11 @@ public class HibernateEmbeddedValueLogicImpl
         return immutable;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValue#getImplementationName()
      */
-    protected java.lang.String handleGetImplementationName()
+    protected String handleGetImplementationName()
     {
         final String implNamePattern =
             String.valueOf(this.getConfiguredProperty(HibernateGlobals.EMBEDDED_VALUE_IMPLEMENTATION_NAME_PATTERN));
@@ -52,6 +57,7 @@ public class HibernateEmbeddedValueLogicImpl
     }
 
     /**
+     * @return formatted Entity Name
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityName()
      */
     protected String handleGetEntityName()
@@ -64,10 +70,11 @@ public class HibernateEmbeddedValueLogicImpl
 
     /**
      * analogy of HibernateEntityLogicImpl
+     * @return getFullyQualifiedName
      *
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValue#getFullyQualifiedEntityName()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEmbeddedValue
      */
-    protected java.lang.String handleGetFullyQualifiedEntityName()
+    protected String handleGetFullyQualifiedEntityName()
     {
         return HibernateMetafacadeUtils.getFullyQualifiedName(
             this.getPackageName(),
@@ -77,8 +84,9 @@ public class HibernateEmbeddedValueLogicImpl
 
     /**
      * see HibernateEntityLogicImpl
+     * @return filterBusinessOperations(this.getOperations())
      */
-    protected java.util.Collection handleGetBusinessOperations()
+    protected Collection handleGetBusinessOperations()
     {
         return HibernateMetafacadeUtils.filterBusinessOperations(this.getOperations());
     }

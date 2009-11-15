@@ -7,6 +7,7 @@ import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
+import org.andromda.utils.JavaTypeConverter;
 import org.apache.commons.lang.StringUtils;
 
 
@@ -20,6 +21,10 @@ import org.apache.commons.lang.StringUtils;
 public class HibernateEntityAttributeLogicImpl
     extends HibernateEntityAttributeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     // ---------------- constructor -------------------------------
     public HibernateEntityAttributeLogicImpl(
         Object metaObject,
@@ -33,6 +38,7 @@ public class HibernateEntityAttributeLogicImpl
      *
      * @see org.andromda.metafacades.uml.AttributeFacade#isRequired()
      */
+    @Override
     public boolean isRequired()
     {
         boolean required = super.isRequired();
@@ -52,6 +58,7 @@ public class HibernateEntityAttributeLogicImpl
      *
      * @see org.andromda.metafacades.uml.AttributeFacade#getDefaultValue()
      */
+    @Override
     public String getDefaultValue()
     {
         String defaultValue = super.getDefaultValue();
@@ -59,7 +66,7 @@ public class HibernateEntityAttributeLogicImpl
         if (type != null)
         {
             final String fullyQualifiedName = StringUtils.trimToEmpty(type.getFullyQualifiedName());
-            if ("java.lang.String".equals(fullyQualifiedName))
+            if (("java.lang.String".equals(fullyQualifiedName) || "String".equals(fullyQualifiedName)) && fullyQualifiedName.indexOf('"')<0)
             {
                 defaultValue = "\"" + defaultValue.replaceAll("\"", "") + "\"";
             }
@@ -77,8 +84,10 @@ public class HibernateEntityAttributeLogicImpl
     }
 
     /**
+     * @return returnValue = true if this.getType() instanceof HibernateEmbeddedValue
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#isContainsEmbeddedObject()
      */
+    @Override
     protected boolean handleIsContainsEmbeddedObject()
     {
         boolean returnValue = false;
@@ -90,12 +99,15 @@ public class HibernateEntityAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#concatColumnName(java.lang.String,
-     *      java.lang.String)
+     * @param prefix 
+     * @param name 
+     * @return returnValue prefix + this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR) + name
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#concatColumnName(String, String)
      */
+    @Override
     protected String handleConcatColumnName(
-        java.lang.String prefix,
-        java.lang.String name)
+        String prefix,
+        String name)
     {
         String returnValue = name;
         if (StringUtils.isNotBlank(prefix))
@@ -111,8 +123,9 @@ public class HibernateEntityAttributeLogicImpl
     }
 
     /**
-     * @see org.andromda.metafacades.uml.AssociationEndFacade#isLazy()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#isLazy()
      */
+    @Override
     protected boolean handleIsLazy()
     {
         final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
@@ -122,14 +135,17 @@ public class HibernateEntityAttributeLogicImpl
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#getFormula()
      */
+    @Override
     protected String handleGetFormula()
     {
         return (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_FORMULA);
     }
 
     /**
+     * @return HibernateProfile.TAGGEDVALUE_HIBERNATE_PROPERTY_INSERT
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#isInsertEnabled()
      */
+    @Override
     protected boolean handleIsInsertEnabled()
     {
         final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROPERTY_INSERT);
@@ -137,8 +153,10 @@ public class HibernateEntityAttributeLogicImpl
     }
 
     /**
+     * @return HibernateProfile.TAGGEDVALUE_HIBERNATE_PROPERTY_UPDATE
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttribute#isUpdateEnabled()
      */
+    @Override
     protected boolean handleIsUpdateEnabled()
     {
         final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROPERTY_UPDATE);
@@ -163,6 +181,10 @@ public class HibernateEntityAttributeLogicImpl
     }
     
     
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogic#handleGetXmlTagName()
+     */
+    @Override
     protected String handleGetXmlTagName() 
     {
         String tagName = null;
@@ -171,7 +193,7 @@ public class HibernateEntityAttributeLogicImpl
         {
             tagName = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_XML_TAG_NAME);
 
-            if (tagName == null)
+            if (StringUtils.isBlank(tagName))
             {
                 if (this.isIdentifier() && this.persistIDAsAttribute())
                     tagName = "@" + this.getName();
@@ -183,8 +205,13 @@ public class HibernateEntityAttributeLogicImpl
         return (StringUtils.isBlank(tagName)) ? null : tagName;
     }
 
-	protected String handleGetFullyQualifiedHibernateType() {
-		final String fullyQualifiedName;
+    /**
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityAttributeLogic#handleGetFullyQualifiedHibernateType()
+     */
+    @Override
+    protected String handleGetFullyQualifiedHibernateType() 
+    {
+        String fullyQualifiedName;
 
         if (this.getType().isEnumeration())
         {
@@ -211,9 +238,9 @@ public class HibernateEntityAttributeLogicImpl
                     fullyQualifiedName = this.getType().getFullyQualifiedName();
                 }
             }
+            fullyQualifiedName = new JavaTypeConverter().getJavaLangTypeName(fullyQualifiedName);
         }
 
         return fullyQualifiedName; 
 	}
-    
 }

@@ -13,6 +13,10 @@ import org.apache.commons.lang.StringUtils;
 public class HibernateServiceLogicImpl
     extends HibernateServiceLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public HibernateServiceLogicImpl(
         Object metaObject,
         String context)
@@ -20,10 +24,11 @@ public class HibernateServiceLogicImpl
         super(metaObject, context);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateService#getEjbJndiName()
      */
-    protected java.lang.String handleGetEjbJndiName()
+    protected String handleGetEjbJndiName()
     {
         StringBuffer jndiName = new StringBuffer();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
@@ -37,10 +42,11 @@ public class HibernateServiceLogicImpl
         return jndiName.toString();
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateService#getEjbViewType()
      */
-    protected java.lang.String handleGetEjbViewType()
+    protected String handleGetEjbViewType()
     {
         String defaultViewType = String.valueOf(this.getConfiguredProperty("ejbViewType"));
         return HibernateMetafacadeUtils.getViewType(this, defaultViewType);
@@ -57,6 +63,7 @@ public class HibernateServiceLogicImpl
         return this.isConfiguredProperty(property) ? ObjectUtils.toString(this.getConfiguredProperty(property)) : null;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateService#isEjbStateful()
      */
@@ -70,6 +77,7 @@ public class HibernateServiceLogicImpl
      */
     private static final String VIEW_TYPE_REMOTE = "remote";
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateService#isEjbRemoteView()
      */
