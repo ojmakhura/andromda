@@ -36,7 +36,7 @@ public interface $operation.interfaceName
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.setterName}AsArray(Object[])
+     * @see ${esc.hash}${field.setterName}AsArray(Object[])
      */
     public void ${field.setterName}($fieldType $fieldName);
 
@@ -45,7 +45,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.getterName}AsArray()
+     * @see ${esc.hash}${field.getterName}AsArray()
      */
     public $fieldType ${field.getterName}();
 
@@ -55,7 +55,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.setterName}($fieldType)
+     * @see ${esc.hash}${field.setterName}($fieldType)
      */
     public void ${field.setterName}AsArray(Object[] $fieldName);
 
@@ -65,7 +65,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.getterName}()
+     * @see ${esc.hash}${field.getterName}()
      */
     public Object[] ${field.getterName}AsArray();
 
@@ -80,7 +80,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.setterName}(String)
+     * @see ${esc.hash}${field.setterName}(String)
      */
     public void ${field.setterName}As${asType}($fieldType $fieldName);
 
@@ -89,7 +89,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.getterName}()
+     * @see ${esc.hash}${field.getterName}()
      */
     public $fieldType ${field.getterName}As${asType}();
 
@@ -98,7 +98,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.setterName}As${asType}($fieldType)
+     * @see ${esc.hash}${field.setterName}As${asType}($fieldType)
      */
     public void ${field.setterName}(String ${fieldName});
 
@@ -107,7 +107,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.getterName}As${asType}()
+     * @see ${esc.hash}${field.getterName}As${asType}()
      */
     public String ${field.getterName}();
 
@@ -126,7 +126,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.getterName}()
+     * @see ${esc.hash}${field.getterName}()
      */
     public Object ${field.getterName}Value(String key);
 
@@ -135,7 +135,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.setterName}Value(String key, Object value)
+     * @see ${esc.hash}${field.setterName}Value(String key, Object value)
      */
     public void ${field.setterName}(java.util.Map $fieldName);
 
@@ -144,7 +144,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.getterName}Value(String)
+     * @see ${esc.hash}${field.getterName}Value(String)
      */
     public java.util.Map ${field.getterName}();
 
@@ -181,7 +181,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.setterName}${accessSuffix}AsArray(${fieldType}[])
+     * @see ${esc.hash}${field.setterName}${accessSuffix}AsArray(${fieldType}[])
      */
     public void ${field.setterName}${accessSuffix}(java.util.List $fieldName${accessSuffix});
 
@@ -191,7 +191,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.getterName}${accessSuffix}AsArray()
+     * @see ${esc.hash}${field.getterName}${accessSuffix}AsArray()
      */
     public java.util.List ${field.getterName}${accessSuffix}();
 
@@ -213,7 +213,7 @@ $field.getDocumentation("     * ")
      *
 $field.getDocumentation("     * ")
      *
-     * @see #${field.getterName}${accessSuffix}()
+     * @see ${esc.hash}${field.getterName}${accessSuffix}()
      */
     public ${fieldType}[] ${field.getterName}${accessSuffix}AsArray();
 
@@ -263,9 +263,9 @@ $field.getDocumentation("     * ")
      * need to call <code>getLabel()</code> and <code>getValue()</code> to get the label and
      * value for this entry respectively.</i>
      *
-     * @see #${field.getterName}()
-     * @see #get${valueListMethod}()
-     * @see #get${labelListMethod}()
+     * @see ${esc.hash}${field.getterName}()
+     * @see ${esc.hash}get${valueListMethod}()
+     * @see ${esc.hash}get${labelListMethod}()
      * @see ${esc.hash}set${labelListMethod}(java.util.Collection,String,String)
      */
     public $listType get${backingListMethod}();
@@ -299,10 +299,10 @@ $field.getDocumentation("     * ")
      *         if the caller does not have access one of the object's properties, if an exception was thrown while
      *         accessing a property or if the property does not exist on at least one of the items
      *
-     * @see #${field.getterName}()
-     * @see #get${valueListMethod}()
-     * @see #get${labelListMethod}()
-     * @see #get${labelListMethod}()
+     * @see ${esc.hash}${field.getterName}()
+     * @see ${esc.hash}get${valueListMethod}()
+     * @see ${esc.hash}get${labelListMethod}()
+     * @see ${esc.hash}get${labelListMethod}()
      */
     public void set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty);
 
@@ -310,8 +310,8 @@ $field.getDocumentation("     * ")
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to retrieve the values from that list.
      *
-     * @see #${field.getterName}()
-     * @see #get${backingListMethod}()
+     * @see ${esc.hash}${field.getterName}()
+     * @see ${esc.hash}get${backingListMethod}()
      */
     public $listType get${valueListMethod}();
 
@@ -319,8 +319,8 @@ $field.getDocumentation("     * ")
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to set the values for that list.
      *
-     * @see #${field.getterName}()
-     * @see #get${backingListMethod}()
+     * @see ${esc.hash}${field.getterName}()
+     * @see ${esc.hash}get${backingListMethod}()
      */
     public void set${valueListMethod}($listType $valueListName);
 
@@ -328,8 +328,8 @@ $field.getDocumentation("     * ")
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to retrieve the labels from that list.
      *
-     * @see #${field.getterName}()
-     * @see #get${backingListMethod}()
+     * @see ${esc.hash}${field.getterName}()
+     * @see ${esc.hash}get${backingListMethod}()
      */
     public $listType get${labelListMethod}();
 
@@ -337,8 +337,8 @@ $field.getDocumentation("     * ")
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to set the labels for that list.
      *
-     * @see #${field.getterName}()
-     * @see #get${backingListMethod}()
+     * @see ${esc.hash}${field.getterName}()
+     * @see ${esc.hash}get${backingListMethod}()
      */
     public void set${labelListMethod}($listType $labelListName);
 
