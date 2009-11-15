@@ -9,7 +9,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
@@ -24,6 +23,7 @@ import org.andromda.metafacades.uml.StateVertexFacade;
 import org.andromda.utils.StringUtilsHelper;
 
 
+
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.bpm4struts.metafacades.StrutsControllerOperation.
  *
@@ -32,6 +32,10 @@ import org.andromda.utils.StringUtilsHelper;
 public class StrutsControllerOperationLogicImpl
     extends StrutsControllerOperationLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsControllerOperationLogicImpl(
         Object metaObject,
         String context)
@@ -211,7 +215,7 @@ public class StrutsControllerOperationLogicImpl
      */
     public boolean isAllArgumentsHaveFormFields()
     {
-        final Collection arguments = this.getArguments();
+        final Collection<ParameterFacade> arguments = this.getArguments();
         final Collection deferringActions = this.getDeferringActions();
 
         boolean allArgumentsHaveFormFields = true;
@@ -227,7 +231,7 @@ public class StrutsControllerOperationLogicImpl
                 actionIterator.hasNext() && !actionMissingField;)
             {
                 final StrutsAction action = (StrutsAction)actionIterator.next();
-                final Collection actionFormFields = action.getActionFormFields();
+                final Collection<StrutsParameter> actionFormFields = action.getActionFormFields();
 
                 boolean fieldPresent = false;
                 for (final Iterator fieldIterator = actionFormFields.iterator();
@@ -256,7 +260,7 @@ public class StrutsControllerOperationLogicImpl
 
         // cache this operation's parameters for easy lookup
         final Map parameterMap = new HashMap();
-        final Collection controllerParameters = getParameters();
+        final Collection<ParameterFacade> controllerParameters = getParameters();
         for (final Iterator iterator = controllerParameters.iterator(); iterator.hasNext();)
         {
             final ParameterFacade parameter = (ParameterFacade)iterator.next();
@@ -264,7 +268,7 @@ public class StrutsControllerOperationLogicImpl
         }
 
         // make sure that any service parameter exists here too
-        final Collection serviceParameters = serviceOperation.getParameters();
+        final Collection<ParameterFacade> serviceParameters = serviceOperation.getParameters();
         for (final Iterator iterator = serviceParameters.iterator(); iterator.hasNext() && matches;)
         {
             final ParameterFacade serviceParameter = (ParameterFacade)iterator.next();
@@ -280,7 +284,7 @@ public class StrutsControllerOperationLogicImpl
     {
         Object operation = null;
 
-        final Collection dependencies = getSourceDependencies();
+        final Collection<DependencyFacade> dependencies = getSourceDependencies();
         for (final Iterator dependencyIterator = dependencies.iterator();
              dependencyIterator.hasNext() && operation == null;)
         {

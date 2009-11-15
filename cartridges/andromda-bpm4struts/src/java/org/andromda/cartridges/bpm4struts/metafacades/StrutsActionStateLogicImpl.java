@@ -13,6 +13,7 @@ import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 
 
+
 /**
  * MetafacadeLogic implementation.
  *
@@ -22,9 +23,13 @@ import org.andromda.metafacades.uml.UseCaseFacade;
 public class StrutsActionStateLogicImpl
     extends StrutsActionStateLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsActionStateLogicImpl(
-        java.lang.Object metaObject,
-        java.lang.String context)
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
@@ -36,7 +41,7 @@ public class StrutsActionStateLogicImpl
      */
     public List getContainerActions()
     {
-        final Collection actionSet = new LinkedHashSet();
+        final Collection<StrutsAction> actionSet = new LinkedHashSet<StrutsAction>();
 
         final StateMachineFacade stateMachineFacade = this.getStateMachine();
         if (stateMachineFacade instanceof ActivityGraphFacade)
@@ -47,7 +52,7 @@ public class StrutsActionStateLogicImpl
             if (useCase instanceof StrutsUseCase)
             {
                 final Collection actions = ((StrutsUseCase)useCase).getActions();
-                for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+                for (final Iterator<StrutsAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
                     final StrutsAction action = (StrutsAction)actionIterator.next();
                     if (action.getActionStates().contains(this))
@@ -57,17 +62,17 @@ public class StrutsActionStateLogicImpl
                 }
             }
         }
-        return new ArrayList(actionSet);
+        return new ArrayList<StrutsAction>(actionSet);
     }
 
     /**
      * @see org.andromda.metafacades.uml.FrontEndActionState#getExceptions()
      */
-    public java.util.List getExceptions()
+    public List getExceptions()
     {
-        final Map exceptionsMap = new LinkedHashMap();
-        final Collection outgoings = getOutgoings();
-        for (final Iterator iterator = outgoings.iterator(); iterator.hasNext();)
+        final Map<String, TransitionFacade> exceptionsMap = new LinkedHashMap<String, TransitionFacade>();
+        final Collection<TransitionFacade> outgoings = getOutgoings();
+        for (final Iterator<TransitionFacade> iterator = outgoings.iterator(); iterator.hasNext();)
         {
             final TransitionFacade transition = (TransitionFacade)iterator.next();
             if (transition instanceof StrutsExceptionHandler)
@@ -75,6 +80,6 @@ public class StrutsActionStateLogicImpl
                 exceptionsMap.put(((StrutsExceptionHandler)transition).getExceptionKey(), transition);
             }
         }
-        return new ArrayList(exceptionsMap.values());
+        return new ArrayList<TransitionFacade>(exceptionsMap.values());
     }
 }

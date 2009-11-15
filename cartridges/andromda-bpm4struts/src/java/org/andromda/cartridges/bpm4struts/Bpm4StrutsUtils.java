@@ -1,9 +1,6 @@
 package org.andromda.cartridges.bpm4struts;
 
-import org.andromda.metafacades.uml.ManageableEntity;
-import org.andromda.utils.StringUtilsHelper;
-import org.apache.commons.lang.StringUtils;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,6 +9,10 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
+import org.andromda.metafacades.uml.ManageableEntity;
+import org.andromda.utils.StringUtilsHelper;
+import org.apache.commons.lang.StringUtils;
+
 
 /**
  * Contains utilities for bpm4struts.
@@ -45,7 +46,7 @@ public final class Bpm4StrutsUtils
 
     /**
      * Reads the validator arguments from the the given tagged value.
-     *
+     * @param validatorTaggedValue 
      * @return never null, returns a list of String instances
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
@@ -96,6 +97,7 @@ public final class Bpm4StrutsUtils
     /**
      * Reads the validator variable names from the the given tagged value.
      *
+     * @param validatorTaggedValue 
      * @return never null, returns a list of String instances
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
@@ -135,6 +137,8 @@ public final class Bpm4StrutsUtils
     /**
      * Parses the validator name for a tagged value.
      *
+     * @param validatorTaggedValue 
+     * @return validatorTaggedValue.substring(0, leftParen
      * @throws IllegalArgumentException when the input string does not match the required pattern
      */
     public static String parseValidatorName(String validatorTaggedValue)
@@ -157,6 +161,8 @@ public final class Bpm4StrutsUtils
     /**
      * Sorts a collection of Manageable entities according to their 'manageableName' property.
      * Returns a new collection.
+     * @param collection 
+     * @return Collections.sort(sorted, new ManageableEntityComparator())
      */
     public static Collection sortManageables(Collection collection)
     {
@@ -204,7 +210,7 @@ public final class Bpm4StrutsUtils
      * used for the argument element.
      *
      * @param taggedValues the collection of tagged values representing the export types, should only contain
-     *  <code>java.lang.String</code> instances and must never be <code>null</code>
+     *  <code>String</code> instances and must never be <code>null</code>
      * @param defaultValue the default value to use in case the tagged values are empty
      * @return a space separated list of formats, never <code>null</code>
      */
@@ -224,7 +230,7 @@ public final class Bpm4StrutsUtils
             }
             else
             {
-                final StringBuffer buffer = new StringBuffer();
+                final StringBuilder buffer = new StringBuilder();
                 for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
                 {
                     final String exportType = StringUtils.trimToNull(String.valueOf(iterator.next()));
@@ -246,6 +252,8 @@ public final class Bpm4StrutsUtils
 
     /**
      * Convenient method to detect whether or not a String instance represents a boolean <code>true</code> value.
+     * @param string 
+     * @return true if yes, true, on, 1
      */
     public static boolean isTrue(String string)
     {
@@ -256,8 +264,9 @@ public final class Bpm4StrutsUtils
     }
 
     final static class ManageableEntityComparator
-        implements Comparator
+        implements Comparator, Serializable
     {
+        private static final long serialVersionUID = 1L;
         public int compare(
             Object left,
             Object right)

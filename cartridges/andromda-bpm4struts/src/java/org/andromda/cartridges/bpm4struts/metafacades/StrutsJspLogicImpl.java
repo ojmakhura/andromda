@@ -17,6 +17,7 @@ import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
 
 
+
 /**
  * MetafacadeLogic implementation.
  *
@@ -26,6 +27,10 @@ import org.apache.commons.lang.StringUtils;
 public class StrutsJspLogicImpl
     extends StrutsJspLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsJspLogicImpl(
         Object metaObject,
         String context)
@@ -33,6 +38,9 @@ public class StrutsJspLogicImpl
         super(metaObject, context);
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsJspLogic#getPackageName()
+     */
     public String getPackageName()
     {
         String packageName = null;
@@ -63,7 +71,7 @@ public class StrutsJspLogicImpl
 
     protected String handleGetMessageKey()
     {
-        final StringBuffer messageKey = new StringBuffer();
+        final StringBuilder messageKey = new StringBuilder();
 
         if (!normalizeMessages())
         {
@@ -113,7 +121,7 @@ public class StrutsJspLogicImpl
     protected String handleGetOnlineHelpValue()
     {
         final String crlf = "<br/>";
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
 
         final String value = StringUtilsHelper.toResourceMessage(getDocumentation("", 64, false));
         buffer.append((value == null) ? "No page documentation has been specified" : value);
@@ -130,7 +138,7 @@ public class StrutsJspLogicImpl
 
     protected String handleGetOnlineHelpActionPath()
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
 
         if (StringUtils.isNotBlank(this.getPackagePath()))
         {

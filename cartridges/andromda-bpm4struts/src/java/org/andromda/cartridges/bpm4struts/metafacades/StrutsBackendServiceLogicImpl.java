@@ -3,6 +3,7 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 
 
+
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.bpm4struts.metafacades.StrutsBackendService.
  *
@@ -11,6 +12,10 @@ import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 public class StrutsBackendServiceLogicImpl
     extends StrutsBackendServiceLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsBackendServiceLogicImpl(
         Object metaObject,
         String context)
@@ -19,9 +24,10 @@ public class StrutsBackendServiceLogicImpl
     }
 
     /**
+     * @return Bpm4StrutsGlobals.SERVICE_ACCESSOR_PATTERN) replace getName()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsBackendService#getAccessorImplementation()
      */
-    protected java.lang.String handleGetAccessorImplementation()
+    protected String handleGetAccessorImplementation()
     {
         String accessorImplementation = String.valueOf(
             getConfiguredProperty(Bpm4StrutsGlobals.SERVICE_ACCESSOR_PATTERN));
@@ -31,11 +37,11 @@ public class StrutsBackendServiceLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName()
      */
-    public java.lang.String getFullyQualifiedName()
+    public String getFullyQualifiedName()
     {
         String packageName = String.valueOf(
             getConfiguredProperty(Bpm4StrutsGlobals.SERVICE_PACKAGE_NAME_PATTERN));
-        return packageName.replaceAll("\\{0\\}", super.getPackageName()) + "." + this.getName();
+        return packageName.replaceAll("\\{0\\}", super.getPackageName()) + '.' + this.getName();
     }
 
 }

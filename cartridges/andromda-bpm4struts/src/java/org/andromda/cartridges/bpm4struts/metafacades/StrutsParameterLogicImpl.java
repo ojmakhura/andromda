@@ -9,13 +9,14 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsGlobals;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsProfile;
 import org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
+import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
+import org.andromda.metafacades.uml.FrontEndParameter;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.TransitionFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeUtils;
@@ -23,6 +24,7 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.StringUtils;
+
 
 
 /**
@@ -33,8 +35,12 @@ import org.apache.commons.lang.StringUtils;
 public class StrutsParameterLogicImpl
     extends StrutsParameterLogic
 {
-    public StrutsParameterLogicImpl(java.lang.Object metaObject,
-                                    java.lang.String context)
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public StrutsParameterLogicImpl(Object metaObject,
+                                    String context)
     {
         super(metaObject, context);
     }
@@ -137,9 +143,10 @@ public class StrutsParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getResetValue()()
+     * @return getType().getJavaNullString()
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getResetValue()
      */
-    protected java.lang.String handleGetNullValue()
+    protected String handleGetNullValue()
     {
         String nullValue = null;
 
@@ -152,6 +159,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return isSelectable() or getType()isArrayType() || type.isFileType()) ? true : this.isValidatorBoolean()
      * @see StrutsParameter#isResetRequired()
      */
     protected boolean handleIsResetRequired()
@@ -178,11 +186,12 @@ public class StrutsParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getMessageKey()()
+     * @return messageKey
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getMessageKey()
      */
-    protected java.lang.String handleGetMessageKey()
+    protected String handleGetMessageKey()
     {
-        final StringBuffer messageKey = new StringBuffer();
+        final StringBuilder messageKey = new StringBuilder();
 
         if (!normalizeMessages())
         {
@@ -212,25 +221,28 @@ public class StrutsParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getMessageValue()()
+     * @return StringUtilsHelper.toPhrase(super.getName())
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getMessageValue()
      */
-    protected java.lang.String handleGetMessageValue()
+    protected String handleGetMessageValue()
     {
         return StringUtilsHelper.toPhrase(super.getName()); // the actual name is used for displaying
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getTitleKey()()
+     * @return getMessageKey() + ".title"
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getTitleKey()
      */
-    protected java.lang.String handleGetTitleKey()
+    protected String handleGetTitleKey()
     {
         return getMessageKey() + ".title";
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getTitleValue()()
+     * @return documentation title value
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getTitleValue()
      */
-    protected java.lang.String handleGetTitleValue()
+    protected String handleGetTitleValue()
     {
         String requiredSuffix = "";
         if (isRequired())
@@ -242,11 +254,11 @@ public class StrutsParameterLogicImpl
         if (isDate())
         {
             dateSuffix = (isStrictDateFormat())
-                ? " (use this strict format: " + getDateFormat() + ")"
-                : " (use this lenient format: " + getDateFormat() + ")";
+                ? " (use this strict format: " + getDateFormat() + ')'
+                : " (use this lenient format: " + getDateFormat() + ')';
         }
 
-        String documentation = getDocumentation("", 64, false);
+        String documentation = this.getDocumentation("", 64, false);
         return StringUtilsHelper.toResourceMessage((StringUtils.isBlank(documentation))
             ? super.getName() + requiredSuffix + dateSuffix
             : documentation.trim().replaceAll("\n", "<br/>"));
@@ -272,7 +284,7 @@ public class StrutsParameterLogicImpl
     {
         final String crlf = "<br/>";
         final String format = getValidatorFormat();
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
 
         final String value = StringUtilsHelper.toResourceMessage(this.getDocumentation("", 64, false));
         buffer.append((value == null) ? "No field documentation has been specified" : value);
@@ -304,9 +316,11 @@ public class StrutsParameterLogicImpl
                 .append("target=\"_jdk\">");
             buffer.append(dateFormat).append("</a> ");
 
-            if (isStrictDateFormat()) buffer
-                .append("This format is strict in the sense that the parser will not use any heuristics in ")
+            if (isStrictDateFormat()) 
+            { 
+                buffer.append("This format is strict in the sense that the parser will not use any heuristics in ")
                 .append("order to guess the intended date in case the input would not perfectly match the format");
+            } 
             else
             {
                 buffer.append("This format is lenient in the sense that the parser will attempt to use heuristics in ")
@@ -452,7 +466,7 @@ public class StrutsParameterLogicImpl
 
     protected boolean handleIsCalendarRequired()
     {
-        return isDate() && String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_CALENDAR)).equals("true");
+        return isDate() && "true".equals(String.valueOf(findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_CALENDAR)));
     }
 
     /**
@@ -529,11 +543,11 @@ public class StrutsParameterLogicImpl
         String name = null;
         String type = null;
 
-        final Collection actions = this.getTableGlobalActions();
-        for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext() && sameParameter;)
+        final Collection<StrutsAction> actions = this.getTableGlobalActions();
+        for (final Iterator<StrutsAction> actionIterator = actions.iterator(); actionIterator.hasNext() && sameParameter;)
         {
             final StrutsAction action = (StrutsAction)actionIterator.next();
-            final List parameters = action.getActionParameters();
+            final List<StrutsParameter> parameters = action.getActionParameters();
             if (!parameters.isEmpty())
             {
                 final StrutsParameter parameter = (StrutsParameter)parameters.iterator().next();
@@ -572,10 +586,10 @@ public class StrutsParameterLogicImpl
     {
         Object parameter = null;
 
-        final Collection actions = this.getTableGlobalActions();
+        final Collection<StrutsAction> actions = this.getTableGlobalActions();
         if (!actions.isEmpty())
         {
-            final List actionParameters = ((StrutsAction)actions.iterator().next()).getActionParameters();
+            final List<StrutsParameter> actionParameters = ((StrutsAction)actions.iterator().next()).getActionParameters();
             if (!actionParameters.isEmpty())
             {
                 parameter = actionParameters.iterator().next();
@@ -609,8 +623,8 @@ public class StrutsParameterLogicImpl
 
         final Collection tableActions = new LinkedHashSet();
 
-        final Collection allUseCases = getModel().getAllUseCases();
-        for (final Iterator useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
+        final Collection<UseCaseFacade> allUseCases = getModel().getAllUseCases();
+        for (final Iterator<UseCaseFacade> useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
         {
             final UseCaseFacade useCase = (UseCaseFacade)useCaseIterator.next();
             if (useCase instanceof StrutsUseCase)
@@ -618,8 +632,8 @@ public class StrutsParameterLogicImpl
                 final FrontEndActivityGraph graph = ((StrutsUseCase)useCase).getActivityGraph();
                 if (graph != null)
                 {
-                    final Collection transitions = graph.getTransitions();
-                    for (final Iterator transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
+                    final Collection<TransitionFacade> transitions = graph.getTransitions();
+                    for (final Iterator<TransitionFacade> transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
                     {
                         final TransitionFacade transition = (TransitionFacade)transitionIterator.next();
                         if (transition.getSource().equals(page) && transition instanceof StrutsAction)
@@ -719,14 +733,14 @@ public class StrutsParameterLogicImpl
         return tableHyperlinkColumn;
     }
 
-    protected List handleGetTableColumnActions(final String columnName)
+    protected List<StrutsAction> handleGetTableColumnActions(final String columnName)
     {
-        final List columnActions = new ArrayList();
+        final List<StrutsAction> columnActions = new ArrayList<StrutsAction>();
 
         if (columnName != null)
         {
             // only hyperlinks can target table columns
-            final List hyperlinkActions = this.getTableHyperlinkActions();
+            final List<StrutsAction> hyperlinkActions = this.getTableHyperlinkActions();
             for (int i = 0; i < hyperlinkActions.size(); i++)
             {
                 final StrutsAction action = (StrutsAction)hyperlinkActions.get(i);
@@ -766,7 +780,7 @@ public class StrutsParameterLogicImpl
         final Map tableColumnsMap = new LinkedHashMap();
 
         // order is important
-        final List actions = new ArrayList();
+        final List<StrutsAction> actions = new ArrayList<StrutsAction>();
 
         // all table actions need the exact same parameters, just not always all of them
         actions.addAll(this.getTableFormActions());
@@ -774,11 +788,11 @@ public class StrutsParameterLogicImpl
         // the user should not have modeled it that way (constraints will warn him/her)
         actions.addAll(this.getTableHyperlinkActions());
 
-        for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+        for (final Iterator<StrutsAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
         {
             final StrutsAction action = (StrutsAction)actionIterator.next();
-            final Collection actionParameters = action.getActionParameters();
-            for (final Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
+            final Collection<StrutsParameter>  actionParameters = action.getActionParameters();
+            for (final Iterator<StrutsParameter>  parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
             {
                 final StrutsParameter parameter = (StrutsParameter)parameterIterator.next();
                 final String parameterName = parameter.getName();
@@ -796,7 +810,7 @@ public class StrutsParameterLogicImpl
             }
         }
 
-        final Collection columnNames = this.getTableColumnNames();
+        final Collection<String>  columnNames = this.getTableColumnNames();
 
         // in case of a custom array just add the attributes
         if (this.isCustomArrayTable())
@@ -814,7 +828,7 @@ public class StrutsParameterLogicImpl
         }
         else
         {
-            for (final Iterator columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
+            for (final Iterator<String> columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
             {
                 final String columnName = (String)columnNameIterator.next();
                 // don't override
@@ -838,11 +852,11 @@ public class StrutsParameterLogicImpl
 
     protected String handleGetTableColumnMessageKey(String columnName)
     {
-        StringBuffer messageKey = null;
+        StringBuilder messageKey = null;
 
         if (isTable())
         {
-            messageKey = new StringBuffer();
+            messageKey = new StringBuilder();
 
             if (!normalizeMessages())
             {
@@ -897,10 +911,10 @@ public class StrutsParameterLogicImpl
                 final ClassifierFacade type = getType();
                 if (type != null)
                 {
-                    if (type.isFileType()) widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_FILE;
-                    else if (isValidatorBoolean()) widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX;
-                    else if (isMultiple()) widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT;
-                    else widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT;
+                    if (type.isFileType()) {widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_FILE;}
+                    else if (isValidatorBoolean()) {widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_CHECKBOX;}
+                    else if (isMultiple()) {widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT;}
+                    else {widgetType = Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_TEXT;}
                 }
             }
             else if (Bpm4StrutsProfile.TAGGEDVALUE_INPUT_TYPE_SELECT.equalsIgnoreCase(fieldType))
@@ -1018,11 +1032,11 @@ public class StrutsParameterLogicImpl
                  * if the parameter is not selectable but on a targetting page it _is_ selectable we must
                  * allow the user to set the backing list too
                  */
-                final Collection pages = getStrutsAction().getTargetPages();
+                final Collection<StrutsJsp> pages = getStrutsAction().getTargetPages();
                 for (final Iterator pageIterator = pages.iterator(); pageIterator.hasNext() && !selectable;)
                 {
                     final StrutsJsp page = (StrutsJsp)pageIterator.next();
-                    final Collection parameters = page.getAllActionParameters();
+                    final Collection<FrontEndParameter> parameters = page.getAllActionParameters();
                     for (final Iterator parameterIterator = parameters.iterator();
                          parameterIterator.hasNext() && !selectable;)
                     {
@@ -1045,11 +1059,11 @@ public class StrutsParameterLogicImpl
         else if (isControllerOperationArgument())
         {
             final String name = this.getName();
-            final Collection actions = this.getControllerOperation().getDeferringActions();
-            for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+            final Collection<FrontEndAction> actions = this.getControllerOperation().getDeferringActions();
+            for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
                 final StrutsAction action = (StrutsAction)actionIterator.next();
-                final Collection formFields = action.getActionFormFields();
+                final Collection<StrutsParameter> formFields = action.getActionFormFields();
                 for (final Iterator fieldIterator = formFields.iterator(); fieldIterator.hasNext() && !selectable;)
                 {
                     final StrutsParameter parameter = (StrutsParameter)fieldIterator.next();
@@ -1064,6 +1078,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return getName() + "ValueList"
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValueListName()
      */
     protected String handleGetValueListName()
@@ -1072,6 +1087,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return getName() + "LabelList"
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getLabelListName()
      */
     protected String handleGetLabelListName()
@@ -1110,6 +1126,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return Bpm4StrutsProfile.TAGGEDVALUE_INPUT_READONLY
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isReadOnly()
      */
     protected boolean handleIsReadOnly()
@@ -1119,6 +1136,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return isValidatorDate()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isDate()
      */
     protected boolean handleIsDate()
@@ -1127,6 +1145,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return getDateFormat(getValidatorFormat())
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getDateFormat()
      */
     protected String handleGetDateFormat()
@@ -1144,6 +1163,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return getValidatorFormat()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getTimeFormat()
      */
     protected String handleGetTimeFormat()
@@ -1161,6 +1181,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return isStrictDateFormat(getValidatorFormat())
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isStrictDateFormat()
      */
     protected boolean handleIsStrictDateFormat()
@@ -1172,6 +1193,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return resetValue based on datatype
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getResetValue()
      */
     protected String handleGetResetValue()
@@ -1181,35 +1203,35 @@ public class StrutsParameterLogicImpl
         {
             final String name = getName();
 
-            if (isValidatorString()) return "\"" + name + "-test" + "\"";
-            if (isValidatorDate()) return "new java.util.Date()";
+            if (isValidatorString()) {return '\"' + name + "-test" + '\"';}
+            if (isValidatorDate()) {return "new java.util.Date()";}
 
             if (type.isPrimitive())
             {
-                if (isValidatorInteger()) return "(int)" + name.hashCode();
-                if (isValidatorBoolean()) return "false";
-                if (isValidatorLong()) return "(long)" + name.hashCode();
-                if (isValidatorChar()) return "(char)" + name.hashCode();
-                if (isValidatorFloat()) return "(float)" + name.hashCode();
-                if (isValidatorDouble()) return "(double)" + name.hashCode();
-                if (isValidatorShort()) return "(short)" + name.hashCode();
-                if (isValidatorByte()) return "(byte)" + name.hashCode();
+                if (isValidatorInteger()) {return "(int)" + name.hashCode();}
+                if (isValidatorBoolean()) {return "false";}
+                if (isValidatorLong()) {return "(long)" + name.hashCode();}
+                if (isValidatorChar()) {return "(char)" + name.hashCode();}
+                if (isValidatorFloat()) {return "(float)" + name.hashCode();}
+                if (isValidatorDouble()) {return "(double)" + name.hashCode();}
+                if (isValidatorShort()) {return "(short)" + name.hashCode();}
+                if (isValidatorByte()) {return "(byte)" + name.hashCode();}
             }
             else
             {
-                if (isValidatorInteger()) return "new Integer((int)" + name.hashCode() + ")";
-                if (isValidatorBoolean()) return "Boolean.FALSE";
-                if (isValidatorLong()) return "new Long((long)" + name.hashCode() + ")";
-                if (isValidatorChar()) return "new Character(char)" + name.hashCode() + ")";
-                if (isValidatorFloat()) return "new Float((float)" + name.hashCode() + ")";
-                if (isValidatorDouble()) return "new Double((double)" + name.hashCode() + ")";
-                if (isValidatorShort()) return "new Short((short)" + name.hashCode() + ")";
-                if (isValidatorByte()) return "new Byte((byte)" + name.hashCode() + ")";
+                if (isValidatorInteger()) {return "new Integer((int)" + name.hashCode() + ')';}
+                if (isValidatorBoolean()) {return "Boolean.FALSE";}
+                if (isValidatorLong()) {return "new Long((long)" + name.hashCode() + ')';}
+                if (isValidatorChar()) {return "new Character(char)" + name.hashCode() + ')';}
+                if (isValidatorFloat()) {return "new Float((float)" + name.hashCode() + ')';}
+                if (isValidatorDouble()) {return "new Double((double)" + name.hashCode() + ')';}
+                if (isValidatorShort()) {return "new Short((short)" + name.hashCode() + ')';}
+                if (isValidatorByte()) {return "new Byte((byte)" + name.hashCode() + ')';}
             }
 
-            if (type.isArrayType()) return constructArray();
-            if (type.isSetType()) return "new java.util.HashSet(java.util.Arrays.asList(" + constructArray() + "))";
-            if (type.isCollectionType()) return "java.util.Arrays.asList(" + constructArray() + ")";
+            if (type.isArrayType()) {return constructArray();}
+            if (type.isSetType()) {return "new java.util.HashSet(java.util.Arrays.asList(" + constructArray() + "))";}
+            if (type.isCollectionType()) {return "java.util.Arrays.asList(" + constructArray() + ')';}
 
             // maps and others types will simply not be treated
         }
@@ -1217,6 +1239,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return validationRequired
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isValidationRequired()
      */
     protected boolean handleIsValidationRequired()
@@ -1233,7 +1256,7 @@ public class StrutsParameterLogicImpl
         return (format == null) ? null : format.trim();
     }
 
-    protected java.util.Collection handleGetValidatorTypes()
+    protected Collection handleGetValidatorTypes()
     {
         final Collection validatorTypesList = new ArrayList();
 
@@ -1243,38 +1266,38 @@ public class StrutsParameterLogicImpl
             final String format = getValidatorFormat();
             final boolean isRangeFormat = (format != null) && isRangeFormat(format);
 
-            if (isRequired()) validatorTypesList.add("required");
+            if (isRequired()) {validatorTypesList.add("required");}
 
-            if (isValidatorByte()) validatorTypesList.add("byte");
-            else if (isValidatorShort()) validatorTypesList.add("short");
-            else if (isValidatorInteger()) validatorTypesList.add("integer");
-            else if (isValidatorLong()) validatorTypesList.add("long");
-            else if (isValidatorFloat()) validatorTypesList.add("float");
-            else if (isValidatorDouble()) validatorTypesList.add("double");
-            else if (isValidatorDate()) validatorTypesList.add("date");
-            else if (isValidatorTime()) validatorTypesList.add("time");
-            else if (isValidatorUrl()) validatorTypesList.add("url");
+            if (isValidatorByte()) {validatorTypesList.add("byte");}
+            else if (isValidatorShort()) {validatorTypesList.add("short");}
+            else if (isValidatorInteger()) {validatorTypesList.add("integer");}
+            else if (isValidatorLong()) {validatorTypesList.add("long");}
+            else if (isValidatorFloat()) {validatorTypesList.add("float");}
+            else if (isValidatorDouble()) {validatorTypesList.add("double");}
+            else if (isValidatorDate()) {validatorTypesList.add("date");}
+            else if (isValidatorTime()) {validatorTypesList.add("time");}
+            else if (isValidatorUrl()) {validatorTypesList.add("url");}
 
             if (isRangeFormat)
             {
-                if (isValidatorInteger() || isValidatorShort() || isValidatorLong()) validatorTypesList.add("intRange");
-                if (isValidatorFloat()) validatorTypesList.add("floatRange");
-                if (isValidatorDouble()) validatorTypesList.add("doubleRange");
+                if (isValidatorInteger() || isValidatorShort() || isValidatorLong()) {validatorTypesList.add("intRange");}
+                if (isValidatorFloat()) {validatorTypesList.add("floatRange");}
+                if (isValidatorDouble()) {validatorTypesList.add("doubleRange");}
             }
 
             if (format != null)
             {
-                if (isValidatorString() && isEmailFormat(format)) validatorTypesList.add("email");
-                else if (isValidatorString() && isCreditCardFormat(format)) validatorTypesList.add("creditCard");
+                if (isValidatorString() && isEmailFormat(format)) {validatorTypesList.add("email");}
+                else if (isValidatorString() && isCreditCardFormat(format)) {validatorTypesList.add("creditCard");}
                 else
                 {
                     Collection formats = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_FORMAT);
                     for (final Iterator formatIterator = formats.iterator(); formatIterator.hasNext();)
                     {
                         String additionalFormat = String.valueOf(formatIterator.next());
-                        if (isMinLengthFormat(additionalFormat)) validatorTypesList.add("minlength");
-                        else if (isMaxLengthFormat(additionalFormat)) validatorTypesList.add("maxlength");
-                        else if (isPatternFormat(additionalFormat)) validatorTypesList.add("mask");
+                        if (isMinLengthFormat(additionalFormat)) {validatorTypesList.add("minlength");}
+                        else if (isMaxLengthFormat(additionalFormat)) {validatorTypesList.add("maxlength");}
+                        else if (isPatternFormat(additionalFormat)) {validatorTypesList.add("mask");}
                     }
                 }
             }
@@ -1285,7 +1308,7 @@ public class StrutsParameterLogicImpl
             }
         }
 
-        // custom (paramterized) validators are allowed here
+        // custom (parameterized) validators are allowed here
         Collection taggedValues = findTaggedValues(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDATORS);
         for (final Iterator iterator = taggedValues.iterator(); iterator.hasNext();)
         {
@@ -1297,6 +1320,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return getMessageKey()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorMsgKey()
      */
     protected String handleGetValidatorMsgKey()
@@ -1305,11 +1329,13 @@ public class StrutsParameterLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorArgs(java.lang.String)
+     * @param validatorType 
+     * @return ${var: + value}
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorArgs(String)
      */
-    protected java.util.Collection handleGetValidatorArgs(java.lang.String validatorType)
+    protected Collection handleGetValidatorArgs(String validatorType)
     {
-        final Collection args = new ArrayList();
+        final Collection<String> args = new ArrayList<String>();
         if ("intRange".equals(validatorType) ||
             "floatRange".equals(validatorType) ||
             "doubleRange".equals(validatorType))
@@ -1357,9 +1383,10 @@ public class StrutsParameterLogicImpl
     }
     
     /**
+     * @return mni, max, minLength, maxLength, mask
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidatorVars()
      */
-    protected java.util.Collection handleGetValidatorVars()
+    protected Collection handleGetValidatorVars()
     {
         final Map vars = new LinkedHashMap();
 
@@ -1439,15 +1466,17 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDWHEN
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getValidWhen()
      */
-    protected java.lang.String handleGetValidWhen()
+    protected String handleGetValidWhen()
     {
         final Object value = findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_VALIDWHEN);
         return value == null ? null : '(' + value.toString() + ')';
     }
 
     /**
+     * @return Bpm4StrutsProfile.TAGGEDVALUE_INPUT_MULTIBOX
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getMultiboxPropertyName()
      */
     protected String handleGetMultiboxPropertyName()
@@ -1457,12 +1486,13 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return optionKeys
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getOptionKeys()
      */
-    protected List handleGetOptionKeys()
+    protected List<String> handleGetOptionKeys()
     {
         final String key = getMessageKey() + '.';
-        final List optionKeys = new ArrayList();
+        final List<String> optionKeys = new ArrayList<String>();
         final int optionCount = getOptionCount();
         for (int i = 0; i < optionCount; i++)
             optionKeys.add(key + i);
@@ -1470,11 +1500,12 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return optionValues
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getOptionValues()
      */
-    protected List handleGetOptionValues()
+    protected List<String> handleGetOptionValues()
     {
-        final List optionValues = new ArrayList();
+        final List<String> optionValues = new ArrayList<String>();
         final Object taggedValueObject = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RADIO);
 
         if (taggedValueObject == null)
@@ -1512,6 +1543,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return getOptionValues().size()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getOptionCount()
      */
     protected int handleGetOptionCount()
@@ -1520,6 +1552,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RESET
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#isShouldReset()
      */
     protected boolean handleIsShouldReset()
@@ -1534,6 +1567,7 @@ public class StrutsParameterLogicImpl
     }
 
     /**
+     * @return reset getName()
      * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameter#getResetName()
      */
     protected String handleGetResetName()
@@ -1799,12 +1833,15 @@ public class StrutsParameterLogicImpl
                             int index,
                             int limit)
     {
-        if (string == null) return null;
+        if (string == null) {return null;}
 
         final String[] tokens = string.split("[\\s]+", limit);
         return (index >= tokens.length) ? null : tokens[index];
     }
 
+    /**
+     * @see org.andromda.cartridges.bpm4struts.metafacades.StrutsParameterLogic#getValidationOwner()
+     */
     public Object getValidationOwner()
     {
         return (this.isTable() && this.getJsp() != null) ? this.getJsp() : super.getValidationOwner();

@@ -2,10 +2,16 @@ package org.andromda.cartridges.bpm4struts.metafacades;
 
 import org.andromda.utils.StringUtilsHelper;
 
-
+/**
+ *
+ */
 public class StrutsSessionObjectLogicImpl
     extends StrutsSessionObjectLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsSessionObjectLogicImpl(
         Object metaObject,
         String context)
@@ -13,12 +19,12 @@ public class StrutsSessionObjectLogicImpl
         super(metaObject, context);
     }
 
-    protected java.lang.String handleGetSessionKey()
+    protected String handleGetSessionKey()
     {
         return StringUtilsHelper.lowerCamelCaseName(getName());
     }
 
-    protected java.lang.String handleGetFullPath()
+    protected String handleGetFullPath()
     {
         return '/' + getFullyQualifiedName().replace('.', '/');
     }

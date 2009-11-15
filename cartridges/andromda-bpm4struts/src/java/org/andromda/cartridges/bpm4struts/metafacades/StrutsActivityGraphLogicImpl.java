@@ -4,6 +4,7 @@ import java.util.Collection;
 import org.andromda.metafacades.uml.PseudostateFacade;
 
 
+
 /**
  * MetafacadeLogic implementation.
  *
@@ -13,9 +14,13 @@ import org.andromda.metafacades.uml.PseudostateFacade;
 public class StrutsActivityGraphLogicImpl
     extends StrutsActivityGraphLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StrutsActivityGraphLogicImpl(
-        java.lang.Object metaObject,
-        java.lang.String context)
+        Object metaObject,
+        String context)
     {
         super(metaObject, context);
     }
