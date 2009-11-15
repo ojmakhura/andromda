@@ -14,8 +14,9 @@
     <templateObject name="bpmUtils" className="org.andromda.cartridges.bpm4struts.Bpm4StrutsUtils"/>
     <templateObject name="dateUtils" className="org.andromda.utils.DateUtilsHelper"/>
     <templateObject name="stringUtils" className="org.andromda.utils.StringUtilsHelper"/>
+    <templateObject name="numberUtils" className="org.apache.commons.lang.math.NumberUtils"/>
     <!-- cartridge-templateObject merge-point-->
-    
+
     <templatePostProcessor className="org.andromda.utils.beautifier.plugin.BeautifierPostProcessor"/>
 
     <property reference="xhtml"/>
