@@ -37,27 +37,9 @@
             <version>${pom.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.andromda</groupId>
-            <artifactId>andromda-core</artifactId>
-            <version>${pom.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.andromda.templateengines</groupId>
             <artifactId>andromda-templateengine-velocity</artifactId>
             <version>${pom.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-utils</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-digester</groupId>
-            <artifactId>commons-digester</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
