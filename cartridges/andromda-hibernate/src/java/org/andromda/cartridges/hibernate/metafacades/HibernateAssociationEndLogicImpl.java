@@ -8,10 +8,12 @@ import org.andromda.cartridges.hibernate.HibernateUtils;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EntityAssociationEnd;
 import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.NameMasker;
 import org.andromda.metafacades.uml.TypeMappings;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.andromda.metafacades.uml.UMLProfile;
+import org.andromda.utils.JavaTypeConverter;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -26,6 +28,10 @@ import org.apache.commons.lang.StringUtils;
 public class HibernateAssociationEndLogicImpl
     extends HibernateAssociationEndLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public HibernateAssociationEndLogicImpl(
         Object metaObject,
         String context)
@@ -103,6 +109,7 @@ public class HibernateAssociationEndLogicImpl
      */
     private static final String HIBERNATE_COMPOSITION_CASCADE = "hibernateCompositionCascade";
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isOne2OnePrimary()
      */
@@ -179,7 +186,7 @@ public class HibernateAssociationEndLogicImpl
             }
         }
 
-        if (getterSetterTypeName == null)
+        if (StringUtils.isBlank(getterSetterTypeName))
         {
             getterSetterTypeName = super.getGetterSetterTypeName();
         }
@@ -206,6 +213,7 @@ public class HibernateAssociationEndLogicImpl
         return getterSetterTypeName;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isLazy()
      */
@@ -214,7 +222,7 @@ public class HibernateAssociationEndLogicImpl
         String lazyString = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
         boolean lazy = true;
 
-        if (lazyString == null)
+        if (StringUtils.isBlank(lazyString))
         {
             // check whether or not composition defines eager loading is turned
             // on
@@ -304,6 +312,7 @@ public class HibernateAssociationEndLogicImpl
         return cascade;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isHibernateInverse()
      */
@@ -368,6 +377,7 @@ public class HibernateAssociationEndLogicImpl
      */
     private static final String HIBERNATE_OUTER_JOIN_AUTO = "auto";
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getOuterJoin()
      */
@@ -382,7 +392,7 @@ public class HibernateAssociationEndLogicImpl
         String outerValue = StringUtils.trimToEmpty(String.valueOf(value));
         String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
 
-        if (version.equals(HibernateGlobals.HIBERNATE_VERSION_3))
+        if (StringUtils.isBlank(version) || version.equals(HibernateGlobals.HIBERNATE_VERSION_3))
         {
             outerValue =
                 (outerValue.equals(HIBERNATE_OUTER_JOIN_AUTO) || outerValue.equals(HIBERNATE_OUTER_JOIN_YES))
@@ -414,6 +424,7 @@ public class HibernateAssociationEndLogicImpl
         return required;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionType()
      */
@@ -448,6 +459,7 @@ public class HibernateAssociationEndLogicImpl
             this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_COLLECTION_TYPE));
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getSortType()
      */
@@ -456,6 +468,7 @@ public class HibernateAssociationEndLogicImpl
         return ObjectUtils.toString(this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_SORT_TYPE));
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getOrderByColumns()
      */
@@ -464,7 +477,7 @@ public class HibernateAssociationEndLogicImpl
         String orderColumns =
             (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_ORDER_BY_COLUMNS);
 
-        if (orderColumns == null)
+        if (StringUtils.isBlank(orderColumns))
         {
             orderColumns = ((EntityAssociationEnd)this.getOtherEnd()).getColumnName();
         }
@@ -472,6 +485,7 @@ public class HibernateAssociationEndLogicImpl
         return orderColumns;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getWhereClause()
      */
@@ -480,6 +494,7 @@ public class HibernateAssociationEndLogicImpl
         return (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_WHERE_CLAUSE);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isIndexedCollection()
      */
@@ -501,6 +516,7 @@ public class HibernateAssociationEndLogicImpl
         return indexed;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionIndexName()
      */
@@ -531,6 +547,7 @@ public class HibernateAssociationEndLogicImpl
             separator) + separator + "IDX";
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionIndexType()
      */
@@ -552,7 +569,14 @@ public class HibernateAssociationEndLogicImpl
         {
             if (value instanceof String)
             {
-                value = this.getRootPackage().findModelElement((String)value);
+                ModelElementFacade element = this.getRootPackage().findModelElement((String)value);
+                if (element!=null)
+                {
+                    value = element.getFullyQualifiedName();
+                }
+                // Otherwise, just use the taggedValue String, and hope things line up with the model.
+                // Add java.lang. if needed...
+                value = new JavaTypeConverter().getJavaLangTypeName((String)value);
             }
             if (value instanceof HibernateType)
             {
@@ -563,6 +587,7 @@ public class HibernateAssociationEndLogicImpl
         return (value != null) ? ObjectUtils.toString(value) : null;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isMap()
      */
@@ -578,6 +603,7 @@ public class HibernateAssociationEndLogicImpl
         return isMap;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isList()
      */
@@ -593,6 +619,7 @@ public class HibernateAssociationEndLogicImpl
         return isList;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isSet()
      */
@@ -608,6 +635,7 @@ public class HibernateAssociationEndLogicImpl
         return isSet;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isBag()
      */
@@ -616,6 +644,7 @@ public class HibernateAssociationEndLogicImpl
         return this.getCollectionType().equalsIgnoreCase(COLLECTION_TYPE_BAG);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionTypeImplementation()
      */
@@ -664,22 +693,25 @@ public class HibernateAssociationEndLogicImpl
         return implementation.toString();
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getHibernateAggregationCascade()
      */
-    protected java.lang.String handleGetHibernateAggregationCascade()
+    protected String handleGetHibernateAggregationCascade()
     {
         return StringUtils.trimToEmpty(ObjectUtils.toString(this.getConfiguredProperty(HIBERNATE_AGGREGATION_CASCADE)));
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getHibernateCompositionCascade()
      */
-    protected java.lang.String handleGetHibernateCompositionCascade()
+    protected String handleGetHibernateCompositionCascade()
     {
         return StringUtils.trimToEmpty(ObjectUtils.toString(this.getConfiguredProperty(HIBERNATE_COMPOSITION_CASCADE)));
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isBidirectionalOrderedListParent()
      */
@@ -699,6 +731,7 @@ public class HibernateAssociationEndLogicImpl
         return isBidirectionalOrderedListParent;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isBidirectionalOrderedListChild()
      */
@@ -714,7 +747,8 @@ public class HibernateAssociationEndLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#isUsingHibernate3()
+     * @return HibernateGlobals.HIBERNATE_VERSION
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd
      */
     protected boolean handleIsUsingHibernate3()
     {
@@ -728,7 +762,8 @@ public class HibernateAssociationEndLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionIndexNameGetter()
+     * @return NameMasker.mask(this.getCollectionIndexName(), NameMasker.UPPERCAMELCASE)
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionIndexName()
      */
     protected String handleGetCollectionIndexNameGetter()
     {
@@ -738,7 +773,8 @@ public class HibernateAssociationEndLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionIndexNameSetter()
+     * @return NameMasker.mask(this.getCollectionIndexName(), NameMasker.UPPERCAMELCASE)
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getCollectionIndexName()
      */
     protected String handleGetCollectionIndexNameSetter()
     {
@@ -759,6 +795,7 @@ public class HibernateAssociationEndLogicImpl
             (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_XML_PERSISTENCE));
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getEmbedXML()
      */
@@ -770,7 +807,7 @@ public class HibernateAssociationEndLogicImpl
         {
             embedVal = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_XML_EMBED);
 
-            if (embedVal == null)
+            if (StringUtils.isBlank(embedVal))
             {
                 boolean isBiDirectional = this.isNavigable() && this.getOtherEnd().isNavigable();
                 if (isBiDirectional && this.isMany())
@@ -786,6 +823,7 @@ public class HibernateAssociationEndLogicImpl
         return (StringUtils.isBlank(embedVal)) ? null : embedVal;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociationEnd#getXmlTagName()
      */
@@ -797,7 +835,7 @@ public class HibernateAssociationEndLogicImpl
         {
             tagName = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_XML_TAG_NAME);
 
-            if (tagName == null)
+            if (StringUtils.isBlank(tagName))
             {
                 tagName = this.getName();
             }

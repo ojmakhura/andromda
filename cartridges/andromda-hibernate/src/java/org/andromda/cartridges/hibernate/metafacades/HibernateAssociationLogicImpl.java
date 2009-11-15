@@ -14,6 +14,10 @@ public class HibernateAssociationLogicImpl
     extends HibernateAssociationLogic
 {
     // ---------------- constructor -------------------------------
+    /**
+     * @param metaObject
+     * @param context
+     */
     public HibernateAssociationLogicImpl(
         Object metaObject,
         String context)
@@ -26,19 +30,21 @@ public class HibernateAssociationLogicImpl
      */
     private static final String HIBERNATE_ASSOCIATION_CACHE = "hibernateAssociationCache";
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#getHibernateCacheType()
      */
-    protected java.lang.String handleGetHibernateCacheType()
+    protected String handleGetHibernateCacheType()
     {
         String cacheType = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATION_CACHE);
-        if (cacheType == null)
+        if (StringUtils.isBlank(cacheType))
         {
             cacheType = String.valueOf(this.getConfiguredProperty(HIBERNATE_ASSOCIATION_CACHE));
         }
         return StringUtils.trimToEmpty(cacheType);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#getEhCacheMaxElementsInMemory()
      */
@@ -53,19 +59,21 @@ public class HibernateAssociationLogicImpl
         return Integer.parseInt(maxElements);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#isEhCacheEternal()
      */
     protected boolean handleIsEhCacheEternal()
     {
         String eternal = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_ETERNAL);
-        if (eternal == null)
+        if (StringUtils.isBlank(eternal))
         {
             eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_ETERNAL);
         }
         return Boolean.valueOf(eternal).booleanValue();
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#getEhCacheTimeToIdleSeconds()
      */
@@ -80,6 +88,7 @@ public class HibernateAssociationLogicImpl
         return Integer.parseInt(timeToIdle);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#getEhCacheTimeToLiveSeconds()
      */
@@ -94,19 +103,21 @@ public class HibernateAssociationLogicImpl
         return Integer.parseInt(timeToLive);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#isEhCacheOverflowToDisk()
      */
     protected boolean handleIsEhCacheOverflowToDisk()
     {
         String eternal = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
-        if (eternal == null)
+        if (StringUtils.isBlank(eternal))
         {
             eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
         }
         return Boolean.valueOf(eternal).booleanValue();
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateAssociation#isHibernateCacheDistributed()
      */

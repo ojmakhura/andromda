@@ -57,7 +57,7 @@ class HibernateMetafacadeUtils
                 viewType = viewTypeValue;
             }
         }
-        if (StringUtils.isEmpty(viewType))
+        if (StringUtils.isEmpty(viewType) || viewType==null)
         {
             viewType = defaultViewType;
         }
@@ -65,8 +65,9 @@ class HibernateMetafacadeUtils
     }
 
     /**
-     * Creates a fully qualified name from the given <code>packageName</code>,
-     * <code>name</code>, and <code>suffix</code>.
+     * Creates a fully qualified Hibernate name from the given <code>packageName</code>,
+     * <code>name</code>, and <code>suffix</code>. Not to be used for attributes, types, or parameters
+     * which could possibly be java.lang. types.
      *
      * @param packageName the name of the model element package.
      * @param name the name of the model element.

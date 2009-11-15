@@ -11,13 +11,17 @@ import org.apache.commons.lang.StringUtils;
 /**
  * @author Chad Brandon
  * @author Carlos Cuenca
- * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethodFacade
+ * @see HibernateFinderMethodLogic
  *      Metaclass facade implementation.
  */
 public class HibernateFinderMethodLogicImpl
     extends HibernateFinderMethodLogic
 {
     // ---------------- constructor -------------------------------
+    /**
+     * @param metaObject
+     * @param context
+     */
     public HibernateFinderMethodLogicImpl(
         Object metaObject,
         String context)
@@ -25,6 +29,7 @@ public class HibernateFinderMethodLogicImpl
         super(metaObject, context);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod#getQuery()
      */
@@ -88,7 +93,7 @@ public class HibernateFinderMethodLogicImpl
      */
     private String getTranslatedQuery()
     {
-        if (this.translatedQuery == null)
+        if (StringUtils.isBlank(this.translatedQuery))
         {
             this.translatedQuery = super.getQuery("query.Hibernate-QL");
         }
@@ -101,6 +106,7 @@ public class HibernateFinderMethodLogicImpl
      */
     private static final String USE_NAMED_PARAMETERS = "hibernateQueryUseNamedParameters";
 
+    @Override
     /**
      * @see org.andromda.cartridges.spring.metafacades.HibernateFinderMethod#isUseNamedParameters()
      */
@@ -117,6 +123,7 @@ public class HibernateFinderMethodLogicImpl
      */
     private static final String HIBERNATE_USE_QUERY_CACHE = "hibernateUseQueryCache";
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateFinderMethod#isUseQueryCache()
      */

@@ -1,23 +1,22 @@
 package org.andromda.cartridges.hibernate.metafacades;
 
 import java.text.MessageFormat;
-
 import java.util.ArrayList;
 import java.util.Collection;
-
+import java.util.List;
 import org.andromda.cartridges.hibernate.HibernateProfile;
 import org.andromda.cartridges.hibernate.HibernateUtils;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.Entity;
 import org.andromda.metafacades.uml.EntityAttribute;
+import org.andromda.metafacades.uml.EntityMetafacadeUtils;
+import org.andromda.metafacades.uml.OperationFacade;
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.Transformer;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.ObjectUtils;
-import org.andromda.metafacades.uml.EntityMetafacadeUtils;
-
+import org.apache.commons.lang.StringUtils;
 
 /**
  * <p> Provides support for the hibernate inheritance strategies of class
@@ -40,8 +39,12 @@ import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 public class HibernateEntityLogicImpl
     extends HibernateEntityLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public HibernateEntityLogicImpl(
-        java.lang.Object metaObject,
+        Object metaObject,
         String context)
     {
         super(metaObject, context);
@@ -75,7 +78,7 @@ public class HibernateEntityLogicImpl
     /**
      * Stores the valid inheritance strategies.
      */
-    private static final Collection inheritanceStrategies = new ArrayList();
+    private static final Collection<String> inheritanceStrategies = new ArrayList();
 
     static
     {
@@ -150,10 +153,10 @@ public class HibernateEntityLogicImpl
      * @return all business operations
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getAllBusinessOperations()
      */
-    protected Collection handleGetAllBusinessOperations()
+    protected Collection<OperationFacade> handleGetAllBusinessOperations()
     {
         Entity superElement = (Entity)this.getGeneralization();
-        Collection result = this.getBusinessOperations();
+        Collection<OperationFacade> result = this.getBusinessOperations();
 
         while (superElement != null)
         {
@@ -164,6 +167,7 @@ public class HibernateEntityLogicImpl
         return result;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateInheritanceStrategy()
      */
@@ -188,7 +192,7 @@ public class HibernateEntityLogicImpl
     }
 
     /**
-     * Gets the default hibernate inhertance strategy.
+     * Gets the default hibernate inheritance strategy.
      *
      * @return the default hibernate inheritance strategy.
      */
@@ -224,10 +228,10 @@ public class HibernateEntityLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ClassifierFacade#getProperties()
      */
-    public java.util.Collection getProperties()
+    public List getProperties()
     {
-        Collection properties = this.getAttributes();
-        Collection connectingEnds = this.getAssociationEnds();
+        List properties = this.getAttributes();
+        List connectingEnds = this.getAssociationEnds();
         CollectionUtils.transform(
             connectingEnds,
             new Transformer()
@@ -255,6 +259,7 @@ public class HibernateEntityLogicImpl
         return properties;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceClass()
      */
@@ -263,6 +268,7 @@ public class HibernateEntityLogicImpl
         return this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_CLASS);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceInterface()
      */
@@ -271,6 +277,7 @@ public class HibernateEntityLogicImpl
         return this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_INTERFACE);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceSubclass()
      */
@@ -279,6 +286,7 @@ public class HibernateEntityLogicImpl
         return this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_SUBCLASS);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceConcrete()
      */
@@ -287,6 +295,7 @@ public class HibernateEntityLogicImpl
         return this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_CONCRETE);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateInheritanceUnionSubClass()
      */
@@ -297,6 +306,7 @@ public class HibernateEntityLogicImpl
         this.getHibernateInheritanceStrategy().equalsIgnoreCase(INHERITANCE_STRATEGY_UNION_SUBCLASS);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isLazy()
      */
@@ -311,6 +321,7 @@ public class HibernateEntityLogicImpl
         return Boolean.valueOf(value).booleanValue();
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateCacheType()
      */
@@ -318,7 +329,7 @@ public class HibernateEntityLogicImpl
     {
         String cacheType = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_CACHE);
 
-        if (cacheType == null)
+        if (StringUtils.isBlank(cacheType))
         {
             cacheType = String.valueOf(this.getConfiguredProperty(HIBERNATE_ENTITY_CACHE));
         }
@@ -326,6 +337,7 @@ public class HibernateEntityLogicImpl
         return cacheType;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getFullyQualifiedEntityName()
      */
@@ -337,6 +349,7 @@ public class HibernateEntityLogicImpl
             null);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getFullyQualifiedEntityImplementationName()
      */
@@ -348,6 +361,7 @@ public class HibernateEntityLogicImpl
             null);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateDefaultCascade()
      */
@@ -356,6 +370,7 @@ public class HibernateEntityLogicImpl
         return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(HIBERNATE_DEFAULT_CASCADE)));
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateGeneratorClass()
      */
@@ -389,6 +404,7 @@ public class HibernateEntityLogicImpl
         return StringUtils.trimToEmpty(hibernateGeneratorClass);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isForeignHibernateGeneratorClass()
      */
@@ -400,6 +416,7 @@ public class HibernateEntityLogicImpl
         this.getHibernateGeneratorClass().equalsIgnoreCase(HIBERNATE_GENERATOR_CLASS_FOREIGN);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isSequenceHibernateGeneratorClass()
      */
@@ -408,6 +425,7 @@ public class HibernateEntityLogicImpl
         return this.getHibernateGeneratorClass().equalsIgnoreCase(HIBERNATE_GENERATOR_CLASS_SEQUENCE);
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityName()
      */
@@ -420,6 +438,7 @@ public class HibernateEntityLogicImpl
             new Object[] {StringUtils.trimToEmpty(this.getName())});
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEntityImplementationName()
      */
@@ -433,6 +452,7 @@ public class HibernateEntityLogicImpl
             new Object[] {StringUtils.trimToEmpty(this.getName())});
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateDiscriminatorColumn()
      */
@@ -440,7 +460,7 @@ public class HibernateEntityLogicImpl
     {
         String column = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_ENTITY_DISCRIMINATOR_COLUMN);
 
-        if (column == null)
+        if (StringUtils.isBlank(column))
         {
             column = String.valueOf(this.getConfiguredProperty(HibernateGlobals.ENTITY_DISCRIMINATOR_COLUMN));
         }
@@ -448,6 +468,7 @@ public class HibernateEntityLogicImpl
         return column;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateDiscriminatorType()
      */
@@ -455,7 +476,7 @@ public class HibernateEntityLogicImpl
     {
         String type = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_ENTITY_DISCRIMINATOR_TYPE);
 
-        if (type == null)
+        if (StringUtils.isBlank(type))
         {
             type = String.valueOf(this.getConfiguredProperty(HibernateGlobals.ENTITY_DISCRIMINATOR_TYPE));
         }
@@ -463,6 +484,7 @@ public class HibernateEntityLogicImpl
         return type;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateDiscriminatorLength()
      */
@@ -475,23 +497,26 @@ public class HibernateEntityLogicImpl
      * Override so that we retrieve only the operations that are classifier
      * scope (i.e. static).
      *
-     * @see org.andromda.metafacades.uml.Entity#getBusinessOperations()
+     * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntityLogic#getBusinessOperations()
      */
-    public Collection getBusinessOperations()
+    @Override
+    public Collection<OperationFacade> getBusinessOperations()
     {
         return HibernateMetafacadeUtils.filterBusinessOperations(super.getBusinessOperations());
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isBusinessOperationsPresent()
      */
     protected boolean handleIsBusinessOperationsPresent()
     {
-        final Collection allBusinessOperations = this.getAllBusinessOperations();
+        final Collection<OperationFacade> allBusinessOperations = this.getAllBusinessOperations();
 
         return (allBusinessOperations != null) && !allBusinessOperations.isEmpty();
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateProxy()
      */
@@ -499,7 +524,7 @@ public class HibernateEntityLogicImpl
     {
         String hibernateProxy = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROXY);
 
-        if (hibernateProxy == null)
+        if (StringUtils.isBlank(hibernateProxy))
         {
             hibernateProxy = (String)this.getConfiguredProperty(HIBERNATE_PROXY);
         }
@@ -507,6 +532,7 @@ public class HibernateEntityLogicImpl
         return Boolean.valueOf(hibernateProxy).booleanValue();
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEhCacheMaxElementsInMemory()
      */
@@ -523,19 +549,21 @@ public class HibernateEntityLogicImpl
         return Integer.parseInt(StringUtils.trimToEmpty(maxElements));
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isEhCacheEternal()
      */
     protected boolean handleIsEhCacheEternal()
     {
         String eternal = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_ETERNAL);
-        if (eternal == null)
+        if (StringUtils.isBlank(eternal))
         {
             eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_ETERNAL);
         }
         return Boolean.valueOf(StringUtils.trimToEmpty(eternal)).booleanValue();
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEhCacheTimeToIdleSeconds()
      */
@@ -552,6 +580,7 @@ public class HibernateEntityLogicImpl
         return Integer.parseInt(StringUtils.trimToEmpty(timeToIdle));
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getEhCacheTimeToLiveSeconds()
      */
@@ -568,6 +597,7 @@ public class HibernateEntityLogicImpl
         return Integer.parseInt(StringUtils.trimToEmpty(timeToLive));
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isEhCacheOverflowToDisk()
      */
@@ -575,7 +605,7 @@ public class HibernateEntityLogicImpl
     {
         String eternal = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
 
-        if (eternal == null)
+        if (StringUtils.isBlank(eternal))
         {
             eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
         }
@@ -583,6 +613,7 @@ public class HibernateEntityLogicImpl
         return Boolean.valueOf(StringUtils.trimToEmpty(eternal)).booleanValue();
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isHibernateCacheDistributed()
      */
@@ -600,6 +631,7 @@ public class HibernateEntityLogicImpl
         return false;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isTableRequired()
      */
@@ -609,6 +641,7 @@ public class HibernateEntityLogicImpl
         (this.isHibernateInheritanceClass() && (this.getGeneralization() == null));
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getMappingClassName()
      */
@@ -654,6 +687,7 @@ public class HibernateEntityLogicImpl
         return superEntity;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getSubclassKeyColumn()
      */
@@ -670,6 +704,7 @@ public class HibernateEntityLogicImpl
         return column;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isRequiresMapping()
      */
@@ -701,6 +736,7 @@ public class HibernateEntityLogicImpl
         ) && !abstractConcreteEntity;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isRequiresSpecializationMapping()
      */
@@ -714,6 +750,7 @@ public class HibernateEntityLogicImpl
         );
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isDynamicInsert()
      */
@@ -722,7 +759,7 @@ public class HibernateEntityLogicImpl
         String dynamicInsert =
             (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_INSERT);
 
-        if (dynamicInsert == null)
+        if (StringUtils.isBlank(dynamicInsert))
         {
             dynamicInsert = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_INSERT);
         }
@@ -730,6 +767,7 @@ public class HibernateEntityLogicImpl
         return Boolean.valueOf(dynamicInsert).booleanValue();
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isDynamicUpdate()
      */
@@ -738,7 +776,7 @@ public class HibernateEntityLogicImpl
         String dynamicUpdate =
             (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITY_DYNAMIC_UPDATE);
 
-        if (dynamicUpdate == null)
+        if (StringUtils.isBlank(dynamicUpdate))
         {
             dynamicUpdate = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_UPDATE);
         }
@@ -746,6 +784,7 @@ public class HibernateEntityLogicImpl
         return Boolean.valueOf(dynamicUpdate).booleanValue();
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#isMappingRequiresSuperProperties()
      */
@@ -754,19 +793,21 @@ public class HibernateEntityLogicImpl
         return this.isHibernateInheritanceInterface() || (this.isHibernateInheritanceConcrete() && this.isAbstract());
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateVersionProperty()
      */
     protected String handleGetHibernateVersionProperty()
     {
         String version = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_VERSION_PROPERTY);
-        if (version == null)
+        if (StringUtils.isBlank(version))
         {
             version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION_PROPERTY);
         }
         return version;
     }
     
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getHibernateVersionPropertySqlName()
      */
@@ -775,6 +816,7 @@ public class HibernateEntityLogicImpl
         return EntityMetafacadeUtils.toSqlName(this.getHibernateVersionProperty(), this.getConfiguredProperty(UMLMetafacadeProperties.SQL_NAME_SEPARATOR));
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getVersion()
      */
@@ -798,7 +840,7 @@ public class HibernateEntityLogicImpl
         {
             tagName = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_XML_TAG_NAME);
 
-            if (tagName == null)
+            if (StringUtils.isBlank(tagName))
             {
                 tagName = this.getName();
             }
@@ -806,6 +848,7 @@ public class HibernateEntityLogicImpl
         return (StringUtils.isBlank(tagName)) ? null : tagName;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#hibernateDiscriminatorValue()
      */
@@ -813,7 +856,7 @@ public class HibernateEntityLogicImpl
     {
         String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_ENTITY_DISCRIMINATOR_VALUE);
 
-        if (value == null)
+        if (StringUtils.isBlank(value))
         {
             value = getEntityImplementationName();
         }
@@ -821,6 +864,7 @@ public class HibernateEntityLogicImpl
         return value;
     }
 
+    @Override
     /**
      * @see org.andromda.cartridges.hibernate.metafacades.HibernateEntity#getSequenceName()
      */
@@ -828,11 +872,11 @@ public class HibernateEntityLogicImpl
     {
         String sequenceName = this.getTableName();
         final String sequenceSuffix = this.getSequenceSuffix();
-        final short maxLength = this.getMaxSqlNameLength() != null ?
-            (short)(this.getMaxSqlNameLength().shortValue() - this.getSequenceSuffix().length()) : 0;
+        // Implicit conversion from short to int
+        final int maxLength = this.getMaxSqlNameLength() - this.getSequenceSuffix().length();
         if (maxLength > -0)
         {
-            sequenceName = EntityMetafacadeUtils.ensureMaximumNameLength(sequenceName, new Short(maxLength)) + sequenceSuffix;
+            sequenceName = EntityMetafacadeUtils.ensureMaximumNameLength(sequenceName, Integer.valueOf(maxLength).shortValue()) + sequenceSuffix;
         }
         return sequenceName;
     }

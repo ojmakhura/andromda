@@ -22,7 +22,7 @@ public class HibernateGlobals
     /**
      * A mapping file per hierarchy.
      */
-    static public final String HIBERNATE_MAPPING_STRATEGY_HIERARCHY = "hierachy";
+    static public final String HIBERNATE_MAPPING_STRATEGY_HIERARCHY = "hierarchy";
 
     /**
      * Indicates if "XML Persistence" code generation is enabled. Requires Hibernate 3.
@@ -183,7 +183,7 @@ public class HibernateGlobals
 
     /**
      * A flag indicating whether or not specific (java.util.Set, java.util.List,
-     * etc) collection interfaces should be used in assocation mutators and
+     * etc) collection interfaces should be used in association mutators and
      * accessors or whether the generic java.util.Collection interface should be
      * used.
      */
@@ -197,12 +197,12 @@ public class HibernateGlobals
     static final String DEFAULT_COLLECTION_INTERFACE = "defaultCollectionInterface";
 
     /**
-    * The default Hibernate dicriminator columnname
+    * The default Hibernate discriminator column name
     */
     static final String ENTITY_DISCRIMINATOR_COLUMN = "defaultEntityDiscriminatorColumn";
 
     /**
-    * The default Hibernate dicriminator columntype
+    * The default Hibernate discriminator column type
     */
     static final String ENTITY_DISCRIMINATOR_TYPE = "defaultEntityDiscriminatorType";
     
