@@ -15,7 +15,7 @@ import org.apache.commons.beanutils.PropertyUtils;
  * within {@link $service.fullyQualifiedName}.
  */
 public class $service.defaultExceptionName
-    extends java.lang.RuntimeException
+    extends RuntimeException
 {
     /**
      * The serial version UID of this class. Needed for serialization.

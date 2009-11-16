@@ -8,11 +8,16 @@
 package $entity.packageName;
 #end
 
+#if ($entity.generalization)
 #set ($superclass = $entity.generalization)
 #set ($daoInheritance = $superclass && $daoInheritanceEnabled)
 #if ($daoInheritance)
 #set ($rootEntityType = $entity.root.fullyQualifiedEntityName)
 #else
+#set ($rootEntityType = $entity.fullyQualifiedEntityName)
+#end
+#else
+#set ($daoInheritance = false)
 #set ($rootEntityType = $entity.fullyQualifiedEntityName)
 #end
 ##get entity collection type
@@ -53,10 +58,10 @@ public interface $entity.daoName
 #end
 
     /**
-     * Transforms the given results to a collection of {@link com.lighthousepmg.plz.domain.messaging.persistence.CommunicationCategory}
+     * Transforms the given results to a collection of {@link $rootEntityType}
      * instances (this is useful when the returned results contains a row of data and you want just entities only).
      *
-     * @param the query results.
+     * @param results the query results.
      */
     public void toEntities(final java.util.Collection#if($enableTemplating)<?>#end results);
 
@@ -130,8 +135,10 @@ public interface $entity.daoName
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
      * Loads an instance of ${entity.fullyQualifiedEntityName} from the persistent store.
+     * @param $identifierName
+     * @return $rootEntityType
      */
-    public $rootEntityType load(${identifierTypeName} ${identifierName});
+    public $rootEntityType load($identifierTypeName $identifierName);
 
     /**
      * <p>
@@ -143,10 +150,10 @@ public interface $entity.daoName
      * not occur.
      * </p>
      *
-     * @param ${identifierName} the identifier of the entity to load.
+     * @param $identifierName the identifier of the entity to load.
      * @return either the entity or the object transformed from the entity.
      */
-    public Object load(int transform, ${identifierTypeName} ${identifierName});
+    public Object load(int transform, $identifierTypeName $identifierName);
 
     /**
      * Loads all entities of type {@link ${entity.fullyQualifiedEntityName}}.
@@ -203,6 +210,8 @@ public interface $entity.daoName
 #if (!$entity.abstract)
     /**
      * Creates an instance of $entity.fullyQualifiedEntityName and adds it to the persistent store.
+     * @param $argumentName
+     * @return $rootEntityType
      */
     public $rootEntityType create($entity.fullyQualifiedEntityName $argumentName);
 
@@ -210,12 +219,17 @@ public interface $entity.daoName
     /**
      * Creates an instance of ${entity.fullyQualifiedEntityName} using XML defined in <code>$argumentName</code>
      * and adds it to the persistent store.
+     * @param $argumentName
+     * @return $rootEntityType
      */
     public $rootEntityType create(org.dom4j.Element $argumentName);
 
     /**
      * Creates an instance of ${entity.fullyQualifiedEntityName} using XML defined in <code>$argumentName</code>
      * and adds it to the persistent store.
+     * @param transform
+     * @param $argumentName
+     * @return Object
      */
     public Object create(int transform, org.dom4j.Element $argumentName);
 
@@ -229,6 +243,9 @@ public interface $entity.daoName
      * transform the entity (into a value object for example). By default, transformation does
      * not occur.
      * </p>
+     * @param transform
+     * @param $argumentName
+     * @return Object
      */
     public Object create(int transform, $entity.fullyQualifiedEntityName $argumentName);
 
@@ -252,6 +269,9 @@ public interface $entity.daoName
      * transform the entities (into value objects for example). By default, transformation does
      * not occur.
      * </p>
+     * @param transform
+     * @param entities
+     * @return Collection
      */
     public java.util.Collection#if($enableTemplating)<?>#end create(int transform, $entityCollectionType entities);
 
@@ -264,6 +284,10 @@ public interface $entity.daoName
      * instance from <strong>all</strong> attributes and adds it to
      * the persistent store.
      * </p>
+#foreach($attribute in $attributes)
+     * @param $attribute.name
+#end
+     * @return $rootEntityType
      */
     public $rootEntityType create(
 #foreach($attribute in $attributes)
@@ -280,6 +304,11 @@ public interface $entity.daoName
      * transform the entity (into a value object for example). By default, transformation does
      * not occur.
      * </p>
+     * @param transform
+#foreach($attribute in $attributes)
+     * @param $attribute.name
+#end
+     * @return $rootEntityType
      */
     public Object create(
         int transform,
@@ -297,6 +326,10 @@ public interface $entity.daoName
      * instance from only <strong>required</strong> properties (attributes
      * and association ends) and adds it to the persistent store.
      * </p>
+#foreach($property in $requiredProperties)
+     * @param $property.name
+#end
+     * @return $rootEntityType
      */
     public $rootEntityType create(
 #foreach($property in $requiredProperties)
@@ -313,6 +346,10 @@ public interface $entity.daoName
      * transform the entity (into a value object for example). By default, transformation does
      * not occur.
      * </p>
+#foreach($property in $requiredProperties)
+     * @param $property.name
+#end
+     * @return Object
      */
     public Object create(
         int transform,
@@ -326,18 +363,21 @@ public interface $entity.daoName
 #end
     /**
      * Updates the <code>$argumentName</code> instance in the persistent store.
+     * @param $argumentName
      */
     public void update($entity.fullyQualifiedEntityName $argumentName);
 
 #if ($hibernateUtils.xmlPersistenceActive)
     /**
      * Updates the <code>$argumentName</code> instance in the persistent store.
+     * @param $argumentName
      */
     public void update(org.dom4j.Element $argumentName);
 
 #end
     /**
      * Updates all instances in the <code>entities</code> collection in the persistent store.
+     * @param entities
      */
     public void update($entityCollectionType entities);
 
@@ -349,6 +389,7 @@ public interface $entity.daoName
 #if ($hibernateUtils.xmlPersistenceActive)
     /**
      * Removes the <code>$argumentName</code> instance in the persistent store.
+     * @param $argumentName
      */
     public void remove(org.dom4j.Element $argumentName);
 
@@ -356,11 +397,13 @@ public interface $entity.daoName
     /**
      * Removes the instance of $entity.fullyQualifiedEntityName having the given
      * <code>identifier</code> from the persistent store.
+     * @param $identifierName
      */
-    public void remove(${identifierTypeName} ${identifierName});
+    public void remove($identifierTypeName $identifierName);
 
     /**
      * Removes all entities in the given <code>entities</code> collection.
+     * @param entities
      */
     public void remove($entityCollectionType entities);
 
@@ -368,6 +411,10 @@ public interface $entity.daoName
 #set ($returnType = "${operation.returnType.fullyQualifiedName}#if($enableTemplating && $operation.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
     /**
 $operation.getDocumentation("     * ")
+     * @return $returnType
+#foreach ($exception in $operation.exceptions)
+     * @throws $exception.fullyQualifiedName
+#end
      */
 #if ($operation.exceptionsPresent)
     $operation.visibility $returnType $operation.signature
@@ -429,7 +476,7 @@ $operation.getDocumentation("     * ")
 #end
 
 #else
-#set ($returnType = "java.lang.Object")
+#set ($returnType = "Object")
 #end
     /**
      * <p>
@@ -501,7 +548,7 @@ $operation.getDocumentation("     * ")
 #if($operation.returnType.collectionType)
 #set ($returnType = "${operation.returnType.fullyQualifiedName}#if($enableTemplating)<?>#end")
 #else
-#set ($returnType = "java.lang.Object")
+#set ($returnType = "Object")
 #end
     /**
      * <p>
@@ -541,7 +588,7 @@ $operation.getDocumentation("     * ")
 #end
 #end
 #foreach ($operation in $entity.daoBusinessOperations)
-#set ($returnType = "${operation.returnType.fullyQualifiedName}#if($enableTemplating && $operation.returnType.collectionType)<?>#end")
+#set ($returnType = "$operation.getterSetterReturnTypeName")
     /**
 $operation.getDocumentation("     * ")
      */
@@ -629,7 +676,7 @@ $operation.getDocumentation("     * ")
      * @return the transformed entity (i.e. new value object, etc)
      * @see ${esc.hash}transformEntities(int,java.util.Collection)
      */
-    public java.lang.Object transformEntity(final int transform, final $entity.fullyQualifiedName entity);
+    public Object transformEntity(final int transform, final $entity.fullyQualifiedName entity);
 
     /**
      * Transforms a collection of entities using the
