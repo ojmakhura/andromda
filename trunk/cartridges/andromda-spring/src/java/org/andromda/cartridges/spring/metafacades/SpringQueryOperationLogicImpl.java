@@ -3,7 +3,6 @@ package org.andromda.cartridges.spring.metafacades;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.cartridges.spring.SpringUtils;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -14,19 +13,28 @@ import org.andromda.metafacades.uml.UMLProfile;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * @see org.andromda.cartridges.hibernate.metafacades.SpringQueryOperation Metaclass facade implementation.
+ * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringQueryOperation.
+ *
+ * @see org.andromda.cartridges.spring.metafacades.SpringQueryOperation
  */
 public class SpringQueryOperationLogicImpl
         extends SpringQueryOperationLogic
 {
 
+    /**
+     * Public constructor for SpringQueryOperationLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.spring.metafacades.SpringQueryOperation
+     */
     public SpringQueryOperationLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.HibernateFinderMethod#getQuery()
+     * @return getQuery((SpringEntity)null)
+     * @see org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogic#getQuery()
      */
     protected String handleGetQuery()
     {
@@ -56,7 +64,8 @@ public class SpringQueryOperationLogicImpl
     private static final String USE_NAMED_PARAMETERS = "hibernateQueryUseNamedParameters";
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.HibernateFinderMethod#isUseNamedParameters()
+     * @return SpringMetafacadeUtils.getUseNamedParameters(this, useNamedParameters)
+     * @see org.andromda.cartridges.spring.metafacades.SpringQueryOperationLogic#isUseNamedParameters()
      */
     protected boolean handleIsUseNamedParameters()
     {
@@ -68,6 +77,7 @@ public class SpringQueryOperationLogicImpl
     }
 
     /**
+     * @return getCriteriaArgument() != null
      * @see org.andromda.cartridges.spring.metafacades.SpringQueryOperation#isCriteriaFinder()
      */
     protected boolean handleIsCriteriaFinder()
@@ -76,12 +86,13 @@ public class SpringQueryOperationLogicImpl
     }
 
     /**
+     * @return Parameter with UMLProfile.STEREOTYPE_CRITERIA
      * @see org.andromda.cartridges.spring.metafacades.SpringQueryOperation#getCriteriaArgument()
      */
     protected ParameterFacade handleGetCriteriaArgument()
     {
         ParameterFacade foundParameter = null;
-        for (final Iterator iterator = this.getParameters().iterator(); iterator.hasNext();)
+        for (final Iterator<ParameterFacade> iterator = this.getParameters().iterator(); iterator.hasNext();)
         {
             final ParameterFacade parameter = (ParameterFacade)iterator.next();
             final ClassifierFacade type = parameter.getType();
@@ -95,6 +106,8 @@ public class SpringQueryOperationLogicImpl
     }
 
     /**
+     * @param entity 
+     * @return query
      * @see org.andromda.cartridges.spring.metafacades.SpringQueryOperation#getQuery(org.andromda.cartridges.spring.metafacades.SpringEntity)
      */
     protected String handleGetQuery(SpringEntity entity)
@@ -104,7 +117,7 @@ public class SpringQueryOperationLogicImpl
         String queryString = this.getTranslatedQuery();
 
         // otherwise see if there is a query stored as a tagged value
-        if (StringUtils.isEmpty(queryString))
+        if (StringUtils.isBlank(queryString))
         {
             Object value = this.findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_QUERY);
             queryString = (String)value;
@@ -116,9 +129,9 @@ public class SpringQueryOperationLogicImpl
         }
 
         // if there wasn't any stored query, create one by default.
-        if (StringUtils.isEmpty(queryString))
+        if (StringUtils.isBlank(queryString))
         {
-            ModelElementFacade owner;
+            ModelElementFacade owner = null;
             String entityName = null;
             if (entity == null)
             {
@@ -135,11 +148,11 @@ public class SpringQueryOperationLogicImpl
             queryString = "from " + entityName + " as " + variableName;
             if (this.getArguments().size() > 0)
             {
-                queryString = queryString + " where";
-                Collection arguments = this.getArguments();
+                queryString += " where";
+                Collection<ParameterFacade> arguments = this.getArguments();
                 if (arguments != null && !arguments.isEmpty())
                 {
-                    final Iterator iterator = arguments.iterator();
+                    final Iterator<ParameterFacade> iterator = arguments.iterator();
                     for (int ctr = 0; iterator.hasNext(); ctr++)
                     {
                         ParameterFacade argument = (ParameterFacade)iterator.next();
@@ -147,20 +160,20 @@ public class SpringQueryOperationLogicImpl
                         if (type != null)
                         {
                             final String parameterName = argument.getName();
-                            if (type != null && type.isEmbeddedValue())
+                            if (type.isEmbeddedValue())
                             {
-                                for (final Iterator attributeIterator = type.getAttributes(true).iterator(); attributeIterator.hasNext();)
+                                for (final Iterator<AttributeFacade> attributeIterator = type.getAttributes(true).iterator(); attributeIterator.hasNext();)
                                 {
                                     final AttributeFacade attribute = (AttributeFacade)attributeIterator.next();
                                     String parameter = "?";
                                     if (this.isUseNamedParameters())
                                     {
-                                        parameter = ":" + SpringUtils.concatNamesCamelCase(Arrays.asList(new String[]{parameterName, attribute.getName()}));
+                                        parameter = ':' + SpringUtils.concatNamesCamelCase(Arrays.asList(new String[]{parameterName, attribute.getName()}));
                                     }
-                                    queryString = queryString + " " + variableName + "." + parameterName + "." + attribute.getName() + " = " + parameter;
+                                    queryString += ' ' + variableName + '.' + parameterName + '.' + attribute.getName() + " = " + parameter;
                                     if (attributeIterator.hasNext())
                                     {
-                                        queryString = queryString + " and";
+                                        queryString += " and";
                                     }
                                 }
                             }
@@ -169,12 +182,12 @@ public class SpringQueryOperationLogicImpl
                                 String parameter = "?";
                                 if (this.isUseNamedParameters())
                                 {
-                                    parameter = ":" + parameterName;
+                                    parameter = ':' + parameterName;
                                 }
-                                queryString = queryString + " " + variableName + "." + parameterName + " = " + parameter;
+                                queryString += ' ' + variableName + '.' + parameterName + " = " + parameter;
                                 if (iterator.hasNext())
                                 {
-                                    queryString = queryString + " and";
+                                    queryString += " and";
                                 }
                             }
                         }

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
 import org.andromda.cartridges.spring.SpringHibernateUtils;
+import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.collections.CollectionUtils;
@@ -21,6 +21,12 @@ import org.apache.commons.lang.StringUtils;
 public class SpringDependencyLogicImpl
     extends SpringDependencyLogic
 {
+    /**
+     * Public constructor for SpringDependencyLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.spring.metafacades.SpringDependency
+     */
     public SpringDependencyLogicImpl(
         Object metaObject,
         String context)
@@ -29,6 +35,7 @@ public class SpringDependencyLogicImpl
     }
 
     /**
+     * @return SpringGlobals.TRANSFORMATION_CONSTANT_PREFIX + this.getName().toUpperCase()
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getTransformationConstantName()
      */
     protected String handleGetTransformationConstantName()
@@ -37,6 +44,7 @@ public class SpringDependencyLogicImpl
     }
 
     /**
+     * @return SpringGlobals.TRANSFORMATION_METHOD_PREFIX + StringUtils.capitalize(this.getName())
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getTransformationMethodName()
      */
     protected String handleGetTransformationMethodName()
@@ -50,6 +58,7 @@ public class SpringDependencyLogicImpl
     private static final String TRANSFORMATION_ANONYMOUS_NAME_SUFFIX = "_TRANSFORMER";
 
     /**
+     * @return getName().toUpperCase() + TRANSFORMATION_ANONYMOUS_NAME_SUFFIX
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getTransformationAnonymousName()
      */
     protected String handleGetTransformationAnonymousName()
@@ -58,6 +67,7 @@ public class SpringDependencyLogicImpl
     }
 
     /**
+     * @return dependency.getTargetElement().equals(sourceElement)
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#isCircularReference()
      */
     protected boolean handleIsCircularReference()
@@ -65,7 +75,7 @@ public class SpringDependencyLogicImpl
         boolean circularReference = false;
         final ModelElementFacade sourceElement = this.getSourceElement();
         final ModelElementFacade targetElement = this.getTargetElement();
-        final Collection sourceDependencies = targetElement.getSourceDependencies();
+        final Collection<DependencyFacade> sourceDependencies = targetElement.getSourceDependencies();
         if (sourceDependencies != null && !sourceDependencies.isEmpty())
         {
             circularReference =
@@ -91,6 +101,7 @@ public class SpringDependencyLogicImpl
     }
 
     /**
+     * @return incoming ValueObject references
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getTransformationConstantValue()
      */
     protected int handleGetTransformationConstantValue()
@@ -99,7 +110,7 @@ public class SpringDependencyLogicImpl
         ModelElementFacade element = this.getSourceElement();
         if (element instanceof SpringEntity)
         {
-            final List hierarchy = new ArrayList();
+            final List<SpringEntity> hierarchy = new ArrayList<SpringEntity>();
             for (SpringEntity entity = (SpringEntity)element; entity != null;
                 entity = (SpringEntity)entity.getGeneralization())
             {
@@ -109,7 +120,7 @@ public class SpringDependencyLogicImpl
             for (int ctr = hierarchy.size() - 1; ctr >= 0; ctr--)
             {
                 final SpringEntity generalization = (SpringEntity)hierarchy.get(ctr);
-                for (final Iterator referenceIterator = generalization.getValueObjectReferences().iterator();
+                for (final Iterator<ClassifierFacade> referenceIterator = generalization.getValueObjectReferences().iterator();
                     referenceIterator.hasNext();)
                 {
                     final Object reference = referenceIterator.next();
@@ -136,6 +147,7 @@ public class SpringDependencyLogicImpl
     }
 
     /**
+     * @return SpringGlobals.TRANSFORMATION_METHOD_PREFIX + getName() + SpringGlobals.TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getTransformationToCollectionMethodName()
      */
     protected String handleGetTransformationToCollectionMethodName()
@@ -145,6 +157,7 @@ public class SpringDependencyLogicImpl
     }
 
     /**
+     * @return TRANSFORMATION_METHOD_PREFIX + capitalize(getName()) + TRANSFORMATION_TO_ARRAY_METHOD_SUFFIX
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getTransformationToArrayMethodName()
      */
     protected String handleGetTransformationToArrayMethodName()
@@ -154,6 +167,7 @@ public class SpringDependencyLogicImpl
     }
 
     /**
+     * @return getDaoNamePattern().replaceAll("\\{0\\}", getName())
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getDaoName()
      */
     protected String handleGetDaoName()
@@ -174,6 +188,7 @@ public class SpringDependencyLogicImpl
     }
 
     /**
+     * @return "get" + StringUtils.capitalize(this.getDaoName())
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getDaoGetterName()
      */
     protected String handleGetDaoGetterName()
@@ -182,6 +197,7 @@ public class SpringDependencyLogicImpl
     }
 
     /**
+     * @return "set" + StringUtils.capitalize(this.getDaoName())
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getDaoSetterName()
      */
     protected String handleGetDaoSetterName()
@@ -190,6 +206,7 @@ public class SpringDependencyLogicImpl
     }
 
     /**
+     * @return getTransformationToEntityMethodName() + TRANSFORMATION_TO_COLLECTION_METHOD_SUFFIX
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getTransformationToEntityCollectionMethodName()
      */
     protected String handleGetTransformationToEntityCollectionMethodName()
@@ -203,6 +220,7 @@ public class SpringDependencyLogicImpl
     private static final String TRANSFORMATION_TO_ENTITY_METHOD_NAME_SUFFIX = "ToEntity";
 
     /**
+     * @return getName() + TRANSFORMATION_TO_ENTITY_METHOD_NAME_SUFFIX
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getTransformationToEntityMethodName()
      */
     protected String handleGetTransformationToEntityMethodName()
@@ -211,11 +229,12 @@ public class SpringDependencyLogicImpl
     }
 
     /**
-     * The suffix for the value object to entity transformer.
+     * The suffix for the value object to entity transformer. "Transformer"
      */
     private static final String VALUE_OBJECT_TO_ENTITY_TRANSFORMER_SUFFIX = "Transformer";
 
     /**
+     * @return capitalize(this.getTransformationToEntityMethodName()) + VALUE_OBJECT_TO_ENTITY_TRANSFORMER_SUFFIX
      * @see org.andromda.cartridges.spring.metafacades.SpringDependency#getValueObjectToEntityTransformerName()
      */
     protected String handleGetValueObjectToEntityTransformerName()

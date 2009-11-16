@@ -5,7 +5,6 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute.
  *
@@ -14,6 +13,12 @@ import org.apache.commons.lang.StringUtils;
 public class SpringCriteriaAttributeLogicImpl
     extends SpringCriteriaAttributeLogic
 {
+    /**
+     * Public constructor for SpringCriteriaAttributeLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute
+     */
     public SpringCriteriaAttributeLogicImpl(
         Object metaObject,
         String context)
@@ -22,9 +27,10 @@ public class SpringCriteriaAttributeLogicImpl
     }
 
     /**
+     * @return attributeName
      * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute#getAttributeName()
      */
-    protected java.lang.String handleGetAttributeName()
+    protected String handleGetAttributeName()
     {
         // use the attribute name by default
         String attributeName = getName();
@@ -40,9 +46,10 @@ public class SpringCriteriaAttributeLogicImpl
     }
 
     /**
+     * @return comparator
      * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute#getComparator()
      */
-    protected java.lang.String handleGetComparator()
+    protected String handleGetComparator()
     {
         String comparator = null;
         Object value = findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_COMPARATOR);
@@ -54,14 +61,16 @@ public class SpringCriteriaAttributeLogicImpl
     }
 
     /**
+     * @return !StringUtils.isBlank(getComparator())
      * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute#isComparatorPresent()
      */
     protected boolean handleIsComparatorPresent()
     {
-        return !StringUtils.isEmpty(getComparator());
+        return !StringUtils.isBlank(getComparator());
     }
 
     /**
+     * @return comparatorConstant
      * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttribute#getComparatorConstant()
      */
     protected String handleGetComparatorConstant()
@@ -119,7 +128,7 @@ public class SpringCriteriaAttributeLogicImpl
         boolean result = false;
         String value =
             StringUtils.trimToEmpty((String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_NULLABLE));
-        if (!StringUtils.isEmpty(value))
+        if (!StringUtils.isBlank(value))
         {
             result = BooleanUtils.toBoolean(value);
         }
@@ -176,7 +185,7 @@ public class SpringCriteriaAttributeLogicImpl
      */
     protected boolean handleIsMatchModePresent()
     {
-        return !StringUtils.isEmpty(getMatchMode());
+        return !StringUtils.isBlank(getMatchMode());
     }
 
     private static final String ORDER_UNSET = "ORDER_UNSET";
@@ -198,7 +207,7 @@ public class SpringCriteriaAttributeLogicImpl
         String value =
             StringUtils.trimToEmpty(
                 (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_DIRECTION));
-        if (!StringUtils.isEmpty(value))
+        if (!StringUtils.isBlank(value))
         {
             if (value.equals(SpringProfile.TAGGEDVALUEVALUE_ORDER_ASCENDING))
             {
@@ -226,9 +235,15 @@ public class SpringCriteriaAttributeLogicImpl
         String value =
             StringUtils.trimToEmpty(
                 (String)findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_ORDER_RELEVANCE));
-        if (!StringUtils.isEmpty(value))
+        if (!StringUtils.isBlank(value))
         {
-            result = Integer.parseInt(value);
+            try
+            {
+                result = Integer.parseInt(value);
+            }
+            catch (NumberFormatException ignore)
+            {
+            }
         }
         return result;
     }
@@ -238,8 +253,9 @@ public class SpringCriteriaAttributeLogicImpl
      */
     private static final String HIBERNATE_CRITERIA_QUERY_IGNORE_CASE = "hibernateCriteriaQueryIgnoreCase";
 
+    // TODO removed isIgnoreCase from MetafacadeModel, delete handleIsIgnoreCase? @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#isIgnoreCase()
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringCriteriaAttributeLogic#isIgnoreCase()
+     * @return findTaggedValue(SpringProfile.TAGGEDVALUE_HIBERNATE_CRITERIA_COMPARATOR_IGNORE_CASE)
      */
     protected boolean handleIsIgnoreCase()
     {

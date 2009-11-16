@@ -1,9 +1,8 @@
 package org.andromda.cartridges.spring.metafacades;
 
 import org.andromda.metafacades.uml.UMLMetafacadeProperties;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.ObjectUtils;
-
+import org.apache.commons.lang.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringManageableEntity.
@@ -14,6 +13,12 @@ public class SpringManageableEntityLogicImpl
     extends SpringManageableEntityLogic
 {
 
+    /**
+     * Public constructor for SpringManageableEntityLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.spring.metafacades.SpringManageableEntity
+     */
     public SpringManageableEntityLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
@@ -27,7 +32,7 @@ public class SpringManageableEntityLogicImpl
         return (String)getConfiguredProperty(UMLMetafacadeProperties.NAMESPACE_SEPARATOR);
     }
 
-    protected java.lang.String handleGetDaoReferenceName()
+    protected String handleGetDaoReferenceName()
     {
         final char[] name = getName().toCharArray();
         if (name.length > 0)
@@ -38,12 +43,12 @@ public class SpringManageableEntityLogicImpl
         return new String(name) + "Dao";
     }
 
-    protected java.lang.String handleGetManageableDaoName()
+    protected String handleGetManageableDaoName()
     {
         return getName() + "ManageableDao";
     }
 
-    protected java.lang.String handleGetFullyQualifiedManageableDaoName()
+    protected String handleGetFullyQualifiedManageableDaoName()
     {
         return getManageablePackageName() + getNamespaceProperty() + getManageableDaoName();
     }
@@ -100,32 +105,32 @@ public class SpringManageableEntityLogicImpl
 
     protected boolean handleIsRemotingTypeRmi()
     {
-        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_RMI);
+        return SpringGlobals.REMOTING_PROTOCOL_RMI.equalsIgnoreCase(this.getRemotingType());
     }
 
     protected boolean handleIsRemotingTypeNone()
     {
-        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_NONE);
+        return SpringGlobals.REMOTING_PROTOCOL_NONE.equalsIgnoreCase(this.getRemotingType());
     }
 
     protected boolean handleIsRemotingTypeHttpInvoker()
     {
-        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_HTTPINVOKER);
+        return SpringGlobals.REMOTING_PROTOCOL_HTTPINVOKER.equalsIgnoreCase(this.getRemotingType());
     }
 
     protected boolean handleIsRemotingTypeHessian()
     {
-        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_HESSIAN);
+        return SpringGlobals.REMOTING_PROTOCOL_HESSIAN.equalsIgnoreCase(this.getRemotingType());
     }
 
     protected boolean handleIsRemotingTypeBurlap()
     {
-        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_BURLAP);
+        return SpringGlobals.REMOTING_PROTOCOL_BURLAP.equalsIgnoreCase(this.getRemotingType());
     }
 
     protected String handleGetRemoteUrl()
     {
-        final StringBuffer result = new StringBuffer();
+        final StringBuilder result = new StringBuilder();
 
         String propertyPrefix = ObjectUtils.toString(this.getConfiguredProperty(SpringGlobals.CONFIG_PROPERTY_PREFIX));
 
@@ -136,7 +141,7 @@ public class SpringManageableEntityLogicImpl
         else if (this.isRemotingTypeHttpInvoker() || this.isRemotingTypeHessian() || this.isRemotingTypeBurlap())
         {
             // server
-            result.append("${" + propertyPrefix + "remoteHttpScheme}://${");
+            result.append("${").append(propertyPrefix).append("remoteHttpScheme}://${");
             result.append(propertyPrefix);
             result.append("remoteServer}");
 
@@ -163,7 +168,7 @@ public class SpringManageableEntityLogicImpl
         else if (this.isRemotingTypeRmi())
         {
             // server
-            result.append("${" + propertyPrefix + "remoteRmiScheme}://${");
+            result.append("${").append(propertyPrefix).append("remoteRmiScheme}://${");
             result.append(propertyPrefix);
             result.append("remoteServer}");
 

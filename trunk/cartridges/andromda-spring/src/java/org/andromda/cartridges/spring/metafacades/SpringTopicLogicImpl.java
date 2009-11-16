@@ -1,7 +1,7 @@
 package org.andromda.cartridges.spring.metafacades;
 
 import org.andromda.utils.StringUtilsHelper;
-
+import org.apache.commons.lang.StringUtils;
 
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringTopic.
@@ -12,20 +12,28 @@ public class SpringTopicLogicImpl
     extends SpringTopicLogic
 {
 
+    /**
+     * Public constructor for SpringTopicLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.spring.metafacades.SpringTopic
+     */
     public SpringTopicLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
     /**
+     * @return lowerCamelCaseName(this.getName())
      * @see org.andromda.cartridges.spring.metafacades.SpringTopic#getBeanName()
      */
-    protected java.lang.String handleGetBeanName()
+    protected String handleGetBeanName()
     {
         return StringUtilsHelper.lowerCamelCaseName(this.getName());
     }
 
     /**
+     * @return lowerCamelCaseName(this.getTemplatePattern().replaceAll("\\{0\\}", getName()))
      * @see org.andromda.cartridges.spring.metafacades.SpringTopic#getTemplateBeanName()
      */
     protected String handleGetTemplateBeanName()
@@ -36,19 +44,21 @@ public class SpringTopicLogicImpl
     }
 
     /**
+     * @return "get" + StringUtilsHelper.capitalize(this.getTemplateBeanName())
      * @see org.andromda.cartridges.spring.metafacades.SpringTopic#getTemplateGetterName()
      */
     protected String handleGetTemplateGetterName()
     {
-        return "get" + StringUtilsHelper.capitalize(this.getTemplateBeanName());
+        return "get" + StringUtils.capitalize(this.getTemplateBeanName());
     }
 
     /**
+     * @return "set" + StringUtilsHelper.capitalize(this.getTemplateBeanName())
      * @see org.andromda.cartridges.spring.metafacades.SpringTopic#getTemplateSetterName()
      */
     protected String handleGetTemplateSetterName()
     {
-        return "set" + StringUtilsHelper.capitalize(this.getTemplateBeanName());
+        return "set" + StringUtils.capitalize(this.getTemplateBeanName());
     }
     
     /**

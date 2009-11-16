@@ -1,9 +1,7 @@
 package org.andromda.cartridges.spring.metafacades;
 
 import java.text.MessageFormat;
-
 import java.util.Collection;
-
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
@@ -28,17 +26,24 @@ import org.apache.commons.lang.StringUtils;
 public class SpringServiceLogicImpl
     extends SpringServiceLogic
 {
+    /**
+     * Public constructor for SpringServiceLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.spring.metafacades.SpringService
+     */
     public SpringServiceLogicImpl(Object metaObject, String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * @return EjbJndiName
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getEjbJndiName()
      */
-    protected java.lang.String handleGetEjbJndiName()
+    protected String handleGetEjbJndiName()
     {
-        StringBuffer jndiName = new StringBuffer();
+        StringBuilder jndiName = new StringBuilder();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
@@ -50,9 +55,13 @@ public class SpringServiceLogicImpl
         return jndiName.toString();
     }
 
+    /**
+     * @return EjbJndiName
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getEjbLocalJndiName()
+     */
     protected String handleGetEjbLocalJndiName()
     {
-        StringBuffer jndiName = new StringBuffer();
+        StringBuilder jndiName = new StringBuilder();
         String jndiNamePrefix = StringUtils.trimToEmpty(this.getEjbJndiNamePrefix());
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
@@ -63,30 +72,33 @@ public class SpringServiceLogicImpl
         jndiName.append(SpringMetafacadeUtils.getFullyQualifiedName(
                 this.getPackageName(),
                 this.getName(),
-                (this.getEjbViewType().equalsIgnoreCase(EJB_BOTH_VIEW) ? "Local" : null)));
+                (EJB_BOTH_VIEW.equalsIgnoreCase(this.getEjbViewType()) ? "Local" : null)));
         return jndiName.toString();
     }
 
     /**
+     * @return getName() + SpringGlobals.EJB_IMPLEMENTATION_SUFFIX
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getEjbImplementationName()
      */
-    protected java.lang.String handleGetEjbImplementationName()
+    protected String handleGetEjbImplementationName()
     {
         return this.getName() + SpringGlobals.EJB_IMPLEMENTATION_SUFFIX;
     }
 
     /**
+     * @return getName() + SpringGlobals.IMPLEMENTATION_SUFFIX
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getImplementationName()
      */
-    protected java.lang.String handleGetImplementationName()
+    protected String handleGetImplementationName()
     {
         return this.getName() + SpringGlobals.IMPLEMENTATION_SUFFIX;
     }
 
     /**
+     * @return FullyQualifiedEjbImplementationName
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getFullyQualifiedImplementationName()
      */
-    protected java.lang.String handleGetFullyQualifiedEjbImplementationName()
+    protected String handleGetFullyQualifiedEjbImplementationName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(
             this.getEjbPackageName(),
@@ -95,9 +107,10 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return FullyQualifiedEjbName
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getFullyQualifiedEjbName()
      */
-    protected java.lang.String handleGetFullyQualifiedEjbName()
+    protected String handleGetFullyQualifiedEjbName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(
             this.getEjbPackageName(),
@@ -106,6 +119,8 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * add "Local" to local ejb name when viewtype = "both"
+     * @return FullyQualifiedLocalEjbName
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getFullyQualifiedLocalEjbName()
      */
     protected String handleGetFullyQualifiedLocalEjbName()
@@ -115,13 +130,14 @@ public class SpringServiceLogicImpl
         return SpringMetafacadeUtils.getFullyQualifiedName(
                 this.getEjbPackageName(),
                 this.getName(),
-                (this.getEjbViewType().equalsIgnoreCase(EJB_BOTH_VIEW) ? "Local" : null));
+                (EJB_BOTH_VIEW.equalsIgnoreCase(this.getEjbViewType()) ? "Local" : null));
     }
 
     /**
+     * @return FullyQualifiedImplementationName
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getFullyQualifiedImplementationName()
      */
-    protected java.lang.String handleGetFullyQualifiedImplementationName()
+    protected String handleGetFullyQualifiedImplementationName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(
             this.getImplementationPackageName(),
@@ -130,7 +146,8 @@ public class SpringServiceLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringServic#getImplementationPackageName()
+     * @return ImplementationPackageName
+     * @see org.andromda.cartridges.spring.metafacades.SpringService#getImplementationPackageName()
      */
 	protected String handleGetImplementationPackageName() {
         String implementationPackageName =
@@ -147,6 +164,7 @@ public class SpringServiceLogicImpl
 	}
 
     /**
+     * @return ImplementationPackagePath
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getImplementationPackagePath()
      */
 	protected String handleGetImplementationPackagePath()
@@ -167,17 +185,19 @@ public class SpringServiceLogicImpl
     }
 	
     /**
+     * @return getName() + SpringGlobals.SERVICE_BASE_SUFFIX
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getBaseName()
      */
-    protected java.lang.String handleGetBaseName()
+    protected String handleGetBaseName()
     {
         return this.getName() + SpringGlobals.SERVICE_BASE_SUFFIX;
     }
 
     /**
+     * @return FullyQualifiedBaseName
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getFullyQualifiedBaseName()
      */
-    protected java.lang.String handleGetFullyQualifiedBaseName()
+    protected String handleGetFullyQualifiedBaseName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(
             this.getImplementationPackageName(),
@@ -186,9 +206,10 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return EjbPackageName
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getEjbPackageName()
      */
-    protected java.lang.String handleGetEjbPackageName()
+    protected String handleGetEjbPackageName()
     {
         String ejbPackageName =
             MessageFormat.format(
@@ -204,9 +225,10 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return getEjbPackageName().replace('.', '/')
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getEjbPackageNamePath()
      */
-    protected java.lang.String handleGetEjbPackageNamePath()
+    protected String handleGetEjbPackageNamePath()
     {
         return this.getEjbPackageName().replace(
             '.',
@@ -214,19 +236,22 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return getBeanName(false)
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getBeanName()
      */
-    protected java.lang.String handleGetBeanName()
+    protected String handleGetBeanName()
     {
         return this.getBeanName(false);
     }
 
     /**
+     * @param targetSuffix 
+     * @return BeanName
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getBeanName(boolean)
      */
-    protected java.lang.String handleGetBeanName(boolean targetSuffix)
+    protected String handleGetBeanName(boolean targetSuffix)
     {
-        StringBuffer beanName = new StringBuffer(String.valueOf(this.getConfiguredProperty(SpringGlobals.BEAN_NAME_PREFIX)));
+        StringBuilder beanName = new StringBuilder(String.valueOf(this.getConfiguredProperty(SpringGlobals.BEAN_NAME_PREFIX)));
         beanName.append(StringUtils.uncapitalize(StringUtils.trimToEmpty(this.getName())));
         if (targetSuffix)
         {
@@ -257,6 +282,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return getName() + SpringGlobals.WEB_SERVICE_DELEGATOR_SUFFIX
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getWebServiceDelegatorName()
      */
     protected String handleGetWebServiceDelegatorName()
@@ -265,6 +291,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return FullyQualifiedWebServiceDelegatorName
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getFullyQualifiedWebServiceDelegatorName()
      */
     protected String handleGetFullyQualifiedWebServiceDelegatorName()
@@ -276,6 +303,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return getWebServiceOperations().isEmpty()
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isWebService()
      */
     protected boolean handleIsWebService()
@@ -305,6 +333,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return !this.isPrivate() && !this.isRemotingTypeNone()
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotable()
      */
     protected boolean handleIsRemotable()
@@ -331,6 +360,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return getServiceRemotePort(this, serviceRemotePort)
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getRemotePort()
      */
     protected String handleGetRemotePort()
@@ -363,7 +393,7 @@ public class SpringServiceLogicImpl
     /**
      * Checks whether the service has a remote context assigned.
      *
-     * @return <code>true</code> if the service has a remote context, <code>false</code> otherweise.
+     * @return <code>true</code> if the service has a remote context, <code>false</code> otherwise.
      */
     private boolean hasServiceRemoteContext()
     {
@@ -372,6 +402,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return RemoteUrl
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getRemoteUrl()
      */
     protected String handleGetRemoteUrl()
@@ -402,7 +433,7 @@ public class SpringServiceLogicImpl
             }
 
             // service name
-            result += "/" + getName();
+            result += '/' + getName();
         }
         else if (this.isRemotingTypeLingo())
         {
@@ -421,17 +452,18 @@ public class SpringServiceLogicImpl
             }
 
             // service name
-            result += "/" + getName();
+            result += '/' + getName();
         }
         return result;
     }
 
     /**
+     * @return getOperations() instanceof SpringServiceOperation && isWebserviceExposed()
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getWebServiceOperations()
      */
     protected Collection handleGetWebServiceOperations()
     {
-        Collection operations = this.getOperations();
+        Collection<OperationFacade> operations = this.getOperations();
         if (!this.hasStereotype(UMLProfile.STEREOTYPE_WEBSERVICE))
         {
             operations = new FilteredCollection(operations)
@@ -451,9 +483,9 @@ public class SpringServiceLogicImpl
      *
      * @see org.andromda.metafacades.uml.ClassifierFacade#getOperations()
      */
-    public Collection getOperations()
+    public Collection<OperationFacade> getOperations()
     {
-        final Collection operations = super.getOperations();
+        final Collection<OperationFacade> operations = super.getOperations();
         if (!this.isAbstract())
         {
             for (ClassifierFacade generalization = (ClassifierFacade)this.getGeneralization(); generalization != null;
@@ -469,7 +501,7 @@ public class SpringServiceLogicImpl
                             {
                                 if (((OperationFacade)object).isAbstract())
                                 {
-                                    operations.add(object);
+                                    operations.add((OperationFacade)object);
                                 }
                             }
                         });
@@ -480,6 +512,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return DefaultExceptionName
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getDefaultExceptionName()
      */
     protected String handleGetDefaultExceptionName()
@@ -490,14 +523,15 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return FullyQualifiedDefaultExceptionName
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getFullyQualifiedDefaultExceptionName()
      */
     protected String handleGetFullyQualifiedDefaultExceptionName()
     {
-        StringBuffer fullyQualifiedName = new StringBuffer("java.lang.RuntimeException");
+        StringBuilder fullyQualifiedName = new StringBuilder("RuntimeException");
         if (this.isAllowDefaultServiceException())
         {
-            fullyQualifiedName = new StringBuffer();
+            fullyQualifiedName = new StringBuilder();
             if (StringUtils.isNotBlank(this.getPackageName()))
             {
                 fullyQualifiedName.append(this.getPackageName());
@@ -509,6 +543,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return getConfiguredProperty(SpringGlobals.DEFAULT_SERVICE_EXCEPTIONS)
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isAllowDefaultServiceException()
      */
     protected boolean handleIsAllowDefaultServiceException()
@@ -517,51 +552,57 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_RMI)
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotingTypeRmi()
      */
     protected boolean handleIsRemotingTypeRmi()
     {
-        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_RMI);
+        return SpringGlobals.REMOTING_PROTOCOL_RMI.equalsIgnoreCase(this.getRemotingType());
     }
 
     /**
+     * @return getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_BURLAP)
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotingTypeBurlap()
      */
     protected boolean handleIsRemotingTypeBurlap()
     {
-        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_BURLAP);
+        return SpringGlobals.REMOTING_PROTOCOL_BURLAP.equalsIgnoreCase(this.getRemotingType());
     }
 
     /**
+     * @return getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_HESSIAN)
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotingTypeHessian()
      */
     protected boolean handleIsRemotingTypeHessian()
     {
-        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_HESSIAN);
+        return SpringGlobals.REMOTING_PROTOCOL_HESSIAN.equalsIgnoreCase(this.getRemotingType());
     }
 
     /**
+     * @return getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_HTTPINVOKER)
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotingTypeHttpInvoker()
      */
     protected boolean handleIsRemotingTypeHttpInvoker()
     {
-        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_HTTPINVOKER);
+        return SpringGlobals.REMOTING_PROTOCOL_HTTPINVOKER.equalsIgnoreCase(this.getRemotingType());
     }
 
     /**
+     * @return getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_LINGO)
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotingTypeLingo()
      */
     protected boolean handleIsRemotingTypeLingo()
     {
-        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_LINGO);
+        return SpringGlobals.REMOTING_PROTOCOL_LINGO.equalsIgnoreCase(this.getRemotingType());
     }
 
     /**
+     * @return getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_NONE)
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isRemotingTypeNone()
      */
     protected boolean handleIsRemotingTypeNone()
     {
-        return this.getRemotingType().equalsIgnoreCase(SpringGlobals.REMOTING_PROTOCOL_NONE);
+        return SpringGlobals.REMOTING_PROTOCOL_NONE.equalsIgnoreCase(this.getRemotingType());
     }
 
     /**
@@ -571,6 +612,7 @@ public class SpringServiceLogicImpl
     private static final String HIBERNATE_INTERCEPTOR_ENABLED = "serviceHibernateInterceptorEnabled";
 
     /**
+     * @return getConfiguredProperty(HIBERNATE_INTERCEPTOR_ENABLED)
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isHibernateInterceptorEnabled()
      */
     protected boolean handleIsHibernateInterceptorEnabled()
@@ -604,29 +646,32 @@ public class SpringServiceLogicImpl
     private static final String EJB_BOTH_VIEW = "both";
 
     /**
+     * @return getEjbViewType().equalsIgnoreCase(EJB_REMOTE_VIEW) || EJB_BOTH_VIEW
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isEjbRemoteView()
      */
     protected boolean handleIsEjbRemoteView()
     {
-        return (this.getEjbViewType().equalsIgnoreCase(EJB_REMOTE_VIEW)
-                || this.getEjbViewType().equalsIgnoreCase(EJB_BOTH_VIEW));
+        return (EJB_REMOTE_VIEW.equalsIgnoreCase(this.getEjbViewType())
+                || EJB_BOTH_VIEW.equalsIgnoreCase(this.getEjbViewType()));
     }
 
     /**
+     * @return getEjbViewType().equalsIgnoreCase(EJB_LOCAL_VIEW) || EJB_BOTH_VIEW
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isEjbLocalView()
      */
     protected boolean handleIsEjbLocalView()
     {
-        return (this.getEjbViewType().equalsIgnoreCase(EJB_LOCAL_VIEW)
-                || this.getEjbViewType().equalsIgnoreCase(EJB_BOTH_VIEW));
+        return (EJB_LOCAL_VIEW.equalsIgnoreCase(this.getEjbViewType())
+                || EJB_BOTH_VIEW.equalsIgnoreCase(this.getEjbViewType()));
     }
 
     /**
+     * @return EjbTransactionType "Container" or "Bean"
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getEjbTransactionType()
      */
     protected String handleGetEjbTransactionType()
     {
-        String transactionType;
+        String transactionType = null;
         final boolean ejbTransactionsEnabled =
             BooleanUtils.toBoolean(
                 ObjectUtils.toString(this.getConfiguredProperty(SpringGlobals.EJB_TRANSACTIONS_ENABLED)));
@@ -660,6 +705,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return getWebServiceAttachmentHandlerCall(SpringGlobals.WEBSERVICE_OUTGOING_ATTACHMENT_HANDLER_CALL_PATTERN)
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getWebServiceOutgoingAttachmentHandlerCall()
      */
     protected String handleGetWebServiceOutgoingAttachmentHandlerCall()
@@ -668,6 +714,7 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return getWebServiceAttachmentHandlerCall(SpringGlobals.WEBSERVICE_INCOMING_ATTACHMENT_HANDLER_CALL_PATTERN)
      * @see org.andromda.cartridges.spring.metafacades.SpringService#getWebServiceIncomingAttachmentHandlerCall()
      */
     protected String handleGetWebServiceIncomingAttachmentHandlerCall()
@@ -698,11 +745,12 @@ public class SpringServiceLogicImpl
     }
 
     /**
+     * @return getConfiguredProperty(SpringGlobals.RICH_CLIENT).equalsIgnoreCase("true")
      * @see org.andromda.cartridges.spring.metafacades.SpringService#isRichClient()
      */
     protected boolean handleIsRichClient()
     {
         final String richClient = StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(SpringGlobals.RICH_CLIENT)));
-        return richClient.equalsIgnoreCase("true");
+        return "true".equalsIgnoreCase(richClient);
     }
 }

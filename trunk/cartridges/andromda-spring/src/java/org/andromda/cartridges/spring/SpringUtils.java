@@ -1,16 +1,18 @@
 package org.andromda.cartridges.spring;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-
 import org.andromda.cartridges.spring.metafacades.SpringService;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
+import org.andromda.metafacades.uml.Role;
 import org.andromda.metafacades.uml.Service;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.collections.Closure;
@@ -33,9 +35,9 @@ public class SpringUtils
      * @param services the collection services.
      * @return all roles from the collection.
      */
-    public Collection getAllRoles(Collection services)
+    public Collection<Role> getAllRoles(Collection<Service> services)
     {
-        final Collection allRoles = new LinkedHashSet();
+        final Collection<Role> allRoles = new LinkedHashSet<Role>();
         CollectionUtils.forAllDo(
             services,
             new Closure()
@@ -58,7 +60,7 @@ public class SpringUtils
      * @param services the collection of services to check.
      * @return true/false.
      */
-    public boolean remoteEjbsPresent(final Collection services)
+    public boolean remoteEjbsPresent(final Collection<Service> services)
     {
         boolean present = services != null && !services.isEmpty();
         if (present)
@@ -90,7 +92,7 @@ public class SpringUtils
      * @param services the collection of services to check.
      * @return true/false.
      */
-    public boolean localEjbsPresent(final Collection services)
+    public boolean localEjbsPresent(final Collection<Service> services)
     {
         boolean present = services != null && !services.isEmpty();
         if (present)
@@ -121,7 +123,7 @@ public class SpringUtils
      * @param services the collection of services to check.
      * @return true/false.
      */
-    public boolean remotableServicesPresent(final Collection services)
+    public boolean remotableServicesPresent(final Collection<Service> services)
     {
         boolean present = services != null && !services.isEmpty();
         if (present)
@@ -152,7 +154,7 @@ public class SpringUtils
      * @param services the collection of services to check.
      * @return true/false.
      */
-    public boolean lingoRemotableServicesPresent(final Collection services)
+    public boolean lingoRemotableServicesPresent(final Collection<Service> services)
     {
         boolean present = services != null && !services.isEmpty();
         if (present)
@@ -183,7 +185,7 @@ public class SpringUtils
      * @param services the collection of services to check.
      * @return true/false.
      */
-    public boolean privateServicesPresent(final Collection services)
+    public boolean privateServicesPresent(final Collection<Service> services)
     {
         boolean present = services != null && !services.isEmpty();
         if (present)
@@ -214,7 +216,7 @@ public class SpringUtils
      * @param services the collection of services to check.
      * @return true/false.
      */
-    public boolean publicServicesPresent(final Collection services)
+    public boolean publicServicesPresent(final Collection<Service> services)
     {
         boolean present = services != null && !services.isEmpty();
         if (present)
@@ -266,8 +268,7 @@ public class SpringUtils
     /**
      * Removes generics from string. Currently used to strip generics
      * from ejb-jar.xml method parameters.
-     *
-     * @param String containing generics
+     * @param parameter String containing generics
      * @return String with generics stripped
      */
     public String removeGenerics(final String parameter)
@@ -282,13 +283,14 @@ public class SpringUtils
     }
 
     /**
-     * Are we generating code for a rich client?
+     * Are we generating code for a rich client? false.
      */
     private boolean richClient = false;
 
 
     /**
      * Sets if code is being generated for a rich client.
+     * @param richClientProperty 
      */
     public void setRichClient(final boolean richClientProperty)
     {
@@ -297,6 +299,7 @@ public class SpringUtils
 
     /**
      * Returns TRUE if code is being generated for a rich client environment
+     * @return richClient
      */
     public boolean isRichClient()
     {
@@ -310,17 +313,23 @@ public class SpringUtils
      */
     public String getClassName(String fullyQualifiedName)
     {
-       String className;
-       if (StringUtils.isNotEmpty(fullyQualifiedName))
+       String className = null;
+       if (StringUtils.isNotBlank(fullyQualifiedName))
        {
            int lastDot = fullyQualifiedName.lastIndexOf('.');
            if (lastDot >= 0)
+           {
                className = fullyQualifiedName.substring(lastDot+1);
+           }
            else
+           {
                className = fullyQualifiedName;
+           }
        }
        else
-          className = "";
+       {
+           className = "";
+       }
 
        return className;
     }
@@ -333,17 +342,16 @@ public class SpringUtils
      */
     public String getPackageName(String fullyQualifiedName)
     {
-       String packageName;
-       if (StringUtils.isNotEmpty(fullyQualifiedName))
+       String packageName = null;
+       if (StringUtils.isNotBlank(fullyQualifiedName))
        {
            int lastDot = fullyQualifiedName.lastIndexOf('.');
-           if (lastDot >= 0)
-               packageName = fullyQualifiedName.substring(0, lastDot);
-           else
-               packageName = "";
+           packageName = (lastDot >= 0 ? fullyQualifiedName.substring(0, lastDot) : "");
        }
        else
-          packageName = "";
+       {
+           packageName = "";
+       }
 
        return packageName;
     }
@@ -357,21 +365,21 @@ public class SpringUtils
      * @param modelElements a collection of model elements, elements that are not model elements will be ignored
      * @return the argument model elements without, elements with a duplicate name will only be recorded once
      */
-    public List filterUniqueByName(Collection modelElements)
+    public List<ModelElementFacade> filterUniqueByName(Collection<ModelElementFacade> modelElements)
     {
-        final Map filteredElements = new LinkedHashMap();
+        final Map<String, ModelElementFacade> filteredElements = new LinkedHashMap<String, ModelElementFacade>();
 
-        for (final Iterator elementIterator = modelElements.iterator(); elementIterator.hasNext();)
+        for (final Iterator<ModelElementFacade> elementIterator = modelElements.iterator(); elementIterator.hasNext();)
         {
-            final Object object = elementIterator.next();
+            /*final Object object = elementIterator.next();
             if (object instanceof ModelElementFacade)
-            {
-                final ModelElementFacade modelElement = (ModelElementFacade)object;
+            {*/
+                final ModelElementFacade modelElement = elementIterator.next();
                 if (!filteredElements.containsKey(modelElement.getName()))
                 {
                     filteredElements.put(modelElement.getName(), modelElement);
                 }
-            }
+            /*}*/
         }
 
         return new ArrayList(filteredElements.values());
@@ -390,29 +398,29 @@ public class SpringUtils
         {
             if (type.isPrimitive())
             {
-                value = "new " + type.getWrapperName() + "(" + value + ")";
+                value = "new " + type.getWrapperName() + '(' + value + ')';
             }
             else if (type.isEnumeration())
             {
-                value = value + ".getValue()";
+                value += ".getValue()";
             }
         }
         return value;
     }
 
     /**
-     * Takes the given <code>names</code> and concatinates them in camel case
+     * Takes the given <code>names</code> and concatenates them in camel case
      * form.
      *
-     * @param names the names to concatinate.
-     * @return the result of the concatination
+     * @param names the names to concatenate.
+     * @return the result of the concatenation
      */
-    public static String concatNamesCamelCase(final Collection names)
+    public static String concatNamesCamelCase(final Collection<String> names)
     {
         String result = null;
         if (names != null)
         {
-            result = StringUtilsHelper.lowerCamelCaseName(StringUtilsHelper.join(names.iterator(), " "));
+            result = StringUtilsHelper.lowerCamelCaseName(StringUtils.join(names.iterator(), " "));
         }
         return result;
     }
@@ -425,12 +433,38 @@ public class SpringUtils
      */
     public static String getFullyQualifiedClassName(final String packageName, final String name)
     {
-        final StringBuffer fullName = new StringBuffer(StringUtils.trimToEmpty(packageName));
+        final StringBuilder fullName = new StringBuilder(StringUtils.trimToEmpty(packageName));
         if (fullName.length() > 0)
         {
             fullName.append(".");
         }
         fullName.append(name);
         return fullName.toString();
+    }
+
+    private static final SimpleDateFormat DF = new SimpleDateFormat("MM/dd/yyyy HH:mm:ssZ");
+    /**
+     * Returns the current Date in the specified format. $conversionUtils does not seem to work in vsl.
+     *
+     * @param format The format for the output date
+     * @return the current date in the specified format.
+     */
+    public static String getDate(String format)
+    {
+        /*if (DF == null || !format.equals(DF.toLocalizedPattern()))
+        {
+            DF = new SimpleDateFormat(format);
+        }*/
+        return DF.format(new Date());
+    }
+
+    /**
+     * Returns the current Date in the specified format.
+     *
+     * @return the current date with the default format .
+     */
+    public static String getDate()
+    {
+        return DF.format(new Date());
     }
 }
