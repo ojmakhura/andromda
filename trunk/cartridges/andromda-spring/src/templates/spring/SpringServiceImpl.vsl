@@ -3,6 +3,14 @@
 /**
  * This is only generated once! It will never be overwritten.
  * You can (and have to!) safely modify it by hand.
+ * TEMPLATE:    SpringServiceImpl.vsl in andromda-spring cartridge
+ * MODEL CLASS: $service.validationName
+#foreach ($stereotype in $service.stereotypes)
+ * STEREOTYPE:  $stereotype.name
+#end
+#foreach ($constraint in $service.constraints)
+ * CONSTRAINT:  $constraint.name: #if ($constraint.isInvariant())Invariant #end#if ($constraint.isPostCondition())PostCondition #end#if ($constraint.isPreCondition())PreCondition #end $constraint.body
+#end
  */
 #if ($stringUtils.isNotBlank($service.implementationPackageName))
 package $service.implementationPackageName;
@@ -22,12 +30,12 @@ public#if($service.abstract) abstract#end class $service.implementationName
 #set ($abstract = $service.abstract && $operation.abstract)
     protected#if ($abstract) abstract#end  $operation.implementationReturnTypeName $operation.implementationSignature
 #if ($abstract)
-        throws java.lang.Exception;        
+        throws Exception;        
 #else
-        throws java.lang.Exception
+        throws Exception
     {
         // ${toDoTag} implement protected  $operation.implementationReturnTypeName $operation.implementationSignature
-        throw new java.lang.UnsupportedOperationException("${service.fullyQualifiedName}.${operation.implementationSignature} Not implemented!");
+        throw new UnsupportedOperationException("${service.fullyQualifiedName}.${operation.implementationSignature} Not implemented!");
     }
 
 #end

@@ -113,9 +113,9 @@ public final class PrincipalStore
      *
      * @return the names of the current principal roles.
      */
-    public static java.lang.String[] getPrincipalRoles()
+    public static String[] getPrincipalRoles()
     {
-        final java.util.Collection#if($enableTemplating)<java.lang.String>#end roles = new java.util.ArrayList#if($enableTemplating)<java.lang.String>#end();
+        final java.util.Collection#if($enableTemplating)<String>#end roles = new java.util.ArrayList#if($enableTemplating)<String>#end();
 #foreach ($role in $roles)
 #set ($isInRoleName = "is${stringUtils.upperCamelCaseName($role.name.toLowerCase())}")
         if ($isInRoleName())
