@@ -19,11 +19,11 @@ public class SpringHibernateUtils
     /**
      * Sets the version of Hibernate we're generating for.
      *
-     * @param hibernateVersion the Hibernate version.
+     * @param hibernateVersionIn the Hibernate version.
      */
-    public void setHibernateVersion(final String hibernateVersion)
+    public void setHibernateVersion(final String hibernateVersionIn)
     {
-        this.hibernateVersion = hibernateVersion;
+        this.hibernateVersion = hibernateVersionIn;
     }
 
     /**
@@ -99,6 +99,10 @@ public class SpringHibernateUtils
         return isVersion3(hibernateVersion);
     }
 
+    /**
+     * @param hibernateVersionPropertyValue
+     * @return SpringGlobals.HIBERNATE_VERSION_3.equals(hibernateVersionPropertyValue)
+     */
     public static boolean isVersion3(String hibernateVersionPropertyValue)
     {
         return SpringGlobals.HIBERNATE_VERSION_3.equals(hibernateVersionPropertyValue);
@@ -110,14 +114,17 @@ public class SpringHibernateUtils
     private String hibernateXmlPersistence;
 
     /**
-     * @param hibernateXmlPersistence <code>true</code> when you to make use of Hibernate 3 XML persistence support,
+     * @param hibernateXmlPersistenceIn <code>true</code> when you to make use of Hibernate 3 XML persistence support,
      *      <code>false</code> otherwise
      */
-    public void setHibernateXMLPersistence(final String hibernateXmlPersistence)
+    public void setHibernateXMLPersistence(final String hibernateXmlPersistenceIn)
     {
-        this.hibernateXmlPersistence = hibernateXmlPersistence;
+        this.hibernateXmlPersistence = hibernateXmlPersistenceIn;
     }
 
+    /**
+     * @return isXmlPersistenceActive(hibernateVersion, hibernateXmlPersistence)
+     */
     public boolean isXmlPersistenceActive()
     {
         return isXmlPersistenceActive(
@@ -125,6 +132,11 @@ public class SpringHibernateUtils
             this.hibernateXmlPersistence);
     }
 
+    /**
+     * @param hibernateVersionPropertyValue
+     * @param hibernateXMLPersistencePropertyValue
+     * @return isVersion3(hibernateVersionPropertyValue) && "true".equalsIgnoreCase(hibernateXMLPersistencePropertyValue)
+     */
     public static boolean isXmlPersistenceActive(
         String hibernateVersionPropertyValue,
         String hibernateXMLPersistencePropertyValue)
@@ -135,20 +147,30 @@ public class SpringHibernateUtils
 
     private String hibernateMappingStrategy;
 
-    public void setHibernateMappingStrategy(String hibernateMappingStrategy)
+    /**
+     * @param hibernateMappingStrategyIn
+     */
+    public void setHibernateMappingStrategy(String hibernateMappingStrategyIn)
     {
-        this.hibernateMappingStrategy = hibernateMappingStrategy;
+        this.hibernateMappingStrategy = hibernateMappingStrategyIn;
     }
 
+    /**
+     * @return mapSubclassesInSeparateFile(this.hibernateMappingStrategy)
+     */
     public boolean isMapSubclassesInSeparateFile()
     {
         return mapSubclassesInSeparateFile(this.hibernateMappingStrategy);
     }
 
+    /**
+     * @param hibernateMappingStrategyIn
+     * @return SpringGlobals.HIBERNATE_MAPPING_STRATEGY_SUBCLASS.equalsIgnoreCase(hibernateMappingStrategy)
+     */
     public static boolean mapSubclassesInSeparateFile(
-        String hibernateMappingStrategy)
+        String hibernateMappingStrategyIn)
     {
         // subclass or hierarchy
-        return SpringGlobals.HIBERNATE_MAPPING_STRATEGY_SUBCLASS.equalsIgnoreCase(hibernateMappingStrategy);
+        return SpringGlobals.HIBERNATE_MAPPING_STRATEGY_SUBCLASS.equalsIgnoreCase(hibernateMappingStrategyIn);
     }
 }

@@ -4,12 +4,12 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.andromda.cartridges.spring.SpringHibernateUtils;
 import org.andromda.cartridges.spring.SpringProfile;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
+import org.andromda.metafacades.uml.EntityQueryOperation;
 import org.andromda.metafacades.uml.EnumerationFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.GeneralizableElementFacade;
@@ -27,6 +27,12 @@ import org.apache.commons.lang.StringUtils;
 public class SpringEntityLogicImpl
     extends SpringEntityLogic
 {
+    /**
+     * Public constructor for SpringEntityLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity
+     */
     public SpringEntityLogicImpl(
         Object metaObject,
         String context)
@@ -57,20 +63,21 @@ public class SpringEntityLogicImpl
     /**
      * Stores the valid inheritance strategies.
      */
-    private static final Collection inheritanceStrategies = new ArrayList();
+    private static final Collection<String> INHERITANCE_STRATEGIES = new ArrayList<String>();
 
     static
     {
-        inheritanceStrategies.add(INHERITANCE_STRATEGY_CLASS);
-        inheritanceStrategies.add(INHERITANCE_STRATEGY_SUBCLASS);
-        inheritanceStrategies.add(INHERITANCE_STRATEGY_CONCRETE);
-        inheritanceStrategies.add(INHERITANCE_STRATEGY_INTERFACE);
+        INHERITANCE_STRATEGIES.add(INHERITANCE_STRATEGY_CLASS);
+        INHERITANCE_STRATEGIES.add(INHERITANCE_STRATEGY_SUBCLASS);
+        INHERITANCE_STRATEGIES.add(INHERITANCE_STRATEGY_CONCRETE);
+        INHERITANCE_STRATEGIES.add(INHERITANCE_STRATEGY_INTERFACE);
     }
 
     /**
+     * @return getDaoNamePattern().replaceAll("\\{0\\}", getName())
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDaoName()
      */
-    protected java.lang.String handleGetDaoName()
+    protected String handleGetDaoName()
     {
         return this.getDaoNamePattern().replaceAll(
             "\\{0\\}",
@@ -88,9 +95,10 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return fullyQualifiedName
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedDaoName()
      */
-    protected java.lang.String handleGetFullyQualifiedDaoName()
+    protected String handleGetFullyQualifiedDaoName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(
             this.getPackageName(),
@@ -98,9 +106,10 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return daoImplementationName
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDaoImplementationName()
      */
-    protected java.lang.String handleGetDaoImplementationName()
+    protected String handleGetDaoImplementationName()
     {
         return this.getDaoImplementationNamePattern().replaceAll(
             "\\{0\\}",
@@ -118,9 +127,10 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return fullyQualifiedDaoImplementationName
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedDaoImplementationName()
      */
-    protected java.lang.String handleGetFullyQualifiedDaoImplementationName()
+    protected String handleGetFullyQualifiedDaoImplementationName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(
             this.getPackageName(),
@@ -128,9 +138,10 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return DaoBaseName
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDaoBaseName()
      */
-    protected java.lang.String handleGetDaoBaseName()
+    protected String handleGetDaoBaseName()
     {
         return this.getDaoBaseNamePattern().replaceAll(
             "\\{0\\}",
@@ -148,9 +159,10 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return FullyQualifiedDaoBaseName
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedDaoBaseName()
      */
-    protected java.lang.String handleGetFullyQualifiedDaoBaseName()
+    protected String handleGetFullyQualifiedDaoBaseName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(
             this.getPackageName(),
@@ -158,17 +170,19 @@ public class SpringEntityLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getImplementationName()
+     * @return EntityImplementationName
+     * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getEntityImplementationName()
      */
-    protected java.lang.String handleGetEntityImplementationName()
+    protected String handleGetEntityImplementationName()
     {
         return this.getEntityName() + SpringGlobals.IMPLEMENTATION_SUFFIX;
     }
 
     /**
+     * @return FullyQualifiedEntityImplementationName
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedEntityImplementationName()
      */
-    protected java.lang.String handleGetFullyQualifiedEntityImplementationName()
+    protected String handleGetFullyQualifiedEntityImplementationName()
     {
         return SpringMetafacadeUtils.getFullyQualifiedName(
             this.getPackageName(),
@@ -177,12 +191,14 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @param targetSuffix 
+     * @return BeanName
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getBeanName(boolean)
      */
-    protected java.lang.String handleGetBeanName(boolean targetSuffix)
+    protected String handleGetBeanName(boolean targetSuffix)
     {
         final String beanName = StringUtils.uncapitalize(StringUtils.trimToEmpty(this.getName()));
-        StringBuffer beanNameBuffer = new StringBuffer(String.valueOf(this.getConfiguredProperty(SpringGlobals.BEAN_NAME_PREFIX))); 
+        StringBuilder beanNameBuffer = new StringBuilder(String.valueOf(this.getConfiguredProperty(SpringGlobals.BEAN_NAME_PREFIX))); 
         beanNameBuffer.append(this.getDaoNamePattern().replaceAll("\\{0\\}", beanName));
         if (targetSuffix)
         {
@@ -192,6 +208,7 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return EntityName
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getEntityName()
      */
     protected String handleGetEntityName()
@@ -203,6 +220,7 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return FullyQualifiedEntityName
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getFullyQualifiedEntityName()
      */
     protected String handleGetFullyQualifiedEntityName()
@@ -214,6 +232,7 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return Object Root
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getRoot()
      */
     protected Object handleGetRoot()
@@ -222,11 +241,14 @@ public class SpringEntityLogicImpl
         for (
             ; generalization.getGeneralization() != null && generalization instanceof SpringEntity;
             generalization = generalization.getGeneralization())
+        {
             ;
+        }
         return generalization;
     }
 
     /**
+     * @return IsDaoBusinessOperationsPresent
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isDaoBusinessOperationsPresent()
      */
     protected boolean handleIsDaoBusinessOperationsPresent()
@@ -235,15 +257,16 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return DaoBusinessOperations
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDaoBusinessOperations()
      */
-    protected Collection handleGetDaoBusinessOperations()
+    protected Collection<OperationFacade> handleGetDaoBusinessOperations()
     {
         // operations that are not finders and static
-        Collection finders = this.getQueryOperations();
-        Collection operations = this.getOperations();
+        Collection<EntityQueryOperation> finders = this.getQueryOperations();
+        Collection<OperationFacade> operations = this.getOperations();
 
-        Collection nonFinders = CollectionUtils.subtract(operations, finders);
+        Collection<OperationFacade> nonFinders = CollectionUtils.subtract(operations, finders);
         return new FilteredCollection(nonFinders)
             {
                 public boolean evaluate(Object object)
@@ -254,9 +277,10 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return getValueObjectReferences(false)
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getValueObjectReferences()
      */
-    protected Collection handleGetValueObjectReferences()
+    protected Collection<DependencyFacade> handleGetValueObjectReferences()
     {
         return this.getValueObjectReferences(false);
     }
@@ -265,10 +289,12 @@ public class SpringEntityLogicImpl
      * Retrieves the values object references for this entity.  If
      * <code>follow</code> is true, then all value object references
      * (including those that were inherited) will be retrieved.
+     * @param follow 
+     * @return ValueObject references
      */
-    protected Collection getValueObjectReferences(boolean follow)
+    protected Collection<DependencyFacade> getValueObjectReferences(boolean follow)
     {
-        final Collection sourceDependencies = new ArrayList(this.getSourceDependencies());
+        final Collection<DependencyFacade> sourceDependencies = new ArrayList<DependencyFacade>(this.getSourceDependencies());
         if (follow)
         {
             for (
@@ -295,14 +321,16 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return getValueObjectReferences(true)
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getAllValueObjectReferences()
      */
-    protected Collection handleGetAllValueObjectReferences()
+    protected Collection<DependencyFacade> handleGetAllValueObjectReferences()
     {
         return this.getValueObjectReferences(true);
     }
 
     /**
+     * @return IsDaoImplementationRequired
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isDaoImplementationRequired()
      */
     protected boolean handleIsDaoImplementationRequired()
@@ -312,11 +340,12 @@ public class SpringEntityLogicImpl
     }
 
     /**
-     * The suffix given to the no transformation constant.
+     * The suffix given to the no transformation constant. "NONE"
      */
     private static final String NO_TRANSFORMATION_CONSTANT_SUFFIX = "NONE";
 
     /**
+     * @return TRANSFORMATION_CONSTANT_PREFIX + NO_TRANSFORMATION_CONSTANT_SUFFIX
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getDaoNoTransformationConstantName()
      */
     protected String handleGetDaoNoTransformationConstantName()
@@ -326,6 +355,8 @@ public class SpringEntityLogicImpl
 
     /**
      * Common routine to check inheritance.
+     * @param inheritance 
+     * @return inheritance.equals(getHibernateInheritanceStrategy())
      */
     protected boolean checkHibInheritance(String inheritance)
     {
@@ -333,6 +364,7 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return checkHibInheritance(INHERITANCE_STRATEGY_CLASS)
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isHibernateInheritanceClass()
      */
     protected boolean handleIsHibernateInheritanceClass()
@@ -341,6 +373,7 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return checkHibInheritance(INHERITANCE_STRATEGY_INTERFACE)
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isHibernateInheritanceInterface()
      */
     protected boolean handleIsHibernateInheritanceInterface()
@@ -349,6 +382,7 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return checkHibInheritance(INHERITANCE_STRATEGY_SUBCLASS)
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isHibernateInheritanceSubclass()
      */
     protected boolean handleIsHibernateInheritanceSubclass()
@@ -357,6 +391,7 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return checkHibInheritance(INHERITANCE_STRATEGY_CONCRETE)
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isHibernateInheritanceConcrete()
      */
     protected boolean handleIsHibernateInheritanceConcrete()
@@ -370,17 +405,18 @@ public class SpringEntityLogicImpl
     private static final String INHERITANCE_STRATEGY = "hibernateInheritanceStrategy";
 
     /**
+     * @return superEntity.getHibernateInheritanceStrategy()
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getHibernateInheritanceStrategy()
      */
     protected String handleGetHibernateInheritanceStrategy()
     {
         String inheritance = this.getInheritance(this);
-        for (SpringEntity superEntity = this.getSuperEntity(); superEntity != null && StringUtils.isBlank(inheritance);)
+        for (SpringEntity superEntity = this.getSpringSuperEntity(); superEntity != null && StringUtils.isBlank(inheritance);)
         {
             inheritance = superEntity.getHibernateInheritanceStrategy();
         }
         inheritance = inheritance != null ? inheritance.toLowerCase() : null;
-        if (StringUtils.isBlank(inheritance) || !inheritanceStrategies.contains(inheritance))
+        if (StringUtils.isBlank(inheritance) || !INHERITANCE_STRATEGIES.contains(inheritance))
         {
             inheritance = this.getDefaultInheritanceStrategy();
         }
@@ -388,7 +424,7 @@ public class SpringEntityLogicImpl
     }
 
     /**
-     * Gets the default hibernate inhertance strategy.
+     * Gets the default hibernate inheritance strategy.
      *
      * @return the default hibernate inheritance strategy.
      */
@@ -418,11 +454,12 @@ public class SpringEntityLogicImpl
     }
 
     /**
+     * @return IsRequiresHibernateMapping
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isRequiresHibernateMapping()
      */
     protected boolean handleIsRequiresHibernateMapping()
     {
-        final SpringEntity superEntity = this.getSuperEntity();
+        final SpringEntity superEntity = this.getSpringSuperEntity();
         return
             SpringHibernateUtils.mapSubclassesInSeparateFile(
                 (String)this.getConfiguredProperty(SpringGlobals.HIBERNATE_MAPPING_STRATEGY)) ||
@@ -438,11 +475,11 @@ public class SpringEntityLogicImpl
      */
     private boolean isRoot()
     {
-        final SpringEntity superEntity = this.getSuperEntity();
+        final SpringEntity superEntity = this.getSpringSuperEntity();
         boolean abstractConcreteEntity =
             (this.isHibernateInheritanceConcrete() || this.isHibernateInheritanceInterface()) && this.isAbstract();
         return (
-            this.getSuperEntity() == null ||
+            this.getSpringSuperEntity() == null ||
             (superEntity.isHibernateInheritanceInterface() || superEntity.isHibernateInheritanceConcrete())
         ) && !abstractConcreteEntity;
     }
@@ -453,7 +490,7 @@ public class SpringEntityLogicImpl
      *
      * @return the super entity or null if one doesn't exist.
      */
-    private SpringEntity getSuperEntity()
+    private SpringEntity getSpringSuperEntity()
     {
         SpringEntity superEntity = null;
         if (this.getGeneralization() != null && this.getGeneralization() instanceof SpringEntity)
@@ -466,16 +503,17 @@ public class SpringEntityLogicImpl
     /**
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#getAttributeEmbeddedValueList()
      */
+    @Override
     protected String handleGetAttributeEmbeddedValueList()
     {
-        final StringBuffer buffer = new StringBuffer();
-        for (final Iterator iterator = this.getEmbeddedValues().iterator(); iterator.hasNext();)
+        final StringBuilder buffer = new StringBuilder();
+        for (final Iterator<AttributeFacade> iterator = this.getEmbeddedValues().iterator(); iterator.hasNext();)
         {
-            final AttributeFacade attribute = (AttributeFacade)iterator.next();
+            final AttributeFacade attribute = iterator.next();
             final String name = attribute.getName();
             if (StringUtils.isNotBlank(name))
             {
-                buffer.append('\"' + name + '\"');
+                buffer.append('\"').append(name).append('\"');
                 if (iterator.hasNext())
                 {
                     buffer.append(", ");
@@ -486,6 +524,7 @@ public class SpringEntityLogicImpl
     }
     
     /**
+     * @return StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty("richClient"))).equalsIgnoreCase("true")
      * @see org.andromda.cartridges.spring.metafacades.SpringEntity#isRichClient()
      */
     protected boolean handleIsRichClient() 
@@ -493,7 +532,7 @@ public class SpringEntityLogicImpl
         String richClient =
             StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty("richClient")));
 
-        return richClient.equalsIgnoreCase("true");
+        return "true".equalsIgnoreCase(richClient);
     }
     
 }

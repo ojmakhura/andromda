@@ -3,7 +3,6 @@ package org.andromda.cartridges.spring.metafacades;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.utils.StringUtilsHelper;
 
-
 /**
  * MetafacadeLogic implementation for org.andromda.cartridges.spring.metafacades.SpringManageableEntityAssociationEnd.
  *
@@ -13,17 +12,31 @@ public class SpringManageableEntityAssociationEndLogicImpl
     extends SpringManageableEntityAssociationEndLogic
 {
 
+    /**
+     * Public constructor for SpringManageableEntityAssociationEndLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.spring.metafacades.SpringManageableEntityAssociationEnd
+     */
     public SpringManageableEntityAssociationEndLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
-    protected java.lang.String handleGetDaoName()
+    /**
+     * @return StringUtilsHelper.lowerCamelCaseName(this.getName()) + "Dao"
+     * @see org.andromda.cartridges.spring.metafacades.SpringManageableEntityAssociationEnd#getDaoName()
+     */
+    protected String handleGetDaoName()
     {
         return StringUtilsHelper.lowerCamelCaseName(this.getName()) + "Dao";
     }
 
-    protected java.lang.String handleGetDaoReferenceName()
+    /**
+     * @return getType().getBeanName(false)
+     * @see org.andromda.cartridges.spring.metafacades.SpringManageableEntityAssociationEnd#getDaoReferenceName()
+     */
+    protected String handleGetDaoReferenceName()
     {
         String referenceName = null;
 
@@ -37,12 +50,20 @@ public class SpringManageableEntityAssociationEndLogicImpl
         return referenceName;
     }
 
-    protected java.lang.String handleGetDaoGetterName()
+    /**
+     * @return getGetterName() + "Dao"
+     * @see org.andromda.cartridges.spring.metafacades.SpringManageableEntityAssociationEnd#getDaoGetterName()
+     */
+    protected String handleGetDaoGetterName()
     {
         return this.getGetterName() + "Dao";
     }
 
-    protected java.lang.String handleGetDaoSetterName()
+    /**
+     * @return getSetterName() + "Dao"
+     * @see org.andromda.cartridges.spring.metafacades.SpringManageableEntityAssociationEnd#getDaoSetterName()
+     */
+    protected String handleGetDaoSetterName()
     {
         return this.getSetterName() + "Dao";
     }

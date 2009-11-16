@@ -29,7 +29,7 @@ class SpringMetafacadeUtils
      */
     static String getFullyQualifiedName(String packageName, String name, String suffix)
     {
-        StringBuffer fullyQualifiedName = new StringBuffer(StringUtils.trimToEmpty(packageName));
+        StringBuilder fullyQualifiedName = new StringBuilder(StringUtils.trimToEmpty(packageName));
         if (StringUtils.isNotBlank(packageName))
         {
             fullyQualifiedName.append(".");
@@ -61,6 +61,7 @@ class SpringMetafacadeUtils
      *
      * @return String the remoting type name.
      */
+    @SuppressWarnings("null")
     static String getServiceRemotingType(ClassifierFacade classifier, String defaultServiceRemotingType)
     {
         ExceptionUtils.checkNull("classifer", classifier);
@@ -70,7 +71,7 @@ class SpringMetafacadeUtils
             String remotingTypeValue = (String)classifier.findTaggedValue(
                     SpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTING_TYPE);
             // if the remoting type wasn't found, search all super classes
-            if (StringUtils.isEmpty(remotingTypeValue))
+            if (StringUtils.isBlank(remotingTypeValue))
             {
                 remotingType = (String)CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
                 {
@@ -86,7 +87,7 @@ class SpringMetafacadeUtils
                 remotingType = remotingTypeValue;
             }
         }
-        if (StringUtils.isEmpty(remotingType))
+        if (StringUtils.isBlank(remotingType))
         {
             remotingType = defaultServiceRemotingType;
         }
@@ -113,7 +114,7 @@ class SpringMetafacadeUtils
             String interceptorsValue = (String)classifier.findTaggedValue(
                     SpringProfile.TAGGEDVALUE_SPRING_SERVICE_INTERCEPTORS);
             // if the interceptors weren't found, search all super classes
-            if (StringUtils.isEmpty(interceptorsValue))
+            if (StringUtils.isBlank(interceptorsValue))
             {
                 interceptorsValue = (String)CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
                 {
@@ -144,6 +145,7 @@ class SpringMetafacadeUtils
      *
      * @return String the remote service port.
      */
+    @SuppressWarnings("null")
     static String getServiceRemotePort(ClassifierFacade classifier, String defaultRemoteServicePort)
     {
         ExceptionUtils.checkNull("classifer", classifier);
@@ -153,7 +155,7 @@ class SpringMetafacadeUtils
             String remoteServicePortValue = (String)classifier.findTaggedValue(
                     SpringProfile.TAGGEDVALUE_SPRING_SERVICE_REMOTE_PORT);
             // if the remote service port wasn't found, search all super classes
-            if (StringUtils.isEmpty(remoteServicePortValue))
+            if (StringUtils.isBlank(remoteServicePortValue))
             {
                 remoteServicePort = (String)CollectionUtils.find(classifier.getAllGeneralizations(), new Predicate()
                 {
@@ -169,7 +171,7 @@ class SpringMetafacadeUtils
                 remoteServicePort = remoteServicePortValue;
             }
         }
-        if (StringUtils.isEmpty(remoteServicePort))
+        if (StringUtils.isBlank(remoteServicePort))
         {
             remoteServicePort = defaultRemoteServicePort;
         }

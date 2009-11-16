@@ -21,7 +21,7 @@ public class SpringGlobals
     /**
      * A mapping file per hierarchy.
      */
-    static public final String HIBERNATE_MAPPING_STRATEGY_HIERARCHY = "hierachy";
+    static public final String HIBERNATE_MAPPING_STRATEGY_HIERARCHY = "hierarchy";
 
     /**
      * POJO implementation class suffix.
@@ -232,7 +232,7 @@ public class SpringGlobals
     /**
      * JMS Message types.
      */
-    public static String[] JMS_MESSAGE_TYPES = new String[] { 
+    public static String[] jmsMessageTypes = new String[] { 
         "javax.jms.Message",
         "javax.jms.MapMessage", 
         "javax.jms.TextMessage", 
