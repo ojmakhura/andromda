@@ -34,6 +34,7 @@
         <property name="maxSqlNameLength">30</property>
         <property name="foreignKeySuffix">_FK</property>
         <property name="ejbJndiNamePrefix">${application.id}</property>
+        <property name="hibernateVersion">3</property>
       </properties>
     </namespace>
     <namespace name="spring">
@@ -42,9 +43,11 @@
         <property name="hibernateDialect">${hibernate.dialect}</property>
         <property name="hibernateShowSql">${hibernate.db.showSql}</property>
         <property name="hibernateQueryUseNamedParameters">true</property>
-        <property name="hibernateCacheProvider">net.sf.hibernate.cache.EhCacheProvider</property>
-        <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>
-        <property name="hibernateQueryCacheFactory">net.sf.hibernate.cache.StandardQueryCacheFactory</property>
+        <property name="sessionFactory">org.springframework.orm.hibernate3.LocalSessionFactoryBean</property>
+        <property name="localTransactionManager">org.springframework.orm.hibernate3.HibernateTransactionManager</property>
+        <property name="hibernateCacheProvider">org.hibernate.cache.EhCacheProvider</property>
+        <property name="hibernateQueryCacheFactory">org.hibernate.cache.StandardQueryCacheFactory</property>
+        <property name="hibernateInheritanceStrategy">${hibernate.inheritance.strategy}</property>        
         <property name="springTypesPackage">${application.package}</property>
         <property name="daos">${core.generated.dir}</property>
         <property name="dao-impls">${core.manual.java.dir}</property>
