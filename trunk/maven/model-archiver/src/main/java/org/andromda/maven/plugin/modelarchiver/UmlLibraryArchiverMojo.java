@@ -3,6 +3,8 @@ package org.andromda.maven.plugin.modelarchiver;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.Artifact;
@@ -11,8 +13,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
-import org.codehaus.plexus.util.FileUtils;
-
 
 /**
  * Builds archived model uml files.
@@ -132,9 +132,9 @@ public class UmlLibraryArchiverMojo
             }
             else
             {
-                // old files in directory are not automatically deleted. 
-                FileUtils.forceDelete(buildDirectory.getAbsolutePath() + "/*.uml");
-                FileUtils.forceDelete(buildDirectory.getAbsolutePath() + "/models");
+                // old files in directory are not automatically deleted.                
+                MojoUtils.deleteFiles(buildDirectory.getAbsolutePath(), "uml");            	                
+                FileUtils.deleteDirectory(new File(buildDirectory.getAbsolutePath(), "models"));;
             }
 
             String packaging = this.project.getPackaging();
@@ -160,7 +160,7 @@ public class UmlLibraryArchiverMojo
                     File file = modelFiles[modelFileNum];
                     if (file.isFile() && file.toString().matches(this.modelFilePattern))
                     {
-                        final String version = escapePattern(this.project.getVersion());
+                        final String version = MojoUtils.escapePattern(this.project.getVersion());
                         File buildFile = new File(buildDirectory, this.finalName + '.' + packaging);
                         FileUtils.copyFile(file, buildFile);
                         getLog().debug("File " + file + " copied to " + buildFile.getAbsolutePath());
@@ -182,7 +182,7 @@ public class UmlLibraryArchiverMojo
                             {
                                 for (int replacementExtensionNum = 0; replacementExtensionNum < replacementExtensions.length; replacementExtensionNum++)
                                 {
-                                    final String extension = escapePattern(replacementExtensions[replacementExtensionNum]);
+                                    final String extension = MojoUtils.escapePattern(replacementExtensions[replacementExtensionNum]);
                                     final String extensionPattern = "((\\-" + version + ")?)" + extension;
                                     final String newExtension = "\\-" + version + extension;
                                     contents = contents.replaceAll(
@@ -216,24 +216,5 @@ public class UmlLibraryArchiverMojo
         {
             throw new MojoExecutionException("Error assembling model", throwable);
         }
-    }
-
-    /**
-     * Escapes the pattern so that the reserved regular expression
-     * characters are used literally.
-     * @param pattern the pattern to replace.
-     * @return the resulting pattern.
-     */
-    private static String escapePattern(String pattern)
-    {
-        pattern = StringUtils.replace(
-                pattern,
-                ".",
-                "\\.");
-        pattern = StringUtils.replace(
-                pattern,
-                "-",
-                "\\-");
-        return pattern;
     }
 }
