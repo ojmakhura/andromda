@@ -1,89 +1,129 @@
 <project>
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.andromda</groupId>
-        <artifactId>andromda</artifactId>
-        <version>3.4-SNAPSHOT</version>
-    </parent>
-    <groupId>org.andromda.maven.plugins</groupId>
-    <artifactId>andromda-maven-plugins</artifactId>
-    <packaging>pom</packaging>
-    <name>AndroMDA Maven Plugins</name>
-    <description>
-        The AndroMDA Maven plugins
-    </description>
-    <scm>
-        <connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven</connection>
-        <developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven</developerConnection>
-        <url>http://andromda.svn.sourceforge.net/</url>
-    </scm>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.codehaus.plexus</groupId>
-                <artifactId>plexus-utils</artifactId>
-                <version>1.5.9</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven</groupId>
-                <artifactId>maven-archiver</artifactId>
-                <version>2.4</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.4</version>
-            </dependency>
-            <dependency>
-                <groupId>org.codehaus.plexus</groupId>
-                <artifactId>plexus-archiver</artifactId>
-                <!-- Gives java.lang.IncompatibleClassChangeError: Class org.codehaus.plexus.logging.console.ConsoleLogger 
-                 does not implement the requested interface org.codehaus.plexus.logging.Logger
-                     at org.codehaus.plexus.archiver.zip.AbstractZipArchiver.createArchiveMain(AbstractZipArchiver.java:330) -->
-                <!--version>1.0-alpha-10</version-->
-                <version>1.0-alpha-8</version>
-                <!-- Must specifically exclude these plexus dependencies or else IncompatibleClassChangeError.
-                See http://jira.codehaus.org/browse/MNG-3438 -->
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.codehaus.plexus</groupId>
-                        <artifactId>plexus-container-default</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.codehaus.plexus</groupId>
-                        <artifactId>plexus-component-api</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-plugin-api</artifactId>
-            <version>${maven.version}</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
-    <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-    </build>
-    <modules>
-        <module>initialize</module>
-        <module>andromda</module>
-        <module>andromdapp</module>
-        <module>model-archiver</module>
-        <module>bootstrap</module>
-        <module>bootstrap-install</module>
-        <module>sablecc</module>
-        <module>cartridge</module>
-        <module>translation-library</module>
-        <module>configuration</module>
-        <module>multi-source</module>
-        <module>distribution</module>
-        <module>site</module>
-    </modules>
-    <properties>
-        <maven.version>2.0.10</maven.version>
-    </properties>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.andromda</groupId>
+		<artifactId>andromda</artifactId>
+		<version>3.4-SNAPSHOT</version>
+	</parent>
+	<groupId>org.andromda.maven.plugins</groupId>
+	<artifactId>andromda-maven-plugins</artifactId>
+	<packaging>pom</packaging>
+	<name>AndroMDA Maven Plugins</name>
+	<description>
+		The AndroMDA Maven plugins
+	</description>
+	<scm>
+		<connection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven</connection>
+		<developerConnection>scm:svn:https://andromda.svn.sourceforge.net/svnroot/andromda/trunk/maven</developerConnection>
+		<url>http://andromda.svn.sourceforge.net/</url>
+	</scm>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- Maven dependencies -->
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-plugin-api</artifactId>
+				<version>${maven.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-core</artifactId>
+				<version>${maven.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-artifact</artifactId>
+				<version>${maven.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-project</artifactId>
+				<version>${maven.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-settings</artifactId>
+				<version>${maven.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-monitor</artifactId>
+				<version>${maven.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-model</artifactId>
+				<version>${maven.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-archiver</artifactId>
+				<version>2.4</version>
+			</dependency>			
+			<dependency>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.4.1</version>
+			</dependency>
+
+			<!-- Plexus dependencies -->
+			<dependency>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-compiler-api</artifactId>
+				<version>1.5.3</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-container-default</artifactId>
+				<version>1.5.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-utils</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
+				<!-- TODO check it -->
+				<groupId>org.codehaus.plexus</groupId>
+				<artifactId>plexus-archiver</artifactId>
+				<!-- Gives java.lang.IncompatibleClassChangeError: Class org.codehaus.plexus.logging.console.ConsoleLogger
+				does not implement the requested interface org.codehaus.plexus.logging.Logger
+				at org.codehaus.plexus.archiver.zip.AbstractZipArchiver.createArchiveMain(AbstractZipArchiver.java:330) -->
+				<!--version>1.0-alpha-10</version-->
+				<version>1.0-alpha-12</version>
+				<!-- Must specifically exclude these plexus dependencies or else IncompatibleClassChangeError.
+				See http://jira.codehaus.org/browse/MNG-3438 -->
+				<!--<exclusions>
+					<exclusion>
+						<groupId>org.codehaus.plexus</groupId>
+						<artifactId>plexus-container-default</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>org.codehaus.plexus</groupId>
+						<artifactId>plexus-component-api</artifactId>
+					</exclusion>
+				</exclusions>-->
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+	</build>
+	<modules>
+		<module>initialize</module>
+		<module>andromda</module>
+		<module>andromdapp</module>
+		<module>model-archiver</module>
+		<module>bootstrap</module>
+		<module>bootstrap-install</module>
+		<module>sablecc</module>
+		<module>cartridge</module>
+		<module>translation-library</module>
+		<module>configuration</module>
+		<module>multi-source</module>
+		<module>distribution</module>
+		<module>site</module>
+	</modules>
 </project>
