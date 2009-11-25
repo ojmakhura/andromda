@@ -619,7 +619,7 @@
 	</pluginRepository>
 </pluginRepositories>
 <prerequisites>
-	<maven>2.2.1</maven>
+	<maven>2.0.10</maven>
 </prerequisites>
 <distributionManagement>
 	<repository>
@@ -642,6 +642,6 @@
 	<!-- Build lib\ bootstrap artifacts. If false, deploy lib\ bootstrap artifacts to local repository>
 	<bootstrap.artifacts>true</bootstrap.artifacts-->
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	<maven.version>2.2.1</maven.version>
+	<maven.version>2.0.10</maven.version>
 </properties>
 </project>
