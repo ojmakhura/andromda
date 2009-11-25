@@ -9,8 +9,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.archiver.MavenArchiveConfiguration;
@@ -26,7 +30,7 @@ import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.UnArchiver;
 import org.codehaus.plexus.archiver.jar.JarArchiver;
 import org.codehaus.plexus.archiver.manager.ArchiverManager;
-import org.codehaus.plexus.util.FileUtils;
+
 
 
 /**
@@ -144,8 +148,8 @@ public class XmiZipArchiverMojo
     private boolean generateJar;
     private static final String[] JAR_INCLUDES = new String[] {"**/*"};
     private static final String[] JAR_EXCLUDES = new String[] {"**/package.html"};
-    private final Collection modelArchiveExcludes =
-        new ArrayList(Arrays.asList(new String[] {"*.xml.zip, **/*.java", "*reports*/**", "tests*/**"}));
+    private final Collection<String> modelArchiveExcludes =
+        new ArrayList<String>(Arrays.asList(new String[] {"*.xml.zip, **/*.java", "*reports*/**", "tests*/**"}));
 
     /**
      * The pattern of the archived model files that should be extracted
@@ -208,8 +212,8 @@ public class XmiZipArchiverMojo
             else
             {
                 // old files in directory are not automatically deleted.
-                FileUtils.forceDelete(buildDirectory.getAbsolutePath() + "/*.xml.zip");
-                FileUtils.forceDelete(buildDirectory.getAbsolutePath() + "/models");
+            	MojoUtils.deleteFiles(buildDirectory.getAbsolutePath(), "xml.zip");            	                
+                FileUtils.deleteDirectory(new File(buildDirectory.getAbsolutePath(), "models"));
             }
             final File modelExtractDirectory = new File(this.workDirectory, "models/xmi");
             modelExtractDirectory.mkdirs();
@@ -239,7 +243,7 @@ public class XmiZipArchiverMojo
                             {
                                 final File newFile =
                                     new File(modelExtractDirectory,
-                                        this.finalName + '.' + FileUtils.getExtension(extractedFile.toString()));
+                                        this.finalName + '.' + FilenameUtils.getExtension(extractedFile.toString()));
 
                                 // - exclude the file that we extracted
                                 if (!newFile.equals(extractedFile))
@@ -255,8 +259,8 @@ public class XmiZipArchiverMojo
                                 {
                                     for (int ctr3 = 0; ctr3 < replacementExtensions.length; ctr3++)
                                     {
-                                        final String version = escapePattern(this.project.getVersion());
-                                        final String extension = escapePattern(replacementExtensions[ctr3]);
+                                        final String version = MojoUtils.escapePattern(this.project.getVersion());
+                                        final String extension = MojoUtils.escapePattern(replacementExtensions[ctr3]);
                                         final String extensionPattern = "((\\-" + version + ")?)" + extension;
                                         final String newExtension = "\\-" + version + extension;
                                         getLog().debug("replacing " + extensionPattern + " with " + newExtension + " in " + extractedFile.getName() + " from " + file.getAbsolutePath());
@@ -364,28 +368,7 @@ public class XmiZipArchiverMojo
             source,
             destination);
     }
-
-    /**
-     * Escapes the pattern so that the reserved regular expression
-     * characters are used literally.
-     * @param pattern the pattern to replace.
-     * @return the resulting pattern.
-     */
-    private static String escapePattern(String pattern)
-    {
-        pattern =
-            StringUtils.replace(
-                pattern,
-                ".",
-                "\\.");
-        pattern =
-            StringUtils.replace(
-                pattern,
-                "-",
-                "\\-");
-        return pattern;
-    }
-
+    
     /**
      * Unpacks the archive file.
      *
@@ -398,7 +381,7 @@ public class XmiZipArchiverMojo
         final File location)
         throws MojoExecutionException
     {
-        final String archiveExt = FileUtils.getExtension(file.getAbsolutePath()).toLowerCase();
+        final String archiveExt = FilenameUtils.getExtension(file.getAbsolutePath()).toLowerCase();
         try
         {
             final UnArchiver unArchiver;
