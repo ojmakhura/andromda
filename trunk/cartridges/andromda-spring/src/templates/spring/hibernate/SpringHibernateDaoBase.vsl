@@ -811,8 +811,8 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set($comparatorArgument = "")
 #end
 #set ($parameterName = "parameter${velocityCount}")
-##            // entity=$entity 
-##            // finder=$finder 
+##            // entity=$entity
+##            // finder=$finder
 ##            // arg=$criteriaArgument finder.criteriaArgument
 ##            // class=$criteriaClass criteriaArgument.type
 ##            // attr=$criteriaAttribute criteriaClass.getAttributes(true)
@@ -1293,7 +1293,10 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     {
         try
         {
-            final int totalCount = queryObject.list().size();
+            final org.hibernate.ScrollableResults scrollableResults = queryObject.scroll();
+            scrollableResults.last();
+            int totalCount = scrollableResults.getRowNumber();
+            totalCount = totalCount >= 0 ? totalCount + 1 : 0;
             if (pageNumber > 0 && pageSize > 0)
             {
                 queryObject.setFirstResult(this.calculateFirstResult(pageNumber, pageSize));
