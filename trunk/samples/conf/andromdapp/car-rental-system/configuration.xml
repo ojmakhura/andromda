@@ -10,9 +10,8 @@
         <property name="applicationPackage">org.andromda.samples.carrental</property>
         <property name="applicationType">ear</property>
         <property name="transactionPersistenceType">spring</property>
-        <property name="workflow">no</property>
-        <property name="hibernateVersion">2</property>
-        <property name="springVersion">1</property>
+        <property name="workflow">no</property>        
+        <property name="springVersion">2</property>
         <property name="implementationLanguage">java</property>
         <property name="web">yes</property>
         <property name="webType">struts</property>
