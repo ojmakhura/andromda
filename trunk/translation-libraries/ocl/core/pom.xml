@@ -19,6 +19,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-sablecc-plugin</artifactId>
+                <version>${pom.version}</version>
                 <executions>
                     <execution>
                         <goals>
