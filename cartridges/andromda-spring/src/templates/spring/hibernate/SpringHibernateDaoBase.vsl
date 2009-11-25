@@ -1293,7 +1293,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     {
         try
         {
-            final org.hibernate.ScrollableResults scrollableResults = queryObject.scroll();
+            final ${hibernateUtils.basePackage}.ScrollableResults scrollableResults = queryObject.scroll();
             scrollableResults.last();
             int totalCount = scrollableResults.getRowNumber();
             totalCount = totalCount >= 0 ? totalCount + 1 : 0;
