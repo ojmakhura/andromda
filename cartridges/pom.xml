@@ -20,28 +20,28 @@
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-utils</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <type>xml.zip</type>
         </dependency>
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.profiles.uml14</groupId>
             <artifactId>andromda-profile</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <type>xml.zip</type>
             <scope>runtime</scope>
             <optional>true</optional>
@@ -63,7 +63,7 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-maven-plugin</artifactId>
-                    <version>${pom.version}</version>
+                    <version>${project.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -81,7 +81,7 @@
                     <extensions>true</extensions>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-cartridge-plugin</artifactId>
-                    <version>${pom.version}</version>
+                    <version>${project.version}</version>
                     <executions>
                         <execution>
                             <phase>generate-test-sources</phase> 
@@ -117,7 +117,7 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins.site</groupId>
                     <artifactId>andromda-site-plugin</artifactId>
-                    <version>${pom.version}</version>
+                    <version>${project.version}</version>
                     <executions>
                         <execution>
                             <id>profile-transform</id>

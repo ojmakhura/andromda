@@ -25,12 +25,12 @@
         <dependency>
             <groupId>org.andromda.translationlibraries</groupId>
             <artifactId>andromda-ocl-validation-library</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency> 
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-uml</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency> 
             <groupId>org.eclipse.uml2</groupId>
@@ -94,7 +94,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
-                <version>${pom.version}</version>
+                <version>${project.version}</version>
                 <executions>
                     <execution>
                         <id>namespace-transform</id>
@@ -142,7 +142,7 @@
         <artifactId>clirr-maven-plugin</artifactId>        
         <configuration>
           <!-- Compare the current code against current version -->
-          <comparisonVersion>${pom.version}</comparisonVersion>
+          <comparisonVersion>${project.version}</comparisonVersion>
         </configuration>
       </plugin>      
     </plugins>

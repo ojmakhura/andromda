@@ -22,7 +22,7 @@
     	<dependency>
 	      	<groupId>org.andromda</groupId>
 	      	<artifactId>andromda-core</artifactId>
-	      	<version>${pom.version}</version>
+	      	<version>${project.version}</version>
 	    </dependency>
     	<dependency>
     		<groupId>commons-collections</groupId>
@@ -35,7 +35,7 @@
     	<dependency>
     	    <groupId>org.andromda.translationlibraries</groupId>
     	    <artifactId>andromda-ocl-translation-core</artifactId>
-    	    <version>${pom.version}</version>
+    	    <version>${project.version}</version>
     	</dependency>    	
     </dependencies>
     <build>
@@ -44,7 +44,7 @@
                 <plugin>
                   <groupId>org.andromda.maven.plugins</groupId>
                   <artifactId>andromda-bootstrap-plugin</artifactId>
-                  <version>${pom.version}</version>
+                  <version>${project.version}</version>
                   <executions>
                       <execution>
                           <goals>
@@ -60,7 +60,7 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-maven-plugin</artifactId>
-                    <version>${pom.version}</version>
+                    <version>${project.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -76,7 +76,7 @@
                 <plugin>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                    <version>${pom.version}</version>
+                    <version>${project.version}</version>
                     <executions>
                         <execution>
                             <goals>
@@ -92,7 +92,7 @@
                     <extensions>true</extensions>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-model-archiver-plugin</artifactId>
-                    <version>${pom.version}</version>
+                    <version>${project.version}</version>
                     <configuration>
                         <modelSourceDirectory>src/uml</modelSourceDirectory>
                         <generateJar>true</generateJar>

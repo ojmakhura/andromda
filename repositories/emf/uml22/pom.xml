@@ -16,14 +16,14 @@
     </scm>
     <dependencies> 
         <dependency> 
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
               <artifactId>andromda-repository-emf</artifactId>
-             <version>${pom.version}</version>
+             <version>${project.version}</version>
         </dependency> 
         <dependency>
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-emf-uml22</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <!-- Load RSM Metamodel dependencies. Want to do this dynamically in the model processor - how?>
         <dependency>
@@ -107,7 +107,7 @@
         <artifactId>clirr-maven-plugin</artifactId>        
         <configuration>
           <!-- Compare the current code against current version -->
-          <comparisonVersion>${pom.version}</comparisonVersion>
+          <comparisonVersion>${project.version}</comparisonVersion>
         </configuration>
       </plugin>      
     </plugins>

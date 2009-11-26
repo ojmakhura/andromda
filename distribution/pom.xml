@@ -19,20 +19,20 @@
     <dependencies>
         <!-- Add dependencies here to ensure they're built before the distribution itself -->
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>andromda-schema2xmi</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.maven.plugins.site</groupId>
             <artifactId>andromda-site-plugins</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <type>pom</type>
         </dependency>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>andromda-script-wrappers</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <type>pom</type>
         </dependency>
     </dependencies>
@@ -41,7 +41,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-distribution-plugin</artifactId>
-                <version>${pom.version}</version>
+                <version>${project.version}</version>
                 <executions>
                     <execution>
                         <id>binary</id>
@@ -49,7 +49,7 @@
                             <goal>assemble</goal>
                         </goals>
                         <configuration>
-                            <name>andromda-bin-${pom.version}</name>
+                            <name>andromda-bin-${project.version}</name>
                             <artifactDirectory>andromda</artifactDirectory>
                             <dependencyDirectory>lib</dependencyDirectory>
                             <projectIncludes>
@@ -103,7 +103,7 @@
                             <goal>assemble</goal>
                         </goals>
                         <configuration>
-                            <name>andromda-src-${pom.version}</name>
+                            <name>andromda-src-${project.version}</name>
                             <locations>
                                 <location>
                                     <path>${pom.basedir}/../</path>
