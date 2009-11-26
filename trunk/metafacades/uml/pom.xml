@@ -37,6 +37,10 @@
     	    <artifactId>andromda-ocl-translation-core</artifactId>
     	    <version>${pom.version}</version>
     	</dependency>
+    	<dependency>
+            <groupId>org.codehaus.plexus</groupId>
+            <artifactId>plexus-utils</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <pluginManagement>
