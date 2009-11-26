@@ -12,9 +12,9 @@
     <name>TimeTracker Common</name>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-mda</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <type>pom</type>
             <scope>runtime</scope>
             <optional>true</optional>

@@ -29,11 +29,7 @@
 			<artifactId>commons-lang</artifactId>
 		</dependency>
 
-		<!-- Maven dependencies -->
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-project</artifactId>
-		</dependency>
+		<!-- Maven dependencies -->		
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-archiver</artifactId>
@@ -67,17 +63,17 @@
 		<dependency>
 			<groupId>org.andromda</groupId>
 			<artifactId>andromda-core</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.andromda.cartridges</groupId>
 			<artifactId>andromda-cartridge-testsuite</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.andromda.maven.plugins</groupId>
 			<artifactId>andromda-maven-plugin</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 </project>

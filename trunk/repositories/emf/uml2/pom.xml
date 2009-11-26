@@ -16,14 +16,14 @@
     </scm>
     <dependencies> 
 		<dependency> 
-    		<groupId>${pom.groupId}</groupId>
+    		<groupId>${project.groupId}</groupId>
       		<artifactId>andromda-repository-emf</artifactId>
-     		<version>${pom.version}</version>
+     		<version>${project.version}</version>
     	</dependency> 
         <dependency> 
             <groupId>org.andromda.metafacades</groupId>
             <artifactId>andromda-metafacades-emf-uml2</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency> 
 		<dependency>
 			<groupId>org.eclipse</groupId>

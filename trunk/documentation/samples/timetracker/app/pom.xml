@@ -13,12 +13,12 @@
     <dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-common</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>${pom.groupId}</groupId>
+                        <groupId>${project.groupId}</groupId>
                         <artifactId>timetracker-mda</artifactId>
                     </exclusion>
                     <exclusion>
@@ -46,20 +46,20 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-common</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-core</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <type>ejb</type>
         </dependency>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>timetracker-web</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
@@ -68,7 +68,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>${application.id}-${pom.version}</finalName>
+        <finalName>${application.id}-${project.version}</finalName>
         <resources>
             <resource>
                 <directory>src/main/config</directory>
@@ -77,7 +77,7 @@
             </resource>
             <resource>
                 <directory>src/main/application</directory>
-                <targetPath>../${application.id}-${pom.version}</targetPath>
+                <targetPath>../${application.id}-${project.version}</targetPath>
                 <filtering>true</filtering>
             </resource>
         </resources>
@@ -92,16 +92,16 @@
                     <version>1.4</version>
                     <modules>
                         <javaModule>
-                            <groupId>${pom.groupId}</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>timetracker-common</artifactId>
                             <includeInApplicationXml>true</includeInApplicationXml>
                         </javaModule>
                         <ejbModule>
-                            <groupId>${pom.groupId}</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>timetracker-core</artifactId>
                         </ejbModule>
                         <webModule>
-                            <groupId>${pom.groupId}</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>timetracker-web</artifactId>
                             <contextRoot>/${application.id}</contextRoot>
                         </webModule>

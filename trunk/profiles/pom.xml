@@ -32,7 +32,7 @@
                     <extensions>true</extensions>
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-model-archiver-plugin</artifactId>
-                    <version>${pom.version}</version>
+                    <version>${project.version}</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>

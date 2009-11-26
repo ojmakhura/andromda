@@ -58,7 +58,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins</groupId>
                 <artifactId>andromda-bootstrap-install-plugin</artifactId>
-                <version>${pom.version}</version>
+                <version>${project.version}</version>
                 <executions>
                     <execution>
                         <goals>

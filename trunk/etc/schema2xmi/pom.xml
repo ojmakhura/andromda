@@ -22,12 +22,12 @@
         <dependency>
             <groupId>org.andromda</groupId>
             <artifactId>andromda-core</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.andromda.repositories</groupId>
             <artifactId>andromda-repository-mdr</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
     	<dependency> 
     		<groupId>jmi</groupId>

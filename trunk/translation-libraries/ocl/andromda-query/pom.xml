@@ -23,9 +23,9 @@
     </scm>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>andromda-ocl-translation-core</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <build>
@@ -40,7 +40,7 @@
             <plugin>
                 <groupId>org.andromda.maven.plugins.site</groupId>
                 <artifactId>andromda-site-plugin</artifactId>
-                <version>${pom.version}</version>
+                <version>${project.version}</version>
                 <executions>
                     <execution>
                         <id>namespace-transform</id>

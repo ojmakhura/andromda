@@ -122,68 +122,68 @@
 		<dependency>
 			<groupId>org.andromda.bootstrap</groupId>
 			<artifactId>andromda-core</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.andromda.bootstrap.maven.plugins</groupId>
 			<artifactId>andromda-configuration-mojo</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.andromda.bootstrap.translationlibraries</groupId>
 			<artifactId>andromda-ocl-translation-core</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.andromda.bootstrap.translationlibraries</groupId>
 			<artifactId>andromda-ocl-validation-library</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.andromda.bootstrap.metafacades</groupId>
 			<artifactId>andromda-metafacades-uml</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.andromda.bootstrap.metafacades</groupId>
 			<artifactId>andromda-metafacades-uml14</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.andromda.bootstrap.repositories</groupId>
 			<artifactId>andromda-repository-mdr-uml14</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.andromda.bootstrap.repositories</groupId>
 			<artifactId>andromda-repository-mdr</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.andromda.bootstrap.templateengines</groupId>
 			<artifactId>andromda-templateengine-velocity</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.andromda.bootstrap.cartridges</groupId>
 			<artifactId>andromda-meta-cartridge</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.andromda.bootstrap</groupId>
 			<artifactId>andromda-utils</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.andromda.bootstrap.translationlibraries</groupId>
 			<artifactId>andromda-ocl-translation-testsuite</artifactId>
-			<version>${pom.version}</version>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -191,7 +191,7 @@
 			<plugin>
 				<groupId>org.andromda.maven.plugins</groupId>
 				<artifactId>andromda-initialize-plugin</artifactId>
-				<version>${pom.version}</version>
+				<version>${project.version}</version>
 				<executions>
 					<execution>
 						<goals>
