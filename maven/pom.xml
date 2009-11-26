@@ -66,46 +66,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>2.4.1</version>
-			</dependency>
-
-			<!-- Plexus dependencies -->
-			<dependency>
-				<groupId>org.codehaus.plexus</groupId>
-				<artifactId>plexus-compiler-api</artifactId>
-				<version>1.5.3</version>
-			</dependency>
-			<dependency>
-				<groupId>org.codehaus.plexus</groupId>
-				<artifactId>plexus-container-default</artifactId>
-				<version>1.5.1</version>
-			</dependency>
-			<dependency>
-				<groupId>org.codehaus.plexus</groupId>
-				<artifactId>plexus-utils</artifactId>
-				<version>1.5.9</version>
-			</dependency>
-			<dependency>
-				<!-- TODO check it -->
-				<groupId>org.codehaus.plexus</groupId>
-				<artifactId>plexus-archiver</artifactId>
-				<!-- Gives java.lang.IncompatibleClassChangeError: Class org.codehaus.plexus.logging.console.ConsoleLogger
-				does not implement the requested interface org.codehaus.plexus.logging.Logger
-				at org.codehaus.plexus.archiver.zip.AbstractZipArchiver.createArchiveMain(AbstractZipArchiver.java:330) -->
-				<!--version>1.0-alpha-10</version-->
-				<version>1.0-alpha-12</version>
-				<!-- Must specifically exclude these plexus dependencies or else IncompatibleClassChangeError.
-				See http://jira.codehaus.org/browse/MNG-3438 -->
-				<!--<exclusions>
-					<exclusion>
-						<groupId>org.codehaus.plexus</groupId>
-						<artifactId>plexus-container-default</artifactId>
-					</exclusion>
-					<exclusion>
-						<groupId>org.codehaus.plexus</groupId>
-						<artifactId>plexus-component-api</artifactId>
-					</exclusion>
-				</exclusions>-->
-			</dependency>
+			</dependency>			
 		</dependencies>
 	</dependencyManagement>
 	<build>
