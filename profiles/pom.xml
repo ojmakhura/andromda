@@ -33,6 +33,13 @@
                     <groupId>org.andromda.maven.plugins</groupId>
                     <artifactId>andromda-model-archiver-plugin</artifactId>
                     <version>${pom.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.codehaus.plexus</groupId>
+                            <artifactId>plexus-utils</artifactId>
+                            <version>1.5.9</version>
+                        </dependency>
+                   </dependencies>   
                 </plugin>
             </plugins>
         </pluginManagement>

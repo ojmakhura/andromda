@@ -36,11 +36,7 @@
     	    <groupId>org.andromda.translationlibraries</groupId>
     	    <artifactId>andromda-ocl-translation-core</artifactId>
     	    <version>${pom.version}</version>
-    	</dependency>
-    	<dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-utils</artifactId>
-        </dependency>
+    	</dependency>    	
     </dependencies>
     <build>
         <pluginManagement>
@@ -102,6 +98,13 @@
                         <generateJar>true</generateJar>
                         <buildSourceDirectory>target/src</buildSourceDirectory>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.codehaus.plexus</groupId>
+                            <artifactId>plexus-utils</artifactId>
+                            <version>1.5.9</version>
+                        </dependency>
+                   </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>
