@@ -4,9 +4,16 @@
         <title>Recent AndroMDA changes</title>
     </properties>
     <body>
-        <release version="3.4" date="not yet released" desc="First release candidate of version 3.4" description="First release candidate of version 3.4">
+        <release version="3.4" date="not yet released" desc="First release candidate of version 3.4" description="First release candidate of version 3.4">			
+			<action dev="catforce" type="fix" issue="MAVEN-56">
+                 "mvn clean" now removes all *.log and *.exc files from from project tree
+            </action>
+            <action dev="cwbrandon" type="update">
+                Use different method for getting the total count for getPaginationResult in spring-cartrige (uses less memory)
+            </action>
 			<action dev="catforce" type="update">
-                Set 'sourceEncoding' propertie to UTF-8 to fix the warning: "[WARNING] File encoding has not been set, using platform encoding [...], i.e. build is platform dependent!"
+                Set 'sourceEncoding' property to UTF-8 to fix the warning: 
+                "[WARNING] File encoding has not been set, using platform encoding [...], i.e. build is platform dependent!"
             </action>
 			<action dev="catforce" type="update">
                 Update version of JUnit to 4.7
@@ -16,6 +23,9 @@
             </action>
             <action dev="catforce" type="update">
                 Fix groupIds for itext and bsh: ('itext' has been relocated to com.lowagie:itext and 'bsh' has been relocated to org.beanshell:bsh)
+            </action>
+            <action dev="bobfields" type="add" issue="JAVA-31,JAVA-3">
+                Add generation of toString() method based on apache-commons implementation
             </action>
 			<action dev="bobfields" type="fix" issue="JAVA-39">
                 Fix generating Enum classes in Java-cartrige
