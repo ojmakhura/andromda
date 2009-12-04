@@ -313,7 +313,7 @@ public class SpringUtils
      */
     public String getClassName(String fullyQualifiedName)
     {
-       String className = null;
+       String className = "";
        if (StringUtils.isNotBlank(fullyQualifiedName))
        {
            int lastDot = fullyQualifiedName.lastIndexOf('.');
@@ -325,10 +325,6 @@ public class SpringUtils
            {
                className = fullyQualifiedName;
            }
-       }
-       else
-       {
-           className = "";
        }
 
        return className;
@@ -342,15 +338,11 @@ public class SpringUtils
      */
     public String getPackageName(String fullyQualifiedName)
     {
-       String packageName = null;
+       String packageName = "";
        if (StringUtils.isNotBlank(fullyQualifiedName))
        {
            int lastDot = fullyQualifiedName.lastIndexOf('.');
            packageName = (lastDot >= 0 ? fullyQualifiedName.substring(0, lastDot) : "");
-       }
-       else
-       {
-           packageName = "";
        }
 
        return packageName;
@@ -369,20 +361,18 @@ public class SpringUtils
     {
         final Map<String, ModelElementFacade> filteredElements = new LinkedHashMap<String, ModelElementFacade>();
 
-        for (final Iterator<ModelElementFacade> elementIterator = modelElements.iterator(); elementIterator.hasNext();)
+        for (final ModelElementFacade modelElement : modelElements)
         {
             /*final Object object = elementIterator.next();
             if (object instanceof ModelElementFacade)
             {*/
-                final ModelElementFacade modelElement = elementIterator.next();
-                if (!filteredElements.containsKey(modelElement.getName()))
-                {
-                    filteredElements.put(modelElement.getName(), modelElement);
-                }
+            if (!filteredElements.containsKey(modelElement.getName())) {
+                filteredElements.put(modelElement.getName(), modelElement);
+            }
             /*}*/
         }
 
-        return new ArrayList(filteredElements.values());
+        return new ArrayList<ModelElementFacade>(filteredElements.values());
     }
 
     /**

@@ -79,7 +79,7 @@ public class HibernateEntityLogicImpl
     /**
      * Stores the valid inheritance strategies.
      */
-    private static final Collection<String> inheritanceStrategies = new ArrayList();
+    private static final Collection<String> inheritanceStrategies = new ArrayList<String>();
 
     static
     {
@@ -319,7 +319,7 @@ public class HibernateEntityLogicImpl
             String version = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_VERSION);
             value = version.equals(HibernateGlobals.HIBERNATE_VERSION_2) ? "false" : "true";
         }
-        return Boolean.valueOf(value).booleanValue();
+        return Boolean.valueOf(value);
     }
 
     @Override
@@ -436,7 +436,7 @@ public class HibernateEntityLogicImpl
 
         return MessageFormat.format(
             entityNamePattern,
-            new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     @Override
@@ -450,7 +450,7 @@ public class HibernateEntityLogicImpl
 
         return MessageFormat.format(
             implNamePattern,
-            new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     @Override
@@ -530,7 +530,7 @@ public class HibernateEntityLogicImpl
             hibernateProxy = (String)this.getConfiguredProperty(HIBERNATE_PROXY);
         }
 
-        return Boolean.valueOf(hibernateProxy).booleanValue();
+        return Boolean.valueOf(hibernateProxy);
     }
 
     @Override
@@ -539,7 +539,7 @@ public class HibernateEntityLogicImpl
      */
     protected int handleGetEhCacheMaxElementsInMemory()
     {
-        String maxElements = null;
+        String maxElements;
         maxElements = (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_EHCACHE_MAX_ELEMENTS);
 
         if (StringUtils.isBlank(maxElements))
@@ -561,7 +561,7 @@ public class HibernateEntityLogicImpl
         {
             eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_ETERNAL);
         }
-        return Boolean.valueOf(StringUtils.trimToEmpty(eternal)).booleanValue();
+        return Boolean.valueOf(StringUtils.trimToEmpty(eternal));
     }
 
     @Override
@@ -611,7 +611,7 @@ public class HibernateEntityLogicImpl
             eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
         }
 
-        return Boolean.valueOf(StringUtils.trimToEmpty(eternal)).booleanValue();
+        return Boolean.valueOf(StringUtils.trimToEmpty(eternal));
     }
 
     @Override
@@ -621,13 +621,13 @@ public class HibernateEntityLogicImpl
     protected boolean handleIsHibernateCacheDistributed()
     {
         String distributed = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITYCACHE_DISTRIBUTED);
-        boolean distributedCachingEnabled = Boolean.valueOf(StringUtils.trimToEmpty(distributed)).booleanValue();
+        boolean distributedCachingEnabled = Boolean.valueOf(StringUtils.trimToEmpty(distributed));
 
         if (distributedCachingEnabled)
         {
             String entityCacheDistributed =
                 (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ENTITYCACHE_DISTRIBUTED);
-            return Boolean.valueOf(StringUtils.trimToEmpty(entityCacheDistributed)).booleanValue();
+            return Boolean.valueOf(StringUtils.trimToEmpty(entityCacheDistributed));
         }
         return false;
     }
@@ -699,7 +699,7 @@ public class HibernateEntityLogicImpl
 
         if ((superEntity != null) && superEntity.isHibernateInheritanceSubclass())
         {
-            column = ((EntityAttribute)this.getIdentifiers().iterator().next()).getColumnName();
+            column = (this.getIdentifiers().iterator().next()).getColumnName();
         }
 
         return column;
@@ -765,7 +765,7 @@ public class HibernateEntityLogicImpl
             dynamicInsert = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_INSERT);
         }
 
-        return Boolean.valueOf(dynamicInsert).booleanValue();
+        return Boolean.valueOf(dynamicInsert);
     }
 
     @Override
@@ -782,7 +782,7 @@ public class HibernateEntityLogicImpl
             dynamicUpdate = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITY_DYNAMIC_UPDATE);
         }
 
-        return Boolean.valueOf(dynamicUpdate).booleanValue();
+        return Boolean.valueOf(dynamicUpdate);
     }
 
     @Override
