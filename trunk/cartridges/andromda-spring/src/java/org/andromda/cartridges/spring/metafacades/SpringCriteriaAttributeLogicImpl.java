@@ -146,8 +146,7 @@ public class SpringCriteriaAttributeLogicImpl
         {
             matchMode = String.valueOf(value);
         }
-        String result = StringUtils.trimToEmpty(matchMode);
-        return result;
+        return StringUtils.trimToEmpty(matchMode);
     }
 
     /**
@@ -264,6 +263,6 @@ public class SpringCriteriaAttributeLogicImpl
         {
             value = this.getConfiguredProperty(HIBERNATE_CRITERIA_QUERY_IGNORE_CASE);
         }
-        return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+        return Boolean.valueOf(ObjectUtils.toString(value));
     }
 }

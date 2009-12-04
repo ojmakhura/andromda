@@ -216,7 +216,7 @@ public class SpringEntityLogicImpl
         final String entityNamePattern = (String)this.getConfiguredProperty("entityNamePattern");
         return MessageFormat.format(
             entityNamePattern,
-            new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -238,11 +238,9 @@ public class SpringEntityLogicImpl
     protected Object handleGetRoot()
     {
         GeneralizableElementFacade generalization = this;
-        for (
-            ; generalization.getGeneralization() != null && generalization instanceof SpringEntity;
-            generalization = generalization.getGeneralization())
+        while(generalization.getGeneralization() != null && generalization instanceof SpringEntity)
         {
-            ;
+            generalization = generalization.getGeneralization();
         }
         return generalization;
     }

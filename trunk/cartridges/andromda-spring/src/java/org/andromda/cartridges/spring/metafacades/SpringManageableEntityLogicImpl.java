@@ -34,13 +34,7 @@ public class SpringManageableEntityLogicImpl
 
     protected String handleGetDaoReferenceName()
     {
-        final char[] name = getName().toCharArray();
-        if (name.length > 0)
-        {
-            name[0] = Character.toLowerCase(name[0]);
-        }
-
-        return new String(name) + "Dao";
+        return StringUtils.uncapitalize(getName()) + "Dao";
     }
 
     protected String handleGetManageableDaoName()

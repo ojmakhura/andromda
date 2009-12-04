@@ -70,7 +70,6 @@ public class SpringQueryOperationLogicImpl
     protected boolean handleIsUseNamedParameters()
     {
         boolean useNamedParameters = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS)))
-                .booleanValue()
                 || StringUtils.isNotBlank(this.getTranslatedQuery());
 
         return SpringMetafacadeUtils.getUseNamedParameters(this, useNamedParameters);
@@ -92,9 +91,8 @@ public class SpringQueryOperationLogicImpl
     protected ParameterFacade handleGetCriteriaArgument()
     {
         ParameterFacade foundParameter = null;
-        for (final Iterator<ParameterFacade> iterator = this.getParameters().iterator(); iterator.hasNext();)
+        for (final ParameterFacade parameter : this.getParameters())
         {
-            final ParameterFacade parameter = (ParameterFacade)iterator.next();
             final ClassifierFacade type = parameter.getType();
             if (type != null && type.hasStereotype(UMLProfile.STEREOTYPE_CRITERIA))
             {
@@ -146,49 +144,46 @@ public class SpringQueryOperationLogicImpl
             }
             String variableName = StringUtils.uncapitalize(owner.getName());
             queryString = "from " + entityName + " as " + variableName;
-            if (this.getArguments().size() > 0)
+            if (!this.getArguments().isEmpty())
             {
                 queryString += " where";
                 Collection<ParameterFacade> arguments = this.getArguments();
-                if (arguments != null && !arguments.isEmpty())
+                Iterator<ParameterFacade> iterator = arguments.iterator();
+                while(iterator.hasNext())
                 {
-                    final Iterator<ParameterFacade> iterator = arguments.iterator();
-                    for (int ctr = 0; iterator.hasNext(); ctr++)
+                    final ParameterFacade argument = iterator.next();
+                    final ClassifierFacade type = argument.getType();
+                    if (type != null)
                     {
-                        ParameterFacade argument = (ParameterFacade)iterator.next();
-                        final ClassifierFacade type = argument.getType();
-                        if (type != null)
+                        final String parameterName = argument.getName();
+                        if (type.isEmbeddedValue())
                         {
-                            final String parameterName = argument.getName();
-                            if (type.isEmbeddedValue())
+                            for (final Iterator<AttributeFacade> attributeIterator = type.getAttributes(true).iterator(); attributeIterator.hasNext();)
                             {
-                                for (final Iterator<AttributeFacade> attributeIterator = type.getAttributes(true).iterator(); attributeIterator.hasNext();)
-                                {
-                                    final AttributeFacade attribute = (AttributeFacade)attributeIterator.next();
-                                    String parameter = "?";
-                                    if (this.isUseNamedParameters())
-                                    {
-                                        parameter = ':' + SpringUtils.concatNamesCamelCase(Arrays.asList(new String[]{parameterName, attribute.getName()}));
-                                    }
-                                    queryString += ' ' + variableName + '.' + parameterName + '.' + attribute.getName() + " = " + parameter;
-                                    if (attributeIterator.hasNext())
-                                    {
-                                        queryString += " and";
-                                    }
-                                }
-                            }
-                            else
-                            {
+                                final AttributeFacade attribute = attributeIterator.next();
                                 String parameter = "?";
                                 if (this.isUseNamedParameters())
                                 {
-                                    parameter = ':' + parameterName;
+                                    parameter = ':' + SpringUtils.concatNamesCamelCase(Arrays.asList(parameterName, attribute.getName()));
                                 }
-                                queryString += ' ' + variableName + '.' + parameterName + " = " + parameter;
-                                if (iterator.hasNext())
+                                queryString += ' ' + variableName + '.' + parameterName + '.' + attribute.getName() + " = " + parameter;
+                                if (attributeIterator.hasNext())
                                 {
                                     queryString += " and";
                                 }
+                            }
+                        }
+                        else
+                        {
+                            String parameter = "?";
+                            if (this.isUseNamedParameters())
+                            {
+                                parameter = ':' + parameterName;
+                            }
+                            queryString += ' ' + variableName + '.' + parameterName + " = " + parameter;
+                            if (iterator.hasNext())
+                            {
+                                queryString += " and";
                             }
                         }
                     }

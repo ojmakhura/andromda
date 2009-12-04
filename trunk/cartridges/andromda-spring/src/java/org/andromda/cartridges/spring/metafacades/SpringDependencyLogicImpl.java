@@ -119,8 +119,9 @@ public class SpringDependencyLogicImpl
             boolean breakOut = false;
             for (int ctr = hierarchy.size() - 1; ctr >= 0; ctr--)
             {
-                final SpringEntity generalization = (SpringEntity)hierarchy.get(ctr);
-                for (final Iterator<ClassifierFacade> referenceIterator = generalization.getValueObjectReferences().iterator();
+                final SpringEntity generalization = hierarchy.get(ctr);
+                //TODO Bug? generalization.getValueObjectReferences() can contains not only ClassiefierFacades
+                for (final Iterator referenceIterator = generalization.getValueObjectReferences().iterator();
                     referenceIterator.hasNext();)
                 {
                     final Object reference = referenceIterator.next();
