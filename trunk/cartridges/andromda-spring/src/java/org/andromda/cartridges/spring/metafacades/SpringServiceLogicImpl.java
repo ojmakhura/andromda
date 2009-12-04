@@ -153,7 +153,7 @@ public class SpringServiceLogicImpl
         String implementationPackageName =
             MessageFormat.format(
                 this.getImplemenationPackageNamePattern(),
-                new Object[] {StringUtils.trimToEmpty(this.getPackageName())});
+                    StringUtils.trimToEmpty(this.getPackageName()));
         if (StringUtils.isBlank(this.getPackageName()))
         {
         	implementationPackageName = implementationPackageName.replaceAll(
@@ -214,7 +214,7 @@ public class SpringServiceLogicImpl
         String ejbPackageName =
             MessageFormat.format(
                 this.getEjbPackageNamePattern(),
-                new Object[] {StringUtils.trimToEmpty(this.getPackageName())});
+                    StringUtils.trimToEmpty(this.getPackageName()));
         if (StringUtils.isBlank(this.getPackageName()))
         {
             ejbPackageName = ejbPackageName.replaceAll(
@@ -548,7 +548,7 @@ public class SpringServiceLogicImpl
      */
     protected boolean handleIsAllowDefaultServiceException()
     {
-        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(SpringGlobals.DEFAULT_SERVICE_EXCEPTIONS))).booleanValue();
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(SpringGlobals.DEFAULT_SERVICE_EXCEPTIONS)));
     }
 
     /**
@@ -617,7 +617,7 @@ public class SpringServiceLogicImpl
      */
     protected boolean handleIsHibernateInterceptorEnabled()
     {
-        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_INTERCEPTOR_ENABLED))).booleanValue();
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_INTERCEPTOR_ENABLED)));
     }
 
     /**
@@ -671,7 +671,7 @@ public class SpringServiceLogicImpl
      */
     protected String handleGetEjbTransactionType()
     {
-        String transactionType = null;
+        String transactionType;
         final boolean ejbTransactionsEnabled =
             BooleanUtils.toBoolean(
                 ObjectUtils.toString(this.getConfiguredProperty(SpringGlobals.EJB_TRANSACTIONS_ENABLED)));
@@ -752,5 +752,39 @@ public class SpringServiceLogicImpl
     {
         final String richClient = StringUtils.trimToEmpty(String.valueOf(this.getConfiguredProperty(SpringGlobals.RICH_CLIENT)));
         return "true".equalsIgnoreCase(richClient);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected String handleGetInitMethodName()
+    {
+        String result = "";
+        for (OperationFacade operation : getOperations())
+        {
+            if(((SpringServiceOperation)operation).isInitMethod())
+            {
+                result = operation.getName();
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected String handleGetDestroyMethodName()
+    {
+        String result = "";
+        for (OperationFacade operation : getOperations())
+        {
+            if(((SpringServiceOperation)operation).isDestroyMethod())
+            {
+                result = operation.getName();
+                break;
+            }
+        }
+        return result;
     }
 }

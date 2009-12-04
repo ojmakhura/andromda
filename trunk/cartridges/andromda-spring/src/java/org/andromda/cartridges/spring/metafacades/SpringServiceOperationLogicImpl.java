@@ -58,7 +58,7 @@ public class SpringServiceOperationLogicImpl
      */
     protected String handleGetImplementationSignature()
     {
-        String signature = null;
+        String signature;
         if (this.isIncomingMessageOperation())
         {
             signature = this.getIncomingMessageImplementationSignature();
@@ -81,7 +81,7 @@ public class SpringServiceOperationLogicImpl
      */
     public String getCall()
     {
-        String call = null;
+        String call;
         if (this.isIncomingMessageOperation() && this.getArguments().isEmpty())
         {
             call = this.getName() + "(message)";
@@ -100,7 +100,7 @@ public class SpringServiceOperationLogicImpl
      */
     public String getSignature(String modifier)
     {
-        String signature = null;
+        String signature;
         if (this.isIncomingMessageOperation() && this.getArguments().isEmpty())
         {
             signature = this.getIncomingMessageSignature(modifier);
@@ -119,7 +119,7 @@ public class SpringServiceOperationLogicImpl
      */
     public String getSignature(final boolean withArgumentNames)
     {
-        String signature = null;
+        String signature;
         if (this.isIncomingMessageOperation() && this.getArguments().isEmpty())
         {
             signature = this.getIncomingMessageSignature(null);
@@ -476,15 +476,31 @@ public class SpringServiceOperationLogicImpl
         Collection<ParameterFacade> arguments = getArguments();
         if (arguments != null && arguments.size() == 1)
         {
-            ParameterFacade parameter = (ParameterFacade)arguments.iterator().next();
+            ParameterFacade parameter = arguments.iterator().next();
             String parameterType = parameter.getType().getFullyQualifiedName();
             
-            Set jmsMessageTypes = new HashSet();
+            Set<String> jmsMessageTypes = new HashSet<String>();
             Collections.addAll(jmsMessageTypes, SpringGlobals.jmsMessageTypes);
             
             result = jmsMessageTypes.contains(parameterType);
         }
         
         return result;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected boolean handleIsInitMethod()
+    {
+        return hasStereotype(SpringProfile.STEREOTYPE_POST_CONSTRUCT_METHOD);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected boolean handleIsDestroyMethod()
+    {
+        return hasStereotype(SpringProfile.STEREOTYPE_PRE_DESTROY_METHOD);
     }
 }

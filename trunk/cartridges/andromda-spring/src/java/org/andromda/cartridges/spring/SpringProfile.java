@@ -19,6 +19,15 @@ public class SpringProfile
     private static final Profile PROFILE = Profile.instance();
 
     /* ----------------- Stereotypes -------------------- */
+    /**
+     * Stores the service init-method stereotype.
+     */
+    public static final String STEREOTYPE_POST_CONSTRUCT_METHOD = PROFILE.get("POST_CONSTRUCT");
+
+    /**
+     * Stores the service destroy-method stereotype.
+     */
+    public static final String STEREOTYPE_PRE_DESTROY_METHOD = PROFILE.get("PRE_DESTROY");
     /* ----------------- Tagged Values -------------------- */
 
     /**

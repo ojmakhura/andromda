@@ -33,6 +33,23 @@ public interface $service.name
 #end
 {
 
+#foreach ($attribute in $service.attributes)
+#set ($typeName = $attribute.type.fullyQualifiedName)
+#if(!$attribute.visibility.equalsIgnoreCase("private") && !$attribute.visibility.equalsIgnoreCase("protected"))                 
+    /**
+     * Getter for $attribute.name
+     * @return Value of $attribute.name
+     */
+    $attribute.visibility $typeName ${attribute.getterName}();
+
+    /**
+     * Setter for $attribute.name
+     * @param ${attribute.name}In New value for $attribute.name                     
+     */
+    $attribute.visibility void ${attribute.setterName}(${typeName} ${attribute.name}In);
+
+#end
+#end
 ##do generate operation declarations for all implemented service interfaces as well
 ##when spring transactions are enabled
 ##(workaround for spring MethodMapTransactionAttributeSource, which does no map inherited interface methods)    
@@ -42,6 +59,7 @@ public interface $service.name
 #set ($serviceOperations = $service.operations)
 #end
 #foreach ($operation in $serviceOperations)
+#if(!$operation.visibility.equalsIgnoreCase("private") && !$operation.visibility.equalsIgnoreCase("protected"))
     /**
 $operation.getDocumentation("     * ")
      */
@@ -52,5 +70,6 @@ $operation.getDocumentation("     * ")
     $operation.visibility $operation.getterSetterReturnTypeName $operation.signature;
 #end
 
+#end
 #end
 }

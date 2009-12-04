@@ -134,6 +134,28 @@ public interface $entity.daoName
 #end
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
+     * Gets an instance of $entity.fullyQualifiedEntityName from the persistent store.
+     * @param $identifierName
+     * @return $rootEntityType
+     */
+    public $rootEntityType get($identifierTypeName $identifierName);
+
+    /**
+     * <p>
+     * Does the same thing as {@link ${esc.hash}get($identifierTypeName)} with an
+     * additional flag called <code>transform</code>. If this flag is set to <code>$entity.daoNoTransformationConstantName</code> then
+     * the returned entity will <strong>NOT</strong> be transformed. If this flag is any of the other constants
+     * defined in this class then the result <strong>WILL BE</strong> passed through an operation which can
+     * optionally transform the entity (into a value object for example). By default, transformation does
+     * not occur.
+     * </p>
+     *
+     * @param $identifierName the identifier of the entity to get.
+     * @return either the entity or the object transformed from the entity.
+     */
+    public Object get(int transform, $identifierTypeName $identifierName);
+
+    /**
      * Loads an instance of ${entity.fullyQualifiedEntityName} from the persistent store.
      * @param $identifierName
      * @return $rootEntityType
@@ -664,7 +686,7 @@ $operation.getDocumentation("     * ")
      *   <li>{@link $entity.fullyQualifiedName} - {@link ${esc.hash}$entity.daoNoTransformationConstantName}</li>
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
 #set ($targetElement = $valueObjectRef.targetElement)
-     *   <li>{@link $targetElement.fullyQualifiedName} - {@link ${valueObjectRef.transformationConstantName}}</li>
+     *   <li>{@link $targetElement.fullyQualifiedName} - {@link ${esc.hash}${valueObjectRef.transformationConstantName}}</li>
 #end
      * </ul>
 #end
