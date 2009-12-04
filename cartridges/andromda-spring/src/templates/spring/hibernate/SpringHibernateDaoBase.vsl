@@ -91,7 +91,57 @@ public abstract class $entity.daoBaseName
 #set ($identifier = $entity.identifiers.iterator().next())
 #set ($argumentName = $stringUtils.uncapitalize($entity.name))
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}load(int, ${identifierTypeName})
+     * @inheritDoc
+     */
+    public java.lang.Object get(final int transform, final ${identifierTypeName} ${identifierName})
+    {
+#set ($argument = ${identifierName})
+#if($identifierTypePrimitive)
+#set ($argument = "new ${identifierTypeWrapperName}(${identifierName})")
+#else
+        if ($argument == null)
+        {
+            throw new IllegalArgumentException(
+                "${entity.name}.get - '$argument' can not be null");
+        }
+#end
+#if ($hibernateUtils.xmlPersistenceActive)
+#set ($xmlIndent = "    ")
+        if (transform == TRANSFORM_XML)
+        {
+            final Object entity = this.getHibernateTemplate().${executeWithNativeSessionMethodname}(
+                    new org.springframework.orm.hibernate3.HibernateCallback()
+                    {
+                        public Object doInHibernate(${hibernateUtils.basePackage}.Session hibernateSession)
+                            throws ${hibernateUtils.basePackage}.HibernateException
+                        {
+                            ${hibernateUtils.basePackage}.Session xmlSession = hibernateSession.getSession(${hibernateUtils.basePackage}.EntityMode.DOM4J);
+                            return xmlSession.get(${entity.fullyQualifiedEntityImplementationName}.class, $argument);
+                        }
+                    }${executeWithNativeSessionParameter});
+            return entity;
+        }
+        else
+        {
+#else
+#set ($xmlIndent = "")
+#end
+$xmlIndent        final java.lang.Object entity = this.getHibernateTemplate().get(${entity.fullyQualifiedEntityImplementationName}.class, $argument);
+$xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)entity);
+#if ($hibernateUtils.xmlPersistenceActive)
+        }
+#end
+    }
+    /**
+     * @inheritDoc
+     */
+    public $rootEntityType get($identifier.type.fullyQualifiedName $identifier.name)
+    {
+        return ($entity.fullyQualifiedEntityName)this.get($entity.daoNoTransformationConstantName, ${identifierName});
+    }
+
+    /**
+     * @inheritDoc
      */
     public Object load(final int transform, final ${identifierTypeName} ${identifierName})
     {
@@ -134,7 +184,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}load(${identifierTypeName})
+     * @inheritDoc
      */
     public $rootEntityType load(${identifierTypeName} ${identifierName})
     {
@@ -142,7 +192,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}loadAll()
+     * @inheritDoc
      */
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
@@ -153,7 +203,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}loadAll(int)
+     * @inheritDoc
      */
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform)
     {
@@ -161,7 +211,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}loadAll(int, int)
+     * @inheritDoc
      */
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int pageNumber, final int pageSize)
     {
@@ -169,7 +219,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}loadAll(int, int, int)
+     * @inheritDoc
      */
     public java.util.Collection#if($enableTemplating)<?>#end loadAll(final int transform, final int pageNumber, final int pageSize)
     {
@@ -204,7 +254,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 ## Only add these methods if the entity isn't abstract
 #if (!$entity.abstract)
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create($entity.fullyQualifiedEntityName)
+     * @inheritDoc
      */
     public $rootEntityType create($entity.fullyQualifiedEntityName $argumentName)
     {
@@ -214,7 +264,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #if ($hibernateUtils.xmlPersistenceActive)
 #set ($identifier = $entity.identifiers.iterator().next())
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create(org.dom4j.Element)
+     * @inheritDoc
      */
     public $rootEntityType create(org.dom4j.Element $argumentName)
     {
@@ -222,7 +272,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create(int transform, org.dom4j.Element)
+     * @inheritDoc
      */
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
@@ -250,7 +300,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #end
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create(int, $entity.fullyQualifiedEntityName)
+     * @inheritDoc
      */
     public Object create(final int transform, final $entity.fullyQualifiedName $argumentName)
     {
@@ -278,7 +328,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create($entityCollectionType)
+     * @inheritDoc
      */
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
@@ -289,7 +339,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create(int, $entityCollectionType)
+     * @inheritDoc
      */
     public java.util.Collection#if($enableTemplating)<?>#end create(final int transform, final $entityCollectionType entities)
     {
@@ -304,10 +354,17 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                 public Object doInHibernate(${hibernateUtils.basePackage}.Session session)
                     throws ${hibernateUtils.basePackage}.HibernateException
                 {
-                    for (java.util.Iterator#if($enableTemplating)<$entity.fullyQualifiedEntityName>#end entityIterator = entities.iterator(); entityIterator.hasNext();)
+#if($enableTemplating)
+                    for ($entity.fullyQualifiedEntityName entity : entities)
                     {
-                        create(transform,#if(!$enableTemplating) ($entity.fullyQualifiedEntityName)entityIterator.next()#else entityIterator.next()#end);
+                        create(transform, entity);
                     }
+#else
+                    for (java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+                    {
+                        create(transform, ($entity.fullyQualifiedEntityName)entityIterator.next());
+                    }
+#end
                     return null;
                 }
             }${executeWithNativeSessionParameter});
@@ -318,7 +375,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($attributes = $entity.getAttributes(true, $entity.usingAssignedIdentifier))
 #if (!$attributes.empty)
     /**
-     * @see ${rootDaoType}${esc.hash}create(${entity.getAttributeTypeList(true, false)})
+     * @inheritDoc
      */
     public $rootEntityType create(
 #foreach($attribute in $attributes)
@@ -330,7 +387,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${rootDaoType}${esc.hash}create(int, ${entity.getAttributeTypeList(true, false)})
+     * @inheritDoc
      */
     public Object create(
         final int transform,
@@ -362,7 +419,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($requiredProperties = $entity.getRequiredProperties(true,false))
 #if (!$requiredProperties.empty && $entity.getRequiredAttributes(true,false).size() != $requiredProperties.size())
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create(${entity.getRequiredPropertyTypeList(true, false)})
+     * @inheritDoc
      */
     public $rootEntityType create(
 #foreach($property in $requiredProperties)
@@ -374,7 +431,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}create(int, ${entity.getRequiredPropertyTypeList(true, false)})
+     * @inheritDoc
      */
     public Object create(
         final int transform,
@@ -394,7 +451,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #end
 #end
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}update($entity.fullyQualifiedEntityName)
+     * @inheritDoc
      */
     public void update($entity.fullyQualifiedEntityName $argumentName)
     {
@@ -408,7 +465,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #if ($hibernateUtils.xmlPersistenceActive)
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}update(org.dom4j.Element)
+     * @inheritDoc
      */
     public void update(final org.dom4j.Element $argumentName)
     {
@@ -432,7 +489,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #end
     /**
-     * @see ${rootDaoType}${esc.hash}update($entityCollectionType)
+     * @inheritDoc
      */
     public void update(final $entityCollectionType entities)
     {
@@ -447,17 +504,24 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                 public Object doInHibernate(${hibernateUtils.basePackage}.Session session)
                     throws ${hibernateUtils.basePackage}.HibernateException
                 {
-                    for (java.util.Iterator#if($enableTemplating)<$entity.fullyQualifiedEntityName>#end entityIterator = entities.iterator(); entityIterator.hasNext();)
+#if($enableTemplating)
+                    for ($entity.fullyQualifiedEntityName entity : entities)
                     {
-                        update(#if(!$enableTemplating)($entity.fullyQualifiedEntityName)entityIterator.next()#else entityIterator.next()#end);
+                        update(entity);
                     }
+#else
+                    for (java.util.Iterator entityIterator = entities.iterator(); entityIterator.hasNext();)
+                    {
+                        update(($entity.fullyQualifiedEntityName)entityIterator.next());
+                    }
+#end
                     return null;
                 }
             }${executeWithNativeSessionParameter});
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}remove($entity.fullyQualifiedEntityName)
+     * @inheritDoc
      */
     public void remove($entity.fullyQualifiedEntityName $argumentName)
     {
@@ -471,7 +535,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #if ($hibernateUtils.xmlPersistenceActive)
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}remove(org.dom4j.Element)
+     * @inheritDoc
      */
     public void remove(final org.dom4j.Element $argumentName)
     {
@@ -495,7 +559,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #end
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}remove(${identifierTypeName})
+     * @inheritDoc
      */
     public void remove($identifierTypeName $identifierName)
     {
@@ -509,7 +573,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                 "${entity.name}.remove - '${identifierName}' can not be null");
         }
 #end
-#set ($loadCall = "this.load($identifierName)")
+#set ($loadCall = "this.get($identifierName)")
 #if ($entity.generalization && $daoInheritance)
 #set ($loadCall = "($entity.fullyQualifiedEntityName)${loadCall}")
 #end
@@ -521,7 +585,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${rootDaoType}${esc.hash}remove($entityCollectionType)
+     * @inheritDoc
      */
     public void remove($entityCollectionType entities)
     {
@@ -549,7 +613,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #if (!$finder.returnTypePresent)
      * **** MODEL ERROR: Entity finder method must return a type other than 'void' *****
 #end
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}$finder.getSignature(false)
+     * @inheritDoc
      */
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
@@ -571,7 +635,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #if (!$finder.returnTypePresent)
      * **** MODEL ERROR: Entity finder method must return a type other than 'void' *****
 #end
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @inheritDoc
      */
 #if ($finder.returnType.collectionType)
 #if($enableTemplating)
@@ -598,7 +662,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($returnType = "${finder.returnType.fullyQualifiedName}#if($enableTemplating && $finder.returnType.collectionType)<${entity.fullyQualifiedEntityName}>#end")
 #if(!$finder.criteriaFinder)
     /**
-     * @see ${entity.fullyQualifiedDaoName}#${finder.name}(String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @inheritDoc
      */
 #if ($enableTemplating && $finder.returnType.collectionType)
     @SuppressWarnings({"unchecked"})
@@ -617,7 +681,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #if ($finder.returnType.collectionType)
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(int, int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @inheritDoc
      */
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
@@ -631,7 +695,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(String, int, int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @inheritDoc
      */
 #if ($enableTemplating)
     @SuppressWarnings({"unchecked"})
@@ -648,7 +712,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($returnType = "${finder.returnType.fullyQualifiedName}<?>")
 #end
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(int, String#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @inheritDoc
      */
     $finder.visibility $returnType ${finder.name}(final int transform, final String queryString#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
@@ -659,7 +723,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(int, int, int#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @inheritDoc
      */
     $finder.visibility $returnType ${finder.name}(final int transform, final int pageNumber, final int pageSize#if(!$finder.arguments.empty), ${finder.getTypedArgumentList('final')}#end)
 #if ($finder.exceptionsPresent)
@@ -678,7 +742,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #if (!$finder.returnTypePresent)
      * **** MODEL ERROR: Entity finder method must return a type other than 'void' *****
 #end
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(int, String#if ($finder.returnType.collectionType), int, int#end#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @inheritDoc
      */
 #if ($enableTemplating)
     @SuppressWarnings("unchecked")
@@ -768,7 +832,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($returnType = "Object")
 #end
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${finder.name}(int, String#if ($finder.returnType.collectionType), int, int#end#if(!$finder.arguments.empty), ${finder.argumentTypeNames}#end)
+     * @inheritDoc
      */
 #if ($enableTemplating)
     @SuppressWarnings("unchecked")
@@ -854,7 +918,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($returnType = $operation.returnType)
 #set ($signature = $operation.signature)
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${operation.getSignature(false)}
+     * @inheritDoc
      */
     $operation.visibility $operation.getterSetterReturnTypeName ${operation.name}(${operation.getTypedArgumentList('final')})
 #if ($operation.exceptionsPresent)
@@ -915,7 +979,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
      *   <li>{@link $entity.fullyQualifiedName} - {@link ${esc.hash}$entity.daoNoTransformationConstantName}</li>
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
 #set ($targetElement = $valueObjectRef.targetElement)
-     *   <li>{@link $targetElement.fullyQualifiedName} - {@link ${valueObjectRef.transformationConstantName}}</li>
+     *   <li>{@link $targetElement.fullyQualifiedName} - {@link ${esc.hash}${valueObjectRef.transformationConstantName}}</li>
 #end
      * </ul>
 #end
@@ -954,15 +1018,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * Transforms a collection of entities using the
-     * {@link ${esc.hash}transformEntity(int, ${entity.fullyQualifiedName})}
-     * method. This method does not instantiate a new collection.
-     * <p>
-     * This method is to be used internally only.
-     *
-     * @param transform one of the constants declared in <code>$entity.fullyQualifiedDaoName</code>
-     * @param entities the collection of entities to transform
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}transformEntities(int, java.util.Collection#if($enableTemplating)<?>#end)
+     * @inheritDoc
      */
     public void transformEntities(final int transform, final java.util.Collection#if($enableTemplating)<?>#end entities)
     {
@@ -1034,7 +1090,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 #foreach ($valueObjectRef in $entity.valueObjectReferences)
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection)
+     * @inheritDoc
      */
     public final void ${valueObjectRef.transformationToCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end entities)
     {
@@ -1045,7 +1101,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToArrayMethodName}(java.util.Collection)
+     * @inheritDoc
      */
 #if ($enableTemplating)
     @SuppressWarnings("unchecked")
@@ -1057,7 +1113,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         {
             final java.util.Collection collection = new java.util.ArrayList(entities);
             this.${valueObjectRef.transformationToCollectionMethodName}(collection);
-            result = (${valueObjectRef.targetElement.fullyQualifiedName}[]) collection.toArray(new ${valueObjectRef.targetElement.fullyQualifiedName}[0]);
+            result = (${valueObjectRef.targetElement.fullyQualifiedName}[]) collection.toArray(new ${valueObjectRef.targetElement.fullyQualifiedName}[collection.size()]);
         }
         return result;
     }
@@ -1097,7 +1153,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
         };
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection)
+     * @inheritDoc
      */
     public final void ${valueObjectRef.transformationToEntityCollectionMethodName}(java.util.Collection#if($enableTemplating)<?>#end instances)
     {
@@ -1126,7 +1182,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedEntityName, $valueObjectRef.targetElement.fullyQualifiedName)
+     * @inheritDoc
      */
     public void ${valueObjectRef.transformationMethodName}(
         $entity.fullyQualifiedEntityName source,
@@ -1149,7 +1205,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationMethodName}($entity.fullyQualifiedName)
+     * @inheritDoc
      */
     public $valueObjectRef.targetElement.fullyQualifiedName ${valueObjectRef.transformationMethodName}(final $entity.fullyQualifiedName entity)
     {
@@ -1166,7 +1222,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}${valueObjectRef.transformationToEntityMethodName}($valueObjectRef.targetElement.fullyQualifiedName, $entity.fullyQualifiedEntityName)
+     * @inheritDoc
      */
     public void ${valueObjectRef.transformationToEntityMethodName}(
         $valueObjectRef.targetElement.fullyQualifiedName source,
@@ -1220,7 +1276,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
 #set ($fullyQualifiedSearchClassName = $springUtils.getFullyQualifiedClassName($springTypesPackage, "Search"))
 #set ($fullyQualifiedPropertySearchClassName = $springUtils.getFullyQualifiedClassName($springTypesPackage, "PropertySearch"))
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}search(int, int, int, $fullyQualifiedSearchClassName)
+     * @inheritDoc
      */
 #if ($enableTemplating)
     @SuppressWarnings("unchecked")
@@ -1235,7 +1291,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
                 this.getSession(false), ${entity.fullyQualifiedEntityImplementationName}.class, search);
             final java.util.List results = propertySearch.executeAsList();
             this.transformEntities(transform, results);
-            return new $fullyQualifiedPagingResultName(results.toArray(new Object[0]), propertySearch.getTotalCount());
+            return new $fullyQualifiedPagingResultName(results.toArray(new Object[results.size()]), propertySearch.getTotalCount());
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
         {
@@ -1244,7 +1300,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}search(int, int, $fullyQualifiedSearchClassName)
+     * @inheritDoc
      */
     public $fullyQualifiedPagingResultName search(final int pageNumber, final int pageSize, final $fullyQualifiedSearchClassName search)
     {
@@ -1252,7 +1308,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}search(int, $fullyQualifiedSearchClassName)
+     * @inheritDoc
      */
     public java.util.Set#if($enableTemplating)<?>#end search(final int transform, final $fullyQualifiedSearchClassName search)
     {
@@ -1271,7 +1327,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
     }
 
     /**
-     * @see ${entity.fullyQualifiedDaoName}${esc.hash}search($fullyQualifiedSearchClassName)
+     * @inheritDoc
      */
 #if ($enableTemplating)
     @SuppressWarnings("unchecked")
@@ -1304,7 +1360,7 @@ $xmlIndent        return transformEntity(transform, ($entity.fullyQualifiedName)
             }
             java.util.Set results = new java.util.LinkedHashSet(queryObject.list());
             transformEntities(transform, results);
-            return new ${fullyQualifiedPagingResultName}(results.toArray(new Object[0]), totalCount);
+            return new ${fullyQualifiedPagingResultName}(results.toArray(new Object[results.size()]), totalCount);
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
         {

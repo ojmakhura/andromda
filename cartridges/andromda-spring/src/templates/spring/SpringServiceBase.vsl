@@ -23,6 +23,31 @@ public abstract class $service.baseName
     implements $service.fullyQualifiedName
 {
 
+#foreach ($attribute in $service.attributes)
+#set ($typeName = $attribute.type.fullyQualifiedName)
+    /**
+    $attribute.getDocumentation("* ")
+    */
+    private $typeName $attribute.name#if ($attribute.defaultValuePresent) = $attribute.defaultValue#end;
+
+    /**
+     * Getter for $attribute.name
+     * @return Value of $attribute.name
+     */
+    $attribute.visibility $typeName ${attribute.getterName}()
+    {
+        return this.${attribute.name};
+    }
+    /**
+     * Setter for $attribute.name
+     * @param ${attribute.name}In New value for $attribute.name
+     */
+    $attribute.visibility void ${attribute.setterName}(${typeName} ${attribute.name}In)
+    {
+        this.${attribute.name} = ${attribute.name}In;
+    }
+
+#end
 #foreach($serviceRef in $service.serviceReferences)
 #set ($targetElement = $serviceRef.targetElement)
     private $targetElement.fullyQualifiedName $serviceRef.name;
@@ -108,7 +133,7 @@ public abstract class $service.baseName
 #end
 #foreach ($operation in $service.implementationOperations)
     /**
-     * @see ${service.fullyQualifiedName}${esc.hash}${operation.getSignature(false)}
+     * @inheritDoc
      */
     $operation.visibility $operation.getterSetterReturnTypeName $operation.getSignature("final")
 #if ($operation.exceptionsPresent)

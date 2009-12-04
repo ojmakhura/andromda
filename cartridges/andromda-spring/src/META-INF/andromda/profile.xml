@@ -52,6 +52,20 @@
                 <value>Service</value>
                 <appliedOnElement>class</appliedOnElement>
             </element>
+            <element name="POST_CONSTRUCT">
+                <documentation>
+                    Used to tag an Service init-method.
+                </documentation>
+                <value>PostConstruct</value>
+                <appliedOnElement>Service operation</appliedOnElement>
+            </element>
+            <element name="PRE_DESTROY">
+                <documentation>
+                    Used to tag an Service destroy-method.
+                </documentation>
+                <value>PreDestroy</value>
+                <appliedOnElement>Service operation</appliedOnElement>
+            </element>
         </elementGroup>
         <elementGroup name="Tagged Values">
             <documentation>

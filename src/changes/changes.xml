@@ -5,6 +5,9 @@
     </properties>
     <body>
         <release version="3.4" date="not yet released" desc="First release candidate of version 3.4" description="First release candidate of version 3.4">			
+			<action dev="catforce" type="add" issue="SPRING-63">
+                 Add using of "PostConstruct" and "PreDestroy" stereotypes on operations of SpringServices to generate init and destroy methods mapping
+            </action>
 			<action dev="catforce" type="fix" issue="MAVEN-56">
                  "mvn clean" now removes all *.log and *.exc files from from project tree
             </action>
