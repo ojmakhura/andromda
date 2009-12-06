@@ -8,16 +8,14 @@
         <model type="emf-uml2">
           <uri>file:${basedir}/src/test/uml2/JavaCartridgeTestModel.uml2</uri>
           <moduleSearchLocations>
-            <location patterns="*.uml2,*.epx,*.emx">${pom.basedir}/src/test/uml2</location>
-            <location patterns="**/*.uml2">${basedir}/../../profiles/emf/uml2</location>
-            <location patterns="**/*.uml2">${pom.basedir}/../../profiles/emf/uml2</location-->
+            <location patterns="*.uml2,*.epx,*.emx">${project.basedir}/src/test/uml2</location>
+            <location patterns="**/*.uml2">${project.basedir}/../../profiles/emf/uml2</location-->
     <repository name="netBeansMDR">
       <models>
         <model>
           <uri>${test.model.uri}</uri>
           <moduleSearchLocations>
-            <location patterns="**/*.xml.zip">${basedir}/../../profiles/uml-1.4</location>
-            <location patterns="**/*.xml.zip">${pom.basedir}/../../profiles/uml-1.4</location>
+            <location patterns="**/*.xml.zip">${project.basedir}/../../profiles/uml-1.4</location>
             <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
           </moduleSearchLocations>
         </model>
