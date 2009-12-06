@@ -163,8 +163,8 @@ public#if($class.abstract) abstract#end class ${class.name}
     public $faultDetails getFaultInfo() {
         return this.details;
     }
-
 #end
+
 #parse("templates/java/ExceptionUtils.vm")
 
 }
