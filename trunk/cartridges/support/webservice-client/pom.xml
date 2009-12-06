@@ -210,7 +210,7 @@
                             <tasks>
                                 <property name="dependencyClasspath" refid="maven.runtime.classpath"/>
                                 <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${dependencyClasspath}"/>
-                                <jarjar jarfile="${project.build.directory}/${pom.artifactId}-${project.version}.jar">
+                                <jarjar jarfile="${project.build.directory}/${project.artifactId}-${project.version}.jar">
                                     <fileset dir="${pom.basedir}/src/main/resources"/>
                                     <zipfileset src="${project.build.directory}/webservice-client.jar"
                                         excludes="**/*/axis2_default.xml,

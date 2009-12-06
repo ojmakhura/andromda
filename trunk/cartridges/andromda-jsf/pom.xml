@@ -24,7 +24,7 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>${pom.artifactId}-components</artifactId>
+            <artifactId>${project.artifactId}-components</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -54,7 +54,7 @@
                     <artifacts>
                         <artifact>
                             <groupId>${project.groupId}</groupId>
-                            <artifactId>${pom.artifactId}-components</artifactId>
+                            <artifactId>${project.artifactId}-components</artifactId>
                             <path>resources/WEB-INF/lib</path>
                         </artifact>
                     </artifacts>
