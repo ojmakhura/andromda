@@ -106,8 +106,8 @@
     	</resources>
     </build>
     <properties>
-        <model.file>${pom.basedir}/src/uml/${pom.artifactId}.xml.zip</model.file>
-        <maven.andromda.model.uri>jar:file:${model.file}!/${pom.artifactId}.xml</maven.andromda.model.uri>
+        <model.file>${pom.basedir}/src/uml/${project.artifactId}.xml.zip</model.file>
+        <maven.andromda.model.uri>jar:file:${model.file}!/${project.artifactId}.xml</maven.andromda.model.uri>
         <maven.src.dir>${pom.basedir}/src</maven.src.dir>
     </properties>    
 </project>

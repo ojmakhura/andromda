@@ -158,8 +158,8 @@
         <module>emf/uml2</module>
     </modules>
     <properties>
-        <model.file>${pom.basedir}/src/main/uml/${pom.artifactId}.xml.zip</model.file>
-        <maven.andromda.model.uri>jar:file:${model.file}!/${pom.artifactId}.xml</maven.andromda.model.uri>
+        <model.file>${pom.basedir}/src/main/uml/${project.artifactId}.xml.zip</model.file>
+        <maven.andromda.model.uri>jar:file:${model.file}!/${project.artifactId}.xml</maven.andromda.model.uri>
         <maven.build.src>${pom.basedir}/target/src</maven.build.src>
         <maven.src.dir>${pom.basedir}/src/main</maven.src.dir>
     </properties>

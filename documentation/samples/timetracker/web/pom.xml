@@ -100,7 +100,7 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <targetPath>../${pom.artifactId}-${project.version}</targetPath>
+                <targetPath>../${project.artifactId}-${project.version}</targetPath>
                 <filtering>true</filtering>
             </resource>
         </resources>
