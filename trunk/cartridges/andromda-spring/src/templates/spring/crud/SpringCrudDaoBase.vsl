@@ -217,7 +217,7 @@ public final class $manageable.manageableDaoBaseName
         {
             $member.type.fullyQualifiedName value = $member.type.javaNullString;
 
-            final ${hibernateUtils.basePackage}.Query queryObject = super.getSession(false).createQuery("select entity.${member.name} from $manageable.fullyQualifiedEntityName as entity where entity.${identifier.name} = :$identifier.name");
+            final ${hibernateUtils.basePackage}.Query queryObject = super.getSession(false).createQuery("select entity.${member.name} from $manageable.fullyQualifiedEntityImplementationName as entity where entity.${identifier.name} = :$identifier.name");
 #if ($identifier.type.primitive)
             queryObject.setParameter("$identifier.name", new ${identifier.type.wrapperName}($identifier.name));
 #else
@@ -253,7 +253,7 @@ public final class $manageable.manageableDaoBaseName
 ##            // identifier.name=$identifier.name identifier=$identifier
 ##            // member.type.name=$member.type.name member.type=$member.type
 ##            // displayAttribute.name=$member.type.displayAttribute.name displayAttribute=$member.type.displayAttribute
-            lists.put("${member.name}", session.createQuery("select item.$identifier.name, item.$member.type.displayAttribute.name from $member.type.fullyQualifiedEntityName item order by item.$member.type.displayAttribute.name").list());
+            lists.put("${member.name}", session.createQuery("select item.$identifier.name, item.$member.type.displayAttribute.name from $member.type.fullyQualifiedEntityImplementationName item order by item.$member.type.displayAttribute.name").list());
 #end
         }
         catch (${hibernateUtils.basePackage}.HibernateException ex)
