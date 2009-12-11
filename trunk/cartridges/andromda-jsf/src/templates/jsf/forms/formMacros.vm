@@ -26,11 +26,11 @@
      * need to call <code>getLabel()</code> and <code>getValue()</code> to get the label and
      * value for this entry respectively.</i>
      *
-     * @see #${getterField}()
-     * @see #get${valueListMethod}()
-     * @see #get${labelListMethod}()
-     * @see @see #set${labelListMethod}(java.util.Collection, String, String)
-     * @see #set${labelListMethod}(java.util.Collection, String, String, Class)
+     * @see ${esc.hash}${getterField}()
+     * @see ${esc.hash}get${valueListMethod}()
+     * @see ${esc.hash}get${labelListMethod}()
+     * @see ${esc.hash}set${labelListMethod}(java.util.Collection, String, String)
+     * @see ${esc.hash}set${labelListMethod}(java.util.Collection, String, String, Class)
      */
     public $listType get${backingListMethod}();
 
@@ -69,10 +69,10 @@
      *         if the caller does not have access one of the object's properties, if an exception was thrown while
      *         accessing a property or if the property does not exist on at least one of the items
      *
-     * @see #${getterField}()
-     * @see #get${valueListMethod}()
-     * @see #get${labelListMethod}()
-     * @see #get${labelListMethod}()
+     * @see ${esc.hash}${getterField}()
+     * @see ${esc.hash}get${valueListMethod}()
+     * @see ${esc.hash}get${labelListMethod}()
+     * @see ${esc.hash}get${labelListMethod}()
      */
     public void set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty, Class valuePropertyType);
     
@@ -107,10 +107,10 @@
      *         if the caller does not have access one of the object's properties, if an exception was thrown while
      *         accessing a property or if the property does not exist on at least one of the items
      *
-     * @see #${getterField}()
-     * @see #get${valueListMethod}()
-     * @see #get${labelListMethod}()
-     * @see #get${labelListMethod}()
+     * @see ${esc.hash}${getterField}()
+     * @see ${esc.hash}get${valueListMethod}()
+     * @see ${esc.hash}get${labelListMethod}()
+     * @see ${esc.hash}get${labelListMethod}()
      */
     public void set${backingListMethod}(java.util.Collection items, String valueProperty, String labelProperty);
 
@@ -118,8 +118,8 @@
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to retrieve the values from that list.
      *
-     * @see #${getterField}()
-     * @see #get${backingListMethod}()
+     * @see ${esc.hash}${getterField}()
+     * @see ${esc.hash}get${backingListMethod}()
      */
     public $listType get${valueListMethod}();
 
@@ -127,8 +127,8 @@
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to set the values for that list.
      *
-     * @see #${getterField}()
-     * @see #get${backingListMethod}()
+     * @see ${esc.hash}${getterField}()
+     * @see ${esc.hash}get${backingListMethod}()
      */
     public void set${valueListMethod}($listType $valueListName);
 
@@ -136,8 +136,8 @@
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to retrieve the labels from that list.
      *
-     * @see #${getterField}()
-     * @see #get${backingListMethod}()
+     * @see ${esc.hash}${getterField}()
+     * @see ${esc.hash}get${backingListMethod}()
      */
     public $listType get${labelListMethod}();
 
@@ -145,8 +145,8 @@
      * The <code>$field.name</code> field can be selected from a list,
      * this method allows you to set the labels for that list.
      *
-     * @see #${getterField}()
-     * @see #get${backingListMethod}()
+     * @see ${esc.hash}${getterField}()
+     * @see ${esc.hash}get${backingListMethod}()
      */
     public void set${labelListMethod}($listType $labelListName);
 #end
