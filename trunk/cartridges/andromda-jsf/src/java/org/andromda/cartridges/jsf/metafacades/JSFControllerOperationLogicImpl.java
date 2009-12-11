@@ -1,6 +1,5 @@
 package org.andromda.cartridges.jsf.metafacades;
 
-import org.andromda.cartridges.jsf.metafacades.JSFControllerOperationLogic;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.apache.commons.lang.ObjectUtils;
@@ -16,26 +15,34 @@ public class JSFControllerOperationLogicImpl
     extends JSFControllerOperationLogic
 {
 
+    /**
+     * Public constructor for JSFControllerOperationLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation
+     */
     public JSFControllerOperationLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
     /**
+     * @return FormName
      * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getFormName()
      */
-    protected java.lang.String handleGetFormName()
+    protected String handleGetFormName()
     {
         final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.FORM_PATTERN));
         return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 
     /**
+     * @return FullyQualifiedFormName
      * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getFullyQualifiedFormName()
      */
-    protected java.lang.String handleGetFullyQualifiedFormName()
+    protected String handleGetFullyQualifiedFormName()
     {
-        final StringBuffer fullyQualifiedName = new StringBuffer();
+        final StringBuilder fullyQualifiedName = new StringBuilder();
         final String packageName = this.getPackageName();
         if (StringUtils.isNotBlank(packageName))
         {
@@ -45,19 +52,21 @@ public class JSFControllerOperationLogicImpl
     }
 
     /**
+     * @return getFullyQualifiedFormName().replace('.', '/')
      * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getFullyQualifiedFormPath()
      */
-    protected java.lang.String handleGetFullyQualifiedFormPath()
+    protected String handleGetFullyQualifiedFormPath()
     {
         return this.getFullyQualifiedFormName().replace('.', '/');
     }
 
     /**
+     * @return FormCall
      * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getFormCall()
      */
     protected String handleGetFormCall()
     {
-        final StringBuffer call = new StringBuffer();
+        final StringBuilder call = new StringBuilder();
         call.append(this.getName());
         call.append("(");
         if (!this.getFormFields().isEmpty())
@@ -69,7 +78,8 @@ public class JSFControllerOperationLogicImpl
     }
     
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getmplementationFormSignature()
+     * @return getFormSignature(false)
+     * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getImplementationFormSignature()
      */
     protected String handleGetImplementationFormSignature()
     {
@@ -77,6 +87,7 @@ public class JSFControllerOperationLogicImpl
     }
     
     /**
+     * @return getFormSignature(true)
      * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getFormSignature()
      */
     protected String handleGetFormSignature()
@@ -86,13 +97,14 @@ public class JSFControllerOperationLogicImpl
     
     /**
      * Constructs the signature that takes the form for this operation.
+     * @see org.andromda.cartridges.jsf.metafacades.JSFControllerOperation#getImplementationFormSignature()
      *  
      * @param isAbstract whether or not the signature is abstract.
      * @return the appropriate signature.
      */
     private final String getFormSignature(boolean isAbstract)
     {
-        final StringBuffer signature = new StringBuffer();
+        final StringBuilder signature = new StringBuilder();
         signature.append(this.getVisibility() + ' ');
         if (isAbstract)
         {
@@ -105,7 +117,7 @@ public class JSFControllerOperationLogicImpl
         {
             signature.append(this.getFormName() + " form");
         }
-        signature.append(") throws java.lang.Exception");
+        signature.append(") throws Exception");
         return signature.toString();
     }
 }

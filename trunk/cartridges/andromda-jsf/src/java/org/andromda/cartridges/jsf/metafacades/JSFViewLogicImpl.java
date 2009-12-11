@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
@@ -27,6 +26,12 @@ import org.apache.commons.lang.StringUtils;
 public class JSFViewLogicImpl
     extends JSFViewLogic
 {
+    /**
+     * Public constructor for JSFViewLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.jsf.metafacades.JSFView
+     */
     public JSFViewLogicImpl(
         Object metaObject,
         String context)
@@ -35,6 +40,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return getMessageKey() + '.' + JSFGlobals.DOCUMENTATION_MESSAGE_KEY_SUFFIX
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getDocumentationKey()
      */
     protected String handleGetDocumentationKey()
@@ -43,11 +49,12 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return MessageKey
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getMessageKey()
      */
     protected String handleGetMessageKey()
     {
-        final StringBuffer messageKey = new StringBuffer();
+        final StringBuilder messageKey = new StringBuilder();
 
         if (!this.isNormalizeMessages())
         {
@@ -80,6 +87,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return DocumentationValue
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getDocumentationValue()
      */
     protected String handleGetDocumentationValue()
@@ -89,6 +97,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return getMessageKey() + '.' + JSFGlobals.TITLE_MESSAGE_KEY_SUFFIX
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getTitleKey()
      */
     protected String handleGetTitleKey()
@@ -97,6 +106,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return StringUtilsHelper.toPhrase(getName())
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getTitleValue()
      */
     protected String handleGetTitleValue()
@@ -105,11 +115,12 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return Path
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getPath()
      */
-    protected java.lang.String handleGetPath()
+    protected String handleGetPath()
     {
-        final StringBuffer path = new StringBuffer();
+        final StringBuilder path = new StringBuilder();
         final String packageName = this.getPackageName();
         if (StringUtils.isNotBlank(packageName))
         {
@@ -124,6 +135,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return Forwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getForwards()
      */
     protected List handleGetForwards()
@@ -152,6 +164,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return ActionForwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getActionForwards()
      */
     protected List handleGetActionForwards()
@@ -168,11 +181,12 @@ public class JSFViewLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getFullyQuailifiedPopulator()
+     * @return FullyQualifiedPopulator
+     * @see org.andromda.cartridges.jsf.metafacades.JSFView#getFullyQualifiedPopulator()
      */
     protected String handleGetFullyQualifiedPopulator()
     {
-        final StringBuffer name = new StringBuffer();
+        final StringBuilder name = new StringBuilder();
         final String packageName = this.getPackageName();
         if (StringUtils.isNotBlank(packageName))
         {
@@ -184,7 +198,8 @@ public class JSFViewLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getPopulator()
+     * @return Populator
+     * @see org.andromda.cartridges.jsf.metafacades.JSFView#getPopulator()
      */
     protected String handleGetPopulator()
     {
@@ -194,7 +209,8 @@ public class JSFViewLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getFormActions()
+     * @return FormActions
+     * @see org.andromda.cartridges.jsf.metafacades.JSFView#getFormActions()
      */
     protected List handleGetFormActions()
     {
@@ -211,6 +227,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return FormKey
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getFormKey()
      */
     protected String handleGetFormKey()
@@ -221,6 +238,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return PopulatorPath
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getPopulatorPath()
      */
     protected String handleGetPopulatorPath()
@@ -231,6 +249,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return IsPopulatorRequired
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#isPopulatorRequired()
      */
     protected boolean handleIsPopulatorRequired()
@@ -239,6 +258,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return IsValidationRequired
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#isPopulatorRequired()
      */
     protected boolean handleIsValidationRequired()
@@ -258,6 +278,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return IsPopup
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#isPopup()
      */
     protected boolean handleIsPopup()
@@ -267,6 +288,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return IsNonTableVariablesPresent
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#isNonTableVariablesPresent()
      */
     protected boolean handleIsNonTableVariablesPresent()
@@ -289,6 +311,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return IsHasNameOfUseCase
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#isHasNameOfUseCase()
      */
     protected boolean handleIsHasNameOfUseCase()
@@ -304,6 +327,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return BackingValueVariables
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getBackingValueVariables()
      */
     protected List handleGetBackingValueVariables()
@@ -347,6 +371,7 @@ public class JSFViewLogicImpl
     }
 
     /**
+     * @return FromOutcome
      * @see org.andromda.cartridges.jsf.metafacades.JSFView#getFromOutcome()
      */
     protected String handleGetFromOutcome()
