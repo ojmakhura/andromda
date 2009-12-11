@@ -5,16 +5,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.validator.Validator;
-
 import org.andromda.cartridges.jsf.utils.ComponentUtils;
 import org.andromda.cartridges.jsf.validator.JSFValidator;
 import org.andromda.cartridges.jsf.validator.JSFValidatorException;
@@ -119,7 +118,7 @@ public class JSFValidatorComponent
      *
      * @param component The component at the root of the component tree
      * @param context The FacesContext for this request
-     * @param formId the id of the form.
+     * @param form the id of the form.
      */
     private void findValidators(
         final UIComponent component,
@@ -141,7 +140,7 @@ public class JSFValidatorComponent
                             formId);
                     if (validatorForm != null)
                     {
-                        final java.util.List validatorFields = validatorForm.getFields();
+                        final List validatorFields = validatorForm.getFields();
                         for (final Iterator iterator = validatorFields.iterator(); iterator.hasNext();)
                         {
                             final Field field = (Field)iterator.next();
@@ -208,7 +207,7 @@ public class JSFValidatorComponent
      * Indicates whether or not this component can be validated.
      *
      * @param component the component to check.
-     * @return true/false
+     * @return canValidate true/false
      */
     private boolean canValidate(final UIComponent component)
     {
@@ -232,6 +231,7 @@ public class JSFValidatorComponent
      * Indicates whether or not the JSFValidator instance is present and if so returns true.
      *
      * @param valueHolder the value holder on which to check if its present.
+     * @param validator 
      * @return true/false
      */
     private boolean validatorPresent(EditableValueHolder valueHolder, final Validator validator)
@@ -324,7 +324,7 @@ public class JSFValidatorComponent
     /**
      * Sets whether or not client-side validation shall be performed.
      *
-     * @param true/false
+     * @param functionName String
      */
     public void setClient(final String functionName)
     {
@@ -345,8 +345,10 @@ public class JSFValidatorComponent
     /**
      * writes the javascript functions to the response.
      *
+     * @param form UIComponent
      * @param writer A response writer
      * @param context The FacesContext for this request
+     * @throws IOException
      */
     private final void writeValidationFunctions(
         final UIComponent form,
@@ -433,6 +435,7 @@ public class JSFValidatorComponent
      *
      * @param writer A response writer
      * @param context The FacesContext for this request
+     * @param id String
      * @param validator The Commons validator
      */
     private void writeJavaScriptParams(

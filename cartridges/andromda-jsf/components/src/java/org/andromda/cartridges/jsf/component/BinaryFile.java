@@ -1,15 +1,12 @@
 package org.andromda.cartridges.jsf.component;
 
 import java.io.InputStream;
-
 import java.util.Properties;
-
 import javax.faces.component.UIComponentBase;
 import javax.faces.el.ValueBinding;
-
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.lang.StringUtils;
 
 
 public class BinaryFile
@@ -217,7 +214,7 @@ public class BinaryFile
         }
         try
         {
-            stream.close();
+            if (stream != null) {stream.close();}
         }
         catch (final Throwable throwable)
         {

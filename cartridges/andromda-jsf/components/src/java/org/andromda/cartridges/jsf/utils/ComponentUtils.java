@@ -1,7 +1,6 @@
 package org.andromda.cartridges.jsf.utils;
 
 import java.lang.reflect.Method;
-
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIGraphic;
@@ -9,8 +8,8 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
+import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentTag;
-
 import org.apache.commons.lang.ObjectUtils;
 
 
@@ -37,7 +36,7 @@ public class ComponentUtils
         {
             if (UIComponentTag.isValueReference(value))
             {
-                final javax.faces.el.ValueBinding binding = context.getApplication().createValueBinding(value);
+                final ValueBinding binding = context.getApplication().createValueBinding(value);
                 component.setValueBinding(
                     "value",
                     binding);
@@ -82,7 +81,7 @@ public class ComponentUtils
         {
             if (UIComponentTag.isValueReference(value))
             {
-                final javax.faces.el.ValueBinding binding = context.getApplication().createValueBinding(value);
+                final ValueBinding binding = context.getApplication().createValueBinding(value);
                 component.setValueBinding(
                     name,
                     binding);
@@ -111,7 +110,7 @@ public class ComponentUtils
         {
             if (UIComponentTag.isValueReference(value))
             {
-                final javax.faces.el.ValueBinding binding = context.getApplication().createValueBinding(value);
+                final ValueBinding binding = context.getApplication().createValueBinding(value);
                 component.setValueBinding(
                     name,
                     binding);
@@ -125,7 +124,7 @@ public class ComponentUtils
 
     /**
      * Gets the attribute from the given object.  The object can be either a context, request
-     * or resposne (HttpServletContext/PortletContext, HttpServletRequest/PortletRequest, etc).
+     * or response (HttpServletContext/PortletContext, HttpServletRequest/PortletRequest, etc).
      *
      * @param object the object from which to retrieve the attribute.
      * @param attributeName the attribute name.
@@ -145,6 +144,7 @@ public class ComponentUtils
                 }
                 catch (NoSuchMethodException exception)
                 {
+                    // Swallow Exception
                 }
             }
             return attribute;
@@ -157,12 +157,11 @@ public class ComponentUtils
 
     /**
      * Sets the attribute on the given object.  The object can be either a context, request
-     * or resposne (HttpServletContext/PortletContext, HttpServletRequest/PortletRequest, etc).
+     * or response (HttpServletContext/PortletContext, HttpServletRequest/PortletRequest, etc).
      *
      * @param object the object on which to set the attribute.
      * @param attributeName the attribute name.
      * @param attributeValue the value of the attribute to set.
-     * @return the value of the attribute if one is present.
      */
     public static void setAttribute(final Object object, final String attributeName, final Object attributeValue)
     {
@@ -175,8 +174,9 @@ public class ComponentUtils
                     final Method method = object.getClass().getMethod("setAttribute", new Class[]{String.class, Object.class});
                     method.invoke(object, new Object[]{attributeName, attributeValue});
                 }
-                catch (NoSuchMethodException exception)
+                catch (NoSuchMethodException ignore)
                 {
+                    // Swallow exception
                 }
             }
         }

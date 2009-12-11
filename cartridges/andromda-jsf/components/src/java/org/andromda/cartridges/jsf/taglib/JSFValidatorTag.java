@@ -23,11 +23,11 @@ public class JSFValidatorTag
     /**
      * Sets whether or not client side validation shall be enabled.
      *
-     * @param client a true/false string.
+     * @param clientIn a true/false string.
      */
-    public void setClient(final String client)
+    public void setClient(final String clientIn)
     {
-        this.client = client;
+        this.client = clientIn;
     }
 
     /**
@@ -35,6 +35,7 @@ public class JSFValidatorTag
      *
      * @param component The component whose properties we're setting
      */
+    @Override
     public void setProperties(final UIComponent component)
     {
         super.setProperties(component);
@@ -71,6 +72,7 @@ public class JSFValidatorTag
      * 
      * @see javax.servlet.jsp.tagext.Tag#release()
      */
+    @Override
     public void release()
     {
         super.release();
@@ -80,6 +82,7 @@ public class JSFValidatorTag
     /**
      * Returns the renderer type, which is null.
      */
+    @Override
     public String getRendererType()
     {
         return null;
@@ -94,6 +97,7 @@ public class JSFValidatorTag
      * Returns the component type, which is
      * <code>org.andromda.cartridges.jsf.component.JSFValidatorScript</code>.
      */
+    @Override
     public String getComponentType()
     {
         return COMPONENT_TYPE;

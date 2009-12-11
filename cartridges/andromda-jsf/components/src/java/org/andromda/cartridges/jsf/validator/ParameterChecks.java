@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.Calendar;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -11,11 +12,9 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.validator.Field;
@@ -23,7 +22,6 @@ import org.apache.commons.validator.GenericTypeValidator;
 import org.apache.commons.validator.GenericValidator;
 import org.apache.commons.validator.ValidatorAction;
 import org.apache.commons.validator.ValidatorException;
-
 
 /**
  * <p>
@@ -39,8 +37,15 @@ import org.apache.commons.validator.ValidatorException;
 public class ParameterChecks
     implements Serializable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    /** NULL */
     public static final String FIELD_TEST_NULL = "NULL";
+    /** NOTNULL */
     public static final String FIELD_TEST_NOTNULL = "NOTNULL";
+    /** EQUAL */
     public static final String FIELD_TEST_EQUAL = "EQUAL";
 
     /**
@@ -486,7 +491,7 @@ public class ParameterChecks
         Field field)
     {
         // - only validate if the object is not already a date or calendar
-        if (!(object instanceof java.util.Date) && !(object instanceof java.util.Calendar))
+        if (!(object instanceof Date) && ! (object instanceof Calendar))
         {
             Date result = null;
             String value = ObjectUtils.toString(object);
@@ -937,7 +942,7 @@ public class ParameterChecks
         Field field)
     {
         // - only validate if the object is not already a date
-        if (!(object instanceof java.util.Date) && !(object instanceof java.util.Calendar))
+        if (!(object instanceof Date) && !(object instanceof Calendar))
         {
             final String value = ObjectUtils.toString(object);
             final String timePattern = field.getVarValue("timePattern");
@@ -948,7 +953,7 @@ public class ParameterChecks
                 {
                     if (StringUtils.isNotEmpty(timePattern))
                     {
-                        final DateFormat timeFormatter = new SimpleDateFormat(timePattern);
+                        final java.text.DateFormat timeFormatter = new SimpleDateFormat(timePattern);
                         timeFormatter.parse(value);
                     }
                     else
@@ -958,7 +963,6 @@ public class ParameterChecks
                 }
                 catch (Exception exception)
                 {
-                    exception.printStackTrace();
                     errors.add(ValidatorMessages.getMessage(
                             action,
                             field,
@@ -980,6 +984,7 @@ public class ParameterChecks
      *        performed.
      * @param field The <code>Field</code> object associated with the current
      *        field being validated.
+     * @throws Exception 
      */
     public static void validateEqual(
         FacesContext context,
@@ -1007,6 +1012,12 @@ public class ParameterChecks
         }
     }
 
+    /**
+     * @param context
+     * @param componentId
+     * @return component
+     * @throws ValidatorException
+     */
     public static UIComponent findComponent(final FacesContext context, final String componentId)
         throws ValidatorException
     {
@@ -1028,6 +1039,12 @@ public class ParameterChecks
 
     private static final char COMPONENT_NAME_SEPERATOR = ':';
 
+    /**
+     * @param context
+     * @param parent
+     * @param componentId
+     * @return component
+     */
     public static UIComponent findComponent(final FacesContext context, final UIComponent parent, String componentId)
     {
         UIComponent component = null;
@@ -1049,6 +1066,11 @@ public class ParameterChecks
         return component;
     }
 
+    /**
+     * @param component
+     * @param id
+     * @return child
+     */
     public static UIComponent findChildComponent(final UIComponent component, final String id)
     {
         UIComponent child = null;

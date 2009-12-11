@@ -18,6 +18,7 @@ public class HtmlExtendedDataTableTag
     /**
      * @see javax.faces.webapp.UIComponentTag#setProperties(javax.faces.component.UIComponent)
      */
+    @Override
     protected void setProperties(final UIComponent component)
     {
         super.setProperties(component);
@@ -26,7 +27,7 @@ public class HtmlExtendedDataTableTag
     }
     
     /**
-     * A comma seperated list of of the columsn that uniquely identify the row for this data table.
+     * A comma separated list of the columns that uniquely identify the row for this data table.
      */
     private String identifierColumns;
 
@@ -39,11 +40,11 @@ public class HtmlExtendedDataTableTag
     }
 
     /**
-     * @param identifierColumns The identifierColumns to set.
+     * @param identifierColumnsIn The identifierColumns to set.
      */
-    public void setIdentifierColumns(String identifierColumns)
+    public void setIdentifierColumns(String identifierColumnsIn)
     {
-        this.identifierColumns = identifierColumns;
+        this.identifierColumns = identifierColumnsIn;
     }
     
     /**
@@ -56,15 +57,15 @@ public class HtmlExtendedDataTableTag
      */
     public String getBackingValue()
     {
-        return backingValue;
+        return this.backingValue;
     }
 
     /**
-     * @param backingValue The backingValue to set.
+     * @param backingValueIn The backingValue to set.
      */
-    public void setBackingValue(String backingValue)
+    public void setBackingValue(String backingValueIn)
     {
-        this.backingValue = backingValue;
+        this.backingValue = backingValueIn;
     }
     
     /**
@@ -75,6 +76,7 @@ public class HtmlExtendedDataTableTag
     /**
      * @see javax.faces.webapp.UIComponentTag#getComponentType()
      */
+    @Override
     public String getComponentType()
     {
         return COMPONENT_TYPE;

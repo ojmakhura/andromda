@@ -21,12 +21,13 @@ import org.apache.commons.validator.ValidatorAction;
 public class ValidatorMessages
 {
     /**
-     * Gets the <code>message</code> based on the <code<action</code>
+     * Gets the <code>message</code> based on the <code>action</code>
      * message and the <code>field</code>'s arg objects.
      *
      * @param action Validator action
      * @param args any message arguments to be substituted.
      * @param context the faces context
+     * @return action message
      */
     public static String getMessage(
         final ValidatorAction action,
@@ -78,9 +79,10 @@ public class ValidatorMessages
 
     /**
      * Gets the message arguments based on the given
-     * validator <code>action</code> and <code>cield</code>.
+     * validator <code>action</code> and <code>field</code>.
      * @param action action name
      * @param field the validator field
+     * @return message arguments
      */
     public static String[] getArgs(
         final String action,

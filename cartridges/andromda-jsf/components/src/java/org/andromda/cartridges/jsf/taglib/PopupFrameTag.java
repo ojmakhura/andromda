@@ -5,14 +5,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 import javax.faces.el.ValueBinding;
 import javax.faces.webapp.UIComponentBodyTag;
-
 import org.andromda.cartridges.jsf.component.html.HtmlPopupFrame;
 
-
+/**
+ *
+ */
 public class PopupFrameTag
     extends UIComponentBodyTag
 {
-    private java.lang.String value;
+    private String value;
     private String accesskey;
     private String dir;
     private String lang;
@@ -33,130 +34,199 @@ public class PopupFrameTag
     private String width;
     private String scrolling;
 
-    public void setValue(java.lang.String value)
+    /**
+     * @param valueIn
+     */
+    public void setValue(String valueIn)
     {
-        this.value = value;
+        this.value = valueIn;
     }
 
-    public void setAccesskey(java.lang.String accesskey)
+    /**
+     * @param accesskeyIn
+     */
+    public void setAccesskey(String accesskeyIn)
     {
-        this.accesskey = accesskey;
+        this.accesskey = accesskeyIn;
     }
 
-    public void setDir(java.lang.String dir)
+    /**
+     * @param dirIn
+     */
+    public void setDir(String dirIn)
     {
-        this.dir = dir;
+        this.dir = dirIn;
     }
 
-    public void setLang(java.lang.String lang)
+    /**
+     * @param langIn
+     */
+    public void setLang(String langIn)
     {
-        this.lang = lang;
+        this.lang = langIn;
     }
 
-    public void setTabindex(java.lang.String tabindex)
+    /**
+     * @param tabindexIn
+     */
+    public void setTabindex(String tabindexIn)
     {
-        this.tabindex = tabindex;
+        this.tabindex = tabindexIn;
     }
 
-    public void setTitle(java.lang.String title)
+    /**
+     * @param titleIn
+     */
+    public void setTitle(String titleIn)
     {
-        this.title = title;
+        this.title = titleIn;
     }
 
+    /**
+     * @see javax.faces.webapp.UIComponentTag#getRendererType()
+     */
+    @Override
     public String getRendererType()
     {
         return HtmlPopupFrame.RENDERER_TYPE;
     }
 
+    /**
+     * @see javax.faces.webapp.UIComponentTag#getComponentType()
+     */
+    @Override
     public String getComponentType()
     {
         return HtmlPopupFrame.COMPONENT_TYPE;
     }
 
-    public void setStyle(String style)
+    /**
+     * @param styleIn
+     */
+    public void setStyle(String styleIn)
     {
-        this.style = style;
+        this.style = styleIn;
     }
 
-    public void setStyleClass(String styleClass)
+    /**
+     * @param styleClassIn
+     */
+    public void setStyleClass(String styleClassIn)
     {
-        this.styleClass = styleClass;
+        this.styleClass = styleClassIn;
     }
 
-    public void setAbsolute(String absolute)
+    /**
+     * @param absoluteIn
+     */
+    public void setAbsolute(String absoluteIn)
     {
-        this.absolute = absolute;
+        this.absolute = absoluteIn;
     }
 
-    public void setActionClose(String actionClose)
+    /**
+     * @param actionCloseIn
+     */
+    public void setActionClose(String actionCloseIn)
     {
-        this.actionClose = actionClose;
+        this.actionClose = actionCloseIn;
     }
 
-    public void setActionOpen(String actionOpen)
+    /**
+     * @param actionOpenIn
+     */
+    public void setActionOpen(String actionOpenIn)
     {
-        this.actionOpen = actionOpen;
+        this.actionOpen = actionOpenIn;
     }
 
-    public void setCenter(String center)
+    /**
+     * @param centerIn
+     */
+    public void setCenter(String centerIn)
     {
-        this.center = center;
+        this.center = centerIn;
     }
 
-    public void setImmediate(String immediate)
+    /**
+     * @param immediateIn
+     */
+    public void setImmediate(String immediateIn)
     {
-        this.immediate = immediate;
+        this.immediate = immediateIn;
     }
 
-    public void setMouseVertPos(String mouseVertPos)
+    /**
+     * @param mouseVertPosIn
+     */
+    public void setMouseVertPos(String mouseVertPosIn)
     {
-        this.mouseVertPos = mouseVertPos;
+        this.mouseVertPos = mouseVertPosIn;
     }
 
-    public void setMouseHorizPos(String mouseHorizPos)
+    /**
+     * @param mouseHorizPosIn
+     */
+    public void setMouseHorizPos(String mouseHorizPosIn)
     {
-        this.mouseHorizPos = mouseHorizPos;
+        this.mouseHorizPos = mouseHorizPosIn;
     }
 
-    public void setStyleClassFrame(String styleClassFrame)
+    /**
+     * @param styleClassFrameIn
+     */
+    public void setStyleClassFrame(String styleClassFrameIn)
     {
-        this.styleClassFrame = styleClassFrame;
+        this.styleClassFrame = styleClassFrameIn;
     }
 
-    public void setStyleFrame(String styleFrame)
+    /**
+     * @param styleFrameIn
+     */
+    public void setStyleFrame(String styleFrameIn)
     {
-        this.styleFrame = styleFrame;
+        this.styleFrame = styleFrameIn;
     }
 
-    public void setHeight(String height)
+    /**
+     * @param heightIn
+     */
+    public void setHeight(String heightIn)
     {
-        this.height = height;
+        this.height = heightIn;
     }
 
-    public void setWidth(String width)
+    /**
+     * @param widthIn
+     */
+    public void setWidth(String widthIn)
     {
-        this.width = width;
+        this.width = widthIn;
     }
 
-    public void setScrolling(String scrolling)
+    /**
+     * @param scrollingIn
+     */
+    public void setScrolling(String scrollingIn)
     {
-        this.scrolling = scrolling;
+        this.scrolling = scrollingIn;
     }
 
-    private ValueBinding createValueBinding(final String value)
+    private ValueBinding createValueBinding(final String valueIn)
     {
-        return FacesContext.getCurrentInstance().getApplication().createValueBinding(value);
+        return FacesContext.getCurrentInstance().getApplication().createValueBinding(valueIn);
     }
 
     private MethodBinding createMethodBinding(
-        final String value,
+        final String valueIn,
         Class[] args)
     {
         return FacesContext.getCurrentInstance().getApplication().createMethodBinding(
-            value,
+            valueIn,
             args);
     }
 
+    @Override
     protected void setProperties(UIComponent component)
     {
         super.setProperties(component);
@@ -171,25 +241,25 @@ public class PopupFrameTag
                 " not expected type.  Expected: UICommand.  Perhaps you're missing a tag?");
         }
 
-        if (value != null)
+        if (this.value != null)
         {
-            if (isValueReference(value))
+            if (isValueReference(this.value))
             {
-                ValueBinding binding = createValueBinding(value);
+                ValueBinding binding = createValueBinding(this.value);
                 command.setValueBinding(
                     "value",
                     binding);
             }
             else
             {
-                command.setValue(value);
+                command.setValue(this.value);
             }
         }
-        if (accesskey != null)
+        if (this.accesskey != null)
         {
-            if (isValueReference(accesskey))
+            if (isValueReference(this.accesskey))
             {
-                ValueBinding binding = createValueBinding(accesskey);
+                ValueBinding binding = createValueBinding(this.accesskey);
                 command.setValueBinding(
                     "accesskey",
                     binding);
@@ -198,14 +268,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "accesskey",
-                    accesskey);
+                    this.accesskey);
             }
         }
-        if (dir != null)
+        if (this.dir != null)
         {
-            if (isValueReference(dir))
+            if (isValueReference(this.dir))
             {
-                ValueBinding binding = createValueBinding(dir);
+                ValueBinding binding = createValueBinding(this.dir);
                 command.setValueBinding(
                     "dir",
                     binding);
@@ -214,14 +284,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "dir",
-                    dir);
+                    this.dir);
             }
         }
-        if (lang != null)
+        if (this.lang != null)
         {
-            if (isValueReference(lang))
+            if (isValueReference(this.lang))
             {
-                ValueBinding binding = createValueBinding(lang);
+                ValueBinding binding = createValueBinding(this.lang);
                 command.setValueBinding(
                     "lang",
                     binding);
@@ -230,14 +300,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "lang",
-                    lang);
+                    this.lang);
             }
         }
-        if (tabindex != null)
+        if (this.tabindex != null)
         {
-            if (isValueReference(tabindex))
+            if (isValueReference(this.tabindex))
             {
-                ValueBinding binding = createValueBinding(tabindex);
+                ValueBinding binding = createValueBinding(this.tabindex);
                 command.setValueBinding(
                     "tabindex",
                     binding);
@@ -246,14 +316,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "tabindex",
-                    tabindex);
+                    this.tabindex);
             }
         }
-        if (title != null)
+        if (this.title != null)
         {
-            if (isValueReference(title))
+            if (isValueReference(this.title))
             {
-                ValueBinding binding = createValueBinding(title);
+                ValueBinding binding = createValueBinding(this.title);
                 command.setValueBinding(
                     "title",
                     binding);
@@ -262,14 +332,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "title",
-                    title);
+                    this.title);
             }
         }
-        if (style != null)
+        if (this.style != null)
         {
-            if (isValueReference(style))
+            if (isValueReference(this.style))
             {
-                ValueBinding binding = createValueBinding(style);
+                ValueBinding binding = createValueBinding(this.style);
                 command.setValueBinding(
                     "style",
                     binding);
@@ -278,14 +348,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "style",
-                    style);
+                    this.style);
             }
         }
-        if (styleClass != null)
+        if (this.styleClass != null)
         {
-            if (isValueReference(styleClass))
+            if (isValueReference(this.styleClass))
             {
-                ValueBinding binding = createValueBinding(styleClass);
+                ValueBinding binding = createValueBinding(this.styleClass);
                 command.setValueBinding(
                     "styleClass",
                     binding);
@@ -294,14 +364,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "styleClass",
-                    styleClass);
+                    this.styleClass);
             }
         }
-        if (absolute != null)
+        if (this.absolute != null)
         {
-            if (isValueReference(absolute))
+            if (isValueReference(this.absolute))
             {
-                ValueBinding binding = createValueBinding(absolute);
+                ValueBinding binding = createValueBinding(this.absolute);
                 command.setValueBinding(
                     "absolute",
                     binding);
@@ -310,42 +380,42 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "absolute",
-                    absolute);
+                    this.absolute);
             }
         }
-        if (actionClose != null)
+        if (this.actionClose != null)
         {
-            if (isValueReference(actionClose))
+            if (isValueReference(this.actionClose))
             {
                 final MethodBinding binding = this.createMethodBinding(
-                        actionClose,
+                        this.actionClose,
                         new Class[0]);
                 command.setActionClose(binding);
             }
             else
             {
-                throw new IllegalStateException("Invalid actionClose." + actionClose);
+                throw new IllegalStateException("Invalid actionClose." + this.actionClose);
             }
         }
-        if (actionOpen != null)
+        if (this.actionOpen != null)
         {
-            if (isValueReference(actionOpen))
+            if (isValueReference(this.actionOpen))
             {
                 final MethodBinding binding = this.createMethodBinding(
-                        actionOpen,
+                        this.actionOpen,
                         new Class[0]);
                 command.setActionOpen(binding);
             }
             else
             {
-                throw new IllegalStateException("Invalid actionOpen." + actionOpen);
+                throw new IllegalStateException("Invalid actionOpen." + this.actionOpen);
             }
         }
-        if (center != null)
+        if (this.center != null)
         {
-            if (isValueReference(center))
+            if (isValueReference(this.center))
             {
-                ValueBinding binding = createValueBinding(center);
+                ValueBinding binding = createValueBinding(this.center);
                 command.setValueBinding(
                     "center",
                     binding);
@@ -354,14 +424,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "center",
-                    center);
+                    this.center);
             }
         }
-        if (immediate != null)
+        if (this.immediate != null)
         {
-            if (isValueReference(immediate))
+            if (isValueReference(this.immediate))
             {
-                ValueBinding binding = createValueBinding(immediate);
+                ValueBinding binding = createValueBinding(this.immediate);
                 command.setValueBinding(
                     "immediate",
                     binding);
@@ -370,14 +440,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "immediate",
-                    immediate);
+                    this.immediate);
             }
         }
-        if (height != null)
+        if (this.height != null)
         {
-            if (isValueReference(height))
+            if (isValueReference(this.height))
             {
-                ValueBinding binding = createValueBinding(height);
+                ValueBinding binding = createValueBinding(this.height);
                 command.setValueBinding(
                     "height",
                     binding);
@@ -386,14 +456,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "height",
-                    height);
+                    this.height);
             }
         }
-        if (width != null)
+        if (this.width != null)
         {
-            if (isValueReference(width))
+            if (isValueReference(this.width))
             {
-                ValueBinding binding = createValueBinding(width);
+                ValueBinding binding = createValueBinding(this.width);
                 command.setValueBinding(
                     "width",
                     binding);
@@ -402,14 +472,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "width",
-                    width);
+                    this.width);
             }
         }
-        if (mouseHorizPos != null)
+        if (this.mouseHorizPos != null)
         {
-            if (isValueReference(mouseHorizPos))
+            if (isValueReference(this.mouseHorizPos))
             {
-                ValueBinding binding = createValueBinding(mouseHorizPos);
+                ValueBinding binding = createValueBinding(this.mouseHorizPos);
                 command.setValueBinding(
                     "mouseHorizPos",
                     binding);
@@ -418,14 +488,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "mouseHorizPos",
-                    mouseHorizPos);
+                    this.mouseHorizPos);
             }
         }
-        if (mouseVertPos != null)
+        if (this.mouseVertPos != null)
         {
-            if (isValueReference(mouseVertPos))
+            if (isValueReference(this.mouseVertPos))
             {
-                ValueBinding binding = createValueBinding(mouseVertPos);
+                ValueBinding binding = createValueBinding(this.mouseVertPos);
                 command.setValueBinding(
                     "mouseVertPos",
                     binding);
@@ -434,14 +504,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "mouseVertPos",
-                    mouseVertPos);
+                    this.mouseVertPos);
             }
         }
-        if (styleClassFrame != null)
+        if (this.styleClassFrame != null)
         {
-            if (isValueReference(styleClassFrame))
+            if (isValueReference(this.styleClassFrame))
             {
-                ValueBinding binding = createValueBinding(styleClassFrame);
+                ValueBinding binding = createValueBinding(this.styleClassFrame);
                 command.setValueBinding(
                     "styleClassFrame",
                     binding);
@@ -450,14 +520,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "styleClassFrame",
-                    styleClassFrame);
+                    this.styleClassFrame);
             }
         }
-        if (styleFrame != null)
+        if (this.styleFrame != null)
         {
-            if (isValueReference(styleFrame))
+            if (isValueReference(this.styleFrame))
             {
-                ValueBinding binding = createValueBinding(styleFrame);
+                ValueBinding binding = createValueBinding(this.styleFrame);
                 command.setValueBinding(
                     "styleFrame",
                     binding);
@@ -466,14 +536,14 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "styleFrame",
-                    styleFrame);
+                    this.styleFrame);
             }
         }
-        if (scrolling != null)
+        if (this.scrolling != null)
         {
-            if (isValueReference(scrolling))
+            if (isValueReference(this.scrolling))
             {
-                ValueBinding binding = createValueBinding(scrolling);
+                ValueBinding binding = createValueBinding(this.scrolling);
                 command.setValueBinding(
                     "scrolling",
                     binding);
@@ -482,7 +552,7 @@ public class PopupFrameTag
             {
                 command.getAttributes().put(
                     "scrolling",
-                    scrolling);
+                    this.scrolling);
             }
         }
     }
