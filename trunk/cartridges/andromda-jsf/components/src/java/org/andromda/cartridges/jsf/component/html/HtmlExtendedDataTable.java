@@ -120,7 +120,7 @@ public class HtmlExtendedDataTable
      * @param object2 the second object.
      * @param properties if equality fails, then these properties are compared for equality (all of them must
      *        be equal or else this operation will return false).
-     * @return true/false
+     * @return equal true/false
      */
     private boolean equal(
         final Object object1,
@@ -178,7 +178,7 @@ public class HtmlExtendedDataTable
 
     /**
      * Gets the type of the backing value attribute.
-     * @return the backing value's type or null if the backing value
+     * @return Class The backing value's type or null if the backing value
      *         isn't defined.
      */
     private Class getBackingValueType()
@@ -189,7 +189,7 @@ public class HtmlExtendedDataTable
     /**
      * Gets the value's type attribute or null if value was not defined.
      *
-     * @return the value's type or null if undefined.
+     * @return Class the value's type or null if undefined.
      */
     private Class getValueType()
     {
@@ -200,7 +200,7 @@ public class HtmlExtendedDataTable
      * Gets the binding type given the attribute name.
      *
      * @param name the name of the component's attribute.
-     * @return the binding type or null if the binding wasn't found.
+     * @return type Class the binding type or null if the binding wasn't found.
      */
     private Class getBindingType(final String name)
     {
@@ -240,7 +240,7 @@ public class HtmlExtendedDataTable
     /**
      * Retrieves the backing value of this extended data table (the backing value contains
      * the values which the result of the value attribute are compared against).
-     * @return
+     * @return this.backingValue
      */
     protected Object getBackingValue()
     {
@@ -265,7 +265,7 @@ public class HtmlExtendedDataTable
     /**
      * Retrieves the identifier columns component attribute.
      *
-     * @return the identifier columns component attribute.
+     * @return this.identifierColumns the identifier columns component attribute.
      */
     protected String getIdentifierColumns()
     {

@@ -8,13 +8,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.validator.Field;
@@ -22,13 +21,12 @@ import org.apache.commons.validator.Form;
 import org.apache.commons.validator.ValidatorAction;
 import org.apache.commons.validator.ValidatorResources;
 
-
 /**
  * A JSF validator that uses the apache commons-validator to perform either
  * client or server side validation.
  */
 public class JSFValidator
-    implements javax.faces.validator.Validator,
+    implements Validator,
         Serializable
 {
     private static final Log logger = LogFactory.getLog(JSFValidator.class);
@@ -37,17 +35,20 @@ public class JSFValidator
      * Constructs a new instance of this class with the given <code>form</code> and
      * <code>validatorAction</code>.
      *
-     * @param form
-     * @param validatorAction
+     * @param formIdIn
+     * @param validatorActionIn
      */
-    public JSFValidator(final String formId, final ValidatorAction validatorAction)
+    public JSFValidator(final String formIdIn, final ValidatorAction validatorActionIn)
     {
-        this.formId = formId;
-        this.validatorAction = validatorAction;
+        this.formId = formIdIn;
+        this.validatorAction = validatorActionIn;
     }
 
     private String formId;
 
+    /**
+     * Default constructor for faces-config.xml
+     */
     public JSFValidator()
     {
         // - default constructor for faces-config.xml
@@ -62,16 +63,17 @@ public class JSFValidator
      * The setter method for the <code>type</code> property. This property is
      * passed through to the commons-validator.
      *
-     * @param type The new value for the <code>type</code> property.
+     * @param typeIn The new value for the <code>type</code> property.
      */
-    public void setType(final String type)
+    public void setType(final String typeIn)
     {
-        this.type = type;
+        this.type = typeIn;
     }
 
     /**
      * The getter method for the <code>type</code> property. This property is
      * passed through to the commons-validator.
+     * @return  this.type
      */
     public String getType()
     {
@@ -85,14 +87,14 @@ public class JSFValidator
     private String[] args;
 
     /**
-     * The setter method for the <code>arg</code> property. This property is
+     * The setter method for the <code>args</code> property. This property is
      * passed through to the commons-validator..
      *
-     * @param arg The new value for the <code>arg</code> property.
+     * @param argsIn The new value for the <code>args</code> property.
      */
-    public void setArgs(final String[] args)
+    public void setArgs(final String[] argsIn)
     {
-        this.args = args;
+        this.args = argsIn;
     }
 
     /**
@@ -133,6 +135,7 @@ public class JSFValidator
      * and <code>/WEB-INF/validation.xml</code>.
      *
      * @param name The name of the validator
+     * @return getValidatorResources().getValidatorAction(name)
      */
     public static ValidatorAction getValidatorAction(final String name)
     {
@@ -159,7 +162,7 @@ public class JSFValidator
      * validator resources by reading <code>/WEB-INF/validator-rules.xml</code>
      * and <code>/WEB-INF/validation.xml</code>.
      *
-     * @param name The name of the validator
+     * @return the commons-validator resources
      */
     public static ValidatorResources getValidatorResources()
     {
@@ -206,7 +209,7 @@ public class JSFValidator
      * This <code>validate</code> method is called by JSF to verify the
      * component to which the validator is attached.
      *
-     * @see javax.faces.validator.Validator#validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.Object)
+     * @see javax.faces.validator.Validator#validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent, Object)
      */
     public void validate(
         final FacesContext context,
@@ -305,7 +308,7 @@ public class JSFValidator
         Class[] parameterTypes =
             new Class[]
             {
-                javax.faces.context.FacesContext.class, java.lang.Object.class, java.util.Map.class,
+                javax.faces.context.FacesContext.class, Object.class, java.util.Map.class,
                 java.util.Collection.class, org.apache.commons.validator.ValidatorAction.class,
                 org.apache.commons.validator.Field.class
             };
@@ -337,6 +340,8 @@ public class JSFValidator
     /**
      * Retrieves an error message, using the validator's message combined with
      * the errant value.
+     * @param context 
+     * @return ValidatorMessages.getMessage
      */
     public String getErrorMessage(final FacesContext context)
     {
@@ -349,9 +354,10 @@ public class JSFValidator
     /**
      * @see java.lang.Object#toString()
      */
+    @Override
     public String toString()
     {
-        return super.toString() + ":formId=" + formId + ", validatorAction="
+        return super.toString() + ":formId=" + this.formId + ", validatorAction="
             + (this.validatorAction != null ? this.validatorAction.getName() : null);
     }
 

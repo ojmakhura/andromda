@@ -10,6 +10,11 @@ public class JSFValidatorException
 {
 
     /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Constructor for JSFValidatorException.
      *
      * @param message

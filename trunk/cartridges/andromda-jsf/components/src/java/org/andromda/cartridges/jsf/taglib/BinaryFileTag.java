@@ -19,6 +19,7 @@ public class BinaryFileTag
      *
      * @param component The component whose properties we're setting
      */
+    @Override
     public void setProperties(final UIComponent component)
     {
         final FacesContext context = this.getFacesContext();
@@ -32,6 +33,7 @@ public class BinaryFileTag
     /**
      * @see javax.faces.webapp.UIComponentTag#getRendererType()
      */
+    @Override
     public String getRendererType()
     {
         return BinaryFile.RENDERER_TYPE;
@@ -45,6 +47,7 @@ public class BinaryFileTag
     /**
      * Returns the component type.
      */
+    @Override
     public String getComponentType()
     {
         return COMPONENT_TYPE;
@@ -59,17 +62,17 @@ public class BinaryFileTag
      */
     public String getValue()
     {
-        return value;
+        return this.value;
     }
 
     /**
      * Gets the value.
      * 
-     * @param value The value to set.
+     * @param valueIn The value to set.
      */
-    public void setValue(String value)
+    public void setValue(String valueIn)
     {
-        this.value = value;
+        this.value = valueIn;
     }
     
     private String fileName;
@@ -79,15 +82,15 @@ public class BinaryFileTag
      */
     public String getFileName()
     {
-        return fileName;
+        return this.fileName;
     }
 
     /**
-     * @param fileName The fileName to set.
+     * @param fileNameIn The fileName to set.
      */
-    public void setFileName(String fileName)
+    public void setFileName(String fileNameIn)
     {
-        this.fileName = fileName;
+        this.fileName = fileNameIn;
     }
     
     private String contentType;
@@ -97,15 +100,15 @@ public class BinaryFileTag
      */
     public String getContentType()
     {
-        return contentType;
+        return this.contentType;
     }
 
     /**
-     * @param contentType The contentType to set.
+     * @param contentTypeIn The contentType to set.
      */
-    public void setContentType(String contentType)
+    public void setContentType(String contentTypeIn)
     {
-        this.contentType = contentType;
+        this.contentType = contentTypeIn;
     }
     
     private String prompt;
@@ -115,14 +118,14 @@ public class BinaryFileTag
      */
     public String getPrompt()
     {
-        return prompt;
+        return this.prompt;
     }
 
     /**
-     * @param prompt The prompt to set.
+     * @param promptIn The prompt to set.
      */
-    public void setPrompt(String prompt)
+    public void setPrompt(String promptIn)
     {
-        this.prompt = prompt;
+        this.prompt = promptIn;
     }
 }

@@ -41,7 +41,7 @@ public class HtmlPopupFrame
         setRendererType(RENDERER_TYPE);
     }
 
-    public java.lang.String getAccesskey()
+    public String getAccesskey()
     {
         if (null != this.accesskey)
         {
@@ -50,7 +50,7 @@ public class HtmlPopupFrame
         final ValueBinding binding = getValueBinding("accesskey");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
@@ -64,12 +64,12 @@ public class HtmlPopupFrame
         return RENDERER_TYPE;
     }
 
-    public void setAccesskey(java.lang.String accesskey)
+    public void setAccesskey(String accesskey)
     {
         this.accesskey = accesskey;
     }
 
-    public java.lang.String getDir()
+    public String getDir()
     {
         if (null != this.dir)
         {
@@ -78,17 +78,17 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("dir");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
 
-    public void setDir(java.lang.String dir)
+    public void setDir(String dir)
     {
         this.dir = dir;
     }
 
-    public java.lang.String getLang()
+    public String getLang()
     {
         if (null != this.lang)
         {
@@ -97,17 +97,17 @@ public class HtmlPopupFrame
         final ValueBinding binding = getValueBinding("lang");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
 
-    public void setLang(java.lang.String lang)
+    public void setLang(String lang)
     {
         this.lang = lang;
     }
 
-    public java.lang.String getTabindex()
+    public String getTabindex()
     {
         if (null != this.tabindex)
         {
@@ -116,18 +116,18 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("tabindex");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
 
         return null;
     }
 
-    public void setTabindex(java.lang.String tabindex)
+    public void setTabindex(String tabindex)
     {
         this.tabindex = tabindex;
     }
 
-    public java.lang.String getTitle()
+    public String getTitle()
     {
         if (null != this.title)
         {
@@ -136,12 +136,12 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("title");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
 
-    public void setTitle(java.lang.String title)
+    public void setTitle(String title)
     {
         this.title = title;
     }
@@ -155,7 +155,7 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("height");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
 
         return null;
@@ -175,7 +175,7 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("width");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
@@ -194,7 +194,7 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("mouseRelHorizPos");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
@@ -213,7 +213,7 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("mouseRelVertPos");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
@@ -232,7 +232,7 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("style");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
@@ -251,7 +251,7 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("styleClass");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
@@ -270,7 +270,7 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("styleFrame");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
@@ -289,7 +289,7 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("styleClassFrame");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
@@ -308,7 +308,7 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("absolute");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
@@ -347,7 +347,7 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("center");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
@@ -366,7 +366,7 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("immediate");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
@@ -385,7 +385,7 @@ public class HtmlPopupFrame
         ValueBinding binding = getValueBinding("scrolling");
         if (binding != null)
         {
-            return (java.lang.String)binding.getValue(getFacesContext());
+            return (String)binding.getValue(getFacesContext());
         }
         return null;
     }
