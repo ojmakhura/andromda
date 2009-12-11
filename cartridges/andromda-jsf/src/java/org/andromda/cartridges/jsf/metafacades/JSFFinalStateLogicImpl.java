@@ -1,7 +1,5 @@
 package org.andromda.cartridges.jsf.metafacades;
 
-import org.andromda.cartridges.jsf.metafacades.JSFFinalStateLogic;
-import org.andromda.cartridges.jsf.metafacades.JSFUseCase;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.UMLProfile;
 
@@ -15,15 +13,22 @@ public class JSFFinalStateLogicImpl
     extends JSFFinalStateLogic
 {
 
+    /**
+     * Public constructor for JSFFinalStateLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.jsf.metafacades.JSFFinalState
+     */
     public JSFFinalStateLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
     
     /**
+     * @return Path
      * @see org.andromda.cartridges.jsf.metafacades.JSFFinalState#getPath()
      */
-    protected java.lang.String handleGetPath()
+    protected String handleGetPath()
     {
         String fullPath = null;
 

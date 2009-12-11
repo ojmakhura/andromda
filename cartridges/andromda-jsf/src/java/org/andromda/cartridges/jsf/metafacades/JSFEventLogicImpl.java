@@ -1,8 +1,5 @@
 package org.andromda.cartridges.jsf.metafacades;
 
-import org.andromda.cartridges.jsf.metafacades.JSFAction;
-import org.andromda.cartridges.jsf.metafacades.JSFEventLogic;
-import org.andromda.cartridges.jsf.metafacades.JSFView;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.utils.StringUtilsHelper;
 
@@ -16,15 +13,22 @@ public class JSFEventLogicImpl
     extends JSFEventLogic
 {
 
+    /**
+     * Public constructor for JSFEventLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.jsf.metafacades.JSFEvent
+     */
     public JSFEventLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
 
     /**
+     * @return MessageKey
      * @see org.andromda.cartridges.jsf.metafacades.JSFEvent#getMessageKey()
      */
-    protected java.lang.String handleGetMessageKey()
+    protected String handleGetMessageKey()
     {
         String triggerKey = StringUtilsHelper.toResourceMessageKey(getName());
         if (!this.isNormalizeMessages())
@@ -43,25 +47,28 @@ public class JSFEventLogicImpl
     }
 
     /**
+     * @return StringUtilsHelper.toPhrase(this.getName())
      * @see org.andromda.cartridges.jsf.metafacades.JSFEvent#getMessageValue()
      */
-    protected java.lang.String handleGetMessageValue()
+    protected String handleGetMessageValue()
     {
         return StringUtilsHelper.toPhrase(this.getName());
     }
     
     /**
+     * @return "Reset"
      * @see org.andromda.cartridges.jsf.metafacades.JSFEvent#getResetMessageValue()
      */
-    protected java.lang.String handleGetResetMessageValue()
+    protected String handleGetResetMessageValue()
     {
         return "Reset";
     }
     
     /**
+     * @return getMessageKey() + ".reset.message"
      * @see org.andromda.cartridges.jsf.metafacades.JSFEvent#getResetMessageKey()
      */
-    protected java.lang.String handleGetResetMessageKey()
+    protected String handleGetResetMessageKey()
     {
         return this.getMessageKey() + ".reset.message";
     }

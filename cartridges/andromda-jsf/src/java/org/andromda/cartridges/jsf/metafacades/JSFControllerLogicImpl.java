@@ -3,7 +3,6 @@ package org.andromda.cartridges.jsf.metafacades;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.ModelElementFacade;
@@ -21,26 +20,34 @@ public class JSFControllerLogicImpl
     extends JSFControllerLogic
 {
 
+    /**
+     * Public constructor for JSFControllerLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.jsf.metafacades.JSFController
+     */
     public JSFControllerLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
     
     /**
+     * @return ImplementationName
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getImplementationName()
      */
-    protected java.lang.String handleGetImplementationName()
+    protected String handleGetImplementationName()
     {
         final String pattern = ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.CONTROLLER_IMPLEMENTATION_PATTERN));
         return pattern.replaceFirst("\\{0\\}", StringUtils.capitalize(this.getName()));
     }
 
     /**
+     * @return FullyQualifiedImplementationName
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getFullyQualifiedImplementationName()
      */
-    protected java.lang.String handleGetFullyQualifiedImplementationName()
+    protected String handleGetFullyQualifiedImplementationName()
     {
-        final StringBuffer fullyQualifiedName = new StringBuffer();
+        final StringBuilder fullyQualifiedName = new StringBuilder();
         final String packageName = this.getPackageName();
         if (StringUtils.isNotBlank(packageName))
         {
@@ -50,6 +57,7 @@ public class JSFControllerLogicImpl
     }
 
     /**
+     * @return FullyQualifiedImplementationPath
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getFullyQualifiedImplementationPath()
      */
     protected String handleGetFullyQualifiedImplementationPath()
@@ -58,6 +66,7 @@ public class JSFControllerLogicImpl
     }
 
     /**
+     * @return BeanName
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getBeanName()
      */
     protected String handleGetBeanName()
@@ -66,6 +75,7 @@ public class JSFControllerLogicImpl
     }
 
     /**
+     * @return SessionObjectReferences
      * @see org.andromda.cartridges.jsf.metafacades.JSFController#getSessionObjectReferences()
      */
     protected List handleGetSessionObjectReferences()

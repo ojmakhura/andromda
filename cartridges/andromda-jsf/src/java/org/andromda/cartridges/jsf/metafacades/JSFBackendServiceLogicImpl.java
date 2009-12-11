@@ -1,6 +1,5 @@
 package org.andromda.cartridges.jsf.metafacades;
 
-import org.andromda.cartridges.jsf.metafacades.JSFBackendServiceLogic;
 import org.andromda.cartridges.jsf.JSFGlobals;
 
 
@@ -12,6 +11,10 @@ import org.andromda.cartridges.jsf.JSFGlobals;
 public class JSFBackendServiceLogicImpl
     extends JSFBackendServiceLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JSFBackendServiceLogicImpl(
         Object metaObject,
         String context)
@@ -20,9 +23,10 @@ public class JSFBackendServiceLogicImpl
     }
 
     /**
+     * @return AccessorImplementation
      * @see org.andromda.cartridges.jsf.metafacades.JSFBackendService#getAccessorImplementation()
      */
-    protected java.lang.String handleGetAccessorImplementation()
+    protected String handleGetAccessorImplementation()
     {
         String accessorImplementation = String.valueOf(getConfiguredProperty(JSFGlobals.SERVICE_ACCESSOR_PATTERN));
         return accessorImplementation.replaceAll(
@@ -35,7 +39,7 @@ public class JSFBackendServiceLogicImpl
     /**
      * @see org.andromda.metafacades.uml.ModelElementFacade#getFullyQualifiedName()
      */
-    public java.lang.String getFullyQualifiedName()
+    public String getFullyQualifiedName()
     {
         String packageName = String.valueOf(getConfiguredProperty(JSFGlobals.SERVICE_PACKAGE_NAME_PATTERN));
         return packageName.replaceAll(

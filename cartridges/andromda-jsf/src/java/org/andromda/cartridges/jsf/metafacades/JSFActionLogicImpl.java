@@ -12,9 +12,14 @@ import java.util.Map;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
+import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
+import org.andromda.metafacades.uml.FrontEndActionState;
+import org.andromda.metafacades.uml.FrontEndControllerOperation;
+import org.andromda.metafacades.uml.FrontEndParameter;
+import org.andromda.metafacades.uml.FrontEndView;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.UseCaseFacade;
 import org.andromda.utils.StringUtilsHelper;
@@ -49,7 +54,7 @@ public class JSFActionLogicImpl
     /**
      * The logger instance.
      */
-    private static final Logger logger = Logger.getLogger(JSFActionLogicImpl.class);
+    private static final Logger LOGGER = Logger.getLogger(JSFActionLogicImpl.class);
 
     /**
      * @return getFormBeanName(true)
@@ -83,7 +88,7 @@ public class JSFActionLogicImpl
      */
     public String getName()
     {
-        return JSFUtils.toWebResourceName(this.getUseCase().getName() + "-" + super.getName());
+        return JSFUtils.toWebResourceName(this.getUseCase().getName() + '-' + super.getName());
     }
 
     /**
@@ -138,11 +143,11 @@ public class JSFActionLogicImpl
      */
     protected String handleGetFullyQualifiedFormImplementationName()
     {
-        final StringBuffer fullyQualifiedName = new StringBuffer();
+        final StringBuilder fullyQualifiedName = new StringBuilder();
         final String packageName = this.getPackageName();
         if (StringUtils.isNotBlank(packageName))
         {
-            fullyQualifiedName.append(packageName + '.');
+            fullyQualifiedName.append(packageName).append('.');
         }
         return fullyQualifiedName.append(this.getFormImplementationName()).toString();
     }
@@ -159,6 +164,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return FormScope
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getFullyQualifiedFormImplementationPath()
      */
     protected String handleGetFormScope()
@@ -172,12 +178,13 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return FormImplementationInterfaceList
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getFormImplementationInterfaceList()
      */
     protected String handleGetFormImplementationInterfaceList()
     {
-        final List deferredOperations = this.getDeferredOperations();
-        for (final Iterator iterator = deferredOperations.iterator(); iterator.hasNext();)
+        final List<FrontEndControllerOperation> deferredOperations = this.getDeferredOperations();
+        for (final Iterator<FrontEndControllerOperation> iterator = deferredOperations.iterator(); iterator.hasNext();)
         {
             // - remove any forms that don't have arguments
             final JSFControllerOperation operation = (JSFControllerOperation)iterator.next();
@@ -186,8 +193,8 @@ public class JSFActionLogicImpl
                 iterator.remove();
             }
         }
-        final StringBuffer list = new StringBuffer();
-        for (final Iterator iterator = deferredOperations.iterator(); iterator.hasNext();)
+        final StringBuilder list = new StringBuilder();
+        for (final Iterator<FrontEndControllerOperation> iterator = deferredOperations.iterator(); iterator.hasNext();)
         {
             final JSFControllerOperation operation = (JSFControllerOperation)iterator.next();
             list.append(operation.getFormName());
@@ -213,18 +220,19 @@ public class JSFActionLogicImpl
                 // - add the uc prefix to make the trigger name unique
                 //   when a view contained within the use case has the same name 
                 //   as the use case
-                path = path + "uc";
+                path += "uc";
             } 
         }
         return path;
     }
 
     /**
+     * @return PathRoot
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getPathRoot()
      */
     protected String handleGetPathRoot()
     {
-        final StringBuffer pathRoot = new StringBuffer();
+        final StringBuilder pathRoot = new StringBuilder();
         final JSFUseCase useCase = (JSFUseCase)this.getUseCase();
         if (useCase != null)
         {
@@ -234,6 +242,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return MessageKey
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getMessageKey()
      */
     protected String handleGetMessageKey()
@@ -244,15 +253,13 @@ public class JSFActionLogicImpl
         if (trigger instanceof JSFEvent)
         {
             final JSFEvent actionTrigger = (JSFEvent)trigger;
-            if (actionTrigger != null)
-            {
-                messageKey = actionTrigger.getMessageKey();
-            }
+            messageKey = actionTrigger.getMessageKey();
         }
         return messageKey;
     }
 
     /**
+     * @return DocumentationKey
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getDocumentationKey()
      */
     protected String handleGetDocumentationKey()
@@ -268,6 +275,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return DocumentationValue
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getDocumentationValue()
      */
     protected String handleGetDocumentationValue()
@@ -280,6 +288,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return ViewFragmentPath
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getViewFragmentPath()
      */
     protected String handleGetViewFragmentPath()
@@ -290,6 +299,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return TableLinkName
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getTableLinkName()
      */
     protected String handleGetTableLinkName()
@@ -314,6 +324,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return TableLinkColumnName
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getTableLinkColumnName()
      */
     protected String handleGetTableLinkColumnName()
@@ -337,6 +348,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return TableLinkParameter
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#isTableLink()
      */
     protected Object handleGetTableLinkParameter()
@@ -348,7 +360,7 @@ public class JSFActionLogicImpl
             final JSFView view = (JSFView)this.getInput();
             if (view != null)
             {
-                final List tables = view.getTables();
+                final List<FrontEndParameter> tables = view.getTables();
                 for (int ctr = 0; ctr < tables.size() && tableLinkParameter == null; ctr++)
                 {
                     final Object object = tables.get(ctr);
@@ -367,6 +379,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return getTableLinkParameter() != null
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#isTableLink()
      */
     protected boolean handleIsTableLink()
@@ -375,6 +388,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return IsHyperlink
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#isHyperlink()
      */
     protected boolean handleIsHyperlink()
@@ -384,6 +398,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return StringUtilsHelper.upperCamelCaseName(this.getTriggerName())
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getActionClassName()
      */
     protected String handleGetActionClassName()
@@ -392,6 +407,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return getFullyQualifiedActionClassName().replace('.', '/') + ".java"
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getFullyQualifiedActionClassPath()
      */
     protected String handleGetFullyQualifiedActionClassPath()
@@ -402,7 +418,7 @@ public class JSFActionLogicImpl
     }
 
     /**
-     * Overriddent to provide the owning use case's package name.
+     * Overridden to provide the owning use case's package name.
      *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName()
      */
@@ -413,6 +429,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return getTriggerName()
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getControllerAction()
      */
     protected String handleGetControllerAction()
@@ -421,11 +438,12 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return FullyQualifiedActionClassName
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getFullyQualifiedActionClassName()
      */
     protected String handleGetFullyQualifiedActionClassName()
     {
-        final StringBuffer path = new StringBuffer();
+        final StringBuilder path = new StringBuilder();
         final JSFUseCase useCase = (JSFUseCase)this.getUseCase();
         if (useCase != null)
         {
@@ -441,7 +459,8 @@ public class JSFActionLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.struts.metafacades.JSFAction#isResettable()
+     * @return IsResettable
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#isResettable()
      */
     protected boolean handleIsResettable()
     {
@@ -458,13 +477,15 @@ public class JSFActionLogicImpl
         "1".equalsIgnoreCase(string);
     }
 
+    // TODO: JSFAction.getOtherUseCaseFormActions() does not exist in metafacade model
     /**
+     * @return OtherUseCaseFormActions
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getOtherUseCaseFormActions()
      */
-    protected List handleGetOtherUseCaseFormActions()
+    protected List<FrontEndAction> handleGetOtherUseCaseFormActions()
     {
-        final List otherActions = new ArrayList(this.getUseCase().getActions());
-        for (final Iterator iterator = otherActions.iterator(); iterator.hasNext();)
+        final List<FrontEndAction> otherActions = new ArrayList<FrontEndAction>(this.getUseCase().getActions());
+        for (final Iterator<FrontEndAction> iterator = otherActions.iterator(); iterator.hasNext();)
         {
             final FrontEndAction action = (FrontEndAction)iterator.next();
 
@@ -478,6 +499,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return FormKey
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getFormKey()
      */
     protected String handleGetFormKey()
@@ -488,11 +510,12 @@ public class JSFActionLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#handleGetHiddenParameters()
+     * @return HiddenParameters
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getHiddenParameters()
      */
-    protected List handleGetHiddenParameters()
+    protected List<FrontEndParameter> handleGetHiddenParameters()
     {
-        final List hiddenParameters = new ArrayList(this.getParameters());
+        final List<FrontEndParameter> hiddenParameters = new ArrayList<FrontEndParameter>(this.getParameters());
         CollectionUtils.filter(
             hiddenParameters,
             new Predicate()
@@ -506,7 +529,7 @@ public class JSFActionLogicImpl
                         valid = parameter.isInputHidden();
                         if (!valid)
                         {
-                            for (final Iterator iterator = parameter.getAttributes().iterator(); iterator.hasNext();)
+                            for (final Iterator<JSFAttribute> iterator = parameter.getAttributes().iterator(); iterator.hasNext();)
                             {
                                 JSFAttribute attribute = (JSFAttribute)iterator.next();
                                 valid = attribute.isInputHidden();
@@ -524,13 +547,14 @@ public class JSFActionLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#handleGetHiddenParameters()
+     * @return IsValidationRequired
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#isValidationRequired()
      */
     protected boolean handleIsValidationRequired()
     {
         boolean required = false;
-        final Collection actionParameters = this.getParameters();
-        for (final Iterator iterator = actionParameters.iterator(); iterator.hasNext();)
+        final Collection<FrontEndParameter> actionParameters = this.getParameters();
+        for (final Iterator<FrontEndParameter> iterator = actionParameters.iterator(); iterator.hasNext();)
         {
             final Object object = iterator.next();
             if (object instanceof JSFParameter)
@@ -547,15 +571,16 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return IsPopup
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#isPopup()
      */
     protected boolean handleIsPopup()
     {
-        boolean popup = ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TYPE)).equalsIgnoreCase(
-            JSFGlobals.VIEW_TYPE_POPUP);
+        boolean popup = JSFGlobals.VIEW_TYPE_POPUP.equalsIgnoreCase(
+            ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_TYPE)));
         if (!popup)
         {
-            for (final Iterator iterator = this.getTargetViews().iterator(); iterator.hasNext();)
+            for (final Iterator<FrontEndView> iterator = this.getTargetViews().iterator(); iterator.hasNext();)
             {
                 final JSFView view = (JSFView)iterator.next();
                 popup = view.isPopup();
@@ -569,6 +594,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return IsFormResetRequired
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#isFormResetRequired()
      */
     protected boolean handleIsFormResetRequired()
@@ -576,7 +602,7 @@ public class JSFActionLogicImpl
         boolean resetRequired = this.isFormReset();
         if (!resetRequired)
         {
-            for (final Iterator iterator = this.getParameters().iterator(); iterator.hasNext();)
+            for (final Iterator<FrontEndParameter> iterator = this.getParameters().iterator(); iterator.hasNext();)
             {
                 final Object object = iterator.next();
                 if (object instanceof JSFParameter)
@@ -590,8 +616,8 @@ public class JSFActionLogicImpl
                     else if (parameter.isComplex())
                     {
                         final ClassifierFacade type = parameter.getType();
-                        final Collection attributes = type.getAttributes(true);
-                        for (final Iterator attributeIterator = attributes.iterator(); attributeIterator.hasNext();)
+                        final Collection<AttributeFacade> attributes = type.getAttributes(true);
+                        for (final Iterator<AttributeFacade> attributeIterator = attributes.iterator(); attributeIterator.hasNext();)
                         {
                             final Object attribute = attributeIterator.next();
                             if (attribute instanceof JSFAttribute)
@@ -612,11 +638,12 @@ public class JSFActionLogicImpl
     }
     
     /**
+     * @return FormSerialVersionUID
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getFormSerialVersionUID()
      */
     protected String handleGetFormSerialVersionUID()
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
 
         buffer.append(this.getName());
 
@@ -646,13 +673,13 @@ public class JSFActionLogicImpl
             buffer.append(forward.getName());
         }
         
-        for (final Iterator iterator = this.getActions().iterator(); iterator.hasNext();)
+        for (final Iterator<FrontEndAction> iterator = this.getActions().iterator(); iterator.hasNext();)
         {
             final ModelElementFacade action = (ModelElementFacade)iterator.next();
             buffer.append(action.getName());
         }
         
-        for (final Iterator iterator = this.getActionStates().iterator(); iterator.hasNext();)
+        for (final Iterator<FrontEndActionState> iterator = this.getActionStates().iterator(); iterator.hasNext();)
         {
             final ModelElementFacade state = (ModelElementFacade)iterator.next();
             buffer.append(state.getName());
@@ -662,6 +689,7 @@ public class JSFActionLogicImpl
         String serialVersionUID = String.valueOf(0L);
         try
         {
+            // TODO: SLR.ICA: The "SHA" algorithm is not in the list of approved cryptography algorithms for the type 'java.security.MessageDigest'
             MessageDigest md = MessageDigest.getInstance("SHA");
             byte[] hashBytes = md.digest(signature.getBytes());
 
@@ -677,7 +705,7 @@ public class JSFActionLogicImpl
         catch (final NoSuchAlgorithmException exception)
         {
             final String message = "Error performing JSFAction.getFormSerialVersionUID";
-            logger.error(
+            LOGGER.error(
                 message,
                 exception);
         }
@@ -685,7 +713,8 @@ public class JSFActionLogicImpl
     }
 
     /**
-     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#isFormRequired()
+     * @return findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET)
+     * @see org.andromda.cartridges.jsf.metafacades.JSFAction#isFormReset()
      */
     protected boolean handleIsFormReset()
     {
@@ -693,6 +722,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return FormImplementationGetter
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getFormImplementationGetter()
      */
     protected String handleGetFormImplementationGetter()
@@ -701,6 +731,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return IsFinalStateTarget
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#isFinalStateTarget()
      */
     protected boolean handleIsFinalStateTarget()
@@ -709,6 +740,7 @@ public class JSFActionLogicImpl
     }
 
     /**
+     * @return getName()
      * @see org.andromda.cartridges.jsf.metafacades.JSFAction#getFromOutcome()
      */
     protected String handleGetFromOutcome()

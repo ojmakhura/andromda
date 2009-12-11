@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
@@ -35,6 +34,12 @@ import org.apache.commons.lang.StringUtils;
 public class JSFUseCaseLogicImpl
     extends JSFUseCaseLogic
 {
+    /**
+     * Public constructor for JSFUseCaseLogicImpl
+     * @param metaObject 
+     * @param context 
+     * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase
+     */
     public JSFUseCaseLogicImpl(
         Object metaObject,
         String context)
@@ -43,9 +48,10 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return GetPath
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getPath()
      */
-    protected java.lang.String handleGetPath()
+    protected String handleGetPath()
     {
         String actionPath = null;
         final FrontEndActivityGraph graph = this.getActivityGraph();
@@ -61,11 +67,12 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return PathRoot
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getPathRoot()
      */
     protected String handleGetPathRoot()
     {
-        final StringBuffer pathRoot = new StringBuffer("/");
+        final StringBuilder pathRoot = new StringBuilder("/");
         final String packagePath = this.getPackagePath();
         final String prefix = packagePath != null ? packagePath.trim() : "";
         pathRoot.append(prefix);
@@ -73,6 +80,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return ForwardName
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getPathRoot()
      */
     protected String handleGetForwardName()
@@ -81,6 +89,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return TitleKey
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getTitleKey()
      */
     protected String handleGetTitleKey()
@@ -91,6 +100,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return StringUtilsHelper.toPhrase(getName())
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getTitleValue()
      */
     protected String handleGetTitleValue()
@@ -110,6 +120,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return AllMessages
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getAllMessages()
      */
     protected Map handleGetAllMessages()
@@ -221,32 +232,29 @@ public class JSFUseCaseLogicImpl
                         if (trigger instanceof JSFEvent)
                         {
                             final JSFEvent event = (JSFEvent)trigger;
-                            if (event != null)
+                            // only add these when a trigger is present, otherwise it's no use having them
+                            messages.put(
+                                action.getDocumentationKey(),
+                                action.getDocumentationValue());
+
+                            // the regular trigger messages
+                            messages.put(
+                                event.getResetMessageKey(),
+                                event.getResetMessageValue());
+
+                            // this one is the same as doing: action.getMessageKey()
+                            messages.put(
+                                event.getMessageKey(),
+                                event.getMessageValue());
+
+                            // - IMAGE LINK
+
+                            /*if (action.isImageLink())
                             {
-                                // only add these when a trigger is present, otherwise it's no use having them
                                 messages.put(
-                                    action.getDocumentationKey(),
-                                    action.getDocumentationValue());
-    
-                                // the regular trigger messages
-                                messages.put(
-                                    event.getResetMessageKey(),
-                                    event.getResetMessageValue());
-    
-                                // this one is the same as doing: action.getMessageKey()
-                                messages.put(
-                                    event.getMessageKey(),
-                                    event.getMessageValue());
-    
-                                // - IMAGE LINK
-    
-                                /*if (action.isImageLink())
-                                {
-                                    messages.put(
-                                        action.getImageMessageKey(),
-                                        action.getImagePath());
-                                }*/
-                            }
+                                    action.getImageMessageKey(),
+                                    action.getImagePath());
+                            }*/
                         }
 
                         // - forwards
@@ -389,7 +397,7 @@ public class JSFUseCaseLogicImpl
                             {
                                 if (!action.isUseCaseStart())
                                 {
-                                    messages.put(action.getMessageKey() + ".exception", "{0} (java.lang.Exception)");
+                                    messages.put(action.getMessageKey() + ".exception", "{0} (Exception)");
                                 }
                             }
                             else
@@ -416,61 +424,65 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return ActionForwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getActionForwards()
      */
-    protected List handleGetActionForwards()
+    protected List<JSFAction> handleGetActionForwards()
     {
-        final Set actionForwards = new LinkedHashSet();
-        final List views = this.getViews();
-        for (final Iterator iterator = views.iterator(); iterator.hasNext();)
+        final Set<JSFAction> actionForwards = new LinkedHashSet<JSFAction>();
+        final List<FrontEndView> views = this.getViews();
+        for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext();)
         {
             final JSFView view = (JSFView)iterator.next();
             actionForwards.addAll(view.getActionForwards());
         }
-        return new ArrayList(actionForwards);
+        return new ArrayList<JSFAction>(actionForwards);
     }
     
     /**
+     * @return Forwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getForwards()
      */
-    protected List handleGetForwards()
+    protected List<JSFForward> handleGetForwards()
     {
-        final Map forwards = new LinkedHashMap();
-        for (final Iterator iterator = this.getActions().iterator(); iterator.hasNext();)
+        final Map<String, JSFForward> forwards = new LinkedHashMap<String, JSFForward>();
+        for (final Iterator<FrontEndAction> iterator = this.getActions().iterator(); iterator.hasNext();)
         {
             final FrontEndAction action = (FrontEndAction)iterator.next();
-            for (final Iterator forwardIterator = action.getActionForwards().iterator(); forwardIterator.hasNext();)
+            for (final Iterator<FrontEndForward> forwardIterator = action.getActionForwards().iterator(); forwardIterator.hasNext();)
             {
                 final Object forward = forwardIterator.next();
                 if (forward instanceof JSFForward)
                 {
-                    forwards.put(((ModelElementFacade)forward).getName(), forward);
+                    forwards.put(((ModelElementFacade)forward).getName(), (JSFForward)forward);
                 }
             }
         }
-        return new ArrayList(forwards.values());
+        return new ArrayList<JSFForward>(forwards.values());
     }
     
     /**
+     * @return AllForwards
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getAllForwards()
      */
     protected List handleGetAllForwards()
     {
         final Map forwards = new LinkedHashMap();
-        for (final Iterator iterator = this.getActionForwards().iterator(); iterator.hasNext();)
+        for (final Iterator<JSFAction> iterator = this.getActionForwards().iterator(); iterator.hasNext();)
         {
-            final ModelElementFacade forward = (ModelElementFacade)iterator.next();
+            final JSFAction forward = (JSFAction)iterator.next();
             forwards.put(forward.getName(), forward);
         }
-        for (final Iterator iterator = this.getForwards().iterator(); iterator.hasNext();)
+        for (final Iterator<JSFForward> iterator = this.getForwards().iterator(); iterator.hasNext();)
         {
-            final ModelElementFacade forward = (ModelElementFacade)iterator.next();
+            final JSFAction forward = (JSFAction)iterator.next();
             forwards.put(forward.getName(), forward);
         }
         return new ArrayList(forwards.values());        
     }
 
     /**
+     * @return StringUtilsHelper.upperCamelCaseName(this.getName())
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getActionClassName()
      */
     protected String handleGetActionClassName()
@@ -479,6 +491,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return getFullyQualifiedActionClassName().replace('.', '/') + ".java"
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getFullyQualifiedActionClassPath()
      */
     protected String handleGetFullyQualifiedActionClassPath()
@@ -489,6 +502,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return StringUtilsHelper.lowerCamelCaseName(this.getName())
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getControllerAction()
      */
     protected String handleGetControllerAction()
@@ -497,11 +511,12 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return FullyQualifiedActionClassName
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getFullyQualifiedActionClassName()
      */
     protected String handleGetFullyQualifiedActionClassName()
     {
-        final StringBuffer path = new StringBuffer();
+        final StringBuilder path = new StringBuilder();
         final String packageName = this.getPackageName();
         if (StringUtils.isNotBlank(packageName))
         {
@@ -513,6 +528,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return FormKey
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getFormKey()
      */
     protected String handleGetFormKey()
@@ -523,6 +539,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return InitialTargetPath
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getInitialTargetPath()
      */
     protected String handleGetInitialTargetPath()
@@ -573,6 +590,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return IsValidationRequired
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#isValidationRequired()
      */
     protected boolean handleIsValidationRequired()
@@ -592,6 +610,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return IsInitialTargetView
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#isInitialTargetView()
      */
     protected boolean handleIsInitialTargetView()
@@ -600,6 +619,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return IsApplicationValidationRequired
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#isInitialTargetView()
      */
     protected boolean handleIsApplicationValidationRequired()
@@ -619,6 +639,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return IsViewHasNameOfUseCase
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#isViewHasNameOfUseCase()
      */
     protected boolean handleIsViewHasNameOfUseCase()
@@ -637,6 +658,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return hasStereotype(JSFProfile.STEREOTYPE_FRONT_END_REGISTRATION)
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#isRegistrationUseCase()
      */
     protected boolean handleIsRegistrationUseCase()
@@ -645,6 +667,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return RegistrationUseCases
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getRegistrationUseCases()
      */
     protected List handleGetRegistrationUseCases()
@@ -674,6 +697,7 @@ public class JSFUseCaseLogicImpl
     private static final String FORWARDS_CLASS_NAME_SUFFIX = "Forwards";
 
     /**
+     * @return getName()) + FORWARDS_CLASS_NAME_SUFFIX
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getForwardsClassName()
      */
     protected String handleGetForwardsClassName()
@@ -682,6 +706,7 @@ public class JSFUseCaseLogicImpl
     }
 
     /**
+     * @return NavigationRules
      * @see org.andromda.cartridges.jsf.metafacades.JSFUseCase#getNavigationRules()
      */
     protected Collection handleGetNavigationRules()

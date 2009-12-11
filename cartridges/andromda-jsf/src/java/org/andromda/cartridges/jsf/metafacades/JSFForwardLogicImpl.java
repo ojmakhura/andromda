@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
@@ -22,17 +21,23 @@ public class JSFForwardLogicImpl
     extends JSFForwardLogic
 {
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public JSFForwardLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
     }
     
     /**
+     * Public constructor for JSFForwardLogicImpl
+     * @see org.andromda.cartridges.jsf.metafacades.JSFForward
      * @see org.andromda.metafacades.uml.ModelElementFacade#getName()
      */
     public String getName()
     {
-        StringBuffer name = new StringBuffer(super.getName());
+        StringBuilder name = new StringBuilder(super.getName());
         final Object target = this.getTarget();
         if (target instanceof JSFFinalState)
         {
@@ -46,6 +51,7 @@ public class JSFForwardLogicImpl
     }
     
     /**
+     * @return Path
      * @see org.andromda.cartridges.jsf.metafacades.JSFForward#getPath()
      */
     protected String handleGetPath()
@@ -115,6 +121,7 @@ public class JSFForwardLogicImpl
     }
 
     /**
+     * @return getTarget() instanceof JSFFinalState
      * @see org.andromda.cartridges.jsf.metafacades.JSFForward#isFinalStateTarget()
      */
     protected boolean handleIsFinalStateTarget()
@@ -123,6 +130,7 @@ public class JSFForwardLogicImpl
     }
 
     /**
+     * @return getName()
      * @see org.andromda.cartridges.jsf.metafacades.JSFForward#getFromOutcome()
      */
     protected String handleGetFromOutcome()
