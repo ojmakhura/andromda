@@ -2,15 +2,12 @@ package org.andromda.core.translation.library;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.translation.TranslationUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.ToStringBuilder;
-
 
 /**
  * Represents a translation XML template found within a translation library.

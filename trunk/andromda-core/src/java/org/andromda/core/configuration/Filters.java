@@ -3,13 +3,10 @@ package org.andromda.core.configuration;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.regex.PatternSyntaxException;
-
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * Stores information about all {@link Filter} instances that should or should not be applied

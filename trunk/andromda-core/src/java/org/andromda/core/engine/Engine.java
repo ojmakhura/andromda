@@ -1,11 +1,8 @@
 package org.andromda.core.engine;
 
+import java.util.Collection;
 import org.andromda.core.configuration.Configuration;
 import org.andromda.core.metafacade.ModelValidationMessage;
-
-import java.util.List;
-import java.util.Collection;
-
 
 /**
  * The <em>engine</em> of AndroMDA. Handles the configuration of AndroMDA and

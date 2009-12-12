@@ -43,7 +43,7 @@ public class Cartridge
     extends BasePlugin
 {
     /** The logger instance. */
-    private static final Logger logger = Logger.getLogger(Cartridge.class);
+    private static final Logger LOGGER = Logger.getLogger(Cartridge.class);
 
     /**
      * Processes all model elements with relevant stereotypes by retrieving the model elements from the model facade
@@ -141,7 +141,7 @@ public class Cartridge
             {
                 final Collection allMetafacades = modelElements.getAllMetafacades();
                 // Tell us which template is processed against how many metafacade elements
-                logger.info("Processing " + template.getPath() + " with " + allMetafacades.size() + " metafacades from " + modelElements.getModelElements().size() + " model elements");
+                LOGGER.info("Processing " + template.getPath() + " with " + allMetafacades.size() + " metafacades from " + modelElements.getModelElements().size() + " model elements");
 
                 // - if outputToSingleFile is true AND outputOnEmptyElements
                 //   is true or we have at least one metafacade in the
@@ -414,9 +414,22 @@ public class Cartridge
                                 {
                                     if(postProcessor.acceptFile(outputFile))
                                     {
-                                        final String lResult = postProcessor.postProcess(outputString);
-                                        if(StringUtils.isNotEmpty(lResult)) {
-                                            outputString = lResult;
+                                        String lResult = null;
+                                        try
+                                        {
+                                            lResult = postProcessor.postProcess(outputString);
+                                            if(StringUtils.isNotEmpty(lResult))
+                                            {
+                                                outputString = lResult;
+                                            }
+                                            else
+                                            {
+                                                LOGGER.info("Error PostProcessing " + outputFile.getAbsolutePath());
+                                            }
+                                        }
+                                        catch (Exception exc)
+                                        {
+                                            LOGGER.info("Error PostProcessing " + outputFile.getAbsolutePath() + ": " + exc.getMessage());
                                         }
                                     }
                                 }
@@ -663,7 +676,7 @@ public class Cartridge
      */
     public void addCondition(final String name, final String value)
     {
-        this.conditions.put(name, value);
+        this.conditions.put(name, value != null ? value.trim() : "");
     }
     
     /**
@@ -712,7 +725,7 @@ public class Cartridge
      * Gets the evaluated outputCondition result of a global outputCondition.
      * 
      * @param outputCondition the outputCondition to evaluate.
-     * @param templateContext the current template context to pass the template engine if
+     * @param templateContext the current template context to pass the template engine if 
      *        evaluation has yet to occur.
      * @return the evaluated outputCondition results.
      */

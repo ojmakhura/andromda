@@ -2,9 +2,7 @@ package org.andromda.core.common;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.StringTokenizer;
-
 
 /**
  * A utility object useful for formatting paragraph output.

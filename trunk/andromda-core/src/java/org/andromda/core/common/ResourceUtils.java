@@ -176,7 +176,7 @@ public class ResourceUtils
      */
     public static String unescapeFilePath(String filePath)
     {
-        if (StringUtils.isNotEmpty(filePath))
+        if (StringUtils.isNotBlank(filePath))
         {
             filePath = filePath.replaceAll(
                     PATH_WHITESPACE_CHARACTER,

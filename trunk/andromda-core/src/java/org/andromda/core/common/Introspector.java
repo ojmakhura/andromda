@@ -1,5 +1,6 @@
 package org.andromda.core.common;
 
+import java.beans.IntrospectionException;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -8,7 +9,6 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
-
 
 /**
  * A simple class providing the ability to manipulate properties on java bean objects.
@@ -445,7 +445,7 @@ public final class Introspector
                             name.substring(dotIndex + 1));
                 }
             }
-            catch (final java.beans.IntrospectionException exception)
+            catch (final IntrospectionException exception)
             {
                 throw new IntrospectorException(exception);
             }

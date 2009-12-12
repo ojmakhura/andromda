@@ -4,18 +4,15 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.andromda.core.configuration.NamespaceProperties;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
 import org.andromda.core.namespace.BaseNamespaceComponent;
 import org.andromda.core.templateengine.TemplateEngine;
 import org.apache.log4j.Logger;
-
 
 /**
  * Represents the base plugin of AndroMDA. All Plugin instances inherit from this class.

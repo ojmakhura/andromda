@@ -4,15 +4,12 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.configuration.Configuration;
 import org.andromda.core.engine.Engine;
-
 
 /**
  * The default AndroMDA {@link Server instance}.

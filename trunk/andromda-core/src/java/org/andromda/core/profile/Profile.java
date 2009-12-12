@@ -3,7 +3,6 @@ package org.andromda.core.profile;
 import java.io.Serializable;
 import java.net.URL;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.andromda.core.common.ComponentContainer;
@@ -156,7 +155,7 @@ public class Profile
     private void addElements(final Profile profile)
     {
         final Collection<String> elements = profile != null ? profile.elements.keySet() : null;
-        if (elements != null)
+        if (elements != null && profile != null)
         {
             final String namespace = profile.getNamespace();
             final Map<String, String> namespaceElements = this.getNamespaceElements(namespace);
@@ -211,6 +210,6 @@ public class Profile
      */
     public void shutdown()
     {
-        instance = null;
+        Profile.instance = null;
     }
 }

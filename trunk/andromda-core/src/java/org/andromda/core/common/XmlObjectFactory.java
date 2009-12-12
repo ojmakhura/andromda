@@ -12,10 +12,10 @@ import org.apache.commons.digester.xmlrules.DigesterLoader;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.xml.sax.EntityResolver;
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
 
 /**
  * <p>
@@ -319,7 +319,7 @@ public class XmlObjectFactory
      * Handles the validation errors.
      */
     static final class XmlObjectValidator
-        implements org.xml.sax.ErrorHandler
+        implements ErrorHandler
     {
         /**
          * @see org.xml.sax.ErrorHandler#error(org.xml.sax.SAXParseException)
