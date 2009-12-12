@@ -78,6 +78,9 @@ public class ManageableEntityLogicImpl
         return manageablePackageName;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetManageablePackagePath()
+     */
     @Override
     protected String handleGetManageablePackagePath()
     {
@@ -87,6 +90,9 @@ public class ManageableEntityLogicImpl
             "/");
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetManageableAssociationEnds()
+     */
     @Override
     protected List handleGetManageableAssociationEnds()
     {
@@ -154,12 +160,18 @@ public class ManageableEntityLogicImpl
         return !this.isAbstract();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetManageableServiceName()
+     */
     @Override
     protected String handleGetManageableServiceName()
     {
         return this.getName() + "ManageableService";
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetManageableServiceFullPath()
+     */
     @Override
     protected String handleGetManageableServiceFullPath()
     {
@@ -170,12 +182,18 @@ public class ManageableEntityLogicImpl
             "/");
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetFullyQualifiedManageableServiceName()
+     */
     @Override
     protected String handleGetFullyQualifiedManageableServiceName()
     {
         return this.getManageablePackageName() + this.getNamespaceSeparator() + this.getManageableServiceName();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetManageableServiceAccessorCall()
+     */
     @Override
     protected String handleGetManageableServiceAccessorCall()
     {
@@ -189,24 +207,36 @@ public class ManageableEntityLogicImpl
             this.getManageableServiceName());
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleIsRead()
+     */
     @Override
     protected boolean handleIsRead()
     {
         return true;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleIsUpdate()
+     */
     @Override
     protected boolean handleIsUpdate()
     {
         return this.getManageableIdentifier() != null; // TODO implement isUpdate
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleIsDelete()
+     */
     @Override
     protected boolean handleIsDelete()
     {
         return this.getManageableIdentifier() != null; // TODO implement isDelete
     }
 
+    /**)
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetManageableAttributes()
+     */
     @Override
     protected List handleGetManageableAttributes()
     {
@@ -214,12 +244,18 @@ public class ManageableEntityLogicImpl
         return attList;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetManageableIdentifier()
+     */
     @Override
     protected Object handleGetManageableIdentifier()
     {
         return this.getIdentifiers(true).iterator().next();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetManageableMembers()
+     */
     @Override
     protected List handleGetManageableMembers()
     {
@@ -229,10 +265,13 @@ public class ManageableEntityLogicImpl
         return criteria;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleListManageableMembers(boolean)
+     */
     @Override
     protected String handleListManageableMembers(final boolean withTypes)
     {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
 
         final List<ManageableEntityAttribute> attributes = this.getManageableAttributes();
         for (int i = 0; i < attributes.size(); i++)
@@ -313,6 +352,9 @@ public class ManageableEntityLogicImpl
         return buffer.toString();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleIsManageable()
+     */
     @Override
     protected boolean handleIsManageable()
     {
@@ -320,6 +362,9 @@ public class ManageableEntityLogicImpl
                       .booleanValue();
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetReferencingManageables()
+     */
     @Override
     protected List<ClassifierFacade> handleGetReferencingManageables()
     {
@@ -387,6 +432,9 @@ public class ManageableEntityLogicImpl
         return displayAttribute;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetUsers()
+     */
     @Override
     protected List<ActorFacade> handleGetUsers()
     {
@@ -428,6 +476,9 @@ public class ManageableEntityLogicImpl
         }
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetMaximumListSize()
+     */
     @Override
     protected int handleGetMaximumListSize()
     {
@@ -471,6 +522,9 @@ public class ManageableEntityLogicImpl
         return maximumListSize;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetPageSize()
+     */
     @Override
     protected int handleGetPageSize()
     {
@@ -514,6 +568,9 @@ public class ManageableEntityLogicImpl
         return pageSize;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleIsResolveable()
+     */
     @Override
     protected boolean handleIsResolveable()
     {
@@ -558,6 +615,9 @@ public class ManageableEntityLogicImpl
         return resolveable;
     }
 
+    /**
+     * @see org.andromda.metafacades.emf.uml22.ManageableEntityLogic#handleGetAllManageables()
+     */
     @Override
     protected List<ManageableEntity> handleGetAllManageables()
     {
@@ -575,9 +635,14 @@ public class ManageableEntityLogicImpl
         return new ArrayList<ManageableEntity>(allManageableEntities);
     }
 
+    /**
+     */
     final static class ManageableComparator
         implements Comparator
     {
+        /**
+         * @see java.util.Comparator#compare(Object, Object)
+         */
         public int compare(
             final Object left,
             final Object right)
