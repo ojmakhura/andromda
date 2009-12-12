@@ -199,7 +199,7 @@ public class CartridgeTest
     }
 
     /**
-     * Contructs the expected file path from the <code>actualFile</code> and
+     * Constructs the expected file path from the <code>actualFile</code> and
      * the <code>expectedDir</code> path.
      *
      * @param actualFile the actual generated file
@@ -346,7 +346,7 @@ public class CartridgeTest
     }
     
     /**
-     * Releases any resouces help by this cartridge test instance.
+     * Releases any resources help by this cartridge test instance.
      */
     public void shutdown()
     {
