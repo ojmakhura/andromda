@@ -1,13 +1,11 @@
 package org.andromda.maven.plugin.initialize;
 
 import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.maven.artifact.repository.ArtifactRepository;
@@ -55,7 +53,7 @@ public class InitializeMojo
     /**
      * @parameter expression="${bootstrap.artifacts}"
      * @description Whether or not bootstrap artifacts should be installed, by default they are not.  If this is
-     *              set to true this means the andromda bootstrap plugin will be updating the bootstaps, therefore
+     *              set to true this means the andromda bootstrap-install plugin will be updating the bootstraps, therefore
      *              this plugin will not deploy any of the current bootstraps (since that would create an inconsistent state).
      */
     protected boolean installBootstraps;
