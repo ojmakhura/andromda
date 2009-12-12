@@ -3,7 +3,7 @@
     <!--property name="modelValidation">false</property>
     <property name="xmlValidation">false</property-->
     <property name="failOnValidationErrors">false</property>
-    <!--property name="loggingConfigurationUri">file:${pom.basedir}/../../log4j.xml</property-->
+    <!--property name="loggingConfigurationUri">file:${project.basedir}/../../log4j.xml</property-->
   </properties>
   <repositories>
     <repository name="netBeansMDR">
@@ -11,14 +11,16 @@
         <model>
           <uri>jar:file:${test.src.dir}/uml/HibernateCartridgeTestModel.xml.zip!/HibernateCartridgeTestModel.xml</uri>
           <moduleSearchLocations>
-            <location patterns="**/*.xml.zip">${basedir}/../../profiles/uml-1.4</location>
-            <location patterns="**/*.xml.zip">${pom.basedir}/../../profiles/uml-1.4</location>
+            <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../profiles/uml-1.4</location>
             <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
           </moduleSearchLocations>
     <!--repository name="emf-uml22">
       <models>
          <model type="emf-uml22">
-           <uri>file:${test.src.dir}/uml/HibernateCartridgeTestModel.uml</uri-->
+           <uri>file:${test.src.dir}/uml/HibernateCartridgeTestModel.uml</uri>
+           <moduleSearchLocations>
+               <location patterns="*.uml,*.epx,*.emx">${project.basedir}/src/test/uml2</location>
+           </moduleSearchLocations-->
         </model>
       </models>
     </repository>

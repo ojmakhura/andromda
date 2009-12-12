@@ -8,13 +8,9 @@
         <model>
           <uri>${test.model.uri}</uri>
           <moduleSearchLocations>
-            <location patterns="**/*.xml.zip">${basedir}/../../profiles/uml-1.4</location>
-            <location patterns="**/*.xml.zip">${pom.basedir}/../../profiles/uml-1.4</location>
-            <location patterns="**/*.xml.zip">${basedir}/../../metafacades/uml/common</location>
-            <location patterns="**/*.xml.zip">${pom.basedir}/../../metafacades/uml/common</location>
-            <location patterns="**/3.4-SNAPSHOT/*-3.4-SNAPSHOT.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
-            <location patterns="**/3.4-SNAPSHOT/*-3.4-SNAPSHOT.xml.zip">${settings.localRepository}/org/andromda/metafacades</location>
-            <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
+            <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../profiles/uml-1.4</location>
+            <location patterns="*.xml.zip">${project.basedir}/../../metafacades/uml/common/src/uml</location>
+           <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
           </moduleSearchLocations>
           <modelPackages>
             <modelPackage process="false">org::andromda::metafacades::uml</modelPackage>
@@ -38,8 +34,8 @@
         <property name="facades-to-impls">${test.output.dir}</property>
         <property name="facade-logic-impls">${test.output.dir}</property>
         <property name="overwrite">true</property>
-        <property name="enableTemplating">false</property>
-        <property name="typeSafeEnumsEnabled">false</property>
+        <property name="enableTemplating">true</property>
+        <property name="typeSafeEnumsEnabled">true</property>
         <property name="pluralizeAssociationEndNames">true</property>
         <property name="pluralizeAttributeNames">true</property>
         <property name="pluralizeParameterNames">true</property>
