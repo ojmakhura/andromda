@@ -389,9 +389,7 @@ $associationEnd.getDocumentation("     * ")
     }
 
     /**
-#if ($velocityCount>0)
      * @return Object ${metafacade.generalizationLinks.get(0).getterName}().getValidationOwner()
-#end
      * @see org.andromda.core.metafacade.MetafacadeBase${esc.hash}getValidationOwner()
      */
     @Override
@@ -413,9 +411,7 @@ $associationEnd.getDocumentation("     * ")
     }
 
     /**
-#if ($velocityCount>0)
      * @return String ${metafacade.generalizationLinks.get(0).getterName}().getValidationName()
-#end
      * @see org.andromda.core.metafacade.MetafacadeBase${esc.hash}getValidationName()
      */
     @Override
