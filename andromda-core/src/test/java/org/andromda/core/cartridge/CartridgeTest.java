@@ -3,9 +3,7 @@ package org.andromda.core.cartridge;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
-
 import junit.framework.TestCase;
-
 import org.andromda.core.cartridge.template.ModelElement;
 import org.andromda.core.cartridge.template.Template;
 import org.andromda.core.cartridge.template.Type;
@@ -13,7 +11,6 @@ import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.TemplateObject;
 import org.andromda.core.namespace.NamespaceComponents;
 import org.andromda.core.profile.Profile;
-
 
 /**
  * Implements the JUnit test suit for
@@ -62,6 +59,9 @@ public class CartridgeTest
         this.cartridge = null;
     }
 
+    /**
+     * 
+     */
     public void testGetNamespace()
     {
         assertEquals(
@@ -69,6 +69,9 @@ public class CartridgeTest
             this.cartridge.getNamespace());
     }
 
+    /**
+     * 
+     */
     public void testGetResources()
     {
         Collection<Resource> resources = this.cartridge.getResources();
@@ -157,6 +160,9 @@ public class CartridgeTest
         assertEquals("$viewType.equalsIgnoreCase('jsp')", expressionValue);
     }
 
+    /**
+     * 
+     */
     public void testGetPropertyReferences()
     {
         String[] propertyRefs = this.cartridge.getPropertyReferences();
@@ -172,6 +178,9 @@ public class CartridgeTest
         assertEquals(propertyReferenceTwo, propertyRefs[1]);
     }
 
+    /**
+     * 
+     */
     public void testGetTemplateObjects()
     {
         final Collection templateObjects = this.cartridge.getTemplateObjects();
@@ -188,6 +197,9 @@ public class CartridgeTest
         
     }
 
+    /**
+     * 
+     */
     public void testGetContents()
     {
         Collection<String> contents = this.cartridge.getContents();
