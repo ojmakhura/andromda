@@ -350,7 +350,7 @@ public class AndroMDAppType
                             {
                                 final Mapping mapping = mappingIterator.next();
                                 String newPath = mapping.getMatch(path);
-                                if (StringUtils.isNotEmpty(newPath))
+                                if (StringUtils.isNotBlank(newPath))
                                 {
                                     final URL absolutePath = ResourceUtils.getResource(path);
                                     if (absolutePath != null)
