@@ -91,7 +91,7 @@ public class AndroMDAMojo
      *
      * @parameter expression="${project.build.plugins}"
      * @required
-     * @readonlya
+     * @readonly
      */
     protected List plugins;
 
