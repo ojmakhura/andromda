@@ -3,7 +3,6 @@ package org.andromda.core.metafacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -14,7 +13,6 @@ import org.andromda.core.profile.Profile;
 import org.apache.commons.collections.keyvalue.MultiKey;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
 
 /**
  * The factory in charge of constructing Metafacade instances. In order for a

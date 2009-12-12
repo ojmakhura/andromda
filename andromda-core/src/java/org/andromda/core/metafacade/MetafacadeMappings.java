@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ClassUtils;
@@ -20,7 +19,6 @@ import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.namespace.BaseNamespaceComponent;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
 
 /**
  * The Metafacade mapping class. Used to map <code>metafacade</code> objects

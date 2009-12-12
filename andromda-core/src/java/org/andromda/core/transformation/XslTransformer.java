@@ -5,14 +5,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-
 import java.net.URL;
-
 import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Collection;
-
+import java.util.Iterator;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
@@ -20,12 +16,10 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.configuration.Transformation;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * An implementation of Transformer that provides
@@ -114,7 +108,7 @@ public class XslTransformer
 
     /**
      * Provides the URI resolving capabilities for the
-     * {@ XslTransformer}
+     * {@link XslTransformer}
      */
     static final class TransformerURIResolver
         implements URIResolver

@@ -1,10 +1,5 @@
 package org.andromda.core.configuration;
 
-import org.andromda.core.common.ResourceUtils;
-import org.andromda.core.common.XmlObjectFactory;
-import org.andromda.core.mapping.Mappings;
-import org.apache.commons.lang.StringUtils;
-
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Serializable;
@@ -12,8 +7,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Iterator;
-
+import org.andromda.core.common.ResourceUtils;
+import org.andromda.core.common.XmlObjectFactory;
+import org.andromda.core.mapping.Mappings;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * This object is configured from the AndroMDA configuration

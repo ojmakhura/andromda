@@ -1,21 +1,16 @@
 package org.andromda.core.namespace;
 
 import java.io.InputStream;
-
 import java.net.URL;
-
 import java.text.Collator;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.andromda.core.common.AndroMDALogger;
 import org.andromda.core.common.ComponentContainer;
 import org.andromda.core.common.Merger;
@@ -25,7 +20,6 @@ import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.profile.Profile;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * The registry for namespace components. Namespace components are components

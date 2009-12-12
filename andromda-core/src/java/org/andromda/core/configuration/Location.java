@@ -1,15 +1,11 @@
 package org.andromda.core.configuration;
 
 import java.io.Serializable;
-
 import java.net.URL;
-
-import java.util.List;
-import java.util.Collection;
 import java.util.ArrayList;
-
+import java.util.Collection;
+import java.util.List;
 import org.andromda.core.common.ResourceUtils;
-
 
 /**
  * Represents a location within a module search or mappings search.

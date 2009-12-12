@@ -15,7 +15,6 @@ import org.andromda.core.namespace.PropertyDefinition;
 import org.andromda.core.transformation.Transformer;
 import org.apache.commons.lang.StringUtils;
 
-
 /**
  * This class provides access to all repositories available within the system (that
  * is: any repository registered within a namespace).
@@ -174,8 +173,11 @@ public class Repositories
             {
                 for (InputStream stream : streams)
                 {
-                    stream.close();
-                    stream = null;
+                    if (stream != null)
+                    {
+                        stream.close();
+                        stream = null;
+                    }
                 }
             }
             catch (final IOException exception)

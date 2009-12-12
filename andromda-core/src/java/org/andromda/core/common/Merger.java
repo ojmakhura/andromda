@@ -7,10 +7,8 @@ import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import org.andromda.core.configuration.NamespaceProperties;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.configuration.Property;
@@ -18,7 +16,6 @@ import org.andromda.core.mapping.Mapping;
 import org.andromda.core.mapping.Mappings;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
 
 /**
  * <p/>
@@ -125,6 +122,7 @@ public class Merger
             {
                 writer.write(ctr);
             }
+            // TODO Close resources in finally block
             inputReader.close();
 
             final String string = writer.toString();

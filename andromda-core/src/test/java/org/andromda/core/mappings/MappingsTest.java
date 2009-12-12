@@ -1,14 +1,12 @@
 package org.andromda.core.mappings;
 
+import java.net.URL;
+import java.util.Collection;
+import java.util.Iterator;
 import junit.framework.TestCase;
 import org.andromda.core.mapping.Mapping;
 import org.andromda.core.mapping.Mappings;
 import org.andromda.core.mapping.MappingsException;
-
-import java.net.URL;
-import java.util.Collection;
-import java.util.Iterator;
-
 
 /**
  * Tests {@link org.andromda.core.mapping.Mappings)

@@ -2,13 +2,10 @@ package org.andromda.core.cartridge.template;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.apache.commons.lang.StringUtils;
-
 
 /**
  * Defines the &lt;modelElements/&gt; element within a &lt;template/&gt; within an XML cartridge descriptor. This allows

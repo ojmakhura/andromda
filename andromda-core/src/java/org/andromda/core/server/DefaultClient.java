@@ -3,13 +3,11 @@ package org.andromda.core.server;
 import java.io.DataInputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
 import org.andromda.core.configuration.Configuration;
-
+import org.andromda.core.configuration.Server;
 
 /**
  * The default AndroMDA {@link Client} instance.
@@ -52,7 +50,7 @@ public class DefaultClient
     {
         if (configuration != null && configuration.getServer() != null)
         {
-            final org.andromda.core.configuration.Server serverConfiguration = configuration.getServer();
+            final Server serverConfiguration = configuration.getServer();
             if (serverConfiguration != null)
             {
                 try
