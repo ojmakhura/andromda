@@ -256,4 +256,8 @@ public class UMLMetafacadeProperties
      */
     public static final String TYPE_SAFE_ENUMS_ENABLED = "typeSafeEnumsEnabled";
 
+    /**
+     * Value indicating work to do in source code. Default=TODO
+     */
+    public static final String TODO_TAG = "toDoTag";
 }
