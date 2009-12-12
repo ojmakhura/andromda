@@ -9,14 +9,13 @@
         <model>
           <uri>${maven.andromda.model.uri}</uri>
           <moduleSearchLocations>
-            <location patterns="**/*.xml.zip">${pom.basedir}/src/uml</location>
-            <location patterns="**/*.xml.zip">${pom.basedir}/../../../profiles/uml-1.4</location>
-            <location patterns="**/*.xml.zip">${pom.basedir}/../../../metafacades/uml/common</location>
-            <location patterns="**/3.4-SNAPSHOT/*-3.4-SNAPSHOT.xml.zip">${settings.localRepository}/org/andromda/metafacades</location>
-            <location patterns="**/3.4-SNAPSHOT/*-3.4-SNAPSHOT.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
+            <location patterns="*.xml.zip">${project.basedir}/src/uml</location>
+            <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../../profiles/uml-1.4</location>
+            <location patterns="*.xml.zip">${project.basedir}/../../../metafacades/uml/common/src/uml</location>
             <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
           </moduleSearchLocations>
           <constraints>
+            <!-- Note misspelling in the validation statement -->
             <constraint enforce="false">org::andromda::cartridges::meta::metafacades::Metafacade::a metafacade must either extend an existing metafacade or have a direct dependency to a metaclass</constraint>
             <constraint enforce="false">org::andromda::cartridges::meta::metafacades::Metafacade::a metafacade must either extend an existing metafacade or have a directy dependency to a metaclass</constraint>
           </constraints>

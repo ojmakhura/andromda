@@ -8,11 +8,9 @@
                 <model>
                     <uri>${maven.andromda.model.uri}</uri>
                     <moduleSearchLocations>
-                        <location patterns="**/*.xml.zip">${pom.basedir}/src/uml</location>
-                        <location patterns="**/*.xml.zip">${pom.basedir}/../../common/src/uml</location>
-                        <location patterns="**/*.xml.zip">${pom.basedir}/../../../../profiles/uml-1.4/</location>
-                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/metafacades</location>
-                        <location patterns="**/*.xml.zip">${settings.localRepository}/org/andromda/profiles/uml14</location>
+                        <location patterns="*.xml.zip">${project.basedir}/src/uml</location>
+                        <location patterns="*.xml.zip">${project.basedir}/../../common/src/uml</location>
+                        <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../../../profiles/uml-1.4/</location>
                         <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
                     </moduleSearchLocations>
                 </model>

@@ -1,7 +1,7 @@
 <andromda xmlns="http://andromda.org/core/configuration">
   <properties>
     <property name="failOnValidationErrors">false</property>
-    <!--property name="loggingConfigurationUri">file:${basedir}/../../log4j.xml</property-->
+    <!--property name="loggingConfigurationUri">file:${project.basedir}/../../log4j.xml</property-->
   </properties>
   <repositories>
     <repository name="netBeansMDR">
@@ -9,8 +9,7 @@
         <model>
           <uri>${test.model.uri}</uri>
           <moduleSearchLocations>
-            <location patterns="**/*.xml.zip">${basedir}/../../profiles/uml-1.4</location>
-            <location patterns="**/*.xml.zip">${pom.basedir}/../../profiles/uml-1.4</location>
+            <location patterns="**/src/main/uml/*.xml.zip">${project.basedir}/../../profiles/uml-1.4</location>
             <location patterns="**/*.xml">jar:file:${settings.localRepository}/org/omg/profiles/uml14/UML_Standard_Profile/1.0/UML_Standard_Profile-1.0.jar!/</location>
           </moduleSearchLocations>
         </model>
