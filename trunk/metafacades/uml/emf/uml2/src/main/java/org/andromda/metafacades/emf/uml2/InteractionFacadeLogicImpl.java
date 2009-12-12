@@ -10,6 +10,10 @@ public class InteractionFacadeLogicImpl
     extends InteractionFacadeLogic
 {
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public InteractionFacadeLogicImpl (Object metaObject, String context)
     {
         super (metaObject, context);
