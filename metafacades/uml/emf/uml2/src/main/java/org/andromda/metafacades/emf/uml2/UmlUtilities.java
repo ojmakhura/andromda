@@ -194,7 +194,7 @@ public class UmlUtilities
 
         if (logger.isDebugEnabled())
         {
-            logger.debug("getAllMetaObjectsInstanceOf class: " + metaClass.getCanonicalName() + " " + metaClass.getClass() + " Found: " + metaObjects.size());
+            logger.debug("getAllMetaObjectsInstanceOf class: " + metaClass.getCanonicalName() + ' ' + metaClass.getClass() + " Found: " + metaObjects.size());
         }
         allMetaObjectsCache.put(metaClass.getCanonicalName()+modelName, metaObjects);
 
@@ -225,19 +225,18 @@ public class UmlUtilities
         {
             return null;
         }
-        String commentString = "";
-        EList comments = element.getOwnedComments();
+        StringBuilder commentString = new StringBuilder();
+        Collection<Comment> comments = element.getOwnedComments();
 
-        for (Iterator iterator = comments.iterator(); iterator.hasNext();)
+        for (final Comment comment : comments)
         {
-            final Comment comment = (Comment)iterator.next();
-            if (!commentString.equalsIgnoreCase(""))
+            if (commentString.length()>0)
             {
-                commentString += "\n\n";
+                commentString.append("\n\n");
             }
-            commentString = commentString.concat(comment.getBody());
+            commentString.append(comment.getBody());
         }
-        return cleanText(commentString);
+        return cleanText(commentString.toString());
     }
 
     /**
@@ -360,7 +359,7 @@ public class UmlUtilities
             }
             if (logger.isDebugEnabled() && attachedToType)
             {
-                logger.debug("isAssociationEndAttachedToType " + classifier.getQualifiedName() + " " + property + " " + property.getQualifiedName() + " " + property.getAssociation() + " " + property.getAssociationEnd() + " " + attachedToType);
+                logger.debug("isAssociationEndAttachedToType " + classifier.getQualifiedName() + ' ' + property + ' ' + property.getQualifiedName() + ' ' + property.getAssociation() + ' ' + property.getAssociationEnd() + ' ' + attachedToType);
             }
         }
         return attachedToType;
@@ -391,7 +390,7 @@ public class UmlUtilities
         // TODO: UML2 bug? getModel returns null because UMLUtil.getOwningElement getBaseElement(owner.eContainer()) changes owningElement to null
         if (classifier.getModel()==null)
         {
-            logger.error(classifier + " getModel was null: " + classifier.getOwner() + " " + classifier.getQualifiedName());
+            logger.error(classifier + " getModel was null: " + classifier.getOwner() + ' ' + classifier.getQualifiedName());
         }
         //logger.info(classifier + " " + classifier.getModel());
         final List allProperties = getAllMetaObjectsInstanceOf(
@@ -428,7 +427,7 @@ public class UmlUtilities
                     associationEnds.add(property);
                     if (logger.isDebugEnabled())
                     {
-                        logger.debug("getAssociationEnds " + classifier.getQualifiedName() + ": addedAssociation " + property + " " + property.getType() + " " + property.getAssociation() + " AssociationEnd=" + property.getAssociationEnd() + " OwnedEnds=" + property.getAssociation().getOwnedEnds() + " Qualifiers=" + property.getQualifiers() + " Navigable=" + property.isNavigable());
+                        logger.debug("getAssociationEnds " + classifier.getQualifiedName() + ": addedAssociation " + property + ' ' + property.getType() + ' ' + property.getAssociation() + " AssociationEnd=" + property.getAssociationEnd() + " OwnedEnds=" + property.getAssociation().getOwnedEnds() + " Qualifiers=" + property.getQualifiers() + " Navigable=" + property.isNavigable());
                     }
                /* }*/
             }
@@ -733,7 +732,7 @@ public class UmlUtilities
             }
         }
 
-        if (logger.isDebugEnabled() && tags.size()>0)
+        if (logger.isDebugEnabled() && !tags.isEmpty())
         {
             logger.debug("Found " + tags.size() + " tagged values for " + elementName);
         }
@@ -1214,7 +1213,7 @@ public class UmlUtilities
             {
                 LiteralString litStr = (LiteralString)multValue;
                 String multString = litStr.getValue();
-                if (multString.equals("*"))
+                if ("*".equals(multString))
                 {
                     value = MultiplicityElement.UNLIMITED_UPPER_BOUND;
                 }

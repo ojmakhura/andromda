@@ -51,11 +51,11 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
         }
         else if (valueSpecification instanceof LiteralInteger)
         {
-            instance.value = Integer.valueOf(((LiteralInteger)valueSpecification).getValue());
+            instance.value = ((LiteralInteger) valueSpecification).getValue();
         }
         else if (valueSpecification instanceof LiteralBoolean)
         {
-            instance.value = Boolean.valueOf(((LiteralBoolean)valueSpecification).isValue());
+            instance.value = ((LiteralBoolean) valueSpecification).isValue();
         }
         else
         {
@@ -114,7 +114,7 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
      */
     protected Collection handleGetOwnedLinks()
     {
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     /**

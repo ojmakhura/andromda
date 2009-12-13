@@ -84,7 +84,7 @@ public class FrontEndActionLogicImpl
     protected List handleGetParameters()
     {
         final EventFacade trigger = this.getTrigger();
-        return trigger == null ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
+        return trigger == null ? Collections.emptyList() : new ArrayList(trigger.getParameters());
     }
 
     /**

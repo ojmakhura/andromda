@@ -222,7 +222,7 @@ public class ModelElementFacadeLogicImpl
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
                 ModelElementFacadeLogicImpl.logger.error(
                     errMsg,
                     th);
@@ -351,7 +351,7 @@ public class ModelElementFacadeLogicImpl
             buffer.append(fullName);
 
             // start the parameter list
-            buffer.append("<");
+            buffer.append('<');
 
             // loop over the parameters, we are so to have at least one (see
             // outer condition)
@@ -380,7 +380,7 @@ public class ModelElementFacadeLogicImpl
             }
 
             // we're finished listing the parameters
-            buffer.append(">");
+            buffer.append('>');
 
             // we have constructed the full name in the buffer
             fullName = buffer.toString();
@@ -553,10 +553,8 @@ public class ModelElementFacadeLogicImpl
 
             // loop over the tagged values
             final Collection<TaggedValueFacade> taggedValues = this.getTaggedValues();
-            for (final Iterator<TaggedValueFacade> taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext();)
+            for (final TaggedValueFacade taggedValue : taggedValues)
             {
-                final TaggedValueFacade taggedValue = (TaggedValueFacade)taggedValueIterator.next();
-
                 // does this name match the argument tagged value name ?
                 if (UmlUtilities.doesTagValueNameMatch(name, taggedValue.getName()))
                 {
@@ -572,8 +570,8 @@ public class ModelElementFacadeLogicImpl
                     {
                         values.add(taggedValue.getValue());
                     } */
-                    //
-                    if (taggedValue.getValues() != null && taggedValue.getValues().size() > 0)
+                    // 
+                    if (taggedValue.getValues() != null && !taggedValue.getValues().isEmpty())
                     {
                         values.addAll(taggedValue.getValues());
                     }
@@ -607,7 +605,7 @@ public class ModelElementFacadeLogicImpl
         {
             for (final Iterator<Comment> commentIterator = comments.iterator(); commentIterator.hasNext();)
             {
-                final Comment comment = (Comment)commentIterator.next();
+                final Comment comment = commentIterator.next();
                 String commentString = StringUtils.trimToEmpty(comment.getBody());
 
                 // Comment.toString returns org.eclipse.uml2.uml.internal.impl.CommentImpl@95c90f4 (body: )
@@ -830,7 +828,7 @@ public class ModelElementFacadeLogicImpl
                 public boolean evaluate(final Object object)
                 {
                     DirectedRelationship relation = (DirectedRelationship) object;
-                    if(relation != null && isAUml14Dependency(relation) && relation.getSources() != null && relation.getSources().size()>0)
+                    if(relation != null && isAUml14Dependency(relation) && relation.getSources() != null && !relation.getSources().isEmpty())
                     {
                         // we only check first, see dependency facade for more detail.
                            return ModelElementFacadeLogicImpl.this.metaObject.equals(relation.getSources().get(0));
@@ -880,7 +878,7 @@ public class ModelElementFacadeLogicImpl
         {
             stateMachine = (StateMachine) owner;
         }
-        return (StateMachine)stateMachine;
+        return stateMachine;
     }
 
     /**
@@ -964,9 +962,8 @@ public class ModelElementFacadeLogicImpl
             final Collection<TemplateParameterFacade> parameters = this.getTemplateParameters();
             if (parameters != null && !parameters.isEmpty())
             {
-                for (final Iterator<TemplateParameterFacade> iterator = parameters.iterator(); iterator.hasNext();)
+                for (final TemplateParameterFacade currentTemplateParameter : parameters)
                 {
-                    final TemplateParameterFacade currentTemplateParameter = (TemplateParameterFacade)iterator.next();
                     if (currentTemplateParameter.getParameter() != null)
                     {
                         final ModelElementFacade parameter = currentTemplateParameter.getParameter();

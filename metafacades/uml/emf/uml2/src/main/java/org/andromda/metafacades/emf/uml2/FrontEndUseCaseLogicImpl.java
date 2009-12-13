@@ -194,7 +194,7 @@ public class FrontEndUseCaseLogicImpl
         final ActivityGraphFacade graph = this.getActivityGraph();
         if (graph == null)
         {
-            views = Collections.EMPTY_LIST;
+            views = Collections.emptyList();
         }
         else
         {

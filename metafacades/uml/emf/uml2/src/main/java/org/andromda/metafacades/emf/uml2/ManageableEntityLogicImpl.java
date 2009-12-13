@@ -294,8 +294,7 @@ public class ManageableEntityLogicImpl
 
     protected boolean handleIsManageable()
     {
-        return Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_MANAGEABLE_ENTITIES))
-                      .booleanValue();
+        return Boolean.valueOf((String) this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_MANAGEABLE_ENTITIES));
     }
 
     protected List handleGetReferencingManageables()
@@ -490,7 +489,7 @@ public class ManageableEntityLogicImpl
         {
             try
             {
-                resolveable = Boolean.valueOf(taggedValueObject.toString()).booleanValue();
+                resolveable = Boolean.valueOf(taggedValueObject.toString());
             }
             catch (NumberFormatException e)
             {
@@ -512,9 +511,8 @@ public class ManageableEntityLogicImpl
         try
         {
             resolveable =
-                Boolean.valueOf(
-                    (String)this.getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE))
-                       .booleanValue();
+                    Boolean.valueOf(
+                            (String) this.getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE));
         }
         catch (NumberFormatException ex)
         {

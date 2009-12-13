@@ -122,19 +122,19 @@ public class ClassifierFacadeLogicImpl
     {
         StringBuilder call = new StringBuilder();
         String separator = "";
-        call.append("(");
+        call.append('(');
         for (final Iterator<AttributeFacade> iterator = this.getAttributes().iterator(); iterator.hasNext();)
         {
-            AttributeFacade attribute = (AttributeFacade)iterator.next();
+            AttributeFacade attribute = iterator.next();
 
             call.append(separator);
             String typeName = attribute.getType().getFullyQualifiedName();
             call.append(typeName);
-            call.append(" ");
+            call.append(' ');
             call.append(attribute.getName());
             separator = ", ";
         }
-        call.append(")");
+        call.append(')');
         return call.toString();
     }
 
@@ -327,7 +327,7 @@ public class ClassifierFacadeLogicImpl
             }
             catch (final Throwable throwable)
             {
-                final String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                final String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
                 ClassifierFacadeLogicImpl.logger.error(
                     errMsg,
                     throwable);
@@ -512,8 +512,8 @@ public class ClassifierFacadeLogicImpl
     protected boolean handleIsStringType()
     {
         // Allow mapping multiple model types to String type
-        return this.getFullyQualifiedName().equals("String")
-           ||  this.getFullyQualifiedName().equals("java.lang.String")
+        return "String".equals(this.getFullyQualifiedName())
+           || "java.lang.String".equals(this.getFullyQualifiedName())
            || UMLMetafacadeUtils.isType(
             this,
             UMLProfile.STRING_TYPE_NAME);
@@ -582,7 +582,7 @@ public class ClassifierFacadeLogicImpl
         // declared fields
         for (final Iterator<AttributeFacade> iterator = this.getAttributes().iterator(); iterator.hasNext();)
         {
-            AttributeFacade attribute = (AttributeFacade)iterator.next();
+            AttributeFacade attribute = iterator.next();
             buffer.append(attribute.getName());
             buffer.append(attribute.getVisibility());
             buffer.append(attribute.getType().getName());
@@ -591,20 +591,20 @@ public class ClassifierFacadeLogicImpl
         // operations
         for (final Iterator<OperationFacade> iter = this.getOperations().iterator(); iter.hasNext();)
         {
-            OperationFacade operation = (OperationFacade)iter.next();
+            OperationFacade operation = iter.next();
             buffer.append(operation.getName());
             buffer.append(operation.getVisibility());
             buffer.append(operation.getReturnType().getName());
             for (final Iterator<ParameterFacade> iterator = operation.getArguments().iterator(); iterator.hasNext();)
             {
-                final ParameterFacade parameter = (ParameterFacade)iterator.next();
+                final ParameterFacade parameter = iterator.next();
                 buffer.append(parameter.getName());
                 buffer.append(parameter.getType().getName());
             }
         }
         final String signature = buffer.toString();
 
-        Long serialVersionUID = Long.valueOf(0L);
+        Long serialVersionUID = 0L;
         try
         {
             MessageDigest md = MessageDigest.getInstance("SHA");
@@ -615,7 +615,7 @@ public class ClassifierFacadeLogicImpl
             {
                 hash = (hash << 8) | (hashBytes[ctr] & 0xFF);
             }
-            serialVersionUID = Long.valueOf(hash);
+            serialVersionUID = hash;
         }
         catch (final NoSuchAlgorithmException exception)
         {
@@ -840,7 +840,7 @@ public class ClassifierFacadeLogicImpl
         }
         else
         {
-            operations = Collections.EMPTY_LIST;
+            operations = Collections.emptyList();
         }
 
         return operations;
@@ -893,7 +893,7 @@ public class ClassifierFacadeLogicImpl
         }
         else
         {
-            operations = Collections.EMPTY_LIST;
+            operations = Collections.emptyList();
         }
 
         return operations;
@@ -976,7 +976,7 @@ public class ClassifierFacadeLogicImpl
         if (this.metaObject instanceof PrimitiveType)
         {
             String name = this.getFullyQualifiedName(true);
-            if (name.indexOf(this.getArraySuffix()) == -1)
+            if (!name.contains(this.getArraySuffix()))
             {
                 name += this.getArraySuffix();
                 PackageFacade pkg = this.getRootPackage();
@@ -1206,7 +1206,7 @@ public class ClassifierFacadeLogicImpl
             final StringBuilder list = new StringBuilder();
             for (final Iterator<ClassifierFacade> iterator = interfaces.iterator(); iterator.hasNext();)
             {
-                final ClassifierFacade element = (ClassifierFacade)iterator.next();
+                final ClassifierFacade element = iterator.next();
                 list.append(element.getFullyQualifiedName());
                 if (iterator.hasNext())
                 {
@@ -1272,7 +1272,7 @@ public class ClassifierFacadeLogicImpl
         final List<AssociationEndFacade> associationEnds = this.getAssociationEnds();
         for (int i = 0; i < associationEnds.size(); i++)
         {
-            final AssociationEndFacade associationEndFacade = (AssociationEndFacade)associationEnds.get(i);
+            final AssociationEndFacade associationEndFacade = associationEnds.get(i);
             associatedClasses.add(associationEndFacade.getOtherEnd().getType());
         }
 

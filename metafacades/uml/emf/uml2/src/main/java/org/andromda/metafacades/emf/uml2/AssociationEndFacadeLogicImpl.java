@@ -172,7 +172,7 @@ public class AssociationEndFacadeLogicImpl
     private boolean isPluralizeAssociationEndNames()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);
-        return value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
+        return value != null && Boolean.valueOf(String.valueOf(value));
     }
 
     /**

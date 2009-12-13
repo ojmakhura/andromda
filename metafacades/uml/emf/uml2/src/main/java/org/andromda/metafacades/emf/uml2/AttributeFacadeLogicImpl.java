@@ -76,14 +76,14 @@ public class AttributeFacadeLogicImpl
         if (StringUtils.isNotEmpty(defaultValue) && !this.isMany())
         {
             String typeName = this.metaObject.getType().getName();
-            if (typeName.equals("String") && defaultValue.indexOf('"')<0)
+            if ("String".equals(typeName) && defaultValue.indexOf('"')<0)
             {
                 defaultValue = '"' + defaultValue + '"';
             }
-            else if ((typeName.equals("char") || typeName.equals("Character"))
-                && defaultValue.indexOf("'")<0)
+            else if (("char".equals(typeName) || "Character".equals(typeName))
+                && defaultValue.indexOf('\'')<0)
             {
-                defaultValue = "'" + defaultValue.charAt(0) + "'";
+                defaultValue = "'" + defaultValue.charAt(0) + '\'';
             }
         }
         if (defaultValue==null) defaultValue="";
@@ -173,7 +173,7 @@ public class AttributeFacadeLogicImpl
         }
         if (this.getType().isStringType() && value!=null && value.indexOf('"')<0)
         {
-            value = "\"" + value + "\"";
+            value = '\"' + value + '\"';
         }
         return value;
     }
@@ -251,9 +251,9 @@ public class AttributeFacadeLogicImpl
                     // Can't template primitive values, Objects only. Convert to wrapped.
                     type = StringUtils.capitalize(type);
                     // TODO Map from primitive to wrapped types
-                    if (type.equals("Int")) {type = "Integer";}
+                    if ("Int".equals(type)) {type = "Integer";}
                 }
-                name += "<" + type + ">";
+                name += '<' + type + '>';
             }
         }
         if (name == null && this.getType() != null)
@@ -370,7 +370,7 @@ public class AttributeFacadeLogicImpl
     private boolean isPluralizeAttributeNames()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ATTRIBUTE_NAMES);
-        return value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
+        return value != null && Boolean.valueOf(String.valueOf(value));
     }
 
     /*  protected boolean handleIsBindingDependenciesPresent()

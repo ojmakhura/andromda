@@ -115,7 +115,7 @@ public class GeneralizableElementFacadeLogicImpl
             allSpecializations.addAll(this.getSpecializations());
             for (final Iterator<GeneralizableElementFacade> iterator = this.getSpecializations().iterator(); iterator.hasNext();)
             {
-                final GeneralizableElementFacade element = (GeneralizableElementFacade)iterator.next();
+                final GeneralizableElementFacade element = iterator.next();
                 allSpecializations.addAll(element.getAllSpecializations());
             }
         }
@@ -131,7 +131,7 @@ public class GeneralizableElementFacadeLogicImpl
         final Collection<GeneralizableElementFacade> generalizations = new ArrayList<GeneralizableElementFacade>();
         for (final Iterator<GeneralizableElementFacade> iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
         {
-            final GeneralizableElementFacade element = (GeneralizableElementFacade)iterator.next();
+            final GeneralizableElementFacade element = iterator.next();
             generalizations.add(element);
             generalizations.addAll(element.getAllGeneralizations());
         }
