@@ -149,7 +149,7 @@ public class UMLModelAccessFacade
             "modelElement",
             modelElement);
 
-        Collection<String> stereotypeNames = Collections.EMPTY_LIST;
+        Collection<String> stereotypeNames = Collections.emptyList();
         if (modelElement instanceof Element)
         {
             Element element = (Element)modelElement;
@@ -222,7 +222,7 @@ public class UMLModelAccessFacade
 
         if (elements.isEmpty())
         {
-            metafacades = Collections.EMPTY_LIST;
+            metafacades = Collections.emptyList();
         }
         else
         {

@@ -37,7 +37,7 @@ public class CallEventFacadeLogicImpl extends CallEventFacadeLogic
     protected OperationFacade handleGetOperation()
     {
         final List<OperationFacade> operations = this.getOperations();
-        return (OperationFacade)(operations.isEmpty() ? null : operations.iterator().next());
+        return operations.isEmpty() ? null : operations.iterator().next();
     }
 
     /**

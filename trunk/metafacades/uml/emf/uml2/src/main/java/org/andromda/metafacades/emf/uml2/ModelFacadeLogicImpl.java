@@ -275,7 +275,7 @@ public class ModelFacadeLogicImpl
     protected Collection handleGetAllObjectFlowStates()
     {
         // TODO: Not implemented
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     /**

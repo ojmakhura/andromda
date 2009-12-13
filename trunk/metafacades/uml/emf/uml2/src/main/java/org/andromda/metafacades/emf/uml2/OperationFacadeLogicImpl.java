@@ -111,9 +111,9 @@ public class OperationFacadeLogicImpl
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append(name);
-        buffer.append("(");
+        buffer.append('(');
         buffer.append(this.getArgumentNames());
-        buffer.append(")");
+        buffer.append(')');
         return buffer.toString();
     }
 
@@ -240,13 +240,13 @@ public class OperationFacadeLogicImpl
         boolean hasReturnType = false;
         if (this.getReturnType() != null)
         {
-            hasReturnType = !(StringUtils.trimToEmpty(this.getReturnType().getFullyQualifiedName()).equalsIgnoreCase("void")
+            hasReturnType = !("void".equalsIgnoreCase(StringUtils.trimToEmpty(this.getReturnType().getFullyQualifiedName()))
                 || StringUtils.trimToEmpty(this.getReturnType().getFullyQualifiedName(true)).equals(UMLProfile.VOID_TYPE_NAME));
         }
         if (logger.isDebugEnabled())
         {
             String rtnFQN = this.getReturnType().getFullyQualifiedName(true);
-            boolean voidType = StringUtils.trimToEmpty(this.getReturnType().getFullyQualifiedName()).equalsIgnoreCase("void");
+            boolean voidType = "void".equalsIgnoreCase(StringUtils.trimToEmpty(this.getReturnType().getFullyQualifiedName()));
             String voidRtn = this.getReturnType().getFullyQualifiedName();
             logger.debug("OperationFacadeLogicImpl.handleIsReturnTypePresent rtnFQN=" + rtnFQN + " voidType=" + voidType + " voidRtn=" + voidRtn + " hasReturnType=" + hasReturnType);
         }
@@ -276,7 +276,7 @@ public class OperationFacadeLogicImpl
         String comma = ", ";
         while (iterator.hasNext())
         {
-            Parameter parameter = (Parameter)iterator.next();
+            Parameter parameter = iterator.next();
 
             if (!parameter.getDirection().equals(ParameterDirectionKind.RETURN_LITERAL))
             {
@@ -305,7 +305,7 @@ public class OperationFacadeLogicImpl
         boolean commaNeeded = false;
         while (iterator.hasNext())
         {
-            Parameter parameter = (Parameter)iterator.next();
+            Parameter parameter = iterator.next();
 
             if (!parameter.getDirection().equals(ParameterDirectionKind.RETURN_LITERAL))
             {
@@ -613,9 +613,9 @@ public class OperationFacadeLogicImpl
                     // Can't template primitive values, Objects only. Convert to wrapped.
                     type = StringUtils.capitalize(type);
                     // TODO Map from primitive to wrapped types
-                    if (type.equals("Int")) {type = "Integer";}
+                    if ("Int".equals(type)) {type = "Integer";}
                 }
-                name += "<" + type + ">";
+                name += '<' + type + '>';
             }
         }
         if (name == null && this.getReturnType() != null)
@@ -776,7 +776,7 @@ public class OperationFacadeLogicImpl
             for (Iterator<OperationFacade> operationIterator = ancestor.getOperations().iterator();
                  overriddenOperation == null && operationIterator.hasNext();)
             {
-                final OperationFacade ancestorOperation = (OperationFacade)operationIterator.next();
+                final OperationFacade ancestorOperation = operationIterator.next();
                 if (signature.equals(ancestorOperation.getSignature(false)))
                 {
                     overriddenOperation = ancestorOperation;
