@@ -6,21 +6,22 @@
 package org.andromda.timetracker.domain;
 
 import java.util.Collection;
-
 import org.andromda.timetracker.vo.UserRoleVO;
+import org.andromda.timetracker.vo.UserDetailsVO;
+import org.andromda.timetracker.vo.UserVO;
 
 /**
- * @see org.andromda.timetracker.domain.User
+ * @see User
  */
 public class UserDaoImpl
-    extends org.andromda.timetracker.domain.UserDaoBase
+    extends UserDaoBase
 {
     /**
-     * @see org.andromda.timetracker.domain.UserDao#toUserVO(org.andromda.timetracker.domain.User, org.andromda.timetracker.vo.UserVO)
+     * @see org.andromda.timetracker.domain.UserDao#toUserVO(User, UserVO)
      */
     public void toUserVO(
-        org.andromda.timetracker.domain.User sourceEntity,
-        org.andromda.timetracker.vo.UserVO targetVO)
+        User sourceEntity,
+        UserVO targetVO)
     {
         // @todo verify behavior of toUserVO
         super.toUserVO(sourceEntity, targetVO);
@@ -28,9 +29,9 @@ public class UserDaoImpl
 
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#toUserVO(org.andromda.timetracker.domain.User)
+     * @see org.andromda.timetracker.domain.UserDao#toUserVO(User)
      */
-    public org.andromda.timetracker.vo.UserVO toUserVO(final org.andromda.timetracker.domain.User entity)
+    public UserVO toUserVO(final User entity)
     {
         // @todo verify behavior of toUserVO
         return super.toUserVO(entity);
@@ -42,16 +43,16 @@ public class UserDaoImpl
      * from the object store. If no such entity object exists in the object store,
      * a new, blank entity is created
      */
-    private org.andromda.timetracker.domain.User loadUserFromUserVO(org.andromda.timetracker.vo.UserVO userVO)
+    private User loadUserFromUserVO(UserVO userVO)
     {
         // @todo implement loadUserFromUserVO
-        throw new java.lang.UnsupportedOperationException("org.andromda.timetracker.domain.loadUserFromUserVO(org.andromda.timetracker.vo.UserVO) not yet implemented.");
+        throw new UnsupportedOperationException("org.andromda.timetracker.domain.loadUserFromUserVO(UserVO) not yet implemented.");
 
         /* A typical implementation looks like this:
-        org.andromda.timetracker.domain.User user = this.load(userVO.getId());
+        User user = this.load(userVO.getId());
         if (user == null)
         {
-            user = org.andromda.timetracker.domain.User.Factory.newInstance();
+            user = User.Factory.newInstance();
         }
         return user;
         */
@@ -59,23 +60,23 @@ public class UserDaoImpl
 
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#userVOToEntity(org.andromda.timetracker.vo.UserVO)
+     * @see org.andromda.timetracker.domain.UserDao#userVOToEntity(UserVO)
      */
-    public org.andromda.timetracker.domain.User userVOToEntity(org.andromda.timetracker.vo.UserVO userVO)
+    public User userVOToEntity(UserVO userVO)
     {
         // @todo verify behavior of userVOToEntity
-        org.andromda.timetracker.domain.User entity = this.loadUserFromUserVO(userVO);
+        User entity = this.loadUserFromUserVO(userVO);
         this.userVOToEntity(userVO, entity, true);
         return entity;
     }
 
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#userVOToEntity(org.andromda.timetracker.vo.UserVO, org.andromda.timetracker.domain.User)
+     * @see org.andromda.timetracker.domain.UserDao#userVOToEntity(UserVO, User)
      */
     public void userVOToEntity(
-        org.andromda.timetracker.vo.UserVO sourceVO,
-        org.andromda.timetracker.domain.User targetEntity,
+        UserVO sourceVO,
+        User targetEntity,
         boolean copyIfNull)
     {
         // @todo verify behavior of userVOToEntity
@@ -83,11 +84,11 @@ public class UserDaoImpl
     }
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#toUserDetailsVO(org.andromda.timetracker.domain.User, org.andromda.timetracker.vo.UserDetailsVO)
+     * @see org.andromda.timetracker.domain.UserDao#toUserDetailsVO(User, UserDetailsVO)
      */
     public void toUserDetailsVO(
-        org.andromda.timetracker.domain.User sourceEntity,
-        org.andromda.timetracker.vo.UserDetailsVO targetVO)
+        User sourceEntity,
+        UserDetailsVO targetVO)
     {
         super.toUserDetailsVO(sourceEntity, targetVO);
 
@@ -105,9 +106,9 @@ public class UserDaoImpl
 
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#toUserDetailsVO(org.andromda.timetracker.domain.User)
+     * @see org.andromda.timetracker.domain.UserDao#toUserDetailsVO(User)
      */
-    public org.andromda.timetracker.vo.UserDetailsVO toUserDetailsVO(final org.andromda.timetracker.domain.User entity)
+    public UserDetailsVO toUserDetailsVO(final User entity)
     {
         // @todo verify behavior of toUserDetailsVO
         return super.toUserDetailsVO(entity);
@@ -119,16 +120,16 @@ public class UserDaoImpl
      * from the object store. If no such entity object exists in the object store,
      * a new, blank entity is created
      */
-    private org.andromda.timetracker.domain.User loadUserFromUserDetailsVO(org.andromda.timetracker.vo.UserDetailsVO userDetailsVO)
+    private User loadUserFromUserDetailsVO(UserDetailsVO userDetailsVO)
     {
         // @todo implement loadUserFromUserDetailsVO
-        throw new java.lang.UnsupportedOperationException("org.andromda.timetracker.domain.loadUserFromUserDetailsVO(org.andromda.timetracker.vo.UserDetailsVO) not yet implemented.");
+        throw new UnsupportedOperationException("org.andromda.timetracker.domain.loadUserFromUserDetailsVO(UserDetailsVO) not yet implemented.");
 
         /* A typical implementation looks like this:
-        org.andromda.timetracker.domain.User user = this.load(userDetailsVO.getId());
+        User user = this.load(userDetailsVO.getId());
         if (user == null)
         {
-            user = org.andromda.timetracker.domain.User.Factory.newInstance();
+            user = User.Factory.newInstance();
         }
         return user;
         */
@@ -136,23 +137,23 @@ public class UserDaoImpl
 
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#userDetailsVOToEntity(org.andromda.timetracker.vo.UserDetailsVO)
+     * @see org.andromda.timetracker.domain.UserDao#userDetailsVOToEntity(UserDetailsVO)
      */
-    public org.andromda.timetracker.domain.User userDetailsVOToEntity(org.andromda.timetracker.vo.UserDetailsVO userDetailsVO)
+    public User userDetailsVOToEntity(UserDetailsVO userDetailsVO)
     {
         // @todo verify behavior of userDetailsVOToEntity
-        org.andromda.timetracker.domain.User entity = this.loadUserFromUserDetailsVO(userDetailsVO);
+        User entity = this.loadUserFromUserDetailsVO(userDetailsVO);
         this.userDetailsVOToEntity(userDetailsVO, entity, true);
         return entity;
     }
 
 
     /**
-     * @see org.andromda.timetracker.domain.UserDao#userDetailsVOToEntity(org.andromda.timetracker.vo.UserDetailsVO, org.andromda.timetracker.domain.User)
+     * @see org.andromda.timetracker.domain.UserDao#userDetailsVOToEntity(UserDetailsVO, User)
      */
     public void userDetailsVOToEntity(
-        org.andromda.timetracker.vo.UserDetailsVO sourceVO,
-        org.andromda.timetracker.domain.User targetEntity,
+        UserDetailsVO sourceVO,
+        User targetEntity,
         boolean copyIfNull)
     {
         // @todo verify behavior of userDetailsVOToEntity
@@ -162,7 +163,7 @@ public class UserDaoImpl
     protected User handleGetUserDetails(String username) throws Exception {
 
         User user = (User)getSession().createQuery(
-            "from org.andromda.timetracker.domain.User user left join fetch user.roles where user.username = :username")
+            "from User user left join fetch user.roles where user.username = :username")
             .setParameter("username", username)
             .uniqueResult();
         return user;

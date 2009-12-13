@@ -27,9 +27,9 @@ public class SearchControllerImpl extends SearchController
     private static final String ALL_STRING = "-- All --";
 
     /**
-     * @see org.andromda.timetracker.web.timecardsearch.SearchController#populateSearchScreen(org.apache.struts.action.ActionMapping, org.andromda.timetracker.web.timecardsearch.PopulateSearchScreenForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * @see org.andromda.timetracker.web.timecardsearch.SearchController#populateSearchScreen(org.apache.struts.action.ActionMapping, PopulateSearchScreenForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
-    public final void populateSearchScreen(ActionMapping mapping, org.andromda.timetracker.web.timecardsearch.PopulateSearchScreenForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void populateSearchScreen(ActionMapping mapping, PopulateSearchScreenForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         if (logger.isDebugEnabled()) {
             logger.debug("form: " + form);
@@ -69,7 +69,7 @@ public class SearchControllerImpl extends SearchController
         form.setTimecardSummaries(timecards);
     }
 
-    public final void initializeTimecardId(ActionMapping mapping, org.andromda.timetracker.web.timecardsearch.InitializeTimecardIdForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+    public final void initializeTimecardId(ActionMapping mapping, InitializeTimecardIdForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         form.setTimecardId(form.getId());
     }
