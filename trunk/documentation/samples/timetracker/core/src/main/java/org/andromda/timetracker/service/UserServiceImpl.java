@@ -14,13 +14,13 @@ import org.andromda.timetracker.vo.UserVO;
  * @see org.andromda.timetracker.service.UserService
  */
 public class UserServiceImpl
-    extends org.andromda.timetracker.service.UserServiceBase
+    extends UserServiceBase
 {
     /**
      * @see org.andromda.timetracker.service.UserService#getAllUsers()
      */
     protected org.andromda.timetracker.vo.UserVO[] handleGetAllUsers()
-        throws java.lang.Exception
+        throws Exception
     {
         Collection userVOs = getUserDao().loadAll(UserDao.TRANSFORM_USERVO);
         return (UserVO[])userVOs.toArray(new UserVO[0]);

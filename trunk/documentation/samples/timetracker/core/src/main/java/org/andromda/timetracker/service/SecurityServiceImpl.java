@@ -12,14 +12,14 @@ import org.andromda.timetracker.vo.UserDetailsVO;
  * @see org.andromda.timetracker.service.SecurityService
  */
 public class SecurityServiceImpl
-    extends org.andromda.timetracker.service.SecurityServiceBase
+    extends SecurityServiceBase
 {
 
     /**
      * @see org.andromda.timetracker.service.SecurityService#getUserDetails(java.lang.String)
      */
     protected UserDetailsVO handleGetUserDetails(String username)
-        throws java.lang.Exception
+        throws Exception
     {
         UserDetailsVO userDetailsVO = null;
         User user = getUserDao().getUserDetails(username);
