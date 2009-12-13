@@ -177,12 +177,12 @@ public class EntityMetafacadeUtils
                 prefix = StringUtils.trimToEmpty(prefix);
                 if (nameMaxLength != null)
                 {
-                    final short maxLength = (short)(nameMaxLength.shortValue() - suffix.length() - prefix.length());
+                    final short maxLength = (short)(nameMaxLength - suffix.length() - prefix.length());
                     buffer =
                         new StringBuffer(
                             EntityMetafacadeUtils.ensureMaximumNameLength(
                                 buffer.toString(),
-                                new Short(maxLength)));
+                                    maxLength));
                 }
                 if (StringUtils.isNotBlank(prefix))
                 {
@@ -216,7 +216,7 @@ public class EntityMetafacadeUtils
     {
         if (StringUtils.isNotEmpty(name) && nameMaxLength != null)
         {
-            short max = nameMaxLength.shortValue();
+            short max = nameMaxLength;
             if (name.length() > max)
             {
                 name = name.substring(
@@ -330,8 +330,8 @@ public class EntityMetafacadeUtils
             constraintName = buffer.toString();
 
             // we take into consideration the maximum length allowed
-            final short maxLength = (short)(Short.valueOf(maxLengthProperty).shortValue() - suffix.length());
-            buffer = new StringBuffer(EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, new Short(maxLength)));
+            final short maxLength = (short)(Short.valueOf(maxLengthProperty) - suffix.length());
+            buffer = new StringBuffer(EntityMetafacadeUtils.ensureMaximumNameLength(constraintName, maxLength));
             buffer.append(suffix);
             constraintName = EntityMetafacadeUtils.getUniqueForeignKeyConstraintName(buffer.toString());
         }

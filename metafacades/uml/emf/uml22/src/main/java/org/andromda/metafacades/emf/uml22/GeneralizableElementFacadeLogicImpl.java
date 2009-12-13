@@ -40,7 +40,7 @@ public class GeneralizableElementFacadeLogicImpl
         {
             for (final Iterator<GeneralizableElementFacade> iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
             {
-                final GeneralizableElementFacade element = (GeneralizableElementFacade)iterator.next();
+                final GeneralizableElementFacade element = iterator.next();
                 list.append(element.getFullyQualifiedName());
                 if (iterator.hasNext())
                 {

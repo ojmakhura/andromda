@@ -173,7 +173,7 @@ public class AssociationEndFacadeLogicImpl
     private boolean isPluralizeAssociationEndNames()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);
-        return value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
+        return value != null && Boolean.valueOf(String.valueOf(value));
     }
 
     /**
@@ -214,7 +214,7 @@ public class AssociationEndFacadeLogicImpl
             if (this.getType() != null && BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                name += "<" + this.getType().getFullyQualifiedName() + ">";
+                name += '<' + this.getType().getFullyQualifiedName() + '>';
             }
         }
         if (name == null && this.getType() != null)
@@ -260,7 +260,7 @@ public class AssociationEndFacadeLogicImpl
     @Override
     protected AssociationEnd handleGetOtherEnd()
     {
-        return (AssociationEnd)UmlUtilities.getOppositeAssociationEnd(this.metaObject);
+        return UmlUtilities.getOppositeAssociationEnd(this.metaObject);
     }
 
     /**

@@ -201,7 +201,7 @@ public class MetafacadeUtils
         boolean commaNeeded = false;
         for (final Iterator<ParameterFacade> iterator = arguments.iterator(); iterator.hasNext();)
         {
-            ParameterFacade parameter = (ParameterFacade)iterator.next();
+            ParameterFacade parameter = iterator.next();
             String type = null;
             ClassifierFacade classifier = parameter.getType();
             if (classifier != null)
@@ -217,12 +217,12 @@ public class MetafacadeUtils
             if (StringUtils.isNotBlank(modifier))
             {
                 buffer.append(modifier);
-                buffer.append(" ");
+                buffer.append(' ');
             }
             buffer.append(type);
             if (withArgumentNames)
             {
-                buffer.append(" ");
+                buffer.append(' ');
                 buffer.append(parameter.getName());
             }
             commaNeeded = true;
@@ -247,12 +247,12 @@ public class MetafacadeUtils
         final String argumentModifier)
     {
         final StringBuffer signature = new StringBuffer(name);
-        signature.append("(");
+        signature.append('(');
         signature.append(getTypedArgumentList(
                 arguments,
                 withArgumentNames,
                 argumentModifier));
-        signature.append(")");
+        signature.append(')');
         return signature.toString();
     }
 

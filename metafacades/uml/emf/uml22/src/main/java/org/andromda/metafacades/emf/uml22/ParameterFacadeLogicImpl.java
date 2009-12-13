@@ -51,14 +51,14 @@ public class ParameterFacadeLogicImpl
         if (StringUtils.isNotBlank(defaultValue) && !this.handleIsMany())
         {
             String typeName = this.metaObject.getType().getName();
-            if (typeName.equals("String") && defaultValue.indexOf('"')<0)
+            if ("String".equals(typeName) && defaultValue.indexOf('"')<0)
             {
                 defaultValue = '"' + defaultValue + '"';
             }
-            else if ((typeName.equals("char") || typeName.equals("Character"))
-                && defaultValue.indexOf("'")<0)
+            else if (("char".equals(typeName) || "Character".equals(typeName))
+                && defaultValue.indexOf('\'')<0)
             {
-                defaultValue = "'" + defaultValue.charAt(0) + "'";
+                defaultValue = "'" + defaultValue.charAt(0) + '\'';
             }
         }
         if (defaultValue==null) defaultValue="";
@@ -93,7 +93,7 @@ public class ParameterFacadeLogicImpl
     private boolean isPluralizeParameterNames()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_PARAMETER_NAMES);
-        return value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
+        return value != null && Boolean.valueOf(String.valueOf(value));
     }
 
     /**
@@ -315,7 +315,7 @@ public class ParameterFacadeLogicImpl
                     // Can't template primitive values, Objects only. Convert to wrapped.
                     type = StringUtils.capitalize(type);
                 }
-                name += "<" + type + ">";
+                name += '<' + type + '>';
             }
         }
         if (name == null && this.getType() != null)
@@ -371,7 +371,7 @@ public class ParameterFacadeLogicImpl
     private int getDefaultMultiplicity()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY);
-        return (value != null ? Integer.valueOf(String.valueOf(value)).intValue() : 1);
+        return (value != null ? Integer.valueOf(String.valueOf(value)) : 1);
     }
 
     /**

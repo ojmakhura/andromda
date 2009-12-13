@@ -133,11 +133,11 @@ public class ClassifierFacadeLogicImpl
             call.append(separator);
             String typeName = attribute.getType().getFullyQualifiedName();
             call.append(typeName);
-            call.append(" ");
+            call.append(' ');
             call.append(attribute.getName());
             separator = ", ";
         }
-        call.append(")");
+        call.append(')');
         return call.toString();
     }
 
@@ -330,7 +330,7 @@ public class ClassifierFacadeLogicImpl
             }
             catch (final Throwable throwable)
             {
-                final String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                final String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
                 ClassifierFacadeLogicImpl.logger.error(
                     errMsg,
                     throwable);
@@ -515,8 +515,8 @@ public class ClassifierFacadeLogicImpl
     protected boolean handleIsStringType()
     {
         // Allow mapping multiple model types to String type
-        return this.getFullyQualifiedName().equals("String")
-           ||  this.getFullyQualifiedName().equals("java.lang.String")
+        return "String".equals(this.getFullyQualifiedName())
+           || "java.lang.String".equals(this.getFullyQualifiedName())
            || UMLMetafacadeUtils.isType(
             this,
             UMLProfile.STRING_TYPE_NAME);
@@ -603,7 +603,7 @@ public class ClassifierFacadeLogicImpl
         }
         final String signature = buffer.toString();
 
-        Long serialVersionUID = Long.valueOf(0L);
+        Long serialVersionUID = 0L;
         try
         {
             MessageDigest md = MessageDigest.getInstance("SHA");
@@ -614,7 +614,7 @@ public class ClassifierFacadeLogicImpl
             {
                 hash = (hash << 8) | (hashBytes[ctr] & 0xFF);
             }
-            serialVersionUID = Long.valueOf(hash);
+            serialVersionUID = hash;
         }
         catch (final NoSuchAlgorithmException exception)
         {
@@ -842,7 +842,7 @@ public class ClassifierFacadeLogicImpl
         }
         else
         {
-            operations = Collections.EMPTY_LIST;
+            operations = Collections.emptyList();
         }
 
         return operations;
@@ -895,7 +895,7 @@ public class ClassifierFacadeLogicImpl
         }
         else
         {
-            operations = Collections.EMPTY_LIST;
+            operations = Collections.emptyList();
         }
 
         return operations;
@@ -1148,7 +1148,7 @@ public class ClassifierFacadeLogicImpl
             });
         if (ClassifierFacadeLogicImpl.logger.isDebugEnabled())
         {
-            ClassifierFacadeLogicImpl.logger.debug("handleGetNavigableConnectingEnds " + this.metaObject.getQualifiedName() + " " + connectingEnds.size());
+            ClassifierFacadeLogicImpl.logger.debug("handleGetNavigableConnectingEnds " + this.metaObject.getQualifiedName() + ' ' + connectingEnds.size());
         }
         return connectingEnds;
     }
@@ -1190,7 +1190,7 @@ public class ClassifierFacadeLogicImpl
                 }
                 catch (Exception e)
                 {
-                    logger.warn("ClassifierFacade.handleGetInterfaceAbstractions " + obj + " " + e.getMessage());
+                    logger.warn("ClassifierFacade.handleGetInterfaceAbstractions " + obj + ' ' + e.getMessage());
                 }
             }
         }
@@ -1216,7 +1216,7 @@ public class ClassifierFacadeLogicImpl
             final StringBuilder list = new StringBuilder();
             for (final Iterator<ClassifierFacade> iterator = interfaces.iterator(); iterator.hasNext();)
             {
-                final ClassifierFacade element = (ClassifierFacade)iterator.next();
+                final ClassifierFacade element = iterator.next();
                 list.append(element.getFullyQualifiedName());
                 if (iterator.hasNext())
                 {
@@ -1285,7 +1285,7 @@ public class ClassifierFacadeLogicImpl
         final List<AssociationEndFacade> associationEnds = this.getAssociationEnds();
         for (int i = 0; i < associationEnds.size(); i++)
         {
-            final AssociationEndFacade associationEndFacade = (AssociationEndFacade)associationEnds.get(i);
+            final AssociationEndFacade associationEndFacade = associationEnds.get(i);
             associatedClasses.add(associationEndFacade.getOtherEnd().getType());
         }
 

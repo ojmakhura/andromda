@@ -35,7 +35,7 @@ public class ValueObjectLogicImpl
         StringBuilder stereotypes = new StringBuilder();
         for (StereotypeFacade stereotype : this.getStereotypes())
         {
-            stereotypes.append(stereotype.getName()).append(",");
+            stereotypes.append(stereotype.getName()).append(',');
         }
         return this.handleGetTypeSpecializations(stereotypes.toString());
     }

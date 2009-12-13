@@ -39,8 +39,8 @@ public class AssociationFacadeLogicImpl
     {
         final Collection<AssociationEndFacade> ends = this.getAssociationEnds();
         final Iterator<AssociationEndFacade> endIt = ends.iterator();
-        final AssociationEndFacade firstEnd = (AssociationEndFacade)endIt.next();
-        final AssociationEndFacade secondEnd = (AssociationEndFacade)endIt.next();
+        final AssociationEndFacade firstEnd = endIt.next();
+        final AssociationEndFacade secondEnd = endIt.next();
         return MetafacadeUtils.toRelationName(
             firstEnd==null ? "" :firstEnd.getName(),
             secondEnd==null ? "" : secondEnd.getName(),

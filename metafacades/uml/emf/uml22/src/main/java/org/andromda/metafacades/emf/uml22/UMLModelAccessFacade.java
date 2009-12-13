@@ -149,7 +149,7 @@ public class UMLModelAccessFacade
             "modelElement",
             modelElement);
 
-        Collection<String> stereotypeNames = Collections.EMPTY_LIST;
+        Collection<String> stereotypeNames = Collections.emptyList();
         if (modelElement instanceof Element)
         {
             Element element = (Element)modelElement;
@@ -173,7 +173,7 @@ public class UMLModelAccessFacade
             // TODO UmlUtilities.findModel() can return null. Check for null return value.
             for (TreeIterator<EObject> iterator = UmlUtilities.findModel(modelResource).eAllContents(); iterator.hasNext();)
             {
-                final EObject object = (EObject)iterator.next();
+                final EObject object = iterator.next();
                 if (object instanceof NamedElement)
                 {
                     final NamedElement element = (NamedElement)object;
@@ -211,7 +211,7 @@ public class UMLModelAccessFacade
             // TODO UmlUtilities.findModel() can return null. Check for null return value.
             for (final Iterator<EObject> iterator = UmlUtilities.findModel(modelResource).eAllContents(); iterator.hasNext();)
             {
-                final EObject object = (EObject)iterator.next();
+                final EObject object = iterator.next();
                 if (object instanceof NamedElement)
                 {
                     elements.add((NamedElement) object);
@@ -231,7 +231,7 @@ public class UMLModelAccessFacade
 
         if (elements.isEmpty())
         {
-            metafacades = Collections.EMPTY_LIST;
+            metafacades = Collections.emptyList();
         }
         else
         {

@@ -84,7 +84,7 @@ public class FrontEndActionLogicImpl
     protected List<ParameterFacade> handleGetParameters()
     {
         final EventFacade trigger = this.getTrigger();
-        return trigger == null ? Collections.EMPTY_LIST : new ArrayList<ParameterFacade>(trigger.getParameters());
+        return trigger == null ? Collections.<ParameterFacade>emptyList() : new ArrayList<ParameterFacade>(trigger.getParameters());
     }
 
     /**
@@ -116,16 +116,14 @@ public class FrontEndActionLogicImpl
         if (controller != null)
         {
             final List<FrontEndActionState> actionStates = this.getActionStates();
-            for (int ctr = 0; ctr < actionStates.size(); ctr++)
+            for (final FrontEndActionState actionState : actionStates)
             {
-                final FrontEndActionState actionState = actionStates.get(ctr);
                 deferredOperations.addAll(actionState.getControllerCalls());
             }
 
             final List<FrontEndForward> transitions = this.getDecisionTransitions();
-            for (int ctr = 0; ctr < transitions.size(); ctr++)
+            for (final FrontEndForward forward : transitions)
             {
-                final FrontEndForward forward = (FrontEndForward)transitions.get(ctr);
                 final FrontEndEvent trigger = forward.getDecisionTrigger();
                 if (trigger != null)
                 {
@@ -157,9 +155,8 @@ public class FrontEndActionLogicImpl
     {
         final Collection<StateVertexFacade> targetViews = new LinkedHashSet<StateVertexFacade>();
         final Collection<FrontEndForward> forwards = this.getActionForwards();
-        for (final Iterator iterator = forwards.iterator(); iterator.hasNext();)
+        for (final FrontEndForward forward : forwards)
         {
-            final FrontEndForward forward = (FrontEndForward)iterator.next();
             if (forward.isEnteringView())
             {
                 targetViews.add(forward.getTarget());
@@ -172,13 +169,13 @@ public class FrontEndActionLogicImpl
      * All action states that make up this action, this includes all possible
      * action states traversed after a decision point too.
      */
-    private Collection actionStates = null;
+    private Collection<FrontEndActionState> actionStates = null;
 
     /**
      * All transitions leading into either a page or final state that originated
      * from a call to this action.
      */
-    private Map actionForwards = null;
+    private Map<StateVertexFacade, TransitionFacade> actionForwards = null;
 
     /**
      * All transitions leading into a decision point that originated from a call
@@ -198,10 +195,10 @@ public class FrontEndActionLogicImpl
      */
     private void initializeCollections()
     {
-        this.actionStates = new LinkedHashSet();
-        this.actionForwards = new LinkedHashMap();
-        this.decisionTransitions = new LinkedHashSet();
-        this.transitions = new LinkedHashSet();
+        this.actionStates = new LinkedHashSet<FrontEndActionState>();
+        this.actionForwards = new LinkedHashMap<StateVertexFacade, TransitionFacade>();
+        this.decisionTransitions = new LinkedHashSet<TransitionFacade>();
+        this.transitions = new LinkedHashSet<TransitionFacade>();
         this.collectTransitions(
             (TransitionFacade)this.THIS(),
             this.transitions);
@@ -218,7 +215,7 @@ public class FrontEndActionLogicImpl
      */
     private void collectTransitions(
         final TransitionFacade transition,
-        final Collection processedTransitions)
+        final Collection<TransitionFacade> processedTransitions)
     {
         if (processedTransitions.contains(transition))
         {
@@ -239,17 +236,16 @@ public class FrontEndActionLogicImpl
         {
             this.decisionTransitions.add(transition);
             final Collection<TransitionFacade> outcomes = target.getOutgoings();
-            for (final Iterator<TransitionFacade> iterator = outcomes.iterator(); iterator.hasNext();)
+            for (final TransitionFacade outcome : outcomes)
             {
-                final TransitionFacade outcome = iterator.next();
                 this.collectTransitions(
-                    outcome,
-                    processedTransitions);
+                        outcome,
+                        processedTransitions);
             }
         }
         else if (target instanceof FrontEndActionState)
         {
-            this.actionStates.add(target);
+            this.actionStates.add((FrontEndActionState)target);
             final FrontEndForward forward = ((FrontEndActionState)target).getForward();
             if (forward != null)
             {
@@ -262,12 +258,11 @@ public class FrontEndActionLogicImpl
         // processed
         {
             final Collection<TransitionFacade> outcomes = target.getOutgoings();
-            for (final Iterator<TransitionFacade> iterator = outcomes.iterator(); iterator.hasNext();)
+            for (final TransitionFacade outcome : outcomes)
             {
-                final TransitionFacade outcome = iterator.next();
                 this.collectTransitions(
-                    outcome,
-                    processedTransitions);
+                        outcome,
+                        processedTransitions);
             }
         }
     }
@@ -282,7 +277,7 @@ public class FrontEndActionLogicImpl
         {
             this.initializeCollections();
         }
-        return new ArrayList(this.actionStates);
+        return new ArrayList<FrontEndActionState>(this.actionStates);
     }
 
     /**
@@ -308,7 +303,7 @@ public class FrontEndActionLogicImpl
         {
             this.initializeCollections();
         }
-        return new ArrayList(this.actionForwards.values());
+        return new ArrayList<TransitionFacade>(this.actionForwards.values());
     }
 
     /**
@@ -383,12 +378,11 @@ public class FrontEndActionLogicImpl
                     {
                         final FrontEndFinalState finalState = (FrontEndFinalState)finalStateObject;
                         final Collection<FrontEndParameter> parameters = finalState.getInterUseCaseParameters();
-                        for (final Iterator<FrontEndParameter> parameterIterator = parameters.iterator(); parameterIterator.hasNext();)
+                        for (final FrontEndParameter parameter : parameters)
                         {
-                            final FrontEndParameter parameter = parameterIterator.next();
                             formFieldMap.put(
-                                parameter.getName(),
-                                parameter);
+                                    parameter.getName(),
+                                    parameter);
                         }
                     }
                 }
@@ -400,19 +394,17 @@ public class FrontEndActionLogicImpl
         // containing one or more parameters they need to be included as a form
         // field too
         final Collection<FrontEndActionState> actionStates = this.getActionStates();
-        for (final Iterator<FrontEndActionState> iterator = actionStates.iterator(); iterator.hasNext();)
+        for (final FrontEndActionState actionState : actionStates)
         {
-            final FrontEndActionState actionState = iterator.next();
             final FrontEndForward forward = actionState.getForward();
             if (forward != null)
             {
                 final Collection<FrontEndParameter> forwardParameters = forward.getForwardParameters();
-                for (final Iterator<FrontEndParameter> parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
+                for (final FrontEndParameter forwardParameter : forwardParameters)
                 {
-                    final FrontEndParameter forwardParameter = (FrontEndParameter)parameterIterator.next();
                     formFieldMap.put(
-                        forwardParameter.getName(),
-                        forwardParameter);
+                            forwardParameter.getName(),
+                            forwardParameter);
                 }
             }
         }
@@ -420,44 +412,42 @@ public class FrontEndActionLogicImpl
         // add page variables for all pages/final-states targeted
         // also add the fields of the target page's actions (for pre-loading)
         final Collection<FrontEndForward> forwards = this.getActionForwards();
-        for (final Iterator<FrontEndForward> iterator = forwards.iterator(); iterator.hasNext();)
+        for (final FrontEndForward forward : forwards)
         {
-            final FrontEndForward forward = (FrontEndForward)iterator.next();
             final StateVertexFacade target = forward.getTarget();
             if (target instanceof FrontEndView)
             {
-                final FrontEndView view = (FrontEndView)target;
+                final FrontEndView view = (FrontEndView) target;
                 final Collection<FrontEndParameter> viewVariables = view.getVariables();
-                for (final Iterator<FrontEndParameter> pageVariableIterator = viewVariables.iterator(); pageVariableIterator.hasNext();)
+                for (final FrontEndParameter facade : viewVariables)
                 {
-                    final FrontEndParameter facade = (FrontEndParameter)pageVariableIterator.next();
                     formFieldMap.put(
-                        facade.getName(),
-                        facade);
+                            facade.getName(),
+                            facade);
                 }
                 final Collection<FrontEndParameter> allActionParameters = view.getAllFormFields();
                 for (final Iterator<FrontEndParameter> actionParameterIterator = allActionParameters.iterator();
-                    actionParameterIterator.hasNext();)
+                     actionParameterIterator.hasNext();)
                 {
                     // - don't allow existing parameters that are tables to be
                     // overwritten (since they take precedence
                     final Object parameter = actionParameterIterator.next();
                     if (parameter instanceof FrontEndParameter)
                     {
-                        FrontEndParameter variable = (FrontEndParameter)parameter;
+                        FrontEndParameter variable = (FrontEndParameter) parameter;
                         final String name = variable.getName();
                         final Object existingParameter = formFieldMap.get(name);
                         if (existingParameter instanceof FrontEndParameter)
                         {
-                            final FrontEndParameter existingVariable = (FrontEndParameter)existingParameter;
+                            final FrontEndParameter existingVariable = (FrontEndParameter) existingParameter;
                             if (existingVariable.isTable())
                             {
                                 variable = existingVariable;
                             }
                         }
                         formFieldMap.put(
-                            name,
-                            variable);
+                                name,
+                                variable);
                     }
                 }
             }
@@ -466,14 +456,13 @@ public class FrontEndActionLogicImpl
                 // only add these if there is no parameter recorded yet with the
                 // same name
                 final Collection<FrontEndParameter> forwardParameters = forward.getForwardParameters();
-                for (final Iterator<FrontEndParameter> parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
+                for (final FrontEndParameter facade : forwardParameters)
                 {
-                    final FrontEndParameter facade = (FrontEndParameter)parameterIterator.next();
                     if (!formFieldMap.containsKey(facade.getName()))
                     {
                         formFieldMap.put(
-                            facade.getName(),
-                            facade);
+                                facade.getName(),
+                                facade);
                     }
                 }
             }
@@ -500,16 +489,13 @@ public class FrontEndActionLogicImpl
         // to stay on the same view)
         if (formFieldMap.isEmpty() && this.getActionForwards().isEmpty())
         {
-            for (final Iterator<FrontEndControllerOperation> iterator = this.getDeferredOperations().iterator(); iterator.hasNext();)
+            for (final FrontEndControllerOperation operation : this.getDeferredOperations())
             {
-                final OperationFacade operation = (OperationFacade)iterator.next();
-                for (final Iterator parameterIterator = operation.getArguments().iterator();
-                    parameterIterator.hasNext();)
+                for (ParameterFacade parameter : operation.getArguments())
                 {
-                    final ParameterFacade parameter = (ParameterFacade)parameterIterator.next();
                     formFieldMap.put(
-                        parameter.getName(),
-                        parameter);
+                            parameter.getName(),
+                            parameter);
                 }
             }
         }

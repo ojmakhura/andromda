@@ -97,7 +97,7 @@ public class EntityAssociationEndLogicImpl
     protected boolean handleIsForeignIdentifier()
     {
         final Object value = this.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_FOREIGN_IDENTIFIER);
-        return value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
+        return value != null && Boolean.valueOf(String.valueOf(value));
     }
 
     /**
@@ -189,7 +189,7 @@ public class EntityAssociationEndLogicImpl
             }
             catch (Throwable throwable)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
                 EntityAssociationEndLogicImpl.logger.error(
                     errMsg,
                     throwable);

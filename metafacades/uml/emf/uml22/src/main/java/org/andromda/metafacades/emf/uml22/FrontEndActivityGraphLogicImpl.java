@@ -70,7 +70,7 @@ public class FrontEndActivityGraphLogicImpl
         final Collection<PseudostateFacade> initialStates = this.getInitialStates();
         if (!initialStates.isEmpty())
         {
-            final PseudostateFacade initialState = (PseudostateFacade)initialStates.iterator().next();
+            final PseudostateFacade initialState = initialStates.iterator().next();
             final Collection<TransitionFacade> outgoing = initialState.getOutgoings();
             firstAction = outgoing.isEmpty() ? null : outgoing.iterator().next();
         }

@@ -369,8 +369,8 @@ public class UMLMetafacadeUtils
                     pkg.hasStereotype("perspective") ||
                     // Verify package does not have any Java disallowed characters
                     StringUtils.containsAny(pkg.getName(), " `~!@#%^&*()-+={}[]:;<>,?/|") ||
-                    pkg.getName().equals("PrimitiveTypes") ||
-                    pkg.getName().equals("datatype")))
+                            "PrimitiveTypes".equals(pkg.getName()) ||
+                            "datatype".equals(pkg.getName())))
                 {
                     rtn = false;
                 }
@@ -378,7 +378,7 @@ public class UMLMetafacadeUtils
             catch (Exception ex)
             {
                 // Output=true anyway just in case we want this output
-                logger.error("UMLMetafacadeUtils.shouldOutput for " + mef.toString() + " " + ex.getClass().getName() + ": "+ ex.getMessage());
+                logger.error("UMLMetafacadeUtils.shouldOutput for " + mef.toString() + ' ' + ex.getClass().getName() + ": "+ ex.getMessage());
             }
         }
         return rtn;
