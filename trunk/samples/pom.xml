@@ -27,7 +27,7 @@
         <sourceDirectory>src/main/java</sourceDirectory>
         <resources>
             <resource>
-                <directory>${pom.basedir}/conf</directory>
+                <directory>${project.basedir}/conf</directory>
                 <includes>
                     <include>**/*.xml</include>
                 </includes>
@@ -87,7 +87,6 @@
                             <goal>maven</goal>
                         </goals>
                     </execution>
-                    
                     <execution>
                         <id>clean-animal-quiz-structure</id>
                         <phase>clean</phase>

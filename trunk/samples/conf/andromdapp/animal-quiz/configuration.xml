@@ -6,7 +6,7 @@
         <property name="applicationParentDirectory">$${project.basedir}</property>
         <property name="applicationId">animal-quiz</property>
         <property name="applicationName">AndroMDA Animal Quiz Sample</property>
-        <property name="applicationVersion">$${pom.version}</property>
+        <property name="applicationVersion">$${project.version}</property>
         <property name="applicationPackage">org.andromda.samples.animalquiz</property>
         <property name="applicationType">ear</property>
         <property name="transactionPersistenceType">spring</property>
