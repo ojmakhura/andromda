@@ -160,7 +160,7 @@ public abstract class AbstractAndroMDAppMojo
             final URL configuration = ResourceUtils.toURL(this.configurationUri);
             if (configuration == null)
             {
-                throw new MojoExecutionException("No configuration could be loaded from --> '" + this.configurationUri + "'");
+                throw new MojoExecutionException("No configuration could be loaded from --> '" + this.configurationUri + '\'');
             }
             contents = this.replaceProperties(ResourceUtils.getContents(configuration));
         }

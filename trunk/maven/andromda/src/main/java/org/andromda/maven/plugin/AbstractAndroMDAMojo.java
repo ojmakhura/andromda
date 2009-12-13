@@ -95,7 +95,7 @@ public abstract class AbstractAndroMDAMojo
             if (configurationUri == null)
             {
                 throw new MojoExecutionException("Configuration could not be loaded from '" + this.configurationUri +
-                    "'");
+                        '\'');
             }
             
             // - setup the classpath
@@ -112,7 +112,7 @@ public abstract class AbstractAndroMDAMojo
             throwable = ExceptionUtils.getRootCause(throwable);
             if (throwable instanceof MalformedURLException || throwable instanceof FileNotFoundException)
             {
-                message = "Configuration is not valid '" + this.configurationUri + "'";
+                message = "Configuration is not valid '" + this.configurationUri + '\'';
             }
             throw new MojoExecutionException(message, throwable);
         }

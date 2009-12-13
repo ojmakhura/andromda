@@ -114,7 +114,7 @@ public class GroovyScriptWrapper
                 BufferedReader resourceInput = new BufferedReader(resource);
                 for (String line = resourceInput.readLine(); line != null; line = resourceInput.readLine())
                 {
-                    contents.append(line + LINE_SEPARATOR);
+                    contents.append(line).append(LINE_SEPARATOR);
                 }
                 resourceInput.close();
                 resourceInput = null;
@@ -176,8 +176,7 @@ public class GroovyScriptWrapper
                 {
                     method.setAccessible(true);
                     final Object value = method.invoke(
-                            from,
-                            null);
+                            from);
                     to.invokeMethod(
                         setterMethod.getName(),
                         new Object[] {value});

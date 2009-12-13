@@ -30,7 +30,7 @@ public class BeanProperties
         try
         {
             value = ReflectionValueExtractor.evaluate(
-                    key + "",
+                    String.valueOf(key),
                     bean);
             // - convert file instances to strings
             if (value instanceof File)

@@ -155,10 +155,10 @@ public class TranslationLibraryTestFormatter
     String endTestSuite()
     {
         final double elapsed = ((System.currentTimeMillis() - this.startTime) / 1000.0);
-        final StringBuffer summary = new StringBuffer("Tests: " + String.valueOf(this.numberOfTests) + ", ");
-        summary.append("Failures: " + String.valueOf(this.numberOfFailures) + ", ");
-        summary.append("Errors: " + String.valueOf(this.numberOfErrors) + ", ");
-        summary.append("Time elapsed: " + elapsed).append(" sec");
+        final StringBuilder summary = new StringBuilder("Tests: " + String.valueOf(this.numberOfTests) + ", ");
+        summary.append("Failures: ").append(this.numberOfFailures).append(", ");
+        summary.append("Errors: ").append(this.numberOfErrors).append(", ");
+        summary.append("Time elapsed: ").append(elapsed).append(" sec");
         summary.append(newLine);
         summary.append(newLine);
         this.reportWriter.print(summary);

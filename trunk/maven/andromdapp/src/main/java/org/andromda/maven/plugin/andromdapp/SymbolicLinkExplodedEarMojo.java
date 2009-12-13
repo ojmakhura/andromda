@@ -80,7 +80,7 @@ public class SymbolicLinkExplodedEarMojo
     static
     {
         final String osName = System.getProperty("os.name");
-        if (osName.indexOf(WINDOWS) != -1)
+        if (osName.contains(WINDOWS))
         {
             isWindows = true;
         }
@@ -169,12 +169,12 @@ public class SymbolicLinkExplodedEarMojo
                         final String command;
                         if (!isWindows)
                         {
-                            command = linkCommand + " " + explodedArtifactDirectory + " " +
+                            command = linkCommand + ' ' + explodedArtifactDirectory + ' ' +
                                 targetFile.getAbsolutePath();
                         }
                         else
                         {
-                            command = linkCommand + " " + targetFile.getAbsolutePath() + " " +
+                            command = linkCommand + ' ' + targetFile.getAbsolutePath() + ' ' +
                                 explodedArtifactDirectory;
                         }
                         if (this.getLog().isDebugEnabled())
@@ -193,15 +193,15 @@ public class SymbolicLinkExplodedEarMojo
 
                 final File targetFile =
                     new File(this.deployLocation,
-                        this.project.getBuild().getFinalName() + "." + this.project.getPackaging());
+                        this.project.getBuild().getFinalName() + '.' + this.project.getPackaging());
                 final String command;
                 if (!isWindows)
                 {
-                    command = linkCommand + " " + explodedEarDirectory + " " + targetFile.getAbsolutePath();
+                    command = linkCommand + ' ' + explodedEarDirectory + ' ' + targetFile.getAbsolutePath();
                 }
                 else
                 {
-                    command = linkCommand + " " + targetFile.getAbsolutePath() + " " + explodedEarDirectory;
+                    command = linkCommand + ' ' + targetFile.getAbsolutePath() + ' ' + explodedEarDirectory;
                 }
                 if (this.getLog().isDebugEnabled())
                 {
@@ -245,7 +245,6 @@ public class SymbolicLinkExplodedEarMojo
             MavenProject root = null;
             for (root = this.project.getParent(); root.getParent() != null; root = root.getParent())
             {
-                ;
             }
             if (root == null)
             {
@@ -322,7 +321,7 @@ public class SymbolicLinkExplodedEarMojo
                     null,
                     model.getPackaging());
             final File pomParent = pom.getParentFile();
-            final String finalName = model.getArtifactId() + "-" + version;
+            final String finalName = model.getArtifactId() + '-' + version;
             final File explodedDirectory = new File(pomParent, "target/" + finalName);
             final File artifactFile = new File(explodedDirectory + "." + model.getPackaging());
             if (explodedDirectory.isDirectory() && artifactFile.exists() &&

@@ -223,7 +223,7 @@ public class InitializeMojo
                     {
                         fileList.add(file);
                     }// Ignore SVN dir/files
-                    else if (!file.getName().equalsIgnoreCase(".svn"))
+                    else if (!".svn".equalsIgnoreCase(file.getName()))
                     {
                         loadFiles(
                             file,

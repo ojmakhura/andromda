@@ -103,9 +103,9 @@ public class CartridgeArchiverMojo
         throws MojoExecutionException, MojoFailureException
     {
         getLog().debug(" ======= CartridgeArchiverMojo settings =======");
-        getLog().debug("workDirectory[" + this.workDirectory + "]");
-        getLog().debug("outputDirectory[" + this.outputDirectory + "]");
-        getLog().debug("finalName[" + finalName + "]");
+        getLog().debug("workDirectory[" + this.workDirectory + ']');
+        getLog().debug("outputDirectory[" + this.outputDirectory + ']');
+        getLog().debug("finalName[" + finalName + ']');
         final File buildDirectory = this.getBuildDirectory();
         final File outputDirectory = new File(this.outputDirectory);
         try
@@ -122,8 +122,8 @@ public class CartridgeArchiverMojo
                         if (StringUtils.isBlank(path))
                         {
                             throw new MojoFailureException("Please specify the 'path' for the cartridge artifact [" +
-                                cartridgeArtifact.getGroupId() + ":" + cartridgeArtifact.getArtifactId() + ":" +
-                                cartridgeArtifact.getType() + "]");
+                                cartridgeArtifact.getGroupId() + ':' + cartridgeArtifact.getArtifactId() + ':' +
+                                cartridgeArtifact.getType() + ']');
                         }
 
                         final File destinationDirectory = new File(outputDirectory,
@@ -193,8 +193,8 @@ public class CartridgeArchiverMojo
             final String type = cartridgeArtifact.getType();
             if (groupId == null || artifactId == null)
             {
-                throw new MojoFailureException("Could not resolve cartridge artifact [" + groupId + ":" + artifactId +
-                    ":" + type + "]");
+                throw new MojoFailureException("Could not resolve cartridge artifact [" + groupId + ':' + artifactId +
+                        ':' + type + ']');
             }
 
             for (final Iterator iterator = artifacts.iterator(); iterator.hasNext();)
@@ -211,7 +211,7 @@ public class CartridgeArchiverMojo
             if (resolvedArtifact == null)
             {
                 // Artifact has not been found
-                throw new MojoFailureException("Artifact[" + groupId + ":" + artifactId + ":" + type + "] " +
+                throw new MojoFailureException("Artifact[" + groupId + ':' + artifactId + ':' + type + "] " +
                     "is not a dependency of the project.");
             }
             return resolvedArtifact;

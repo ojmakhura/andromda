@@ -62,12 +62,12 @@ public class CartridgeTestUpdaterMojo
             else if (this.testFailureIgnore)
             {
                 this.getLog().error("An error occured while updating cartridge archive '"
-                        + this.project.getArtifactId() + "'", ExceptionUtils.getRootCause(throwable));
+                        + this.project.getArtifactId() + '\'', ExceptionUtils.getRootCause(throwable));
             }
             else
             {
                 throw new MojoExecutionException("An error occured while updating cartridge archive '"
-                        + this.project.getArtifactId() + "'", ExceptionUtils.getRootCause(throwable));
+                        + this.project.getArtifactId() + '\'', ExceptionUtils.getRootCause(throwable));
             }
         }
 

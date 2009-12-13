@@ -238,7 +238,7 @@ public class MavenExecuteMojo
                 }
                 catch (ProjectBuildingException exception)
                 {
-                    throw new MojoExecutionException("Error loading POM --> '" + pom + "'", exception);
+                    throw new MojoExecutionException("Error loading POM --> '" + pom + '\'', exception);
                 }
             }
         }

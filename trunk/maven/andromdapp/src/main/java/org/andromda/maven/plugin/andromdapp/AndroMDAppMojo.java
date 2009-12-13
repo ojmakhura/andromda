@@ -42,7 +42,7 @@ public class AndroMDAppMojo
             if (internalConfiguration == null)
             {
                 throw new MojoExecutionException("No configuration could be loaded from --> '" +
-                    INTERNAL_CONFIGURATION_URI + "'");
+                    INTERNAL_CONFIGURATION_URI + '\'');
             }
             andromdapp.addConfigurationUri(internalConfiguration.toString());
             final String configuration = this.getConfigurationContents();

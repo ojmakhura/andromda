@@ -58,6 +58,6 @@ public class ProjectWriter
         writer.endElement();
         writer.endElement();
         IOUtil.close(fileWriter);
-        this.logger.info("Project file written --> '" + projectFile + "'");
+        this.logger.info("Project file written --> '" + projectFile + '\'');
     }
 }

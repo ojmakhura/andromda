@@ -158,9 +158,9 @@ public class BootstrapInstallMojo
             model.setGroupId(this.getBootstrapGroupId(artifact));
             model.setParent(null);
             model.setBuild(null);
-            model.setDependencies(Collections.EMPTY_LIST);
-            model.setDevelopers(Collections.EMPTY_LIST);
-            model.setContributors(Collections.EMPTY_LIST);
+            model.setDependencies(Collections.emptyList());
+            model.setDevelopers(Collections.emptyList());
+            model.setContributors(Collections.emptyList());
             final FileWriter fileWriter = new FileWriter(bootstrapPomFile);
             this.project.writeModel(fileWriter);
             fileWriter.flush();

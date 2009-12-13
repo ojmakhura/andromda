@@ -219,7 +219,7 @@ public class SchemaTransformer
         {
             if (inputModel != null)
             {
-                logger.info("Input model --> '" + inputModel + "'");
+                logger.info("Input model --> '" + inputModel + '\'');
             }
             this.repository.readModel(
                 new String[] {inputModel},
@@ -363,7 +363,7 @@ public class SchemaTransformer
             StringTokenizer tokList = new StringTokenizer(taggedValues, ",");
             while (tokList.hasMoreTokens()) {
                String tok = tokList.nextToken();
-               String parts[] = StringUtils.split(tok, "=");
+               String[] parts = StringUtils.split(tok, "=");
                if (parts.length == 2) {
                    String tag = parts[0];
                    String value = parts[1];
@@ -521,7 +521,7 @@ public class SchemaTransformer
             warning.append(schemaName);
             if (StringUtils.isNotEmpty(this.tableNamePattern))
             {
-                warning.append(" matching pattern --> '" + this.tableNamePattern + "'");
+                warning.append(" matching pattern --> '").append(this.tableNamePattern).append('\'');
             }
             logger.warn(warning);
         }
@@ -534,7 +534,7 @@ public class SchemaTransformer
             UmlClass umlClass = (UmlClass)classes.get(tableName);
             if (logger.isInfoEnabled())
             {
-                logger.info("created class --> '" + umlClass.getName() + "'");
+                logger.info("created class --> '" + umlClass.getName() + '\'');
             }
 
             // create and add all associations to the package
@@ -619,7 +619,7 @@ public class SchemaTransformer
                 final String attributeName = SqlToModelNameFormatter.toAttributeName(columnName);
                 if (logger.isInfoEnabled())
                 {
-                    logger.info("adding attribute --> '" + attributeName + "'");
+                    logger.info("adding attribute --> '" + attributeName + '\'');
                 }
 
                 // do NOT add foreign key columns as attributes (since
@@ -642,7 +642,7 @@ public class SchemaTransformer
                         Schema2XMIUtils.constructTypeName(
                             typeName,
                             colSize, decPlaces);
-                    logger.info("  -  searching for type mapping '" + type + "'");
+                    logger.info("  -  searching for type mapping '" + type + '\'');
                     if (typeMappings.containsFrom(type))
                     {
                         typeClass = this.getOrCreateDataType(corePackage, type);
@@ -653,14 +653,14 @@ public class SchemaTransformer
                     if (typeClass == null)
                     {
                         type = JdbcTypeFinder.find(columnRs.getInt("DATA_TYPE"));
-                        logger.info("  -  searching for type mapping '" + type + "'");
+                        logger.info("  -  searching for type mapping '" + type + '\'');
                         if (typeMappings.containsFrom(type))
                         {
                             typeClass = this.getOrCreateDataType(corePackage, type);
                         }
                         else
                         {
-                            logger.warn("  !  no mapping found, type not added to '" + attributeName + "'");
+                            logger.warn("  !  no mapping found, type not added to '" + attributeName + '\'');
                         }
                     }
 
@@ -693,7 +693,7 @@ public class SchemaTransformer
                     }
                     
                     // Add the attribute specific tagged values (if any)...
-                    if (attributeTaggedValues.size() > 0) 
+                    if (!attributeTaggedValues.isEmpty())
                     {
                         Set keys = attributeTaggedValues.keySet();
                         Iterator iter = keys.iterator();
@@ -956,7 +956,7 @@ public class SchemaTransformer
             {
                 logger.info(
                     "adding association: '" + primaryEnd.getParticipant().getName() + " <--> " +
-                    foreignEnd.getParticipant().getName() + "'");
+                    foreignEnd.getParticipant().getName() + '\'');
             }
         }
         DbUtils.closeQuietly(columnRs);

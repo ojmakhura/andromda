@@ -99,10 +99,10 @@ public class XmlArchiverMojo
         throws MojoExecutionException
     {
         getLog().debug(" ======= XmlArchiverMojo settings =======");
-        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + "]");
-        getLog().debug("workDirectory[" + workDirectory + "]");
-        getLog().debug("outputDirectory[" + outputDirectory + "]");
-        getLog().debug("finalName[" + finalName + "]");
+        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
+        getLog().debug("workDirectory[" + workDirectory + ']');
+        getLog().debug("outputDirectory[" + outputDirectory + ']');
+        getLog().debug("finalName[" + finalName + ']');
 
         try
         {
@@ -150,7 +150,7 @@ public class XmlArchiverMojo
                                     new File(buildDirectory,
                                         this.finalName + '.' + FilenameUtils.getExtension(extractedFile.toString()));
                                 boolean renamed = extractedFile.renameTo(newFile);
-                                getLog().info("Renamed xml " + extractedFile.getAbsolutePath() + " to " + newFile.getAbsolutePath() + " " + renamed);
+                                getLog().info("Renamed xml " + extractedFile.getAbsolutePath() + " to " + newFile.getAbsolutePath() + ' ' + renamed);
                                 String contents = IOUtils.toString(new FileReader(newFile));
                                 final String version = MojoUtils.escapePattern(this.project.getVersion());
                             /*if (replaceExtensions)

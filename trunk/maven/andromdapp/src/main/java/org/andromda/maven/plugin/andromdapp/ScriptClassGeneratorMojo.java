@@ -4,11 +4,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.andromda.core.common.ClassUtils;
 import org.andromda.maven.plugin.andromdapp.script.ScriptClassGenerator;
@@ -128,9 +124,9 @@ public class ScriptClassGeneratorMojo
      * @param pluginArtifactId the artifactId of the plugin of which to add its dependencies.
      * @param scope the artifact scope in which to add them (runtime, compile, etc).
      */
-    protected List getProvidedClasspathElements()
+    protected List<String> getProvidedClasspathElements()
     {
-        final List classpathElements = new ArrayList();
+        final List<String> classpathElements = new ArrayList<String>();
         for (final Iterator iterator = this.project.getDependencies().iterator(); iterator.hasNext();)
         {
             final Artifact artifact = this.getArtifact(
@@ -183,25 +179,25 @@ public class ScriptClassGeneratorMojo
      * @throws DependencyResolutionRequiredException
      * @throws MalformedURLException
      */
-    protected void initializeClassLoader(final List classpathFiles)
+    protected void initializeClassLoader(final Collection<String> classpathFiles)
         throws MalformedURLException
     {
-        final Set classpathUrls = new LinkedHashSet();
+        final Set<URL> classpathUrls = new LinkedHashSet<URL>();
         classpathUrls.add(new File(this.project.getBuild().getOutputDirectory()).toURI().toURL());
-        if (classpathFiles != null && classpathFiles.size() > 0)
+        if (classpathFiles != null)
         {
-            for (int ctr = 0; ctr < classpathFiles.size(); ++ctr)
+            for (String fileName : classpathFiles)
             {
-                final File file = new File((String)classpathFiles.get(ctr));
+                final File file = new File(fileName);
                 if (this.getLog().isDebugEnabled())
                 {
-                    getLog().debug("adding to classpath '" + file + "'");
+                    getLog().debug("adding to classpath '" + file + '\'');
                 }
                 classpathUrls.add(file.toURI().toURL());
             }
         }
         final URLClassLoader loader =
-            new URLClassLoader((URL[])classpathUrls.toArray(new URL[0]),
+            new URLClassLoader(classpathUrls.toArray(new URL[classpathUrls.size()]),
                 Thread.currentThread().getContextClassLoader());
         Thread.currentThread().setContextClassLoader(loader);
     }

@@ -250,7 +250,7 @@ public class AssembleMojo
                             for (int ctr = 0; ctr < numberOfArtifacts; ctr++)
                             {
                                 final String name = names[ctr];
-                                if (name.indexOf(finalName) != -1 && !name.equals(finalName))
+                                if (name.contains(finalName) && !name.equals(finalName))
                                 {
                                     final File distributionFile = new File(distributionDirectory, name);
                                     this.bundleFile(
@@ -451,7 +451,6 @@ public class AssembleMojo
                      this.rootProject.getParent() != null;
                      this.rootProject = this.rootProject.getParent(), rootFile = new File(rootFile.getParentFile().getParentFile(), POM_FILE))
                 {
-                    ;
                 }
             }
             else

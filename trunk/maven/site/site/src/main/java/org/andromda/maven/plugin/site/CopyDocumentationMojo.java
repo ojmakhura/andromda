@@ -141,7 +141,7 @@ public class CopyDocumentationMojo
                 throw (MojoExecutionException)throwable;
             }
             throw new MojoExecutionException("An error occured copying the animal-quiz model '" +
-                this.project.getArtifactId() + "'",
+                this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }
     }
@@ -176,7 +176,7 @@ public class CopyDocumentationMojo
                 throw (MojoExecutionException)throwable;
             }
             throw new MojoExecutionException("An error occured copying the car-rental-system model '" +
-                this.project.getArtifactId() + "'",
+                this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }
     }
@@ -202,7 +202,7 @@ public class CopyDocumentationMojo
             for (int i = 0; i < files.length; i++)
             {
                 // Ignore SVN dir/files
-                if (!files[i].getName().equalsIgnoreCase(".svn"))
+                if (!".svn".equalsIgnoreCase(files[i].getName()))
                 {
                     this.copyFile(
                             files[i], 
@@ -217,7 +217,7 @@ public class CopyDocumentationMojo
                 throw (MojoExecutionException)throwable;
             }
             throw new MojoExecutionException("An error occured copying mappings '" +
-                this.project.getArtifactId() + "'",
+                this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }
     }
@@ -288,7 +288,7 @@ public class CopyDocumentationMojo
                 throw (MojoExecutionException)throwable;
             }
             throw new MojoExecutionException("An error occured copying documentation/reporting artifacts '" +
-                this.project.getArtifactId() + "'",
+                this.project.getArtifactId() + '\'',
                 ExceptionUtils.getRootCause(throwable));
         }
     }

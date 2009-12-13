@@ -2,7 +2,7 @@ package org.andromda.maven.plugin.distribution;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.codehaus.plexus.util.DirectoryScanner;
@@ -108,11 +108,11 @@ public class Location
      * @return all poms found.
      * @throws MojoExecutionException
      */
-    public List getPaths()
+    public List<String> getPaths()
     {
         final DirectoryScanner scanner = new DirectoryScanner();
         final File filePath = new File(this.path);
-        final List paths = new ArrayList();
+        final List<String> paths = new ArrayList<String>();
         if (filePath.isDirectory())
         {
             scanner.setBasedir(this.path);
@@ -121,10 +121,7 @@ public class Location
             scanner.scan();
     
             final String[] files = scanner.getIncludedFiles();
-            for (int ctr = 0; ctr < files.length; ctr++)
-            {
-                paths.add(files[ctr]);
-            }
+            paths.addAll(Arrays.asList(files));
         }
         else if (filePath.isFile())
         {

@@ -111,7 +111,7 @@ public class BshScriptWrapper
                 }
             }
 
-            Object returnValue = this.interpreter.eval("instance." + methodName + "(" + arguments + ");");
+            Object returnValue = this.interpreter.eval("instance." + methodName + '(' + arguments + ");");
 
             if (returnValue instanceof bsh.Primitive)
             {
@@ -139,7 +139,7 @@ public class BshScriptWrapper
         final Object to)
         throws Exception
     {
-        final Set methods = new LinkedHashSet();
+        final Set<Method> methods = new LinkedHashSet<Method>();
         loadSuperMethods(
             from.getClass(),
             methods);
@@ -170,12 +170,10 @@ public class BshScriptWrapper
                 if (setterMethod != null)
                 {
                     method.setAccessible(true);
-                    final Object value = method.invoke(
-                            from,
-                            null);
+                    final Object value = method.invoke(from);
                     setterMethod.invoke(
                         to,
-                        new Object[] {value});
+                        value);
                 }
             }
         }

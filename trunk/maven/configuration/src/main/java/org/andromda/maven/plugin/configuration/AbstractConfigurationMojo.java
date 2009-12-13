@@ -171,7 +171,7 @@ public abstract class AbstractConfigurationMojo
     protected void initializeClasspathFromClassPathElements(final List classpathFiles)
         throws MalformedURLException
     {
-        if (classpathFiles != null && classpathFiles.size() > 0)
+        if (classpathFiles != null && !classpathFiles.isEmpty())
         {
             final URL[] classpathUrls = new URL[classpathFiles.size()];
 
@@ -180,7 +180,7 @@ public abstract class AbstractConfigurationMojo
                 final File file = new File((String)classpathFiles.get(ctr));
                 if (this.getLog().isDebugEnabled())
                 {
-                    getLog().debug("adding to classpath '" + file + "'");
+                    getLog().debug("adding to classpath '" + file + '\'');
                 }
                 classpathUrls[ctr] = file.toURI().toURL();
             }

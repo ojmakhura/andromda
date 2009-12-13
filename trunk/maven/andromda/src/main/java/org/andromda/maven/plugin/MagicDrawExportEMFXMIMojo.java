@@ -154,9 +154,9 @@ public class MagicDrawExportEMFXMIMojo
 
         //perform the export via MagicDraw
         getLog().info("Exporting model file [" + source + "] ...");
-        String command = "\"" + exporterPath + "\""
-                + " project_file=\"" + sourceFile.getPath() + "\""
-                + " destination_dir=\"" + sourceFile.getParent() + "\""
+        String command = '\"' + exporterPath + '\"'
+                + " project_file=\"" + sourceFile.getPath() + '\"'
+                + " destination_dir=\"" + sourceFile.getParent() + '\"'
                 + " load_all_modules=true";
         Process process = Runtime.getRuntime().exec(command);
 
@@ -216,7 +216,7 @@ public class MagicDrawExportEMFXMIMojo
 
             //check for running os
             String os = System.getProperty("os.name");
-            if (os.indexOf("Windows") != -1)
+            if (os.contains("Windows"))
             {
                 exportExt = ".exe";
             }

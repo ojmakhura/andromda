@@ -272,7 +272,7 @@ public class ClasspathWriter
         }
         writer.endElement();
 
-        logger.info("Classpath file written --> '" + classpathFile + "'");
+        logger.info("Classpath file written --> '" + classpathFile + '\'');
         IOUtil.close(fileWriter);
     }
 

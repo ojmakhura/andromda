@@ -149,7 +149,7 @@ public class XmiZipArchiverMojo
     private static final String[] JAR_INCLUDES = new String[] {"**/*"};
     private static final String[] JAR_EXCLUDES = new String[] {"**/package.html"};
     private final Collection<String> modelArchiveExcludes =
-        new ArrayList<String>(Arrays.asList(new String[] {"*.xml.zip, **/*.java", "*reports*/**", "tests*/**"}));
+        new ArrayList<String>(Arrays.asList("*.xml.zip, **/*.java", "*reports*/**", "tests*/**"));
 
     /**
      * The pattern of the archived model files that should be extracted
@@ -191,15 +191,15 @@ public class XmiZipArchiverMojo
         throws MojoExecutionException
     {
         getLog().debug(" ======= XmlZipArchiverMojo settings =======");
-        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + "]");
-        getLog().debug("workDirectory[" + workDirectory + "]");
-        getLog().debug("outputDirectory[" + outputDirectory + "]");
-        getLog().debug("finalName[" + finalName + "]");
-        getLog().debug("replaceExtensions[" + replaceExtensions + "]");
-        getLog().debug("version[" + this.project.getVersion() + "]");
-        getLog().debug("extension[" + this.replacementExtensions + "]");
-        getLog().debug("extensionPattern[" + "((\\-" + this.project.getVersion() + ")?)" + this.replacementExtensions + "]");
-        getLog().debug("newExtension[" + "\\-" + this.project.getVersion() + this.replacementExtensions + "]");
+        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
+        getLog().debug("workDirectory[" + workDirectory + ']');
+        getLog().debug("outputDirectory[" + outputDirectory + ']');
+        getLog().debug("finalName[" + finalName + ']');
+        getLog().debug("replaceExtensions[" + replaceExtensions + ']');
+        getLog().debug("version[" + this.project.getVersion() + ']');
+        getLog().debug("extension[" + this.replacementExtensions + ']');
+        getLog().debug("extensionPattern[" + "((\\-" + this.project.getVersion() + ")?)" + this.replacementExtensions + ']');
+        getLog().debug("newExtension[" + "\\-" + this.project.getVersion() + this.replacementExtensions + ']');
 
         try
         {
@@ -304,7 +304,7 @@ public class XmiZipArchiverMojo
                         null,
                         ATTACHED_ARTIFACT_TYPE);
 
-                File modelJar = new File(workDirectory, finalName + "." + ATTACHED_ARTIFACT_TYPE);
+                File modelJar = new File(workDirectory, finalName + '.' + ATTACHED_ARTIFACT_TYPE);
 
                 final MavenArchiver modelJarArchiver = new MavenArchiver();
 

@@ -116,11 +116,11 @@ public class Uml2ArchiverMojo
         throws MojoExecutionException
     {
         getLog().debug(" ======= Uml2ArchiverMojo settings =======");
-        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + "]");
-        getLog().debug("workDirectory[" + workDirectory + "]");
-        getLog().debug("outputDirectory[" + outputDirectory + "]");
-        getLog().debug("finalName[" + finalName + "]");
-        getLog().debug("replaceExtensions[" + replaceExtensions + "]");
+        getLog().debug("modelSourceDirectory[" + modelSourceDirectory + ']');
+        getLog().debug("workDirectory[" + workDirectory + ']');
+        getLog().debug("outputDirectory[" + outputDirectory + ']');
+        getLog().debug("finalName[" + finalName + ']');
+        getLog().debug("replaceExtensions[" + replaceExtensions + ']');
 
         try
         {

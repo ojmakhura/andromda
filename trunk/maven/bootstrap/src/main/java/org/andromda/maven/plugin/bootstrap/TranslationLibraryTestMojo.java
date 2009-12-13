@@ -161,7 +161,7 @@ public class TranslationLibraryTestMojo
                 if (configurationUri == null)
                 {
                     throw new MojoExecutionException("No configuration could be loaded from --> '" +
-                        this.configurationUri + "'");
+                        this.configurationUri + '\'');
                 }
                 processor.setConfiguration(this.getConfiguration(configurationUri));
 
@@ -193,13 +193,13 @@ public class TranslationLibraryTestMojo
                 else if (this.testFailureIgnore)
                 {
                     this.getLog().error("An error occured while testing translation-library '" +
-                            this.translationName + "'",
+                            this.translationName + '\'',
                         ExceptionUtils.getRootCause(throwable));
                 }
                 else
                 {
                     throw new MojoExecutionException("An error occured while testing translation-library '" +
-                            this.translationName + "'",
+                            this.translationName + '\'',
                             ExceptionUtils.getRootCause(throwable));
                 }
             }

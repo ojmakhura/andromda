@@ -23,6 +23,6 @@ public class UserServiceImpl
         throws Exception
     {
         Collection userVOs = getUserDao().loadAll(UserDao.TRANSFORM_USERVO);
-        return (UserVO[])userVOs.toArray(new UserVO[0]);
+        return (UserVO[]) userVOs.toArray(new UserVO[userVOs.size()]);
     }
 }
