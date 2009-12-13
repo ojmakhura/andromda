@@ -30,7 +30,7 @@
 <jsp:include page="include/adminheader.jsp"/>
 <h1>List Single Service</h1>
 <%
-    String prefix = request.getAttribute("frontendHostUrl") + (String)request.getSession().getAttribute(Constants.SERVICE_PATH) + "/";
+    String prefix = request.getAttribute("frontendHostUrl") + (String)request.getSession().getAttribute(Constants.SERVICE_PATH) + '/';
 %>
 <%
     String isFault = (String) request.getSession().getAttribute(Constants.IS_FAULTY);

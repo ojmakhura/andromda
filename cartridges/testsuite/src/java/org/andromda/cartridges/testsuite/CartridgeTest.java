@@ -168,8 +168,8 @@ public class CartridgeTest
             final boolean binary = isBinary(actualFile);
             final StringBuffer header = new StringBuffer(ctr + ") binary = " + binary);
             logger.debug(header);
-            logger.debug("expected --> '" + expectedFile + "'");
-            logger.debug("actual   --> '" + actualFile + "'");
+            logger.debug("expected --> '" + expectedFile + '\'');
+            logger.debug("actual   --> '" + actualFile + '\'');
             suite.addTest(new FileComparator(
                     "testEquals",
                     expectedFile,
@@ -186,12 +186,12 @@ public class CartridgeTest
             for (int ctr = 1; missingFileIterator.hasNext(); ctr++)
             {
                 failureMessage.append(ctr);
-                failureMessage.append(")");
-                failureMessage.append(" ");
+                failureMessage.append(')');
+                failureMessage.append(' ');
                 failureMessage.append(missingFileIterator.next());
                 if (missingFileIterator.hasNext())
                 {
-                    failureMessage.append("\n");
+                    failureMessage.append('\n');
                 }
             }
             TestCase.fail(failureMessage.toString());

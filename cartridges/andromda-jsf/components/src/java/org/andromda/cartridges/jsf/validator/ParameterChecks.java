@@ -120,17 +120,17 @@ public class ParameterChecks
             fieldJoin = field.getVarValue("fieldJoin");
         }
 
-        if (fieldJoin.equalsIgnoreCase("AND"))
+        if ("AND".equalsIgnoreCase(fieldJoin))
         {
             required = true;
         }
 
-        while (!StringUtils.isBlank(field.getVarValue("field[" + ctr + "]")))
+        while (!StringUtils.isBlank(field.getVarValue("field[" + ctr + ']')))
         {
-            String dependProp = field.getVarValue("field[" + ctr + "]");
-            String dependTest = field.getVarValue("fieldTest[" + ctr + "]");
-            String dependTestValue = field.getVarValue("fieldValue[" + ctr + "]");
-            String dependIndexed = field.getVarValue("fieldIndexed[" + ctr + "]");
+            String dependProp = field.getVarValue("field[" + ctr + ']');
+            String dependTest = field.getVarValue("fieldTest[" + ctr + ']');
+            String dependTestValue = field.getVarValue("fieldValue[" + ctr + ']');
+            String dependIndexed = field.getVarValue("fieldIndexed[" + ctr + ']');
 
             if (dependIndexed == null)
             {
@@ -139,14 +139,14 @@ public class ParameterChecks
 
             String dependVal = null;
             boolean thisRequired = false;
-            if (field.isIndexed() && dependIndexed.equalsIgnoreCase("true"))
+            if (field.isIndexed() && "true".equalsIgnoreCase(dependIndexed))
             {
                 String key = field.getKey();
-                if ((key.indexOf("[") > -1) && (key.indexOf("]") > -1))
+                if ((key.indexOf('[') > -1) && (key.indexOf(']') > -1))
                 {
                     String ind = key.substring(
                             0,
-                            key.indexOf(".") + 1);
+                            key.indexOf('.') + 1);
                     dependProp = ind + dependProp;
                 }
             }
@@ -181,7 +181,7 @@ public class ParameterChecks
                 thisRequired = dependTestValue.equalsIgnoreCase(dependVal);
             }
 
-            if (fieldJoin.equalsIgnoreCase("AND"))
+            if ("AND".equalsIgnoreCase(fieldJoin))
             {
                 required = required && thisRequired;
             }

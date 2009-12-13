@@ -45,7 +45,7 @@ public class JSFForwardLogicImpl
         }
         else
         {
-            name.insert(0, this.getUseCase().getName() + "-");
+            name.insert(0, this.getUseCase().getName() + '-');
         }
         return JSFUtils.toWebResourceName(name.toString());
     }
@@ -94,7 +94,7 @@ public class JSFForwardLogicImpl
         final Collection taggedValues = this.findTaggedValues(taggedValue);
         if (taggedValues.isEmpty())
         {
-            messages = Collections.EMPTY_MAP;
+            messages = Collections.emptyMap();
         }
         else
         {

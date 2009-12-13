@@ -68,11 +68,11 @@ public class HibernateEntityAttributeLogicImpl
             final String fullyQualifiedName = StringUtils.trimToEmpty(type.getFullyQualifiedName());
             if (("java.lang.String".equals(fullyQualifiedName) || "String".equals(fullyQualifiedName)) && fullyQualifiedName.indexOf('"')<0)
             {
-                defaultValue = "\"" + defaultValue.replaceAll("\"", "") + "\"";
+                defaultValue = '\"' + defaultValue.replaceAll("\"", "") + '\"';
             }
             else if (fullyQualifiedName.startsWith("java.lang"))
             {
-                defaultValue = fullyQualifiedName + ".valueOf(" + defaultValue + ")";
+                defaultValue = fullyQualifiedName + ".valueOf(" + defaultValue + ')';
             }
             else if (type.isEnumeration())
             {
@@ -129,7 +129,7 @@ public class HibernateEntityAttributeLogicImpl
     protected boolean handleIsLazy()
     {
         final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_LAZY);
-        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : false;
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value) : false;
     }
 
     /**
@@ -149,7 +149,7 @@ public class HibernateEntityAttributeLogicImpl
     protected boolean handleIsInsertEnabled()
     {
         final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROPERTY_INSERT);
-        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : true;
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value) : true;
     }
 
     /**
@@ -160,7 +160,7 @@ public class HibernateEntityAttributeLogicImpl
     protected boolean handleIsUpdateEnabled()
     {
         final String value = (String)findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_PROPERTY_UPDATE);
-        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value).booleanValue() : true;
+        return StringUtils.isNotBlank(value) ? Boolean.valueOf(value) : true;
     }
 
     private boolean isXmlPersistenceActive()
@@ -174,7 +174,7 @@ public class HibernateEntityAttributeLogicImpl
     {
         boolean persistAsAttribute = true;
         String prop = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_XML_PERSISTENCE_ID_AS_ATTRIBUTE);
-        if (prop != null && prop.equalsIgnoreCase("false"))
+        if (prop != null && "false".equalsIgnoreCase(prop))
             persistAsAttribute = false;
         
         return persistAsAttribute;
@@ -196,7 +196,7 @@ public class HibernateEntityAttributeLogicImpl
             if (StringUtils.isBlank(tagName))
             {
                 if (this.isIdentifier() && this.persistIDAsAttribute())
-                    tagName = "@" + this.getName();
+                    tagName = '@' + this.getName();
                 else
                     tagName = this.getName();
             }

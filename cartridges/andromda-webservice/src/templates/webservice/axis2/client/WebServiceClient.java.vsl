@@ -191,7 +191,7 @@ public class WebServiceClient
         }
         else
         {
-            throw new RuntimeException("Could not authenticate user: '" + username + "' to WSDL: '" + address + "'");
+            throw new RuntimeException("Could not authenticate user: '" + username + "' to WSDL: '" + address + '\'');
         }
         final Definition definition = reader.readWSDL(
                 address,

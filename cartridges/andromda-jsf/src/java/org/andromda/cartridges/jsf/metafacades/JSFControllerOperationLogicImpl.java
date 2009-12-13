@@ -46,7 +46,7 @@ public class JSFControllerOperationLogicImpl
         final String packageName = this.getPackageName();
         if (StringUtils.isNotBlank(packageName))
         {
-            fullyQualifiedName.append(packageName + '.');
+            fullyQualifiedName.append(packageName).append('.');
         }
         return fullyQualifiedName.append(StringUtils.capitalize(this.getFormName())).toString();
     }
@@ -68,12 +68,12 @@ public class JSFControllerOperationLogicImpl
     {
         final StringBuilder call = new StringBuilder();
         call.append(this.getName());
-        call.append("(");
+        call.append('(');
         if (!this.getFormFields().isEmpty())
         {
             call.append("form");
         }
-        call.append(")");
+        call.append(')');
         return call.toString();
     }
     
@@ -105,17 +105,17 @@ public class JSFControllerOperationLogicImpl
     private final String getFormSignature(boolean isAbstract)
     {
         final StringBuilder signature = new StringBuilder();
-        signature.append(this.getVisibility() + ' ');
+        signature.append(this.getVisibility()).append(' ');
         if (isAbstract)
         {
             signature.append("abstract ");
         }
         final ModelElementFacade returnType = this.getReturnType();
         signature.append(returnType != null ? returnType.getFullyQualifiedName() : null);
-        signature.append(" " + this.getName() + "(");
+        signature.append(' ').append(this.getName()).append('(');
         if (!this.getFormFields().isEmpty())
         {
-            signature.append(this.getFormName() + " form");
+            signature.append(this.getFormName()).append(" form");
         }
         signature.append(") throws Exception");
         return signature.toString();

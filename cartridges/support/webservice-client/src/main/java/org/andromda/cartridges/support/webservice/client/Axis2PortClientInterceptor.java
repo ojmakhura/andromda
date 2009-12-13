@@ -255,13 +255,13 @@ public class Axis2PortClientInterceptor
         if (AopUtils.isToStringMethod(invocation.getMethod()))
         {
             return "Axis2 proxy for port [" + this.getPortAddress() + "] of service [" +
-                this.getServiceInterface().getName() + "]";
+                this.getServiceInterface().getName() + ']';
         }
         if (logger.isDebugEnabled())
         {
             logger.debug(
                 "Invoking '" + invocation.getMethod().getName() + "' on port: '" +
-                this.getPortAddress() + "' through interface: '" + this.getServiceInterface().getName() + "'");
+                this.getPortAddress() + "' through interface: '" + this.getServiceInterface().getName() + '\'');
         }
         try
         {

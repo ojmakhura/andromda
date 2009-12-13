@@ -33,7 +33,7 @@ public class JSFServlet
         final InputStream resource = JSFServlet.class.getResourceAsStream(path);
         if (resource == null)
         {
-            throw new ServletException("Could not load resource from path '" + path + "'");
+            throw new ServletException("Could not load resource from path '" + path + '\'');
         }
 
         // - write resource to the output stream

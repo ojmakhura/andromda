@@ -81,7 +81,7 @@ public class StrutsManageableEntityAttributeLogicImpl
         {
             final String[] tokens = dateFormat.split("[\\s]+");
             int tokenIndex = 0;
-            if (tokenIndex < tokens.length && tokens[tokenIndex].trim().equals("strict"))
+            if (tokenIndex < tokens.length && "strict".equals(tokens[tokenIndex].trim()))
             {
                 tokenIndex++;
             }

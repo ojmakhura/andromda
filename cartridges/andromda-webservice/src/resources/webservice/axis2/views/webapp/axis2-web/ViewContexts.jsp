@@ -32,7 +32,7 @@
 
     Hashtable serviceGroupContextsMap = configContext.getServiceGroupContexts();
     Iterator serviceGroupContext = serviceGroupContextsMap.keySet().iterator();
-    if(serviceGroupContextsMap.size() >0){
+    if(!serviceGroupContextsMap.isEmpty()){
     %>
      <ul>
     <%

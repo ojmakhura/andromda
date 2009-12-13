@@ -261,7 +261,7 @@ public class SpringServiceOperationLogicImpl
     {
         final StringBuilder buffer = new StringBuilder();
         buffer.append(StringUtils.capitalize(this.getName()));
-        buffer.append("(");
+        buffer.append('(');
         final boolean outgoingMessageOperation = this.isOutgoingMessageOperation();
         if (outgoingMessageOperation || (this.isIncomingMessageOperation() && this.getArguments().isEmpty()))
         {
@@ -276,7 +276,7 @@ public class SpringServiceOperationLogicImpl
         {
             buffer.append(argumentNames);
         }
-        buffer.append(")");
+        buffer.append(')');
         return this.getImplementationOperationName(buffer.toString());
     }
 
@@ -316,10 +316,10 @@ public class SpringServiceOperationLogicImpl
     private String getMessagingOperationSignature(final String operationName, final String firstArgument, final String modifier)
     {
         final StringBuilder signature = new StringBuilder(operationName);
-        signature.append("(");
+        signature.append('(');
         if (StringUtils.isNotBlank(modifier))
         {
-            signature.append(modifier).append(" ");
+            signature.append(modifier).append(' ');
         }
         final Collection<ParameterFacade> arguments = this.getArguments();
         final boolean outgoingMessageOperation = this.isOutgoingMessageOperation();
@@ -339,7 +339,7 @@ public class SpringServiceOperationLogicImpl
         {
             signature.append(argumentList);
         }
-        signature.append(")");
+        signature.append(')');
         return signature.toString();
     }
 

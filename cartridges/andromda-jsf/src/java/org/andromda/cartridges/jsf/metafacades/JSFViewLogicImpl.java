@@ -78,7 +78,7 @@ public class JSFViewLogicImpl
     private final boolean isNormalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages).booleanValue();
+        return Boolean.valueOf(normalizeMessages);
     }
 
     protected String handleGetMessageValue()
@@ -124,7 +124,7 @@ public class JSFViewLogicImpl
         final String packageName = this.getPackageName();
         if (StringUtils.isNotBlank(packageName))
         {
-            path.append(packageName + '.');
+            path.append(packageName).append('.');
         }
         path.append(JSFUtils.toWebResourceName(StringUtils.trimToEmpty(this.getName())).replace(
                 '.',
@@ -376,6 +376,6 @@ public class JSFViewLogicImpl
      */
     protected String handleGetFromOutcome()
     {
-        return JSFUtils.toWebResourceName(this.getUseCase().getName() + "-" + this.getName());
+        return JSFUtils.toWebResourceName(this.getUseCase().getName() + '-' + this.getName());
     }
 }

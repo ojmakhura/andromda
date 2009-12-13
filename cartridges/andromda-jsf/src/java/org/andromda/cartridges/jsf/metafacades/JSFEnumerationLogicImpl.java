@@ -43,7 +43,7 @@ public class JSFEnumerationLogicImpl
      */
     protected String handleGetFullyQualifiedConverterName()
     {
-        return this.getPackageName() + "." + this.getConverterName();
+        return this.getPackageName() + '.' + this.getConverterName();
     }
 
     /**

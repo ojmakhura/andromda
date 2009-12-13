@@ -70,7 +70,7 @@ public class HibernateAssociationLogicImpl
         {
             eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_ETERNAL);
         }
-        return Boolean.valueOf(eternal).booleanValue();
+        return Boolean.valueOf(eternal);
     }
 
     @Override
@@ -114,7 +114,7 @@ public class HibernateAssociationLogicImpl
         {
             eternal = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_EHCACHE_OVERFLOW_TO_DISK);
         }
-        return Boolean.valueOf(eternal).booleanValue();
+        return Boolean.valueOf(eternal);
     }
 
     @Override
@@ -125,13 +125,13 @@ public class HibernateAssociationLogicImpl
     {
         {
             String distributed = (String)this.getConfiguredProperty(HibernateGlobals.HIBERNATE_ENTITYCACHE_DISTRIBUTED);
-            boolean distributedCachingEnabled = Boolean.valueOf(StringUtils.trimToEmpty(distributed)).booleanValue();
+            boolean distributedCachingEnabled = Boolean.valueOf(StringUtils.trimToEmpty(distributed));
 
             if (distributedCachingEnabled)
             {
                 String entityCacheDistributed =
                     (String)this.findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_ASSOCIATIONCACHE_DISTRIBUTED);
-                return Boolean.valueOf(StringUtils.trimToEmpty(entityCacheDistributed)).booleanValue();
+                return Boolean.valueOf(StringUtils.trimToEmpty(entityCacheDistributed));
             }
             return false;
         }

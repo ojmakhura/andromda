@@ -38,7 +38,7 @@
 </jsp:include>
 <h1>Available services</h1>
 <%
-  String prifix = request.getAttribute("frontendHostUrl") + (String)request.getSession().getAttribute(Constants.SERVICE_PATH) +"/";
+  String prifix = request.getAttribute("frontendHostUrl") + (String)request.getSession().getAttribute(Constants.SERVICE_PATH) + '/';
 %>
 <%
   HashMap serviceMap = (HashMap) request.getSession().getAttribute(Constants.SERVICE_MAP);
@@ -60,7 +60,7 @@
 <%
   Collection engagedModules = axisService.getEngagedModules();
   String moduleName;
-  if (engagedModules.size() > 0) {
+  if (!engagedModules.isEmpty()) {
 %>
 <i>Engaged Modules for the Axis Service</i><ul>
   <%
@@ -85,7 +85,7 @@
 %><li><%=axisOperation.getName().getLocalPart()%></li>
   <%
     engagedModules = axisOperation.getEngagedModules();
-    if (engagedModules.size() > 0) {
+    if (!engagedModules.isEmpty()) {
   %>
   <br><i>Engaged Modules for the Operation</i><ul>
   <%

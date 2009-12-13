@@ -116,9 +116,9 @@ public class MethodData implements Comparable
      */
     public String buildMethodDeclaration(boolean suppressAbstractDeclaration)
     {
-        String declaration = this.visibility + " " 
+        String declaration = this.visibility + ' '
                 + ((this.isAbstract && !suppressAbstractDeclaration) ? "abstract " : "")
-                + ((this.returnTypeName != null) ? (this.returnTypeName + " ") : "") + this.name + "(";
+                + ((this.returnTypeName != null) ? (this.returnTypeName + ' ') : "") + this.name + '(';
 
         declaration += getTypedArgumentList();
         /*for (final Iterator iterator = this.arguments.iterator(); iterator.hasNext();)
@@ -132,7 +132,7 @@ public class MethodData implements Comparable
         }*/
         declaration += ")";
 
-        if (this.exceptions.size() > 0)
+        if (!this.exceptions.isEmpty())
         {
             declaration += " throws ";
             for (final Iterator iterator = this.exceptions.iterator(); iterator.hasNext();)
@@ -174,9 +174,9 @@ public class MethodData implements Comparable
             final ArgumentData argument = (ArgumentData)iterator.next();
             if (modifier!=null)
             {
-                declaration += modifier + " ";
+                declaration += modifier + ' ';
             }
-            declaration += (argument.getFullyQualifiedTypeName() + " " + argument.getName());
+            declaration += (argument.getFullyQualifiedTypeName() + ' ' + argument.getName());
             if (iterator.hasNext())
             {
                 declaration += ", ";
@@ -192,7 +192,7 @@ public class MethodData implements Comparable
      */
     public String buildMethodCall()
     {
-        String call = getName() + "(";
+        String call = getName() + '(';
 
         for (final Iterator iterator = this.arguments.iterator(); iterator.hasNext();)
         {
@@ -215,7 +215,7 @@ public class MethodData implements Comparable
      */
     public String buildCharacteristicKey()
     {
-        String key = ((this.returnTypeName != null) ? (this.returnTypeName + " ") : "") + this.name + "(";
+        String key = ((this.returnTypeName != null) ? (this.returnTypeName + ' ') : "") + this.name + '(';
 
         for (final Iterator iterator = this.arguments.iterator(); iterator.hasNext();)
         {
@@ -268,7 +268,7 @@ public class MethodData implements Comparable
      */
     public boolean isReturnTypePresent()
     {
-        return this.returnTypeName != null && !this.returnTypeName.equals("void");
+        return this.returnTypeName != null && !"void".equals(this.returnTypeName);
     }
 
     /**

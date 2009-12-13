@@ -84,7 +84,7 @@ public class EJBSessionFacadeLogicImpl
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
-            jndiName.append("/");
+            jndiName.append('/');
         }
         jndiName.append("ejb/");
         jndiName.append(this.getFullyQualifiedName());

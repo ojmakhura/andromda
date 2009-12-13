@@ -38,7 +38,7 @@ public class HibernateEmbeddedValueLogicImpl
         Object value = this.findTaggedValue(HibernateProfile.TAGGEDVALUE_PERSISTENCE_IMMUTABLE);
         if (value != null)
         {
-            immutable = Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+            immutable = Boolean.valueOf(ObjectUtils.toString(value));
         }
         return immutable;
     }
@@ -53,7 +53,7 @@ public class HibernateEmbeddedValueLogicImpl
             String.valueOf(this.getConfiguredProperty(HibernateGlobals.EMBEDDED_VALUE_IMPLEMENTATION_NAME_PATTERN));
         return MessageFormat.format(
             implNamePattern,
-            new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -65,7 +65,7 @@ public class HibernateEmbeddedValueLogicImpl
         final String entityNamePattern = (String)this.getConfiguredProperty(HibernateGlobals.ENTITY_NAME_PATTERN);
         return MessageFormat.format(
             entityNamePattern,
-            new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**

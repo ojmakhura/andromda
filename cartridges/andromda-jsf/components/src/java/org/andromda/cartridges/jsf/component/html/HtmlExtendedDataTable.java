@@ -61,7 +61,7 @@ public class HtmlExtendedDataTable
                     value = new ArrayList((Collection)value);
                 }
                 final List backingValues = (List)backingValue;
-                final List values = value != null ? (List)value : Collections.EMPTY_LIST;
+                final List values = value != null ? (List)value : Collections.emptyList();
                 for (final ListIterator iterator = backingValues.listIterator(); iterator.hasNext();)
                 {
                     final Object backingValueItem = iterator.next();

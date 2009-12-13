@@ -32,7 +32,7 @@ public final class Bpm4StrutsUtils
         List list;
         if (enumeration == null)
         {
-            list = Collections.EMPTY_LIST;
+            list = Collections.emptyList();
         }
         else
         {

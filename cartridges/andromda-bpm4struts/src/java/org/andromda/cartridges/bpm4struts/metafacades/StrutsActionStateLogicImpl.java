@@ -54,7 +54,7 @@ public class StrutsActionStateLogicImpl
                 final Collection actions = ((StrutsUseCase)useCase).getActions();
                 for (final Iterator<StrutsAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
-                    final StrutsAction action = (StrutsAction)actionIterator.next();
+                    final StrutsAction action = actionIterator.next();
                     if (action.getActionStates().contains(this))
                     {
                         actionSet.add(action);
@@ -74,7 +74,7 @@ public class StrutsActionStateLogicImpl
         final Collection<TransitionFacade> outgoings = getOutgoings();
         for (final Iterator<TransitionFacade> iterator = outgoings.iterator(); iterator.hasNext();)
         {
-            final TransitionFacade transition = (TransitionFacade)iterator.next();
+            final TransitionFacade transition = iterator.next();
             if (transition instanceof StrutsExceptionHandler)
             {
                 exceptionsMap.put(((StrutsExceptionHandler)transition).getExceptionKey(), transition);

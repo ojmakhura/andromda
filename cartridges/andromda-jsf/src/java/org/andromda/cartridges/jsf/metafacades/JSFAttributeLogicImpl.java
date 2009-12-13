@@ -68,7 +68,7 @@ public class JSFAttributeLogicImpl
     {
         final String normalizeMessages =
             ObjectUtils.toString(this.getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES));
-        return Boolean.valueOf(normalizeMessages).booleanValue();
+        return Boolean.valueOf(normalizeMessages);
     }
 
     /**
@@ -122,7 +122,7 @@ public class JSFAttributeLogicImpl
             final String name = this.getName();
             if ("java.lang.String".equals(typeName) || "String".equals(typeName))
             {
-                return "\"" + name + "-test" + "\"";
+                return '\"' + name + "-test" + '\"';
             }
             if ("java.util.Date".equals(typeName))
             {
@@ -174,7 +174,7 @@ public class JSFAttributeLogicImpl
             }
             if ("java.lang.Integer".equals(typeName) || "Integer".equals(typeName))
             {
-                return "new Integer((int)" + name.hashCode() + ")";
+                return "new Integer((int)" + name.hashCode() + ')';
             }
             if ("java.lang.Boolean".equals(typeName) || "Boolean".equals(typeName))
             {
@@ -182,27 +182,27 @@ public class JSFAttributeLogicImpl
             }
             if ("java.lang.Long".equals(typeName) || "Long".equals(typeName))
             {
-                return "new Long((long)" + name.hashCode() + ")";
+                return "new Long((long)" + name.hashCode() + ')';
             }
             if ("java.lang.Character".equals(typeName) || "Character".equals(typeName))
             {
-                return "new Character(char)" + name.hashCode() + ")";
+                return "new Character(char)" + name.hashCode() + ')';
             }
             if ("java.lang.Float".equals(typeName) || "Float".equals(typeName))
             {
-                return "new Float((float)" + name.hashCode() / hashCode() + ")";
+                return "new Float((float)" + name.hashCode() / hashCode() + ')';
             }
             if ("java.lang.Double".equals(typeName) || "Double".equals(typeName))
             {
-                return "new Double((double)" + name.hashCode() / hashCode() + ")";
+                return "new Double((double)" + name.hashCode() / hashCode() + ')';
             }
             if ("java.lang.Short".equals(typeName) || "Short".equals(typeName))
             {
-                return "new Short((short)" + name.hashCode() + ")";
+                return "new Short((short)" + name.hashCode() + ')';
             }
             if ("java.lang.Byte".equals(typeName) || "Byte".equals(typeName))
             {
-                return "new Byte((byte)" + name.hashCode() + ")";
+                return "new Byte((byte)" + name.hashCode() + ')';
             }
 
             //if (type.isArrayType()) return constructDummyArray();
@@ -212,7 +212,7 @@ public class JSFAttributeLogicImpl
             }
             if (type.isCollectionType())
             {
-                return "java.util.Arrays.asList(" + constructDummyArray() + ")";
+                return "java.util.Arrays.asList(" + constructDummyArray() + ')';
             }
 
             // maps and others types will simply not be treated
@@ -771,7 +771,6 @@ public class JSFAttributeLogicImpl
      */
     protected boolean handleIsReset()
     {
-        return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_RESET)))
-                   .booleanValue();
+        return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_RESET)));
     }
 }

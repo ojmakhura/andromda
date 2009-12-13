@@ -126,7 +126,7 @@ public class $className
      */
     public SearchParameter[] getParameters()
     {
-        return#if (!$enableTemplating) (SearchParameter[])#end this.parameters.toArray(new SearchParameter[0]);
+        return#if (!$enableTemplating) (SearchParameter[])#end this.parameters.toArray(new SearchParameter[this.parameters.size()]);
     }
 
     /**

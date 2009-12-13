@@ -42,7 +42,7 @@
         if (type != null) {
             if ("VIEW".equals(type)) {
                 Map perMap = serviceContext.getProperties();
-                if (perMap.size() > 0) {
+                if (!perMap.isEmpty()) {
 %>
 <h4>Persistance Properties</h4><ul>
     <%

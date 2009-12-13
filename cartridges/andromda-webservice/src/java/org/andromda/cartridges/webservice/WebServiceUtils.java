@@ -130,7 +130,7 @@ public class WebServiceUtils
         {
             packageAbbr = new TreeMap();
         }
-        String rtn = (String)packageAbbr.get(pkg);
+        String rtn = packageAbbr.get(pkg);
         String pkgName = pkg.getFullyQualifiedName();
         if (StringUtils.isEmpty(pkgName) || pkgName.startsWith("java.lang") || pkgName.startsWith("java.util")
             || pkgName.endsWith("PrimitiveTypes") || pkgName.endsWith("datatype"))
@@ -140,7 +140,7 @@ public class WebServiceUtils
         }
         if (logger.isDebugEnabled())
         {
-            logger.debug("getPkgAbbr " + pkg + " " + rtn + " " + packageAbbr.size() + " " + pkgName);
+            logger.debug("getPkgAbbr " + pkg + ' ' + rtn + ' ' + packageAbbr.size() + ' ' + pkgName);
         }
         if (StringUtils.isEmpty(rtn))
         {
@@ -154,7 +154,7 @@ public class WebServiceUtils
             packageAbbr.put(pkg, rtn);
             if (logger.isDebugEnabled())
             {
-                logger.debug("getPkgAbbr " + pkg + " " + rtn + " " + packageAbbr.size());
+                logger.debug("getPkgAbbr " + pkg + ' ' + rtn + ' ' + packageAbbr.size());
             }
             if (logger.isDebugEnabled())
             {
@@ -193,7 +193,7 @@ public class WebServiceUtils
                 packageAbbr.put(pkg, "ns" + namespaceCount);
                 if (logger.isDebugEnabled())
                 {
-                    logger.debug(service.getName() + " ns" + namespaceCount + " " + pkg + " " + service.getName() + " servicePackage");
+                    logger.debug(service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + service.getName() + " servicePackage");
                 }
                 namespaceCount++;
             }
@@ -217,7 +217,7 @@ public class WebServiceUtils
                         packageAbbr.put(pkg, "ns" + namespaceCount);
                         if (logger.isDebugEnabled())
                         {
-                            logger.debug(service.getName() + " ns" + namespaceCount + " " + pkg + " " + op.getName() + " getExceptions " + arg.getName());
+                            logger.debug(service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + op.getName() + " getExceptions " + arg.getName());
                         }
                         namespaceCount++;
                     }
@@ -238,7 +238,7 @@ public class WebServiceUtils
                         packageAbbr.put(pkg, "ns" + namespaceCount);
                         if (logger.isDebugEnabled())
                         {
-                            logger.debug(service.getName() + " ns" + namespaceCount + " " + pkg + " " + op.getName() + " getParameters " + arg.getName());
+                            logger.debug(service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + op.getName() + " getParameters " + arg.getName());
                         }
                         namespaceCount++;
                     }
@@ -258,7 +258,7 @@ public class WebServiceUtils
                         packageAbbr.put(pkg, "ns" + namespaceCount);
                         if (logger.isDebugEnabled())
                         {
-                            logger.debug(service.getName() + " ns" + namespaceCount + " " + pkg + " " + op.getName() + " getReturnType " + op.getReturnType().getName());
+                            logger.debug(service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + op.getName() + " getReturnType " + op.getReturnType().getName());
                         }
                         namespaceCount++;
                     }
@@ -275,7 +275,7 @@ public class WebServiceUtils
                 if (logger.isDebugEnabled())
                 {
                     name = facade.getName();
-                    logger.debug("setPkgAbbr facade " + pkg + "." + name);
+                    logger.debug("setPkgAbbr facade " + pkg + '.' + name);
                 }
                 if (pkg != null && pkg.getFullyQualifiedName().indexOf('.') > 0)
                 {
@@ -302,7 +302,7 @@ public class WebServiceUtils
                                     packageAbbr.put(pkg, "ns" + namespaceCount);
                                     if (logger.isDebugEnabled())
                                     {
-                                        logger.debug(service.getName() + " ns" + namespaceCount + " " + pkg + " " + facade.getName());
+                                        logger.debug(service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + facade.getName());
                                     }
                                     namespaceCount++;
                                 }
@@ -310,7 +310,7 @@ public class WebServiceUtils
                         }
                         catch (RuntimeException e)
                         {
-                            logger.debug("setPkgAbbr error in service " + service.getName() + " ns" + namespaceCount + " " + pkg + " " + facade.getName());
+                            logger.debug("setPkgAbbr error in service " + service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + facade.getName());
                         }
                     }
                     for (final Iterator otherEnds = facade.getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
@@ -335,7 +335,7 @@ public class WebServiceUtils
                                     packageAbbr.put(pkg, "ns" + namespaceCount);
                                     if (logger.isDebugEnabled())
                                     {
-                                        logger.debug(service.getName() + " ns" + namespaceCount + " " + pkg + " " + facade.getName());
+                                        logger.debug(service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + facade.getName());
                                     }
                                     namespaceCount++;
                                 }
@@ -343,7 +343,7 @@ public class WebServiceUtils
                         }
                         catch (RuntimeException e)
                         {
-                            logger.debug("setPkgAbbr error in service " + service.getName() + " ns" + namespaceCount + " " + pkg + " " + facade.getName());
+                            logger.debug("setPkgAbbr error in service " + service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + facade.getName());
                         }
                     }
                 }
@@ -354,7 +354,7 @@ public class WebServiceUtils
                 ClassifierFacade type = (ClassifierFacade)element;
                 if (getType(type) != null)
                 {
-                    type = (ClassifierFacade)getType(type);
+                    type = getType(type);
                 }
                 pkg = (WebServicePackageLogic) type.getPackage();
                 if (pkg != null && pkg.getFullyQualifiedName().indexOf('.') > 0)
@@ -388,7 +388,7 @@ public class WebServiceUtils
                                     packageAbbr.put(pkg, "ns" + namespaceCount);
                                     if (logger.isDebugEnabled())
                                     {
-                                        logger.debug(service.getName() + " ns" + namespaceCount + " " + pkg + " " + type.getName() + "." + name);
+                                        logger.debug(service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + type.getName() + '.' + name);
                                     }
                                     namespaceCount++;
                                 }
@@ -396,7 +396,7 @@ public class WebServiceUtils
                         }
                         catch (RuntimeException e)
                         {
-                            logger.debug("setPkgAbbr error in service " + service.getName() + " ns" + namespaceCount + " " + pkg + " " + type.getName() + ": " + e);
+                            logger.debug("setPkgAbbr error in service " + service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + type.getName() + ": " + e);
                         }
                     }
                     for (final Iterator otherEnds = type.getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
@@ -421,7 +421,7 @@ public class WebServiceUtils
                                     packageAbbr.put(pkg, "ns" + namespaceCount);
                                     if (logger.isDebugEnabled())
                                     {
-                                        logger.debug(service.getName() + " ns" + namespaceCount + " " + pkg + " " + type.getName() + "." + name);
+                                        logger.debug(service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + type.getName() + '.' + name);
                                     }
                                     namespaceCount++;
                                 }
@@ -429,7 +429,7 @@ public class WebServiceUtils
                         }
                         catch (RuntimeException e)
                         {
-                            logger.debug("setPkgAbbr error in service " + service.getName() + " ns" + namespaceCount + " " + pkg + " " + type.getName() + ": " + e);
+                            logger.debug("setPkgAbbr error in service " + service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + type.getName() + ": " + e);
                         }
                     }
                 }
@@ -447,7 +447,7 @@ public class WebServiceUtils
                 {
                     if (facade != null && facade instanceof ClassifierFacade)
                     {
-                        ClassifierFacade typeLogic = (ClassifierFacade)facade;
+                        ClassifierFacade typeLogic = facade;
                         pkg = (WebServicePackageLogic) typeLogic.getPackage();
                         name = typeLogic.getName();
                         if (pkg!=null && pkg.getFullyQualifiedName().indexOf('.') > 0)
@@ -461,7 +461,7 @@ public class WebServiceUtils
                                 packageAbbr.put(pkg, "ns" + namespaceCount);
                                 if (logger.isDebugEnabled())
                                 {
-                                    logger.debug(service.getName() + " ns" + namespaceCount + " " + pkg + " " + type.getName());
+                                    logger.debug(service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + type.getName());
                                 }
                                 namespaceCount++;
                             }
@@ -471,7 +471,7 @@ public class WebServiceUtils
                     {
                         if (logger.isDebugEnabled())
                         {
-                            logger.debug("setPkgAbbr element association " + pkg + "." + name);
+                            logger.debug("setPkgAbbr element association " + pkg + '.' + name);
                         }
                         name = type.getName();
                         // Duplicates logic in wsdl.vsl so that referenced packages are the same.
@@ -497,7 +497,7 @@ public class WebServiceUtils
                                         packageAbbr.put(pkg, "ns" + namespaceCount);
                                         if (logger.isDebugEnabled())
                                         {
-                                            logger.debug(service.getName() + " ns" + namespaceCount + " " + pkg + " " + type.getName());
+                                            logger.debug(service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + type.getName());
                                         }
                                         namespaceCount++;
                                     }
@@ -530,7 +530,7 @@ public class WebServiceUtils
                         packageAbbr.put(pkg, "ns" + namespaceCount);
                         if (logger.isDebugEnabled())
                         {
-                            logger.debug(service.getName() + " ns" + namespaceCount + " " + pkg + " " + type.getName() + "." + name);
+                            logger.debug(service.getName() + " ns" + namespaceCount + ' ' + pkg + ' ' + type.getName() + '.' + name);
                         }
                         namespaceCount++;
                     }
@@ -539,7 +539,7 @@ public class WebServiceUtils
             else
             {
                 // Log the type so we can extend this logic later...
-                logger.error("setPkgAbbr Unexpected element in service " + pkg + "." + name + " type: " + element);
+                logger.error("setPkgAbbr Unexpected element in service " + pkg + '.' + name + " type: " + element);
             }
         }
         return pkgSet;
@@ -601,13 +601,13 @@ public class WebServiceUtils
                                         if (logger.isDebugEnabled())
                                         {
                                             pkgRefs += pkg + ",";
-                                            logger.debug("getPackageReferences packageName=" + packageName + " add facadeAttribute " + pkg + "." + name);
+                                            logger.debug("getPackageReferences packageName=" + packageName + " add facadeAttribute " + pkg + '.' + name);
                                         }
                                     }
                                 }
                                 catch (RuntimeException e)
                                 {
-                                    logger.error("getPackageReferences packageName=" + packageName + " add facadeAttribute " + pkg + "." + name + ": " + e);
+                                    logger.error("getPackageReferences packageName=" + packageName + " add facadeAttribute " + pkg + '.' + name + ": " + e);
                                 }
                             }
                             for (final Iterator otherEnds = facade.getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
@@ -627,13 +627,13 @@ public class WebServiceUtils
                                         if (logger.isDebugEnabled())
                                         {
                                             pkgRefs += pkg + ",";
-                                            logger.debug("getPackageReferences packageName=" + packageName + " add facadeOtherEnd " + pkg + "." + name);
+                                            logger.debug("getPackageReferences packageName=" + packageName + " add facadeOtherEnd " + pkg + '.' + name);
                                         }
                                     }
                                 }
                                 catch (RuntimeException e)
                                 {
-                                    logger.error("getPackageReferences packageName=" + packageName + " add facadeOtherEnd " + pkg + "." + name + ": " + e);
+                                    logger.error("getPackageReferences packageName=" + packageName + " add facadeOtherEnd " + pkg + '.' + name + ": " + e);
                                 }
                             }
                         }
@@ -644,12 +644,12 @@ public class WebServiceUtils
                         ClassifierFacade type = (ClassifierFacade)element;
                         if (getType(type) != null)
                         {
-                            type = (ClassifierFacade)getType(type);
+                            type = getType(type);
                         }
                         pkg = (PackageFacade) type.getPackage();
                         if (logger.isDebugEnabled())
                         {
-                            logger.debug("getPackageReferences packageName=" + packageName + " ClassifierFacade " + pkg + "." + name);
+                            logger.debug("getPackageReferences packageName=" + packageName + " ClassifierFacade " + pkg + '.' + name);
                         }
                         if (pkg != null && pkg.getFullyQualifiedName().indexOf('.') > 0 && pkg.getFullyQualifiedName().equals(packageName))
                         {
@@ -671,13 +671,13 @@ public class WebServiceUtils
                                         if (logger.isDebugEnabled())
                                         {
                                             pkgRefs += pkg + ",";
-                                            logger.debug("getPackageReferences packageName=" + packageName + " add attribute " + pkg + "." + name);
+                                            logger.debug("getPackageReferences packageName=" + packageName + " add attribute " + pkg + '.' + name);
                                         }
                                     }
                                 }
                                 catch (RuntimeException e)
                                 {
-                                    logger.error("getPackageReferences packageName=" + packageName + " add attribute " + pkg + "." + name + ": " + e);
+                                    logger.error("getPackageReferences packageName=" + packageName + " add attribute " + pkg + '.' + name + ": " + e);
                                 }
                             }
                             for (final Iterator otherEnds = type.getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
@@ -697,13 +697,13 @@ public class WebServiceUtils
                                         if (logger.isDebugEnabled())
                                         {
                                             pkgRefs += pkg + ",";
-                                            logger.debug("getPackageReferences packageName=" + packageName + " add otherEnd " + pkg + "." + name);
+                                            logger.debug("getPackageReferences packageName=" + packageName + " add otherEnd " + pkg + '.' + name);
                                         }
                                     }
                                 }
                                 catch (RuntimeException e)
                                 {
-                                    logger.error("getPackageReferences packageName=" + packageName + " add otherEnd " + pkg + "." + name + ": " + e);
+                                    logger.error("getPackageReferences packageName=" + packageName + " add otherEnd " + pkg + '.' + name + ": " + e);
                                 }
                             }
                         }
@@ -719,18 +719,18 @@ public class WebServiceUtils
                         pkg = (PackageFacade) type.getPackage();
                         if (logger.isDebugEnabled())
                         {
-                            logger.debug("getPackageReferences packageName=" + packageName + " AssociationEndFacade " + pkg + "." + name);
+                            logger.debug("getPackageReferences packageName=" + packageName + " AssociationEndFacade " + pkg + '.' + name);
                         }
                         if (pkg != null && pkg.getFullyQualifiedName().indexOf('.') > 0 && pkg.getFullyQualifiedName().equals(packageName))
                         {
                             if (facade != null && facade instanceof ClassifierFacade)
                             {
-                                ClassifierFacade typeLogic = (ClassifierFacade)facade;
+                                ClassifierFacade typeLogic = facade;
                                 pkg = (PackageFacade) typeLogic.getPackage();
                                 if (logger.isDebugEnabled())
                                 {
                                     name = typeLogic.getName();
-                                    logger.debug("getPackageReferences packageName=" + packageName + " element typeLogic " + pkg + "." + name);
+                                    logger.debug("getPackageReferences packageName=" + packageName + " element typeLogic " + pkg + '.' + name);
                                 }
                                 if (pkg != null && pkg.getFullyQualifiedName().indexOf('.') > 0 && !pkg.getFullyQualifiedName().equals(packageName) && !pkgRef.contains(pkg))
                                 {
@@ -738,7 +738,7 @@ public class WebServiceUtils
                                     if (logger.isDebugEnabled())
                                     {
                                         pkgRefs += pkg + ",";
-                                        logger.debug("getPackageReferences packageName=" + packageName + " add typeLogic " + pkg + "." + name);
+                                        logger.debug("getPackageReferences packageName=" + packageName + " add typeLogic " + pkg + '.' + name);
                                     }
                                 }
                             }
@@ -746,7 +746,7 @@ public class WebServiceUtils
                             {
                                 if (logger.isDebugEnabled())
                                 {
-                                    logger.debug("getPackageReferences packageName=" + packageName + " element association " + pkg + "." + name);
+                                    logger.debug("getPackageReferences packageName=" + packageName + " element association " + pkg + '.' + name);
                                 }
                                 name = type.getName();
                                 // Duplicates logic in wsdl.vsl so that referenced packages are the same.
@@ -767,13 +767,13 @@ public class WebServiceUtils
                                             if (logger.isDebugEnabled())
                                             {
                                                 pkgRefs += pkg + ",";
-                                                logger.debug("getPackageReferences packageName=" + packageName + " add otherEnd " + pkg + "." + name);
+                                                logger.debug("getPackageReferences packageName=" + packageName + " add otherEnd " + pkg + '.' + name);
                                             }
                                         }
                                     }
                                     catch (RuntimeException e)
                                     {
-                                        logger.error("getPackageReferences packageName=" + packageName + " add otherEnd " + pkg + "." + name + ": " + e);
+                                        logger.error("getPackageReferences packageName=" + packageName + " add otherEnd " + pkg + '.' + name + ": " + e);
                                     }
                                 }
                             }
@@ -804,7 +804,7 @@ public class WebServiceUtils
                                     if (logger.isDebugEnabled())
                                     {
                                         pkgRefs += pkg + ",";
-                                        logger.debug("getPackageReferences packageName=" + packageName + " add enumeration attribute " + pkg + "." + name);
+                                        logger.debug("getPackageReferences packageName=" + packageName + " add enumeration attribute " + pkg + '.' + name);
                                     }
                                 }
                             }
@@ -813,7 +813,7 @@ public class WebServiceUtils
                     else
                     {
                         // Log the type so we can extend this logic later...
-                        logger.error("getPackageReferences Unexpected element type in service " + packageName + "." + name + " : " + element);
+                        logger.error("getPackageReferences Unexpected element type in service " + packageName + '.' + name + " : " + element);
                     }
                 }
             }
@@ -822,7 +822,7 @@ public class WebServiceUtils
                 // Add references from the operations of the service package itself
                 for (final Iterator<WebServiceOperation> iterator = service.getAllowedOperations().iterator(); iterator.hasNext();)
                 {
-                    WebServiceOperation op = (WebServiceOperation)iterator.next();
+                    WebServiceOperation op = iterator.next();
                     for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
                     {
                         Object opit = opiterator.next();
@@ -846,7 +846,7 @@ public class WebServiceUtils
                             if (logger.isDebugEnabled())
                             {
                                 pkgRefs += pkg + ",";
-                                logger.debug("getPackageReferences packageName=" + packageName + " add exception " + pkg + "." + name);
+                                logger.debug("getPackageReferences packageName=" + packageName + " add exception " + pkg + '.' + name);
                             }
                         }
                     }
@@ -861,7 +861,7 @@ public class WebServiceUtils
                             if (logger.isDebugEnabled())
                             {
                                 pkgRefs += pkg + ",";
-                                logger.debug("getPackageReferences packageName=" + packageName + " add parameter " + pkg + "." + name);
+                                logger.debug("getPackageReferences packageName=" + packageName + " add parameter " + pkg + '.' + name);
                             }
                         }
                     }
@@ -871,7 +871,7 @@ public class WebServiceUtils
                         name = op.getReturnType().getName();
                         if (logger.isDebugEnabled())
                         {
-                            logger.debug("getPackageReferences packageName=" + packageName + " return " + pkg + "." + name);
+                            logger.debug("getPackageReferences packageName=" + packageName + " return " + pkg + '.' + name);
                         }
                         if (pkg!=null && !pkg.getFullyQualifiedName().equals(service.getPackageName()) && pkg.getFullyQualifiedName().indexOf('.') > 0 && !pkgRef.contains(pkg))
                         {
@@ -879,7 +879,7 @@ public class WebServiceUtils
                             if (logger.isDebugEnabled())
                             {
                                 pkgRefs += pkg + ",";
-                                logger.debug("getPackageReferences packageName=" + packageName + " add return " + pkg + "." + name);
+                                logger.debug("getPackageReferences packageName=" + packageName + " add return " + pkg + '.' + name);
                             }
                         }
                     }
@@ -887,7 +887,7 @@ public class WebServiceUtils
             }
             if (logger.isDebugEnabled())
             {
-                logger.debug("getPackageReferences packageName=" + packageName + " " + pkgRefs);
+                logger.debug("getPackageReferences packageName=" + packageName + ' ' + pkgRefs);
             }
         }
         else
@@ -928,7 +928,7 @@ public class WebServiceUtils
                     if (logger.isDebugEnabled())
                     {
                         name = facade.getName();
-                        logger.debug("getPackageReferences packageName=" + packageName + " facade " + pkg + "." + name);
+                        logger.debug("getPackageReferences packageName=" + packageName + " facade " + pkg + '.' + name);
                     }
                     if (facade.hasStereotype("ValueObject") || facade.hasStereotype("Exception") || facade.hasStereotype("ApplicationException") || facade.hasStereotype("UnexpectedException"))
                     {
@@ -951,13 +951,13 @@ public class WebServiceUtils
                                     if (logger.isDebugEnabled())
                                     {
                                         pkgRefs += pkg + ",";
-                                        logger.debug("getPackageReferences packageName=" + packageName + " add facadeAttribute " + pkg + "." + name);
+                                        logger.debug("getPackageReferences packageName=" + packageName + " add facadeAttribute " + pkg + '.' + name);
                                     }
                                 }
                             }
                             catch (RuntimeException e)
                             {
-                                logger.error("getPackageReferences packageName=" + packageName + " add facadeAttribute " + pkg + "." + name + ": " + e);
+                                logger.error("getPackageReferences packageName=" + packageName + " add facadeAttribute " + pkg + '.' + name + ": " + e);
                             }
                         }
                         for (final Iterator otherEnds = facade.getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
@@ -977,13 +977,13 @@ public class WebServiceUtils
                                     if (logger.isDebugEnabled())
                                     {
                                         pkgRefs += pkg + ",";
-                                        logger.debug("getPackageReferences packageName=" + packageName + " add facadeOtherEnd " + pkg + "." + name);
+                                        logger.debug("getPackageReferences packageName=" + packageName + " add facadeOtherEnd " + pkg + '.' + name);
                                     }
                                 }
                             }
                             catch (RuntimeException e)
                             {
-                                logger.error("getPackageReferences packageName=" + packageName + " add facadeOtherEnd " + pkg + "." + name + ": " + e);
+                                logger.error("getPackageReferences packageName=" + packageName + " add facadeOtherEnd " + pkg + '.' + name + ": " + e);
                             }
                         }
                     }
@@ -1004,7 +1004,7 @@ public class WebServiceUtils
                                     if (logger.isDebugEnabled())
                                     {
                                         pkgRefs += pkg + ",";
-                                        logger.debug("getPackageReferences packageName=" + packageName + " add exception " + pkg + "." + name);
+                                        logger.debug("getPackageReferences packageName=" + packageName + " add exception " + pkg + '.' + name);
                                     }
                                 }
                             }
@@ -1019,7 +1019,7 @@ public class WebServiceUtils
                                     if (logger.isDebugEnabled())
                                     {
                                         pkgRefs += pkg + ",";
-                                        logger.debug("getPackageReferences packageName=" + packageName + " add parameter " + pkg + "." + name);
+                                        logger.debug("getPackageReferences packageName=" + packageName + " add parameter " + pkg + '.' + name);
                                     }
                                 }
                             }
@@ -1033,7 +1033,7 @@ public class WebServiceUtils
                                     if (logger.isDebugEnabled())
                                     {
                                         pkgRefs += pkg + ",";
-                                        logger.debug("getPackageReferences packageName=" + packageName + " add return " + pkg + "." + name);
+                                        logger.debug("getPackageReferences packageName=" + packageName + " add return " + pkg + '.' + name);
                                     }
                                 }
                             }
@@ -1047,7 +1047,7 @@ public class WebServiceUtils
             }
             if (logger.isDebugEnabled())
             {
-                logger.debug("getPackageReferences packageName=" + packageName + " " + pkgRefs);
+                logger.debug("getPackageReferences packageName=" + packageName + ' ' + pkgRefs);
             }
         }
         else
@@ -1101,7 +1101,7 @@ public class WebServiceUtils
                             if (logger.isDebugEnabled())
                             {
                                 name = facade.getName();
-                                pkgRefs += name + ",";
+                                pkgRefs += name + ',';
                                 logger.debug("getPackageTypes packageName=" + packageName + " add facadeValueObject " + name);
                             }
                         }
@@ -1114,7 +1114,7 @@ public class WebServiceUtils
                             if (logger.isDebugEnabled())
                             {
                                 name = facade.getName();
-                                pkgRefs += name + ",";
+                                pkgRefs += name + ',';
                                 logger.debug("getPackageTypes packageName=" + packageName + " add facadeEnumeration " + name);
                             }
                         }
@@ -1127,7 +1127,7 @@ public class WebServiceUtils
                             if (logger.isDebugEnabled())
                             {
                                 name = facade.getName();
-                                pkgRefs += name + ",";
+                                pkgRefs += name + ',';
                                 logger.debug("getPackageTypes packageName=" + packageName + " add facadeEnumeration " + name);
                             }
                         }
@@ -1148,8 +1148,8 @@ public class WebServiceUtils
                                     if (logger.isDebugEnabled())
                                     {
                                         name = arg.getName();
-                                        pkgRefs += name + ",";
-                                        logger.debug("getPackageTypes packageName=" + packageName + " add exception " + pkg + "." + name);
+                                        pkgRefs += name + ',';
+                                        logger.debug("getPackageTypes packageName=" + packageName + " add exception " + pkg + '.' + name);
                                     }
                                 }
                             }
@@ -1166,8 +1166,8 @@ public class WebServiceUtils
                                     if (logger.isDebugEnabled())
                                     {
                                         name = arg.getName();
-                                        pkgRefs += name + ",";
-                                        logger.debug("getPackageTypes packageName=" + packageName + " add parameter " + pkg + "." + name);
+                                        pkgRefs += name + ',';
+                                        logger.debug("getPackageTypes packageName=" + packageName + " add parameter " + pkg + '.' + name);
                                     }
                                 }
                             }
@@ -1177,15 +1177,15 @@ public class WebServiceUtils
                                 if (logger.isDebugEnabled())
                                 {
                                     name = op.getReturnType().getName();
-                                    logger.debug("getPackageTypes packageName=" + packageName + " return " + pkg + "." + name);
+                                    logger.debug("getPackageTypes packageName=" + packageName + " return " + pkg + '.' + name);
                                 }
                                 if (pkg!=null && pkg.equals(facade.getPackageName()) && pkg.indexOf('.') > 0 && !pkgTypes.contains(op.getReturnType()))
                                 {
                                     pkgTypes.add(op.getReturnType());
                                     if (logger.isDebugEnabled())
                                     {
-                                        pkgRefs += name + ",";
-                                        logger.debug("getPackageTypes packageName=" + packageName + " add return " + pkg + "." + name);
+                                        pkgRefs += name + ',';
+                                        logger.debug("getPackageTypes packageName=" + packageName + " add return " + pkg + '.' + name);
                                     }
                                 }
                             }
@@ -1195,7 +1195,7 @@ public class WebServiceUtils
             }
             if (logger.isDebugEnabled())
             {
-                logger.debug("getPackageTypes packageName=" + packageName + " " + pkgRefs);
+                logger.debug("getPackageTypes packageName=" + packageName + ' ' + pkgRefs);
             }
         }
         else
@@ -1250,15 +1250,15 @@ public class WebServiceUtils
                     if (logger.isDebugEnabled())
                     {
                         name = facade.getName();
-                        logger.debug("getPackageTypes packageName=" + packageName + " facade " + pkg + "." + name);
+                        logger.debug("getPackageTypes packageName=" + packageName + " facade " + pkg + '.' + name);
                     }
                     if (pkg != null && pkg.indexOf('.') > 0 && pkg.equals(packageName) && !pkgTypes.contains(facade))
                     {
                         pkgTypes.add(facade);
                         if (logger.isDebugEnabled())
                         {
-                            pkgRefs += facade.getName() + ",";
-                            logger.debug("getPackageTypes packageName=" + packageName + " add facade " + facade.getPackageName() + "." + facade.getName());
+                            pkgRefs += facade.getName() + ',';
+                            logger.debug("getPackageTypes packageName=" + packageName + " add facade " + facade.getPackageName() + '.' + facade.getName());
                         }
                     }
                     /*if (facade instanceof ClassifierFacade)
@@ -1283,14 +1283,14 @@ public class WebServiceUtils
                     {
                         if (facade instanceof ClassifierFacade)
                         {
-                            type = (ClassifierFacade)getType(type);
+                            type = getType(type);
                         }
                     }
                     pkg = type.getPackageName();
                     if (logger.isDebugEnabled())
                     {
                         name = type.getName();
-                        logger.debug("getPackageTypes packageName=" + packageName + " elementTypeLogic " + pkg + "." + name);
+                        logger.debug("getPackageTypes packageName=" + packageName + " elementTypeLogic " + pkg + '.' + name);
                     }
                     if (pkg != null)
                     {
@@ -1299,8 +1299,8 @@ public class WebServiceUtils
                             pkgTypes.add(type);
                             if (logger.isDebugEnabled())
                             {
-                                pkgRefs += type.getName() + ",";
-                                logger.debug("getPackageTypes packageName=" + packageName + " add typeLogic " + type.getPackageName() + "." + type.getName());
+                                pkgRefs += type.getName() + ',';
+                                logger.debug("getPackageTypes packageName=" + packageName + " add typeLogic " + type.getPackageName() + '.' + type.getName());
                             }
                         }
                         if (logger.isDebugEnabled())
@@ -1324,14 +1324,14 @@ public class WebServiceUtils
                                     if (logger.isDebugEnabled())
                                     {
                                         name = attr.getName();
-                                        pkgRefs += attr.getName() + ",";
-                                        logger.debug("getPackageTypes packageName=" + packageName + " add attr " + attr.getPackageName() + "." + attr.getName());
+                                        pkgRefs += attr.getName() + ',';
+                                        logger.debug("getPackageTypes packageName=" + packageName + " add attr " + attr.getPackageName() + '.' + attr.getName());
                                     }
                                 }
                             }
                             catch (RuntimeException e)
                             {
-                                logger.error("getPackageTypes packageName=" + packageName + " add attr " + pkg + "." + name + ": " + e);
+                                logger.error("getPackageTypes packageName=" + packageName + " add attr " + pkg + '.' + name + ": " + e);
                             }
                         }
                     }
@@ -1346,7 +1346,7 @@ public class WebServiceUtils
                     }
                     if (facade != null && facade instanceof ClassifierFacade)
                     {
-                        ClassifierFacade typeLogic = (ClassifierFacade)facade;
+                        ClassifierFacade typeLogic = facade;
                         pkg = typeLogic.getPackageName();
                         if (pkg != null && pkg.indexOf('.') > 0 && pkg.equals(packageName) && !pkgTypes.contains(typeLogic))
                         {
@@ -1354,8 +1354,8 @@ public class WebServiceUtils
                             if (logger.isDebugEnabled())
                             {
                                 name = typeLogic.getName();
-                                pkgRefs += typeLogic.getName() + ",";
-                                logger.debug("getPackageTypes packageName=" + packageName + " add typeLogic " + type.getPackageName() + "." + type.getName());
+                                pkgRefs += typeLogic.getName() + ',';
+                                logger.debug("getPackageTypes packageName=" + packageName + " add typeLogic " + type.getPackageName() + '.' + type.getName());
                             }
                         }
                     }
@@ -1365,7 +1365,7 @@ public class WebServiceUtils
                         if (logger.isDebugEnabled())
                         {
                             name = type.getName();
-                            logger.debug("getPackageTypes packageName=" + packageName + " associationEnd " + pkg + "." + name);
+                            logger.debug("getPackageTypes packageName=" + packageName + " associationEnd " + pkg + '.' + name);
                         }
                         if (pkg != null)
                         {
@@ -1374,8 +1374,8 @@ public class WebServiceUtils
                                 pkgTypes.add(type);
                                 if (logger.isDebugEnabled())
                                 {
-                                    pkgRefs += type.getName() + ",";
-                                    logger.debug("getPackageTypes packageName=" + packageName + " add typeAssoc " + type.getPackageName() + "." + type.getName());
+                                    pkgRefs += type.getName() + ',';
+                                    logger.debug("getPackageTypes packageName=" + packageName + " add typeAssoc " + type.getPackageName() + '.' + type.getName());
                                 }
                             }
                             // Get the other end reference itself, then get the navigable connecting ends
@@ -1390,21 +1390,21 @@ public class WebServiceUtils
                                 if (logger.isDebugEnabled())
                                 {
                                     name = otherEnd.getName();
-                                    logger.debug("getPackageTypes packageName=" + packageName + " otherEnd " + pkg + "." + name);
+                                    logger.debug("getPackageTypes packageName=" + packageName + " otherEnd " + pkg + '.' + name);
                                 }
                                 if (pkg!=null && pkg.equals(packageName) && pkg.indexOf('.') > 0 && !pkgTypes.contains(otherEnd))
                                 {
                                     pkgTypes.add(otherEnd);
                                     if (logger.isDebugEnabled())
                                     {
-                                        pkgRefs += otherEnd.getName() + ",";
-                                        logger.debug("getPackageTypes packageName=" + packageName + " add otherEnd " + otherEnd.getPackageName() + "." + otherEnd.getName());
+                                        pkgRefs += otherEnd.getName() + ',';
+                                        logger.debug("getPackageTypes packageName=" + packageName + " add otherEnd " + otherEnd.getPackageName() + '.' + otherEnd.getName());
                                     }
                                 }
                             }
                             catch (RuntimeException e)
                             {
-                                logger.error("getPackageTypes packageName=" + packageName + " add otherEnd " + pkg + "." + name + ": " + e);
+                                logger.error("getPackageTypes packageName=" + packageName + " add otherEnd " + pkg + '.' + name + ": " + e);
                             }
                             // Duplicates logic in wsdl.vsl so that referenced packages are the same.
                             for (final Iterator otherEnds = type.getType().getNavigableConnectingEnds(follow).iterator(); otherEnds.hasNext();)
@@ -1421,15 +1421,15 @@ public class WebServiceUtils
                                     if (logger.isDebugEnabled())
                                     {
                                         name = otherEnd.getName();
-                                        logger.debug("getPackageTypes packageName=" + packageName + " NavOtherEnd " + otherEnd.getPackageName() + "." + otherEnd.getName());
+                                        logger.debug("getPackageTypes packageName=" + packageName + " NavOtherEnd " + otherEnd.getPackageName() + '.' + otherEnd.getName());
                                     }
                                     if (pkg!=null && pkg.equals(packageName) && pkg.indexOf('.') > 0 && !pkgTypes.contains(otherEnd))
                                     {
                                         pkgTypes.add(otherEnd);
                                         if (logger.isDebugEnabled())
                                         {
-                                            pkgRefs += otherEnd.getName() + ",";
-                                            logger.debug("getPackageTypes packageName=" + packageName + " add NavOtherEnd " + otherEnd.getPackageName() + "." + otherEnd.getName());
+                                            pkgRefs += otherEnd.getName() + ',';
+                                            logger.debug("getPackageTypes packageName=" + packageName + " add NavOtherEnd " + otherEnd.getPackageName() + '.' + otherEnd.getName());
                                         }
                                     }
                                 }
@@ -1437,11 +1437,11 @@ public class WebServiceUtils
                                 {
                                     if (otherEnd!=null)
                                     {
-                                        logger.error("getPackageTypes packageName=" + packageName + " add NavOtherEnd " + otherEnd.getPackageName() + "." + otherEnd.getName() + ": " + e);
+                                        logger.error("getPackageTypes packageName=" + packageName + " add NavOtherEnd " + otherEnd.getPackageName() + '.' + otherEnd.getName() + ": " + e);
                                     }
                                     else
                                     {
-                                        logger.error("getPackageTypes packageName=" + packageName + " add NavOtherEnd " + type.getType().getPackageName() + "." + type.getType().getName() + ": " + e);
+                                        logger.error("getPackageTypes packageName=" + packageName + " add NavOtherEnd " + type.getType().getPackageName() + '.' + type.getType().getName() + ": " + e);
                                     }
                                 }
                             }
@@ -1461,15 +1461,15 @@ public class WebServiceUtils
                         pkgTypes.add(type);
                         if (logger.isDebugEnabled())
                         {
-                            pkgRefs += type.getName() + ",";
-                            logger.debug("getPackageTypes packageName=" + packageName + " add NavOtherEnd " + type.getPackageName() + "." + type.getName());
+                            pkgRefs += type.getName() + ',';
+                            logger.debug("getPackageTypes packageName=" + packageName + " add NavOtherEnd " + type.getPackageName() + '.' + type.getName());
                         }
                     }
                 }
                 else
                 {
                     // Log the type so we can extend this logic later...
-                    logger.error("getPackageTypes Unexpected element in service " + pkg + "." + element + " type: " + facade);
+                    logger.error("getPackageTypes Unexpected element in service " + pkg + '.' + element + " type: " + facade);
                 }
             }
             // Add package types from the operations of the service package itself
@@ -1486,8 +1486,8 @@ public class WebServiceUtils
                         if (logger.isDebugEnabled())
                         {
                             name = arg.getName();
-                            pkgRefs += arg.getName() + ",";
-                            logger.debug("getPackageTypes packageName=" + packageName + " add service exception " + arg.getPackageName() + "." + arg.getName());
+                            pkgRefs += arg.getName() + ',';
+                            logger.debug("getPackageTypes packageName=" + packageName + " add service exception " + arg.getPackageName() + '.' + arg.getName());
                         }
                     }
                 }
@@ -1501,8 +1501,8 @@ public class WebServiceUtils
                         if (logger.isDebugEnabled())
                         {
                             name = arg.getName();
-                            pkgRefs += arg.getName() + ",";
-                            logger.debug("getPackageTypes packageName=" + packageName + " add service parameter " + arg.getPackageName() + "." + arg.getName());
+                            pkgRefs += arg.getName() + ',';
+                            logger.debug("getPackageTypes packageName=" + packageName + " add service parameter " + arg.getPackageName() + '.' + arg.getName());
                         }
                     }
                 }
@@ -1515,15 +1515,15 @@ public class WebServiceUtils
                         if (logger.isDebugEnabled())
                         {
                             name = op.getReturnType().getName();
-                            pkgRefs += op.getReturnType().getName() + ",";
-                            logger.debug("getPackageTypes packageName=" + packageName + " add service returnType " + op.getReturnType().getPackageName() + "." + op.getReturnType().getName());
+                            pkgRefs += op.getReturnType().getName() + ',';
+                            logger.debug("getPackageTypes packageName=" + packageName + " add service returnType " + op.getReturnType().getPackageName() + '.' + op.getReturnType().getName());
                         }
                     }
                 }
             }
             if (logger.isDebugEnabled())
             {
-                logger.debug("getPackageTypes packageName=" + packageName + " " + pkgRefs);
+                logger.debug("getPackageTypes packageName=" + packageName + ' ' + pkgRefs);
             }
         }
         else
@@ -1586,7 +1586,7 @@ public class WebServiceUtils
     {
         boolean rtn = false;
         // Associations to other types are automatically complex, can only be elements
-        if (facade.getNavigableConnectingEnds(follow).size() > 0)
+        if (!facade.getNavigableConnectingEnds(follow).isEmpty())
         {
             return true;
         }
@@ -1619,7 +1619,7 @@ public class WebServiceUtils
             else
             {
                 pkg=pkg.substring(0, 9);
-                if (!pkg.equals("java.lang") && !pkg.equals("java.util") && !pkg.equals("java.math"))
+                if (!"java.lang".equals(pkg) && !"java.util".equals(pkg) && !"java.math".equals(pkg))
                 {
                     return true;
                 }
@@ -1727,7 +1727,7 @@ public class WebServiceUtils
                 }
                 else if (useMany)
                 {
-                    typeName = collectionType + "<" + type.getFullyQualifiedName() + ">";
+                    typeName = collectionType + '<' + type.getFullyQualifiedName() + '>';
                 }
                 else
                 {
@@ -1757,7 +1757,7 @@ public class WebServiceUtils
                 facade = attr.getType();
             }
             // TODO: Make this work for attribute types other than String.
-            if (parent != null && StringUtils.isEmpty(defaultValue) && (typeName.equals("String") || typeName.equals("java.lang.String")))
+            if (parent != null && StringUtils.isEmpty(defaultValue) && ("String".equals(typeName) || "java.lang.String".equals(typeName)))
             {
                 // See if a named dependency exists with the same facadeName
                 for (Iterator iterator = parent.getSourceDependencies().iterator(); iterator.hasNext();) 
@@ -1815,11 +1815,11 @@ public class WebServiceUtils
                     defaultValue = ((ModelElementFacade) it.next()).getName();
                     // Literal value is always a String. Remove quotes if part of default.
                     StringUtils.remove(defaultValue, "\"");
-                    defaultValue = enumer.getFullyQualifiedName() + "." + defaultValue;
+                    defaultValue = enumer.getFullyQualifiedName() + '.' + defaultValue;
                 }
                 else
                 {
-                    defaultValue = enumer.getName() + "." + defaultValue;
+                    defaultValue = enumer.getName() + '.' + defaultValue;
                 }
                 isEnumeration = true;
             }
@@ -1827,7 +1827,7 @@ public class WebServiceUtils
             {
                 if (!typeName.startsWith("java.util"))
                 {
-                    rtn = "new " + collectionType + "<" + typeName + ">()";
+                    rtn = "new " + collectionType + '<' + typeName + ">()";
                 }
                 /*if (type.equals("java.util.Collection") || typeName.equals("java.util.List"))
                 {
@@ -1847,65 +1847,65 @@ public class WebServiceUtils
                     rtn = "new " + typeName + "()";
                 }
             }
-            else if (typeName.equals("String") || typeName.equals("java.lang.String"))
+            else if ("String".equals(typeName) || "java.lang.String".equals(typeName))
             {
-                rtn = (!StringUtils.isEmpty(defaultValue) ? defaultValue : "\"" + name + "\"");
+                rtn = (!StringUtils.isEmpty(defaultValue) ? defaultValue : '\"' + name + '\"');
             }
-            else if (typeName.equals("Boolean") || typeName.equals("java.lang.Boolean"))
+            else if ("Boolean".equals(typeName) || "java.lang.Boolean".equals(typeName))
             {
-                rtn = (!StringUtils.isEmpty(defaultValue) ? "new Boolean(" + defaultValue +")" : "new Boolean(true)");
+                rtn = (!StringUtils.isEmpty(defaultValue) ? "new Boolean(" + defaultValue + ')' : "new Boolean(true)");
             }
-            else if (typeName.equals("boolean"))
+            else if ("boolean".equals(typeName))
             {
                 rtn = (!StringUtils.isEmpty(defaultValue) ? defaultValue : "true");
             }
-            else if (typeName.equals("int") || typeName.equals("short") || typeName.equals("long") 
-                    || typeName.equals("byte") || typeName.equals("float") || typeName.equals("double"))
+            else if ("int".equals(typeName) || "short".equals(typeName) || "long".equals(typeName)
+                    || "byte".equals(typeName) || "float".equals(typeName) || "double".equals(typeName))
             {
                 rtn = (!StringUtils.isEmpty(defaultValue) ? defaultValue : "1");
             }
-            else if (typeName.equals("java.util.Date"))
+            else if ("java.util.Date".equals(typeName))
             {
                 rtn = "new " + typeName + "()";
             }
-            else if (typeName.equals("java.sql.Timestamp"))
+            else if ("java.sql.Timestamp".equals(typeName))
             {
                 rtn = "new java.sql.Timestamp(System.currentTimeMillis())";
             }
-            else if (typeName.equals("java.util.Calendar"))
+            else if ("java.util.Calendar".equals(typeName))
             {
                 rtn = "java.util.Calendar.getInstance()";
             }
-            else if (typeName.equals("char"))
+            else if ("char".equals(typeName))
             {
                 rtn = (!StringUtils.isEmpty(defaultValue) ? defaultValue : "'c'");
             }
-            else if (typeName.equals("Character"))
+            else if ("Character".equals(typeName))
             {
                 rtn = (!StringUtils.isEmpty(defaultValue) ? "new Character(" + defaultValue : "new Character('0')");
             }
-            else if (typeName.equals("Byte") || typeName.equals("java.lang.Byte"))
+            else if ("Byte".equals(typeName) || "java.lang.Byte".equals(typeName))
             {
                 rtn = "new Byte(\"" + facade.getName() + "\")";
             }
-            else if (typeName.equals("Short") || typeName.equals("java.lang.Short")
-                    || typeName.equals("Integer") || typeName.equals("java.lang.Integer")
-                    || typeName.equals("Long") || typeName.equals("java.lang.Long")
-                    || typeName.equals("Float") || typeName.equals("java.lang.Float")
-                    || typeName.equals("Double") || typeName.equals("java.lang.Double")
-                    || typeName.equals("java.math.BigDecimal"))
+            else if ("Short".equals(typeName) || "java.lang.Short".equals(typeName)
+                    || "Integer".equals(typeName) || "java.lang.Integer".equals(typeName)
+                    || "Long".equals(typeName) || "java.lang.Long".equals(typeName)
+                    || "Float".equals(typeName) || "java.lang.Float".equals(typeName)
+                    || "Double".equals(typeName) || "java.lang.Double".equals(typeName)
+                    || "java.math.BigDecimal".equals(typeName))
             {
-                rtn = (!StringUtils.isEmpty(defaultValue) ? "new " + typeName + "(" + defaultValue + ")" : "new " + typeName + "(1)");
+                rtn = (!StringUtils.isEmpty(defaultValue) ? "new " + typeName + '(' + defaultValue + ')' : "new " + typeName + "(1)");
             }
-            else if (typeName.equals("java.math.BigInteger"))
+            else if ("java.math.BigInteger".equals(typeName))
    {
-            rtn = (!StringUtils.isEmpty(defaultValue) ? "java.math.BigInteger.valueOf(" + defaultValue + ")" : "java.math.BigInteger.valueOf(1)");
+            rtn = (!StringUtils.isEmpty(defaultValue) ? "java.math.BigInteger.valueOf(" + defaultValue + ')' : "java.math.BigInteger.valueOf(1)");
    }
-            else if (typeName.equals("byte[]"))
+            else if ("byte[]".equals(typeName))
             {
                 rtn = "{1}";
             }
-            else if (typeName.equals("byte[]"))
+            else if ("byte[]".equals(typeName))
             {
                 rtn = "{1}";
             }
@@ -1913,7 +1913,7 @@ public class WebServiceUtils
             {
                 if (useMany)
                 {
-                    rtn = collectionType + "<" + defaultValue + ">";
+                    rtn = collectionType + '<' + defaultValue + '>';
                 }
                 else
                 {
@@ -1922,12 +1922,12 @@ public class WebServiceUtils
             }
             else if (!StringUtils.isEmpty(defaultValue))
             {
-                rtn = "new " + typeName + "(" + defaultValue + ")";
+                rtn = "new " + typeName + '(' + defaultValue + ')';
             }
             else if (type != null && type.hasStereotype("Entity"))
             {
                 // Entity classes will always be abstract with Impl generated classes.
-                rtn = "(" + typeName + ")new " + typeName + "Impl()";
+                rtn = '(' + typeName + ")new " + typeName + "Impl()";
             }
             else if (facade instanceof GeneralizableElementFacade)
             {
@@ -1946,10 +1946,10 @@ public class WebServiceUtils
                             ClassifierFacade spec = (ClassifierFacade)iter.next();
                             if (spec.getName().equals(facade.getName() + "Impl"))
                             {
-                                rtn = "(" + facade.getName() + ")new " + typeName + "Impl()";
+                                rtn = '(' + facade.getName() + ")new " + typeName + "Impl()";
                                 break;
                             }
-                            rtn = "(" + facade.getName() + ")new " + spec.getFullyQualifiedName() + "()";
+                            rtn = '(' + facade.getName() + ")new " + spec.getFullyQualifiedName() + "()";
                         }
                     }
                 }
@@ -1960,7 +1960,7 @@ public class WebServiceUtils
                     ClassifierFacade spec = (ClassifierFacade)iter.next();
                     if (spec.getName().equals(facade.getName() + "Impl"))
                     {
-                        rtn = "(" + facade.getName() + ")new " + spec.getFullyQualifiedName() + "Impl()";
+                        rtn = '(' + facade.getName() + ")new " + spec.getFullyQualifiedName() + "Impl()";
                     }
                 }
             }
@@ -2023,7 +2023,7 @@ public class WebServiceUtils
                     {
                         if (logger.isDebugEnabled())
                         {
-                            logger.debug("getServiceDescendantPackages " + attrib.getName() + " " + attrib.getType().getFullyQualifiedName() + " attribute in " + classifier.getFullyQualifiedName() + " size=" + pkgRef.size());
+                            logger.debug("getServiceDescendantPackages " + attrib.getName() + ' ' + attrib.getType().getFullyQualifiedName() + " attribute in " + classifier.getFullyQualifiedName() + " size=" + pkgRef.size());
                         }
                         added.add(attrib.getType());
                         pkgRef = getServiceDescendantPackages(attrib.getType(), pkgRef, added);
@@ -2037,7 +2037,7 @@ public class WebServiceUtils
                     {
                         if (logger.isDebugEnabled())
                         {
-                            logger.debug("getServiceDescendantPackages " + assoc.getName() + " " + assoc.getType().getFullyQualifiedName() + " association in " + classifier.getFullyQualifiedName() + " size=" + pkgRef.size());
+                            logger.debug("getServiceDescendantPackages " + assoc.getName() + ' ' + assoc.getType().getFullyQualifiedName() + " association in " + classifier.getFullyQualifiedName() + " size=" + pkgRef.size());
                         }
                         added.add(assoc.getType());
                         pkgRef = getServiceDescendantPackages(assoc.getType(), pkgRef, added);
@@ -2069,7 +2069,7 @@ public class WebServiceUtils
             WebServiceOperation op = iterator.next();
             if (logger.isDebugEnabled())
             {
-                logger.debug("getServiceDescendantPackages " + service.getFullyQualifiedName() + "." + op.getName() + " parms=" + op.getParameters().size() + " size=" + pkgRef.size());
+                logger.debug("getServiceDescendantPackages " + service.getFullyQualifiedName() + '.' + op.getName() + " parms=" + op.getParameters().size() + " size=" + pkgRef.size());
             }
             for (final Iterator opiterator = op.getExceptions().iterator(); opiterator.hasNext();)
             {
@@ -2078,7 +2078,7 @@ public class WebServiceUtils
                 {
                     if (logger.isDebugEnabled())
                     {
-                        logger.debug("getServiceDescendantPackages " + service.getFullyQualifiedName() + "." + op.getName() + " exception=" + ex.getFullyQualifiedName() + " size=" + pkgRef.size());
+                        logger.debug("getServiceDescendantPackages " + service.getFullyQualifiedName() + '.' + op.getName() + " exception=" + ex.getFullyQualifiedName() + " size=" + pkgRef.size());
                     }
                     added.add(ex);
                     pkgRef = getServiceDescendantPackages(ex, pkgRef, added);
@@ -2091,7 +2091,7 @@ public class WebServiceUtils
                 {
                     if (logger.isDebugEnabled())
                     {
-                        logger.debug("getServiceDescendantPackages " + service.getFullyQualifiedName() + "." + op.getName() + " parameter=" + arg.getName() + " size=" + pkgRef.size());
+                        logger.debug("getServiceDescendantPackages " + service.getFullyQualifiedName() + '.' + op.getName() + " parameter=" + arg.getName() + " size=" + pkgRef.size());
                     }
                     added.add(arg.getType());
                     pkgRef = getServiceDescendantPackages(arg.getType(), pkgRef, added);
@@ -2136,7 +2136,7 @@ public class WebServiceUtils
                     if (logger.isDebugEnabled())
                     {
                         typeRefs += ex + ",";
-                        logger.debug("getServiceReferences exception " + pkg + "." + ex.getName());
+                        logger.debug("getServiceReferences exception " + pkg + '.' + ex.getName());
                     }
                 }
             }
@@ -2156,7 +2156,7 @@ public class WebServiceUtils
                     if (logger.isDebugEnabled())
                     {
                         typeRefs += arg.getType() + ",";
-                        logger.debug("getServiceReferences parameter " + pkg + "." + arg.getType().getName());
+                        logger.debug("getServiceReferences parameter " + pkg + '.' + arg.getType().getName());
                     }
                 }
             }
@@ -2194,7 +2194,7 @@ public class WebServiceUtils
         }*/
         if (logger.isDebugEnabled())
         {
-            logger.debug("getServiceReferences typeRef " + service.getPackageName() + "." + service.getName() + " " + typeRef);
+            logger.debug("getServiceReferences typeRef " + service.getPackageName() + '.' + service.getName() + ' ' + typeRef);
         }
         return typeRef;
     }

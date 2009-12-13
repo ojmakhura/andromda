@@ -44,6 +44,6 @@ public class JSFBackendServiceLogicImpl
         String packageName = String.valueOf(getConfiguredProperty(JSFGlobals.SERVICE_PACKAGE_NAME_PATTERN));
         return packageName.replaceAll(
             "\\{0\\}",
-            super.getPackageName()) + "." + this.getName();
+            super.getPackageName()) + '.' + this.getName();
     }
 }

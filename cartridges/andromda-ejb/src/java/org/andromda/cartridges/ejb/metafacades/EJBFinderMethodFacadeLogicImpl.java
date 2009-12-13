@@ -45,7 +45,7 @@ public class EJBFinderMethodFacadeLogicImpl
             String variableName = StringUtils.uncapitalize(this.getOwner().getName());
             queryString = "SELECT DISTINCT OBJECT(" + variableName + ") FROM " + this.getOwner().getName() + " as " +
                     variableName;
-            if (this.getArguments().size() > 0)
+            if (!this.getArguments().isEmpty())
             {
                 queryString = queryString + " WHERE";
                 Collection parameters = this.getArguments();
@@ -56,7 +56,7 @@ public class EJBFinderMethodFacadeLogicImpl
                     {
                         Object test = parameterIt.next();
                         ParameterFacade param = (ParameterFacade)test;
-                        queryString = queryString + " " + variableName + "." + param.getName() + " = ?" + ctr;
+                        queryString = queryString + ' ' + variableName + '.' + param.getName() + " = ?" + ctr;
                         if (parameterIt.hasNext())
                         {
                             queryString = queryString + " AND";

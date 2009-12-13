@@ -36,7 +36,7 @@
         if(type != null){
             if("VIEW".equals(type)){
              Map perMap = sgContext.getProperties();
-             if(perMap.size()>0){
+             if(!perMap.isEmpty()){
              %>
              <h4>Persistance properties</h4><ul>
              <%

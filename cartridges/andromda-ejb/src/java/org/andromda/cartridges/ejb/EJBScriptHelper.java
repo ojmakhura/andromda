@@ -43,7 +43,7 @@ public class EJBScriptHelper
             if (includeTypes)
             {
                 sb.append(attr.getType().getFullyQualifiedName());
-                sb.append(" ");
+                sb.append(' ');
             }
             if (includeNames)
             {
@@ -62,16 +62,15 @@ public class EJBScriptHelper
      */
     public Collection filterByVisibility(Collection list, String visibility)
     {
-        Collection retval = new ArrayList(list.size());
-        for (final Iterator iter = list.iterator(); iter.hasNext();)
+        Collection<ModelElementFacade> result = new ArrayList<ModelElementFacade>(list.size());
+        for (ModelElementFacade elem : (Iterable<ModelElementFacade>) list)
         {
-            ModelElementFacade elem = (ModelElementFacade)iter.next();
-            if (visibility.equals(elem.getVisibility().toString()))
+            if (visibility.equals(elem.getVisibility()))
             {
-                retval.add(elem);
+                result.add(elem);
             }
         }
-        return retval;
+        return result;
     }
 
 }

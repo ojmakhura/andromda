@@ -61,7 +61,7 @@
 		}
         }
       %>
-      <%if(errornesModules.size()>0){
+      <%if(!errornesModules.isEmpty()){
           %>
       <h3><font color="red">Faulty Modules</font></h3>
              <%

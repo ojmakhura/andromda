@@ -110,7 +110,7 @@ public class JavaClassLogicImpl
             buffer.append(fullName);
 
             // start the parameter list
-            buffer.append("<");
+            buffer.append('<');
 
             // loop over the parameters, we are so to have at least one (see
             // outer condition)
@@ -138,7 +138,7 @@ public class JavaClassLogicImpl
             }
 
             // we're finished listing the parameters
-            buffer.append(">");
+            buffer.append('>');
 
             // we have constructed the full name in the buffer
             fullName = buffer.toString();

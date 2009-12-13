@@ -175,7 +175,7 @@ public class BinaryFile
                 this.prompt = (Boolean)binding.getValue(this.getFacesContext());
             }
         }
-        return this.prompt != null ? this.prompt.booleanValue() : false;
+        return this.prompt != null ? this.prompt : false;
     }
 
     /**
@@ -185,7 +185,7 @@ public class BinaryFile
      */
     public void setPrompt(final boolean prompt)
     {
-        this.prompt = Boolean.valueOf(prompt);
+        this.prompt = prompt;
     }
 
     /**
@@ -202,7 +202,7 @@ public class BinaryFile
         final InputStream stream = BinaryFile.class.getResourceAsStream(fileName);
         if (stream == null)
         {
-            logger.error("Could not load file from '" + fileName + "'");
+            logger.error("Could not load file from '" + fileName + '\'');
         }
         try
         {

@@ -14,12 +14,7 @@ import java.util.Set;
 import org.andromda.cartridges.jsf.JSFGlobals;
 import org.andromda.cartridges.jsf.JSFProfile;
 import org.andromda.cartridges.jsf.JSFUtils;
-import org.andromda.metafacades.uml.ClassifierFacade;
-import org.andromda.metafacades.uml.FrontEndActivityGraph;
-import org.andromda.metafacades.uml.FrontEndView;
-import org.andromda.metafacades.uml.ModelElementFacade;
-import org.andromda.metafacades.uml.TransitionFacade;
-import org.andromda.metafacades.uml.UseCaseFacade;
+import org.andromda.metafacades.uml.*;
 import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
@@ -65,7 +60,7 @@ public class JSFParameterLogicImpl
     protected boolean handleIsPageableTable()
     {
         final Object value = this.findTaggedValue(JSFProfile.TAGGEDVALUE_TABLE_PAGEABLE);
-        return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+        return Boolean.valueOf(ObjectUtils.toString(value));
     }
 
     /**
@@ -149,10 +144,10 @@ public class JSFParameterLogicImpl
      *
      * @return true/false
      */
-    private final boolean isNormalizeMessages()
+    private boolean isNormalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages).booleanValue();
+        return Boolean.valueOf(normalizeMessages);
     }
 
     /**
@@ -210,7 +205,7 @@ public class JSFParameterLogicImpl
      *
      * @param hyperlink denotes on which type of actions to filter
      */
-    private final List getTableActions(boolean hyperlink)
+    private List getTableActions(boolean hyperlink)
     {
         final Set actions = new LinkedHashSet();
         final String name = StringUtils.trimToNull(getName());
@@ -282,7 +277,7 @@ public class JSFParameterLogicImpl
 
             for (final Iterator<JSFAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
-                final JSFAction action = (JSFAction)actionIterator.next();
+                final JSFAction action = actionIterator.next();
                 final Collection actionParameters = action.getParameters();
                 for (final Iterator parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
                 {
@@ -314,7 +309,7 @@ public class JSFParameterLogicImpl
             final Collection<String> columnNames = this.getTableColumnNames();
             for (final Iterator<String> columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
             {
-                final String columnName = (String)columnNameIterator.next();
+                final String columnName = columnNameIterator.next();
                 if (!tableColumnsMap.containsKey(columnName))
                 {
                     tableColumnsMap.put(
@@ -676,7 +671,7 @@ public class JSFParameterLogicImpl
             }
             else if (type.isCollectionType())
             {
-                initialValue = "java.util.Arrays.asList(" + this.constructDummyArray() + ")";
+                initialValue = "java.util.Arrays.asList(" + this.constructDummyArray() + ')';
             }
             else if (type.isArrayType())
             {
@@ -712,7 +707,7 @@ public class JSFParameterLogicImpl
 
                 initialValues.put(
                     String.class.getName(),
-                    "\"" + name + "-test" + "\"");
+                        '\"' + name + "-test" + '\"');
                 initialValues.put(
                     Date.class.getName(),
                     "new java.util.Date()");
@@ -725,28 +720,28 @@ public class JSFParameterLogicImpl
 
                 initialValues.put(
                     Integer.class.getName(),
-                    "new Integer((int)" + name.hashCode() + ")");
+                    "new Integer((int)" + name.hashCode() + ')');
                 initialValues.put(
                     Boolean.class.getName(),
                     "Boolean.FALSE");
                 initialValues.put(
                     Long.class.getName(),
-                    "new Long((long)" + name.hashCode() + ")");
+                    "new Long((long)" + name.hashCode() + ')');
                 initialValues.put(
                     Character.class.getName(),
-                    "new Character(char)" + name.hashCode() + ")");
+                    "new Character(char)" + name.hashCode() + ')');
                 initialValues.put(
                     Float.class.getName(),
-                    "new Float((float)" + name.hashCode() / hashCode() + ")");
+                    "new Float((float)" + name.hashCode() / hashCode() + ')');
                 initialValues.put(
                     Double.class.getName(),
-                    "new Double((double)" + name.hashCode() / hashCode() + ")");
+                    "new Double((double)" + name.hashCode() / hashCode() + ')');
                 initialValues.put(
                     Short.class.getName(),
-                    "new Short((short)" + name.hashCode() + ")");
+                    "new Short((short)" + name.hashCode() + ')');
                 initialValues.put(
                     Byte.class.getName(),
-                    "new Byte((byte)" + name.hashCode() + ")");
+                    "new Byte((byte)" + name.hashCode() + ')');
             }
             if (initialValue == null)
             {
@@ -868,7 +863,7 @@ public class JSFParameterLogicImpl
     public boolean isRequired()
     {
         final Object value = this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_REQUIRED);
-        return Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+        return Boolean.valueOf(ObjectUtils.toString(value));
     }
 
     /**
@@ -911,8 +906,7 @@ public class JSFParameterLogicImpl
     protected boolean handleIsReset()
     {
         boolean reset =
-            Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_RESET)))
-                   .booleanValue();
+                Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_RESET)));
         if (!reset)
         {
             final JSFAction action = (JSFAction)this.getAction();
@@ -952,7 +946,7 @@ public class JSFParameterLogicImpl
         {
             attributes = type.getAttributes(true);
         }
-        return attributes == null ? Collections.EMPTY_LIST : attributes;
+        return attributes == null ? Collections.emptyList() : attributes;
     }
 
     /**
@@ -967,7 +961,7 @@ public class JSFParameterLogicImpl
         {
             associationEnds = type.getNavigableConnectingEnds();
         }
-        return associationEnds == null ? Collections.EMPTY_LIST : associationEnds;
+        return associationEnds == null ? Collections.<ClassifierFacade>emptyList() : associationEnds;
     }
 
     /**
@@ -999,10 +993,10 @@ public class JSFParameterLogicImpl
 
                 // - if the backing value is not required for this parameter but on
                 //   a targetting page it IS selectable we must allow the user to set the backing value as well
-                final Collection views = this.getAction().getTargetViews();
-                for (final Iterator iterator = views.iterator(); iterator.hasNext() && !required;)
+                final Collection<FrontEndView> views = this.getAction().getTargetViews();
+                for (final Iterator<FrontEndView> iterator = views.iterator(); iterator.hasNext() && !required;)
                 {
-                    final FrontEndView view = (FrontEndView)iterator.next();
+                    final FrontEndView view = iterator.next();
                     final Collection parameters = view.getAllActionParameters();
                     for (final Iterator parameterIterator = parameters.iterator();
                         parameterIterator.hasNext() && !required;)
@@ -1029,8 +1023,8 @@ public class JSFParameterLogicImpl
         else if (this.isControllerOperationArgument())
         {
             final String name = this.getName();
-            final Collection actions = this.getControllerOperation().getDeferringActions();
-            for (final Iterator actionIterator = actions.iterator(); actionIterator.hasNext();)
+            final Collection<FrontEndAction> actions = this.getControllerOperation().getDeferringActions();
+            for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
             {
                 final JSFAction action = (JSFAction)actionIterator.next();
                 final Collection formFields = action.getFormFields();
@@ -1070,15 +1064,14 @@ public class JSFParameterLogicImpl
      */
     protected List handleGetTableColumnActions(final String columnName)
     {
-        final List columnActions = new ArrayList();
+        final List<JSFAction> columnActions = new ArrayList<JSFAction>();
 
         if (columnName != null)
         {
-            final Set actions = new LinkedHashSet(this.getTableHyperlinkActions());
+            final Set<JSFAction> actions = new LinkedHashSet<JSFAction>(this.getTableHyperlinkActions());
             actions.addAll(this.getTableFormActions());
-            for (final Iterator iterator = actions.iterator(); iterator.hasNext();)
+            for (final JSFAction action : actions)
             {
-                final JSFAction action = (JSFAction)iterator.next();
                 if (columnName.equals(action.getTableLinkColumnName()))
                 {
                     columnActions.add(action);

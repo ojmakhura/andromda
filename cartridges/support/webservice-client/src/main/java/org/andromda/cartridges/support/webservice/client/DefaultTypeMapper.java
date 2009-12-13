@@ -52,7 +52,7 @@ public class DefaultTypeMapper
                     final Method fromMethod = getEnumerationFromMethod(type);
                     if (fromMethod != null)
                     {
-                        object = fromMethod.invoke(type, new Object[]{value});
+                        object = fromMethod.invoke(type, value);
                     }
                 }
             }

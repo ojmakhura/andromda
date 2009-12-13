@@ -116,7 +116,7 @@ public class JSFUseCaseLogicImpl
     private final boolean isNormalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(JSFGlobals.NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages).booleanValue();
+        return Boolean.valueOf(normalizeMessages);
     }
 
     /**
@@ -127,7 +127,7 @@ public class JSFUseCaseLogicImpl
     {
 
         final boolean normalize = this.isNormalizeMessages();
-        final Map messages = (normalize) ? (Map)new TreeMap() : (Map)new LinkedHashMap();
+        final Map messages = (normalize) ? new TreeMap() : new LinkedHashMap();
 
         // - only retrieve the messages for the entry use case (i.e. the use case 
         //   where the application begins)
@@ -448,7 +448,7 @@ public class JSFUseCaseLogicImpl
         final Map<String, JSFForward> forwards = new LinkedHashMap<String, JSFForward>();
         for (final Iterator<FrontEndAction> iterator = this.getActions().iterator(); iterator.hasNext();)
         {
-            final FrontEndAction action = (FrontEndAction)iterator.next();
+            final FrontEndAction action = iterator.next();
             for (final Iterator<FrontEndForward> forwardIterator = action.getActionForwards().iterator(); forwardIterator.hasNext();)
             {
                 final Object forward = forwardIterator.next();
@@ -470,7 +470,7 @@ public class JSFUseCaseLogicImpl
         final Map forwards = new LinkedHashMap();
         for (final Iterator<JSFAction> iterator = this.getActionForwards().iterator(); iterator.hasNext();)
         {
-            final JSFAction forward = (JSFAction)iterator.next();
+            final JSFAction forward = iterator.next();
             forwards.put(forward.getName(), forward);
         }
         for (final Iterator<JSFForward> iterator = this.getForwards().iterator(); iterator.hasNext();)

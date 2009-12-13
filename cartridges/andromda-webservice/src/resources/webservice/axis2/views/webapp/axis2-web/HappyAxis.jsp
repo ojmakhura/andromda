@@ -133,7 +133,7 @@
             if (clazz == null) {
                 String url = "";
                 if (homePage != null) {
-                    url = "<br>  See <a href=" + homePage + ">" + homePage + "</a>";
+                    url = "<br>  See <a href=" + homePage + '>' + homePage + "</a>";
                 }
                 out.write("<p>" + category + ": could not find class " + classname
                         + " from file <b>" + jarFile
@@ -153,7 +153,7 @@
         } catch (NoClassDefFoundError ncdfe) {
             String url = "";
             if (homePage != null) {
-                url = "<br>  See <a href=" + homePage + ">" + homePage + "</a>";
+                url = "<br>  See <a href=" + homePage + '>' + homePage + "</a>";
             }
             out.write("<p>" + category + ": could not find a dependency"
                     + " of class " + classname

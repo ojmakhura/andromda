@@ -49,7 +49,7 @@
     %>
 </ul>
 <%
-    if (modules.size() > 0) {
+    if (!modules.isEmpty()) {
 %>
 <I>Engaged modules</I><ul>
     <%

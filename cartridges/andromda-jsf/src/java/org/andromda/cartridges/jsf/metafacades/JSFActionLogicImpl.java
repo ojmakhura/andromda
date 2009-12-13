@@ -487,7 +487,7 @@ public class JSFActionLogicImpl
         final List<FrontEndAction> otherActions = new ArrayList<FrontEndAction>(this.getUseCase().getActions());
         for (final Iterator<FrontEndAction> iterator = otherActions.iterator(); iterator.hasNext();)
         {
-            final FrontEndAction action = (FrontEndAction)iterator.next();
+            final FrontEndAction action = iterator.next();
 
             // - remove this action and any forms that don't have form fields
             if (action.equals(this.THIS()) || action.getFormFields().isEmpty())
@@ -531,7 +531,7 @@ public class JSFActionLogicImpl
                         {
                             for (final Iterator<JSFAttribute> iterator = parameter.getAttributes().iterator(); iterator.hasNext();)
                             {
-                                JSFAttribute attribute = (JSFAttribute)iterator.next();
+                                JSFAttribute attribute = iterator.next();
                                 valid = attribute.isInputHidden();
                                 if (valid)
                                 {
@@ -718,7 +718,7 @@ public class JSFActionLogicImpl
      */
     protected boolean handleIsFormReset()
     {
-        return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET))).booleanValue();
+        return Boolean.valueOf(ObjectUtils.toString(this.findTaggedValue(JSFProfile.TAGGEDVALUE_ACTION_FORM_RESET)));
     }
 
     /**
@@ -772,7 +772,7 @@ public class JSFActionLogicImpl
         final Collection taggedValues = this.findTaggedValues(taggedValue);
         if (taggedValues.isEmpty())
         {
-            messages = Collections.EMPTY_MAP;
+            messages = Collections.emptyMap();
         }
         else
         {

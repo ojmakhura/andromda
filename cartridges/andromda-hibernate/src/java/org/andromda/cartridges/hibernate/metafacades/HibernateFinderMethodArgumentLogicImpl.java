@@ -38,7 +38,7 @@ public class HibernateFinderMethodArgumentLogicImpl
     {
         StringBuffer setterName = new StringBuffer();
         boolean specializedSetters =
-            Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_SPECIALIZED_SETTERS))).booleanValue();
+                Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_SPECIALIZED_SETTERS)));
         ClassifierFacade classifier = this.getType();
         if (classifier != null)
         {
@@ -46,11 +46,11 @@ public class HibernateFinderMethodArgumentLogicImpl
             {
                 if (classifier.isPrimitive())
                 {
-                    setterName.append("set" + classifier.getWrapperName().replaceAll("(.)*\\.", ""));
+                    setterName.append("set").append(classifier.getWrapperName().replaceAll("(.)*\\.", ""));
                 }
                 else if (classifier.isDateType() || classifier.isStringType())
                 {
-                    setterName.append("set" + classifier.getName());
+                    setterName.append("set").append(classifier.getName());
                 }
                 else
                 {

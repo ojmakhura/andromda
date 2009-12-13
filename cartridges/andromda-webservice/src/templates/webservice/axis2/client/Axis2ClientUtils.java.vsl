@@ -377,7 +377,7 @@ public class Axis2ClientUtils
                 schemas.add((Schema)object);
             }
         }
-        return schemas.toArray(new Schema[0]);
+        return schemas.toArray(new Schema[schemas.size()]);
     }
 
     private static Element getElementByAttribute(

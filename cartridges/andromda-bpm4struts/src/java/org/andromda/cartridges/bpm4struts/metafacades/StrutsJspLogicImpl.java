@@ -354,6 +354,6 @@ public class StrutsJspLogicImpl
     private boolean normalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages).booleanValue();
+        return Boolean.valueOf(normalizeMessages);
     }
 }
