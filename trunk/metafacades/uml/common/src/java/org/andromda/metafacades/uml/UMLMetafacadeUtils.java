@@ -1,8 +1,10 @@
 package org.andromda.metafacades.uml;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -69,6 +71,140 @@ public class UMLMetafacadeUtils
         return isType;
     }
     
+    // TODO: Move this to an external configuration. Distinguish between Java, C# reserved words.
+    private static List<String> reservedWords = new ArrayList<String>();
+    private static void populateReservedWords()
+    {
+        synchronized (reservedWords)
+        {
+            if (reservedWords.isEmpty())
+            {
+                reservedWords.add("abstract");
+                reservedWords.add("as");
+                reservedWords.add("assert");
+                reservedWords.add("auto");
+                reservedWords.add("bool");
+                reservedWords.add("boolean");
+                reservedWords.add("break");
+                reservedWords.add("byte");
+                reservedWords.add("case");
+                reservedWords.add("catch");
+                reservedWords.add("char");
+                reservedWords.add("checked");
+                reservedWords.add("class");
+                reservedWords.add("const");
+                reservedWords.add("continue");
+                reservedWords.add("decimal");
+                reservedWords.add("default");
+                reservedWords.add("delegate");
+                reservedWords.add("delete");
+                reservedWords.add("deprecated");
+                reservedWords.add("do");
+                reservedWords.add("double");
+                reservedWords.add("else");
+                reservedWords.add("enum");
+                reservedWords.add("event");
+                reservedWords.add("explicit");
+                reservedWords.add("export");
+                reservedWords.add("extends");
+                reservedWords.add("extern");
+                reservedWords.add("false");
+                reservedWords.add("final");
+                reservedWords.add("finally");
+                reservedWords.add("fixed");
+                reservedWords.add("float");
+                reservedWords.add("foreach");
+                reservedWords.add("for");
+                reservedWords.add("function");
+                reservedWords.add("goto");
+                reservedWords.add("if");
+                reservedWords.add("implements");
+                reservedWords.add("implicit");
+                reservedWords.add("import");
+                reservedWords.add("in");
+                reservedWords.add("inline");
+                reservedWords.add("instanceof");
+                reservedWords.add("int");
+                reservedWords.add("interface");
+                reservedWords.add("internal");
+                reservedWords.add("is");
+                reservedWords.add("lock");
+                reservedWords.add("long");
+                reservedWords.add("namespace");
+                reservedWords.add("native");
+                reservedWords.add("new");
+                reservedWords.add("null");
+                reservedWords.add("object");
+                reservedWords.add("operator");
+                reservedWords.add("out");
+                reservedWords.add("override");
+                reservedWords.add("package");
+                reservedWords.add("params");
+                reservedWords.add("private");
+                reservedWords.add("property");
+                reservedWords.add("protected");
+                reservedWords.add("public");
+                reservedWords.add("readonly");
+                reservedWords.add("ref");
+                reservedWords.add("register");
+                reservedWords.add("return");
+                reservedWords.add("sbyte");
+                reservedWords.add("sealed");
+                reservedWords.add("short");
+                reservedWords.add("signed");
+                reservedWords.add("sizeof");
+                reservedWords.add("static");
+                reservedWords.add("strictfp");
+                reservedWords.add("shring");
+                reservedWords.add("struct");
+                reservedWords.add("super");
+                reservedWords.add("switch");
+                reservedWords.add("synchronized");
+                reservedWords.add("this");
+                reservedWords.add("thread");
+                reservedWords.add("throw");
+                reservedWords.add("throws");
+                reservedWords.add("transient");
+                reservedWords.add("true");
+                reservedWords.add("try");
+                reservedWords.add("typedef");
+                reservedWords.add("typeof");
+                reservedWords.add("uint");
+                reservedWords.add("ulong");
+                reservedWords.add("unchecked");
+                reservedWords.add("union");
+                reservedWords.add("unsafe");
+                reservedWords.add("unsigned");
+                reservedWords.add("ushort");
+                reservedWords.add("using");
+                reservedWords.add("virtual");
+                reservedWords.add("union");
+                reservedWords.add("unsigned");
+                reservedWords.add("uuid");
+                reservedWords.add("var");
+                reservedWords.add("void");
+                reservedWords.add("volatile");
+                reservedWords.add("while");
+            }
+        }
+    }
+
+    /**
+     * Returns true if the value is a reserved keyword in Java or C#, or cannot be used as a name
+     * @param name the String to check if a keyword
+     * @return true/false
+     */
+    public static boolean isReservedWord(String name)
+    {
+        boolean reserved = false;
+        populateReservedWords();
+        if (StringUtils.isNotBlank(name) && reservedWords.contains(name.toLowerCase()))
+        {
+            reserved = true;
+        }
+        return reserved;
+    }
+
     /**
      * Gets the getter prefix for a getter operation given the <code>type</code>.
      * 
