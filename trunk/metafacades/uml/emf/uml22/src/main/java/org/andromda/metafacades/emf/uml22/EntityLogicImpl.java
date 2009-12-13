@@ -212,15 +212,15 @@ public class EntityLogicImpl
                         1,
                         1);
                 VisibilityKind kind = VisibilityKind.PUBLIC_LITERAL;
-                if (visibility.equalsIgnoreCase("package"))
+                if ("package".equalsIgnoreCase(visibility))
                 {
                     kind = VisibilityKind.PACKAGE_LITERAL;
                 }
-                if (visibility.equalsIgnoreCase("private"))
+                if ("private".equalsIgnoreCase(visibility))
                 {
                     kind = VisibilityKind.PRIVATE_LITERAL;
                 }
-                if (visibility.equalsIgnoreCase("protected"))
+                if ("protected".equalsIgnoreCase(visibility))
                 {
                     kind = VisibilityKind.PROTECTED_LITERAL;
                 }
@@ -323,13 +323,13 @@ public class EntityLogicImpl
                     {
                         buffer.append(attribute.getType().getFullyQualifiedName());
                     }
-                    buffer.append(" ");
+                    buffer.append(' ');
                     buffer.append(attribute.getName());
                     separator = ", ";
                 }
             }
         }
-        buffer.append(")");
+        buffer.append(')');
         return buffer.toString();
     }
 
@@ -741,8 +741,7 @@ public class EntityLogicImpl
      */
     private boolean isAllowDefaultIdentifiers()
     {
-        return Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS))
-                      .booleanValue();
+        return Boolean.valueOf((String) this.getConfiguredProperty(UMLMetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS));
     }
 
     /**
@@ -868,10 +867,9 @@ public class EntityLogicImpl
             final Object id = identifiers.iterator().next();
             AttributeFacade identifier = (AttributeFacade)id;
             assigned =
-                Boolean.valueOf(
-                    ObjectUtils.toString(
-                        identifier.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSIGNED_IDENTIFIER)))
-                       .booleanValue();
+                    Boolean.valueOf(
+                            ObjectUtils.toString(
+                                    identifier.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSIGNED_IDENTIFIER)));
         }
         return assigned;
     }
@@ -949,7 +947,7 @@ public class EntityLogicImpl
         final Collection<AttributeFacade> embeddedValues = new ArrayList();
         for (final Iterator<AttributeFacade> iterator = this.getAttributes(true).iterator(); iterator.hasNext();)
         {
-            final AttributeFacade attribute = (AttributeFacade)iterator.next();
+            final AttributeFacade attribute = iterator.next();
             final ClassifierFacade type = attribute.getType();
             if (type != null && type.isEmbeddedValue())
             {

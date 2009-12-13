@@ -78,7 +78,7 @@ public class DependencyFacadeLogicImpl
     {
         Object transform = null;
         List<Element> elist = this.metaObject.getTargets();
-        if (elist != null && elist.size()>0)
+        if (elist != null && !elist.isEmpty())
         {
             transform = UmlUtilities.ELEMENT_TRANSFORMER.transform(this.metaObject.getTargets().toArray()[0]);
         }

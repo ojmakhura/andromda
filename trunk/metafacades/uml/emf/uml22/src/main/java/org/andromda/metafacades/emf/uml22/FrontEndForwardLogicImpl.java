@@ -3,10 +3,11 @@ package org.andromda.metafacades.emf.uml22;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+
+import org.andromda.core.metafacade.MetafacadeBase;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActionState;
@@ -232,7 +233,7 @@ public class FrontEndForwardLogicImpl
         final Set<FrontEndAction> actions = new LinkedHashSet<FrontEndAction>();
         this.findActions(
             actions,
-            new LinkedHashSet());
+            new LinkedHashSet<MetafacadeBase>());
         return new ArrayList<FrontEndAction>(actions);
     }
 
@@ -252,7 +253,7 @@ public class FrontEndForwardLogicImpl
      */
     private void findActions(
         final Set<FrontEndAction> actions,
-        final Set handledForwards)
+        final Set<MetafacadeBase> handledForwards)
     {
         if (!handledForwards.contains(this.THIS()))
         {
@@ -282,9 +283,9 @@ public class FrontEndForwardLogicImpl
                     if (!pseudostate.isInitialState())
                     {
                         final Collection<TransitionFacade> incomingForwards = pseudostate.getIncomings();
-                        for (final Iterator<TransitionFacade> forwardIterator = incomingForwards.iterator(); forwardIterator.hasNext();)
+                        for (TransitionFacade incomingForward : incomingForwards)
                         {
-                            final FrontEndForward forward = (FrontEndForward)forwardIterator.next();
+                            final FrontEndForward forward = (FrontEndForward) incomingForward;
                             actions.addAll(forward.getActions());
                         }
                     }
@@ -318,7 +319,7 @@ public class FrontEndForwardLogicImpl
     protected List<ParameterFacade> handleGetForwardParameters()
     {
         final EventFacade trigger = this.getTrigger();
-        return trigger == null ? Collections.EMPTY_LIST : new ArrayList<ParameterFacade>(trigger.getParameters());
+        return trigger == null ? Collections.<ParameterFacade>emptyList() : new ArrayList<ParameterFacade>(trigger.getParameters());
     }
 
     /**

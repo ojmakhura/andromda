@@ -46,7 +46,7 @@ public class EntityAssociationLogicImpl
         final Collection<AssociationEndFacade> ends = this.getAssociationEnds();
         if (ends != null && !ends.isEmpty())
         {
-            final AssociationEndFacade end = (AssociationEndFacade)ends.iterator().next();
+            final AssociationEndFacade end = ends.iterator().next();
             final ClassifierFacade type = end.getType();
             if (type != null && end.isMany2Many())
             {
@@ -103,7 +103,7 @@ public class EntityAssociationLogicImpl
         boolean isEntityAssociation = true;
         for (Iterator<Property> ends = ((Association)this.metaObject).getMemberEnds().iterator(); ends.hasNext();)
         {
-            final Property prop = (Property)ends.next();
+            final Property prop = ends.next();
             final Type propertyType = prop.getType();
             if (propertyType == null || !UmlUtilities.containsStereotype(
                     propertyType,

@@ -123,6 +123,6 @@ public class ConstraintFacadeLogicImpl
         {
             element = elements.get(0);
         }
-        return (Element)element;
+        return element;
     }
 }

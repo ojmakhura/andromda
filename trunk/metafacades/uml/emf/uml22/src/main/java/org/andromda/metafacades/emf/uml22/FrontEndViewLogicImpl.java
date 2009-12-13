@@ -119,7 +119,7 @@ public class FrontEndViewLogicImpl
         final Collection<TransitionFacade> incoming = this.getIncomings();
         for (final Iterator<TransitionFacade> iterator = incoming.iterator(); iterator.hasNext();)
         {
-            final TransitionFacade transition = (TransitionFacade)iterator.next();
+            final TransitionFacade transition = iterator.next();
             final EventFacade trigger = transition.getTrigger();
             if (trigger != null)
             {

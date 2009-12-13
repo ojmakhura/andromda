@@ -60,7 +60,7 @@ public class ActivityGraphFacadeLogicImpl
         Element owner = (this.metaObject).getOwner();
         if (owner instanceof UseCase)
         {
-            return (UseCase)owner;
+            return owner;
         }
 
         return null;

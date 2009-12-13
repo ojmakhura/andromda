@@ -140,7 +140,7 @@ public class ModelFacadeLogicImpl
         Collection<UseCaseFacade> ucCollections = this.getAllUseCases();
         for (Iterator<UseCaseFacade> it = ucCollections.iterator(); it.hasNext() && ucfFound == null;)
         {
-            UseCaseFacade ucf = (UseCaseFacade)it.next();
+            UseCaseFacade ucf = it.next();
             if (ucf.getName().equals(name))
             {
                 if (stereotypeName == null || ucf.hasStereotype(stereotypeName))
@@ -268,7 +268,7 @@ public class ModelFacadeLogicImpl
     protected Collection handleGetAllObjectFlowStates()
     {
         // TODO: Implement handleGetAllObjectFlowStates
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     /**

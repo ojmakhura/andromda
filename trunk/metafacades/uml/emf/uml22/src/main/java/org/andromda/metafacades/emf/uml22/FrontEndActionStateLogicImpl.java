@@ -99,7 +99,7 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
         for (final Iterator<EventFacade> iterator = deferrableEvents.iterator(); iterator
                 .hasNext();)
         {
-            final EventFacade event = (EventFacade)iterator.next();
+            final EventFacade event = iterator.next();
             if (event instanceof CallEventFacade)
             {
                 controllerCallsList.addAll(((CallEventFacade)event).getOperations());
@@ -122,7 +122,7 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
         final Collection<TransitionFacade> outgoing = this.getOutgoings();
         for (final Iterator<TransitionFacade> iterator = outgoing.iterator(); iterator.hasNext();)
         {
-            final TransitionFacade transition = (TransitionFacade)iterator
+            final TransitionFacade transition = iterator
                     .next();
             if (transition instanceof FrontEndExceptionHandler)
             {
@@ -153,7 +153,7 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
                 for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator
                         .hasNext();)
                 {
-                    final FrontEndAction action = (FrontEndAction)actionIterator
+                    final FrontEndAction action = actionIterator
                             .next();
                     if (action.getActionStates().contains(this))
                     {

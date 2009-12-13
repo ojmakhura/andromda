@@ -113,7 +113,7 @@ public class FrontEndUseCaseLogicImpl
         final Collection<AssociationEndFacade> associationEnds = this.getAssociationEnds();
         for (final Iterator<AssociationEndFacade> iterator = associationEnds.iterator(); iterator.hasNext();)
         {
-            final AssociationEndFacade associationEnd = (AssociationEndFacade)iterator.next();
+            final AssociationEndFacade associationEnd = iterator.next();
             final ClassifierFacade classifier = associationEnd.getOtherEnd().getType();
             if (classifier instanceof Role)
             {
@@ -196,7 +196,7 @@ public class FrontEndUseCaseLogicImpl
         final ActivityGraphFacade graph = this.getActivityGraph();
         if (graph == null)
         {
-            views = Collections.EMPTY_LIST;
+            views = Collections.emptyList();
         }
         else
         {
@@ -219,7 +219,7 @@ public class FrontEndUseCaseLogicImpl
         final Collection<FrontEndView> pages = this.getViews();
         for (final Iterator<FrontEndView> pageIterator = pages.iterator(); pageIterator.hasNext();)
         {
-            final FrontEndView view = (FrontEndView)pageIterator.next();
+            final FrontEndView view = pageIterator.next();
             actions.addAll(view.getActions());
         }
 
@@ -249,7 +249,7 @@ public class FrontEndUseCaseLogicImpl
         {
             for (final Iterator<FrontEndForward> iterator = forwards.iterator(); iterator.hasNext();)
             {
-                final FrontEndForward forward = (FrontEndForward)iterator.next();
+                final FrontEndForward forward = iterator.next();
                 final Object target = forward.getTarget();
                 if (target instanceof FrontEndView)
                 {
@@ -288,11 +288,11 @@ public class FrontEndUseCaseLogicImpl
             final Collection<FrontEndParameter> variables = view.getVariables();
             for (final Iterator<FrontEndParameter> variableIterator = variables.iterator(); variableIterator.hasNext();)
             {
-                FrontEndParameter variable = (FrontEndParameter)variableIterator.next();
+                FrontEndParameter variable = variableIterator.next();
                 final String name = variable.getName();
                 if (StringUtils.isNotBlank(name))
                 {
-                    final FrontEndParameter existingVariable = (FrontEndParameter)pageVariableMap.get(name);
+                    final FrontEndParameter existingVariable = pageVariableMap.get(name);
                     if (existingVariable != null)
                     {
                         if (existingVariable.isTable())

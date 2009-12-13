@@ -92,13 +92,13 @@ public class FrontEndControllerOperationLogicImpl
         final List<FrontEndAction> deferringActions = this.getDeferringActions();
         for (final Iterator<FrontEndAction> iterator = deferringActions.iterator(); iterator.hasNext();)
         {
-            final FrontEndAction action = (FrontEndAction)iterator.next();
+            final FrontEndAction action = iterator.next();
 
             // store the action parameters
             final List<FrontEndParameter> actionFormFields = action.getFormFields();
             for (final Iterator<FrontEndParameter> fieldIterator = actionFormFields.iterator(); fieldIterator.hasNext();)
             {
-                final FrontEndParameter parameter = (FrontEndParameter)fieldIterator.next();
+                final FrontEndParameter parameter = fieldIterator.next();
                 final String name = parameter.getName();
 
                 // - only add if the parameter is an action parameter and its an
@@ -116,7 +116,7 @@ public class FrontEndControllerOperationLogicImpl
             final List<FrontEndForward> forwards = action.getActionForwards();
             for (final Iterator<FrontEndForward> forwardIterator = forwards.iterator(); forwardIterator.hasNext();)
             {
-                final FrontEndForward forward = (FrontEndForward)forwardIterator.next();
+                final FrontEndForward forward = forwardIterator.next();
 
                 // - only consider forwards directly entering a view
                 if (forward.isEnteringView())
@@ -124,7 +124,7 @@ public class FrontEndControllerOperationLogicImpl
                     final List<FrontEndParameter> viewVariables = forward.getForwardParameters();
                     for (final Iterator<FrontEndParameter> variableIterator = viewVariables.iterator(); variableIterator.hasNext();)
                     {
-                        final FrontEndParameter viewVariable = (FrontEndParameter)variableIterator.next();
+                        final FrontEndParameter viewVariable = variableIterator.next();
                         final String name = viewVariable.getName();
                         if (argumentNames.contains(name))
                         {
@@ -199,7 +199,7 @@ public class FrontEndControllerOperationLogicImpl
                     for (final Iterator<OperationFacade> controllerCallIterator = controllerCalls.iterator();
                         controllerCallIterator.hasNext();)
                     {
-                        final OperationFacade operation = (OperationFacade)controllerCallIterator.next();
+                        final OperationFacade operation = controllerCallIterator.next();
                         if (this.equals(operation))
                         {
                             deferringActions.addAll(actionState.getContainerActions());
@@ -257,7 +257,7 @@ public class FrontEndControllerOperationLogicImpl
         boolean allArgumentsHaveFormFields = true;
         for (final Iterator<ParameterFacade> iterator = arguments.iterator(); iterator.hasNext() && allArgumentsHaveFormFields;)
         {
-            final ParameterFacade parameter = (ParameterFacade)iterator.next();
+            final ParameterFacade parameter = iterator.next();
             final String parameterName = parameter.getName();
             final ClassifierFacade parameterType = parameter.getType();
             final String parameterTypeName = parameterType != null ? parameterType.getFullyQualifiedName() : "";
@@ -266,7 +266,7 @@ public class FrontEndControllerOperationLogicImpl
             for (final Iterator<FrontEndAction> actionIterator = deferringActions.iterator();
                 actionIterator.hasNext() && !actionMissingField;)
             {
-                final FrontEndAction action = (FrontEndAction)actionIterator.next();
+                final FrontEndAction action = actionIterator.next();
                 final Collection<FrontEndParameter> actionFormFields = action.getFormFields();
 
                 boolean fieldPresent = false;

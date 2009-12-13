@@ -223,7 +223,7 @@ public class ModelElementFacadeLogicImpl
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
                 ModelElementFacadeLogicImpl.logger.error(
                     errMsg,
                     th);
@@ -347,7 +347,7 @@ public class ModelElementFacadeLogicImpl
         {
             // we'll be constructing the parameter list in this buffer
             // add the name we've constructed so far
-            final StringBuilder buffer = new StringBuilder(fullName + "<");
+            final StringBuilder buffer = new StringBuilder(fullName + '<');
 
             // loop over the parameters, we are so to have at least one (see
             // outer condition)
@@ -376,7 +376,7 @@ public class ModelElementFacadeLogicImpl
             }
 
             // we're finished listing the parameters
-            buffer.append(">");
+            buffer.append('>');
 
             // we have constructed the full name in the buffer
             fullName = buffer.toString();
@@ -551,7 +551,7 @@ public class ModelElementFacadeLogicImpl
             final Collection<TaggedValueFacade> taggedValues = this.getTaggedValues();
             for (final Iterator<TaggedValueFacade> taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext();)
             {
-                final TaggedValueFacade taggedValue = (TaggedValueFacade)taggedValueIterator.next();
+                final TaggedValueFacade taggedValue = taggedValueIterator.next();
 
                 // does this name match the argument tagged value name ?
                 if (UmlUtilities.doesTagValueNameMatch(name, taggedValue.getName()))
@@ -568,8 +568,8 @@ public class ModelElementFacadeLogicImpl
                     {
                         values.add(taggedValue.getValue());
                     } */
-                    //
-                    if (taggedValue.getValues() != null && taggedValue.getValues().size() > 0)
+                    // 
+                    if (taggedValue.getValues() != null && !taggedValue.getValues().isEmpty())
                     {
                         values.addAll(taggedValue.getValues());
                     }
@@ -826,7 +826,7 @@ public class ModelElementFacadeLogicImpl
                 public boolean evaluate(final Object object)
                 {
                     DirectedRelationship relation = (DirectedRelationship) object;
-                    if(relation != null && isAUml14Dependency(relation) && relation.getSources() != null && relation.getSources().size()>0)
+                    if(relation != null && isAUml14Dependency(relation) && relation.getSources() != null && !relation.getSources().isEmpty())
                     {
                         // we only check first, see dependency facade for more detail.
                            return ModelElementFacadeLogicImpl.this.metaObject.equals(relation.getSources().get(0));
@@ -876,7 +876,7 @@ public class ModelElementFacadeLogicImpl
         {
             stateMachine = (StateMachine) owner;
         }
-        return (StateMachine)stateMachine;
+        return stateMachine;
     }
 
     /**
@@ -974,7 +974,7 @@ public class ModelElementFacadeLogicImpl
             {
                 for (final Iterator<TemplateParameterFacade> iterator = parameters.iterator(); iterator.hasNext();)
                 {
-                    final TemplateParameterFacade currentTemplateParameter = (TemplateParameterFacade)iterator.next();
+                    final TemplateParameterFacade currentTemplateParameter = iterator.next();
                     if (currentTemplateParameter.getParameter() != null)
                     {
                         final ModelElementFacade parameter = currentTemplateParameter.getParameter();

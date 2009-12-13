@@ -191,7 +191,7 @@ public class UmlUtilities
 
         if (logger.isDebugEnabled())
         {
-            logger.debug("getAllMetaObjectsInstanceOf class: " + metaClass.getCanonicalName() + " " + metaClass.getClass() + " Found: " + metaObjects.size());
+            logger.debug("getAllMetaObjectsInstanceOf class: " + metaClass.getCanonicalName() + ' ' + metaClass.getClass() + " Found: " + metaObjects.size());
         }
         allMetaObjectsCache.put(metaClass.getCanonicalName()+modelName, metaObjects);
 
@@ -222,19 +222,18 @@ public class UmlUtilities
         {
             return null;
         }
-        String commentString = "";
-        List<Comment> comments = element.getOwnedComments();
+        StringBuilder commentString = new StringBuilder();
+        Collection<Comment> comments = element.getOwnedComments();
 
-        for (Iterator<Comment> iterator = comments.iterator(); iterator.hasNext();)
+        for (final Comment comment : comments)
         {
-            final Comment comment = (Comment)iterator.next();
-            if (!commentString.equalsIgnoreCase(""))
+            if (commentString.length()>0)
             {
-                commentString += "\n\n";
+                commentString.append("\n\n");
             }
-            commentString = commentString.concat(comment.getBody());
+            commentString.append(comment.getBody());
         }
-        return cleanText(commentString);
+        return cleanText(commentString.toString());
     }
 
     /**
@@ -347,7 +346,7 @@ public class UmlUtilities
                     //{
                         attachedToType =
                             isAssociationEndAttachedToType(
-                                (Classifier)parent,
+                                    parent,
                                 property,
                                 follow);
                     //}
@@ -355,7 +354,7 @@ public class UmlUtilities
             }
             if (logger.isDebugEnabled() && attachedToType)
             {
-                logger.debug("isAssociationEndAttachedToType " + classifier.getQualifiedName() + " " + property + " " + property.getQualifiedName() + " " + property.getAssociation() + " " + property.getAssociationEnd() + " " + attachedToType);
+                logger.debug("isAssociationEndAttachedToType " + classifier.getQualifiedName() + ' ' + property + ' ' + property.getQualifiedName() + ' ' + property.getAssociation() + ' ' + property.getAssociationEnd() + ' ' + attachedToType);
             }
         }
         return attachedToType;
@@ -430,7 +429,7 @@ public class UmlUtilities
                     associationEnds.add(property);
                     if (logger.isDebugEnabled())
                     {
-                        logger.debug("getAssociationEnds " + classifier.getQualifiedName() + ": addedAssociation " + property + " " + property.getType() + " " + property.getAssociation() + " AssociationEnd=" + property.getAssociationEnd() + " OwnedEnds=" + property.getAssociation().getOwnedEnds() + " Qualifiers=" + property.getQualifiers() + " Navigable=" + property.isNavigable());
+                        logger.debug("getAssociationEnds " + classifier.getQualifiedName() + ": addedAssociation " + property + ' ' + property.getType() + ' ' + property.getAssociation() + " AssociationEnd=" + property.getAssociationEnd() + " OwnedEnds=" + property.getAssociation().getOwnedEnds() + " Qualifiers=" + property.getQualifiers() + " Navigable=" + property.isNavigable());
                     }
                /* }*/
             }
@@ -473,8 +472,8 @@ public class UmlUtilities
             {
                 for (int i = 0; i < firstParameters.size() && sameSignature; i++)
                 {
-                    final Parameter firstParameter = (Parameter)firstParameters.get(i);
-                    final Parameter secondParameter = (Parameter)secondParameters.get(i);
+                    final Parameter firstParameter = firstParameters.get(i);
+                    final Parameter secondParameter = secondParameters.get(i);
 
                     // test each parameter's type
                     sameSignature =
@@ -533,7 +532,7 @@ public class UmlUtilities
 
         for (final TreeIterator<EObject> iterator = EcoreUtil.getRootContainer(classifier).eAllContents(); iterator.hasNext();)
         {
-            final EObject object = (EObject)iterator.next();
+            final EObject object = iterator.next();
             if (object instanceof Generalization)
             {
                 final Generalization generalization = (Generalization)object;
@@ -734,7 +733,7 @@ public class UmlUtilities
                             else
                             {
                                 String tagString = getTagValueAsString(tagValue);
-                                if (!StringUtils.isBlank(tagString) && !tagString.equalsIgnoreCase("default"))
+                                if (!StringUtils.isBlank(tagString) && !"default".equalsIgnoreCase(tagString))
                                 {
                                     TagDefinition tagDefinition =
                                         new TagDefinitionImpl(tagName, tagString);
@@ -747,7 +746,7 @@ public class UmlUtilities
             }
         }
 
-        if (logger.isDebugEnabled() && tags.size()>0)
+        if (logger.isDebugEnabled() && !tags.isEmpty())
         {
             logger.debug("Found " + tags.size() + " tagged values for " + elementName);
         }
@@ -1226,7 +1225,7 @@ public class UmlUtilities
             {
                 LiteralString litStr = (LiteralString)multValue;
                 String multString = litStr.getValue();
-                if (multString.equals("*"))
+                if ("*".equals(multString))
                 {
                     value = LiteralUnlimitedNatural.UNLIMITED;
                 }

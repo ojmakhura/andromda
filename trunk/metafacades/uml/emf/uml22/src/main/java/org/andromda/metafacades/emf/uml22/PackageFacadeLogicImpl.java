@@ -67,7 +67,7 @@ public class PackageFacadeLogicImpl
         }
         if (PackageFacadeLogicImpl.logger.isDebugEnabled())
         {
-            PackageFacadeLogicImpl.logger.debug("Found: '" + modelElement + "'");
+            PackageFacadeLogicImpl.logger.debug("Found: '" + modelElement + '\'');
         }
         return (ModelElementFacade)this.shieldedElement(modelElement);
     }

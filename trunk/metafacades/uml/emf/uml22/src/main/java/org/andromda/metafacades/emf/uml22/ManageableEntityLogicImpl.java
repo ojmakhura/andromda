@@ -128,7 +128,7 @@ public class ManageableEntityLogicImpl
         final Collection<AssociationEndFacade> associationEnds = entity.getAssociationEnds();
         for (final Iterator<AssociationEndFacade> associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
-            final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEndIterator.next();
+            final AssociationEndFacade associationEnd = associationEndIterator.next();
             final AssociationEndFacade otherEnd = associationEnd.getOtherEnd();
 
             if (otherEnd.isNavigable() && otherEnd.getType() instanceof Entity)
@@ -358,8 +358,7 @@ public class ManageableEntityLogicImpl
     @Override
     protected boolean handleIsManageable()
     {
-        return Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_MANAGEABLE_ENTITIES))
-                      .booleanValue();
+        return Boolean.valueOf((String) this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_MANAGEABLE_ENTITIES));
     }
 
     /**
@@ -372,7 +371,7 @@ public class ManageableEntityLogicImpl
         final Collection<AssociationEndFacade> associationEnds = this.getAssociationEnds();
         for (final Iterator<AssociationEndFacade> associationEndIterator = associationEnds.iterator(); associationEndIterator.hasNext();)
         {
-            final AssociationEndFacade associationEnd = (AssociationEndFacade)associationEndIterator.next();
+            final AssociationEndFacade associationEnd = associationEndIterator.next();
 
             if (associationEnd.isNavigable())
             {
@@ -425,7 +424,7 @@ public class ManageableEntityLogicImpl
             }
             else if (!attributes.isEmpty())
             {
-                displayAttribute = (AttributeFacade) attributes.iterator().next();
+                displayAttribute = attributes.iterator().next();
             }
         }
 
@@ -443,7 +442,7 @@ public class ManageableEntityLogicImpl
         final Collection<DependencyFacade> dependencies = this.getTargetDependencies();
         for (final Iterator<DependencyFacade> dependencyIterator = dependencies.iterator(); dependencyIterator.hasNext();)
         {
-            final DependencyFacade dependency = (DependencyFacade)dependencyIterator.next();
+            final DependencyFacade dependency = dependencyIterator.next();
             final Object dependencyObject = dependency.getSourceElement();
 
             if (!users.contains(dependencyObject) && dependencyObject instanceof ActorFacade)
@@ -468,7 +467,7 @@ public class ManageableEntityLogicImpl
             final Collection<ActorFacade> childActors = actor.getGeneralizedByActors();
             for (final Iterator<ActorFacade> iterator = childActors.iterator(); iterator.hasNext();)
             {
-                final ActorFacade childActor = (ActorFacade)iterator.next();
+                final ActorFacade childActor = iterator.next();
                 this.collectActors(
                     childActor,
                     actors);
@@ -581,7 +580,7 @@ public class ManageableEntityLogicImpl
         {
             try
             {
-                resolveable = Boolean.valueOf(taggedValueObject.toString()).booleanValue();
+                resolveable = Boolean.valueOf(taggedValueObject.toString());
             }
             catch (NumberFormatException e)
             {
@@ -603,9 +602,8 @@ public class ManageableEntityLogicImpl
         try
         {
             resolveable =
-                Boolean.valueOf(
-                    (String)this.getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE))
-                       .booleanValue();
+                    Boolean.valueOf(
+                            (String) this.getConfiguredProperty(UMLMetafacadeProperties.PROPERTY_DEFAULT_RESOLVEABLE));
         }
         catch (NumberFormatException ex)
         {
