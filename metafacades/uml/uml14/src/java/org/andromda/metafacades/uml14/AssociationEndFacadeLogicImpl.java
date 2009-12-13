@@ -101,7 +101,7 @@ public class AssociationEndFacadeLogicImpl
     private boolean isPluralizeAssociationEndNames()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ASSOCIATION_END_NAMES);
-        return value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
+        return value != null && Boolean.valueOf(String.valueOf(value));
     }
 
     /**
@@ -186,7 +186,7 @@ public class AssociationEndFacadeLogicImpl
                 final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    final MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
+                    final MultiplicityRange multiplicityRange = rangeIt.next();
                     final int upper = multiplicityRange.getUpper();
                     isMany = upper > 1 || upper < 0;
                 }
@@ -320,7 +320,7 @@ public class AssociationEndFacadeLogicImpl
             if (BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                name = name + "<" + this.getType().getFullyQualifiedName() + ">";
+                name = name + '<' + this.getType().getFullyQualifiedName() + '>';
             }
         }
         if (name == null && this.getType() != null)
@@ -366,16 +366,16 @@ public class AssociationEndFacadeLogicImpl
                 final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    final MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
-                    upper = new Integer(multiplicityRange.getUpper());
+                    final MultiplicityRange multiplicityRange = rangeIt.next();
+                    upper = multiplicityRange.getUpper();
                 }
             }
         }
         if (upper == null)
         {
-            upper = Integer.valueOf(1);
+            upper = 1;
         }
-        return upper.intValue();
+        return upper;
     }
 
     /**
@@ -395,8 +395,8 @@ public class AssociationEndFacadeLogicImpl
                 final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    final MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
-                    lower = new Integer(multiplicityRange.getLower());
+                    final MultiplicityRange multiplicityRange = rangeIt.next();
+                    lower = multiplicityRange.getLower();
                 }
             }
         }
@@ -405,14 +405,14 @@ public class AssociationEndFacadeLogicImpl
             final String defaultMultiplicity = this.getDefaultMultiplicity();
             if (defaultMultiplicity.startsWith("0"))
             {
-                lower = new Integer(0);
+                lower = 0;
             }
             else
             {
-                lower = new Integer(1);
+                lower = 1;
             }
         }
-        return lower.intValue();
+        return lower;
     }
 
     /**

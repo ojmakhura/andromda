@@ -143,7 +143,7 @@ public class ModelElementFacadeLogicImpl
             buffer.append(fullName);
 
             // start the parameter list
-            buffer.append("<");
+            buffer.append('<');
 
             // loop over the parameters, we are so to have at least one (see outer condition)
             final Collection<TemplateParameterFacade> templateParameters = this.getTemplateParameters();
@@ -168,7 +168,7 @@ public class ModelElementFacadeLogicImpl
             }
 
             // we're finished listing the parameters
-            buffer.append(">");
+            buffer.append('>');
 
             // we have constructed the full name in the buffer
             fullName = buffer.toString();
@@ -223,7 +223,7 @@ public class ModelElementFacadeLogicImpl
             final Collection<TaggedValueFacade> taggedValues = this.getTaggedValues();
             for (final Iterator<TaggedValueFacade> taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext();)
             {
-                TaggedValueFacade taggedValue = (TaggedValueFacade)taggedValueIterator.next();
+                TaggedValueFacade taggedValue = taggedValueIterator.next();
 
                 // does this name match the argument tagged value name ?
                 // Check both the UML14 format name @andromda.value and EMF Format andromda_whatever
@@ -376,7 +376,7 @@ public class ModelElementFacadeLogicImpl
         Collection<ModelElement> stereotypes = metaObject.getStereotype();
         for (final Iterator<ModelElement> stereotypeIt = stereotypes.iterator(); stereotypeIt.hasNext();)
         {
-            ModelElement stereotype = (ModelElement)stereotypeIt.next();
+            ModelElement stereotype = stereotypeIt.next();
             if (stereotype != null)
             {
                 stereotypeNames.add(StringUtils.trimToEmpty(stereotype.getName()));
@@ -455,7 +455,7 @@ public class ModelElementFacadeLogicImpl
         {
             for (final Iterator<Comment> commentIterator = comments.iterator(); commentIterator.hasNext();)
             {
-                final Comment comment = (Comment)commentIterator.next();
+                final Comment comment = commentIterator.next();
                 String commentString = StringUtils.trimToEmpty(comment.getBody());
 
                 // if there isn't anything in the body, try the name
@@ -579,7 +579,7 @@ public class ModelElementFacadeLogicImpl
             }
             catch (Throwable throwable)
             {
-                final String message = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                final String message = "Error getting '" + propertyName + "' --> '" + uri + '\'';
                 logger.error(
                     message,
                     throwable);
@@ -783,7 +783,7 @@ public class ModelElementFacadeLogicImpl
             Iterator<ConstraintFacade> constraintIt = constraints.iterator();
             for (int ctr = 0; constraintIt.hasNext(); ctr++)
             {
-                ConstraintFacade constraint = (ConstraintFacade)constraintIt.next();
+                ConstraintFacade constraint = constraintIt.next();
                 translatedExpressions[ctr] = constraint.getTranslation(translation);
             }
         }
@@ -827,7 +827,7 @@ public class ModelElementFacadeLogicImpl
         final Collection<StateMachine> machines = UML14MetafacadeUtils.getModel().getStateMachines().getStateMachine().refAllOfType();
         for (final Iterator<StateMachine> machineIterator = machines.iterator(); machineIterator.hasNext();)
         {
-            final StateMachine machine = (StateMachine)machineIterator.next();
+            final StateMachine machine = machineIterator.next();
             final ModelElement contextElement = machine.getContext();
             if (metaObject.equals(contextElement))
             {
@@ -958,7 +958,7 @@ public class ModelElementFacadeLogicImpl
             {
                 for (final Iterator<TemplateParameterFacade> iterator = parameters.iterator(); iterator.hasNext();)
                 {
-                    final TemplateParameterFacade currentTemplateParameter = (TemplateParameterFacade)iterator.next();
+                    final TemplateParameterFacade currentTemplateParameter = iterator.next();
                     if (currentTemplateParameter.getParameter() != null)
                     {
                         final ModelElementFacade parameter = currentTemplateParameter.getParameter();

@@ -110,7 +110,7 @@ public class UMLModelAccessFacade
             Collection<ModelElement> stereotypes = element.getStereotype();
             for (final Iterator<ModelElement> iterator = stereotypes.iterator(); iterator.hasNext();)
             {
-                ModelElement stereotype = (ModelElement)iterator.next();
+                ModelElement stereotype = iterator.next();
                 stereotypeNames.add(stereotype.getName());
             }
         }
@@ -161,7 +161,7 @@ public class UMLModelAccessFacade
      */
     public Collection<MetafacadeBase> getModelElements()
     {
-        Collection<MetafacadeBase> metafacades = Collections.EMPTY_LIST;
+        Collection<MetafacadeBase> metafacades = Collections.emptyList();
         if (this.model != null)
         {
             metafacades =

@@ -121,9 +121,9 @@ public class OperationFacadeLogicImpl
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append(name);
-        buffer.append("(");
+        buffer.append('(');
         buffer.append(this.getArgumentNames());
-        buffer.append(")");
+        buffer.append(')');
         return buffer.toString();
     }
 
@@ -204,9 +204,8 @@ public class OperationFacadeLogicImpl
     {
         Classifier type = null;
         final Collection<Parameter> parms = metaObject.getParameter();
-        for (final Iterator<Parameter> iterator = parms.iterator(); iterator.hasNext();)
+        for (final Parameter parameter : parms)
         {
-            final Parameter parameter = (Parameter)iterator.next();
             if (ParameterDirectionKindEnum.PDK_RETURN.equals(parameter.getKind()))
             {
                 type = parameter.getType();
@@ -427,8 +426,8 @@ public class OperationFacadeLogicImpl
         boolean hasReturnType = false;
         if (this.getReturnType() != null)
         {
-            hasReturnType = !(StringUtils.trimToEmpty(
-                this.getReturnType().getFullyQualifiedName()).equalsIgnoreCase("void")
+            hasReturnType = !("void".equalsIgnoreCase(StringUtils.trimToEmpty(
+                    this.getReturnType().getFullyQualifiedName()))
               || StringUtils.trimToEmpty(
                 this.getReturnType().getFullyQualifiedName(true)).equals(UMLProfile.VOID_TYPE_NAME));
         }
@@ -516,12 +515,12 @@ public class OperationFacadeLogicImpl
                 if (StringUtils.isNotBlank(modifier))
                 {
                     buffer.append(modifier);
-                    buffer.append(" ");
+                    buffer.append(' ');
                 }
                 buffer.append(type);
                 if (withArgumentNames)
                 {
-                    buffer.append(" ");
+                    buffer.append(' ');
                     buffer.append(paramter.getName());
                 }
                 commaNeeded = true;

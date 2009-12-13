@@ -42,7 +42,7 @@ public class GeneralizableElementFacadeLogicImpl
         final Collection<GeneralizableElementFacade> generalizations = new ArrayList();
         for (final Iterator<GeneralizableElementFacade> iterator = this.getGeneralizations().iterator(); iterator.hasNext();)
         {
-            final GeneralizableElementFacade element = (GeneralizableElementFacade)iterator.next();
+            final GeneralizableElementFacade element = iterator.next();
             generalizations.add(element);
             generalizations.addAll(element.getAllGeneralizations());
         }
@@ -64,7 +64,7 @@ public class GeneralizableElementFacadeLogicImpl
             Iterator<Generalization> iterator = generalizations.iterator();
             if (iterator.hasNext())
             {
-                parent = ((Generalization)iterator.next()).getParent();
+                parent = iterator.next().getParent();
             }
         }
         return parent;
@@ -83,7 +83,7 @@ public class GeneralizableElementFacadeLogicImpl
             Iterator<Generalization> iterator = generalizations.iterator();
             while (iterator.hasNext())
             {
-                parents.add(((Generalization)iterator.next()).getParent());
+                parents.add(iterator.next().getParent());
             }
         }
         return this.shieldedElements(parents);

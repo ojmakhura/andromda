@@ -39,7 +39,7 @@ public class EntityAssociationLogicImpl
         final Collection<AssociationEndFacade> ends = this.getAssociationEnds();
         if (ends != null && !ends.isEmpty())
         {
-            final AssociationEndFacade end = (AssociationEndFacade)ends.iterator().next();
+            final AssociationEndFacade end = ends.iterator().next();
             if (end.isMany2Many())
             {
                 // prevent ClassCastException if the association isn't an

@@ -33,7 +33,7 @@ public class ValueObjectAssociationEndLogicImpl
         if (this.isMany())
         {
             boolean useArrays = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(
-                    UMLMetafacadeProperties.USE_ARRAYS_FOR_MULTIPLICITIES_OF_TYPE_MANY))).booleanValue();
+                    UMLMetafacadeProperties.USE_ARRAYS_FOR_MULTIPLICITIES_OF_TYPE_MANY)));
             if (useArrays)
             {
                 if (this.getType() != null)

@@ -85,7 +85,7 @@ public class FrontEndActionLogicImpl
     protected List handleGetParameters()
     {
         final EventFacade trigger = this.getTrigger();
-        return trigger == null ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
+        return trigger == null ? Collections.emptyList() : new ArrayList(trigger.getParameters());
     }
     
     /**
@@ -160,7 +160,7 @@ public class FrontEndActionLogicImpl
         final Collection<FrontEndForward> forwards = this.getActionForwards();
         for (final Iterator<FrontEndForward> iterator = forwards.iterator(); iterator.hasNext();)
         {
-            final FrontEndForward forward = (FrontEndForward)iterator.next();
+            final FrontEndForward forward = iterator.next();
             if (forward.isEnteringView())
             {
                 targetViews.add(forward.getTarget());
@@ -236,7 +236,7 @@ public class FrontEndActionLogicImpl
             final Collection<TransitionFacade> outcomes = target.getOutgoings();
             for (final Iterator<TransitionFacade> iterator = outcomes.iterator(); iterator.hasNext();)
             {
-                final TransitionFacade outcome = (TransitionFacade)iterator.next();
+                final TransitionFacade outcome = iterator.next();
                 collectTransitions(
                     outcome,
                     processedTransitions);
@@ -258,7 +258,7 @@ public class FrontEndActionLogicImpl
             final Collection<TransitionFacade> outcomes = target.getOutgoings();
             for (final Iterator<TransitionFacade> iterator = outcomes.iterator(); iterator.hasNext();)
             {
-                final TransitionFacade outcome = (TransitionFacade)iterator.next();
+                final TransitionFacade outcome = iterator.next();
                 collectTransitions(
                     outcome,
                     processedTransitions);
@@ -312,7 +312,7 @@ public class FrontEndActionLogicImpl
     protected FrontEndController handleGetController()
     {
         final FrontEndActivityGraph graph = this.getFrontEndActivityGraph();
-        return (FrontEndController)(graph == null ? null : graph.getController());
+        return graph == null ? null : graph.getController();
     }
 
     /**
@@ -453,7 +453,7 @@ public class FrontEndActionLogicImpl
                 final Collection<FrontEndParameter> forwardParameters = forward.getForwardParameters();
                 for (final Iterator<FrontEndParameter> parameterIterator = forwardParameters.iterator(); parameterIterator.hasNext();)
                 {
-                    final FrontEndParameter facade = (FrontEndParameter)parameterIterator.next();
+                    final FrontEndParameter facade = parameterIterator.next();
                     if (!formFieldMap.containsKey(facade.getName()))
                     {
                         formFieldMap.put(
@@ -487,7 +487,7 @@ public class FrontEndActionLogicImpl
                 final OperationFacade operation = (OperationFacade)iterator.next();
                 for (final Iterator<ParameterFacade> parameterIterator = operation.getArguments().iterator(); parameterIterator.hasNext();)
                 {
-                    final ParameterFacade parameter = (ParameterFacade)parameterIterator.next();
+                    final ParameterFacade parameter = parameterIterator.next();
                     formFieldMap.put(parameter.getName(), parameter);
                 }
             }

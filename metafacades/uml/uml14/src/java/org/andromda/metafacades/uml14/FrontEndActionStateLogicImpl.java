@@ -159,7 +159,7 @@ public class FrontEndActionStateLogicImpl
                 final Collection<FrontEndAction> actions = ((FrontEndUseCase)useCase).getActions();
                 for (final Iterator<FrontEndAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
                 {
-                    final FrontEndAction action = (FrontEndAction)actionIterator.next();
+                    final FrontEndAction action = actionIterator.next();
                     if (action.getActionStates().contains(this))
                     {
                         actionSet.add(action);

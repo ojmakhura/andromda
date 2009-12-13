@@ -262,7 +262,7 @@ public class EntityLogicImpl
     {
         final StringBuffer buffer = new StringBuffer();
         String separator = "";
-        buffer.append("(");
+        buffer.append('(');
 
         final Collection<AttributeFacade> attributes = new ArrayList(this.getAttributes());
 
@@ -288,13 +288,13 @@ public class EntityLogicImpl
                     {
                         buffer.append(attribute.getType().getFullyQualifiedName());
                     }
-                    buffer.append(" ");
+                    buffer.append(' ');
                     buffer.append(attribute.getName());
                     separator = ", ";
                 }
             }
         }
-        buffer.append(")");
+        buffer.append(')');
         return buffer.toString();
     }
 
@@ -689,8 +689,7 @@ public class EntityLogicImpl
      */
     private boolean isAllowDefaultIdentifiers()
     {
-        return Boolean.valueOf((String)this.getConfiguredProperty(UMLMetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS))
-                      .booleanValue();
+        return Boolean.valueOf((String) this.getConfiguredProperty(UMLMetafacadeProperties.ALLOW_DEFAULT_IDENTITIFIERS));
     }
 
     /**
@@ -738,7 +737,7 @@ public class EntityLogicImpl
                     true);
             for (final Iterator<AttributeFacade> iterator = identifiers.iterator(); iterator.hasNext();)
             {
-                final AttributeFacade identifier = (AttributeFacade)iterator.next();
+                final AttributeFacade identifier = iterator.next();
                 this.createIdentifier(
                     identifier.getName(),
                     identifier.getType().getFullyQualifiedName(true),
@@ -812,10 +811,9 @@ public class EntityLogicImpl
         {
             final AttributeFacade identifier = (AttributeFacade)identifiers.iterator().next();
             assigned =
-                Boolean.valueOf(
-                    ObjectUtils.toString(
-                        identifier.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSIGNED_IDENTIFIER)))
-                       .booleanValue();
+                    Boolean.valueOf(
+                            ObjectUtils.toString(
+                                    identifier.findTaggedValue(UMLProfile.TAGGEDVALUE_PERSISTENCE_ASSIGNED_IDENTIFIER)));
         }
         return assigned;
     }

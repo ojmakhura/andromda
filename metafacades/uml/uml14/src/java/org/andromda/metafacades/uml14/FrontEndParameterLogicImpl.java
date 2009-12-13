@@ -140,7 +140,7 @@ public class FrontEndParameterLogicImpl
             {
                 final String tableTaggedValue = ObjectUtils.toString(this.findTaggedValue(UMLProfile.TAGGEDVALUE_PRESENTATION_IS_TABLE));
                 isTable =
-                    StringUtils.isNotBlank(tableTaggedValue) ? Boolean.valueOf(tableTaggedValue.trim()).booleanValue() : true;
+                    StringUtils.isNotBlank(tableTaggedValue) ? Boolean.valueOf(tableTaggedValue.trim()) : true;
                 if (!isTable)
                 {
                     isTable = !this.getTableColumnNames().isEmpty();

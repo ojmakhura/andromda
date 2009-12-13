@@ -240,7 +240,7 @@ public class ClassifierFacadeLogicImpl
             }
             catch (final Throwable throwable)
             {
-                final String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                final String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
                 logger.error(
                     errMsg,
                     throwable);
@@ -408,8 +408,8 @@ public class ClassifierFacadeLogicImpl
     protected boolean handleIsStringType()
     {
         // Allow mapping multiple model types to String type
-        return this.getFullyQualifiedName().equals("String")
-           ||  this.getFullyQualifiedName().equals("java.lang.String")
+        return "String".equals(this.getFullyQualifiedName())
+           || "java.lang.String".equals(this.getFullyQualifiedName())
            || UMLMetafacadeUtils.isType(this, UMLProfile.STRING_TYPE_NAME);
     }
 
@@ -442,11 +442,11 @@ public class ClassifierFacadeLogicImpl
         {
             for (final Iterator<AttributeFacade> iterator = superClass.getAttributes().iterator(); iterator.hasNext();)
             {
-                final AttributeFacade superAttribute = (AttributeFacade)iterator.next();
+                final AttributeFacade superAttribute = iterator.next();
                 boolean present = false;
                 for (final Iterator<AttributeFacade> attributeIterator = this.getAttributes().iterator(); attributeIterator.hasNext();)
                 {
-                    final AttributeFacade attribute = (AttributeFacade)attributeIterator.next();
+                    final AttributeFacade attribute = attributeIterator.next();
                     if (attribute.getName().equals(superAttribute.getName()))
                     {
                         present = true;
@@ -556,7 +556,7 @@ public class ClassifierFacadeLogicImpl
                     boolean present = false;
                     for (final Iterator<AssociationEndFacade> endIterator = this.getAssociationEnds().iterator(); endIterator.hasNext();)
                     {
-                        final AssociationEndFacade associationEnd = (AssociationEndFacade)endIterator.next();
+                        final AssociationEndFacade associationEnd = endIterator.next();
                         if (associationEnd.getName().equals(superAssociationEnd.getName()))
                         {
                             present = true;
@@ -581,7 +581,7 @@ public class ClassifierFacadeLogicImpl
     {
         final StringBuffer call = new StringBuffer();
         String separator = "";
-        call.append("(");
+        call.append('(');
         for (final Iterator iterator = getAttributes().iterator(); iterator.hasNext();)
         {
             AttributeFacade attribute = (AttributeFacade)iterator.next();
@@ -589,11 +589,11 @@ public class ClassifierFacadeLogicImpl
             call.append(separator);
             String typeName = attribute.getType().getFullyQualifiedName();
             call.append(typeName);
-            call.append(" ");
+            call.append(' ');
             call.append(attribute.getName());
             separator = ", ";
         }
-        call.append(")");
+        call.append(')');
         return call.toString();
     }
 
@@ -755,7 +755,7 @@ public class ClassifierFacadeLogicImpl
     {
         ClassifierFacade arrayType = (ClassifierFacade)this.THIS();
         String name = this.getFullyQualifiedName(true);
-        if (name.indexOf(this.getArraySuffix()) == -1)
+        if (!name.contains(this.getArraySuffix()))
         {
             name = name + this.getArraySuffix();
             arrayType = (ClassifierFacade)this.getRootPackage().findModelElement(name);
@@ -916,7 +916,7 @@ public class ClassifierFacadeLogicImpl
         }
         final String signature = buffer.toString();
 
-        Long serialVersionUID = new Long(0L);
+        long serialVersionUID = 0L;
         try
         {
             MessageDigest md = MessageDigest.getInstance("SHA");
@@ -927,7 +927,7 @@ public class ClassifierFacadeLogicImpl
             {
                 hash = (hash << 8) | (hashBytes[ctr] & 0xFF);
             }
-            serialVersionUID = new Long(hash);
+            serialVersionUID = hash;
         }
         catch (final NoSuchAlgorithmException exception)
         {
@@ -1002,7 +1002,7 @@ public class ClassifierFacadeLogicImpl
                 boolean present = false;
                 for (final Iterator<AssociationEndFacade> endIterator = this.getAssociationEnds().iterator(); endIterator.hasNext();)
                 {
-                    final AssociationEndFacade associationEnd = (AssociationEndFacade)endIterator.next();
+                    final AssociationEndFacade associationEnd = endIterator.next();
                     if (associationEnd.getName().equals(superAssociationEnd.getName()))
                     {
                         present = true;
@@ -1042,7 +1042,7 @@ public class ClassifierFacadeLogicImpl
         final List<AssociationEndFacade> associationEnds = this.getAssociationEnds();
         for (int i = 0; i < associationEnds.size(); i++)
         {
-            final AssociationEndFacade associationEndFacade = (AssociationEndFacade)associationEnds.get(i);
+            final AssociationEndFacade associationEndFacade = associationEnds.get(i);
             associatedClasses.add(associationEndFacade.getOtherEnd().getType());
         }
 

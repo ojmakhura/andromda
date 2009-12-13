@@ -141,7 +141,7 @@ public class FrontEndViewLogicImpl
         final Collection<FrontEndAction> actions = this.getActions();
         for (final Iterator<FrontEndAction> iterator = actions.iterator(); iterator.hasNext();)
         {
-            final FrontEndAction action = (FrontEndAction)iterator.next();
+            final FrontEndAction action = iterator.next();
             actionParameters.addAll(action.getParameters());
         }
         return actionParameters;
@@ -157,7 +157,7 @@ public class FrontEndViewLogicImpl
         final Collection<FrontEndAction> actions = getActions();
         for (final Iterator<FrontEndAction> iterator = actions.iterator(); iterator.hasNext();)
         {
-            final FrontEndAction action = (FrontEndAction)iterator.next();
+            final FrontEndAction action = iterator.next();
             actionParameters.addAll(action.getParameters());
         }
         return actionParameters;
@@ -172,7 +172,7 @@ public class FrontEndViewLogicImpl
         final List<FrontEndParameter> variables = new ArrayList<FrontEndParameter>(this.getVariables());
         for (final Iterator<FrontEndParameter> iterator = variables.iterator(); iterator.hasNext();)
         {
-            final FrontEndParameter parameter = (FrontEndParameter)iterator.next();
+            final FrontEndParameter parameter = iterator.next();
             if (!parameter.isTable())
             {
                 iterator.remove();

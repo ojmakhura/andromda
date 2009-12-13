@@ -25,7 +25,7 @@ public class CallEventFacadeLogicImpl
     {
         super(metaObject, context);
     }
-
+                   
     /**
      * @see org.andromda.metafacades.uml.CallEventFacade#getOperation()
      */
@@ -41,7 +41,7 @@ public class CallEventFacadeLogicImpl
     @Override
     protected List<OperationFacade> handleGetOperations()
     {
-        final Object operation = this.getOperation();
-        return operation == null ? Collections.EMPTY_LIST : Collections.singletonList(operation);
+        final OperationFacade operation = this.getOperation();
+        return operation == null ? Collections.<OperationFacade>emptyList() : Collections.singletonList(operation);
     }
 }

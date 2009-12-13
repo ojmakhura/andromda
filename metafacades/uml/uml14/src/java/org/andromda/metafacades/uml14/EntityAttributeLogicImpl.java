@@ -197,7 +197,7 @@ public class EntityAttributeLogicImpl
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
                 logger.error(errMsg, th);
                 // don't throw the exception
             }

@@ -112,7 +112,7 @@ public class FrontEndControllerOperationLogicImpl
             final List<FrontEndForward> forwards = action.getActionForwards();
             for (final Iterator<FrontEndForward> forwardIterator = forwards.iterator(); forwardIterator.hasNext();)
             {
-                final FrontEndForward forward = (FrontEndForward)forwardIterator.next();
+                final FrontEndForward forward = forwardIterator.next();
                 // - only consider forwards directly entering a view
                 if (forward.isEnteringView())
                 {
@@ -278,7 +278,7 @@ public class FrontEndControllerOperationLogicImpl
                 }
                 catch (ClassCastException e)
                 {
-                    logger.error("ClassCastException on handleIsAllArgumentsHaveFormFields for " + obj + " " + e.getMessage());
+                    logger.error("ClassCastException on handleIsAllArgumentsHaveFormFields for " + obj + ' ' + e.getMessage());
                 }
             }
             allArgumentsHaveFormFields = !actionMissingField;

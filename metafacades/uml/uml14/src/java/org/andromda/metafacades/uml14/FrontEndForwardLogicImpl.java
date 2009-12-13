@@ -176,7 +176,7 @@ public class FrontEndForwardLogicImpl
         this.actionStates = new LinkedHashSet<FrontEndActionState>();
         this.collectTransitions(
             this,
-            new LinkedHashSet());
+            new LinkedHashSet<TransitionFacade>());
     }
 
     /**
@@ -272,9 +272,9 @@ public class FrontEndForwardLogicImpl
                     if (!pseudostate.isInitialState())
                     {
                         final Collection<TransitionFacade> incomingForwards = pseudostate.getIncomings();
-                        for (final Iterator<TransitionFacade> forwardIterator = incomingForwards.iterator(); forwardIterator.hasNext();)
+                        for (TransitionFacade incomingForward : incomingForwards)
                         {
-                            final FrontEndForward forward = (FrontEndForward)forwardIterator.next();
+                            final FrontEndForward forward = (FrontEndForward) incomingForward;
                             actions.addAll(forward.getActions());
                         }
                     }
@@ -307,7 +307,7 @@ public class FrontEndForwardLogicImpl
     protected List<ParameterFacade> handleGetForwardParameters()
     {
         final EventFacade trigger = this.getTrigger();
-        return trigger == null ? Collections.EMPTY_LIST : new ArrayList<ParameterFacade>(trigger.getParameters());
+        return trigger != null ? new ArrayList<ParameterFacade>(trigger.getParameters()) : Collections.<ParameterFacade>emptyList();
     }
 
     /**
