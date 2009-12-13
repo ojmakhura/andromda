@@ -47,13 +47,11 @@ public class ReturnCarControllerImpl extends ReturnCarController
      * You may delete it when you add you own code in this controller.
      */
     private static final java.util.Collection contractDummyList =
-        java.util.Arrays.asList( new Object[] {
-            new ContractDummy("contractNo-1", "signed-1", "id-1"),
-            new ContractDummy("contractNo-2", "signed-2", "id-2"),
-            new ContractDummy("contractNo-3", "signed-3", "id-3"),
-            new ContractDummy("contractNo-4", "signed-4", "id-4"),
-            new ContractDummy("contractNo-5", "signed-5", "id-5")
-        } );
+        java.util.Arrays.asList(new ContractDummy("contractNo-1", "signed-1", "id-1"),
+                new ContractDummy("contractNo-2", "signed-2", "id-2"),
+                new ContractDummy("contractNo-3", "signed-3", "id-3"),
+                new ContractDummy("contractNo-4", "signed-4", "id-4"),
+                new ContractDummy("contractNo-5", "signed-5", "id-5"));
 
     /**
      * This inner class is used in the dummy implementation in order to get the web application

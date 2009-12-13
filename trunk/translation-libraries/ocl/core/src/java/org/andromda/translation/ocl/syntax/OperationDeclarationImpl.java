@@ -62,12 +62,12 @@ public class OperationDeclarationImpl
     public String toString()
     {
         StringBuffer toString = new StringBuffer(this.getName());
-        toString.append("(");
+        toString.append('(');
         if (this.getArguments().length > 0)
         {
             toString.append(StringUtils.join(this.getArguments(), ','));
         }
-        toString.append(")");
+        toString.append(')');
         if (StringUtils.isNotEmpty(this.getReturnType()))
         {
             toString.append("::");

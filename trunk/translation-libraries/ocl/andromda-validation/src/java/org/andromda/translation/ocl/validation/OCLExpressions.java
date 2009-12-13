@@ -110,11 +110,11 @@ public final class OCLExpressions
             final Comparable comparable = (Comparable)first;
             if (comparable instanceof Integer)
             {
-                equal = comparable.compareTo(Integer.valueOf((int)second)) > 0;
+                equal = comparable.compareTo((int) second) > 0;
             }
             else
             {
-                equal = comparable.equals(Long.valueOf(second));
+                equal = comparable.equals(second);
             }
         }
         return equal;
@@ -128,7 +128,7 @@ public final class OCLExpressions
         if (equal)
         {
             final Comparable comparable = (Comparable)first;
-            equal = comparable.equals(new Integer(second));
+            equal = comparable.equals(second);
         }
         return equal;
     }
@@ -471,11 +471,11 @@ public final class OCLExpressions
             final Comparable comparable = (Comparable)first;
             if (comparable instanceof Integer)
             {
-                greater = comparable.compareTo(Integer.valueOf((int)second)) > 0;
+                greater = comparable.compareTo((int) second) > 0;
             }
             else
             {
-                greater = comparable.compareTo(Long.valueOf(second)) > 0;
+                greater = comparable.compareTo(second) > 0;
             }
         }
         return greater;
@@ -491,11 +491,11 @@ public final class OCLExpressions
             final Comparable comparable = (Comparable)first;
             if (comparable instanceof Integer)
             {
-                greater = comparable.compareTo(Integer.valueOf(second)) > 0;
+                greater = comparable.compareTo(second) > 0;
             }
             else
             {
-                greater = comparable.compareTo(Long.valueOf(second)) > 0;
+                greater = comparable.compareTo((long) second) > 0;
             }
         }
         return greater;

@@ -50,7 +50,7 @@ public class MDRepositoryFacadeTest
             this.modelURL = TestModel.getModel();
             if (logger.isInfoEnabled())
             {
-                logger.info("found model --> '" + modelURL + "'");
+                logger.info("found model --> '" + modelURL + '\'');
             }
             
             NamespaceComponents.instance().discover();

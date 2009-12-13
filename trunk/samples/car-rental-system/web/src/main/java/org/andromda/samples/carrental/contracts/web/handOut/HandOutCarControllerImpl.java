@@ -46,13 +46,11 @@ public class HandOutCarControllerImpl extends HandOutCarController
      * You may delete it when you add you own code in this controller.
      */
     private static final java.util.Collection availableCarsDummyList =
-        java.util.Arrays.asList( new Object[] {
-            new AvailableCarsDummy("inventoryNo-1", "registrationNo-1", "id-1"),
-            new AvailableCarsDummy("inventoryNo-2", "registrationNo-2", "id-2"),
-            new AvailableCarsDummy("inventoryNo-3", "registrationNo-3", "id-3"),
-            new AvailableCarsDummy("inventoryNo-4", "registrationNo-4", "id-4"),
-            new AvailableCarsDummy("inventoryNo-5", "registrationNo-5", "id-5")
-        } );
+        java.util.Arrays.asList(new AvailableCarsDummy("inventoryNo-1", "registrationNo-1", "id-1"),
+                new AvailableCarsDummy("inventoryNo-2", "registrationNo-2", "id-2"),
+                new AvailableCarsDummy("inventoryNo-3", "registrationNo-3", "id-3"),
+                new AvailableCarsDummy("inventoryNo-4", "registrationNo-4", "id-4"),
+                new AvailableCarsDummy("inventoryNo-5", "registrationNo-5", "id-5"));
 
     /**
      * This inner class is used in the dummy implementation in order to get the web application
@@ -108,13 +106,11 @@ public class HandOutCarControllerImpl extends HandOutCarController
      * You may delete it when you add you own code in this controller.
      */
     private static final java.util.Collection customerReservationsDummyList =
-        java.util.Arrays.asList( new Object[] {
-            new CustomerReservationsDummy("comfortClass-1", "reservationDate-1", "idReservation-1"),
-            new CustomerReservationsDummy("comfortClass-2", "reservationDate-2", "idReservation-2"),
-            new CustomerReservationsDummy("comfortClass-3", "reservationDate-3", "idReservation-3"),
-            new CustomerReservationsDummy("comfortClass-4", "reservationDate-4", "idReservation-4"),
-            new CustomerReservationsDummy("comfortClass-5", "reservationDate-5", "idReservation-5")
-        } );
+        java.util.Arrays.asList(new CustomerReservationsDummy("comfortClass-1", "reservationDate-1", "idReservation-1"),
+                new CustomerReservationsDummy("comfortClass-2", "reservationDate-2", "idReservation-2"),
+                new CustomerReservationsDummy("comfortClass-3", "reservationDate-3", "idReservation-3"),
+                new CustomerReservationsDummy("comfortClass-4", "reservationDate-4", "idReservation-4"),
+                new CustomerReservationsDummy("comfortClass-5", "reservationDate-5", "idReservation-5"));
 
     /**
      * This inner class is used in the dummy implementation in order to get the web application

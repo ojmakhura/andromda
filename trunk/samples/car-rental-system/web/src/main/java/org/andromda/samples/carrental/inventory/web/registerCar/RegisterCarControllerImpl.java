@@ -41,13 +41,11 @@ public class RegisterCarControllerImpl extends RegisterCarController
      * You may delete it when you add you own code in this controller.
      */
     private static final java.util.Collection existingcarsDummyList =
-        java.util.Arrays.asList( new Object[] {
-            new ExistingcarsDummy("inventoryNo-1", "registrationNo-1", "id-1"),
-            new ExistingcarsDummy("inventoryNo-2", "registrationNo-2", "id-2"),
-            new ExistingcarsDummy("inventoryNo-3", "registrationNo-3", "id-3"),
-            new ExistingcarsDummy("inventoryNo-4", "registrationNo-4", "id-4"),
-            new ExistingcarsDummy("inventoryNo-5", "registrationNo-5", "id-5")
-        } );
+        java.util.Arrays.asList(new ExistingcarsDummy("inventoryNo-1", "registrationNo-1", "id-1"),
+                new ExistingcarsDummy("inventoryNo-2", "registrationNo-2", "id-2"),
+                new ExistingcarsDummy("inventoryNo-3", "registrationNo-3", "id-3"),
+                new ExistingcarsDummy("inventoryNo-4", "registrationNo-4", "id-4"),
+                new ExistingcarsDummy("inventoryNo-5", "registrationNo-5", "id-5"));
 
     /**
      * This inner class is used in the dummy implementation in order to get the web application

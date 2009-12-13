@@ -100,10 +100,10 @@ public final class OCLIntrospector
         {
             // At least output the location where the error happened, not the entire stack trace.
             StackTraceElement[] trace = throwable.getStackTrace();
-            String location = " AT " + trace[0].getClassName() + "." + trace[0].getMethodName() + ":" + trace[0].getLineNumber();
+            String location = " AT " + trace[0].getClassName() + '.' + trace[0].getMethodName() + ':' + trace[0].getLineNumber();
             if (throwable.getMessage()!=null)
             {
-                location += " " + throwable.getMessage();
+                location += ' ' + throwable.getMessage();
             }
             /*final String message =
                 "Error invoking feature '" + feature + "' on element '" + element + "' with arguments '" +

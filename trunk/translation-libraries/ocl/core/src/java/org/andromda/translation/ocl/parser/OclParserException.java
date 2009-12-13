@@ -36,13 +36,13 @@ public class OclParserException
         int position = 0;
         if (this.errorLine != -1)
         {
-            String message = "line: " + errorLine + " ";
+            String message = "line: " + errorLine + ' ';
             this.messageBuffer.insert(0, message);
             position = message.length();
         }
         if (this.errorColumn != -1)
         {
-            String message = "column: " + errorColumn + " ";
+            String message = "column: " + errorColumn + ' ';
             this.messageBuffer.insert(position, message);
             position = position + message.length();
         }

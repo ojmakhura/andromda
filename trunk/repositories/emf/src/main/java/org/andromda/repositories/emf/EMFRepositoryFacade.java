@@ -82,17 +82,17 @@ public abstract class EMFRepositoryFacade
             Resource modelResource = this.resourceSet.createResource(EMFRepositoryFacadeUtils.createUri(uri));
             if (modelResource == null)
             {
-                throw new RepositoryFacadeException("'" + uri + "' is an invalid model");
+                throw new RepositoryFacadeException('\'' + uri + "' is an invalid model");
             }
             modelResource.load(this.getLoadOptions());
             // Show errors and warnings, if any....
             EList errors = modelResource.getErrors();
-            if (errors!=null && errors.size()>0)
+            if (errors!=null && !errors.isEmpty())
             {
                 logger.info(errors);
             }
             EList warnings = modelResource.getWarnings();
-            if (warnings!=null && warnings.size()>0)
+            if (warnings!=null && !warnings.isEmpty())
             {
                 logger.info(warnings);
             }

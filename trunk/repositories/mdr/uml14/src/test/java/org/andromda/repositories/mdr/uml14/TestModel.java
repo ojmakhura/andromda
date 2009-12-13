@@ -18,7 +18,7 @@ public class TestModel
             URL modelUri = TestModel.class.getResource(testModel);
             if (modelUri == null)
             {
-                throw new RuntimeException("Could not load '" + testModel + "'");
+                throw new RuntimeException("Could not load '" + testModel + '\'');
             }
             if (modelUri != null)
             {
@@ -26,7 +26,7 @@ public class TestModel
                 modelUri = new URL(jarUrl);
                 if (modelUri == null)
                 {
-                    throw new RuntimeException("Could not load '" + jarUrl + "'");
+                    throw new RuntimeException("Could not load '" + jarUrl + '\'');
                 }
             }
             return modelUri;

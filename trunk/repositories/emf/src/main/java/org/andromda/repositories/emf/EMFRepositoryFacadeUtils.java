@@ -32,7 +32,7 @@ class EMFRepositoryFacadeUtils
     {
         if (!uri.startsWith(ARCHIVE_FILE_PREFIX) && uri.startsWith(FILE_PREFIX))
         {
-            final String filePrefixWithSlash = FILE_PREFIX + "/";
+            final String filePrefixWithSlash = FILE_PREFIX + '/';
             if (!uri.startsWith(filePrefixWithSlash))
             {
                 uri = StringUtils.replaceOnce(

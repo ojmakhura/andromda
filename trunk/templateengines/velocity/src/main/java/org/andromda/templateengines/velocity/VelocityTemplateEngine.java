@@ -181,7 +181,7 @@ public class VelocityTemplateEngine
         {
             if (logger.isDebugEnabled())
             {
-                logger.debug("loading properties from --> '" + propertiesUri + "'");
+                logger.debug("loading properties from --> '" + propertiesUri + '\'');
             }
 
             this.properties = new Properties();
@@ -193,7 +193,7 @@ public class VelocityTemplateEngine
                 final String value = this.properties.getProperty(property);
                 if (logger.isDebugEnabled())
                 {
-                    logger.debug("setting property '" + property + "' with --> '" + value + "'");
+                    logger.debug("setting property '" + property + "' with --> '" + value + '\'');
                 }
                 this.velocityEngine.setProperty(property, value);
             }
@@ -216,7 +216,7 @@ public class VelocityTemplateEngine
         {
             logger.debug(
                 "performing " + methodName + " with templateFile '" + templateFile + "' and templateObjects '" +
-                templateObjects + "'");
+                templateObjects + '\'');
         }
         ExceptionUtils.checkEmpty("templateFile", templateFile);
         ExceptionUtils.checkNull("output", output);
@@ -274,7 +274,7 @@ public class VelocityTemplateEngine
      */
     private String getMergedTemplateLocation(String templatePath)
     {
-        return this.getMergedTemplatesLocation() + "/" + templatePath;
+        return this.getMergedTemplatesLocation() + '/' + templatePath;
     }
 
     /**
@@ -286,7 +286,7 @@ public class VelocityTemplateEngine
      */
     private String getMergedTemplatesLocation()
     {
-        return TEMPORARY_TEMPLATE_LOCATION + "/" + this.namespace;
+        return TEMPORARY_TEMPLATE_LOCATION + '/' + this.namespace;
     }
 
     /**

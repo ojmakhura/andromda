@@ -40,6 +40,6 @@ public final class OCLResultEnsurer
      */
     public static boolean ensure(Object result)
     {
-        return result != null && Boolean.valueOf(result.toString()).booleanValue();
+        return result != null && Boolean.valueOf(result.toString());
     }
 }

@@ -137,7 +137,7 @@ public class EMFUML2RepositoryFacade extends EMFRepositoryFacade
         String m2repository = System.getenv("M2_REPO");
         if (m2repository!=null)
         {
-            URI uri = URI.createURI(m2repository.replace("\\", "/") + "/");
+            URI uri = URI.createURI(m2repository.replace("\\", "/") + '/');
             // This doesn't seem to load the pathmap resources from the m2repository.
             uriMap.put(URI.createURI("pathmap://m2repository/"), uri.appendSegment(""));
             // m2repository conflicts with pathmap variable added by Sonatype eclipse plugin, use M2_REPO instead.

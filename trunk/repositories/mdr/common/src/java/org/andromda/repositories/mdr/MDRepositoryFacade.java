@@ -202,7 +202,7 @@ public class MDRepositoryFacade
         }
         if (this.metamodelUri == null)
         {
-            throw new RepositoryFacadeException("No metamodel could be loaded from --> '" + metamodelLocation + "'");
+            throw new RepositoryFacadeException("No metamodel could be loaded from --> '" + metamodelLocation + '\'');
         }
     }
 
@@ -270,7 +270,7 @@ public class MDRepositoryFacade
             else
             {
                 throw new RepositoryFacadeException("The 'xmiReaderFactory' must be an instance of '" +
-                    XMIReaderFactory.class.getName() + "'");
+                    XMIReaderFactory.class.getName() + '\'');
             }
         }
         return factory;
@@ -389,7 +389,7 @@ public class MDRepositoryFacade
         long start = System.currentTimeMillis();
         if (logger.isDebugEnabled())
         {
-            logger.debug("creating MetaModel using URL --> '" + metamodelUri + "'");
+            logger.debug("creating MetaModel using URL --> '" + metamodelUri + '\'');
         }
 
         // Use the metamodelUri as the name for the repository extent.
@@ -462,7 +462,7 @@ public class MDRepositoryFacade
     {
         if (logger.isDebugEnabled())
         {
-            logger.debug("loadModel: starting to load model from '" + modelUris[0] + "'");
+            logger.debug("loadModel: starting to load model from '" + modelUris[0] + '\'');
         }
         long start = System.currentTimeMillis();
 

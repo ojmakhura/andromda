@@ -249,10 +249,10 @@ public abstract class BaseTranslator
                     contextElement +
                     "' and expression --> '" +
                     expression +
-                    "'" +
+                    '\'' +
                     "\nMESSAGE --> '" +
                     ex.getMessage() +
-                    "'";
+                    '\'';
             logger.error(errMsg);
             throw new TranslatorException(errMsg, ex);
         }

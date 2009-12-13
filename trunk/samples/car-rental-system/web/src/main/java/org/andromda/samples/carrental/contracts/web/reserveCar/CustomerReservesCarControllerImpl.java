@@ -51,13 +51,11 @@ public class CustomerReservesCarControllerImpl extends CustomerReservesCarContro
      * You may delete it when you add you own code in this controller.
      */
     private static final java.util.Collection reservationsDummyList =
-        java.util.Arrays.asList( new Object[] {
-            new ReservationsDummy("reservationDate-1", "comfortClass-1", "idReservation-1"),
-            new ReservationsDummy("reservationDate-2", "comfortClass-2", "idReservation-2"),
-            new ReservationsDummy("reservationDate-3", "comfortClass-3", "idReservation-3"),
-            new ReservationsDummy("reservationDate-4", "comfortClass-4", "idReservation-4"),
-            new ReservationsDummy("reservationDate-5", "comfortClass-5", "idReservation-5")
-        } );
+        java.util.Arrays.asList(new ReservationsDummy("reservationDate-1", "comfortClass-1", "idReservation-1"),
+                new ReservationsDummy("reservationDate-2", "comfortClass-2", "idReservation-2"),
+                new ReservationsDummy("reservationDate-3", "comfortClass-3", "idReservation-3"),
+                new ReservationsDummy("reservationDate-4", "comfortClass-4", "idReservation-4"),
+                new ReservationsDummy("reservationDate-5", "comfortClass-5", "idReservation-5"));
 
     /**
      * This inner class is used in the dummy implementation in order to get the web application

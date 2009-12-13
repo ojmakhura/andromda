@@ -35,7 +35,7 @@ public class OCLIntrospectorTestObject
         return propertyOne;
     }
 
-    protected static Integer propertyTwo = new Integer(2);
+    protected static Integer propertyTwo = 2;
 
     public Integer getPropertyTwo()
     {

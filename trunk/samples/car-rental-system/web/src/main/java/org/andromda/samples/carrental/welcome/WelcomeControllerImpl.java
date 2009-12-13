@@ -24,7 +24,7 @@ public class WelcomeControllerImpl
         HttpServletResponse response) throws Exception
     {
         final String welcomeMessage = "Welcome to the Andromda Car Rental Sample Application.\n"
-            + "\n"
+            + '\n'
             + "This is the replacement Car Rental Application using the BPM4Struts cartridge."
             + "This is work in progress." + "It is basically a skeleton application."
             + "Over time the functions in this application will be implemented.";

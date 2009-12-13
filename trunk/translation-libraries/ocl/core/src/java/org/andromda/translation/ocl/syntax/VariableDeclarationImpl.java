@@ -65,7 +65,7 @@ public class VariableDeclarationImpl
         StringBuffer toString = new StringBuffer(this.getName());
         if (StringUtils.isNotEmpty(this.getType()))
         {
-            toString.append(":");
+            toString.append(':');
             toString.append(this.getType());
         }
         return toString.toString();

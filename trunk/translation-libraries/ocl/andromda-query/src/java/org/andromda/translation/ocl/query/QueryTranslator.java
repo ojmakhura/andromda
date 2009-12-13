@@ -199,9 +199,9 @@ public class QueryTranslator
 
         if (StringUtils.isNotEmpty(selectClauseTail) && StringUtils.isNotEmpty(existingExpression))
         {
-            this.selectClause.append(" ");
+            this.selectClause.append(' ');
             this.selectClause.append(selectClauseTail);
-            this.selectClause.append(" ");
+            this.selectClause.append(' ');
         }
 
         this.getExpression().insertInTranslatedExpression(0, selectClause.toString());
@@ -233,7 +233,7 @@ public class QueryTranslator
         // is the first feature call from the list of feature calls)
         translation = this.replaceFragment(translation, TranslationUtils.trimToEmpty(primaryExpression), 0);
 
-        this.selectClause.append(" ");
+        this.selectClause.append(' ');
         this.selectClause.append(translation);
     }
 
