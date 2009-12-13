@@ -58,7 +58,7 @@ public class MDRXmiReferenceResolverContext
     {
         if (logger.isDebugEnabled())
         {
-            logger.debug("attempting to resolve Xmi Href --> '" + systemId + "'");
+            logger.debug("attempting to resolve Xmi Href --> '" + systemId + '\'');
         }
 
         final String suffix = this.getSuffix(systemId);
@@ -104,7 +104,7 @@ public class MDRXmiReferenceResolverContext
         }
         if (modelUrl != null && !this.loggedReferencedModels.contains(modelUrl))
         {
-            AndroMDALogger.info("referenced model --> '" + modelUrl + "'");
+            AndroMDALogger.info("referenced model --> '" + modelUrl + '\'');
             this.loggedReferencedModels.add(modelUrl);
         }
         return modelUrl;
@@ -182,7 +182,7 @@ public class MDRXmiReferenceResolverContext
      */
     private final String getSuffix(String systemId)
     {
-        int lastSlash = systemId.lastIndexOf("/");
+        int lastSlash = systemId.lastIndexOf('/');
         if (lastSlash > 0)
         {
             String suffix = systemId.substring(lastSlash + 1);
@@ -224,7 +224,7 @@ public class MDRXmiReferenceResolverContext
                     {
                         if (logger.isDebugEnabled())
                         {
-                            logger.debug("searching for model reference --> '" + modelUrl + "'");
+                            logger.debug("searching for model reference --> '" + modelUrl + '\'');
                         }
                         String suffix = CLASSPATH_MODEL_SUFFIXES[ctr];
                         modelUrl = ResourceUtils.getResource(modelName + dot + suffix);

@@ -308,7 +308,7 @@ public final class OCLCollections
      */
     public static Set asOrderedSet(final Collection collection)
     {
-        return collection == null ? Collections.EMPTY_SET : SetUtils.orderedSet(new TreeSet(collection));
+        return collection == null ? Collections.emptySet() : SetUtils.orderedSet(new TreeSet(collection));
     }
 
     /**
@@ -316,7 +316,7 @@ public final class OCLCollections
      */
     public static List asSequence(final Collection collection)
     {
-        return collection == null ? Collections.EMPTY_LIST : new ArrayList(collection);
+        return collection == null ? Collections.emptyList() : new ArrayList(collection);
     }
 
     /**
@@ -324,7 +324,7 @@ public final class OCLCollections
      */
     public static Set asSet(final Collection collection)
     {
-        return collection == null ? Collections.EMPTY_SET : new HashSet(collection);
+        return collection == null ? Collections.emptySet() : new HashSet(collection);
     }
 
     /**

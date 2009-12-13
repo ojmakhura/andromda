@@ -31,7 +31,7 @@ public class TranslationTestDiscoverer
     /**
      * Names of ignored files when file.isDirectory()
      */
-    private static final List IGNORED_DIRECTORIES = Arrays.asList(new String[] { "CVS", ".svn" });
+    private static final List IGNORED_DIRECTORIES = Arrays.asList("CVS", ".svn");
 
     /**
      * Stores the discovered translation tests.
@@ -87,7 +87,7 @@ public class TranslationTestDiscoverer
             {
                 if (logger.isDebugEnabled())
                 {
-                    logger.debug("no files or directories found in directory '" + currentDirectory + "'");
+                    logger.debug("no files or directories found in directory '" + currentDirectory + '\'');
                 }
             }
             else
@@ -100,7 +100,7 @@ public class TranslationTestDiscoverer
                         final URL testUrl = file.toURL();
                         if (logger.isInfoEnabled())
                         {
-                            logger.info("found translation test --> '" + testUrl + "'");
+                            logger.info("found translation test --> '" + testUrl + '\'');
                         }
 
                         TranslationTest test =

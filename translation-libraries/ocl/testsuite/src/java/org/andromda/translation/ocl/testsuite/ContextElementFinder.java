@@ -87,11 +87,11 @@ public class ContextElementFinder
             this.contextElement = this.findModelElement(contextElementName.replaceAll("::", "\\."));
             if (this.contextElement != null)
             {
-                logger.info("found context element --> '" + contextElementName + "'");
+                logger.info("found context element --> '" + contextElementName + '\'');
             }
             else
             {
-                logger.info("Could not find model element --> '" + contextElementName + "'");
+                logger.info("Could not find model element --> '" + contextElementName + '\'');
             }
 
             if (this.contextElement != null && this.operation != null &&

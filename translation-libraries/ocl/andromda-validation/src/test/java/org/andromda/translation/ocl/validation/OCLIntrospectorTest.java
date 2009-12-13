@@ -42,7 +42,7 @@ public class OCLIntrospectorTest extends TestCase
         OCLIntrospector.invoke(object, "methodThree (argOne) ", new Object[]{"argOne"});
         String stringValue = "argOne";
         assertEquals(OCLIntrospector.invoke(object, "methodFour( argOne )", new Object[]{stringValue}), stringValue);
-        Integer integerValue = new Integer(76);
+        Integer integerValue = 76;
         assertEquals(OCLIntrospector.invoke(object, "methodFive(argOne, argTwo)",
                 new Object[]{stringValue, integerValue}), integerValue);
     }

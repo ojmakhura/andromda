@@ -46,8 +46,8 @@ public class EMFUML2RepositoryFacadeTest
     {
         NamedElement element = (NamedElement)modelElement;
         System.out.println("element: " + element);
-        System.out.println("getAppliedStereotypes: " + element.getAppliedStereotypes().size() + " " + element.getAppliedStereotypes());
-        System.out.println("getApplicableStereotypes: " + element.getApplicableStereotypes().size() + " " + element.getApplicableStereotypes());
+        System.out.println("getAppliedStereotypes: " + element.getAppliedStereotypes().size() + ' ' + element.getAppliedStereotypes());
+        System.out.println("getApplicableStereotypes: " + element.getApplicableStereotypes().size() + ' ' + element.getApplicableStereotypes());
         //System.out.println("getLabel: " + element.getLabel());
         System.out.println("getName: " + element.getName());
         System.out.println("getQualifiedName: " + element.getQualifiedName());
@@ -60,10 +60,10 @@ public class EMFUML2RepositoryFacadeTest
         //System.out.println("getClientDependencies: " + element.getClientDependencies().size() + " " + element.getClientDependencies());
         System.out.println("getNearestPackage: " + element.getNearestPackage());
         //System.out.println("getOwnedComments: " + element.getOwnedComments().size() + " " + element.getOwnedComments());
-        System.out.println("getOwnedElements: " + element.getOwnedElements().size() + " " + element.getOwnedElements());
+        System.out.println("getOwnedElements: " + element.getOwnedElements().size() + ' ' + element.getOwnedElements());
         System.out.println("getOwner: " + element.getOwner());
-        System.out.println("getRelationships: " + element.getRelationships().size() + " " + element.getRelationships());
-        System.out.println("getRequiredStereotypes: " + element.getRequiredStereotypes().size() + " " + element.getRequiredStereotypes());
+        System.out.println("getRelationships: " + element.getRelationships().size() + ' ' + element.getRelationships());
+        System.out.println("getRequiredStereotypes: " + element.getRequiredStereotypes().size() + ' ' + element.getRequiredStereotypes());
         //System.out.println("getSourceDirectedRelationships: " + element.getSourceDirectedRelationships().size() + " " + element.getSourceDirectedRelationships());
         //System.out.println("getStereotypeApplications: " + element.getStereotypeApplications().size() + " " + element.getStereotypeApplications());
         //System.out.println("getTargetDirectedRelationships: " + element.getTargetDirectedRelationships().size() + " " + element.getTargetDirectedRelationships());

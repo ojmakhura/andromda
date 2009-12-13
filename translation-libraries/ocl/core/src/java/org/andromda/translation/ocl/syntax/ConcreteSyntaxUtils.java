@@ -174,7 +174,7 @@ public class ConcreteSyntaxUtils
                 }
             }
         }
-        return (VariableDeclaration[])declarations.toArray(new VariableDeclaration[0]);
+        return (VariableDeclaration[]) declarations.toArray(new VariableDeclaration[declarations.size()]);
     }
 
     /**
@@ -307,14 +307,14 @@ public class ConcreteSyntaxUtils
             // append the first part of the primary expression
             primaryExpression.append(TranslationUtils.trimToEmpty(expression.getPrimaryExpression()));
             List expressionTail = expression.getPropertyCallExpressionTail();
-            if (expressionTail.size() > 0)
+            if (!expressionTail.isEmpty())
             {
                 Iterator expressionTailIt = expressionTail.iterator();
                 while (expressionTailIt.hasNext())
                 {
                     final String tail = TranslationUtils.trimToEmpty(expressionTailIt.next());
                     // beak out if we encounter an arrow feature call
-                    if (tail.indexOf(ARROW_FEATURE_CALL) != -1)
+                    if (tail.contains(ARROW_FEATURE_CALL))
                     {
                         break;
                     }
@@ -340,7 +340,7 @@ public class ConcreteSyntaxUtils
         final String methodName = "ConcreteSyntaxUtils.getFeatureCalls";
         if (logger.isDebugEnabled())
         {
-            logger.debug("performing " + methodName + " with expression --> '" + expression + "'");
+            logger.debug("performing " + methodName + " with expression --> '" + expression + '\'');
         }
         List featureCalls = new ArrayList();
         if (expression != null)
@@ -382,7 +382,7 @@ public class ConcreteSyntaxUtils
                 for (int ctr = 1; ctr < size; ctr++)
                 {
                     String featureCall = TranslationUtils.trimToEmpty(featureCalls.get(ctr));
-                    if (featureCall.indexOf(ARROW_FEATURE_CALL) != -1 || featureCall.indexOf('(') != -1)
+                    if (featureCall.contains(ARROW_FEATURE_CALL) || featureCall.indexOf('(') != -1)
                     {
                         break;
                     }

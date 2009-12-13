@@ -35,8 +35,8 @@ public class OCLFeatures
     /**
      * Matches on any of the features.
      */
-    private static final String ALL_PATTERNS = ALL_INSTANCES + "|" + OCL_IS_KIND_OF + "|"
-        + OCL_IS_TYPE_OF + "|" + CONCAT;
+    private static final String ALL_PATTERNS = ALL_INSTANCES + '|' + OCL_IS_KIND_OF + '|'
+        + OCL_IS_TYPE_OF + '|' + CONCAT;
 
     /**
      * Indicates if the expression is an <em>allInstances</em>. OCL feature.

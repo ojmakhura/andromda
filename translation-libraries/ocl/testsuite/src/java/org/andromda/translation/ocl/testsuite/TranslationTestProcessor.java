@@ -287,7 +287,7 @@ public class TranslationTestProcessor
         {
             if (logger.isInfoEnabled())
             {
-                logger.info("testing translation --> '" + translation + "'");
+                logger.info("testing translation --> '" + translation + '\'');
             }
 
             TranslationTest test = testDiscoverer.getTest(translation);
@@ -357,8 +357,8 @@ public class TranslationTestProcessor
                             toExpression = TranslationUtils.removeExtraWhitespace(toExpression);
                             if (logger.isInfoEnabled())
                             {
-                                logger.info("translated: --> '" + translated.getTranslatedExpression() + "'");
-                                logger.info("expected:   --> '" + toExpression + "'");
+                                logger.info("translated: --> '" + translated.getTranslatedExpression() + '\'');
+                                logger.info("expected:   --> '" + toExpression + '\'');
                             }
                             TestCase.assertEquals(
                                 toExpression,
@@ -372,7 +372,7 @@ public class TranslationTestProcessor
         {
             if (logger.isInfoEnabled())
             {
-                logger.info("skipping translation --> '" + translation + "'");
+                logger.info("skipping translation --> '" + translation + '\'');
             }
         }
     }

@@ -75,13 +75,11 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
      * You may delete it when you add you own code in this controller.
      */
     private static final java.util.Collection customersDummyList =
-        java.util.Arrays.asList( new Object[] {
-            new CustomersDummy("customerNo-1", "name-1"),
-            new CustomersDummy("customerNo-2", "name-2"),
-            new CustomersDummy("customerNo-3", "name-3"),
-            new CustomersDummy("customerNo-4", "name-4"),
-            new CustomersDummy("customerNo-5", "name-5")
-        } );
+        java.util.Arrays.asList(new CustomersDummy("customerNo-1", "name-1"),
+                new CustomersDummy("customerNo-2", "name-2"),
+                new CustomersDummy("customerNo-3", "name-3"),
+                new CustomersDummy("customerNo-4", "name-4"),
+                new CustomersDummy("customerNo-5", "name-5"));
 
     /**
      * This inner class is used in the dummy implementation in order to get the web application
@@ -125,13 +123,11 @@ public class RegisterCustomerControllerImpl extends RegisterCustomerController
      * You may delete it when you add you own code in this controller.
      */
     private static final java.util.Collection driversDummyList =
-        java.util.Arrays.asList( new Object[] {
-            new DriversDummy("name-1", "surname-1", "licenseNo-1"),
-            new DriversDummy("name-2", "surname-2", "licenseNo-2"),
-            new DriversDummy("name-3", "surname-3", "licenseNo-3"),
-            new DriversDummy("name-4", "surname-4", "licenseNo-4"),
-            new DriversDummy("name-5", "surname-5", "licenseNo-5")
-        } );
+        java.util.Arrays.asList(new DriversDummy("name-1", "surname-1", "licenseNo-1"),
+                new DriversDummy("name-2", "surname-2", "licenseNo-2"),
+                new DriversDummy("name-3", "surname-3", "licenseNo-3"),
+                new DriversDummy("name-4", "surname-4", "licenseNo-4"),
+                new DriversDummy("name-5", "surname-5", "licenseNo-5"));
 
     /**
      * This inner class is used in the dummy implementation in order to get the web application

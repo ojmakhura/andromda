@@ -35,13 +35,11 @@ public class RegisterAccidentControllerImpl extends RegisterAccidentController
      * You may delete it when you add you own code in this controller.
      */
     private static final java.util.Collection contractsDummyList =
-        java.util.Arrays.asList( new Object[] {
-            new ContractsDummy("contractNo-1", "signed-1", "idContract-1"),
-            new ContractsDummy("contractNo-2", "signed-2", "idContract-2"),
-            new ContractsDummy("contractNo-3", "signed-3", "idContract-3"),
-            new ContractsDummy("contractNo-4", "signed-4", "idContract-4"),
-            new ContractsDummy("contractNo-5", "signed-5", "idContract-5")
-        } );
+        java.util.Arrays.asList(new ContractsDummy("contractNo-1", "signed-1", "idContract-1"),
+                new ContractsDummy("contractNo-2", "signed-2", "idContract-2"),
+                new ContractsDummy("contractNo-3", "signed-3", "idContract-3"),
+                new ContractsDummy("contractNo-4", "signed-4", "idContract-4"),
+                new ContractsDummy("contractNo-5", "signed-5", "idContract-5"));
 
     /**
      * This inner class is used in the dummy implementation in order to get the web application

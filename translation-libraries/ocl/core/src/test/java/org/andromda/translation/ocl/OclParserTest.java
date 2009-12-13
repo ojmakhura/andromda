@@ -67,7 +67,7 @@ public class OclParserTest
             URL url = ResourceUtils.getResource(VALID_SYNTAX);
             if (url == null)
             {
-                TestCase.fail("Could not load resource '" + VALID_SYNTAX + "'");
+                TestCase.fail("Could not load resource '" + VALID_SYNTAX + '\'');
             }
             DepthFirstAdapter adapter = new DepthFirstAdapter();
             Lexer lexer = new Lexer(new PushbackReader(new FileReader(url.getFile())));

@@ -215,7 +215,7 @@ public class TraceTranslator
             File dir = this.getAdaptedClassOutputDirectory();
             if (logger.isDebugEnabled())
             {
-                logger.debug("writing className '" + className + "' to directory --> " + "'" + dir + "'");
+                logger.debug("writing className '" + className + "' to directory --> " + '\'' + dir + '\'');
             }
             this.pool.writeFile(this.getClass().getName(), dir.toString());
         }
@@ -241,7 +241,7 @@ public class TraceTranslator
         File dir = file.getParentFile();
         if (dir == null)
         {
-            throw new TranslatorException(methodName + " - can not retrieve directory for file '" + file + "'");
+            throw new TranslatorException(methodName + " - can not retrieve directory for file '" + file + '\'');
         }
         String className = thisClass.getName();
         int index = className.indexOf('.');
@@ -272,13 +272,13 @@ public class TraceTranslator
         ExceptionUtils.checkNull("method", method);
         StringBuffer methodBody = new StringBuffer("{");
         String methodName = method.getName();
-        methodBody.append("String methodName = \"" + methodName + "\";");
+        methodBody.append("String methodName = \"").append(methodName).append("\";");
         methodBody.append(this.getMethodTrace(method));
         //add the call of the super class method, so that any methods in sub
         // classes
         //can provide functionality
-        methodBody.append("super." + methodName + "($1);");
-        methodBody.append("}");
+        methodBody.append("super.").append(methodName).append("($1);");
+        methodBody.append('}');
         return methodBody.toString();
     }
 
@@ -293,13 +293,13 @@ public class TraceTranslator
         ExceptionUtils.checkNull("method", method);
         StringBuffer methodBody = new StringBuffer("{");
         String methodName = method.getName();
-        methodBody.append("String methodName = \"" + methodName + "\";");
+        methodBody.append("String methodName = \"").append(methodName).append("\";");
         methodBody.append(this.getMethodTrace(method));
         //add the call of the super class method, so that any methods in sub
         // classes
         //can provide functionality
-        methodBody.append("super." + methodName + "($1);");
-        methodBody.append("}");
+        methodBody.append("super.").append(methodName).append("($1);");
+        methodBody.append('}');
         return methodBody.toString();
     }
 
@@ -314,13 +314,13 @@ public class TraceTranslator
         ExceptionUtils.checkNull("method", method);
         StringBuffer methodBody = new StringBuffer("{");
         String methodName = method.getName();
-        methodBody.append("String methodName = \"" + methodName + "\";");
+        methodBody.append("String methodName = \"").append(methodName).append("\";");
         methodBody.append(this.getMethodTrace(method));
         //add the call of the super class method, so that any methods in sub
         // classes
         //can provide functionality
-        methodBody.append("super." + methodName + "($1);");
-        methodBody.append("}");
+        methodBody.append("super.").append(methodName).append("($1);");
+        methodBody.append('}');
         return methodBody.toString();
     }
 
@@ -514,7 +514,7 @@ public class TraceTranslator
      *
      * @param args
      */
-    public static void main(String args[])
+    public static void main(String[] args)
     {
         try
         {

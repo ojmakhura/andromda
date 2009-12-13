@@ -147,7 +147,7 @@ public class ValidationJavaTranslator
             URL featuresUri = ValidationJavaTranslator.class.getResource("features.properties");
             if (featuresUri == null)
             {
-                throw new ModelProcessorException("Could not load file --> '" + featuresUri + "'");
+                throw new ModelProcessorException("Could not load file --> '" + featuresUri + '\'');
             }
             features = new Properties();
             InputStream stream = featuresUri.openStream();
@@ -175,7 +175,7 @@ public class ValidationJavaTranslator
     {
         newTranslationLayer();
         {
-            Object temp[] = node.getContextDeclaration().toArray();
+            Object[] temp = node.getContextDeclaration().toArray();
             for (int ctr = 0; ctr < temp.length; ctr++)
             {
                 ((PContextDeclaration)temp[ctr]).apply(this);
@@ -191,7 +191,7 @@ public class ValidationJavaTranslator
         // explicity call super method so
         // that we can set the type of the expression
         super.inAClassifierContextDeclaration(node);
-        Object temp[] = node.getClassifierExpressionBody().toArray();
+        Object[] temp = node.getClassifierExpressionBody().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
             ((PClassifierExpressionBody)temp[ctr]).apply(this);
     }
@@ -201,7 +201,7 @@ public class ValidationJavaTranslator
         // explicity call super method so
         // that we can set the type of the expression
         super.inAOperationContextDeclaration(node);
-        Object temp[] = node.getOperationExpressionBody().toArray();
+        Object[] temp = node.getOperationExpressionBody().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
             ((POperationExpressionBody)temp[ctr]).apply(this);
     }
@@ -209,7 +209,7 @@ public class ValidationJavaTranslator
     public void caseAAttributeOrAssociationContextDeclaration(AAttributeOrAssociationContextDeclaration node)
     {
         super.inAAttributeOrAssociationContextDeclaration(node);
-        Object temp[] = node.getAttributeOrAssociationExpressionBody().toArray();
+        Object[] temp = node.getAttributeOrAssociationExpressionBody().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
             ((PAttributeOrAssociationExpressionBody)temp[ctr]).apply(this);
     }
@@ -343,7 +343,7 @@ public class ValidationJavaTranslator
         if (node.getVariableDeclarationValue() != null)
             node.getVariableDeclarationValue().apply(this);
 
-        Object temp[] = node.getVariableDeclarationListTail().toArray();
+        Object[] temp = node.getVariableDeclarationListTail().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
             ((PVariableDeclarationListTail)temp[ctr]).apply(this);
     }
@@ -402,7 +402,7 @@ public class ValidationJavaTranslator
     {
         newTranslationLayer();
         node.getPrimaryExpression().apply(this);
-        Object temp[] = node.getPropertyCallExpressionTail().toArray();
+        Object[] temp = node.getPropertyCallExpressionTail().toArray();
         for (int ctr = 0; ctr < temp.length; ctr++)
             ((PPropertyCallExpressionTail)temp[ctr]).apply(this);
         mergeTranslationLayerAfter();
@@ -489,11 +489,11 @@ public class ValidationJavaTranslator
             // if we don't have a package define, attempt to find the model
             // element
             // in the same package as the context element.
-            if (type.indexOf(".") == -1)
+            if (type.indexOf('.') == -1)
             {
                 if (this.getModelElement() != null)
                 {
-                    type = this.getModelElement().getPackageName() + "." + type;
+                    type = this.getModelElement().getPackageName() + '.' + type;
                 }
             }
         }
@@ -578,7 +578,7 @@ public class ValidationJavaTranslator
      */
     private String getPathTail(String navigationalPath)
     {
-        final int dotIndex = navigationalPath.indexOf(".");
+        final int dotIndex = navigationalPath.indexOf('.');
         return dotIndex != -1 ? navigationalPath.substring(dotIndex + 1, navigationalPath.length()) : navigationalPath;
     }
 
@@ -713,7 +713,7 @@ public class ValidationJavaTranslator
             list = (AActualParameterList)params.getActualParameterList();
         }
         boolean arrow = this.arrowPropertyCallStack.peek().equals(Boolean.TRUE) &&
-                !String.valueOf(list).trim().equals("");
+                StringUtils.isNotBlank(String.valueOf(list));
         {
             newTranslationLayer();
             final String navigationalPath = ConcreteSyntaxUtils.getArrowFeatureCallResultNavigationalPath(
@@ -848,7 +848,7 @@ public class ValidationJavaTranslator
         {
             node.getRelationalExpression().apply(this);
         }
-        Object tails[] = node.getLogicalExpressionTail().toArray();
+        Object[] tails = node.getLogicalExpressionTail().toArray();
         for (int ctr = 0; ctr < tails.length; ctr++)
         {
             ((ALogicalExpressionTail)tails[ctr]).apply(this);
