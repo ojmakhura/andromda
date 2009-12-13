@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
-
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndActionState;
@@ -34,6 +34,10 @@ import org.apache.commons.lang.StringUtils;
 public class FrontEndForwardLogicImpl
     extends FrontEndForwardLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndForwardLogicImpl(
         final Object metaObject,
         final String context)
@@ -42,6 +46,7 @@ public class FrontEndForwardLogicImpl
     }
 
     /**
+     * @return getFrontEndActivityGraph() != null
      * @see org.andromda.metafacades.uml.FrontEndForward#isContainedInFrontEndUseCase()
      */
     protected boolean handleIsContainedInFrontEndUseCase()
@@ -50,6 +55,7 @@ public class FrontEndForwardLogicImpl
     }
 
     /**
+     * @return getStateMachine() instanceof FrontEndActivityGraph
      * @see org.andromda.metafacades.uml.FrontEndForward#getFrontEndActivityGraph()
      */
     protected Object handleGetFrontEndActivityGraph()
@@ -98,6 +104,7 @@ public class FrontEndForwardLogicImpl
     }
 
     /**
+     * @return lowerCamelCaseName(this.getName())
      * @see org.andromda.metafacades.uml.FrontEndForward#getActionMethodName()
      */
     protected String handleGetActionMethodName()
@@ -106,6 +113,7 @@ public class FrontEndForwardLogicImpl
     }
 
     /**
+     * @return getTarget() instanceof FrontEndView
      * @see org.andromda.metafacades.uml.FrontEndForward#isEnteringView()
      */
     protected boolean handleIsEnteringView()
@@ -114,6 +122,7 @@ public class FrontEndForwardLogicImpl
     }
 
     /**
+     * @return getSource() instanceof FrontEndView
      * @see org.andromda.metafacades.uml.FrontEndForward#isExitingView()
      */
     protected boolean handleIsExitingView()
@@ -122,6 +131,7 @@ public class FrontEndForwardLogicImpl
     }
 
     /**
+     * @return getFrontEndActivityGraph().getUseCase() instanceof FrontEndUseCase
      * @see org.andromda.metafacades.uml.FrontEndForward#getUseCase()
      */
     protected Object handleGetUseCase()
@@ -146,9 +156,10 @@ public class FrontEndForwardLogicImpl
     private Collection actionStates = null;
 
     /**
+     * @return actionStates
      * @see org.andromda.metafacades.uml.FrontEndAction#getActionStates()
      */
-    protected java.util.List handleGetActionStates()
+    protected List handleGetActionStates()
     {
         if (this.actionStates == null)
         {
@@ -204,6 +215,7 @@ public class FrontEndForwardLogicImpl
     }
 
     /**
+     * @return isEnteringDecisionPoint(): getTrigger()
      * @see org.andromda.metafacades.uml.FrontEndAction#getDecisionTrigger()
      */
     protected Object handleGetDecisionTrigger()
@@ -212,9 +224,10 @@ public class FrontEndForwardLogicImpl
     }
 
     /**
+     * @return findActions(actions)
      * @see org.andromda.metafacades.uml.FrontEndAction#getActions()
      */
-    protected java.util.List handleGetActions()
+    protected List handleGetActions()
     {
         final Set actions = new LinkedHashSet();
         this.findActions(
@@ -298,15 +311,17 @@ public class FrontEndForwardLogicImpl
     }
 
     /**
+     * @return getTrigger().getParameters()
      * @see org.andromda.metafacades.uml.FrontEndAction#getForwardParameters()
      */
-    protected java.util.List handleGetForwardParameters()
+    protected List handleGetForwardParameters()
     {
         final EventFacade trigger = this.getTrigger();
         return trigger == null ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
     }
 
     /**
+     * @return getTrigger() instanceof FrontEndEvent getControllerCall()
      * @see org.andromda.metafacades.uml.FrontEndAction#getOperationCall()
      */
     protected Object handleGetOperationCall()

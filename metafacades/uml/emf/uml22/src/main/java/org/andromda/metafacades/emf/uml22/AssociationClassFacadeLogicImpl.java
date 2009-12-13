@@ -1,7 +1,7 @@
 package org.andromda.metafacades.emf.uml22;
 
-import org.apache.commons.collections.CollectionUtils;
 import java.util.Collection;
+import org.apache.commons.collections.CollectionUtils;
 import org.eclipse.uml2.uml.AssociationClass;
 
 /**
@@ -15,8 +15,8 @@ public class AssociationClassFacadeLogicImpl
 {
     /**
      * Public constructor for AssociationClassFacadeLogicImpl
-     * @param metaObject 
-     * @param context 
+     * @param metaObject
+     * @param context
      * @see org.andromda.metafacades.uml.AssociationClassFacade
      */
     public AssociationClassFacadeLogicImpl(

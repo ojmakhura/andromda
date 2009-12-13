@@ -11,7 +11,9 @@ import org.andromda.utils.StringUtilsHelper;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.StringUtils;
+import org.eclipse.uml2.Class;
 import org.eclipse.uml2.MultiplicityElement;
+import org.eclipse.uml2.Type;
 
 
 /**
@@ -41,7 +43,7 @@ public class AttributeFacadeLogicImpl
     @Override
     protected String handleGetGetterName()
     {
-        return UMLMetafacadeUtils.getGetterPrefix(this.getType()) + StringUtils.capitalize(this.getName());
+        return UMLMetafacadeUtils.getGetterPrefix(this.getType(), this.getLower()) + StringUtils.capitalize(this.getName());
     }
 
     /**
@@ -83,7 +85,6 @@ public class AttributeFacadeLogicImpl
             {
                 defaultValue = "'" + defaultValue.charAt(0) + "'";
             }
-            //if (!defaultValue.equals("")) System.out.println("Attribute.handleGetDefaultValue " + this.getName() + " typeName=" + typeName + " defaultValue=" + defaultValue + " upper=" + this.metaObject.getUpper());
         }
         if (defaultValue==null) defaultValue="";
         return defaultValue;
@@ -116,7 +117,8 @@ public class AttributeFacadeLogicImpl
     {
         // Because of MD11.5 (their multiplicity are String), we cannot use
         // isMultiValued()
-        return this.getUpper() > 1 || this.getUpper() == MultiplicityElement.UNLIMITED_UPPER_BOUND;
+        return this.getUpper() > 1 || this.getUpper() == MultiplicityElement.UNLIMITED_UPPER_BOUND
+        || this.getType().getName().endsWith("[]");
     }
 
     /**
@@ -167,7 +169,7 @@ public class AttributeFacadeLogicImpl
         if (this.isEnumerationLiteral())
         {
             value = this.getDefaultValue();
-            value = (StringUtils.isEmpty(value)) ? this.getName() : String.valueOf(value);
+            value = (StringUtils.isBlank(value)) ? this.getName() : String.valueOf(value);
         }
         if (this.getType().isStringType() && value!=null && value.indexOf('"')<0)
         {
@@ -214,7 +216,7 @@ public class AttributeFacadeLogicImpl
         }
         return parametersExist;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#getGetterSetterTypeName()
      */
@@ -225,20 +227,53 @@ public class AttributeFacadeLogicImpl
         if (this.isMany())
         {
             final TypeMappings mappings = this.getLanguageMappings();
+            //TODO: Create Implementation types for declared types, with mappings from declaration -> implementation
+            /*if (this.handleIsUnique())
+            {
+                name =
+                    this.isOrdered() ? mappings.getTo(UMLProfile.ORDERED_SET_TYPE_NAME)
+                                     : mappings.getTo(UMLProfile.SET_TYPE_NAME);
+            }
+            else
+            {*/
             name =
                 this.isOrdered() ? mappings.getTo(UMLProfile.LIST_TYPE_NAME)
                                  : mappings.getTo(UMLProfile.COLLECTION_TYPE_NAME);
+            /*}*/
 
             // set this attribute's type as a template parameter if required
             if (BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                name = name + "<" + this.getType().getFullyQualifiedName() + ">";
+                String type = this.getType().getFullyQualifiedName();
+                if (this.getType().isPrimitive())
+                {
+                    // Can't template primitive values, Objects only. Convert to wrapped.
+                    type = StringUtils.capitalize(type);
+                    // TODO Map from primitive to wrapped types
+                    if (type.equals("Int")) {type = "Integer";}
+                }
+                name += "<" + type + ">";
             }
         }
         if (name == null && this.getType() != null)
         {
             name = this.getType().getFullyQualifiedName();
+            // Special case: lower bound overrides primitive/wrapped type declaration
+            // TODO Apply to all primitive types, not just booleans. This is a special case because of is/get Getters.
+            if (this.getType().isBooleanType())
+            {
+                if (this.getType().isPrimitive() && this.getLower() < 1)
+                {
+                    // Type is optional, should not be primitive
+                    name = StringUtils.capitalize(name);
+                }
+                else if (!this.getType().isPrimitive() && this.getLower() > 0)
+                {
+                    // Type is required, should not be wrapped
+                    name = StringUtils.uncapitalize(name);
+                }
+            }
         }
         return name;
     }
@@ -265,7 +300,7 @@ public class AttributeFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AttributeFacade#getOwner()
      */
     @Override
-    protected Object handleGetOwner()
+    protected Class handleGetOwner()
     {
         // This is sure for attribute
         return this.metaObject.getClass_();
@@ -284,7 +319,7 @@ public class AttributeFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AttributeFacade#getType()
      */
     @Override
-    protected Object handleGetType()
+    protected Type handleGetType()
     {
         return this.metaObject.getType();
     }
@@ -293,9 +328,9 @@ public class AttributeFacadeLogicImpl
      * @see org.andromda.metafacades.uml.AttributeFacade#getEnumeration()
      */
     @Override
-    protected Object handleGetEnumeration()
+    protected EnumerationFacade handleGetEnumeration()
     {
-        return this.isEnumerationLiteral() ? this.getOwner() : null;
+        return (EnumerationFacade)(this.isEnumerationLiteral() ? this.getOwner() : null);
     }
 
     @Override
@@ -303,7 +338,7 @@ public class AttributeFacadeLogicImpl
     {
         return StringUtils.isNotBlank(this.getDefaultValue());
     }
-    
+
     /**
      * Overridden to provide different handling of the name if this attribute represents a literal.
      *
@@ -323,7 +358,7 @@ public class AttributeFacadeLogicImpl
         {
             name = StringUtilsHelper.pluralize(name);
         }
-        
+
         return name;
     }
 

@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.eclipse.uml2.uml.Behavior;
 import org.eclipse.uml2.uml.State;
 

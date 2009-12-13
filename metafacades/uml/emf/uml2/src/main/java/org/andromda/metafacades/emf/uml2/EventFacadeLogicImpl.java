@@ -1,9 +1,11 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.util.Collection;
+import org.eclipse.uml2.Activity;
 import org.eclipse.uml2.Element;
+import org.eclipse.uml2.Parameter;
 import org.eclipse.uml2.State;
 import org.eclipse.uml2.Transition;
-
 
 /**
  * MetafacadeLogic implementation for org.andromda.metafacades.uml.EventFacade.
@@ -15,8 +17,12 @@ import org.eclipse.uml2.Transition;
 public class EventFacadeLogicImpl
     extends EventFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EventFacadeLogicImpl(
-        final org.eclipse.uml2.Activity metaObject,
+        final Activity metaObject,
         final String context)
     {
         super(metaObject, context);
@@ -25,12 +31,13 @@ public class EventFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EventFacade#getTransition()
      */
-    protected java.lang.Object handleGetTransition()
+    @Override
+    protected Transition handleGetTransition()
     {
         Element owner = this.metaObject.getOwner();
         if (owner instanceof Transition)
         {
-            return owner;
+            return (Transition) owner;
         }
         return null;
     }
@@ -38,20 +45,23 @@ public class EventFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.EventFacade#getParameters()
      */
-    protected java.util.Collection handleGetParameters()
+    @Override
+    protected Collection<Parameter> handleGetParameters()
     {
+        // TODO getOwnedParameters?
         return this.metaObject.getParameters();
     }
 
     /**
      * @see org.andromda.metafacades.uml.EventFacade#getState()
      */
-    protected java.lang.Object handleGetState()
+    @Override
+    protected State handleGetState()
     {
         Element owner = this.metaObject.getOwner();
         if (owner instanceof State)
         {
-            return owner;
+            return (State)owner;
         }
         return null;
     }
@@ -59,6 +69,7 @@ public class EventFacadeLogicImpl
     /**
      * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
      */
+    @Override
     public Object getValidationOwner()
     {
         Object validationOwner = this.getTransition();

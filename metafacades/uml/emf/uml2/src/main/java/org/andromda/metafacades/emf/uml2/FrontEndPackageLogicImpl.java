@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
 import org.andromda.metafacades.uml.FrontEndController;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 
@@ -18,6 +17,10 @@ import org.andromda.metafacades.uml.FrontEndUseCase;
 public class FrontEndPackageLogicImpl
     extends FrontEndPackageLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndPackageLogicImpl(
         final Object metaObject,
         final String context)
@@ -26,9 +29,10 @@ public class FrontEndPackageLogicImpl
     }
 
     /**
+     * @return getOwnedElements() instanceof FrontEndUseCase
      * @see org.andromda.metafacades.uml.FrontEndPackage#getFrontEndUseCases()
      */
-    protected java.util.List handleGetFrontEndUseCases()
+    protected List handleGetFrontEndUseCases()
     {
         final List useCases = new ArrayList();
         final Collection ownedElements = this.getOwnedElements();
@@ -44,9 +48,10 @@ public class FrontEndPackageLogicImpl
     }
 
     /**
+     * @return getOwnedElements() instanceof FrontEndController
      * @see org.andromda.metafacades.uml.FrontEndPackage#getFrontEndControllers()
      */
-    protected java.util.List handleGetFrontEndControllers()
+    protected List handleGetFrontEndControllers()
     {
         final List useCases = new ArrayList();
         final Collection ownedElements = this.getOwnedElements();

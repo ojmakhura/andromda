@@ -3,7 +3,6 @@ package org.andromda.metafacades.emf.uml2;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FrontEndUseCase;
@@ -26,6 +25,10 @@ import org.apache.commons.lang.StringUtils;
 public class RoleLogicImpl
     extends RoleLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public RoleLogicImpl(
         final Object metaObject,
         final String context)
@@ -58,6 +61,7 @@ public class RoleLogicImpl
     }
 
     /**
+     * @return isReferencesPresent
      * @see org.andromda.metafacades.uml.Role#isReferencesPresent()
      */
     protected boolean handleIsReferencesPresent()

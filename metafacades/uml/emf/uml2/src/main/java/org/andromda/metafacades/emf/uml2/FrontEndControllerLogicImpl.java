@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
-
 import org.andromda.metafacades.uml.DependencyFacade;
 import org.andromda.metafacades.uml.FilteredCollection;
 import org.andromda.metafacades.uml.FrontEndControllerOperation;
@@ -24,6 +23,10 @@ import org.eclipse.uml2.UseCase;
 public class FrontEndControllerLogicImpl
     extends FrontEndControllerLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndControllerLogicImpl(
         final Object metaObject,
         final String context)
@@ -32,9 +35,10 @@ public class FrontEndControllerLogicImpl
     }
 
     /**
+     * @return getSourceDependencies() instanceof Service
      * @see org.andromda.metafacades.uml.FrontEndController#getServiceReferences()
      */
-    protected java.util.List handleGetServiceReferences()
+    protected List handleGetServiceReferences()
     {
         return new FilteredCollection(this.getSourceDependencies())
             {
@@ -46,9 +50,10 @@ public class FrontEndControllerLogicImpl
     }
 
     /**
+     * @return metaObject instanceof UseCase .getOwner()
      * @see org.andromda.metafacades.uml.FrontEndController#getUseCase()
      */
-    protected java.lang.Object handleGetUseCase()
+    protected Object handleGetUseCase()
     {
         Element owner = (Classifier)this.metaObject;
         while (!(owner == null || owner instanceof UseCase))
@@ -59,6 +64,7 @@ public class FrontEndControllerLogicImpl
     }
 
     /**
+     * @return getOperations().getDeferringActions()
      * @see org.andromda.metafacades.uml.FrontEndController#getDeferringActions()
      */
     protected List handleGetDeferringActions()

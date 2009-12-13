@@ -3,7 +3,6 @@ package org.andromda.metafacades.emf.uml2;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.andromda.utils.StringUtilsHelper;
 import org.eclipse.uml2.Behavior;
 import org.eclipse.uml2.StateMachine;
@@ -18,6 +17,10 @@ import org.eclipse.uml2.StateMachine;
 public class UseCaseFacadeLogicImpl
     extends UseCaseFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public UseCaseFacadeLogicImpl(
         final org.eclipse.uml2.UseCase metaObject,
         final String context)
@@ -26,9 +29,10 @@ public class UseCaseFacadeLogicImpl
     }
 
     /**
+     * @return getFirstActivityGraph
      * @see org.andromda.metafacades.uml.UseCaseFacade#getFirstActivityGraph()
      */
-    protected java.lang.Object handleGetFirstActivityGraph()
+    protected Object handleGetFirstActivityGraph()
     {
         StateMachine activityGraph = null;
         Collection behaviors = new ArrayList();
@@ -47,17 +51,19 @@ public class UseCaseFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getExtensionPoints()
      * @see org.andromda.metafacades.uml.UseCaseFacade#getExtensionPoints()
      */
-    protected java.util.Collection handleGetExtensionPoints()
+    protected Collection handleGetExtensionPoints()
     {
         return this.metaObject.getExtensionPoints();
     }
 
     /**
+     * @return metaObject.getExtends()
      * @see org.andromda.metafacades.uml.UseCaseFacade#getExtends()
      */
-    protected java.util.Collection handleGetExtends()
+    protected Collection handleGetExtends()
     {
         return this.metaObject.getExtends();
     }
@@ -67,11 +73,14 @@ public class UseCaseFacadeLogicImpl
         return StringUtilsHelper.toSingleLine(super.handleGetName());
     }
 
-    protected java.util.Collection handleGetIncludes()
+    protected Collection handleGetIncludes()
     {
         return this.metaObject.getIncludes();
     }
 
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
+     */
     public Object getValidationOwner()
     {
         return this.getPackage();

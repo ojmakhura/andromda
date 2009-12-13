@@ -21,19 +21,20 @@ import org.eclipse.uml2.uml.Type;
  * org.andromda.metafacades.uml.AttributeFacade.
  *
  * @see org.andromda.metafacades.uml.AttributeFacade
+ * @author Bob Fields
  */
 public class AttributeFacadeLogicImpl
     extends AttributeFacadeLogic
 {
     /**
-     * @param metaObject
+     * @param metaObjectIn
      * @param context
      */
     public AttributeFacadeLogicImpl(
-        final Attribute metaObject,
+        final Attribute metaObjectIn,
         final String context)
     {
-        super(metaObject, context);
+        super(metaObjectIn, context);
     }
 
     /**
@@ -99,6 +100,7 @@ public class AttributeFacadeLogicImpl
     }
 
     /**
+     * @return this.metaObject.isLeaf()
      * @see org.andromda.metafacades.uml.AttributeFacade#isLeaf()
      */
     @Override
@@ -115,8 +117,14 @@ public class AttributeFacadeLogicImpl
     {
         // Because of MD11.5 (their multiplicity are String), we cannot use
         // isMultiValued()
+        String name = null;
+        // Name or type may be null during the model validation process.
+        if (this.getType() != null)
+        {
+            name = this.getType().getName();
+        }
         return this.getUpper() > 1 || this.getUpper() == LiteralUnlimitedNatural.UNLIMITED
-        || this.getType().getName().endsWith("[]");
+        || (name != null && name.endsWith("[]"));
     }
 
     /**
@@ -167,7 +175,7 @@ public class AttributeFacadeLogicImpl
         if (this.isEnumerationLiteral())
         {
             value = this.getDefaultValue();
-            value = (value == null) ? this.getName() : String.valueOf(value);
+            value = (StringUtils.isBlank(value)) ? this.getName() : String.valueOf(value);
         }
         if (this.getType().isStringType() && value!=null && value.indexOf('"')<0)
         {
@@ -214,7 +222,7 @@ public class AttributeFacadeLogicImpl
         }
         return parametersExist;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.AttributeFacade#getGetterSetterTypeName()
      */
@@ -225,7 +233,7 @@ public class AttributeFacadeLogicImpl
         if (this.isMany())
         {
             final TypeMappings mappings = this.getLanguageMappings();
-            //TODO: Create Implementation types for declared types, with mappings from declaration -> implementation 
+            //TODO: Create Implementation types for declared types, with mappings from declaration -> implementation
             /*if (this.handleIsUnique())
             {
                 name =
@@ -336,7 +344,7 @@ public class AttributeFacadeLogicImpl
     {
         return StringUtils.isNotBlank(this.getDefaultValue());
     }
-    
+
     /**
      * Overridden to provide different handling of the name if this attribute represents a literal.
      *
@@ -356,7 +364,7 @@ public class AttributeFacadeLogicImpl
         {
             name = StringUtilsHelper.pluralize(name);
         }
-        
+
         return name;
     }
 
@@ -419,6 +427,7 @@ public class AttributeFacadeLogicImpl
     {
         // MD11.5 Exports multiplicity as String
         return UmlUtilities.parseMultiplicity(this.metaObject.getLowerValue());
+            //ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.DEFAULT_MULTIPLICITY)));
     }
 
     @Override

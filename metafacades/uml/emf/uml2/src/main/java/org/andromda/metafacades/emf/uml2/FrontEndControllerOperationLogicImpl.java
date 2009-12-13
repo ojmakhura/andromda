@@ -8,7 +8,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndAction;
@@ -36,6 +35,10 @@ import org.andromda.metafacades.uml.StateVertexFacade;
 public class FrontEndControllerOperationLogicImpl
     extends FrontEndControllerOperationLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndControllerOperationLogicImpl(
         final Object metaObject,
         final String context)
@@ -55,6 +58,7 @@ public class FrontEndControllerOperationLogicImpl
     }
 
     /**
+     * @return getOwner() instanceof FrontEndController
      * @see org.andromda.metafacades.uml.FrontEndControllerOperation#isOwnerIsController()
      */
     protected boolean handleIsOwnerIsController()
@@ -63,9 +67,10 @@ public class FrontEndControllerOperationLogicImpl
     }
 
     /**
+     * @return formFields
      * @see org.andromda.metafacades.uml.FrontEndControllerOperation#getFormFields()
      */
-    protected java.util.List handleGetFormFields()
+    protected List handleGetFormFields()
     {
         final Map formFieldsMap = new LinkedHashMap();
 
@@ -149,6 +154,7 @@ public class FrontEndControllerOperationLogicImpl
     }
 
     /**
+     * @return getOwner().getUseCase().getActivityGraph()
      * @see org.andromda.metafacades.uml.FrontEndControllerOperation#getActivityGraph()
      */
     protected Object handleGetActivityGraph()
@@ -159,22 +165,20 @@ public class FrontEndControllerOperationLogicImpl
         if (owner instanceof FrontEndController)
         {
             final FrontEndController controller = (FrontEndController)owner;
-            if (controller != null)
+            final FrontEndUseCase useCase = controller.getUseCase();
+            if (useCase != null)
             {
-                final FrontEndUseCase useCase = controller.getUseCase();
-                if (useCase != null)
-                {
-                    graph = useCase.getActivityGraph();
-                }
+                graph = useCase.getActivityGraph();
             }
         }
         return graph;
     }
 
     /**
+     * @return getActivityGraph().getActionStates().getControllerCalls().getContainerActions()
      * @see org.andromda.metafacades.uml.FrontEndControllerOperation#getDeferringActions()
      */
-    protected java.util.List handleGetDeferringActions()
+    protected List handleGetDeferringActions()
     {
         final Collection deferringActions = new LinkedHashSet();
 
@@ -239,6 +243,7 @@ public class FrontEndControllerOperationLogicImpl
     }
 
     /**
+     * @return isAllArgumentsHaveFormFields
      * @see org.andromda.metafacades.uml.FrontEndControllerOperation#isAllArgumentsHaveFormFields()
      */
     protected boolean handleIsAllArgumentsHaveFormFields()

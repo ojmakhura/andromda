@@ -6,7 +6,6 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.CallEventFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -24,19 +23,24 @@ import org.andromda.utils.StringUtilsHelper;
 /**
  * MetafacadeLogic implementation for
  * org.andromda.metafacades.uml.FrontEndActionState.
- * 
+ *
  * @see org.andromda.metafacades.uml.FrontEndActionState
  * @author Bob Fields
  */
 public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
 {
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndActionStateLogicImpl(final Object metaObject, final String context)
     {
         super(metaObject, context);
     }
 
     /**
+     * @return instanceof FrontEndView
      * @see org.andromda.metafacades.uml.FrontEndActionState#isServerSide()
      */
     protected boolean handleIsServerSide()
@@ -45,14 +49,16 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
     }
 
     /**
+     * @return '_' + lowerCamelCaseName(getName())
      * @see org.andromda.metafacades.uml.FrontEndActionState#getActionMethodName()
      */
-    protected java.lang.String handleGetActionMethodName()
+    protected String handleGetActionMethodName()
     {
         return '_' + StringUtilsHelper.lowerCamelCaseName(this.getName());
     }
 
     /**
+     * @return instanceof FrontEndActivityGraph
      * @see org.andromda.metafacades.uml.FrontEndActionState#isContainedInFrontEndUseCase()
      */
     protected boolean handleIsContainedInFrontEndUseCase()
@@ -61,6 +67,7 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
     }
 
     /**
+     * @return getOutgoings() instanceof FrontEndExceptionHandler
      * @see org.andromda.metafacades.uml.FrontEndActionState#getForward()
      */
     protected Object handleGetForward()
@@ -82,6 +89,7 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
     }
 
     /**
+     * @return getDeferrableEvents().getOperations() or getControllerCalls()
      * @see org.andromda.metafacades.uml.FrontEndActionState#getControllerCalls()
      */
     protected List handleGetControllerCalls()
@@ -105,6 +113,7 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
     }
 
     /**
+     * @return getOutgoings() instanceof FrontEndExceptionHandler
      * @see org.andromda.metafacades.uml.FrontEndActionState#getExceptions()
      */
     protected List handleGetExceptions()
@@ -124,6 +133,7 @@ public class FrontEndActionStateLogicImpl extends FrontEndActionStateLogic
     }
 
     /**
+     * @return getStateMachine().getUseCase().getActions()
      * @see org.andromda.metafacades.uml.FrontEndActionState#getContainerActions()
      */
     protected List handleGetContainerActions()

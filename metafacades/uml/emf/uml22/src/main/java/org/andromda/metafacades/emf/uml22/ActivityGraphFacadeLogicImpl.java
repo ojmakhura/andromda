@@ -1,7 +1,6 @@
 package org.andromda.metafacades.emf.uml22;
 
 import java.util.Collection;
-
 import org.andromda.metafacades.uml.StateFacade;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Region;

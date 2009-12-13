@@ -47,20 +47,20 @@ public class UMLModelAccessFacade
     /**
      * @see org.andromda.core.metafacade.ModelAccessFacade#setModel(Object)
      */
-    public void setModel(final Object model)
+    public void setModel(final Object modelIn)
     {
         ExceptionUtils.checkNull(
             "model",
-            model);
+            modelIn);
         ExceptionUtils.checkAssignable(
             ArrayList.class,
             "modelElement",
-            model.getClass());
+            modelIn.getClass());
         if (this.model==null)
         {
             this.model = new ArrayList<UMLResource>();
         }
-        for (UMLResource modelResource : (ArrayList<UMLResource>)model)
+        for (UMLResource modelResource : (ArrayList<UMLResource>)modelIn)
         {
             if (!this.model.contains(modelResource))
             {
@@ -111,7 +111,7 @@ public class UMLModelAccessFacade
             "modelElement",
             modelElement.getClass());
         final ModelElementFacade modelElementFacade = (ModelElementFacade)modelElement;
-        final StringBuffer packageName = new StringBuffer(modelElementFacade.getPackageName(true));
+        final StringBuilder packageName = new StringBuilder(modelElementFacade.getPackageName(true));
 
         // - if the model element is a package then the package name will be the
         // name of the package with its package name
@@ -135,9 +135,9 @@ public class UMLModelAccessFacade
     /**
      * @see org.andromda.core.metafacade.ModelAccessFacade#setPackageFilter(org.andromda.core.configuration.Filters)
      */
-    public void setPackageFilter(final Filters modelPackages)
+    public void setPackageFilter(final Filters modelPackagesIn)
     {
-        this.modelPackages = modelPackages;
+        this.modelPackages = modelPackagesIn;
     }
 
     /**
@@ -170,6 +170,7 @@ public class UMLModelAccessFacade
         final List<NamedElement> elements = new ArrayList();
         for (UMLResource modelResource : this.model)
         {
+            // TODO UmlUtilities.findModel() can return null. Check for null return value.
             for (TreeIterator<EObject> iterator = UmlUtilities.findModel(modelResource).eAllContents(); iterator.hasNext();)
             {
                 final EObject object = (EObject)iterator.next();
@@ -207,6 +208,7 @@ public class UMLModelAccessFacade
 
         for (UMLResource modelResource : this.model)
         {
+            // TODO UmlUtilities.findModel() can return null. Check for null return value.
             for (final Iterator<EObject> iterator = UmlUtilities.findModel(modelResource).eAllContents(); iterator.hasNext();)
             {
                 final EObject object = (EObject)iterator.next();
@@ -259,8 +261,8 @@ public class UMLModelAccessFacade
                         if (element instanceof NamedElement)
                         {
                             final NamedElement modelElement = (NamedElement)element;
-                            final StringBuffer packageName =
-                                new StringBuffer(
+                            final StringBuilder packageName =
+                                new StringBuilder(
                                     UmlUtilities.getPackageName(
                                         modelElement,
                                         MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,

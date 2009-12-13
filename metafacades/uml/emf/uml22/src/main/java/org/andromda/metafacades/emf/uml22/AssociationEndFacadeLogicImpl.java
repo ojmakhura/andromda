@@ -26,14 +26,14 @@ public class AssociationEndFacadeLogicImpl
     extends AssociationEndFacadeLogic
 {
     /**
-     * @param metaObject
+     * @param metaObjectIn
      * @param context
      */
     public AssociationEndFacadeLogicImpl(
-        final AssociationEnd metaObject,
+        final AssociationEnd metaObjectIn,
         final String context)
     {
-        super(metaObject, context);
+        super(metaObjectIn, context);
     }
 
     /**

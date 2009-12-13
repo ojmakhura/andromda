@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
 import org.andromda.metafacades.uml.EventFacade;
@@ -31,6 +30,10 @@ import org.apache.commons.lang.StringUtils;
 public class FrontEndParameterLogicImpl
     extends FrontEndParameterLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndParameterLogicImpl(
         final Object metaObject,
         final String context)
@@ -39,6 +42,7 @@ public class FrontEndParameterLogicImpl
     }
 
     /**
+     * @return getControllerOperation() != null
      * @see org.andromda.metafacades.uml.FrontEndParameter#isControllerOperationArgument()
      */
     protected boolean handleIsControllerOperationArgument()
@@ -47,6 +51,7 @@ public class FrontEndParameterLogicImpl
     }
 
     /**
+     * @return getOperation()
      * @see org.andromda.metafacades.uml.FrontEndParameter#getControllerOperation()
      */
     protected Object handleGetControllerOperation()
@@ -55,6 +60,7 @@ public class FrontEndParameterLogicImpl
     }
 
     /**
+     * @return getEvent() instanceof FrontEndEvent || getOperation() instanceof FrontEndControllerOperation
      * @see org.andromda.metafacades.uml.FrontEndParameter#isContainedInFrontEndUseCase()
      */
     protected boolean handleIsContainedInFrontEndUseCase()
@@ -63,6 +69,7 @@ public class FrontEndParameterLogicImpl
     }
 
     /**
+     * @return getEvent().getTransition() instanceof FrontEndAction .getInput()
      * @see org.andromda.metafacades.uml.FrontEndParameter#getView()
      */
     protected Object handleGetView()
@@ -90,6 +97,7 @@ public class FrontEndParameterLogicImpl
     }
 
     /**
+     * @return getAction().getParameters().contains(this)
      * @see org.andromda.metafacades.uml.FrontEndParameter#isActionParameter()
      */
     protected boolean handleIsActionParameter()
@@ -99,6 +107,7 @@ public class FrontEndParameterLogicImpl
     }
 
     /**
+     * @return getEvent().getTransition() instanceof FrontEndAction
      * @see org.andromda.metafacades.uml.FrontEndParameter#getAction()
      */
     protected Object handleGetAction()
@@ -117,6 +126,7 @@ public class FrontEndParameterLogicImpl
     }
 
     /**
+     * @return andromda_presentation_view_table for type
      * @see org.andromda.metafacades.uml.FrontEndParameter#isTable()
      */
     protected boolean handleIsTable()
@@ -141,6 +151,7 @@ public class FrontEndParameterLogicImpl
     }
 
     /**
+     * @return andromda_presentation_view_table_columns
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumnNames()
      */
     protected Collection handleGetTableColumnNames()
@@ -174,6 +185,7 @@ public class FrontEndParameterLogicImpl
     }
 
     /**
+     * @return getNonArrayAttributes() with getTableColumnNames()
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableColumns()
      */
     protected Collection handleGetTableColumns()
@@ -216,6 +228,7 @@ public class FrontEndParameterLogicImpl
     }
 
     /**
+     * @return getNonArrayAttributes().getNames()
      * @see org.andromda.metafacades.uml.FrontEndParameter#getTableAttributeNames()
      */
     protected Collection handleGetTableAttributeNames()

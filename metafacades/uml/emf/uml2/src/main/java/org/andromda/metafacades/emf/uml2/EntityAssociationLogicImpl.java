@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.Collection;
 import java.util.Iterator;
-
 import org.andromda.core.metafacade.MetafacadeImplsException;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -26,6 +25,10 @@ import org.eclipse.uml2.Type;
 public class EntityAssociationLogicImpl
     extends EntityAssociationLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EntityAssociationLogicImpl(
         final Object metaObject,
         final String context)
@@ -34,9 +37,10 @@ public class EntityAssociationLogicImpl
     }
 
     /**
+     * @return tableName
      * @see org.andromda.metafacades.uml.EntityAssociation#getTableName()
      */
-    protected java.lang.String handleGetTableName()
+    protected String handleGetTableName()
     {
         String tableName = null;
         final Collection ends = this.getAssociationEnds();
@@ -68,6 +72,7 @@ public class EntityAssociationLogicImpl
     }
 
     /**
+     * @return schema
      * @see org.andromda.metafacades.uml.EntityAssociation#getSchema()
      */
     protected String handleGetSchema()
@@ -83,6 +88,7 @@ public class EntityAssociationLogicImpl
     /**
      * It is an entity association if both ends are entities (have the entity
      * stereotype
+     * @return isEntityAssociation
      */
     protected boolean handleIsEntityAssociation()
     {

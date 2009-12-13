@@ -5,15 +5,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
 import org.andromda.core.common.ExceptionUtils;
 import org.andromda.core.configuration.Filters;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.core.metafacade.MetafacadeFactory;
 import org.andromda.core.metafacade.ModelAccessFacade;
+import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.andromda.metafacades.uml.ModelElementFacade;
 import org.andromda.metafacades.uml.PackageFacade;
-import org.andromda.metafacades.uml.EntityMetafacadeUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.StringUtils;
@@ -21,6 +20,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.uml2.Element;
 import org.eclipse.uml2.NamedElement;
+import org.eclipse.uml2.Package;
 import org.eclipse.uml2.util.UML2Resource;
 
 
@@ -34,13 +34,18 @@ import org.eclipse.uml2.util.UML2Resource;
 public class UMLModelAccessFacade
     implements ModelAccessFacade
 {
+    /*
+     * The logger instance.
+    private static final Logger logger = Logger.getLogger(UMLModelAccessFacade.class);
+     */
+
     /**
      * Protected to improve performance.
      */
     protected Filters modelPackages = new Filters();
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#setModel(java.lang.Object)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#setModel(Object)
      */
     public void setModel(final Object modelIn)
     {
@@ -63,8 +68,7 @@ public class UMLModelAccessFacade
             }
         }
         // TODO: - clear the meta objects cache (yes this is a performance
-        //       hack that at some point should be improved), either that
-        //       or since we'll be moving to A4 at some point it might not matter.
+        //       hack that at some point should be improved).
         UmlUtilities.clearAllMetaObjectsCache();
         // TODO: - clears out the foreign key cache (again probably not
         //         the cleanest way, but the easiest at this point).
@@ -80,7 +84,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#getName(java.lang.Object)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getName(Object)
      */
     public String getName(final Object modelElement)
     {
@@ -95,7 +99,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#getPackageName(java.lang.Object)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getPackageName(Object)
      */
     public String getPackageName(final Object modelElement)
     {
@@ -137,7 +141,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#getStereotypeNames(java.lang.Object)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#getStereotypeNames(Object)
      */
     public Collection<String> getStereotypeNames(final Object modelElement)
     {
@@ -159,7 +163,7 @@ public class UMLModelAccessFacade
     }
 
     /**
-     * @see org.andromda.core.metafacade.ModelAccessFacade#findByStereotype(java.lang.String)
+     * @see org.andromda.core.metafacade.ModelAccessFacade#findByStereotype(String)
      */
     public Collection findByStereotype(final String name)
     {
@@ -257,7 +261,7 @@ public class UMLModelAccessFacade
 
                             // - if the model element is a package then the package name will be the name
                             // of the package with its package name
-                            if (element instanceof org.eclipse.uml2.Package)
+                            if (element instanceof Package)
                             {
                                 final String name = modelElement.getName();
                                 if (StringUtils.isNotBlank(name))

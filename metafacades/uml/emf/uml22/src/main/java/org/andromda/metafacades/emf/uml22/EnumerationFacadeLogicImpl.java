@@ -21,6 +21,7 @@ import org.eclipse.uml2.uml.NamedElement;
  * org.andromda.metafacades.uml.EnumerationFacade.
  *
  * @see org.andromda.metafacades.uml.EnumerationFacade
+ * @author Bob Fields
  */
 public class EnumerationFacadeLogicImpl
     extends EnumerationFacadeLogic
@@ -62,7 +63,7 @@ public class EnumerationFacadeLogicImpl
         final Collection literals = (this.metaObject instanceof Enumeration
             ? ((Enumeration)this.metaObject).getOwnedLiterals()
             : CollectionUtils.collect(this.getAttributes(), UmlUtilities.ELEMENT_TRANSFORMER));
-        
+
         CollectionUtils.filter(
             literals,
             new Predicate()
@@ -107,14 +108,14 @@ public class EnumerationFacadeLogicImpl
         );
         return variables;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EnumerationFacade#getFromOperationSignature()
      */
     @Override
     protected String handleGetFromOperationSignature()
     {
-        final StringBuffer signature = new StringBuffer(this.getFromOperationName());
+        final StringBuilder signature = new StringBuilder(this.getFromOperationName());
         final ClassifierFacade type = this.getLiteralType();
         if (type != null)
         {
@@ -129,19 +130,19 @@ public class EnumerationFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EnumerationFacade#isTypeSafe()
      */
     @Override
-    protected boolean handleIsTypeSafe() 
+    protected boolean handleIsTypeSafe()
     {
         return BooleanUtils.toBoolean(
                 String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.TYPE_SAFE_ENUMS_ENABLED)));
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EnumerationFacade#getFromOperationName()
      */
     @Override
     protected String handleGetFromOperationName()
     {
-        final StringBuffer name = new StringBuffer("from");
+        StringBuilder name = new StringBuilder("from");
         final ClassifierFacade type = this.getLiteralType();
         if (type != null)
         {

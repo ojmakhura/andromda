@@ -2,10 +2,7 @@ package org.andromda.metafacades.emf.uml22;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import org.andromda.metafacades.uml.FrontEndAction;
-import org.andromda.metafacades.uml.TransitionFacade;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Namespace;
 import org.eclipse.uml2.uml.Region;

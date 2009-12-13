@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
 import org.andromda.metafacades.uml.FrontEndAction;
 import org.andromda.metafacades.uml.FrontEndUseCase;
 import org.andromda.metafacades.uml.TransitionFacade;
@@ -25,6 +24,10 @@ import org.eclipse.uml2.UseCase;
 public class FrontEndEventLogicImpl
     extends FrontEndEventLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndEventLogicImpl(
         final Object metaObject,
         final String context)
@@ -33,6 +36,7 @@ public class FrontEndEventLogicImpl
     }
 
     /**
+     * @return isContainedInFrontEndUseCase
      * @see org.andromda.metafacades.uml.FrontEndEvent#isContainedInFrontEndUseCase()
      */
     protected boolean handleIsContainedInFrontEndUseCase()
@@ -61,6 +65,7 @@ public class FrontEndEventLogicImpl
     }
 
     /**
+     * @return getControllerCalls().get(0)
      * @see org.andromda.metafacades.uml.FrontEndEvent#getControllerCall()
      */
     protected Object handleGetControllerCall()
@@ -68,8 +73,10 @@ public class FrontEndEventLogicImpl
         final List operations = this.getControllerCalls();
         return operations.isEmpty() ? null : operations.iterator().next();
     }
-    
+
     /**
+     * get every operation from each CallOperationAction instance.
+     * @return controllerCalls
      * @see org.andromda.metafacades.uml.FrontEndEvent#getControllerCalls()
      */
     public List handleGetControllerCalls()
@@ -86,7 +93,7 @@ public class FrontEndEventLogicImpl
             {
                 final Operation operation = ((CallOperationAction)nextNode).getOperation();
                 if (operation != null)
-                { 
+                {
                     operations.add(operation);
                 }
             }
@@ -95,6 +102,7 @@ public class FrontEndEventLogicImpl
     }
 
     /**
+     * @return getTransition() instanceof FrontEndAction
      * @see org.andromda.metafacades.uml.FrontEndEvent#getAction()
      */
     protected Object handleGetAction()

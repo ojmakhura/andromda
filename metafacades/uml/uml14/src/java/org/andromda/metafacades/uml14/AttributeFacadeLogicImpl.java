@@ -210,7 +210,8 @@ public class AttributeFacadeLogicImpl
     }
 
     /**
-     * Returns the lower range of the multiplicity for the passed in attribute
+     * Returns the lower range of the multiplicity for the passed in attribute. If not specified, default is based on
+     * primitive or wrappedPrimitive type, or the default multiplicity.
      *
      * @return int the lower range of the multiplicity or the default multiplicity or 1 if it isn't defined.
      */
@@ -227,20 +228,31 @@ public class AttributeFacadeLogicImpl
                 while (rangeIt.hasNext())
                 {
                     final MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
-                    lower = new Integer(multiplicityRange.getLower());
+                    lower = Integer.valueOf(multiplicityRange.getLower());
                 }
             }
         }
         if (lower == null)
         {
-            final String defaultMultiplicity = this.getDefaultMultiplicity();
-            if (defaultMultiplicity.startsWith("0"))
+            if (this.getType().isPrimitive())
             {
-                lower = new Integer(0);
+                lower = Integer.valueOf(1);
             }
+            /*else if (this.getType().isWrappedPrimitive())
+            {
+                lower = Integer.valueOf(0);
+            }*/
             else
             {
-                lower = new Integer(1);
+                final String defaultMultiplicity = this.getDefaultMultiplicity();
+                if (defaultMultiplicity.startsWith("0"))
+                {
+                    lower = Integer.valueOf(0);
+                }
+                else
+                {
+                    lower = Integer.valueOf(1);
+                }
             }
         }
         return lower.intValue();
@@ -446,7 +458,7 @@ public class AttributeFacadeLogicImpl
         return ordered;
     }
 
-    /*
+    /**
      * @see org.andromda.metafacades.uml.AttributeFacade#isUnique()
      */
     protected boolean handleIsUnique()

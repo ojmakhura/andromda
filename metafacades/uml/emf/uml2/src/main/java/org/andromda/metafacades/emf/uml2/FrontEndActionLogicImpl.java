@@ -8,7 +8,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-
 import org.andromda.metafacades.uml.EventFacade;
 import org.andromda.metafacades.uml.FrontEndActionState;
 import org.andromda.metafacades.uml.FrontEndActivityGraph;
@@ -41,6 +40,10 @@ import org.apache.commons.lang.StringUtils;
 public class FrontEndActionLogicImpl
     extends FrontEndActionLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndActionLogicImpl(
         final Object metaObject,
         final String context)
@@ -49,9 +52,10 @@ public class FrontEndActionLogicImpl
     }
 
     /**
+     * @return getSource()
      * @see org.andromda.metafacades.uml.FrontEndAction#getInput()
      */
-    protected java.lang.Object handleGetInput()
+    protected Object handleGetInput()
     {
         Object input = null;
         final ModelElementFacade source = this.getSource();
@@ -74,16 +78,19 @@ public class FrontEndActionLogicImpl
     }
 
     /**
+     * @return getTrigger().getParameters()
      * @see org.andromda.metafacades.uml.FrontEndAction#getParameters()
      */
-    protected java.util.List handleGetParameters()
+    protected List handleGetParameters()
     {
         final EventFacade trigger = this.getTrigger();
         return trigger == null ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
     }
 
     /**
-     * @see org.andromda.metafacades.uml.FrontEndAction#findParameter(java.lang.String)
+     * @param name
+     * @return foundParameters
+     * @see org.andromda.metafacades.uml.FrontEndAction#findParameter(String)
      */
     protected ParameterFacade handleFindParameter(final String name)
     {
@@ -100,9 +107,10 @@ public class FrontEndActionLogicImpl
     }
 
     /**
+     * @return deferredOperation
      * @see org.andromda.metafacades.uml.FrontEndAction#getDeferredOperations()
      */
-    protected java.util.List handleGetDeferredOperations()
+    protected List handleGetDeferredOperations()
     {
         final Collection deferredOperations = new LinkedHashSet();
         final FrontEndController controller = this.getController();
@@ -130,6 +138,7 @@ public class FrontEndActionLogicImpl
     }
 
     /**
+     * @return decisionTransitions
      * @see org.andromda.metafacades.uml.FrontEndAction#getDecisionTransitions()
      */
     protected List handleGetDecisionTransitions()
@@ -142,6 +151,7 @@ public class FrontEndActionLogicImpl
     }
 
     /**
+     * @return getActionForwards().getTargets()
      * @see org.andromda.metafacades.uml.FrontEndAction#getTargetViews()
      */
     protected List handleGetTargetViews()
@@ -264,6 +274,7 @@ public class FrontEndActionLogicImpl
     }
 
     /**
+     * @return actionStates
      * @see org.andromda.metafacades.uml.FrontEndAction#getActionStates()
      */
     protected List handleGetActionStates()
@@ -276,6 +287,7 @@ public class FrontEndActionLogicImpl
     }
 
     /**
+     * @return transitions
      * @see org.andromda.metafacades.uml.FrontEndAction#getTransitions()
      */
     protected List handleGetTransitions()
@@ -288,6 +300,7 @@ public class FrontEndActionLogicImpl
     }
 
     /**
+     * @return actionForwards.values()
      * @see org.andromda.metafacades.uml.FrontEndAction#getActionForwards()
      */
     protected List handleGetActionForwards()
@@ -300,6 +313,7 @@ public class FrontEndActionLogicImpl
     }
 
     /**
+     * @return getFrontEndActivityGraph().getController()
      * @see org.andromda.metafacades.uml.FrontEndAction#getController()
      */
     protected Object handleGetController()
@@ -311,6 +325,7 @@ public class FrontEndActionLogicImpl
     /**
      * Overridden because actions (transitions) are not directly contained in a
      * UML namespace.
+     * @return getUseCase().getPackageName()
      *
      * @see org.andromda.metafacades.uml.ModelElementFacade#getPackageName()
      */
@@ -327,6 +342,7 @@ public class FrontEndActionLogicImpl
     }
 
     /**
+     * @return getSource().isInitialState()
      * @see org.andromda.metafacades.uml.FrontEndAction#isUseCaseStart()
      */
     protected boolean handleIsUseCaseStart()
@@ -336,6 +352,7 @@ public class FrontEndActionLogicImpl
     }
 
     /**
+     * @return getUseCase().getInterUseCaseParameters()
      * @see org.andromda.metafacades.uml.FrontEndAction#getFormFields()
      */
     protected List handleGetFormFields()
@@ -435,12 +452,9 @@ public class FrontEndActionLogicImpl
                         if (existingParameter instanceof FrontEndParameter)
                         {
                             final FrontEndParameter existingVariable = (FrontEndParameter)existingParameter;
-                            if (existingVariable != null)
+                            if (existingVariable.isTable())
                             {
-                                if (existingVariable.isTable())
-                                {
-                                    variable = existingVariable;
-                                }
+                                variable = existingVariable;
                             }
                         }
                         formFieldMap.put(

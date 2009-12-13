@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Set;
-
 import org.andromda.metafacades.uml.PseudostateFacade;
+import org.andromda.metafacades.uml.TransitionFacade;
 import org.apache.commons.collections.Predicate;
 import org.eclipse.uml2.Element;
 import org.eclipse.uml2.FinalState;
@@ -14,6 +14,9 @@ import org.eclipse.uml2.Pseudostate;
 import org.eclipse.uml2.PseudostateKind;
 import org.eclipse.uml2.Region;
 import org.eclipse.uml2.State;
+import org.eclipse.uml2.StateMachine;
+import org.eclipse.uml2.Transition;
+import org.eclipse.uml2.Vertex;
 
 
 /**
@@ -26,8 +29,12 @@ import org.eclipse.uml2.State;
 public class StateMachineFacadeLogicImpl
     extends StateMachineFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public StateMachineFacadeLogicImpl(
-        final org.eclipse.uml2.StateMachine metaObject,
+        final StateMachine metaObject,
         final String context)
     {
         super(metaObject, context);
@@ -36,7 +43,8 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getContextElement()
      */
-    protected java.lang.Object handleGetContextElement()
+    @Override
+    protected Element handleGetContextElement()
     {
         Element context = this.metaObject.getContext();
         if (context == null)
@@ -49,7 +57,8 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getFinalStates()
      */
-    protected java.util.Collection handleGetFinalStates()
+    @Override
+    protected Collection<Vertex> handleGetFinalStates()
     {
         final Predicate filter =
             new Predicate()
@@ -65,7 +74,8 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getStates()
      */
-    protected java.util.Collection handleGetStates()
+    @Override
+    protected Collection handleGetStates()
     {
         final Predicate filter =
             new Predicate()
@@ -81,14 +91,15 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getInitialTransition()
      */
-    protected java.lang.Object handleGetInitialTransition()
+    @Override
+    protected TransitionFacade handleGetInitialTransition()
     {
-        Object transition = null;
+        TransitionFacade transition = null;
 
         final PseudostateFacade initialState = this.getInitialState();
         if (initialState != null)
         {
-            final Collection transitions = initialState.getOutgoings();
+            final Collection<TransitionFacade> transitions = initialState.getOutgoings();
             if (!transitions.isEmpty())
             {
                 transition = transitions.iterator().next();
@@ -101,13 +112,14 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getTransitions()
      */
-    protected java.util.Collection handleGetTransitions()
+    @Override
+    protected Collection<Transition> handleGetTransitions()
     {
-        Collection regions = this.metaObject.getRegions();
-        Collection transitions = new LinkedList();
-        for (Iterator it = regions.iterator(); it.hasNext();)
+        Collection<Region> regions = this.metaObject.getRegions();
+        Collection<Transition> transitions = new LinkedList<Transition>();
+        for (Iterator<Region> it = regions.iterator(); it.hasNext();)
         {
-            Region region = (Region)it.next();
+            Region region = it.next();
             transitions.addAll(region.getTransitions());
         }
         return transitions;
@@ -116,7 +128,8 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getInitialStates()
      */
-    protected java.util.Collection handleGetInitialStates()
+    @Override
+    protected Collection<Vertex> handleGetInitialStates()
     {
         final Predicate filter =
             new Predicate()
@@ -133,11 +146,12 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getInitialState()
      */
-    protected java.lang.Object handleGetInitialState()
+    @Override
+    protected PseudostateFacade handleGetInitialState()
     {
-        Object initialState = null;
+        PseudostateFacade initialState = null;
 
-        final Collection initialStates = this.getInitialStates();
+        final Collection<PseudostateFacade> initialStates = this.getInitialStates();
         if (!initialStates.isEmpty())
         {
             initialState = initialStates.iterator().next();
@@ -149,7 +163,8 @@ public class StateMachineFacadeLogicImpl
     /**
      * @see org.andromda.metafacades.uml.StateMachineFacade#getPseudostates()
      */
-    protected java.util.Collection handleGetPseudostates()
+    @Override
+    protected Collection<Vertex> handleGetPseudostates()
     {
         final Predicate filter =
             new Predicate()
@@ -162,10 +177,14 @@ public class StateMachineFacadeLogicImpl
         return this.getSubvertices(filter);
     }
 
-    protected Collection getSubvertices(final Predicate collectionFilter)
+    /**
+     * @param collectionFilter
+     * @return region.getSubvertices()
+     */
+    protected Collection<Vertex> getSubvertices(final Predicate collectionFilter)
     {
-        Collection regions = this.metaObject.getRegions();
-        Collection subvertices = new LinkedList();
+        Collection<Region> regions = this.metaObject.getRegions();
+        Collection<Vertex> subvertices = new LinkedList<Vertex>();
         for (Iterator it = regions.iterator(); it.hasNext();)
         {
             Region region = (Region)it.next();
@@ -192,6 +211,10 @@ public class StateMachineFacadeLogicImpl
         return filteredCollection;
     }
 
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
+     */
+    @Override
     public Object getValidationOwner()
     {
         return this.getPackage();

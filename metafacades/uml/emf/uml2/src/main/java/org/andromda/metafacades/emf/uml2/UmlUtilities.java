@@ -69,8 +69,8 @@ public class UmlUtilities
     /**
      * A transformer which transforms:
      * <ul>
-     *   <li>each property in an attribute or an association end</li>
-     *   <li>each slot in an attribute link or a link end</li>
+     *   <li>each property in an attribute or an association end to AssociationEnd or Attribute</li>
+     *   <li>each slot in an attribute link or a link end to LinkEnd or AttributeLink</li>
      *   <li>each instance specification in an object instance or a link instance</li>
      * </ul>
      * This is needed because UML2 is an API in which there is no conceptual difference between
@@ -147,7 +147,7 @@ public class UmlUtilities
             }
         };
 
-    private static Map allMetaObjectsCache = new HashMap();
+    private static final Map allMetaObjectsCache = new HashMap();
 
     /**
      * List all meta objects instances of a given meta class It's a way to
@@ -162,6 +162,10 @@ public class UmlUtilities
         final Class metaClass,
         final Model model)
     {
+        if (metaClass==null)
+        {
+            return new ArrayList();
+        }
         // TODO: populate cache from all referenced models, not just the model containing the metaClass
         String modelName = null; // There are cases where the getModel value might be null
         if (model==null) modelName=""; else modelName=model.getName();
@@ -217,6 +221,10 @@ public class UmlUtilities
      */
     public static String getComment(final Element element)
     {
+        if (element==null)
+        {
+            return null;
+        }
         String commentString = "";
         EList comments = element.getOwnedComments();
 
@@ -225,7 +233,7 @@ public class UmlUtilities
             final Comment comment = (Comment)iterator.next();
             if (!commentString.equalsIgnoreCase(""))
             {
-                commentString = commentString + "\n\n";
+                commentString += "\n\n";
             }
             commentString = commentString.concat(comment.getBody());
         }
@@ -240,6 +248,10 @@ public class UmlUtilities
      */
     public static String cleanText(String text)
     {
+        if (StringUtils.isBlank(text))
+        {
+            return text;
+        }
         text =
             text.replaceAll(
                 "[\\t\\n]*",
@@ -265,6 +277,10 @@ public class UmlUtilities
         final Classifier classifier,
         final boolean follow)
     {
+        if (classifier==null)
+        {
+            return new ArrayList<Property>();
+        }
         final Map attributeMap = new LinkedHashMap(); // preserve ordering
         final List members = new ArrayList(classifier.getOwnedMembers());
 
@@ -311,8 +327,10 @@ public class UmlUtilities
     /**
      * Returns <code>true</code> if the given association end's type is an ancestor of the classifier, or just the
      * argument classifier if follow is <code>false</code>.
-     *
+     * @param classifier
      * @param property this method returns false if this argument is not an association end
+     * @param follow
+     * @return isAssociationEndAttachedToType((Classifier)parent, property, follow)
      */
     public static boolean isAssociationEndAttachedToType(
         final Classifier classifier,
@@ -354,7 +372,7 @@ public class UmlUtilities
      * <code>follow</code> is true. Overridden properties will be omitted.
      * Finds all Property classes in model and iterates through to see which are of type classifier.
      * <p/>
-     * cejeanne: Changed the way association end are found.
+     * cejeanne: Changed the way association ends are found.
      *
      * @param classifier the UML class instance from which to retrieve all properties
      * @param follow     whether or not the inheritance hierarchy should be followed
@@ -365,10 +383,15 @@ public class UmlUtilities
         final boolean follow)
     {
         final List associationEnds = new ArrayList();
+        if (classifier==null)
+        {
+            return associationEnds;
+        }
         // TODO: Iterate through all referenced models, not just the model containing this classifier.
+        // TODO: UML2 bug? getModel returns null because UMLUtil.getOwningElement getBaseElement(owner.eContainer()) changes owningElement to null
         if (classifier.getModel()==null)
         {
-            logger.error(classifier + " getModel was null: " + classifier.getOwner() + " " + classifier.getQualifiedName());            
+            logger.error(classifier + " getModel was null: " + classifier.getOwner() + " " + classifier.getQualifiedName());
         }
         //logger.info(classifier + " " + classifier.getModel());
         final List allProperties = getAllMetaObjectsInstanceOf(
@@ -425,6 +448,9 @@ public class UmlUtilities
      *  <li>the same number of parameters</li>
      *  <li>matching parameter types (in that very same order)</li>
      * </ul>
+     * @param first
+     * @param second
+     * @return isEqual(firstParameter.getType(), secondParameter.getType())
      */
     public static boolean isSameSignature(
         final Operation first,
@@ -513,8 +539,12 @@ public class UmlUtilities
      */
     public static List<String> getStereotypeNames(final Element element)
     {
-        final Collection stereotypes = element.getAppliedStereotypes();
         final List<String> names = new ArrayList();
+        if (element==null)
+        {
+            return names;
+        }
+        final Collection stereotypes = element.getAppliedStereotypes();
         if (stereotypes != null)
         {
             for (final Iterator iterator = stereotypes.iterator(); iterator.hasNext();)
@@ -538,6 +568,10 @@ public class UmlUtilities
         final Element element,
         final String stereotypeName)
     {
+        if (element==null || StringUtils.isBlank(stereotypeName))
+        {
+            return false;
+        }
         Collection stereotypes = element.getAppliedStereotypes();
 
         boolean hasStereotype = StringUtils.isNotBlank(stereotypeName) && stereotypes != null &&
@@ -553,11 +587,11 @@ public class UmlUtilities
                     boolean valid;
                     Stereotype stereotype = (Stereotype)object;
                     String name = StringUtils.trimToEmpty(stereotype.getName());
-                    valid = stereotypeName.equals(name);
+                    valid = stereotypeName.equalsIgnoreCase(name);
                     for (Iterator itStereo = stereotype.allParents().iterator(); !valid && itStereo.hasNext();)
                     {
                         Stereotype currentStereotype = (Stereotype)itStereo.next();
-                        valid = StringUtils.trimToEmpty(currentStereotype.getName()).equals(stereotypeName);
+                        valid = StringUtils.trimToEmpty(currentStereotype.getName()).equalsIgnoreCase(stereotypeName);
                     }
                     return valid;
                 }
@@ -599,6 +633,11 @@ public class UmlUtilities
      */
     public static Collection getTaggedValue(final Element element)
     {
+        final Collection tags = new ArrayList();
+        if (element==null)
+        {
+            return tags;
+        }
         String elementName = "";
 
         if (element instanceof NamedElement) {
@@ -613,7 +652,6 @@ public class UmlUtilities
         {
             logger.debug("Searching Tagged Values for " + elementName);
         }*/
-        final Collection tags = new ArrayList();
         final Collection stereotypes = element.getAppliedStereotypes();
         for (Iterator stereoIt = stereotypes.iterator(); stereoIt.hasNext();)
         {
@@ -654,6 +692,7 @@ public class UmlUtilities
                     String tagName = tagProperty.getName();
                     if (!tagName.startsWith("base$"))
                     {
+                        // Some metafacades depend on an actual returned value. hasValue returns nothing if taggedValue=default for the attribute.
                         if (element.hasValue(
                                 stereo,
                                 tagName))
@@ -731,7 +770,7 @@ public class UmlUtilities
      * Attempts to find the applied stereotype with the given name on the given
      * <code>element</code>. First tries to find it with the fully qualified
      * name, and then tries it with just the name.
-     *
+     * @param element
      * @param name
      *            the name of the stereotype
      * @return the found stereotype or null if not found.
@@ -740,6 +779,10 @@ public class UmlUtilities
         final Element element,
         final String name)
     {
+        if (element==null || StringUtils.isBlank(name))
+        {
+            return null;
+        }
         Stereotype foundStereotype = element.getAppliedStereotype(name);
         if (foundStereotype == null)
         {
@@ -764,7 +807,7 @@ public class UmlUtilities
      * Attempts to find the applicable stereotype with the given name on the
      * given <code>element</code>. First tries to find it with the fully
      * qualified name, and then tries it with just the name.
-     *
+     * @param element
      * @param name the name of the stereotype
      * @return the found stereotype or null if not found.
      */
@@ -772,6 +815,10 @@ public class UmlUtilities
         final Element element,
         final String name)
     {
+        if (element==null || StringUtils.isBlank(name))
+        {
+            return null;
+        }
         Stereotype foundStereotype = element.getApplicableStereotype(name);
         if (foundStereotype == null)
         {
@@ -819,6 +866,10 @@ public class UmlUtilities
      */
     static AssociationEnd getOppositeAssociationEnd(final Property associationEnd)
     {
+        if (associationEnd==null)
+        {
+            return null;
+        }
         Object opposite = associationEnd.getOpposite();
         if (opposite == null)
         {
@@ -845,6 +896,8 @@ public class UmlUtilities
      * Finds and returns the first model element having the given
      * <code>name</code> in the <code>modelPackage</code>, returns
      * <code>null</code> if not found.
+     * @param resourceSet
+     * @param pred
      *
      * @return the found model element.
      */
@@ -853,6 +906,10 @@ public class UmlUtilities
         final Predicate pred)
     {
         Object modelElement = null;
+        if (resourceSet==null || pred==null)
+        {
+            return modelElement;
+        }
         for (final Iterator iterator = resourceSet.getResources().iterator();
             iterator.hasNext() && modelElement == null;)
         {
@@ -880,13 +937,23 @@ public class UmlUtilities
 
     /**
      * Find the Model of a resource (UML2 Model)
+     * @param resource
+     * @return (Model)EcoreUtil.getObjectByType(resource.getContents(), EcorePackage.eINSTANCE.getEObject())
      */
     public static Model findModel(final UML2Resource resource)
     {
+        if (resource==null)
+        {
+            return null;
+        }
         Model model = (Model)EcoreUtil.getObjectByType(
                 resource.getContents(),
                 EcorePackage.eINSTANCE.getEObject());
-        if (logger.isDebugEnabled())
+        if (model==null)
+        {
+            logger.error("getModel was null: " + resource);
+        }
+        else if (logger.isDebugEnabled())
         {
             logger.debug("Model found: " + model);
         }
@@ -894,8 +961,39 @@ public class UmlUtilities
     }
 
     /**
+     * Find the Model of a resource (UML2 Model)
+     * @param element
+     * @return (Model)EcoreUtil.getObjectByType(resource.getContents(), EcorePackage.eINSTANCE.getEObject())
+     */
+    public static Package findModel(final Element element)
+    {
+        if (element==null)
+        {
+            return null;
+        }
+        Package modelPackage = element.getModel();
+        if (modelPackage==null)
+        {
+            if (logger.isDebugEnabled())
+            {
+                logger.error("getModel was null: " + element + " OWNER: " + element.getOwner());
+            }
+            Element classifierOwner = element.getOwner();
+            Element owner = null;
+            while (classifierOwner!=null)
+            {
+                owner = classifierOwner;
+                classifierOwner = owner.getOwner();
+            }
+            // Find the last owner in the chain... Top level package.
+            modelPackage = (Package) owner;
+        }
+        return modelPackage;
+    }
+
+    /**
      * Constructs the package name for the given <code>metaObject</code>,
-     * seperating the package name by the given <code>separator</code>.
+     * separating the package name by the given <code>separator</code>.
      *
      * @param metaObject the Model Element
      * @param separator  the PSM namespace separator, ignored if <code>modelName</code> is <code>true</code>
@@ -908,6 +1006,10 @@ public class UmlUtilities
         final String separator,
         final boolean modelName)
     {
+        if (metaObject==null || StringUtils.isBlank(separator))
+        {
+            return null;
+        }
         final StringBuffer buffer = new StringBuffer();
 
         final String usedSeparator = modelName ? MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR : separator;
@@ -948,6 +1050,10 @@ public class UmlUtilities
      * <p/>
      * If the argument would be an instance of <code>NamedElement</code> then this method returns that object's
      * package name.
+     * @param metaObject
+     * @param separator
+     * @param modelName
+     * @return packageName
      *
      * @see #getPackageName(org.eclipse.uml2.NamedElement, String, boolean)
      */
@@ -956,6 +1062,10 @@ public class UmlUtilities
         final String separator,
         final boolean modelName)
     {
+        if (metaObject==null || StringUtils.isBlank(separator))
+        {
+            return null;
+        }
         final String packageName;
 
         if (metaObject instanceof NamedElement)
@@ -995,6 +1105,10 @@ public class UmlUtilities
         final ResourceSet rs,
         final String name)
     {
+        if (rs==null || StringUtils.isBlank(name))
+        {
+            return null;
+        }
         Object modelElement = null;
         if (StringUtils.isNotBlank(name))
         {
@@ -1035,6 +1149,10 @@ public class UmlUtilities
         final String separator,
         final boolean modelName)
     {
+        if (resourceSet==null || StringUtils.isBlank(fullyQualifiedName) || StringUtils.isBlank(separator))
+        {
+            return null;
+        }
         Object modelElement;
         modelElement =
             findByPredicate(
@@ -1071,10 +1189,10 @@ public class UmlUtilities
 
     /**
      * Multiplicity can be expressed as Value. String, integer... This method
-     * parse it. MD11.5 uses string, and RSM integers.
+     * parses it. MD11.5 uses string, and RSM integers.
      *
      * @param multValue a ValueSpecification, which need to be parsed
-     * @return the parsed integer
+     * @return the parsed integer. Defaults to 1.
      */
     static int parseMultiplicity(final ValueSpecification multValue)
     {
@@ -1123,15 +1241,21 @@ public class UmlUtilities
      * <li>We compare them either:
      *   without name transformation
      *   removing initial '@' and replacing '.' by '_' (rsm / emf-uml2 profile)
+     *   replacing initial '@' with '_' and removing '.' (EMF Normalization, RSM migration of MD 9.5 profiles)
      * EMF normalization (for MD11.5 export)
      *
      * @param requestedName
      * @param tagValueName
+     * @return Equals
      */
     public static boolean doesTagValueNameMatch(
         String requestedName,
         String tagValueName)
     {
+        if (StringUtils.isBlank(requestedName) || StringUtils.isBlank(tagValueName))
+        {
+            return false;
+        }
         boolean result = requestedName.equals(tagValueName);
         if (!result && requestedName.startsWith("@"))
         {

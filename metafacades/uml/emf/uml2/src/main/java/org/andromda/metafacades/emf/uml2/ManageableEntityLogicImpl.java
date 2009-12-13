@@ -8,7 +8,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-
 import org.andromda.metafacades.uml.ActorFacade;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.AttributeFacade;
@@ -33,6 +32,10 @@ import org.apache.commons.lang.StringUtils;
 public class ManageableEntityLogicImpl
     extends ManageableEntityLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ManageableEntityLogicImpl(
         final Object metaObject,
         final String context)
@@ -50,9 +53,10 @@ public class ManageableEntityLogicImpl
     }
 
     /**
+     * @return getManageablePackageName
      * @see org.andromda.metafacades.uml.ManageableEntity#getManageablePackageName()
      */
-    protected java.lang.String handleGetManageablePackageName()
+    protected String handleGetManageablePackageName()
     {
         String manageablePackageName = "";
 
@@ -79,16 +83,11 @@ public class ManageableEntityLogicImpl
             "/");
     }
 
-    protected java.util.List handleGetManageableAssociationEnds()
+    protected List handleGetManageableAssociationEnds()
     {
         final Set manageableAssociationEnds = new LinkedHashSet(); // linked
 
-        // hashset
-        // to
-        // guarantee
-        // ordering
-        // wo/
-        // duplicates
+        // hashset to guarantee ordering wo/ duplicates
         collectAssociationEnds(
             manageableAssociationEnds,
             this);
@@ -137,6 +136,7 @@ public class ManageableEntityLogicImpl
     }
 
     /**
+     * @return !isAbstract()
      * @see org.andromda.metafacades.uml.ManageableEntity#isCreate()
      */
     protected boolean handleIsCreate()
@@ -256,8 +256,8 @@ public class ManageableEntityLogicImpl
                     buffer.append(' ');
                 }
                 buffer.append(associationEnd.getName());
-            } 
-            else 
+            }
+            else
             {
                 final Iterator identifierIterator = entity.getIdentifiers().iterator();
                 if (identifierIterator.hasNext())
@@ -269,7 +269,7 @@ public class ManageableEntityLogicImpl
                         {
                             buffer.append(", ");
                         }
-    
+
                         final ClassifierFacade type = identifier.getType();
                         if (type != null)
                         {
@@ -298,7 +298,7 @@ public class ManageableEntityLogicImpl
                       .booleanValue();
     }
 
-    protected java.util.List handleGetReferencingManageables()
+    protected List handleGetReferencingManageables()
     {
         final Set referencingManageables = new LinkedHashSet();
         final Collection associationEnds = this.getAssociationEnds();
@@ -357,7 +357,7 @@ public class ManageableEntityLogicImpl
         return displayAttribute;
     }
 
-    protected java.util.List handleGetUsers()
+    protected List handleGetUsers()
     {
         final Set users = new LinkedHashSet();
 
@@ -524,7 +524,7 @@ public class ManageableEntityLogicImpl
         return resolveable;
     }
 
-    protected java.util.List handleGetAllManageables()
+    protected List handleGetAllManageables()
     {
         final Set allManageableEntities = new TreeSet(new ManageableComparator());
 

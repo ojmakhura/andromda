@@ -2,7 +2,6 @@ package org.andromda.metafacades.emf.uml2;
 
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.eclipse.uml2.Element;
 import org.eclipse.uml2.StateMachine;
 
@@ -29,6 +28,7 @@ public class StateVertexFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getOutgoings()
      * @see org.andromda.metafacades.uml.StateVertexFacade#getOutgoings()
      */
     protected Collection handleGetOutgoings()
@@ -39,6 +39,7 @@ public class StateVertexFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getIncomings()
      * @see org.andromda.metafacades.uml.StateVertexFacade#getIncomings()
      */
     protected Collection handleGetIncomings()
@@ -49,6 +50,7 @@ public class StateVertexFacadeLogicImpl
     }
 
     /**
+     * @return metaObject.getContainer().getNamespace()
      * @see org.andromda.metafacades.uml.StateVertexFacade#getContainer()
      */
     protected Object handleGetContainer()
@@ -58,6 +60,7 @@ public class StateVertexFacadeLogicImpl
     }
 
     /**
+     * @return getPartition
      * @see org.andromda.metafacades.uml.StateVertexFacade#getPartition()
      */
     protected Object handleGetPartition()
@@ -66,6 +69,7 @@ public class StateVertexFacadeLogicImpl
     }
 
     /**
+     * @return getStateMachine
      * @see org.andromda.metafacades.uml.StateVertexFacade#getStateMachine()
      */
     protected Object handleGetStateMachine()
@@ -78,6 +82,9 @@ public class StateVertexFacadeLogicImpl
         return owner;
     }
 
+    /**
+     * @see org.andromda.core.metafacade.MetafacadeBase#getValidationOwner()
+     */
     public Object getValidationOwner()
     {
         return getStateMachine();

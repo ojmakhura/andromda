@@ -23,6 +23,7 @@ import org.eclipse.uml2.uml.Vertex;
  * org.andromda.metafacades.uml.StateMachineFacade.
  *
  * @see org.andromda.metafacades.uml.StateMachineFacade
+ * @author Bob Fields
  */
 public class StateMachineFacadeLogicImpl
     extends StateMachineFacadeLogic

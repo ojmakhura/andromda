@@ -1,9 +1,8 @@
 package org.andromda.metafacades.emf.uml22;
 
+import java.util.Collection;
 import org.eclipse.uml2.uml.TemplateBinding;
 import org.eclipse.uml2.uml.TemplateParameterSubstitution;
-
-import java.util.Collection;
 
 /**
  * MetafacadeLogic implementation for

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
 import org.andromda.metafacades.uml.ActorFacade;
 
 
@@ -16,6 +15,10 @@ import org.andromda.metafacades.uml.ActorFacade;
 public class ActorFacadeLogicImpl
     extends ActorFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public ActorFacadeLogicImpl(
         final org.eclipse.uml2.Actor metaObject,
         final String context)
@@ -32,9 +35,10 @@ public class ActorFacadeLogicImpl
     }
 
     /**
+     * @return generalizedActors
      * @see org.andromda.metafacades.uml.ActorFacade#getGeneralizedActors()
      */
-    protected java.util.List handleGetGeneralizedActors()
+    protected List handleGetGeneralizedActors()
     {
         final List generalizedActors = new ArrayList();
 
@@ -52,9 +56,10 @@ public class ActorFacadeLogicImpl
 
     /**
      *
+     * @return generalizedByActors
      * @see org.andromda.metafacades.uml.ActorFacade#getGeneralizedByActors()
      */
-    protected java.util.List handleGetGeneralizedByActors()
+    protected List handleGetGeneralizedByActors()
     {
         final List generalizedByActors = new ArrayList();
 

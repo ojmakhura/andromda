@@ -8,7 +8,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-
 import org.andromda.metafacades.uml.ActivityGraphFacade;
 import org.andromda.metafacades.uml.AssociationEndFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -33,6 +32,10 @@ import org.apache.commons.lang.StringUtils;
 public class FrontEndUseCaseLogicImpl
     extends FrontEndUseCaseLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public FrontEndUseCaseLogicImpl(
         final Object metaObject,
         final String context)
@@ -41,6 +44,7 @@ public class FrontEndUseCaseLogicImpl
     }
 
     /**
+     * @return hasStereotype(FrontEndApplication)
      * @see org.andromda.metafacades.uml.FrontEndUseCase#isEntryUseCase()
      */
     protected boolean handleIsEntryUseCase()
@@ -49,18 +53,20 @@ public class FrontEndUseCaseLogicImpl
     }
 
     /**
+     * @return getActivityGraph().getController()
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getController()
      */
-    protected java.lang.Object handleGetController()
+    protected Object handleGetController()
     {
         final FrontEndActivityGraph graph = this.getActivityGraph();
         return graph == null ? null : graph.getController();
     }
 
     /**
+     * @return getFirstActivityGraph()
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getActivityGraph()
      */
-    protected java.lang.Object handleGetActivityGraph()
+    protected Object handleGetActivityGraph()
     {
         // There is a method in usecase Facade.
         // We can use it because, for now, we don't support hyperlink neither
@@ -70,6 +76,7 @@ public class FrontEndUseCaseLogicImpl
     }
 
     /**
+     * @return getModel().findFinalStatesWithNameOrHyperlink(this)
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getReferencingFinalStates()
      */
     protected List handleGetReferencingFinalStates()
@@ -78,6 +85,7 @@ public class FrontEndUseCaseLogicImpl
     }
 
     /**
+     * @return getModel().getAllUseCases() instanceof FrontEndUseCase
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getAllUseCases()
      */
     protected List handleGetAllUseCases()
@@ -136,6 +144,7 @@ public class FrontEndUseCaseLogicImpl
     }
 
     /**
+     * @return getAssociatedRoles() collectRoles
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getRoles()
      */
     protected List handleGetRoles()
@@ -153,6 +162,7 @@ public class FrontEndUseCaseLogicImpl
     }
 
     /**
+     * @return getAllUseCases().getRoles()
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getAllRoles()
      */
     protected List handleGetAllRoles()
@@ -166,6 +176,7 @@ public class FrontEndUseCaseLogicImpl
     }
 
     /**
+     * @return !getRoles().isEmpty()
      * @see org.andromda.metafacades.uml.FrontEndUseCase#isSecured()
      */
     protected boolean handleIsSecured()
@@ -174,6 +185,7 @@ public class FrontEndUseCaseLogicImpl
     }
 
     /**
+     * @return getViews
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getViews()
      */
     protected List handleGetViews()
@@ -196,6 +208,7 @@ public class FrontEndUseCaseLogicImpl
     }
 
     /**
+     * @return getViews
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getViews()
      */
     protected List handleGetActions()
@@ -221,6 +234,7 @@ public class FrontEndUseCaseLogicImpl
     }
 
     /**
+     * @return getInitialView
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getInitialView()
      */
     protected Object handleGetInitialView()
@@ -254,6 +268,7 @@ public class FrontEndUseCaseLogicImpl
     }
 
     /**
+     * @return getViewVariables
      * @see org.andromda.metafacades.uml.FrontEndUseCase#getViewVariables()
      */
     protected List handleGetViewVariables()

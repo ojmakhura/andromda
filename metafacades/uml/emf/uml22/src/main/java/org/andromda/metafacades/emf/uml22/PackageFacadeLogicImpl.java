@@ -16,6 +16,7 @@ import org.eclipse.uml2.uml.Package;
  * org.andromda.metafacades.uml.PackageFacade.
  *
  * @see org.andromda.metafacades.uml.PackageFacade
+ * @author Bob Fields
  */
 public class PackageFacadeLogicImpl
     extends PackageFacadeLogic

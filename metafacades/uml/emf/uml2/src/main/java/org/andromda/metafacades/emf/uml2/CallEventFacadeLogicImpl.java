@@ -4,21 +4,27 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
+import org.andromda.metafacades.uml.OperationFacade;
+import org.eclipse.uml2.Activity;
+import org.eclipse.uml2.ActivityNode;
 import org.eclipse.uml2.CallOperationAction;
 import org.eclipse.uml2.Operation;
 
 /**
  * MetafacadeLogic implementation for
- * org.andromda.metafacades.uml.CallEventFacade. UML1.4 Event are mapped to UML2
- * Activity (because UML2 Event doesn't contain parameter)
- * 
+ * org.andromda.metafacades.uml.CallEventFacade. UML1.4 Event is mapped to UML2
+ * Activity (because UML2 Event doesn't contain parameters)
+ *
  * @see org.andromda.metafacades.uml.CallEventFacade
  */
 public class CallEventFacadeLogicImpl extends CallEventFacadeLogic
 {
 
-    public CallEventFacadeLogicImpl(final org.eclipse.uml2.Activity metaObject,
+    /**
+     * @param metaObject
+     * @param context
+     */
+    public CallEventFacadeLogicImpl(final Activity metaObject,
             final String context)
     {
         super(metaObject, context);
@@ -27,21 +33,23 @@ public class CallEventFacadeLogicImpl extends CallEventFacadeLogic
     /**
      * @see org.andromda.metafacades.uml.CallEventFacade#getOperation()
      */
-    protected Object handleGetOperation()
+    @Override
+    protected OperationFacade handleGetOperation()
     {
-        final List operations = this.getOperations();
-        return operations.isEmpty() ? null : operations.iterator().next();
+        final List<OperationFacade> operations = this.getOperations();
+        return (OperationFacade)(operations.isEmpty() ? null : operations.iterator().next());
     }
 
     /**
      * @see org.andromda.metafacades.uml.CallEventFacade#getOperations()
      */
-    public List handleGetOperations()
+    @Override
+    public List<Operation> handleGetOperations()
     {
         // We get every operation from each CallOperationAction instance.
-        final List operations = new ArrayList();
-        Collection nodes = this.metaObject.getNodes();
-        for (final Iterator iterator = nodes.iterator(); iterator.hasNext();)
+        final List<Operation> operations = new ArrayList();
+        Collection<ActivityNode> nodes = this.metaObject.getNodes();
+        for (final Iterator<ActivityNode> iterator = nodes.iterator(); iterator.hasNext();)
         {
             final Object nextNode = iterator.next();
             if (nextNode instanceof CallOperationAction)

@@ -1,5 +1,7 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.util.Map;
+import java.util.Set;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
@@ -18,9 +20,6 @@ import org.eclipse.uml2.Slot;
 import org.eclipse.uml2.Stereotype;
 import org.eclipse.uml2.StructuralFeature;
 import org.eclipse.uml2.ValueSpecification;
-
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Implementation of AttributeLink.

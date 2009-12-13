@@ -1,5 +1,6 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.util.Collection;
 import org.andromda.core.metafacade.MetafacadeConstants;
 import org.andromda.metafacades.uml.AttributeFacade;
 import org.andromda.metafacades.uml.ClassifierFacade;
@@ -11,11 +12,8 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.uml2.Enumeration;
-import org.eclipse.uml2.NamedElement;
 import org.eclipse.uml2.EnumerationLiteral;
-
-import java.util.Collection;
-
+import org.eclipse.uml2.NamedElement;
 
 /**
  * MetafacadeLogic implementation for
@@ -27,11 +25,15 @@ import java.util.Collection;
 public class EnumerationFacadeLogicImpl
     extends EnumerationFacadeLogic
 {
+    /**
+     * @param metaObject
+     * @param context
+     */
     public EnumerationFacadeLogicImpl(
-        final Object metaObjectIn,
+        final Object metaObject,
         final String context)
     {
-        super(metaObjectIn, context);
+        super(metaObject, context);
     }
 
     /**
@@ -53,14 +55,14 @@ public class EnumerationFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EnumerationFacade#getLiterals()
      */
     @Override
-    protected java.util.Collection handleGetLiterals()
+    protected Collection handleGetLiterals()
     {
         // To Check: could be sufficient to return the collection of literals only
         //           without filtering
         final Collection literals = (this.metaObject instanceof Enumeration
             ? ((Enumeration)this.metaObject).getOwnedLiterals()
             : CollectionUtils.collect(this.getAttributes(), UmlUtilities.ELEMENT_TRANSFORMER));
-        
+
         CollectionUtils.filter(
             literals,
             new Predicate()
@@ -82,7 +84,7 @@ public class EnumerationFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EnumerationFacade#getMemberVariables()
      */
     @Override
-    protected Collection handleGetMemberVariables()
+    protected Collection<AttributeFacade> handleGetMemberVariables()
     {
         // To Check: could be sufficient to return the collection of attributes only
         //           without filtering
@@ -105,7 +107,7 @@ public class EnumerationFacadeLogicImpl
         );
         return variables;
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EnumerationFacade#getFromOperationSignature()
      */
@@ -127,12 +129,12 @@ public class EnumerationFacadeLogicImpl
      * @see org.andromda.metafacades.uml.EnumerationFacade#isTypeSafe()
      */
     @Override
-    protected boolean handleIsTypeSafe() 
+    protected boolean handleIsTypeSafe()
     {
         return BooleanUtils.toBoolean(
                 String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.TYPE_SAFE_ENUMS_ENABLED)));
     }
-    
+
     /**
      * @see org.andromda.metafacades.uml.EnumerationFacade#getFromOperationName()
      */
@@ -155,7 +157,7 @@ public class EnumerationFacadeLogicImpl
     protected Object handleGetLiteralType()
     {
         Object type = null;
-        final Collection literals = this.getLiterals();
+        final Collection<AttributeFacade> literals = this.getLiterals();
         if (literals != null && !literals.isEmpty())
         {
             ModelElementFacade literal = (ModelElementFacade)literals.iterator().next();
@@ -165,9 +167,11 @@ public class EnumerationFacadeLogicImpl
             }
             else
             {
+                //String defaultType = String.valueOf(this.getConfiguredProperty(
+                //    UMLMetafacadeProperties.DEFAULT_ENUMERATION_LITERAL_TYPE));
                 type = UmlUtilities.findByFullyQualifiedName(
                     ((NamedElement)this.metaObject).eResource().getResourceSet(),
-                    "datatype::String", // todo: use this (doesn't work for some reason): UMLMetafacadeProperties.DEFAULT_ENUMERATION_LITERAL_TYPE,
+                    "datatype::String", // TODO: use this (doesn't work for some reason): UMLMetafacadeProperties.DEFAULT_ENUMERATION_LITERAL_TYPE,
                     MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
                     true);
                 if (type==null)
@@ -185,6 +189,15 @@ public class EnumerationFacadeLogicImpl
                     type = UmlUtilities.findByFullyQualifiedName(
                     ((NamedElement)this.metaObject).eResource().getResourceSet(),
                     "PrimitiveTypes::String",
+                    MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
+                    true);
+                }
+                if (type==null)
+                {
+                    // Requires customized mapping in etc/*Mappings.xml files
+                    type = UmlUtilities.findByFullyQualifiedName(
+                    ((NamedElement)this.metaObject).eResource().getResourceSet(),
+                    "UMLPrimitiveTypes::String",
                     MetafacadeConstants.NAMESPACE_SCOPE_OPERATOR,
                     true);
                 }

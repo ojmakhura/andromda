@@ -1,5 +1,9 @@
 package org.andromda.metafacades.emf.uml2;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import org.andromda.metafacades.uml.InstanceFacade;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
@@ -9,11 +13,6 @@ import org.eclipse.uml2.LiteralInteger;
 import org.eclipse.uml2.LiteralString;
 import org.eclipse.uml2.Slot;
 import org.eclipse.uml2.ValueSpecification;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 
 /**
@@ -29,11 +28,19 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
     private Object value = null;
     private boolean valueSet = false;
 
+    /**
+     * @param metaObject
+     * @param context
+     */
     public InstanceFacadeLogicImpl(ObjectInstance metaObject, String context)
     {
         super(metaObject, context);
     }
 
+    /**
+     * @param valueSpecification
+     * @return instance
+     */
     public static InstanceFacade createInstanceFor(ValueSpecification valueSpecification)
     {
         final InstanceFacadeLogicImpl instance = new InstanceFacadeLogicImpl(null, null);
@@ -44,7 +51,7 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
         }
         else if (valueSpecification instanceof LiteralInteger)
         {
-            instance.value = new Integer(((LiteralInteger)valueSpecification).getValue());
+            instance.value = Integer.valueOf(((LiteralInteger)valueSpecification).getValue());
         }
         else if (valueSpecification instanceof LiteralBoolean)
         {
@@ -66,6 +73,7 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
 
     /**
      * In case we wrap a value specification we just want to be able to print out that value when calling toString()
+     * @return valueSet ? getName() : super.toString()
      */
     public String toString()
     {
@@ -73,17 +81,19 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
     }
 
     /**
+     * @return metaObject.getClassifiers()
      * @see org.andromda.metafacades.uml.InstanceFacade#getClassifiers()
      */
-    protected java.util.Collection handleGetClassifiers()
+    protected Collection handleGetClassifiers()
     {
         return this.metaObject.getClassifiers();
     }
 
     /**
+     * @return getOwnedInstances
      * @see org.andromda.metafacades.uml.InstanceFacade#getOwnedInstances()
      */
-    protected java.util.Collection handleGetOwnedInstances()
+    protected Collection handleGetOwnedInstances()
     {
         final Collection ownedElements = new ArrayList(this.metaObject.getOwnedElements());
         CollectionUtils.filter(ownedElements, new Predicate()
@@ -98,23 +108,26 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
 
     /**
      * Instances do not own Links in UML2 (unlike UML1.4+), this method always returns an empty collection.
+     * @return getOwnedLinks
      *
      * @see org.andromda.metafacades.uml.InstanceFacade#getOwnedLinks()
      */
-    protected java.util.Collection handleGetOwnedLinks()
+    protected Collection handleGetOwnedLinks()
     {
         return Collections.EMPTY_LIST;
     }
 
     /**
+     * @return getSlots
      * @see org.andromda.metafacades.uml.InstanceFacade#getSlots()
      */
-    protected java.util.Collection handleGetSlots()
+    protected Collection handleGetSlots()
     {
         return CollectionUtils.collect(this.metaObject.getSlots(), UmlUtilities.ELEMENT_TRANSFORMER);
     }
 
     /**
+     * @return getAttributeLinks
      * @see org.andromda.metafacades.uml.InstanceFacade#getAttributeLinks()
      */
     protected Collection handleGetAttributeLinks()
@@ -134,9 +147,10 @@ public class InstanceFacadeLogicImpl extends InstanceFacadeLogic
     }
 
     /**
+     * @return getLinkEnds
      * @see org.andromda.metafacades.uml.InstanceFacade#getLinkEnds()
      */
-    protected java.util.Collection handleGetLinkEnds()
+    protected Collection handleGetLinkEnds()
     {
         // collect the slots
         final List slots = new ArrayList(this.metaObject.getSlots());
