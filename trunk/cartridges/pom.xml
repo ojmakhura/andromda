@@ -97,22 +97,13 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <!-- Can't apply these settings to just the test-compile phase, it fails on compile Error -->
-                    <!--executions>
-                        <execution>
-                            <phase>test-compile</phase> 
-                            <goals>
-                                <goal>testCompile</goal>
-                            </goals-->
-                            <configuration>
-                                <source>1.5</source>
-                                <target>1.5</target>
-                                <failOnError>false</failOnError>
-                                <showDeprecation>true</showDeprecation>
-                                <showWarnings>true</showWarnings>
-                            </configuration>
-                        <!--/execution>
-                    </executions-->
+                    <configuration>
+                        <source>1.5</source>
+                        <target>1.5</target>
+                        <failOnError>false</failOnError>
+                        <showDeprecation>true</showDeprecation>
+                        <showWarnings>true</showWarnings>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.andromda.maven.plugins.site</groupId>
@@ -125,7 +116,7 @@
                                 <goal>profile-xsl</goal>
                             </goals>
                             <configuration>
-                                <profileDocumentPath>${pom.basedir}/src/META-INF/andromda/profile.xml</profileDocumentPath>
+                                <profileDocumentPath>${project.basedir}/src/META-INF/andromda/profile.xml</profileDocumentPath>
                             </configuration>
                         </execution>
                         <execution>
@@ -134,7 +125,7 @@
                                 <goal>namespace-xsl</goal>
                             </goals>
                             <configuration>
-                                <namespaceDocumentPath>${pom.basedir}/src/META-INF/andromda/namespace.xml</namespaceDocumentPath>
+                                <namespaceDocumentPath>${project.basedir}/src/META-INF/andromda/namespace.xml</namespaceDocumentPath>
                             </configuration>
                         </execution>
                     </executions>
@@ -182,12 +173,12 @@
         <module>testsuite</module>
     </modules>
     <properties>
-        <maven.build.src>${pom.basedir}/target/src</maven.build.src>
-        <java.src.dir>${pom.basedir}/src/java</java.src.dir>
-        <test.src.dir>${pom.basedir}/src/test</test.src.dir>
-        <src.dir>${pom.basedir}/src</src.dir>
-        <test.output.dir>${pom.basedir}/target/cartridge-test/actual</test.output.dir>
-        <howto.output.dir>${pom.basedir}/target/site/howto</howto.output.dir>
+        <maven.build.src>${project.basedir}/target/src</maven.build.src>
+        <java.src.dir>${project.basedir}/src/java</java.src.dir>
+        <test.src.dir>${project.basedir}/src/test</test.src.dir>
+        <src.dir>${project.basedir}/src</src.dir>
+        <test.output.dir>${project.basedir}/target/cartridge-test/actual</test.output.dir>
+        <howto.output.dir>${project.basedir}/target/site/howto</howto.output.dir>
         <andromda.cartridge.howto.model.uri>jar:file:${src.dir}/site/resources/howto/HowToModel.xml.zip!/HowToModel.xml</andromda.cartridge.howto.model.uri>
         <downloadSources>true</downloadSources>
         <createChecksum>true</createChecksum>
