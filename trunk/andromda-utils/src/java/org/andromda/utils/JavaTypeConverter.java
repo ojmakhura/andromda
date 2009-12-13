@@ -242,7 +242,7 @@ public class JavaTypeConverter
                     convertedValue =
                         MessageFormat.format(
                             conversionTable[i].conversionPattern,
-                            new Object[] {sourceValue});
+                                sourceValue);
                 } // if
             } // for
 
@@ -251,11 +251,11 @@ public class JavaTypeConverter
                 // If source is a primitive wrapper, try to convert
                 // to the base primitive first...
                 String primitiveSource = sourceType.substring(10).toLowerCase();
-                if (primitiveSource.equals("integer"))
+                if ("integer".equals(primitiveSource))
                 {
                     primitiveSource = "int";
                 }
-                else if (primitiveSource.equals("character")) {
+                else if ("character".equals(primitiveSource)) {
                     primitiveSource = "char";
                 }
 
@@ -278,11 +278,11 @@ public class JavaTypeConverter
                 // One last try - if target is a primitive wrapper, try to convert
                 // to the base primitive first...
                 String primitiveTarget = targetType.substring(10).toLowerCase();
-                if (primitiveTarget.equals("integer"))
+                if ("integer".equals(primitiveTarget))
                 {
                     primitiveTarget = "int";
                 }
-                else if (primitiveTarget.equals("character")) {
+                else if ("character".equals(primitiveTarget)) {
                     primitiveTarget = "char";
                 }
                 

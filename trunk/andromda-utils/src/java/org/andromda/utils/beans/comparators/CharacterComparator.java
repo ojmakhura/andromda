@@ -30,8 +30,8 @@ class CharacterComparator
         Character bAsCharacter = (Character)objectB;
         this.initializeCollator();
         return collator.compare(
-            Character.toString(aAsCharacter.charValue()),
-            Character.toString(bAsCharacter.charValue()));
+            Character.toString(aAsCharacter),
+            Character.toString(bAsCharacter));
     }
 
     /**

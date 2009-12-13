@@ -25,11 +25,11 @@ class BooleanComparator
         Boolean aAsBoolean = (Boolean)objectA;
         Boolean bAsBoolean = (Boolean)objectB;
         int result = 0;
-        if (aAsBoolean.booleanValue() && !bAsBoolean.booleanValue())
+        if (aAsBoolean && !bAsBoolean)
         {
             result = 1;
         }
-        else if (!aAsBoolean.booleanValue() && bAsBoolean.booleanValue())
+        else if (!aAsBoolean && bAsBoolean)
         {
             result = -1;
         }

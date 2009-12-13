@@ -1126,10 +1126,10 @@ public class JavaTypeConverterTest
         for (int i = 0; i < expected.length; i++)
         {
             final String result = converter.typeConvert(expected[i].fromType, "sourceVal", expected[i].toType);
-            if (expected[i].fromType.equals("java.util.Date") ||
-                expected[i].fromType.equals("java.sql.Timestamp") ||
-                expected[i].toType.equals("java.util.Date") ||
-                expected[i].toType.equals("java.sql.Timestamp") )
+            if ("java.util.Date".equals(expected[i].fromType) ||
+                    "java.sql.Timestamp".equals(expected[i].fromType) ||
+                    "java.util.Date".equals(expected[i].toType) ||
+                    "java.sql.Timestamp".equals(expected[i].toType))
             {
                 assertNull("Converting " + expected[i].fromType + " to " + expected[i].toType +
                     " should have been null, was: " + result, result);
@@ -1240,17 +1240,17 @@ public class JavaTypeConverterTest
                           System.out.print(knownTypes[fromIndex] + typeSuffix[fromSuffix]);
                           System.out.print(" ");
                           System.out.print(sourceLabel);
-                          if (typeSuffix[fromSuffix].equals("[]"))
+                          if ("[]".equals(typeSuffix[fromSuffix]))
                           {
                               System.out.print(" = new ");
                               System.out.print(knownTypes[fromIndex]);
                               System.out.println("[1];");
                           }
-                          else if (knownTypes[fromIndex].indexOf(".") > 0)
+                          else if (knownTypes[fromIndex].indexOf('.') > 0)
                           {
                               System.out.println(" = null;");
                           }
-                          else if (knownTypes[fromIndex].equals("boolean"))
+                          else if ("boolean".equals(knownTypes[fromIndex]))
                           {
                               System.out.println(" = false;");
                           }

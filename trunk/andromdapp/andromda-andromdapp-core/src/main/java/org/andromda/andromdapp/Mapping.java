@@ -41,7 +41,7 @@ public class Mapping
         for (final Iterator iterator = this.froms.iterator(); iterator.hasNext();)
         {
             final String from = (String)iterator.next();
-            if (path.indexOf(from) != -1)
+            if (path.contains(from))
             {
                 match = StringUtils.replace(path, from, to);
             }

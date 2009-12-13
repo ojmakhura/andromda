@@ -28,7 +28,7 @@ public class EnglishInflector
         final Map<String, String> rules = EnglishInflector.getPluralRules();
         for (Iterator<Map.Entry<String, String>> ruleIterator = rules.entrySet().iterator(); ruleIterator.hasNext();)
         {
-            final Map.Entry rule = (Map.Entry)ruleIterator.next();
+            final Map.Entry rule = ruleIterator.next();
             final String pattern = rule.getKey().toString();
             final String replace = rule.getValue().toString();
             if (word.matches(pattern))
@@ -88,7 +88,7 @@ public class EnglishInflector
         final Map<String, String> rules = EnglishInflector.getSingularRules();
         for (Iterator<Map.Entry<String, String>> ruleIterator = rules.entrySet().iterator(); ruleIterator.hasNext();)
         {
-            final Map.Entry rule = (Map.Entry)ruleIterator.next();
+            final Map.Entry rule = ruleIterator.next();
             final String pattern = rule.getKey().toString();
             final String replace = rule.getValue().toString();
             if (word.matches(pattern))

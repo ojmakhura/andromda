@@ -135,7 +135,7 @@ public class Condition
      */
     public void setPresent(final boolean present)
     {
-        this.present = Boolean.valueOf(present);
+        this.present = present;
     }
 
     /**
@@ -150,11 +150,11 @@ public class Condition
         if (this.present != null)
         {
             // - if the condition must be present, very that it is
-            if (this.present.booleanValue())
+            if (this.present)
             {
                 valid = value != null;
             }
-            else if (!this.present.booleanValue())
+            else if (!this.present)
             {
                 // - otherwise verify that the condition is not present (if it shouldn't be)
                 valid = value == null;
@@ -187,6 +187,6 @@ public class Condition
      */
     public String toString()
     {
-        return super.toString() + "[id=" + this.id + ", equal=" + this.equal + ", notEqual=" + this.notEqual + "]";
+        return super.toString() + "[id=" + this.id + ", equal=" + this.equal + ", notEqual=" + this.notEqual + ']';
     }
 }

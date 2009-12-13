@@ -24,6 +24,7 @@ import java.util.Collection;
 import org.andromda.utils.beautifier.core.JavaBeautifier;
 import org.andromda.utils.beautifier.core.JavaImportBeautifierImpl;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 
@@ -310,7 +311,7 @@ public class ImportBeautifierMojo extends AbstractMojo {
         // to target directory
         int index = path.indexOf(sourceRootDirectory);
         if (index == -1) {
-            if (sourceRootDirectory.indexOf("/") > -1) {
+            if (sourceRootDirectory.indexOf('/') > -1) {
                 sourceRootDirectory = sourceRootDirectory.replaceAll("/", "\\\\");
                 index = path.indexOf(sourceRootDirectory);
             } else {
@@ -320,7 +321,7 @@ public class ImportBeautifierMojo extends AbstractMojo {
         }
         String sourcePath = path
                 .substring(index + sourceRootDirectory.length());
-        if (targetRootDirectory == null || targetRootDirectory.equals("")) {
+        if (StringUtils.isEmpty(targetRootDirectory)) {
             targetRootDirectory = sourceRootDirectory;
         }
         File targetPath = new File(targetRootDirectory + sourcePath);

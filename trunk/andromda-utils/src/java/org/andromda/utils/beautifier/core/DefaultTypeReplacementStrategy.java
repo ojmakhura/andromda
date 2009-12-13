@@ -26,7 +26,7 @@ public class DefaultTypeReplacementStrategy implements TypeReplacementStrategy {
     private String suffix;
 
     public DefaultTypeReplacementStrategy(String suffix) {
-        this.suffix = "(" + suffix + ")";
+        this.suffix = '(' + suffix + ')';
     }
 
     public String composeMatch(String type) {

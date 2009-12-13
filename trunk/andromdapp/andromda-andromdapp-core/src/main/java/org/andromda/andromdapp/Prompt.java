@@ -83,7 +83,7 @@ public class Prompt
         }
         if (!this.responses.isEmpty())
         {
-            text.append(" " + this.getResponsesAsString());
+            text.append(' ').append(this.getResponsesAsString());
         }
         text.append(": ");
         return text.toString();
@@ -179,7 +179,7 @@ public class Prompt
                 responses.append(", ");
             }
         }
-        responses.append("]");
+        responses.append(']');
         return responses.toString();
     }
 

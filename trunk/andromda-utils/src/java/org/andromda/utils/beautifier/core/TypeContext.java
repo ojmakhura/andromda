@@ -55,7 +55,7 @@ public class TypeContext implements Comparable {
     }
 
     public String toString() {
-        return "" + getType() + " - " + getQualifiedName();
+        return String.valueOf(getType()) + " - " + getQualifiedName();
     }
 
     public void reviseType() {

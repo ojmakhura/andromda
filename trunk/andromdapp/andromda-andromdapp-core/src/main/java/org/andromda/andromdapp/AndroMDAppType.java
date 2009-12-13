@@ -380,13 +380,13 @@ public class AndroMDAppType
         // - second process and write any output from the defined resource locations.
         for (final Iterator<String> iterator = locations.keySet().iterator(); iterator.hasNext();)
         {
-            final String location = (String)iterator.next();
+            final String location = iterator.next();
             final Collection contents = (Collection)locations.get(location);
             if (contents != null)
             {
                 for (final Iterator<String> contentsIterator = contents.iterator(); contentsIterator.hasNext();)
                 {
-                    final String path = (String)contentsIterator.next();
+                    final String path = contentsIterator.next();
                     final String projectRelativePath = StringUtils.replace(
                             path,
                             location,
@@ -412,10 +412,10 @@ public class AndroMDAppType
                                 catch (final Throwable throwable)
                                 {
                                     throw new AndroMDAppException("An error occured while processing template --> '" +
-                                        path + "' with template context '" + this.templateContext + "'", throwable);
+                                        path + "' with template context '" + this.templateContext + '\'', throwable);
                                 }
                                 writer.flush();
-                                this.printText(MARGIN + "Output: '" + outputFile.toURI().toURL() + "'");
+                                this.printText(MARGIN + "Output: '" + outputFile.toURI().toURL() + '\'');
                                 ResourceWriter.instance().writeStringToFile(
                                     writer.toString(),
                                     outputFile);
@@ -443,7 +443,7 @@ public class AndroMDAppType
                                     ResourceWriter.instance().writeUrlToFile(
                                         resource,
                                         outputFile.toString());
-                                    this.printText(MARGIN + "Output: '" + outputFile.toURI().toURL() + "'");
+                                    this.printText(MARGIN + "Output: '" + outputFile.toURI().toURL() + '\'');
                                 }
                                 processedResources.add(outputFile);
                             }
@@ -461,7 +461,7 @@ public class AndroMDAppType
             if (this.isWriteable(directoryPath))
             {
                 directory.mkdirs();
-                this.printText(MARGIN + "Output: '" + directory.toURI().toURL() + "'");
+                this.printText(MARGIN + "Output: '" + directory.toURI().toURL() + '\'');
             }
         }
 
@@ -469,7 +469,7 @@ public class AndroMDAppType
         {
             // - write the "instructions can be found" information
             this.printLine();
-            this.printText(MARGIN + "New application generated to --> '" + rootDirectory.toURI().toURL() + "'");
+            this.printText(MARGIN + "New application generated to --> '" + rootDirectory.toURI().toURL() + '\'');
             if (StringUtils.isNotBlank(this.instructions))
             {
                 File instructions = new File(
@@ -479,9 +479,9 @@ public class AndroMDAppType
                 {
                     throw new AndroMDAppException("No instructions are available at --> '" + instructions +
                         "', please make sure you have the correct instructions defined in your descriptor --> '" +
-                        this.resource + "'");
+                        this.resource + '\'');
                 }
-                this.printText(MARGIN + "Instructions for your new application --> '" + instructions.toURI().toURL() + "'");
+                this.printText(MARGIN + "Instructions for your new application --> '" + instructions.toURI().toURL() + '\'');
             }
             this.printLine();
         }
@@ -540,7 +540,7 @@ public class AndroMDAppType
                                 if (StringUtils.isNotBlank(id))
                                 {
                                     final boolean result = condition.evaluate(this.templateContext.get(id));
-                                    writable = Boolean.valueOf(result);
+                                    writable = result;
                                     if (Conditions.TYPE_AND.equals(conditionsType) && !result)
                                     {
                                         // - if we 'and' the conditions, we break at the first false
@@ -570,7 +570,7 @@ public class AndroMDAppType
         {
             writable = Boolean.TRUE;
         }
-        return writable.booleanValue();
+        return writable;
     }
 
     /**
@@ -668,7 +668,7 @@ public class AndroMDAppType
         if (rootDirectory.exists() && !this.isOvewrite())
         {
             this.printPromptText(
-                "'" + rootDirectory.getAbsolutePath() +
+                    '\'' + rootDirectory.getAbsolutePath() +
                 "' already exists, would you like to try a new name? [yes, no]: ");
             String response = this.readLine();
             while (!RESPONSE_YES.equals(response) && !RESPONSE_NO.equals(response))
@@ -929,7 +929,7 @@ public class AndroMDAppType
      */
     public String toString()
     {
-        return super.toString() + "[" + this.getType() + "]";
+        return super.toString() + '[' + this.getType() + ']';
     }
 
     /**
