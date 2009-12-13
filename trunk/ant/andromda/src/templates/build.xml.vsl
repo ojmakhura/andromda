@@ -17,7 +17,7 @@
         <property name="lib.dir" value="lib"/>
         <path id="andromda.ant.classpath">
             <fileset dir=".">
-                <include name="${pom.artifactId}-${pom.currentVersion}.jar"/> 
+                <include name="${project.artifactId}-${project.currentVersion}.jar"/> 
             </fileset>        
             <fileset dir="${lib.dir}">        
 #foreach ($lib in $pom.artifacts)

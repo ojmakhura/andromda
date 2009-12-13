@@ -72,7 +72,7 @@
                             <goal>namespace-xsl</goal>
                         </goals>
                         <configuration> 
-                            <namespaceDocumentPath>${pom.basedir}/target/classes/META-INF/andromda/namespace.xml</namespaceDocumentPath>
+                            <namespaceDocumentPath>${project.basedir}/target/classes/META-INF/andromda/namespace.xml</namespaceDocumentPath>
                         </configuration> 
                     </execution>
                 </executions>
@@ -106,8 +106,8 @@
     	</resources>
     </build>
     <properties>
-        <model.file>${pom.basedir}/src/uml/${project.artifactId}.xml.zip</model.file>
+        <model.file>${project.basedir}/src/uml/${project.artifactId}.xml.zip</model.file>
         <maven.andromda.model.uri>jar:file:${model.file}!/${project.artifactId}.xml</maven.andromda.model.uri>
-        <maven.src.dir>${pom.basedir}/src</maven.src.dir>
+        <maven.src.dir>${project.basedir}/src</maven.src.dir>
     </properties>    
 </project>

@@ -102,7 +102,7 @@
                             <goal>namespace-xsl</goal>
                         </goals>
                         <configuration> 
-                            <namespaceDocumentPath>${pom.basedir}/target/classes/META-INF/andromda/namespace.xml</namespaceDocumentPath>
+                            <namespaceDocumentPath>${project.basedir}/target/classes/META-INF/andromda/namespace.xml</namespaceDocumentPath>
                         </configuration> 
                     </execution>
                 </executions>
@@ -135,16 +135,40 @@
               </resource>
         </resources>
     </build>
-	<reporting>
-	<plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>clirr-maven-plugin</artifactId>        
-        <configuration>
-          <!-- Compare the current code against current version -->
-          <comparisonVersion>${project.version}</comparisonVersion>
-        </configuration>
-      </plugin>      
-    </plugins>
-  </reporting>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin> 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changes-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>clirr-maven-plugin</artifactId>        
+                <!-- Compare the current code against current version -->
+                <configuration>
+                    <comparisonVersion>${project.version}</comparisonVersion>
+                </configuration>
+            </plugin>      
+        </plugins>
+    </reporting>
 </project>

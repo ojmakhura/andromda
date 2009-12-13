@@ -17,15 +17,15 @@
     <name>${applicationName} Core Business Tier</name>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-common</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
 #if ($workflow)
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-workflow</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
 #end
 #if ($spring || $hibernate)
@@ -231,7 +231,7 @@
             <artifactId>jboss-seam</artifactId>
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/../app/target/src/resources/lib/jboss-seam.jar</systemPath>
+            <systemPath>${project.basedir}/../app/target/src/resources/lib/jboss-seam.jar</systemPath>
         </dependency>
 #end
         <dependency>

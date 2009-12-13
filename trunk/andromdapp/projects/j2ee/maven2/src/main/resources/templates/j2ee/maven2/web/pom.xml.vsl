@@ -12,18 +12,18 @@
     <name>${applicationName} Web</name>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-common</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
 #if ($ear)
             <scope>provided</scope>
 #end
         </dependency>
 #if (!$transactionPersistenceType.equals("none"))
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-core</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
 #if ($ear)
             <type>ejb</type>
             <scope>provided</scope>
@@ -84,49 +84,49 @@
             <artifactId>jboss-seam-debug</artifactId>
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/jboss-seam-debug.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/jboss-seam-debug.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.jboss</groupId>
             <artifactId>jboss-seam-ui</artifactId>
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/jboss-seam-ui.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/jboss-seam-ui.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces</groupId>
             <artifactId>tomahawk</artifactId>
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.trinidad</groupId>
             <artifactId>trinidad-api</artifactId>
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/trinidad-api-1.0.1-incubating-SNAPSHOT.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/trinidad-api-1.0.1-incubating-SNAPSHOT.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces.trinidad</groupId>
             <artifactId>trinidad-impl</artifactId>
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/trinidad-impl-1.0.1-incubating-SNAPSHOT.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/trinidad-impl-1.0.1-incubating-SNAPSHOT.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.cyberneko</groupId>
             <artifactId>nekohtml</artifactId>
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/nekohtml.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/nekohtml.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.ajax4jsf</groupId>
             <artifactId>ajax4jsf</artifactId>
             <version>1.1.1</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/ajax4jsf.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/ajax4jsf.jar</systemPath>
         </dependency>
 #else
 #if ($jsf1)
@@ -136,7 +136,7 @@
             <!-- 'unknown' because the version doesn't matter for system dependencies -->
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/myfaces-api.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/myfaces-api.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.apache.myfaces</groupId>
@@ -144,7 +144,7 @@
             <!-- 'unknown' because the version doesn't matter for system dependencies -->
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/tomahawk.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>oracle.adf.view.faces</groupId>
@@ -152,7 +152,7 @@
             <!-- 'unknown' because the version doesn't matter for system dependencies -->
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/adf-faces-api.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/adf-faces-api.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.andromda.cartridges</groupId>
@@ -160,7 +160,7 @@
             <!-- 'unknown' because the version doesn't matter for system dependencies -->
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/WEB-INF/lib/andromda-jsf-cartridge-components.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/WEB-INF/lib/andromda-jsf-cartridge-components.jar</systemPath>
         </dependency>
 #elseif ($jsf2)
         <dependency>
@@ -284,7 +284,7 @@
     </dependencies>
     <build>
 #if ($war)
-        <finalName>${application.id}-${pom.version}</finalName>
+        <finalName>${application.id}-${project.version}</finalName>
 #end
         <resources>
             <resource>
@@ -315,28 +315,28 @@
                 </executions>
                 <configuration>
                     <tasks>
-                        <copy todir="${pom.basedir}/target/src" overwrite="true" failonerror="false">
+                        <copy todir="${project.basedir}/target/src" overwrite="true" failonerror="false">
 #set ($viewSrcType = "jsp")
 #if ($facelets)
 #set ($viewSrcType = "xhtml")
 #end
-                            <fileset dir="${pom.basedir}/src/main/$viewSrcType">
+                            <fileset dir="${project.basedir}/src/main/$viewSrcType">
                                 <include name="**/*"/>
                             </fileset>
-                            <fileset dir="${pom.basedir}/src/main">
+                            <fileset dir="${project.basedir}/src/main">
                                 <include name="css/**"/>
                                 <include name="images/**"/>
                             </fileset>
 #if ($jsf)
-                            <fileset dir="${pom.basedir}/src/main">
+                            <fileset dir="${project.basedir}/src/main">
                                 <include name="skins/**"/>
                             </fileset>
 #end
                         </copy>
 #if ($facelets)
-                        <!-- place any facelet tag files in ${pom.basedir}/src/main/xml/tags -->
-                        <copy todir="${pom.basedir}/target/src/WEB-INF" overwrite="true" failonerror="false">
-                            <fileset dir="${pom.basedir}/src/main/xml/tags"/>
+                        <!-- place any facelet tag files in ${project.basedir}/src/main/xml/tags -->
+                        <copy todir="${project.basedir}/target/src/WEB-INF" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/src/main/xml/tags"/>
                         </copy>
 #end
                     </tasks>
@@ -352,6 +352,8 @@
                 <configuration>
                     <warSourceDirectory>target/src</warSourceDirectory>
                     <excludes>**/*.java</excludes>
+                    <!-- Needed for mvn 2.1 with war-plugin 2.1. See http://jira.codehaus.org/browse/MWAR-187 -->
+                    <useCache>false</useCache>
                 </configuration>
             </plugin>
             <plugin>

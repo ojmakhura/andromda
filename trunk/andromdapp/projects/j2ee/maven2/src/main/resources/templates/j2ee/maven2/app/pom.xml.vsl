@@ -12,39 +12,39 @@
     <name>$applicationName Application</name>
     <dependencies>
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-common</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
 #if (!$transactionPersistenceType.equals("none"))
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-core</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <type>ejb</type>
         </dependency>
 #end
 #if ($web)
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-web</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
 #end
 #if ($webservice && !$jsr181Webservice)
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-webservice</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
             <type>war</type>
         </dependency>
 #end
 #if ($workflow)
         <dependency>
-            <groupId>${pom.groupId}</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>${applicationId}-workflow</artifactId>
-            <version>${pom.version}</version>
+            <version>${project.version}</version>
         </dependency>
 #end
         <dependency>
@@ -64,26 +64,26 @@
             <artifactId>jboss-seam</artifactId>
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/resources/lib/jboss-seam.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/resources/lib/jboss-seam.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.sun.el</groupId>
             <artifactId>el-ri</artifactId>
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/resources/lib/el-ri.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/resources/lib/el-ri.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>javax.el</groupId>
             <artifactId>el-api</artifactId>
             <version>unknown</version>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/target/src/resources/lib/el-api.jar</systemPath>
+            <systemPath>${project.basedir}/target/src/resources/lib/el-api.jar</systemPath>
         </dependency>
 #end
     </dependencies>
     <build>
-        <finalName>${application.id}-${pom.version}</finalName>
+        <finalName>${application.id}-${project.version}</finalName>
         <resources>
             <resource>
                 <directory>src/main/config</directory>
@@ -92,7 +92,7 @@
             </resource>
             <resource>
                 <directory>src/main/application</directory>
-                <targetPath>../${application.id}-${pom.version}</targetPath>
+                <targetPath>../${application.id}-${project.version}</targetPath>
                 <filtering>true</filtering>
             </resource>
         </resources>
@@ -128,33 +128,33 @@
                         </jarModule>
 #end
                         <jarModule>
-                            <groupId>${pom.groupId}</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>${applicationId}-common</artifactId>
                             <includeInApplicationXml>true</includeInApplicationXml>
                         </jarModule>
 #if (!$transactionPersistenceType.equals("none"))
                         <ejbModule>
-                            <groupId>${pom.groupId}</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>${applicationId}-core</artifactId>
                         </ejbModule>
 #end
 #if ($web)
                         <webModule>
-                            <groupId>${pom.groupId}</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>${applicationId}-web</artifactId>
                             <contextRoot>/${application.id}</contextRoot>
                         </webModule>
 #end
 #if ($webservice && !$jsr181Webservice)
                         <webModule>
-                            <groupId>${pom.groupId}</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>${applicationId}-webservice</artifactId>
                             <contextRoot>/${application.id}-ws</contextRoot>
                         </webModule>
 #end
 #if ($workflow)
                         <jarModule>
-                            <groupId>${pom.groupId}</groupId>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>${applicationId}-workflow</artifactId>
                         </jarModule>
 #end
@@ -178,26 +178,26 @@
                                 <tasks>
                                     <property name="dependencyClasspath" refid="maven.runtime.classpath"/>
                                     <taskdef name="jarjar" classname="com.tonicsystems.jarjar.JarJarTask" classpath="${dependencyClasspath}"/>
-                                    <copy file="${pom.basedir}/target/${pom.parent.artifactId}-${pom.version}/axis2-1.2.jar"
-                                        tofile="${pom.basedir}/target/jarjar/axis2-1.2.jar"/>
-                                    <jarjar jarfile="${pom.basedir}/target/${pom.parent.artifactId}-${pom.version}/axis2-1.2.jar">
-                                        <zipfileset src="${pom.basedir}/target/jarjar/axis2-1.2.jar"/>
+                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/axis2-1.2.jar"
+                                        tofile="${project.basedir}/target/jarjar/axis2-1.2.jar"/>
+                                    <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/axis2-1.2.jar">
+                                        <zipfileset src="${project.basedir}/target/jarjar/axis2-1.2.jar"/>
                                         <zap pattern="javax.xml.namespace.QName"/>
                                     </jarjar>
-                                    <copy file="${pom.basedir}/target/${pom.parent.artifactId}-${pom.version}/stax-api-1.0.1.jar"
-                                        tofile="${pom.basedir}/target/jarjar/stax-api-1.0.1.jar"/>
-                                    <jarjar jarfile="${pom.basedir}/target/${pom.parent.artifactId}-${pom.version}/stax-api-1.0.1.jar">
-                                        <zipfileset src="${pom.basedir}/target/jarjar/stax-api-1.0.1.jar"/>
+                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/stax-api-1.0.1.jar"
+                                        tofile="${project.basedir}/target/jarjar/stax-api-1.0.1.jar"/>
+                                    <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/stax-api-1.0.1.jar">
+                                        <zipfileset src="${project.basedir}/target/jarjar/stax-api-1.0.1.jar"/>
                                         <zap pattern="javax.xml.namespace.QName"/>
                                     </jarjar>
-                                    <copy file="${pom.basedir}/target/${pom.parent.artifactId}-${pom.version}/woden-1.0-incubating-M7a.jar"
-                                        tofile="${pom.basedir}/target/jarjar/woden-1.0-incubating-M7a.jar"/>
-                                    <jarjar jarfile="${pom.basedir}/target/${pom.parent.artifactId}-${pom.version}/woden-1.0-incubating-M7a.jar">
-                                        <zipfileset src="${pom.basedir}/target/jarjar/woden-1.0-incubating-M7a.jar"/>
+                                    <copy file="${project.basedir}/target/${project.parent.artifactId}-${project.version}/woden-1.0-incubating-M7a.jar"
+                                        tofile="${project.basedir}/target/jarjar/woden-1.0-incubating-M7a.jar"/>
+                                    <jarjar jarfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}/woden-1.0-incubating-M7a.jar">
+                                        <zipfileset src="${project.basedir}/target/jarjar/woden-1.0-incubating-M7a.jar"/>
                                         <zap pattern="javax.xml.namespace.QName"/>
                                     </jarjar>
-                                    <zip destfile="${pom.basedir}/target/${pom.parent.artifactId}-${pom.version}.ear"
-                                         basedir="${pom.basedir}/target/${pom.parent.artifactId}-${pom.version}" update="true" />
+                                    <zip destfile="${project.basedir}/target/${project.parent.artifactId}-${project.version}.ear"
+                                         basedir="${project.basedir}/target/${project.parent.artifactId}-${project.version}" update="true" />
                                 </tasks>
                             </configuration>
                     </execution>

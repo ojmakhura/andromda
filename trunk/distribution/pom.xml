@@ -72,7 +72,7 @@
                             </artifactExcludes>
                             <locations>
                                 <location>
-                                    <path>${pom.basedir}/../samples</path>
+                                    <path>${project.basedir}/../samples</path>
                                     <excludes>
                                         <exlude>conf/**</exlude>
                                         <exclude>**/target/**</exclude>
@@ -84,14 +84,14 @@
                                     <outputPath>samples/</outputPath>
                                 </location>
                                 <location>
-                                    <path>${pom.basedir}/../maven/andromdapp/target/plugin-install</path>
+                                    <path>${project.basedir}/../maven/andromdapp/target/plugin-install</path>
                                     <includes>
                                         <include>**/*.xml</include>
                                     </includes>
                                     <outputPath>andromda/</outputPath>
                                 </location>
                                 <location>
-                                    <path>${pom.basedir}/../ant/andromda/src/ant/build.xml.vsl</path>
+                                    <path>${project.basedir}/../ant/andromda/src/ant/build.xml.vsl</path>
                                     <outputPath>andromda/org/andromda/ant/build.xml</outputPath>
                                 </location>
                             </locations>
@@ -106,7 +106,7 @@
                             <name>andromda-src-${project.version}</name>
                             <locations>
                                 <location>
-                                    <path>${pom.basedir}/../</path>
+                                    <path>${project.basedir}/../</path>
                                     <excludes>
                                         <exclude>**/target/**</exclude>
                                         <exclude>**/.svn/**</exclude>                                        

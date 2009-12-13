@@ -53,7 +53,7 @@
                       </execution>
                   </executions>
                   <configuration>
-                      <buildSourceDirectory>${pom.basedir}/target/src</buildSourceDirectory>
+                      <buildSourceDirectory>${project.basedir}/target/src</buildSourceDirectory>
                       <lastModifiedCheck>true</lastModifiedCheck>
                   </configuration>
                 </plugin>
@@ -69,7 +69,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <buildSourceDirectory>${pom.basedir}/target/src</buildSourceDirectory>
+                        <buildSourceDirectory>${project.basedir}/target/src</buildSourceDirectory>
                         <lastModifiedCheck>true</lastModifiedCheck>
                     </configuration>
                 </plugin>
@@ -98,13 +98,13 @@
                         <generateJar>true</generateJar>
                         <buildSourceDirectory>target/src</buildSourceDirectory>
                     </configuration>
-                    <dependencies>
+                    <!--dependencies>
                         <dependency>
                             <groupId>org.codehaus.plexus</groupId>
                             <artifactId>plexus-utils</artifactId>
                             <version>${plexus.util.version}</version>
                         </dependency>
-                   </dependencies>
+                   </dependencies-->
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -158,9 +158,9 @@
         <module>emf/uml2</module>
     </modules>
     <properties>
-        <model.file>${pom.basedir}/src/main/uml/${project.artifactId}.xml.zip</model.file>
+        <model.file>${project.basedir}/src/main/uml/${project.artifactId}.xml.zip</model.file>
         <maven.andromda.model.uri>jar:file:${model.file}!/${project.artifactId}.xml</maven.andromda.model.uri>
-        <maven.build.src>${pom.basedir}/target/src</maven.build.src>
-        <maven.src.dir>${pom.basedir}/src/main</maven.src.dir>
+        <maven.build.src>${project.basedir}/target/src</maven.build.src>
+        <maven.src.dir>${project.basedir}/src/main</maven.src.dir>
     </properties>
 </project>

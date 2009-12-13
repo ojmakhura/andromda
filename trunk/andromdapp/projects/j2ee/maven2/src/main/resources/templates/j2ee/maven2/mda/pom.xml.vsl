@@ -203,7 +203,7 @@
                 </configuration>
 #else
                 <configuration>
-                    <configurationUri>${pom.basedir}/src/main/config/andromda.xml</configurationUri>
+                    <configurationUri>${project.basedir}/src/main/config/andromda.xml</configurationUri>
                 </configuration>
 #end
             </plugin>
@@ -249,7 +249,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <inputDirectory>${pom.basedir}/..</inputDirectory>
+                    <inputDirectory>${project.basedir}/..</inputDirectory>
                 </configuration>
             </plugin>
 #if ($web)
@@ -258,67 +258,67 @@
         </plugins>
     </build>
     <properties>
-        <!-- Maven 2.0.9 bug: ${build.sourceDirectory} repeats twice in configuration variable. Use ${pom.basedir}/src/main/uml -->
+        <!-- Maven 2.0.9 bug: ${build.sourceDirectory} repeats twice in configuration variable. Use ${project.basedir}/src/main/uml -->
 #if ($stringUtils.isNotEmpty($model))
         <model.uri>$model</model.uri>
 #else
 #if ($modelType.equals("uml1.4"))
-		<model.uri>file:${pom.basedir}/src/main/uml/${applicationId}.xmi</model.uri>
+		<model.uri>file:${project.basedir}/src/main/uml/${applicationId}.xmi</model.uri>
 #elseif ($modelType.equals("emf-uml2"))
-		<model.uri>file:${pom.basedir}/src/main/uml/${applicationId}.uml2</model.uri>
+		<model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml2</model.uri>
 #elseif ($modelType.equals("emf-uml22"))
-        <model.uri>file:${pom.basedir}/src/main/uml/${applicationId}.uml</model.uri>
+        <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml</model.uri>
 #elseif ($modelType.equals("uml2"))
-		<model.uri>file:${pom.basedir}/src/main/uml/${applicationId}.uml2</model.uri>
+		<model.uri>file:${project.basedir}/src/main/uml/${applicationId}.uml2</model.uri>
 #elseif ($modelType.equals("rsm6") || $modelType.equals("rsm7"))
-        <model.uri>file:${pom.basedir}/src/main/uml/${applicationId}.emx</model.uri>
+        <model.uri>file:${project.basedir}/src/main/uml/${applicationId}.emx</model.uri>
 #end
 #end
         <filter></filter>
         <validation>true</validation>
-        <conf.dir>${pom.basedir}/src/main/config</conf.dir>
+        <conf.dir>${project.basedir}/src/main/config</conf.dir>
         <!-- cartridge output locations -->
-        <core.generated.dir>${pom.basedir}/../core/target/src</core.generated.dir>
-        <core.manual.dir>${pom.basedir}/../core/src/main/java</core.manual.dir>
-        <core.manual.java.dir>${pom.basedir}/../core/src/main/java</core.manual.java.dir>
+        <core.generated.dir>${project.basedir}/../core/target/src</core.generated.dir>
+        <core.manual.dir>${project.basedir}/../core/src/main/java</core.manual.dir>
+        <core.manual.java.dir>${project.basedir}/../core/src/main/java</core.manual.java.dir>
 #if ($groovy)
-        <core.manual.groovy.dir>${pom.basedir}/../core/src/main/groovy</core.manual.groovy.dir>
+        <core.manual.groovy.dir>${project.basedir}/../core/src/main/groovy</core.manual.groovy.dir>
 #end
 #if ($ejb3)
-        <core.manual.test.resources>${pom.basedir}/../core/src/test/resources</core.manual.test.resources>
-        <core.generated.test.dir>${pom.basedir}/../core/target/src</core.generated.test.dir>
-        <core.manual.test.dir>${pom.basedir}/../core/src/test/java</core.manual.test.dir>
+        <core.manual.test.resources>${project.basedir}/../core/src/test/resources</core.manual.test.resources>
+        <core.generated.test.dir>${project.basedir}/../core/target/src</core.generated.test.dir>
+        <core.manual.test.dir>${project.basedir}/../core/src/test/java</core.manual.test.dir>
 #end
-        <web.generated.dir>${pom.basedir}/../web/target/src</web.generated.dir>
-        <web.generated.web.dir>${pom.basedir}/../web</web.generated.web.dir>
-        <web.manual.dir>${pom.basedir}/../web/src/main</web.manual.dir>
+        <web.generated.dir>${project.basedir}/../web/target/src</web.generated.dir>
+        <web.generated.web.dir>${project.basedir}/../web</web.generated.web.dir>
+        <web.manual.dir>${project.basedir}/../web/src/main</web.manual.dir>
         <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir>
 #if ($workflow)
-        <workflow.generated.dir>${pom.basedir}/../workflow/target/src</workflow.generated.dir>
-        <workflow.manual.dir>${pom.basedir}/../workflow/src/main</workflow.manual.dir>
+        <workflow.generated.dir>${project.basedir}/../workflow/target/src</workflow.generated.dir>
+        <workflow.manual.dir>${project.basedir}/../workflow/src/main</workflow.manual.dir>
 #end
 #if ($webservice && !$jsr181Webservice)
 #if ($war)
         <webservice.generated.dir>${web.generated.dir}</webservice.generated.dir>
 #else
-        <webservice.generated.dir>${pom.basedir}/../webservice/target/src</webservice.generated.dir>
+        <webservice.generated.dir>${project.basedir}/../webservice/target/src</webservice.generated.dir>
 #end
-        <webservice.manual.dir>${pom.basedir}/../webservice/src/main/java</webservice.manual.dir>
-        <webservice.manual.java.dir>${pom.basedir}/../webservice/src/main/java</webservice.manual.java.dir> 
+        <webservice.manual.dir>${project.basedir}/../webservice/src/main/java</webservice.manual.dir>
+        <webservice.manual.java.dir>${project.basedir}/../webservice/src/main/java</webservice.manual.java.dir> 
 #if ($axisVersion.equals("1"))
         <webservice.generated.wsdl.dir>${webservice.generated.dir}/WEB-INF/classes</webservice.generated.wsdl.dir>
 #end
-        <webservice.host>${pom.basedir}localhost</webservice.host>
-        <webservice.port>${pom.basedir}8080</webservice.port>
+        <webservice.host>${project.basedir}localhost</webservice.host>
+        <webservice.port>${project.basedir}8080</webservice.port>
 #end
-        <common.generated.dir>${pom.basedir}/../common/target/src</common.generated.dir>
-        <common.manual.dir>${pom.basedir}/../common/src</common.manual.dir>      
+        <common.generated.dir>${project.basedir}/../common/target/src</common.generated.dir>
+        <common.manual.dir>${project.basedir}/../common/src</common.manual.dir>      
 #if ($ejb3)
-        <application.config.dir>${pom.basedir}/../app/src/main/config</application.config.dir>
-        <application.metainf.dir>${pom.basedir}/../app/src/main/application/META-INF</application.metainf.dir>
+        <application.config.dir>${project.basedir}/../app/src/main/config</application.config.dir>
+        <application.metainf.dir>${project.basedir}/../app/src/main/application/META-INF</application.metainf.dir>
 #end
 #if ($jbossSeam)
-        <application.generated.dir>${pom.basedir}/../app/target/src</application.generated.dir>
+        <application.generated.dir>${project.basedir}/../app/target/src</application.generated.dir>
 #end
 #if ($hibernate || $spring)
         <!-- hibernate configuration -->
