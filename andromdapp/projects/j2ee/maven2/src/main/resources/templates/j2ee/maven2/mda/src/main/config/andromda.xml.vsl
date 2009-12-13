@@ -21,26 +21,26 @@
         <repository name="netBeansMDR">
             <models>
                 <model>
-                    <uri>file:${pom.basedir}/src/main/uml/${applicationId}.xmi</uri>
+                    <uri>file:${project.basedir}/src/main/uml/${applicationId}.xmi</uri>
 #elseif ($modelType.equals("uml2") || $modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
         <repository name="emf-uml2">
             <models>
                 <model type="emf-uml2">
 #if ($modelType.equals("uml2"))
-                    <uri>file:${pom.basedir}/src/main/uml/${applicationId}.uml2</uri>
+                    <uri>file:${project.basedir}/src/main/uml/${applicationId}.uml2</uri>
 #elseif ($modelType.equals("emf-uml2"))
-                    <uri>file:${pom.basedir}/src/main/uml/${applicationId}.uml2</uri>
+                    <uri>file:${project.basedir}/src/main/uml/${applicationId}.uml2</uri>
 #end
 #elseif ($modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
         <repository name="emf-uml22">
             <models>
                 <model type="emf-uml22">
 #if ($modelType.equals("emf-uml2"))
-                    <uri>file:${pom.basedir}/src/main/uml/${applicationId}.uml</uri>
+                    <uri>file:${project.basedir}/src/main/uml/${applicationId}.uml</uri>
 #end
 #end
 #if ($modelType.equals("rsm6") || $modelType.equals("rsm7"))
-                    <uri>file:${pom.basedir}/src/main/uml/${applicationId}.emx</uri>
+                    <uri>file:${project.basedir}/src/main/uml/${applicationId}.emx</uri>
 #end
                     <moduleSearchLocations>
 #if ($modelType.equals("uml1.4"))
@@ -50,10 +50,10 @@
                         <location patterns="**/*.xml.zip,**/*.xml">${magicdraw.home}/profiles</location>
                         -->
 #elseif ($modelType.equals("emf-uml2") || $modelType.equals("rsm6"))
-                        <location patterns="**/*.uml2">${pom.basedir}/src/main/uml</location>
+                        <location patterns="**/*.uml2">${project.basedir}/src/main/uml</location>
                         <location patterns="**/*.uml2">${settings.localRepository}/org/andromda/profiles/emf/uml2</location>
 #elseif ($modelType.equals("emf-uml22") || $modelType.equals("rsm7"))
-                        <location patterns="**/*.uml">${pom.basedir}/src/main/uml</location>
+                        <location patterns="**/*.uml">${project.basedir}/src/main/uml</location>
                         <location patterns="**/*.uml">${settings.localRepository}/org/andromda/profiles/emf/uml22</location>
 #end
                     </moduleSearchLocations>
@@ -104,7 +104,7 @@
                 <property name="jdbcMappingsUri">JDBC</property>
                 <property name="maxSqlNameLength">30</property>
                 <property name="foreignKeySuffix">_FK</property>
-                <property name="ejbJndiNamePrefix">${application.id}-${pom.version}</property>
+                <property name="ejbJndiNamePrefix">${application.id}-${project.version}</property>
                 <!-- masking properties configure the way your model element names are generated>
                 <property name="classifierNameMask">none</property>
                 <property name="operationNameMask">none</property>
@@ -125,6 +125,7 @@
                 <property name="pluralizeAssociationEndNames">true</property>
                 <property name="pluralizeAttributeNames">true</property>
                 <property name="pluralizeParameterNames">true</property -->
+                <property name="xmlAttributes">false</property>
             </properties>
         </namespace>
 #if ($ejb)
@@ -185,7 +186,7 @@
                 <property name="securityRealm">${application.id}</property>
                  -->
 #if ($ear)
-                <property name="jndiNamePrefix">${application.id}-${pom.version}</property>
+                <property name="jndiNamePrefix">${application.id}-${project.version}</property>
 #end
                 <property name="hibernateEnableCache">false</property>
                 <property name="hibernateEnableAssociationsCache">false</property>

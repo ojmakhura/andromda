@@ -102,7 +102,7 @@
                             <goal>namespace-xsl</goal>
                         </goals>
                         <configuration> 
-                            <namespaceDocumentPath>${pom.basedir}/target/classes/META-INF/andromda/namespace.xml</namespaceDocumentPath>
+                            <namespaceDocumentPath>${project.basedir}/target/classes/META-INF/andromda/namespace.xml</namespaceDocumentPath>
                         </configuration> 
                     </execution>
                 </executions>

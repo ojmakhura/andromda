@@ -55,7 +55,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <configurationUri>${pom.basedir}/src/main/config/andromda.xml</configurationUri>
+                    <configurationUri>${project.basedir}/src/main/config/andromda.xml</configurationUri>
                 </configuration>
             </plugin>
             <!-- NB: Following call commented out to prevent regeneration of .project and .classpath -->
@@ -83,17 +83,18 @@
     </build>
     <properties>
 	    <!--<model.uri>file:${project.build.sourceDirectory}/timetracker.xmi</model.uri>-->
-	    <model.uri>file:${pom.basedir}/src/main/uml/timetracker.xmi</model.uri>
+	    <model.uri>file:${project.basedir}/src/main/uml/timetracker.xmi</model.uri>
         <filter></filter>
         <validation>true</validation>
-        <conf.dir>${pom.basedir}/src/main/config</conf.dir>
+        <failValidation>false</failValidation>
+        <conf.dir>${project.basedir}/src/main/config</conf.dir>
         <!-- cartridge output locations -->
-        <core.generated.dir>${pom.basedir}/../core/target/src</core.generated.dir>
-        <core.manual.dir>${pom.basedir}/../core/src/main/java</core.manual.dir>
-        <web.generated.dir>${pom.basedir}/../web/target/src</web.generated.dir>
-        <web.manual.dir>${pom.basedir}/../web/src/main</web.manual.dir>
+        <core.generated.dir>${project.basedir}/../core/target/src</core.generated.dir>
+        <core.manual.dir>${project.basedir}/../core/src/main/java</core.manual.dir>
+        <web.generated.dir>${project.basedir}/../web/target/src</web.generated.dir>
+        <web.manual.dir>${project.basedir}/../web/src/main</web.manual.dir>
         <web.manual.java.dir>${web.manual.dir}/java</web.manual.java.dir>
-        <common.generated.dir>${pom.basedir}/../common/target/src</common.generated.dir>
+        <common.generated.dir>${project.basedir}/../common/target/src</common.generated.dir>
         <!-- hibernate configuration -->
         <!-- default strategy to use when using inhertiance -->
         <hibernate.inheritance.strategy>subclass</hibernate.inheritance.strategy>

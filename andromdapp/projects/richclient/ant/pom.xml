@@ -31,14 +31,14 @@
                 </excludes>        
             </resource>
             <resource>
-                <directory>${pom.basedir}/../../../../etc/mda/uml</directory>
+                <directory>${project.basedir}/../../../../etc/mda/uml</directory>
                 <includes>
                     <include>**/*</include>
                 </includes>
                 <targetPath>templates/richclient/ant/mda/src/uml</targetPath> 
             </resource>
             <resource>
-                <directory>${pom.basedir}/../../../../etc/mappings</directory>
+                <directory>${project.basedir}/../../../../etc/mappings</directory>
                 <includes>
                     <include>**/*</include>
                 </includes>

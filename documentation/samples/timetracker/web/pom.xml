@@ -118,11 +118,11 @@
                 </executions>
                 <configuration>
                     <tasks>
-                        <copy todir="${pom.basedir}/target/src" overwrite="true" failonerror="false">
-                            <fileset dir="${pom.basedir}/src/main/jsp">
+                        <copy todir="${project.basedir}/target/src" overwrite="true" failonerror="false">
+                            <fileset dir="${project.basedir}/src/main/jsp">
                                 <include name="**/*"/>
                             </fileset>
-                            <fileset dir="${pom.basedir}/src/main">
+                            <fileset dir="${project.basedir}/src/main">
                                 <include name="css/**"/>
                                 <include name="images/**"/>
                             </fileset>

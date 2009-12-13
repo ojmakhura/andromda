@@ -51,7 +51,7 @@
                             <goal>profile-xsl</goal>
                         </goals>
                         <configuration>
-                            <profileDocumentPath>${pom.basedir}/src/META-INF/andromda/profile.xml</profileDocumentPath> 
+                            <profileDocumentPath>${project.basedir}/src/META-INF/andromda/profile.xml</profileDocumentPath> 
                         </configuration> 
                     </execution>
                     <!--
@@ -61,7 +61,7 @@
                             <goal>namespace-xsl</goal>
                         </goals>
                         <configuration> 
-                            <namespaceDocumentPath>${pom.basedir}/src/META-INF/andromda/namespace.xml</namespaceDocumentPath>
+                            <namespaceDocumentPath>${project.basedir}/src/META-INF/andromda/namespace.xml</namespaceDocumentPath>
                         </configuration> 
                     </execution>
                      -->
@@ -93,8 +93,8 @@
         </resources>
     </build>
     <properties>
-        <model.file>${pom.basedir}/src/uml/${project.artifactId}.xml.zip</model.file>
+        <model.file>${project.basedir}/src/uml/${project.artifactId}.xml.zip</model.file>
         <maven.andromda.model.uri>jar:file:${model.file}!/${project.artifactId}.xml</maven.andromda.model.uri>
-        <maven.src.dir>${pom.basedir}/src</maven.src.dir>
+        <maven.src.dir>${project.basedir}/src</maven.src.dir>
     </properties>   
 </project>
