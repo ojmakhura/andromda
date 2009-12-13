@@ -119,14 +119,14 @@ public class ParameterFacadeLogicImpl
         if (StringUtils.isNotEmpty(defaultValue))
         {
             String typeName = this.metaObject.getType().getName();
-            if (typeName.equals("String") && defaultValue.indexOf('"')<0)
+            if ("String".equals(typeName) && defaultValue.indexOf('"')<0)
             {
                 defaultValue = '"' + defaultValue + '"';
             }
-            else if ((typeName.equals("char") || typeName.equals("Character"))
-                && defaultValue.indexOf("'")<0)
+            else if (("char".equals(typeName) || "Character".equals(typeName))
+                && defaultValue.indexOf('\'')<0)
             {
-                defaultValue = "'" + defaultValue.charAt(0) + "'";
+                defaultValue = "'" + defaultValue.charAt(0) + '\'';
             }
             //if (!defaultValue.equals("")) System.out.println("Attribute.handleGetDefaultValue " + this.getName() + " typeName=" + typeName + " defaultValue=" + defaultValue + " upper=" + this.metaObject.getUpper());
         }

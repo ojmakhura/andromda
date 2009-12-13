@@ -75,7 +75,7 @@ public class FrontEndEventLogicImpl
     protected List handleGetControllerCalls()
     {
         Object controllerCall = this.getControllerCall();
-        return controllerCall == null ? Collections.EMPTY_LIST : Collections.singletonList(controllerCall);
+        return controllerCall == null ? Collections.emptyList() : Collections.singletonList(controllerCall);
     }
 
 }

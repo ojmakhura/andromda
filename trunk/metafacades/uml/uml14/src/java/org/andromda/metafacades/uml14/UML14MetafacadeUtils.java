@@ -190,19 +190,19 @@ public class UML14MetafacadeUtils
     {
         VisibilityKind visibilityKind = null;
         visibility = StringUtils.trimToEmpty(visibility);
-        if (visibility.equals("public"))
+        if ("public".equals(visibility))
         {
             visibilityKind = VisibilityKindEnum.VK_PUBLIC;
         }
-        else if (visibility.equals("private"))
+        else if ("private".equals(visibility))
         {
             visibilityKind = VisibilityKindEnum.VK_PRIVATE;
         }
-        else if (visibility.equals(""))
+        else if (StringUtils.isEmpty(visibility))
         {
             visibilityKind = VisibilityKindEnum.VK_PACKAGE;
         }
-        else if (visibility.equals("protected"))
+        else if ("protected".equals(visibility))
         {
             visibilityKind = VisibilityKindEnum.VK_PROTECTED;
         }
@@ -299,7 +299,7 @@ public class UML14MetafacadeUtils
         for (final Iterator<UseCase> useCaseIterator = useCases.iterator(); useCaseIterator.hasNext() && useCaseWithNameAndStereotype ==
                 null;)
         {
-            UseCase useCase = (UseCase)useCaseIterator.next();
+            UseCase useCase = useCaseIterator.next();
             if (name.equals(useCase.getName()))
             {
                 if (stereotypeName == null || isStereotypePresent(useCase, stereotypeName))
@@ -332,7 +332,7 @@ public class UML14MetafacadeUtils
         for (final Iterator<ActivityGraph> graphIterator = graphs.iterator();
              graphIterator.hasNext() && graphWithNameAndStereotype == null;)
         {
-            ActivityGraph graph = (ActivityGraph)graphIterator.next();
+            ActivityGraph graph = graphIterator.next();
             if (name.equals(graph.getName()))
             {
                 if (stereotypeName == null || isStereotypePresent(graph, stereotypeName))
@@ -359,7 +359,7 @@ public class UML14MetafacadeUtils
         Collection<TaggedValue> taggedValues = element.getTaggedValue();
         for (final Iterator<TaggedValue> taggedValueIterator = taggedValues.iterator(); taggedValueIterator.hasNext() && !tagPresent;)
         {
-            TaggedValue taggedValue = (TaggedValue)taggedValueIterator.next();
+            TaggedValue taggedValue = taggedValueIterator.next();
             // does this name match the argument tagged value name ?
             // Check both the UML14 format name @andromda.value and EMF Format andromda_whatever
             String tagName = taggedValue.getName();
@@ -405,7 +405,7 @@ public class UML14MetafacadeUtils
         for (final Iterator<Stereotype> stereotypeIterator = stereotypes.iterator();
              stereotypeIterator.hasNext() && !stereotypePresent;)
         {
-            Stereotype stereotype = (Stereotype)stereotypeIterator.next();
+            Stereotype stereotype = stereotypeIterator.next();
             if (stereotypeName.equals(stereotype.getName()))
             {
                 stereotypePresent = true;
@@ -427,7 +427,7 @@ public class UML14MetafacadeUtils
                 null;)
         {
             // loop over all use-cases
-            UseCase useCase = (UseCase)useCaseIterator.next();
+            UseCase useCase = useCaseIterator.next();
             if (isTagPresent(useCase, tag, value) || isHyperlinkPresent(useCase, value))
             {
                 useCaseWithTaggedValue = useCase;
@@ -449,7 +449,7 @@ public class UML14MetafacadeUtils
         for (final Iterator<UmlClass> classIterator = classes.iterator(); classIterator.hasNext() && classWithTaggedValue == null;)
         {
             // loop over all classes
-            UmlClass clazz = (UmlClass)classIterator.next();
+            UmlClass clazz = classIterator.next();
             if (isTagPresent(clazz, tag, value) || isHyperlinkPresent(clazz, value))
             {
                 classWithTaggedValue = clazz;
@@ -469,7 +469,7 @@ public class UML14MetafacadeUtils
             Collection<FinalState> allFinalStates = getModel().getStateMachines().getFinalState().refAllOfType();
             for (final Iterator<FinalState> iterator = allFinalStates.iterator(); iterator.hasNext();)
             {
-                FinalState finalState = (FinalState)iterator.next();
+                FinalState finalState = iterator.next();
                 if (useCaseName != null)
                 {
                     if (useCaseName.equals(finalState.getName()))
@@ -513,7 +513,7 @@ public class UML14MetafacadeUtils
             Collection<ModelElement> graphs = getModel().getActivityGraphs().getActivityGraph().refAllOfType();
             for (final Iterator<ModelElement> iterator = graphs.iterator(); iterator.hasNext() && activityGraph == null;)
             {
-                ModelElement element = (ModelElement)iterator.next();
+                ModelElement element = iterator.next();
                 if (id.equals(element.refMofId()))
                 {
                     activityGraph = (ActivityGraph)element;
@@ -539,7 +539,7 @@ public class UML14MetafacadeUtils
             Collection<ModelElement> useCases = getModel().getUseCases().getUseCase().refAllOfType();
             for (final Iterator<ModelElement> iterator = useCases.iterator(); iterator.hasNext() && useCase == null;)
             {
-                ModelElement element = (ModelElement)iterator.next();
+                ModelElement element = iterator.next();
                 if (id.equals(element.refMofId()))
                 {
                     useCase = (UseCase)element;
@@ -565,7 +565,7 @@ public class UML14MetafacadeUtils
             Collection<ModelElement> parameters = getModel().getCore().getParameter().refAllOfType();
             for (final Iterator<ModelElement> iterator = parameters.iterator(); iterator.hasNext() && parameter == null;)
             {
-                ModelElement element = (ModelElement)iterator.next();
+                ModelElement element = iterator.next();
                 if (id.equals(element.refMofId()))
                 {
                     parameter = (Parameter)element;
@@ -591,7 +591,7 @@ public class UML14MetafacadeUtils
             Collection<ModelElement> events = getModel().getStateMachines().getEvent().refAllOfType();
             for (final Iterator<ModelElement> iterator = events.iterator(); iterator.hasNext() && event == null;)
             {
-                ModelElement element = (ModelElement)iterator.next();
+                ModelElement element = iterator.next();
                 if (id.equals(element.refMofId()))
                 {
                     event = (Event)element;
@@ -617,7 +617,7 @@ public class UML14MetafacadeUtils
             Collection<ModelElement> modelElements = getModel().getCore().getModelElement().refAllOfType();
             for (final Iterator<ModelElement> iterator = modelElements.iterator(); iterator.hasNext() && modelElement == null;)
             {
-                ModelElement element = (ModelElement)iterator.next();
+                ModelElement element = iterator.next();
                 if (id.equals(element.refMofId()))
                 {
                     modelElement = element;
@@ -658,9 +658,9 @@ public class UML14MetafacadeUtils
         {
             for (final Iterator<ModelElementFacade> iterator = elements.iterator(); iterator.hasNext();)
             {
-                ModelElementFacade element = (ModelElementFacade)iterator.next();
+                ModelElementFacade element = iterator.next();
                 final String name = element.getName();
-                final ModelElementFacade existingVariable = (ModelElementFacade)map.get(name);
+                final ModelElementFacade existingVariable = map.get(name);
                 // - copy over any tagged values from the existing variable to the new one.
                 if (existingVariable != null)
                 {

@@ -72,7 +72,7 @@ public class StateVertexFacadeLogicImpl
             final Collection<Partition> partitions = activityGraph.getPartition();
             for (final Iterator<Partition> partitionIterator = partitions.iterator(); partitionIterator.hasNext() && thePartition == null;)
             {
-                final Partition partition = (Partition)partitionIterator.next();
+                final Partition partition = partitionIterator.next();
                 if (partition.getContents().contains(metaObject))
                 {
                     thePartition = partition;

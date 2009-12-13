@@ -116,7 +116,7 @@ public class FrontEndFinalStateLogicImpl
             final List<FrontEndParameter> forwardParameters = forward.getForwardParameters();
             for (int i = 0; i < forwardParameters.size(); i++)
             {
-                final FrontEndParameter parameter = (FrontEndParameter)forwardParameters.get(i);
+                final FrontEndParameter parameter = forwardParameters.get(i);
                 parameterMap.put(parameter.getName(), parameter);
             }
         }

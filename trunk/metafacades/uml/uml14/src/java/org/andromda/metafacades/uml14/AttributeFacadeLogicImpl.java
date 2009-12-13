@@ -87,9 +87,9 @@ public class AttributeFacadeLogicImpl
                 defaultValue = '"' + defaultValue + '"';
             }
             else if ((typeName.equals("char") || typeName.equals("Character"))
-                && defaultValue.indexOf("'")<0)
+                && defaultValue.indexOf('\'')<0)
             {
-                defaultValue = "'" + defaultValue.charAt(0) + "'";
+                defaultValue = "'" + defaultValue.charAt(0) + '\'';
             }
         }
         if (defaultValue==null) defaultValue="";
@@ -200,7 +200,7 @@ public class AttributeFacadeLogicImpl
                 final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    final MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
+                    final MultiplicityRange multiplicityRange = rangeIt.next();
                     final int upper = multiplicityRange.getUpper();
                     isMany = upper > 1 || upper < 0;
                 }
@@ -227,8 +227,8 @@ public class AttributeFacadeLogicImpl
                 final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    final MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
-                    lower = Integer.valueOf(multiplicityRange.getLower());
+                    final MultiplicityRange multiplicityRange = rangeIt.next();
+                    lower = multiplicityRange.getLower();
                 }
             }
         }
@@ -236,7 +236,7 @@ public class AttributeFacadeLogicImpl
         {
             if (this.getType().isPrimitive())
             {
-                lower = Integer.valueOf(1);
+                lower = 1;
             }
             /*else if (this.getType().isWrappedPrimitive())
             {
@@ -247,15 +247,15 @@ public class AttributeFacadeLogicImpl
                 final String defaultMultiplicity = this.getDefaultMultiplicity();
                 if (defaultMultiplicity.startsWith("0"))
                 {
-                    lower = Integer.valueOf(0);
+                    lower = 0;
                 }
                 else
                 {
-                    lower = Integer.valueOf(1);
+                    lower = 1;
                 }
             }
         }
-        return lower.intValue();
+        return lower;
     }
 
     /**
@@ -275,16 +275,16 @@ public class AttributeFacadeLogicImpl
                 final Iterator<MultiplicityRange> rangeIt = ranges.iterator();
                 while (rangeIt.hasNext())
                 {
-                    final MultiplicityRange multiplicityRange = (MultiplicityRange)rangeIt.next();
-                    upper = new Integer(multiplicityRange.getUpper());
+                    final MultiplicityRange multiplicityRange = rangeIt.next();
+                    upper = multiplicityRange.getUpper();
                 }
             }
         }
         if (upper == null)
         {
-            upper = Integer.valueOf(1);
+            upper = 1;
         }
-        return upper.intValue();
+        return upper;
     }
 
     /**
@@ -331,7 +331,7 @@ public class AttributeFacadeLogicImpl
         }
         if (this.getType().isStringType() && value!=null && value.indexOf('"')<0)
         {
-            value = "\"" + value + "\"";
+            value = '\"' + value + '\"';
         }
         return value;
     }
@@ -392,7 +392,7 @@ public class AttributeFacadeLogicImpl
     @Override
     protected String handleGetName()
     {
-        String name = null;
+        String name;
         if (this.isEnumerationMember())
         {
             name = super.handleGetName();
@@ -425,7 +425,7 @@ public class AttributeFacadeLogicImpl
     private boolean isPluralizeAttributeNames()
     {
         final Object value = this.getConfiguredProperty(UMLMetafacadeProperties.PLURALIZE_ATTRIBUTE_NAMES);
-        return value != null && Boolean.valueOf(String.valueOf(value)).booleanValue();
+        return value != null && Boolean.valueOf(String.valueOf(value));
     }
 
     /**
@@ -493,7 +493,7 @@ public class AttributeFacadeLogicImpl
             if (BooleanUtils.toBoolean(
                     ObjectUtils.toString(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                name = name + "<" + this.getType().getFullyQualifiedName() + ">";
+                name = name + '<' + this.getType().getFullyQualifiedName() + ">";
             }
         }
         if (name == null && this.getType() != null)

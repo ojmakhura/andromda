@@ -216,7 +216,7 @@ public class FrontEndUseCaseLogicImpl
         final ActivityGraphFacade graph = this.getActivityGraph();
         if (graph == null)
         {
-            views = Collections.EMPTY_LIST;
+            views = Collections.emptyList();
         }
         else
         {
@@ -268,7 +268,7 @@ public class FrontEndUseCaseLogicImpl
         {
             for (final Iterator<FrontEndForward> iterator = forwards.iterator(); iterator.hasNext();)
             {
-                final FrontEndForward forward = (FrontEndForward)iterator.next();
+                final FrontEndForward forward = iterator.next();
                 final StateVertexFacade target = forward.getTarget();
                 if (target instanceof FrontEndView)
                 {
@@ -310,7 +310,7 @@ public class FrontEndUseCaseLogicImpl
                 final String name = variable.getName();
                 if (StringUtils.isNotBlank(name))
                 {
-                    final FrontEndParameter existingVariable = (FrontEndParameter)pageVariableMap.get(name);
+                    final FrontEndParameter existingVariable = pageVariableMap.get(name);
                     if (existingVariable != null)
                     {
                         if (existingVariable.isTable())

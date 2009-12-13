@@ -36,7 +36,7 @@ public class ValueObjectLogicImpl
         StringBuffer stereotypes = new StringBuffer();
         for (final Iterator<StereotypeFacade> iterator = this.getStereotypes().iterator(); iterator.hasNext();)
         {
-            stereotypes.append(iterator.next().getName()).append(",");
+            stereotypes.append(iterator.next().getName()).append(',');
         }
         return this.handleGetTypeSpecializations(stereotypes.toString());
     }

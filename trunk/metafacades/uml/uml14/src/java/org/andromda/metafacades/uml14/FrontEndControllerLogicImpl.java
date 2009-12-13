@@ -78,7 +78,7 @@ public class FrontEndControllerLogicImpl
                         tag, UMLProfile.STEREOTYPE_FRONT_END_USECASE);
             }
         }
-        return (UseCaseFacade)useCase;
+        return useCase;
     }
 
     /**
