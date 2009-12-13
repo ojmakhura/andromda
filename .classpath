@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="andromda/src/java"/>
-	<classpathentry kind="src" path="andromda/src/META-INF"/>
-	<classpathentry kind="src" path="andromda/src/test/java"/>
-    <classpathentry kind="src" path="andromda/src/main/resources"/>
-	<classpathentry kind="src" path="andromdapp/core/src/main/java"/>
+	<classpathentry kind="src" path="andromda-core/src/java"/>
+	<classpathentry kind="src" path="andromda-core/src/META-INF"/>
+	<classpathentry kind="src" path="andromda-core/src/test/java"/>
+    <classpathentry kind="src" path="andromda-core/src/main/resources"/>
+	<classpathentry kind="src" path="andromdapp/andromda-andromdapp-core/src/main/java"/>
 	<classpathentry kind="src" path="ant/task/src/java"/>
 	<classpathentry kind="src" path="ant/andromda/src/java"/>
 	<classpathentry kind="src" path="cartridges/andromda-bpm4struts/src/java"/>
@@ -73,8 +73,8 @@
 	<classpathentry kind="src" path="translation-libraries/ocl/core/src/java"/>
 	<classpathentry kind="src" path="translation-libraries/ocl/core/src/test/java"/>
 	<classpathentry kind="src" path="translation-libraries/ocl/testsuite/src/java"/>
-	<classpathentry kind="src" path="utils/src/java"/>
-    <classpathentry kind="src" path="utils/src/test/java"/>
+	<classpathentry kind="src" path="andromda-utils/src/java"/>
+    <classpathentry kind="src" path="andromda-utils/src/test/java"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7.jar" sourcepath="/M2_REPO/antlr/antlr/2.7.7/antlr-2.7.7-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/ant/ant/1.6.5/ant-1.6.5.jar" sourcepath="/M2_REPO/ant/ant/1.6.5/ant-1.6.5-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/bsh/bsh/2.0b4/bsh-2.0b4.jar"/>
@@ -99,7 +99,11 @@
 	<classpathentry exported="true" kind="var" path="M2_REPO/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar" sourcepath="/M2_REPO/javax/servlet/servlet-api/2.4/servlet-api-2.4-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/jboss/javassist/2.6/javassist-2.6.jar" sourcepath="/M2_REPO/jboss/javassist/2.6/javassist-2.6-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/jmi/jmi/20030918/jmi-20030918.jar" sourcepath="/M2_REPO/jmi/jmi/20030918/jmi-20030918-sources.jar"/>
-	<classpathentry exported="true" kind="var" path="M2_REPO/jmi/jmiuml/1.4di/jmiuml-1.4di.jar" sourcepath="/M2_REPO/jmi/jmiuml/1.4di/jmiuml-1.4di-sources.jar"/>
+	<classpathentry exported="true" kind="var" path="M2_REPO/jmi/jmiuml/1.4di/jmiuml-1.4di.jar" sourcepath="/M2_REPO/jmi/jmiuml/1.4di/jmiuml-1.4di-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/andromda-all/documentation/main/src/site/resources/jmi-uml1.4.zip!/jmi-uml1.4"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry exported="true" kind="var" path="M2_REPO/jmi/mof/20030918/mof-20030918.jar" sourcepath="/M2_REPO/jmi/mof/20030918/mof-20030918-sources.jar"/>
     <classpathentry exported="true" kind="var" path="M2_REPO/junit/junit/4.7/junit-4.7.jar" sourcepath="/M2_REPO/junit/junit/4.7/junit-4.7-sources.jar"/>
 	<classpathentry exported="true" kind="var" path="M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14.jar" sourcepath="/M2_REPO/log4j/log4j/1.2.14/log4j-1.2.14-sources.jar"/>
