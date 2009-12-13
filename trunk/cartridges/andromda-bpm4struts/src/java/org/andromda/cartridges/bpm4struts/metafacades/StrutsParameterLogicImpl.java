@@ -137,7 +137,7 @@ public class StrutsParameterLogicImpl
         }
         else
         {
-            formFields = Collections.EMPTY_LIST;
+            formFields = Collections.emptyList();
         }
         return formFields;
     }
@@ -513,13 +513,13 @@ public class StrutsParameterLogicImpl
             if (taggedValue != null)
             {
                 final String taggedValueString = String.valueOf(taggedValue);
-                required = Boolean.valueOf(taggedValueString).booleanValue();
+                required = Boolean.valueOf(taggedValueString);
             }
             else
             {
                 final Object property = getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_GENERATE_TABLE_DECORATORS);
                 final String propertyString = String.valueOf(property);
-                required = Boolean.valueOf(propertyString).booleanValue();
+                required = Boolean.valueOf(propertyString);
             }
         }
 
@@ -546,11 +546,11 @@ public class StrutsParameterLogicImpl
         final Collection<StrutsAction> actions = this.getTableGlobalActions();
         for (final Iterator<StrutsAction> actionIterator = actions.iterator(); actionIterator.hasNext() && sameParameter;)
         {
-            final StrutsAction action = (StrutsAction)actionIterator.next();
+            final StrutsAction action = actionIterator.next();
             final List<StrutsParameter> parameters = action.getActionParameters();
             if (!parameters.isEmpty())
             {
-                final StrutsParameter parameter = (StrutsParameter)parameters.iterator().next();
+                final StrutsParameter parameter = parameters.iterator().next();
                 if (name == null || type == null)
                 {
                     name = parameter.getName();
@@ -616,7 +616,7 @@ public class StrutsParameterLogicImpl
         final String name = StringUtils.trimToNull(getName());
         if (name == null || !isTable())
         {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
 
         final StrutsJsp page = this.getJsp();
@@ -626,7 +626,7 @@ public class StrutsParameterLogicImpl
         final Collection<UseCaseFacade> allUseCases = getModel().getAllUseCases();
         for (final Iterator<UseCaseFacade> useCaseIterator = allUseCases.iterator(); useCaseIterator.hasNext();)
         {
-            final UseCaseFacade useCase = (UseCaseFacade)useCaseIterator.next();
+            final UseCaseFacade useCase = useCaseIterator.next();
             if (useCase instanceof StrutsUseCase)
             {
                 final FrontEndActivityGraph graph = ((StrutsUseCase)useCase).getActivityGraph();
@@ -635,7 +635,7 @@ public class StrutsParameterLogicImpl
                     final Collection<TransitionFacade> transitions = graph.getTransitions();
                     for (final Iterator<TransitionFacade> transitionIterator = transitions.iterator(); transitionIterator.hasNext();)
                     {
-                        final TransitionFacade transition = (TransitionFacade)transitionIterator.next();
+                        final TransitionFacade transition = transitionIterator.next();
                         if (transition.getSource().equals(page) && transition instanceof StrutsAction)
                         {
                             final StrutsAction action = (StrutsAction)transition;
@@ -743,7 +743,7 @@ public class StrutsParameterLogicImpl
             final List<StrutsAction> hyperlinkActions = this.getTableHyperlinkActions();
             for (int i = 0; i < hyperlinkActions.size(); i++)
             {
-                final StrutsAction action = (StrutsAction)hyperlinkActions.get(i);
+                final StrutsAction action = hyperlinkActions.get(i);
                 if (columnName.equals(action.getTableLinkColumnName()))
                 {
                     columnActions.add(action);
@@ -790,11 +790,11 @@ public class StrutsParameterLogicImpl
 
         for (final Iterator<StrutsAction> actionIterator = actions.iterator(); actionIterator.hasNext();)
         {
-            final StrutsAction action = (StrutsAction)actionIterator.next();
+            final StrutsAction action = actionIterator.next();
             final Collection<StrutsParameter>  actionParameters = action.getActionParameters();
             for (final Iterator<StrutsParameter>  parameterIterator = actionParameters.iterator(); parameterIterator.hasNext();)
             {
-                final StrutsParameter parameter = (StrutsParameter)parameterIterator.next();
+                final StrutsParameter parameter = parameterIterator.next();
                 final String parameterName = parameter.getName();
                 if (parameterName != null)
                 {
@@ -830,7 +830,7 @@ public class StrutsParameterLogicImpl
         {
             for (final Iterator<String> columnNameIterator = columnNames.iterator(); columnNameIterator.hasNext();)
             {
-                final String columnName = (String)columnNameIterator.next();
+                final String columnName = columnNameIterator.next();
                 // don't override
                 if (!tableColumnsMap.containsKey(columnName))
                 {
@@ -1400,8 +1400,8 @@ public class StrutsParameterLogicImpl
 
                 if (isRangeFormat)
                 {
-                    vars.put("min", Arrays.asList(new Object[]{"min", getRangeStart(format)}));
-                    vars.put("max", Arrays.asList(new Object[]{"max", getRangeEnd(format)}));
+                    vars.put("min", Arrays.asList("min", getRangeStart(format)));
+                    vars.put("max", Arrays.asList("max", getRangeEnd(format)));
                 }
                 else
                 {
@@ -1410,11 +1410,11 @@ public class StrutsParameterLogicImpl
                     {
                         final String additionalFormat = String.valueOf(formatIterator.next());
                         if (isMinLengthFormat(additionalFormat)) vars.put("minlength",
-                            Arrays.asList(new Object[]{"minlength", this.getMinLengthValue(additionalFormat)}));
+                            Arrays.asList("minlength", this.getMinLengthValue(additionalFormat)));
                         else if (isMaxLengthFormat(additionalFormat)) vars.put("maxlength",
-                            Arrays.asList(new Object[]{"maxlength", this.getMaxLengthValue(additionalFormat)}));
+                            Arrays.asList("maxlength", this.getMaxLengthValue(additionalFormat)));
                         else if (isPatternFormat(additionalFormat)) vars
-                            .put("mask", Arrays.asList(new Object[]{"mask", this.getPatternValue(additionalFormat)}));
+                            .put("mask", Arrays.asList("mask", this.getPatternValue(additionalFormat)));
                     }
                 }
             }
@@ -1423,11 +1423,11 @@ public class StrutsParameterLogicImpl
                 if (format != null && isStrictDateFormat(format))
                 {
                     vars.put("datePatternStrict",
-                        Arrays.asList(new Object[]{"datePatternStrict", this.getDateFormat()}));
+                        Arrays.asList("datePatternStrict", this.getDateFormat()));
                 }
                 else
                 {
-                    vars.put("datePattern", Arrays.asList(new Object[]{"datePattern", this.getDateFormat()}));
+                    vars.put("datePattern", Arrays.asList("datePattern", this.getDateFormat()));
                 }
             }
             if (this.isValidatorTime())
@@ -1438,7 +1438,7 @@ public class StrutsParameterLogicImpl
             final String validWhen = getValidWhen();
             if (validWhen != null)
             {
-                vars.put("test", Arrays.asList(new Object[]{"test", validWhen}));
+                vars.put("test", Arrays.asList("test", validWhen));
             }
         }
 
@@ -1458,7 +1458,7 @@ public class StrutsParameterLogicImpl
                 String validatorVar = (String)validatorVars.get(i);
                 String validatorArg = (String)validatorArgs.get(i);
 
-                vars.put(validatorVar, Arrays.asList(new Object[]{validatorVar, validatorArg}));
+                vars.put(validatorVar, Arrays.asList(validatorVar, validatorArg));
             }
         }
 
@@ -1561,7 +1561,7 @@ public class StrutsParameterLogicImpl
         Object value = this.findTaggedValue(Bpm4StrutsProfile.TAGGEDVALUE_INPUT_RESET);
         if (value != null)
         {
-            shouldReset = Boolean.valueOf(StringUtils.trimToEmpty((String)value)).booleanValue();
+            shouldReset = Boolean.valueOf(StringUtils.trimToEmpty((String) value));
         }
         return shouldReset;
     }
@@ -1868,7 +1868,7 @@ public class StrutsParameterLogicImpl
     private boolean normalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages).booleanValue();
+        return Boolean.valueOf(normalizeMessages);
     }
 
     /**

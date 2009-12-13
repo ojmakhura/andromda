@@ -137,7 +137,7 @@ public class StrutsForwardLogicImpl
         final Collection taggedValues = this.findTaggedValues(taggedValue);
         if (taggedValues.isEmpty())
         {
-            messages = Collections.EMPTY_MAP;
+            messages = Collections.emptyMap();
         }
         else
         {

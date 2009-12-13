@@ -177,7 +177,7 @@ public class JSFValidator
             final InputStream rulesInput = external.getResourceAsStream(rulesResource);
             if (rulesInput == null)
             {
-                throw new JSFValidatorException("Could not find rules file '" + rulesResource + "'");
+                throw new JSFValidatorException("Could not find rules file '" + rulesResource + '\'');
             }
             final InputStream validationInput = external.getResourceAsStream(validationResource);
             if (validationInput != null)
@@ -231,11 +231,8 @@ public class JSFValidator
                         final Collection errors = new ArrayList();
                         this.getValidatorMethod().invoke(
                             this.getValidatorClass(),
-                            new Object[]
-                            {
                                 context, value, this.getParameters(), errors, this.validatorAction,
-                                field
-                            });
+                                field);
                         if (!errors.isEmpty())
                         {
                             throw new ValidatorException(new FacesMessage(
@@ -246,12 +243,12 @@ public class JSFValidator
                     }
                     else
                     {
-                        logger.error("No field with id '" + component.getId() + "' found on form '" + this.formId + "'");
+                        logger.error("No field with id '" + component.getId() + "' found on form '" + this.formId + '\'');
                     }
                 }
                 else
                 {
-                    logger.error("No validator form could be found with id '" + this.formId + "'");
+                    logger.error("No validator form could be found with id '" + this.formId + '\'');
                 }
             }
             catch (final ValidatorException exception)

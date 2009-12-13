@@ -51,7 +51,7 @@
                      <tr>
                      <td><%=parameter.getName()%></td>
                      <td><input type="text" value="<%=parameter.getValue()%>"
-                           name="<%=(servicName + "_" + parameter.getName())%>" size="50">
+                           name="<%=(servicName + '_' + parameter.getName())%>" size="50">
                            </td>
                      </tr>
                      <%
@@ -90,7 +90,7 @@
                      <tr>
                      <td><%=parameter.getName()%></td>
                      <td><input type="text" value="<%=parameter.getValue()%>"
-                           name="<%=(operationName + "_" + parameter.getName())%>" size="50">
+                           name="<%=(operationName + '_' + parameter.getName())%>" size="50">
                            </td>
                      </tr>
                      <%

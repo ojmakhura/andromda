@@ -88,7 +88,7 @@ public class MetafacadeLogicImpl
             DependencyFacade dep = (DependencyFacade)iter.next();
             ClassifierFacade target = (ClassifierFacade)dep.getTargetElement();
             Collection stereotypes = target.getStereotypeNames();
-            if ((stereotypes != null) && (stereotypes.size() > 0))
+            if ((stereotypes != null) && (!stereotypes.isEmpty()))
             {
                 String stereotypeName = (String)stereotypes.iterator().next();
                 if (stereotypeName.equals(MetaProfile.STEREOTYPE_METACLASS))
@@ -220,7 +220,7 @@ public class MetafacadeLogicImpl
         StringBuffer fullyQualifiedName = new StringBuffer(this.getLogicPackageName());
         if (StringUtils.isNotBlank(fullyQualifiedName.toString()))
         {
-            fullyQualifiedName.append(".");
+            fullyQualifiedName.append('.');
             fullyQualifiedName.append(name);
         }
         return fullyQualifiedName.toString();

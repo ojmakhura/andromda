@@ -41,9 +41,9 @@ public class ValueObjectFacadeLogicImpl
         for (final StringTokenizer tokenizer = new StringTokenizer(packageName, "."); tokenizer.hasMoreTokens();)
         {
             String token = tokenizer.nextToken();
-            if (token.indexOf("/") < 0)
+            if (token.indexOf('/') < 0)
             {
-                buffer.append(token).append(".");
+                buffer.append(token).append('.');
             }
         }
         final String name = buffer.toString();
@@ -66,7 +66,7 @@ public class ValueObjectFacadeLogicImpl
     public String getFullyQualifiedName()
     {
         final String name = this.getPackageName();
-        return name == null || name.equalsIgnoreCase("") ? getName() : name + "." + getName();
+        return name == null || "".equalsIgnoreCase(name) ? getName() : name + '.' + getName();
     }
 
     /**

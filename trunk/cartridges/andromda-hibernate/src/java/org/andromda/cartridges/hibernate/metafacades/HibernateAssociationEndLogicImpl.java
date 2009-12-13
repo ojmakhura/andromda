@@ -137,9 +137,8 @@ public class HibernateAssociationEndLogicImpl
         if (this.isMany())
         {
             final boolean specificInterfaces =
-                Boolean.valueOf(
-                    ObjectUtils.toString(this.getConfiguredProperty(HibernateGlobals.SPECIFIC_COLLECTION_INTERFACES)))
-                       .booleanValue();
+                    Boolean.valueOf(
+                            ObjectUtils.toString(this.getConfiguredProperty(HibernateGlobals.SPECIFIC_COLLECTION_INTERFACES)));
 
             final TypeMappings mappings = this.getLanguageMappings();
             if (mappings != null)
@@ -193,19 +192,18 @@ public class HibernateAssociationEndLogicImpl
         else if (this.isMany())
         {
             // set this association end's type as a template parameter if required
-            if (Boolean.valueOf(String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
-                       .booleanValue())
+            if (Boolean.valueOf(String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
                 final StringBuilder lBuffer = new StringBuilder();
                 lBuffer.append(getterSetterTypeName);
-                lBuffer.append("<");
+                lBuffer.append('<');
                 if (this.isMap())
                 {
                     lBuffer.append(this.getCollectionIndexType());                    
                     lBuffer.append(", ");
                 }
                 lBuffer.append(this.getType().getFullyQualifiedName());
-                lBuffer.append(">");
+                lBuffer.append('>');
                 getterSetterTypeName = lBuffer.toString();            
             }
         }
@@ -227,8 +225,7 @@ public class HibernateAssociationEndLogicImpl
             // check whether or not composition defines eager loading is turned
             // on
             boolean compositionDefinesEagerLoading =
-                Boolean.valueOf(String.valueOf(this.getConfiguredProperty(COMPOSITION_DEFINES_EAGER_LOADING)))
-                       .booleanValue();
+                    Boolean.valueOf(String.valueOf(this.getConfiguredProperty(COMPOSITION_DEFINES_EAGER_LOADING)));
 
             if (compositionDefinesEagerLoading)
             {
@@ -237,7 +234,7 @@ public class HibernateAssociationEndLogicImpl
         }
         else
         {
-            lazy = Boolean.valueOf(lazyString).booleanValue();
+            lazy = Boolean.valueOf(lazyString);
         }
 
         return lazy;
@@ -674,17 +671,16 @@ public class HibernateAssociationEndLogicImpl
             }
 
             // set this association end's type as a template parameter if required
-            if (Boolean.valueOf(String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING)))
-                       .booleanValue())
+            if (Boolean.valueOf(String.valueOf(this.getConfiguredProperty(UMLMetafacadeProperties.ENABLE_TEMPLATING))))
             {
-                implementation.append("<");
+                implementation.append('<');
                 if (this.isMap())
                 {
                     implementation.append(this.getCollectionIndexType());
                     implementation.append(", ");
                 }
                 implementation.append(this.getType().getFullyQualifiedName());
-                implementation.append(">");
+                implementation.append('>');
             }
 
             implementation.append("()");

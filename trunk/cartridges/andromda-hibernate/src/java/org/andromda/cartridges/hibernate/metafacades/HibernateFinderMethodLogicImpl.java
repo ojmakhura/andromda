@@ -56,7 +56,7 @@ public class HibernateFinderMethodLogicImpl
         {
             String variableName = StringUtils.uncapitalize(this.getOwner().getName());
             queryString = "from " + this.getOwner().getFullyQualifiedName() + " as " + variableName;
-            if (this.getArguments().size() > 0)
+            if (!this.getArguments().isEmpty())
             {
                 queryString = queryString + " where";
                 Collection arguments = this.getArguments();
@@ -69,9 +69,9 @@ public class HibernateFinderMethodLogicImpl
                         String parameter = "?";
                         if (this.isUseNamedParameters())
                         {
-                            parameter = ":" + argument.getName();
+                            parameter = ':' + argument.getName();
                         }
-                        queryString = queryString + " " + variableName + "." + argument.getName() + " = " + parameter;
+                        queryString = queryString + ' ' + variableName + '.' + argument.getName() + " = " + parameter;
                         if (argumentIt.hasNext())
                         {
                             queryString = queryString + " and";
@@ -112,7 +112,7 @@ public class HibernateFinderMethodLogicImpl
      */
     protected boolean handleIsUseNamedParameters()
     {
-        boolean useNamedParameters = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS))).booleanValue()
+        boolean useNamedParameters = Boolean.valueOf(String.valueOf(this.getConfiguredProperty(USE_NAMED_PARAMETERS)))
                 || StringUtils.isNotBlank(this.getTranslatedQuery());
         return HibernateMetafacadeUtils.getUseNamedParameters(this, useNamedParameters);
     }
@@ -130,14 +130,13 @@ public class HibernateFinderMethodLogicImpl
     protected boolean handleIsUseQueryCache()
     {
         boolean useQueryCache =
-            Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_USE_QUERY_CACHE))).booleanValue();
+                Boolean.valueOf(String.valueOf(this.getConfiguredProperty(HIBERNATE_USE_QUERY_CACHE)));
 
         if (useQueryCache)
         {
             useQueryCache =
-                Boolean.valueOf(
-                    String.valueOf(findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_QUERY_CACHE)))
-                       .booleanValue();
+                    Boolean.valueOf(
+                            String.valueOf(findTaggedValue(HibernateProfile.TAGGEDVALUE_HIBERNATE_USE_QUERY_CACHE)));
         }
         return useQueryCache;
     }

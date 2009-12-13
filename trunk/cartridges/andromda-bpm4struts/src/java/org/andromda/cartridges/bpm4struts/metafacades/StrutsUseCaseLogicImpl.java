@@ -152,7 +152,7 @@ public class StrutsUseCaseLogicImpl
      */
     public List getOperations()
     {
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
     }
 
     protected List handleGetPages()
@@ -396,13 +396,13 @@ public class StrutsUseCaseLogicImpl
     private boolean normalizeMessages()
     {
         final String normalizeMessages = (String)getConfiguredProperty(Bpm4StrutsGlobals.PROPERTY_NORMALIZE_MESSAGES);
-        return Boolean.valueOf(normalizeMessages).booleanValue();
+        return Boolean.valueOf(normalizeMessages);
     }
 
     protected Map handleGetAllMessages()
     {
         final boolean normalize = this.normalizeMessages();
-        final Map messages = (normalize) ? (Map)new TreeMap() : (Map)new LinkedHashMap();
+        final Map messages = (normalize) ? new TreeMap() : new LinkedHashMap();
 
         if (this.isApplicationUseCase())
         {

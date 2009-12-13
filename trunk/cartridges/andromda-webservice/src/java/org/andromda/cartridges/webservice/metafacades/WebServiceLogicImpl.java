@@ -127,7 +127,7 @@ public class WebServiceLogicImpl
     {
         return MessageFormat.format(
             this.getQualifiedNameLocalPartPattern(),
-            new Object[] {StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -143,7 +143,7 @@ public class WebServiceLogicImpl
         }
         return MessageFormat.format(
             this.getNamespacePattern(),
-            new Object[] {StringUtils.trimToEmpty(packageName)});
+                StringUtils.trimToEmpty(packageName));
     }
 
     /**
@@ -901,7 +901,7 @@ public class WebServiceLogicImpl
      */
     protected boolean isReverseNamespace()
     {
-        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(REVERSE_NAMESPACE))).booleanValue();
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(REVERSE_NAMESPACE)));
     }
 
     /**
@@ -915,7 +915,7 @@ public class WebServiceLogicImpl
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
-            jndiName.append("/");
+            jndiName.append('/');
         }
         jndiName.append("ejb/");
         jndiName.append(this.getFullyQualifiedName());
@@ -941,7 +941,7 @@ public class WebServiceLogicImpl
     {
         return MessageFormat.format(
             this.getEjbHomeInterfacePattern(),
-            new Object[] {StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -962,7 +962,7 @@ public class WebServiceLogicImpl
     {
         return MessageFormat.format(
             this.getEjbInterfacePattern(),
-            new Object[] {StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName()));
     }
 
     /**
@@ -994,7 +994,7 @@ public class WebServiceLogicImpl
     {
         return MessageFormat.format(
             this.getRpcClassNamePattern(),
-            new Object[] {StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName())});
+                StringUtils.trimToEmpty(this.getPackageName()), StringUtils.trimToEmpty(this.getName()));
     }
 
     private static final String WSDL_OPERATION_SORT_MODE = "wsdlOperationSortMode";
@@ -1237,7 +1237,7 @@ public class WebServiceLogicImpl
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
                 logger.error(errMsg, th);
                 // don't throw the exception
             }

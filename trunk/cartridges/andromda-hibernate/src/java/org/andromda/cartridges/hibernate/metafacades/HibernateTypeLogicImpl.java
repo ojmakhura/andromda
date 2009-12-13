@@ -78,7 +78,7 @@ public class HibernateTypeLogicImpl
                     }
                     catch (final Throwable throwable)
                     {
-                        final String message = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                        final String message = "Error getting '" + propertyName + "' --> '" + uri + '\'';
                         logger.error(message);
 
                         // don't throw the exception

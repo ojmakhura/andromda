@@ -130,7 +130,7 @@ public class DateTimeConverter
     public void restoreState(FacesContext facesContext, Object state)
     {
         super.restoreState(facesContext, state);
-        Object values[] = (Object[])state;
+        Object[] values = (Object[])state;
         this.timeZone = (TimeZone)values[4];
     }
 
@@ -140,7 +140,7 @@ public class DateTimeConverter
      */
     public Object saveState(FacesContext facesContext)
     {
-        Object values[] = (Object[])super.saveState(facesContext);
+        Object[] values = (Object[])super.saveState(facesContext);
         values[4] = this.timeZone;
         return values;
     }

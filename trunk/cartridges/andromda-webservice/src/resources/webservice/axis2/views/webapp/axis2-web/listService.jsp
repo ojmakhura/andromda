@@ -29,7 +29,7 @@
 <jsp:include page="include/adminheader.jsp"/>
 
 <h1>Available Services</h1>
-<% String prefix = request.getAttribute("frontendHostUrl") + (String)request.getSession().getAttribute(Constants.SERVICE_PATH) + "/";
+<% String prefix = request.getAttribute("frontendHostUrl") + (String)request.getSession().getAttribute(Constants.SERVICE_PATH) + '/';
 %>
 <%
     HashMap serviceMap = (HashMap) request.getSession().getAttribute(Constants.SERVICE_MAP);
@@ -78,7 +78,7 @@
     Collection engagedModules = axisService.getEngagedModules();
     String moduleName;
     boolean modules_present = false;
-    if (engagedModules.size() > 0) {
+    if (!engagedModules.isEmpty()) {
 %>
 <i>Engaged modules for the service</i>
 <%
@@ -112,7 +112,7 @@
     <%--                 <br>Operation EPR : <%=prifix + axisService.getName().getLocalPart() + "/"+ axisOperation.getName().getLocalPart()%>--%>
     <%
         engagedModules = axisOperation.getEngagedModules();
-        if (engagedModules.size() > 0) {
+        if (!engagedModules.isEmpty()) {
     %>
     <br><i>Engaged Modules for the Operation</i><ul>
     <%
@@ -131,7 +131,7 @@
         }
     }
     if (errornessservice != null) {
-        if (errornessservice.size() > 0) {
+        if (!errornessservice.isEmpty()) {
             request.getSession().setAttribute(Constants.IS_FAULTY, Constants.IS_FAULTY);
 %>
 <h3><font color="red">Faulty Services</font></h3>

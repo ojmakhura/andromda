@@ -184,7 +184,7 @@ public class Axis2PortClientInterceptor
         if (AopUtils.isToStringMethod(invocation.getMethod()))
         {
             return "Axis2 proxy for WSDL [" + this.getWsdlUrl() + "] of service [" +
-            this.getServiceInterface().getName() + "]";
+            this.getServiceInterface().getName() + ']';
         }
 
         // Lazily prepare client if appropriate.

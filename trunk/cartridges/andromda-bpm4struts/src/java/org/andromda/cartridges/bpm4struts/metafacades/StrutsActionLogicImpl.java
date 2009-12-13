@@ -241,7 +241,7 @@ public class StrutsActionLogicImpl
             int formSize = formActions.size();
             for (int i = 0; i < formSize; i++)
             {
-                final StrutsAction action = (StrutsAction) formActions.get(i);
+                final StrutsAction action = formActions.get(i);
                 int size = action.getActionParameters().size();
                 for (int j = 0; j < size; j++)
                 {
@@ -355,7 +355,7 @@ public class StrutsActionLogicImpl
             roles.append(((ModelElementFacade) userIterator.next()).getName());
             if (userIterator.hasNext())
             {
-                roles.append(",");
+                roles.append(',');
             }
         }
         return roles.toString();
@@ -652,7 +652,7 @@ public class StrutsActionLogicImpl
         final Collection<StrutsActionState> actionStates = getActionStates();
         for (final Iterator<StrutsActionState> iterator = actionStates.iterator(); iterator.hasNext();)
         {
-            StrutsActionState actionState = (StrutsActionState) iterator.next();
+            StrutsActionState actionState = iterator.next();
             exceptions.addAll(actionState.getExceptions());
         }
 
@@ -810,7 +810,7 @@ public class StrutsActionLogicImpl
             int size = actionStates.size();
             for (int i = 0; i < size; i++)
             {
-                final StrutsActionState actionState = (StrutsActionState) actionStates.get(i);
+                final StrutsActionState actionState = actionStates.get(i);
                 deferredOperations.addAll(actionState.getControllerCalls());
             }
 
@@ -832,7 +832,7 @@ public class StrutsActionLogicImpl
     protected List handleGetActionParameters()
     {
         final StrutsTrigger trigger = getActionTrigger();
-        return (trigger == null) ? Collections.EMPTY_LIST : new ArrayList(trigger.getParameters());
+        return (trigger == null) ? Collections.emptyList() : new ArrayList(trigger.getParameters());
     }
 
     protected List handleGetInterUseCaseParameters(StrutsFinalState finalState)
@@ -841,7 +841,7 @@ public class StrutsActionLogicImpl
 
         if (finalState == null)
         {
-            parameters = Collections.EMPTY_LIST;
+            parameters = Collections.emptyList();
         }
         else
         {
@@ -934,7 +934,7 @@ public class StrutsActionLogicImpl
         {
             redirect = (String) value;
         }
-        return Boolean.valueOf(StringUtils.trimToEmpty(redirect)).booleanValue();
+        return Boolean.valueOf(StringUtils.trimToEmpty(redirect));
     }
 
     /**

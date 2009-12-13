@@ -183,13 +183,13 @@ public class JSFUtils
         final StringBuilder array = new StringBuilder("new Object[] {");
         for (int ctr = 1; ctr <= count; ctr++)
         {
-            array.append("\"" + name + "-" + ctr + "\"");
+            array.append('\"').append(name).append('-').append(ctr).append('\"');
             if (ctr != count)
             {
                 array.append(", ");
             }
         }
-        array.append("}");
+        array.append('}');
         return array.toString();
     }
 
@@ -475,7 +475,7 @@ public class JSFUtils
         if (element != null)
         {
             final Object value = element.findTaggedValue(JSFProfile.TAGGEDVALUE_INPUT_READONLY);
-            readOnly = Boolean.valueOf(ObjectUtils.toString(value)).booleanValue();
+            readOnly = Boolean.valueOf(ObjectUtils.toString(value));
         }
         return readOnly;
     }
@@ -743,10 +743,10 @@ public class JSFUtils
                     final String max = "max";
                     vars.put(
                         min,
-                        Arrays.asList(new Object[] {min, JSFUtils.getRangeStart(format)}));
+                        Arrays.asList(min, JSFUtils.getRangeStart(format)));
                     vars.put(
                         max,
-                        Arrays.asList(new Object[] {max, JSFUtils.getRangeEnd(format)}));
+                        Arrays.asList(max, JSFUtils.getRangeEnd(format)));
                 }
                 else
                 {
@@ -761,19 +761,19 @@ public class JSFUtils
                         {
                             vars.put(
                                 minlength,
-                                Arrays.asList(new Object[] {minlength, JSFUtils.getMinLengthValue(additionalFormat)}));
+                                Arrays.asList(minlength, JSFUtils.getMinLengthValue(additionalFormat)));
                         }
                         else if (JSFUtils.isMaxLengthFormat(additionalFormat))
                         {
                             vars.put(
                                 maxlength,
-                                Arrays.asList(new Object[] {maxlength, JSFUtils.getMaxLengthValue(additionalFormat)}));
+                                Arrays.asList(maxlength, JSFUtils.getMaxLengthValue(additionalFormat)));
                         }
                         else if (JSFUtils.isPatternFormat(additionalFormat))
                         {
                             vars.put(
                                 mask,
-                                Arrays.asList(new Object[] {mask, JSFUtils.getPatternValue(additionalFormat)}));
+                                Arrays.asList(mask, JSFUtils.getPatternValue(additionalFormat)));
                         }
                     }
                 }
@@ -790,7 +790,7 @@ public class JSFUtils
             else
             {
                 throw new RuntimeException("'element' is an invalid type, it must be either an instance of '" +
-                    JSFAttribute.class.getName() + "' or '" + JSFParameter.class.getName() + "'");
+                    JSFAttribute.class.getName() + "' or '" + JSFParameter.class.getName() + '\'');
             }
             if (JSFUtils.isDate(type))
             {
@@ -799,14 +799,14 @@ public class JSFUtils
                 {
                     vars.put(
                         datePatternStrict,
-                        Arrays.asList(new Object[] {datePatternStrict, inputFormat}));
+                        Arrays.asList(datePatternStrict, inputFormat));
                 }
                 else
                 {
                     final String datePattern = "datePattern";
                     vars.put(
                         datePattern,
-                        Arrays.asList(new Object[] {datePattern, inputFormat}));
+                        Arrays.asList(datePattern, inputFormat));
                 }
             }
             if (JSFUtils.isTime(type))
@@ -814,7 +814,7 @@ public class JSFUtils
                 final String timePattern = "timePattern";
                 vars.put(
                     timePattern,
-                    Arrays.asList(new Object[] {timePattern, inputFormat}));
+                    Arrays.asList(timePattern, inputFormat));
             }
 
             final String validWhen = JSFUtils.getValidWhen(element);
@@ -823,7 +823,7 @@ public class JSFUtils
                 final String test = "test";
                 vars.put(
                     test,
-                    Arrays.asList(new Object[] {test, validWhen}));
+                    Arrays.asList(test, validWhen));
             }
             
             final String equal = JSFUtils.getEqual(element, ownerParameter);
@@ -832,7 +832,7 @@ public class JSFUtils
                 final String fieldName = "fieldName";
                 vars.put(
                     fieldName,
-                    Arrays.asList(new Object[] {fieldName, equal}));
+                    Arrays.asList(fieldName, equal));
             }
         }
 
@@ -853,7 +853,7 @@ public class JSFUtils
                 final String validatorArg = (String)validatorArgs.get(ctr);
                 vars.put(
                     validatorVar,
-                    Arrays.asList(new Object[] {validatorVar, validatorArg}));
+                    Arrays.asList(validatorVar, validatorArg));
             }
         }
         return vars.values();
@@ -1071,8 +1071,8 @@ public class JSFUtils
         }
         else
         {
-            throw new RuntimeException("'" + this.viewType + "' is not a valid viewType, the options are '" 
-                + VIEW_TYPE_JSP + "' or '" + VIEW_TYPE_FACELETS + "'");
+            throw new RuntimeException('\'' + this.viewType + "' is not a valid viewType, the options are '"
+                + VIEW_TYPE_JSP + "' or '" + VIEW_TYPE_FACELETS + '\'');
         }
         return extension;
     }

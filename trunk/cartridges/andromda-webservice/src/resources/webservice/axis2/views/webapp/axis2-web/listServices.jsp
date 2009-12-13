@@ -33,7 +33,7 @@
 <jsp:include page="include/header.inc" />
 <jsp:include page="include/link-footer.jsp" />
 <h1>Available services</h1>
-<% String prefix = request.getAttribute("frontendHostUrl") + (String)request.getSession().getAttribute(Constants.SERVICE_PATH) + "/";
+<% String prefix = request.getAttribute("frontendHostUrl") + (String)request.getSession().getAttribute(Constants.SERVICE_PATH) + '/';
 %>
 <%
     HashMap serviceMap = (HashMap) request.getSession().getAttribute(Constants.SERVICE_MAP);
@@ -99,7 +99,7 @@
         }
     }
     if (errornessservice != null) {
-        if (errornessservice.size() > 0) {
+        if (!errornessservice.isEmpty()) {
             request.getSession().setAttribute(Constants.IS_FAULTY, Constants.IS_FAULTY);
 %>
 <hr>

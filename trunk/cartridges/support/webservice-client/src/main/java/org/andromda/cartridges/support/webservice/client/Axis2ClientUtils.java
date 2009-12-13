@@ -428,7 +428,7 @@ public class Axis2ClientUtils
         }
         if (element == null)
         {
-            throw new RuntimeException("'" + value + "' was not found on element '" + container.getAttribute(NAME) + "'");
+            throw new RuntimeException('\'' + value + "' was not found on element '" + container.getAttribute(NAME) + '\'');
         }
         return element;
     }

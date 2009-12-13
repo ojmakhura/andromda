@@ -273,7 +273,7 @@ public class SpringUtils
      */
     public String removeGenerics(final String parameter)
     {
-        int position = parameter.indexOf("<");
+        int position = parameter.indexOf('<');
         String result = parameter;
         if(position != -1)
         {
@@ -426,7 +426,7 @@ public class SpringUtils
         final StringBuilder fullName = new StringBuilder(StringUtils.trimToEmpty(packageName));
         if (fullName.length() > 0)
         {
-            fullName.append(".");
+            fullName.append('.');
         }
         fullName.append(name);
         return fullName.toString();

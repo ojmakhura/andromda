@@ -184,7 +184,7 @@ public class JSFValidatorComponent
                                     {
                                         logger.error(
                                             "No validator action with name '" + dependency +
-                                            "' registered in rules files '" + JSFValidator.RULES_LOCATION + "'");
+                                            "' registered in rules files '" + JSFValidator.RULES_LOCATION + '\'');
                                     }
                                 }
                             }
@@ -339,7 +339,7 @@ public class JSFValidatorComponent
     private boolean isClient()
     {
         String client = (String)this.getAttributes().get(CLIENT);
-        return StringUtils.isBlank(client) ? true : Boolean.valueOf(client).booleanValue();
+        return StringUtils.isBlank(client) ? true : Boolean.valueOf(client);
     }
 
     /**
@@ -399,7 +399,7 @@ public class JSFValidatorComponent
                 callback = type;
             }
             writer.write("function ");
-            writer.write(form.getId() + "_" + callback);
+            writer.write(form.getId() + '_' + callback);
             writer.write("() { \n");
 
             // for each field validated by this type, add configuration object
@@ -456,7 +456,7 @@ public class JSFValidatorComponent
             final String name = (String)iterator.next();
             writer.write(name);
             writer.write(":");
-            boolean mask = name.equals("mask");
+            boolean mask = "mask".equals(name);
 
             // - mask validator does not construct regular expression
             if (mask)
@@ -507,7 +507,7 @@ public class JSFValidatorComponent
             final UIComponent parent = validator.getParent();
             if (parent instanceof UIComponent)
             {
-                form = (UIComponent)parent;
+                form = parent;
             }
         }
         return form;

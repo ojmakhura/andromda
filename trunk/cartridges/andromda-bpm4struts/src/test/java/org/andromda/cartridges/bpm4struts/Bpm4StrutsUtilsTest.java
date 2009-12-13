@@ -19,11 +19,10 @@ public class Bpm4StrutsUtilsTest
             "myValidator(myVar=myArg)", new Object[]{"myArg"}}, new Object[]{
                 "myValidator(myVar=myArg,myOtherVar=myOtherArg)", new Object[]{"myArg", "myOtherArg"}}};
 
-        for (int i = 0; i < fixture.length; i++)
+        for (Object[] objects : fixture)
         {
-            Object[] objects = fixture[i];
-            assertTrue(Arrays.equals(Bpm4StrutsUtils.parseValidatorArgs((String)objects[0]).toArray(),
-                    (Object[])objects[1]));
+            assertTrue(Arrays.equals(Bpm4StrutsUtils.parseValidatorArgs((String) objects[0]).toArray(),
+                    (Object[]) objects[1]));
         }
     }
 
@@ -33,11 +32,10 @@ public class Bpm4StrutsUtilsTest
             "myValidator(myVar=myArg)", new Object[]{"myVar"}}, new Object[]{
                 "myValidator(myVar=myArg,myOtherVar=myOtherArg)", new Object[]{"myVar", "myOtherVar"}}};
 
-        for (int i = 0; i < fixture.length; i++)
+        for (Object[] objects : fixture)
         {
-            Object[] objects = fixture[i];
-            assertTrue(Arrays.equals(Bpm4StrutsUtils.parseValidatorVars((String)objects[0]).toArray(),
-                    (Object[])objects[1]));
+            assertTrue(Arrays.equals(Bpm4StrutsUtils.parseValidatorVars((String) objects[0]).toArray(),
+                    (Object[]) objects[1]));
         }
     }
 
@@ -48,9 +46,8 @@ public class Bpm4StrutsUtilsTest
             "myValidator(myVar=myArg)", "myValidator"}, new String[]{"myValidator(myVar=myArg,myOtherVar=myOtherArg)",
                                                                      "myValidator"}};
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             assertEquals(Bpm4StrutsUtils.parseValidatorName(strings[0]), strings[1]);
         }
     }
@@ -62,9 +59,8 @@ public class Bpm4StrutsUtilsTest
             new String[]{"two words", "two-words"},
             new String[]{" stuff   with whitespace  ", "stuff-with-whitespace"}};
 
-        for (int i = 0; i < fixture.length; i++)
+        for (String[] strings : fixture)
         {
-            String[] strings = fixture[i];
             assertEquals(Bpm4StrutsUtils.toWebFileName(strings[0]), strings[1]);
         }
     }

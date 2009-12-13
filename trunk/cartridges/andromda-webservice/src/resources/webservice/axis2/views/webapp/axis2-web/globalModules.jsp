@@ -30,7 +30,7 @@
          String modulename = "";
          Collection moduleCol = (Collection)request.getSession().getAttribute(Constants.MODULE_MAP);
          request.getSession().setAttribute(Constants.MODULE_MAP,null);
-         if(moduleCol != null && moduleCol.size() > 0) {
+         if(moduleCol != null && !moduleCol.isEmpty()) {
              for (Iterator iterator = moduleCol.iterator(); iterator.hasNext();) {
                  String axisOperation = (String) iterator.next();
                  modulename = axisOperation;

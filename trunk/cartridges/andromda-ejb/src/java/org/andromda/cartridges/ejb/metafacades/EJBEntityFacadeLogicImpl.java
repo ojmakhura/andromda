@@ -81,7 +81,7 @@ public class EJBEntityFacadeLogicImpl
         // an empty collection for everything else
         if (this.isAbstract())
         {
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
         Collection result = new ArrayList();
         result.addAll(getEntityRelations());
@@ -227,7 +227,7 @@ public class EJBEntityFacadeLogicImpl
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
-            jndiName.append("/");
+            jndiName.append('/');
         }
         jndiName.append("ejb/");
         jndiName.append(this.getFullyQualifiedName());
@@ -383,7 +383,7 @@ public class EJBEntityFacadeLogicImpl
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
                 logger.error(errMsg);
                 // don't throw the exception
                 ExceptionRecorder.instance().record(

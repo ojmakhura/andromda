@@ -115,7 +115,7 @@ public class JBpmActionLogicImpl
     protected boolean handleIsBlocking()
     {
         final String blocking = (String)this.findTaggedValue(JBpmProfile.TAGGEDVALUE_TASK_BLOCKING);
-        return blocking == null || Boolean.valueOf(blocking).booleanValue();
+        return blocking == null || Boolean.valueOf(blocking);
     }
 
     /**

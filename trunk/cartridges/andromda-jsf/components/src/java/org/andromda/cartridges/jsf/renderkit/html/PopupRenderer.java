@@ -214,11 +214,11 @@ public class PopupRenderer
             buffer.append(command.getStyleFrame() == null ? "" : command.getStyleFrame());
             buffer.append("',");
             buffer.append(command.getMouseHorizPos() == null ? "0" : command.getMouseHorizPos());
-            buffer.append(",");
+            buffer.append(',');
             buffer.append(command.getMouseVertPos() == null ? "0" : command.getMouseVertPos());
-            buffer.append(",");
+            buffer.append(',');
             buffer.append(command.getAbsolute() == null ? "false" : command.getAbsolute());
-            buffer.append(",");
+            buffer.append(',');
             buffer.append(command.getCenter() == null ? "false" : command.getCenter());
             buffer.append(",'");
             buffer.append(command.getHeight() == null ? "" : command.getHeight());

@@ -140,7 +140,7 @@ public class ComponentUtils
                 try
                 {
                     final Method method = object.getClass().getMethod("getAttribute", new Class[]{String.class});
-                    attribute = method.invoke(object, new Object[]{attributeName});
+                    attribute = method.invoke(object, attributeName);
                 }
                 catch (NoSuchMethodException exception)
                 {
@@ -172,7 +172,7 @@ public class ComponentUtils
                 try
                 {
                     final Method method = object.getClass().getMethod("setAttribute", new Class[]{String.class, Object.class});
-                    method.invoke(object, new Object[]{attributeName, attributeValue});
+                    method.invoke(object, attributeName, attributeValue);
                 }
                 catch (NoSuchMethodException ignore)
                 {
@@ -199,7 +199,7 @@ public class ComponentUtils
             String contextPath = null;
             if (request != null)
             {
-                contextPath = ObjectUtils.toString(request.getClass().getMethod("getContextPath", new Class[0]).invoke(request, (Object[])null));
+                contextPath = ObjectUtils.toString(request.getClass().getMethod("getContextPath", new Class[0]).invoke(request));
             }
             return contextPath;
         }

@@ -32,7 +32,7 @@ class SpringMetafacadeUtils
         StringBuilder fullyQualifiedName = new StringBuilder(StringUtils.trimToEmpty(packageName));
         if (StringUtils.isNotBlank(packageName))
         {
-            fullyQualifiedName.append(".");
+            fullyQualifiedName.append('.');
         }
         fullyQualifiedName.append(StringUtils.trimToEmpty(name));
         if (StringUtils.isNotEmpty(suffix))

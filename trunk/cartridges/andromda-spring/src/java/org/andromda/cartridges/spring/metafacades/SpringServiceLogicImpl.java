@@ -48,7 +48,7 @@ public class SpringServiceLogicImpl
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
-            jndiName.append("/");
+            jndiName.append('/');
         }
         jndiName.append("ejb/");
         jndiName.append(this.getFullyQualifiedName());
@@ -66,7 +66,7 @@ public class SpringServiceLogicImpl
         if (StringUtils.isNotEmpty(jndiNamePrefix))
         {
             jndiName.append(jndiNamePrefix);
-            jndiName.append("/");
+            jndiName.append('/');
         }
         jndiName.append("ejb/");
         jndiName.append(SpringMetafacadeUtils.getFullyQualifiedName(

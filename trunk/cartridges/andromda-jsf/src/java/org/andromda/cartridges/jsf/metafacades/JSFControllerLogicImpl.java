@@ -51,7 +51,7 @@ public class JSFControllerLogicImpl
         final String packageName = this.getPackageName();
         if (StringUtils.isNotBlank(packageName))
         {
-            fullyQualifiedName.append(packageName + '.');
+            fullyQualifiedName.append(packageName).append('.');
         }
         return fullyQualifiedName.append(this.getImplementationName()).toString();
     }

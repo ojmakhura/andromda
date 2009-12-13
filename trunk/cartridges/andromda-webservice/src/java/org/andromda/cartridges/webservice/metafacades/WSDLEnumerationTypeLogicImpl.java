@@ -97,8 +97,7 @@ public class WSDLEnumerationTypeLogicImpl
      */
     private boolean isReverseNamespace()
     {
-        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE)))
-                .booleanValue();
+        return Boolean.valueOf(String.valueOf(this.getConfiguredProperty(WebServiceLogicImpl.REVERSE_NAMESPACE)));
     }
 
     /**
@@ -155,7 +154,7 @@ public class WSDLEnumerationTypeLogicImpl
             }
             catch (Throwable th)
             {
-                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + "'";
+                String errMsg = "Error getting '" + propertyName + "' --> '" + uri + '\'';
                 logger.error(errMsg, th);
                 // don't throw the exception
             }

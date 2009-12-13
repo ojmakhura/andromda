@@ -27,7 +27,7 @@
       stringBuffer.append(aRequest.getServerName());
       if (("http".equalsIgnoreCase(scheme) && aRequest.getServerPort() != 80) || "https".equalsIgnoreCase(scheme) && aRequest.getServerPort() != 443)
       {
-        stringBuffer.append(":");
+        stringBuffer.append(':');
         stringBuffer.append(aRequest.getServerPort());
       }
       // I think i saw web containers return null for root web context
@@ -37,7 +37,7 @@
     }
     // append / char if needed
     if (stringBuffer.charAt(stringBuffer.length() - 1) != '/') {
-      stringBuffer.append("/");
+      stringBuffer.append('/');
     }
     String curentUrl = stringBuffer.toString();
     aRequest.setAttribute("frontendHostUrl", curentUrl);
