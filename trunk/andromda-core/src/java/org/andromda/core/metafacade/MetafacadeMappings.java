@@ -47,7 +47,7 @@ public class MetafacadeMappings
     /**
      * The default meta facade to use when there isn't a mapping found.
      */
-    private Class defaultMetafacadeClass = null;
+    private Class defaultMetafacadeClass;
 
     /**
      * Constructs a new instance of this class.
@@ -408,7 +408,7 @@ public class MetafacadeMappings
                                 boolean valid = false;
                                 if (metaclassName.equals(mapping.getMappingClassName()) && !mapping.hasStereotypes() &&
                                     mapping.hasContext() && mapping.hasMappingProperties() &&
-                                    (!inProcessMappings.contains(mapping)))
+                                    !inProcessMappings.contains(mapping))
                                 {
                                     if (getContextHierarchy(context).contains(mapping.getContext()))
                                     {
@@ -694,7 +694,7 @@ public class MetafacadeMappings
         {
             this.getLogger().debug(
                 "performing 'MetafacadeMappings.getMetafacadeMapping' with mappingObject '" + mappingObject +
-                "', stereotypes '" + stereotypes + "', namespace '" + namespace + "' and context '" + context + "'");
+                "', stereotypes '" + stereotypes + "', namespace '" + namespace + "' and context '" + context + '\'');
         }
 
         MetafacadeMapping mapping = null;
@@ -758,7 +758,7 @@ public class MetafacadeMappings
 
         if (this.getLogger().isDebugEnabled())
         {
-            this.getLogger().debug("found mapping --> '" + mapping + "'");
+            this.getLogger().debug("found mapping --> '" + mapping + '\'');
         }
         return mapping;
     }
@@ -1033,7 +1033,7 @@ public class MetafacadeMappings
     /**
      * Stores all metafacade mapping instances
      */
-    private static Map<Class, String> allMetafacadeMappingInstances = new HashMap<Class, String>();
+    private static final Map<Class, String> allMetafacadeMappingInstances = new HashMap<Class, String>();
 
     /**
      * Stores every metafacade mapping instance, this is used from
@@ -1156,7 +1156,7 @@ public class MetafacadeMappings
                 {
                     this.getLogger().debug(
                             "setting context property '" + reference + "' with value '" + value + "' for namespace '" +
-                                    namespace + "' on metafacade '" + metafacadeName + "'");
+                                    namespace + "' on metafacade '" + metafacadeName + '\'');
                 }
             }
             factory.registerProperty(
@@ -1204,6 +1204,6 @@ public class MetafacadeMappings
      */
     public String toString()
     {
-        return super.toString() + "[" + this.getNamespace() + "]";
+        return super.toString() + '[' + this.getNamespace() + ']';
     }
 }

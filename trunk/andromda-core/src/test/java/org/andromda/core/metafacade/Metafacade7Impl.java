@@ -20,7 +20,7 @@ public class Metafacade7Impl
         super(metaObject, context);
     }
 
-    private boolean propertyOne = false;
+    private boolean propertyOne;
 
     public boolean getPropertyOne()
     {

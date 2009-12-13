@@ -46,12 +46,12 @@ public class ExceptionRecorder
     /**
      * The exceptions directory name:exceptions.
      */
-    private static String exceptionDirectoryName = ".";
+    private static final String exceptionDirectoryName = ".";
 
     /**
      * The exceptions directory, initialized to exceptions.
      */
-    private static File exceptionDirectory = null;
+    private static File exceptionDirectory;
     private static final SimpleDateFormat cvDateFormat = new SimpleDateFormat("yyMMddHHmmss");
     private static final Random random = new Random();
 
@@ -171,11 +171,11 @@ public class ExceptionRecorder
             writer.println("Root Exception .: " + cause);
             cause.printStackTrace(writer);
             writer.close();
-            AndroMDALogger.error("Exception recorded in --> '" + result + "'");
+            AndroMDALogger.error("Exception recorded in --> '" + result + '\'');
         }
         catch (Throwable th)
         {
-            final String errorMessage = "ExceptionRecorder.record error recording exception --> '" + throwable + "'";
+            final String errorMessage = "ExceptionRecorder.record error recording exception --> '" + throwable + '\'';
             logger.error(errorMessage, th);
         } // End catch
         return result;
@@ -198,7 +198,7 @@ public class ExceptionRecorder
         File exceptionFile = new File(exceptionDirectory, uniqueName);
         while (exceptionFile.exists())
         {
-            uniqueName = prefix + cvDateFormat.format(new Date()) + "_" + suffix++ + SUFFIX;
+            uniqueName = prefix + cvDateFormat.format(new Date()) + '_' + suffix++ + SUFFIX;
             exceptionFile = new File(exceptionDirectory, uniqueName);
 
             // Give another user an opportunity to

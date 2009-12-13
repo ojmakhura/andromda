@@ -44,7 +44,7 @@ public class Namespaces
     /**
      * The shared instance.
      */
-    private static Namespaces instance = null;
+    private static Namespaces instance;
 
     /**
      * Returns the singleton instance of this Namespaces
@@ -366,13 +366,13 @@ public class Namespaces
         final NamespaceRegistry registry = this.getRegistry(namespace);
         if (registry == null)
         {
-            throw new NamespacesException("'" + namespace + "' is not a registered namespace");
+            throw new NamespacesException('\'' + namespace + "' is not a registered namespace");
         }
 
         final URL[] resourceRoots = registry.getResourceRoots();
         if (resourceRoots == null || resourceRoots.length == 0)
         {
-            throw new NamespacesException("No resource root(s) could be retrieved for namespace '" + namespace + "'");
+            throw new NamespacesException("No resource root(s) could be retrieved for namespace '" + namespace + '\'');
         }
         return resourceRoots;
     }

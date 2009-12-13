@@ -95,7 +95,7 @@ public class Component
         if (!NamespaceComponent.class.isAssignableFrom(type))
         {
             throw new NamespaceComponentsException(
-                "namespace component '" + type + "' must implement --> '" + NamespaceComponent.class.getName() + "'");
+                "namespace component '" + type + "' must implement --> '" + NamespaceComponent.class.getName() + '\'');
         }
         this.type = type;
     }

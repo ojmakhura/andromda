@@ -61,7 +61,7 @@ public class XslTransformer
                         resolver.setLocation(xslt);
                         if (xslt != null)
                         {
-                            AndroMDALogger.info("Applying transformation --> '" + xslt + "'");
+                            AndroMDALogger.info("Applying transformation --> '" + xslt + '\'');
                             final Source xsltSource = new StreamSource(xslt.openStream());
                             final javax.xml.transform.Transformer transformer = factory.newTransformer(xsltSource);
                             final ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -81,7 +81,7 @@ public class XslTransformer
                                     parent.mkdirs();
                                 }
                                 FileOutputStream outputStream = new FileOutputStream(fileOutput);
-                                AndroMDALogger.info("Transformation output: '" + outputLocation + "'");
+                                AndroMDALogger.info("Transformation output: '" + outputLocation + '\'');
                                 outputStream.write(outputResult);
                                 outputStream.flush();
                                 outputStream.close();

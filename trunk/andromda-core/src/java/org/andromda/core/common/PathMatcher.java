@@ -61,11 +61,11 @@ public class PathMatcher
                 pattern,
                 ".",
                 "\\.");
-        boolean matchAll = pattern.indexOf(DOUBLE_STAR) != -1 && pattern.indexOf(TRIPPLE_STAR) == -1;
+        boolean matchAll = pattern.contains(DOUBLE_STAR) && !pattern.contains(TRIPPLE_STAR);
         if (matchAll)
         {
             String replacement = ".*";
-            if (path.indexOf(FORWARD_SLASH) == -1)
+            if (!path.contains(FORWARD_SLASH))
             {
                 replacement = ".*";
             }

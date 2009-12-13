@@ -224,7 +224,7 @@ public class ResourceUtils
                 {
                     iterator.set(
                         StringUtils.replace(
-                            (new File(iterator.next())).getPath().replace(
+                            new File(iterator.next()).getPath().replace(
                                 '\\',
                                 '/'),
                             pluginDirectory.getPath().replace(
@@ -834,9 +834,9 @@ public class ResourceUtils
             files,
             true);
         boolean changed = files.isEmpty();
-        for (final Iterator<String> iterator = files.iterator(); iterator.hasNext();)
+        for (String fileName : files)
         {
-            final File file = new File(iterator.next());
+            final File file = new File(fileName);
             changed = file.lastModified() < time;
             if (changed)
             {
@@ -854,7 +854,7 @@ public class ResourceUtils
     /**
      * The pattern used for normalizing paths with more than one forward slash.
      */
-    private static final String FORWARD_SLASH_NORMALIZATION_PATTERN = FORWARD_SLASH + "+";
+    private static final String FORWARD_SLASH_NORMALIZATION_PATTERN = FORWARD_SLASH + '+';
 
     /**
      * Removes any extra path separators and converts all from back slashes

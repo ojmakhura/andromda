@@ -120,7 +120,7 @@ public class Resource
     /**
      * Stores whether or not the resource should be overwritten.
      */
-    private boolean overwrite = false;
+    private boolean overwrite;
 
     /**
      * Tells us whether output files produced by this resource should be overwritten if they already exist. Overwriting

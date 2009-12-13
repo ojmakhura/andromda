@@ -8,7 +8,7 @@ package org.andromda.core.metafacade;
  *
  * @author Chad Brandon
  */
-public class MetafacadeConstants
+public interface MetafacadeConstants
 {
     /**
      * Used to separate the metafacade namespaces.

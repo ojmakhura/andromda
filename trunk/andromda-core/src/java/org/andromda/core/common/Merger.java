@@ -76,7 +76,7 @@ public class Merger
             for (final Mappings mergeMappings : mappingInstances)
             {
                 final Collection<Mapping> mappings = mergeMappings.getMappings();
-                if ((mappings != null) && !mappings.isEmpty())
+                if (mappings != null && !mappings.isEmpty())
                 {
                     for (final Mapping mapping : mappings)
                     {

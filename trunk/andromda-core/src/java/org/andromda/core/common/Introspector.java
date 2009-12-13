@@ -21,7 +21,7 @@ public final class Introspector
     /**
      * The shared instance.
      */
-    private static Introspector instance = null;
+    private static Introspector instance;
 
     /**
      * Gets the shared instance.
@@ -148,7 +148,7 @@ public final class Introspector
             final int dotIndex = name.indexOf(NESTED_DELIMITER);
             if (dotIndex >= name.length())
             {
-                throw new IntrospectorException("Invalid property call --> '" + name + "'");
+                throw new IntrospectorException("Invalid property call --> '" + name + '\'');
             }
             String[] names = name.split("\\" + NESTED_DELIMITER);
             Object objectToPopulate = object;
@@ -237,7 +237,7 @@ public final class Introspector
             {
                 if (dotIndex >= name.length())
                 {
-                    throw new IntrospectorException("Invalid property call --> '" + name + "'");
+                    throw new IntrospectorException("Invalid property call --> '" + name + '\'');
                 }
                 final Object nextInstance = this.internalGetProperty(
                         object,
@@ -431,7 +431,7 @@ public final class Introspector
                     int dotIndex = name.indexOf(NESTED_DELIMITER);
                     if (dotIndex >= name.length())
                     {
-                        throw new IntrospectorException("Invalid property call --> '" + name + "'");
+                        throw new IntrospectorException("Invalid property call --> '" + name + '\'');
                     }
                     final PropertyDescriptor nextInstance =
                         this.getPropertyDescriptor(
@@ -488,7 +488,7 @@ public final class Introspector
             this.evaluatingObjects.put(
                 object,
                 name);
-            if (object != null || (StringUtils.isNotEmpty(name)))
+            if (object != null || StringUtils.isNotEmpty(name))
             {
                 final Method method = this.getReadMethod(
                         object,
@@ -496,7 +496,7 @@ public final class Introspector
                 if (method == null)
                 {
                     throw new IntrospectorException("No readable property named '" + name + "', exists on object '" +
-                        object + "'");
+                        object + '\'');
                 }
                 try
                 {
@@ -512,10 +512,10 @@ public final class Introspector
                     }
                     // At least output the location where the error happened, not the entire stack trace.
                     StackTraceElement[] trace = throwable.getStackTrace();
-                    String location = " AT " + trace[0].getClassName() + "." + trace[0].getMethodName() + ":" + trace[0].getLineNumber();
+                    String location = " AT " + trace[0].getClassName() + '.' + trace[0].getMethodName() + ':' + trace[0].getLineNumber();
                     if (throwable.getMessage()!=null)
                     {
-                        location += " " + throwable.getMessage();
+                        location += ' ' + throwable.getMessage();
                     }
                     logger.error("Introspector " + throwable + " invoking " + object + " METHOD " + method + " WITH " + name + location);
                     throw new IntrospectorException(throwable);
@@ -542,7 +542,7 @@ public final class Introspector
     {
         if (object != null || (StringUtils.isNotEmpty(name)))
         {
-            Class expectedType = null;
+            Class expectedType;
             if (value != null && object != null)
             {
                 final PropertyDescriptor descriptor = this.getPropertyDescriptor(
@@ -564,13 +564,13 @@ public final class Introspector
             if (method == null)
             {
                 throw new IntrospectorException("No writeable property named '" + name + "', exists on object '" +
-                    object + "'");
+                    object + '\'');
             }
             try
             {
                 method.invoke(
                     object,
-                    new Object[] {value});
+                    value);
             }
             catch (final Throwable throwable)
             {

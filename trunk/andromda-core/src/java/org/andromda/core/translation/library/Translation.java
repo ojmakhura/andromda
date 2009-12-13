@@ -19,7 +19,6 @@ public class Translation
     private String name;
     private final Map<String, Fragment> fragments = new LinkedHashMap<String, Fragment>();
     private final Collection<String> ignorePatterns = new ArrayList<String>();
-    private Collection<String> validatePatterns;    // (wouter) TODO: Chad, this field is only updated, never queried, can we remove it ?
 
     /**
      * The library translation to which this translation belongs.
@@ -33,12 +32,10 @@ public class Translation
      */
     protected LibraryTranslation getLibraryTranslation()
     {
-        final String methodName = "Translation.getLibraryTranslation";
-
         // should never happen, but it doesn't hurt to be safe
         if (this.libraryTranslation == null)
         {
-            throw new LibraryException(methodName + " - libraryTranslation can not be null");
+            throw new LibraryException("Translation.getLibraryTranslation" + " - libraryTranslation can not be null");
         }
         return libraryTranslation;
     }
@@ -130,16 +127,6 @@ public class Translation
     public void addIgnorePattern(final String ignorePattern)
     {
         this.ignorePatterns.add(StringUtils.trimToEmpty(ignorePattern));
-    }
-
-    /**
-     * Adds an <code>validatePattern</code> to the Collection of validatePatterns.
-     *
-     * @param validatePattern the pattern to validate.
-     */
-    public void addValidatePattern(final String validatePattern)
-    {
-        this.validatePatterns.add(StringUtils.trimToEmpty(validatePattern));
     }
 
     /**

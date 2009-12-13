@@ -82,7 +82,7 @@ public class ModelProcessor
     {
         this.configure(configuration);
         final List<ModelValidationMessage> messages = this.process(configuration.getRepositories());
-        return messages != null ? messages.toArray(new ModelValidationMessage[0])
+        return messages != null ? messages.toArray(new ModelValidationMessage[messages.size()])
                                 : new ModelValidationMessage[0];
     }
 
@@ -114,7 +114,7 @@ public class ModelProcessor
                 {
                     AndroMDALogger.warn(
                         "Could not set model processor property '" + property.getName() + "' with a value of '" +
-                        property.getValue() + "'");
+                        property.getValue() + '\'');
                 }
             }
             this.currentConfiguration = configuration;
@@ -150,7 +150,7 @@ public class ModelProcessor
                 }
                 else
                 {
-                    AndroMDALogger.warn("No model(s) found to process for repository '" + repositoryName + "'");
+                    AndroMDALogger.warn("No model(s) found to process for repository '" + repositoryName + '\'');
                 }
             }
         }
@@ -265,7 +265,7 @@ public class ModelProcessor
             final String messsage =
                 "Error performing ModelProcessor.process with model(s) --> '" + StringUtils.join(
                     models,
-                    ",") + "'";
+                    ",") + '\'';
             logger.error(messsage);
             ExceptionRecorder.instance().record(
                 messsage,
@@ -375,7 +375,7 @@ public class ModelProcessor
         final String repositoryName,
         final Model model)
     {
-        final Filters constraints = (model != null ? model.getConstraints() : null);
+        final Filters constraints = model != null ? model.getConstraints() : null;
         final List<ModelValidationMessage> validationMessages = new ArrayList<ModelValidationMessage>();
         if (ModelProcessor.modelValidation && model != null)
         {
@@ -452,7 +452,7 @@ public class ModelProcessor
                 new StringBuffer("Model Validation Failed - " + messages.size() + " VALIDATION ERROR");
             if (messages.size() > 1)
             {
-                header.append("S");
+                header.append('S');
             }
             AndroMDALogger.error(header);
             int ctr = 1;
@@ -472,7 +472,7 @@ public class ModelProcessor
     /**
      * The current configuration of this model processor.
      */
-    private Configuration currentConfiguration = null;
+    private Configuration currentConfiguration;
 
     /**
      * Determines whether or not this model processor needs to be reconfigured.
@@ -601,12 +601,12 @@ public class ModelProcessor
     /**
      * Stores the cartridge filter.
      */
-    private List cartridgeFilter = null;
+    private List cartridgeFilter;
 
     /**
      * Denotes whether or not the complement of filtered cartridges should be processed
      */
-    private boolean negateCartridgeFilter = false;
+    private boolean negateCartridgeFilter;
 
     /**
      * Indicates whether or not the <code>namespace</code> should be processed. This is determined in conjunction with
@@ -718,7 +718,7 @@ public class ModelProcessor
         CollectionUtils.filter(validModels, new Predicate() {
             public boolean evaluate(Object o) {
                 final Model model = (Model)o;
-                return (model != null && model.getUris() != null && model.getUris().length > 0);
+                return model != null && model.getUris() != null && model.getUris().length > 0;
             }
         });
 
@@ -804,7 +804,7 @@ public class ModelProcessor
     /**
      * Used to sort validation messages by <code>metafacadeClass</code>.
      */
-    private final static class ValidationMessageTypeComparator
+    private static final class ValidationMessageTypeComparator
         implements Comparator<ModelValidationMessage>
     {
         private final Collator collator = Collator.getInstance();
@@ -827,7 +827,7 @@ public class ModelProcessor
     /**
      * Used to sort validation messages by <code>modelElementName</code>.
      */
-    private final static class ValidationMessageNameComparator
+    private static final class ValidationMessageNameComparator
         implements Comparator<ModelValidationMessage>
     {
         private final Collator collator = Collator.getInstance();

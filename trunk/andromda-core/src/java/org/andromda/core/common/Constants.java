@@ -27,12 +27,12 @@ public class Constants
         final StringBuffer directory = new StringBuffer(tmpDir);
         if (!directory.toString().endsWith("/"))
         {
-            directory.append("/");
+            directory.append('/');
         }
         final String userName = System.getProperty("user.name");
         if (StringUtils.isNotBlank(userName))
         {
-            directory.append(userName).append("/");
+            directory.append(userName).append('/');
         }
         directory.append(".andromda/");
         TEMPORARY_DIRECTORY = directory.toString();

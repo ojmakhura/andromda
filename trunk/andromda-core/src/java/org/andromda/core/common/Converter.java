@@ -62,7 +62,7 @@ public class Converter
                             new Class[] {object.getClass()});
                     object = method.invoke(
                             expectedType,
-                            new Object[] {object});
+                            object);
                 }
                 catch (final NoSuchMethodException exception)
                 {
@@ -76,12 +76,12 @@ public class Converter
                     try
                     {
                         constructor = expectedType.getConstructor(new Class[] {originalType});
-                        object = constructor.newInstance(new Object[] {object});
+                        object = constructor.newInstance(object);
                     }
                     catch (final NoSuchMethodException exception)
                     {
                         throw new IntrospectorException("Could not convert '" + object + "' to type '" +
-                            expectedType.getName() + "'");
+                            expectedType.getName() + '\'');
                     }
                 }
             }
@@ -94,10 +94,10 @@ public class Converter
             }
             // At least output the location where the error happened, not the entire stack trace.
             StackTraceElement[] trace = throwable.getStackTrace();
-            String location = " AT " + trace[0].getClassName() + "." + trace[0].getMethodName() + ":" + trace[0].getLineNumber();
+            String location = " AT " + trace[0].getClassName() + '.' + trace[0].getMethodName() + ':' + trace[0].getLineNumber();
             if (throwable.getMessage()!=null)
             {
-                location += " " + throwable.getMessage();
+                location += ' ' + throwable.getMessage();
             }
             logger.error("Converter " + throwable + " invoking " + object + " METHOD " + method + " WITH " + expectedType.getName() + location);
             throw new IntrospectorException(throwable);

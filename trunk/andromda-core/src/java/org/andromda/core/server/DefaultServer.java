@@ -33,7 +33,7 @@ public class DefaultServer
     /**
      * The server listener.
      */
-    private ServerSocket listener = null;
+    private ServerSocket listener;
 
     /**
      * The AndroMDA Engine instance.

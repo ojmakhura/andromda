@@ -34,7 +34,7 @@ public class XslTransformerTest
         transformation1.setUri(transformation1Uri.toString());
         Transformation transformation2 = new Transformation();
         transformation2.setUri(transformation2Uri.toString());
-        Transformation[] transformations = new Transformation[] {transformation1, transformation2};
+        Transformation[] transformations = {transformation1, transformation2};
         InputStream stream = transformer.transform(modelUrl.toString(), transformations);
         assertNotNull(stream);
     }

@@ -226,7 +226,7 @@ public class Configuration
     /**
      * Stores the contents of the configuration as a string.
      */
-    private String contents = null;
+    private String contents;
 
     /**
      * Gets the URI from which this instance was

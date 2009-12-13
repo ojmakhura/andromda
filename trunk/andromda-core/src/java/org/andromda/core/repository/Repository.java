@@ -16,7 +16,7 @@ public class Repository
     /**
      * Stores the repository facade implementation.
      */
-    private RepositoryFacade implementation = null;
+    private RepositoryFacade implementation;
 
     /**
      * Sets the implementation class name.
@@ -30,7 +30,7 @@ public class Repository
         {
             throw new RepositoryException(
                 "Implementation '" + implementationClass + "' must be an instance of '" +
-                RepositoryFacade.class.getName() + "'");
+                RepositoryFacade.class.getName() + '\'');
         }
         implementation = (RepositoryFacade)ClassUtils.newInstance(type);
     }

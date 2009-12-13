@@ -19,6 +19,7 @@ import org.andromda.core.common.ResourceUtils;
 import org.andromda.core.common.XmlObjectFactory;
 import org.andromda.core.configuration.Namespaces;
 import org.andromda.core.profile.Profile;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -109,7 +110,7 @@ public class NamespaceComponents
                 // - only log the fact we've found the namespace registry, if we haven't done it yet
                 if (!this.registeredRegistries.contains(registryName))
                 {
-                    AndroMDALogger.info("found namespace --> '" + registryName + "'");
+                    AndroMDALogger.info("found namespace --> '" + registryName + '\'');
                     this.registeredRegistries.add(registryName);
                 }
 
@@ -129,7 +130,7 @@ public class NamespaceComponents
                     final Component component = this.getComponent(componentName);
                     if (component == null)
                     {
-                        throw new NamespaceComponentsException("'" + componentName +
+                        throw new NamespaceComponentsException('\'' + componentName +
                                 "' is not a valid namespace component");
                     }
 
@@ -139,7 +140,7 @@ public class NamespaceComponents
                             registryName,
                             component.getType()))
                     {
-                        AndroMDALogger.info("  +  registering component '" + componentName + "'");
+                        AndroMDALogger.info("  +  registering component '" + componentName + '\'');
                         final XmlObjectFactory componentFactory = XmlObjectFactory.getInstance(component.getType());
                         final URL componentResource =
                                 this.getNamespaceResource(
@@ -147,7 +148,7 @@ public class NamespaceComponents
                                         component.getPaths());
                         if (componentResource == null)
                         {
-                            throw new NamespaceComponentsException("'" + componentName +
+                            throw new NamespaceComponentsException('\'' + componentName +
                                     "' is not a valid component within namespace '" + namespace + "' (the " +
                                     componentName + "'s descriptor can not be found)");
                         }
@@ -246,8 +247,7 @@ public class NamespaceComponents
                     }
                     finally
                     {
-                        if (stream != null) try {stream.close();} catch (Exception ex) {}
-                        stream = null;
+                        IOUtils.closeQuietly(stream);
                     }
 
                     // - break if we've found one
@@ -356,7 +356,7 @@ public class NamespaceComponents
     /**
      * Used to sort namespace registries by name.
      */
-    private final static class NamespaceRegistryComparator
+    private static final class NamespaceRegistryComparator
         implements Comparator<NamespaceRegistry>
     {
         private final Collator collator = Collator.getInstance();

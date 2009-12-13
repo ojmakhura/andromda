@@ -297,7 +297,7 @@ public class Mappings
      * Holds the name of this mapping. This corresponds usually to some language
      * (i.e. Java, or a database such as Oracle, Sql Server, etc).
      */
-    private String name = null;
+    private String name;
 
     /**
      * Returns the name name (this is the name for which the type mappings are

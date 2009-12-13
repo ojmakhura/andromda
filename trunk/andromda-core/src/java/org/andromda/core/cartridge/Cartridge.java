@@ -407,7 +407,7 @@ public class Cartridge
     
                             // - check to see if generateEmptyFiles is true and if
                             //   outString is not blank
-                            if ((StringUtils.isNotBlank(outputString)) ||
+                            if (StringUtils.isNotBlank(outputString) ||
                                 template.isGenerateEmptyFiles())
                             {
                                 for (PostProcessor postProcessor : getTemplatePostProcessor())
@@ -438,7 +438,7 @@ public class Cartridge
                                     outputString,
                                     outputFile,
                                     this.getNamespace());
-                                AndroMDALogger.info("Output: '" + outputFile.toURI() + "'");
+                                AndroMDALogger.info("Output: '" + outputFile.toURI() + '\'');
                             }
                             else
                             {
@@ -458,11 +458,11 @@ public class Cartridge
             if (outputFile != null)
             {
                 outputFile.delete();
-                this.getLogger().info("Removed: '" + outputFile + "'");
+                this.getLogger().info("Removed: '" + outputFile + '\'');
             }
             final String message =
                 "Error processing template '" + template.getPath() + "' with template context '" + templateContext +
-                "' using cartridge '" + this.getNamespace() + "'";
+                "' using cartridge '" + this.getNamespace() + '\'';
             throw new CartridgeException(message, throwable);
         }
     }
@@ -545,7 +545,7 @@ public class Cartridge
             // - make sure we don't have any back slashes
             final String resourceUri = ResourceUtils.normalizePath(resourceUrl.toString());
             String uriSuffix = resource.getPath().replaceAll(PATH_PATTERN, "");
-            if (resourceUri.indexOf(uriSuffix) != -1)
+            if (resourceUri.contains(uriSuffix))
             {
                 uriSuffix = resourceUri.substring(resourceUri.indexOf(uriSuffix) + uriSuffix.length(), resourceUri.length());
             }       
@@ -593,7 +593,7 @@ public class Cartridge
                             ResourceWriter.instance().writeUrlToFile(
                                 resourceUrl,
                                 outputFile.toString());
-                            AndroMDALogger.info("Output: '" + outputFile.toURI() + "'");
+                            AndroMDALogger.info("Output: '" + outputFile.toURI() + '\'');
                         }
                     }
                 }
@@ -604,7 +604,7 @@ public class Cartridge
             if (outputFile != null)
             {
                 outputFile.delete();
-                this.getLogger().info("Removed: '" + outputFile + "'");
+                this.getLogger().info("Removed: '" + outputFile + '\'');
             }
             throw new CartridgeException(throwable);
         }
@@ -691,7 +691,7 @@ public class Cartridge
     /**
      * Indicates whether or not the global outputConditions have been evaluated.
      */
-    private boolean conditionsEvaluated = false;
+    private boolean conditionsEvaluated;
     
     /**
      * Evaluates all conditions and stores the results in the <code>evaluatedConditions</code>

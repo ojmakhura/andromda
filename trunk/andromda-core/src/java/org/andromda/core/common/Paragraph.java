@@ -41,7 +41,7 @@ public class Paragraph
         {
             nextLine();
         }
-        currentLine.append(" ");
+        currentLine.append(' ');
         currentLine.append(word);
     }
 
@@ -55,7 +55,7 @@ public class Paragraph
     {
         if ((currentLine.length() + text.length() + 1) <= maxLineWidth)
         {
-            currentLine.append(" ");
+            currentLine.append(' ');
             currentLine.append(text);
             return;
         }
@@ -92,7 +92,7 @@ public class Paragraph
         for (final String line : this.getLines())
         {
             buffer.append(line);
-            buffer.append("\n");
+            buffer.append('\n');
         }
         return buffer.toString();
     }

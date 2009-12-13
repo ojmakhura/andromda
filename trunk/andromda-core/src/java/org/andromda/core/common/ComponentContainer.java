@@ -49,12 +49,12 @@ public class ComponentContainer
     /**
      * The container instance
      */
-    private final Map container = new LinkedHashMap();
+    private final Map<Object, Object> container = new LinkedHashMap<Object, Object>();
 
     /**
      * The shared instance.
      */
-    private static ComponentContainer instance = null;
+    private static ComponentContainer instance;
 
     /**
      * Gets the shared instance of this ComponentContainer.
@@ -289,20 +289,18 @@ public class ComponentContainer
      */
     public Collection findComponentsOfType(final Class type)
     {
-        final Collection components = new ArrayList(this.container.values());
-        final Collection containerInstances = this.container.values();
-        for (final Iterator iterator = containerInstances.iterator(); iterator.hasNext();)
+        final Collection<Object> components = new ArrayList<Object>(this.container.values());
+        final Collection<Object> containerInstances = this.container.values();
+        for (final Object component : containerInstances)
         {
-            final Object component = iterator.next();
             if (component instanceof ComponentContainer)
             {
-                components.addAll(((ComponentContainer)component).container.values());
+                components.addAll(((ComponentContainer) component).container.values());
             }
         }
-        final Collection componentsOfType = new ArrayList();
-        for (final Iterator iterator = components.iterator(); iterator.hasNext();)
+        final Collection<Object> componentsOfType = new ArrayList<Object>();
+        for (final Object component : components)
         {
-            final Object component = iterator.next();
             if (type.isInstance(component))
             {
                 componentsOfType.add(component);
@@ -323,7 +321,7 @@ public class ComponentContainer
         ExceptionUtils.checkEmpty("key", key);
         if (logger.isDebugEnabled())
         {
-            logger.debug("unregistering component with key --> '" + key + "'");
+            logger.debug("unregistering component with key --> '" + key + '\'');
         }
         return container.remove(key);
     }
@@ -412,7 +410,7 @@ public class ComponentContainer
         ExceptionUtils.checkNull("component", component);
         if (logger.isDebugEnabled())
         {
-            logger.debug("registering component '" + component + "' with key --> '" + key + "'");
+            logger.debug("registering component '" + component + "' with key --> '" + key + '\'');
         }
         ComponentContainer namespaceContainer = this.getNamespaceContainer(namespace);
         if (namespaceContainer == null)
@@ -438,7 +436,7 @@ public class ComponentContainer
         ExceptionUtils.checkNull("component", component);
         if (logger.isDebugEnabled())
         {
-            logger.debug("registering component '" + component + "' with key --> '" + key + "'");
+            logger.debug("registering component '" + component + "' with key --> '" + key + '\'');
         }
         return this.container.put(key, component);
     }
@@ -486,7 +484,7 @@ public class ComponentContainer
         if (logger.isDebugEnabled())
         {
             logger.debug(
-                "registering default for component '" + componentInterface + "' as type --> '" + defaultType + "'");
+                "registering default for component '" + componentInterface + "' as type --> '" + defaultType + '\'');
         }
         try
         {

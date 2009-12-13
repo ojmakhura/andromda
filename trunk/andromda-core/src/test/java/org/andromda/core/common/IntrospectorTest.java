@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 
 
 /**
- * JUnit tests for {@link org.andromda.common.Introspector}
+ * JUnit tests for {@link org.andromda.core.common.Introspector}
  *
  * @author Chad Brandon
  */
@@ -160,7 +160,7 @@ public class IntrospectorTest
     
     private static final class NestedBean
     {
-        private boolean booleanProperty = false;
+        private boolean booleanProperty;
         private Integer integerProperty = 10;
         private String stringProperty = "NestedBean";
         private int intProperty = 54;

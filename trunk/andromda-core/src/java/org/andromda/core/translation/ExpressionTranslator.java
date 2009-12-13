@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 public class ExpressionTranslator
 {
     private static final Logger logger = Logger.getLogger(ExpressionTranslator.class);
-    private static ExpressionTranslator translator = new ExpressionTranslator();
+    private static final ExpressionTranslator translator = new ExpressionTranslator();
 
     /**
      * Gets the shared ExpressionTranslator instance.
@@ -80,7 +80,7 @@ public class ExpressionTranslator
             }
             else
             {
-                logger.error("ERROR! No translation found with name --> '" + translationName + "'");
+                logger.error("ERROR! No translation found with name --> '" + translationName + '\'');
             }
         }
         catch (final Throwable throwable)

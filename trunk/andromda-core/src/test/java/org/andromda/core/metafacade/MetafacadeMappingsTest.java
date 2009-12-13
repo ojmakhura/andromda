@@ -13,7 +13,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 
 /**
- * Tests {@link org.andromda.core.mappings.MetafacadeMappings)
+ * Tests {@link org.andromda.core.MetafacadeMappings)
  * 
  * @author Chad Brandon
  */
@@ -144,7 +144,7 @@ public class MetafacadeMappingsTest
             {
                 public boolean evaluate(Object object)
                 {
-                    return object.equals("metafacadeProperteryOne");
+                    return "metafacadeProperteryOne".equals(object);
                 }
             }));
         assertNotNull(CollectionUtils.find(propertyReferences, 
@@ -152,7 +152,7 @@ public class MetafacadeMappingsTest
             {
                 public boolean evaluate(Object object)
                 {
-                    return object.equals("metafacadeProperteryTwo");
+                    return "metafacadeProperteryTwo".equals(object);
                 }
             }));
 

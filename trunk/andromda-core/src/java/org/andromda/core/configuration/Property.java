@@ -70,7 +70,7 @@ public class Property
     /**
      * Stores whether or not this property should be ignored.
      */
-    private boolean ignore = false;
+    private boolean ignore;
 
     /**
      * If a property is set to ignore then Namespaces will ignore it if it doesn't exist on lookup (otherwise errors

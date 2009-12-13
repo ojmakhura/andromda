@@ -69,7 +69,7 @@ public class Filters
      */
     public Filter[] getFilters()
     {
-        return this.filters.toArray(new Filter[0]);
+        return this.filters.toArray(new Filter[this.filters.size()]);
     }
 
     private final MetafacadeFactory factory = MetafacadeFactory.getInstance();
@@ -133,7 +133,7 @@ public class Filters
                     pattern,
                     ".",
                     "\\.");
-            boolean matchAll = pattern.indexOf(DOUBLE_STAR) != -1;
+            boolean matchAll = pattern.contains(DOUBLE_STAR);
             pattern = pattern.replaceAll(
                     "\\*{1}",
                     "\\.\\*");

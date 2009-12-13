@@ -199,7 +199,7 @@ public class ResourceWriter
     /**
      * Stores the encoding to be used for output.
      */
-    private String encoding = null;
+    private String encoding;
 
     /**
      * Sets the encoding to which all output written from this class will be
@@ -236,12 +236,12 @@ public class ResourceWriter
         this.writtenCount = 0;
     }
 
-    private String modelFile = null;
+    private String modelFile;
 
     /**
      * Stores the count of the resources written over this instance's history.
      */
-    private long writtenCount = 0;
+    private long writtenCount;
 
     /**
      * Gets the number of currently written resources over the course of this instance's history.
@@ -309,14 +309,13 @@ public class ResourceWriter
             if (historyFile.exists() && historyFile.lastModified() >= time)
             {
                 final String history = ResourceUtils.getContents(new File(getHistoryStorage()).toURI().toURL());
-                final String[] files = history.split(",");
+                final String[] fileNames = history.split(",");
                 long lastModified = 0;
-                for (int ctr = 0; ctr < files.length; ctr++)
-                {
-                    final String fileString = StringUtils.trimToEmpty(files[ctr]);
-                    if (StringUtils.isNotEmpty(fileString))
+                for (String fileName : fileNames)
+                {                       
+                    if (StringUtils.isNotBlank(fileName))
                     {
-                        File file = new File(fileString);
+                        File file = new File(fileName.trim());
 
                         // if we find one file that doesn't exist then
                         // before is automatically false

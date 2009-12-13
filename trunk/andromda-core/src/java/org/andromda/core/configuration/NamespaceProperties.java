@@ -6,7 +6,7 @@ package org.andromda.core.configuration;
  *
  * @author Chad Brandon
  */
-public class NamespaceProperties
+public interface NamespaceProperties
 {
     /**
      * The location of an <strong>optional </strong> merge mappings file (merge mappings are mappings that allow the

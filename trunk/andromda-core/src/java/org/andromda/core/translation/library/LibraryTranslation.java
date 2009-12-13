@@ -165,7 +165,7 @@ public class LibraryTranslation
         {
             throw new LibraryException(
                 methodName + " - a translator implementation must be defined, " +
-                " please check your translator library --> '" + this.library.getResource() + "'");
+                " please check your translator library --> '" + this.library.getResource() + '\'');
         }
         return translator;
     }
@@ -194,10 +194,10 @@ public class LibraryTranslation
                 String handlerMethod = fragment.getHandlerMethod();
                 if (StringUtils.isNotEmpty(handlerMethod))
                 {
-                    Class[] argTypes = new Class[] {String.class, Object.class};
+                    Class[] argTypes = {String.class, Object.class};
                     Method method = null;
                     // add the translation as the first arg
-                    Object[] args = new Object[] {translation, node};
+                    Object[] args = {translation, node};
 
                     try
                     {
@@ -211,8 +211,8 @@ public class LibraryTranslation
                     {
                         String errMsg =
                             "the translator '" + this.getTranslator().getClass() + "' must implement the method '" +
-                            handlerMethod + "'" + StringUtils.join(argTypes, ",") + "'" +
-                            " in order to handle processing of the fragment --> '" + name + "'";
+                            handlerMethod + '\'' + StringUtils.join(argTypes, ",") + '\'' +
+                            " in order to handle processing of the fragment --> '" + name + '\'';
                         logger.error(errMsg);
                     }
                     catch (Throwable throwable)
@@ -223,10 +223,10 @@ public class LibraryTranslation
                         }
                         // At least output the location where the error happened, not the entire stack trace.
                         StackTraceElement[] trace = throwable.getStackTrace();
-                        String location = " AT " + trace[0].getClassName() + "." + trace[0].getMethodName() + ":" + trace[0].getLineNumber();
+                        String location = " AT " + trace[0].getClassName() + '.' + trace[0].getMethodName() + ':' + trace[0].getLineNumber();
                         if (throwable.getMessage()!=null)
                         {
-                            location += " " + throwable.getMessage();
+                            location += ' ' + throwable.getMessage();
                         }
                         logger.error(this.getTranslator().getClass() + " " + throwable + " invoking " + this.getTranslator() + " METHOD " + method + " WITH " + Arrays.toString(args) + location + " fragment " + name);
                         throw new LibraryException(throwable);
@@ -287,8 +287,8 @@ public class LibraryTranslation
     public Translation processTranslation(Map<String, Object> templateContext)
     {
         logger.debug(
-            "processing translation template --> '" + this.getTemplate() + "'" + "' with templateContext --> '" +
-            templateContext + "'");
+            "processing translation template --> '" + this.getTemplate() + '\'' + "' with templateContext --> '" +
+            templateContext + '\'');
         if (this.getTemplate() != null)
         {
             if (templateContext == null)
@@ -310,7 +310,7 @@ public class LibraryTranslation
                 final BufferedReader input = new BufferedReader(new StringReader(outputString));
                 if (logger.isDebugEnabled())
                 {
-                    logger.debug("processed output --> '" + outputString + "'");
+                    logger.debug("processed output --> '" + outputString + '\'');
                 }
 
                 // load Reader into the translation

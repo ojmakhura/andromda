@@ -204,7 +204,7 @@ public class ExceptionUtils
         if (!assignableToClass.isAssignableFrom(argumentClass))
         {
             throw new IllegalArgumentException(getMethodName(stackDepth) + " - '" + argumentName + "' class --> '" +
-                argumentClass + "' must be assignable to class --> '" + assignableToClass + "'");
+                argumentClass + "' must be assignable to class --> '" + assignableToClass + '\'');
         }
     }
 

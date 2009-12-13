@@ -99,7 +99,7 @@ public class TemplateObject
                 {
                     this.getLogger().debug(
                         "populating template object '" + this.name + "' property '" + reference + "' with value '" +
-                        value + "' for namespace '" + namespace + "'");
+                        value + "' for namespace '" + namespace + '\'');
                 }
                 try
                 {
@@ -110,7 +110,7 @@ public class TemplateObject
                     // - don't throw the exception
                     final String message =
                         "Error setting property '" + reference + "' with '" + value + "' on templateObject --> '" +
-                        templateObject + "'";
+                        templateObject + '\'';
                     logger.warn(message);
                 }
             }

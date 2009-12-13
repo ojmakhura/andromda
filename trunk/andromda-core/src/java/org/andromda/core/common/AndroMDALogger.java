@@ -45,13 +45,13 @@ public class AndroMDALogger
                 stream.close();
                 
                 configure(url);
-                logger.info("Logging configured from external source --> '" + configuration + "'");
+                logger.info("Logging configured from external source --> '" + configuration + '\'');
             }
             catch (Throwable throwable)
             {
                 url = AndroMDALogger.class.getResource(defaultConfiguration);
                 configure(url);
-                logger.warn("Invalid logging configuration uri --> '" + configuration + "'");
+                logger.warn("Invalid logging configuration uri --> '" + configuration + '\'');
             }
         }
         if (url == null)
@@ -62,14 +62,14 @@ public class AndroMDALogger
         if (url == null)
         {
             throw new RuntimeException(
-                "Could not find default logging configuration file '" + defaultConfiguration + "'");
+                "Could not find default logging configuration file '" + defaultConfiguration + '\'');
         }
     }
 
     /**
      * The URI to an external logging configuration file.
      */
-    private static String loggingConfigurationUri = null;
+    private static String loggingConfigurationUri;
 
     /**
      * Sets the URI to an external logging configuration file. This will override the default log4j.xml.
@@ -94,6 +94,7 @@ public class AndroMDALogger
         }
         catch (Exception ex)
         {
+            //noinspection UseOfSystemOutOrSystemErr
             System.err.println(
                 "Unable to initialize logging system " + "with configuration file '" + logConfigurationXml +
                 "' --> using basic configuration.");

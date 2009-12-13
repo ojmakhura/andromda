@@ -72,7 +72,7 @@ public class MetafacadeBase implements Comparable
      * Stores whether or not this metafacade has
      * been initialized.
      */
-    private boolean initialized = false;
+    private boolean initialized;
 
     /**
      * Sets the flag indicating this metafacade has been initialized.
@@ -183,7 +183,7 @@ public class MetafacadeBase implements Comparable
     /**
      * Stores the context for this metafacade
      */
-    private String context = null;
+    private String context;
 
     /**
      * Gets the context for this metafacade.
@@ -227,7 +227,7 @@ public class MetafacadeBase implements Comparable
     /**
      * Stores the namespace for this metafacade
      */
-    private String namespace = null;
+    private String namespace;
 
     /**
      * Gets the current namespace for this metafacade
@@ -320,7 +320,7 @@ public class MetafacadeBase implements Comparable
     /**
      * The flag indicating whether or not this metafacade is a context root.
      */
-    protected boolean contextRoot = false;
+    protected boolean contextRoot;
 
     /**
      * Sets whether or not this metafacade represents a contextRoot. If it does represent a context root, then {@link
@@ -353,7 +353,7 @@ public class MetafacadeBase implements Comparable
     /**
      * Stores the name of the interface for this metafacade
      */
-    private String name = null;
+    private String name;
 
     /**
      * Gets the name for this metafacade.
@@ -396,7 +396,7 @@ public class MetafacadeBase implements Comparable
     /**
      * In order to speed up the check for this property (which will happen many times), we cache it :-)
      */
-    private Boolean metafacadePropertyCachingEnabled = null;
+    private Boolean metafacadePropertyCachingEnabled;
 
     /**
      * A check to verify whether or not to make use of metafacade property caching. This method check if the {@link
@@ -418,7 +418,7 @@ public class MetafacadeBase implements Comparable
     /**
      * The instance of this class as the appropriate metafacade instance.
      */
-    private MetafacadeBase THIS = null;
+    private MetafacadeBase THIS;
 
     /**
      * The metafacade instance of <code>this</code>.  This should be used when
@@ -440,7 +440,7 @@ public class MetafacadeBase implements Comparable
     @Override
     public String toString()
     {
-        return super.toString() + "[" + this.name + ": " + this.metaObject.getClass().getName() + "]";
+        return super.toString() + '[' + this.name + ": " + this.metaObject.getClass().getName() + ']';
     }
 
     /**
